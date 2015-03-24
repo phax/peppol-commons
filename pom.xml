@@ -49,6 +49,7 @@
   <version>3.0.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>peppol-commons</name>
+  <url>https://github.com/phax/peppol-commons</url>
   <inceptionYear>2015</inceptionYear>
   
   <licenses>
