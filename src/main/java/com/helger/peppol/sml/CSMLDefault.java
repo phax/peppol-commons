@@ -53,51 +53,9 @@ import com.helger.commons.annotations.PresentForCodeCoverage;
 public final class CSMLDefault
 {
   /**
-   * The root DNS zone for PEPPOL SML usage.
-   */
-  @Deprecated
-  public static final String DNS_ZONE = "peppolcentral.org.";
-
-  /**
-   * The production SML DNS zone.
-   */
-  @Deprecated
-  public static final String PRODUCTION_DNS_ZONE = "sml." + DNS_ZONE;
-
-  /**
-   * The testing SML DNS zone.
-   */
-  @Deprecated
-  public static final String TEST_DNS_ZONE = "smk." + DNS_ZONE;
-
-  /**
    * The DNS zone name part used for SMP information in the SML.
    */
   public static final String DNS_PUBLISHER_SUBZONE = "publisher.";
-
-  /**
-   * The host name where the production WebServices for managing the SML reside.
-   */
-  @Deprecated
-  public static final String PRODUCTION_MANAGEMENT_HOSTNAME = "https://sml.peppolcentral.org";
-
-  /**
-   * The URL of the SML production management service.
-   */
-  @Deprecated
-  public static final String PRODUCTION_MANAGEMENT_SERVICE = PRODUCTION_MANAGEMENT_HOSTNAME;
-
-  /**
-   * The host name where the production WebServices for managing the SML reside.
-   */
-  @Deprecated
-  public static final String TEST_MANAGEMENT_HOSTNAME = "https://smk.peppolcentral.org";
-
-  /**
-   * The URL of the SML production management service.
-   */
-  @Deprecated
-  public static final String TEST_MANAGEMENT_SERVICE = TEST_MANAGEMENT_HOSTNAME;
 
   /**
    * The name of the service to manage SMP meta data. Valid for all SML

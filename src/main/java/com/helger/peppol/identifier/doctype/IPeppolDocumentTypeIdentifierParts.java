@@ -56,24 +56,6 @@ import com.helger.peppol.identifier.IBusdoxDocumentTypeIdentifierParts;
 public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeIdentifierParts
 {
   /**
-   * Separates the transaction ID from the extensions
-   */
-  @Deprecated
-  String TRANSACTIONID_SEPARATOR = ":#";
-
-  /**
-   * Separates the different extensions from each other
-   */
-  @Deprecated
-  String EXTENSION_SEPARATOR = "#";
-
-  /**
-   * Separates the customization ID from the version
-   */
-  @Deprecated
-  String VERSION_SEPARATOR = "::";
-
-  /**
    * @return The transaction ID
    */
   @Nonnull

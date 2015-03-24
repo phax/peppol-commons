@@ -56,17 +56,16 @@ import com.helger.commons.annotations.Nonempty;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-@SuppressWarnings ("deprecation")
 public enum ESML implements ISMLInfo
 {
   /** https://sml.peppolcentral.org */
-  PRODUCTION (CSMLDefault.PRODUCTION_DNS_ZONE, CSMLDefault.PRODUCTION_MANAGEMENT_HOSTNAME, CSMLDefault.PRODUCTION_MANAGEMENT_SERVICE),
+  PRODUCTION ("sml.peppolcentral.org.", "https://sml.peppolcentral.org", "https://sml.peppolcentral.org"),
   /** https://smk.peppolcentral.org */
-  TEST (CSMLDefault.TEST_DNS_ZONE, CSMLDefault.TEST_MANAGEMENT_HOSTNAME, CSMLDefault.TEST_MANAGEMENT_SERVICE),
+  TEST ("smk.peppolcentral.org.", "https://smk.peppolcentral.org", "https://smk.peppolcentral.org"),
   /** http://plixvde2 */
-  DEVELOPMENT ("smj." + CSMLDefault.DNS_ZONE, "http://plixvde2", "http://plixvde2/ServiceMetadataLocatorManagement"),
+  DEVELOPMENT ("smj.peppolcentral.org.", "http://plixvde2", "http://plixvde2/ServiceMetadataLocatorManagement"),
   /** http://localhost:8080 */
-  DEVELOPMENT_LOCAL ("smj." + CSMLDefault.DNS_ZONE, "http://localhost:8080", "http://localhost:8080");
+  DEVELOPMENT_LOCAL ("smj.peppolcentral.org.", "http://localhost:8080", "http://localhost:8080");
 
   private final String m_sDNSZone;
   private final String m_sManagementHostName;
