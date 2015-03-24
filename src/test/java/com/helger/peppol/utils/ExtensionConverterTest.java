@@ -35,39 +35,55 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
+package com.helger.peppol.utils;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
+import org.busdox.servicemetadata.publishing._1.ExtensionType;
+import org.busdox.servicemetadata.publishing._1.ObjectFactory;
 import org.junit.Test;
-
-import com.helger.peppol.DateAdapter;
+import org.w3c.dom.Element;
 
 /**
- * Test class for class {@link DateAdapter}.
- * 
+ * Test class for class {@link ExtensionConverter}.
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class DateAdapterTest {
+public final class ExtensionConverterTest {
   @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
+  public void testConvertFromString () {
+    // Use elements
+    final String sXML = "<any xmlns=\"urn:foo\"><child>text1</child><child2 /></any>";
+    final ExtensionType aExtension = ExtensionConverter.convert (sXML);
+    assertNotNull (aExtension);
+    assertNotNull (aExtension.getAny ());
+    assertTrue (aExtension.getAny () instanceof Element);
 
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
+    assertNull (ExtensionConverter.convert ((String) null));
+    assertNull (ExtensionConverter.convert (""));
+
+    // Convert back to String
+    final String sXML2 = ExtensionConverter.convert (aExtension);
+    assertEquals (sXML, sXML2);
+
+    try {
+      // Cannot convert non-element
+      ExtensionConverter.convert ("Plain text");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex) {
+      // expected
+    }
+  }
+
+  @Test
+  public void testConvertFromExtensionType () {
+    // Try converting an empty extension
+    assertNull (ExtensionConverter.convert ((ExtensionType) null));
+    assertNull (ExtensionConverter.convert (new ObjectFactory ().createExtensionType ()));
   }
 }

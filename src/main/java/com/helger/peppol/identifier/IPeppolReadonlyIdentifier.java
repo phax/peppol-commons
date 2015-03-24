@@ -35,39 +35,42 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
+package com.helger.peppol.identifier;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
-import org.junit.Test;
-
-import com.helger.peppol.DateAdapter;
+import javax.annotation.Nonnull;
 
 /**
- * Test class for class {@link DateAdapter}.
+ * Base interface for all PEPPOL read-only identifiers
  * 
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author philip
  */
-public final class DateAdapterTest {
-  @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
+public interface IPeppolReadonlyIdentifier extends IReadonlyIdentifier
+{
+  /**
+   * Check if this identifier uses the default scheme. E.g. for participant
+   * identifiers this would be <code>true</code> if the scheme equals
+   * {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * 
+   * @return <code>true</code> if is the default scheme, <code>false</code>
+   *         otherwise.
+   */
+  boolean isDefaultScheme ();
 
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
-  }
+  /**
+   * Get the identifier URI encoded (without percent encoding).
+   * 
+   * @return The URI encoded identifier value. (E.g.
+   *         <code>iso6523-actorid-upis::0088:123456</code>)
+   */
+  @Nonnull
+  String getURIEncoded ();
+
+  /**
+   * Get the identifier URI and percent encoded (with percent encoding).
+   * 
+   * @return The URI encoded identifier value. (E.g.
+   *         <code>iso6523-actorid-upis%3A%3A0088%3A123456</code>)
+   */
+  @Nonnull
+  String getURIPercentEncoded ();
 }

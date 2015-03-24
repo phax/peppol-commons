@@ -35,39 +35,27 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
+package com.helger.peppol.identifier.doctype;
 
-import static org.junit.Assert.assertEquals;
+import javax.annotation.Nonnull;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
-import org.junit.Test;
-
-import com.helger.peppol.DateAdapter;
+import com.helger.peppol.identifier.IPeppolReadonlyIdentifier;
+import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
 
 /**
- * Test class for class {@link DateAdapter}.
+ * Base interface for a PEPPOL read-only document type identifier.
  * 
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author philip
  */
-public final class DateAdapterTest {
-  @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
-
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
-  }
+public interface IPeppolReadonlyDocumentTypeIdentifier extends IPeppolReadonlyIdentifier, IReadonlyDocumentTypeIdentifier
+{
+  /**
+   * Extract the different identifier parts that are contained in a PEPPOL
+   * document type identifier.
+   * 
+   * @return A new object encapsulating the different document type identifier
+   *         parts.
+   */
+  @Nonnull
+  IPeppolDocumentTypeIdentifierParts getParts ();
 }

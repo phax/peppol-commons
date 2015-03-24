@@ -40,6 +40,7 @@ package com.helger.peppol.commons;
 import org.junit.Test;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.peppol.CBusDox;
 
 /**
  * Test class for class {@link CBusDox}.

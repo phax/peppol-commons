@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Version: MPL 1.1/EUPL 1.1
+
+    The contents of this file are subject to the Mozilla Public License Version
+    1.1 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at:
+    http://www.mozilla.org/MPL/
+
+    Software distributed under the License is distributed on an "AS IS" basis,
+    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+    for the specific language governing rights and limitations under the
+    License.
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    Alternatively, the contents of this file may be used under the
+    terms of the EUPL, Version 1.1 or - as soon they will be approved
+    by the European Commission - subsequent versions of the EUPL
+    (the "Licence"); You may not use this work except in compliance
+    with the Licence.
+    You may obtain a copy of the Licence at:
+    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and
+    limitations under the Licence.
+
+    If you wish to allow use of your version of this file only
+    under the terms of the EUPL License and not to allow others to use
+    your version of this file under the MPL, indicate your decision by
+    deleting the provisions above and replace them with the notice and
+    other provisions required by the EUPL License. If you do not delete
+    the provisions above, a recipient may use your version of this file
+    under either the MPL or the EUPL License.
+
+-->
+<!-- 
+
+        	Genericode File TaxSchemeID
+        	
+        	Oriol Bausà
+
+     -->
+<CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ ../xsd/genericode.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://docs.oasis-open.org/codelist/ns/genericode/1.0/">
+  <Identification xmlns="">
+    <ShortName>TaxSchemeID</ShortName>
+    <Version>D08B</Version>
+    <CanonicalUri>UN/ECE 5153 Subset</CanonicalUri>
+    <CanonicalVersionUri>UN/ECE 5153 Subset-D08B</CanonicalVersionUri>
+    <LocationUri>http://docs.oasis-open.org/ubl/os-ubl-2.0/cl/gc/default/TaxSchemeID-2.0.gc</LocationUri>
+  </Identification>
+  <ColumnSet xmlns="">
+    <Column Id="code" Use="required">
+      <ShortName>Code</ShortName>
+      <Data Type="normalizedString"/>
+    </Column>
+    <Column Id="name" Use="optional">
+      <ShortName>Name</ShortName>
+      <Data Type="string"/>
+    </Column>
+    <Key Id="codeKey">
+      <ShortName>CodeKey</ShortName>
+      <ColumnRef Ref="code"/>
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList xmlns="">
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAA</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Petroleum tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAB</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Provisional countervailing duty cash</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAC</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Provisional countervailing duty bond</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAD</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Tobacco tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAE</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Energy fee</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAF</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Coffee tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAG</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Harmonised sales tax, Canadian</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAH</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Quebec sales tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAI</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Canadian provincial sales tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAJ</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Tax on replacement part</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAK</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Mineral oil tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AAL</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Special tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>ADD</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Anti-dumping duty</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>BOL</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Stamp duty (Imposta di Bollo)</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CAP</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Agricultural levy</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CAR</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Car tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>COC</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Paper consortium tax (Italy)</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CST</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Commodity specific tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CUD</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Customs duty</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CVD</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Countervailing duty</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>ENV</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Environmental tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>EXC</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Excise duty</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>EXP</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Agricultural export rebate</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>FET</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Federal excise tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>FRE</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Free</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>GCN</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>General construction tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>GST</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Goods and services tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>ILL</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Illuminants tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>IMP</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Import tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>IND</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Individual tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>LAC</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Business license fee</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>LCN</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Local construction tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>LDP</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Light dues payable</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>LOC</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Local sales tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>LST</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Lust tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>MCA</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Monetary compensatory amount</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>MCD</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Miscellaneous cash deposit</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>OTH</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Other taxes</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>PDB</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Provisional duty bond</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>PDC</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Provisional duty cash</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>PRF</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Preference duty</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>SCN</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Special construction tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>SSS</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Shifted social securities</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>STT</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>State/provincial sales tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>SUP</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Suspended duty</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>SUR</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Surtax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>SWT</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Shifted wage tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>TAC</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Alcohol mark tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>TOT</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Total</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>TOX</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Turnover tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>TTA</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Tonnage taxes</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>VAD</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Valuation deposit</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>VAT</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Value added tax</SimpleValue>
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</CodeList>
+

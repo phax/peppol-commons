@@ -35,39 +35,56 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
 
-import static org.junit.Assert.assertEquals;
+package com.helger.peppol.codelist;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import org.junit.Test;
-
-import com.helger.peppol.DateAdapter;
+import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.EnumHelper;
+import com.helger.commons.name.IHasDisplayName;
 
 /**
- * Test class for class {@link DateAdapter}.
- * 
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * This file is generated from Genericode file InvoiceTypeCode.gc. Do NOT edit!
  */
-public final class DateAdapterTest {
-  @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
+public enum EInvoiceTypeCode implements IHasID <String>, IHasDisplayName
+{
+  COMMERCIAL_INVOICE ("380", "Commercial invoice"),
+  FACTORED_INVOICE ("393", "Factored invoice");
+  private final String m_sID;
+  private final String m_sDisplayName;
 
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
+  private EInvoiceTypeCode (@Nonnull @Nonempty final String sID, @Nonnull final String sDisplayName)
+  {
+    m_sID = sID;
+    m_sDisplayName = sDisplayName;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getID ()
+  {
+    return m_sID;
+  }
+
+  @Nonnull
+  public String getDisplayName ()
+  {
+    return m_sDisplayName;
+  }
+
+  @Nullable
+  public static EInvoiceTypeCode getFromIDOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrNull (EInvoiceTypeCode.class, sID);
+  }
+
+  @Nullable
+  public static String getDisplayNameFromIDOrNull (@Nullable final String sID)
+  {
+    final EInvoiceTypeCode eValue = EInvoiceTypeCode.getFromIDOrNull (sID);
+    return ((eValue == null) ? null : eValue.getDisplayName ());
   }
 }

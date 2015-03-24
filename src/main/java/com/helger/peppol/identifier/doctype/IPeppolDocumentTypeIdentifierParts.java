@@ -35,39 +35,69 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
+package com.helger.peppol.identifier.doctype;
 
-import static org.junit.Assert.assertEquals;
+import java.util.List;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+import javax.annotation.Nonnull;
 
-import org.junit.Test;
-
-import com.helger.peppol.DateAdapter;
+import com.helger.commons.annotations.Nonempty;
+import com.helger.peppol.identifier.IBusdoxDocumentTypeIdentifierParts;
 
 /**
- * Test class for class {@link DateAdapter}.
- * 
+ * Contains all the different fields of a document identifier for PEPPOL in BIS
+ * V1 style. Note: the sub type identifier is specified in more detail than in
+ * BusDox: <code>&lt;customization id>::&lt;version></code> even more detailed
+ * the customization ID can be split further:
+ * <code>&lt;transactionId>:#&lt;extensionId>[#&lt;extensionId>]::&lt;version></code>
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class DateAdapterTest {
-  @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
+public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeIdentifierParts
+{
+  /**
+   * Separates the transaction ID from the extensions
+   */
+  @Deprecated
+  String TRANSACTIONID_SEPARATOR = ":#";
 
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
-  }
+  /**
+   * Separates the different extensions from each other
+   */
+  @Deprecated
+  String EXTENSION_SEPARATOR = "#";
+
+  /**
+   * Separates the customization ID from the version
+   */
+  @Deprecated
+  String VERSION_SEPARATOR = "::";
+
+  /**
+   * @return The transaction ID
+   */
+  @Nonnull
+  @Nonempty
+  String getTransactionID ();
+
+  /**
+   * @return The contained extension IDs
+   */
+  @Nonnull
+  @Nonempty
+  List <String> getExtensionIDs ();
+
+  /**
+   * @return The version number
+   */
+  @Nonnull
+  @Nonempty
+  String getVersion ();
+
+  /**
+   * @return transaction ID + extension IDs (no version number)
+   */
+  @Nonnull
+  @Nonempty
+  String getAsUBLCustomizationID ();
 }

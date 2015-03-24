@@ -35,39 +35,38 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
+package com.helger.peppol.identifier.doctype;
 
-import static org.junit.Assert.assertEquals;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
-import org.junit.Test;
-
-import com.helger.peppol.DateAdapter;
+import com.helger.commons.version.Version;
 
 /**
- * Test class for class {@link DateAdapter}.
- * 
+ * Base interface for predefined document identifiers.
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class DateAdapterTest {
-  @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
+public interface IPeppolPredefinedDocumentTypeIdentifier extends IPeppolReadonlyDocumentTypeIdentifier, IPeppolDocumentTypeIdentifierParts
+{
+  /**
+   * @return The common name under which a document is known. This is e.g.
+   *         "Order" or "Invoice".
+   */
+  @Nullable
+  String getCommonName ();
 
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
-  }
+  /**
+   * @return The {@link SimpleDocumentTypeIdentifier} version of this predefined
+   *         document type identifier.
+   */
+  @Nonnull
+  SimpleDocumentTypeIdentifier getAsDocumentTypeIdentifier ();
+
+  /**
+   * @return The internal code list version in which the identifier was added.
+   *         Never <code>null</code>.
+   */
+  @Nonnull
+  Version getSince ();
 }

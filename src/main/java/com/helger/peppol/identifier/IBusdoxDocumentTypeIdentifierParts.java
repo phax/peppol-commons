@@ -35,39 +35,57 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
+package com.helger.peppol.identifier;
 
-import static org.junit.Assert.assertEquals;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
-import org.junit.Test;
-
-import com.helger.peppol.DateAdapter;
+import com.helger.commons.annotations.Nonempty;
 
 /**
- * Test class for class {@link DateAdapter}.
+ * Contains all the different fields of a document type identifier for BusDox.
+ * Note: it is important to note, that the PEPPOL specification separates the
+ * sub type identifier more clearly!
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class DateAdapterTest {
-  @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
+public interface IBusdoxDocumentTypeIdentifierParts
+{
+  /**
+   * Separator between namespace and local name
+   */
+  String NAMESPACE_SEPARATOR = "::";
 
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
-  }
+  /**
+   * Separator between namespace elements and the optional subtype
+   */
+  String SUBTYPE_SEPARATOR = "##";
+
+  /**
+   * @return The root namespace. Never <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  String getRootNS ();
+
+  /**
+   * @return The document element local name. Never <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  String getLocalName ();
+
+  /**
+   * @return The optional sub type identifier. May be <code>null</code>.
+   */
+  @Nullable
+  String getSubTypeIdentifier ();
+
+  /**
+   * @return The parts assembled into a complete document identifier value.
+   *         Never <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  String getAsDocumentTypeIdentifierValue ();
 }

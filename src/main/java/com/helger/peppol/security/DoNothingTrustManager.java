@@ -35,39 +35,59 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
+package com.helger.peppol.security;
 
-import static org.junit.Assert.assertEquals;
+import java.security.cert.X509Certificate;
+import java.util.Arrays;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+import javax.annotation.Nullable;
+import javax.net.ssl.X509TrustManager;
 
-import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.helger.peppol.DateAdapter;
+import com.helger.commons.GlobalDebug;
 
 /**
- * Test class for class {@link DateAdapter}.
- * 
+ * A trust manager that accepts all certificates.
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class DateAdapterTest {
-  @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
+public final class DoNothingTrustManager implements X509TrustManager
+{
+  private static final Logger s_aLogger = LoggerFactory.getLogger (DoNothingTrustManager.class);
+  private final boolean m_bDebug;
 
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
+  public DoNothingTrustManager ()
+  {
+    this (GlobalDebug.isDebugMode ());
+  }
+
+  public DoNothingTrustManager (final boolean bDebug)
+  {
+    m_bDebug = bDebug;
+  }
+
+  public boolean isDebug ()
+  {
+    return m_bDebug;
+  }
+
+  @Nullable
+  public X509Certificate [] getAcceptedIssuers ()
+  {
+    return null;
+  }
+
+  public void checkServerTrusted (final X509Certificate [] aChain, final String sAuthType)
+  {
+    if (m_bDebug)
+      s_aLogger.info ("checkServerTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
+  }
+
+  public void checkClientTrusted (final X509Certificate [] aChain, final String sAuthType)
+  {
+    if (m_bDebug)
+      s_aLogger.info ("checkClientTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
   }
 }

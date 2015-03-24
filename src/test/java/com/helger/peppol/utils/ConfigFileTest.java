@@ -35,39 +35,52 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
+package com.helger.peppol.utils;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.peppol.DateAdapter;
-
 /**
- * Test class for class {@link DateAdapter}.
+ * Test class for class {@link ConfigFile}.
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class DateAdapterTest {
+public final class ConfigFileTest {
   @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
+  public void testAll () {
+    final ConfigFile aCF = ConfigFile.getInstance ();
+    assertTrue (aCF.isRead ());
+    // Existing elements
+    assertEquals ("string", aCF.getString ("element1"));
+    assertEquals (6, aCF.getCharArray ("element1").length);
+    assertEquals (2, aCF.getInt ("element2", 5));
+    assertFalse (aCF.getBoolean ("element3", true));
+    assertEquals ("abc", aCF.getString ("element4"));
 
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
+    // Non-existing elements
+    assertNull (aCF.getString ("element1a"));
+    assertNull (aCF.getCharArray ("element1a"));
+    assertEquals (5, aCF.getInt ("element2a", 5));
+    assertTrue (aCF.getBoolean ("element3a", true));
+
+    // All keys
+    assertEquals (5, aCF.getAllKeys ().size ());
+
+    assertNotNull (aCF.toString ());
+  }
+
+  @Test
+  public void testNonExisting () {
+    final ConfigFile aCF = new ConfigFile ("non-existent-file.xml");
+    assertFalse (aCF.isRead ());
+    assertNull (aCF.getString ("any"));
+    assertEquals (0, aCF.getAllKeys ().size ());
+
+    assertNotNull (aCF.toString ());
   }
 }

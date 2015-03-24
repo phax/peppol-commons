@@ -69,6 +69,30 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-genericode</artifactId>
+      <version>3.3.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-poi</artifactId>
+      <version>2.9.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>jcodemodel</artifactId>
+      <version>2.7.9</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk15on</artifactId>
+      <version>1.51</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -80,12 +104,11 @@
         <configuration>
           <instructions>
             <Export-Package>
-              com.helger.peppol.commons.*,
-              org.busdox.servicemetadata.publishing._1,
+              com.helger.peppol.*,
+              org.busdox.servicemetadata.*,
               org.busdox.transport.identifiers._1,
               org.w3._2000._09.xmldsig,
-              org.w3._2009._02.ws_tra,
-              org.busdox._2010._02.channel.fault
+              org.w3._2009._02.ws_tra
             </Export-Package>
             <Import-Package>
               !javax.annotation.*,*
@@ -185,7 +208,7 @@
           <bindingDirectory>src/main/jaxb</bindingDirectory>
           <!-- Required for schema component designator in binding file -->
           <extension>true</extension>
-          <forceRegenerate>false</forceRegenerate>
+          <forceRegenerate>true</forceRegenerate>
           <args>
             <arg>-no-header</arg>
             <arg>-Xinheritance</arg>
@@ -204,7 +227,7 @@
             <plugin>
               <groupId>org.jvnet.jaxb2_commons</groupId>
               <artifactId>jaxb2-basics</artifactId>
-              <version>0.9.3</version>
+              <version>0.6.4</version>
             </plugin>
           </plugins>
         </configuration>
@@ -238,7 +261,6 @@
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>src/main/resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd</exclude>
             <exclude>src/main/resources/WEB-INF/wsdl/ws-addr.xsd</exclude>
             <exclude>src/main/resources/WEB-INF/wsdl/xmldsig-core-schema.xsd</exclude>
           </excludes>
