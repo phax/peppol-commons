@@ -52,7 +52,34 @@
   <xs:import schemaLocation="xmldsig-core-schema.xsd" namespace="http://www.w3.org/2000/09/xmldsig#" />
   <xs:import schemaLocation="Identifiers-1.0.xsd" namespace="http://busdox.org/transport/identifiers/1.0/" />
   <xs:import schemaLocation="ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
+  
+  <!-- unofficial extensions -->
+  <xs:element name="ServiceGroupReferenceList" type="ServiceGroupReferenceListType"/>
 
+  <xs:complexType name="ServiceGroupReferenceListType">
+    <xs:sequence>
+      <xs:element name="ServiceGroupReference" type="ServiceGroupReferenceType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceGroupReferenceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="href" type="xs:anyURI" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:element name="CompleteServiceGroup" type="CompleteServiceGroupType"/>
+  
+  <xs:complexType name="CompleteServiceGroupType">
+    <xs:sequence>
+      <xs:element ref="ServiceGroup" />
+      <xs:element ref="ServiceMetadata" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- officially specified SMP stuff -->
   <xs:element name="ServiceGroup" type="ServiceGroupType"/>
   <xs:element name="ServiceMetadata" type="ServiceMetadataType"/>
   <xs:element name="SignedServiceMetadata" type="SignedServiceMetadataType"/>
