@@ -1,4 +1,7 @@
 ====
+    Copyright (C) 2015 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
     Version: MPL 1.1/EUPL 1.1
 
     The contents of this file are subject to the Mozilla Public License Version
