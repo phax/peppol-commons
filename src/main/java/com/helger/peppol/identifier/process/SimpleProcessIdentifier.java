@@ -43,11 +43,10 @@ package com.helger.peppol.identifier.process;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.busdox.transport.identifiers._1.ProcessIdentifierType;
-
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IReadonlyProcessIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.ProcessIdentifierType;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with

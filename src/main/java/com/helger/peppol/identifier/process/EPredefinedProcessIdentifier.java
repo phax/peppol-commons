@@ -41,7 +41,9 @@
 package com.helger.peppol.identifier.process;
 
 import java.util.List;
+
 import javax.annotation.Nonnull;
+
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;

@@ -56,6 +56,9 @@
               printMethod="com.helger.peppol.DateAdapter.getAsStringXSD" />
   </globalBindings>
   <bindings schemaLocation="../resources/WEB-INF/wsdl/Identifiers-1.0.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.identifier" />
+    </schemaBindings>
     <bindings node="//xs:complexType[@name='ParticipantIdentifierType']">
       <inheritance:implements>com.helger.peppol.identifier.IParticipantIdentifier</inheritance:implements>
     </bindings> 

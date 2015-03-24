@@ -43,9 +43,8 @@ package com.helger.peppol.identifier.doctype;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.busdox.transport.identifiers._1.DocumentIdentifierType;
-
 import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;

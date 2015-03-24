@@ -43,11 +43,10 @@ package com.helger.peppol.identifier.participant;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.busdox.transport.identifiers._1.ParticipantIdentifierType;
-
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.validator.IdentifierValidator;
 
 /**

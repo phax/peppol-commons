@@ -149,7 +149,6 @@
             <Export-Package>
               com.helger.peppol.*,
               org.busdox.servicemetadata.publishing._1,
-              org.busdox.transport.identifiers._1,
               org.w3._2000._09.xmldsig
             </Export-Package>
             <Import-Package>
@@ -172,9 +171,6 @@
         <configuration>
           <specVersion>2.1</specVersion>
           <schemaDirectory>src/main/resources/WEB-INF/wsdl</schemaDirectory>
-          <schemaIncludes>
-            <schemaInclude>ServiceGroupReferenceList.xsd</schemaInclude>
-          </schemaIncludes>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
           <!-- Required for schema component designator in binding file -->
           <extension>true</extension>
