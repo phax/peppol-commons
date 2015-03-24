@@ -52,9 +52,11 @@ import org.junit.Test;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class CertificateUtilsTest {
+public final class CertificateUtilsTest
+{
   @Test
-  public void testConvertStringToCertficate () throws CertificateException {
+  public void testConvertStringToCertficate () throws CertificateException
+  {
     assertNull (CertificateUtils.convertStringToCertficate (null));
     assertNull (CertificateUtils.convertStringToCertficate (""));
 
@@ -80,18 +82,22 @@ public final class CertificateUtilsTest {
     assertNotNull (aCert);
     assertEquals ("CN=GeoTrust Global CA, O=GeoTrust Inc., C=US", aCert.getIssuerDN ().getName ());
 
-    try {
+    try
+    {
       CertificateUtils.convertStringToCertficate ("abc");
       fail ();
     }
-    catch (final CertificateException ex) {
+    catch (final CertificateException ex)
+    {
       // expected
     }
-    try {
+    try
+    {
       CertificateUtils.convertStringToCertficate ("abcd");
       fail ();
     }
-    catch (final CertificateException ex) {
+    catch (final CertificateException ex)
+    {
       // expected
     }
   }

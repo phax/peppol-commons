@@ -51,10 +51,13 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EInvoiceTypeCodeTest {
+public final class EInvoiceTypeCodeTest
+{
   @Test
-  public void testBasic () {
-    for (final EInvoiceTypeCode e : EInvoiceTypeCode.values ()) {
+  public void testBasic ()
+  {
+    for (final EInvoiceTypeCode e : EInvoiceTypeCode.values ())
+    {
       assertTrue (StringHelper.hasText (e.getID ()));
       assertTrue (StringHelper.hasText (e.getDisplayName ()));
       assertSame (e, EInvoiceTypeCode.getFromIDOrNull (e.getID ()));

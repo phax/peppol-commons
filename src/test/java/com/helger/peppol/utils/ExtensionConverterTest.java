@@ -53,9 +53,11 @@ import org.w3c.dom.Element;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ExtensionConverterTest {
+public final class ExtensionConverterTest
+{
   @Test
-  public void testConvertFromString () {
+  public void testConvertFromString ()
+  {
     // Use elements
     final String sXML = "<any xmlns=\"urn:foo\"><child>text1</child><child2 /></any>";
     final ExtensionType aExtension = ExtensionConverter.convert (sXML);
@@ -70,18 +72,21 @@ public final class ExtensionConverterTest {
     final String sXML2 = ExtensionConverter.convert (aExtension);
     assertEquals (sXML, sXML2);
 
-    try {
+    try
+    {
       // Cannot convert non-element
       ExtensionConverter.convert ("Plain text");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {
+    catch (final IllegalArgumentException ex)
+    {
       // expected
     }
   }
 
   @Test
-  public void testConvertFromExtensionType () {
+  public void testConvertFromExtensionType ()
+  {
     // Try converting an empty extension
     assertNull (ExtensionConverter.convert ((ExtensionType) null));
     assertNull (ExtensionConverter.convert (new ObjectFactory ().createExtensionType ()));

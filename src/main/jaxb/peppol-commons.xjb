@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
 
     Version: MPL 1.1/EUPL 1.1
@@ -37,13 +38,32 @@
     under either the MPL or the EUPL License.
 
 -->
-<!-- Copied from com.sun.tools.ws.processor.modeler.wsdl.PseudoSchemaBuilder from jaxws-tools-2.2.3 -->
-<bindings xmlns="http://java.sun.com/xml/ns/jaxb" 
-          xmlns:wsa="http://www.w3.org/2005/08/addressing" 
-          xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb"
+          xmlns:xs="http://www.w3.org/2001/XMLSchema"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:wsa="http://www.w3.org/2005/08/addressing" 
+          xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
           xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
-          version="1.0">
+          xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+          extensionBindingPrefixes="xjc"
+          version="2.1">
+  <globalBindings generateValueClass="true">
+    <javaType name="org.joda.time.LocalDateTime" xmlType="xs:dateTime"
+              parseMethod="com.helger.peppol.DateAdapter.getLocalDateTimeFromXSD"
+              printMethod="com.helger.peppol.DateAdapter.getAsStringXSD" />
+  </globalBindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/Identifiers-1.0.xsd">
+    <bindings node="//xs:complexType[@name='ParticipantIdentifierType']">
+      <inheritance:implements>com.helger.peppol.identifier.IParticipantIdentifier</inheritance:implements>
+    </bindings> 
+    <bindings node="//xs:complexType[@name='DocumentIdentifierType']">
+      <inheritance:implements>com.helger.peppol.identifier.IDocumentTypeIdentifier</inheritance:implements>
+    </bindings> 
+    <bindings node="//xs:complexType[@name='ProcessIdentifierType']">
+      <inheritance:implements>com.helger.peppol.identifier.IProcessIdentifier</inheritance:implements>
+    </bindings> 
+  </bindings>
+  <!-- Copied from com.sun.tools.ws.processor.modeler.wsdl.PseudoSchemaBuilder from jaxws-tools-2.2.3 -->
   <!-- See http://jaxb.java.net/nonav/2.2.3u1/docs/vendorCustomizations.html for details -->
   <bindings scd="x-schema::wsa" if-exists="true">
     <schemaBindings map="false" />

@@ -50,10 +50,13 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EPredefinedIdentifierIssuingAgencyTest {
+public final class EPredefinedIdentifierIssuingAgencyTest
+{
   @Test
-  public void testAll () {
-    for (final EPredefinedIdentifierIssuingAgency e : EPredefinedIdentifierIssuingAgency.values ()) {
+  public void testAll ()
+  {
+    for (final EPredefinedIdentifierIssuingAgency e : EPredefinedIdentifierIssuingAgency.values ())
+    {
       assertTrue (StringHelper.hasText (e.getSchemeID ()));
       // May be null but not empty
       final String sAgency = e.getSchemeAgency ();

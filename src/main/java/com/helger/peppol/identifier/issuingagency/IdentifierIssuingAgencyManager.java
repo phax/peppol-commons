@@ -46,14 +46,14 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 
 /**
  * This class manages the PEPPOL identifier issuing agencies using the
  * <b>iso6523-actorid-upis</b> scheme.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class IdentifierIssuingAgencyManager
@@ -82,12 +82,12 @@ public final class IdentifierIssuingAgencyManager
   @ReturnsMutableCopy
   public static List <? extends IIdentifierIssuingAgency> getAllAgencies ()
   {
-    return ContainerHelper.newList (s_aCodes);
+    return CollectionHelper.newList (s_aCodes);
   }
 
   /**
    * Find the agency with the respective ISO6523 value.
-   * 
+   *
    * @param sISO6523Code
    *        The value to search. May be <code>null</code>.
    * @return <code>null</code> if no such agency exists.
@@ -104,7 +104,7 @@ public final class IdentifierIssuingAgencyManager
 
   /**
    * Check if an agency with the given ISO6523 value exists.
-   * 
+   *
    * @param sISO6523Code
    *        The value to search. May be <code>null</code>.
    * @return <code>true</code> if such an agency exists, <code>false</code>
@@ -118,7 +118,7 @@ public final class IdentifierIssuingAgencyManager
   /**
    * Get the schemeID code of the passed ISO6523 code. If the passed ISO6523
    * code is unknown, <code>null</code> is returned.
-   * 
+   *
    * @param sISO6523Code
    *        The value to search. May be <code>null</code>.
    * @return The matching schemeID or <code>null</code> if no agency with the
@@ -133,7 +133,7 @@ public final class IdentifierIssuingAgencyManager
 
   /**
    * Find the agency with the respective schemeID value.
-   * 
+   *
    * @param sSchemeID
    *        The value to search. May be <code>null</code>.
    * @return <code>null</code> if no such agency exists.
@@ -150,7 +150,7 @@ public final class IdentifierIssuingAgencyManager
 
   /**
    * Check if an agency with the given schemeID value exists.
-   * 
+   *
    * @param sSchemeID
    *        The value to search. May be <code>null</code>.
    * @return <code>true</code> if such an agency exists, <code>false</code>
@@ -164,7 +164,7 @@ public final class IdentifierIssuingAgencyManager
   /**
    * Get the ISO6523 code of the passed schemeID. If the passed schemeID is
    * unknown, <code>null</code> is returned.
-   * 
+   *
    * @param sSchemeID
    *        The value to search. May be <code>null</code>.
    * @return The matching ISO6523 code or <code>null</code> if no agency with
@@ -180,7 +180,7 @@ public final class IdentifierIssuingAgencyManager
   /**
    * Check if the specified ISO6523 value references a deprecated issuing
    * agency.
-   * 
+   *
    * @param sISO6523Code
    *        The value to search. May be <code>null</code>.
    * @return {@link ETriState#TRUE} if and only if an agency with the passed
@@ -197,7 +197,7 @@ public final class IdentifierIssuingAgencyManager
 
   /**
    * Check if the specified scheme ID references a deprecated issuing agency.
-   * 
+   *
    * @param sSchemeID
    *        The value to search. May be <code>null</code>.
    * @return {@link ETriState#TRUE} if and only if an agency with the passed

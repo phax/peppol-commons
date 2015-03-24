@@ -55,9 +55,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class SimpleDocumentTypeIdentifierTest {
+public final class SimpleDocumentTypeIdentifierTest
+{
   @Test
-  public void testCtor () {
+  public void testCtor ()
+  {
     final SimpleDocumentTypeIdentifier aID = new SimpleDocumentTypeIdentifier ("scheme", "value");
     assertEquals ("scheme", aID.getScheme ());
     assertEquals ("value", aID.getValue ());
@@ -68,7 +70,8 @@ public final class SimpleDocumentTypeIdentifierTest {
   }
 
   @Test
-  public void testBasicMethods () {
+  public void testBasicMethods ()
+  {
     final SimpleDocumentTypeIdentifier aID1 = new SimpleDocumentTypeIdentifier ("scheme", "value");
     final SimpleDocumentTypeIdentifier aID2 = new SimpleDocumentTypeIdentifier ("scheme", "value");
     final SimpleDocumentTypeIdentifier aID3 = new SimpleDocumentTypeIdentifier ("scheme2", "value");
@@ -78,7 +81,8 @@ public final class SimpleDocumentTypeIdentifierTest {
   }
 
   @Test
-  public void testURIStuff () {
+  public void testURIStuff ()
+  {
     final SimpleDocumentTypeIdentifier aID1 = new SimpleDocumentTypeIdentifier ("scheme1", "value1");
     assertEquals ("scheme1::value1", aID1.getURIEncoded ());
     assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
@@ -86,80 +90,99 @@ public final class SimpleDocumentTypeIdentifierTest {
     assertEquals (aID1, aID2);
 
     assertNull (SimpleDocumentTypeIdentifier.createFromURIPartOrNull ("scheme1"));
-    try {
+    try
+    {
       // No separator
       SimpleDocumentTypeIdentifier.createFromURIPart ("scheme1");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
   }
 
   @Test
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
-  public void testConstraints () {
-    try {
+  public void testConstraints ()
+  {
+    try
+    {
       // null key not allowed
       new SimpleDocumentTypeIdentifier (null, "value");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // null value not allowed
       new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Both null not allowed
       new SimpleDocumentTypeIdentifier (null, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Empty is not allowed
       new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Cannot be mapped to ISO-8859-1:
       new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Scheme too long
       new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
                                             StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                         "abc");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Value too long
       new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
                                         StringHelper.getRepeated ('a',
                                                                   CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH + 1));
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
   }
 
   @Test
-  public void testValueOf () throws Exception {
+  public void testValueOf () throws Exception
+  {
     final String documentIdAsText = "urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm057:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0";
     final SimpleDocumentTypeIdentifier documentTypeIdentifier = SimpleDocumentTypeIdentifier.createWithDefaultScheme (documentIdAsText);
     assertEquals (documentTypeIdentifier.getValue (), documentIdAsText);
   }
 
   @Test
-  public void testStandardMethods () {
+  public void testStandardMethods ()
+  {
     final String s = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::2.0";
     final String s2 = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::3.0";
 

@@ -49,9 +49,11 @@ import org.junit.Test;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class PredefinedProcessIdentifierManagerTest {
+public final class PredefinedProcessIdentifierManagerTest
+{
   @Test
-  public void testAll () {
+  public void testAll ()
+  {
     assertNotNull (PredefinedProcessIdentifierManager.getAllProcessIdentifiers ());
     assertNotNull (PredefinedProcessIdentifierManager.getAllProcessIdentifierIDs ());
 

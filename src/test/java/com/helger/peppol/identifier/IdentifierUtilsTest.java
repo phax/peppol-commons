@@ -58,7 +58,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class IdentifierUtilsTest {
+public final class IdentifierUtilsTest
+{
   private static final String [] PARTICIPANT_SCHEME_VALID = { "busdox-actorid-upis",
                                                              "BUSDOX-ACTORID-UPIS",
                                                              CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
@@ -76,7 +77,8 @@ public final class IdentifierUtilsTest {
                                                                 "any-nonactoid-anybutmuchtoooooooooooooooooooooooolong" };
 
   @Test
-  public void testIsValidParticipantIdentifierScheme () {
+  public void testIsValidParticipantIdentifierScheme ()
+  {
     // valid
     for (final String scheme : PARTICIPANT_SCHEME_VALID)
       assertTrue (IdentifierUtils.isValidParticipantIdentifierScheme (scheme));
@@ -87,7 +89,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testAreIdentifiersEqualPariticpantIdentifier () {
+  public void testAreIdentifiersEqualPariticpantIdentifier ()
+  {
     final SimpleParticipantIdentifier aPI1 = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
     final SimpleParticipantIdentifier aPI2 = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
     final SimpleParticipantIdentifier aPI3a = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123456");
@@ -101,25 +104,30 @@ public final class IdentifierUtilsTest {
     assertFalse (IdentifierUtils.areIdentifiersEqual (aPI2, aPI3b));
     assertFalse (IdentifierUtils.areIdentifiersEqual (aPI3a, aPI3b));
 
-    try {
+    try
+    {
       IdentifierUtils.areIdentifiersEqual (aPI1, null);
       fail ("null parameter not allowed");
     }
-    catch (final NullPointerException ex) {
+    catch (final NullPointerException ex)
+    {
       // expected
     }
 
-    try {
+    try
+    {
       IdentifierUtils.areIdentifiersEqual (null, aPI1);
       fail ("null parameter not allowed");
     }
-    catch (final NullPointerException ex) {
+    catch (final NullPointerException ex)
+    {
       // expected
     }
   }
 
   @Test
-  public void testAreIdentifiersEqualDocumentIdentifier () {
+  public void testAreIdentifiersEqualDocumentIdentifier ()
+  {
     final SimpleDocumentTypeIdentifier aDI1 = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleDocumentTypeIdentifier aDI2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleDocumentTypeIdentifier aDI3a = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
@@ -133,25 +141,30 @@ public final class IdentifierUtilsTest {
     assertFalse (IdentifierUtils.areIdentifiersEqual (aDI2, aDI3b));
     assertFalse (IdentifierUtils.areIdentifiersEqual (aDI3a, aDI3b));
 
-    try {
+    try
+    {
       IdentifierUtils.areIdentifiersEqual (aDI1, null);
       fail ("null parameter not allowed");
     }
-    catch (final NullPointerException ex) {
+    catch (final NullPointerException ex)
+    {
       // expected
     }
 
-    try {
+    try
+    {
       IdentifierUtils.areIdentifiersEqual (null, aDI1);
       fail ("null parameter not allowed");
     }
-    catch (final NullPointerException ex) {
+    catch (final NullPointerException ex)
+    {
       // expected
     }
   }
 
   @Test
-  public void testAreIdentifiersEqualProcessIdentifier () {
+  public void testAreIdentifiersEqualProcessIdentifier ()
+  {
     final SimpleProcessIdentifier aDI1 = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleProcessIdentifier aDI2 = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleProcessIdentifier aDI3a = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
@@ -165,59 +178,71 @@ public final class IdentifierUtilsTest {
     assertFalse (IdentifierUtils.areIdentifiersEqual (aDI2, aDI3b));
     assertFalse (IdentifierUtils.areIdentifiersEqual (aDI3a, aDI3b));
 
-    try {
+    try
+    {
       IdentifierUtils.areIdentifiersEqual (aDI1, null);
       fail ("null parameter not allowed");
     }
-    catch (final NullPointerException ex) {
+    catch (final NullPointerException ex)
+    {
       // expected
     }
 
-    try {
+    try
+    {
       IdentifierUtils.areIdentifiersEqual (null, aDI1);
       fail ("null parameter not allowed");
     }
-    catch (final NullPointerException ex) {
+    catch (final NullPointerException ex)
+    {
       // expected
     }
   }
 
   @Test
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
-  public void getIdentifierURIEncoded () {
+  public void getIdentifierURIEncoded ()
+  {
     final SimpleParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
     assertEquals ("iso6523-actorid-upis::0088:123abc", IdentifierUtils.getIdentifierURIEncoded (aPI));
 
     final SimpleDocumentTypeIdentifier aDI = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     assertEquals ("busdox-docid-qns::urn:doc:anydoc", IdentifierUtils.getIdentifierURIEncoded (aDI));
 
-    try {
+    try
+    {
       IdentifierUtils.getIdentifierURIEncoded (new SimpleParticipantIdentifier (null, "0088:12345"));
       fail ("Empty scheme should trigger an error!");
     }
-    catch (final IllegalArgumentException ex) {
+    catch (final IllegalArgumentException ex)
+    {
       // expected
     }
 
-    try {
+    try
+    {
       IdentifierUtils.getIdentifierURIEncoded (new SimpleParticipantIdentifier ("", "0088:12345"));
       fail ("Empty scheme should trigger an error!");
     }
-    catch (final IllegalArgumentException ex) {
+    catch (final IllegalArgumentException ex)
+    {
       // expected
     }
 
-    try {
+    try
+    {
       IdentifierUtils.getIdentifierURIEncoded (SimpleParticipantIdentifier.createWithDefaultScheme (null));
       fail ("null value should trigger an error!");
     }
-    catch (final IllegalArgumentException ex) {
+    catch (final IllegalArgumentException ex)
+    {
       // expected
     }
   }
 
   @Test
-  public void testGetIdentifierURIPercentEncoded () {
+  public void testGetIdentifierURIPercentEncoded ()
+  {
     SimpleParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
     assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierUtils.getIdentifierURIPercentEncoded (aPI));
     aPI = SimpleParticipantIdentifier.createWithDefaultScheme (EPredefinedIdentifierIssuingAgency.GLN.createIdentifierValue ("123abc"));
@@ -231,7 +256,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testIsValidDocumentTypeIdentifierValue () {
+  public void testIsValidDocumentTypeIdentifierValue ()
+  {
     assertFalse (IdentifierUtils.isValidDocumentTypeIdentifierValue (null));
     assertFalse (IdentifierUtils.isValidDocumentTypeIdentifierValue (""));
 
@@ -245,7 +271,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testIsValidDocumentTypeIdentifier () {
+  public void testIsValidDocumentTypeIdentifier ()
+  {
     assertFalse (IdentifierUtils.isValidDocumentTypeIdentifier (null));
     assertFalse (IdentifierUtils.isValidDocumentTypeIdentifier (""));
 
@@ -261,7 +288,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testIsValidParticipantIdentifierValue () {
+  public void testIsValidParticipantIdentifierValue ()
+  {
     assertFalse (IdentifierUtils.isValidParticipantIdentifierValue (null));
     assertFalse (IdentifierUtils.isValidParticipantIdentifierValue (""));
 
@@ -279,7 +307,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testIsValidParticipantIdentifier () {
+  public void testIsValidParticipantIdentifier ()
+  {
     assertFalse (IdentifierUtils.isValidParticipantIdentifier (null));
     assertFalse (IdentifierUtils.isValidParticipantIdentifier (""));
 
@@ -299,7 +328,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testIsValidProcessIdentifierValue () {
+  public void testIsValidProcessIdentifierValue ()
+  {
     assertFalse (IdentifierUtils.isValidProcessIdentifierValue (null));
     assertFalse (IdentifierUtils.isValidProcessIdentifierValue (""));
 
@@ -313,7 +343,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testIsValidProcessIdentifier () {
+  public void testIsValidProcessIdentifier ()
+  {
     assertFalse (IdentifierUtils.isValidProcessIdentifier (null));
     assertFalse (IdentifierUtils.isValidProcessIdentifier (""));
 
@@ -329,7 +360,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testGetUnifiedParticipantDBValue () {
+  public void testGetUnifiedParticipantDBValue ()
+  {
     assertNull (IdentifierUtils.getUnifiedParticipantDBValue (null));
     assertEquals ("", IdentifierUtils.getUnifiedParticipantDBValue (""));
     assertEquals ("abc", IdentifierUtils.getUnifiedParticipantDBValue ("abc"));
@@ -338,7 +370,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testHasDefaultParticipantIdentifierScheme () {
+  public void testHasDefaultParticipantIdentifierScheme ()
+  {
     assertTrue (IdentifierUtils.hasDefaultParticipantIdentifierScheme (SimpleParticipantIdentifier.createWithDefaultScheme ("abc")));
     assertFalse (IdentifierUtils.hasDefaultParticipantIdentifierScheme (new SimpleParticipantIdentifier ("dummy-actorid-upis",
                                                                                                          "abc")));
@@ -352,7 +385,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testHasDefaultDocumentTypeIdentifierScheme () {
+  public void testHasDefaultDocumentTypeIdentifierScheme ()
+  {
     assertTrue (IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme (SimpleDocumentTypeIdentifier.createWithDefaultScheme ("abc")));
     assertFalse (IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme (new SimpleDocumentTypeIdentifier ("doctype",
                                                                                                            "abc")));
@@ -366,7 +400,8 @@ public final class IdentifierUtilsTest {
   }
 
   @Test
-  public void testHasDefaultProcessIdentifierScheme () {
+  public void testHasDefaultProcessIdentifierScheme ()
+  {
     assertTrue (IdentifierUtils.hasDefaultProcessIdentifierScheme (SimpleProcessIdentifier.createWithDefaultScheme ("abc")));
     assertFalse (IdentifierUtils.hasDefaultProcessIdentifierScheme (new SimpleProcessIdentifier ("proctype", "abc")));
     assertTrue (IdentifierUtils.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +

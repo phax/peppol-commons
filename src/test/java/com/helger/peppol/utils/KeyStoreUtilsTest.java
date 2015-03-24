@@ -35,7 +35,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.security;
+package com.helger.peppol.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -59,28 +59,33 @@ import org.bouncycastle.x509.X509V1CertificateGenerator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
+import com.helger.peppol.utils.KeyStoreUtils;
 
 /**
  * Test class for class {@link KeyStoreUtils}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @SuppressWarnings ("deprecation")
-public final class KeyStoreUtilsTest {
+public final class KeyStoreUtilsTest
+{
   @BeforeClass
-  public static void init () {
+  public static void init ()
+  {
     Security.addProvider (new BouncyCastleProvider ());
   }
 
-  public KeyPair createKeyPair (final int nKeySizeInBits) throws Exception {
+  public KeyPair createKeyPair (final int nKeySizeInBits) throws Exception
+  {
     final KeyPairGenerator aGenerator = KeyPairGenerator.getInstance ("RSA");
     aGenerator.initialize (nKeySizeInBits);
     final KeyPair keyPair = aGenerator.generateKeyPair ();
     return keyPair;
   }
 
-  public static X509Certificate createX509V1Certificate (final KeyPair aKeyPair) throws Exception {
+  public static X509Certificate createX509V1Certificate (final KeyPair aKeyPair) throws Exception
+  {
     // generate the certificate
     final X509V1CertificateGenerator certGen = new X509V1CertificateGenerator ();
     certGen.setSerialNumber (BigInteger.valueOf (System.currentTimeMillis ()));
@@ -94,20 +99,21 @@ public final class KeyStoreUtilsTest {
   }
 
   @Test
-  public void testAll () throws Exception {
+  public void testAll () throws Exception
+  {
     final KeyPair aKeyPair = createKeyPair (1024);
     final Certificate [] certs = { createX509V1Certificate (aKeyPair), createX509V1Certificate (aKeyPair) };
 
     KeyStore ks = KeyStoreUtils.loadKeyStore ("keystores/keystore-no-pw.jks", (String) null);
     assertEquals (KeyStoreUtils.KEYSTORE_TYPE_JKS, ks.getType ());
-    assertEquals (1, ContainerHelper.newList (ks.aliases ()).size ());
+    assertEquals (1, CollectionHelper.newList (ks.aliases ()).size ());
     assertTrue (ks.containsAlias ("1"));
     final Certificate c1 = ks.getCertificate ("1");
     assertNotNull (c1);
     ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
 
     ks = KeyStoreUtils.loadKeyStore ("keystores/keystore-pw-peppol.jks", (String) null);
-    assertEquals (1, ContainerHelper.newList (ks.aliases ()).size ());
+    assertEquals (1, CollectionHelper.newList (ks.aliases ()).size ());
     assertTrue (ks.containsAlias ("1"));
     final Certificate c2 = ks.getCertificate ("1");
     assertNotNull (c2);
@@ -115,47 +121,49 @@ public final class KeyStoreUtilsTest {
     ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
 
     ks = KeyStoreUtils.loadKeyStore ("keystores/keystore-pw-peppol.jks", "peppol");
-    assertEquals (1, ContainerHelper.newList (ks.aliases ()).size ());
+    assertEquals (1, CollectionHelper.newList (ks.aliases ()).size ());
     assertTrue (ks.containsAlias ("1"));
     final Certificate c3 = ks.getCertificate ("1");
     assertNotNull (c3);
     assertEquals (c2, c3);
     ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
 
-    try {
+    try
+    {
       // Non-existing file
       KeyStoreUtils.loadKeyStore ("keystores/keystore-not-existing.jks", (String) null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Invalid password
       KeyStoreUtils.loadKeyStore ("keystores/keystore-pw-peppol.jks", "wrongpw");
       fail ();
     }
-    catch (final IOException ex) {}
+    catch (final IOException ex)
+    {}
   }
 
   @Test
-  public void testLoadTrustStore () throws Exception {
+  public void testLoadTrustStore () throws Exception
+  {
     // Load trust store
     final KeyStore aTrustStore = KeyStoreUtils.loadKeyStore (KeyStoreUtils.TRUSTSTORE_CLASSPATH,
                                                              KeyStoreUtils.TRUSTSTORE_PASSWORD);
     assertNotNull (aTrustStore);
 
     // Ensure all name entries are contained
-    assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_ALIAS_AP_PEPPOL));
     assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_ALIAS_AP_OPENPEPPOL));
-    assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_ALIAS_SMP_PEPPOL));
     assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_ALIAS_SMP_OPENPEPPOL));
 
     // System.out.println (SystemProperties.getJavaVersion ());
-    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_ALIAS_AP_PEPPOL);
+    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_ALIAS_AP_OPENPEPPOL);
     final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
+    assertEquals ("CN=PEPPOL Root CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
     final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
-                  sSubjectName);
+    assertEquals ("CN=PEPPOL ACCESS POINT CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sSubjectName);
   }
 }

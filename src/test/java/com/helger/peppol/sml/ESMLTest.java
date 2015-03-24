@@ -49,10 +49,13 @@ import org.junit.Test;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Deprecated
-public final class ESMLTest {
+public final class ESMLTest
+{
   @Test
-  public void testProduction () {
-    for (final ESML eSML : ESML.values ()) {
+  public void testProduction ()
+  {
+    for (final ESML eSML : ESML.values ())
+    {
       assertNotNull (eSML.getDNSZone ());
       assertNotNull (eSML.getPublisherDNSName ());
       assertNotNull (eSML.getManagementHostName ());
@@ -65,7 +68,8 @@ public final class ESMLTest {
   }
 
   @Test
-  public void testProductionValues () {
+  public void testProductionValues ()
+  {
     assertEquals ("sml.peppolcentral.org.", ESML.PRODUCTION.getDNSZone ());
     assertEquals ("publisher.sml.peppolcentral.org.", ESML.PRODUCTION.getPublisherDNSName ());
     assertEquals ("https://sml.peppolcentral.org", ESML.PRODUCTION.getManagementHostName ());

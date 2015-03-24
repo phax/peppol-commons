@@ -35,39 +35,25 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.types;
-
-import static org.junit.Assert.assertEquals;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
+package com.helger.peppol;
 
 import org.junit.Test;
 
-import com.helger.peppol.DateAdapter;
+import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.peppol.CBusDox;
 
 /**
- * Test class for class {@link DateAdapter}.
- * 
+ * Test class for class {@link CBusDox}.
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class DateAdapterTest {
+public final class CBusDoxTest
+{
   @Test
-  public void testConvert () {
-    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
-    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
-    final Date d = c.getTime ();
-    final String s = DateAdapter.printDate (d);
-    assertEquals ("2011-07-06Z", s);
-    final Date d2 = DateAdapter.parseDate (s);
-    assertEquals (d.getTime (), d2.getTime ());
-
-    final Calendar c2 = new GregorianCalendar ();
-    c2.setTime (d2);
-    assertEquals (2011, c2.get (Calendar.YEAR));
-    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
-    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
+  @PresentForCodeCoverage
+  public void testDebuggingOnOff ()
+  {
+    CBusDox.setMetroDebugSystemProperties (true);
+    CBusDox.setMetroDebugSystemProperties (false);
   }
 }

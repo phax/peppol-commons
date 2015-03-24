@@ -35,7 +35,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.wsaddr;
+package com.helger.peppol.utils;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.xml.ChildElementIterator;
 import com.helger.commons.xml.XMLFactory;
 import com.helger.commons.xml.XMLHelper;
@@ -69,7 +69,7 @@ import com.helger.commons.xml.XMLHelper;
  * {@link W3CEndpointReference}. In case the serialization tag names of
  * {@link W3CEndpointReference} change, this implementation has to be adopted!<br>
  * The JIRA issue JAX_WS-1132 was filed to help dealing with this issue.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
@@ -85,7 +85,7 @@ public final class W3CEndpointReferenceUtils
   /**
    * Create a new endpoint reference for the given address without reference
    * parameters.
-   * 
+   *
    * @param sAddress
    *        The address to use. May not be <code>null</code>.
    * @return The non-<code>null</code> endpoint reference for the given address
@@ -99,7 +99,7 @@ public final class W3CEndpointReferenceUtils
   /**
    * Create a new endpoint reference for the given address, using the specified
    * reference parameters.
-   * 
+   *
    * @param sAddress
    *        The address to use. May not be <code>null</code>.
    * @param aReferenceParameters
@@ -122,7 +122,7 @@ public final class W3CEndpointReferenceUtils
    * document element.<br>
    * This is necessary, as {@link W3CEndpointReference} does not provide read
    * access methods.
-   * 
+   *
    * @param aEndpointReference
    *        The endpoint to be marshaled. May not be <code>null</code>.
    * @return The document element called "EndpointReference"
@@ -138,7 +138,7 @@ public final class W3CEndpointReferenceUtils
 
   /**
    * Get the address contained in the passed endpoint reference.
-   * 
+   *
    * @param aEndpointReference
    *        The endpoint reference to retrieve the address from. May not be
    *        <code>null</code>.
@@ -157,7 +157,7 @@ public final class W3CEndpointReferenceUtils
   /**
    * Get a list of all reference parameters contained in the passed endpoint
    * reference.
-   * 
+   *
    * @param aEndpointReference
    *        The endpoint reference to retrieve the reference parameters. May not
    *        be <code>null</code>.
@@ -173,12 +173,12 @@ public final class W3CEndpointReferenceUtils
     if (eRefParams == null)
       return null;
 
-    return ContainerHelper.newList (new ChildElementIterator (eRefParams));
+    return CollectionHelper.newList (new ChildElementIterator (eRefParams));
   }
 
   /**
    * Get the reference parameter at the given index
-   * 
+   *
    * @param aEndpointReference
    *        The object to retrieve the reference parameter from. May not be
    *        <code>null</code>.
@@ -197,6 +197,6 @@ public final class W3CEndpointReferenceUtils
     final List <Element> aReferenceParameters = getReferenceParameters (aEndpointReference);
 
     // And extract the one at the desired index.
-    return ContainerHelper.getSafe (aReferenceParameters, nIndex);
+    return CollectionHelper.getSafe (aReferenceParameters, nIndex);
   }
 }

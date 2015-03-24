@@ -69,28 +69,34 @@ import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JOp;
 import com.helger.jcodemodel.JVar;
 
-public class MainCreateEnumsGenericode {
+public class MainCreateEnumsGenericode
+{
   private static final String COLID_NAME = "name";
   private static final String COLID_CODE = "code";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
 
-  private static void _createGenericode10 (final File aFile, final CodeListDocument aCodeList10) throws JClassAlreadyExistsException {
+  private static void _createGenericode10 (final File aFile, final CodeListDocument aCodeList10) throws JClassAlreadyExistsException
+  {
     final SimpleCodeList aSimpleCodeList = aCodeList10.getSimpleCodeList ();
-    if (aSimpleCodeList == null) {
+    if (aSimpleCodeList == null)
+    {
       System.out.println ("  does not contain a SimpleCodeList!");
       return;
     }
     final Column aColCode = Genericode10Utils.getColumnOfID (aCodeList10.getColumnSet (), COLID_CODE);
-    if (aColCode == null) {
+    if (aColCode == null)
+    {
       System.out.println ("  No '" + COLID_CODE + "' column found");
       return;
     }
-    if (!Genericode10Utils.isKeyColumn (aCodeList10.getColumnSet (), COLID_CODE)) {
+    if (!Genericode10Utils.isKeyColumn (aCodeList10.getColumnSet (), COLID_CODE))
+    {
       System.out.println ("  Column '" + COLID_CODE + "' is not a key");
       return;
     }
     final Column aColName = Genericode10Utils.getColumnOfID (aCodeList10.getColumnSet (), COLID_NAME);
-    if (aColName == null) {
+    if (aColName == null)
+    {
       System.out.println ("  No '" + COLID_NAME + "' column found");
       return;
     }
@@ -104,7 +110,8 @@ public class MainCreateEnumsGenericode {
                                             ._implements (IHasDisplayName.class);
     jEnum.javadoc ().add ("This file is generated from Genericode file " + aFile.getName () + ". Do NOT edit!");
 
-    for (final Row aRow : aCodeList10.getSimpleCodeList ().getRow ()) {
+    for (final Row aRow : aCodeList10.getSimpleCodeList ().getRow ())
+    {
       final String sCode = Genericode10Utils.getRowValue (aRow, COLID_CODE);
       final String sName = Genericode10Utils.getRowValue (aRow, COLID_NAME);
 
@@ -157,9 +164,11 @@ public class MainCreateEnumsGenericode {
     m.body ()._return (JOp.cond (JOp.eq (jValue, JExpr._null ()), JExpr._null (), jValue.invoke ("getDisplayName")));
   }
 
-  public static void main (final String [] args) throws JClassAlreadyExistsException, IOException {
+  public static void main (final String [] args) throws JClassAlreadyExistsException, IOException
+  {
     for (final File aFile : FileSystemRecursiveIterator.create (new File ("src/main/resources/codelists/ubl"),
-                                                                new FilenameFilterEndsWith (".gc"))) {
+                                                                new FilenameFilterEndsWith (".gc")))
+    {
       System.out.println (aFile.getName ());
       final CodeListDocument aCodeList10 = new Genericode10CodeListMarshaller ().read (new FileSystemResource (aFile));
       if (aCodeList10 != null)

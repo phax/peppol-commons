@@ -59,7 +59,7 @@ import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.participant.IPeppolReadonlyParticipantIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
-import com.helger.peppol.uri.BusdoxURLUtils;
+import com.helger.peppol.utils.BusdoxURLUtils;
 
 /**
  * This class contains several identifier related utility methods.

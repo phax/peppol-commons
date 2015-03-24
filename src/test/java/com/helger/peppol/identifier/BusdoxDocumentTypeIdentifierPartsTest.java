@@ -35,7 +35,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.commons.identifier;
+package com.helger.peppol.identifier;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -52,9 +52,11 @@ import com.helger.peppol.identifier.IBusdoxDocumentTypeIdentifierParts;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class BusdoxDocumentTypeIdentifierPartsTest {
+public final class BusdoxDocumentTypeIdentifierPartsTest
+{
   @Test
-  public void testExtract () {
+  public void testExtract ()
+  {
     IBusdoxDocumentTypeIdentifierParts aParts = BusdoxDocumentTypeIdentifierParts.extractFromString ("urn:www.peppol.eu:schema:xsd:CatalogueTemplate-1::CatalogueTemplate##urn:www.cenbii.eu:transaction:biicoretrdm993:ver0.1:#urn:www.peppol.eu:bis:peppol993a:ver1.0::0.1");
 
     // With sub-type
@@ -91,47 +93,60 @@ public final class BusdoxDocumentTypeIdentifierPartsTest {
   }
 
   @Test
-  public void testInvalid () {
-    try {
+  public void testInvalid ()
+  {
+    try
+    {
       // Empty namespace not allowed
       new BusdoxDocumentTypeIdentifierParts ("", "local", null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Empty local name not allowed
       new BusdoxDocumentTypeIdentifierParts ("rootns", "", null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // null String is not allowed
       BusdoxDocumentTypeIdentifierParts.extractFromString (null);
       fail ();
     }
-    catch (final NullPointerException ex) {}
+    catch (final NullPointerException ex)
+    {}
 
-    try {
+    try
+    {
       // Empty String is not allowed
       BusdoxDocumentTypeIdentifierParts.extractFromString ("");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // No local name present
       BusdoxDocumentTypeIdentifierParts.extractFromString ("root#subtype");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // null not allowed
       BusdoxDocumentTypeIdentifierParts.getAsDocumentTypeIdentifierValue (null);
       fail ();
     }
-    catch (final NullPointerException ex) {}
+    catch (final NullPointerException ex)
+    {}
   }
 }

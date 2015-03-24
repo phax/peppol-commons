@@ -50,9 +50,11 @@ import org.junit.Test;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ConfigFileTest {
+public final class ConfigFileTest
+{
   @Test
-  public void testAll () {
+  public void testAll ()
+  {
     final ConfigFile aCF = ConfigFile.getInstance ();
     assertTrue (aCF.isRead ());
     // Existing elements
@@ -75,7 +77,8 @@ public final class ConfigFileTest {
   }
 
   @Test
-  public void testNonExisting () {
+  public void testNonExisting ()
+  {
     final ConfigFile aCF = new ConfigFile ("non-existent-file.xml");
     assertFalse (aCF.isRead ());
     assertNull (aCF.getString ("any"));

@@ -51,9 +51,11 @@ import com.helger.peppol.identifier.CIdentifier;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ReadonlyDocumentTypeIdentifierTest {
+public final class ReadonlyDocumentTypeIdentifierTest
+{
   @Test
-  public void testCtor () {
+  public void testCtor ()
+  {
     final ReadonlyDocumentTypeIdentifier aID = new ReadonlyDocumentTypeIdentifier ("scheme", "value");
     assertEquals ("scheme", aID.getScheme ());
     assertEquals ("value", aID.getValue ());
@@ -64,7 +66,8 @@ public final class ReadonlyDocumentTypeIdentifierTest {
   }
 
   @Test
-  public void testBasicMethods () {
+  public void testBasicMethods ()
+  {
     final ReadonlyDocumentTypeIdentifier aID1 = new ReadonlyDocumentTypeIdentifier ("scheme", "value");
     final ReadonlyDocumentTypeIdentifier aID2 = new ReadonlyDocumentTypeIdentifier ("scheme", "value");
     final ReadonlyDocumentTypeIdentifier aID3 = new ReadonlyDocumentTypeIdentifier ("scheme2", "value");
@@ -74,50 +77,63 @@ public final class ReadonlyDocumentTypeIdentifierTest {
   }
 
   @Test
-  public void testURIStuff () {
+  public void testURIStuff ()
+  {
     final ReadonlyDocumentTypeIdentifier aID1 = new ReadonlyDocumentTypeIdentifier ("scheme1", "value1");
     assertEquals ("scheme1::value1", aID1.getURIEncoded ());
     assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
   }
 
   @Test
-  public void testConstraints () {
-    try {
+  public void testConstraints ()
+  {
+    try
+    {
       // null key not allowed
       new ReadonlyDocumentTypeIdentifier (null, "value");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // null value not allowed
       new ReadonlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Both null not allowed
       new ReadonlyDocumentTypeIdentifier (null, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Empty is not allowed
       new ReadonlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Cannot be mapped to ISO-8859-1:
       new ReadonlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Scheme too long
       new ReadonlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
                                               StringHelper.getRepeated ('a',
@@ -125,15 +141,18 @@ public final class ReadonlyDocumentTypeIdentifierTest {
                                           "abc");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Value too long
       new ReadonlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
                                           StringHelper.getRepeated ('a',
                                                                     CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH + 1));
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
   }
 }

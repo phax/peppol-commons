@@ -51,9 +51,11 @@ import com.helger.peppol.identifier.CIdentifier;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ReadonlyParticipantIdentifierTest {
+public final class ReadonlyParticipantIdentifierTest
+{
   @Test
-  public void testCtor () {
+  public void testCtor ()
+  {
     final ReadonlyParticipantIdentifier aID = new ReadonlyParticipantIdentifier ("scheme-actorid-test", "value");
     assertEquals ("scheme-actorid-test", aID.getScheme ());
     assertEquals ("value", aID.getValue ());
@@ -64,7 +66,8 @@ public final class ReadonlyParticipantIdentifierTest {
   }
 
   @Test
-  public void testBasicMethods () {
+  public void testBasicMethods ()
+  {
     final ReadonlyParticipantIdentifier aID1 = new ReadonlyParticipantIdentifier ("scheme-actorid-test", "value");
     final ReadonlyParticipantIdentifier aID2 = new ReadonlyParticipantIdentifier ("scheme-actorid-test", "value");
     final ReadonlyParticipantIdentifier aID3 = new ReadonlyParticipantIdentifier ("scheme2-actorid-test", "value");
@@ -74,50 +77,63 @@ public final class ReadonlyParticipantIdentifierTest {
   }
 
   @Test
-  public void testURIStuff () {
+  public void testURIStuff ()
+  {
     final ReadonlyParticipantIdentifier aID1 = new ReadonlyParticipantIdentifier ("scheme-actorid-test", "value1");
     assertEquals ("scheme-actorid-test::value1", aID1.getURIEncoded ());
     assertEquals ("scheme-actorid-test%3A%3Avalue1", aID1.getURIPercentEncoded ());
   }
 
   @Test
-  public void testConstraints () {
-    try {
+  public void testConstraints ()
+  {
+    try
+    {
       // null key not allowed
       new ReadonlyParticipantIdentifier (null, "value");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // null value not allowed
       new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Both null not allowed
       new ReadonlyParticipantIdentifier (null, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Empty is not allowed
       new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Cannot be mapped to ISO-8859-1:
       new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Scheme too long
       new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
                                              StringHelper.getRepeated ('a',
@@ -125,15 +141,18 @@ public final class ReadonlyParticipantIdentifierTest {
                                          "abc");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Value too long
       new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
                                          StringHelper.getRepeated ('a',
                                                                    CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH + 1));
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
   }
 }

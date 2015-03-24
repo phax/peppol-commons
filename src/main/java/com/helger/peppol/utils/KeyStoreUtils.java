@@ -35,7 +35,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.security;
+package com.helger.peppol.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -66,38 +66,17 @@ public final class KeyStoreUtils
   /** The classpath entry referencing the global truststore with all entries */
   public static final String TRUSTSTORE_CLASSPATH = "truststore/global-truststore.jks";
 
-  /** The classpath entry referencing the global PEPPOL truststore */
-  public static final String TRUSTSTORE_CLASSPATH_PEPPOL = "truststore/global-truststore-peppol.jks";
-
-  /** The classpath entry referencing the global OpenPEPPOL truststore */
-  public static final String TRUSTSTORE_CLASSPATH_OPENPEPPOL = "truststore/global-truststore-openpeppol.jks";
-
   /** The password used to access the truststores */
   public static final String TRUSTSTORE_PASSWORD = "peppol";
-
-  /** The truststore alias for the PEPPOL root certificate */
-  public static final String TRUSTSTORE_ALIAS_ROOT_PEPPOL = "peppol root test ca";
 
   /** The truststore alias for the OpenPEPPOL root certificate */
   public static final String TRUSTSTORE_ALIAS_ROOT_OPENPEPPOL = "peppol root ca";
 
-  /** The truststore alias for the PEPPOL AP certificate */
-  public static final String TRUSTSTORE_ALIAS_AP_PEPPOL = "peppol access point test ca (peppol root test ca)";
-
   /** The truststore alias for the OpenPEPPOL AP certificate */
   public static final String TRUSTSTORE_ALIAS_AP_OPENPEPPOL = "peppol access point ca (peppol root ca)";
 
-  @Deprecated
-  public static final String TRUSTSTORE_ALIAS_AP = TRUSTSTORE_ALIAS_AP_PEPPOL;
-
-  /** The truststore alias for the PEPPOL SMP certificate */
-  public static final String TRUSTSTORE_ALIAS_SMP_PEPPOL = "peppol service metadata publisher test ca (peppol root test ca)";
-
   /** The truststore alias for the OpenPEPPOL SMP certificate */
   public static final String TRUSTSTORE_ALIAS_SMP_OPENPEPPOL = "peppol service metadata publisher ca (peppol root ca)";
-
-  @Deprecated
-  public static final String TRUSTSTORE_ALIAS_SMP = TRUSTSTORE_ALIAS_SMP_PEPPOL;
 
   public static final String KEYSTORE_TYPE_JKS = "JKS";
 

@@ -51,10 +51,13 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ETaxCategoryIDTest {
+public final class ETaxCategoryIDTest
+{
   @Test
-  public void testBasic () {
-    for (final ETaxCategoryID e : ETaxCategoryID.values ()) {
+  public void testBasic ()
+  {
+    for (final ETaxCategoryID e : ETaxCategoryID.values ())
+    {
       assertTrue (StringHelper.hasText (e.getID ()));
       assertTrue (StringHelper.hasText (e.getDisplayName ()));
       assertSame (e, ETaxCategoryID.getFromIDOrNull (e.getID ()));

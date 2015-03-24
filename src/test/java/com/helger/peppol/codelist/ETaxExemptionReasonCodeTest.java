@@ -51,10 +51,13 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ETaxExemptionReasonCodeTest {
+public final class ETaxExemptionReasonCodeTest
+{
   @Test
-  public void testBasic () {
-    for (final ETaxExemptionReasonCode e : ETaxExemptionReasonCode.values ()) {
+  public void testBasic ()
+  {
+    for (final ETaxExemptionReasonCode e : ETaxExemptionReasonCode.values ())
+    {
       assertTrue (StringHelper.hasText (e.getID ()));
       assertTrue (StringHelper.hasText (e.getDisplayName ()));
       assertSame (e, ETaxExemptionReasonCode.getFromIDOrNull (e.getID ()));

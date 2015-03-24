@@ -52,9 +52,11 @@ import com.helger.commons.state.ETriState;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class IdentifierIssuingAgencyManagerTest {
+public final class IdentifierIssuingAgencyManagerTest
+{
   @Test
-  public void testAll () {
+  public void testAll ()
+  {
     assertNotNull (IdentifierIssuingAgencyManager.getAllAgencies ());
     assertEquals (63, IdentifierIssuingAgencyManager.getAllAgencies ().size ());
 

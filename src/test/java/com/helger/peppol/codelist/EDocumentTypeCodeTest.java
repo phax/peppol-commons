@@ -51,10 +51,13 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EDocumentTypeCodeTest {
+public final class EDocumentTypeCodeTest
+{
   @Test
-  public void testBasic () {
-    for (final EDocumentTypeCode e : EDocumentTypeCode.values ()) {
+  public void testBasic ()
+  {
+    for (final EDocumentTypeCode e : EDocumentTypeCode.values ())
+    {
       assertTrue (StringHelper.hasText (e.getID ()));
       assertTrue (StringHelper.hasText (e.getDisplayName ()));
       assertSame (e, EDocumentTypeCode.getFromIDOrNull (e.getID ()));

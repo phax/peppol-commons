@@ -44,9 +44,11 @@ import org.junit.Test;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ManageBusinessIdentifierServiceTest {
+public final class ManageBusinessIdentifierServiceTest
+{
   @Test
-  public void testCtor () {
+  public void testCtor ()
+  {
     // Ensure that the code for the service was created
     new ManageBusinessIdentifierService ();
   }

@@ -53,10 +53,13 @@ import com.helger.peppol.identifier.CIdentifier;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EPredefinedDocumentTypeIdentifierTest {
+public final class EPredefinedDocumentTypeIdentifierTest
+{
   @Test
-  public void testAll () {
-    for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ()) {
+  public void testAll ()
+  {
+    for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
+    {
       assertEquals (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, e.getScheme ());
       assertTrue (StringHelper.hasText (e.getValue ()));
       assertTrue (StringHelper.hasText (e.getRootNS ()));

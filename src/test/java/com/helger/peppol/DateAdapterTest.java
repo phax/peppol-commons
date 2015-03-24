@@ -35,46 +35,41 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.security;
+package com.helger.peppol;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
+import static org.junit.Assert.assertEquals;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
-import com.helger.commons.GlobalDebug;
+import org.junit.Test;
+
+import com.helger.peppol.DateAdapter;
 
 /**
- * Implementation of HostnameVerifier always returning <code>true</code>.
- *
+ * Test class for class {@link DateAdapter}.
+ * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class HostnameVerifierAlwaysTrue implements HostnameVerifier
+public final class DateAdapterTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (HostnameVerifierAlwaysTrue.class);
-
-  private final boolean m_bDebug;
-
-  public HostnameVerifierAlwaysTrue ()
+  @Test
+  public void testConvert ()
   {
-    this (GlobalDebug.isDebugMode ());
-  }
+    final Calendar c = new GregorianCalendar (2011, Calendar.JULY, 6);
+    c.setTimeZone (TimeZone.getTimeZone ("UTC"));
+    final Date d = c.getTime ();
+    final String s = DateAdapter.printDate (d);
+    assertEquals ("2011-07-06Z", s);
+    final Date d2 = DateAdapter.parseDate (s);
+    assertEquals (d.getTime (), d2.getTime ());
 
-  public HostnameVerifierAlwaysTrue (final boolean bDebug)
-  {
-    m_bDebug = bDebug;
-  }
-
-  public boolean isDebug ()
-  {
-    return m_bDebug;
-  }
-
-  public boolean verify (final String sURLHostname, final SSLSession aSession)
-  {
-    if (m_bDebug)
-      s_aLogger.debug ("Hostname '" + sURLHostname + "' is accepted by default in SSL session " + aSession + "!");
-    return true;
+    final Calendar c2 = new GregorianCalendar ();
+    c2.setTime (d2);
+    assertEquals (2011, c2.get (Calendar.YEAR));
+    assertEquals (Calendar.JULY, c2.get (Calendar.MONTH));
+    assertEquals (6, c2.get (Calendar.DAY_OF_MONTH));
   }
 }

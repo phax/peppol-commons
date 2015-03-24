@@ -52,9 +52,11 @@ import com.helger.peppol.identifier.CIdentifier;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class SimpleParticipantIdentifierTest {
+public final class SimpleParticipantIdentifierTest
+{
   @Test
-  public void testCtor () {
+  public void testCtor ()
+  {
     final SimpleParticipantIdentifier aID = new SimpleParticipantIdentifier ("scheme-actorid-test", "value");
     assertEquals ("scheme-actorid-test", aID.getScheme ());
     assertEquals ("value", aID.getValue ());
@@ -65,7 +67,8 @@ public final class SimpleParticipantIdentifierTest {
   }
 
   @Test
-  public void testBasicMethods () {
+  public void testBasicMethods ()
+  {
     final SimpleParticipantIdentifier aID1 = new SimpleParticipantIdentifier ("scheme-actorid-test", "value");
     final SimpleParticipantIdentifier aID2 = new SimpleParticipantIdentifier ("scheme-actorid-test", "value");
     final SimpleParticipantIdentifier aID3 = new SimpleParticipantIdentifier ("scheme2-actorid-test", "value");
@@ -75,7 +78,8 @@ public final class SimpleParticipantIdentifierTest {
   }
 
   @Test
-  public void testURIStuff () {
+  public void testURIStuff ()
+  {
     final SimpleParticipantIdentifier aID1 = new SimpleParticipantIdentifier ("scheme-actorid-test", "value1");
     assertEquals ("scheme-actorid-test::value1", aID1.getURIEncoded ());
     assertEquals ("scheme-actorid-test%3A%3Avalue1", aID1.getURIPercentEncoded ());
@@ -83,67 +87,84 @@ public final class SimpleParticipantIdentifierTest {
     assertEquals (aID1, aID2);
 
     assertNull (SimpleParticipantIdentifier.createFromURIPartOrNull ("scheme1"));
-    try {
+    try
+    {
       // No separator
       SimpleParticipantIdentifier.createFromURIPart ("scheme1");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
   }
 
   @Test
-  public void testConstraints () {
-    try {
+  public void testConstraints ()
+  {
+    try
+    {
       // null key not allowed
       new SimpleParticipantIdentifier (null, "value");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // null value not allowed
       new SimpleParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Both null not allowed
       new SimpleParticipantIdentifier (null, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Empty is not allowed
       new SimpleParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Cannot be mapped to ISO-8859-1:
       new SimpleParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Scheme too long
       new SimpleParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
                                            StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                        "abc");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Value too long
       new SimpleParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
                                        StringHelper.getRepeated ('a',
                                                                  CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH + 1));
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
   }
 }

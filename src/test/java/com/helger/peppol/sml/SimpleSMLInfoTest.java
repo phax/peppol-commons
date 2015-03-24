@@ -50,9 +50,11 @@ import com.helger.commons.mock.PHTestUtils;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class SimpleSMLInfoTest {
+public final class SimpleSMLInfoTest
+{
   @Test
-  public void testAll () {
+  public void testAll ()
+  {
     SimpleSMLInfo si = new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
                                           ESML.PRODUCTION.getManagementHostName (),
                                           ESML.PRODUCTION.getManagementServiceURL (),
@@ -113,26 +115,33 @@ public final class SimpleSMLInfoTest {
   }
 
   @Test
-  public void testInvalid () {
-    try {
+  public void testInvalid ()
+  {
+    try
+    {
       // DNS name may not be empty
       new SimpleSMLInfo ("", ESML.PRODUCTION.getManagementHostName (), ESML.PRODUCTION.getManagementServiceURL (), true);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Hostname may not be empty
       new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (), "", ESML.PRODUCTION.getManagementServiceURL (), true);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Service URL may not be empty
       new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (), ESML.PRODUCTION.getManagementHostName (), "", true);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
   }
 }

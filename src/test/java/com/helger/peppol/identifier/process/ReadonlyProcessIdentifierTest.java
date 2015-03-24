@@ -51,9 +51,11 @@ import com.helger.peppol.identifier.CIdentifier;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ReadonlyProcessIdentifierTest {
+public final class ReadonlyProcessIdentifierTest
+{
   @Test
-  public void testCtor () {
+  public void testCtor ()
+  {
     final ReadonlyProcessIdentifier aID = new ReadonlyProcessIdentifier ("scheme", "value");
     assertEquals ("scheme", aID.getScheme ());
     assertEquals ("value", aID.getValue ());
@@ -64,7 +66,8 @@ public final class ReadonlyProcessIdentifierTest {
   }
 
   @Test
-  public void testBasicMethods () {
+  public void testBasicMethods ()
+  {
     final ReadonlyProcessIdentifier aID1 = new ReadonlyProcessIdentifier ("scheme", "value");
     final ReadonlyProcessIdentifier aID2 = new ReadonlyProcessIdentifier ("scheme", "value");
     final ReadonlyProcessIdentifier aID3 = new ReadonlyProcessIdentifier ("scheme2", "value");
@@ -74,64 +77,80 @@ public final class ReadonlyProcessIdentifierTest {
   }
 
   @Test
-  public void testURIStuff () {
+  public void testURIStuff ()
+  {
     final ReadonlyProcessIdentifier aID1 = new ReadonlyProcessIdentifier ("scheme1", "value1");
     assertEquals ("scheme1::value1", aID1.getURIEncoded ());
     assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
   }
 
   @Test
-  public void testConstraints () {
-    try {
+  public void testConstraints ()
+  {
+    try
+    {
       // null key not allowed
       new ReadonlyProcessIdentifier (null, "value");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // null value not allowed
       new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Both null not allowed
       new ReadonlyProcessIdentifier (null, null);
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Empty is not allowed
       new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Cannot be mapped to ISO-8859-1:
       new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Scheme too long
       new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
                                          StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                      "abc");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Value too long
       new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME,
                                      StringHelper.getRepeated ('a', CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH + 1));
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
   }
 }

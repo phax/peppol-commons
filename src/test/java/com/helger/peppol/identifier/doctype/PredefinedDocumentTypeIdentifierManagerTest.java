@@ -50,9 +50,11 @@ import org.junit.Test;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class PredefinedDocumentTypeIdentifierManagerTest {
+public final class PredefinedDocumentTypeIdentifierManagerTest
+{
   @Test
-  public void testAll () {
+  public void testAll ()
+  {
     assertNotNull (PredefinedDocumentTypeIdentifierManager.getAllDocumentTypeIdentifiers ());
     assertNotNull (PredefinedDocumentTypeIdentifierManager.getAllDocumentTypeIdentifierIDs ());
 
@@ -63,7 +65,8 @@ public final class PredefinedDocumentTypeIdentifierManagerTest {
     assertFalse (PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID ("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0a"));
 
     // all enum ones must be contained
-    for (final EPredefinedDocumentTypeIdentifier eDocID : EPredefinedDocumentTypeIdentifier.values ()) {
+    for (final EPredefinedDocumentTypeIdentifier eDocID : EPredefinedDocumentTypeIdentifier.values ())
+    {
       assertSame (eDocID, PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID (eDocID.getValue ()));
       assertTrue (PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID (eDocID.getValue ()));
     }

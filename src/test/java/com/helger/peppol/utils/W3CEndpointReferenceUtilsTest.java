@@ -35,7 +35,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.wsaddr;
+package com.helger.peppol.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -50,22 +50,26 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.helger.commons.xml.XMLFactory;
+import com.helger.peppol.utils.W3CEndpointReferenceUtils;
 
 /**
  * Test class for class {@link W3CEndpointReferenceUtils}.
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class W3CEndpointReferenceUtilsTest {
+public final class W3CEndpointReferenceUtilsTest
+{
   @Test
-  public void testAddress () {
+  public void testAddress ()
+  {
     final String sURL = "http://www.example.org/any";
     final W3CEndpointReference aEPR = W3CEndpointReferenceUtils.createEndpointReference (sURL);
     assertEquals (sURL, W3CEndpointReferenceUtils.getAddress (aEPR));
   }
 
   @Test
-  public void testReferenceParameters () {
+  public void testReferenceParameters ()
+  {
     final List <Element> aParams = new ArrayList <Element> ();
     final Document aDummyDoc = XMLFactory.newDocument ();
     Element aElement = aDummyDoc.createElementNS ("urn:ns1", "element1");
@@ -83,7 +87,8 @@ public final class W3CEndpointReferenceUtilsTest {
     // Note: cannot directly compare aParams and aReads because of different
     // underlying documents
     assertEquals (aParams.size (), aReads.size ());
-    for (int i = 0; i < aParams.size (); ++i) {
+    for (int i = 0; i < aParams.size (); ++i)
+    {
       final Element aParam = aParams.get (i);
       final Element aRead = aReads.get (i);
       assertEquals (aParam.getNamespaceURI (), aRead.getNamespaceURI ());

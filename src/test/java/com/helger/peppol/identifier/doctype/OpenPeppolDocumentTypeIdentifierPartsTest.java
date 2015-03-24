@@ -50,9 +50,11 @@ import com.helger.commons.collections.CollectionHelper;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class OpenPeppolDocumentTypeIdentifierPartsTest {
+public final class OpenPeppolDocumentTypeIdentifierPartsTest
+{
   @Test
-  public void testBasic () {
+  public void testBasic ()
+  {
     final IPeppolDocumentTypeIdentifierParts aParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local##basic:extended:subtype:extended:ext1:extended:ext2::ver1");
     assertNotNull (aParts);
     assertEquals ("root", aParts.getRootNS ());
@@ -64,68 +66,87 @@ public final class OpenPeppolDocumentTypeIdentifierPartsTest {
   }
 
   @Test
-  public void testInvalid () {
-    try {
+  public void testInvalid ()
+  {
+    try
+    {
       // No subtype present
       OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // No version separator
       OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // Empty version
       OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype::");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // No transaction separator
       OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype::version");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // No transactions
       OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype::version");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // empty transaction (before :extended:)
       OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local##:extended:foo::version");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // empty customization ID (after :extended:)
       OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local##bar:extended::version");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // empty customization ID and transaction
       OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local##:extended::extended::version");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
 
-    try {
+    try
+    {
       // empty version
       OpenPeppolDocumentTypeIdentifierParts.extractFromString ("root::local:extended:subtype:extended:ext1:extended:ext2::");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {}
+    catch (final IllegalArgumentException ex)
+    {}
   }
 }

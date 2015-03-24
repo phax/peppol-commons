@@ -49,9 +49,11 @@ import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAg
  * 
  * @author philip
  */
-public final class IdentifierValidatorTest {
+public final class IdentifierValidatorTest
+{
   @Test
-  public void testNorwayOrgNumber () {
+  public void testNorwayOrgNumber ()
+  {
     assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_ORGNR.createParticipantIdentifier ("")));
     assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_ORGNR.createParticipantIdentifier ("123456789")));
     assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_ORGNR.createParticipantIdentifier ("123456785")));

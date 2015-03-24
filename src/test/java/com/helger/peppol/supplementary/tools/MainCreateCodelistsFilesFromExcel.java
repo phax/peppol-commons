@@ -110,7 +110,8 @@ import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class MainCreateCodelistsFilesFromExcel {
+public final class MainCreateCodelistsFilesFromExcel
+{
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateCodelistsFilesFromExcel.class);
   private static final Version CODELIST_VERSION = new Version (1, 2, 0);
   private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1.2.0.xls";
@@ -122,7 +123,8 @@ public final class MainCreateCodelistsFilesFromExcel {
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static JDefinedClass s_jEnumPredefinedDoc;
 
-  private static void _writeGenericodeFile (@Nonnull final CodeListDocument aCodeList, @Nonnull final String sFilename) {
+  private static void _writeGenericodeFile (@Nonnull final CodeListDocument aCodeList, @Nonnull final String sFilename)
+  {
     final Document aDoc = new Genericode10CodeListMarshaller ().write (aCodeList);
     if (aDoc == null)
       throw new IllegalStateException ("Failed to serialize code list");
@@ -132,7 +134,8 @@ public final class MainCreateCodelistsFilesFromExcel {
     s_aLogger.info ("Wrote Genericode file " + sFilename);
   }
 
-  private static void _writeValidationPartyIdFile (final Sheet aParticipantSheet) throws URISyntaxException {
+  private static void _writeValidationPartyIdFile (final Sheet aParticipantSheet) throws URISyntaxException
+  {
     // Read excel file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
@@ -151,7 +154,8 @@ public final class MainCreateCodelistsFilesFromExcel {
     _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PartyID.gc");
   }
 
-  private static void _emitIdentifierIssuingAgency (final Sheet aParticipantSheet) throws URISyntaxException {
+  private static void _emitIdentifierIssuingAgency (final Sheet aParticipantSheet) throws URISyntaxException
+  {
     // Read excel file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
@@ -179,7 +183,8 @@ public final class MainCreateCodelistsFilesFromExcel {
     aDoc.appendComment ("This file was automatically generated. Do NOT edit!");
     final IMicroElement eRoot = aDoc.appendElement ("root");
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
-    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ()) {
+    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+    {
       final String sCode = Genericode10Utils.getRowValue (aRow, "schemeid");
       final String sAgency = Genericode10Utils.getRowValue (aRow, "schemeagency");
       final String sISO6523 = Genericode10Utils.getRowValue (aRow, "iso6523");
@@ -196,7 +201,8 @@ public final class MainCreateCodelistsFilesFromExcel {
         eAgency.setAttribute ("deprecated", Boolean.TRUE.toString ());
       eAgency.setAttribute ("since", sSince);
 
-      if (StringHelper.hasText (sStructure)) {
+      if (StringHelper.hasText (sStructure))
+      {
         final IMicroElement eStructure = eAgency.appendElement ("structure");
         eStructure.appendText (sStructure);
       }
@@ -207,14 +213,16 @@ public final class MainCreateCodelistsFilesFromExcel {
                             CCharset.CHARSET_UTF_8_OBJ);
 
     // Create Java source
-    try {
+    try
+    {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "identifier.issuingagency")
                                               ._enum ("EPredefinedIdentifierIssuingAgency")
                                               ._implements (IIdentifierIssuingAgency.class);
       jEnum.javadoc ().add ("This file is generated. Do NOT edit!");
 
       // enum constants
-      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ()) {
+      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+      {
         final String sSchemeID = Genericode10Utils.getRowValue (aRow, "schemeid");
         final String sAgency = Genericode10Utils.getRowValue (aRow, "schemeagency");
         final String sISO6523 = Genericode10Utils.getRowValue (aRow, "iso6523");
@@ -321,12 +329,14 @@ public final class MainCreateCodelistsFilesFromExcel {
       m.annotate (Nonnull.class);
       m.body ()._return (fSince);
     }
-    catch (final Exception ex) {
+    catch (final Exception ex)
+    {
       s_aLogger.warn ("Failed to create source", ex);
     }
   }
 
-  private static void _emitDocumentIdentifiers (final Sheet aDocumentSheet) throws URISyntaxException {
+  private static void _emitDocumentIdentifiers (final Sheet aDocumentSheet) throws URISyntaxException
+  {
     // Create GeneriCode file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
@@ -347,7 +357,8 @@ public final class MainCreateCodelistsFilesFromExcel {
     aDoc.appendComment ("This file was automatically generated. Do NOT edit!");
     final IMicroElement eRoot = aDoc.appendElement ("root");
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
-    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ()) {
+    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+    {
       final String sDocID = Genericode10Utils.getRowValue (aRow, "docid");
       final String sName = Genericode10Utils.getRowValue (aRow, "name");
       final String sSince = Genericode10Utils.getRowValue (aRow, "since");
@@ -363,7 +374,8 @@ public final class MainCreateCodelistsFilesFromExcel {
                             CCharset.CHARSET_UTF_8_OBJ);
 
     // Create Java source
-    try {
+    try
+    {
       s_jEnumPredefinedDoc = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "identifier.doctype")
                                          ._enum ("EPredefinedDocumentTypeIdentifier")
                                          ._implements (IPeppolPredefinedDocumentTypeIdentifier.class);
@@ -372,7 +384,8 @@ public final class MainCreateCodelistsFilesFromExcel {
       final Set <String> aAllShortcutNames = new HashSet <String> ();
 
       // Add all enum constants
-      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ()) {
+      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+      {
         final String sDocID = Genericode10Utils.getRowValue (aRow, "docid");
         final String sName = Genericode10Utils.getRowValue (aRow, "name");
         final String sSince = Genericode10Utils.getRowValue (aRow, "since");
@@ -380,11 +393,13 @@ public final class MainCreateCodelistsFilesFromExcel {
         // Split ID in it's pieces
         IPeppolDocumentTypeIdentifierParts aDocIDParts;
         Class <?> aDocTypeIDPartsClass;
-        try {
+        try
+        {
           aDocIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocID);
           aDocTypeIDPartsClass = PeppolDocumentTypeIdentifierParts.class;
         }
-        catch (final IllegalArgumentException ex) {
+        catch (final IllegalArgumentException ex)
+        {
           aDocIDParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString (sDocID);
           aDocTypeIDPartsClass = OpenPeppolDocumentTypeIdentifierParts.class;
         }
@@ -549,12 +564,14 @@ public final class MainCreateCodelistsFilesFromExcel {
       m.annotate (Nonnull.class);
       m.body ()._return (fParts);
     }
-    catch (final Exception ex) {
+    catch (final Exception ex)
+    {
       s_aLogger.warn ("Failed to create source", ex);
     }
   }
 
-  private static void _emitProcessIdentifier (final Sheet aProcessSheet) throws URISyntaxException {
+  private static void _emitProcessIdentifier (final Sheet aProcessSheet) throws URISyntaxException
+  {
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
     aReadOptions.addColumn (0, "name", UseType.REQUIRED, "string", true);
@@ -576,7 +593,8 @@ public final class MainCreateCodelistsFilesFromExcel {
     aDoc.appendComment ("This file was automatically generated. Do NOT edit!");
     final IMicroElement eRoot = aDoc.appendElement ("root");
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
-    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ()) {
+    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+    {
       final String sID = Genericode10Utils.getRowValue (aRow, "id");
       final String sBISID = Genericode10Utils.getRowValue (aRow, "bisid");
       final String sDocIDs = Genericode10Utils.getRowValue (aRow, "docids");
@@ -598,7 +616,8 @@ public final class MainCreateCodelistsFilesFromExcel {
                             CCharset.CHARSET_UTF_8_OBJ);
 
     // Create Java source
-    try {
+    try
+    {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "identifier.process")
                                               ._enum ("EPredefinedProcessIdentifier")
                                               ._implements (IPeppolPredefinedProcessIdentifier.class);
@@ -606,7 +625,8 @@ public final class MainCreateCodelistsFilesFromExcel {
 
       // enum constants
       final Set <String> aAllShortcutNames = new HashSet <String> ();
-      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ()) {
+      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+      {
         final String sID = Genericode10Utils.getRowValue (aRow, "id");
         final String sBISID = Genericode10Utils.getRowValue (aRow, "bisid");
         final String sDocTypeIDs = Genericode10Utils.getRowValue (aRow, "docids");
@@ -617,12 +637,15 @@ public final class MainCreateCodelistsFilesFromExcel {
         jEnumConst.arg (JExpr.lit (sID));
         jEnumConst.arg (JExpr.lit (sBISID));
         final JArray jArray = JExpr.newArray (s_jEnumPredefinedDoc);
-        for (final String sDocTypeID : RegExHelper.getSplitToList (sDocTypeIDs, "\n")) {
+        for (final String sDocTypeID : RegExHelper.getSplitToList (sDocTypeIDs, "\n"))
+        {
           IPeppolDocumentTypeIdentifierParts aDocTypeIDParts;
-          try {
+          try
+          {
             aDocTypeIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
           }
-          catch (final IllegalArgumentException ex) {
+          catch (final IllegalArgumentException ex)
+          {
             aDocTypeIDParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
           }
 
@@ -728,12 +751,14 @@ public final class MainCreateCodelistsFilesFromExcel {
                                      .staticInvoke ("getIdentifierURIPercentEncoded")
                                      .arg (JExpr._this ()));
     }
-    catch (final Exception ex) {
+    catch (final Exception ex)
+    {
       s_aLogger.warn ("Failed to create source", ex);
     }
   }
 
-  public static void main (final String [] args) throws IOException, URISyntaxException {
+  public static void main (final String [] args) throws IOException, URISyntaxException
+  {
     // Where is the Excel?
     final IReadableResource aXls = new FileSystemResource (EXCEL_FILE);
     if (!aXls.exists ())

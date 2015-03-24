@@ -48,26 +48,31 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
 
 @Immutable
-final class CodeGenerationUtils {
+final class CodeGenerationUtils
+{
   private static final String SKIP_TRANSACTION_PREFIX = "urn:www.cenbii.eu:transaction:biicoretrdm";
   private static final String SKIP_TRANSACTION_PREFIX2 = "urn:www.cenbii.eu:transaction:biitrns";
   private static final String SKIP_BIS_PREFIX = "urn:www.peppol.eu:bis:peppol";
 
-  private CodeGenerationUtils () {}
+  private CodeGenerationUtils ()
+  {}
 
   @Nonnull
   @Nonempty
-  public static String createShortcutDocumentTypeIDName (@Nonnull final IPeppolDocumentTypeIdentifierParts aDocIDParts) {
+  public static String createShortcutDocumentTypeIDName (@Nonnull final IPeppolDocumentTypeIdentifierParts aDocIDParts)
+  {
     // Create a shortcut constant with a more readable name!
     String sTransactionID = "";
-    if (aDocIDParts.getTransactionID ().startsWith (SKIP_TRANSACTION_PREFIX)) {
+    if (aDocIDParts.getTransactionID ().startsWith (SKIP_TRANSACTION_PREFIX))
+    {
       sTransactionID = "_T" + aDocIDParts.getTransactionID ().substring (SKIP_TRANSACTION_PREFIX.length ());
       final int nIndex = sTransactionID.indexOf (':');
       if (nIndex >= 0)
         sTransactionID = sTransactionID.substring (0, nIndex);
     }
     else
-      if (aDocIDParts.getTransactionID ().startsWith (SKIP_TRANSACTION_PREFIX2)) {
+      if (aDocIDParts.getTransactionID ().startsWith (SKIP_TRANSACTION_PREFIX2))
+      {
         sTransactionID = "_T" + aDocIDParts.getTransactionID ().substring (SKIP_TRANSACTION_PREFIX2.length ());
         final int nIndex = sTransactionID.indexOf (':');
         if (nIndex >= 0)
@@ -76,23 +81,27 @@ final class CodeGenerationUtils {
 
     String sExtensionID = "";
     for (final String sCurExtensionID : aDocIDParts.getExtensionIDs ())
-      if (sCurExtensionID.startsWith (SKIP_BIS_PREFIX)) {
+      if (sCurExtensionID.startsWith (SKIP_BIS_PREFIX))
+      {
         // BIS extension
         sExtensionID = "_BIS" + sCurExtensionID.substring (SKIP_BIS_PREFIX.length ());
         final int nIndex = sExtensionID.indexOf (":ver");
-        if (nIndex >= 0) {
+        if (nIndex >= 0)
+        {
           // Add version number
           String sVersion = "_V" +
                             sExtensionID.substring (nIndex + 4, nIndex + 5) +
                             sExtensionID.substring (nIndex + 6, nIndex + 7);
-          if (sVersion.equals ("_V10")) {
+          if (sVersion.equals ("_V10"))
+          {
             // For backwards compatibility
             sVersion = "";
           }
           sExtensionID = sExtensionID.substring (0, nIndex) + sVersion;
         }
       }
-      else {
+      else
+      {
         // Non-BIS extension
         String sExt = StringHelper.trimStart (sCurExtensionID, "urn:");
         sExt = sExt.replace ('.', '_').replace (':', '_');
@@ -105,16 +114,19 @@ final class CodeGenerationUtils {
 
   @Nullable
   @Nonempty
-  public static String createShortcutBISIDName (@Nonnull final String sBISID) {
+  public static String createShortcutBISIDName (@Nonnull final String sBISID)
+  {
     if (!sBISID.startsWith (SKIP_BIS_PREFIX))
       throw new IllegalArgumentException ("Invalid BIS ID: " + sBISID);
 
     String ret = "BIS" + sBISID.substring (SKIP_BIS_PREFIX.length ());
     final int nIndex = ret.indexOf (":ver");
-    if (nIndex >= 0) {
+    if (nIndex >= 0)
+    {
       // Add version number
       String sVersion = "_V" + ret.substring (nIndex + 4, nIndex + 5) + ret.substring (nIndex + 6, nIndex + 7);
-      if (sVersion.equals ("_V10")) {
+      if (sVersion.equals ("_V10"))
+      {
         // For backwards compatibility
         sVersion = "";
       }

@@ -50,18 +50,20 @@ import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.messagedigest.MessageDigestGeneratorHelper;
-import com.helger.peppol.security.KeyStoreUtils;
+import com.helger.peppol.utils.KeyStoreUtils;
 
 /**
  * Utility class to create hash codes of the global trust store to verify if it
  * is valid or not.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class MainCreateTrustStoreHashFiles {
+public final class MainCreateTrustStoreHashFiles
+{
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateTrustStoreHashFiles.class);
 
-  private static void _create (@Nonnull final String sTruststorePath) {
+  private static void _create (@Nonnull final String sTruststorePath)
+  {
     final IReadableResource aTrustStore = new ClassPathResource (sTruststorePath);
 
     final byte [] aMD5 = MessageDigestGeneratorHelper.getDigestFromInputStream (aTrustStore.getInputStream (),
@@ -78,9 +80,8 @@ public final class MainCreateTrustStoreHashFiles {
     s_aLogger.info ("Done creating hash values for " + sTruststorePath);
   }
 
-  public static void main (final String [] args) {
+  public static void main (final String [] args)
+  {
     _create (KeyStoreUtils.TRUSTSTORE_CLASSPATH);
-    _create (KeyStoreUtils.TRUSTSTORE_CLASSPATH_PEPPOL);
-    _create (KeyStoreUtils.TRUSTSTORE_CLASSPATH_OPENPEPPOL);
   }
 }

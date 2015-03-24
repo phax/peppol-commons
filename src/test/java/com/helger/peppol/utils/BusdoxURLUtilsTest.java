@@ -35,7 +35,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.uri;
+package com.helger.peppol.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -51,6 +51,7 @@ import org.junit.Test;
 import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
+import com.helger.peppol.utils.BusdoxURLUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -59,9 +60,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class BusdoxURLUtilsTest {
+public final class BusdoxURLUtilsTest
+{
   @Test
-  public void testCreatePercentEncodedURL () {
+  public void testCreatePercentEncodedURL ()
+  {
     assertNull (BusdoxURLUtils.createPercentEncodedURL (null));
     assertEquals ("", BusdoxURLUtils.createPercentEncodedURL (""));
     assertEquals ("abc", BusdoxURLUtils.createPercentEncodedURL ("abc"));
@@ -72,7 +75,8 @@ public final class BusdoxURLUtilsTest {
 
   @Test
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
-  public void testGetDNSNameOfParticipant () {
+  public void testGetDNSNameOfParticipant ()
+  {
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org",
                   BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc"),
                                                           ESML.PRODUCTION));
@@ -97,56 +101,67 @@ public final class BusdoxURLUtilsTest {
                                                                 ESML.PRODUCTION));
 
     // Test invalid
-    try {
+    try
+    {
       BusdoxURLUtils.getDNSNameOfParticipant (null, "anyzone.org.");
       fail ();
     }
-    catch (final NullPointerException ex) {
+    catch (final NullPointerException ex)
+    {
       // expected
     }
 
-    try {
+    try
+    {
       // Invalid scheme
       BusdoxURLUtils.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "0088:123"), "anyzone.org.");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {
+    catch (final IllegalArgumentException ex)
+    {
       // expected
     }
 
-    try {
+    try
+    {
       // Invalid scheme
       BusdoxURLUtils.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("invalid.scheme", "0088:123"),
                                               "anyzone.org.");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {
+    catch (final IllegalArgumentException ex)
+    {
       // expected
     }
 
-    try {
+    try
+    {
       // Invalid value
       BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme (null),
                                               "anyzone.org.");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {
+    catch (final IllegalArgumentException ex)
+    {
       // expected
     }
 
-    try {
+    try
+    {
       // Invalid DNS zone (missing dot)
       BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:valid"),
                                               "anyzone");
       fail ();
     }
-    catch (final IllegalArgumentException ex) {
+    catch (final IllegalArgumentException ex)
+    {
       // expected
     }
   }
 
   @Test
-  public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException {
+  public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException
+  {
     final IReadonlyParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
     final URI aURI = BusdoxURLUtils.getSMPURIOfParticipant (aPI, ESML.PRODUCTION);
     assertEquals (new URI ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org"),

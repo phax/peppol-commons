@@ -44,9 +44,11 @@ import org.junit.Test;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class ManageServiceMetadataServiceTest {
+public class ManageServiceMetadataServiceTest
+{
   @Test
-  public void testCtor () {
+  public void testCtor ()
+  {
     // Ensure that the code for the service was created
     new ManageServiceMetadataService ();
   }

@@ -53,10 +53,13 @@ import com.helger.peppol.identifier.CIdentifier;
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EPredefinedProcessIdentifierTest {
+public final class EPredefinedProcessIdentifierTest
+{
   @Test
-  public void testAll () {
-    for (final EPredefinedProcessIdentifier e : EPredefinedProcessIdentifier.values ()) {
+  public void testAll ()
+  {
+    for (final EPredefinedProcessIdentifier e : EPredefinedProcessIdentifier.values ())
+    {
       assertEquals (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, e.getScheme ());
       assertTrue (StringHelper.hasText (e.getValue ()));
       assertTrue (StringHelper.hasText (e.getBISID ()));
