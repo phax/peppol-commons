@@ -1,1198 +1,1159 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!--
-
-    Version: MPL 1.1/EUPL 1.1
-
-    The contents of this file are subject to the Mozilla Public License Version
-    1.1 (the "License"); you may not use this file except in compliance with
-    the License. You may obtain a copy of the License at:
-    http://www.mozilla.org/MPL/
-
-    Software distributed under the License is distributed on an "AS IS" basis,
-    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-    for the specific language governing rights and limitations under the
-    License.
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    Alternatively, the contents of this file may be used under the
-    terms of the EUPL, Version 1.1 or - as soon they will be approved
-    by the European Commission - subsequent versions of the EUPL
-    (the "Licence"); You may not use this work except in compliance
-    with the Licence.
-    You may obtain a copy of the Licence at:
-    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the Licence is distributed on an "AS IS" basis,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the Licence for the specific language governing permissions and
-    limitations under the Licence.
-
-    If you wish to allow use of your version of this file only
-    under the terms of the EUPL License and not to allow others to use
-    your version of this file under the MPL, indicate your decision by
-    deleting the provisions above and replace them with the notice and
-    other provisions required by the EUPL License. If you do not delete
-    the provisions above, a recipient may use your version of this file
-    under either the MPL or the EUPL License.
-
--->
-<ns2:CodeList xmlns:ns2="http://docs.oasis-open.org/codelist/ns/genericode/1.0/">
-  <Annotation>
-    <AppInfo>
-      <ns3:info xmlns:ns3="urn:phloc.com:schemas:genericode-ext">Automatically created by phloc-genericode. Do NOT edit.</ns3:info>
-    </AppInfo>
-  </Annotation>
-  <Identification>
-    <ShortName>PeppolIdentifierIssuingAgencies</ShortName>
-    <Version>1.2</Version>
-    <CanonicalUri>urn:peppol.eu:names:identifier:issuingagencies</CanonicalUri>
-    <CanonicalVersionUri>urn:peppol.eu:names:identifier:issuingagencies-1.0</CanonicalVersionUri>
-  </Identification>
-  <ColumnSet>
-    <Column Id="schemeid" Use="required">
-      <ShortName>Scheme ID</ShortName>
-      <Data Type="string" />
-    </Column>
-    <Column Id="iso6523" Use="required">
-      <ShortName>ICD value</ShortName>
-      <Data Type="string" />
-    </Column>
-    <Column Id="schemeagency" Use="optional">
-      <ShortName>Issuing Organization</ShortName>
-      <Data Type="string" />
-    </Column>
-    <Column Id="deprecated" Use="required">
-      <ShortName>Deprecated</ShortName>
-      <Data Type="boolean" />
-    </Column>
-    <Column Id="since" Use="required">
-      <ShortName>Since</ShortName>
-      <Data Type="string" />
-    </Column>
-    <Column Id="structure" Use="optional">
-      <ShortName>Structure of code</ShortName>
-      <Data Type="string" />
-    </Column>
-    <Key Id="schemeidKey">
-      <ShortName>Scheme ID</ShortName>
-      <ColumnRef Ref="schemeid" />
-    </Key>
-    <Key Id="iso6523Key">
-      <ShortName>ICD value</ShortName>
-      <ColumnRef Ref="iso6523" />
-    </Key>
-  </ColumnSet>
-  <SimpleCodeList>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>FR:SIRENE</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0002</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters. 2) Check digits: 9th &amp; 14th character respectively</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>SE:ORGNR</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0007</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>The National Tax Board</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>1) 10 digits. 1st digit = Group number, 2nd - 9th digit = Ordinalnumber1st digit, = Group number, 10th digit = Check digit, 2) Last digit.</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>FR:SIRET</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0009</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>DU PONT DE NEMOURS</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.1</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>1) 14 digits, 2) None</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>FI:OVT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0037</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>National Board of Taxes, (Verohallitus)</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>1) ICD 4 Digits, Organization code upto 11 characters, Organization name upto 250 characters, 2) None
+<CodeList xmlns="http://docs.oasis-open.org/codelist/ns/genericode/1.0/">
+  <ns0:Annotation xmlns:ns0="">
+    <ns0:AppInfo>
+      <ns1:info xmlns:ns1="urn:www.helger.com:schemas:genericode-ext">Automatically created by ph-genericode. Do NOT edit.</ns1:info>
+    </ns0:AppInfo>
+  </ns0:Annotation>
+  <ns0:Identification xmlns:ns0="">
+    <ns0:ShortName>PeppolIdentifierIssuingAgencies</ns0:ShortName>
+    <ns0:Version>1.2</ns0:Version>
+    <ns0:CanonicalUri>urn:peppol.eu:names:identifier:issuingagencies</ns0:CanonicalUri>
+    <ns0:CanonicalVersionUri>urn:peppol.eu:names:identifier:issuingagencies-1.0</ns0:CanonicalVersionUri>
+  </ns0:Identification>
+  <ns0:ColumnSet xmlns:ns0="">
+    <ns0:Column ns0:Id="schemeid" ns0:Use="required">
+      <ns0:ShortName>Scheme ID</ns0:ShortName>
+      <ns0:Data ns0:Type="string" />
+    </ns0:Column>
+    <ns0:Column ns0:Id="iso6523" ns0:Use="required">
+      <ns0:ShortName>ICD value</ns0:ShortName>
+      <ns0:Data ns0:Type="string" />
+    </ns0:Column>
+    <ns0:Column ns0:Id="schemeagency" ns0:Use="optional">
+      <ns0:ShortName>Issuing Organization</ns0:ShortName>
+      <ns0:Data ns0:Type="string" />
+    </ns0:Column>
+    <ns0:Column ns0:Id="deprecated" ns0:Use="required">
+      <ns0:ShortName>Deprecated</ns0:ShortName>
+      <ns0:Data ns0:Type="boolean" />
+    </ns0:Column>
+    <ns0:Column ns0:Id="since" ns0:Use="required">
+      <ns0:ShortName>Since</ns0:ShortName>
+      <ns0:Data ns0:Type="string" />
+    </ns0:Column>
+    <ns0:Column ns0:Id="structure" ns0:Use="optional">
+      <ns0:ShortName>Structure of code</ns0:ShortName>
+      <ns0:Data ns0:Type="string" />
+    </ns0:Column>
+    <ns0:Key ns0:Id="schemeidKey">
+      <ns0:ShortName>Scheme ID</ns0:ShortName>
+      <ns0:ColumnRef ns0:Ref="schemeid" />
+    </ns0:Key>
+    <ns0:Key ns0:Id="iso6523Key">
+      <ns0:ShortName>ICD value</ns0:ShortName>
+      <ns0:ColumnRef ns0:Ref="iso6523" />
+    </ns0:Key>
+  </ns0:ColumnSet>
+  <ns0:SimpleCodeList xmlns:ns0="">
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>FR:SIRENE</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0002</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters. 2) Check digits: 9th &amp; 14th character respectively</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>SE:ORGNR</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0007</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>The National Tax Board</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>1) 10 digits. 1st digit = Group number, 2nd - 9th digit = Ordinalnumber1st digit, = Group number, 10th digit = Check digit, 2) Last digit.</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>FR:SIRET</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0009</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>DU PONT DE NEMOURS</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.1</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>1) 14 digits, 2) None</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>FI:OVT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0037</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>National Board of Taxes, (Verohallitus)</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>1) ICD 4 Digits, Organization code upto 11 characters, Organization name upto 250 characters, 2) None
 - Example: 00371234567800001
 - 0037 Country code for Finland (ISO 6523  International Code Designator (ICD) value)
 - 12345678 Business ID without hyphen 
-- 00001 Optional specifier for organisation unit (assigned by the organisation itself)</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>DUNS</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0060</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Dun and Bradstreet Ltd</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>1) 8 digits, 1st-7th digit = number, 8th digit = check number, 2) digit</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>GLN</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0088</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>EAN International</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>1) Eight identification digits and a check digit. A two digit prefix will be added in the future but it will not be used to calculate the check digit. 2) The Organization name is not part of the D-U-N-S number.</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>DK:P</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0096</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Danish Chamber of Commerce</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>1) 13 digits including check digits, 2) None</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>IT:FTI</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0097</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>FTI - Ediforum Italia</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure: [123] [123456] [123456] [12], 17, &lt; &gt;, A B C D, A: numerical value allocated by the RA to the regional sub-authority, (3 digits), B: numerical value allocated by the sub-authority to the registered organization (mandatory part of the identifier; 6 digits), C: numerical value used by the registered organization (free part; 6 digits), D: numerical check digit calculated by the registered organization; (2 digits), Check digit computation, The check digit is modular 97 computed on ABC as one number.</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>NL:KVK</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0106</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Vereniging van Kamers van Koophandel en Fabrieken in Nederland, Scheme</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.2</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>IT:SIA</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0135</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>SIA-Società Interbancaria per l'Automazione S.p.A.</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>Structure of EDI identifier, Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure:
-[1234567] [123] [1] [12345], min 11- max 16, &lt; &gt;, A B C D, A: numerical value (7 digits) assigned by Uffico Provinciale IVA (local branch of Ministry of Finance); B: numerical value a (3 digits) identifying the County; C: numerical check digit (1 digit); D: optional numerical value (up to 5 digits0 used by the registered organization (free part). Check digit computation, The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>IT:SECETI</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>0142</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Servizi Centralizzati SECETI S.p.A.</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>First field: ICD: 4 digits, Second field: sequence of digits</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>DK:CPR</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9901</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Danish Ministry of the Interior and Health</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>1) First field: ICD: 4 digits, Second field: sequence of digits</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>DK:CVR</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9902</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>The Danish Commerce and Companies Agency</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>DK:SE</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9904</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Danish Ministry of Taxation, Central Customs and Tax Administration</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>DK:VANS</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9905</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Danish VANS providers</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>IT:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9906</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Ufficio responsabile gestione partite IVA</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>IT:CF</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9907</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>TAX Authority</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>NO:ORGNR</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9908</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Enhetsregisteret ved Bronnoysundregisterne</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>NO:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9909</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Enhetsregisteret ved Bronnoysundregisterne</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>HU:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9910</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>EU:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9912</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>National ministries of Economy</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>EU:REID</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9913</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Business Registers Network</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>AT:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9914</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Österreichische Umsatzsteuer-Identifikationsnummer</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>AT:GOV</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9915</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Österreichisches Verwaltungs bzw. Organisationskennzeichen</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>AT:CID</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9916</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Firmenidentifikationsnummer der Statistik Austria</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>IS:KT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9917</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Icelandic National Registry</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>IBAN</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9918</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.1</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>AT:KUR</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9919</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Kennziffer des Unternehmensregisters</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.2</SimpleValue>
-      </Value>
-      <Value ColumnRef="structure">
-        <SimpleValue>9 characters in total; letter, number x3, letter, number x3, letter</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>ES:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9920</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Agencia Española de Administración Tributaria</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.0.2</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>IT:IPA</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9921</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Indice delle Pubbliche Amministrazioni</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>AD:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9922</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Andorra VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>AL:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9923</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Albania VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>BA:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9924</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Bosnia and Herzegovina VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>BE:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9925</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Belgium VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>BG:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9926</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Bulgaria VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>CH:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9927</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Switzerland VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>CY:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9928</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Cyprus VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>CZ:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9929</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Czech Republic VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>DE:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9930</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Germany VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>EE:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9931</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Estonia VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>GB:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9932</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>United Kingdom VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>GR:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9933</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Greece VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>HR:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9934</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Croatia VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>IE:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9935</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Ireland VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>LI:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9936</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Liechtenstein VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>LT:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9937</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Lithuania VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>LU:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9938</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Luxemburg VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>LV:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9939</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Latvia VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>MC:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9940</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Monaco VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>ME:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9941</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Montenegro VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>MK:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9942</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Macedonia, the former Yugoslav Republic of VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>MT:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9943</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Malta VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>NL:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9944</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Netherlands VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>PL:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9945</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Poland VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>PT:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9946</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Portugal VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>RO:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9947</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Romania VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>RS:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9948</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Serbia VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>SI:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9949</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Slovenia VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>SK:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9950</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Slovakia VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>SM:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9951</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>San Marino VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>TR:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9952</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Turkey VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>VA:VAT</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9953</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Holy See (Vatican City State) VAT number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.0</SimpleValue>
-      </Value>
-    </Row>
-    <Row>
-      <Value ColumnRef="schemeid">
-        <SimpleValue>NL:OIN</SimpleValue>
-      </Value>
-      <Value ColumnRef="iso6523">
-        <SimpleValue>9954</SimpleValue>
-      </Value>
-      <Value ColumnRef="schemeagency">
-        <SimpleValue>Dutch Originator's Identification Number</SimpleValue>
-      </Value>
-      <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
-      </Value>
-      <Value ColumnRef="since">
-        <SimpleValue>1.1.3</SimpleValue>
-      </Value>
-    </Row>
-  </SimpleCodeList>
-</ns2:CodeList>
+- 00001 Optional specifier for organisation unit (assigned by the organisation itself)</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>DUNS</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0060</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Dun and Bradstreet Ltd</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>1) 8 digits, 1st-7th digit = number, 8th digit = check number, 2) digit</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>GLN</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0088</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>EAN International</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>1) Eight identification digits and a check digit. A two digit prefix will be added in the future but it will not be used to calculate the check digit. 2) The Organization name is not part of the D-U-N-S number.</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>DK:P</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0096</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Danish Chamber of Commerce</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>1) 13 digits including check digits, 2) None</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>IT:FTI</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0097</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>FTI - Ediforum Italia</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure: [123] [123456] [123456] [12], 17, &lt; &gt;, A B C D, A: numerical value allocated by the RA to the regional sub-authority, (3 digits), B: numerical value allocated by the sub-authority to the registered organization (mandatory part of the identifier; 6 digits), C: numerical value used by the registered organization (free part; 6 digits), D: numerical check digit calculated by the registered organization; (2 digits), Check digit computation, The check digit is modular 97 computed on ABC as one number.</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>NL:KVK</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0106</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Vereniging van Kamers van Koophandel en Fabrieken in Nederland, Scheme</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.2</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>IT:SIA</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0135</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>SIA-Società Interbancaria per l'Automazione S.p.A.</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>Structure of EDI identifier, Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure:
+[1234567] [123] [1] [12345], min 11- max 16, &lt; &gt;, A B C D, A: numerical value (7 digits) assigned by Uffico Provinciale IVA (local branch of Ministry of Finance); B: numerical value a (3 digits) identifying the County; C: numerical check digit (1 digit); D: optional numerical value (up to 5 digits0 used by the registered organization (free part). Check digit computation, The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>IT:SECETI</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>0142</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Servizi Centralizzati SECETI S.p.A.</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>First field: ICD: 4 digits, Second field: sequence of digits</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>DK:CPR</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9901</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Danish Ministry of the Interior and Health</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>1) First field: ICD: 4 digits, Second field: sequence of digits</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>DK:CVR</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9902</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>The Danish Commerce and Companies Agency</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>DK:SE</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9904</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Danish Ministry of Taxation, Central Customs and Tax Administration</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>DK:VANS</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9905</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Danish VANS providers</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>IT:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9906</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Ufficio responsabile gestione partite IVA</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>IT:CF</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9907</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>TAX Authority</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>NO:ORGNR</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9908</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Enhetsregisteret ved Bronnoysundregisterne</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>NO:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9909</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Enhetsregisteret ved Bronnoysundregisterne</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>true</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>HU:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9910</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>EU:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9912</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>National ministries of Economy</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>true</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>EU:REID</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9913</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Business Registers Network</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>AT:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9914</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Österreichische Umsatzsteuer-Identifikationsnummer</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>AT:GOV</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9915</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Österreichisches Verwaltungs bzw. Organisationskennzeichen</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>AT:CID</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9916</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Firmenidentifikationsnummer der Statistik Austria</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>true</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>IS:KT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9917</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Icelandic National Registry</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>IBAN</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9918</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.1</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>AT:KUR</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9919</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Kennziffer des Unternehmensregisters</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.2</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="structure">
+        <ns0:SimpleValue>9 characters in total; letter, number x3, letter, number x3, letter</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>ES:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9920</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Agencia Española de Administración Tributaria</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.0.2</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>IT:IPA</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9921</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Indice delle Pubbliche Amministrazioni</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>AD:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9922</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Andorra VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>AL:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9923</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Albania VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>BA:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9924</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Bosnia and Herzegovina VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>BE:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9925</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Belgium VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>BG:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9926</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Bulgaria VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>CH:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9927</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Switzerland VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>CY:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9928</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Cyprus VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>CZ:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9929</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Czech Republic VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>DE:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9930</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Germany VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>EE:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9931</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Estonia VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>GB:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9932</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>United Kingdom VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>GR:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9933</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Greece VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>HR:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9934</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Croatia VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>IE:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9935</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Ireland VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>LI:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9936</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Liechtenstein VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>LT:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9937</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Lithuania VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>LU:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9938</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Luxemburg VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>LV:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9939</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Latvia VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>MC:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9940</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Monaco VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>ME:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9941</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Montenegro VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>MK:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9942</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Macedonia, the former Yugoslav Republic of VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>MT:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9943</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Malta VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>NL:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9944</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Netherlands VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>PL:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9945</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Poland VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>PT:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9946</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Portugal VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>RO:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9947</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Romania VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>RS:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9948</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Serbia VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>SI:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9949</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Slovenia VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>SK:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9950</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Slovakia VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>SM:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9951</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>San Marino VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>TR:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9952</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Turkey VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>VA:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9953</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Holy See (Vatican City State) VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>NL:OIN</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9954</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Dutch Originator's Identification Number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.1.3</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+  </ns0:SimpleCodeList>
+</CodeList>

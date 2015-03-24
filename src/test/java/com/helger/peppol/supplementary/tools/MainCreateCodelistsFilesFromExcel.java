@@ -119,7 +119,7 @@ public final class MainCreateCodelistsFilesFromExcel
   private static final String SHEET_DOCUMENT = "Document";
   private static final String SHEET_PROCESS = "Process";
   private static final String RESULT_DIRECTORY = "src/main/resources/codelists/";
-  private static final String RESULT_PACKAGE_PREFIX = "eu.europa.ec.cipa.peppol.";
+  private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static JDefinedClass s_jEnumPredefinedDoc;
 

@@ -44,7 +44,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -117,7 +117,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
 
     m_aBusdoxParts = aBusdoxParts;
     m_sTransactionID = sTransactionID;
-    m_aExtensionIDs = ContainerHelper.newUnmodifiableList (aExtensionIDs);
+    m_aExtensionIDs = CollectionHelper.newUnmodifiableList (aExtensionIDs);
     m_sVersion = sVersion;
   }
 

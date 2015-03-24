@@ -37,26 +37,14 @@
  */
 package com.helger.peppol;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-import javax.xml.bind.DatatypeConverter;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
-import org.joda.time.chrono.ISOChronology;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.datetime.PDTFactory;
-import com.helger.datetime.config.PDTConfig;
 import com.helger.datetime.format.PDTFromString;
 
 /**
@@ -68,9 +56,6 @@ import com.helger.datetime.format.PDTFromString;
 @Immutable
 public final class DateAdapter
 {
-  /** The time zone used in the adapter */
-  public static final TimeZone TIMEZONE_UTC = TimeZone.getTimeZone ("UTC");
-
   @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final DateAdapter s_aInstance = new DateAdapter ();
@@ -78,69 +63,18 @@ public final class DateAdapter
   private DateAdapter ()
   {}
 
-  @Nonnull
-  private static DateTimeFormatter _getXSDFormatterDate ()
-  {
-    return ISODateTimeFormat.date ().withChronology (ISOChronology.getInstanceUTC ());
-  }
-
-  @Nullable
-  public static LocalDate getLocalDateFromXSD (@Nullable final String sValue)
-  {
-    final DateTime aDT = PDTFromString.getDateTimeFromString (sValue, _getXSDFormatterDate ());
-    return aDT == null ? null : aDT.withChronology (PDTConfig.getDefaultChronologyUTC ()).toLocalDate ();
-  }
-
-  @Nonnull
-  public static String getAsStringXSD (@Nullable final LocalDate aLocalDate)
-  {
-    return _getXSDFormatterDate ().print (aLocalDate == null ? PDTFactory.getCurrentLocalDate () : aLocalDate);
-  }
-
   @Nullable
   public static LocalDateTime getLocalDateTimeFromXSD (@Nullable final String sValue)
   {
-    final DateTime aDT = PDTFromString.getDateTimeFromString (sValue, _getXSDFormatterDate ());
-    return aDT == null ? null : aDT.withChronology (PDTConfig.getDefaultChronologyUTC ()).toLocalDateTime ();
+    final DateTimeFormatter aDTF = ISODateTimeFormat.dateTimeParser ();
+    return PDTFromString.getLocalDateTimeFromString (sValue, aDTF);
   }
 
-  @Nonnull
+  @Nullable
   public static String getAsStringXSD (@Nullable final LocalDateTime aLocalDateTime)
   {
-    return _getXSDFormatterDate ().print (aLocalDateTime == null ? PDTFactory.getCurrentLocalDate () : aLocalDateTime);
-  }
-
-  @Nonnull
-  public static Date parseDate (final String sDate)
-  {
-    final Calendar aCal = DatatypeConverter.parseDate (sDate);
-    final Date ret = aCal.getTime ();
-    return ret;
-  }
-
-  @Nonnull
-  public static String printDate (@Nonnull final Date aDate)
-  {
-    final Calendar aCal = new GregorianCalendar (TIMEZONE_UTC);
-    aCal.setTime (aDate);
-    final String ret = DatatypeConverter.printDate (aCal);
-    return ret;
-  }
-
-  @Nonnull
-  public static Date parseDateTime (final String sDateTime)
-  {
-    final Calendar aCal = DatatypeConverter.parseDateTime (sDateTime);
-    final Date ret = aCal.getTime ();
-    return ret;
-  }
-
-  @Nonnull
-  public static String printDateTime (@Nonnull final Date aDateTime)
-  {
-    final Calendar aCal = new GregorianCalendar (TIMEZONE_UTC);
-    aCal.setTime (aDateTime);
-    final String ret = DatatypeConverter.printDateTime (aCal);
-    return ret;
+    return aLocalDateTime == null ? null : ISODateTimeFormat.dateTimeNoMillis ()
+                                                            .withOffsetParsed ()
+                                                            .print (aLocalDateTime);
   }
 }

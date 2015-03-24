@@ -101,7 +101,7 @@ public class MainCreateEnumsGenericode
       return;
     }
 
-    final JDefinedClass jEnum = s_aCodeModel._package ("eu.europa.ec.cipa.peppol.codelist")
+    final JDefinedClass jEnum = s_aCodeModel._package ("com.helger.peppol.codelist")
                                             ._enum ("E" +
                                                     RegExHelper.getAsIdentifier (aCodeList10.getIdentification ()
                                                                                             .getShortName ()

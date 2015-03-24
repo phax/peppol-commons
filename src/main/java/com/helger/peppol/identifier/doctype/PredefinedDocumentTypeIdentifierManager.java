@@ -49,7 +49,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.ContainerHelper;
+import com.helger.commons.collections.CollectionHelper;
 import com.helger.peppol.identifier.IdentifierUtils;
 
 /**
@@ -58,7 +58,7 @@ import com.helger.peppol.identifier.IdentifierUtils;
  * This class provides sanity methods around
  * {@link EPredefinedDocumentTypeIdentifier} which would be to bogus to generate
  * them.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
@@ -88,7 +88,7 @@ public final class PredefinedDocumentTypeIdentifierManager
   @ReturnsMutableCopy
   public static Collection <IPeppolPredefinedDocumentTypeIdentifier> getAllDocumentTypeIdentifiers ()
   {
-    return ContainerHelper.newList (s_aCodes.values ());
+    return CollectionHelper.newList (s_aCodes.values ());
   }
 
   /**
@@ -99,13 +99,13 @@ public final class PredefinedDocumentTypeIdentifierManager
   @ReturnsMutableCopy
   public static Set <String> getAllDocumentTypeIdentifierIDs ()
   {
-    return ContainerHelper.newSet (s_aCodes.keySet ());
+    return CollectionHelper.newSet (s_aCodes.keySet ());
   }
 
   /**
    * Find the document identifier with the given ID. This search is done case
    * insensitive.
-   * 
+   *
    * @param sDocTypeIDValue
    *        The value to search. Without any identifier scheme! May be
    *        <code>null</code>.
@@ -126,7 +126,7 @@ public final class PredefinedDocumentTypeIdentifierManager
 
   /**
    * Check if a document identifier with the given ID exists.
-   * 
+   *
    * @param sDocTypeIDValue
    *        The value to search. Without any identifier scheme! May be
    *        <code>null</code>.
