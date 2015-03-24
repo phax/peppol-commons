@@ -79,30 +79,10 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class ConfigFile
 {
-  private static final class SingletonHolder
-  {
-    static final ConfigFile s_aInstance = new ConfigFile ();
-  }
-
-  /** Default file name for the private config file */
-  public static final String DEFAULT_PRIVATE_CONFIG_PROPERTIES = "private-config.properties";
-
-  /** Default file name for the regular config file */
-  public static final String DEFAULT_CONFIG_PROPERTIES = "config.properties";
-
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConfigFile.class);
 
   private final boolean m_bRead;
   private final Properties m_aProps = new Properties ();
-
-  /**
-   * Default constructor for the default file paths (private-config.properties
-   * and afterwards config.properties)
-   */
-  private ConfigFile ()
-  {
-    this (DEFAULT_PRIVATE_CONFIG_PROPERTIES, DEFAULT_CONFIG_PROPERTIES);
-  }
 
   /**
    * Constructor for explicitly specifying a file path to read.
@@ -162,17 +142,6 @@ public class ConfigFile
       }
     }
     return ESuccess.FAILURE;
-  }
-
-  /**
-   * @return The default configuration file denoted by the file names
-   *         {@value #DEFAULT_PRIVATE_CONFIG_PROPERTIES} and
-   *         {@value #DEFAULT_CONFIG_PROPERTIES}.
-   */
-  @Nonnull
-  public static ConfigFile getInstance ()
-  {
-    return SingletonHolder.s_aInstance;
   }
 
   /**

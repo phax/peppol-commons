@@ -50,7 +50,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link ConfigFile}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class ConfigFileTest
@@ -58,7 +58,7 @@ public final class ConfigFileTest
   @Test
   public void testAll ()
   {
-    final ConfigFile aCF = ConfigFile.getInstance ();
+    final ConfigFile aCF = new ConfigFile ("config.properties");
     assertTrue (aCF.isRead ());
     // Existing elements
     assertEquals ("string", aCF.getString ("element1"));
