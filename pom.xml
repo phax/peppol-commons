@@ -148,7 +148,7 @@
           <instructions>
             <Export-Package>
               com.helger.peppol.*,
-              org.busdox.servicemetadata.*,
+              org.busdox.servicemetadata.publishing._1,
               org.busdox.transport.identifiers._1,
               org.w3._2000._09.xmldsig
             </Export-Package>
@@ -158,78 +158,6 @@
           </instructions>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.jvnet.jax-ws-commons</groupId>
-        <artifactId>jaxws-maven-plugin</artifactId>
-        <version>${jaxws-plugin.version}</version>
-        <executions>
-          <!-- Use one execution per WSDL file, as the wsdlLocation can specify only one file at a time. The wsdlLocation is the location how the WSDL file will be referenced in the code (using class.getResource). Also important: use a different stale file for each WSDL file! Also important: path must be "/WEB-INF/wsdl" because this is how the deployment descriptor needs it. It must be absolute because class.getResource is used and we therefore need an asbolute path! -->
-          <execution>
-            <id>wsimport1</id>
-            <goals>
-              <goal>wsimport</goal>
-            </goals>
-            <configuration>
-              <wsdlFiles>
-                <wsdlFile>ManageBusinessIdentifierService-1.0.wsdl</wsdlFile>
-              </wsdlFiles>
-              <wsdlLocation>/WEB-INF/wsdl/ManageBusinessIdentifierService-1.0.wsdl</wsdlLocation>
-              <staleFile>${project.build.directory}/stale/.stale-wsimport1</staleFile>
-            </configuration>
-          </execution>
-          <execution>
-            <id>wsimport2</id>
-            <goals>
-              <goal>wsimport</goal>
-            </goals>
-            <configuration>
-              <wsdlFiles>
-                <wsdlFile>ManageServiceMetadataService-1.0.wsdl</wsdlFile>
-              </wsdlFiles>
-              <wsdlLocation>/WEB-INF/wsdl/ManageServiceMetadataService-1.0.wsdl</wsdlLocation>
-              <staleFile>${project.build.directory}/stale/.stale-wsimport2</staleFile>
-            </configuration>
-          </execution>
-        </executions>
-        <configuration>
-          <wsdlDirectory>src/main/resources/WEB-INF/wsdl</wsdlDirectory>
-          <bindingDirectory>src/main/jaxb</bindingDirectory>
-          <!-- We need to use the same output directory as the JAXB call, because both wsimport and JAXB are creating code for the Identifiers-x.y.xsd file! -->
-          <sourceDestDir>target/generated-sources/xjc</sourceDestDir>
-          <target>2.1</target>
-          <xjcArgs>
-            <xjcArg>-no-header</xjcArg>
-            <!-- <xjcArg>-extension</xjcArg> <xjcArg>-episode</xjcArg> -->
-            <xjcArg>-Xph-default-locale</xjcArg>
-            <xjcArg>en_US</xjcArg>
-            <xjcArg>-Xph-annotate</xjcArg>
-            <xjcArg>-Xph-fields-private</xjcArg>
-            <xjcArg>-Xph-code-quality</xjcArg>
-            <xjcArg>-Xph-implements</xjcArg>
-            <xjcArg>java.io.Serializable</xjcArg>
-            <xjcArg>-Xph-equalshashcode</xjcArg>
-            <xjcArg>-Xph-tostring</xjcArg>
-            <xjcArg>-Xph-list-extension</xjcArg>
-          </xjcArgs>
-          <!-- Required to work with a JDK 1.8 JVM! -->
-          <vmArgs>
-            <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
-          </vmArgs>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-tools</artifactId>
-            <version>${jaxws.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>com.helger</groupId>
-            <artifactId>ph-jaxb22-plugin</artifactId>
-            <version>2.2.11.3</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <!-- Additional JAXB plugin for all XSDs not covered in the WSDLs Note: if executing this step fails, you don't have the Metro library webservices-api.jar in your endorsed directory! -->
       <plugin>
         <groupId>org.jvnet.jaxb2.maven2</groupId>
         <artifactId>maven-jaxb2-plugin</artifactId>
