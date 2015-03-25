@@ -40,15 +40,17 @@
  */
 package com.helger.peppol.identifier;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 
 /**
  * Base interface for a single read-only identifier independent of its usage
  * (participant, document or process).
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IReadonlyIdentifier
+public interface IReadonlyIdentifier extends Serializable
 {
   /**
    * @return The scheme used. Never <code>null</code>.
