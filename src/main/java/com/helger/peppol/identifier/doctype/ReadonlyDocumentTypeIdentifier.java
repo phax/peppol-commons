@@ -54,11 +54,8 @@ import com.helger.peppol.identifier.IdentifierUtils;
  * This is an immutable sanity class around the {@link DocumentIdentifierType}
  * class with easier construction and some sanity access methods. It may be used
  * in all places where {@link DocumentIdentifierType} objects are required.<br>
- * Important note: this class implements {@link #equals(Object)} and
- * {@link #hashCode()} where its base class does not. So be careful when mixing
- * this class and its base class!<br>
  * For a mutable version, please check {@link SimpleDocumentTypeIdentifier}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
@@ -124,7 +121,7 @@ public final class ReadonlyDocumentTypeIdentifier extends DocumentIdentifierType
   /**
    * Create a document type identifier with the common scheme as defined by
    * {@link CIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
-   * 
+   *
    * @param sValue
    *        The document type identifier value
    * @return The readonly document identifier

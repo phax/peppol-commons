@@ -53,10 +53,7 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
  * This is a sanity class around the {@link DocumentIdentifierType} class with
  * easier construction and some sanity access methods. It may be used in all
  * places where {@link DocumentIdentifierType} objects are required.<br>
- * Important note: this class implements {@link #equals(Object)} and
- * {@link #hashCode()} where its base class does not. So be careful when mixing
- * this class and its base class!
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier
@@ -102,7 +99,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   /**
    * Create a new document type identifier that uses the default schema
    * {@link CIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
-   * 
+   *
    * @param sValue
    *        The identifier value like
    *        <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
@@ -118,7 +115,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   /**
    * Create a new document type identifier from the URI representation. This is
    * the inverse operation of {@link #getURIEncoded()}.
-   * 
+   *
    * @param sURIPart
    *        The URI part
    *        <code>busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
@@ -137,7 +134,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   /**
    * Create a new document type identifier from the URI representation. This is
    * the inverse operation of {@link #getURIEncoded()}.
-   * 
+   *
    * @param sURIPart
    *        The URI part
    *        <code>busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>

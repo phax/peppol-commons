@@ -52,11 +52,8 @@ import com.helger.peppol.identifier.validator.IdentifierValidator;
 /**
  * This is a sanity class around the {@link ParticipantIdentifierType} class
  * with easier construction and some sanity access methods. It may be used in
- * all places where {@link ParticipantIdentifierType} objects are required.<br>
- * Important note: this class implements {@link #equals(Object)} and
- * {@link #hashCode()} where its base class does not. So be careful when mixing
- * this class and its base class!
- * 
+ * all places where {@link ParticipantIdentifierType} objects are required.
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier
@@ -113,7 +110,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   /**
    * Create a new participant identifier that uses the default schema
    * {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
-   * 
+   *
    * @param sValue
    *        The identifier value like <code>0088:12345678</code>
    * @return The created {@link SimpleParticipantIdentifier} and never
@@ -128,7 +125,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   /**
    * Create a new participant identifier from the URI representation. This is
    * the inverse operation of {@link #getURIEncoded()}.
-   * 
+   *
    * @param sURIPart
    *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
    *        must NOT be percent encoded!
@@ -146,7 +143,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   /**
    * Create a new participant identifier from the URI representation. This is
    * the inverse operation of {@link #getURIEncoded()}.
-   * 
+   *
    * @param sURIPart
    *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
    *        must NOT be percent encoded!
