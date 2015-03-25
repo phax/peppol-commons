@@ -67,6 +67,9 @@ public final class SimpleParticipantIdentifierTest
     final SimpleParticipantIdentifier aID2 = new SimpleParticipantIdentifier (aID);
     assertEquals ("scheme-actorid-test", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
+
+    assertEquals (aID, aID2);
+    PHTestUtils.testMicroTypeConversion (aID2);
   }
 
   @Test

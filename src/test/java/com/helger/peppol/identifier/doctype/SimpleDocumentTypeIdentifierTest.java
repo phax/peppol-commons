@@ -70,6 +70,9 @@ public final class SimpleDocumentTypeIdentifierTest
     final SimpleDocumentTypeIdentifier aID2 = new SimpleDocumentTypeIdentifier (aID);
     assertEquals ("scheme", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
+
+    assertEquals (aID, aID2);
+    PHTestUtils.testMicroTypeConversion (aID2);
   }
 
   @Test
