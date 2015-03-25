@@ -85,6 +85,9 @@ public final class ExtensionConverterTest
     {
       // expected
     }
+
+    // Cannot convert non-element
+    assertNull (ExtensionConverter.convertOrNull ("Plain text"));
   }
 
   @Test
