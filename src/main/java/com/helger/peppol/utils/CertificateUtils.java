@@ -55,7 +55,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Some utility methods handling certificates.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -86,7 +86,7 @@ public final class CertificateUtils
 
   /**
    * Convert the passed String to an X.509 certificate.
-   * 
+   *
    * @param sCertString
    *        The original text string. May be <code>null</code> or empty. The
    *        String must be ISO-8859-1 encoded for the binary certificate to be
@@ -135,5 +135,44 @@ public final class CertificateUtils
       return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
                                                                                                CCharset.CHARSET_ISO_8859_1_OBJ));
     }
+  }
+
+  /**
+   * The certificate string needs to be emitted in portions of 64 characters. If
+   * characters are left, than &lt;CR>&lt;LF> ("\r\n") must be added to the
+   * string so that the next characters start on a new line. After the last
+   * part, no &lt;CR>&lt;LF> is needed. Respective RFC parts are 1421 4.3.2.2
+   * and 4.3.2.4
+   *
+   * @param sCertificate
+   *        Original certificate string as stored in the DB
+   * @return The RFC 1421 compliant string
+   */
+  @Nullable
+  public static String getRFC1421CompliantString (@Nullable final String sCertificate)
+  {
+    if (StringHelper.hasNoText (sCertificate))
+      return sCertificate;
+
+    // Remove all existing whitespace characters
+    String sPlainString = StringHelper.getWithoutAnySpaces (sCertificate);
+
+    // Start building the result
+    final int nMaxLineLength = 64;
+    final String sCRLF = "\r\n";
+    final StringBuilder aSB = new StringBuilder ();
+    while (sPlainString.length () > nMaxLineLength)
+    {
+      // Append line + CRLF
+      aSB.append (sPlainString, 0, nMaxLineLength).append (sCRLF);
+
+      // Remove the start of the string
+      sPlainString = sPlainString.substring (nMaxLineLength);
+    }
+
+    // Append the rest
+    aSB.append (sPlainString);
+
+    return aSB.toString ();
   }
 }

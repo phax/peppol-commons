@@ -157,4 +157,26 @@ public final class ExtensionConverter
 
     return null;
   }
+
+  /**
+   * Convert the passed XML string to an SMP extension type.
+   *
+   * @param sXML
+   *        the XML representation to be converted.
+   * @return <code>null</code> if the passed string is empty or cannot be
+   *         converted to a XML node
+   */
+  @Nullable
+  public static ExtensionType convertOrNull (@Nullable final String sXML)
+  {
+    try
+    {
+      return convert (sXML);
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // Invalid XML passed
+      return null;
+    }
+  }
 }

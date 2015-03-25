@@ -47,12 +47,13 @@ import static org.junit.Assert.fail;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 
 import org.junit.Test;
 
 /**
  * Test class for class {@link CertificateUtils}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class CertificateUtilsTest
@@ -103,5 +104,29 @@ public final class CertificateUtilsTest
     {
       // expected
     }
+  }
+
+  @Test
+  public void testGetRFC1421CompliantString ()
+  {
+    assertNull (CertificateUtils.getRFC1421CompliantString (null));
+    assertEquals ("", CertificateUtils.getRFC1421CompliantString (""));
+
+    // for up to 64 chars it makes no difference
+    for (int i = 0; i <= 64; ++i)
+    {
+      final char [] aChars = new char [i];
+      Arrays.fill (aChars, 'a');
+      final String sText = new String (aChars);
+      assertEquals (sText, CertificateUtils.getRFC1421CompliantString (sText));
+    }
+
+    final String sLong = "123456789012345678901234567890123456789012345678901234567890abcd"
+                         + "123456789012345678901234567890123456789012345678901234567890abcd"
+                         + "xyz";
+    final String sFormatted = CertificateUtils.getRFC1421CompliantString (sLong);
+    assertEquals ("123456789012345678901234567890123456789012345678901234567890abcd\r\n"
+                  + "123456789012345678901234567890123456789012345678901234567890abcd\r\n"
+                  + "xyz", sFormatted);
   }
 }
