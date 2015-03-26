@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.utils;
+package com.helger.peppol.smp;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -51,34 +51,36 @@ import org.busdox.servicemetadata.publishing._1.ObjectFactory;
 import org.junit.Test;
 import org.w3c.dom.Element;
 
+import com.helger.peppol.smp.SMPExtensionConverter;
+
 /**
- * Test class for class {@link ExtensionConverter}.
+ * Test class for class {@link SMPExtensionConverter}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ExtensionConverterTest
+public final class SMPExtensionConverterTest
 {
   @Test
   public void testConvertFromString ()
   {
     // Use elements
     final String sXML = "<any xmlns=\"urn:foo\"><child>text1</child><child2 /></any>";
-    final ExtensionType aExtension = ExtensionConverter.convert (sXML);
+    final ExtensionType aExtension = SMPExtensionConverter.convert (sXML);
     assertNotNull (aExtension);
     assertNotNull (aExtension.getAny ());
     assertTrue (aExtension.getAny () instanceof Element);
 
-    assertNull (ExtensionConverter.convert ((String) null));
-    assertNull (ExtensionConverter.convert (""));
+    assertNull (SMPExtensionConverter.convert ((String) null));
+    assertNull (SMPExtensionConverter.convert (""));
 
     // Convert back to String
-    final String sXML2 = ExtensionConverter.convert (aExtension);
+    final String sXML2 = SMPExtensionConverter.convert (aExtension);
     assertEquals (sXML, sXML2);
 
     try
     {
       // Cannot convert non-element
-      ExtensionConverter.convert ("Plain text");
+      SMPExtensionConverter.convert ("Plain text");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -87,14 +89,14 @@ public final class ExtensionConverterTest
     }
 
     // Cannot convert non-element
-    assertNull (ExtensionConverter.convertOrNull ("Plain text"));
+    assertNull (SMPExtensionConverter.convertOrNull ("Plain text"));
   }
 
   @Test
   public void testConvertFromExtensionType ()
   {
     // Try converting an empty extension
-    assertNull (ExtensionConverter.convert ((ExtensionType) null));
-    assertNull (ExtensionConverter.convert (new ObjectFactory ().createExtensionType ()));
+    assertNull (SMPExtensionConverter.convert ((ExtensionType) null));
+    assertNull (SMPExtensionConverter.convert (new ObjectFactory ().createExtensionType ()));
   }
 }

@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.utils;
+package com.helger.peppol.smp;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -63,12 +63,12 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
 
 /**
  * This class is used for converting between a String representation of the
- * extension element and the "ExtensionType" complex type.
+ * extension element and the "ExtensionType" complex type used in the SMP.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public final class ExtensionConverter
+public final class SMPExtensionConverter
 {
   private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE)
                                                                           .setIndent (EXMLSerializeIndent.NONE);
@@ -76,9 +76,9 @@ public final class ExtensionConverter
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
-  private static final ExtensionConverter s_aInstance = new ExtensionConverter ();
+  private static final SMPExtensionConverter s_aInstance = new SMPExtensionConverter ();
 
-  private ExtensionConverter ()
+  private SMPExtensionConverter ()
   {}
 
   /**
