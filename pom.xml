@@ -114,14 +114,14 @@
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>ph-genericode</artifactId>
-      <version>3.3.1</version>
+      <artifactId>ph-poi</artifactId>
+      <version>2.9.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>ph-poi</artifactId>
-      <version>2.9.3</version>
+      <artifactId>ph-genericode</artifactId>
+      <version>3.3.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -133,7 +133,7 @@
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk15on</artifactId>
-      <version>1.51</version>
+      <version>1.52</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
