@@ -74,7 +74,7 @@ public final class SMPExtensionConverterTest
     assertNull (SMPExtensionConverter.convert (""));
 
     // Convert back to String
-    final String sXML2 = SMPExtensionConverter.convert (aExtension);
+    final String sXML2 = SMPExtensionConverter.convertToString (aExtension);
     assertEquals (sXML, sXML2);
 
     try
@@ -96,7 +96,7 @@ public final class SMPExtensionConverterTest
   public void testConvertFromExtensionType ()
   {
     // Try converting an empty extension
-    assertNull (SMPExtensionConverter.convert ((ExtensionType) null));
-    assertNull (SMPExtensionConverter.convert (new ObjectFactory ().createExtensionType ()));
+    assertNull (SMPExtensionConverter.convertToString ((ExtensionType) null));
+    assertNull (SMPExtensionConverter.convertToString (new ObjectFactory ().createExtensionType ()));
   }
 }

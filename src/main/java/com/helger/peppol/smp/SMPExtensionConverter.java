@@ -92,7 +92,7 @@ public final class SMPExtensionConverter
    *         If the Extension cannot be converted to a String
    */
   @Nullable
-  public static String convert (@Nullable final ExtensionType aExtension)
+  public static String convertToString (@Nullable final ExtensionType aExtension)
   {
     // If there is no extension present, nothing to convert
     if (aExtension == null)
