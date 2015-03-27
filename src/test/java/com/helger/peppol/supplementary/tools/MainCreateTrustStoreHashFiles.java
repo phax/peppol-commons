@@ -85,6 +85,7 @@ public final class MainCreateTrustStoreHashFiles
 
   public static void main (final String [] args)
   {
-    _create (KeyStoreUtils.TRUSTSTORE_CLASSPATH);
+    _create (KeyStoreUtils.TRUSTSTORE_PRODUCTION_CLASSPATH);
+    _create (KeyStoreUtils.TRUSTSTORE_PILOT_CLASSPATH);
   }
 }
