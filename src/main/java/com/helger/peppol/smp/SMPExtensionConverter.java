@@ -46,15 +46,10 @@ import javax.annotation.concurrent.Immutable;
 import org.busdox.servicemetadata.publishing._1.ExtensionType;
 import org.busdox.servicemetadata.publishing._1.ObjectFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.commons.xml.serialize.DOMReader;
 import com.helger.commons.xml.serialize.EXMLSerializeDocType;
 import com.helger.commons.xml.serialize.EXMLSerializeIndent;
@@ -99,29 +94,7 @@ public final class SMPExtensionConverter
       return null;
 
     // Get the extension content
-    final Object aExtensionElement = aExtension.getAny ();
-    if (aExtensionElement == null)
-      return null;
-
-    // Handle DOM nodes directly
-    if (aExtensionElement instanceof Node)
-      return XMLWriter.getNodeAsString ((Node) aExtensionElement, s_aXWS);
-
-    // Handle Micro nodes also directly
-    if (aExtensionElement instanceof IMicroNode)
-      return MicroWriter.getNodeAsString ((IMicroNode) aExtensionElement, s_aXWS);
-
-    try
-    {
-      // Call the global type converter - maybe it helps :)
-      return TypeConverter.convertIfNecessary (aExtensionElement, String.class);
-    }
-    catch (final TypeConverterException ex)
-    {
-      // FIXME the extension may contain multiple elements (e.g. lists)
-      throw new IllegalArgumentException ("Don't know how to convert the extension element of type " +
-                                          aExtension.getClass ().getName ());
-    }
+    return XMLWriter.getNodeAsString (aExtension.getAny (), s_aXWS);
   }
 
   /**
