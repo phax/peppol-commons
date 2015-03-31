@@ -338,7 +338,7 @@ that redirect. It is the responsibility of the client to enforce this constraint
   <xs:complexType name="ExtensionType">
     <xs:annotation>
       <xs:documentation>
-Child elements of the &lt;smp:Extension&gt; element are known as &quot;custom 
+Child elements of the [smp:Extension] element are known as &quot;custom 
 extension elements&quot;. Extension points may be used for optional extensions 
 of service metadata. This implies:
 * Extension elements added to a specific Service Metadata resource MUST be ignorable 
@@ -350,8 +350,7 @@ resource instances.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <!-- TODO processContents="skip" will be added after 1.1.0 -->
-      <xs:any />
+      <xs:any processContents="skip"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>
