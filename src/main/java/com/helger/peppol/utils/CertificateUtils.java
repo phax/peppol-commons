@@ -139,10 +139,10 @@ public final class CertificateUtils
 
   /**
    * The certificate string needs to be emitted in portions of 64 characters. If
-   * characters are left, than &lt;CR>&lt;LF> ("\r\n") must be added to the
-   * string so that the next characters start on a new line. After the last
-   * part, no &lt;CR>&lt;LF> is needed. Respective RFC parts are 1421 4.3.2.2
-   * and 4.3.2.4
+   * characters are left, than &lt;CR&gt;&lt;LF&gt; ("\r\n") must be added to
+   * the string so that the next characters start on a new line. After the last
+   * part, no &lt;CR&gt;&lt;LF&gt; is needed. Respective RFC parts are 1421
+   * 4.3.2.2 and 4.3.2.4
    *
    * @param sCertificate
    *        Original certificate string as stored in the DB

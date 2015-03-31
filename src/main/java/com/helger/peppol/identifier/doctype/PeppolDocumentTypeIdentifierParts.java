@@ -211,9 +211,10 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
    * Extract the PEPPOL document identifier elements from the passed document
    * identifier value. The different of the PEPPOL document identifier parts to
    * the BusDox document identifier parts is, that the PEPPOL subtype identifier
-   * is further defined as <code>&lt;customization id>::&lt;version></code>. The
-   * customization ID can be further detailed into
-   * <code>&lt;transactionId>:#&lt;extensionId>[#&lt;extensionId>]</code>
+   * is further defined as
+   * <code>&lt;customization id&gt;::&lt;version&gt;</code>. The customization
+   * ID can be further detailed into
+   * <code>&lt;transactionId&gt;:#&lt;extensionId&gt;[#&lt;extensionId&gt;]</code>
    *
    * @param sDocTypeID
    *        The document identifier value to be split. May neither be

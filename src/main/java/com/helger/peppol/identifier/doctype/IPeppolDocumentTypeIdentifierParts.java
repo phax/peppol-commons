@@ -50,9 +50,9 @@ import com.helger.peppol.identifier.IBusdoxDocumentTypeIdentifierParts;
 /**
  * Contains all the different fields of a document identifier for PEPPOL in BIS
  * V1 style. Note: the sub type identifier is specified in more detail than in
- * BusDox: <code>&lt;customization id>::&lt;version></code> even more detailed
- * the customization ID can be split further:
- * <code>&lt;transactionId>:#&lt;extensionId>[#&lt;extensionId>]::&lt;version></code>
+ * BusDox: <code>&lt;customization id&gt;::&lt;version&gt;</code> even more
+ * detailed the customization ID can be split further:
+ * <code>&lt;transactionId&gt;:#&lt;extensionId&gt;[#&lt;extensionId&gt;]::&lt;version&gt;</code>
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
