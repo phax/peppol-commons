@@ -46,13 +46,18 @@ import java.net.URL;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.exceptions.InitializationException;
 
 /**
  * Simple enumeration for differentiating the different available SMLs.
  * <ul>
- * <li>PRODUCTION - used for production environment</li>
- * <li>TEST - used for test environment</li>
- * <li>DEVELOPMENT - used for development environment</li>
+ * <li>DIGIT_PRODUCTION - DIGIT production URL - valid from June 9th, 2015
+ * <li>DIGIT_TEST - DIGIT test URL - valid from June 9th, 2015
+ * <li>PRODUCTION - used for production environment - valid until June 9th, 2015
+ * </li>
+ * <li>TEST - used for test environment - valid until June 9th, 2015</li>
+ * <li>DEVELOPMENT - used for development environment - valid until June 9th,
+ * 2015</li>
  * <li>DEVELOPMENT_LOCAL - used for development environment assuming the
  * management application is running on localhost in the ROOT context!</li>
  * </ul>
@@ -61,26 +66,59 @@ import com.helger.commons.annotations.Nonempty;
  */
 public enum ESML implements ISMLInfo
 {
-  /** https://sml.peppolcentral.org */
-  PRODUCTION ("sml.peppolcentral.org.", "https://sml.peppolcentral.org", "https://sml.peppolcentral.org"),
-  /** https://smk.peppolcentral.org */
-  TEST ("smk.peppolcentral.org.", "https://smk.peppolcentral.org", "https://smk.peppolcentral.org"),
-  /** http://plixvde2 */
-  DEVELOPMENT ("smj.peppolcentral.org.", "http://plixvde2", "http://plixvde2/ServiceMetadataLocatorManagement"),
+  /** DIGIT production URL - valid from June 9th, 2015 */
+  DIGIT_PRODUCTION ("edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu/edelivery-sml", true),
+  /** DIGIT test URL - valid from June 9th, 2015 */
+  DIGIT_TEST ("acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true),
+  /** https://sml.peppolcentral.org - valid until June 9th, 2015 */
+  PRODUCTION ("sml.peppolcentral.org.", "https://sml.peppolcentral.org", true),
+  /** https://smk.peppolcentral.org - valid until June 9th, 2015 */
+  TEST ("smk.peppolcentral.org.", "https://smk.peppolcentral.org", true),
+  /** http://plixvde2 - valid until June 9th, 2015 */
+  DEVELOPMENT ("smj.peppolcentral.org.", "http://plixvde2/ServiceMetadataLocatorManagement", false),
   /** http://localhost:8080 */
-  DEVELOPMENT_LOCAL ("smj.peppolcentral.org.", "http://localhost:8080", "http://localhost:8080");
+  DEVELOPMENT_LOCAL ("smj.peppolcentral.org.", "http://localhost:8080", false);
 
   private final String m_sDNSZone;
-  private final String m_sManagementHostName;
   private final String m_sManagementServiceURL;
+  private final boolean m_bRequiresClientCertificate;
+  private final URL m_aManageServiceMetaDataEndpointAddress;
+  private final URL m_aManageParticipantIdentifierEndpointAddress;
 
+  /**
+   * Constructor
+   *
+   * @param sDNSZone
+   *        DNS zone name. Must not start with a "." but must end with a "."
+   * @param sManagementServiceURL
+   *        The base service URL uses as the basis for participant and metadata
+   *        management.
+   * @param bRequiresClientCertificate
+   *        <code>true</code> if this server requires a client certificate,
+   *        <code>false</code> if not.
+   * @throws MalformedURLException
+   */
   private ESML (@Nonnull @Nonempty final String sDNSZone,
-                @Nonnull @Nonempty final String sManagementHostName,
-                @Nonnull @Nonempty final String sManagementServiceURL)
+                @Nonnull @Nonempty final String sManagementServiceURL,
+                final boolean bRequiresClientCertificate)
   {
     m_sDNSZone = sDNSZone;
-    m_sManagementHostName = sManagementHostName;
     m_sManagementServiceURL = sManagementServiceURL;
+    m_bRequiresClientCertificate = bRequiresClientCertificate;
+    try
+    {
+      // Create once
+      m_aManageServiceMetaDataEndpointAddress = new URL (m_sManagementServiceURL +
+                                                         '/' +
+                                                         CSMLDefault.MANAGEMENT_SERVICE_METADATA);
+      m_aManageParticipantIdentifierEndpointAddress = new URL (m_sManagementServiceURL +
+                                                               '/' +
+                                                               CSMLDefault.MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER);
+    }
+    catch (final MalformedURLException ex)
+    {
+      throw new InitializationException ("Failed to convert to URL", ex);
+    }
   }
 
   @Nonnull
@@ -99,13 +137,6 @@ public enum ESML implements ISMLInfo
 
   @Nonnull
   @Nonempty
-  public String getManagementHostName ()
-  {
-    return m_sManagementHostName;
-  }
-
-  @Nonnull
-  @Nonempty
   public String getManagementServiceURL ()
   {
     return m_sManagementServiceURL;
@@ -114,33 +145,17 @@ public enum ESML implements ISMLInfo
   @Nonnull
   public URL getManageServiceMetaDataEndpointAddress ()
   {
-    final String sURL = m_sManagementServiceURL + '/' + CSMLDefault.MANAGEMENT_SERVICE_METADATA;
-    try
-    {
-      return new URL (sURL);
-    }
-    catch (final MalformedURLException ex)
-    {
-      throw new IllegalStateException ("Failed to convert '" + sURL + "' to URL", ex);
-    }
+    return m_aManageServiceMetaDataEndpointAddress;
   }
 
   @Nonnull
   public URL getManageParticipantIdentifierEndpointAddress ()
   {
-    final String sURL = m_sManagementServiceURL + '/' + CSMLDefault.MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER;
-    try
-    {
-      return new URL (sURL);
-    }
-    catch (final MalformedURLException ex)
-    {
-      throw new IllegalStateException ("Failed to convert '" + sURL + "' to URL", ex);
-    }
+    return m_aManageParticipantIdentifierEndpointAddress;
   }
 
   public boolean requiresClientCertificate ()
   {
-    return this == PRODUCTION || this == TEST;
+    return m_bRequiresClientCertificate;
   }
 }
