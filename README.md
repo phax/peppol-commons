@@ -6,7 +6,7 @@ This is based on the cipa-commons-busdox and cipa-peppol-types project version 2
 This project is used implicitly by the following projects:
   * [peppol-sml-client](https://github.com/phax/peppol-sml-client/) - the SML client library
   * [peppol-smp-client](https://github.com/phax/peppol-smp-client/) - the SMP client library
-  * [peppol-smp-server-library](https://github.com/phax/peppol-smp-server-library/) - the SMP server library
+  * [peppol-smp-server-library](https://github.com/phax/peppol-smp-server-library/) - the SMP server library with the shared code use in all SMP server implementations.
   * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the SMP server with a database backend
   * [peppol-smp-server-lightweight](https://github.com/phax/peppol-smp-server-lightweight/) - the SMP server with a file-based backend
 
