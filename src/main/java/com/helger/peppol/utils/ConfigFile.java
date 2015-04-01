@@ -57,6 +57,7 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.SystemProperties;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
@@ -237,6 +238,25 @@ public class ConfigFile
     for (final Map.Entry <Object, Object> o : m_aProps.entrySet ())
       ret.put ((String) o.getKey (), (String) o.getValue ());
     return ret;
+  }
+
+  /**
+   * This is a utility method, that applies all Java network/proxy system
+   * properties which are present in the configuration file.
+   *
+   * @see PeppolTechnicalSetup#getAllJavaNetSystemProperties()
+   */
+  public void applyAllNetworkSystemProperties ()
+  {
+    for (final String sProperty : PeppolTechnicalSetup.getAllJavaNetSystemProperties ())
+    {
+      final String sConfigFileValue = getString (sProperty);
+      if (sConfigFileValue != null)
+      {
+        SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
+        s_aLogger.info ("Set Java network/proxy system property: " + sProperty + "=" + sConfigFileValue);
+      }
+    }
   }
 
   @Override
