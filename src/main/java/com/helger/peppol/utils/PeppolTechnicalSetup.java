@@ -123,7 +123,10 @@ public final class PeppolTechnicalSetup
   {
     // http://docs.oracle.com/javase/7/docs/technotes/guides/security/jsse/ReadDebug.html
     // http://download.oracle.com/javase/6/docs/technotes/guides/net/proxies.html
+    // The first 2 (*.debug) should both be set to "all" to have the most
+    // effects
     return new String [] { "javax.net.debug",
+                          "java.security.debug",
                           "java.net.useSystemProxies",
                           "http.proxyHost",
                           "http.proxyPort",
