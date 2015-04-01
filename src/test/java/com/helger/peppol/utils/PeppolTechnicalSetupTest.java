@@ -38,12 +38,12 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol;
+package com.helger.peppol.utils;
 
 import org.junit.Test;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.peppol.PeppolTechnicalSetup;
+import com.helger.peppol.utils.PeppolTechnicalSetup;
 
 /**
  * Test class for class {@link PeppolTechnicalSetup}.

@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol;
+package com.helger.peppol.utils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
