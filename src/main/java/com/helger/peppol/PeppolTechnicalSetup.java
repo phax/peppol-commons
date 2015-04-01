@@ -40,24 +40,26 @@
  */
 package com.helger.peppol;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.SystemProperties;
 import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 
 /**
- * Constants for this BusDox implementation.
+ * Utility methods for this library.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public final class CBusDox
+public final class PeppolTechnicalSetup
 {
   @SuppressWarnings ("unused")
   @PresentForCodeCoverage
-  private static final CBusDox s_aInstance = new CBusDox ();
+  private static final PeppolTechnicalSetup s_aInstance = new PeppolTechnicalSetup ();
 
-  private CBusDox ()
+  private PeppolTechnicalSetup ()
   {}
 
   /**
@@ -104,5 +106,29 @@ public final class CBusDox
     SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityServerTube.dump", Boolean.toString (bDebug));
     SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityClientTube.dump", Boolean.toString (bDebug));
     SystemProperties.setPropertyValue ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", Boolean.toString (bDebug));
+  }
+
+  /**
+   * Get a set of system property names which are relevant for network
+   * debugging/proxy handling. This method is meant to be used for reading the
+   * appropriate settings from a configuration file.
+   *
+   * @return An array with all system property names which are relevant for
+   *         debugging/proxy handling. Never <code>null</code> and never empty.
+   *         Each call returns a new array.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static String [] getAllJavaNetSystemProperties ()
+  {
+    // http://docs.oracle.com/javase/7/docs/technotes/guides/security/jsse/ReadDebug.html
+    // http://download.oracle.com/javase/6/docs/technotes/guides/net/proxies.html
+    return new String [] { "javax.net.debug",
+                          "java.net.useSystemProxies",
+                          "http.proxyHost",
+                          "http.proxyPort",
+                          "http.nonProxyHosts",
+                          "https.proxyHost",
+                          "https.proxyPort" };
   }
 }

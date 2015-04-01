@@ -52,7 +52,7 @@ import com.helger.datetime.format.PDTFromString;
 
 /**
  * This class is used for converting between XML time elements and Java Date
- * objects.
+ * objects. It is internally used in the JAXB bindings.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
