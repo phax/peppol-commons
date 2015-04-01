@@ -75,6 +75,7 @@ public final class ConfigFileTest
 
     // All keys
     assertEquals (5, aCF.getAllKeys ().size ());
+    assertEquals (5, aCF.getAllEntries ().size ());
 
     assertNotNull (aCF.toString ());
   }
@@ -86,6 +87,7 @@ public final class ConfigFileTest
     assertFalse (aCF.isRead ());
     assertNull (aCF.getString ("any"));
     assertEquals (0, aCF.getAllKeys ().size ());
+    assertEquals (0, aCF.getAllEntries ().size ());
 
     assertNotNull (aCF.toString ());
   }
