@@ -242,21 +242,23 @@ public class ConfigFile
 
   /**
    * This is a utility method, that applies all Java network/proxy system
-   * properties which are present in the configuration file.
+   * properties which are present in the configuration file. It does it only
+   * when the configuration file was read correctly.
    *
    * @see PeppolTechnicalSetup#getAllJavaNetSystemProperties()
    */
   public void applyAllNetworkSystemProperties ()
   {
-    for (final String sProperty : PeppolTechnicalSetup.getAllJavaNetSystemProperties ())
-    {
-      final String sConfigFileValue = getString (sProperty);
-      if (sConfigFileValue != null)
+    if (m_bRead)
+      for (final String sProperty : PeppolTechnicalSetup.getAllJavaNetSystemProperties ())
       {
-        SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
-        s_aLogger.info ("Set Java network/proxy system property: " + sProperty + "=" + sConfigFileValue);
+        final String sConfigFileValue = getString (sProperty);
+        if (sConfigFileValue != null)
+        {
+          SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
+          s_aLogger.info ("Set Java network/proxy system property: " + sProperty + "=" + sConfigFileValue);
+        }
       }
-    }
   }
 
   @Override
