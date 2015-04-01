@@ -49,7 +49,7 @@
     <version>1.3.3</version>
   </parent>
   <artifactId>peppol-commons</artifactId>
-  <version>3.1.0</version>
+  <version>3.1.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>peppol-commons</name>
   <url>https://github.com/phax/peppol-commons</url>
@@ -72,7 +72,7 @@
     <connection>scm:git:git@github.com:phax/peppol-commons.git</connection>
     <developerConnection>scm:git:git@github.com:phax/peppol-commons.git</developerConnection>
     <url>http://github.com/phax/peppol-commons</url>
-    <tag>peppol-commons-3.1.0</tag>
+    <tag>HEAD</tag>
   </scm>
  
   <organization>
