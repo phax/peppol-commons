@@ -42,6 +42,7 @@ package com.helger.peppol;
 
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.SystemProperties;
 import com.helger.commons.annotations.PresentForCodeCoverage;
 
 /**
@@ -60,8 +61,8 @@ public final class CBusDox
   {}
 
   /**
-   * Enable the Metro SOAP debugging. This shows the exchanged SOAP messages in
-   * the logfile. By default this logging is disabled.
+   * Enable the JAX-WS SOAP debugging. This shows the exchanged SOAP messages in
+   * the log file. By default this logging is disabled.
    *
    * @param bDebug
    *        <code>true</code> to enable debugging, <code>false</code> to disable
@@ -69,13 +70,14 @@ public final class CBusDox
    */
   public static void enableSoapLogging (final boolean bDebug)
   {
-    System.setProperty ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", Boolean.toString (bDebug));
-    System.setProperty ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump",
-                        Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump",
+                                       Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump",
+                                       Boolean.toString (bDebug));
   }
 
   /**
-   * Enable advanced Metro debugging on more or less all relevant layers. This
+   * Enable advanced JAX-WS debugging on more or less all relevant layers. This
    * method internally calls {@link #enableSoapLogging(boolean)} so it does not
    * need to be called explicitly. By default all this logging is disabled.
    *
@@ -89,18 +91,18 @@ public final class CBusDox
     // different....
     enableSoapLogging (bDebug);
 
-    System.setProperty ("com.sun.xml.ws.transport.http.HttpAdapter.dump", Boolean.toString (bDebug));
-    System.setProperty ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dump", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump",
+                                       Boolean.toString (bDebug));
 
-    if (bDebug)
-      System.clearProperty ("com.sun.xml.ws.fault.SOAPFaultBuilder.disableCaptureStackTrace");
-    else
-      System.setProperty ("com.sun.xml.ws.fault.SOAPFaultBuilder.disableCaptureStackTrace", "false");
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.fault.SOAPFaultBuilder.disableCaptureStackTrace",
+                                       bDebug ? null : "false");
 
-    System.setProperty ("com.sun.metro.soap.dump", Boolean.toString (bDebug));
-    System.setProperty ("com.sun.xml.wss.provider.wsit.SecurityTubeFactory.dump", Boolean.toString (bDebug));
-    System.setProperty ("com.sun.xml.wss.jaxws.impl.SecurityServerTube.dump", Boolean.toString (bDebug));
-    System.setProperty ("com.sun.xml.wss.jaxws.impl.SecurityClientTube.dump", Boolean.toString (bDebug));
-    System.setProperty ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.metro.soap.dump", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.wss.provider.wsit.SecurityTubeFactory.dump",
+                                       Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityServerTube.dump", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityClientTube.dump", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", Boolean.toString (bDebug));
   }
 }
