@@ -44,9 +44,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.exceptions.InitializationException;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.EnumHelper;
 
 /**
  * Simple enumeration for differentiating the different available SMLs.
@@ -64,21 +67,22 @@ import com.helger.commons.exceptions.InitializationException;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public enum ESML implements ISMLInfo
+public enum ESML implements ISMLInfo, IHasID <String>
 {
   /** DIGIT production URL - valid from June 9th, 2015 */
-  DIGIT_PRODUCTION ("edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu/edelivery-sml", true),
+  DIGIT_PRODUCTION ("digitprod", "edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu/edelivery-sml", true),
   /** DIGIT test URL - valid from June 9th, 2015 */
-  DIGIT_TEST ("acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true),
+  DIGIT_TEST ("digittest", "acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true),
   /** https://sml.peppolcentral.org - valid until June 9th, 2015 */
-  PRODUCTION ("sml.peppolcentral.org.", "https://sml.peppolcentral.org", true),
+  PRODUCTION ("brzprod", "sml.peppolcentral.org.", "https://sml.peppolcentral.org", true),
   /** https://smk.peppolcentral.org - valid until June 9th, 2015 */
-  TEST ("smk.peppolcentral.org.", "https://smk.peppolcentral.org", true),
+  TEST ("brztest", "smk.peppolcentral.org.", "https://smk.peppolcentral.org", true),
   /** http://plixvde2 - valid until June 9th, 2015 */
-  DEVELOPMENT ("smj.peppolcentral.org.", "http://plixvde2/ServiceMetadataLocatorManagement", false),
+  DEVELOPMENT ("brzdev", "smj.peppolcentral.org.", "http://plixvde2/ServiceMetadataLocatorManagement", false),
   /** http://localhost:8080 */
-  DEVELOPMENT_LOCAL ("smj.peppolcentral.org.", "http://localhost:8080", false);
+  DEVELOPMENT_LOCAL ("local", "smj.peppolcentral.org.", "http://localhost:8080", false);
 
+  private final String m_sID;
   private final String m_sDNSZone;
   private final String m_sManagementServiceURL;
   private final boolean m_bRequiresClientCertificate;
@@ -88,6 +92,8 @@ public enum ESML implements ISMLInfo
   /**
    * Constructor
    *
+   * @param sID
+   *        The internal ID. Neither <code>null</code> nor empty.
    * @param sDNSZone
    *        DNS zone name. Must not start with a "." but must end with a "."
    * @param sManagementServiceURL
@@ -98,10 +104,12 @@ public enum ESML implements ISMLInfo
    *        <code>false</code> if not.
    * @throws MalformedURLException
    */
-  private ESML (@Nonnull @Nonempty final String sDNSZone,
+  private ESML (@Nonnull @Nonempty final String sID,
+                @Nonnull @Nonempty final String sDNSZone,
                 @Nonnull @Nonempty final String sManagementServiceURL,
                 final boolean bRequiresClientCertificate)
   {
+    m_sID = sID;
     m_sDNSZone = sDNSZone;
     m_sManagementServiceURL = sManagementServiceURL;
     m_bRequiresClientCertificate = bRequiresClientCertificate;
@@ -119,6 +127,13 @@ public enum ESML implements ISMLInfo
     {
       throw new InitializationException ("Failed to convert to URL", ex);
     }
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getID ()
+  {
+    return m_sID;
   }
 
   @Nonnull
@@ -157,5 +172,17 @@ public enum ESML implements ISMLInfo
   public boolean requiresClientCertificate ()
   {
     return m_bRequiresClientCertificate;
+  }
+
+  @Nullable
+  public static ESML getFromIDOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrNull (ESML.class, sID);
+  }
+
+  @Nullable
+  public static ESML getFromIDOrDefault (@Nullable final String sID, @Nullable final ESML eDefault)
+  {
+    return EnumHelper.getFromIDOrDefault (ESML.class, sID, eDefault);
   }
 }
