@@ -38,12 +38,11 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
+
 package com.helger.peppol.identifier.process;
 
 import java.util.List;
-
 import javax.annotation.Nonnull;
-
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.collections.CollectionHelper;

@@ -49,7 +49,7 @@
   </ns0:Annotation>
   <ns0:Identification xmlns:ns0="">
     <ns0:ShortName>PeppolIdentifierIssuingAgencies</ns0:ShortName>
-    <ns0:Version>1.2</ns0:Version>
+    <ns0:Version>1.2.1</ns0:Version>
     <ns0:CanonicalUri>urn:peppol.eu:names:identifier:issuingagencies</ns0:CanonicalUri>
     <ns0:CanonicalVersionUri>urn:peppol.eu:names:identifier:issuingagencies-1.0</ns0:CanonicalVersionUri>
   </ns0:Identification>
@@ -1195,6 +1195,41 @@
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.1.3</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>SE:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9955</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Swedish VAT number</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.2.1</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="schemeid">
+        <ns0:SimpleValue>ZZZ</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="iso6523">
+        <ns0:SimpleValue>9999</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="schemeagency">
+        <ns0:SimpleValue>Unknown issuer agency
+(Not applicable for registration in PEPPOL SML).</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="deprecated">
+        <ns0:SimpleValue>false</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>1.2.1</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
   </ns0:SimpleCodeList>

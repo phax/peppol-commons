@@ -38,11 +38,11 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
+
 package com.helger.peppol.identifier.issuingagency;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
@@ -498,7 +498,21 @@ public enum EPredefinedIdentifierIssuingAgency
      * @since code list 1.1.3
      * 
      */
-    NL_OIN("NL:OIN", "Dutch Originator's Identification Number", "9954", false, new Version("1.1.3"));
+    NL_OIN("NL:OIN", "Dutch Originator's Identification Number", "9954", false, new Version("1.1.3")),
+
+    /**
+     * Prefix <code>9955</code>, scheme ID <code>SE:VAT</code><br>
+     * @since code list 1.2.1
+     * 
+     */
+    SE_VAT("SE:VAT", "Swedish VAT number", "9955", false, new Version("1.2.1")),
+
+    /**
+     * Prefix <code>9999</code>, scheme ID <code>ZZZ</code><br>
+     * @since code list 1.2.1
+     * 
+     */
+    ZZZ("ZZZ", "Unknown issuer agency\n(Not applicable for registration in PEPPOL SML).", "9999", false, new Version("1.2.1"));
     private final String m_sSchemeID;
     private final String m_sSchemeAgency;
     private final String m_sISO6523;
