@@ -190,6 +190,7 @@
             <arg>-Xph-equalshashcode</arg>
             <arg>-Xph-tostring</arg>
             <arg>-Xph-list-extension</arg>
+            <arg>-Xph-csu</arg>
           </args>
           <plugins>
             <plugin>
