@@ -510,6 +510,13 @@ public enum EPredefinedIdentifierIssuingAgency
     SE_VAT("SE:VAT", "Swedish VAT number", "9955", false, new Version("1.2.1")),
 
     /**
+     * Prefix <code>9956</code>, scheme ID <code>DE:EPROC</code><br>
+     * @since code list 1.2.2
+     * 
+     */
+    DE_EPROC("DE:EPROC", "German EProc number", "9956", false, new Version("1.2.2")),
+
+    /**
      * Prefix <code>9999</code>, scheme ID <code>ZZZ</code><br>
      * @since code list 1.2.1
      * 

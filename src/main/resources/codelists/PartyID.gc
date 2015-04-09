@@ -49,9 +49,9 @@
   </ns0:Annotation>
   <ns0:Identification xmlns:ns0="">
     <ns0:ShortName>Scheme Agency</ns0:ShortName>
-    <ns0:Version>1.2.1</ns0:Version>
+    <ns0:Version>1.2.2</ns0:Version>
     <ns0:CanonicalUri>PEPPOL</ns0:CanonicalUri>
-    <ns0:CanonicalVersionUri>PEPPOL-1.2.1</ns0:CanonicalVersionUri>
+    <ns0:CanonicalVersionUri>PEPPOL-1.2.2</ns0:CanonicalVersionUri>
     <ns0:LocationUri>PartyID.gc</ns0:LocationUri>
   </ns0:Identification>
   <ns0:ColumnSet xmlns:ns0="">
@@ -576,6 +576,14 @@
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="name">
         <ns0:SimpleValue>Swedish VAT number</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>DE:EPROC</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>German EProc number</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>

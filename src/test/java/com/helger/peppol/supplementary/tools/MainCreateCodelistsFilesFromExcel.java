@@ -117,8 +117,8 @@ import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
 public final class MainCreateCodelistsFilesFromExcel
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateCodelistsFilesFromExcel.class);
-  private static final Version CODELIST_VERSION = new Version (1, 2, 1);
-  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1.2.1.xls";
+  private static final Version CODELIST_VERSION = new Version (1, 2, 2);
+  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1.2.2-unofficial.xls";
   private static final String SHEET_PARTICIPANT = "Participant";
   private static final String SHEET_DOCUMENT = "Document";
   private static final String SHEET_PROCESS = "Process";

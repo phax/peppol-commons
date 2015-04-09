@@ -49,7 +49,7 @@
   </ns0:Annotation>
   <ns0:Identification xmlns:ns0="">
     <ns0:ShortName>PeppolDocumentTypeIdentifier</ns0:ShortName>
-    <ns0:Version>1.2.1</ns0:Version>
+    <ns0:Version>1.2.2</ns0:Version>
     <ns0:CanonicalUri>urn:peppol.eu:names:identifier:document</ns0:CanonicalUri>
     <ns0:CanonicalVersionUri>urn:peppol.eu:names:identifier:document-1.0</ns0:CanonicalVersionUri>
   </ns0:Identification>
