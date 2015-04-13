@@ -50,17 +50,18 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.junit.Test;
+import org.xbill.DNS.Name;
+import org.xbill.DNS.TextParseException;
 
 import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
-import com.helger.peppol.utils.BusdoxURLUtils;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link BusdoxURLUtils}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class BusdoxURLUtilsTest
@@ -87,6 +88,7 @@ public final class BusdoxURLUtilsTest
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org",
                   BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
                                                           ESML.PRODUCTION));
+
     // Wildcard
     assertEquals ("*.iso6523-actorid-upis.sml.peppolcentral.org",
                   BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("*"),
@@ -160,6 +162,19 @@ public final class BusdoxURLUtilsTest
     {
       // expected
     }
+  }
+
+  @Test
+  public void testGetDNSNameOfParticipantWithDNSName () throws TextParseException
+  {
+    // The first part must always end with a DOT
+    Name aName = Name.fromString ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org.",
+                                  Name.fromString ("sml.peppolcentral.org."));
+    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org.", aName.toString ());
+
+    aName = Name.fromString ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org.",
+                             Name.fromString ("sml.peppolcentral.org"));
+    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org.", aName.toString ());
   }
 
   @Test
