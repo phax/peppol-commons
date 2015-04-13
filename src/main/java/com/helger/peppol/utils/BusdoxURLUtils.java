@@ -182,14 +182,16 @@ public final class BusdoxURLUtils
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notEmpty (aParticipantIdentifier.getScheme (), "ParticipantIdentifier scheme");
     ValueEnforcer.notEmpty (aParticipantIdentifier.getValue (), "ParticipantIdentifier value");
+
+    // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
       throw new IllegalArgumentException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
                                           sSMLZoneName);
 
     // Check identifier scheme (must be lowercase for the URL later on!)
-    final String sScheme = aParticipantIdentifier.getScheme ().toLowerCase (URL_LOCALE);
-    if (!IdentifierUtils.isValidParticipantIdentifierScheme (sScheme))
-      throw new IllegalArgumentException ("Invalid participant identifier scheme '" + sScheme + "'");
+    final String sIdentifierScheme = aParticipantIdentifier.getScheme ().toLowerCase (URL_LOCALE);
+    if (!IdentifierUtils.isValidParticipantIdentifierScheme (sIdentifierScheme))
+      throw new IllegalArgumentException ("Invalid participant identifier scheme '" + sIdentifierScheme + "'");
 
     // Get the identifier value
     final String sValue = aParticipantIdentifier.getValue ();
@@ -209,19 +211,19 @@ public final class BusdoxURLUtils
     }
 
     // append the identifier scheme
-    ret.append (sScheme).append ('.');
+    ret.append (sIdentifierScheme).append ('.');
 
     // append the SML DNS zone name (if available)
     if (StringHelper.hasText (sSMLZoneName))
     {
-      // If it is present, it ends with a dot
+      // If it is present, it always ends with a dot
       ret.append (sSMLZoneName);
     }
 
     // in some cases it gives a problem later when trying to retrieve the
     // participant's metadata ex:
     // http://B-51538b9890f1999ca08302c65f544719.iso6523-actorid-upis.sml.peppolcentral.org./iso6523-actorid-upis%3A%3A9917%3A550403315099
-    // That's wehy we cut of the dot here
+    // That's why we cut of the dot here
     ret.deleteCharAt (ret.length () - 1);
 
     // We're fine and done
