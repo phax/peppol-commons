@@ -56,7 +56,7 @@ import com.helger.peppol.identifier.validator.IdentifierValidator;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier
+public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier, Comparable <SimpleParticipantIdentifier>
 {
   public SimpleParticipantIdentifier (@Nonnull final IReadonlyParticipantIdentifier aIdentifier)
   {
@@ -105,6 +105,11 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   public String getLocalParticipantID ()
   {
     return IdentifierUtils.getLocalParticipantIDFromParticipantIDValue (this);
+  }
+
+  public int compareTo (@Nonnull final SimpleParticipantIdentifier aOther)
+  {
+    return IdentifierUtils.compareIdentifiers (this, aOther);
   }
 
   /**

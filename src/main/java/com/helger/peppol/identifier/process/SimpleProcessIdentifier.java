@@ -55,7 +55,7 @@ import com.helger.peppol.identifier.ProcessIdentifierType;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class SimpleProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier
+public class SimpleProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier, Comparable <SimpleProcessIdentifier>
 {
   public SimpleProcessIdentifier (@Nonnull final IReadonlyProcessIdentifier aIdentifier)
   {
@@ -87,6 +87,11 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements IP
   public String getURIPercentEncoded ()
   {
     return IdentifierUtils.getIdentifierURIPercentEncoded (this);
+  }
+
+  public int compareTo (@Nonnull final SimpleProcessIdentifier aOther)
+  {
+    return IdentifierUtils.compareIdentifiers (this, aOther);
   }
 
   /**

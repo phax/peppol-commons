@@ -56,7 +56,7 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier
+public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier, Comparable <SimpleDocumentTypeIdentifier>
 {
   public SimpleDocumentTypeIdentifier (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier)
   {
@@ -94,6 +94,11 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   public IPeppolDocumentTypeIdentifierParts getParts ()
   {
     return PeppolDocumentTypeIdentifierParts.extractFromString (getValue ());
+  }
+
+  public int compareTo (@Nonnull final SimpleDocumentTypeIdentifier aOther)
+  {
+    return IdentifierUtils.compareIdentifiers (this, aOther);
   }
 
   /**
