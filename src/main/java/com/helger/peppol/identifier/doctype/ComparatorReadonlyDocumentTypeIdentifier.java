@@ -75,6 +75,6 @@ public class ComparatorReadonlyDocumentTypeIdentifier extends AbstractComparator
   protected int mainCompare (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
                              @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
   {
-    return IdentifierUtils.compareIdentifiers (aIdentifier1, aIdentifier2);
+    return IdentifierUtils.compareDocumentTypeIdentifiers (aIdentifier1, aIdentifier2);
   }
 }

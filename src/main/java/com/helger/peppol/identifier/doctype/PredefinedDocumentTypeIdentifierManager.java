@@ -121,7 +121,7 @@ public final class PredefinedDocumentTypeIdentifierManager
       for (final Map.Entry <String, IPeppolPredefinedDocumentTypeIdentifier> aEntry : s_aCodes.entrySet ())
       {
         // Use case insensitive identifier value comparison
-        if (IdentifierUtils.areDocumentIdentifierValuesEqual (sDocTypeIDValue, aEntry.getKey ()))
+        if (IdentifierUtils.areDocumentTypeIdentifierValuesEqual (sDocTypeIDValue, aEntry.getKey ()))
           return aEntry.getValue ();
       }
     return null;

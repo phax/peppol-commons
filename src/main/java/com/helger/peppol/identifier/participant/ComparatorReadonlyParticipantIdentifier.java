@@ -75,6 +75,6 @@ public class ComparatorReadonlyParticipantIdentifier extends AbstractComparator 
   protected int mainCompare (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
                              @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
   {
-    return IdentifierUtils.compareIdentifiers (aIdentifier1, aIdentifier2);
+    return IdentifierUtils.compareParticipantIdentifiers (aIdentifier1, aIdentifier2);
   }
 }

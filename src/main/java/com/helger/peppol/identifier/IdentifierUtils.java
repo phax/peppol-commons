@@ -188,28 +188,6 @@ public final class IdentifierUtils
   }
 
   /**
-   * Check if the passed document type identifier value is valid. A valid
-   * identifier must have at least 1 character and at last
-   * {@link CIdentifier#MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH} characters.
-   * Also it must be ISO-8859-1 encoded.
-   *
-   * @param sValue
-   *        The document type identifier value to be checked (without the
-   *        scheme). May be <code>null</code>.
-   * @return <code>true</code> if the document type identifier value is valid,
-   *         <code>false</code> otherwise
-   */
-  public static boolean isValidDocumentTypeIdentifierValue (@Nullable final String sValue)
-  {
-    final int nLength = StringHelper.getLength (sValue);
-    if (nLength == 0 || nLength > CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)
-      return false;
-
-    // Check if the value is ISO-8859-1 encoded
-    return areCharsetChecksDisabled () || CHARSET_ISO88591.newEncoder ().canEncode (sValue);
-  }
-
-  /**
    * Check if the passed participant identifier value is valid. A valid
    * identifier must have at least 1 character and at last
    * {@link CIdentifier#MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH} characters.
@@ -230,6 +208,28 @@ public final class IdentifierUtils
 
     // Check if the value is US ASCII encoded
     return areCharsetChecksDisabled () || CHARSET_ASCII.newEncoder ().canEncode (sValue);
+  }
+
+  /**
+   * Check if the passed document type identifier value is valid. A valid
+   * identifier must have at least 1 character and at last
+   * {@link CIdentifier#MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH} characters.
+   * Also it must be ISO-8859-1 encoded.
+   *
+   * @param sValue
+   *        The document type identifier value to be checked (without the
+   *        scheme). May be <code>null</code>.
+   * @return <code>true</code> if the document type identifier value is valid,
+   *         <code>false</code> otherwise
+   */
+  public static boolean isValidDocumentTypeIdentifierValue (@Nullable final String sValue)
+  {
+    final int nLength = StringHelper.getLength (sValue);
+    if (nLength == 0 || nLength > CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)
+      return false;
+
+    // Check if the value is ISO-8859-1 encoded
+    return areCharsetChecksDisabled () || CHARSET_ISO88591.newEncoder ().canEncode (sValue);
   }
 
   /**
@@ -255,26 +255,6 @@ public final class IdentifierUtils
   }
 
   /**
-   * Check if the passed document type identifier is valid. This method checks
-   * for the existence of the scheme and the value and validates both.
-   *
-   * @param sValue
-   *        The document type identifier to be checked (including the scheme).
-   *        May be <code>null</code>.
-   * @return <code>true</code> if the document type identifier is valid,
-   *         <code>false</code> otherwise
-   */
-  public static boolean isValidDocumentTypeIdentifier (@Nullable final String sValue)
-  {
-    if (sValue == null)
-      return false;
-    final SimpleDocumentTypeIdentifier aID = createDocumentTypeIdentifierFromURIPartOrNull (sValue);
-    return aID != null &&
-           isValidIdentifierScheme (aID.getScheme ()) &&
-           isValidDocumentTypeIdentifierValue (aID.getValue ());
-  }
-
-  /**
    * Check if the passed participant identifier is valid. This method checks for
    * the existence of the scheme and the value and validates both.
    *
@@ -286,12 +266,22 @@ public final class IdentifierUtils
    */
   public static boolean isValidParticipantIdentifier (@Nullable final String sValue)
   {
-    if (sValue == null)
-      return false;
-    final SimpleParticipantIdentifier aID = createParticipantIdentifierFromURIPartOrNull (sValue);
-    return aID != null &&
-           isValidParticipantIdentifierScheme (aID.getScheme ()) &&
-           isValidParticipantIdentifierValue (aID.getValue ());
+    return sValue != null && createParticipantIdentifierFromURIPartOrNull (sValue) != null;
+  }
+
+  /**
+   * Check if the passed document type identifier is valid. This method checks
+   * for the existence of the scheme and the value and validates both.
+   *
+   * @param sValue
+   *        The document type identifier to be checked (including the scheme).
+   *        May be <code>null</code>.
+   * @return <code>true</code> if the document type identifier is valid,
+   *         <code>false</code> otherwise
+   */
+  public static boolean isValidDocumentTypeIdentifier (@Nullable final String sValue)
+  {
+    return sValue != null && createDocumentTypeIdentifierFromURIPartOrNull (sValue) != null;
   }
 
   /**
@@ -306,10 +296,7 @@ public final class IdentifierUtils
    */
   public static boolean isValidProcessIdentifier (@Nullable final String sValue)
   {
-    if (sValue == null)
-      return false;
-    final SimpleProcessIdentifier aID = createProcessIdentifierFromURIPartOrNull (sValue);
-    return aID != null && isValidIdentifierScheme (aID.getScheme ()) && isValidProcessIdentifierValue (aID.getValue ());
+    return sValue != null && createProcessIdentifierFromURIPartOrNull (sValue) != null;
   }
 
   /**
@@ -342,9 +329,31 @@ public final class IdentifierUtils
    * @return <code>true</code> if the identifier values are equal,
    *         <code>false</code> otherwise. If both are <code>null</code> they
    *         are considered equal.
+   * @deprecated Use
+   *             {@link #areDocumentTypeIdentifierValuesEqual(String,String)}
+   *             instead
    */
+  @Deprecated
   public static boolean areDocumentIdentifierValuesEqual (@Nullable final String sIdentifierValue1,
                                                           @Nullable final String sIdentifierValue2)
+  {
+    return areDocumentTypeIdentifierValuesEqual (sIdentifierValue1, sIdentifierValue2);
+  }
+
+  /**
+   * According to the specification, two document identifiers are equal if their
+   * parts are equal case sensitive.
+   *
+   * @param sIdentifierValue1
+   *        First identifier value to compare. May be <code>null</code>.
+   * @param sIdentifierValue2
+   *        Second identifier value to compare. May be <code>null</code>.
+   * @return <code>true</code> if the identifier values are equal,
+   *         <code>false</code> otherwise. If both are <code>null</code> they
+   *         are considered equal.
+   */
+  public static boolean areDocumentTypeIdentifierValuesEqual (@Nullable final String sIdentifierValue1,
+                                                              @Nullable final String sIdentifierValue2)
   {
     // Case sensitive!
     return EqualsUtils.equals (sIdentifierValue1, sIdentifierValue2);
@@ -379,60 +388,15 @@ public final class IdentifierUtils
    *        Second identifier to compare. May not be null.
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
+   * @deprecated Use
+   *             {@link #areParticipantIdentifiersEqual(IReadonlyParticipantIdentifier,IReadonlyParticipantIdentifier)}
+   *             instead
    */
+  @Deprecated
   public static boolean areIdentifiersEqual (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
                                              @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
   {
-    ValueEnforcer.notNull (aIdentifier1, "ParticipantIdentifier1");
-    ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
-
-    // Identifiers are equal, if both scheme and value match case insensitive!
-    return EqualsUtils.nullSafeEqualsIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
-           EqualsUtils.nullSafeEqualsIgnoreCase (aIdentifier1.getValue (), aIdentifier2.getValue ());
-  }
-
-  /**
-   * According to the specification, two document identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean areIdentifiersEqual (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
-                                             @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
-  {
-    ValueEnforcer.notNull (aIdentifier1, "DocumentTypeIdentifier1");
-    ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
-
-    // Identifiers are equal, if both scheme and value match case sensitive!
-    return EqualsUtils.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
-           EqualsUtils.equals (aIdentifier1.getValue (), aIdentifier2.getValue ());
-  }
-
-  /**
-   * According to the specification, two process identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean areIdentifiersEqual (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
-                                             @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
-  {
-    ValueEnforcer.notNull (aIdentifier1, "ProcessIdentifier1");
-    ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
-
-    // Identifiers are equal, if both scheme and value match case sensitive!
-    return EqualsUtils.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
-           EqualsUtils.equals (aIdentifier1.getValue (), aIdentifier2.getValue ());
+    return areParticipantIdentifiersEqual (aIdentifier1, aIdentifier2);
   }
 
   /**
@@ -446,8 +410,115 @@ public final class IdentifierUtils
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
    */
-  public static int compareIdentifiers (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
-                                        @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
+  public static boolean areParticipantIdentifiersEqual (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
+                                                        @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
+  {
+    ValueEnforcer.notNull (aIdentifier1, "ParticipantIdentifier1");
+    ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
+
+    // Identifiers are equal, if both scheme and value match case insensitive!
+    return EqualsUtils.nullSafeEqualsIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+           areParticipantIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
+  }
+
+  /**
+   * According to the specification, two document identifiers are equal if their
+   * parts are equal case sensitive.
+   *
+   * @param aIdentifier1
+   *        First identifier to compare. May not be null.
+   * @param aIdentifier2
+   *        Second identifier to compare. May not be null.
+   * @return <code>true</code> if the identifiers are equal, <code>false</code>
+   *         otherwise.
+   * @deprecated Use
+   *             {@link #areDocumentTypeIdentifiersEqual(IReadonlyDocumentTypeIdentifier,IReadonlyDocumentTypeIdentifier)}
+   *             instead
+   */
+  @Deprecated
+  public static boolean areIdentifiersEqual (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
+                                             @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
+  {
+    return areDocumentTypeIdentifiersEqual (aIdentifier1, aIdentifier2);
+  }
+
+  /**
+   * According to the specification, two document identifiers are equal if their
+   * parts are equal case sensitive.
+   *
+   * @param aIdentifier1
+   *        First identifier to compare. May not be null.
+   * @param aIdentifier2
+   *        Second identifier to compare. May not be null.
+   * @return <code>true</code> if the identifiers are equal, <code>false</code>
+   *         otherwise.
+   */
+  public static boolean areDocumentTypeIdentifiersEqual (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
+                                                         @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
+  {
+    ValueEnforcer.notNull (aIdentifier1, "DocumentTypeIdentifier1");
+    ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
+
+    // Identifiers are equal, if both scheme and value match case sensitive!
+    return EqualsUtils.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+           areDocumentTypeIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
+  }
+
+  /**
+   * According to the specification, two process identifiers are equal if their
+   * parts are equal case sensitive.
+   *
+   * @param aIdentifier1
+   *        First identifier to compare. May not be null.
+   * @param aIdentifier2
+   *        Second identifier to compare. May not be null.
+   * @return <code>true</code> if the identifiers are equal, <code>false</code>
+   *         otherwise.
+   * @deprecated Use
+   *             {@link #areProcessIdentifiersEqual(IReadonlyProcessIdentifier,IReadonlyProcessIdentifier)}
+   *             instead
+   */
+  @Deprecated
+  public static boolean areIdentifiersEqual (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
+                                             @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
+  {
+    return areProcessIdentifiersEqual (aIdentifier1, aIdentifier2);
+  }
+
+  /**
+   * According to the specification, two process identifiers are equal if their
+   * parts are equal case sensitive.
+   *
+   * @param aIdentifier1
+   *        First identifier to compare. May not be null.
+   * @param aIdentifier2
+   *        Second identifier to compare. May not be null.
+   * @return <code>true</code> if the identifiers are equal, <code>false</code>
+   *         otherwise.
+   */
+  public static boolean areProcessIdentifiersEqual (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
+                                                    @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
+  {
+    ValueEnforcer.notNull (aIdentifier1, "ProcessIdentifier1");
+    ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
+
+    // Identifiers are equal, if both scheme and value match case sensitive!
+    return EqualsUtils.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+           areProcessIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
+  }
+
+  /**
+   * According to the specification, two participant identifiers are equal if
+   * their parts are equal case insensitive.
+   *
+   * @param aIdentifier1
+   *        First identifier to compare. May not be null.
+   * @param aIdentifier2
+   *        Second identifier to compare. May not be null.
+   * @return 0 if the identifiers are equal, -1 or +1 otherwise.
+   */
+  public static int compareParticipantIdentifiers (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
+                                                   @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
   {
     ValueEnforcer.notNull (aIdentifier1, "ParticipantIdentifier1");
     ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
@@ -467,11 +538,10 @@ public final class IdentifierUtils
    *        First identifier to compare. May not be null.
    * @param aIdentifier2
    *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
+   * @return 0 if the identifiers are equal, -1 or +1 otherwise.
    */
-  public static int compareIdentifiers (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
-                                        @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
+  public static int compareDocumentTypeIdentifiers (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
+                                                    @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
   {
     ValueEnforcer.notNull (aIdentifier1, "DocumentTypeIdentifier1");
     ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
@@ -491,11 +561,10 @@ public final class IdentifierUtils
    *        First identifier to compare. May not be null.
    * @param aIdentifier2
    *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
+   * @return 0 if the identifiers are equal, -1 or +1 otherwise.
    */
-  public static int compareIdentifiers (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
-                                        @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
+  public static int compareProcessIdentifiers (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
+                                               @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
   {
     ValueEnforcer.notNull (aIdentifier1, "ProcessIdentifier1");
     ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
@@ -634,7 +703,9 @@ public final class IdentifierUtils
 
   /**
    * Take the passed URI part and try to convert it back to a document
-   * identifier. The URI part must have the layout <code>scheme::value</code>
+   * identifier. The URI part must have the layout <code>scheme::value</code>.
+   * This method returns only valid document type identifier schemes and
+   * document type identifier values.
    *
    * @param sURIPart
    *        The URI part to be scanned. May not be <code>null</code> if a
@@ -658,7 +729,7 @@ public final class IdentifierUtils
         // Get and check value
         final String sValue = aSplitted.get (1);
         if (isValidDocumentTypeIdentifierValue (sValue))
-          return new SimpleDocumentTypeIdentifier (aSplitted.get (0), aSplitted.get (1));
+          return new SimpleDocumentTypeIdentifier (sScheme, sValue);
       }
     }
     return null;
@@ -691,7 +762,9 @@ public final class IdentifierUtils
 
   /**
    * Take the passed URI part and try to convert it back to a participant
-   * identifier. The URI part must have the layout <code>scheme::value</code>
+   * identifier. The URI part must have the layout <code>scheme::value</code>.
+   * This method accepts only valid participant identifier schemes and valid
+   * participant identifier values.
    *
    * @param sURIPart
    *        The URI part to be scanned. May not be <code>null</code> if a
@@ -715,7 +788,7 @@ public final class IdentifierUtils
         // Get and check value
         final String sValue = aSplitted.get (1);
         if (isValidParticipantIdentifierValue (sValue))
-          return new SimpleParticipantIdentifier (aSplitted.get (0), aSplitted.get (1));
+          return new SimpleParticipantIdentifier (sScheme, sValue);
       }
     }
     return null;
@@ -748,7 +821,9 @@ public final class IdentifierUtils
 
   /**
    * Take the passed URI part and try to convert it back to a process
-   * identifier. The URI part must have the layout <code>scheme::value</code>
+   * identifier. The URI part must have the layout <code>scheme::value</code>.
+   * This value returns only if a valid process identifier scheme and process
+   * identifier value is used.
    *
    * @param sURIPart
    *        The URI part to be scanned. May not be <code>null</code> if a

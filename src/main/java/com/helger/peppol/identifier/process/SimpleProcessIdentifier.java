@@ -95,7 +95,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements IP
 
   public int compareTo (@Nonnull final SimpleProcessIdentifier aOther)
   {
-    return IdentifierUtils.compareIdentifiers (this, aOther);
+    return IdentifierUtils.compareProcessIdentifiers (this, aOther);
   }
 
   @Nonnull

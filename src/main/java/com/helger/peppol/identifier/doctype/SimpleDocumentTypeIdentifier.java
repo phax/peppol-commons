@@ -110,7 +110,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   public int compareTo (@Nonnull final SimpleDocumentTypeIdentifier aOther)
   {
-    return IdentifierUtils.compareIdentifiers (this, aOther);
+    return IdentifierUtils.compareDocumentTypeIdentifiers (this, aOther);
   }
 
   @Nonnull

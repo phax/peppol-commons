@@ -113,7 +113,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
 
   public int compareTo (@Nonnull final SimpleParticipantIdentifier aOther)
   {
-    return IdentifierUtils.compareIdentifiers (this, aOther);
+    return IdentifierUtils.compareParticipantIdentifiers (this, aOther);
   }
 
   @Nonnull

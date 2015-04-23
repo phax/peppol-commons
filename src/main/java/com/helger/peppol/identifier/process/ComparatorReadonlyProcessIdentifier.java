@@ -75,6 +75,6 @@ public class ComparatorReadonlyProcessIdentifier extends AbstractComparator <IRe
   protected int mainCompare (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
                              @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
   {
-    return IdentifierUtils.compareIdentifiers (aIdentifier1, aIdentifier2);
+    return IdentifierUtils.compareProcessIdentifiers (aIdentifier1, aIdentifier2);
   }
 }

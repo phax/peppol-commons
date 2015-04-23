@@ -98,18 +98,18 @@ public final class IdentifierUtilsTest
     final SimpleParticipantIdentifier aPI2 = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
     final SimpleParticipantIdentifier aPI3a = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123456");
     final SimpleParticipantIdentifier aPI3b = new SimpleParticipantIdentifier ("my-actorid-scheme", "0088:12345");
-    assertTrue (IdentifierUtils.areIdentifiersEqual (aPI1, aPI1));
-    assertTrue (IdentifierUtils.areIdentifiersEqual (aPI1, aPI2));
-    assertTrue (IdentifierUtils.areIdentifiersEqual (aPI2, aPI1));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aPI1, aPI3a));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aPI1, aPI3b));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aPI2, aPI3a));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aPI2, aPI3b));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aPI3a, aPI3b));
+    assertTrue (IdentifierUtils.areParticipantIdentifiersEqual (aPI1, aPI1));
+    assertTrue (IdentifierUtils.areParticipantIdentifiersEqual (aPI1, aPI2));
+    assertTrue (IdentifierUtils.areParticipantIdentifiersEqual (aPI2, aPI1));
+    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI1, aPI3a));
+    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI1, aPI3b));
+    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI2, aPI3a));
+    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI2, aPI3b));
+    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI3a, aPI3b));
 
     try
     {
-      IdentifierUtils.areIdentifiersEqual (aPI1, null);
+      IdentifierUtils.areParticipantIdentifiersEqual (aPI1, null);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -119,7 +119,7 @@ public final class IdentifierUtilsTest
 
     try
     {
-      IdentifierUtils.areIdentifiersEqual (null, aPI1);
+      IdentifierUtils.areParticipantIdentifiersEqual (null, aPI1);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -135,18 +135,18 @@ public final class IdentifierUtilsTest
     final SimpleDocumentTypeIdentifier aDI2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleDocumentTypeIdentifier aDI3a = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
     final SimpleDocumentTypeIdentifier aDI3b = new SimpleDocumentTypeIdentifier ("my-docid-test", "urn:doc:anyotherdoc");
-    assertTrue (IdentifierUtils.areIdentifiersEqual (aDI1, aDI1));
-    assertTrue (IdentifierUtils.areIdentifiersEqual (aDI1, aDI2));
-    assertTrue (IdentifierUtils.areIdentifiersEqual (aDI2, aDI1));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI1, aDI3a));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI1, aDI3b));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI2, aDI3a));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI2, aDI3b));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI3a, aDI3b));
+    assertTrue (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, aDI1));
+    assertTrue (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, aDI2));
+    assertTrue (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI2, aDI1));
+    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, aDI3a));
+    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, aDI3b));
+    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI2, aDI3a));
+    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI2, aDI3b));
+    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI3a, aDI3b));
 
     try
     {
-      IdentifierUtils.areIdentifiersEqual (aDI1, null);
+      IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, null);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -156,7 +156,7 @@ public final class IdentifierUtilsTest
 
     try
     {
-      IdentifierUtils.areIdentifiersEqual (null, aDI1);
+      IdentifierUtils.areDocumentTypeIdentifiersEqual (null, aDI1);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -172,18 +172,18 @@ public final class IdentifierUtilsTest
     final SimpleProcessIdentifier aDI2 = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleProcessIdentifier aDI3a = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
     final SimpleProcessIdentifier aDI3b = new SimpleProcessIdentifier ("my-procid-test", "urn:doc:anyotherdoc");
-    assertTrue (IdentifierUtils.areIdentifiersEqual (aDI1, aDI1));
-    assertTrue (IdentifierUtils.areIdentifiersEqual (aDI1, aDI2));
-    assertTrue (IdentifierUtils.areIdentifiersEqual (aDI2, aDI1));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI1, aDI3a));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI1, aDI3b));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI2, aDI3a));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI2, aDI3b));
-    assertFalse (IdentifierUtils.areIdentifiersEqual (aDI3a, aDI3b));
+    assertTrue (IdentifierUtils.areProcessIdentifiersEqual (aDI1, aDI1));
+    assertTrue (IdentifierUtils.areProcessIdentifiersEqual (aDI1, aDI2));
+    assertTrue (IdentifierUtils.areProcessIdentifiersEqual (aDI2, aDI1));
+    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI1, aDI3a));
+    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI1, aDI3b));
+    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI2, aDI3a));
+    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI2, aDI3b));
+    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI3a, aDI3b));
 
     try
     {
-      IdentifierUtils.areIdentifiersEqual (aDI1, null);
+      IdentifierUtils.areProcessIdentifiersEqual (aDI1, null);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -193,7 +193,7 @@ public final class IdentifierUtilsTest
 
     try
     {
-      IdentifierUtils.areIdentifiersEqual (null, aDI1);
+      IdentifierUtils.areProcessIdentifiersEqual (null, aDI1);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
