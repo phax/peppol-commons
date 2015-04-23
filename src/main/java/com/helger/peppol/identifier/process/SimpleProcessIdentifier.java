@@ -42,7 +42,10 @@ package com.helger.peppol.identifier.process;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IReadonlyProcessIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
@@ -55,7 +58,8 @@ import com.helger.peppol.identifier.ProcessIdentifierType;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class SimpleProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier, Comparable <SimpleProcessIdentifier>
+@NotThreadSafe
+public class SimpleProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier, Comparable <SimpleProcessIdentifier>, ICloneable <SimpleProcessIdentifier>
 {
   public SimpleProcessIdentifier (@Nonnull final IReadonlyProcessIdentifier aIdentifier)
   {
@@ -92,6 +96,13 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements IP
   public int compareTo (@Nonnull final SimpleProcessIdentifier aOther)
   {
     return IdentifierUtils.compareIdentifiers (this, aOther);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public SimpleProcessIdentifier getClone ()
+  {
+    return new SimpleProcessIdentifier (this);
   }
 
   /**

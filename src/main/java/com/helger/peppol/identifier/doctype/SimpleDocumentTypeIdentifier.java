@@ -42,7 +42,10 @@ package com.helger.peppol.identifier.doctype;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
@@ -56,7 +59,8 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier, Comparable <SimpleDocumentTypeIdentifier>
+@NotThreadSafe
+public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier, Comparable <SimpleDocumentTypeIdentifier>, ICloneable <SimpleDocumentTypeIdentifier>
 {
   public SimpleDocumentTypeIdentifier (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier)
   {
@@ -99,6 +103,13 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   public int compareTo (@Nonnull final SimpleDocumentTypeIdentifier aOther)
   {
     return IdentifierUtils.compareIdentifiers (this, aOther);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public SimpleDocumentTypeIdentifier getClone ()
+  {
+    return new SimpleDocumentTypeIdentifier (this);
   }
 
   /**

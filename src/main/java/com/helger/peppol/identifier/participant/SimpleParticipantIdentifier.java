@@ -42,7 +42,10 @@ package com.helger.peppol.identifier.participant;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ICloneable;
+import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
@@ -56,7 +59,8 @@ import com.helger.peppol.identifier.validator.IdentifierValidator;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier, Comparable <SimpleParticipantIdentifier>
+@NotThreadSafe
+public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier, Comparable <SimpleParticipantIdentifier>, ICloneable <SimpleParticipantIdentifier>
 {
   public SimpleParticipantIdentifier (@Nonnull final IReadonlyParticipantIdentifier aIdentifier)
   {
@@ -110,6 +114,13 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   public int compareTo (@Nonnull final SimpleParticipantIdentifier aOther)
   {
     return IdentifierUtils.compareIdentifiers (this, aOther);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public SimpleParticipantIdentifier getClone ()
+  {
+    return new SimpleParticipantIdentifier (this);
   }
 
   /**
