@@ -59,7 +59,7 @@ import com.helger.peppol.identifier.ProcessIdentifierType;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public final class ReadonlyProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier
+public class ReadonlyProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier
 {
   public ReadonlyProcessIdentifier (@Nonnull final IReadonlyIdentifier aIdentifier)
   {

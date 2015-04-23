@@ -59,7 +59,7 @@ import com.helger.peppol.identifier.IdentifierUtils;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public final class ReadonlyDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier
+public class ReadonlyDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier
 {
   public ReadonlyDocumentTypeIdentifier (@Nonnull final IReadonlyIdentifier aIdentifier)
   {

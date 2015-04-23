@@ -61,7 +61,7 @@ import com.helger.peppol.identifier.validator.IdentifierValidator;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public final class ReadonlyParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier
+public class ReadonlyParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier
 {
   public ReadonlyParticipantIdentifier (@Nonnull final IReadonlyIdentifier aIdentifier)
   {
