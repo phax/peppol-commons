@@ -50,6 +50,11 @@ import com.helger.commons.compare.ESortOrder;
 import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 
+/**
+ * A comparator for {@link IReadonlyParticipantIdentifier} objects.
+ *
+ * @author Philip Helger
+ */
 public class ComparatorReadonlyParticipantIdentifier extends AbstractComparator <IReadonlyParticipantIdentifier>
 {
   public ComparatorReadonlyParticipantIdentifier ()

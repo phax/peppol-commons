@@ -50,6 +50,11 @@ import com.helger.commons.compare.ESortOrder;
 import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 
+/**
+ * A comparator for {@link IReadonlyDocumentTypeIdentifier} objects.
+ *
+ * @author Philip Helger
+ */
 public class ComparatorReadonlyDocumentTypeIdentifier extends AbstractComparator <IReadonlyDocumentTypeIdentifier>
 {
   public ComparatorReadonlyDocumentTypeIdentifier ()

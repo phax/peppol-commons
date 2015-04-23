@@ -50,6 +50,11 @@ import com.helger.commons.compare.ESortOrder;
 import com.helger.peppol.identifier.IReadonlyProcessIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 
+/**
+ * A comparator for {@link IReadonlyProcessIdentifier} objects.
+ *
+ * @author Philip Helger
+ */
 public class ComparatorReadonlyProcessIdentifier extends AbstractComparator <IReadonlyProcessIdentifier>
 {
   public ComparatorReadonlyProcessIdentifier ()
