@@ -59,6 +59,9 @@ import com.helger.commons.equals.EqualsUtils;
 import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.doctype.OpenPeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.participant.IPeppolReadonlyParticipantIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
@@ -903,7 +906,8 @@ public final class IdentifierUtils
    * can't tell!
    *
    * @param aIdentifier
-   *        The participant identifier to extract the value from.
+   *        The participant identifier to extract the value from. May not be
+   *        <code>null</code>.
    * @return <code>null</code> if the identifier is not of default scheme or if
    *         the identifier is malformed.
    */
@@ -929,7 +933,8 @@ public final class IdentifierUtils
    * can't tell!
    *
    * @param aIdentifier
-   *        The participant identifier to extract the value from.
+   *        The participant identifier to extract the value from. May not be
+   *        <code>null</code>.
    * @return <code>null</code> if the identifier is not of default scheme or if
    *         the identifier is malformed.
    */
@@ -943,5 +948,34 @@ public final class IdentifierUtils
     return ArrayHelper.getSafeElement (RegExHelper.getAllMatchingGroupValues (PATTERN_PARTICIPANT_ID,
                                                                               aIdentifier.getValue ()),
                                        1);
+  }
+
+  /**
+   * Convert the passed document type identifier into its parts. First the old
+   * PEPPOL scheme for identifiers is tried, and afterwards the OpenPEPPOL
+   * scheme for document type identifiers is used.
+   *
+   * @param aIdentifier
+   *        The document type identifier to be split. May not be
+   *        <code>null</code>.
+   * @return Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the passed document type identifier is neither a PEPPOL nor an
+   *         OpenPEPPOL document type identifier.
+   */
+  @Nonnull
+  public static IPeppolDocumentTypeIdentifierParts getDocumentTypeIdentifierParts (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier)
+  {
+    ValueEnforcer.notNull (aIdentifier, "Identifier");
+
+    try
+    {
+      return PeppolDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // Not PEPPOL - try OpenPEPPOL
+      return OpenPeppolDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
+    }
   }
 }

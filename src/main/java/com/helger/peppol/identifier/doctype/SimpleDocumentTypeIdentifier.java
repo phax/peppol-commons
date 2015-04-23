@@ -97,15 +97,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @Nonnull
   public IPeppolDocumentTypeIdentifierParts getParts ()
   {
-    try
-    {
-      return PeppolDocumentTypeIdentifierParts.extractFromString (getValue ());
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // Not PEPPOL - try OpenPEPPOL
-      return OpenPeppolDocumentTypeIdentifierParts.extractFromString (getValue ());
-    }
+    return IdentifierUtils.getDocumentTypeIdentifierParts (this);
   }
 
   public int compareTo (@Nonnull final SimpleDocumentTypeIdentifier aOther)
