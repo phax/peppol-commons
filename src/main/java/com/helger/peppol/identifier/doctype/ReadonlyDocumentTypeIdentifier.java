@@ -115,7 +115,15 @@ public class ReadonlyDocumentTypeIdentifier extends DocumentIdentifierType imple
   @Nonnull
   public IPeppolDocumentTypeIdentifierParts getParts ()
   {
-    return PeppolDocumentTypeIdentifierParts.extractFromString (getValue ());
+    try
+    {
+      return PeppolDocumentTypeIdentifierParts.extractFromString (getValue ());
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // Not PEPPOL - try OpenPEPPOL
+      return OpenPeppolDocumentTypeIdentifierParts.extractFromString (getValue ());
+    }
   }
 
   /**

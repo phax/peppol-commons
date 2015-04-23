@@ -41,6 +41,7 @@
 package com.helger.peppol.identifier.doctype;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
@@ -198,5 +199,17 @@ public final class SimpleDocumentTypeIdentifierTest
 
     final IDocumentTypeIdentifier d3 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s2);
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (d1, d3);
+  }
+
+  @Test
+  public void testGetParts ()
+  {
+    for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
+    {
+      final SimpleDocumentTypeIdentifier aDocTypeID = new SimpleDocumentTypeIdentifier (e);
+      final IPeppolDocumentTypeIdentifierParts aParts = aDocTypeID.getParts ();
+      assertNotNull (aParts);
+      assertEquals (aDocTypeID.getValue (), aParts.getAsDocumentTypeIdentifierValue ());
+    }
   }
 }

@@ -107,7 +107,7 @@ public final class PredefinedDocumentTypeIdentifierManager
 
   /**
    * Find the document identifier with the given ID. This search is done case
-   * insensitive.
+   * sensitive.
    *
    * @param sDocTypeIDValue
    *        The value to search. Without any identifier scheme! May be

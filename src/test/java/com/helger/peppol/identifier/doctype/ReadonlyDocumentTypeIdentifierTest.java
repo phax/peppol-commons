@@ -41,6 +41,7 @@
 package com.helger.peppol.identifier.doctype;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -157,5 +158,17 @@ public final class ReadonlyDocumentTypeIdentifierTest
     }
     catch (final IllegalArgumentException ex)
     {}
+  }
+
+  @Test
+  public void testGetParts ()
+  {
+    for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
+    {
+      final ReadonlyDocumentTypeIdentifier aDocTypeID = new ReadonlyDocumentTypeIdentifier (e);
+      final IPeppolDocumentTypeIdentifierParts aParts = aDocTypeID.getParts ();
+      assertNotNull (aParts);
+      assertEquals (aDocTypeID.getValue (), aParts.getAsDocumentTypeIdentifierValue ());
+    }
   }
 }
