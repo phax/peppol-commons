@@ -318,7 +318,7 @@ public final class IdentifierUtils
                                                              @Nullable final String sIdentifierValue2)
   {
     // equal case insensitive!
-    return EqualsUtils.nullSafeEqualsIgnoreCase (sIdentifierValue1, sIdentifierValue2);
+    return EqualsUtils.equalsIgnoreCase (sIdentifierValue1, sIdentifierValue2);
   }
 
   /**
@@ -420,7 +420,7 @@ public final class IdentifierUtils
     ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
 
     // Identifiers are equal, if both scheme and value match case insensitive!
-    return EqualsUtils.nullSafeEqualsIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+    return EqualsUtils.equalsIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
            areParticipantIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
   }
 
@@ -527,9 +527,9 @@ public final class IdentifierUtils
     ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
 
     // Compare case insensitive
-    int ret = aIdentifier1.getScheme ().compareToIgnoreCase (aIdentifier2.getScheme ());
+    int ret = CompareUtils.nullSafeCompareIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
     if (ret == 0)
-      ret = aIdentifier1.getValue ().compareToIgnoreCase (aIdentifier2.getValue ());
+      ret = CompareUtils.nullSafeCompareIgnoreCase (aIdentifier1.getValue (), aIdentifier2.getValue ());
     return ret;
   }
 
