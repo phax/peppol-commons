@@ -96,6 +96,12 @@ public final class KeyStoreUtils
   /** The truststore alias for the OpenPEPPOL pilot SMP certificate */
   public static final String TRUSTSTORE_PILOT_ALIAS_SMP = "peppol service metadata publisher test ca (peppol root test ca)";
 
+  /**
+   * The classpath entry referencing the complete truststore with all OpenPEPPOL
+   * production AND pilot entries
+   */
+  public static final String TRUSTSTORE_COMPLETE_CLASSPATH = "truststore/complete-truststore.jks";
+
   public static final String KEYSTORE_TYPE_JKS = "JKS";
 
   /** The password used to access the truststores */

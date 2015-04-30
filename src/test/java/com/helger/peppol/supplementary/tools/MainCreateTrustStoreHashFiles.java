@@ -87,5 +87,6 @@ public final class MainCreateTrustStoreHashFiles
   {
     _create (KeyStoreUtils.TRUSTSTORE_PRODUCTION_CLASSPATH);
     _create (KeyStoreUtils.TRUSTSTORE_PILOT_CLASSPATH);
+    _create (KeyStoreUtils.TRUSTSTORE_COMPLETE_CLASSPATH);
   }
 }
