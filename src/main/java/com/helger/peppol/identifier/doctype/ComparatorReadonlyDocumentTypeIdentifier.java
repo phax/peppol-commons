@@ -38,36 +38,48 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.codelist;
+package com.helger.peppol.identifier.doctype;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import java.util.Comparator;
 
-import org.junit.Test;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.commons.compare.AbstractComparator;
+import com.helger.commons.compare.ESortOrder;
+import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IdentifierUtils;
 
 /**
- * Test class for class {@link ETaxExemptionReasonCode}.
- * 
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * A comparator for {@link IReadonlyDocumentTypeIdentifier} objects.
+ *
+ * @author Philip Helger
  */
-public final class ETaxExemptionReasonCodeTest
+public class ComparatorReadonlyDocumentTypeIdentifier extends AbstractComparator <IReadonlyDocumentTypeIdentifier>
 {
-  @Test
-  public void testBasic ()
+  public ComparatorReadonlyDocumentTypeIdentifier ()
+  {}
+
+  public ComparatorReadonlyDocumentTypeIdentifier (@Nonnull final ESortOrder eSortOrder)
   {
-    for (final ETaxExemptionReasonCode e : ETaxExemptionReasonCode.values ())
-    {
-      assertTrue (StringHelper.hasText (e.getID ()));
-      assertTrue (StringHelper.hasText (e.getDisplayName ()));
-      assertSame (e, ETaxExemptionReasonCode.getFromIDOrNull (e.getID ()));
-      assertNotNull (ETaxExemptionReasonCode.getDisplayNameFromIDOrNull (e.getID ()));
-      assertSame (e, ETaxExemptionReasonCode.valueOf (e.name ()));
-    }
-    assertNull (ETaxExemptionReasonCode.getFromIDOrNull ("Yoda"));
-    assertNull (ETaxExemptionReasonCode.getDisplayNameFromIDOrNull ("Yoda"));
+    super (eSortOrder);
+  }
+
+  public ComparatorReadonlyDocumentTypeIdentifier (@Nullable final Comparator <? super IReadonlyDocumentTypeIdentifier> aNestedComparator)
+  {
+    super (aNestedComparator);
+  }
+
+  public ComparatorReadonlyDocumentTypeIdentifier (@Nonnull final ESortOrder eSortOrder,
+                                                   @Nullable final Comparator <? super IReadonlyDocumentTypeIdentifier> aNestedComparator)
+  {
+    super (eSortOrder, aNestedComparator);
+  }
+
+  @Override
+  protected int mainCompare (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
+                             @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
+  {
+    return IdentifierUtils.compareDocumentTypeIdentifiers (aIdentifier1, aIdentifier2);
   }
 }

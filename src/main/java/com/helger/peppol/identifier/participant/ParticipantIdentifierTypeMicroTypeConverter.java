@@ -38,51 +38,42 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.doctype;
-
-import java.util.List;
+package com.helger.peppol.identifier.participant;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotations.Nonempty;
-import com.helger.peppol.identifier.IBusdoxDocumentTypeIdentifierParts;
+import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.convert.IMicroTypeConverter;
+import com.helger.commons.microdom.impl.MicroElement;
+import com.helger.peppol.identifier.ParticipantIdentifierType;
 
-/**
- * Contains all the different fields of a document identifier for PEPPOL in BIS
- * V1 style. Note: the sub type identifier is specified in more detail than in
- * BusDox: <code>&lt;customization id&gt;::&lt;version&gt;</code> even more
- * detailed the customization ID can be split further:
- * <code>&lt;transactionId&gt;:#&lt;extensionId&gt;[#&lt;extensionId&gt;]::&lt;version&gt;</code>
- *
- * @author PEPPOL.AT, BRZ, Philip Helger
- */
-public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeIdentifierParts
+public final class ParticipantIdentifierTypeMicroTypeConverter implements IMicroTypeConverter
 {
-  /**
-   * @return The transaction ID
-   */
-  @Nonnull
-  @Nonempty
-  String getTransactionID ();
+  private static final String ATTR_SCHEME = "scheme";
+  private static final String ATTR_VALUE = "value";
 
-  /**
-   * @return The contained extension IDs
-   */
   @Nonnull
-  @Nonempty
-  List <String> getExtensionIDs ();
+  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+                                              @Nullable final String sNamespaceURI,
+                                              @Nonnull @Nonempty final String sTagName)
+  {
+    final ParticipantIdentifierType aValue = (ParticipantIdentifierType) aObject;
+    final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
+    aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
+    aElement.setAttribute (ATTR_VALUE, aValue.getValue ());
+    return aElement;
+  }
 
-  /**
-   * @return The version number
-   */
   @Nonnull
-  @Nonempty
-  String getVersion ();
-
-  /**
-   * @return transaction ID + extension IDs (no version number)
-   */
-  @Nonnull
-  @Nonempty
-  String getAsUBLCustomizationID ();
+  public ParticipantIdentifierType convertToNative (@Nonnull final IMicroElement aElement)
+  {
+    final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
+    final String sValue = aElement.getAttributeValue (ATTR_VALUE);
+    final ParticipantIdentifierType aPI = new ParticipantIdentifierType ();
+    aPI.setScheme (sScheme);
+    aPI.setValue (sValue);
+    return aPI;
+  }
 }

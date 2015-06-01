@@ -38,25 +38,25 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol;
+package com.helger.peppol.utils;
 
 import org.junit.Test;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.peppol.CBusDox;
+import com.helger.peppol.utils.PeppolTechnicalSetup;
 
 /**
- * Test class for class {@link CBusDox}.
+ * Test class for class {@link PeppolTechnicalSetup}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class CBusDoxTest
+public final class PeppolTechnicalSetupTest
 {
   @Test
   @PresentForCodeCoverage
   public void testDebuggingOnOff ()
   {
-    CBusDox.setMetroDebugSystemProperties (true);
-    CBusDox.setMetroDebugSystemProperties (false);
+    PeppolTechnicalSetup.setMetroDebugSystemProperties (true);
+    PeppolTechnicalSetup.setMetroDebugSystemProperties (false);
   }
 }

@@ -54,15 +54,12 @@ import com.helger.peppol.identifier.ProcessIdentifierType;
  * This is an immutable sanity class around the {@link ProcessIdentifierType}
  * class with easier construction and some sanity access methods. It may be used
  * in all places where {@link ProcessIdentifierType} objects are required.<br>
- * Important note: this class implements {@link #equals(Object)} and
- * {@link #hashCode()} where its base class does not. So be careful when mixing
- * this class and its base class!<br>
  * For a mutable version, please check {@link SimpleProcessIdentifier}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public final class ReadonlyProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier
+public class ReadonlyProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier
 {
   public ReadonlyProcessIdentifier (@Nonnull final IReadonlyIdentifier aIdentifier)
   {

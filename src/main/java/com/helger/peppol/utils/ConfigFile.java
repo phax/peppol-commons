@@ -42,8 +42,11 @@ package com.helger.peppol.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -54,10 +57,10 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.SystemProperties;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
-import com.helger.commons.collections.CollectionHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.streams.StreamUtils;
@@ -106,7 +109,7 @@ public class ConfigFile
     if (!bRead)
     {
       // No config file found at all
-      s_aLogger.warn ("Failed to resolve config file paths: " + CollectionHelper.newList (aConfigPaths).toString ());
+      s_aLogger.warn ("Failed to resolve config file paths: " + Arrays.toString (aConfigPaths));
     }
     m_bRead = bRead;
   }
@@ -191,7 +194,7 @@ public class ConfigFile
   }
 
   @Nullable
-  public final char [] getCharArray (@Nonnull final String sKey, final char [] aDefault)
+  public final char [] getCharArray (@Nonnull final String sKey, @Nullable final char [] aDefault)
   {
     final String ret = getString (sKey, null);
     return ret == null ? aDefault : ret.toCharArray ();
@@ -207,6 +210,11 @@ public class ConfigFile
     return StringParser.parseInt (getString (sKey), nDefault);
   }
 
+  public final long getLong (@Nonnull final String sKey, final long nDefault)
+  {
+    return StringParser.parseLong (getString (sKey), nDefault);
+  }
+
   /**
    * @return A {@link Set} with all keys contained in the configuration file
    */
@@ -219,6 +227,38 @@ public class ConfigFile
     for (final Object o : m_aProps.keySet ())
       ret.add ((String) o);
     return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public final Map <String, String> getAllEntries ()
+  {
+    // Convert from Map<Object,Object> to Map<String, String>
+    final Map <String, String> ret = new HashMap <String, String> ();
+    for (final Map.Entry <Object, Object> o : m_aProps.entrySet ())
+      ret.put ((String) o.getKey (), (String) o.getValue ());
+    return ret;
+  }
+
+  /**
+   * This is a utility method, that applies all Java network/proxy system
+   * properties which are present in the configuration file. It does it only
+   * when the configuration file was read correctly.
+   *
+   * @see PeppolTechnicalSetup#getAllJavaNetSystemProperties()
+   */
+  public void applyAllNetworkSystemProperties ()
+  {
+    if (m_bRead)
+      for (final String sProperty : PeppolTechnicalSetup.getAllJavaNetSystemProperties ())
+      {
+        final String sConfigFileValue = getString (sProperty);
+        if (sConfigFileValue != null)
+        {
+          SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
+          s_aLogger.info ("Set Java network/proxy system property: " + sProperty + "=" + sConfigFileValue);
+        }
+      }
   }
 
   @Override

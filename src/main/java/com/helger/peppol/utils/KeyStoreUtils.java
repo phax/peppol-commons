@@ -66,22 +66,46 @@ import com.helger.commons.io.streams.StreamUtils;
 @Immutable
 public final class KeyStoreUtils
 {
-  /** The classpath entry referencing the global truststore with all entries */
-  public static final String TRUSTSTORE_CLASSPATH = "truststore/global-truststore.jks";
+  /**
+   * The classpath entry referencing the global truststore with all OpenPEPPOL
+   * production entries
+   */
+  public static final String TRUSTSTORE_PRODUCTION_CLASSPATH = "truststore/global-truststore.jks";
+
+  /** The truststore alias for the OpenPEPPOL production root certificate */
+  public static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "peppol root ca";
+
+  /** The truststore alias for the OpenPEPPOL production AP certificate */
+  public static final String TRUSTSTORE_PRODUCTION_ALIAS_AP = "peppol access point ca (peppol root ca)";
+
+  /** The truststore alias for the OpenPEPPOL production SMP certificate */
+  public static final String TRUSTSTORE_PRODUCTION_ALIAS_SMP = "peppol service metadata publisher ca (peppol root ca)";
+
+  /**
+   * The classpath entry referencing the global truststore with all OpenPEPPOL
+   * pilot entries
+   */
+  public static final String TRUSTSTORE_PILOT_CLASSPATH = "truststore/pilot-truststore.jks";
+
+  /** The truststore alias for the OpenPEPPOL pilot root certificate */
+  public static final String TRUSTSTORE_PILOT_ALIAS_ROOT = "peppol root test ca";
+
+  /** The truststore alias for the OpenPEPPOL pilot AP certificate */
+  public static final String TRUSTSTORE_PILOT_ALIAS_AP = "peppol access point test ca (peppol root test ca)";
+
+  /** The truststore alias for the OpenPEPPOL pilot SMP certificate */
+  public static final String TRUSTSTORE_PILOT_ALIAS_SMP = "peppol service metadata publisher test ca (peppol root test ca)";
+
+  /**
+   * The classpath entry referencing the complete truststore with all OpenPEPPOL
+   * production AND pilot entries
+   */
+  public static final String TRUSTSTORE_COMPLETE_CLASSPATH = "truststore/complete-truststore.jks";
+
+  public static final String KEYSTORE_TYPE_JKS = "JKS";
 
   /** The password used to access the truststores */
   public static final String TRUSTSTORE_PASSWORD = "peppol";
-
-  /** The truststore alias for the OpenPEPPOL root certificate */
-  public static final String TRUSTSTORE_ALIAS_ROOT_OPENPEPPOL = "peppol root ca";
-
-  /** The truststore alias for the OpenPEPPOL AP certificate */
-  public static final String TRUSTSTORE_ALIAS_AP_OPENPEPPOL = "peppol access point ca (peppol root ca)";
-
-  /** The truststore alias for the OpenPEPPOL SMP certificate */
-  public static final String TRUSTSTORE_ALIAS_SMP_OPENPEPPOL = "peppol service metadata publisher ca (peppol root ca)";
-
-  public static final String KEYSTORE_TYPE_JKS = "JKS";
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")

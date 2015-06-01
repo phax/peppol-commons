@@ -40,12 +40,20 @@
 ====
 
 global-truststore.jks 
-  Is the global trust store for OpenPEPPOL and works as well for SML, SMP and AP 
+  Is the global trust store for OpenPEPPOL production and works as well for SML, SMP and AP 
   The contained aliases are:
   * peppol root ca
   * peppol access point ca (peppol root ca)
   * peppol security token service ca (peppol root ca)
   * peppol service metadata publisher ca (peppol root ca)
+
+pilot-truststore.jks 
+  Is the global trust store for OpenPEPPOL pilot and works as well for SML, SMP and AP 
+  The contained aliases are:
+  * peppol root test ca
+  * peppol access point test ca (peppol root test ca)
+  * peppol security token service test ca (peppol root test ca)
+  * peppol service metadata publisher test ca (peppol root test ca)
 
 The password to access all trust stores is:
 peppol

@@ -38,36 +38,38 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.codelist;
+package com.helger.peppol.identifier.doctype;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import org.junit.Test;
+import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.convert.IMicroTypeConverter;
+import com.helger.commons.microdom.impl.MicroElement;
 
-import com.helger.commons.string.StringHelper;
-
-/**
- * Test class for class {@link ETaxCategoryID}.
- * 
- * @author PEPPOL.AT, BRZ, Philip Helger
- */
-public final class ETaxCategoryIDTest
+public final class SimpleDocumentTypeIdentifierMicroTypeConverter implements IMicroTypeConverter
 {
-  @Test
-  public void testBasic ()
+  private static final String ATTR_SCHEME = "scheme";
+  private static final String ATTR_VALUE = "value";
+
+  @Nonnull
+  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+                                              @Nullable final String sNamespaceURI,
+                                              @Nonnull @Nonempty final String sTagName)
   {
-    for (final ETaxCategoryID e : ETaxCategoryID.values ())
-    {
-      assertTrue (StringHelper.hasText (e.getID ()));
-      assertTrue (StringHelper.hasText (e.getDisplayName ()));
-      assertSame (e, ETaxCategoryID.getFromIDOrNull (e.getID ()));
-      assertNotNull (ETaxCategoryID.getDisplayNameFromIDOrNull (e.getID ()));
-      assertSame (e, ETaxCategoryID.valueOf (e.name ()));
-    }
-    assertNull (ETaxCategoryID.getFromIDOrNull ("Yoda"));
-    assertNull (ETaxCategoryID.getDisplayNameFromIDOrNull ("Yoda"));
+    final SimpleDocumentTypeIdentifier aValue = (SimpleDocumentTypeIdentifier) aObject;
+    final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
+    aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
+    aElement.setAttribute (ATTR_VALUE, aValue.getValue ());
+    return aElement;
+  }
+
+  @Nonnull
+  public SimpleDocumentTypeIdentifier convertToNative (@Nonnull final IMicroElement aElement)
+  {
+    final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
+    final String sValue = aElement.getAttributeValue (ATTR_VALUE);
+    return new SimpleDocumentTypeIdentifier (sScheme, sValue);
   }
 }

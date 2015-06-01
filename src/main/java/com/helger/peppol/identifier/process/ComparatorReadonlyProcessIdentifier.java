@@ -38,51 +38,48 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.doctype;
+package com.helger.peppol.identifier.process;
 
-import java.util.List;
+import java.util.Comparator;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.peppol.identifier.IBusdoxDocumentTypeIdentifierParts;
+import com.helger.commons.compare.AbstractComparator;
+import com.helger.commons.compare.ESortOrder;
+import com.helger.peppol.identifier.IReadonlyProcessIdentifier;
+import com.helger.peppol.identifier.IdentifierUtils;
 
 /**
- * Contains all the different fields of a document identifier for PEPPOL in BIS
- * V1 style. Note: the sub type identifier is specified in more detail than in
- * BusDox: <code>&lt;customization id&gt;::&lt;version&gt;</code> even more
- * detailed the customization ID can be split further:
- * <code>&lt;transactionId&gt;:#&lt;extensionId&gt;[#&lt;extensionId&gt;]::&lt;version&gt;</code>
+ * A comparator for {@link IReadonlyProcessIdentifier} objects.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
-public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeIdentifierParts
+public class ComparatorReadonlyProcessIdentifier extends AbstractComparator <IReadonlyProcessIdentifier>
 {
-  /**
-   * @return The transaction ID
-   */
-  @Nonnull
-  @Nonempty
-  String getTransactionID ();
+  public ComparatorReadonlyProcessIdentifier ()
+  {}
 
-  /**
-   * @return The contained extension IDs
-   */
-  @Nonnull
-  @Nonempty
-  List <String> getExtensionIDs ();
+  public ComparatorReadonlyProcessIdentifier (@Nonnull final ESortOrder eSortOrder)
+  {
+    super (eSortOrder);
+  }
 
-  /**
-   * @return The version number
-   */
-  @Nonnull
-  @Nonempty
-  String getVersion ();
+  public ComparatorReadonlyProcessIdentifier (@Nullable final Comparator <? super IReadonlyProcessIdentifier> aNestedComparator)
+  {
+    super (aNestedComparator);
+  }
 
-  /**
-   * @return transaction ID + extension IDs (no version number)
-   */
-  @Nonnull
-  @Nonempty
-  String getAsUBLCustomizationID ();
+  public ComparatorReadonlyProcessIdentifier (@Nonnull final ESortOrder eSortOrder,
+                                              @Nullable final Comparator <? super IReadonlyProcessIdentifier> aNestedComparator)
+  {
+    super (eSortOrder, aNestedComparator);
+  }
+
+  @Override
+  protected int mainCompare (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
+                             @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
+  {
+    return IdentifierUtils.compareProcessIdentifiers (aIdentifier1, aIdentifier2);
+  }
 }

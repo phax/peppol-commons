@@ -42,7 +42,7 @@
 
 -->
 <!--This file was automatically generated. Do NOT edit!-->
-<root version="1.2">
+<root version="1.2.2">
   <document id="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" name="Virtual Company Dossier" since="1.0.0" />
   <document id="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossierPackage-1::VirtualCompanyDossierPackage##urn:www.cenbii.eu:transaction:biicoretrdm992:ver0.1:#urn:www.peppol.eu:bis:peppol992a:ver1.0::0.1" name="Virtual Company Dossier Package" since="1.0.0" />
   <document id="urn:www.peppol.eu:schema:xsd:CatalogueTemplate-1::CatalogueTemplate##urn:www.cenbii.eu:transaction:biicoretrdm993:ver0.1:#urn:www.peppol.eu:bis:peppol993a:ver1.0::0.1" name="Catalogue Template" since="1.0.0" />

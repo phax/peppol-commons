@@ -52,7 +52,7 @@ import com.helger.commons.state.ETriState;
 
 /**
  * Test class for class {@link IdentifierIssuingAgencyManager}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class IdentifierIssuingAgencyManagerTest
@@ -61,7 +61,7 @@ public final class IdentifierIssuingAgencyManagerTest
   public void testAll ()
   {
     assertNotNull (IdentifierIssuingAgencyManager.getAllAgencies ());
-    assertEquals (63, IdentifierIssuingAgencyManager.getAllAgencies ().size ());
+    assertEquals (66, IdentifierIssuingAgencyManager.getAllAgencies ().size ());
 
     // test valid
     assertNotNull (IdentifierIssuingAgencyManager.getAgencyOfISO6523Code ("0088"));

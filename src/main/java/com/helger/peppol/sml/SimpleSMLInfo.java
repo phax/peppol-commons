@@ -48,6 +48,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.exceptions.InitializationException;
 import com.helger.commons.hash.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -61,34 +62,44 @@ import com.helger.commons.string.ToStringGenerator;
 public class SimpleSMLInfo implements ISMLInfo
 {
   private final String m_sDNSZone;
-  private final String m_sManagementHostName;
   private final String m_sManagementServiceURL;
   private final boolean m_bRequiresClientCertficate;
+  // Cache for status
+  private final URL m_aManageServiceMetaDataEndpointAddress;
+  private final URL m_aManageParticipantIdentifierEndpointAddress;
 
   public SimpleSMLInfo (@Nonnull final ISMLInfo aSMLInfo)
   {
-    this (aSMLInfo.getDNSZone (),
-          aSMLInfo.getManagementHostName (),
-          aSMLInfo.getManagementServiceURL (),
-          aSMLInfo.requiresClientCertificate ());
+    this (aSMLInfo.getDNSZone (), aSMLInfo.getManagementServiceURL (), aSMLInfo.requiresClientCertificate ());
   }
 
   public SimpleSMLInfo (@Nonnull @Nonempty final String sDNSZone,
-                        @Nonnull @Nonempty final String sManagementHostName,
                         @Nonnull @Nonempty final String sManagementService,
                         final boolean bRequiresClientCertficate)
   {
     ValueEnforcer.notEmpty (sDNSZone, "DNSZone");
-    ValueEnforcer.notEmpty (sManagementHostName, "ManagementHostName");
     ValueEnforcer.notEmpty (sManagementService, "ManagementService");
 
     m_sDNSZone = sDNSZone;
-    m_sManagementHostName = sManagementHostName;
     // Management service without the trailing slash
     m_sManagementServiceURL = sManagementService.endsWith ("/") ? sManagementService.substring (0,
                                                                                                 sManagementService.length () - 1)
                                                                : sManagementService;
     m_bRequiresClientCertficate = bRequiresClientCertficate;
+    try
+    {
+      // Create once
+      m_aManageServiceMetaDataEndpointAddress = new URL (m_sManagementServiceURL +
+                                                         '/' +
+                                                         CSMLDefault.MANAGEMENT_SERVICE_METADATA);
+      m_aManageParticipantIdentifierEndpointAddress = new URL (m_sManagementServiceURL +
+                                                               '/' +
+                                                               CSMLDefault.MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER);
+    }
+    catch (final MalformedURLException ex)
+    {
+      throw new InitializationException ("Failed to convert to URL", ex);
+    }
   }
 
   @Nonnull
@@ -107,13 +118,6 @@ public class SimpleSMLInfo implements ISMLInfo
 
   @Nonnull
   @Nonempty
-  public String getManagementHostName ()
-  {
-    return m_sManagementHostName;
-  }
-
-  @Nonnull
-  @Nonempty
   public String getManagementServiceURL ()
   {
     return m_sManagementServiceURL;
@@ -122,29 +126,13 @@ public class SimpleSMLInfo implements ISMLInfo
   @Nonnull
   public URL getManageServiceMetaDataEndpointAddress ()
   {
-    final String sURL = m_sManagementServiceURL + '/' + CSMLDefault.MANAGEMENT_SERVICE_METADATA;
-    try
-    {
-      return new URL (sURL);
-    }
-    catch (final MalformedURLException ex)
-    {
-      throw new IllegalStateException ("Failed to convert '" + sURL + "' to URL", ex);
-    }
+    return m_aManageServiceMetaDataEndpointAddress;
   }
 
   @Nonnull
   public URL getManageParticipantIdentifierEndpointAddress ()
   {
-    final String sURL = m_sManagementServiceURL + '/' + CSMLDefault.MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER;
-    try
-    {
-      return new URL (sURL);
-    }
-    catch (final MalformedURLException ex)
-    {
-      throw new IllegalStateException ("Failed to convert '" + sURL + "' to URL", ex);
-    }
+    return m_aManageParticipantIdentifierEndpointAddress;
   }
 
   public boolean requiresClientCertificate ()
@@ -161,7 +149,6 @@ public class SimpleSMLInfo implements ISMLInfo
       return false;
     final SimpleSMLInfo rhs = (SimpleSMLInfo) o;
     return m_sDNSZone.equals (rhs.m_sDNSZone) &&
-           m_sManagementHostName.equals (rhs.m_sManagementHostName) &&
            m_sManagementServiceURL.equals (rhs.m_sManagementServiceURL) &&
            m_bRequiresClientCertficate == rhs.m_bRequiresClientCertficate;
   }
@@ -170,7 +157,6 @@ public class SimpleSMLInfo implements ISMLInfo
   public int hashCode ()
   {
     return new HashCodeGenerator (this).append (m_sDNSZone)
-                                       .append (m_sManagementHostName)
                                        .append (m_sManagementServiceURL)
                                        .append (m_bRequiresClientCertficate)
                                        .getHashCode ();
@@ -179,10 +165,13 @@ public class SimpleSMLInfo implements ISMLInfo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("dnsZone", m_sDNSZone)
-                                       .append ("hostName", m_sManagementHostName)
-                                       .append ("serviceURL", m_sManagementServiceURL)
-                                       .append ("requiresClientCert", m_bRequiresClientCertficate)
+    return new ToStringGenerator (this).append ("DNSZone", m_sDNSZone)
+                                       .append ("ManagementServiceURL", m_sManagementServiceURL)
+                                       .append ("RequiresClientCertificate", m_bRequiresClientCertficate)
+                                       .append ("ManageServiceMetaDataEndpointAddress",
+                                                m_aManageServiceMetaDataEndpointAddress)
+                                       .append ("ManageParticipantIdentifierEndpointAddress",
+                                                m_aManageParticipantIdentifierEndpointAddress)
                                        .toString ();
   }
 }

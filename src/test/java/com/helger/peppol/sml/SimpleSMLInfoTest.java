@@ -59,13 +59,11 @@ public final class SimpleSMLInfoTest
   public void testAll ()
   {
     SimpleSMLInfo si = new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                                          ESML.PRODUCTION.getManagementHostName (),
                                           ESML.PRODUCTION.getManagementServiceURL (),
                                           ESML.PRODUCTION.requiresClientCertificate ());
 
     assertEquals ("sml.peppolcentral.org.", si.getDNSZone ());
     assertEquals ("publisher.sml.peppolcentral.org.", si.getPublisherDNSName ());
-    assertEquals ("https://sml.peppolcentral.org", si.getManagementHostName ());
     assertEquals ("https://sml.peppolcentral.org", si.getManagementServiceURL ());
     assertEquals ("https://sml.peppolcentral.org/manageservicemetadata", si.getManageServiceMetaDataEndpointAddress ()
                                                                            .toExternalForm ());
@@ -74,12 +72,10 @@ public final class SimpleSMLInfoTest
     assertTrue (si.requiresClientCertificate ());
 
     si = new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                            ESML.PRODUCTION.getManagementHostName (),
                             ESML.PRODUCTION.getManagementServiceURL () + '/',
                             ESML.PRODUCTION.requiresClientCertificate ());
     assertEquals ("sml.peppolcentral.org.", si.getDNSZone ());
     assertEquals ("publisher.sml.peppolcentral.org.", si.getPublisherDNSName ());
-    assertEquals ("https://sml.peppolcentral.org", si.getManagementHostName ());
     assertEquals ("https://sml.peppolcentral.org", si.getManagementServiceURL ());
     assertEquals ("https://sml.peppolcentral.org/manageservicemetadata", si.getManageServiceMetaDataEndpointAddress ()
                                                                            .toExternalForm ());
@@ -89,30 +85,20 @@ public final class SimpleSMLInfoTest
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (si,
                                                                  new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                                                                                    ESML.PRODUCTION.getManagementHostName (),
                                                                                     ESML.PRODUCTION.getManagementServiceURL (),
                                                                                     ESML.PRODUCTION.requiresClientCertificate ()));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
                                                                      new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone () +
                                                                                             ".x",
-                                                                                        ESML.PRODUCTION.getManagementHostName (),
                                                                                         ESML.PRODUCTION.getManagementServiceURL (),
                                                                                         ESML.PRODUCTION.requiresClientCertificate ()));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
                                                                      new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                                                                                        ESML.PRODUCTION.getManagementHostName () +
-                                                                                            ".x",
-                                                                                        ESML.PRODUCTION.getManagementServiceURL (),
-                                                                                        ESML.PRODUCTION.requiresClientCertificate ()));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
-                                                                     new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                                                                                        ESML.PRODUCTION.getManagementHostName (),
                                                                                         ESML.PRODUCTION.getManagementServiceURL () +
                                                                                             ".x",
                                                                                         ESML.PRODUCTION.requiresClientCertificate ()));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
                                                                      new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                                                                                        ESML.PRODUCTION.getManagementHostName (),
                                                                                         ESML.PRODUCTION.getManagementServiceURL (),
                                                                                         !ESML.PRODUCTION.requiresClientCertificate ()));
   }
@@ -123,16 +109,7 @@ public final class SimpleSMLInfoTest
     try
     {
       // DNS name may not be empty
-      new SimpleSMLInfo ("", ESML.PRODUCTION.getManagementHostName (), ESML.PRODUCTION.getManagementServiceURL (), true);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
-      // Hostname may not be empty
-      new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (), "", ESML.PRODUCTION.getManagementServiceURL (), true);
+      new SimpleSMLInfo ("", ESML.PRODUCTION.getManagementServiceURL (), true);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -141,7 +118,7 @@ public final class SimpleSMLInfoTest
     try
     {
       // Service URL may not be empty
-      new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (), ESML.PRODUCTION.getManagementHostName (), "", true);
+      new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (), "", true);
       fail ();
     }
     catch (final IllegalArgumentException ex)

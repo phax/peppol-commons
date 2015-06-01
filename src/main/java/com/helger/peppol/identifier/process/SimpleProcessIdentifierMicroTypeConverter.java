@@ -38,60 +38,38 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.utils;
+package com.helger.peppol.identifier.process;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import org.busdox.servicemetadata.publishing._1.ExtensionType;
-import org.busdox.servicemetadata.publishing._1.ObjectFactory;
-import org.junit.Test;
-import org.w3c.dom.Element;
+import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.convert.IMicroTypeConverter;
+import com.helger.commons.microdom.impl.MicroElement;
 
-/**
- * Test class for class {@link ExtensionConverter}.
- *
- * @author PEPPOL.AT, BRZ, Philip Helger
- */
-public final class ExtensionConverterTest
+public final class SimpleProcessIdentifierMicroTypeConverter implements IMicroTypeConverter
 {
-  @Test
-  public void testConvertFromString ()
+  private static final String ATTR_SCHEME = "scheme";
+  private static final String ATTR_VALUE = "value";
+
+  @Nonnull
+  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+                                              @Nullable final String sNamespaceURI,
+                                              @Nonnull @Nonempty final String sTagName)
   {
-    // Use elements
-    final String sXML = "<any xmlns=\"urn:foo\"><child>text1</child><child2 /></any>";
-    final ExtensionType aExtension = ExtensionConverter.convert (sXML);
-    assertNotNull (aExtension);
-    assertNotNull (aExtension.getAny ());
-    assertTrue (aExtension.getAny () instanceof Element);
-
-    assertNull (ExtensionConverter.convert ((String) null));
-    assertNull (ExtensionConverter.convert (""));
-
-    // Convert back to String
-    final String sXML2 = ExtensionConverter.convert (aExtension);
-    assertEquals (sXML, sXML2);
-
-    try
-    {
-      // Cannot convert non-element
-      ExtensionConverter.convert ("Plain text");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // expected
-    }
+    final SimpleProcessIdentifier aValue = (SimpleProcessIdentifier) aObject;
+    final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
+    aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
+    aElement.setAttribute (ATTR_VALUE, aValue.getValue ());
+    return aElement;
   }
 
-  @Test
-  public void testConvertFromExtensionType ()
+  @Nonnull
+  public SimpleProcessIdentifier convertToNative (@Nonnull final IMicroElement aElement)
   {
-    // Try converting an empty extension
-    assertNull (ExtensionConverter.convert ((ExtensionType) null));
-    assertNull (ExtensionConverter.convert (new ObjectFactory ().createExtensionType ()));
+    final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
+    final String sValue = aElement.getAttributeValue (ATTR_VALUE);
+    return new SimpleProcessIdentifier (sScheme, sValue);
   }
 }

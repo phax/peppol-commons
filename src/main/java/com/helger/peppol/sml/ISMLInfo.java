@@ -73,14 +73,6 @@ public interface ISMLInfo
   String getPublisherDNSName ();
 
   /**
-   * @return The host name (incl. protocol) where the management application is
-   *         running on. Never <code>null</code>
-   */
-  @Nonnull
-  @Nonempty
-  String getManagementHostName ();
-
-  /**
    * @return The service URL where the management application is running on
    *         incl. the host name. Never <code>null</code>. The difference to the
    *         host name is the eventually present context path.

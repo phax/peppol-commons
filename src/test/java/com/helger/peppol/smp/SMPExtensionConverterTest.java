@@ -38,36 +38,65 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.codelist;
+package com.helger.peppol.smp;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import org.busdox.servicemetadata.publishing._1.ExtensionType;
+import org.busdox.servicemetadata.publishing._1.ObjectFactory;
 import org.junit.Test;
+import org.w3c.dom.Element;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.peppol.smp.SMPExtensionConverter;
 
 /**
- * Test class for class {@link EInvoiceTypeCode}.
- * 
+ * Test class for class {@link SMPExtensionConverter}.
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EInvoiceTypeCodeTest
+public final class SMPExtensionConverterTest
 {
   @Test
-  public void testBasic ()
+  public void testConvertFromString ()
   {
-    for (final EInvoiceTypeCode e : EInvoiceTypeCode.values ())
+    // Use elements
+    final String sXML = "<any xmlns=\"urn:foo\"><child>text1</child><child2 /></any>";
+    final ExtensionType aExtension = SMPExtensionConverter.convert (sXML);
+    assertNotNull (aExtension);
+    assertNotNull (aExtension.getAny ());
+    assertTrue (aExtension.getAny () instanceof Element);
+
+    assertNull (SMPExtensionConverter.convert ((String) null));
+    assertNull (SMPExtensionConverter.convert (""));
+
+    // Convert back to String
+    final String sXML2 = SMPExtensionConverter.convertToString (aExtension);
+    assertEquals (sXML, sXML2);
+
+    try
     {
-      assertTrue (StringHelper.hasText (e.getID ()));
-      assertTrue (StringHelper.hasText (e.getDisplayName ()));
-      assertSame (e, EInvoiceTypeCode.getFromIDOrNull (e.getID ()));
-      assertNotNull (EInvoiceTypeCode.getDisplayNameFromIDOrNull (e.getID ()));
-      assertSame (e, EInvoiceTypeCode.valueOf (e.name ()));
+      // Cannot convert non-element
+      SMPExtensionConverter.convert ("Plain text");
+      fail ();
     }
-    assertNull (EInvoiceTypeCode.getFromIDOrNull ("Yoda"));
-    assertNull (EInvoiceTypeCode.getDisplayNameFromIDOrNull ("Yoda"));
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+
+    // Cannot convert non-element
+    assertNull (SMPExtensionConverter.convertOrNull ("Plain text"));
+  }
+
+  @Test
+  public void testConvertFromExtensionType ()
+  {
+    // Try converting an empty extension
+    assertNull (SMPExtensionConverter.convertToString ((ExtensionType) null));
+    assertNull (SMPExtensionConverter.convertToString (new ObjectFactory ().createExtensionType ()));
   }
 }

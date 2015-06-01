@@ -59,6 +59,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import com.helger.commons.annotations.CodingStyleguideUnaware;
 import com.helger.commons.annotations.Nonempty;
 import com.helger.commons.annotations.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
@@ -116,8 +117,8 @@ import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
 public final class MainCreateCodelistsFilesFromExcel
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateCodelistsFilesFromExcel.class);
-  private static final Version CODELIST_VERSION = new Version (1, 2, 0);
-  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1.2.0.xls";
+  private static final Version CODELIST_VERSION = new Version (1, 2, 2);
+  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1.2.2-unofficial.xls";
   private static final String SHEET_PARTICIPANT = "Participant";
   private static final String SHEET_DOCUMENT = "Document";
   private static final String SHEET_PROCESS = "Process";
@@ -221,6 +222,7 @@ public final class MainCreateCodelistsFilesFromExcel
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "identifier.issuingagency")
                                               ._enum ("EPredefinedIdentifierIssuingAgency")
                                               ._implements (IIdentifierIssuingAgency.class);
+      jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add ("This file is generated. Do NOT edit!");
 
       // enum constants
@@ -382,6 +384,7 @@ public final class MainCreateCodelistsFilesFromExcel
       s_jEnumPredefinedDoc = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "identifier.doctype")
                                          ._enum ("EPredefinedDocumentTypeIdentifier")
                                          ._implements (IPeppolPredefinedDocumentTypeIdentifier.class);
+      s_jEnumPredefinedDoc.annotate (CodingStyleguideUnaware.class);
       s_jEnumPredefinedDoc.javadoc ().add ("This file is generated. Do NOT edit!");
 
       final Set <String> aAllShortcutNames = new HashSet <String> ();
@@ -624,6 +627,7 @@ public final class MainCreateCodelistsFilesFromExcel
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "identifier.process")
                                               ._enum ("EPredefinedProcessIdentifier")
                                               ._implements (IPeppolPredefinedProcessIdentifier.class);
+      jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add ("This file is generated. Do NOT edit!");
 
       // enum constants

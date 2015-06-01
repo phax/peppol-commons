@@ -61,7 +61,6 @@ public final class ESMLTest
     {
       assertNotNull (eSML.getDNSZone ());
       assertNotNull (eSML.getPublisherDNSName ());
-      assertNotNull (eSML.getManagementHostName ());
       assertNotNull (eSML.getManagementServiceURL ());
       assertNotNull (eSML.getManageServiceMetaDataEndpointAddress ());
       assertNotNull (eSML.getManageParticipantIdentifierEndpointAddress ());
@@ -71,11 +70,10 @@ public final class ESMLTest
   }
 
   @Test
-  public void testProductionValues ()
+  public void testOldProductionValues ()
   {
     assertEquals ("sml.peppolcentral.org.", ESML.PRODUCTION.getDNSZone ());
     assertEquals ("publisher.sml.peppolcentral.org.", ESML.PRODUCTION.getPublisherDNSName ());
-    assertEquals ("https://sml.peppolcentral.org", ESML.PRODUCTION.getManagementHostName ());
     assertEquals ("https://sml.peppolcentral.org", ESML.PRODUCTION.getManagementServiceURL ());
     assertEquals ("https://sml.peppolcentral.org/manageservicemetadata",
                   ESML.PRODUCTION.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
@@ -84,11 +82,30 @@ public final class ESMLTest
 
     assertEquals ("smk.peppolcentral.org.", ESML.TEST.getDNSZone ());
     assertEquals ("publisher.smk.peppolcentral.org.", ESML.TEST.getPublisherDNSName ());
-    assertEquals ("https://smk.peppolcentral.org", ESML.TEST.getManagementHostName ());
     assertEquals ("https://smk.peppolcentral.org", ESML.TEST.getManagementServiceURL ());
     assertEquals ("https://smk.peppolcentral.org/manageservicemetadata",
                   ESML.TEST.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
     assertEquals ("https://smk.peppolcentral.org/manageparticipantidentifier",
                   ESML.TEST.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
+  }
+
+  @Test
+  public void testNewProductionValues ()
+  {
+    assertEquals ("edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getDNSZone ());
+    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getPublisherDNSName ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", ESML.DIGIT_PRODUCTION.getManagementServiceURL ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
+                  ESML.DIGIT_PRODUCTION.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
+                  ESML.DIGIT_PRODUCTION.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
+
+    assertEquals ("acc.edelivery.tech.ec.europa.eu.", ESML.DIGIT_TEST.getDNSZone ());
+    assertEquals ("publisher.acc.edelivery.tech.ec.europa.eu.", ESML.DIGIT_TEST.getPublisherDNSName ());
+    assertEquals ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", ESML.DIGIT_TEST.getManagementServiceURL ());
+    assertEquals ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
+                  ESML.DIGIT_TEST.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
+    assertEquals ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
+                  ESML.DIGIT_TEST.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
   }
 }

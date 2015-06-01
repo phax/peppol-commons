@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.utils;
+package com.helger.peppol.smp;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -46,15 +46,10 @@ import javax.annotation.concurrent.Immutable;
 import org.busdox.servicemetadata.publishing._1.ExtensionType;
 import org.busdox.servicemetadata.publishing._1.ObjectFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.microdom.IMicroNode;
-import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.commons.xml.serialize.DOMReader;
 import com.helger.commons.xml.serialize.EXMLSerializeDocType;
 import com.helger.commons.xml.serialize.EXMLSerializeIndent;
@@ -63,12 +58,12 @@ import com.helger.commons.xml.serialize.XMLWriterSettings;
 
 /**
  * This class is used for converting between a String representation of the
- * extension element and the "ExtensionType" complex type.
+ * extension element and the "ExtensionType" complex type used in the SMP.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public final class ExtensionConverter
+public final class SMPExtensionConverter
 {
   private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE)
                                                                           .setIndent (EXMLSerializeIndent.NONE);
@@ -76,9 +71,9 @@ public final class ExtensionConverter
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
-  private static final ExtensionConverter s_aInstance = new ExtensionConverter ();
+  private static final SMPExtensionConverter s_aInstance = new SMPExtensionConverter ();
 
-  private ExtensionConverter ()
+  private SMPExtensionConverter ()
   {}
 
   /**
@@ -92,36 +87,14 @@ public final class ExtensionConverter
    *         If the Extension cannot be converted to a String
    */
   @Nullable
-  public static String convert (@Nullable final ExtensionType aExtension)
+  public static String convertToString (@Nullable final ExtensionType aExtension)
   {
     // If there is no extension present, nothing to convert
     if (aExtension == null)
       return null;
 
     // Get the extension content
-    final Object aExtensionElement = aExtension.getAny ();
-    if (aExtensionElement == null)
-      return null;
-
-    // Handle DOM nodes directly
-    if (aExtensionElement instanceof Node)
-      return XMLWriter.getNodeAsString ((Node) aExtensionElement, s_aXWS);
-
-    // Handle Micro nodes also directly
-    if (aExtensionElement instanceof IMicroNode)
-      return MicroWriter.getNodeAsString ((IMicroNode) aExtensionElement, s_aXWS);
-
-    try
-    {
-      // Call the global type converter - maybe it helps :)
-      return TypeConverter.convertIfNecessary (aExtensionElement, String.class);
-    }
-    catch (final TypeConverterException ex)
-    {
-      // FIXME the extension may contain multiple elements (e.g. lists)
-      throw new IllegalArgumentException ("Don't know how to convert the extension element of type " +
-                                          aExtension.getClass ().getName ());
-    }
+    return XMLWriter.getNodeAsString (aExtension.getAny (), s_aXWS);
   }
 
   /**
@@ -156,5 +129,27 @@ public final class ExtensionConverter
     }
 
     return null;
+  }
+
+  /**
+   * Convert the passed XML string to an SMP extension type.
+   *
+   * @param sXML
+   *        the XML representation to be converted.
+   * @return <code>null</code> if the passed string is empty or cannot be
+   *         converted to a XML node
+   */
+  @Nullable
+  public static ExtensionType convertOrNull (@Nullable final String sXML)
+  {
+    try
+    {
+      return convert (sXML);
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // Invalid XML passed
+      return null;
+    }
   }
 }
