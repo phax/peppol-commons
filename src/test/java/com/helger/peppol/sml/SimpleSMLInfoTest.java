@@ -58,49 +58,50 @@ public final class SimpleSMLInfoTest
   @Test
   public void testAll ()
   {
-    SimpleSMLInfo si = new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                                          ESML.PRODUCTION.getManagementServiceURL (),
-                                          ESML.PRODUCTION.requiresClientCertificate ());
+    SimpleSMLInfo si = new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                          ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                          ESML.DIGIT_PRODUCTION.requiresClientCertificate ());
 
-    assertEquals ("sml.peppolcentral.org.", si.getDNSZone ());
-    assertEquals ("publisher.sml.peppolcentral.org.", si.getPublisherDNSName ());
-    assertEquals ("https://sml.peppolcentral.org", si.getManagementServiceURL ());
-    assertEquals ("https://sml.peppolcentral.org/manageservicemetadata", si.getManageServiceMetaDataEndpointAddress ()
-                                                                           .toExternalForm ());
-    assertEquals ("https://sml.peppolcentral.org/manageparticipantidentifier",
+    assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
+    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSName ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", si.getManagementServiceURL ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
+                  si.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.requiresClientCertificate ());
 
-    si = new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                            ESML.PRODUCTION.getManagementServiceURL () + '/',
-                            ESML.PRODUCTION.requiresClientCertificate ());
-    assertEquals ("sml.peppolcentral.org.", si.getDNSZone ());
-    assertEquals ("publisher.sml.peppolcentral.org.", si.getPublisherDNSName ());
-    assertEquals ("https://sml.peppolcentral.org", si.getManagementServiceURL ());
-    assertEquals ("https://sml.peppolcentral.org/manageservicemetadata", si.getManageServiceMetaDataEndpointAddress ()
-                                                                           .toExternalForm ());
-    assertEquals ("https://sml.peppolcentral.org/manageparticipantidentifier",
+    // With a trailing slash
+    si = new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                            ESML.DIGIT_PRODUCTION.getManagementServiceURL () + '/',
+                            ESML.DIGIT_PRODUCTION.requiresClientCertificate ());
+    assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
+    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSName ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", si.getManagementServiceURL ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
+                  si.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.requiresClientCertificate ());
 
     PHTestUtils.testDefaultImplementationWithEqualContentObject (si,
-                                                                 new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                                                                                    ESML.PRODUCTION.getManagementServiceURL (),
-                                                                                    ESML.PRODUCTION.requiresClientCertificate ()));
+                                                                 new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                                    ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                                    ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
-                                                                     new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone () +
+                                                                     new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone () +
                                                                                             ".x",
-                                                                                        ESML.PRODUCTION.getManagementServiceURL (),
-                                                                                        ESML.PRODUCTION.requiresClientCertificate ()));
+                                                                                        ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                                        ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
-                                                                     new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                                                                                        ESML.PRODUCTION.getManagementServiceURL () +
+                                                                     new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                                        ESML.DIGIT_PRODUCTION.getManagementServiceURL () +
                                                                                             ".x",
-                                                                                        ESML.PRODUCTION.requiresClientCertificate ()));
+                                                                                        ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
     PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
-                                                                     new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (),
-                                                                                        ESML.PRODUCTION.getManagementServiceURL (),
-                                                                                        !ESML.PRODUCTION.requiresClientCertificate ()));
+                                                                     new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                                        ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                                        !ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
   }
 
   @Test
@@ -109,7 +110,7 @@ public final class SimpleSMLInfoTest
     try
     {
       // DNS name may not be empty
-      new SimpleSMLInfo ("", ESML.PRODUCTION.getManagementServiceURL (), true);
+      new SimpleSMLInfo ("", ESML.DIGIT_PRODUCTION.getManagementServiceURL (), true);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -118,7 +119,7 @@ public final class SimpleSMLInfoTest
     try
     {
       // Service URL may not be empty
-      new SimpleSMLInfo (ESML.PRODUCTION.getDNSZone (), "", true);
+      new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (), "", true);
       fail ();
     }
     catch (final IllegalArgumentException ex)

@@ -73,11 +73,14 @@ public enum ESML implements ISMLInfo, IHasID <String>
   DIGIT_PRODUCTION ("digitprod", "edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu/edelivery-sml", true),
   /** DIGIT test URL - valid from June 9th, 2015 */
   DIGIT_TEST ("digittest", "acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true),
-  /** https://sml.peppolcentral.org - valid until June 9th, 2015 */
+  /** https://sml.peppolcentral.org - deprecated since June 9th, 2015 */
+  @Deprecated
   PRODUCTION ("brzprod", "sml.peppolcentral.org.", "https://sml.peppolcentral.org", true),
-  /** https://smk.peppolcentral.org - valid until June 9th, 2015 */
+  /** https://smk.peppolcentral.org - deprecated since June 9th, 2015 */
+  @Deprecated
   TEST ("brztest", "smk.peppolcentral.org.", "https://smk.peppolcentral.org", true),
-  /** http://plixvde2 - valid until June 9th, 2015 */
+  /** http://plixvde2 - deprecated since June 9th, 2015 */
+  @Deprecated
   DEVELOPMENT ("brzdev", "smj.peppolcentral.org.", "http://plixvde2/ServiceMetadataLocatorManagement", false),
   /** http://localhost:8080 */
   DEVELOPMENT_LOCAL ("local", "smj.peppolcentral.org.", "http://localhost:8080", false);
