@@ -46,7 +46,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 
@@ -70,7 +70,7 @@ public final class SimpleProcessIdentifierTest
     assertEquals ("value", aID2.getValue ());
 
     assertEquals (aID, aID2);
-    PHTestUtils.testMicroTypeConversion (aID2);
+    CommonsTestHelper.testMicroTypeConversion (aID2);
   }
 
   @Test
@@ -79,9 +79,9 @@ public final class SimpleProcessIdentifierTest
     final SimpleProcessIdentifier aID1 = new SimpleProcessIdentifier ("scheme", "value");
     final SimpleProcessIdentifier aID2 = new SimpleProcessIdentifier ("scheme", "value");
     final SimpleProcessIdentifier aID3 = new SimpleProcessIdentifier ("scheme2", "value");
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aID1, aID2);
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
   }
 
   @Test

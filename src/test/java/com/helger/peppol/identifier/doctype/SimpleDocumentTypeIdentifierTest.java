@@ -47,7 +47,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
@@ -73,7 +73,7 @@ public final class SimpleDocumentTypeIdentifierTest
     assertEquals ("value", aID2.getValue ());
 
     assertEquals (aID, aID2);
-    PHTestUtils.testMicroTypeConversion (aID2);
+    CommonsTestHelper.testMicroTypeConversion (aID2);
   }
 
   @Test
@@ -82,9 +82,9 @@ public final class SimpleDocumentTypeIdentifierTest
     final SimpleDocumentTypeIdentifier aID1 = new SimpleDocumentTypeIdentifier ("scheme", "value");
     final SimpleDocumentTypeIdentifier aID2 = new SimpleDocumentTypeIdentifier ("scheme", "value");
     final SimpleDocumentTypeIdentifier aID3 = new SimpleDocumentTypeIdentifier ("scheme2", "value");
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aID1, aID2);
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
   }
 
   @Test
@@ -195,10 +195,10 @@ public final class SimpleDocumentTypeIdentifierTest
 
     final IDocumentTypeIdentifier d1 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
     final IDocumentTypeIdentifier d2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (d1, d2);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (d1, d2);
 
     final IDocumentTypeIdentifier d3 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s2);
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (d1, d3);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (d1, d3);
   }
 
   @Test

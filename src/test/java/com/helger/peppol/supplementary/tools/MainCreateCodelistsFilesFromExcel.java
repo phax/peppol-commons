@@ -59,27 +59,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.helger.commons.annotations.CodingStyleguideUnaware;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.ReturnsMutableCopy;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.collections.CollectionHelper;
-import com.helger.commons.io.IReadableResource;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.microdom.IMicroDocument;
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.impl.MicroDocument;
+import com.helger.commons.microdom.MicroDocument;
 import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.version.Version;
-import com.helger.commons.xml.serialize.XMLWriter;
-import com.helger.commons.xml.serialize.XMLWriterSettings;
+import com.helger.commons.xml.serialize.write.XMLWriter;
+import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 import com.helger.genericode.Genericode10CodeListMarshaller;
-import com.helger.genericode.Genericode10Utils;
+import com.helger.genericode.Genericode10Helper;
 import com.helger.genericode.excel.ExcelReadOptions;
 import com.helger.genericode.excel.ExcelSheetToCodeList10;
 import com.helger.genericode.v10.CodeListDocument;
@@ -132,7 +132,7 @@ public final class MainCreateCodelistsFilesFromExcel
     final Document aDoc = new Genericode10CodeListMarshaller ().write (aCodeList);
     if (aDoc == null)
       throw new IllegalStateException ("Failed to serialize code list");
-    final OutputStream aFOS = FileUtils.getOutputStream (sFilename);
+    final OutputStream aFOS = FileHelper.getOutputStream (sFilename);
     if (XMLWriter.writeToStream (aDoc, aFOS, XMLWriterSettings.DEFAULT_XML_SETTINGS).isFailure ())
       throw new IllegalStateException ("Failed to write file " + sFilename);
     s_aLogger.info ("Wrote Genericode file " + sFilename);
@@ -189,13 +189,13 @@ public final class MainCreateCodelistsFilesFromExcel
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sCode = Genericode10Utils.getRowValue (aRow, "schemeid");
-      final String sAgency = Genericode10Utils.getRowValue (aRow, "schemeagency");
-      final String sISO6523 = Genericode10Utils.getRowValue (aRow, "iso6523");
-      final String sDeprecated = Genericode10Utils.getRowValue (aRow, "deprecated");
+      final String sCode = Genericode10Helper.getRowValue (aRow, "schemeid");
+      final String sAgency = Genericode10Helper.getRowValue (aRow, "schemeagency");
+      final String sISO6523 = Genericode10Helper.getRowValue (aRow, "iso6523");
+      final String sDeprecated = Genericode10Helper.getRowValue (aRow, "deprecated");
       final boolean bDeprecated = StringParser.parseBool (sDeprecated, false);
-      final String sSince = Genericode10Utils.getRowValue (aRow, "since");
-      final String sStructure = Genericode10Utils.getRowValue (aRow, "structure");
+      final String sSince = Genericode10Helper.getRowValue (aRow, "since");
+      final String sStructure = Genericode10Helper.getRowValue (aRow, "structure");
 
       final IMicroElement eAgency = eRoot.appendElement ("issuingAgency");
       eAgency.setAttribute ("schemeid", sCode);
@@ -228,12 +228,12 @@ public final class MainCreateCodelistsFilesFromExcel
       // enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sSchemeID = Genericode10Utils.getRowValue (aRow, "schemeid");
-        final String sAgency = Genericode10Utils.getRowValue (aRow, "schemeagency");
-        final String sISO6523 = Genericode10Utils.getRowValue (aRow, "iso6523");
-        final String sDeprecated = Genericode10Utils.getRowValue (aRow, "deprecated");
+        final String sSchemeID = Genericode10Helper.getRowValue (aRow, "schemeid");
+        final String sAgency = Genericode10Helper.getRowValue (aRow, "schemeagency");
+        final String sISO6523 = Genericode10Helper.getRowValue (aRow, "iso6523");
+        final String sDeprecated = Genericode10Helper.getRowValue (aRow, "deprecated");
         final boolean bDeprecated = StringParser.parseBool (sDeprecated, false);
-        final String sSince = Genericode10Utils.getRowValue (aRow, "since");
+        final String sSince = Genericode10Helper.getRowValue (aRow, "since");
 
         if (StringHelper.hasNoText (sSchemeID))
           throw new IllegalArgumentException ("schemeID");
@@ -364,9 +364,9 @@ public final class MainCreateCodelistsFilesFromExcel
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sDocID = Genericode10Utils.getRowValue (aRow, "docid");
-      final String sName = Genericode10Utils.getRowValue (aRow, "name");
-      final String sSince = Genericode10Utils.getRowValue (aRow, "since");
+      final String sDocID = Genericode10Helper.getRowValue (aRow, "docid");
+      final String sName = Genericode10Helper.getRowValue (aRow, "name");
+      final String sSince = Genericode10Helper.getRowValue (aRow, "since");
 
       final IMicroElement eAgency = eRoot.appendElement ("document");
       eAgency.setAttribute ("id", sDocID);
@@ -392,9 +392,9 @@ public final class MainCreateCodelistsFilesFromExcel
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sDocID = Genericode10Utils.getRowValue (aRow, "docid");
-        final String sName = Genericode10Utils.getRowValue (aRow, "name");
-        final String sSince = Genericode10Utils.getRowValue (aRow, "since");
+        final String sDocID = Genericode10Helper.getRowValue (aRow, "docid");
+        final String sName = Genericode10Helper.getRowValue (aRow, "name");
+        final String sSince = Genericode10Helper.getRowValue (aRow, "since");
 
         // Split ID in it's pieces
         IPeppolDocumentTypeIdentifierParts aDocIDParts;
@@ -601,13 +601,13 @@ public final class MainCreateCodelistsFilesFromExcel
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sID = Genericode10Utils.getRowValue (aRow, "id");
-      final String sBISID = Genericode10Utils.getRowValue (aRow, "bisid");
-      final String sDocIDs = Genericode10Utils.getRowValue (aRow, "docids");
+      final String sID = Genericode10Helper.getRowValue (aRow, "id");
+      final String sBISID = Genericode10Helper.getRowValue (aRow, "bisid");
+      final String sDocIDs = Genericode10Helper.getRowValue (aRow, "docids");
       // Split the document identifier string into a list of single strings,
       // and check if each of them is a valid predefined document identifier
       final List <String> aDocIDs = RegExHelper.getSplitToList (sDocIDs, "\n");
-      final String sSince = Genericode10Utils.getRowValue (aRow, "since");
+      final String sSince = Genericode10Helper.getRowValue (aRow, "since");
 
       final IMicroElement eAgency = eRoot.appendElement ("process");
       eAgency.setAttribute ("id", sID);
@@ -634,10 +634,10 @@ public final class MainCreateCodelistsFilesFromExcel
       final Set <String> aAllShortcutNames = new HashSet <String> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sID = Genericode10Utils.getRowValue (aRow, "id");
-        final String sBISID = Genericode10Utils.getRowValue (aRow, "bisid");
-        final String sDocTypeIDs = Genericode10Utils.getRowValue (aRow, "docids");
-        final String sSince = Genericode10Utils.getRowValue (aRow, "since");
+        final String sID = Genericode10Helper.getRowValue (aRow, "id");
+        final String sBISID = Genericode10Helper.getRowValue (aRow, "bisid");
+        final String sDocTypeIDs = Genericode10Helper.getRowValue (aRow, "docids");
+        final String sSince = Genericode10Helper.getRowValue (aRow, "since");
 
         final String sEnumConstName = RegExHelper.getAsIdentifier (sID);
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);

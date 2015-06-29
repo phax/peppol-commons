@@ -42,7 +42,7 @@ package com.helger.peppol.sml;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * This file contains default constants for the usage of the SML. It is strongly

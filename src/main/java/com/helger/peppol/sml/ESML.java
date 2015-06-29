@@ -46,8 +46,8 @@ import java.net.URL;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.exceptions.InitializationException;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.exception.InitializationException;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 
@@ -73,15 +73,6 @@ public enum ESML implements ISMLInfo, IHasID <String>
   DIGIT_PRODUCTION ("digitprod", "edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu/edelivery-sml", true),
   /** DIGIT test URL - valid from June 9th, 2015 */
   DIGIT_TEST ("digittest", "acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true),
-  /** https://sml.peppolcentral.org - deprecated since June 9th, 2015 */
-  @Deprecated
-  PRODUCTION ("brzprod", "sml.peppolcentral.org.", "https://sml.peppolcentral.org", true),
-  /** https://smk.peppolcentral.org - deprecated since June 9th, 2015 */
-  @Deprecated
-  TEST ("brztest", "smk.peppolcentral.org.", "https://smk.peppolcentral.org", true),
-  /** http://plixvde2 - deprecated since June 9th, 2015 */
-  @Deprecated
-  DEVELOPMENT ("brzdev", "smj.peppolcentral.org.", "http://plixvde2/ServiceMetadataLocatorManagement", false),
   /** http://localhost:8080 */
   DEVELOPMENT_LOCAL ("local", "smj.peppolcentral.org.", "http://localhost:8080", false);
 

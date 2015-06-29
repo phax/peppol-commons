@@ -52,11 +52,11 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.csv.CSVWriter;
-import com.helger.commons.io.file.FileUtils;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.streams.StreamUtils;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -167,10 +167,10 @@ public final class OpenPeppolDocumentTypeIdentifierPartsTest
   @Test
   public void testList () throws IOException
   {
-    final List <String> aLines = SimpleFileIO.readFileLines (new File ("src/test/resources/doctypes.txt"),
-                                                             CCharset.CHARSET_UTF_8_OBJ);
-    final CSVWriter aCSV = new CSVWriter (StreamUtils.createWriter (FileUtils.getOutputStream ("doctypes.csv"),
-                                                                    CCharset.CHARSET_ISO_8859_1_OBJ)).setSeparator (';');
+    final List <String> aLines = SimpleFileIO.getAllFileLines (new File ("src/test/resources/doctypes.txt"),
+                                                               CCharset.CHARSET_UTF_8_OBJ);
+    final CSVWriter aCSV = new CSVWriter (StreamHelper.createWriter (FileHelper.getOutputStream ("doctypes.csv"),
+                                                                     CCharset.CHARSET_ISO_8859_1_OBJ)).setSeparatorChar (';');
     aCSV.writeNext (new String [] { "Status",
                                    "Namespace URI",
                                    "Local name",

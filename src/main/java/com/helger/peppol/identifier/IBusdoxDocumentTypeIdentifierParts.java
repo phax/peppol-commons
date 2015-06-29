@@ -43,7 +43,7 @@ package com.helger.peppol.identifier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 
 /**
  * Contains all the different fields of a document type identifier for BusDox.

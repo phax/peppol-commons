@@ -42,8 +42,7 @@ package com.helger.peppol.utils;
 
 import org.junit.Test;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.peppol.utils.PeppolTechnicalSetup;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Test class for class {@link PeppolTechnicalSetup}.

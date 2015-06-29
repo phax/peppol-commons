@@ -48,9 +48,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.io.IReadableResource;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.messagedigest.MessageDigestGeneratorHelper;
 import com.helger.peppol.utils.KeyStoreUtils;
@@ -69,13 +69,13 @@ public final class MainCreateTrustStoreHashFiles
   {
     final IReadableResource aTrustStore = new ClassPathResource (sTruststorePath);
 
-    final byte [] aMD5 = MessageDigestGeneratorHelper.getDigestFromInputStream (aTrustStore.getInputStream (),
-                                                                                EMessageDigestAlgorithm.MD5);
+    final byte [] aMD5 = MessageDigestGeneratorHelper.getAllDigestBytesFromInputStream (aTrustStore.getInputStream (),
+                                                                                        EMessageDigestAlgorithm.MD5);
     SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".md5"),
                             MessageDigestGeneratorHelper.getHexValueFromDigest (aMD5),
                             CCharset.CHARSET_ISO_8859_1_OBJ);
-    final byte [] aSHA1 = MessageDigestGeneratorHelper.getDigestFromInputStream (aTrustStore.getInputStream (),
-                                                                                 EMessageDigestAlgorithm.SHA_1);
+    final byte [] aSHA1 = MessageDigestGeneratorHelper.getAllDigestBytesFromInputStream (aTrustStore.getInputStream (),
+                                                                                         EMessageDigestAlgorithm.SHA_1);
     SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".sha1"),
                             MessageDigestGeneratorHelper.getHexValueFromDigest (aSHA1),
                             CCharset.CHARSET_ISO_8859_1_OBJ);

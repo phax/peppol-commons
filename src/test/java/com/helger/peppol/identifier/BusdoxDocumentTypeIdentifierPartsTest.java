@@ -46,9 +46,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
-import com.helger.peppol.identifier.BusdoxDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.IBusdoxDocumentTypeIdentifierParts;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link BusdoxDocumentTypeIdentifierParts}.
@@ -77,22 +75,22 @@ public final class BusdoxDocumentTypeIdentifierPartsTest
     assertEquals ("root::local", aParts.getAsDocumentTypeIdentifierValue ());
 
     // Test equals/hashCode/toString
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aParts,
-                                                                 new BusdoxDocumentTypeIdentifierParts ("root",
-                                                                                                        "local",
-                                                                                                        null));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aParts,
-                                                                     new BusdoxDocumentTypeIdentifierParts ("root2",
-                                                                                                            "local",
-                                                                                                            null));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aParts,
-                                                                     new BusdoxDocumentTypeIdentifierParts ("root",
-                                                                                                            "local2",
-                                                                                                            null));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aParts,
-                                                                     new BusdoxDocumentTypeIdentifierParts ("root",
-                                                                                                            "local",
-                                                                                                            "subtype"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aParts,
+                                                                       new BusdoxDocumentTypeIdentifierParts ("root",
+                                                                                                              "local",
+                                                                                                              null));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aParts,
+                                                                           new BusdoxDocumentTypeIdentifierParts ("root2",
+                                                                                                                  "local",
+                                                                                                                  null));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aParts,
+                                                                           new BusdoxDocumentTypeIdentifierParts ("root",
+                                                                                                                  "local2",
+                                                                                                                  null));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aParts,
+                                                                           new BusdoxDocumentTypeIdentifierParts ("root",
+                                                                                                                  "local",
+                                                                                                                  "subtype"));
   }
 
   @Test

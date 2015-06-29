@@ -50,13 +50,13 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.collections.ArrayHelper;
-import com.helger.commons.compare.CompareUtils;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.exceptions.InitializationException;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.exception.InitializationException;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
@@ -318,7 +318,7 @@ public final class IdentifierUtils
                                                              @Nullable final String sIdentifierValue2)
   {
     // equal case insensitive!
-    return EqualsUtils.equalsIgnoreCase (sIdentifierValue1, sIdentifierValue2);
+    return EqualsHelper.equalsIgnoreCase (sIdentifierValue1, sIdentifierValue2);
   }
 
   /**
@@ -359,7 +359,7 @@ public final class IdentifierUtils
                                                               @Nullable final String sIdentifierValue2)
   {
     // Case sensitive!
-    return EqualsUtils.equals (sIdentifierValue1, sIdentifierValue2);
+    return EqualsHelper.equals (sIdentifierValue1, sIdentifierValue2);
   }
 
   /**
@@ -378,7 +378,7 @@ public final class IdentifierUtils
                                                          @Nullable final String sIdentifierValue2)
   {
     // Case sensitive!
-    return EqualsUtils.equals (sIdentifierValue1, sIdentifierValue2);
+    return EqualsHelper.equals (sIdentifierValue1, sIdentifierValue2);
   }
 
   /**
@@ -420,7 +420,7 @@ public final class IdentifierUtils
     ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
 
     // Identifiers are equal, if both scheme and value match case insensitive!
-    return EqualsUtils.equalsIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+    return EqualsHelper.equalsIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
            areParticipantIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
   }
 
@@ -463,7 +463,7 @@ public final class IdentifierUtils
     ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
 
     // Identifiers are equal, if both scheme and value match case sensitive!
-    return EqualsUtils.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+    return EqualsHelper.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
            areDocumentTypeIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
   }
 
@@ -506,7 +506,7 @@ public final class IdentifierUtils
     ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
 
     // Identifiers are equal, if both scheme and value match case sensitive!
-    return EqualsUtils.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+    return EqualsHelper.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
            areProcessIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
   }
 
@@ -527,9 +527,9 @@ public final class IdentifierUtils
     ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
 
     // Compare case insensitive
-    int ret = CompareUtils.nullSafeCompareIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
+    int ret = CompareHelper.compareIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
     if (ret == 0)
-      ret = CompareUtils.nullSafeCompareIgnoreCase (aIdentifier1.getValue (), aIdentifier2.getValue ());
+      ret = CompareHelper.compareIgnoreCase (aIdentifier1.getValue (), aIdentifier2.getValue ());
     return ret;
   }
 
@@ -550,9 +550,9 @@ public final class IdentifierUtils
     ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
 
     // Compare case sensitive
-    int ret = CompareUtils.nullSafeCompare (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
+    int ret = CompareHelper.compare (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
     if (ret == 0)
-      ret = CompareUtils.nullSafeCompare (aIdentifier1.getValue (), aIdentifier2.getValue ());
+      ret = CompareHelper.compare (aIdentifier1.getValue (), aIdentifier2.getValue ());
     return ret;
   }
 
@@ -573,9 +573,9 @@ public final class IdentifierUtils
     ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
 
     // Compare case sensitive
-    int ret = CompareUtils.nullSafeCompare (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
+    int ret = CompareHelper.compare (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
     if (ret == 0)
-      ret = CompareUtils.nullSafeCompare (aIdentifier1.getValue (), aIdentifier2.getValue ());
+      ret = CompareHelper.compare (aIdentifier1.getValue (), aIdentifier2.getValue ());
     return ret;
   }
 

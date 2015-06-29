@@ -40,13 +40,9 @@
  */
 package com.helger.peppol.identifier.process;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.compare.AbstractComparator;
-import com.helger.commons.compare.ESortOrder;
 import com.helger.peppol.identifier.IReadonlyProcessIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 
@@ -57,25 +53,6 @@ import com.helger.peppol.identifier.IdentifierUtils;
  */
 public class ComparatorReadonlyProcessIdentifier extends AbstractComparator <IReadonlyProcessIdentifier>
 {
-  public ComparatorReadonlyProcessIdentifier ()
-  {}
-
-  public ComparatorReadonlyProcessIdentifier (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
-
-  public ComparatorReadonlyProcessIdentifier (@Nullable final Comparator <? super IReadonlyProcessIdentifier> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  public ComparatorReadonlyProcessIdentifier (@Nonnull final ESortOrder eSortOrder,
-                                              @Nullable final Comparator <? super IReadonlyProcessIdentifier> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
-  }
-
   @Override
   protected int mainCompare (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
                              @Nonnull final IReadonlyProcessIdentifier aIdentifier2)

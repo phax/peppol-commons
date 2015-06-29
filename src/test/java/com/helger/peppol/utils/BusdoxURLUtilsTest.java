@@ -78,6 +78,17 @@ public final class BusdoxURLUtilsTest
   }
 
   @Test
+  public void testCreatePercentDecodedURL ()
+  {
+    assertNull (BusdoxURLUtils.createPercentDecodedURL (null));
+    assertEquals ("", BusdoxURLUtils.createPercentDecodedURL (""));
+    assertEquals ("abc", BusdoxURLUtils.createPercentDecodedURL ("abc"));
+    assertEquals ("a%b", BusdoxURLUtils.createPercentDecodedURL ("a%25b"));
+    assertEquals ("a%%b", BusdoxURLUtils.createPercentDecodedURL ("a%25%25b"));
+    assertEquals ("a/b", BusdoxURLUtils.createPercentDecodedURL ("a%2Fb"));
+  }
+
+  @Test
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testGetDNSNameOfParticipant ()
   {

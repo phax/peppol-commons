@@ -49,14 +49,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.lang.ServiceLoaderUtils;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.participant.IPeppolParticipantIdentifier;
 
 /**
  * A wrapper around the custom identifier validator implementations.
- * 
+ *
  * @author philip
  */
 @Immutable
@@ -67,7 +67,7 @@ public final class IdentifierValidator
 
   static
   {
-    s_aParticipantIDValidators = ServiceLoaderUtils.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
+    s_aParticipantIDValidators = ServiceLoaderHelper.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
     if (!s_aParticipantIDValidators.isEmpty ())
       s_aLogger.info ("Loaded " +
                       s_aParticipantIDValidators.size () +
@@ -88,7 +88,7 @@ public final class IdentifierValidator
    * we don't know the details of the other schemes.<br>
    * This method can be used to generically check the consistency of certain
    * numbering schemes.
-   * 
+   *
    * @param aParticipantID
    *        The participant ID to validate. May not be <code>null</code>.
    * @return <code>true</code> if a) the identifier is not the default scheme,

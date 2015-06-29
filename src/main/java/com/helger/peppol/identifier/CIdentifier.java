@@ -43,7 +43,7 @@ package com.helger.peppol.identifier;
 import javax.annotation.Nonnegative;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Constants on BUSDOX identifiers used in PEPPOL.

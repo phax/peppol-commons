@@ -42,8 +42,8 @@ package com.helger.peppol.identifier.validator;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotations.IsSPIInterface;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.IsSPIInterface;
+import com.helger.commons.annotation.Nonempty;
 
 /**
  * An SPI interface to validate arbitrary identifier values (independent of the

@@ -43,8 +43,8 @@ package com.helger.peppol.identifier.validator;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.IsSPIImplementation;
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
 

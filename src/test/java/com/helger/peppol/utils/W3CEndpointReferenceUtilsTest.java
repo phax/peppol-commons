@@ -53,7 +53,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.helger.commons.xml.XMLFactory;
-import com.helger.peppol.utils.W3CEndpointReferenceUtils;
 
 /**
  * Test class for class {@link W3CEndpointReferenceUtils}.

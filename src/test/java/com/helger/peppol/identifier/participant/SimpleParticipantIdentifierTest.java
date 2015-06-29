@@ -46,7 +46,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 
@@ -69,7 +69,7 @@ public final class SimpleParticipantIdentifierTest
     assertEquals ("value", aID2.getValue ());
 
     assertEquals (aID, aID2);
-    PHTestUtils.testMicroTypeConversion (aID2);
+    CommonsTestHelper.testMicroTypeConversion (aID2);
   }
 
   @Test
@@ -78,9 +78,9 @@ public final class SimpleParticipantIdentifierTest
     final SimpleParticipantIdentifier aID1 = new SimpleParticipantIdentifier ("scheme-actorid-test", "value");
     final SimpleParticipantIdentifier aID2 = new SimpleParticipantIdentifier ("scheme-actorid-test", "value");
     final SimpleParticipantIdentifier aID3 = new SimpleParticipantIdentifier ("scheme2-actorid-test", "value");
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aID1, aID2);
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
   }
 
   @Test

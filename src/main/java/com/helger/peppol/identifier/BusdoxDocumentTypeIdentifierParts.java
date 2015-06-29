@@ -47,9 +47,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.Nonempty;
-import com.helger.commons.equals.EqualsUtils;
-import com.helger.commons.hash.HashCodeGenerator;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -124,7 +124,7 @@ public final class BusdoxDocumentTypeIdentifierParts implements IBusdoxDocumentT
     final BusdoxDocumentTypeIdentifierParts rhs = (BusdoxDocumentTypeIdentifierParts) o;
     return m_sRootNS.equals (rhs.m_sRootNS) &&
            m_sLocalName.equals (rhs.m_sLocalName) &&
-           EqualsUtils.equals (m_sSubTypeIdentifier, rhs.m_sSubTypeIdentifier);
+           EqualsHelper.equals (m_sSubTypeIdentifier, rhs.m_sSubTypeIdentifier);
   }
 
   @Override

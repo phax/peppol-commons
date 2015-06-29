@@ -46,7 +46,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 
@@ -75,9 +75,9 @@ public final class ReadonlyDocumentTypeIdentifierTest
     final ReadonlyDocumentTypeIdentifier aID1 = new ReadonlyDocumentTypeIdentifier ("scheme", "value");
     final ReadonlyDocumentTypeIdentifier aID2 = new ReadonlyDocumentTypeIdentifier ("scheme", "value");
     final ReadonlyDocumentTypeIdentifier aID3 = new ReadonlyDocumentTypeIdentifier ("scheme2", "value");
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (aID1, aID2);
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
   }
 
   @Test

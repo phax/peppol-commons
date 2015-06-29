@@ -51,8 +51,6 @@ import org.busdox.servicemetadata.publishing._1.ObjectFactory;
 import org.junit.Test;
 import org.w3c.dom.Element;
 
-import com.helger.peppol.smp.SMPExtensionConverter;
-
 /**
  * Test class for class {@link SMPExtensionConverter}.
  *

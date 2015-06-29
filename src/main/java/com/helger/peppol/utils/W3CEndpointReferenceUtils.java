@@ -54,8 +54,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.xml.ChildElementIterator;
 import com.helger.commons.xml.XMLFactory;
 import com.helger.commons.xml.XMLHelper;

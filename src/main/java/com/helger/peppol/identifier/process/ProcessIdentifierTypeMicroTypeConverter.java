@@ -43,10 +43,10 @@ package com.helger.peppol.identifier.process;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotations.Nonempty;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
-import com.helger.commons.microdom.impl.MicroElement;
 import com.helger.peppol.identifier.ProcessIdentifierType;
 
 public final class ProcessIdentifierTypeMicroTypeConverter implements IMicroTypeConverter

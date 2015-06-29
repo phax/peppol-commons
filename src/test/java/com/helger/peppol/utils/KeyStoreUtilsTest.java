@@ -62,7 +62,7 @@ import org.bouncycastle.x509.X509V1CertificateGenerator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.helger.commons.collections.CollectionHelper;
+import com.helger.commons.collection.CollectionHelper;
 
 /**
  * Test class for class {@link KeyStoreUtils}.

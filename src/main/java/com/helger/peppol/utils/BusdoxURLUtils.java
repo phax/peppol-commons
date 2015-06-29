@@ -52,7 +52,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotations.PresentForCodeCoverage;
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.URLCodec;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
@@ -91,9 +91,7 @@ public final class BusdoxURLUtils
   @Nullable
   public static String createPercentEncodedURL (@Nullable final String sURL)
   {
-    if (sURL != null)
-      return new URLCodec ().encodeText (sURL);
-    return null;
+    return URLCodec.getEncodedURLString (sURL, CCharset.CHARSET_UTF_8_OBJ);
   }
 
   /**
@@ -106,9 +104,7 @@ public final class BusdoxURLUtils
   @Nullable
   public static String createPercentDecodedURL (@Nullable final String sURL)
   {
-    if (sURL != null)
-      return new URLCodec ().decodeText (sURL);
-    return null;
+    return URLCodec.getDecodedURLString (sURL, CCharset.CHARSET_UTF_8_OBJ);
   }
 
   /**
@@ -126,9 +122,9 @@ public final class BusdoxURLUtils
   public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
   {
     // Create the MD5 hash
-    final byte [] aDigest = MessageDigestGeneratorHelper.getDigest (sValueToHash,
-                                                                    URL_CHARSET,
-                                                                    EMessageDigestAlgorithm.MD5);
+    final byte [] aDigest = MessageDigestGeneratorHelper.getAllDigestBytes (sValueToHash,
+                                                                            URL_CHARSET,
+                                                                            EMessageDigestAlgorithm.MD5);
     // Convert to hex-encoded string
     return MessageDigestGeneratorHelper.getHexValueFromDigest (aDigest);
   }

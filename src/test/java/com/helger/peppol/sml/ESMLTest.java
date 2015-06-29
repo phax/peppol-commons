@@ -51,7 +51,6 @@ import org.junit.Test;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-@Deprecated
 public final class ESMLTest
 {
   @Test
@@ -67,26 +66,6 @@ public final class ESMLTest
       eSML.requiresClientCertificate ();
       assertSame (eSML, ESML.valueOf (eSML.name ()));
     }
-  }
-
-  @Test
-  public void testOldProductionValues ()
-  {
-    assertEquals ("sml.peppolcentral.org.", ESML.PRODUCTION.getDNSZone ());
-    assertEquals ("publisher.sml.peppolcentral.org.", ESML.PRODUCTION.getPublisherDNSName ());
-    assertEquals ("https://sml.peppolcentral.org", ESML.PRODUCTION.getManagementServiceURL ());
-    assertEquals ("https://sml.peppolcentral.org/manageservicemetadata",
-                  ESML.PRODUCTION.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
-    assertEquals ("https://sml.peppolcentral.org/manageparticipantidentifier",
-                  ESML.PRODUCTION.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
-
-    assertEquals ("smk.peppolcentral.org.", ESML.TEST.getDNSZone ());
-    assertEquals ("publisher.smk.peppolcentral.org.", ESML.TEST.getPublisherDNSName ());
-    assertEquals ("https://smk.peppolcentral.org", ESML.TEST.getManagementServiceURL ());
-    assertEquals ("https://smk.peppolcentral.org/manageservicemetadata",
-                  ESML.TEST.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
-    assertEquals ("https://smk.peppolcentral.org/manageparticipantidentifier",
-                  ESML.TEST.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
   }
 
   @Test

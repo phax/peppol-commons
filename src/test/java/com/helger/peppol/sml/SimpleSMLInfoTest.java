@@ -46,7 +46,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.PHTestUtils;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link SimpleSMLInfo}.
@@ -84,24 +84,24 @@ public final class SimpleSMLInfoTest
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.requiresClientCertificate ());
 
-    PHTestUtils.testDefaultImplementationWithEqualContentObject (si,
-                                                                 new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                                    ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                                    ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
-                                                                     new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone () +
-                                                                                            ".x",
-                                                                                        ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                                        ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
-                                                                     new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                                        ESML.DIGIT_PRODUCTION.getManagementServiceURL () +
-                                                                                            ".x",
-                                                                                        ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
-    PHTestUtils.testDefaultImplementationWithDifferentContentObject (si,
-                                                                     new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                                        ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                                        !ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (si,
+                                                                       new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                                          ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                                          ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
+                                                                           new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone () +
+                                                                                                  ".x",
+                                                                                              ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                                              ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
+                                                                           new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                                              ESML.DIGIT_PRODUCTION.getManagementServiceURL () +
+                                                                                                  ".x",
+                                                                                              ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
+                                                                           new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                                              ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                                              !ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
   }
 
   @Test

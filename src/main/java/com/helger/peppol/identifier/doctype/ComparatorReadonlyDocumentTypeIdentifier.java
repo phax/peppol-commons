@@ -40,13 +40,9 @@
  */
 package com.helger.peppol.identifier.doctype;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.compare.AbstractComparator;
-import com.helger.commons.compare.ESortOrder;
 import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 
@@ -57,25 +53,6 @@ import com.helger.peppol.identifier.IdentifierUtils;
  */
 public class ComparatorReadonlyDocumentTypeIdentifier extends AbstractComparator <IReadonlyDocumentTypeIdentifier>
 {
-  public ComparatorReadonlyDocumentTypeIdentifier ()
-  {}
-
-  public ComparatorReadonlyDocumentTypeIdentifier (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
-
-  public ComparatorReadonlyDocumentTypeIdentifier (@Nullable final Comparator <? super IReadonlyDocumentTypeIdentifier> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  public ComparatorReadonlyDocumentTypeIdentifier (@Nonnull final ESortOrder eSortOrder,
-                                                   @Nullable final Comparator <? super IReadonlyDocumentTypeIdentifier> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
-  }
-
   @Override
   protected int mainCompare (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
                              @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)

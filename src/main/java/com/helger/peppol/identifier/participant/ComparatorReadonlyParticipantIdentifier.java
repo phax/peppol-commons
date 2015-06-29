@@ -40,13 +40,9 @@
  */
 package com.helger.peppol.identifier.participant;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.compare.AbstractComparator;
-import com.helger.commons.compare.ESortOrder;
 import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
 import com.helger.peppol.identifier.IdentifierUtils;
 
@@ -57,25 +53,6 @@ import com.helger.peppol.identifier.IdentifierUtils;
  */
 public class ComparatorReadonlyParticipantIdentifier extends AbstractComparator <IReadonlyParticipantIdentifier>
 {
-  public ComparatorReadonlyParticipantIdentifier ()
-  {}
-
-  public ComparatorReadonlyParticipantIdentifier (@Nonnull final ESortOrder eSortOrder)
-  {
-    super (eSortOrder);
-  }
-
-  public ComparatorReadonlyParticipantIdentifier (@Nullable final Comparator <? super IReadonlyParticipantIdentifier> aNestedComparator)
-  {
-    super (aNestedComparator);
-  }
-
-  public ComparatorReadonlyParticipantIdentifier (@Nonnull final ESortOrder eSortOrder,
-                                                  @Nullable final Comparator <? super IReadonlyParticipantIdentifier> aNestedComparator)
-  {
-    super (eSortOrder, aNestedComparator);
-  }
-
   @Override
   protected int mainCompare (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
                              @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
