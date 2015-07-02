@@ -119,7 +119,7 @@ public final class BusdoxDocumentTypeIdentifierParts implements IBusdoxDocumentT
   {
     if (o == this)
       return true;
-    if (!(o instanceof BusdoxDocumentTypeIdentifierParts))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final BusdoxDocumentTypeIdentifierParts rhs = (BusdoxDocumentTypeIdentifierParts) o;
     return m_sRootNS.equals (rhs.m_sRootNS) &&
