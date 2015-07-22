@@ -50,7 +50,6 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IMutableDocumentTypeIdentifier;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -160,7 +159,7 @@ public final class SimpleDocumentTypeIdentifierTest
     {
       // Scheme too long
       new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
-                                            StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+                                        StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                         "abc");
       fail ();
     }
@@ -172,7 +171,8 @@ public final class SimpleDocumentTypeIdentifierTest
       // Value too long
       new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
                                         StringHelper.getRepeated ('a',
-                                                                  CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH + 1));
+                                                                  CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                       1));
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -193,11 +193,11 @@ public final class SimpleDocumentTypeIdentifierTest
     final String s = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::2.0";
     final String s2 = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::3.0";
 
-    final IMutableDocumentTypeIdentifier d1 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
-    final IMutableDocumentTypeIdentifier d2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
+    final SimpleDocumentTypeIdentifier d1 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
+    final SimpleDocumentTypeIdentifier d2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (d1, d2);
 
-    final IMutableDocumentTypeIdentifier d3 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s2);
+    final SimpleDocumentTypeIdentifier d3 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s2);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (d1, d3);
   }
 
