@@ -60,13 +60,13 @@
       <package name="com.helger.peppol.identifier" />
     </schemaBindings>
     <bindings node="//xs:complexType[@name='ParticipantIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.IParticipantIdentifier</inheritance:implements>
+      <inheritance:implements>com.helger.peppol.identifier.IMutableParticipantIdentifier</inheritance:implements>
     </bindings> 
     <bindings node="//xs:complexType[@name='DocumentIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.IDocumentTypeIdentifier</inheritance:implements>
+      <inheritance:implements>com.helger.peppol.identifier.IMutableDocumentTypeIdentifier</inheritance:implements>
     </bindings> 
     <bindings node="//xs:complexType[@name='ProcessIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.IProcessIdentifier</inheritance:implements>
+      <inheritance:implements>com.helger.peppol.identifier.IMutableProcessIdentifier</inheritance:implements>
     </bindings> 
   </bindings>
   <!-- Copied from com.sun.tools.ws.processor.modeler.wsdl.PseudoSchemaBuilder from jaxws-tools-2.2.3 -->

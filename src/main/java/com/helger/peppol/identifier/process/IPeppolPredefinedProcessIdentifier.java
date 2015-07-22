@@ -52,7 +52,7 @@ import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentif
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IPeppolPredefinedProcessIdentifier extends IPeppolReadonlyProcessIdentifier
+public interface IPeppolPredefinedProcessIdentifier extends IPeppolProcessIdentifier
 {
   /**
    * @return The ID of the corresponding PEPPOL BIS.

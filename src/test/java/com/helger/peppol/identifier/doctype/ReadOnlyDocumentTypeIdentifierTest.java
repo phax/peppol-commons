@@ -38,9 +38,10 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.participant;
+package com.helger.peppol.identifier.doctype;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -50,30 +51,30 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 
 /**
- * Test class for class {@link ReadonlyParticipantIdentifier}.
+ * Test class for class {@link ReadOnlyDocumentTypeIdentifier}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ReadonlyParticipantIdentifierTest
+public final class ReadOnlyDocumentTypeIdentifierTest
 {
   @Test
   public void testCtor ()
   {
-    final ReadonlyParticipantIdentifier aID = new ReadonlyParticipantIdentifier ("scheme-actorid-test", "value");
-    assertEquals ("scheme-actorid-test", aID.getScheme ());
+    final ReadOnlyDocumentTypeIdentifier aID = new ReadOnlyDocumentTypeIdentifier ("scheme", "value");
+    assertEquals ("scheme", aID.getScheme ());
     assertEquals ("value", aID.getValue ());
 
-    final ReadonlyParticipantIdentifier aID2 = new ReadonlyParticipantIdentifier (aID);
-    assertEquals ("scheme-actorid-test", aID2.getScheme ());
+    final ReadOnlyDocumentTypeIdentifier aID2 = new ReadOnlyDocumentTypeIdentifier (aID);
+    assertEquals ("scheme", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
   }
 
   @Test
   public void testBasicMethods ()
   {
-    final ReadonlyParticipantIdentifier aID1 = new ReadonlyParticipantIdentifier ("scheme-actorid-test", "value");
-    final ReadonlyParticipantIdentifier aID2 = new ReadonlyParticipantIdentifier ("scheme-actorid-test", "value");
-    final ReadonlyParticipantIdentifier aID3 = new ReadonlyParticipantIdentifier ("scheme2-actorid-test", "value");
+    final ReadOnlyDocumentTypeIdentifier aID1 = new ReadOnlyDocumentTypeIdentifier ("scheme", "value");
+    final ReadOnlyDocumentTypeIdentifier aID2 = new ReadOnlyDocumentTypeIdentifier ("scheme", "value");
+    final ReadOnlyDocumentTypeIdentifier aID3 = new ReadOnlyDocumentTypeIdentifier ("scheme2", "value");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
@@ -82,9 +83,9 @@ public final class ReadonlyParticipantIdentifierTest
   @Test
   public void testURIStuff ()
   {
-    final ReadonlyParticipantIdentifier aID1 = new ReadonlyParticipantIdentifier ("scheme-actorid-test", "value1");
-    assertEquals ("scheme-actorid-test::value1", aID1.getURIEncoded ());
-    assertEquals ("scheme-actorid-test%3A%3Avalue1", aID1.getURIPercentEncoded ());
+    final ReadOnlyDocumentTypeIdentifier aID1 = new ReadOnlyDocumentTypeIdentifier ("scheme1", "value1");
+    assertEquals ("scheme1::value1", aID1.getURIEncoded ());
+    assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
   }
 
   @Test
@@ -93,7 +94,7 @@ public final class ReadonlyParticipantIdentifierTest
     try
     {
       // null key not allowed
-      new ReadonlyParticipantIdentifier (null, "value");
+      new ReadOnlyDocumentTypeIdentifier (null, "value");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -102,7 +103,7 @@ public final class ReadonlyParticipantIdentifierTest
     try
     {
       // null value not allowed
-      new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, null);
+      new ReadOnlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -111,7 +112,7 @@ public final class ReadonlyParticipantIdentifierTest
     try
     {
       // Both null not allowed
-      new ReadonlyParticipantIdentifier (null, null);
+      new ReadOnlyDocumentTypeIdentifier (null, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -120,7 +121,7 @@ public final class ReadonlyParticipantIdentifierTest
     try
     {
       // Empty is not allowed
-      new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "");
+      new ReadOnlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -129,7 +130,7 @@ public final class ReadonlyParticipantIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "Љ");
+      new ReadOnlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -138,10 +139,10 @@ public final class ReadonlyParticipantIdentifierTest
     try
     {
       // Scheme too long
-      new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
-                                             StringHelper.getRepeated ('a',
-                                                                       CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
-                                         "abc");
+      new ReadOnlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+                                              StringHelper.getRepeated ('a',
+                                                                        CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+                                          "abc");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -150,12 +151,24 @@ public final class ReadonlyParticipantIdentifierTest
     try
     {
       // Value too long
-      new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
-                                         StringHelper.getRepeated ('a',
-                                                                   CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH + 1));
+      new ReadOnlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
+                                          StringHelper.getRepeated ('a',
+                                                                    CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH + 1));
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
+  }
+
+  @Test
+  public void testGetParts ()
+  {
+    for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
+    {
+      final ReadOnlyDocumentTypeIdentifier aDocTypeID = new ReadOnlyDocumentTypeIdentifier (e);
+      final IPeppolDocumentTypeIdentifierParts aParts = aDocTypeID.getParts ();
+      assertNotNull (aParts);
+      assertEquals (aDocTypeID.getValue (), aParts.getAsDocumentTypeIdentifierValue ());
+    }
   }
 }

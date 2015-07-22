@@ -38,25 +38,14 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.doctype;
-
-import javax.annotation.Nonnull;
-
-import com.helger.commons.compare.AbstractComparator;
-import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+package com.helger.peppol.identifier;
 
 /**
- * A comparator for {@link IReadonlyDocumentTypeIdentifier} objects.
- *
- * @author Philip Helger
+ * Marker-interface that is specific for participant identifiers.
+ * 
+ * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class ComparatorReadonlyDocumentTypeIdentifier extends AbstractComparator <IReadonlyDocumentTypeIdentifier>
+public interface IMutableParticipantIdentifier extends IMutableIdentifier, IParticipantIdentifier
 {
-  @Override
-  protected int mainCompare (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
-                             @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
-  {
-    return IdentifierUtils.compareDocumentTypeIdentifiers (aIdentifier1, aIdentifier2);
-  }
+  /* empty */
 }

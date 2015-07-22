@@ -38,42 +38,17 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier;
+package com.helger.peppol.identifier.doctype;
 
-import javax.annotation.Nonnull;
+import com.helger.peppol.identifier.IMutableDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IMutablePeppolIdentifier;
 
 /**
- * Base interface for all PEPPOL read-only identifiers
+ * Base interface for a PEPPOL document type identifier.
  * 
  * @author philip
  */
-public interface IPeppolReadonlyIdentifier extends IReadonlyIdentifier
+public interface IMutablePeppolDocumentTypeIdentifier extends IPeppolDocumentTypeIdentifier, IMutablePeppolIdentifier, IMutableDocumentTypeIdentifier
 {
-  /**
-   * Check if this identifier uses the default scheme. E.g. for participant
-   * identifiers this would be <code>true</code> if the scheme equals
-   * {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
-   * 
-   * @return <code>true</code> if is the default scheme, <code>false</code>
-   *         otherwise.
-   */
-  boolean isDefaultScheme ();
-
-  /**
-   * Get the identifier URI encoded (without percent encoding).
-   * 
-   * @return The URI encoded identifier value. (E.g.
-   *         <code>iso6523-actorid-upis::0088:123456</code>)
-   */
-  @Nonnull
-  String getURIEncoded ();
-
-  /**
-   * Get the identifier URI and percent encoded (with percent encoding).
-   * 
-   * @return The URI encoded identifier value. (E.g.
-   *         <code>iso6523-actorid-upis%3A%3A0088%3A123456</code>)
-   */
-  @Nonnull
-  String getURIPercentEncoded ();
+  /* empty */
 }

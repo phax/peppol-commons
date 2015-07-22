@@ -50,7 +50,7 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IMutableDocumentTypeIdentifier;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -193,11 +193,11 @@ public final class SimpleDocumentTypeIdentifierTest
     final String s = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::2.0";
     final String s2 = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::3.0";
 
-    final IDocumentTypeIdentifier d1 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
-    final IDocumentTypeIdentifier d2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
+    final IMutableDocumentTypeIdentifier d1 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
+    final IMutableDocumentTypeIdentifier d2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (d1, d2);
 
-    final IDocumentTypeIdentifier d3 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s2);
+    final IMutableDocumentTypeIdentifier d3 = SimpleDocumentTypeIdentifier.createWithDefaultScheme (s2);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (d1, d3);
   }
 

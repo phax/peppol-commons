@@ -53,7 +53,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.messagedigest.MessageDigestGeneratorHelper;
-import com.helger.peppol.utils.KeyStoreUtils;
+import com.helger.peppol.utils.KeyStoreHelper;
 
 /**
  * Utility class to create hash codes of the global trust store to verify if it
@@ -85,8 +85,8 @@ public final class MainCreateTrustStoreHashFiles
 
   public static void main (final String [] args)
   {
-    _create (KeyStoreUtils.TRUSTSTORE_PRODUCTION_CLASSPATH);
-    _create (KeyStoreUtils.TRUSTSTORE_PILOT_CLASSPATH);
-    _create (KeyStoreUtils.TRUSTSTORE_COMPLETE_CLASSPATH);
+    _create (KeyStoreHelper.TRUSTSTORE_PRODUCTION_CLASSPATH);
+    _create (KeyStoreHelper.TRUSTSTORE_PILOT_CLASSPATH);
+    _create (KeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
   }
 }

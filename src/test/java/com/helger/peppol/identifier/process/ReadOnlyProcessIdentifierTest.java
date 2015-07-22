@@ -50,20 +50,20 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 
 /**
- * Test class for class {@link ReadonlyProcessIdentifier}.
+ * Test class for class {@link ReadOnlyProcessIdentifier}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class ReadonlyProcessIdentifierTest
+public final class ReadOnlyProcessIdentifierTest
 {
   @Test
   public void testCtor ()
   {
-    final ReadonlyProcessIdentifier aID = new ReadonlyProcessIdentifier ("scheme", "value");
+    final ReadOnlyProcessIdentifier aID = new ReadOnlyProcessIdentifier ("scheme", "value");
     assertEquals ("scheme", aID.getScheme ());
     assertEquals ("value", aID.getValue ());
 
-    final ReadonlyProcessIdentifier aID2 = new ReadonlyProcessIdentifier (aID);
+    final ReadOnlyProcessIdentifier aID2 = new ReadOnlyProcessIdentifier (aID);
     assertEquals ("scheme", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
   }
@@ -71,9 +71,9 @@ public final class ReadonlyProcessIdentifierTest
   @Test
   public void testBasicMethods ()
   {
-    final ReadonlyProcessIdentifier aID1 = new ReadonlyProcessIdentifier ("scheme", "value");
-    final ReadonlyProcessIdentifier aID2 = new ReadonlyProcessIdentifier ("scheme", "value");
-    final ReadonlyProcessIdentifier aID3 = new ReadonlyProcessIdentifier ("scheme2", "value");
+    final ReadOnlyProcessIdentifier aID1 = new ReadOnlyProcessIdentifier ("scheme", "value");
+    final ReadOnlyProcessIdentifier aID2 = new ReadOnlyProcessIdentifier ("scheme", "value");
+    final ReadOnlyProcessIdentifier aID3 = new ReadOnlyProcessIdentifier ("scheme2", "value");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
@@ -82,7 +82,7 @@ public final class ReadonlyProcessIdentifierTest
   @Test
   public void testURIStuff ()
   {
-    final ReadonlyProcessIdentifier aID1 = new ReadonlyProcessIdentifier ("scheme1", "value1");
+    final ReadOnlyProcessIdentifier aID1 = new ReadOnlyProcessIdentifier ("scheme1", "value1");
     assertEquals ("scheme1::value1", aID1.getURIEncoded ());
     assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
   }
@@ -93,7 +93,7 @@ public final class ReadonlyProcessIdentifierTest
     try
     {
       // null key not allowed
-      new ReadonlyProcessIdentifier (null, "value");
+      new ReadOnlyProcessIdentifier (null, "value");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -102,7 +102,7 @@ public final class ReadonlyProcessIdentifierTest
     try
     {
       // null value not allowed
-      new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, null);
+      new ReadOnlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -111,7 +111,7 @@ public final class ReadonlyProcessIdentifierTest
     try
     {
       // Both null not allowed
-      new ReadonlyProcessIdentifier (null, null);
+      new ReadOnlyProcessIdentifier (null, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -120,7 +120,7 @@ public final class ReadonlyProcessIdentifierTest
     try
     {
       // Empty is not allowed
-      new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "");
+      new ReadOnlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -129,7 +129,7 @@ public final class ReadonlyProcessIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "Љ");
+      new ReadOnlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -138,7 +138,7 @@ public final class ReadonlyProcessIdentifierTest
     try
     {
       // Scheme too long
-      new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
+      new ReadOnlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
                                          StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                      "abc");
       fail ();
@@ -149,7 +149,7 @@ public final class ReadonlyProcessIdentifierTest
     try
     {
       // Value too long
-      new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME,
+      new ReadOnlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME,
                                      StringHelper.getRepeated ('a', CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH + 1));
       fail ();
     }

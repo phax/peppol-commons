@@ -47,8 +47,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IReadonlyProcessIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IProcessIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ProcessIdentifierType;
 
 /**
@@ -59,18 +59,18 @@ import com.helger.peppol.identifier.ProcessIdentifierType;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class SimpleProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier, Comparable <SimpleProcessIdentifier>, ICloneable <SimpleProcessIdentifier>
+public class SimpleProcessIdentifier extends ProcessIdentifierType implements IMutablePeppolProcessIdentifier, Comparable <SimpleProcessIdentifier>, ICloneable <SimpleProcessIdentifier>
 {
-  public SimpleProcessIdentifier (@Nonnull final IReadonlyProcessIdentifier aIdentifier)
+  public SimpleProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   public SimpleProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
-    if (!IdentifierUtils.isValidIdentifierScheme (sScheme))
+    if (!IdentifierHelper.isValidIdentifierScheme (sScheme))
       throw new IllegalArgumentException ("Process identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierUtils.isValidProcessIdentifierValue (sValue))
+    if (!IdentifierHelper.isValidProcessIdentifierValue (sValue))
       throw new IllegalArgumentException ("Process identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
@@ -78,24 +78,24 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements IP
 
   public boolean isDefaultScheme ()
   {
-    return IdentifierUtils.hasDefaultProcessIdentifierScheme (this);
+    return IdentifierHelper.hasDefaultProcessIdentifierScheme (this);
   }
 
   @Nonnull
   public String getURIEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIEncoded (this);
+    return IdentifierHelper.getIdentifierURIEncoded (this);
   }
 
   @Nonnull
   public String getURIPercentEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIPercentEncoded (this);
+    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
   }
 
   public int compareTo (@Nonnull final SimpleProcessIdentifier aOther)
   {
-    return IdentifierUtils.compareProcessIdentifiers (this, aOther);
+    return IdentifierHelper.compareProcessIdentifiers (this, aOther);
   }
 
   @Nonnull
@@ -137,7 +137,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements IP
   @Nonnull
   public static SimpleProcessIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
-    return IdentifierUtils.createProcessIdentifierFromURIPart (sURIPart);
+    return IdentifierHelper.createProcessIdentifierFromURIPart (sURIPart);
   }
 
   /**
@@ -154,6 +154,6 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements IP
   @Nullable
   public static SimpleProcessIdentifier createFromURIPartOrNull (@Nonnull final String sURIPart)
   {
-    return IdentifierUtils.createProcessIdentifierFromURIPartOrNull (sURIPart);
+    return IdentifierHelper.createProcessIdentifierFromURIPartOrNull (sURIPart);
   }
 }

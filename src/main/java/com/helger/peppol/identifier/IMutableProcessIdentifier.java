@@ -38,25 +38,14 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.process;
-
-import javax.annotation.Nonnull;
-
-import com.helger.commons.compare.AbstractComparator;
-import com.helger.peppol.identifier.IReadonlyProcessIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+package com.helger.peppol.identifier;
 
 /**
- * A comparator for {@link IReadonlyProcessIdentifier} objects.
- *
- * @author Philip Helger
+ * Marker-interface that is specific for process identifiers.
+ * 
+ * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class ComparatorReadonlyProcessIdentifier extends AbstractComparator <IReadonlyProcessIdentifier>
+public interface IMutableProcessIdentifier extends IMutableIdentifier, IProcessIdentifier
 {
-  @Override
-  protected int mainCompare (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
-                             @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
-  {
-    return IdentifierUtils.compareProcessIdentifiers (aIdentifier1, aIdentifier2);
-  }
+  /* empty */
 }

@@ -41,13 +41,11 @@
 package com.helger.peppol.identifier;
 
 /**
- * Marker-interface that is specific for document type identifiers.<br>
- * This can be used as the read-only/immutable counterpart of the implementation
- * class.
+ * Base interface for all PEPPOL identifiers
  * 
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author philip
  */
-public interface IReadonlyDocumentTypeIdentifier extends IReadonlyIdentifier
+public interface IMutablePeppolIdentifier extends IPeppolIdentifier, IMutableIdentifier
 {
   /* empty */
 }

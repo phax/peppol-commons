@@ -53,7 +53,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
  * This class manages the predefined PEPPOL process identifiers the
@@ -120,7 +120,7 @@ public final class PredefinedProcessIdentifierManager
       for (final Map.Entry <String, IPeppolPredefinedProcessIdentifier> aEntry : s_aCodes.entrySet ())
       {
         // Use case insensitive identifier value comparison
-        if (IdentifierUtils.areProcessIdentifierValuesEqual (sProcIDValue, aEntry.getKey ()))
+        if (IdentifierHelper.areProcessIdentifierValuesEqual (sProcIDValue, aEntry.getKey ()))
           return aEntry.getValue ();
       }
     return null;

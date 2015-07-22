@@ -40,28 +40,28 @@
  */
 package com.helger.peppol.identifier;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 
 /**
- * The writable version of an identifier interface.
- * 
+ * Base interface for a single read-only identifier independent of its usage
+ * (participant, document or process).
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IIdentifier extends IReadonlyIdentifier
+public interface IIdentifier extends Serializable
 {
   /**
-   * Set the identifier scheme.
-   * 
-   * @param sScheme
-   *        The scheme to be set. May not be <code>null</code>.
+   * @return The scheme used. Never <code>null</code>.
    */
-  void setScheme (@Nonnull String sScheme);
+  @Nonnull
+  String getScheme ();
 
   /**
-   * Set the identifier value.
-   * 
-   * @param sValue
-   *        The value to be set. May not be <code>null</code>.
+   * @return The identifier value, dependent on the scheme. Never
+   *         <code>null</code>.
    */
-  void setValue (@Nonnull String sValue);
+  @Nonnull
+  String getValue ();
 }

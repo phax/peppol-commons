@@ -64,7 +64,7 @@ import com.helger.commons.io.stream.StreamHelper;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public final class KeyStoreUtils
+public final class KeyStoreHelper
 {
   /**
    * The classpath entry referencing the global truststore with all OpenPEPPOL
@@ -109,9 +109,9 @@ public final class KeyStoreUtils
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
-  private static final KeyStoreUtils s_aInstance = new KeyStoreUtils ();
+  private static final KeyStoreHelper s_aInstance = new KeyStoreHelper ();
 
-  private KeyStoreUtils ()
+  private KeyStoreHelper ()
   {}
 
   /**

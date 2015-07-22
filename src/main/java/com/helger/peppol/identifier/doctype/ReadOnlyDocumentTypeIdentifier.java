@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.participant;
+package com.helger.peppol.identifier.doctype;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,34 +46,32 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IReadonlyIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
-import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.validator.IdentifierValidator;
+import com.helger.peppol.identifier.DocumentIdentifierType;
+import com.helger.peppol.identifier.IIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
- * This is an immutable sanity class around the
- * {@link ParticipantIdentifierType} class with easier construction and some
- * sanity access methods. It may be used in all places where
- * {@link ParticipantIdentifierType} objects are required.<br>
- * For a mutable version, please check {@link SimpleParticipantIdentifier}.
+ * This is an immutable sanity class around the {@link DocumentIdentifierType}
+ * class with easier construction and some sanity access methods. It may be used
+ * in all places where {@link DocumentIdentifierType} objects are required.<br>
+ * For a mutable version, please check {@link SimpleDocumentTypeIdentifier}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ReadonlyParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier
+public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType implements IMutablePeppolDocumentTypeIdentifier
 {
-  public ReadonlyParticipantIdentifier (@Nonnull final IReadonlyIdentifier aIdentifier)
+  public ReadOnlyDocumentTypeIdentifier (@Nonnull final IIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
-  public ReadonlyParticipantIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
+  public ReadOnlyDocumentTypeIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    if (!IdentifierUtils.isValidParticipantIdentifierScheme (sScheme))
-      throw new IllegalArgumentException ("Participant identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierUtils.isValidParticipantIdentifierValue (sValue))
-      throw new IllegalArgumentException ("Participant identifier value '" + sValue + "' is invalid!");
+    if (!IdentifierHelper.isValidIdentifierScheme (sScheme))
+      throw new IllegalArgumentException ("Document Type identifier scheme '" + sScheme + "' is invalid!");
+    if (!IdentifierHelper.isValidDocumentTypeIdentifierValue (sValue))
+      throw new IllegalArgumentException ("Document Type identifier value '" + sValue + "' is invalid!");
 
     // Explicitly use the super methods, as the methods of this class throw an
     // exception!
@@ -99,41 +97,38 @@ public class ReadonlyParticipantIdentifier extends ParticipantIdentifierType imp
 
   public boolean isDefaultScheme ()
   {
-    return IdentifierUtils.hasDefaultParticipantIdentifierScheme (this);
+    return IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (this);
   }
 
   @Nonnull
   public String getURIEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIEncoded (this);
+    return IdentifierHelper.getIdentifierURIEncoded (this);
   }
 
   @Nonnull
   public String getURIPercentEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIPercentEncoded (this);
-  }
-
-  public boolean isValid ()
-  {
-    return IdentifierValidator.isValidParticipantIdentifier (this);
-  }
-
-  @Nullable
-  public String getIssuingAgencyID ()
-  {
-    return IdentifierUtils.getIssuingAgencyIDFromParticipantIDValue (this);
-  }
-
-  @Nullable
-  public String getLocalParticipantID ()
-  {
-    return IdentifierUtils.getLocalParticipantIDFromParticipantIDValue (this);
+    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
   }
 
   @Nonnull
-  public static ReadonlyParticipantIdentifier createWithDefaultScheme (@Nullable final String sValue)
+  public IPeppolDocumentTypeIdentifierParts getParts ()
   {
-    return new ReadonlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
+    return IdentifierHelper.getDocumentTypeIdentifierParts (this);
+  }
+
+  /**
+   * Create a document type identifier with the common scheme as defined by
+   * {@link CIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
+   *
+   * @param sValue
+   *        The document type identifier value
+   * @return The readonly document identifier
+   */
+  @Nonnull
+  public static ReadOnlyDocumentTypeIdentifier createWithDefaultScheme (@Nullable final String sValue)
+  {
+    return new ReadOnlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
   }
 }

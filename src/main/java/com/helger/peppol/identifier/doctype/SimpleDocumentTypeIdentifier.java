@@ -48,8 +48,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.DocumentIdentifierType;
-import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 
 /**
@@ -60,18 +60,18 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier, Comparable <SimpleDocumentTypeIdentifier>, ICloneable <SimpleDocumentTypeIdentifier>
+public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements IMutablePeppolDocumentTypeIdentifier, Comparable <SimpleDocumentTypeIdentifier>, ICloneable <SimpleDocumentTypeIdentifier>
 {
-  public SimpleDocumentTypeIdentifier (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier)
+  public SimpleDocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   public SimpleDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    if (!IdentifierUtils.isValidIdentifierScheme (sScheme))
+    if (!IdentifierHelper.isValidIdentifierScheme (sScheme))
       throw new IllegalArgumentException ("Document Type identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierUtils.isValidDocumentTypeIdentifierValue (sValue))
+    if (!IdentifierHelper.isValidDocumentTypeIdentifierValue (sValue))
       throw new IllegalArgumentException ("Document Type identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
@@ -79,30 +79,30 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   public boolean isDefaultScheme ()
   {
-    return IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme (this);
+    return IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (this);
   }
 
   @Nonnull
   public String getURIEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIEncoded (this);
+    return IdentifierHelper.getIdentifierURIEncoded (this);
   }
 
   @Nonnull
   public String getURIPercentEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIPercentEncoded (this);
+    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
   }
 
   @Nonnull
   public IPeppolDocumentTypeIdentifierParts getParts ()
   {
-    return IdentifierUtils.getDocumentTypeIdentifierParts (this);
+    return IdentifierHelper.getDocumentTypeIdentifierParts (this);
   }
 
   public int compareTo (@Nonnull final SimpleDocumentTypeIdentifier aOther)
   {
-    return IdentifierUtils.compareDocumentTypeIdentifiers (this, aOther);
+    return IdentifierHelper.compareDocumentTypeIdentifiers (this, aOther);
   }
 
   @Nonnull
@@ -144,7 +144,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @Nonnull
   public static SimpleDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
-    return IdentifierUtils.createDocumentTypeIdentifierFromURIPart (sURIPart);
+    return IdentifierHelper.createDocumentTypeIdentifierFromURIPart (sURIPart);
   }
 
   /**
@@ -162,6 +162,6 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @Nullable
   public static SimpleDocumentTypeIdentifier createFromURIPartOrNull (@Nonnull final String sURIPart)
   {
-    return IdentifierUtils.createDocumentTypeIdentifierFromURIPartOrNull (sURIPart);
+    return IdentifierHelper.createDocumentTypeIdentifierFromURIPartOrNull (sURIPart);
   }
 }

@@ -43,20 +43,20 @@ package com.helger.peppol.identifier.participant;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.compare.AbstractComparator;
-import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
- * A comparator for {@link IReadonlyParticipantIdentifier} objects.
+ * A comparator for {@link IParticipantIdentifier} objects.
  *
  * @author Philip Helger
  */
-public class ComparatorReadonlyParticipantIdentifier extends AbstractComparator <IReadonlyParticipantIdentifier>
+public class ComparatorParticipantIdentifier extends AbstractComparator <IParticipantIdentifier>
 {
   @Override
-  protected int mainCompare (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
-                             @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
+  protected int mainCompare (@Nonnull final IParticipantIdentifier aIdentifier1,
+                             @Nonnull final IParticipantIdentifier aIdentifier2)
   {
-    return IdentifierUtils.compareParticipantIdentifiers (aIdentifier1, aIdentifier2);
+    return IdentifierHelper.compareParticipantIdentifiers (aIdentifier1, aIdentifier2);
   }
 }

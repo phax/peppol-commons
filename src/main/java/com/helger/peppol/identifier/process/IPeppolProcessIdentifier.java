@@ -44,11 +44,11 @@ import com.helger.peppol.identifier.IPeppolIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
 
 /**
- * Base interface for a PEPPOL process identifier.
+ * Base interface for a PEPPOL read-only process identifier.
  * 
  * @author philip
  */
-public interface IPeppolProcessIdentifier extends IPeppolReadonlyProcessIdentifier, IPeppolIdentifier, IProcessIdentifier
+public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIdentifier
 {
   /* empty */
 }

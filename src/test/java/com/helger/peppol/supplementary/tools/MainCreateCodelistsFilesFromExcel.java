@@ -97,7 +97,7 @@ import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.doctype.OpenPeppolDocumentTypeIdentifierParts;
@@ -429,7 +429,7 @@ public final class MainCreateCodelistsFilesFromExcel
         jEnumConst.javadoc ().add ("@since code list " + sSince);
 
         // Also create a shortcut for more readable names
-        final String sShortcutName = CodeGenerationUtils.createShortcutDocumentTypeIDName (aDocIDParts);
+        final String sShortcutName = CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocIDParts);
         if (!aAllShortcutNames.add (sShortcutName))
           throw new IllegalStateException ("The shortcut name " +
                                            sShortcutName +
@@ -554,14 +554,14 @@ public final class MainCreateCodelistsFilesFromExcel
       // public String getURIEncoded
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIEncoded");
       m.annotate (Nonnull.class);
-      m.body ()._return (s_aCodeModel.ref (IdentifierUtils.class)
+      m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
                                      .staticInvoke ("getIdentifierURIEncoded")
                                      .arg (JExpr._this ()));
 
       // public String getURIPercentEncoded
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
       m.annotate (Nonnull.class);
-      m.body ()._return (s_aCodeModel.ref (IdentifierUtils.class)
+      m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
                                      .staticInvoke ("getIdentifierURIPercentEncoded")
                                      .arg (JExpr._this ()));
 
@@ -657,7 +657,7 @@ public final class MainCreateCodelistsFilesFromExcel
           }
 
           // Use the short name for better readability
-          final String sIdentifier = true ? CodeGenerationUtils.createShortcutDocumentTypeIDName (aDocTypeIDParts)
+          final String sIdentifier = true ? CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocTypeIDParts)
                                          : RegExHelper.getAsIdentifier (sDocTypeID);
           jArray.add (s_jEnumPredefinedDoc.staticRef (sIdentifier));
         }
@@ -667,7 +667,7 @@ public final class MainCreateCodelistsFilesFromExcel
         jEnumConst.javadoc ().add ("\n@since code list " + sSince);
 
         // Emit shortcut name for better readability
-        final String sShortcutName = CodeGenerationUtils.createShortcutBISIDName (sBISID);
+        final String sShortcutName = CodeGenerationHelper.createShortcutBISIDName (sBISID);
         if (!aAllShortcutNames.add (sShortcutName))
           throw new IllegalStateException ("The BIS ID shortcut '" +
                                            sShortcutName +
@@ -747,14 +747,14 @@ public final class MainCreateCodelistsFilesFromExcel
       // public String getURIEncoded
       m = jEnum.method (JMod.PUBLIC, String.class, "getURIEncoded");
       m.annotate (Nonnull.class);
-      m.body ()._return (s_aCodeModel.ref (IdentifierUtils.class)
+      m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
                                      .staticInvoke ("getIdentifierURIEncoded")
                                      .arg (JExpr._this ()));
 
       // public String getURIPercentEncoded
       m = jEnum.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
       m.annotate (Nonnull.class);
-      m.body ()._return (s_aCodeModel.ref (IdentifierUtils.class)
+      m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
                                      .staticInvoke ("getIdentifierURIPercentEncoded")
                                      .arg (JExpr._this ()));
     }

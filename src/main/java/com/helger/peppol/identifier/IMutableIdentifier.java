@@ -40,14 +40,28 @@
  */
 package com.helger.peppol.identifier;
 
+import javax.annotation.Nonnull;
+
 /**
- * Marker-interface that is specific for participant identifiers.<br>
- * This can be used as the read-only/immutable counterpart of the implementation
- * class.
+ * The writable version of an identifier interface.
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IReadonlyParticipantIdentifier extends IReadonlyIdentifier
+public interface IMutableIdentifier extends IIdentifier
 {
-  /* empty */
+  /**
+   * Set the identifier scheme.
+   * 
+   * @param sScheme
+   *        The scheme to be set. May not be <code>null</code>.
+   */
+  void setScheme (@Nonnull String sScheme);
+
+  /**
+   * Set the identifier value.
+   * 
+   * @param sValue
+   *        The value to be set. May not be <code>null</code>.
+   */
+  void setValue (@Nonnull String sValue);
 }

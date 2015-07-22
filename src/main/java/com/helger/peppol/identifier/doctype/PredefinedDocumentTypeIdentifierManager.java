@@ -53,7 +53,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
  * This class manages the predefined PEPPOL document identifiers the
@@ -121,7 +121,7 @@ public final class PredefinedDocumentTypeIdentifierManager
       for (final Map.Entry <String, IPeppolPredefinedDocumentTypeIdentifier> aEntry : s_aCodes.entrySet ())
       {
         // Use case insensitive identifier value comparison
-        if (IdentifierUtils.areDocumentTypeIdentifierValuesEqual (sDocTypeIDValue, aEntry.getKey ()))
+        if (IdentifierHelper.areDocumentTypeIdentifierValuesEqual (sDocTypeIDValue, aEntry.getKey ()))
           return aEntry.getValue ();
       }
     return null;

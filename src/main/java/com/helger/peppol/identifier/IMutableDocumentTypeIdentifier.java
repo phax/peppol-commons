@@ -40,28 +40,12 @@
  */
 package com.helger.peppol.identifier;
 
-import java.io.Serializable;
-
-import javax.annotation.Nonnull;
-
 /**
- * Base interface for a single read-only identifier independent of its usage
- * (participant, document or process).
- *
+ * Marker-interface that is specific for document type identifiers.
+ * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IReadonlyIdentifier extends Serializable
+public interface IMutableDocumentTypeIdentifier extends IMutableIdentifier, IDocumentTypeIdentifier
 {
-  /**
-   * @return The scheme used. Never <code>null</code>.
-   */
-  @Nonnull
-  String getScheme ();
-
-  /**
-   * @return The identifier value, dependent on the scheme. Never
-   *         <code>null</code>.
-   */
-  @Nonnull
-  String getValue ();
+  /* empty */
 }

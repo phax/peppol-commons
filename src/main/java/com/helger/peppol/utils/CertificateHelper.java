@@ -59,16 +59,16 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @Immutable
-public final class CertificateUtils
+public final class CertificateHelper
 {
   public static final String BEGIN_CERTIFICATE = "-----BEGIN CERTIFICATE-----";
   public static final String END_CERTIFICATE = "-----END CERTIFICATE-----";
 
   @SuppressWarnings ("unused")
   @PresentForCodeCoverage
-  private static final CertificateUtils s_aInstance = new CertificateUtils ();
+  private static final CertificateHelper s_aInstance = new CertificateHelper ();
 
-  private CertificateUtils ()
+  private CertificateHelper ()
   {}
 
   @Nonnull

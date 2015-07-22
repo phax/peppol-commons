@@ -65,12 +65,12 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 
 /**
- * Test class for class {@link KeyStoreUtils}.
+ * Test class for class {@link KeyStoreHelper}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @SuppressWarnings ("deprecation")
-public final class KeyStoreUtilsTest
+public final class KeyStoreHelperTest
 {
   @BeforeClass
   public static void init ()
@@ -106,15 +106,15 @@ public final class KeyStoreUtilsTest
     final KeyPair aKeyPair = createKeyPair (1024);
     final Certificate [] certs = { createX509V1Certificate (aKeyPair), createX509V1Certificate (aKeyPair) };
 
-    KeyStore ks = KeyStoreUtils.loadKeyStore ("keystores/keystore-no-pw.jks", (String) null);
-    assertEquals (KeyStoreUtils.KEYSTORE_TYPE_JKS, ks.getType ());
+    KeyStore ks = KeyStoreHelper.loadKeyStore ("keystores/keystore-no-pw.jks", (String) null);
+    assertEquals (KeyStoreHelper.KEYSTORE_TYPE_JKS, ks.getType ());
     assertEquals (1, CollectionHelper.newList (ks.aliases ()).size ());
     assertTrue (ks.containsAlias ("1"));
     final Certificate c1 = ks.getCertificate ("1");
     assertNotNull (c1);
     ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
 
-    ks = KeyStoreUtils.loadKeyStore ("keystores/keystore-pw-peppol.jks", (String) null);
+    ks = KeyStoreHelper.loadKeyStore ("keystores/keystore-pw-peppol.jks", (String) null);
     assertEquals (1, CollectionHelper.newList (ks.aliases ()).size ());
     assertTrue (ks.containsAlias ("1"));
     final Certificate c2 = ks.getCertificate ("1");
@@ -122,7 +122,7 @@ public final class KeyStoreUtilsTest
     assertEquals (c1, c2);
     ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
 
-    ks = KeyStoreUtils.loadKeyStore ("keystores/keystore-pw-peppol.jks", "peppol");
+    ks = KeyStoreHelper.loadKeyStore ("keystores/keystore-pw-peppol.jks", "peppol");
     assertEquals (1, CollectionHelper.newList (ks.aliases ()).size ());
     assertTrue (ks.containsAlias ("1"));
     final Certificate c3 = ks.getCertificate ("1");
@@ -133,7 +133,7 @@ public final class KeyStoreUtilsTest
     try
     {
       // Non-existing file
-      KeyStoreUtils.loadKeyStore ("keystores/keystore-not-existing.jks", (String) null);
+      KeyStoreHelper.loadKeyStore ("keystores/keystore-not-existing.jks", (String) null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -142,7 +142,7 @@ public final class KeyStoreUtilsTest
     try
     {
       // Invalid password
-      KeyStoreUtils.loadKeyStore ("keystores/keystore-pw-peppol.jks", "wrongpw");
+      KeyStoreHelper.loadKeyStore ("keystores/keystore-pw-peppol.jks", "wrongpw");
       fail ();
     }
     catch (final IOException ex)
@@ -153,17 +153,17 @@ public final class KeyStoreUtilsTest
   public void testLoadTrustStoreProduction () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreUtils.loadKeyStore (KeyStoreUtils.TRUSTSTORE_PRODUCTION_CLASSPATH,
-                                                             KeyStoreUtils.TRUSTSTORE_PASSWORD);
+    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStore (KeyStoreHelper.TRUSTSTORE_PRODUCTION_CLASSPATH,
+                                                             KeyStoreHelper.TRUSTSTORE_PASSWORD);
     assertNotNull (aTrustStore);
 
     // Ensure all name entries are contained
-    assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_PRODUCTION_ALIAS_ROOT));
-    assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_PRODUCTION_ALIAS_AP));
-    assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_PRODUCTION_ALIAS_SMP));
+    assertNotNull (aTrustStore.getCertificate (KeyStoreHelper.TRUSTSTORE_PRODUCTION_ALIAS_ROOT));
+    assertNotNull (aTrustStore.getCertificate (KeyStoreHelper.TRUSTSTORE_PRODUCTION_ALIAS_AP));
+    assertNotNull (aTrustStore.getCertificate (KeyStoreHelper.TRUSTSTORE_PRODUCTION_ALIAS_SMP));
 
     // System.out.println (SystemProperties.getJavaVersion ());
-    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_PRODUCTION_ALIAS_AP);
+    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (KeyStoreHelper.TRUSTSTORE_PRODUCTION_ALIAS_AP);
     final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
     assertEquals ("CN=PEPPOL Root CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
     final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
@@ -174,17 +174,17 @@ public final class KeyStoreUtilsTest
   public void testLoadTrustStorePilot () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreUtils.loadKeyStore (KeyStoreUtils.TRUSTSTORE_PILOT_CLASSPATH,
-                                                             KeyStoreUtils.TRUSTSTORE_PASSWORD);
+    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStore (KeyStoreHelper.TRUSTSTORE_PILOT_CLASSPATH,
+                                                             KeyStoreHelper.TRUSTSTORE_PASSWORD);
     assertNotNull (aTrustStore);
 
     // Ensure all name entries are contained
-    assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_PILOT_ALIAS_ROOT));
-    assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_PILOT_ALIAS_AP));
-    assertNotNull (aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_PILOT_ALIAS_SMP));
+    assertNotNull (aTrustStore.getCertificate (KeyStoreHelper.TRUSTSTORE_PILOT_ALIAS_ROOT));
+    assertNotNull (aTrustStore.getCertificate (KeyStoreHelper.TRUSTSTORE_PILOT_ALIAS_AP));
+    assertNotNull (aTrustStore.getCertificate (KeyStoreHelper.TRUSTSTORE_PILOT_ALIAS_SMP));
 
     // System.out.println (SystemProperties.getJavaVersion ());
-    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (KeyStoreUtils.TRUSTSTORE_PILOT_ALIAS_AP);
+    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (KeyStoreHelper.TRUSTSTORE_PILOT_ALIAS_AP);
     final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
     assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
     final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();

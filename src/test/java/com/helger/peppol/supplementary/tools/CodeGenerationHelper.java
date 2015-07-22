@@ -51,13 +51,13 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
 
 @Immutable
-final class CodeGenerationUtils
+final class CodeGenerationHelper
 {
   private static final String SKIP_TRANSACTION_PREFIX = "urn:www.cenbii.eu:transaction:biicoretrdm";
   private static final String SKIP_TRANSACTION_PREFIX2 = "urn:www.cenbii.eu:transaction:biitrns";
   private static final String SKIP_BIS_PREFIX = "urn:www.peppol.eu:bis:peppol";
 
-  private CodeGenerationUtils ()
+  private CodeGenerationHelper ()
   {}
 
   @Nonnull

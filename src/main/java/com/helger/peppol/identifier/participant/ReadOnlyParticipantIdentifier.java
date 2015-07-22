@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.process;
+package com.helger.peppol.identifier.participant;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,32 +46,34 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IReadonlyIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
-import com.helger.peppol.identifier.ProcessIdentifierType;
+import com.helger.peppol.identifier.IIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
+import com.helger.peppol.identifier.ParticipantIdentifierType;
+import com.helger.peppol.identifier.validator.IdentifierValidator;
 
 /**
- * This is an immutable sanity class around the {@link ProcessIdentifierType}
- * class with easier construction and some sanity access methods. It may be used
- * in all places where {@link ProcessIdentifierType} objects are required.<br>
- * For a mutable version, please check {@link SimpleProcessIdentifier}.
+ * This is an immutable sanity class around the
+ * {@link ParticipantIdentifierType} class with easier construction and some
+ * sanity access methods. It may be used in all places where
+ * {@link ParticipantIdentifierType} objects are required.<br>
+ * For a mutable version, please check {@link SimpleParticipantIdentifier}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ReadonlyProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier
+public class ReadOnlyParticipantIdentifier extends ParticipantIdentifierType implements IMutablePeppolParticipantIdentifier
 {
-  public ReadonlyProcessIdentifier (@Nonnull final IReadonlyIdentifier aIdentifier)
+  public ReadOnlyParticipantIdentifier (@Nonnull final IIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
-  public ReadonlyProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
+  public ReadOnlyParticipantIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    if (!IdentifierUtils.isValidIdentifierScheme (sScheme))
-      throw new IllegalArgumentException ("Process identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierUtils.isValidProcessIdentifierValue (sValue))
-      throw new IllegalArgumentException ("Process identifier value '" + sValue + "' is invalid!");
+    if (!IdentifierHelper.isValidParticipantIdentifierScheme (sScheme))
+      throw new IllegalArgumentException ("Participant identifier scheme '" + sScheme + "' is invalid!");
+    if (!IdentifierHelper.isValidParticipantIdentifierValue (sValue))
+      throw new IllegalArgumentException ("Participant identifier value '" + sValue + "' is invalid!");
 
     // Explicitly use the super methods, as the methods of this class throw an
     // exception!
@@ -97,24 +99,41 @@ public class ReadonlyProcessIdentifier extends ProcessIdentifierType implements 
 
   public boolean isDefaultScheme ()
   {
-    return IdentifierUtils.hasDefaultProcessIdentifierScheme (this);
+    return IdentifierHelper.hasDefaultParticipantIdentifierScheme (this);
   }
 
   @Nonnull
   public String getURIEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIEncoded (this);
+    return IdentifierHelper.getIdentifierURIEncoded (this);
   }
 
   @Nonnull
   public String getURIPercentEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIPercentEncoded (this);
+    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
+  }
+
+  public boolean isValid ()
+  {
+    return IdentifierValidator.isValidParticipantIdentifier (this);
+  }
+
+  @Nullable
+  public String getIssuingAgencyID ()
+  {
+    return IdentifierHelper.getIssuingAgencyIDFromParticipantIDValue (this);
+  }
+
+  @Nullable
+  public String getLocalParticipantID ()
+  {
+    return IdentifierHelper.getLocalParticipantIDFromParticipantIDValue (this);
   }
 
   @Nonnull
-  public static ReadonlyProcessIdentifier createWithDefaultScheme (@Nullable final String sValue)
+  public static ReadOnlyParticipantIdentifier createWithDefaultScheme (@Nullable final String sValue)
   {
-    return new ReadonlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
+    return new ReadOnlyParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
   }
 }

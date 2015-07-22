@@ -53,39 +53,39 @@ import org.junit.Test;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.TextParseException;
 
-import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link BusdoxURLUtils}.
+ * Test class for class {@link BusdoxURLHelper}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class BusdoxURLUtilsTest
+public final class BusdoxURLHelperTest
 {
   @Test
   public void testCreatePercentEncodedURL ()
   {
-    assertNull (BusdoxURLUtils.createPercentEncodedURL (null));
-    assertEquals ("", BusdoxURLUtils.createPercentEncodedURL (""));
-    assertEquals ("abc", BusdoxURLUtils.createPercentEncodedURL ("abc"));
-    assertEquals ("a%25b", BusdoxURLUtils.createPercentEncodedURL ("a%b"));
-    assertEquals ("a%25%25b", BusdoxURLUtils.createPercentEncodedURL ("a%%b"));
-    assertEquals ("a%2Fb", BusdoxURLUtils.createPercentEncodedURL ("a/b"));
+    assertNull (BusdoxURLHelper.createPercentEncodedURL (null));
+    assertEquals ("", BusdoxURLHelper.createPercentEncodedURL (""));
+    assertEquals ("abc", BusdoxURLHelper.createPercentEncodedURL ("abc"));
+    assertEquals ("a%25b", BusdoxURLHelper.createPercentEncodedURL ("a%b"));
+    assertEquals ("a%25%25b", BusdoxURLHelper.createPercentEncodedURL ("a%%b"));
+    assertEquals ("a%2Fb", BusdoxURLHelper.createPercentEncodedURL ("a/b"));
   }
 
   @Test
   public void testCreatePercentDecodedURL ()
   {
-    assertNull (BusdoxURLUtils.createPercentDecodedURL (null));
-    assertEquals ("", BusdoxURLUtils.createPercentDecodedURL (""));
-    assertEquals ("abc", BusdoxURLUtils.createPercentDecodedURL ("abc"));
-    assertEquals ("a%b", BusdoxURLUtils.createPercentDecodedURL ("a%25b"));
-    assertEquals ("a%%b", BusdoxURLUtils.createPercentDecodedURL ("a%25%25b"));
-    assertEquals ("a/b", BusdoxURLUtils.createPercentDecodedURL ("a%2Fb"));
+    assertNull (BusdoxURLHelper.createPercentDecodedURL (null));
+    assertEquals ("", BusdoxURLHelper.createPercentDecodedURL (""));
+    assertEquals ("abc", BusdoxURLHelper.createPercentDecodedURL ("abc"));
+    assertEquals ("a%b", BusdoxURLHelper.createPercentDecodedURL ("a%25b"));
+    assertEquals ("a%%b", BusdoxURLHelper.createPercentDecodedURL ("a%25%25b"));
+    assertEquals ("a/b", BusdoxURLHelper.createPercentDecodedURL ("a%2Fb"));
   }
 
   @Test
@@ -93,34 +93,34 @@ public final class BusdoxURLUtilsTest
   public void testGetDNSNameOfParticipant ()
   {
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc"),
                                                           ESML.DIGIT_PRODUCTION));
     // Same value but different casing
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
                                                           ESML.DIGIT_PRODUCTION));
 
     // Wildcard
     assertEquals ("*.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("*"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("*"),
                                                           ESML.DIGIT_PRODUCTION));
 
     // Empty DNS zone
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
                                                           (String) null));
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
                                                           ""));
 
     if (false)
-      System.out.println (BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("9915:b"),
+      System.out.println (BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("9915:b"),
                                                                   ESML.DIGIT_PRODUCTION));
 
     // Test invalid
     try
     {
-      BusdoxURLUtils.getDNSNameOfParticipant (null, "anyzone.org.");
+      BusdoxURLHelper.getDNSNameOfParticipant (null, "anyzone.org.");
       fail ();
     }
     catch (final NullPointerException ex)
@@ -131,7 +131,7 @@ public final class BusdoxURLUtilsTest
     try
     {
       // Invalid scheme
-      BusdoxURLUtils.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "0088:123"), "anyzone.org.");
+      BusdoxURLHelper.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "0088:123"), "anyzone.org.");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -142,7 +142,7 @@ public final class BusdoxURLUtilsTest
     try
     {
       // Invalid scheme
-      BusdoxURLUtils.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("invalid.scheme", "0088:123"),
+      BusdoxURLHelper.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("invalid.scheme", "0088:123"),
                                               "anyzone.org.");
       fail ();
     }
@@ -154,7 +154,7 @@ public final class BusdoxURLUtilsTest
     try
     {
       // Invalid value
-      BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme (null),
+      BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme (null),
                                               "anyzone.org.");
       fail ();
     }
@@ -166,7 +166,7 @@ public final class BusdoxURLUtilsTest
     try
     {
       // Invalid DNS zone (missing dot)
-      BusdoxURLUtils.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:valid"),
+      BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:valid"),
                                               "anyzone");
       fail ();
     }
@@ -192,12 +192,12 @@ public final class BusdoxURLUtilsTest
   @Test
   public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException
   {
-    final IReadonlyParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
-    final URI aURI = BusdoxURLUtils.getSMPURIOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
+    final IParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
+    final URI aURI = BusdoxURLHelper.getSMPURIOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
     assertEquals (new URI ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"),
                   aURI);
 
-    final URL aURL = BusdoxURLUtils.getSMPURLOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
+    final URL aURL = BusdoxURLHelper.getSMPURLOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
     assertEquals (new URL ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"),
                   aURL);
   }

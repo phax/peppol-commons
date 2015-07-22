@@ -63,10 +63,10 @@ import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.doctype.OpenPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.participant.IPeppolReadonlyParticipantIdentifier;
+import com.helger.peppol.identifier.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
-import com.helger.peppol.utils.BusdoxURLUtils;
+import com.helger.peppol.utils.BusdoxURLHelper;
 
 /**
  * This class contains several identifier related utility methods.
@@ -74,7 +74,7 @@ import com.helger.peppol.utils.BusdoxURLUtils;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public final class IdentifierUtils
+public final class IdentifierHelper
 {
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
 
@@ -117,9 +117,9 @@ public final class IdentifierUtils
 
   @SuppressWarnings ("unused")
   @PresentForCodeCoverage
-  private static final IdentifierUtils s_aInstance = new IdentifierUtils ();
+  private static final IdentifierHelper s_aInstance = new IdentifierHelper ();
 
-  private IdentifierUtils ()
+  private IdentifierHelper ()
   {}
 
   /**
@@ -187,7 +187,7 @@ public final class IdentifierUtils
   {
     return isValidIdentifierScheme (sScheme) &&
            RegExHelper.stringMatchesPattern (CIdentifier.PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
-                                             sScheme.toLowerCase (BusdoxURLUtils.URL_LOCALE));
+                                             sScheme.toLowerCase (BusdoxURLHelper.URL_LOCALE));
   }
 
   /**
@@ -392,12 +392,12 @@ public final class IdentifierUtils
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
    * @deprecated Use
-   *             {@link #areParticipantIdentifiersEqual(IReadonlyParticipantIdentifier,IReadonlyParticipantIdentifier)}
+   *             {@link #areParticipantIdentifiersEqual(IParticipantIdentifier,IParticipantIdentifier)}
    *             instead
    */
   @Deprecated
-  public static boolean areIdentifiersEqual (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
-                                             @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
+  public static boolean areIdentifiersEqual (@Nonnull final IParticipantIdentifier aIdentifier1,
+                                             @Nonnull final IParticipantIdentifier aIdentifier2)
   {
     return areParticipantIdentifiersEqual (aIdentifier1, aIdentifier2);
   }
@@ -413,8 +413,8 @@ public final class IdentifierUtils
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
    */
-  public static boolean areParticipantIdentifiersEqual (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
-                                                        @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
+  public static boolean areParticipantIdentifiersEqual (@Nonnull final IParticipantIdentifier aIdentifier1,
+                                                        @Nonnull final IParticipantIdentifier aIdentifier2)
   {
     ValueEnforcer.notNull (aIdentifier1, "ParticipantIdentifier1");
     ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
@@ -435,12 +435,12 @@ public final class IdentifierUtils
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
    * @deprecated Use
-   *             {@link #areDocumentTypeIdentifiersEqual(IReadonlyDocumentTypeIdentifier,IReadonlyDocumentTypeIdentifier)}
+   *             {@link #areDocumentTypeIdentifiersEqual(IDocumentTypeIdentifier,IDocumentTypeIdentifier)}
    *             instead
    */
   @Deprecated
-  public static boolean areIdentifiersEqual (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
-                                             @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
+  public static boolean areIdentifiersEqual (@Nonnull final IDocumentTypeIdentifier aIdentifier1,
+                                             @Nonnull final IDocumentTypeIdentifier aIdentifier2)
   {
     return areDocumentTypeIdentifiersEqual (aIdentifier1, aIdentifier2);
   }
@@ -456,8 +456,8 @@ public final class IdentifierUtils
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
    */
-  public static boolean areDocumentTypeIdentifiersEqual (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
-                                                         @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
+  public static boolean areDocumentTypeIdentifiersEqual (@Nonnull final IDocumentTypeIdentifier aIdentifier1,
+                                                         @Nonnull final IDocumentTypeIdentifier aIdentifier2)
   {
     ValueEnforcer.notNull (aIdentifier1, "DocumentTypeIdentifier1");
     ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
@@ -478,12 +478,12 @@ public final class IdentifierUtils
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
    * @deprecated Use
-   *             {@link #areProcessIdentifiersEqual(IReadonlyProcessIdentifier,IReadonlyProcessIdentifier)}
+   *             {@link #areProcessIdentifiersEqual(IProcessIdentifier,IProcessIdentifier)}
    *             instead
    */
   @Deprecated
-  public static boolean areIdentifiersEqual (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
-                                             @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
+  public static boolean areIdentifiersEqual (@Nonnull final IProcessIdentifier aIdentifier1,
+                                             @Nonnull final IProcessIdentifier aIdentifier2)
   {
     return areProcessIdentifiersEqual (aIdentifier1, aIdentifier2);
   }
@@ -499,8 +499,8 @@ public final class IdentifierUtils
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
    */
-  public static boolean areProcessIdentifiersEqual (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
-                                                    @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
+  public static boolean areProcessIdentifiersEqual (@Nonnull final IProcessIdentifier aIdentifier1,
+                                                    @Nonnull final IProcessIdentifier aIdentifier2)
   {
     ValueEnforcer.notNull (aIdentifier1, "ProcessIdentifier1");
     ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
@@ -520,8 +520,8 @@ public final class IdentifierUtils
    *        Second identifier to compare. May not be null.
    * @return 0 if the identifiers are equal, -1 or +1 otherwise.
    */
-  public static int compareParticipantIdentifiers (@Nonnull final IReadonlyParticipantIdentifier aIdentifier1,
-                                                   @Nonnull final IReadonlyParticipantIdentifier aIdentifier2)
+  public static int compareParticipantIdentifiers (@Nonnull final IParticipantIdentifier aIdentifier1,
+                                                   @Nonnull final IParticipantIdentifier aIdentifier2)
   {
     ValueEnforcer.notNull (aIdentifier1, "ParticipantIdentifier1");
     ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
@@ -543,8 +543,8 @@ public final class IdentifierUtils
    *        Second identifier to compare. May not be null.
    * @return 0 if the identifiers are equal, -1 or +1 otherwise.
    */
-  public static int compareDocumentTypeIdentifiers (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier1,
-                                                    @Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier2)
+  public static int compareDocumentTypeIdentifiers (@Nonnull final IDocumentTypeIdentifier aIdentifier1,
+                                                    @Nonnull final IDocumentTypeIdentifier aIdentifier2)
   {
     ValueEnforcer.notNull (aIdentifier1, "DocumentTypeIdentifier1");
     ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
@@ -566,8 +566,8 @@ public final class IdentifierUtils
    *        Second identifier to compare. May not be null.
    * @return 0 if the identifiers are equal, -1 or +1 otherwise.
    */
-  public static int compareProcessIdentifiers (@Nonnull final IReadonlyProcessIdentifier aIdentifier1,
-                                               @Nonnull final IReadonlyProcessIdentifier aIdentifier2)
+  public static int compareProcessIdentifiers (@Nonnull final IProcessIdentifier aIdentifier1,
+                                               @Nonnull final IProcessIdentifier aIdentifier2)
   {
     ValueEnforcer.notNull (aIdentifier1, "ProcessIdentifier1");
     ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
@@ -587,7 +587,7 @@ public final class IdentifierUtils
    * @return <code>true</code> if the passed identifier uses the default scheme,
    *         <code>false</code> otherwise
    */
-  public static boolean hasDefaultParticipantIdentifierScheme (@Nonnull final IReadonlyParticipantIdentifier aIdentifier)
+  public static boolean hasDefaultParticipantIdentifierScheme (@Nonnull final IParticipantIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "ParticipantIdentifier");
 
@@ -615,7 +615,7 @@ public final class IdentifierUtils
    * @return <code>true</code> if the passed identifier uses the default scheme,
    *         <code>false</code> otherwise
    */
-  public static boolean hasDefaultDocumentTypeIdentifierScheme (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier)
+  public static boolean hasDefaultDocumentTypeIdentifierScheme (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "DocumentTypeIdentifier");
 
@@ -643,7 +643,7 @@ public final class IdentifierUtils
    * @return <code>true</code> if the passed identifier uses the default scheme,
    *         <code>false</code> otherwise
    */
-  public static boolean hasDefaultProcessIdentifierScheme (@Nonnull final IReadonlyProcessIdentifier aIdentifier)
+  public static boolean hasDefaultProcessIdentifierScheme (@Nonnull final IProcessIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "ProcessIdentifier");
 
@@ -670,11 +670,11 @@ public final class IdentifierUtils
    *        The identifier to be encoded. May not be <code>null</code>.
    * @return The URI encoded participant identifier (scheme::value). Never
    *         <code>null</code>.
-   * @see #getIdentifierURIPercentEncoded(IReadonlyIdentifier)
+   * @see #getIdentifierURIPercentEncoded(IIdentifier)
    */
   @Nonnull
   @Nonempty
-  public static String getIdentifierURIEncoded (@Nonnull final IReadonlyIdentifier aIdentifier)
+  public static String getIdentifierURIEncoded (@Nonnull final IIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 
@@ -698,10 +698,10 @@ public final class IdentifierUtils
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static String getIdentifierURIPercentEncoded (@Nonnull final IReadonlyIdentifier aIdentifier)
+  public static String getIdentifierURIPercentEncoded (@Nonnull final IIdentifier aIdentifier)
   {
     final String sURIEncoded = getIdentifierURIEncoded (aIdentifier);
-    return BusdoxURLUtils.createPercentEncodedURL (sURIEncoded);
+    return BusdoxURLHelper.createPercentEncodedURL (sURIEncoded);
   }
 
   /**
@@ -912,7 +912,7 @@ public final class IdentifierUtils
    *         the identifier is malformed.
    */
   @Nullable
-  public static String getIssuingAgencyIDFromParticipantIDValue (@Nonnull final IPeppolReadonlyParticipantIdentifier aIdentifier)
+  public static String getIssuingAgencyIDFromParticipantIDValue (@Nonnull final IPeppolParticipantIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 
@@ -939,7 +939,7 @@ public final class IdentifierUtils
    *         the identifier is malformed.
    */
   @Nullable
-  public static String getLocalParticipantIDFromParticipantIDValue (@Nonnull final IPeppolReadonlyParticipantIdentifier aIdentifier)
+  public static String getLocalParticipantIDFromParticipantIDValue (@Nonnull final IPeppolParticipantIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 
@@ -964,7 +964,7 @@ public final class IdentifierUtils
    *         OpenPEPPOL document type identifier.
    */
   @Nonnull
-  public static IPeppolDocumentTypeIdentifierParts getDocumentTypeIdentifierParts (@Nonnull final IReadonlyDocumentTypeIdentifier aIdentifier)
+  public static IPeppolDocumentTypeIdentifierParts getDocumentTypeIdentifierParts (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 

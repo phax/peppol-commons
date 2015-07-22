@@ -40,15 +40,46 @@
  */
 package com.helger.peppol.identifier.participant;
 
-import com.helger.peppol.identifier.IParticipantIdentifier;
+import javax.annotation.Nullable;
+
 import com.helger.peppol.identifier.IPeppolIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
 
 /**
- * Base interface for a PEPPOL participant identifier.
+ * Base interface for a PEPPOL read-only participant identifier.
  * 
  * @author philip
  */
-public interface IPeppolParticipantIdentifier extends IPeppolReadonlyParticipantIdentifier, IPeppolIdentifier, IParticipantIdentifier
+public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IParticipantIdentifier
 {
-  /* empty */
+  /**
+   * @return <code>true</code> if the identifier is valid according to the
+   *         internal and external validation rules as defined by
+   *         {@link com.helger.peppol.identifier.validator.IParticipantIdentifierValidatorSPI}
+   *         implementations.
+   */
+  boolean isValid ();
+
+  /**
+   * Extract the issuing agency ID from the passed participant identifier value.<br>
+   * Example: extract the <code>0088</code> from the participant identifier
+   * <code>iso6523-actorid-upis::0088:123456</code>
+   * 
+   * @return <code>null</code> if the identifier is not of default scheme or if
+   *         the identifier is malformed.
+   */
+  @Nullable
+  String getIssuingAgencyID ();
+
+  /**
+   * Extract the local participant ID from the passed participant identifier
+   * value.<br>
+   * Example: extract the <code>123456</code> from the participant identifier
+   * <code>iso6523-actorid-upis::0088:123456</code>
+   * 
+   * @return <code>null</code> if the identifier is not of default scheme or if
+   *         the identifier is malformed.
+   */
+  @Nullable
+  String getLocalParticipantID ();
 }

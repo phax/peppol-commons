@@ -38,16 +38,17 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier;
+package com.helger.peppol.identifier.participant;
+
+import com.helger.peppol.identifier.IMutableParticipantIdentifier;
+import com.helger.peppol.identifier.IMutablePeppolIdentifier;
 
 /**
- * Marker-interface that is specific for process identifiers.<br>
- * This can be used as the read-only/immutable counterpart of the implementation
- * class.
+ * Base interface for a PEPPOL participant identifier.
  * 
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author philip
  */
-public interface IReadonlyProcessIdentifier extends IReadonlyIdentifier
+public interface IMutablePeppolParticipantIdentifier extends IPeppolParticipantIdentifier, IMutablePeppolIdentifier, IMutableParticipantIdentifier
 {
   /* empty */
 }

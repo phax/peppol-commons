@@ -51,7 +51,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IdentifierHelper;
 
 
 /**
@@ -500,12 +500,12 @@ public enum EPredefinedDocumentTypeIdentifier
 
     @Nonnull
     public String getURIEncoded() {
-        return IdentifierUtils.getIdentifierURIEncoded(this);
+        return IdentifierHelper.getIdentifierURIEncoded(this);
     }
 
     @Nonnull
     public String getURIPercentEncoded() {
-        return IdentifierUtils.getIdentifierURIPercentEncoded(this);
+        return IdentifierHelper.getIdentifierURIPercentEncoded(this);
     }
 
     @Nonnull

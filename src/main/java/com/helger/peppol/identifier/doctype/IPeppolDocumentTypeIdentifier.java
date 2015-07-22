@@ -40,15 +40,25 @@
  */
 package com.helger.peppol.identifier.doctype;
 
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import javax.annotation.Nonnull;
+
 import com.helger.peppol.identifier.IPeppolIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 
 /**
- * Base interface for a PEPPOL document type identifier.
+ * Base interface for a PEPPOL read-only document type identifier.
  * 
  * @author philip
  */
-public interface IPeppolDocumentTypeIdentifier extends IPeppolReadonlyDocumentTypeIdentifier, IPeppolIdentifier, IDocumentTypeIdentifier
+public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocumentTypeIdentifier
 {
-  /* empty */
+  /**
+   * Extract the different identifier parts that are contained in a PEPPOL
+   * document type identifier.
+   * 
+   * @return A new object encapsulating the different document type identifier
+   *         parts.
+   */
+  @Nonnull
+  IPeppolDocumentTypeIdentifierParts getParts ();
 }

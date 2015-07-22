@@ -38,17 +38,25 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.process;
+package com.helger.peppol.identifier.doctype;
 
-import com.helger.peppol.identifier.IPeppolReadonlyIdentifier;
-import com.helger.peppol.identifier.IReadonlyProcessIdentifier;
+import javax.annotation.Nonnull;
+
+import com.helger.commons.compare.AbstractComparator;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
- * Base interface for a PEPPOL read-only process identifier.
- * 
- * @author philip
+ * A comparator for {@link IDocumentTypeIdentifier} objects.
+ *
+ * @author Philip Helger
  */
-public interface IPeppolReadonlyProcessIdentifier extends IPeppolReadonlyIdentifier, IReadonlyProcessIdentifier
+public class ComparatorDocumentTypeIdentifier extends AbstractComparator <IDocumentTypeIdentifier>
 {
-  /* empty */
+  @Override
+  protected int mainCompare (@Nonnull final IDocumentTypeIdentifier aIdentifier1,
+                             @Nonnull final IDocumentTypeIdentifier aIdentifier2)
+  {
+    return IdentifierHelper.compareDocumentTypeIdentifiers (aIdentifier1, aIdentifier2);
+  }
 }

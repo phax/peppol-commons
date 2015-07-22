@@ -52,20 +52,20 @@ import java.util.Arrays;
 import org.junit.Test;
 
 /**
- * Test class for class {@link CertificateUtils}.
+ * Test class for class {@link CertificateHelper}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class CertificateUtilsTest
+public final class CertificateHelperTest
 {
   @Test
   public void testConvertStringToCertficate () throws CertificateException
   {
-    assertNull (CertificateUtils.convertStringToCertficate (null));
-    assertNull (CertificateUtils.convertStringToCertficate (""));
+    assertNull (CertificateHelper.convertStringToCertficate (null));
+    assertNull (CertificateHelper.convertStringToCertficate (""));
 
     // The web page certificate from Google
-    final X509Certificate aCert = CertificateUtils.convertStringToCertficate ("MIIDVDCCAjygAwIBAgIDAjRWMA0GCSqGSIb3DQEBBQUAMEIxCzAJBgNVBAYTAlVT\r\n"
+    final X509Certificate aCert = CertificateHelper.convertStringToCertficate ("MIIDVDCCAjygAwIBAgIDAjRWMA0GCSqGSIb3DQEBBQUAMEIxCzAJBgNVBAYTAlVT\r\n"
                                                                               + "MRYwFAYDVQQKEw1HZW9UcnVzdCBJbmMuMRswGQYDVQQDExJHZW9UcnVzdCBHbG9i\r\n"
                                                                               + "YWwgQ0EwHhcNMDIwNTIxMDQwMDAwWhcNMjIwNTIxMDQwMDAwWjBCMQswCQYDVQQG\r\n"
                                                                               + "EwJVUzEWMBQGA1UEChMNR2VvVHJ1c3QgSW5jLjEbMBkGA1UEAxMSR2VvVHJ1c3Qg\r\n"
@@ -88,7 +88,7 @@ public final class CertificateUtilsTest
 
     try
     {
-      CertificateUtils.convertStringToCertficate ("abc");
+      CertificateHelper.convertStringToCertficate ("abc");
       fail ();
     }
     catch (final CertificateException ex)
@@ -97,7 +97,7 @@ public final class CertificateUtilsTest
     }
     try
     {
-      CertificateUtils.convertStringToCertficate ("abcd");
+      CertificateHelper.convertStringToCertficate ("abcd");
       fail ();
     }
     catch (final CertificateException ex)
@@ -109,8 +109,8 @@ public final class CertificateUtilsTest
   @Test
   public void testGetRFC1421CompliantString ()
   {
-    assertNull (CertificateUtils.getRFC1421CompliantString (null));
-    assertEquals ("", CertificateUtils.getRFC1421CompliantString (""));
+    assertNull (CertificateHelper.getRFC1421CompliantString (null));
+    assertEquals ("", CertificateHelper.getRFC1421CompliantString (""));
 
     // for up to 64 chars it makes no difference
     for (int i = 0; i <= 64; ++i)
@@ -118,13 +118,13 @@ public final class CertificateUtilsTest
       final char [] aChars = new char [i];
       Arrays.fill (aChars, 'a');
       final String sText = new String (aChars);
-      assertEquals (sText, CertificateUtils.getRFC1421CompliantString (sText));
+      assertEquals (sText, CertificateHelper.getRFC1421CompliantString (sText));
     }
 
     final String sLong = "123456789012345678901234567890123456789012345678901234567890abcd"
                          + "123456789012345678901234567890123456789012345678901234567890abcd"
                          + "xyz";
-    final String sFormatted = CertificateUtils.getRFC1421CompliantString (sLong);
+    final String sFormatted = CertificateHelper.getRFC1421CompliantString (sLong);
     assertEquals ("123456789012345678901234567890123456789012345678901234567890abcd\r\n"
                   + "123456789012345678901234567890123456789012345678901234567890abcd\r\n"
                   + "xyz", sFormatted);

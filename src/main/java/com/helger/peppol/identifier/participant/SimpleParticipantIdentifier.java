@@ -47,8 +47,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.validator.IdentifierValidator;
 
@@ -60,18 +60,18 @@ import com.helger.peppol.identifier.validator.IdentifierValidator;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier, Comparable <SimpleParticipantIdentifier>, ICloneable <SimpleParticipantIdentifier>
+public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements IMutablePeppolParticipantIdentifier, Comparable <SimpleParticipantIdentifier>, ICloneable <SimpleParticipantIdentifier>
 {
-  public SimpleParticipantIdentifier (@Nonnull final IReadonlyParticipantIdentifier aIdentifier)
+  public SimpleParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   public SimpleParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    if (!IdentifierUtils.isValidParticipantIdentifierScheme (sScheme))
+    if (!IdentifierHelper.isValidParticipantIdentifierScheme (sScheme))
       throw new IllegalArgumentException ("Participant identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierUtils.isValidParticipantIdentifierValue (sValue))
+    if (!IdentifierHelper.isValidParticipantIdentifierValue (sValue))
       throw new IllegalArgumentException ("Participant identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
@@ -79,19 +79,19 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
 
   public boolean isDefaultScheme ()
   {
-    return IdentifierUtils.hasDefaultParticipantIdentifierScheme (this);
+    return IdentifierHelper.hasDefaultParticipantIdentifierScheme (this);
   }
 
   @Nonnull
   public String getURIEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIEncoded (this);
+    return IdentifierHelper.getIdentifierURIEncoded (this);
   }
 
   @Nonnull
   public String getURIPercentEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIPercentEncoded (this);
+    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
   }
 
   public boolean isValid ()
@@ -102,18 +102,18 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   @Nullable
   public String getIssuingAgencyID ()
   {
-    return IdentifierUtils.getIssuingAgencyIDFromParticipantIDValue (this);
+    return IdentifierHelper.getIssuingAgencyIDFromParticipantIDValue (this);
   }
 
   @Nullable
   public String getLocalParticipantID ()
   {
-    return IdentifierUtils.getLocalParticipantIDFromParticipantIDValue (this);
+    return IdentifierHelper.getLocalParticipantIDFromParticipantIDValue (this);
   }
 
   public int compareTo (@Nonnull final SimpleParticipantIdentifier aOther)
   {
-    return IdentifierUtils.compareParticipantIdentifiers (this, aOther);
+    return IdentifierHelper.compareParticipantIdentifiers (this, aOther);
   }
 
   @Nonnull
@@ -153,7 +153,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   @Nonnull
   public static SimpleParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
-    return IdentifierUtils.createParticipantIdentifierFromURIPart (sURIPart);
+    return IdentifierHelper.createParticipantIdentifierFromURIPart (sURIPart);
   }
 
   /**
@@ -170,6 +170,6 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   @Nullable
   public static SimpleParticipantIdentifier createFromURIPartOrNull (@Nonnull final String sURIPart)
   {
-    return IdentifierUtils.createParticipantIdentifierFromURIPartOrNull (sURIPart);
+    return IdentifierHelper.createParticipantIdentifierFromURIPartOrNull (sURIPart);
   }
 }

@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.doctype;
+package com.helger.peppol.identifier.process;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,32 +46,32 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.DocumentIdentifierType;
-import com.helger.peppol.identifier.IReadonlyIdentifier;
-import com.helger.peppol.identifier.IdentifierUtils;
+import com.helger.peppol.identifier.IIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
+import com.helger.peppol.identifier.ProcessIdentifierType;
 
 /**
- * This is an immutable sanity class around the {@link DocumentIdentifierType}
+ * This is an immutable sanity class around the {@link ProcessIdentifierType}
  * class with easier construction and some sanity access methods. It may be used
- * in all places where {@link DocumentIdentifierType} objects are required.<br>
- * For a mutable version, please check {@link SimpleDocumentTypeIdentifier}.
+ * in all places where {@link ProcessIdentifierType} objects are required.<br>
+ * For a mutable version, please check {@link SimpleProcessIdentifier}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ReadonlyDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier
+public class ReadOnlyProcessIdentifier extends ProcessIdentifierType implements IMutablePeppolProcessIdentifier
 {
-  public ReadonlyDocumentTypeIdentifier (@Nonnull final IReadonlyIdentifier aIdentifier)
+  public ReadOnlyProcessIdentifier (@Nonnull final IIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
-  public ReadonlyDocumentTypeIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
+  public ReadOnlyProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    if (!IdentifierUtils.isValidIdentifierScheme (sScheme))
-      throw new IllegalArgumentException ("Document Type identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierUtils.isValidDocumentTypeIdentifierValue (sValue))
-      throw new IllegalArgumentException ("Document Type identifier value '" + sValue + "' is invalid!");
+    if (!IdentifierHelper.isValidIdentifierScheme (sScheme))
+      throw new IllegalArgumentException ("Process identifier scheme '" + sScheme + "' is invalid!");
+    if (!IdentifierHelper.isValidProcessIdentifierValue (sValue))
+      throw new IllegalArgumentException ("Process identifier value '" + sValue + "' is invalid!");
 
     // Explicitly use the super methods, as the methods of this class throw an
     // exception!
@@ -97,38 +97,24 @@ public class ReadonlyDocumentTypeIdentifier extends DocumentIdentifierType imple
 
   public boolean isDefaultScheme ()
   {
-    return IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme (this);
+    return IdentifierHelper.hasDefaultProcessIdentifierScheme (this);
   }
 
   @Nonnull
   public String getURIEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIEncoded (this);
+    return IdentifierHelper.getIdentifierURIEncoded (this);
   }
 
   @Nonnull
   public String getURIPercentEncoded ()
   {
-    return IdentifierUtils.getIdentifierURIPercentEncoded (this);
+    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
   }
 
   @Nonnull
-  public IPeppolDocumentTypeIdentifierParts getParts ()
+  public static ReadOnlyProcessIdentifier createWithDefaultScheme (@Nullable final String sValue)
   {
-    return IdentifierUtils.getDocumentTypeIdentifierParts (this);
-  }
-
-  /**
-   * Create a document type identifier with the common scheme as defined by
-   * {@link CIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
-   *
-   * @param sValue
-   *        The document type identifier value
-   * @return The readonly document identifier
-   */
-  @Nonnull
-  public static ReadonlyDocumentTypeIdentifier createWithDefaultScheme (@Nullable final String sValue)
-  {
-    return new ReadonlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
+    return new ReadOnlyProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
   }
 }

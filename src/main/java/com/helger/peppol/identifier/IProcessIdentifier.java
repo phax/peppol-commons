@@ -41,11 +41,13 @@
 package com.helger.peppol.identifier;
 
 /**
- * Marker-interface that is specific for process identifiers.
+ * Marker-interface that is specific for process identifiers.<br>
+ * This can be used as the read-only/immutable counterpart of the implementation
+ * class.
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IProcessIdentifier extends IIdentifier, IReadonlyProcessIdentifier
+public interface IProcessIdentifier extends IIdentifier
 {
   /* empty */
 }

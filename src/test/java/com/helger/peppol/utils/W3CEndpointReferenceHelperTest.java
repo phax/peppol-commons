@@ -55,18 +55,18 @@ import org.w3c.dom.Element;
 import com.helger.commons.xml.XMLFactory;
 
 /**
- * Test class for class {@link W3CEndpointReferenceUtils}.
+ * Test class for class {@link W3CEndpointReferenceHelper}.
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class W3CEndpointReferenceUtilsTest
+public final class W3CEndpointReferenceHelperTest
 {
   @Test
   public void testAddress ()
   {
     final String sURL = "http://www.example.org/any";
-    final W3CEndpointReference aEPR = W3CEndpointReferenceUtils.createEndpointReference (sURL);
-    assertEquals (sURL, W3CEndpointReferenceUtils.getAddress (aEPR));
+    final W3CEndpointReference aEPR = W3CEndpointReferenceHelper.createEndpointReference (sURL);
+    assertEquals (sURL, W3CEndpointReferenceHelper.getAddress (aEPR));
   }
 
   @Test
@@ -82,9 +82,9 @@ public final class W3CEndpointReferenceUtilsTest
     aParams.add (aElement);
 
     final String sURL = "http://www.example.org/any";
-    final W3CEndpointReference aEPR = W3CEndpointReferenceUtils.createEndpointReference (sURL, aParams);
-    assertEquals (sURL, W3CEndpointReferenceUtils.getAddress (aEPR));
-    final List <Element> aReads = W3CEndpointReferenceUtils.getReferenceParameters (aEPR);
+    final W3CEndpointReference aEPR = W3CEndpointReferenceHelper.createEndpointReference (sURL, aParams);
+    assertEquals (sURL, W3CEndpointReferenceHelper.getAddress (aEPR));
+    final List <Element> aReads = W3CEndpointReferenceHelper.getReferenceParameters (aEPR);
 
     // Note: cannot directly compare aParams and aReads because of different
     // underlying documents
@@ -98,7 +98,7 @@ public final class W3CEndpointReferenceUtilsTest
       assertEquals (aParam.getTextContent (), aRead.getTextContent ());
     }
 
-    assertNotNull (W3CEndpointReferenceUtils.getReferenceParameter (aEPR, 0));
-    assertNotNull (W3CEndpointReferenceUtils.getReferenceParameter (aEPR, 1));
+    assertNotNull (W3CEndpointReferenceHelper.getReferenceParameter (aEPR, 0));
+    assertNotNull (W3CEndpointReferenceHelper.getReferenceParameter (aEPR, 1));
   }
 }

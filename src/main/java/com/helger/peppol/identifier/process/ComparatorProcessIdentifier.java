@@ -38,48 +38,25 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.participant;
+package com.helger.peppol.identifier.process;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
-import com.helger.peppol.identifier.IPeppolReadonlyIdentifier;
-import com.helger.peppol.identifier.IReadonlyParticipantIdentifier;
+import com.helger.commons.compare.AbstractComparator;
+import com.helger.peppol.identifier.IProcessIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
- * Base interface for a PEPPOL read-only participant identifier.
- * 
- * @author philip
+ * A comparator for {@link IProcessIdentifier} objects.
+ *
+ * @author Philip Helger
  */
-public interface IPeppolReadonlyParticipantIdentifier extends IPeppolReadonlyIdentifier, IReadonlyParticipantIdentifier
+public class ComparatorProcessIdentifier extends AbstractComparator <IProcessIdentifier>
 {
-  /**
-   * @return <code>true</code> if the identifier is valid according to the
-   *         internal and external validation rules as defined by
-   *         {@link com.helger.peppol.identifier.validator.IParticipantIdentifierValidatorSPI}
-   *         implementations.
-   */
-  boolean isValid ();
-
-  /**
-   * Extract the issuing agency ID from the passed participant identifier value.<br>
-   * Example: extract the <code>0088</code> from the participant identifier
-   * <code>iso6523-actorid-upis::0088:123456</code>
-   * 
-   * @return <code>null</code> if the identifier is not of default scheme or if
-   *         the identifier is malformed.
-   */
-  @Nullable
-  String getIssuingAgencyID ();
-
-  /**
-   * Extract the local participant ID from the passed participant identifier
-   * value.<br>
-   * Example: extract the <code>123456</code> from the participant identifier
-   * <code>iso6523-actorid-upis::0088:123456</code>
-   * 
-   * @return <code>null</code> if the identifier is not of default scheme or if
-   *         the identifier is malformed.
-   */
-  @Nullable
-  String getLocalParticipantID ();
+  @Override
+  protected int mainCompare (@Nonnull final IProcessIdentifier aIdentifier1,
+                             @Nonnull final IProcessIdentifier aIdentifier2)
+  {
+    return IdentifierHelper.compareProcessIdentifiers (aIdentifier1, aIdentifier2);
+  }
 }

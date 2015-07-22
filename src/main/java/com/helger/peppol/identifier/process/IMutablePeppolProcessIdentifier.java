@@ -38,27 +38,17 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.doctype;
+package com.helger.peppol.identifier.process;
 
-import javax.annotation.Nonnull;
-
-import com.helger.peppol.identifier.IPeppolReadonlyIdentifier;
-import com.helger.peppol.identifier.IReadonlyDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IMutablePeppolIdentifier;
+import com.helger.peppol.identifier.IMutableProcessIdentifier;
 
 /**
- * Base interface for a PEPPOL read-only document type identifier.
+ * Base interface for a PEPPOL process identifier.
  * 
  * @author philip
  */
-public interface IPeppolReadonlyDocumentTypeIdentifier extends IPeppolReadonlyIdentifier, IReadonlyDocumentTypeIdentifier
+public interface IMutablePeppolProcessIdentifier extends IPeppolProcessIdentifier, IMutablePeppolIdentifier, IMutableProcessIdentifier
 {
-  /**
-   * Extract the different identifier parts that are contained in a PEPPOL
-   * document type identifier.
-   * 
-   * @return A new object encapsulating the different document type identifier
-   *         parts.
-   */
-  @Nonnull
-  IPeppolDocumentTypeIdentifierParts getParts ();
+  /* empty */
 }

@@ -57,11 +57,11 @@ import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link IdentifierUtils}.
+ * Test class for class {@link IdentifierHelper}.
  * 
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class IdentifierUtilsTest
+public final class IdentifierHelperTest
 {
   private static final String [] PARTICIPANT_SCHEME_VALID = { "busdox-actorid-upis",
                                                              "BUSDOX-ACTORID-UPIS",
@@ -84,11 +84,11 @@ public final class IdentifierUtilsTest
   {
     // valid
     for (final String scheme : PARTICIPANT_SCHEME_VALID)
-      assertTrue (IdentifierUtils.isValidParticipantIdentifierScheme (scheme));
+      assertTrue (IdentifierHelper.isValidParticipantIdentifierScheme (scheme));
 
     // invalid
     for (final String scheme : PARTIFCIPANT_SCHEME_INVALID)
-      assertFalse (IdentifierUtils.isValidParticipantIdentifierScheme (scheme));
+      assertFalse (IdentifierHelper.isValidParticipantIdentifierScheme (scheme));
   }
 
   @Test
@@ -98,18 +98,18 @@ public final class IdentifierUtilsTest
     final SimpleParticipantIdentifier aPI2 = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
     final SimpleParticipantIdentifier aPI3a = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123456");
     final SimpleParticipantIdentifier aPI3b = new SimpleParticipantIdentifier ("my-actorid-scheme", "0088:12345");
-    assertTrue (IdentifierUtils.areParticipantIdentifiersEqual (aPI1, aPI1));
-    assertTrue (IdentifierUtils.areParticipantIdentifiersEqual (aPI1, aPI2));
-    assertTrue (IdentifierUtils.areParticipantIdentifiersEqual (aPI2, aPI1));
-    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI1, aPI3a));
-    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI1, aPI3b));
-    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI2, aPI3a));
-    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI2, aPI3b));
-    assertFalse (IdentifierUtils.areParticipantIdentifiersEqual (aPI3a, aPI3b));
+    assertTrue (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI1));
+    assertTrue (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI2));
+    assertTrue (IdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI1));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI3a));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI3b));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI3a));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI3b));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI3a, aPI3b));
 
     try
     {
-      IdentifierUtils.areParticipantIdentifiersEqual (aPI1, null);
+      IdentifierHelper.areParticipantIdentifiersEqual (aPI1, null);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -119,7 +119,7 @@ public final class IdentifierUtilsTest
 
     try
     {
-      IdentifierUtils.areParticipantIdentifiersEqual (null, aPI1);
+      IdentifierHelper.areParticipantIdentifiersEqual (null, aPI1);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -135,18 +135,18 @@ public final class IdentifierUtilsTest
     final SimpleDocumentTypeIdentifier aDI2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleDocumentTypeIdentifier aDI3a = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
     final SimpleDocumentTypeIdentifier aDI3b = new SimpleDocumentTypeIdentifier ("my-docid-test", "urn:doc:anyotherdoc");
-    assertTrue (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, aDI1));
-    assertTrue (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, aDI2));
-    assertTrue (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI2, aDI1));
-    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, aDI3a));
-    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, aDI3b));
-    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI2, aDI3a));
-    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI2, aDI3b));
-    assertFalse (IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI3a, aDI3b));
+    assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI1));
+    assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI2));
+    assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI1));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI3a));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI3b));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI3a));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI3b));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI3a, aDI3b));
 
     try
     {
-      IdentifierUtils.areDocumentTypeIdentifiersEqual (aDI1, null);
+      IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, null);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -156,7 +156,7 @@ public final class IdentifierUtilsTest
 
     try
     {
-      IdentifierUtils.areDocumentTypeIdentifiersEqual (null, aDI1);
+      IdentifierHelper.areDocumentTypeIdentifiersEqual (null, aDI1);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -172,18 +172,18 @@ public final class IdentifierUtilsTest
     final SimpleProcessIdentifier aDI2 = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleProcessIdentifier aDI3a = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
     final SimpleProcessIdentifier aDI3b = new SimpleProcessIdentifier ("my-procid-test", "urn:doc:anyotherdoc");
-    assertTrue (IdentifierUtils.areProcessIdentifiersEqual (aDI1, aDI1));
-    assertTrue (IdentifierUtils.areProcessIdentifiersEqual (aDI1, aDI2));
-    assertTrue (IdentifierUtils.areProcessIdentifiersEqual (aDI2, aDI1));
-    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI1, aDI3a));
-    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI1, aDI3b));
-    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI2, aDI3a));
-    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI2, aDI3b));
-    assertFalse (IdentifierUtils.areProcessIdentifiersEqual (aDI3a, aDI3b));
+    assertTrue (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI1));
+    assertTrue (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI2));
+    assertTrue (IdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI1));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI3a));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI3b));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI3a));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI3b));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI3a, aDI3b));
 
     try
     {
-      IdentifierUtils.areProcessIdentifiersEqual (aDI1, null);
+      IdentifierHelper.areProcessIdentifiersEqual (aDI1, null);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -193,7 +193,7 @@ public final class IdentifierUtilsTest
 
     try
     {
-      IdentifierUtils.areProcessIdentifiersEqual (null, aDI1);
+      IdentifierHelper.areProcessIdentifiersEqual (null, aDI1);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -207,14 +207,14 @@ public final class IdentifierUtilsTest
   public void getIdentifierURIEncoded ()
   {
     final SimpleParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
-    assertEquals ("iso6523-actorid-upis::0088:123abc", IdentifierUtils.getIdentifierURIEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis::0088:123abc", IdentifierHelper.getIdentifierURIEncoded (aPI));
 
     final SimpleDocumentTypeIdentifier aDI = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
-    assertEquals ("busdox-docid-qns::urn:doc:anydoc", IdentifierUtils.getIdentifierURIEncoded (aDI));
+    assertEquals ("busdox-docid-qns::urn:doc:anydoc", IdentifierHelper.getIdentifierURIEncoded (aDI));
 
     try
     {
-      IdentifierUtils.getIdentifierURIEncoded (new SimpleParticipantIdentifier (null, "0088:12345"));
+      IdentifierHelper.getIdentifierURIEncoded (new SimpleParticipantIdentifier (null, "0088:12345"));
       fail ("Empty scheme should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -224,7 +224,7 @@ public final class IdentifierUtilsTest
 
     try
     {
-      IdentifierUtils.getIdentifierURIEncoded (new SimpleParticipantIdentifier ("", "0088:12345"));
+      IdentifierHelper.getIdentifierURIEncoded (new SimpleParticipantIdentifier ("", "0088:12345"));
       fail ("Empty scheme should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -234,7 +234,7 @@ public final class IdentifierUtilsTest
 
     try
     {
-      IdentifierUtils.getIdentifierURIEncoded (SimpleParticipantIdentifier.createWithDefaultScheme (null));
+      IdentifierHelper.getIdentifierURIEncoded (SimpleParticipantIdentifier.createWithDefaultScheme (null));
       fail ("null value should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -247,172 +247,172 @@ public final class IdentifierUtilsTest
   public void testGetIdentifierURIPercentEncoded ()
   {
     SimpleParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
-    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierUtils.getIdentifierURIPercentEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
     aPI = SimpleParticipantIdentifier.createWithDefaultScheme (EPredefinedIdentifierIssuingAgency.GLN.createIdentifierValue ("123abc"));
-    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierUtils.getIdentifierURIPercentEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
     aPI = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("123abc");
-    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierUtils.getIdentifierURIPercentEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
 
     // Different value
     aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088/123abc");
-    assertEquals ("iso6523-actorid-upis%3A%3A0088%2F123abc", IdentifierUtils.getIdentifierURIPercentEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis%3A%3A0088%2F123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
   }
 
   @Test
   public void testIsValidDocumentTypeIdentifierValue ()
   {
-    assertFalse (IdentifierUtils.isValidDocumentTypeIdentifierValue (null));
-    assertFalse (IdentifierUtils.isValidDocumentTypeIdentifierValue (""));
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifierValue (null));
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifierValue (""));
 
-    assertTrue (IdentifierUtils.isValidDocumentTypeIdentifierValue ("invoice"));
-    assertTrue (IdentifierUtils.isValidDocumentTypeIdentifierValue ("order "));
+    assertTrue (IdentifierHelper.isValidDocumentTypeIdentifierValue ("invoice"));
+    assertTrue (IdentifierHelper.isValidDocumentTypeIdentifierValue ("order "));
 
-    assertTrue (IdentifierUtils.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
+    assertTrue (IdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
                                                                                               CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)));
-    assertFalse (IdentifierUtils.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
                                                                                                CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH + 1)));
   }
 
   @Test
   public void testIsValidDocumentTypeIdentifier ()
   {
-    assertFalse (IdentifierUtils.isValidDocumentTypeIdentifier (null));
-    assertFalse (IdentifierUtils.isValidDocumentTypeIdentifier (""));
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier (null));
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier (""));
 
-    assertTrue (IdentifierUtils.isValidDocumentTypeIdentifier ("doctype::invoice"));
-    assertTrue (IdentifierUtils.isValidDocumentTypeIdentifier ("doctype::order "));
+    assertTrue (IdentifierHelper.isValidDocumentTypeIdentifier ("doctype::invoice"));
+    assertTrue (IdentifierHelper.isValidDocumentTypeIdentifier ("doctype::order "));
 
-    assertFalse (IdentifierUtils.isValidDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
-    assertFalse (IdentifierUtils.isValidDocumentTypeIdentifier ("doctype::" +
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier ("doctype::" +
                                                                 StringHelper.getRepeated ('a',
                                                                                           CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH + 1)));
-    assertFalse (IdentifierUtils.isValidDocumentTypeIdentifier ("doctype:order"));
-    assertFalse (IdentifierUtils.isValidDocumentTypeIdentifier ("doctypeorder"));
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier ("doctype:order"));
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier ("doctypeorder"));
   }
 
   @Test
   public void testIsValidParticipantIdentifierValue ()
   {
-    assertFalse (IdentifierUtils.isValidParticipantIdentifierValue (null));
-    assertFalse (IdentifierUtils.isValidParticipantIdentifierValue (""));
+    assertFalse (IdentifierHelper.isValidParticipantIdentifierValue (null));
+    assertFalse (IdentifierHelper.isValidParticipantIdentifierValue (""));
 
-    assertTrue (IdentifierUtils.isValidParticipantIdentifierValue ("9908:976098897"));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifierValue ("9908:976098897 "));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifierValue ("990:976098897"));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifierValue ("990976098897"));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifierValue ("9909:976098896"));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifierValue ("9908:976098896"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("9908:976098897"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("9908:976098897 "));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("990:976098897"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("990976098897"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("9909:976098896"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("9908:976098896"));
 
-    assertTrue (IdentifierUtils.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
+    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
                                                                                              CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)));
-    assertFalse (IdentifierUtils.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
+    assertFalse (IdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
                                                                                               CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH + 1)));
   }
 
   @Test
   public void testIsValidParticipantIdentifier ()
   {
-    assertFalse (IdentifierUtils.isValidParticipantIdentifier (null));
-    assertFalse (IdentifierUtils.isValidParticipantIdentifier (""));
+    assertFalse (IdentifierHelper.isValidParticipantIdentifier (null));
+    assertFalse (IdentifierHelper.isValidParticipantIdentifier (""));
 
-    assertTrue (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098897"));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098897 "));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummy::990:976098897"));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummy::990976098897"));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummy::9909:976098896"));
-    assertTrue (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098896"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098897"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098897 "));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::990:976098897"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::990976098897"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::9909:976098896"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098896"));
 
-    assertFalse (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummythatiswaytoolongforwhatisexpected::9908:976098896"));
-    assertFalse (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummy::" +
+    assertFalse (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummythatiswaytoolongforwhatisexpected::9908:976098896"));
+    assertFalse (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::" +
                                                                StringHelper.getRepeated ('a',
                                                                                          CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH + 1)));
-    assertFalse (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummy:9908:976098896"));
-    assertFalse (IdentifierUtils.isValidParticipantIdentifier ("any-actorid-dummy9908:976098896"));
+    assertFalse (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy:9908:976098896"));
+    assertFalse (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy9908:976098896"));
   }
 
   @Test
   public void testIsValidProcessIdentifierValue ()
   {
-    assertFalse (IdentifierUtils.isValidProcessIdentifierValue (null));
-    assertFalse (IdentifierUtils.isValidProcessIdentifierValue (""));
+    assertFalse (IdentifierHelper.isValidProcessIdentifierValue (null));
+    assertFalse (IdentifierHelper.isValidProcessIdentifierValue (""));
 
-    assertTrue (IdentifierUtils.isValidProcessIdentifierValue ("proc1"));
-    assertTrue (IdentifierUtils.isValidProcessIdentifierValue ("proc2 "));
+    assertTrue (IdentifierHelper.isValidProcessIdentifierValue ("proc1"));
+    assertTrue (IdentifierHelper.isValidProcessIdentifierValue ("proc2 "));
 
-    assertTrue (IdentifierUtils.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
+    assertTrue (IdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
                                                                                          CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)));
-    assertFalse (IdentifierUtils.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
+    assertFalse (IdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
                                                                                           CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH + 1)));
   }
 
   @Test
   public void testIsValidProcessIdentifier ()
   {
-    assertFalse (IdentifierUtils.isValidProcessIdentifier (null));
-    assertFalse (IdentifierUtils.isValidProcessIdentifier (""));
+    assertFalse (IdentifierHelper.isValidProcessIdentifier (null));
+    assertFalse (IdentifierHelper.isValidProcessIdentifier (""));
 
-    assertTrue (IdentifierUtils.isValidProcessIdentifier ("process::proc1"));
-    assertTrue (IdentifierUtils.isValidProcessIdentifier ("process::proc2 "));
+    assertTrue (IdentifierHelper.isValidProcessIdentifier ("process::proc1"));
+    assertTrue (IdentifierHelper.isValidProcessIdentifier ("process::proc2 "));
 
-    assertFalse (IdentifierUtils.isValidProcessIdentifier ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
-    assertFalse (IdentifierUtils.isValidProcessIdentifier ("process::" +
+    assertFalse (IdentifierHelper.isValidProcessIdentifier ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
+    assertFalse (IdentifierHelper.isValidProcessIdentifier ("process::" +
                                                            StringHelper.getRepeated ('a',
                                                                                      CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH + 1)));
-    assertFalse (IdentifierUtils.isValidProcessIdentifier ("process:proc2"));
-    assertFalse (IdentifierUtils.isValidProcessIdentifier ("processproc2"));
+    assertFalse (IdentifierHelper.isValidProcessIdentifier ("process:proc2"));
+    assertFalse (IdentifierHelper.isValidProcessIdentifier ("processproc2"));
   }
 
   @Test
   public void testGetUnifiedParticipantDBValue ()
   {
-    assertNull (IdentifierUtils.getUnifiedParticipantDBValue (null));
-    assertEquals ("", IdentifierUtils.getUnifiedParticipantDBValue (""));
-    assertEquals ("abc", IdentifierUtils.getUnifiedParticipantDBValue ("abc"));
-    assertEquals ("abc", IdentifierUtils.getUnifiedParticipantDBValue ("ABC"));
-    assertEquals ("abc", IdentifierUtils.getUnifiedParticipantDBValue ("AbC"));
+    assertNull (IdentifierHelper.getUnifiedParticipantDBValue (null));
+    assertEquals ("", IdentifierHelper.getUnifiedParticipantDBValue (""));
+    assertEquals ("abc", IdentifierHelper.getUnifiedParticipantDBValue ("abc"));
+    assertEquals ("abc", IdentifierHelper.getUnifiedParticipantDBValue ("ABC"));
+    assertEquals ("abc", IdentifierHelper.getUnifiedParticipantDBValue ("AbC"));
   }
 
   @Test
   public void testHasDefaultParticipantIdentifierScheme ()
   {
-    assertTrue (IdentifierUtils.hasDefaultParticipantIdentifierScheme (SimpleParticipantIdentifier.createWithDefaultScheme ("abc")));
-    assertFalse (IdentifierUtils.hasDefaultParticipantIdentifierScheme (new SimpleParticipantIdentifier ("dummy-actorid-upis",
+    assertTrue (IdentifierHelper.hasDefaultParticipantIdentifierScheme (SimpleParticipantIdentifier.createWithDefaultScheme ("abc")));
+    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme (new SimpleParticipantIdentifier ("dummy-actorid-upis",
                                                                                                          "abc")));
-    assertTrue (IdentifierUtils.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
+    assertTrue (IdentifierHelper.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
                                                                        "::abc"));
-    assertFalse (IdentifierUtils.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
+    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
                                                                         ":abc"));
-    assertFalse (IdentifierUtils.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
+    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
                                                                         "abc"));
-    assertFalse (IdentifierUtils.hasDefaultParticipantIdentifierScheme ("dummy-actorid-upis::abc"));
+    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme ("dummy-actorid-upis::abc"));
   }
 
   @Test
   public void testHasDefaultDocumentTypeIdentifierScheme ()
   {
-    assertTrue (IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme (SimpleDocumentTypeIdentifier.createWithDefaultScheme ("abc")));
-    assertFalse (IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme (new SimpleDocumentTypeIdentifier ("doctype",
+    assertTrue (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (SimpleDocumentTypeIdentifier.createWithDefaultScheme ("abc")));
+    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (new SimpleDocumentTypeIdentifier ("doctype",
                                                                                                            "abc")));
-    assertTrue (IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+    assertTrue (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
                                                                         "::abc"));
-    assertFalse (IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
                                                                          ":abc"));
-    assertFalse (IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
                                                                          "abc"));
-    assertFalse (IdentifierUtils.hasDefaultDocumentTypeIdentifierScheme ("doctype::abc"));
+    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme ("doctype::abc"));
   }
 
   @Test
   public void testHasDefaultProcessIdentifierScheme ()
   {
-    assertTrue (IdentifierUtils.hasDefaultProcessIdentifierScheme (SimpleProcessIdentifier.createWithDefaultScheme ("abc")));
-    assertFalse (IdentifierUtils.hasDefaultProcessIdentifierScheme (new SimpleProcessIdentifier ("proctype", "abc")));
-    assertTrue (IdentifierUtils.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
+    assertTrue (IdentifierHelper.hasDefaultProcessIdentifierScheme (SimpleProcessIdentifier.createWithDefaultScheme ("abc")));
+    assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme (new SimpleProcessIdentifier ("proctype", "abc")));
+    assertTrue (IdentifierHelper.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
                                                                    "::abc"));
-    assertFalse (IdentifierUtils.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
+    assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
                                                                     ":abc"));
-    assertFalse (IdentifierUtils.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
+    assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
                                                                     "abc"));
-    assertFalse (IdentifierUtils.hasDefaultProcessIdentifierScheme ("proctype::abc"));
+    assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme ("proctype::abc"));
   }
 }
