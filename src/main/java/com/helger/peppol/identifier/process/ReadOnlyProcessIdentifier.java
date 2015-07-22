@@ -59,7 +59,7 @@ import com.helger.peppol.identifier.ProcessIdentifierType;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ReadOnlyProcessIdentifier extends ProcessIdentifierType implements IMutablePeppolProcessIdentifier
+public class ReadOnlyProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier, Comparable <ReadOnlyProcessIdentifier>
 {
   public ReadOnlyProcessIdentifier (@Nonnull final IIdentifier aIdentifier)
   {
@@ -110,6 +110,11 @@ public class ReadOnlyProcessIdentifier extends ProcessIdentifierType implements 
   public String getURIPercentEncoded ()
   {
     return IdentifierHelper.getIdentifierURIPercentEncoded (this);
+  }
+
+  public int compareTo (@Nonnull final ReadOnlyProcessIdentifier aOther)
+  {
+    return IdentifierHelper.compareProcessIdentifiers (this, aOther);
   }
 
   @Nonnull

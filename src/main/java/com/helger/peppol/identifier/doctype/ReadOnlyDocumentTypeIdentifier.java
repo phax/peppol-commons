@@ -59,7 +59,7 @@ import com.helger.peppol.identifier.IdentifierHelper;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType implements IMutablePeppolDocumentTypeIdentifier
+public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier, Comparable <ReadOnlyDocumentTypeIdentifier>
 {
   public ReadOnlyDocumentTypeIdentifier (@Nonnull final IIdentifier aIdentifier)
   {
@@ -116,6 +116,11 @@ public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType imple
   public IPeppolDocumentTypeIdentifierParts getParts ()
   {
     return IdentifierHelper.getDocumentTypeIdentifierParts (this);
+  }
+
+  public int compareTo (@Nonnull final ReadOnlyDocumentTypeIdentifier aOther)
+  {
+    return IdentifierHelper.compareDocumentTypeIdentifiers (this, aOther);
   }
 
   /**

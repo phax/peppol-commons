@@ -61,7 +61,7 @@ import com.helger.peppol.identifier.validator.IdentifierValidator;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ReadOnlyParticipantIdentifier extends ParticipantIdentifierType implements IMutablePeppolParticipantIdentifier
+public class ReadOnlyParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier, Comparable <ReadOnlyParticipantIdentifier>
 {
   public ReadOnlyParticipantIdentifier (@Nonnull final IIdentifier aIdentifier)
   {
@@ -129,6 +129,11 @@ public class ReadOnlyParticipantIdentifier extends ParticipantIdentifierType imp
   public String getLocalParticipantID ()
   {
     return IdentifierHelper.getLocalParticipantIDFromParticipantIDValue (this);
+  }
+
+  public int compareTo (@Nonnull final ReadOnlyParticipantIdentifier aOther)
+  {
+    return IdentifierHelper.compareParticipantIdentifiers (this, aOther);
   }
 
   @Nonnull
