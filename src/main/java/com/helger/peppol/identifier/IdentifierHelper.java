@@ -332,28 +332,6 @@ public final class IdentifierHelper
    * @return <code>true</code> if the identifier values are equal,
    *         <code>false</code> otherwise. If both are <code>null</code> they
    *         are considered equal.
-   * @deprecated Use
-   *             {@link #areDocumentTypeIdentifierValuesEqual(String,String)}
-   *             instead
-   */
-  @Deprecated
-  public static boolean areDocumentIdentifierValuesEqual (@Nullable final String sIdentifierValue1,
-                                                          @Nullable final String sIdentifierValue2)
-  {
-    return areDocumentTypeIdentifierValuesEqual (sIdentifierValue1, sIdentifierValue2);
-  }
-
-  /**
-   * According to the specification, two document identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param sIdentifierValue1
-   *        First identifier value to compare. May be <code>null</code>.
-   * @param sIdentifierValue2
-   *        Second identifier value to compare. May be <code>null</code>.
-   * @return <code>true</code> if the identifier values are equal,
-   *         <code>false</code> otherwise. If both are <code>null</code> they
-   *         are considered equal.
    */
   public static boolean areDocumentTypeIdentifierValuesEqual (@Nullable final String sIdentifierValue1,
                                                               @Nullable final String sIdentifierValue2)
@@ -391,27 +369,6 @@ public final class IdentifierHelper
    *        Second identifier to compare. May not be null.
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
-   * @deprecated Use
-   *             {@link #areParticipantIdentifiersEqual(IParticipantIdentifier,IParticipantIdentifier)}
-   *             instead
-   */
-  @Deprecated
-  public static boolean areIdentifiersEqual (@Nonnull final IParticipantIdentifier aIdentifier1,
-                                             @Nonnull final IParticipantIdentifier aIdentifier2)
-  {
-    return areParticipantIdentifiersEqual (aIdentifier1, aIdentifier2);
-  }
-
-  /**
-   * According to the specification, two participant identifiers are equal if
-   * their parts are equal case insensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
    */
   public static boolean areParticipantIdentifiersEqual (@Nonnull final IParticipantIdentifier aIdentifier1,
                                                         @Nonnull final IParticipantIdentifier aIdentifier2)
@@ -434,27 +391,6 @@ public final class IdentifierHelper
    *        Second identifier to compare. May not be null.
    * @return <code>true</code> if the identifiers are equal, <code>false</code>
    *         otherwise.
-   * @deprecated Use
-   *             {@link #areDocumentTypeIdentifiersEqual(IDocumentTypeIdentifier,IDocumentTypeIdentifier)}
-   *             instead
-   */
-  @Deprecated
-  public static boolean areIdentifiersEqual (@Nonnull final IDocumentTypeIdentifier aIdentifier1,
-                                             @Nonnull final IDocumentTypeIdentifier aIdentifier2)
-  {
-    return areDocumentTypeIdentifiersEqual (aIdentifier1, aIdentifier2);
-  }
-
-  /**
-   * According to the specification, two document identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
    */
   public static boolean areDocumentTypeIdentifiersEqual (@Nonnull final IDocumentTypeIdentifier aIdentifier1,
                                                          @Nonnull final IDocumentTypeIdentifier aIdentifier2)
@@ -465,27 +401,6 @@ public final class IdentifierHelper
     // Identifiers are equal, if both scheme and value match case sensitive!
     return EqualsHelper.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
            areDocumentTypeIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
-  }
-
-  /**
-   * According to the specification, two process identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
-   * @deprecated Use
-   *             {@link #areProcessIdentifiersEqual(IProcessIdentifier,IProcessIdentifier)}
-   *             instead
-   */
-  @Deprecated
-  public static boolean areIdentifiersEqual (@Nonnull final IProcessIdentifier aIdentifier1,
-                                             @Nonnull final IProcessIdentifier aIdentifier2)
-  {
-    return areProcessIdentifiersEqual (aIdentifier1, aIdentifier2);
   }
 
   /**
@@ -898,7 +813,8 @@ public final class IdentifierHelper
   }
 
   /**
-   * Extract the issuing agency ID from the passed participant identifier value.<br>
+   * Extract the issuing agency ID from the passed participant identifier value.
+   * <br>
    * Example: extract the <code>0088</code> from the participant identifier
    * <code>iso6523-actorid-upis::0088:123456</code>.<br>
    * Note: this only works for participant identifiers that are using the
