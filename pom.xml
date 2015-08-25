@@ -49,7 +49,7 @@
     <version>1.4.0</version>
   </parent>
   <artifactId>peppol-commons</artifactId>
-  <version>4.0.0-SNAPSHOT</version>
+  <version>4.0.1-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>peppol-commons</name>
   <url>https://github.com/phax/peppol-commons</url>
