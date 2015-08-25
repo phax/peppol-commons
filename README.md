@@ -12,6 +12,9 @@ This project is used implicitly by the following projects:
 
 This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 
+Versions <= 3.1.3 are compatible with ph-commons < 6.0.
+Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
+
 #Building from source
 This project is meant to be build by Maven 3.x.
 It requires at least Java 1.6 to be build.
@@ -23,7 +26,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>3.1.3</version>
+  <version>4.0.0</version>
 </dependency>
 ```
 
