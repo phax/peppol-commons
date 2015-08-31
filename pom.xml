@@ -46,7 +46,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
   </parent>
   <artifactId>peppol-commons</artifactId>
   <version>4.0.2-SNAPSHOT</version>
