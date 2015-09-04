@@ -46,25 +46,28 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
+import com.helger.commons.name.IHasName;
 
 /**
  * This class contains the transport profiles for service registrations.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public enum ESMPTransportProfile implements IHasID <String>
+public enum ESMPTransportProfile implements IHasID <String>,IHasName
 {
-  /** The START transport profile to be used in EndPointType objects */
-  TRANSPORT_PROFILE_START ("busdox-transport-start"),
+ /** The START transport profile to be used in EndPointType objects */
+  TRANSPORT_PROFILE_START ("busdox-transport-start", "START"),
 
-  /** The AS2 transport profile to be used in EndPointType objects */
-  TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0");
+ /** The AS2 transport profile to be used in EndPointType objects */
+  TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "AS2");
 
   private final String m_sID;
+  private final String m_sName;
 
-  private ESMPTransportProfile (@Nonnull @Nonempty final String sID)
+  private ESMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
     m_sID = sID;
+    m_sName = sName;
   }
 
   @Nonnull
@@ -72,6 +75,13 @@ public enum ESMPTransportProfile implements IHasID <String>
   public String getID ()
   {
     return m_sID;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getName ()
+  {
+    return m_sName;
   }
 
   @Nullable
