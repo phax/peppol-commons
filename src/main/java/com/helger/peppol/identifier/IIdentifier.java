@@ -44,12 +44,15 @@ import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+
 /**
  * Base interface for a single read-only identifier independent of its usage
  * (participant, document or process).
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
+@MustImplementEqualsAndHashcode
 public interface IIdentifier extends Serializable
 {
   /**
