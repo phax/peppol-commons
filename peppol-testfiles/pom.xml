@@ -88,7 +88,7 @@
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>src/main/resources/official-ubl/**</exclude>
+            <exclude>src/main/resources/peppol-official/**</exclude>
             <exclude>src/main/resources/peppol-ubl/**</exclude>
           </excludes>
         </configuration>

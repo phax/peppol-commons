@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.testfiles.peppolubl;
+package com.helger.peppol.testfiles.ubl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.peppol.testfiles.ErrorDefinition;
 import com.helger.peppol.testfiles.TestDocument;
 import com.helger.peppol.testfiles.TestResource;
-import com.helger.peppol.testfiles.peppolubl.EPeppolUBLTestFileType;
+import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
 
 /**
  * Contains the utility methods to retrieve the test files for a certain
