@@ -61,12 +61,12 @@ public final class TestResource
   }
 
   /**
-   * @return The filename of the underlying resources. Neither <code>null</code>
-   *         nor empty.
+   * @return The path of the underlying resources. Neither <code>null</code> nor
+   *         empty.
    */
   @Nonnull
   @Nonempty
-  public String getFilename ()
+  public String getPath ()
   {
     return m_aRes.getPath ();
   }

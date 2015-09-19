@@ -30,7 +30,7 @@ import com.helger.commons.io.resource.ClassPathResource;
  *
  * @author Philip Helger
  */
-public final class SBDHTestCases
+public final class PeppolSBDHTestFiles
 {
   private static final List <ClassPathResource> GOOD_CASES = new ArrayList <ClassPathResource> ();
   private static final List <ClassPathResource> BAD_CASES = new ArrayList <ClassPathResource> ();
