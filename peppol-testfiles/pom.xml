@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2014-2015 Philip Helger
+    Copyright (C) 2015 Philip Helger
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,6 +81,16 @@
               !javax.annotation.*,*
             </Import-Package>
           </instructions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>src/main/resources/official-ubl/**</exclude>
+            <exclude>src/main/resources/peppol-ubl/**</exclude>
+          </excludes>
         </configuration>
       </plugin>
     </plugins>
