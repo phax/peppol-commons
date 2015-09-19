@@ -19,7 +19,6 @@ package com.helger.peppol.sbdh;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.peppol.identifier.CIdentifier;
 
 /**
  * Constants for the usage of SBDH headers in PEPPOL.
@@ -31,31 +30,6 @@ public final class CPeppolSBDH
 {
   /** The expected SBDH header version */
   public static final String HEADER_VERSION = "1.0";
-
-  /**
-   * The default identifier scheme ID to be used for participants/businesses.<br>
-   * The matching values have the format "agency:id" whereas agency should be
-   * within the code-list.<br>
-   * Please note that this is a change to the PEPPOL Common definitions chapter
-   * 3.4!<br>
-   * This is used for Sender and Receiver Authority checks.
-   */
-  @Deprecated
-  public static final String DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME = CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME;
-
-  /**
-   * The default document identifier scheme.<br>
-   * See PEPPOL Common definitions chapter 3.5
-   */
-  @Deprecated
-  public static final String DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME = CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
-
-  /**
-   * The default process identifier scheme.<br>
-   * Overrides PEPPOL Common definitions chapter 3.6!
-   */
-  @Deprecated
-  public static final String DEFAULT_PROCESS_IDENTIFIER_SCHEME = CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
 
   /** Constant for the Scope of the document type identifier */
   public static final String SCOPE_DOCUMENT_TYPE_ID = "DOCUMENTID";

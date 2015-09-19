@@ -44,18 +44,24 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.string.ToStringGenerator;
 
+/**
+ * This class represents a single test document
+ *
+ * @author Philip Helger
+ */
 public final class TestDocument
 {
   private final String m_sFilename;
   private final Set <ErrorDefinition> m_aExpectedErrors = new HashSet <ErrorDefinition> ();
 
-  public TestDocument (@Nonnull final String sFilename, @Nullable final ErrorDefinition... aExpectedErrors)
+  public TestDocument (@Nonnull @Nonempty final String sFilename, @Nullable final ErrorDefinition... aExpectedErrors)
   {
-    ValueEnforcer.notNull (sFilename, "Filename");
+    ValueEnforcer.notEmpty (sFilename, "Filename");
 
     m_sFilename = sFilename;
     if (aExpectedErrors != null)
@@ -64,17 +70,34 @@ public final class TestDocument
           m_aExpectedErrors.add (aExpectedError);
   }
 
+  /**
+   * @return The filename of the underlying resources. Neither <code>null</code>
+   *         nor empty.
+   */
   @Nonnull
+  @Nonempty
   public String getFilename ()
   {
     return m_sFilename;
   }
 
+  /**
+   * @return The expected validation errors. Never <code>null</code> but maybe
+   *         empty.
+   */
   @Nonnull
   @ReturnsMutableCopy
   public Set <ErrorDefinition> getAllExpectedErrors ()
   {
     return CollectionHelper.newSet (m_aExpectedErrors);
+  }
+
+  /**
+   * @return <code>true</code> if at least one expected error is contained
+   */
+  public boolean hasExpectedErrors ()
+  {
+    return !m_aExpectedErrors.isEmpty ();
   }
 
   @Override

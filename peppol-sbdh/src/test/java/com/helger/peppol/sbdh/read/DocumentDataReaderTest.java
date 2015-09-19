@@ -40,6 +40,7 @@ import com.helger.commons.xml.serialize.read.DOMReaderSettings;
 import com.helger.datetime.PDTFactory;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.sbdh.DocumentData;
+import com.helger.peppol.testfiles.sbdh.SBDHTestCases;
 
 /**
  * Test class for class {@link DocumentDataReader}.
@@ -48,10 +49,6 @@ import com.helger.peppol.sbdh.DocumentData;
  */
 public final class DocumentDataReaderTest
 {
-  // good.xml must be the first file!
-  private static final String [] GOOD_CASES = new String [] { "good.xml",
-                                                              "good-additional-scopes.xml",
-                                                              "good-type-version-20.xml" };
   private static final Map <String, EDocumentDataReadError> BAD_CASES = new HashMap <String, EDocumentDataReadError> ();
 
   static
@@ -86,7 +83,7 @@ public final class DocumentDataReaderTest
   public void testReadGoodAndCheckResults () throws DocumentDataReadException
   {
     // Read good.xml
-    final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + GOOD_CASES[0]);
+    final IReadableResource aRes = SBDHTestCases.getFirstGoodCase ();
     assertTrue (aRes.getPath (), aRes.exists ());
     final DocumentDataReader aReader = new DocumentDataReader ();
     final DocumentData aData = aReader.extractData (aRes);
@@ -116,9 +113,8 @@ public final class DocumentDataReaderTest
   public void testReadGoodResource () throws DocumentDataReadException
   {
     final DocumentDataReader aReader = new DocumentDataReader ();
-    for (final String sFilename : GOOD_CASES)
+    for (final ClassPathResource aRes : SBDHTestCases.getAllGoodCases ())
     {
-      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       final DocumentData aData = aReader.extractData (aRes);
       assertNotNull (aData);
@@ -130,9 +126,8 @@ public final class DocumentDataReaderTest
   public void testReadGoodInputStream () throws DocumentDataReadException
   {
     final DocumentDataReader aReader = new DocumentDataReader ();
-    for (final String sFilename : GOOD_CASES)
+    for (final ClassPathResource aRes : SBDHTestCases.getAllGoodCases ())
     {
-      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       final DocumentData aData = aReader.extractData (aRes.getInputStream ());
       assertNotNull (aData);
@@ -144,9 +139,8 @@ public final class DocumentDataReaderTest
   public void testReadGoodNode () throws DocumentDataReadException, SAXException
   {
     final DocumentDataReader aReader = new DocumentDataReader ();
-    for (final String sFilename : GOOD_CASES)
+    for (final ClassPathResource aRes : SBDHTestCases.getAllGoodCases ())
     {
-      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       final DocumentData aData = aReader.extractData (DOMReader.readXMLDOM (aRes));
       assertNotNull (aData);
@@ -235,9 +229,8 @@ public final class DocumentDataReaderTest
         return "Order".equals (aBusinessMessage.getLocalName ());
       }
     };
-    for (final String sFilename : GOOD_CASES)
+    for (final ClassPathResource aRes : SBDHTestCases.getAllGoodCases ())
     {
-      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {
@@ -263,9 +256,8 @@ public final class DocumentDataReaderTest
         return aCreationDateTime.isAfter (PDTFactory.getCurrentLocalDateTime ());
       }
     };
-    for (final String sFilename : GOOD_CASES)
+    for (final ClassPathResource aRes : SBDHTestCases.getAllGoodCases ())
     {
-      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {

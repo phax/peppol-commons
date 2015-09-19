@@ -44,28 +44,36 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 
+/**
+ * This class represents a single test resource
+ *
+ * @author Philip Helger
+ */
 public final class TestResource
 {
   private final IReadableResource m_aRes;
   private final Set <ErrorDefinition> m_aExpectedErrors = new HashSet <ErrorDefinition> ();
 
-  public TestResource (@Nonnull final IReadableResource aRes,
-                       @Nullable final Set <ErrorDefinition> aExpectedErrors)
+  public TestResource (@Nonnull final IReadableResource aRes, @Nullable final Set <ErrorDefinition> aExpectedErrors)
   {
     ValueEnforcer.notNull (aRes, "Resource");
 
     m_aRes = aRes;
     if (aExpectedErrors != null)
-      m_aExpectedErrors.addAll (aExpectedErrors);
+      for (final ErrorDefinition aExpectedError : aExpectedErrors)
+        if (aExpectedError != null)
+          m_aExpectedErrors.add (aExpectedError);
   }
 
   /**
-   * @return The XML resource path
+   * @return The resource of the document. Never <code>null</code>.
    */
   @Nonnull
   public IReadableResource getResource ()
@@ -74,16 +82,19 @@ public final class TestResource
   }
 
   /**
-   * @return The filename of the underlying resources
+   * @return The filename of the underlying resources. Neither <code>null</code>
+   *         nor empty.
    */
   @Nonnull
+  @Nonempty
   public String getFilename ()
   {
     return m_aRes.getPath ();
   }
 
   /**
-   * @return The expected validation errors
+   * @return The expected validation errors. Never <code>null</code> but maybe
+   *         empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -92,11 +103,25 @@ public final class TestResource
     return CollectionHelper.newSet (m_aExpectedErrors);
   }
 
+  /**
+   * @return <code>true</code> if at least one expected error is contained
+   */
+  public boolean hasExpectedErrors ()
+  {
+    return !m_aExpectedErrors.isEmpty ();
+  }
+
   @Override
   public String toString ()
   {
     return new ToStringGenerator (null).append ("resource", m_aRes)
                                        .append ("expectedErrors", m_aExpectedErrors)
                                        .toString ();
+  }
+
+  @Nonnull
+  public static TestResource createGoodCase (@Nonnull final String sClassPathResource)
+  {
+    return new TestResource (new ClassPathResource (sClassPathResource), null);
   }
 }
