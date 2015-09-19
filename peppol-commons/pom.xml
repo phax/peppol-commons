@@ -45,14 +45,13 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.helger</groupId>
-    <artifactId>parent-pom</artifactId>
-    <version>1.4.1</version>
+    <artifactId>peppol-commons-parent-pom</artifactId>
+    <version>4.1.0-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-commons</artifactId>
-  <version>4.0.2-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <name>peppol-commons</name>
-  <url>https://github.com/phax/peppol-commons</url>
+  <url>https://github.com/phax/peppol-commons/peppol-commons</url>
   <inceptionYear>2015</inceptionYear>
   
   <licenses>
@@ -67,13 +66,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-     
-  <scm>
-    <connection>scm:git:git@github.com:phax/peppol-commons.git</connection>
-    <developerConnection>scm:git:git@github.com:phax/peppol-commons.git</developerConnection>
-    <url>http://github.com/phax/peppol-commons</url>
-    <tag>HEAD</tag>
-  </scm>
  
   <organization>
     <name>Philip Helger</name>
@@ -99,12 +91,10 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
-      <version>6.2.0</version>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-datetime</artifactId>
-      <version>4.2.0</version>
     </dependency>
 
     <dependency>
@@ -115,31 +105,26 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-poi</artifactId>
-      <version>3.0.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-genericode</artifactId>
-      <version>4.1.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>jcodemodel</artifactId>
-      <version>2.7.10</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcprov-jdk15on</artifactId>
-      <version>1.52</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
-      <version>2.1.7</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
