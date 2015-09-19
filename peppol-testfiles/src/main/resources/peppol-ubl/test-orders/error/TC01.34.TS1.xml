@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Version: MPL 1.1/EUPL 1.1
+
+    The contents of this file are subject to the Mozilla Public License Version
+    1.1 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at:
+    http://www.mozilla.org/MPL/
+
+    Software distributed under the License is distributed on an "AS IS" basis,
+    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+    for the specific language governing rights and limitations under the
+    License.
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    Alternatively, the contents of this file may be used under the
+    terms of the EUPL, Version 1.1 or - as soon they will be approved
+    by the European Commission - subsequent versions of the EUPL
+    (the "Licence"); You may not use this work except in compliance
+    with the Licence.
+    You may obtain a copy of the Licence at:
+    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and
+    limitations under the Licence.
+
+    If you wish to allow use of your version of this file only
+    under the terms of the EUPL License and not to allow others to use
+    your version of this file under the MPL, indicate your decision by
+    deleting the provisions above and replace them with the notice and
+    other provisions required by the EUPL License. If you do not delete
+    the provisions above, a recipient may use your version of this file
+    under either the MPL or the EUPL License.
+
+-->
+<?xml-stylesheet type="text/xsl" href="PEPPOL BIS-3a stylesheet.xsl"?>
+<!--Order xmlns:stat="urn:oasis:names:specification:ubl:schema:xsd:DocumentStatusCode-1.0" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Order-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<Order xmlns="urn:oasis:names:specification:ubl:schema:xsd:Order-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2">
+	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>	
+	<cbc:CustomizationID schemeID="PEPPOL"> 
+		urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0 
+	</cbc:CustomizationID>	
+	<cbc:ProfileID>urn:www.cenbii.eu:profile:bii03:ver1.0</cbc:ProfileID>
+	<cbc:ID>ORD108</cbc:ID>
+	<cbc:IssueDate>2011-10-01</cbc:IssueDate>
+	<cbc:IssueTime>12:00:00</cbc:IssueTime>
+	<cbc:Note languageID="EN">Ordering Office supplies</cbc:Note>
+	<cbc:DocumentCurrencyCode listID="ISO 4217 Alpha" listAgencyID="6">EUR</cbc:DocumentCurrencyCode>
+	<cbc:AccountingCost>Project 123</cbc:AccountingCost>
+	<cac:ValidityPeriod>
+		<cbc:EndDate>2011-12-01</cbc:EndDate>
+	</cac:ValidityPeriod>
+	<cac:QuotationDocumentReference>
+		<cbc:ID>PEPPOL quote-123</cbc:ID>
+	</cac:QuotationDocumentReference>
+	<cac:OrderDocumentReference>
+		<cbc:ID>Order 007</cbc:ID>
+	</cac:OrderDocumentReference>
+	<cac:OriginatorDocumentReference>
+		<cbc:ID>PA-12001</cbc:ID>
+		<cbc:DocumentType>Project plan</cbc:DocumentType>
+	</cac:OriginatorDocumentReference>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>P1</cbc:ID>
+		<cbc:DocumentType>Conference broucher</cbc:DocumentType>
+		<cac:Attachment>
+			<cac:ExternalReference>
+				<cbc:URI>http://www.itst.dk/ordering.html</cbc:URI>
+			</cac:ExternalReference>
+		</cac:Attachment>
+	</cac:AdditionalDocumentReference>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>Doc2</cbc:ID>
+		<cbc:DocumentType>Drawing</cbc:DocumentType>
+		<cac:Attachment>
+			<cbc:EmbeddedDocumentBinaryObject mimeCode="application/pdf">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</cbc:EmbeddedDocumentBinaryObject>
+		</cac:Attachment>
+	</cac:AdditionalDocumentReference>
+	<cac:Contract>
+		<cbc:ID>Contract 123</cbc:ID>
+		<cbc:ContractType>Framework agreement</cbc:ContractType>
+	</cac:Contract>
+	<cac:BuyerCustomerParty>
+		<cac:Party>
+			<cbc:EndpointID schemeID="DK:CVR">DK123123123</cbc:EndpointID> 
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="GLN">123123123</cbc:ID> 
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name>IT og Telestyrelesen</cbc:Name>
+			</cac:PartyName>
+			<cac:PostalAddress>
+				<cbc:ID schemeID="GLN" schemeAgencyID="9">456456-1386</cbc:ID>
+				<cbc:Postbox>Box 5467</cbc:Postbox>
+				<cbc:StreetName>Main Street</cbc:StreetName>
+				<cbc:AdditionalStreetName>Suite 123</cbc:AdditionalStreetName>
+				<cbc:BuildingNumber>1</cbc:BuildingNumber>
+				<cbc:Department>Revenue Department</cbc:Department>
+				<cbc:CityName>Copenhagen</cbc:CityName>
+				<cbc:PostalZone>2100</cbc:PostalZone>
+				<cbc:CountrySubentity>Österport</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode listID="ISO3166-1" listAgencyID="6">DK</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyTaxScheme>
+				<cbc:CompanyID schemeID="DK:VAT" schemeAgencyID="ZZZ">DK123</cbc:CompanyID>
+				<cac:TaxScheme>
+					<cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">VAT</cbc:ID>
+				</cac:TaxScheme>
+			</cac:PartyTaxScheme>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>IT og Telestyrelesen</cbc:RegistrationName>
+				<cbc:CompanyID schemeAgencyID="ZZZ" schemeID="DK:CVR">DK123123123</cbc:CompanyID>
+				<cac:RegistrationAddress>
+					<cbc:CityName>Copenhagen</cbc:CityName>
+					<cbc:CountrySubentity>Österport</cbc:CountrySubentity>
+					<cac:Country>
+						<cbc:IdentificationCode>DK</cbc:IdentificationCode>
+					</cac:Country>
+				</cac:RegistrationAddress>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Telephone>5121230</cbc:Telephone>
+				<cbc:Telefax>5121231</cbc:Telefax>
+				<cbc:ElectronicMail>john@itst.dk</cbc:ElectronicMail>
+			</cac:Contact>
+			<cac:Person>
+				<cbc:FirstName>John</cbc:FirstName>
+				<cbc:FamilyName>Smith</cbc:FamilyName>
+				<cbc:MiddleName>X</cbc:MiddleName>
+				<cbc:JobTitle>Purchasing manager</cbc:JobTitle>
+			</cac:Person>
+		</cac:Party>
+		<cac:DeliveryContact>
+			<cbc:Name>Andy Johnsons</cbc:Name>
+			<cbc:Telephone>5121245</cbc:Telephone>
+			<cbc:Telefax>5121246</cbc:Telefax>
+			<cbc:ElectronicMail>andy@itst.dk</cbc:ElectronicMail>
+		</cac:DeliveryContact>
+	</cac:BuyerCustomerParty>
+	<cac:SellerSupplierParty>
+		<cac:Party>
+			<cbc:EndpointID schemeID="GLN" schemeAgencyID="9">1xxx8987987</cbc:EndpointID>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="GLN">987987987</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name>The Office Supplier</cbc:Name>
+			</cac:PartyName>
+			<cac:PostalAddress>
+				<cbc:ID schemeID="GLN" schemeAgencyID="9">DK987987987</cbc:ID>
+				<cbc:Postbox>123</cbc:Postbox>
+				<cbc:StreetName>main street 987</cbc:StreetName>
+				<cbc:AdditionalStreetName>Back door</cbc:AdditionalStreetName>
+				<cbc:BuildingNumber>8</cbc:BuildingNumber>
+				<cbc:Department>Sales department</cbc:Department>
+				<cbc:CityName>Copenhagen</cbc:CityName>
+				<cbc:PostalZone>600</cbc:PostalZone>
+				<cbc:CountrySubentity>Österport</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode listID="ISO3166-1" listAgencyID="6">DK</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>The Office Supplier</cbc:RegistrationName>
+				<cbc:CompanyID schemeID="DK:CVR" schemeAgencyID="ZZZ">DK987987987</cbc:CompanyID>
+				<cac:RegistrationAddress>
+					<cbc:CityName>Copenhagen</cbc:CityName>
+					<cbc:CountrySubentity>Österport</cbc:CountrySubentity>
+					<cac:Country>
+						<cbc:IdentificationCode>DK</cbc:IdentificationCode>
+					</cac:Country>
+				</cac:RegistrationAddress>
+			</cac:PartyLegalEntity>
+			<cac:Contact>
+				<cbc:Telephone>4621230</cbc:Telephone>
+				<cbc:Telefax>4621231</cbc:Telefax>
+				<cbc:ElectronicMail>antonio@salescompany.dk</cbc:ElectronicMail>
+			</cac:Contact>
+			<cac:Person>
+				<cbc:FirstName>Antonio</cbc:FirstName>
+				<cbc:FamilyName>Johannson</cbc:FamilyName>
+				<cbc:MiddleName>M.</cbc:MiddleName>
+				<cbc:JobTitle>Sales Manager</cbc:JobTitle>
+			</cac:Person>
+		</cac:Party>
+	</cac:SellerSupplierParty>
+	<cac:OriginatorCustomerParty>
+		<cac:Party>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="GLN">403403403403</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name>PEPPOL</cbc:Name>
+			</cac:PartyName>
+			<cac:Contact>
+				<cbc:Telephone>4621270</cbc:Telephone>
+				<cbc:Telefax>4621271</cbc:Telefax>
+				<cbc:ElectronicMail>cxr@itst.dk</cbc:ElectronicMail>
+			</cac:Contact>
+			<cac:Person>
+				<cbc:FirstName>Christian</cbc:FirstName>
+				<cbc:FamilyName>Rasmussen</cbc:FamilyName>
+				<cbc:MiddleName>X</cbc:MiddleName>
+				<cbc:JobTitle>Project leader</cbc:JobTitle>
+			</cac:Person>
+		</cac:Party>
+	</cac:OriginatorCustomerParty>
+	<cac:Delivery>
+		<cac:DeliveryLocation>
+			<cac:Address>
+				<cbc:ID schemeID="GLN" schemeAgencyID="9">456654456</cbc:ID>
+				<cbc:Postbox>Box 7913</cbc:Postbox>
+				<cbc:StreetName>Holsteinsgade</cbc:StreetName>
+				<cbc:AdditionalStreetName>Back door</cbc:AdditionalStreetName>
+				<cbc:BuildingNumber>63</cbc:BuildingNumber>
+				<cbc:CityName>Copenhagen</cbc:CityName>
+				<cbc:PostalZone>2100</cbc:PostalZone>
+				<cbc:CountrySubentity>Österport</cbc:CountrySubentity>
+				<cac:Country>
+					<cbc:IdentificationCode>DK</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:Address>
+		</cac:DeliveryLocation>
+		<cac:RequestedDeliveryPeriod>
+			<cbc:StartDate>2011-10-01</cbc:StartDate>
+			<cbc:EndDate>2011-12-01</cbc:EndDate>
+		</cac:RequestedDeliveryPeriod>
+		<cac:DeliveryParty>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="DK:CVR">DK87654321</cbc:ID> 
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name>IT og Telestyrelsen, inventory</cbc:Name>
+			</cac:PartyName>
+			<cac:Contact>
+				<cbc:Telephone>4621280</cbc:Telephone>
+				<cbc:Telefax>4621281</cbc:Telefax>
+				<cbc:ElectronicMail>afr@itst.dk</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:DeliveryParty>
+	</cac:Delivery>
+	<cac:DeliveryTerms>
+		<cbc:ID>FOB</cbc:ID>
+		<cbc:SpecialTerms>Buyer will pay transport cost </cbc:SpecialTerms>
+		<cac:DeliveryLocation>
+			<cbc:ID schemeID="GLN" schemeAgencyID="9">FOB</cbc:ID>
+		</cac:DeliveryLocation>
+	</cac:DeliveryTerms>
+	<cac:AllowanceCharge>
+		<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+		<cbc:AllowanceChargeReason>Transport</cbc:AllowanceChargeReason>
+		<cbc:Amount currencyID="EUR">100</cbc:Amount>
+	</cac:AllowanceCharge>
+	<cac:AllowanceCharge>
+		<cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+		<cbc:AllowanceChargeReason>Regular Discount</cbc:AllowanceChargeReason>
+		<cbc:Amount currencyID="EUR">30</cbc:Amount>
+	</cac:AllowanceCharge>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="EUR">92792.41</cbc:TaxAmount>
+	</cac:TaxTotal>
+	<cac:AnticipatedMonetaryTotal>
+		<cbc:LineExtensionAmount currencyID="EUR">-328142.34</cbc:LineExtensionAmount>
+		<cbc:AllowanceTotalAmount currencyID="EUR">100</cbc:AllowanceTotalAmount>
+		<cbc:ChargeTotalAmount currencyID="EUR">30</cbc:ChargeTotalAmount>
+		<cbc:PayableAmount currencyID="EUR">-420864.75</cbc:PayableAmount>
+	</cac:AnticipatedMonetaryTotal>
+	<cac:OrderLine>
+		<cbc:Note>The coolest PC on the market</cbc:Note>
+		<cac:LineItem>
+			<cbc:ID>1</cbc:ID>
+			<cbc:Quantity unitCode="C62">1</cbc:Quantity>
+			<cbc:LineExtensionAmount currencyID="EUR">308856.74</cbc:LineExtensionAmount>
+			<cbc:TotalTaxAmount currencyID="EUR">88652.61</cbc:TotalTaxAmount>
+			<cbc:PartialDeliveryIndicator>true</cbc:PartialDeliveryIndicator>
+			<cbc:AccountingCost>Project-X123</cbc:AccountingCost>
+			<cac:Delivery>
+				<cac:RequestedDeliveryPeriod>
+					<cbc:StartDate>2011-10-01</cbc:StartDate>
+					<cbc:EndDate>2011-12-01</cbc:EndDate>
+				</cac:RequestedDeliveryPeriod>
+			</cac:Delivery>
+			<cac:OriginatorParty>
+				<cac:PartyIdentification>
+					<cbc:ID schemeID="GLN">369369369</cbc:ID> 
+				</cac:PartyIdentification>
+				<cac:PartyName>
+					<cbc:Name>John Doe</cbc:Name>
+				</cac:PartyName>
+			</cac:OriginatorParty>
+			<cac:Price>
+				<cbc:PriceAmount currencyID="EUR">308856.74</cbc:PriceAmount>
+				<cbc:BaseQuantity unitCode="C62">1</cbc:BaseQuantity>
+			</cac:Price>
+			<cac:Item>
+				<cbc:Description languageID="EN">AMD Processor, 14" Display, 4GB Memory, 320GB Hard Drive</cbc:Description>
+				<cbc:Name>Portable PC computer</cbc:Name>
+				<cac:SellersItemIdentification>
+					<cbc:ID>JB007</cbc:ID>
+				</cac:SellersItemIdentification>
+				<cac:StandardItemIdentification>
+					<cbc:ID schemeID="GTIN" schemeAgencyID="9">1234567890121</cbc:ID>
+				</cac:StandardItemIdentification>
+				<cac:AdditionalItemProperty>
+					<cbc:Name>Color</cbc:Name>
+					<cbc:Value>Pink</cbc:Value>
+				</cac:AdditionalItemProperty>
+				<cac:AdditionalItemProperty>
+					<cbc:Name>DiskDrive</cbc:Name>
+					<cbc:Value>320gb</cbc:Value>
+				</cac:AdditionalItemProperty>
+				<cac:AdditionalItemProperty>
+					<cbc:Name>ScreenSize</cbc:Name>
+					<cbc:Value>14"</cbc:Value>
+				</cac:AdditionalItemProperty>
+				<cac:AdditionalItemProperty>
+					<cbc:Name>RAM</cbc:Name>
+					<cbc:Value>4gb</cbc:Value>
+				</cac:AdditionalItemProperty>
+			</cac:Item>
+		</cac:LineItem>
+	</cac:OrderLine>
+	<cac:OrderLine>
+		<cac:LineItem>
+			<cbc:ID>2</cbc:ID>
+			<cbc:Quantity unitCode="C62">2</cbc:Quantity>
+			<cbc:LineExtensionAmount currencyID="EUR">4205.60</cbc:LineExtensionAmount>
+			<cbc:TotalTaxAmount currencyID="EUR">294.40</cbc:TotalTaxAmount>
+			<cbc:AccountingCost>Project ID- 10101</cbc:AccountingCost>
+			<cac:Delivery>
+				<cac:RequestedDeliveryPeriod>
+					<cbc:StartDate>2011-10-01</cbc:StartDate>
+					<cbc:EndDate>2011-12-01</cbc:EndDate>
+				</cac:RequestedDeliveryPeriod>
+			</cac:Delivery>
+			<cac:OriginatorParty>
+				<cac:PartyIdentification>
+					<cbc:ID>ASI-1337</cbc:ID>
+				</cac:PartyIdentification>
+				<cac:PartyName>
+					<cbc:Name>No one</cbc:Name>
+				</cac:PartyName>
+			</cac:OriginatorParty>
+			<cac:Price>
+				<cbc:PriceAmount currencyID="EUR">2102.80</cbc:PriceAmount>
+			</cac:Price>
+			<cac:Item>
+				<cbc:Name>"Computing for dummies"</cbc:Name>
+				<cac:SellersItemIdentification>
+					<cbc:ID>JB009</cbc:ID>
+				</cac:SellersItemIdentification>
+				<cac:StandardItemIdentification>
+					<cbc:ID schemeID="GTIN" schemeAgencyID="9">1234567890123</cbc:ID>
+				</cac:StandardItemIdentification>
+			</cac:Item>
+		</cac:LineItem>
+	</cac:OrderLine>
+	<cac:OrderLine>
+		<cbc:Note languageID="EN">Minimum 250 meters</cbc:Note>
+		<cac:LineItem>
+			<cbc:ID>3</cbc:ID>
+			<cbc:Quantity unitCode="MTR">250</cbc:Quantity>
+			<cbc:LineExtensionAmount currencyID="EUR">15080.00</cbc:LineExtensionAmount>
+			<cbc:TotalTaxAmount currencyID="EUR">3845.40</cbc:TotalTaxAmount>
+			<cbc:PartialDeliveryIndicator>false</cbc:PartialDeliveryIndicator>
+			<cbc:AccountingCost>Project ID- 123</cbc:AccountingCost>
+			<cac:Delivery>
+				<cac:RequestedDeliveryPeriod>
+					<cbc:StartDate>2011-10-01</cbc:StartDate>
+					<cbc:EndDate>2011-12-01</cbc:EndDate>
+				</cac:RequestedDeliveryPeriod>
+			</cac:Delivery>
+			<cac:OriginatorParty>
+				<cac:PartyIdentification>
+					<cbc:ID>ASI-1337</cbc:ID>
+				</cac:PartyIdentification>
+				<cac:PartyName>
+					<cbc:Name>No one</cbc:Name>
+				</cac:PartyName>
+			</cac:OriginatorParty>
+			<cac:Price>
+				<cbc:PriceAmount currencyID="EUR">60.32</cbc:PriceAmount>
+				<cbc:BaseQuantity unitCode="MTR">1</cbc:BaseQuantity>
+			</cac:Price>
+			<cac:Item>
+				<cbc:Name>Net Cable</cbc:Name>
+				<cac:SellersItemIdentification>
+					<cbc:ID>JB011</cbc:ID>
+				</cac:SellersItemIdentification>
+				<cac:StandardItemIdentification>
+					<cbc:ID schemeID="GTIN" schemeAgencyID="9">1234567890125</cbc:ID>
+				</cac:StandardItemIdentification>
+			</cac:Item>
+		</cac:LineItem>
+	</cac:OrderLine>
+</Order>
+

@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?><CallForTenders xmlns="urn:oasis:names:specification:ubl:schema:xsd:CallForTenders-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:cct="urn:un:unece:uncefact:data:specification:CoreComponentTypeSchemaModule:2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"><cbc:ID>70367</cbc:ID><cbc:ContractFolderID>1</cbc:ContractFolderID><cbc:IssueDate>2012-02-14</cbc:IssueDate><cbc:IssueTime>11:34:25</cbc:IssueTime><cac:ContractingParty><cac:Party><cac:PartyIdentification><cbc:ID>54303</cbc:ID></cac:PartyIdentification><cac:PartyName><cbc:Name>Consip</cbc:Name></cac:PartyName><cac:Person><cbc:FirstName>Mario</cbc:FirstName><cbc:FamilyName>Rossi</cbc:FamilyName></cac:Person></cac:Party></cac:ContractingParty><cac:TenderingTerms><cac:TendererQualificationRequest><cac:TechnicalEvaluationCriteria><cbc:ThresholdAmount>0</cbc:ThresholdAmount></cac:TechnicalEvaluationCriteria><cac:FinancialEvaluationCriteria><cbc:ThresholdAmount>0</cbc:ThresholdAmount></cac:FinancialEvaluationCriteria></cac:TendererQualificationRequest><cac:AwardingTerms><cac:AwardingCriteria><cbc:Description>NO</cbc:Description></cac:AwardingCriteria></cac:AwardingTerms><cac:TenderValidityPeriod><cbc:StartDate>2012-02-14</cbc:StartDate><cbc:StartTime>11:32:00</cbc:StartTime><cbc:EndDate>2012-02-27</cbc:EndDate><cbc:EndTime>10:00:00</cbc:EndTime></cac:TenderValidityPeriod></cac:TenderingTerms><cac:TenderingProcess><cbc:ProcedureCode>RDO</cbc:ProcedureCode></cac:TenderingProcess><cac:ProcurementProject><cbc:Name>APPARATI WIFI</cbc:Name><cac:RequestForTenderLine><cbc:ID>184825</cbc:ID><cbc:Note>Access Point Wireless</cbc:Note><cbc:Quantity>110</cbc:Quantity><cbc:MinimumQuantity>0</cbc:MinimumQuantity><cbc:MaximumTaxExclusiveAmount>0</cbc:MaximumTaxExclusiveAmount><cac:Item><cbc:Name>Access Point Wireless</cbc:Name><cac:CommodityClassification><cbc:CommodityCode></cbc:CommodityCode><cbc:ItemClassificationCode></cbc:ItemClassificationCode></cac:CommodityClassification><cac:AdditionalItemProperty><cbc:ID>1</cbc:ID><cbc:Name>Marca</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>2</cbc:ID><cbc:Name>Articolo produttore</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>3</cbc:ID><cbc:Name>Denominazione commerciale</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>4</cbc:ID><cbc:Name>Articolo fornitore</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>6</cbc:ID><cbc:Name>Prezzo</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>7</cbc:ID><cbc:Name>Unita'</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>21</cbc:ID><cbc:Name>Descrizione</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105117</cbc:ID><cbc:Name>Ampiezza del cono di copertura</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105118</cbc:ID><cbc:Name>Connettorizzazione del cavo</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105119</cbc:ID><cbc:Name>Guadagno di antenna</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105120</cbc:ID><cbc:Name>Lunghezza del cavo</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105121</cbc:ID><cbc:Name>Meccanismi di sicurezza</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105122</cbc:ID><cbc:Name>Numero di porte</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105123</cbc:ID><cbc:Name>Standard di connessione</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105124</cbc:ID><cbc:Name>Tipo antenna</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105125</cbc:ID><cbc:Name>Tipo di connettore verso l'antenna</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105126</cbc:ID><cbc:Name>Tipo di connettore verso la rete</cbc:Name></cac:AdditionalItemProperty><cac:AdditionalItemProperty><cbc:ID>105128</cbc:ID><cbc:Name>Ulteriore standard di connessione supportati</cbc:Name></cac:AdditionalItemProperty></cac:Item></cac:RequestForTenderLine></cac:ProcurementProject></CallForTenders><!--
+
+    Version: MPL 1.1/EUPL 1.1
+
+    The contents of this file are subject to the Mozilla Public License Version
+    1.1 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at:
+    http://www.mozilla.org/MPL/
+
+    Software distributed under the License is distributed on an "AS IS" basis,
+    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+    for the specific language governing rights and limitations under the
+    License.
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    Alternatively, the contents of this file may be used under the
+    terms of the EUPL, Version 1.1 or - as soon they will be approved
+    by the European Commission - subsequent versions of the EUPL
+    (the "Licence"); You may not use this work except in compliance
+    with the Licence.
+    You may obtain a copy of the Licence at:
+    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and
+    limitations under the Licence.
+
+    If you wish to allow use of your version of this file only
+    under the terms of the EUPL License and not to allow others to use
+    your version of this file under the MPL, indicate your decision by
+    deleting the provisions above and replace them with the notice and
+    other provisions required by the EUPL License. If you do not delete
+    the provisions above, a recipient may use your version of this file
+    under either the MPL or the EUPL License.
+
+-->
