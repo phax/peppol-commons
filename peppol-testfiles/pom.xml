@@ -24,12 +24,12 @@
     <artifactId>peppol-commons-parent-pom</artifactId>
     <version>4.1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>peppol-sbdh</artifactId>
+  <artifactId>peppol-testfiles</artifactId>
   <packaging>bundle</packaging>
-  <name>peppol-sbdh</name>
-  <description>Library for reading and writing OASIS Standard Business Document Header (SBDH) documents conforming to the PEPPOL specifications</description>
-  <url>https://github.com/phax/peppol-commons/peppol-sbdh</url>
-  <inceptionYear>2014</inceptionYear>
+  <name>peppol-testfiles</name>
+  <description>Library with PEPPOL test files of certain formats</description>
+  <url>https://github.com/phax/peppol-commons/peppol-testfiles</url>
+  <inceptionYear>2015</inceptionYear>
   
   <licenses>
     <license>
@@ -58,28 +58,7 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-jaxb</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-datetime</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-sbdh</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>peppol-commons</artifactId>
-    </dependency>
     
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>peppol-testfiles</artifactId>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -96,7 +75,7 @@
         <configuration>
           <instructions>
             <Export-Package>
-              com.helger.peppol.sbdh.*
+              com.helger.peppol.testfiles.*
             </Export-Package>
             <Import-Package>
               !javax.annotation.*,*

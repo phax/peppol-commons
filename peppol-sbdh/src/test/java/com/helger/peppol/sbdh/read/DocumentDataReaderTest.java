@@ -86,7 +86,7 @@ public final class DocumentDataReaderTest
   public void testReadGoodAndCheckResults () throws DocumentDataReadException
   {
     // Read good.xml
-    final IReadableResource aRes = new ClassPathResource ("examples/good/" + GOOD_CASES[0]);
+    final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + GOOD_CASES[0]);
     assertTrue (aRes.getPath (), aRes.exists ());
     final DocumentDataReader aReader = new DocumentDataReader ();
     final DocumentData aData = aReader.extractData (aRes);
@@ -118,7 +118,7 @@ public final class DocumentDataReaderTest
     final DocumentDataReader aReader = new DocumentDataReader ();
     for (final String sFilename : GOOD_CASES)
     {
-      final IReadableResource aRes = new ClassPathResource ("examples/good/" + sFilename);
+      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       final DocumentData aData = aReader.extractData (aRes);
       assertNotNull (aData);
@@ -132,7 +132,7 @@ public final class DocumentDataReaderTest
     final DocumentDataReader aReader = new DocumentDataReader ();
     for (final String sFilename : GOOD_CASES)
     {
-      final IReadableResource aRes = new ClassPathResource ("examples/good/" + sFilename);
+      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       final DocumentData aData = aReader.extractData (aRes.getInputStream ());
       assertNotNull (aData);
@@ -146,7 +146,7 @@ public final class DocumentDataReaderTest
     final DocumentDataReader aReader = new DocumentDataReader ();
     for (final String sFilename : GOOD_CASES)
     {
-      final IReadableResource aRes = new ClassPathResource ("examples/good/" + sFilename);
+      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       final DocumentData aData = aReader.extractData (DOMReader.readXMLDOM (aRes));
       assertNotNull (aData);
@@ -160,7 +160,7 @@ public final class DocumentDataReaderTest
     final DocumentDataReader aReader = new DocumentDataReader ();
     for (final Map.Entry <String, EDocumentDataReadError> aEntry : BAD_CASES.entrySet ())
     {
-      final IReadableResource aRes = new ClassPathResource ("examples/bad/" + aEntry.getKey ());
+      final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {
@@ -181,7 +181,7 @@ public final class DocumentDataReaderTest
     final DocumentDataReader aReader = new DocumentDataReader ();
     for (final Map.Entry <String, EDocumentDataReadError> aEntry : BAD_CASES.entrySet ())
     {
-      final IReadableResource aRes = new ClassPathResource ("examples/bad/" + aEntry.getKey ());
+      final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {
@@ -203,7 +203,7 @@ public final class DocumentDataReaderTest
     final DOMReaderSettings aSettings = new DOMReaderSettings ().setExceptionHandler (new DoNothingExceptionCallback ());
     for (final Map.Entry <String, EDocumentDataReadError> aEntry : BAD_CASES.entrySet ())
     {
-      final IReadableResource aRes = new ClassPathResource ("examples/bad/" + aEntry.getKey ());
+      final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {
@@ -237,7 +237,7 @@ public final class DocumentDataReaderTest
     };
     for (final String sFilename : GOOD_CASES)
     {
-      final IReadableResource aRes = new ClassPathResource ("examples/good/" + sFilename);
+      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {
@@ -265,7 +265,7 @@ public final class DocumentDataReaderTest
     };
     for (final String sFilename : GOOD_CASES)
     {
-      final IReadableResource aRes = new ClassPathResource ("examples/good/" + sFilename);
+      final IReadableResource aRes = new ClassPathResource ("sbdh/good/" + sFilename);
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {
