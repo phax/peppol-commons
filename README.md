@@ -15,6 +15,25 @@ This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 Versions <= 3.1.3 are compatible with ph-commons < 6.0.
 Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
 
+#peppol-sbdh
+Simple SBDH handler for the use with PEPPOL.
+It offers the possibility to extract all meta data from an SBDH document as well as 
+set all meta data to an SBDH document.
+
+This projects implements the "Envelope specification" as listed on
+http://www.peppol.eu/ressource-library/technical-specifications/transport-infrastructure/infrastructure-resources.
+The detail document this project refers to can be found at
+https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-100_2014-01-15.pdf
+
+From a technical point of view, this library can be used with Java 1.6 or higher.
+
+An example on how to use this project can be found in my **[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet)** project which provides a servlet to receive incoming PEPPOL AS2 messages. Alternatively you may have a look at my **[as2-peppol-client](https://github.com/phax/as2-peppol-client)** project which is used to send PEPPOL AS2 messages.
+
+Versions <= 1.0.1 are compatible with ph-commons < 6.0.
+Versions >= 2.0.0 are compatible with ph-commons >= 6.0.
+
+This project is licensed under the Apache 2 License.
+
 #Building from source
 This project is meant to be build by Maven 3.x.
 It requires at least Java 1.6 to be build.
@@ -27,6 +46,12 @@ Add the following to your pom.xml to use this artifact:
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
   <version>4.0.1</version>
+</dependency>
+
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>peppol-sbdh</artifactId>
+  <version>2.0.0</version>
 </dependency>
 ```
 
