@@ -303,9 +303,15 @@ public final class PeppolBISV1TestFiles
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R323"),
                                                                                                    ErrorDefinition.createError ("EUGEN-T10-R018")),
                                                                                  new TestDocument ("atnat-t10-fail-r007.xml",
-                                                                                                   ErrorDefinition.createError ("MOCK")),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R263"),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R266"),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R323"),
+                                                                                                   ErrorDefinition.createWarning ("EUGEN-T10-R003")),
                                                                                  new TestDocument ("atnat-t10-fail-r007x.xml",
-                                                                                                   ErrorDefinition.createError ("MOCK")),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R263"),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R266"),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R323"),
+                                                                                                   ErrorDefinition.createError ("EUGEN-T10-R016")),
                                                                                  new TestDocument ("atgov-t10-fail-r001.xml",
                                                                                                    ErrorDefinition.createError ("ATGOV-T10-R001"),
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R263"),
@@ -406,7 +412,11 @@ public final class PeppolBISV1TestFiles
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R266"),
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R323")),
                                                                                  new TestDocument ("atgov-t10-fail-r017.xml",
-                                                                                                   ErrorDefinition.createError ("MOCK")) };
+                                                                                                   ErrorDefinition.createWarning ("ATGOV-T10-R005"),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R263"),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R266"),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R323"),
+                                                                                                   ErrorDefinition.createWarning ("EUGEN-T10-R003")) };
 
   /**
    * TC01.4.TS1.xml, TC01.5.TS1.xml, TC01.10.TS1.xml, TC01.39.TS1.xml,

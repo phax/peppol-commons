@@ -37,7 +37,7 @@ import com.helger.peppol.testfiles.TestResource;
  *
  * @author Philip Helger
  */
-public final class PeppolUBLTestFilesTest
+public final class PeppolBISV1TestFilesTest
 {
   private static void _testGoodXML (@Nonnull final IReadableResource aRes) throws SAXException
   {
