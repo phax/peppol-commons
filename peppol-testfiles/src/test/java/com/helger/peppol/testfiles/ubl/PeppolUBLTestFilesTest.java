@@ -33,7 +33,7 @@ import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.peppol.testfiles.TestResource;
 
 /**
- * Test class for class {@link PeppolUBLTestFiles}
+ * Test class for class {@link PeppolBISV1TestFiles}
  *
  * @author Philip Helger
  */
@@ -54,13 +54,13 @@ public final class PeppolUBLTestFilesTest
     final Locale AT = LocaleCache.getInstance ().getLocale ("de", "AT");
     for (final EPeppolUBLTestFileType e : EPeppolUBLTestFileType.values ())
     {
-      for (final IReadableResource aRes : PeppolUBLTestFiles.getSuccessFiles (e))
+      for (final IReadableResource aRes : PeppolBISV1TestFiles.getSuccessFiles (e))
         _testGoodXML (aRes);
-      for (final IReadableResource aRes : PeppolUBLTestFiles.getSuccessFiles (e, AT))
+      for (final IReadableResource aRes : PeppolBISV1TestFiles.getSuccessFiles (e, AT))
         _testGoodXML (aRes);
-      for (final TestResource aRes : PeppolUBLTestFiles.getErrorFiles (e))
+      for (final TestResource aRes : PeppolBISV1TestFiles.getErrorFiles (e))
         assertTrue (aRes.getPath (), aRes.getResource ().exists ());
-      for (final TestResource aRes : PeppolUBLTestFiles.getErrorFiles (e, AT))
+      for (final TestResource aRes : PeppolBISV1TestFiles.getErrorFiles (e, AT))
         assertTrue (aRes.getPath (), aRes.getResource ().exists ());
     }
   }
