@@ -42,15 +42,15 @@
 package com.helger.peppol.identifier.process;
 
 import java.util.List;
-
 import javax.annotation.Nonnull;
-
+import javax.annotation.Nullable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
@@ -278,5 +278,19 @@ public enum EPredefinedProcessIdentifier
     @Nonnull
     public String getURIPercentEncoded() {
         return IdentifierHelper.getIdentifierURIPercentEncoded(this);
+    }
+
+    @Nullable
+    public static EPredefinedProcessIdentifier getFromProcessIdentifierOrNull(
+        @Nullable
+        final IProcessIdentifier aProcessID) {
+        if ((aProcessID!= null)&&CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals(aProcessID.getScheme())) {
+            for (EPredefinedProcessIdentifier e: EPredefinedProcessIdentifier.values()) {
+                if (e.getValue().equals(aProcessID.getValue())) {
+                    return e;
+                }
+            }
+        }
+        return null;
     }
 }

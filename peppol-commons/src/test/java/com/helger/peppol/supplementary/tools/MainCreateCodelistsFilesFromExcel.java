@@ -86,17 +86,21 @@ import com.helger.genericode.v10.CodeListDocument;
 import com.helger.genericode.v10.Row;
 import com.helger.genericode.v10.UseType;
 import com.helger.jcodemodel.JArray;
+import com.helger.jcodemodel.JBlock;
 import com.helger.jcodemodel.JCodeModel;
 import com.helger.jcodemodel.JDefinedClass;
 import com.helger.jcodemodel.JEnumConstant;
 import com.helger.jcodemodel.JExpr;
 import com.helger.jcodemodel.JFieldVar;
+import com.helger.jcodemodel.JForEach;
 import com.helger.jcodemodel.JInvocation;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
 import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
@@ -251,11 +255,8 @@ public final class MainCreateCodelistsFilesFromExcel
         jEnumConst.arg (bDeprecated ? JExpr.TRUE : JExpr.FALSE);
         jEnumConst.arg (JExpr._new (s_aCodeModel.ref (Version.class)).arg (JExpr.lit (sSince)));
 
-        jEnumConst.javadoc ().add ("Prefix <code>" +
-                                   sISO6523 +
-                                   "</code>, scheme ID <code>" +
-                                   sSchemeID +
-                                   "</code><br>\n");
+        jEnumConst.javadoc ()
+                  .add ("Prefix <code>" + sISO6523 + "</code>, scheme ID <code>" + sSchemeID + "</code><br>\n");
         if (bDeprecated)
           jEnumConst.javadoc ()
                     .add ("<b>This item is deprecated and should not be used to issue new identifiers!</b><br>\n");
@@ -321,9 +322,10 @@ public final class MainCreateCodelistsFilesFromExcel
       jValue = m.param (JMod.FINAL, String.class, "sIdentifier");
       jValue.annotate (Nonnull.class);
       jValue.annotate (Nonempty.class);
-      m.body ()._return (s_aCodeModel.ref (SimpleParticipantIdentifier.class)
-                                     .staticInvoke ("createWithDefaultScheme")
-                                     .arg (JExpr.invoke (mCreateIdentifierValue).arg (jValue)));
+      m.body ()
+       ._return (s_aCodeModel.ref (SimpleParticipantIdentifier.class)
+                             .staticInvoke ("createWithDefaultScheme")
+                             .arg (JExpr.invoke (mCreateIdentifierValue).arg (jValue)));
 
       // public boolean isDeprecated ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
@@ -436,7 +438,9 @@ public final class MainCreateCodelistsFilesFromExcel
                                            " is already used for " +
                                            aDocIDParts.toString () +
                                            ". Please update the algorithm!");
-        final JFieldVar aShortcut = s_jEnumPredefinedDoc.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
+        final JFieldVar aShortcut = s_jEnumPredefinedDoc.field (JMod.PUBLIC |
+                                                                JMod.STATIC |
+                                                                JMod.FINAL,
                                                                 s_jEnumPredefinedDoc,
                                                                 sShortcutName,
                                                                 jEnumConst);
@@ -444,11 +448,13 @@ public final class MainCreateCodelistsFilesFromExcel
       }
 
       // fields
-      final JFieldVar fParts = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL,
+      final JFieldVar fParts = s_jEnumPredefinedDoc.field (JMod.PRIVATE |
+                                                           JMod.FINAL,
                                                            IPeppolDocumentTypeIdentifierParts.class,
                                                            "m_aParts");
       final JFieldVar fID = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
-      final JFieldVar fCommonName = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL,
+      final JFieldVar fCommonName = s_jEnumPredefinedDoc.field (JMod.PRIVATE |
+                                                                JMod.FINAL,
                                                                 String.class,
                                                                 "m_sCommonName");
       final JFieldVar fSince = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
@@ -569,6 +575,33 @@ public final class MainCreateCodelistsFilesFromExcel
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifierParts.class, "getParts");
       m.annotate (Nonnull.class);
       m.body ()._return (fParts);
+
+      // @Nullable
+      // public static EPredefinedDocumentTypeIdentifier
+      // getFromDocumentTypeIdentifierOrNull(@Nullable final
+      // IDocumentTypeIdentifier aDocTypeID)
+      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC |
+                                       JMod.STATIC,
+                                       s_jEnumPredefinedDoc,
+                                       "getFromDocumentTypeIdentifierOrNull");
+      {
+        m.annotate (Nullable.class);
+        final JVar jValue = m.param (JMod.FINAL, IDocumentTypeIdentifier.class, "aDocTypeID");
+        jValue.annotate (Nullable.class);
+        final JBlock jIf = m.body ()
+                            ._if (jValue.neNull ()
+                                        .cand (s_aCodeModel.ref (CIdentifier.class)
+                                                           .staticRef ("DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME")
+                                                           .invoke ("equals")
+                                                           .arg (jValue.invoke ("getScheme"))))
+                            ._then ();
+        final JForEach jForEach = jIf.forEach (s_jEnumPredefinedDoc, "e", s_jEnumPredefinedDoc.staticInvoke ("values"));
+        jForEach.body ()
+                ._if (jForEach.var ().invoke ("getValue").invoke ("equals").arg (jValue.invoke ("getValue")))
+                ._then ()
+                ._return (jForEach.var ());
+        m.body ()._return (JExpr._null ());
+      }
     }
     catch (final Exception ex)
     {
@@ -658,7 +691,7 @@ public final class MainCreateCodelistsFilesFromExcel
 
           // Use the short name for better readability
           final String sIdentifier = true ? CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocTypeIDParts)
-                                         : RegExHelper.getAsIdentifier (sDocTypeID);
+                                          : RegExHelper.getAsIdentifier (sDocTypeID);
           jArray.add (s_jEnumPredefinedDoc.staticRef (sIdentifier));
         }
         jEnumConst.arg (jArray);
@@ -672,7 +705,9 @@ public final class MainCreateCodelistsFilesFromExcel
           throw new IllegalStateException ("The BIS ID shortcut '" +
                                            sShortcutName +
                                            "' is already used - please review the algorithm!");
-        final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
+        final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC |
+                                                 JMod.STATIC |
+                                                 JMod.FINAL,
                                                  jEnum,
                                                  sShortcutName,
                                                  jEnumConst);
@@ -757,6 +792,29 @@ public final class MainCreateCodelistsFilesFromExcel
       m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
                                      .staticInvoke ("getIdentifierURIPercentEncoded")
                                      .arg (JExpr._this ()));
+
+      // @Nullable public static EPredefinedProcessIdentifier
+      // getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier
+      // aProcessID)
+      m = jEnum.method (JMod.PUBLIC | JMod.STATIC, jEnum, "getFromProcessIdentifierOrNull");
+      {
+        m.annotate (Nullable.class);
+        final JVar jValue = m.param (JMod.FINAL, IProcessIdentifier.class, "aProcessID");
+        jValue.annotate (Nullable.class);
+        final JBlock jIf = m.body ()
+                            ._if (jValue.neNull ()
+                                        .cand (s_aCodeModel.ref (CIdentifier.class)
+                                                           .staticRef ("DEFAULT_PROCESS_IDENTIFIER_SCHEME")
+                                                           .invoke ("equals")
+                                                           .arg (jValue.invoke ("getScheme"))))
+                            ._then ();
+        final JForEach jForEach = jIf.forEach (jEnum, "e", jEnum.staticInvoke ("values"));
+        jForEach.body ()
+                ._if (jForEach.var ().invoke ("getValue").invoke ("equals").arg (jValue.invoke ("getValue")))
+                ._then ()
+                ._return (jForEach.var ());
+        m.body ()._return (JExpr._null ());
+      }
     }
     catch (final Exception ex)
     {

@@ -43,6 +43,7 @@ package com.helger.peppol.identifier.doctype;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -53,7 +54,7 @@ import com.helger.peppol.identifier.CIdentifier;
 
 /**
  * Test class for class {@link EPredefinedDocumentTypeIdentifier}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class EPredefinedDocumentTypeIdentifierTest
@@ -76,6 +77,10 @@ public final class EPredefinedDocumentTypeIdentifierTest
       assertTrue (StringHelper.hasText (e.getCommonName ()));
       assertEquals (e.getAsDocumentTypeIdentifierValue (), e.getValue ());
       assertSame (e, EPredefinedDocumentTypeIdentifier.valueOf (e.name ()));
+      assertSame (e, EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (e));
     }
+    assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (null));
+    assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (new SimpleDocumentTypeIdentifier ("bla",
+                                                                                                                         "foo")));
   }
 }

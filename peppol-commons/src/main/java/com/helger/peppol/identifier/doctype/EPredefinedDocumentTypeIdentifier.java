@@ -42,15 +42,15 @@
 package com.helger.peppol.identifier.doctype;
 
 import java.util.List;
-
 import javax.annotation.Nonnull;
-
+import javax.annotation.Nullable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 
 
@@ -511,5 +511,19 @@ public enum EPredefinedDocumentTypeIdentifier
     @Nonnull
     public IPeppolDocumentTypeIdentifierParts getParts() {
         return m_aParts;
+    }
+
+    @Nullable
+    public static EPredefinedDocumentTypeIdentifier getFromDocumentTypeIdentifierOrNull(
+        @Nullable
+        final IDocumentTypeIdentifier aDocTypeID) {
+        if ((aDocTypeID!= null)&&CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals(aDocTypeID.getScheme())) {
+            for (EPredefinedDocumentTypeIdentifier e: EPredefinedDocumentTypeIdentifier.values()) {
+                if (e.getValue().equals(aDocTypeID.getValue())) {
+                    return e;
+                }
+            }
+        }
+        return null;
     }
 }

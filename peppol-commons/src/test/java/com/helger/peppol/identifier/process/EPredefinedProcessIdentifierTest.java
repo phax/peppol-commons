@@ -43,6 +43,7 @@ package com.helger.peppol.identifier.process;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -53,7 +54,7 @@ import com.helger.peppol.identifier.CIdentifier;
 
 /**
  * Test class for class {@link EPredefinedProcessIdentifier}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class EPredefinedProcessIdentifierTest
@@ -69,6 +70,10 @@ public final class EPredefinedProcessIdentifierTest
       assertNotNull (e.getDocumentTypeIdentifiers ());
       assertFalse (e.getDocumentTypeIdentifiers ().isEmpty ());
       assertSame (e, EPredefinedProcessIdentifier.valueOf (e.name ()));
+      assertSame (e, EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (e));
     }
+    assertNull (EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (null));
+    assertNull (EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (new SimpleProcessIdentifier ("bla",
+                                                                                                          "foo")));
   }
 }

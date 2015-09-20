@@ -43,7 +43,6 @@ package com.helger.peppol.identifier.issuingagency;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
