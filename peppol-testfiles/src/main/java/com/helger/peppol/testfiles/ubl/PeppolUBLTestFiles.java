@@ -34,7 +34,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.peppol.testfiles.ErrorDefinition;
 import com.helger.peppol.testfiles.TestDocument;
 import com.helger.peppol.testfiles.TestResource;
-import com.helger.peppol.testfiles.ubl.EPeppolUBLTestFileType;
 
 /**
  * Contains the utility methods to retrieve the test files for a certain
@@ -65,7 +64,11 @@ public final class PeppolUBLTestFiles
                                                                     "TC10.4.TS1.xml",
                                                                     "TC10.15.TS1.xml",
                                                                     "test-invoice.xml" };
-  private static final String [] INVOICES_AT_SUCCESS = new String [] { "at-ubl-42-8.xml" };
+  private static final String [] INVOICES_AT_SUCCESS = new String [] { "at-ubl-42-8.xml",
+                                                                       "atgov_BIS4aInvoice.xml",
+                                                                       "atgov_BIS5aInvoice.xml",
+                                                                       "atgov-t10-BIS4A-valid.xml",
+                                                                       "atgov-t10-BIS5A-valid.xml" };
   private static final String [] ORDERS_SUCCESS = new String [] { "ADVORD_03_03_00_Order_v2p2.xml",
                                                                   "BII03 Order example 01.xml",
                                                                   "PEPPOL BIS-3a-FULL.xml",
