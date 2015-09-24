@@ -42,8 +42,8 @@ package com.helger.peppol.identifier.participant;
 
 import javax.annotation.Nullable;
 
-import com.helger.peppol.identifier.IPeppolIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.IPeppolIdentifier;
 
 /**
  * Base interface for a PEPPOL read-only participant identifier.

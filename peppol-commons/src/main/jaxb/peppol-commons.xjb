@@ -93,7 +93,12 @@
   </bindings>
   <bindings schemaLocation="../resources/WEB-INF/wsdl/xmldsig-core-schema.xsd">
     <schemaBindings>
-      <package name="org.w3._2000._09.xmldsig" />
+      <package name="com.helger.peppol.xmldsig" />
+    </schemaBindings>
+  </bindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/ServiceMetadataPublishingTypes-1.0.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.smp" />
     </schemaBindings>
   </bindings>
 </bindings>

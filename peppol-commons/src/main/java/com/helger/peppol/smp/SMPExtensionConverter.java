@@ -43,8 +43,6 @@ package com.helger.peppol.smp;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import org.busdox.servicemetadata.publishing._1.ExtensionType;
-import org.busdox.servicemetadata.publishing._1.ObjectFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 

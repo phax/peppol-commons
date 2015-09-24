@@ -46,8 +46,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.busdox.servicemetadata.publishing._1.ExtensionType;
-import org.busdox.servicemetadata.publishing._1.ObjectFactory;
 import org.junit.Test;
 import org.w3c.dom.Element;
 

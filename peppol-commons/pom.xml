@@ -138,9 +138,7 @@
         <configuration>
           <instructions>
             <Export-Package>
-              com.helger.peppol.*,
-              org.busdox.servicemetadata.publishing._1,
-              org.w3._2000._09.xmldsig
+              com.helger.peppol.*
             </Export-Package>
             <Import-Package>
               !javax.annotation.*,*

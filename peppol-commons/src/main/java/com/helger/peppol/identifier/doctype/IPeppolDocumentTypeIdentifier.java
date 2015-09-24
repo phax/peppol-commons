@@ -42,8 +42,8 @@ package com.helger.peppol.identifier.doctype;
 
 import javax.annotation.Nonnull;
 
-import com.helger.peppol.identifier.IPeppolIdentifier;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IPeppolIdentifier;
 
 /**
  * Base interface for a PEPPOL read-only document type identifier.
