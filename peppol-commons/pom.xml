@@ -182,6 +182,7 @@
             <arg>-Xph-csu</arg>
           </args>
           <plugins>
+            <!-- Required for -Xinheritance -->
             <plugin>
               <groupId>org.jvnet.jaxb2_commons</groupId>
               <artifactId>jaxb2-basics</artifactId>
