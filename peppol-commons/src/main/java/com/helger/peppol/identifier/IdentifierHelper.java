@@ -77,6 +77,7 @@ import com.helger.peppol.utils.BusdoxURLHelper;
 public final class IdentifierHelper
 {
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
+  public static final boolean DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED = false;
 
   // Grab the Charset objects, as they are thread-safe to use. The CharsetEncode
   // objects are not thread-safe and therefore queried each time
@@ -93,6 +94,7 @@ public final class IdentifierHelper
                                                                  CIdentifier.URL_SCHEME_VALUE_SEPARATOR;
 
   private static final AtomicBoolean s_aCharsetChecksDisabled = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
+  private static final AtomicBoolean s_aSchemeMaxLengthChecksDisabled = new AtomicBoolean (DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED);
 
   static
   {
@@ -148,6 +150,28 @@ public final class IdentifierHelper
   }
 
   /**
+   * @return <code>true</code> if the maximum length checks for identifier
+   *         schemes is disabled. This is required for BDSML but must be
+   *         <code>false</code> for the old SML.
+   */
+  public static boolean areSchemeMaxLengthChecksDisabled ()
+  {
+    return s_aSchemeMaxLengthChecksDisabled.get ();
+  }
+
+  /**
+   * Disable the maximum length check for identifier scheme values.
+   *
+   * @param bDisable
+   *        <code>true</code> to disable the check (for BDSML) or
+   *        <code>false</code> to enabled the check (for old SML).
+   */
+  public static void disableSchemeMaxLengthChecks (final boolean bDisable)
+  {
+    s_aSchemeMaxLengthChecksDisabled.set (bDisable);
+  }
+
+  /**
    * Check if the given identifier is valid. It is valid if it has at least 1
    * character and at last 25 characters. This method applies to all identifier
    * schemes, but there is a special version for participant identifier schemes,
@@ -158,13 +182,18 @@ public final class IdentifierHelper
    * @return <code>true</code> if the passed scheme is a valid identifier
    *         scheme, <code>false</code> otherwise.
    * @see #isValidParticipantIdentifierScheme(String)
+   * @see #areSchemeMaxLengthChecksDisabled()
    */
   public static boolean isValidIdentifierScheme (@Nullable final String sScheme)
   {
     if (sScheme == null)
       return false;
     final int nLength = sScheme.length ();
-    return nLength > 0 && nLength <= CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH;
+    if (nLength == 0)
+      return false;
+    if (areSchemeMaxLengthChecksDisabled ())
+      return true;
+    return nLength <= CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH;
   }
 
   /**
@@ -185,8 +214,9 @@ public final class IdentifierHelper
    */
   public static boolean isValidParticipantIdentifierScheme (@Nullable final String sScheme)
   {
-    return isValidIdentifierScheme (sScheme) &&
-           RegExHelper.stringMatchesPattern (CIdentifier.PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
+    if (!isValidIdentifierScheme (sScheme))
+      return false;
+    return RegExHelper.stringMatchesPattern (CIdentifier.PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
                                              sScheme.toLowerCase (BusdoxURLHelper.URL_LOCALE));
   }
 
