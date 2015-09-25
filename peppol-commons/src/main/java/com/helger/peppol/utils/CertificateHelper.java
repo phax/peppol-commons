@@ -182,13 +182,19 @@ public final class CertificateHelper
     if (StringHelper.hasNoText (sCertificate))
       return sCertificate;
 
+    // Remove special begin and end stuff
+    String sRealCertificate = sCertificate;
+    sRealCertificate = StringHelper.trimStart (sRealCertificate, BEGIN_CERTIFICATE);
+    sRealCertificate = StringHelper.trimEnd (sRealCertificate, END_CERTIFICATE);
+
     // Remove all existing whitespace characters
-    String sPlainString = StringHelper.getWithoutAnySpaces (sCertificate);
+    String sPlainString = StringHelper.getWithoutAnySpaces (sRealCertificate);
 
     // Start building the result
     final int nMaxLineLength = 64;
     final String sCRLF = "\r\n";
-    final StringBuilder aSB = new StringBuilder ();
+    // Start with the prefix
+    final StringBuilder aSB = new StringBuilder (BEGIN_CERTIFICATE).append ('\n');
     while (sPlainString.length () > nMaxLineLength)
     {
       // Append line + CRLF
@@ -201,6 +207,7 @@ public final class CertificateHelper
     // Append the rest
     aSB.append (sPlainString);
 
-    return aSB.toString ();
+    // Add trailer
+    return aSB.append ('\n').append (END_CERTIFICATE).toString ();
   }
 }
