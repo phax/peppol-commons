@@ -71,6 +71,25 @@ public final class CertificateHelper
   private CertificateHelper ()
   {}
 
+  /**
+   * Handle certain misconfiguration issues. E.g. for 9906:testconsip on
+   *
+   * <pre>
+   * http://b-c073e04afb234f70e74d3444ba3f8eaa.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/iso6523-actorid-upis%3A%3A9906%3Atestconsip/services/busdox-docid-qns%3A%3Aurn%3Aoasis%3Anames%3Aspecification%3Aubl%3Aschema%3Axsd%3AOrder-2%3A%3AOrder%23%23urn%3Awww.cenbii.eu%3Atransaction%3Abiitrns001%3Aver2.0%3Aextended%3Aurn%3Awww.peppol.eu%3Abis%3Apeppol3a%3Aver2.0%3A%3A2.1
+   * </pre>
+   *
+   * @param sCertString
+   *        Original certificate string
+   */
+  @Nonnull
+  private static String _cutUnnecessaryLeadingAndTrailingParts (@Nonnull final String sCertString)
+  {
+    String ret = sCertString;
+    ret = StringHelper.trimStart (ret, "-----BEGINCERTIFICATE-----");
+    ret = StringHelper.trimEnd (ret, "-----ENDCERTIFICATE-----");
+    return ret.trim ();
+  }
+
   @Nonnull
   private static String _ensureBeginAndEndArePresent (@Nonnull final String sCertString)
   {
@@ -111,7 +130,11 @@ public final class CertificateHelper
     // Convert certificate string to an object
     try
     {
-      final String sRealCertString = _ensureBeginAndEndArePresent (sCertString);
+      String sRealCertString = sCertString;
+      sRealCertString = _cutUnnecessaryLeadingAndTrailingParts (sRealCertString);
+      sRealCertString = getRFC1421CompliantString (sRealCertString);
+      sRealCertString = _ensureBeginAndEndArePresent (sRealCertString);
+
       return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
                                                                                                CCharset.CHARSET_ISO_8859_1_OBJ));
     }
@@ -131,7 +154,12 @@ public final class CertificateHelper
         // In this case the original exception is rethrown
         throw ex;
       }
-      final String sRealCertString = _ensureBeginAndEndArePresent (sHexDecodedString);
+
+      String sRealCertString = sHexDecodedString;
+      sRealCertString = _cutUnnecessaryLeadingAndTrailingParts (sRealCertString);
+      sRealCertString = getRFC1421CompliantString (sRealCertString);
+      sRealCertString = _ensureBeginAndEndArePresent (sRealCertString);
+
       return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
                                                                                                CCharset.CHARSET_ISO_8859_1_OBJ));
     }
