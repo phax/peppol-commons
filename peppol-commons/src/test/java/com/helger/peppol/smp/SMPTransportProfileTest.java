@@ -40,54 +40,28 @@
  */
 package com.helger.peppol.smp;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import static org.junit.Assert.assertEquals;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
+import org.junit.Test;
+
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * This class contains the transport profiles for service registrations.
+ * Test class for class {@link SMPTransportProfile}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
-public enum ESMPTransportProfile implements ISMPTransportProfile
+public final class SMPTransportProfileTest
 {
- /** The START transport profile to be used in EndPointType objects */
-  TRANSPORT_PROFILE_START ("busdox-transport-start", "START"),
-
- /** The AS2 transport profile to be used in EndPointType objects */
-  TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "AS2"),
-
- /** The AS4 transport profile to be used in EndPointType objects */
-  TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4");
-
-  private final String m_sID;
-  private final String m_sName;
-
-  private ESMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
+  @Test
+  public void testBasic ()
   {
-    m_sID = sID;
-    m_sName = sName;
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getID ()
-  {
-    return m_sID;
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getName ()
-  {
-    return m_sName;
-  }
-
-  @Nullable
-  public static ESMPTransportProfile getFromIDOrNull (@Nullable final String sID)
-  {
-    return EnumHelper.getFromIDOrNull (ESMPTransportProfile.class, sID);
+    final SMPTransportProfile aTP = new SMPTransportProfile ("id", "name");
+    assertEquals ("id", aTP.getID ());
+    assertEquals ("name", aTP.getName ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aTP, new SMPTransportProfile ("id", "name"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aTP,
+                                                                           new SMPTransportProfile ("id2", "name"));
+    CommonsTestHelper.testDefaultSerialization (aTP);
   }
 }

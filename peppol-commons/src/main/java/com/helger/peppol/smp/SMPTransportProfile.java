@@ -41,34 +41,27 @@
 package com.helger.peppol.smp;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This class contains the transport profiles for service registrations.
- *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * A stand-alone implementation of the {@link ISMPTransportProfile}. For a set
+ * of predefined transport profiles have a look at {@link ESMPTransportProfile}.
  */
-public enum ESMPTransportProfile implements ISMPTransportProfile
+@Immutable
+public class SMPTransportProfile implements ISMPTransportProfile
 {
- /** The START transport profile to be used in EndPointType objects */
-  TRANSPORT_PROFILE_START ("busdox-transport-start", "START"),
-
- /** The AS2 transport profile to be used in EndPointType objects */
-  TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "AS2"),
-
- /** The AS4 transport profile to be used in EndPointType objects */
-  TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4");
-
   private final String m_sID;
   private final String m_sName;
 
-  private ESMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
+  public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
-    m_sID = sID;
-    m_sName = sName;
+    m_sID = ValueEnforcer.notEmpty (sID, "ID");
+    m_sName = ValueEnforcer.notEmpty (sName, "Name");
   }
 
   @Nonnull
@@ -85,9 +78,26 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
     return m_sName;
   }
 
-  @Nullable
-  public static ESMPTransportProfile getFromIDOrNull (@Nullable final String sID)
+  @Override
+  public boolean equals (final Object o)
   {
-    return EnumHelper.getFromIDOrNull (ESMPTransportProfile.class, sID);
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final SMPTransportProfile rhs = (SMPTransportProfile) o;
+    return m_sID.equals (rhs.m_sID);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).append (m_sID).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("ID", m_sID).append ("Name", m_sName).toString ();
   }
 }
