@@ -94,28 +94,32 @@ public final class BusdoxURLHelperTest
   {
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
                   BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc"),
-                                                          ESML.DIGIT_PRODUCTION));
+                                                           ESML.DIGIT_PRODUCTION));
     // Same value but different casing
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
                   BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
-                                                          ESML.DIGIT_PRODUCTION));
+                                                           ESML.DIGIT_PRODUCTION));
+
+    assertEquals ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
+                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("9915:test"),
+                                                           ESML.DIGIT_PRODUCTION));
 
     // Wildcard
     assertEquals ("*.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
                   BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("*"),
-                                                          ESML.DIGIT_PRODUCTION));
+                                                           ESML.DIGIT_PRODUCTION));
 
     // Empty DNS zone
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
                   BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
-                                                          (String) null));
+                                                           (String) null));
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
                   BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
-                                                          ""));
+                                                           ""));
 
     if (false)
       System.out.println (BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("9915:b"),
-                                                                  ESML.DIGIT_PRODUCTION));
+                                                                   ESML.DIGIT_PRODUCTION));
 
     // Test invalid
     try
@@ -143,7 +147,7 @@ public final class BusdoxURLHelperTest
     {
       // Invalid scheme
       BusdoxURLHelper.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("invalid.scheme", "0088:123"),
-                                              "anyzone.org.");
+                                               "anyzone.org.");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -155,7 +159,7 @@ public final class BusdoxURLHelperTest
     {
       // Invalid value
       BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme (null),
-                                              "anyzone.org.");
+                                               "anyzone.org.");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -167,7 +171,7 @@ public final class BusdoxURLHelperTest
     {
       // Invalid DNS zone (missing dot)
       BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:valid"),
-                                              "anyzone");
+                                               "anyzone");
       fail ();
     }
     catch (final IllegalArgumentException ex)
