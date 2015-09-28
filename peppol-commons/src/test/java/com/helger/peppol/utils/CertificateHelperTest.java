@@ -65,24 +65,24 @@ public final class CertificateHelperTest
     assertNull (CertificateHelper.convertStringToCertficate (""));
 
     // The web page certificate from Google
-    final X509Certificate aCert = CertificateHelper.convertStringToCertficate ("MIIDVDCCAjygAwIBAgIDAjRWMA0GCSqGSIb3DQEBBQUAMEIxCzAJBgNVBAYTAlVT\r\n"
-                                                                              + "MRYwFAYDVQQKEw1HZW9UcnVzdCBJbmMuMRswGQYDVQQDExJHZW9UcnVzdCBHbG9i\r\n"
-                                                                              + "YWwgQ0EwHhcNMDIwNTIxMDQwMDAwWhcNMjIwNTIxMDQwMDAwWjBCMQswCQYDVQQG\r\n"
-                                                                              + "EwJVUzEWMBQGA1UEChMNR2VvVHJ1c3QgSW5jLjEbMBkGA1UEAxMSR2VvVHJ1c3Qg\r\n"
-                                                                              + "R2xvYmFsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2swYYzD9\r\n"
-                                                                              + "9BcjGlZ+W988bDjkcbd4kdS8odhM+KhDtgPpTSEHCIjaWC9mOSm9BXiLnTjoBbdq\r\n"
-                                                                              + "fnGk5sRgprDvgOSJKA+eJdbtg/OtppHHmMlCGDUUna2YRpIuT8rxh0PBFpVXLVDv\r\n"
-                                                                              + "iS2Aelet8u5fa9IAjbkU+BQVNdnARqN7csiRv8lVK83Qlz6cJmTM386DGXHKTubU\r\n"
-                                                                              + "1XupGc1V3sjs0l44U+VcT4wt/lAjNvxm5suOpDkZALeVAjmRCw7+OC7RHQWa9k0+\r\n"
-                                                                              + "bw8HHa8sHo9gOeL6NlMTOdReJivbPagUvTLrGAMoUgRx5aszPeE4uwc2hGKceeoW\r\n"
-                                                                              + "MPRfwCvocWvk+QIDAQABo1MwUTAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBTA\r\n"
-                                                                              + "ephojYn7qwVkDBF9qn1luMrMTjAfBgNVHSMEGDAWgBTAephojYn7qwVkDBF9qn1l\r\n"
-                                                                              + "uMrMTjANBgkqhkiG9w0BAQUFAAOCAQEANeMpauUvXVSOKVCUn5kaFOSPeCpilKIn\r\n"
-                                                                              + "Z57QzxpeR+nBsqTP3UEaBU6bS+5Kb1VSsyShNwrrZHYqLizz/Tt1kL/6cdjHPTfS\r\n"
-                                                                              + "tQWVYrmm3ok9Nns4d0iXrKYgjy6myQzCsplFAMfOEVEiIuCl6rYVSAlk6l5PdPcF\r\n"
-                                                                              + "PseKUgzbFbS9bZvlxrFUaKnjaZC2mqUPuLk/IH2uSrW4nOQdtqvmlKXBx4Ot2/Un\r\n"
-                                                                              + "hw4EbNX/3aBd7YdStysVAq45pmp06drE57xNNB6pXE0zX5IJL4hmXXeXxx12E6nV\r\n"
-                                                                              + "5fEWCRE11azbJHFwLJhWC9kXtNHjUStedejV0NxPNO3CBWaAocvmMw==");
+    final X509Certificate aCert = CertificateHelper.convertStringToCertficate ("MIIDVDCCAjygAwIBAgIDAjRWMA0GCSqGSIb3DQEBBQUAMEIxCzAJBgNVBAYTAlVT\r\n" +
+                                                                               "MRYwFAYDVQQKEw1HZW9UcnVzdCBJbmMuMRswGQYDVQQDExJHZW9UcnVzdCBHbG9i\r\n" +
+                                                                               "YWwgQ0EwHhcNMDIwNTIxMDQwMDAwWhcNMjIwNTIxMDQwMDAwWjBCMQswCQYDVQQG\r\n" +
+                                                                               "EwJVUzEWMBQGA1UEChMNR2VvVHJ1c3QgSW5jLjEbMBkGA1UEAxMSR2VvVHJ1c3Qg\r\n" +
+                                                                               "R2xvYmFsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2swYYzD9\r\n" +
+                                                                               "9BcjGlZ+W988bDjkcbd4kdS8odhM+KhDtgPpTSEHCIjaWC9mOSm9BXiLnTjoBbdq\r\n" +
+                                                                               "fnGk5sRgprDvgOSJKA+eJdbtg/OtppHHmMlCGDUUna2YRpIuT8rxh0PBFpVXLVDv\r\n" +
+                                                                               "iS2Aelet8u5fa9IAjbkU+BQVNdnARqN7csiRv8lVK83Qlz6cJmTM386DGXHKTubU\r\n" +
+                                                                               "1XupGc1V3sjs0l44U+VcT4wt/lAjNvxm5suOpDkZALeVAjmRCw7+OC7RHQWa9k0+\r\n" +
+                                                                               "bw8HHa8sHo9gOeL6NlMTOdReJivbPagUvTLrGAMoUgRx5aszPeE4uwc2hGKceeoW\r\n" +
+                                                                               "MPRfwCvocWvk+QIDAQABo1MwUTAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBTA\r\n" +
+                                                                               "ephojYn7qwVkDBF9qn1luMrMTjAfBgNVHSMEGDAWgBTAephojYn7qwVkDBF9qn1l\r\n" +
+                                                                               "uMrMTjANBgkqhkiG9w0BAQUFAAOCAQEANeMpauUvXVSOKVCUn5kaFOSPeCpilKIn\r\n" +
+                                                                               "Z57QzxpeR+nBsqTP3UEaBU6bS+5Kb1VSsyShNwrrZHYqLizz/Tt1kL/6cdjHPTfS\r\n" +
+                                                                               "tQWVYrmm3ok9Nns4d0iXrKYgjy6myQzCsplFAMfOEVEiIuCl6rYVSAlk6l5PdPcF\r\n" +
+                                                                               "PseKUgzbFbS9bZvlxrFUaKnjaZC2mqUPuLk/IH2uSrW4nOQdtqvmlKXBx4Ot2/Un\r\n" +
+                                                                               "hw4EbNX/3aBd7YdStysVAq45pmp06drE57xNNB6pXE0zX5IJL4hmXXeXxx12E6nV\r\n" +
+                                                                               "5fEWCRE11azbJHFwLJhWC9kXtNHjUStedejV0NxPNO3CBWaAocvmMw==");
     assertNotNull (aCert);
     assertEquals ("CN=GeoTrust Global CA, O=GeoTrust Inc., C=US", aCert.getIssuerDN ().getName ());
 
@@ -113,20 +113,30 @@ public final class CertificateHelperTest
     assertEquals ("", CertificateHelper.getRFC1421CompliantString (""));
 
     // for up to 64 chars it makes no difference
-    for (int i = 0; i <= 64; ++i)
+    for (int i = 1; i <= 64; ++i)
     {
       final char [] aChars = new char [i];
       Arrays.fill (aChars, 'a');
       final String sText = new String (aChars);
-      assertEquals (sText, CertificateHelper.getRFC1421CompliantString (sText));
+      assertEquals (CertificateHelper.BEGIN_CERTIFICATE +
+                    "\n" +
+                    sText +
+                    "\n" +
+                    CertificateHelper.END_CERTIFICATE,
+                    CertificateHelper.getRFC1421CompliantString (sText));
     }
 
-    final String sLong = "123456789012345678901234567890123456789012345678901234567890abcd"
-                         + "123456789012345678901234567890123456789012345678901234567890abcd"
-                         + "xyz";
+    final String sLong = "123456789012345678901234567890123456789012345678901234567890abcd" +
+                         "123456789012345678901234567890123456789012345678901234567890abcd" +
+                         "xyz";
     final String sFormatted = CertificateHelper.getRFC1421CompliantString (sLong);
-    assertEquals ("123456789012345678901234567890123456789012345678901234567890abcd\r\n"
-                  + "123456789012345678901234567890123456789012345678901234567890abcd\r\n"
-                  + "xyz", sFormatted);
+    assertEquals (CertificateHelper.BEGIN_CERTIFICATE +
+                  "\n" +
+                  "123456789012345678901234567890123456789012345678901234567890abcd\r\n" +
+                  "123456789012345678901234567890123456789012345678901234567890abcd\r\n" +
+                  "xyz" +
+                  "\n" +
+                  CertificateHelper.END_CERTIFICATE,
+                  sFormatted);
   }
 }
