@@ -65,7 +65,6 @@ public final class SMPExtensionConverter
 {
   private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE)
                                                                           .setIndent (EXMLSerializeIndent.NONE);
-  private static final ObjectFactory s_aOF = new ObjectFactory ();
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
@@ -115,7 +114,7 @@ public final class SMPExtensionConverter
         final Document aDoc = DOMReader.readXMLDOM (sXML);
         if (aDoc != null)
         {
-          final ExtensionType aExtension = s_aOF.createExtensionType ();
+          final ExtensionType aExtension = new ExtensionType ();
           aExtension.setAny (aDoc.getDocumentElement ());
           return aExtension;
         }
