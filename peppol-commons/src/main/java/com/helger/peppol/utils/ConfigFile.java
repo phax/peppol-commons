@@ -62,6 +62,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
@@ -84,7 +85,7 @@ public class ConfigFile
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConfigFile.class);
 
-  private final boolean m_bRead;
+  private IReadableResource m_aReadResource;
   private final Properties m_aProps = new Properties ();
 
   /**
@@ -111,18 +112,19 @@ public class ConfigFile
       // No config file found at all
       s_aLogger.warn ("Failed to resolve config file paths: " + Arrays.toString (aConfigPaths));
     }
-    m_bRead = bRead;
   }
 
   @Nonnull
   private ESuccess _readConfigFile (@Nonnull final String sPath)
   {
     // Try to get the input stream for the passed property file name
-    InputStream aIS = ClassPathResource.getInputStream (sPath);
+    IReadableResource aRes = new ClassPathResource (sPath);
+    InputStream aIS = aRes.getInputStream ();
     if (aIS == null)
     {
       // Fallback to file system - maybe this helps...
-      aIS = new FileSystemResource (sPath).getInputStream ();
+      aRes = new FileSystemResource (sPath);
+      aIS = aRes.getInputStream ();
     }
     if (aIS != null)
     {
@@ -132,6 +134,7 @@ public class ConfigFile
         m_aProps.load (aIS);
         if (s_aLogger.isDebugEnabled ())
           s_aLogger.debug ("Loaded configuration from '" + sPath + "': " + Collections.list (m_aProps.keys ()));
+        m_aReadResource = aRes;
         return ESuccess.SUCCESS;
       }
       catch (final IOException ex)
@@ -153,7 +156,17 @@ public class ConfigFile
    */
   public boolean isRead ()
   {
-    return m_bRead;
+    return m_aReadResource != null;
+  }
+
+  /**
+   * @return The resource from which the config file was read. May be
+   *         <code>null</code> if reading failed.
+   */
+  @Nullable
+  public IReadableResource getReadResource ()
+  {
+    return m_aReadResource;
   }
 
   /**
@@ -249,7 +262,7 @@ public class ConfigFile
    */
   public void applyAllNetworkSystemProperties ()
   {
-    if (m_bRead)
+    if (isRead ())
       for (final String sProperty : PeppolTechnicalSetup.getAllJavaNetSystemProperties ())
       {
         final String sConfigFileValue = getString (sProperty);
@@ -264,6 +277,6 @@ public class ConfigFile
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("read", m_bRead).append ("props", m_aProps).toString ();
+    return new ToStringGenerator (this).append ("readResource", m_aReadResource).append ("props", m_aProps).toString ();
   }
 }
