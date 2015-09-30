@@ -147,13 +147,15 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements IM
    * @param sURIPart
    *        The URI part
    *        <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   *        . It must NOT be percent encoded!
+   *        . It must NOT be percent encoded! May be <code>null</code>.
    * @return The created {@link SimpleProcessIdentifier} or <code>null</code> if
    *         the passed identifier is not a valid URI encoded identifier
    */
   @Nullable
-  public static SimpleProcessIdentifier createFromURIPartOrNull (@Nonnull final String sURIPart)
+  public static SimpleProcessIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
+    if (sURIPart == null)
+      return null;
     return IdentifierHelper.createProcessIdentifierFromURIPartOrNull (sURIPart);
   }
 }

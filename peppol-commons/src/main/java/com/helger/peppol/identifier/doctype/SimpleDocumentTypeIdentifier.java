@@ -154,14 +154,16 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @param sURIPart
    *        The URI part
    *        <code>busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
-   *        . It must NOT be percent encoded!
+   *        . It must NOT be percent encoded! May be <code>null</code>.
    * @return The created {@link SimpleDocumentTypeIdentifier} or
    *         <code>null</code> if the passed identifier is not a valid URI
    *         encoded identifier
    */
   @Nullable
-  public static SimpleDocumentTypeIdentifier createFromURIPartOrNull (@Nonnull final String sURIPart)
+  public static SimpleDocumentTypeIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
+    if (sURIPart == null)
+      return null;
     return IdentifierHelper.createDocumentTypeIdentifierFromURIPartOrNull (sURIPart);
   }
 }

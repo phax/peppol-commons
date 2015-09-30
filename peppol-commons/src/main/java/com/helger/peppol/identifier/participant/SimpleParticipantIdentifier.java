@@ -162,14 +162,16 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
    *
    * @param sURIPart
    *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
-   *        must NOT be percent encoded!
+   *        must NOT be percent encoded! May be <code>null</code>.
    * @return The created {@link SimpleParticipantIdentifier} or
    *         <code>null</code> if the passed identifier is not a valid URI
    *         encoded identifier
    */
   @Nullable
-  public static SimpleParticipantIdentifier createFromURIPartOrNull (@Nonnull final String sURIPart)
+  public static SimpleParticipantIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
+    if (sURIPart == null)
+      return null;
     return IdentifierHelper.createParticipantIdentifierFromURIPartOrNull (sURIPart);
   }
 }
