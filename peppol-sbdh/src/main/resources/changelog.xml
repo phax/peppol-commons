@@ -18,6 +18,8 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="peppol-sbdh">
+  <release date="2015-10-02" version="4.1.1" />
+  <release date="2015-09-25" version="4.1.0" />
   <release date="2015-08-25" version="2.0.0" />
   <entry date="2015-07-02" category="tech" action="update">
     <change>

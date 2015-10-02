@@ -1,4 +1,4 @@
-# peppol-commons
+#peppol-commons
 Java library with shared PEPPOL components.
 
 This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
@@ -6,9 +6,7 @@ This is based on the cipa-commons-busdox and cipa-peppol-types project version 2
 This project is used implicitly by the following projects:
   * [peppol-sml-client](https://github.com/phax/peppol-sml-client/) - the SML client library
   * [peppol-smp-client](https://github.com/phax/peppol-smp-client/) - the SMP client library
-  * [peppol-smp-server-library](https://github.com/phax/peppol-smp-server-library/) - the SMP server library with the shared code use in all SMP server implementations.
-  * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the SMP server with a database backend
-  * [peppol-smp-server-lightweight](https://github.com/phax/peppol-smp-server-lightweight/) - the SMP server with a file-based backend
+  * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the SMP server with a management GUI
 
 This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 
@@ -34,6 +32,9 @@ Versions >= 2.0.0 are compatible with ph-commons >= 6.0.
 
 This project is licensed under the Apache 2 License.
 
+#peppol-testfiles
+A Java library with a lot of UBL and SBDH test files suitable for different scenarios.  
+
 #Building from source
 This project is meant to be build by Maven 3.x.
 It requires at least Java 1.6 to be build.
@@ -45,19 +46,19 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>4.1.0</version>
+  <version>4.1.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>4.1.0</version>
+  <version>4.1.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>4.1.0</version>
+  <version>4.1.1</version>
 </dependency>
 ```
 
