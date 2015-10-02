@@ -94,6 +94,7 @@ public final class SimpleProcessIdentifierTest
     assertEquals (aID1, aID2);
 
     assertNull (SimpleProcessIdentifier.createFromURIPartOrNull ("scheme1"));
+    assertNull (SimpleProcessIdentifier.createFromURIPartOrNull (null));
     try
     {
       // No separator
@@ -156,7 +157,8 @@ public final class SimpleProcessIdentifierTest
     {
       // Scheme too long
       new SimpleProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
-                                   StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1), "abc");
+                                   StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+                                   "abc");
       fail ();
     }
     catch (final IllegalArgumentException ex)

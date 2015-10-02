@@ -93,6 +93,7 @@ public final class SimpleParticipantIdentifierTest
     assertEquals (aID1, aID2);
 
     assertNull (SimpleParticipantIdentifier.createFromURIPartOrNull ("scheme1"));
+    assertNull (SimpleParticipantIdentifier.createFromURIPartOrNull (null));
     try
     {
       // No separator
@@ -155,7 +156,7 @@ public final class SimpleParticipantIdentifierTest
     {
       // Scheme too long
       new SimpleParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
-                                           StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+                                       StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                        "abc");
       fail ();
     }
@@ -167,7 +168,8 @@ public final class SimpleParticipantIdentifierTest
       // Value too long
       new SimpleParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
                                        StringHelper.getRepeated ('a',
-                                                                 CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH + 1));
+                                                                 CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
+                                                                      1));
       fail ();
     }
     catch (final IllegalArgumentException ex)

@@ -96,6 +96,7 @@ public final class SimpleDocumentTypeIdentifierTest
     assertEquals (aID1, aID2);
 
     assertNull (SimpleDocumentTypeIdentifier.createFromURIPartOrNull ("scheme1"));
+    assertNull (SimpleDocumentTypeIdentifier.createFromURIPartOrNull (null));
     try
     {
       // No separator
