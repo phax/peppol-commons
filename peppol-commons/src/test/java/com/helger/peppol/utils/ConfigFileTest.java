@@ -45,6 +45,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -90,5 +91,31 @@ public final class ConfigFileTest
     assertEquals (0, aCF.getAllEntries ().size ());
 
     assertNotNull (aCF.toString ());
+  }
+
+  @Test
+  public void testNoPath ()
+  {
+    try
+    {
+      new ConfigFile ((String []) null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+    try
+    {
+      new ConfigFile (new String [0]);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+    try
+    {
+      new ConfigFile (null, "bla");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
   }
 }
