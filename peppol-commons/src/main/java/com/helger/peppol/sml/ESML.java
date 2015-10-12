@@ -56,24 +56,25 @@ import com.helger.commons.lang.EnumHelper;
  * <ul>
  * <li>DIGIT_PRODUCTION - DIGIT production URL - valid from June 9th, 2015
  * <li>DIGIT_TEST - DIGIT test URL - valid from June 9th, 2015
- * <li>PRODUCTION - used for production environment - valid until June 9th, 2015
- * </li>
- * <li>TEST - used for test environment - valid until June 9th, 2015</li>
- * <li>DEVELOPMENT - used for development environment - valid until June 9th,
- * 2015</li>
  * <li>DEVELOPMENT_LOCAL - used for development environment assuming the
  * management application is running on localhost in the ROOT context!</li>
  * </ul>
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public enum ESML implements ISMLInfo, IHasID <String>
+public enum ESML implements ISMLInfo,IHasID <String>
 {
-  /** DIGIT production URL - valid from June 9th, 2015 */
-  DIGIT_PRODUCTION ("digitprod", "edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu/edelivery-sml", true),
-  /** DIGIT test URL - valid from June 9th, 2015 */
-  DIGIT_TEST ("digittest", "acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true),
-  /** http://localhost:8080 */
+ /** DIGIT production URL - valid from June 9th, 2015 */
+  DIGIT_PRODUCTION ("digitprod",
+                    "edelivery.tech.ec.europa.eu.",
+                    "https://edelivery.tech.ec.europa.eu/edelivery-sml",
+                    true),
+ /** DIGIT test URL - valid from June 9th, 2015 */
+  DIGIT_TEST ("digittest",
+              "acc.edelivery.tech.ec.europa.eu.",
+              "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
+              true),
+ /** http://localhost:8080 */
   DEVELOPMENT_LOCAL ("local", "smj.peppolcentral.org.", "http://localhost:8080", false);
 
   private final String m_sID;
