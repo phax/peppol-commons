@@ -60,7 +60,10 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "AS2"),
 
  /** The AS4 transport profile to be used in EndPointType objects */
-  TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4");
+  @Deprecated TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4"),
+
+ /** The BDXR AS4 transport profile to be used in EndPointType objects */
+  TRANSPORT_PROFILE_BDXR_AS4 ("bdxr-transport-ebms3-as4-v1p0", "BDXR AS4");
 
   private final String m_sID;
   private final String m_sName;
