@@ -29,21 +29,21 @@ import org.xml.sax.SAXException;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.sbdh.DocumentData;
-import com.helger.peppol.sbdh.read.DocumentDataReadException;
-import com.helger.peppol.sbdh.read.DocumentDataReader;
+import com.helger.peppol.sbdh.PeppolSBDHDocument;
+import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
+import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.sbdh.SBDMarshaller;
 
-public final class DocumentDataWriterTest
+public final class PeppolSBDHDocumentWriterTest
 {
   @Test
-  public void testCreateSBDH () throws SAXException, DocumentDataReadException
+  public void testCreateSBDH () throws SAXException, PeppolSBDHDocumentReadException
   {
     // This is our fake business message
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final DocumentData aData = DocumentData.create (aDoc.getDocumentElement ())
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement ())
                                            .setSenderWithDefaultScheme ("0088:sender")
                                            .setReceiverWithDefaultScheme ("0099:receiver")
                                            .setDocumentTypeWithDefaultScheme ("doctypeid")
@@ -51,7 +51,7 @@ public final class DocumentDataWriterTest
     assertTrue (aData.areAllFieldsSet ());
 
     // Create the SBDH document
-    final StandardBusinessDocument aSBD = new DocumentDataWriter ().createStandardBusinessDocument (aData);
+    final StandardBusinessDocument aSBD = new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (aData);
     assertNotNull (aSBD);
 
     // For debugging
@@ -59,7 +59,7 @@ public final class DocumentDataWriterTest
       System.out.println (new SBDMarshaller ().getAsXMLString (aSBD));
 
     // Read again and compare values
-    final DocumentData aDataRead = new DocumentDataReader ().extractData (aSBD);
+    final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);
     assertNotNull (aDataRead);
 
     assertEquals (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aDataRead.getSenderScheme ());
@@ -84,11 +84,11 @@ public final class DocumentDataWriterTest
   @Test
   public void testBadCase ()
   {
-    final DocumentData aData = new DocumentData ();
+    final PeppolSBDHDocument aData = new PeppolSBDHDocument ();
     try
     {
       // Not all fields are set
-      new DocumentDataWriter ().createStandardBusinessDocument (aData);
+      new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (aData);
       fail ();
     }
     catch (final IllegalArgumentException ex)

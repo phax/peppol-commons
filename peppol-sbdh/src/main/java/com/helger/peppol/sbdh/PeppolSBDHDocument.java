@@ -46,7 +46,7 @@ import com.helger.peppol.identifier.process.IPeppolProcessIdentifier;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class DocumentData
+public class PeppolSBDHDocument
 {
   // Sender
   private String m_sSenderScheme;
@@ -68,7 +68,7 @@ public class DocumentData
   // BusinessMessage
   private Element m_aBusinessMessage;
 
-  public DocumentData ()
+  public PeppolSBDHDocument ()
   {}
 
   /**
@@ -87,7 +87,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setSender (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setSender (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
   {
     m_sSenderScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sSenderValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -105,7 +105,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setSenderWithDefaultScheme (@Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setSenderWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
     return setSender (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
   }
@@ -160,7 +160,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setReceiver (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setReceiver (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
   {
     m_sReceiverScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sReceiverValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -178,7 +178,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setReceiverWithDefaultScheme (@Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setReceiverWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
     return setReceiver (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
   }
@@ -231,7 +231,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setDocumentType (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setDocumentType (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
   {
     m_sDocumentTypeScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sDocumentTypeValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -251,7 +251,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setDocumentTypeWithDefaultScheme (@Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setDocumentTypeWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
     return setDocumentType (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
   }
@@ -302,7 +302,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setProcess (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setProcess (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
   {
     m_sProcessScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sProcessValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -321,7 +321,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setProcessWithDefaultScheme (@Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setProcessWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
     return setProcess (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
   }
@@ -405,7 +405,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setDocumentIdentification (@Nonnull final String sStandard,
+  public PeppolSBDHDocument setDocumentIdentification (@Nonnull final String sStandard,
                                                  @Nonnull final String sTypeVersion,
                                                  @Nonnull final String sType,
                                                  @Nonnull final String sInstanceIdentifier,
@@ -513,7 +513,7 @@ public class DocumentData
    * @return this
    */
   @Nonnull
-  public DocumentData setBusinessMessage (@Nonnull final Element aBusinessMessage)
+  public PeppolSBDHDocument setBusinessMessage (@Nonnull final Element aBusinessMessage)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
@@ -579,7 +579,7 @@ public class DocumentData
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
 
-    final DocumentData rhs = (DocumentData) o;
+    final PeppolSBDHDocument rhs = (PeppolSBDHDocument) o;
     return EqualsHelper.equals (m_sSenderScheme, rhs.m_sSenderScheme) &&
            EqualsHelper.equals (m_sSenderValue, rhs.m_sSenderValue) &&
            EqualsHelper.equals (m_sReceiverScheme, rhs.m_sReceiverScheme) &&
@@ -637,7 +637,7 @@ public class DocumentData
   }
 
   /**
-   * Create a new {@link DocumentData} object for a business message. The
+   * Create a new {@link PeppolSBDHDocument} object for a business message. The
    * resulting object has all required fields set, except for:
    * <ul>
    * <li>sender ID</li>
@@ -648,7 +648,7 @@ public class DocumentData
    *
    * @param aBusinessMessage
    *        The XML business message. May not be <code>null</code>.
-   * @return A pre-filled {@link DocumentData} object with some information
+   * @return A pre-filled {@link PeppolSBDHDocument} object with some information
    *         still missing.
    * @see #setSender(String, String)
    * @see #setReceiver(String, String)
@@ -656,11 +656,11 @@ public class DocumentData
    * @see #setProcess(String, String)
    */
   @Nonnull
-  public static DocumentData create (@Nonnull final Element aBusinessMessage)
+  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
-    final DocumentData ret = new DocumentData ();
+    final PeppolSBDHDocument ret = new PeppolSBDHDocument ();
     ret.setBusinessMessage (aBusinessMessage);
     // 1. Always use UBL 2.1
     // 2. Use a new UUID as the instance identifier

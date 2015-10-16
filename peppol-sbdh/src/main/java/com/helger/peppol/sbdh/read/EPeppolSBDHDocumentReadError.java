@@ -28,7 +28,7 @@ import com.helger.commons.lang.EnumHelper;
  *
  * @author Philip Helger
  */
-public enum EDocumentDataReadError implements IHasID <String>
+public enum EPeppolSBDHDocumentReadError implements IHasID <String>
 {
   /** Failed to interpret StandardBusinessDocument as XML */
   INVALID_SBD_XML ("invalid-sbd-xml", "Failed to interpret StandardBusinessDocument as XML"),
@@ -105,7 +105,7 @@ public enum EDocumentDataReadError implements IHasID <String>
   private final String m_sID;
   private final String m_sErrorMsg;
 
-  private EDocumentDataReadError (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sErrorMsg)
+  private EPeppolSBDHDocumentReadError (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sErrorMsg)
   {
     m_sID = sID;
     m_sErrorMsg = sErrorMsg;
@@ -126,8 +126,8 @@ public enum EDocumentDataReadError implements IHasID <String>
   }
 
   @Nullable
-  public static EDocumentDataReadError getFromIDOrNull (@Nullable final String sID)
+  public static EPeppolSBDHDocumentReadError getFromIDOrNull (@Nullable final String sID)
   {
-    return EnumHelper.getFromIDOrNull (EDocumentDataReadError.class, sID);
+    return EnumHelper.getFromIDOrNull (EPeppolSBDHDocumentReadError.class, sID);
   }
 }

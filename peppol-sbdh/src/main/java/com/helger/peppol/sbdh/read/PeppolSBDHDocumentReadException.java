@@ -26,16 +26,16 @@ import com.helger.commons.string.StringHelper;
  * 
  * @author Philip Helger
  */
-public class DocumentDataReadException extends Exception
+public class PeppolSBDHDocumentReadException extends Exception
 {
-  private final EDocumentDataReadError m_eErrorCode;
+  private final EPeppolSBDHDocumentReadError m_eErrorCode;
 
-  public DocumentDataReadException (@Nonnull final EDocumentDataReadError eErrorCode)
+  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode)
   {
     this (eErrorCode, null);
   }
 
-  public DocumentDataReadException (@Nonnull final EDocumentDataReadError eErrorCode,
+  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
                                     @Nullable final String sAdditionalInformation)
   {
     super ("[" +
@@ -46,7 +46,7 @@ public class DocumentDataReadException extends Exception
     m_eErrorCode = eErrorCode;
   }
 
-  public DocumentDataReadException (@Nonnull final EDocumentDataReadError eErrorCode,
+  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
                                     @Nonnull final String sValue1,
                                     @Nonnull final String sValue2)
   {
@@ -63,7 +63,7 @@ public class DocumentDataReadException extends Exception
   }
 
   @Nonnull
-  public EDocumentDataReadError getErrorCode ()
+  public EPeppolSBDHDocumentReadError getErrorCode ()
   {
     return m_eErrorCode;
   }

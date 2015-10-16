@@ -24,21 +24,21 @@ import org.junit.Test;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Test class for class {@link EDocumentDataReadError}.
+ * Test class for class {@link EPeppolSBDHDocumentReadError}.
  * 
  * @author Philip Helger
  */
-public final class EDocumentDataReadErrorTest
+public final class EPeppolSBDHDocumentReadErrorTest
 {
   @Test
   public void testBasic ()
   {
-    for (final EDocumentDataReadError e : EDocumentDataReadError.values ())
+    for (final EPeppolSBDHDocumentReadError e : EPeppolSBDHDocumentReadError.values ())
     {
       assertTrue (StringHelper.hasText (e.getID ()));
       assertTrue (StringHelper.hasText (e.getErrorMessage ()));
-      assertSame (e, EDocumentDataReadError.getFromIDOrNull (e.getID ()));
-      assertSame (e, EDocumentDataReadError.valueOf (e.name ()));
+      assertSame (e, EPeppolSBDHDocumentReadError.getFromIDOrNull (e.getID ()));
+      assertSame (e, EPeppolSBDHDocumentReadError.valueOf (e.name ()));
     }
   }
 }

@@ -43,7 +43,7 @@ import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.jaxb.validation.DoNothingValidationEventHandlerFactory;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.sbdh.CPeppolSBDH;
-import com.helger.peppol.sbdh.DocumentData;
+import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.sbdh.SBDMarshaller;
 
 /**
@@ -53,9 +53,9 @@ import com.helger.sbdh.SBDMarshaller;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class DocumentDataReader
+public class PeppolSBDHDocumentReader
 {
-  public DocumentDataReader ()
+  public PeppolSBDHDocumentReader ()
   {}
 
   /**
@@ -331,12 +331,12 @@ public class DocumentDataReader
    *        The input stream to read from. Will be closed by this method. May
    *        not be <code>null</code>.
    * @return The document data and never <code>null</code>.
-   * @throws DocumentDataReadException
+   * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
    *         the PEPPOL rules.
    */
   @Nonnull
-  public DocumentData extractData (@Nonnull @WillClose final InputStream aStandardBusinessDocument) throws DocumentDataReadException
+  public PeppolSBDHDocument extractData (@Nonnull @WillClose final InputStream aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -345,7 +345,7 @@ public class DocumentDataReader
       // Convert to domain object
       final StandardBusinessDocument aSBD = createSBDMarshaller ().read (aStandardBusinessDocument);
       if (aSBD == null)
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_SBD_XML);
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
 
       return extractData (aSBD);
     }
@@ -362,19 +362,19 @@ public class DocumentDataReader
    * @param aStandardBusinessDocument
    *        The resource to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
-   * @throws DocumentDataReadException
+   * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
    *         the PEPPOL rules.
    */
   @Nonnull
-  public DocumentData extractData (@Nonnull final IReadableResource aStandardBusinessDocument) throws DocumentDataReadException
+  public PeppolSBDHDocument extractData (@Nonnull final IReadableResource aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
     // Convert to domain object
     final StandardBusinessDocument aSBD = createSBDMarshaller ().read (aStandardBusinessDocument);
     if (aSBD == null)
-      throw new DocumentDataReadException (EDocumentDataReadError.INVALID_SBD_XML);
+      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
 
     return extractData (aSBD);
   }
@@ -386,19 +386,19 @@ public class DocumentDataReader
    * @param aStandardBusinessDocument
    *        The DOM node to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
-   * @throws DocumentDataReadException
+   * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
    *         the PEPPOL rules.
    */
   @Nonnull
-  public DocumentData extractData (@Nonnull final Node aStandardBusinessDocument) throws DocumentDataReadException
+  public PeppolSBDHDocument extractData (@Nonnull final Node aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
     // Convert to domain object
     final StandardBusinessDocument aSBD = createSBDMarshaller ().read (aStandardBusinessDocument);
     if (aSBD == null)
-      throw new DocumentDataReadException (EDocumentDataReadError.INVALID_SBD_XML);
+      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
 
     return extractData (aSBD);
   }
@@ -410,40 +410,40 @@ public class DocumentDataReader
    * @param aStandardBusinessDocument
    *        The domain object to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
-   * @throws DocumentDataReadException
+   * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
    *         the PEPPOL rules.
    */
   @Nonnull
-  public DocumentData extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws DocumentDataReadException
+  public PeppolSBDHDocument extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
-    final DocumentData ret = new DocumentData ();
+    final PeppolSBDHDocument ret = new PeppolSBDHDocument ();
 
     // Grab the header
     final StandardBusinessDocumentHeader aSBDH = aStandardBusinessDocument.getStandardBusinessDocumentHeader ();
     if (aSBDH == null)
-      throw new DocumentDataReadException (EDocumentDataReadError.MISSING_SBDH);
+      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_SBDH);
 
     // Check that the header version is correct
     if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
-      throw new DocumentDataReadException (EDocumentDataReadError.INVALID_HEADER_VERSION, aSBDH.getHeaderVersion ());
+      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION, aSBDH.getHeaderVersion ());
 
     // Check sender
     {
       if (aSBDH.getSenderCount () != 1)
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_SENDER_COUNT,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_COUNT,
                                              Integer.toString (aSBDH.getSenderCount ()));
 
       // Identifier is mandatory
       final PartnerIdentification aSenderIdentification = aSBDH.getSenderAtIndex (0).getIdentifier ();
       if (!isValidSenderAuthority (aSenderIdentification.getAuthority ()))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_SENDER_AUTHORITY,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_AUTHORITY,
                                              aSenderIdentification.getAuthority ());
 
       // Check sender identifier value
       if (!isValidSenderIdentifier (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ()))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_SENDER_VALUE,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
                                              aSenderIdentification.getValue ());
 
       // Remember sender
@@ -453,18 +453,18 @@ public class DocumentDataReader
     // Check receiver
     {
       if (aSBDH.getReceiverCount () != 1)
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_RECEIVER_COUNT,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_RECEIVER_COUNT,
                                              Integer.toString (aSBDH.getReceiverCount ()));
 
       // Identifier is mandatory
       final PartnerIdentification aReceiverIdentification = aSBDH.getReceiverAtIndex (0).getIdentifier ();
       if (!isValidReceiverAuthority (aReceiverIdentification.getAuthority ()))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_RECEIVER_AUTHORITY,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_RECEIVER_AUTHORITY,
                                              aReceiverIdentification.getAuthority ());
 
       // Check receiver identifier value
       if (!isValidReceiverIdentifier (aReceiverIdentification.getAuthority (), aReceiverIdentification.getValue ()))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_RECEIVER_VALUE,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_RECEIVER_VALUE,
                                              aReceiverIdentification.getValue ());
 
       ret.setReceiver (aReceiverIdentification.getAuthority (), aReceiverIdentification.getValue ());
@@ -474,11 +474,11 @@ public class DocumentDataReader
     {
       final BusinessScope aBusinessScope = aSBDH.getBusinessScope ();
       if (aBusinessScope == null)
-        throw new DocumentDataReadException (EDocumentDataReadError.BUSINESS_SCOPE_MISSING);
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.BUSINESS_SCOPE_MISSING);
 
       // Check that at least 2 "Scope" elements are present
       if (aBusinessScope.getScopeCount () < 2)
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_SCOPE_COUNT,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SCOPE_COUNT,
                                              Integer.toString (aBusinessScope.getScopeCount ()));
 
       boolean bFoundDocumentIDScope = false;
@@ -489,7 +489,7 @@ public class DocumentDataReader
         if (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID.equals (aScope.getType ()))
         {
           if (!isValidDocumentTypeIdentifier (sInstanceIdentifier))
-            throw new DocumentDataReadException (EDocumentDataReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
+            throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
                                                  sInstanceIdentifier);
 
           // Since the scheme is undefined, the default scheme is assumed
@@ -500,7 +500,7 @@ public class DocumentDataReader
           if (CPeppolSBDH.SCOPE_PROCESS_ID.equals (aScope.getType ()))
           {
             if (!isValidProcessIdentifier (sInstanceIdentifier))
-              throw new DocumentDataReadException (EDocumentDataReadError.INVALID_PROCESS_IDENTIFIER,
+              throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
                                                    sInstanceIdentifier);
 
             // Since the scheme is undefined, the default scheme is assumed
@@ -513,9 +513,9 @@ public class DocumentDataReader
           }
       }
       if (!bFoundDocumentIDScope)
-        throw new DocumentDataReadException (EDocumentDataReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER);
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER);
       if (!bFoundProcessIDScope)
-        throw new DocumentDataReadException (EDocumentDataReadError.MISSING_PROCESS_IDENTIFIER);
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_PROCESS_IDENTIFIER);
     }
 
     // Check document and metadata
@@ -524,7 +524,7 @@ public class DocumentDataReader
       // Element!
       final Element aBusinessMessage = (Element) aStandardBusinessDocument.getAny ();
       if (!isValidBusinessMessage (aBusinessMessage))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_BUSINESS_MESSAGE);
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_BUSINESS_MESSAGE);
 
       // Set the main business message to the return data
       ret.setBusinessMessage (aBusinessMessage);
@@ -534,29 +534,29 @@ public class DocumentDataReader
 
       final String sNamespaceURI = aDI.getStandard ();
       if (!isValidStandard (sNamespaceURI, aBusinessMessage))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_STANDARD,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_STANDARD,
                                              sNamespaceURI,
                                              aBusinessMessage.getNamespaceURI ());
 
       final String sUBLVersion = aDI.getTypeVersion ();
       if (!isValidTypeVersion (sUBLVersion, aBusinessMessage))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_TYPE_VERSION, sUBLVersion);
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE_VERSION, sUBLVersion);
 
       final String sLocalName = aDI.getType ();
       if (!isValidType (sLocalName, aBusinessMessage))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_TYPE,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE,
                                              sLocalName,
                                              aBusinessMessage.getLocalName ());
 
       // The unique message ID
       final String sSBDHID = aDI.getInstanceIdentifier ();
       if (!isValidInstanceIdentifier (sSBDHID))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_INSTANCE_IDENTIFIER, sSBDHID);
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_INSTANCE_IDENTIFIER, sSBDHID);
 
       // Mandatory date and time (cannot be null)
       final LocalDateTime aCreationDateAndTime = PDTXMLConverter.getLocalDateTime (aDI.getCreationDateAndTime ());
       if (!isValidCreationDateTime (aCreationDateAndTime))
-        throw new DocumentDataReadException (EDocumentDataReadError.INVALID_CREATION_DATE_TIME,
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_CREATION_DATE_TIME,
                                              String.valueOf (aCreationDateAndTime));
       ret.setDocumentIdentification (sNamespaceURI, sUBLVersion, sLocalName, sSBDHID, aCreationDateAndTime);
     }

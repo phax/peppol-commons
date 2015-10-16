@@ -31,12 +31,12 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.peppol.sbdh.CPeppolSBDH;
-import com.helger.peppol.sbdh.DocumentData;
+import com.helger.peppol.sbdh.PeppolSBDHDocument;
 
 @NotThreadSafe
-public class DocumentDataWriter
+public class PeppolSBDHDocumentWriter
 {
-  public DocumentDataWriter ()
+  public PeppolSBDHDocumentWriter ()
   {}
 
   /**
@@ -57,13 +57,13 @@ public class DocumentDataWriter
    *
    * @param aData
    *        The document data to be used. May not be <code>null</code> and
-   *        {@link DocumentData#areAllFieldsSet()} must return true!
+   *        {@link PeppolSBDHDocument#areAllFieldsSet()} must return true!
    * @return Never <code>null</code>.
    * @throws IllegalArgumentException
    *         if not all document data fields are set!
    */
   @Nonnull
-  public StandardBusinessDocument createStandardBusinessDocument (@Nonnull final DocumentData aData)
+  public StandardBusinessDocument createStandardBusinessDocument (@Nonnull final PeppolSBDHDocument aData)
   {
     ValueEnforcer.notNull (aData, "Data");
     if (!aData.areAllFieldsSet ())
