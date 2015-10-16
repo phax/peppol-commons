@@ -42,7 +42,6 @@ package com.helger.peppol.identifier;
 
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
@@ -650,6 +649,31 @@ public final class IdentifierHelper
   }
 
   /**
+   * Take the passed identifier scheme and value try to convert it back to a
+   * document identifier. If the passed scheme is invalid or if the passed value
+   * is invalid, <code>null</code> is returned.
+   *
+   * @param sScheme
+   *        The identifier scheme. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @param sValue
+   *        The identifier value. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @return The document type identifier or <code>null</code> if any of the
+   *         parts is invalid.
+   * @see #isValidIdentifierScheme(String)
+   * @see #isValidDocumentTypeIdentifierValue(String)
+   */
+  @Nullable
+  public static SimpleDocumentTypeIdentifier createDocumentTypeIdentifierOrNull (@Nullable final String sScheme,
+                                                                                 @Nullable final String sValue)
+  {
+    if (isValidIdentifierScheme (sScheme) && isValidDocumentTypeIdentifierValue (sValue))
+      return new SimpleDocumentTypeIdentifier (sScheme, sValue);
+    return null;
+  }
+
+  /**
    * Take the passed URI part and try to convert it back to a document
    * identifier. The URI part must have the layout <code>scheme::value</code>.
    * This method returns only valid document type identifier schemes and
@@ -658,7 +682,7 @@ public final class IdentifierHelper
    * @param sURIPart
    *        The URI part to be scanned. May not be <code>null</code> if a
    *        correct result is expected.
-   * @return The document identifier matching the passed URI part or
+   * @return The document type identifier matching the passed URI part or
    *         <code>null</code> if this string is in an illegal format.
    */
   @Nullable
@@ -668,19 +692,10 @@ public final class IdentifierHelper
 
     // This is quicker than splitting with RegEx!
     final List <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sURIPart, 2);
-    if (aSplitted.size () == 2)
-    {
-      // Get and check scheme
-      final String sScheme = aSplitted.get (0);
-      if (isValidIdentifierScheme (sScheme))
-      {
-        // Get and check value
-        final String sValue = aSplitted.get (1);
-        if (isValidDocumentTypeIdentifierValue (sValue))
-          return new SimpleDocumentTypeIdentifier (sScheme, sValue);
-      }
-    }
-    return null;
+    if (aSplitted.size () != 2)
+      return null;
+
+    return createDocumentTypeIdentifierOrNull (aSplitted.get (0), aSplitted.get (1));
   }
 
   /**
@@ -690,7 +705,7 @@ public final class IdentifierHelper
    * @param sURIPart
    *        The URI part to be scanned. May not be <code>null</code> if a
    *        correct result is expected.
-   * @return The document identifier matching the passed URI part. Never
+   * @return The document type identifier matching the passed URI part. Never
    *         <code>null</code>.
    * @throws IllegalArgumentException
    *         If the passed identifier is not a valid URI encoded identifier
@@ -706,6 +721,31 @@ public final class IdentifierHelper
                                           "' did not include correct delimiter: " +
                                           CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
     return ret;
+  }
+
+  /**
+   * Take the passed identifier scheme and value try to convert it back to a
+   * document identifier. If the passed scheme is invalid or if the passed value
+   * is invalid, <code>null</code> is returned.
+   *
+   * @param sScheme
+   *        The identifier scheme. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @param sValue
+   *        The identifier value. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @return The participant identifier or <code>null</code> if any of the parts
+   *         is invalid.
+   * @see #isValidParticipantIdentifierScheme(String)
+   * @see #isValidParticipantIdentifierValue(String)
+   */
+  @Nullable
+  public static SimpleParticipantIdentifier createParticipantIdentifierOrNull (@Nullable final String sScheme,
+                                                                               @Nullable final String sValue)
+  {
+    if (isValidParticipantIdentifierScheme (sScheme) && isValidParticipantIdentifierValue (sValue))
+      return new SimpleParticipantIdentifier (sScheme, sValue);
+    return null;
   }
 
   /**
@@ -727,19 +767,10 @@ public final class IdentifierHelper
 
     // This is quicker than splitting with RegEx!
     final List <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sURIPart, 2);
-    if (aSplitted.size () == 2)
-    {
-      // Get and check scheme
-      final String sScheme = aSplitted.get (0);
-      if (isValidParticipantIdentifierScheme (sScheme))
-      {
-        // Get and check value
-        final String sValue = aSplitted.get (1);
-        if (isValidParticipantIdentifierValue (sValue))
-          return new SimpleParticipantIdentifier (sScheme, sValue);
-      }
-    }
-    return null;
+    if (aSplitted.size () != 2)
+      return null;
+
+    return createParticipantIdentifierOrNull (aSplitted.get (0), aSplitted.get (1));
   }
 
   /**
@@ -768,6 +799,31 @@ public final class IdentifierHelper
   }
 
   /**
+   * Take the passed identifier scheme and value try to convert it back to a
+   * document identifier. If the passed scheme is invalid or if the passed value
+   * is invalid, <code>null</code> is returned.
+   *
+   * @param sScheme
+   *        The identifier scheme. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @param sValue
+   *        The identifier value. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @return The process identifier or <code>null</code> if any of the parts is
+   *         invalid.
+   * @see #isValidIdentifierScheme(String)
+   * @see #isValidProcessIdentifierValue(String)
+   */
+  @Nullable
+  public static SimpleProcessIdentifier createProcessIdentifierOrNull (@Nullable final String sScheme,
+                                                                       @Nullable final String sValue)
+  {
+    if (isValidIdentifierScheme (sScheme) && isValidProcessIdentifierValue (sValue))
+      return new SimpleProcessIdentifier (sScheme, sValue);
+    return null;
+  }
+
+  /**
    * Take the passed URI part and try to convert it back to a process
    * identifier. The URI part must have the layout <code>scheme::value</code>.
    * This value returns only if a valid process identifier scheme and process
@@ -786,19 +842,10 @@ public final class IdentifierHelper
 
     // This is quicker than splitting with RegEx!
     final List <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sURIPart, 2);
-    if (aSplitted.size () == 2)
-    {
-      // Get and check scheme
-      final String sScheme = aSplitted.get (0);
-      if (isValidIdentifierScheme (sScheme))
-      {
-        // Get and check value
-        final String sValue = aSplitted.get (1);
-        if (isValidProcessIdentifierValue (sValue))
-          return new SimpleProcessIdentifier (sScheme, sValue);
-      }
-    }
-    return null;
+    if (aSplitted.size () != 2)
+      return null;
+
+    return createProcessIdentifierOrNull (aSplitted.get (0), aSplitted.get (1));
   }
 
   /**
@@ -824,22 +871,6 @@ public final class IdentifierHelper
                                           CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
 
     return ret;
-  }
-
-  /**
-   * Central method for unifying participant identifier values for storage in a
-   * DB, as participant identifier values need to be handled case-insensitive.
-   * This method can be applied both to participant identifier schemes and
-   * business identifier values.
-   *
-   * @param sValue
-   *        The DB identifier value to unify. May be <code>null</code>.
-   * @return <code>null</code> if the passed value is <code>null</code>
-   */
-  @Nullable
-  public static String getUnifiedParticipantDBValue (@Nullable final String sValue)
-  {
-    return sValue == null ? null : sValue.toLowerCase (Locale.US);
   }
 
   /**

@@ -36,11 +36,8 @@ import com.helger.datetime.PDTFactory;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifier;
-import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.participant.IPeppolParticipantIdentifier;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.process.IPeppolProcessIdentifier;
-import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
 
 /**
  * This class contains all the PEPPOL data per SBDH document in a syntax neutral
@@ -144,10 +141,7 @@ public class DocumentData
   @Nullable
   public IPeppolParticipantIdentifier getSenderAsIdentifier ()
   {
-    if (IdentifierHelper.isValidParticipantIdentifierScheme (m_sSenderScheme) &&
-        IdentifierHelper.isValidParticipantIdentifierValue (m_sSenderValue))
-      return new SimpleParticipantIdentifier (m_sSenderScheme, m_sSenderValue);
-    return null;
+    return IdentifierHelper.createParticipantIdentifierOrNull (m_sSenderScheme, m_sSenderValue);
   }
 
   /**
@@ -220,10 +214,7 @@ public class DocumentData
   @Nullable
   public IPeppolParticipantIdentifier getReceiverAsIdentifier ()
   {
-    if (IdentifierHelper.isValidParticipantIdentifierScheme (m_sReceiverScheme) &&
-        IdentifierHelper.isValidParticipantIdentifierValue (m_sReceiverValue))
-      return new SimpleParticipantIdentifier (m_sReceiverScheme, m_sReceiverValue);
-    return null;
+    return IdentifierHelper.createParticipantIdentifierOrNull (m_sReceiverScheme, m_sReceiverValue);
   }
 
   /**
@@ -294,10 +285,7 @@ public class DocumentData
   @Nullable
   public IPeppolDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
   {
-    if (IdentifierHelper.isValidIdentifierScheme (m_sDocumentTypeScheme) &&
-        IdentifierHelper.isValidDocumentTypeIdentifierValue (m_sDocumentTypeValue))
-      return new SimpleDocumentTypeIdentifier (m_sDocumentTypeScheme, m_sDocumentTypeValue);
-    return null;
+    return IdentifierHelper.createDocumentTypeIdentifierOrNull (m_sDocumentTypeScheme, m_sDocumentTypeValue);
   }
 
   /**
@@ -367,10 +355,7 @@ public class DocumentData
   @Nullable
   public IPeppolProcessIdentifier getProcessAsIdentifier ()
   {
-    if (IdentifierHelper.isValidIdentifierScheme (m_sProcessScheme) &&
-        IdentifierHelper.isValidProcessIdentifierValue (m_sProcessValue))
-      return new SimpleProcessIdentifier (m_sProcessScheme, m_sProcessValue);
-    return null;
+    return IdentifierHelper.createProcessIdentifierOrNull (m_sProcessScheme, m_sProcessValue);
   }
 
   /**
