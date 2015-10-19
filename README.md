@@ -1,17 +1,28 @@
-#peppol-commons
-Java library with shared PEPPOL components.
-
-This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
-
-This project is used implicitly by the following projects:
+#Introduction
+This project contains different libraries that are commonly used in the PEPPOL area:
+  * `peppol-commons` - the most basic data structures for use with PEPPOL
+  * `peppol-testfiles` - a set of UBL and SBDH test files
+  * `peppol-bdxr` - data structures for the OASIS BDXR specification
+  * `peppol-sbdh` - PEPPOL specific SBDH handling
+  
+These project are used implicitly by the following projects:
   * [peppol-sml-client](https://github.com/phax/peppol-sml-client/) - the SML client library
   * [peppol-smp-client](https://github.com/phax/peppol-smp-client/) - the SMP client library
   * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the SMP server with a management GUI
+  * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
+  * [peppol-yellow-pages](https://github.com/phax/peppol-yellow-pages/) - the PEPPOL Yellow Pages development draft
 
-This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
+Note: the sub-projects use different licenses!
+
+#peppol-commons
+Java library with shared PEPPOL components. It contains the basic algorithms and the handling for the identifiers.
+
+This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
 
 Versions <= 3.1.3 are compatible with ph-commons < 6.0.
 Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
+
+This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 
 #peppol-sbdh
 Simple SBDH handler for the use with PEPPOL.
@@ -34,6 +45,13 @@ This project is licensed under the Apache 2 License.
 
 #peppol-testfiles
 A Java library with a lot of UBL and SBDH test files suitable for different scenarios.  
+
+This project is licensed under the Apache 2 License.
+
+#peppol-bdxr
+A Java library with the JAXB generated content of the OASIS BDXR specification.  
+
+This project is licensed under the Apache 2 License.
 
 #Building from source
 This project is meant to be build by Maven 3.x.
