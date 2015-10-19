@@ -97,7 +97,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-poi</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
@@ -117,7 +117,7 @@
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcprov-jdk15on</artifactId>
-        <version>1.52</version>
+        <version>1.53</version>
       </dependency>
       <dependency>
         <groupId>dnsjava</groupId>
