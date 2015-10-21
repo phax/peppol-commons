@@ -4,6 +4,7 @@ This project contains different libraries that are commonly used in the PEPPOL a
   * `peppol-testfiles` - a set of UBL and SBDH test files
   * `peppol-bdxr` - data structures for the OASIS BDXR specification
   * `peppol-sbdh` - PEPPOL specific SBDH handling
+  * `peppol-sml-client` - the PEPPOL SML client
   
 These project are used implicitly by the following projects:
   * [peppol-smp-client](https://github.com/phax/peppol-smp-client/) - the SMP client library
