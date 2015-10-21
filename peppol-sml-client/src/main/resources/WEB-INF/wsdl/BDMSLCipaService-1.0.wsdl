@@ -1,0 +1,160 @@
+<wsdl:definitions xmlns:tns="ec:services:wsdl:BDMSL:1.0" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:lrs="ec:services:wsdl:BDMSL:data:1.0"
+                  xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="BDMSLCipaService"
+                  targetNamespace="ec:services:wsdl:BDMSL:1.0"
+                  xmlns:bd="http://busdox.org/serviceMetadata/locator/1.0/">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="ec:services:wsdl:BDMSL:1.0">
+            <s:import namespace="ec:services:wsdl:BDMSL:data:1.0" schemaLocation="BDMSLCipaService-1.0.xsd"/>
+        </s:schema>
+        <s:schema elementFormDefault="qualified"
+                  targetNamespace=
+                          "http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/Schema/">
+            <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/"
+                      schemaLocation="ManageBusinessIdentifierService-1.0.xsd"/>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="prepareChangeCertificateIn">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:part name="messagePart" element="lrs:PrepareChangeCertificate"/>
+    </wsdl:message>
+    <wsdl:message name="prepareChangeCertificateOut">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+    </wsdl:message>
+    <wsdl:message name="createParticipantIdentifierIn">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:part name="messagePart" element="lrs:SMPAdvancedServiceForParticipantService"/>
+    </wsdl:message>
+    <wsdl:message name="createParticipantIdentifierOut">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+    </wsdl:message>
+    <wsdl:message name="listParticipantsIn"/>
+    <wsdl:message name="listParticipantsOut">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:part name="messagePart" element="lrs:ListParticipants" />
+    </wsdl:message>
+    <wsdl:message name="isAliveIn"/>
+    <wsdl:message name="isAliveOut"/>
+    <wsdl:message name="badRequestFault">
+        <wsdl:part name="fault" element="bd:BadRequestFault"/>
+    </wsdl:message>
+    <wsdl:message name="internalErrorFault">
+        <wsdl:part name="fault" element="bd:InternalErrorFault"/>
+    </wsdl:message>
+    <wsdl:message name="notFoundFault">
+        <wsdl:part name="fault" element="bd:NotFoundFault"/>
+    </wsdl:message>
+    <wsdl:message name="unauthorizedFault">
+        <wsdl:part name="fault" element="bd:UnauthorizedFault"/>
+    </wsdl:message>
+    <wsdl:portType name="BDMSLCipaServiceSoap">
+        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+        <wsdl:operation name="PrepareChangeCertificate">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+            <wsdl:input message="tns:prepareChangeCertificateIn"/>
+            <wsdl:output message="tns:prepareChangeCertificateOut"/>
+            <wsdl:fault message="tns:notFoundFault" name="NotFoundFault"/>
+            <wsdl:fault message="tns:unauthorizedFault" name="UnauthorizedFault"/>
+            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
+            <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateParticipantIdentifier">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+            <wsdl:input message="tns:createParticipantIdentifierIn"/>
+            <wsdl:output message="tns:createParticipantIdentifierOut"/>
+            <wsdl:fault message="tns:notFoundFault" name="NotFoundFault"/>
+            <wsdl:fault message="tns:unauthorizedFault" name="UnauthorizedFault"/>
+            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
+            <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="ListParticipants">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+            <wsdl:input message="tns:listParticipantsIn"/>
+            <wsdl:output message="tns:listParticipantsOut"/>
+            <wsdl:fault message="tns:unauthorizedFault" name="UnauthorizedFault"/>
+            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="IsAlive">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+            <wsdl:input message="tns:isAliveIn"/>
+            <wsdl:output message="tns:isAliveOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BDMSLCipaServiceSoap" type="tns:BDMSLCipaServiceSoap">
+        <soap11:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="PrepareChangeCertificate">
+            <soap11:operation soapAction="ec:services:wsdl:BDMSL:1.0:prepareChangeCertificateIn" style="document"/>
+            <wsdl:input>
+                <soap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap11:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="NotFoundFault">
+                <soap:fault name="NotFoundFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UnauthorizedFault">
+                <soap:fault name="UnauthorizedFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InternalErrorFault">
+                <soap:fault name="InternalErrorFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="BadRequestFault">
+                <soap:fault name="BadRequestFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="CreateParticipantIdentifier">
+            <soap11:operation soapAction="ec:services:wsdl:BDMSL:1.0:createParticipantIdentifierIn" style="document"/>
+            <wsdl:input>
+                <soap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap11:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="NotFoundFault">
+                <soap:fault name="NotFoundFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="UnauthorizedFault">
+                <soap:fault name="UnauthorizedFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InternalErrorFault">
+                <soap:fault name="InternalErrorFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="BadRequestFault">
+                <soap:fault name="BadRequestFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ListParticipants">
+            <soap11:operation soapAction="ec:services:wsdl:BDMSL:1.0:listParticipantsIn" style="document"/>
+            <wsdl:input>
+                <soap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap11:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="UnauthorizedFault">
+                <soap:fault name="UnauthorizedFault" use="literal"/>
+            </wsdl:fault>
+            <wsdl:fault name="InternalErrorFault">
+                <soap:fault name="InternalErrorFault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="IsAlive">
+            <soap11:operation soapAction="ec:services:wsdl:BDMSL:1.0:isAliveIn" style="document"/>
+            <wsdl:input>
+                <soap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="BDMSLCipaService">
+        <wsdl:port name="BDMSLCipaServicePort" binding="tns:BDMSLCipaServiceSoap">
+            <soap11:address location="unknown"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

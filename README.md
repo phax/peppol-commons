@@ -6,9 +6,10 @@ This project contains different libraries that are commonly used in the PEPPOL a
   * `peppol-sbdh` - PEPPOL specific SBDH handling
   
 These project are used implicitly by the following projects:
-  * [peppol-sml-client](https://github.com/phax/peppol-sml-client/) - the SML client library
   * [peppol-smp-client](https://github.com/phax/peppol-smp-client/) - the SMP client library
   * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the SMP server with a management GUI
+  * [as2-peppol-client](https://github.com/phax/as2-peppol-client/) - the AP client library
+  * [as2-peppol-server](https://github.com/phax/as2-peppol-server/) - the AP server stub
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
   * [peppol-yellow-pages](https://github.com/phax/peppol-yellow-pages/) - the PEPPOL Yellow Pages development draft
 
@@ -53,10 +54,28 @@ A Java library with the JAXB generated content of the OASIS BDXR specification.
 
 This project is licensed under the Apache 2 License.
 
+## peppol-sml-client
+This project contains the SML client library used by the SMP's to interact with the SML.
+It is based on cipa-sml-client-library 2.2.3.
+This library is usually only used within SMP servers, to communicate the changes to the central SML.
+
+This project contains 2 main classes for talking to the PEPPOL SML:
+  * `ManageServiceMetadataServiceCaller` which is used to change SMP assignments in the SML. This must be called for a new SMP to register it once at the SML.
+  * `ManageParticipantIdentifierServiceCaller` which is used to manage the assignment of participants to SMPs. This must be invoked from the SMP server every time a new participant is registered (or an existing one is modified or deleted).
+  
+Both classes offer the possibility to set an optional custom `SSLSocketFactory` as well as a custom optional `HostnameVerifier`. The implementation of this is in the base class `AbstractSMLClientCaller`.
+
+This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-server/) the SMP server with a management GUI and flexible backends.
+
+This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
+
+Versions <= 3.1.3 are compatible with ph-commons < 6.0.
+Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
+
 #Building from source
 This project is meant to be build by Maven 3.x.
 It requires at least Java 1.6 to be build.
-After you initially checked out this project, please make sure to call `mvn generate-sources` to create all the needed generated files. Afterwards `mvn clean install` does the trick.
+To build simply call `mvn clean install` in the root folder.
 
 #Maven usage
 Add the following to your pom.xml to use this artifact:
@@ -84,6 +103,13 @@ Add the following to your pom.xml to use this artifact:
   <artifactId>peppol-sbdh</artifactId>
   <version>4.2.1</version>
 </dependency>
+
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>peppol-sml-client</artifactId>
+  <version>4.2.1</version>
+</dependency>
+
 ```
 
 ---

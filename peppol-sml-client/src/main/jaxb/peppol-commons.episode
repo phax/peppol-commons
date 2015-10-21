@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
+  <bindings scd="x-schema::tns" xmlns:tns="http://busdox.org/transport/identifiers/1.0/">
+    <schemaBindings map="false">
+      <package name="com.helger.peppol.identifier"/>
+    </schemaBindings>
+    <bindings scd="~tns:ParticipantIdentifierType">
+      <class ref="com.helger.peppol.identifier.ParticipantIdentifierType"/>
+    </bindings>
+    <bindings scd="~tns:DocumentIdentifierType">
+      <class ref="com.helger.peppol.identifier.DocumentIdentifierType"/>
+    </bindings>
+    <bindings scd="~tns:ProcessIdentifierType">
+      <class ref="com.helger.peppol.identifier.ProcessIdentifierType"/>
+    </bindings>
+  </bindings>
+</bindings>
+

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2015 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Version: MPL 1.1/EUPL 1.1
+
+    The contents of this file are subject to the Mozilla Public License Version
+    1.1 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at:
+    http://www.mozilla.org/MPL/
+
+    Software distributed under the License is distributed on an "AS IS" basis,
+    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+    for the specific language governing rights and limitations under the
+    License.
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    Alternatively, the contents of this file may be used under the
+    terms of the EUPL, Version 1.1 or - as soon they will be approved
+    by the European Commission - subsequent versions of the EUPL
+    (the "Licence"); You may not use this work except in compliance
+    with the Licence.
+    You may obtain a copy of the Licence at:
+    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and
+    limitations under the Licence.
+
+    If you wish to allow use of your version of this file only
+    under the terms of the EUPL License and not to allow others to use
+    your version of this file under the MPL, indicate your decision by
+    deleting the provisions above and replace them with the notice and
+    other provisions required by the EUPL License. If you do not delete
+    the provisions above, a recipient may use your version of this file
+    under either the MPL or the EUPL License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.helger</groupId>
+    <artifactId>peppol-commons-parent-pom</artifactId>
+    <version>4.2.2-SNAPSHOT</version>
+  </parent>
+  <artifactId>peppol-sml-client</artifactId>
+  <packaging>bundle</packaging>
+  <name>peppol-sml-client</name>
+  <description>PEPPOL SML client</description>
+  <url>https://github.com/phax/peppol-commons/peppol-sml-client</url>
+  <inceptionYear>2015</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>MPL 1.1</name>
+      <url>https://www.mozilla.org/MPL/1.1/</url>
+      <distribution>repo</distribution>
+    </license>
+    <license>
+      <name>EUPL v.1.1</name>
+      <url>https://joinup.ec.europa.eu/community/eupl/og_page/european-union-public-licence-eupl-v11</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+ 
+  <organization>
+    <name>Philip Helger</name>
+    <url>http://www.helger.com</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>philip</id>
+      <name>Philip Helger</name>
+      <email>ph(at)helger.com</email>
+      <url>http://www.helger.com</url>
+    </developer>
+  </developers>
+
+  <properties>
+    <jaxws-plugin.version>2.3.1-b20150201.1248</jaxws-plugin.version>
+    <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
+    <jaxws.version>2.2.9-b14002</jaxws.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>peppol-commons</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-web</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>dnsjava</groupId>
+      <artifactId>dnsjava</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Export-Package>
+              com.helger.peppol.smlclient.*
+            </Export-Package>
+            <Import-Package>
+              !javax.annotation.*,*
+            </Import-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jvnet.jax-ws-commons</groupId>
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <version>${jaxws-plugin.version}</version>
+        <executions>
+          <!-- 
+            Use one execution per WSDL file, as the wsdlLocation can specify only one file at a time. 
+            The wsdlLocation is the location how the WSDL file will be referenced in the code 
+             (using class.getResource). 
+            Also important: use a different stale file for each WSDL file! 
+            Also important: path must be "/WEB-INF/wsdl" because this is how the deployment descriptor needs it.
+              It must be absolute because class.getResource is used and we therefore need an asbolute path! 
+          -->
+          <execution>
+            <id>wsimport1</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlFiles>
+                <wsdlFile>ManageBusinessIdentifierService-1.0.wsdl</wsdlFile>
+              </wsdlFiles>
+              <wsdlLocation>/WEB-INF/wsdl/ManageBusinessIdentifierService-1.0.wsdl</wsdlLocation>
+              <staleFile>${project.build.directory}/stale/.stale-wsimport1</staleFile>
+              <packageName>com.helger.peppol.smlclient.participant</packageName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>wsimport2</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlFiles>
+                <wsdlFile>ManageServiceMetadataService-1.0.wsdl</wsdlFile>
+              </wsdlFiles>
+              <wsdlLocation>/WEB-INF/wsdl/ManageServiceMetadataService-1.0.wsdl</wsdlLocation>
+              <staleFile>${project.build.directory}/stale/.stale-wsimport2</staleFile>
+              <packageName>com.helger.peppol.smlclient.smp</packageName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>wsimport3</id>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+            <configuration>
+              <wsdlFiles>
+                <wsdlFile>BDMSLCipaService-1.0.wsdl</wsdlFile>
+              </wsdlFiles>
+              <wsdlLocation>/WEB-INF/wsdl/BDMSLCipaService-1.0.wsdl</wsdlLocation>
+              <staleFile>${project.build.directory}/stale/.stale-wsimport3</staleFile>
+              <packageName>com.helger.peppol.smlclient.bdmslcipa</packageName>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <wsdlDirectory>src/main/resources/WEB-INF/wsdl</wsdlDirectory>
+          <bindingDirectory>src/main/jaxb</bindingDirectory>
+          <!-- We need to use the same output directory as the JAXB call, because both wsimport and JAXB are creating code for the Identifiers-x.y.xsd file! -->
+          <sourceDestDir>target/generated-sources/xjc</sourceDestDir>
+          <target>2.1</target>
+          <extension>true</extension>
+          <verbose>true</verbose>
+          <args>
+            <arg>-ph-csu</arg>
+          </args>
+          <xjcArgs>
+            <xjcArg>-no-header</xjcArg>
+            <!-- <xjcArg>-extension</xjcArg> <xjcArg>-episode</xjcArg> -->
+            <xjcArg>-Xph-default-locale</xjcArg>
+            <xjcArg>en_US</xjcArg>
+            <xjcArg>-Xph-annotate</xjcArg>
+            <xjcArg>-Xph-fields-private</xjcArg>
+            <xjcArg>-Xph-code-quality</xjcArg>
+            <xjcArg>-Xph-implements</xjcArg>
+            <xjcArg>java.io.Serializable</xjcArg>
+            <xjcArg>-Xph-equalshashcode</xjcArg>
+            <xjcArg>-Xph-tostring</xjcArg>
+            <xjcArg>-Xph-list-extension</xjcArg>
+            <xjcArg>-extension</xjcArg>
+            <xjcArg>-b</xjcArg>
+            <xjcArg>src/main/jaxb/peppol-commons.episode</xjcArg>
+          </xjcArgs>
+          <!-- Required to work with a JDK 1.8 JVM! -->
+          <vmArgs>
+            <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg>
+          </vmArgs>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-tools</artifactId>
+            <version>${jaxws.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>com.helger</groupId>
+            <artifactId>ph-wsimport-plugin</artifactId>
+            <version>2.2.8.1</version>
+          </dependency>
+          <dependency>
+            <groupId>com.helger</groupId>
+            <artifactId>ph-jaxb22-plugin</artifactId>
+            <version>2.2.11.6</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+</project>
