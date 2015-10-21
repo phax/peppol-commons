@@ -119,6 +119,7 @@
         <artifactId>jcodemodel</artifactId>
         <version>2.8.0</version>
       </dependency>
+      
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcprov-jdk15on</artifactId>
@@ -128,6 +129,11 @@
         <groupId>dnsjava</groupId>
         <artifactId>dnsjava</artifactId>
         <version>2.1.7</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>fluent-hc</artifactId>
+        <version>4.5.1</version>
       </dependency>
 
       <dependency>
@@ -155,6 +161,11 @@
         <artifactId>peppol-sml-client</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>peppol-smp-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -177,5 +188,6 @@
     <module>peppol-bdxr</module>
     <module>peppol-sbdh</module>
     <module>peppol-sml-client</module>
+    <module>peppol-smp-client</module>
   </modules>
 </project>
