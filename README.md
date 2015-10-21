@@ -1,11 +1,11 @@
 #Introduction
 This project contains different libraries that are commonly used in the PEPPOL area:
-  * `peppol-commons` - the most basic data structures for use with PEPPOL
-  * `peppol-testfiles` - a set of UBL and SBDH test files
-  * `peppol-bdxr` - data structures for the OASIS BDXR specification
-  * `peppol-sbdh` - PEPPOL specific SBDH handling
-  * `peppol-sml-client` - the PEPPOL SML client
-  * `peppol-smp-client` - the PEPPOL SMP client
+  * `[[peppol-commons]]` - the most basic data structures for use with PEPPOL
+  * `[[peppol-testfiles]]` - a set of UBL and SBDH test files
+  * `[[peppol-bdxr]]` - data structures for the OASIS BDXR specification
+  * `[[peppol-sbdh]]` - PEPPOL specific SBDH handling
+  * `[[peppol-sml-client]]` - the PEPPOL SML client
+  * `[[peppol-smp-client]]` - the PEPPOL SMP client
   
 These project are used implicitly by the following projects:
   * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the SMP server with a management GUI
