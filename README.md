@@ -1,6 +1,6 @@
 #Introduction
 This project contains different libraries that are commonly used in the PEPPOL area:
-  * `[peppol-commons](#peppol-commons)` - the most basic data structures for use with PEPPOL
+  * [`peppol-commons`](#peppol-commons)` - the most basic data structures for use with PEPPOL
   * `[peppol-testfiles](#peppol-testfiles)` - a set of UBL and SBDH test files
   * `[peppol-bdxr](#peppol-bdxr)` - data structures for the OASIS BDXR specification
   * `[peppol-sbdh](#peppol-sbdh)` - PEPPOL specific SBDH handling
