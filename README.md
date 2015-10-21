@@ -14,7 +14,7 @@ These project are used implicitly by the following projects:
 
 Note: the sub-projects use different licenses!
 
-#peppol-commons
+##peppol-commons
 Java library with shared PEPPOL components. It contains the basic algorithms and the handling for the identifiers.
 
 This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
@@ -24,7 +24,7 @@ Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
 
 This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 
-#peppol-sbdh
+##peppol-sbdh
 Simple SBDH handler for the use with PEPPOL.
 It offers the possibility to extract all meta data from an SBDH document as well as 
 set all meta data to an SBDH document.
@@ -43,12 +43,12 @@ Versions >= 2.0.0 are compatible with ph-commons >= 6.0.
 
 This project is licensed under the Apache 2 License.
 
-#peppol-testfiles
+##peppol-testfiles
 A Java library with a lot of UBL and SBDH test files suitable for different scenarios.  
 
 This project is licensed under the Apache 2 License.
 
-#peppol-bdxr
+##peppol-bdxr
 A Java library with the JAXB generated content of the OASIS BDXR specification.  
 
 This project is licensed under the Apache 2 License.
