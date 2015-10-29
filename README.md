@@ -15,7 +15,15 @@ These project are used implicitly by the following projects:
 
 Note: the sub-projects use different licenses!
 
-##peppol-commons
+## News and noteworthy
+
+  * version 4.3.0 - 2015-10-29
+    * Added support for CIPA BDMSL 3.0 with the wsse:Security header
+    * Added BDXR SMP client
+    * Integrated the BDXR SMP classes into peppol-commons
+    * Updated the BDMSL Service WSDL corresponding to the CIPA 3.0.0 release
+
+## peppol-commons
 Java library with shared PEPPOL components. It contains the basic algorithms and the handling for the identifiers.
 
 This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
@@ -25,7 +33,7 @@ Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
 
 This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 
-##peppol-sbdh
+## peppol-sbdh
 Simple SBDH handler for the use with PEPPOL.
 It offers the possibility to extract all meta data from an SBDH document as well as 
 set all meta data to an SBDH document.
@@ -44,7 +52,7 @@ Versions >= 2.0.0 are compatible with ph-commons >= 6.0.
 
 This project is licensed under the Apache 2 License.
 
-##peppol-testfiles
+## peppol-testfiles
 A Java library with a lot of UBL and SBDH test files suitable for different scenarios.  
 
 This project is licensed under the Apache 2 License.
@@ -68,7 +76,7 @@ Versions <= 3.1.3 are compatible with ph-commons < 6.0.
 Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
 
 ## peppol-smp-client
-This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.2.2). 
+This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.3.0). 
 This project uses Apache HTTP client to perform the REST lookups on foreign SMPs. The reason to not use the Jersey 1.x client is an incompatibility with Java 8. This means that this version is compliant with Java 1.6+.
 
 Versions <= 3.1.3 are compatible with ph-commons < 6.0.
@@ -89,7 +97,7 @@ It supports the following properties:
   * **`http.proxyPort'**: the port of the HTTP proxy. The port must be specfied and has no default value!
   
 ### Specifying a proxy server
-The SMP client supports a proxy server. By default the proxy specified in the configuration file (see above) is used (since version 4.2.2).
+The SMP client supports a proxy server. By default the proxy specified in the configuration file (see above) is used (since version 4.3.0).
 Simply call the method `setProxy (org.apache.http.HttpHost)` on an `SMPClient` or `SMPClientReadOnly`. This means you can specify the proxy on a per-call basis.
 Proxy authentication is currently not supported.
   
@@ -138,35 +146,35 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>4.2.1</version>
+  <version>4.3.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>4.2.1</version>
+  <version>4.3.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>4.2.1</version>
+  <version>4.3.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>4.2.1</version>
+  <version>4.3.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>4.2.1</version>
+  <version>4.3.0</version>
 </dependency>
 ```
 
-Note: `peppol-bdxr` was integrated in `peppol-commons` as of version 4.2.2.
+Note: `peppol-bdxr` was integrated in `peppol-commons` as of version 4.3.0.
 
 The binary version of this library can be found on http://repo2.maven.org/maven2/com/helger/ 
 They depend on several other libraries so I suggest you are going for the Maven source integration.
