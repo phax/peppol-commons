@@ -116,6 +116,7 @@
         <configuration>
           <instructions>
             <Export-Package>
+              com.helger.peppol.bdxrclient.*,
               com.helger.peppol.smpclient.*
             </Export-Package>
             <Import-Package>
