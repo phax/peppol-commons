@@ -50,6 +50,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.string.StringHelper;
 
@@ -101,6 +102,27 @@ public final class CertificateHelper
     if (!sRealCertString.trim ().endsWith (END_CERTIFICATE))
       sRealCertString += "\n" + END_CERTIFICATE;
     return sRealCertString;
+  }
+
+  /**
+   * Convert the passed String to an X.509 certificate.
+   *
+   * @param aCertBytes
+   *        The original certificate bytes. May be <code>null</code> or empty.
+   * @return <code>null</code> if the passed byte array is <code>null</code> or
+   *         empty
+   * @throws CertificateException
+   *         In case the passed string cannot be converted to an X.509
+   *         certificate.
+   */
+  @Nullable
+  public static X509Certificate convertByteArrayToCertficate (@Nullable final byte [] aCertBytes) throws CertificateException
+  {
+    if (ArrayHelper.isEmpty (aCertBytes))
+      return null;
+
+    // Certificate is always ISO-8859-1 encoded
+    return convertStringToCertficate (new String (aCertBytes, CCharset.CHARSET_ISO_8859_1_OBJ));
   }
 
   /**

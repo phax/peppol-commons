@@ -105,6 +105,15 @@
     <schemaBindings>
       <package name="com.helger.peppol.bdxr" />
     </schemaBindings>
+    <bindings node="//xs:complexType[@name='ParticipantIdentifierType']">
+      <inheritance:implements>com.helger.peppol.identifier.IMutableParticipantIdentifier</inheritance:implements>
+    </bindings> 
+    <bindings node="//xs:complexType[@name='DocumentIdentifierType']">
+      <inheritance:implements>com.helger.peppol.identifier.IMutableDocumentTypeIdentifier</inheritance:implements>
+    </bindings> 
+    <bindings node="//xs:complexType[@name='ProcessIdentifierType']">
+      <inheritance:implements>com.helger.peppol.identifier.IMutableProcessIdentifier</inheritance:implements>
+    </bindings> 
   </bindings>
   <bindings schemaLocation="../resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd">
     <schemaBindings>
