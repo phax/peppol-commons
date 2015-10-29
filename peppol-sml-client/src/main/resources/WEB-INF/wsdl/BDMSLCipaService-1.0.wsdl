@@ -38,6 +38,8 @@
     </wsdl:message>
     <wsdl:message name="isAliveIn"/>
     <wsdl:message name="isAliveOut"/>
+    <wsdl:message name="clearCacheIn"/>
+    <wsdl:message name="clearCacheOut"/>
     <wsdl:message name="badRequestFault">
         <wsdl:part name="fault" element="bd:BadRequestFault"/>
     </wsdl:message>
@@ -81,6 +83,12 @@
             <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
             <wsdl:input message="tns:isAliveIn"/>
             <wsdl:output message="tns:isAliveOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="ClearCache">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
+            <wsdl:input message="tns:clearCacheIn"/>
+            <wsdl:output message="tns:clearCacheOut"/>
+            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="BDMSLCipaServiceSoap" type="tns:BDMSLCipaServiceSoap">
@@ -144,6 +152,15 @@
         </wsdl:operation>
         <wsdl:operation name="IsAlive">
             <soap11:operation soapAction="ec:services:wsdl:BDMSL:1.0:isAliveIn" style="document"/>
+            <wsdl:input>
+                <soap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ClearCache">
+            <soap11:operation soapAction="ec:services:wsdl:BDMSL:1.0:clearCacheIn" style="document"/>
             <wsdl:input>
                 <soap11:body use="literal"/>
             </wsdl:input>
