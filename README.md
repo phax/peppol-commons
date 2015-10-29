@@ -49,11 +49,6 @@ A Java library with a lot of UBL and SBDH test files suitable for different scen
 
 This project is licensed under the Apache 2 License.
 
-##peppol-bdxr
-A Java library with the JAXB generated content of the OASIS BDXR specification.  
-
-This project is licensed under the Apache 2 License.
-
 ## peppol-sml-client
 This project contains the SML client library used by the SMP's to interact with the SML.
 It is based on cipa-sml-client-library 2.2.3.
