@@ -53,9 +53,9 @@ import com.helger.peppol.smp.ObjectFactory;
  *
  * @author Philip Helger
  */
-public final class MarshallerCompleteServiceGroupType extends AbstractJAXBMarshaller <CompleteServiceGroupType>
+public final class SMPMarshallerCompleteServiceGroupType extends AbstractJAXBMarshaller <CompleteServiceGroupType>
 {
-  public MarshallerCompleteServiceGroupType ()
+  public SMPMarshallerCompleteServiceGroupType ()
   {
     super (CompleteServiceGroupType.class, (IReadableResource []) null);
   }

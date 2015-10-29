@@ -53,9 +53,9 @@ import com.helger.peppol.smp.ServiceGroupType;
  *
  * @author Philip Helger
  */
-public final class MarshallerServiceGroupType extends AbstractJAXBMarshaller <ServiceGroupType>
+public final class SMPMarshallerServiceGroupType extends AbstractJAXBMarshaller <ServiceGroupType>
 {
-  public MarshallerServiceGroupType ()
+  public SMPMarshallerServiceGroupType ()
   {
     super (ServiceGroupType.class, (IReadableResource []) null);
   }

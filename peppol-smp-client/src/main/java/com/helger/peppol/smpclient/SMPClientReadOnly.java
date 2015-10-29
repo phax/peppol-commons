@@ -291,7 +291,7 @@ public class SMPClientReadOnly
     {
       final Request aRequest = Request.Get (m_sSMPHost + "list/" + BusdoxURLHelper.createPercentEncodedURL (sUserID))
                                       .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-      return executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerUnsigned.create (new MarshallerServiceGroupReferenceListType ()));
+      return executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerServiceGroupReferenceListType ()));
     }
     catch (final Exception ex)
     {
@@ -359,7 +359,7 @@ public class SMPClientReadOnly
     try
     {
       final Request aRequest = Request.Get (sCompleteURL);
-      return executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerUnsigned.create (new MarshallerCompleteServiceGroupType ()));
+      return executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerCompleteServiceGroupType ()));
     }
     catch (final Exception ex)
     {
@@ -454,7 +454,7 @@ public class SMPClientReadOnly
     try
     {
       final Request aRequest = Request.Get (m_sSMPHost + IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID));
-      return executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerUnsigned.create (new MarshallerServiceGroupType ()));
+      return executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerServiceGroupType ()));
     }
     catch (final Exception ex)
     {
@@ -528,7 +528,7 @@ public class SMPClientReadOnly
                           "/services/" +
                           IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID);
       Request aRequest = Request.Get (sURI);
-      SignedServiceMetadataType aMetadata = executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerSigned.create (new MarshallerSignedServiceMetadataType ()));
+      SignedServiceMetadataType aMetadata = executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerSigned.create (new SMPMarshallerSignedServiceMetadataType ()));
 
       // If the Redirect element is present, then follow 1 redirect.
       if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
@@ -538,7 +538,7 @@ public class SMPClientReadOnly
         // Follow the redirect
         s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         aRequest = Request.Get (aRedirect.getHref ());
-        aMetadata = executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerSigned.create (new MarshallerSignedServiceMetadataType ()));
+        aMetadata = executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerSigned.create (new SMPMarshallerSignedServiceMetadataType ()));
 
         // Check that the certificateUID is correct.
         boolean bCertificateSubjectFound = false;

@@ -157,7 +157,7 @@ public class SMPClient extends SMPClientReadOnly
 
     try
     {
-      final String sBody = new MarshallerServiceGroupType ().getAsXMLString (aServiceGroup);
+      final String sBody = new SMPMarshallerServiceGroupType ().getAsXMLString (aServiceGroup);
       final Request aRequest = Request.Put (getSMPHostURI () +
                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroup.getParticipantIdentifier ()))
                                       .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
@@ -271,7 +271,7 @@ public class SMPClient extends SMPClientReadOnly
 
     try
     {
-      final String sBody = new MarshallerServiceMetadataType ().getAsXMLString (aServiceMetadata);
+      final String sBody = new SMPMarshallerServiceMetadataType ().getAsXMLString (aServiceMetadata);
       final Request aRequest = Request.Put (getSMPHostURI () +
                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
                                             "/services/" +

@@ -46,24 +46,24 @@ import javax.xml.bind.JAXBElement;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
-import com.helger.peppol.smp.ServiceGroupReferenceListType;
+import com.helger.peppol.smp.SignedServiceMetadataType;
 
 /**
- * A simple JAXB marshaller for the {@link ServiceGroupReferenceListType} type.
+ * A simple JAXB marshaller for the {@link SignedServiceMetadataType} type.
  *
  * @author Philip Helger
  */
-public final class MarshallerServiceGroupReferenceListType extends AbstractJAXBMarshaller <ServiceGroupReferenceListType>
+public final class SMPMarshallerSignedServiceMetadataType extends AbstractJAXBMarshaller <SignedServiceMetadataType>
 {
-  public MarshallerServiceGroupReferenceListType ()
+  public SMPMarshallerSignedServiceMetadataType ()
   {
-    super (ServiceGroupReferenceListType.class, (IReadableResource []) null);
+    super (SignedServiceMetadataType.class, (IReadableResource []) null);
   }
 
   @Override
   @Nonnull
-  protected JAXBElement <ServiceGroupReferenceListType> wrapObject (@Nonnull final ServiceGroupReferenceListType aObject)
+  protected JAXBElement <SignedServiceMetadataType> wrapObject (@Nonnull final SignedServiceMetadataType aObject)
   {
-    return new ObjectFactory ().createServiceGroupReferenceList (aObject);
+    return new ObjectFactory ().createSignedServiceMetadata (aObject);
   }
 }

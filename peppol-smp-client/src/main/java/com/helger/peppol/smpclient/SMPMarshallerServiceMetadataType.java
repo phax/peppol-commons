@@ -46,24 +46,24 @@ import javax.xml.bind.JAXBElement;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
-import com.helger.peppol.smp.SignedServiceMetadataType;
+import com.helger.peppol.smp.ServiceMetadataType;
 
 /**
- * A simple JAXB marshaller for the {@link SignedServiceMetadataType} type.
+ * A simple JAXB marshaller for the {@link ServiceMetadataType} type.
  *
  * @author Philip Helger
  */
-public final class MarshallerSignedServiceMetadataType extends AbstractJAXBMarshaller <SignedServiceMetadataType>
+public final class SMPMarshallerServiceMetadataType extends AbstractJAXBMarshaller <ServiceMetadataType>
 {
-  public MarshallerSignedServiceMetadataType ()
+  public SMPMarshallerServiceMetadataType ()
   {
-    super (SignedServiceMetadataType.class, (IReadableResource []) null);
+    super (ServiceMetadataType.class, (IReadableResource []) null);
   }
 
   @Override
   @Nonnull
-  protected JAXBElement <SignedServiceMetadataType> wrapObject (@Nonnull final SignedServiceMetadataType aObject)
+  protected JAXBElement <ServiceMetadataType> wrapObject (@Nonnull final ServiceMetadataType aObject)
   {
-    return new ObjectFactory ().createSignedServiceMetadata (aObject);
+    return new ObjectFactory ().createServiceMetadata (aObject);
   }
 }

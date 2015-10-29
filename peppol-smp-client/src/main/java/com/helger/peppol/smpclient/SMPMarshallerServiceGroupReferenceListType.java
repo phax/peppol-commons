@@ -46,24 +46,24 @@ import javax.xml.bind.JAXBElement;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
-import com.helger.peppol.smp.ServiceMetadataType;
+import com.helger.peppol.smp.ServiceGroupReferenceListType;
 
 /**
- * A simple JAXB marshaller for the {@link ServiceMetadataType} type.
+ * A simple JAXB marshaller for the {@link ServiceGroupReferenceListType} type.
  *
  * @author Philip Helger
  */
-public final class MarshallerServiceMetadataType extends AbstractJAXBMarshaller <ServiceMetadataType>
+public final class SMPMarshallerServiceGroupReferenceListType extends AbstractJAXBMarshaller <ServiceGroupReferenceListType>
 {
-  public MarshallerServiceMetadataType ()
+  public SMPMarshallerServiceGroupReferenceListType ()
   {
-    super (ServiceMetadataType.class, (IReadableResource []) null);
+    super (ServiceGroupReferenceListType.class, (IReadableResource []) null);
   }
 
   @Override
   @Nonnull
-  protected JAXBElement <ServiceMetadataType> wrapObject (@Nonnull final ServiceMetadataType aObject)
+  protected JAXBElement <ServiceGroupReferenceListType> wrapObject (@Nonnull final ServiceGroupReferenceListType aObject)
   {
-    return new ObjectFactory ().createServiceMetadata (aObject);
+    return new ObjectFactory ().createServiceGroupReferenceList (aObject);
   }
 }
