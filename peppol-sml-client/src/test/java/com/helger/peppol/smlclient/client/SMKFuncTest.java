@@ -89,18 +89,24 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
   public void testCreateAndDeletePublisher () throws Exception
   {
     PeppolTechnicalSetup.enableSoapLogging (true);
-
-    // Create client
-    final ManageServiceMetadataServiceCaller m_aSMClient = new ManageServiceMetadataServiceCaller (SML_INFO);
-    m_aSMClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
-
-    // Create and delete SMP - with network logging
-    _createSMPData (m_aSMClient, SMP_ID);
     try
-    {}
+    {
+      // Create client
+      final ManageServiceMetadataServiceCaller m_aSMClient = new ManageServiceMetadataServiceCaller (SML_INFO);
+      m_aSMClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+
+      // Create and delete SMP - with network logging
+      _createSMPData (m_aSMClient, SMP_ID);
+      try
+      {}
+      finally
+      {
+        m_aSMClient.delete (SMP_ID);
+      }
+    }
     finally
     {
-      m_aSMClient.delete (SMP_ID);
+      PeppolTechnicalSetup.enableSoapLogging (false);
     }
   }
 }
