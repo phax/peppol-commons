@@ -148,11 +148,6 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
-        <artifactId>peppol-bdxr</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger</groupId>
         <artifactId>peppol-sbdh</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -185,7 +180,6 @@
   <modules>
     <module>peppol-commons</module>
     <module>peppol-testfiles</module>
-    <module>peppol-bdxr</module>
     <module>peppol-sbdh</module>
     <module>peppol-sml-client</module>
     <module>peppol-smp-client</module>

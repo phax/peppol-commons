@@ -2,7 +2,6 @@
 This project contains different libraries that are commonly used in the PEPPOL area:
   * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with PEPPOL
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
-  * [`peppol-bdxr`](#peppol-bdxr) - data structures for the OASIS BDXR specification
   * [`peppol-sbdh`](#peppol-sbdh) - PEPPOL specific SBDH handling
   * [`peppol-sml-client`](#peppol-sml-client) - the PEPPOL SML client
   * [`peppol-smp-client`](#peppol-smp-client) - the PEPPOL SMP client
@@ -154,12 +153,6 @@ Add the following to your pom.xml to use this artifact:
 
 <dependency>
   <groupId>com.helger</groupId>
-  <artifactId>peppol-bdxr</artifactId>
-  <version>4.2.1</version>
-</dependency>
-
-<dependency>
-  <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
   <version>4.2.1</version>
 </dependency>
@@ -176,6 +169,8 @@ Add the following to your pom.xml to use this artifact:
   <version>4.2.1</version>
 </dependency>
 ```
+
+Note: `peppol-bdxr` was integrated in `peppol-commons` as of version 4.2.2.
 
 The binary version of this library can be found on http://repo2.maven.org/maven2/com/helger/ 
 They depend on several other libraries so I suggest you are going for the Maven source integration.

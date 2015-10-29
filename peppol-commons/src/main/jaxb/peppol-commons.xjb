@@ -101,4 +101,14 @@
       <package name="com.helger.peppol.smp" />
     </schemaBindings>
   </bindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/bdx-smp-201407.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.bdxr" />
+    </schemaBindings>
+  </bindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.wssec" />
+    </schemaBindings>
+  </bindings>
 </bindings>
