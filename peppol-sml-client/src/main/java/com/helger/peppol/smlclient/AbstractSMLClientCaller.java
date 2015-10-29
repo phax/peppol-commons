@@ -41,6 +41,7 @@
 package com.helger.peppol.smlclient;
 
 import java.net.URL;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,6 +49,7 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSocketFactory;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -167,5 +169,11 @@ public abstract class AbstractSMLClientCaller
       aBP.getRequestContext ().put ("com.sun.xml.internal.ws.transport.https.client.hostname.verifier",
                                     m_aHostnameVerifier);
     }
+
+    // Add the WSSE header handler for "mustUnderstand"
+    @SuppressWarnings ("rawtypes")
+    final List <Handler> aHandlers = aBP.getBinding ().getHandlerChain ();
+    aHandlers.add (new WSSESoapHandler ());
+    aBP.getBinding ().setHandlerChain (aHandlers);
   }
 }
