@@ -78,7 +78,7 @@ import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
  *         PEPPOL.AT, BRZ, Philip Helger
  */
 @Ignore ("Requires a running SML")
-public final class LibraryFuncTest extends AbstractSMLClientTestCase
+public final class SMLFuncTest extends AbstractSMLClientTestCase
 {
   private static final String SMP_ID = "SMP-TEST-ID";
   private static final String SMP_ID2 = "SMP-TEST-ID2";
