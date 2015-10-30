@@ -40,6 +40,7 @@
  */
 package com.helger.peppol.sml;
 
+import java.io.Serializable;
 import java.net.URL;
 
 import javax.annotation.Nonnull;
@@ -51,7 +52,7 @@ import com.helger.commons.annotation.Nonempty;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface ISMLInfo
+public interface ISMLInfo extends Serializable
 {
   /**
    * @return The DNS zone on which this SML is operating. Never
