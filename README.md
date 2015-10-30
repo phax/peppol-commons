@@ -1,6 +1,6 @@
 #Introduction
 This project contains different libraries that are commonly used in the PEPPOL area:
-  * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with PEPPOL
+  * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with PEPPOL and BDXR
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
   * [`peppol-sbdh`](#peppol-sbdh) - PEPPOL specific SBDH handling
   * [`peppol-sml-client`](#peppol-sml-client) - the PEPPOL SML client
@@ -17,6 +17,10 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * version 4.3.1 - 2015-xx-yy
+    * Added new BDMSL client to access the new "/cipaservice" in a convenient way (class `BDMSLClient` in project `peppol-sml-client`)
+    * Loosened the regular expression for participant identifier schemes
+    * Added a new SML participant delete method with SMP ID to work around an SMK 3.0.0 problem 
   * version 4.3.0 - 2015-10-29
     * Added support for CIPA BDMSL 3.0 with the wsse:Security header
     * Added BDXR SMP client

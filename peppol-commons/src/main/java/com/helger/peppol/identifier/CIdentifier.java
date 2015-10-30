@@ -82,7 +82,7 @@ public final class CIdentifier
 
   /**
    * The regular expression to be used for validating participant identifier
-   * schemes (not values!).
+   * schemes (not values!). See BusDox specification 1.0.1, chapter 2.3
    */
   public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
 
