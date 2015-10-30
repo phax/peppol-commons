@@ -47,7 +47,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * Constants on BUSDOX identifiers used in PEPPOL.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
@@ -84,16 +84,18 @@ public final class CIdentifier
    * The regular expression to be used for validating participant identifier
    * schemes (not values!).
    */
-  public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-actorid-[a-z0-9]+";
+  public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
 
   /**
-   * The default identifier scheme ID to be used for participants/businesses.<br>
+   * The default identifier scheme ID to be used for participants/businesses.
+   * <br>
    * The matching values have the format "agency:id" whereas agency should be
    * within the code-list.<br>
    * Please note that this is a change to the PEPPOL Common definitions chapter
    * 3.4!
-   * 
-   * @see com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
+   *
+   * @see com.helger.peppol.identifier.issuingagency.
+   *      IdentifierIssuingAgencyManager
    */
   public static final String DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME = "iso6523-actorid-upis";
 
