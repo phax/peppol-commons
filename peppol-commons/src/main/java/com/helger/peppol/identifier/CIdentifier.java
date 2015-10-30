@@ -92,10 +92,9 @@ public final class CIdentifier
    * The matching values have the format "agency:id" whereas agency should be
    * within the code-list.<br>
    * Please note that this is a change to the PEPPOL Common definitions chapter
-   * 3.4!
-   *
-   * @see com.helger.peppol.identifier.issuingagency.
-   *      IdentifierIssuingAgencyManager
+   * 3.4! <br>
+   * See also
+   * com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
    */
   public static final String DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME = "iso6523-actorid-upis";
 
