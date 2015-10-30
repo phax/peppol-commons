@@ -56,7 +56,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.peppol.sml.ISMLInfo;
 
 /**
  * Abstract base class for the SML client caller.
@@ -70,17 +69,6 @@ public abstract class AbstractSMLClientCaller
   private final URL m_aEndpointAddress;
   private SSLSocketFactory m_aSSLSocketFactory;
   private HostnameVerifier m_aHostnameVerifier;
-
-  /**
-   * Creates a service caller for the service metadata interface
-   *
-   * @param aSMLInfo
-   *        The SML info object. May not be <code>null</code>.
-   */
-  public AbstractSMLClientCaller (@Nonnull final ISMLInfo aSMLInfo)
-  {
-    this (aSMLInfo.getManageServiceMetaDataEndpointAddress ());
-  }
 
   /**
    * Creates a service caller for the service meta data interface
@@ -160,14 +148,12 @@ public abstract class AbstractSMLClientCaller
     if (m_aSSLSocketFactory != null)
     {
       aBP.getRequestContext ().put ("com.sun.xml.ws.transport.https.client.SSLSocketFactory", m_aSSLSocketFactory);
-      aBP.getRequestContext ().put ("com.sun.xml.internal.ws.transport.https.client.SSLSocketFactory",
-                                    m_aSSLSocketFactory);
+      aBP.getRequestContext ().put ("com.sun.xml.internal.ws.transport.https.client.SSLSocketFactory", m_aSSLSocketFactory);
     }
     if (m_aHostnameVerifier != null)
     {
       aBP.getRequestContext ().put ("com.sun.xml.ws.transport.https.client.hostname.verifier", m_aHostnameVerifier);
-      aBP.getRequestContext ().put ("com.sun.xml.internal.ws.transport.https.client.hostname.verifier",
-                                    m_aHostnameVerifier);
+      aBP.getRequestContext ().put ("com.sun.xml.internal.ws.transport.https.client.hostname.verifier", m_aHostnameVerifier);
     }
 
     // Add the WSSE header handler for "mustUnderstand"
