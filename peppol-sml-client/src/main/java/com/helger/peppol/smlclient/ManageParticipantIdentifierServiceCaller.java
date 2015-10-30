@@ -81,7 +81,8 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
   private static final String NO_SMP_ID_REQUIRED = "";
 
   /**
-   * Constructs a service caller for the manage business identifier interface.<br>
+   * Constructs a service caller for the manage business identifier interface.
+   * <br>
    * Example of a host:<br>
    * https://sml.peppolcentral.org/managebusinessidentifier
    *
@@ -94,7 +95,8 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
   }
 
   /**
-   * Constructs a service caller for the manage business identifier interface.<br>
+   * Constructs a service caller for the manage business identifier interface.
+   * <br>
    * Example of a host:<br>
    * https://sml.peppolcentral.org/managebusinessidentifier
    *
@@ -140,10 +142,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    * @throws NotFoundFault
    *         Is thrown if the service meta data publisher was not found.
    */
-  public void create (@Nonnull @Nonempty final String sSMPID, @Nonnull final ParticipantIdentifierType aIdentifier) throws BadRequestFault,
-                                                                                                                   InternalErrorFault,
-                                                                                                                   UnauthorizedFault,
-                                                                                                                   NotFoundFault
+  public void create (@Nonnull @Nonempty final String sSMPID, @Nonnull final ParticipantIdentifierType aIdentifier) throws BadRequestFault, InternalErrorFault, UnauthorizedFault, NotFoundFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notNull (aIdentifier, "Identifier");
@@ -169,16 +168,11 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    * @throws NotFoundFault
    *         Is thrown if the service meta data publisher was not found.
    */
-  public void create (@Nonnull final ServiceMetadataPublisherServiceForParticipantType aSMPParticpantService) throws BadRequestFault,
-                                                                                                             InternalErrorFault,
-                                                                                                             UnauthorizedFault,
-                                                                                                             NotFoundFault
+  public void create (@Nonnull final ServiceMetadataPublisherServiceForParticipantType aSMPParticpantService) throws BadRequestFault, InternalErrorFault, UnauthorizedFault, NotFoundFault
   {
     ValueEnforcer.notNull (aSMPParticpantService, "SMPParticpantService");
-    ValueEnforcer.notNull (aSMPParticpantService.getParticipantIdentifier (),
-                           "SMPParticpantService.ParticipantIdentifier");
-    ValueEnforcer.notEmpty (aSMPParticpantService.getServiceMetadataPublisherID (),
-                            "SMPParticpantService.ServiceMetadataPublisherID");
+    ValueEnforcer.notNull (aSMPParticpantService.getParticipantIdentifier (), "SMPParticpantService.ParticipantIdentifier");
+    ValueEnforcer.notEmpty (aSMPParticpantService.getServiceMetadataPublisherID (), "SMPParticpantService.ServiceMetadataPublisherID");
 
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Trying to create new participant " +
@@ -222,20 +216,13 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    *         Is thrown if the user was not authorized.
    */
   public void createList (@Nonnull @Nonempty final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers,
-                          @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
-                                                                 InternalErrorFault,
-                                                                 NotFoundFault,
-                                                                 UnauthorizedFault
+                          @Nonnull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
     if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to create multiple new participants " +
-                      _toString (aParticipantIdentifiers) +
-                      " in SMP '" +
-                      sSMPID +
-                      "'");
+      s_aLogger.info ("Trying to create multiple new participants " + _toString (aParticipantIdentifiers) + " in SMP '" + sSMPID + "'");
     final ParticipantIdentifierPageType aParticipantList = new ParticipantIdentifierPageType ();
     aParticipantList.getParticipantIdentifier ().addAll (aParticipantIdentifiers);
     aParticipantList.setServiceMetadataPublisherID (sSMPID);
@@ -257,16 +244,36 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void delete (@Nonnull final ParticipantIdentifierType aIdentifier) throws BadRequestFault,
-                                                                           InternalErrorFault,
-                                                                           NotFoundFault,
-                                                                           UnauthorizedFault
+  public void delete (@Nonnull final ParticipantIdentifierType aIdentifier) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
+  {
+    // No SMP ID required here, since identifier scheme+value must be unique!
+    delete (NO_SMP_ID_REQUIRED, aIdentifier);
+  }
+
+  /**
+   * Deletes a given participant identifier
+   *
+   * @param sSMPID
+   *        The id of the service meta data. May neither be <code>null</code>
+   *        nor empty.
+   * @param aIdentifier
+   *        The business identifier to delete. May not be <code>null</code>.
+   * @throws BadRequestFault
+   *         Is thrown if the request sent to the service was not well-formed.
+   * @throws InternalErrorFault
+   *         Is thrown if an internal error happened on the service.
+   * @throws NotFoundFault
+   *         Is thrown if the business identifier could not be found and
+   *         therefore deleted.
+   * @throws UnauthorizedFault
+   *         Is thrown if the user was not authorized.
+   */
+  public void delete (@Nonnull @Nonempty final String sSMPID, @Nonnull final ParticipantIdentifierType aIdentifier) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 
     final ServiceMetadataPublisherServiceForParticipantType aSMPParticpantService = new ServiceMetadataPublisherServiceForParticipantType ();
-    // No SMP ID required here, since identifier scheme+value must be unique!
-    aSMPParticpantService.setServiceMetadataPublisherID (NO_SMP_ID_REQUIRED);
+    aSMPParticpantService.setServiceMetadataPublisherID (sSMPID);
     aSMPParticpantService.setParticipantIdentifier (aIdentifier);
     delete (aSMPParticpantService);
   }
@@ -287,18 +294,13 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void delete (@Nonnull final ServiceMetadataPublisherServiceForParticipantType aSMPParticpantService) throws BadRequestFault,
-                                                                                                             InternalErrorFault,
-                                                                                                             NotFoundFault,
-                                                                                                             UnauthorizedFault
+  public void delete (@Nonnull final ServiceMetadataPublisherServiceForParticipantType aSMPParticpantService) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notNull (aSMPParticpantService, "SMPParticpantService");
-    ValueEnforcer.notNull (aSMPParticpantService.getParticipantIdentifier (),
-                           "SMPParticpantService.ParticipantIdentifier");
+    ValueEnforcer.notNull (aSMPParticpantService.getParticipantIdentifier (), "SMPParticpantService.ParticipantIdentifier");
 
     if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to delete participant " +
-                      IdentifierHelper.getIdentifierURIEncoded (aSMPParticpantService.getParticipantIdentifier ()));
+      s_aLogger.info ("Trying to delete participant " + IdentifierHelper.getIdentifierURIEncoded (aSMPParticpantService.getParticipantIdentifier ()));
 
     createWSPort ().delete (aSMPParticpantService);
   }
@@ -320,10 +322,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void deleteList (@Nonnull @Nonempty final Collection <ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault,
-                                                                                                                  InternalErrorFault,
-                                                                                                                  NotFoundFault,
-                                                                                                                  UnauthorizedFault
+  public void deleteList (@Nonnull @Nonempty final Collection <ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
 
@@ -356,10 +355,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public ParticipantIdentifierPageType list (@Nonnull final String sPageId, @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
-                                                                                                                   InternalErrorFault,
-                                                                                                                   NotFoundFault,
-                                                                                                                   UnauthorizedFault
+  public ParticipantIdentifierPageType list (@Nonnull final String sPageId, @Nonnull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notNull (sPageId, "PageId");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
@@ -387,10 +383,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public ParticipantIdentifierPageType list (@Nonnull final PageRequestType aPageRequest) throws BadRequestFault,
-                                                                                         InternalErrorFault,
-                                                                                         NotFoundFault,
-                                                                                         UnauthorizedFault
+  public ParticipantIdentifierPageType list (@Nonnull final PageRequestType aPageRequest) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notNull (aPageRequest, "PageRequest");
     ValueEnforcer.notEmpty (aPageRequest.getServiceMetadataPublisherID (), "PageRequest.ServiceMetadataPublisherID");
@@ -429,21 +422,16 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    *         Is thrown if the user was not authorized.
    */
   @Nonnull
-  public UUID prepareToMigrate (@Nonnull final ParticipantIdentifierType aIdentifier,
-                                @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
-                                                                       InternalErrorFault,
-                                                                       NotFoundFault,
-                                                                       UnauthorizedFault
+  public UUID prepareToMigrate (@Nonnull final ParticipantIdentifierType aIdentifier, @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
+                                                                                                                              InternalErrorFault,
+                                                                                                                              NotFoundFault,
+                                                                                                                              UnauthorizedFault
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
     if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Preparing to migrate participant " +
-                      IdentifierHelper.getIdentifierURIEncoded (aIdentifier) +
-                      " from SMP '" +
-                      sSMPID +
-                      "'");
+      s_aLogger.info ("Preparing to migrate participant " + IdentifierHelper.getIdentifierURIEncoded (aIdentifier) + " from SMP '" + sSMPID + "'");
 
     final UUID aUUID = createUUID ();
     final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
@@ -478,10 +466,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    */
   public void migrate (@Nonnull final ParticipantIdentifierType aIdentifier,
                        @Nonnull final UUID aMigrationKey,
-                       @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
-                                                              InternalErrorFault,
-                                                              NotFoundFault,
-                                                              UnauthorizedFault
+                       @Nonnull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
     ValueEnforcer.notNull (aMigrationKey, "MigrationKey");
@@ -490,13 +475,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
     // Convert UUID to string
     final String sMigrationKey = aMigrationKey.toString ();
     if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Finishing migration of participant " +
-                      IdentifierHelper.getIdentifierURIEncoded (aIdentifier) +
-                      " to SMP '" +
-                      sSMPID +
-                      "' using migration key '" +
-                      sMigrationKey +
-                      "'");
+      s_aLogger.info ("Finishing migration of participant " + IdentifierHelper.getIdentifierURIEncoded (aIdentifier) + " to SMP '" + sSMPID + "' using migration key '" + sMigrationKey + "'");
 
     final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
     aMigrationRecord.setParticipantIdentifier (aIdentifier);

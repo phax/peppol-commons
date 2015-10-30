@@ -46,11 +46,16 @@ import javax.annotation.Nonnull;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
+import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
+import com.helger.peppol.smlclient.MockSMLClientConfig;
 import com.helger.peppol.smlclient.smp.PublisherEndpointType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 import com.helger.peppol.utils.PeppolTechnicalSetup;
@@ -61,6 +66,7 @@ import com.helger.peppol.utils.PeppolTechnicalSetup;
 @Ignore ("Requires a running SML and a configured certificate")
 public final class SMKFuncTest extends AbstractSMLClientTestCase
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (SMKFuncTest.class);
   private static final String L_ENDPOINTADDRESS = "http://test-smp.example.org";
   private static final String P_ENDPOINTADDRESS = "127.0.0.1";
   private static final String SMP_ID = "SMP-TEST-ID-PH";
@@ -68,11 +74,13 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
   static
   {
     assertSame (SML_INFO, ESML.DIGIT_TEST);
+
+    // To get an eventual proxy setting correct
+    MockSMLClientConfig.getKeystoreLocation ();
   }
 
   @Nonnull
-  private static ServiceMetadataPublisherServiceType _createSMPData (@Nonnull final ManageServiceMetadataServiceCaller aSMLSMPClient,
-                                                                     @Nonnull @Nonempty final String sSMPID) throws Exception
+  private static ServiceMetadataPublisherServiceType _createSMPData (@Nonnull final ManageServiceMetadataServiceCaller aSMPClient, @Nonnull @Nonempty final String sSMPID) throws Exception
   {
     final ServiceMetadataPublisherServiceType aServiceMetadataCreate = new ServiceMetadataPublisherServiceType ();
     aServiceMetadataCreate.setServiceMetadataPublisherID (sSMPID);
@@ -81,7 +89,7 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
     aEndpoint.setPhysicalAddress (P_ENDPOINTADDRESS);
     aServiceMetadataCreate.setPublisherEndpoint (aEndpoint);
 
-    aSMLSMPClient.create (aServiceMetadataCreate);
+    aSMPClient.create (aServiceMetadataCreate);
     return aServiceMetadataCreate;
   }
 
@@ -92,16 +100,33 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
     try
     {
       // Create client
-      final ManageServiceMetadataServiceCaller m_aSMClient = new ManageServiceMetadataServiceCaller (SML_INFO);
-      m_aSMClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      final ManageServiceMetadataServiceCaller aSMPClient = new ManageServiceMetadataServiceCaller (SML_INFO);
+      aSMPClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-      // Create and delete SMP - with network logging
-      _createSMPData (m_aSMClient, SMP_ID);
+      final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
+      aPIClient.setSSLSocketFactory (aSMPClient.getSSLSocketFactory ());
+
+      // Create SMP - with network logging
+      s_aLogger.info ("CREATE SMP");
+      _createSMPData (aSMPClient, SMP_ID);
       try
-      {}
+      {
+        s_aLogger.info ("CREATE PARTICIPANT");
+        aPIClient.create (SMP_ID, SimpleParticipantIdentifier.createWithDefaultScheme ("9915:philip"));
+        try
+        {}
+        finally
+        {
+          s_aLogger.info ("DELETE PARTICIPANT");
+          // The version with SMP_ID is required for SMK 3.0
+          aPIClient.delete (SMP_ID, SimpleParticipantIdentifier.createWithDefaultScheme ("9915:philip"));
+        }
+      }
       finally
       {
-        m_aSMClient.delete (SMP_ID);
+        // Delete SMP
+        s_aLogger.info ("DELETE SMP");
+        aSMPClient.delete (SMP_ID);
       }
     }
     finally
