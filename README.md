@@ -17,7 +17,7 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
-  * version 4.3.1 - 2015-xx-yy
+  * version 4.3.1 - 2015-10-30
     * Added new BDMSL client to access the new "/cipaservice" in a convenient way (class `BDMSLClient` in project `peppol-sml-client`)
     * Loosened the regular expression for participant identifier schemes
     * Added a new SML participant delete method with SMP ID to work around an SMK 3.0.0 problem 

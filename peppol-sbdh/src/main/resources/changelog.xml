@@ -18,6 +18,7 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="peppol-sbdh">
+  <release date="2015-10-30" version="4.3.1" />
   <release date="2015-10-29" version="4.3.0" />
   <release date="2015-10-16" version="4.2.0" />
   <entry date="2015-10-16" category="api" action="change" incompatible="true">
