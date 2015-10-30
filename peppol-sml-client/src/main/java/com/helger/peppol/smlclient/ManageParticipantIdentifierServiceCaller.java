@@ -251,7 +251,9 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
   }
 
   /**
-   * Deletes a given participant identifier
+   * Deletes a given participant identifier. <br>
+   * This is a workaround for a bug in CIPA SMK 3.0 which requires the SMP ID.
+   * Previously it was never needed!
    *
    * @param sSMPID
    *        The id of the service meta data. May neither be <code>null</code>
