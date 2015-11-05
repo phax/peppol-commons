@@ -97,8 +97,8 @@ It supports the following properties:
     * `truststore/global-truststore.jks` - contains the trust certificates for production only (root, AP, SMP, STS)
     * `truststore/pilot-truststore.jks` - contains the trust certificates for pilot only (root, AP, SMP, STS)
   * **`truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
-  * **`http.proxyHost'**: the host name or IP address to be used as a HTTP proxy
-  * **`http.proxyPort'**: the port of the HTTP proxy. The port must be specfied and has no default value!
+  * **`http.proxyHost`**: the host name or IP address to be used as a HTTP proxy
+  * **`http.proxyPort`**: the port of the HTTP proxy. The port must be specfied and has no default value!
   
 ### Specifying a proxy server
 The SMP client supports a proxy server. By default the proxy specified in the configuration file (see above) is used (since version 4.3.0).
