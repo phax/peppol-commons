@@ -229,7 +229,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSName (), host);
 
     // delete PI
-    client.delete (aPI);
+    client.delete (SMP_ID, aPI);
 
     final String deletedHost = _DNSLookupPI (aPI);
     assertNull (deletedHost);
@@ -256,7 +256,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSName (), wildHost);
 
     // delete wildcard
-    client.delete (aPI);
+    client.delete (SMP_ID, aPI);
 
     // verify deleted
     final String deletedHost = _DNSLookupPI (aPI);

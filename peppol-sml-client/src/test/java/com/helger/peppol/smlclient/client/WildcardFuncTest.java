@@ -138,15 +138,12 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     {
       final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
       aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
-      aPIClient.create (UNAUTHRIZED_SML_ID, new SimpleParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME,
-                                                                             WILDCARD_PI));
+      aPIClient.create (UNAUTHRIZED_SML_ID, new SimpleParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
       fail ("The user should not be authorized to insert PI when wildcard is on for scheme.");
     }
     catch (final UnauthorizedFault e)
     {
-      assertTrue (e.getMessage (),
-                  e.getMessage ()
-                   .contains ("The user is not allowed to register ParticipantIdentifiers for this scheme"));
+      assertTrue (e.getMessage (), e.getMessage ().contains ("The user is not allowed to register ParticipantIdentifiers for this scheme"));
     }
   }
 
@@ -179,7 +176,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     {
       final ManageParticipantIdentifierServiceCaller unAuthorizedClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
       unAuthorizedClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
-      unAuthorizedClient.delete (aPI);
+      unAuthorizedClient.delete (SMP_ID, aPI);
       fail ("The user does not own the identifier : *");
     }
     catch (final UnauthorizedFault e)
@@ -187,6 +184,6 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
       assertTrue (e.getMessage (), e.getMessage ().contains ("The user does not own the identifier."));
     }
 
-    aPIClient.delete (aPI);
+    aPIClient.delete (SMP_ID, aPI);
   }
 }
