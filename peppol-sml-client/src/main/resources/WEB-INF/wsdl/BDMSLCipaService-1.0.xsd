@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="ec:services:wsdl:BDMSL:data:1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:bd="http://busdox.org/serviceMetadata/locator/1.0/"
+           xmlns:id="http://busdox.org/transport/identifiers/1.0/"
+           targetNamespace="ec:services:wsdl:BDMSL:data:1.0" elementFormDefault="qualified" id="BDMSLCipaTypes">
+    <xs:import namespace="http://busdox.org/serviceMetadata/locator/1.0/"
+               schemaLocation="ManageBusinessIdentifierService-1.0.xsd"/>
+    <xs:import namespace="http://busdox.org/transport/identifiers/1.0/"
+               schemaLocation="Identifiers-1.0.xsd"/>
+    <xs:element name="PrepareChangeCertificate" type="PrepareChangeCertificateType"/>
+    <xs:element name="SMPAdvancedServiceForParticipantService" type="SMPAdvancedServiceForParticipantType"/>
+    <xs:element name="ListParticipants" type="ListParticipantsType"/>
+    <xs:complexType name="PrepareChangeCertificateType">
+        <xs:sequence>
+            <xs:element name="newCertificatePublicKey" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The new public key contained in the certificate.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="migrationDate" type="xs:date" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The migration date for the new certificate. Can't be in the past.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SMPAdvancedServiceForParticipantType">
+        <xs:sequence>
+            <xs:element name="CreateParticipantIdentifier" type="bd:ServiceMetadataPublisherServiceForParticipantType"
+                        minOccurs="1" maxOccurs="1"/>
+            <xs:element name="serviceName" type="xs:string" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The name of the service for the NAPTR record.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ListParticipantsType">
+        <xs:sequence>
+            <xs:element name="participant" type="ParticipantsType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ParticipantsType">
+        <xs:sequence>
+            <xs:element ref="id:ParticipantIdentifier" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The participant identifier</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element ref="bd:ServiceMetadataPublisherID" minOccurs="1" maxOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>The SMP identifier</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

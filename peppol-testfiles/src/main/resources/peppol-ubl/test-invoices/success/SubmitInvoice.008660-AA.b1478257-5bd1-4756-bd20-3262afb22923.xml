@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Version: MPL 1.1/EUPL 1.1
+
+    The contents of this file are subject to the Mozilla Public License Version
+    1.1 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at:
+    http://www.mozilla.org/MPL/
+
+    Software distributed under the License is distributed on an "AS IS" basis,
+    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+    for the specific language governing rights and limitations under the
+    License.
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    Alternatively, the contents of this file may be used under the
+    terms of the EUPL, Version 1.1 or - as soon they will be approved
+    by the European Commission - subsequent versions of the EUPL
+    (the "Licence"); You may not use this work except in compliance
+    with the Licence.
+    You may obtain a copy of the Licence at:
+    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and
+    limitations under the Licence.
+
+    If you wish to allow use of your version of this file only
+    under the terms of the EUPL License and not to allow others to use
+    your version of this file under the MPL, indicate your decision by
+    deleting the provisions above and replace them with the notice and
+    other provisions required by the EUPL License. If you do not delete
+    the provisions above, a recipient may use your version of this file
+    under either the MPL or the EUPL License.
+
+-->
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+  xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+  xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+  <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+  <cbc:CustomizationID schemeID="PEPPOL"
+    >urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0</cbc:CustomizationID>
+  <cbc:ProfileID>urn:www.cenbii.eu:profile:bii04:ver1.0</cbc:ProfileID>
+  <cbc:ID>008660-AA</cbc:ID>
+  <cbc:IssueDate>2011-03-01</cbc:IssueDate>
+  <cbc:InvoiceTypeCode>380</cbc:InvoiceTypeCode>
+  <cbc:Note>DRAFT - Not sent</cbc:Note>
+  <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+  <cbc:AccountingCost>SOPE</cbc:AccountingCost>
+  <cac:ContractDocumentReference>
+    <cbc:ID>EMAIL-20101215</cbc:ID>
+    <cbc:DocumentType>Consultancy agreement</cbc:DocumentType>
+  </cac:ContractDocumentReference>
+  <cac:AccountingSupplierParty>
+    <cac:Party>
+      <cbc:EndpointID schemeAgencyName="The Danish Commerce and Companies Agency"
+        schemeID="DK:CVR">DK28158815</cbc:EndpointID>
+      <cac:PartyIdentification>
+        <cbc:ID schemeAgencyName="The Danish Commerce and Companies Agency"
+          schemeID="DK:CVR">DK28158815</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>Alfa1 Lab Alfa1com ApS</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:StreetName>Banemarksvej</cbc:StreetName>
+        <cbc:BuildingNumber>50G</cbc:BuildingNumber>
+        <cbc:CityName>Brondby</cbc:CityName>
+        <cbc:PostalZone>2605</cbc:PostalZone>
+        <cac:Country>
+          <cbc:IdentificationCode>DK</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID>DK28158815</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>Alfa1 Lab Alfa1com ApS</cbc:RegistrationName>
+        <cbc:CompanyID>DK28158815</cbc:CompanyID>
+        <cac:RegistrationAddress>
+          <cbc:StreetName>Banemarksvej</cbc:StreetName>
+          <cbc:BuildingNumber>50G</cbc:BuildingNumber>
+          <cbc:CityName>Brondby</cbc:CityName>
+          <cbc:PostalZone>2605</cbc:PostalZone>
+          <cac:Country>
+            <cbc:IdentificationCode>DK</cbc:IdentificationCode>
+          </cac:Country>
+        </cac:RegistrationAddress>
+      </cac:PartyLegalEntity>
+      <cac:Contact>
+        <cbc:Telephone>+45 4015 1669</cbc:Telephone>
+        <cbc:ElectronicMail>thorkild@alfa1lab.com</cbc:ElectronicMail>
+      </cac:Contact>
+      <cac:Person>
+        <cbc:FirstName>Thorkild</cbc:FirstName>
+        <cbc:FamilyName>Westergaard</cbc:FamilyName>
+        <cbc:MiddleName>B</cbc:MiddleName>
+      </cac:Person>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <cac:AccountingCustomerParty>
+    <cac:Party>
+      <cbc:EndpointID schemeAgencyName="" schemeID="SE:ORGNR">2021005026</cbc:EndpointID>
+      <cac:PartyIdentification>
+        <cbc:ID schemeAgencyName="" schemeID="SE:ORGNR">2021005026</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>Ekonomistyrningsverket (National Financial Management Authority)</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:Postbox>45316</cbc:Postbox>
+        <cbc:Department>Effektiv administration</cbc:Department>
+        <cbc:CityName>Stockholm</cbc:CityName>
+        <cbc:PostalZone>104 30</cbc:PostalZone>
+        <cac:Country>
+          <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName>Ekonomistyrningsverket (National Financial Management Authority)</cbc:RegistrationName>
+        <cbc:CompanyID>202100-5026</cbc:CompanyID>
+        <cac:RegistrationAddress>
+          <cbc:Postbox>45316</cbc:Postbox>
+          <cbc:CityName>Stockholm</cbc:CityName>
+          <cbc:PostalZone>104 30</cbc:PostalZone>
+          <cac:Country>
+            <cbc:IdentificationCode>SE</cbc:IdentificationCode>
+          </cac:Country>
+        </cac:RegistrationAddress>
+      </cac:PartyLegalEntity>
+      <cac:Contact>
+        <cbc:Telephone>08-690 4417</cbc:Telephone>
+        <cbc:Telefax>08-690 4112</cbc:Telefax>
+        <cbc:ElectronicMail>Soren.Pedersen@esv.se</cbc:ElectronicMail>
+      </cac:Contact>
+      <cac:Person>
+        <cbc:FirstName>Soren</cbc:FirstName>
+        <cbc:FamilyName>Pedersen</cbc:FamilyName>
+      </cac:Person>
+    </cac:Party>
+  </cac:AccountingCustomerParty>
+  <cac:PaymentMeans>
+    <cbc:PaymentMeansCode>42</cbc:PaymentMeansCode>
+    <cbc:PaymentDueDate>2011-03-30</cbc:PaymentDueDate>
+    <cbc:PaymentChannelCode>IBAN</cbc:PaymentChannelCode>
+    <cbc:PaymentID>008660-AA</cbc:PaymentID>
+    <cac:PayeeFinancialAccount>
+      <cbc:ID>DK1281170000139852</cbc:ID>
+      <cac:FinancialInstitutionBranch>
+        <cac:FinancialInstitution>
+          <cbc:ID>NYKBDKKK</cbc:ID>
+        </cac:FinancialInstitution>
+      </cac:FinancialInstitutionBranch>
+    </cac:PayeeFinancialAccount>
+  </cac:PaymentMeans>
+  <cac:PaymentTerms>
+    <cbc:Note>30 days</cbc:Note>
+  </cac:PaymentTerms>
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="EUR">0</cbc:TaxAmount>
+    <cac:TaxSubtotal>
+      <cbc:TaxableAmount currencyID="EUR">371.70</cbc:TaxableAmount>
+      <cbc:TaxAmount currencyID="EUR">0</cbc:TaxAmount>
+      <cac:TaxCategory>
+        <cbc:ID>G</cbc:ID>
+        <cbc:Percent>0</cbc:Percent>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:TaxCategory>
+    </cac:TaxSubtotal>
+  </cac:TaxTotal>
+  <cac:LegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="EUR">371.70</cbc:LineExtensionAmount>
+    <cbc:TaxExclusiveAmount currencyID="EUR">371.70</cbc:TaxExclusiveAmount>
+    <cbc:TaxInclusiveAmount currencyID="EUR">371.70</cbc:TaxInclusiveAmount>
+    <cbc:PayableAmount currencyID="EUR">371.70</cbc:PayableAmount>
+  </cac:LegalMonetaryTotal>
+  <cac:InvoiceLine>
+    <cbc:ID>1</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="LH">10</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">371.70</cbc:LineExtensionAmount>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="EUR">0</cbc:TaxAmount>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description>Acceptance Testing of Swedish PEPPOL Gateway</cbc:Description>
+      <cbc:Name>Developer</cbc:Name>
+      <cac:ClassifiedTaxCategory>
+        <cbc:ID>G</cbc:ID>
+        <cbc:Percent>0</cbc:Percent>
+        <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:ClassifiedTaxCategory>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="EUR">37.17</cbc:PriceAmount>
+      <cbc:BaseQuantity unitCode="LH">1</cbc:BaseQuantity>
+    </cac:Price>
+  </cac:InvoiceLine>
+</Invoice>

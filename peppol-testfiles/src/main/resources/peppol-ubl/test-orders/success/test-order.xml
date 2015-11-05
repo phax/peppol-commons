@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Version: MPL 1.1/EUPL 1.1
+
+    The contents of this file are subject to the Mozilla Public License Version
+    1.1 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at:
+    http://www.mozilla.org/MPL/
+
+    Software distributed under the License is distributed on an "AS IS" basis,
+    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+    for the specific language governing rights and limitations under the
+    License.
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    Alternatively, the contents of this file may be used under the
+    terms of the EUPL, Version 1.1 or - as soon they will be approved
+    by the European Commission - subsequent versions of the EUPL
+    (the "Licence"); You may not use this work except in compliance
+    with the Licence.
+    You may obtain a copy of the Licence at:
+    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and
+    limitations under the Licence.
+
+    If you wish to allow use of your version of this file only
+    under the terms of the EUPL License and not to allow others to use
+    your version of this file under the MPL, indicate your decision by
+    deleting the provisions above and replace them with the notice and
+    other provisions required by the EUPL License. If you do not delete
+    the provisions above, a recipient may use your version of this file
+    under either the MPL or the EUPL License.
+
+-->
+<ns4:Order xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ns2="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:ns3="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:ns4="urn:oasis:names:specification:ubl:schema:xsd:Order-2">
+  <UBLVersionID>2.0</UBLVersionID>
+  <CustomizationID schemeID="PEPPOL">urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0</CustomizationID>
+  <ProfileID>urn:www.cenbii.eu:profile:bii01:ver1.0</ProfileID>
+  <ID>0</ID>
+  <IssueDate>2011-08-22Z</IssueDate>
+  <DocumentCurrencyCode languageID="de" name="Euro">EUR</DocumentCurrencyCode>
+  <ns3:BuyerCustomerParty>
+    <ns3:Party>
+      <EndpointID>ep1234567890123</EndpointID>
+      <ns3:PartyIdentification>
+        <ID schemeID="0">1234567890123</ID>
+      </ns3:PartyIdentification>
+      <ns3:PartyName>
+        <Name>MasterDataName</Name>
+      </ns3:PartyName>
+      <ns3:PostalAddress>
+        <Postbox>1234567</Postbox>
+        <StreetName>My street</StreetName>
+        <BuildingNumber>121/4</BuildingNumber>
+        <CityName>Wien</CityName>
+        <PostalZone>1140</PostalZone>
+        <ns3:Country>
+          <IdentificationCode>AT</IdentificationCode>
+        </ns3:Country>
+      </ns3:PostalAddress>
+      <ns3:PartyTaxScheme>
+        <CompanyID>masterdataVATIN</CompanyID>
+        <ns3:TaxScheme>
+          <ID schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</ID>
+        </ns3:TaxScheme>
+      </ns3:PartyTaxScheme>
+      <ns3:Contact>
+        <Telephone>+43/1/1234567</Telephone>
+        <ElectronicMail>ich@example.org</ElectronicMail>
+      </ns3:Contact>
+    </ns3:Party>
+  </ns3:BuyerCustomerParty>
+  <ns3:SellerSupplierParty>
+    <ns3:Party>
+      <EndpointID>ep1234567890123</EndpointID>
+      <ns3:PartyIdentification>
+        <ID schemeID="0">1234567890123</ID>
+      </ns3:PartyIdentification>
+      <ns3:PartyName>
+        <Name>SupplierName</Name>
+      </ns3:PartyName>
+      <ns3:PostalAddress>
+        <Postbox>1234567</Postbox>
+        <StreetName>My street</StreetName>
+        <BuildingNumber>121/4</BuildingNumber>
+        <CityName>Wien</CityName>
+        <PostalZone>1140</PostalZone>
+        <ns3:Country>
+          <IdentificationCode>AT</IdentificationCode>
+        </ns3:Country>
+      </ns3:PostalAddress>
+      <ns3:PartyTaxScheme>
+        <CompanyID>supplierVATIN</CompanyID>
+        <ns3:TaxScheme>
+          <ID schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</ID>
+        </ns3:TaxScheme>
+      </ns3:PartyTaxScheme>
+    </ns3:Party>
+  </ns3:SellerSupplierParty>
+  <ns3:PaymentMeans>
+    <PaymentMeansCode>31</PaymentMeansCode>
+    <PaymentDueDate>2011-08-22Z</PaymentDueDate>
+    <PaymentChannelCode>IBAN</PaymentChannelCode>
+    <ns3:PayeeFinancialAccount>
+      <ID schemeID="IBAN">masterdataIBAN</ID>
+      <ns3:FinancialInstitutionBranch>
+        <ns3:FinancialInstitution>
+          <ID schemeID="BIC">masterdataBIC</ID>
+        </ns3:FinancialInstitution>
+      </ns3:FinancialInstitutionBranch>
+    </ns3:PayeeFinancialAccount>
+  </ns3:PaymentMeans>
+  <ns3:TaxTotal>
+    <TaxAmount currencyID="EUR">0.0000</TaxAmount>
+    <ns3:TaxSubtotal>
+      <TaxableAmount currencyID="EUR">999.00</TaxableAmount>
+      <TaxAmount currencyID="EUR">0.0000</TaxAmount>
+      <ns3:TaxCategory>
+        <ID schemeAgencyID="6" schemeID="UN/ECE 5305">S</ID>
+        <Percent>0</Percent>
+        <ns3:TaxScheme>
+          <ID schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</ID>
+        </ns3:TaxScheme>
+      </ns3:TaxCategory>
+    </ns3:TaxSubtotal>
+  </ns3:TaxTotal>
+  <ns3:AnticipatedMonetaryTotal>
+    <LineExtensionAmount currencyID="EUR">999.00</LineExtensionAmount>
+    <TaxExclusiveAmount currencyID="EUR">999.00</TaxExclusiveAmount>
+    <TaxInclusiveAmount currencyID="EUR">999.00</TaxInclusiveAmount>
+    <PayableAmount currencyID="EUR">999.00</PayableAmount>
+  </ns3:AnticipatedMonetaryTotal>
+  <ns3:OrderLine>
+    <ns3:LineItem>
+      <ID>0</ID>
+      <Quantity unitCode="C62">10</Quantity>
+      <LineExtensionAmount currencyID="EUR">999.00</LineExtensionAmount>
+      <ns3:Price>
+        <PriceAmount currencyID="EUR">99.90</PriceAmount>
+        <BaseQuantity unitCode="C62">1</BaseQuantity>
+      </ns3:Price>
+      <ns3:Item>
+        <Description>item1Description</Description>
+        <Name>item1Description</Name>
+      </ns3:Item>
+    </ns3:LineItem>
+  </ns3:OrderLine>
+</ns4:Order>

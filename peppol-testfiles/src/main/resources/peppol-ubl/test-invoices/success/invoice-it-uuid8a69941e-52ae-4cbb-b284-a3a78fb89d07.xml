@@ -1,0 +1,171 @@
+<!--
+
+    Version: MPL 1.1/EUPL 1.1
+
+    The contents of this file are subject to the Mozilla Public License Version
+    1.1 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at:
+    http://www.mozilla.org/MPL/
+
+    Software distributed under the License is distributed on an "AS IS" basis,
+    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+    for the specific language governing rights and limitations under the
+    License.
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    Alternatively, the contents of this file may be used under the
+    terms of the EUPL, Version 1.1 or - as soon they will be approved
+    by the European Commission - subsequent versions of the EUPL
+    (the "Licence"); You may not use this work except in compliance
+    with the Licence.
+    You may obtain a copy of the Licence at:
+    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and
+    limitations under the Licence.
+
+    If you wish to allow use of your version of this file only
+    under the terms of the EUPL License and not to allow others to use
+    your version of this file under the MPL, indicate your decision by
+    deleting the provisions above and replace them with the notice and
+    other provisions required by the EUPL License. If you do not delete
+    the provisions above, a recipient may use your version of this file
+    under either the MPL or the EUPL License.
+
+-->
+<Invoice:Invoice xmlns:Invoice="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+  xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+  xmlns:ns2="http://www.w3.org/2005/08/addressing" xmlns:ns3="http://busdox.org/2010/02/channel/fault" xmlns:ns4="http://busdox.org/transport/identifiers/1.0/" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
+  xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 C:\Users\Notandi\Documents\Uppl¿singar\Standards\UBL\cs-UBL-2.0\xsd\maindoc\UBL-Invoice-2.0.xsd">
+  <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+  <cbc:CustomizationID schemeID="PEPPOL">urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0#urn:www.peppol.eu:bis:peppol4a:ver1.0</cbc:CustomizationID>
+  <cbc:ProfileID>urn:www.cenbii.eu:profile:bii04:ver1.0</cbc:ProfileID>
+  <cbc:ID>326</cbc:ID>
+  <cbc:IssueDate>2010-12-22</cbc:IssueDate>
+  <cbc:InvoiceTypeCode listAgencyID="6" listID="UN/ECE 1001 Subset">380</cbc:InvoiceTypeCode>
+  <cbc:Note languageID="en">CUP D89E10001060005</cbc:Note>
+  <cbc:DocumentCurrencyCode listAgencyID="6" listID="ISO 4217 Alpha">EUR</cbc:DocumentCurrencyCode>
+  <cac:OrderReference>
+    <cbc:ID>CIG: 0993396050</cbc:ID>
+  </cac:OrderReference>
+  <cac:ContractDocumentReference>
+    <cbc:ID>1446 C 2010 of 12/11/2010</cbc:ID>
+  </cac:ContractDocumentReference>
+  <cac:AccountingSupplierParty>
+    <cac:Party>
+      <cbc:EndpointID schemeID="GLN">5699000122475</cbc:EndpointID>
+      <cac:PartyName>
+        <cbc:Name>Eykur ehf</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:StreetName>Skógarlundur</cbc:StreetName>
+        <cbc:BuildingNumber>12</cbc:BuildingNumber>
+        <cbc:CityName>Garðabær</cbc:CityName>
+        <cbc:PostalZone>210</cbc:PostalZone>
+        <cac:Country>
+          <cbc:IdentificationCode listAgencyID="6" listID="ISO3166-1">IS</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID schemeAgencyID="ZZZ" schemeID="ISVAT">IS61983</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:Contact>
+        <cbc:Telephone>354 544 4800</cbc:Telephone>
+        <cbc:ElectronicMail>eykur@eykur.is</cbc:ElectronicMail>
+      </cac:Contact>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <cac:AccountingCustomerParty>
+    <cac:Party>
+      <cbc:EndpointID schemeID="IT:VAT">05359681003</cbc:EndpointID>
+      <cac:PartyName>
+        <cbc:Name>Consip SpA</cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:StreetName>Via Isonzo</cbc:StreetName>
+        <cbc:BuildingNumber>19 E</cbc:BuildingNumber>
+        <cbc:CityName>Rome</cbc:CityName>
+        <cbc:PostalZone>00198</cbc:PostalZone>
+        <cac:Country>
+          <cbc:IdentificationCode listAgencyID="6" listID="ISO3166-1">IT</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID schemeAgencyID="ZZZ" schemeID="ITVAT">IT05359681003</cbc:CompanyID>
+        <cac:TaxScheme>
+          <cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:Person>
+        <cbc:FirstName>Marina</cbc:FirstName>
+        <cbc:FamilyName>Venzo</cbc:FamilyName>
+      </cac:Person>
+    </cac:Party>
+  </cac:AccountingCustomerParty>
+  <cac:PaymentMeans>
+    <cbc:PaymentMeansCode listAgencyID="NES" listID="UN/ECE 4461 Subset">31</cbc:PaymentMeansCode>
+    <cbc:PaymentDueDate>2011-02-22</cbc:PaymentDueDate>
+    <cac:PayeeFinancialAccount>
+      <cbc:ID>NN12 12345 1234 1234 12</cbc:ID>
+      <cac:FinancialInstitutionBranch>
+        <cac:FinancialInstitution>
+          <cbc:ID>XXXXXXXX</cbc:ID>
+        </cac:FinancialInstitution>
+      </cac:FinancialInstitutionBranch>
+    </cac:PayeeFinancialAccount>
+  </cac:PaymentMeans>
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+    <cac:TaxSubtotal>
+      <cbc:TaxableAmount currencyID="EUR">2500</cbc:TaxableAmount>
+      <cbc:TaxAmount currencyID="EUR">0</cbc:TaxAmount>
+      <cac:TaxCategory>
+        <cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5305">E</cbc:ID>
+        <cbc:Percent>0</cbc:Percent>
+        <cbc:TaxExemptionReason>Exemption from VAT pursuant to Article 15 (10) of Directive 77/388/EEC</cbc:TaxExemptionReason>
+        <cac:TaxScheme>
+          <cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:TaxCategory>
+    </cac:TaxSubtotal>
+  </cac:TaxTotal>
+  <cac:LegalMonetaryTotal>
+    <cbc:LineExtensionAmount currencyID="EUR">2500</cbc:LineExtensionAmount>
+    <cbc:TaxExclusiveAmount currencyID="EUR">2500</cbc:TaxExclusiveAmount>
+    <cbc:TaxInclusiveAmount currencyID="EUR">2500</cbc:TaxInclusiveAmount>
+    <cbc:PayableAmount currencyID="EUR">2500</cbc:PayableAmount>
+  </cac:LegalMonetaryTotal>
+  <cac:InvoiceLine>
+    <cbc:ID>1</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="HUR">25</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="EUR">2500</cbc:LineExtensionAmount>
+    <cac:Item>
+      <cbc:Description languageID="EN">IT services regarding Italian eInvoicing in relation to PEPPOL WP5</cbc:Description>
+      <cbc:Name>Peppol WP5 national extensions</cbc:Name>
+      <cac:SellersItemIdentification>
+        <cbc:ID>1001</cbc:ID>
+      </cac:SellersItemIdentification>
+      <cac:CommodityClassification>
+        <cbc:ItemClassificationCode listAgencyID="113" listID="UNSPSC">80101507</cbc:ItemClassificationCode>
+      </cac:CommodityClassification>
+      <cac:ClassifiedTaxCategory xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+        <cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5305">E</cbc:ID>
+        <TaxScheme>
+          <cbc:ID schemeAgencyID="6" schemeID="UN/ECE 5153">VAT</cbc:ID>
+        </TaxScheme>
+      </cac:ClassifiedTaxCategory>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="EUR">100</cbc:PriceAmount>
+      <cbc:BaseQuantity unitCode="C62">1</cbc:BaseQuantity>
+    </cac:Price>
+  </cac:InvoiceLine>
+</Invoice:Invoice>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Version: MPL 1.1/EUPL 1.1
+
+    The contents of this file are subject to the Mozilla Public License Version
+    1.1 (the "License"); you may not use this file except in compliance with
+    the License. You may obtain a copy of the License at:
+    http://www.mozilla.org/MPL/
+
+    Software distributed under the License is distributed on an "AS IS" basis,
+    WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+    for the specific language governing rights and limitations under the
+    License.
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    Alternatively, the contents of this file may be used under the
+    terms of the EUPL, Version 1.1 or - as soon they will be approved
+    by the European Commission - subsequent versions of the EUPL
+    (the "Licence"); You may not use this work except in compliance
+    with the Licence.
+    You may obtain a copy of the Licence at:
+    http://joinup.ec.europa.eu/software/page/eupl/licence-eupl
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the Licence is distributed on an "AS IS" basis,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Licence for the specific language governing permissions and
+    limitations under the Licence.
+
+    If you wish to allow use of your version of this file only
+    under the terms of the EUPL License and not to allow others to use
+    your version of this file under the MPL, indicate your decision by
+    deleting the provisions above and replace them with the notice and
+    other provisions required by the EUPL License. If you do not delete
+    the provisions above, a recipient may use your version of this file
+    under either the MPL or the EUPL License.
+
+-->
+<Tender
+  xmlns="urn:oasis:names:specification:ubl:schema:xsd:Tender-2"
+    xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+  xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+  <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+  <cbc:CustomizationID>BiiFullTrdm040</cbc:CustomizationID>
+  <cbc:ProfileID>BII12</cbc:ProfileID>
+  <cbc:ID>6ea1730c-dd62-4fda-bd88-897076f6cdea</cbc:ID>
+  <cbc:ContractFolderID>CFID684</cbc:ContractFolderID>
+  <cbc:IssueDate>2010-01-01</cbc:IssueDate>
+  <cac:Period>
+    <cbc:StartDate>2010-01-01</cbc:StartDate>
+    <cbc:EndDate>2010-06-01</cbc:EndDate>
+  </cac:Period>
+  <cac:TenderingParty>
+    <cac:Party>
+      <cbc:EndpointID schemeID="GLN"/>
+      <cac:PartyIdentification>
+        <cbc:ID schemeAgencyID="9" schemeID="GLN">PartyIdentification ID</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name/>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:ID>TestID</cbc:ID>
+        <cbc:Postbox>PB654</cbc:Postbox>
+        <cbc:StreetName>Street Name Test</cbc:StreetName>
+        <cbc:AdditionalStreetName>Additional Street Name Test</cbc:AdditionalStreetName>
+        <cbc:BuildingNumber>Building Number Test</cbc:BuildingNumber>
+        <cbc:Department>Department Test</cbc:Department>
+        <cbc:CityName>City Name Test</cbc:CityName>
+        <cbc:PostalZone>PZ54</cbc:PostalZone>
+        <cbc:CountrySubentity>Country Subentity Test</cbc:CountrySubentity>
+        <cac:Country>
+          <cbc:IdentificationCode>GR</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyTaxScheme>
+        <cbc:CompanyID>IDCOM849</cbc:CompanyID>
+         <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+        </cac:TaxScheme>
+      </cac:PartyTaxScheme>
+      <cac:PartyLegalEntity>
+        <cbc:CompanyID>IDLEGE01</cbc:CompanyID>
+      </cac:PartyLegalEntity>
+      <cac:Contact>
+        <cbc:Telephone>654-564116-15</cbc:Telephone>
+        <cbc:Telefax>841-18-188156</cbc:Telefax>
+        <cbc:ElectronicMail>test@mail.com</cbc:ElectronicMail>
+      </cac:Contact>
+      <cac:Person>
+        <cbc:FirstName>Richard</cbc:FirstName>
+        <cbc:FamilyName>Brown</cbc:FamilyName>
+        <cbc:MiddleName>RB</cbc:MiddleName>
+        <cbc:JobTitle>Administration</cbc:JobTitle>
+      </cac:Person>
+    </cac:Party>
+  </cac:TenderingParty>
+  <cac:ContractingParty>
+      <cac:Party>
+          <cbc:EndpointID schemeID="GLN"/>
+        <cac:PartyIdentification>
+          <cbc:ID schemeAgencyID="9" schemeID="GLN">PartyIdentification ID</cbc:ID>
+        </cac:PartyIdentification>
+        <cac:PartyName>
+          <cbc:Name/>
+        </cac:PartyName>
+        <cac:PostalAddress>
+          <cbc:ID>TestID</cbc:ID>
+          <cbc:Postbox>PB653</cbc:Postbox>
+          <cbc:StreetName>Street Name Customer Test</cbc:StreetName>
+          <cbc:AdditionalStreetName>Additional Street Name Customer Test</cbc:AdditionalStreetName>
+          <cbc:BuildingNumber>Building Number Customer Test</cbc:BuildingNumber>
+          <cbc:CityName>City Name</cbc:CityName>
+          <cbc:PostalZone>PZ53</cbc:PostalZone>
+          <cbc:CountrySubentity>Country Subentity Customer Test</cbc:CountrySubentity>
+          <cac:Country>
+            <cbc:IdentificationCode>GR</cbc:IdentificationCode>
+          </cac:Country>
+        </cac:PostalAddress>
+        <cac:PartyTaxScheme>
+          <cbc:CompanyID>IDCOM849</cbc:CompanyID>
+          <cac:TaxScheme>
+          <cbc:ID>VAT</cbc:ID>
+        </cac:TaxScheme>
+        </cac:PartyTaxScheme>
+        <cac:PartyLegalEntity>
+          <cbc:CompanyID>IDLEGE01</cbc:CompanyID>
+        </cac:PartyLegalEntity>
+        <cac:Contact>
+          <cbc:Telephone>654-564116-16</cbc:Telephone>
+          <cbc:Telefax>841-18-188157</cbc:Telefax>
+          <cbc:ElectronicMail>test1@mail.com</cbc:ElectronicMail>
+        </cac:Contact>
+        <cac:Person>
+          <cbc:FirstName>George</cbc:FirstName>
+          <cbc:FamilyName>Wilde</cbc:FamilyName>
+          <cbc:MiddleName>GW</cbc:MiddleName>
+          <cbc:JobTitle>Administration</cbc:JobTitle>
+        </cac:Person>
+      </cac:Party>
+  </cac:ContractingParty>
+  <cac:TenderedProject>
+    <cbc:ID>PP01</cbc:ID>
+    <cbc:Description>Description Test</cbc:Description>
+    
+    
+    
+    
+    
+    <cac:TenderLine>
+      <cbc:ID />
+      <cbc:ReferenceID/>
+      <cbc:Note/>
+      <cbc:OrderableUnit/>
+      <cbc:ContentUnitQuantity>    10 </cbc:ContentUnitQuantity>
+      <cbc:OrderQuantityIncrementNumeric>0</cbc:OrderQuantityIncrementNumeric>
+      <cbc:MinimumOrderQuantity>1</cbc:MinimumOrderQuantity>
+      <cbc:MaximumOrderQuantity>1</cbc:MaximumOrderQuantity>
+      <cbc:WarrantyInformation/>
+      <cac:OfferedItemLocationQuantity >
+      
+      <cbc:LeadTimeMeasure unitCode="04">90</cbc:LeadTimeMeasure>
+      <cbc:MinimumQuantity >2</cbc:MinimumQuantity >
+      <cbc:MaximumQuantity >2</cbc:MaximumQuantity >
+      
+        <cac:ApplicableTerritoryAddress>
+          <cbc:ID />
+          <cbc:AddressTypeCode/>
+          <cbc:StreetName/>
+          <cbc:AdditionalStreetName/>
+          <cbc:BuildingNumber/>
+          <cbc:CityName/>
+          <cbc:PostalZone/>
+          <cbc:CountrySubentity/>
+          <cbc:Region/>
+          <cac:Country>
+            <cbc:IdentificationCode >GR</cbc:IdentificationCode>
+          </cac:Country>
+        </cac:ApplicableTerritoryAddress>
+        <cac:Price>
+          <cbc:PriceAmount currencyID="EUR">10</cbc:PriceAmount>
+          <cbc:BaseQuantity>10</cbc:BaseQuantity>
+          <cac:ValidityPeriod>
+            <cbc:StartDate>2010-12-02</cbc:StartDate>
+            <cbc:EndDate>2010-12-02</cbc:EndDate>
+          </cac:ValidityPeriod>
+        </cac:Price>
+      </cac:OfferedItemLocationQuantity>
+      
+      
+      
+      <cac:Item>
+        <cbc:Description/>
+        <cbc:PackQuantity>10</cbc:PackQuantity>
+        <cbc:PackSizeNumeric>12</cbc:PackSizeNumeric>
+        <cbc:Name/>
+        <cbc:HazardousRiskIndicator>false</cbc:HazardousRiskIndicator>
+        <cbc:Keyword />
+        <cbc:BrandName/>
+        <cbc:ModelName/>
+        <cac:BuyersItemIdentification>
+          <cbc:ID>athina </cbc:ID>
+        </cac:BuyersItemIdentification>
+        <cac:SellersItemIdentification>
+          <cbc:ID>athina </cbc:ID>
+          <cbc:ExtendedID/>
+        </cac:SellersItemIdentification>
+        <cac:ManufacturersItemIdentification>
+          <cbc:ID>athina </cbc:ID>
+        </cac:ManufacturersItemIdentification>
+        <cac:StandardItemIdentification>
+          <cbc:ID/>
+        </cac:StandardItemIdentification>
+        <cac:ItemSpecificationDocumentReference>
+          <cbc:ID>athina </cbc:ID>
+          <cbc:DocumentType/>
+          <cac:Attachment>
+            <cbc:EmbeddedDocumentBinaryObject mimeCode="application/EDI-X12"/>
+            <cac:ExternalReference>
+              <cbc:URI />
+            </cac:ExternalReference>
+          </cac:Attachment>
+        </cac:ItemSpecificationDocumentReference>
+        <cac:OriginCountry>
+          <cbc:IdentificationCode >GR</cbc:IdentificationCode >
+        </cac:OriginCountry>
+        <cac:CommodityClassification >
+          <cbc:CommodityCode />
+          <cbc:ItemClassificationCode/>
+        </cac:CommodityClassification>
+        <cac:HazardousItem  >
+          <cbc:UNDGCode/>
+          <cbc:HazardClassID />
+        </cac:HazardousItem>
+        <cac:ClassifiedTaxCategory>
+          <cbc:ID />
+          <cac:TaxScheme >
+            <cbc:ID />
+          </cac:TaxScheme>
+        </cac:ClassifiedTaxCategory>
+        <cac:AdditionalItemProperty >
+          <cbc:Name />
+          <cbc:Value />
+          <cac:ItemPropertyGroup >
+            <cbc:ID />
+            <cbc:Name/>
+            <cbc:ParentID/>
+          </cac:ItemPropertyGroup>
+          <cbc:ID />
+          <cbc:TestMethod/>
+            <cbc:ListValue />
+          <cac:ItemPropertyRange>
+            <cbc:MinimumValueText/>
+            <cbc:MaximumValueText/>
+          </cac:ItemPropertyRange>
+        </cac:AdditionalItemProperty>
+        <cac:ManufacturerParty>
+          <cac:PartyName>
+            <cbc:Name />
+          </cac:PartyName>
+        </cac:ManufacturerParty>
+        <cac:ItemInstance>
+          <cac:LotIdentification>
+            <cbc:ExpiryDate>2010-10-10</cbc:ExpiryDate>
+          </cac:LotIdentification>
+        </cac:ItemInstance>
+      </cac:Item>
+    </cac:TenderLine>
+    
+    
+    
+    
+    
+    
+    
+  </cac:TenderedProject>
+</Tender>
