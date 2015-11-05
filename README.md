@@ -11,7 +11,7 @@ These project are used implicitly by the following projects:
   * [as2-peppol-client](https://github.com/phax/as2-peppol-client/) - the AP client library
   * [as2-peppol-server](https://github.com/phax/as2-peppol-server/) - the AP server stub
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
-  * [peppol-yellow-pages](https://github.com/phax/peppol-yellow-pages/) - the PEPPOL Yellow Pages development draft
+  * [peppol-directory](https://github.com/phax/peppol-directory/) - the PEPPOL Directory (formerly Yellow Pages) development draft
 
 Note: the sub-projects use different licenses!
 
