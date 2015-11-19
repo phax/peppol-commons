@@ -56,7 +56,7 @@ import com.helger.commons.xml.XMLFactory;
 
 /**
  * Test class for class {@link W3CEndpointReferenceHelper}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class W3CEndpointReferenceHelperTest
@@ -65,8 +65,11 @@ public final class W3CEndpointReferenceHelperTest
   public void testAddress ()
   {
     final String sURL = "http://www.example.org/any";
-    final W3CEndpointReference aEPR = W3CEndpointReferenceHelper.createEndpointReference (sURL);
+    W3CEndpointReference aEPR = W3CEndpointReferenceHelper.createEndpointReference (sURL);
     assertEquals (sURL, W3CEndpointReferenceHelper.getAddress (aEPR));
+
+    aEPR = W3CEndpointReferenceHelper.createEndpointReference ("");
+    assertEquals ("", W3CEndpointReferenceHelper.getAddress (aEPR));
   }
 
   @Test
