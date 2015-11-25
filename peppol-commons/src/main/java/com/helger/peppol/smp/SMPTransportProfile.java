@@ -41,22 +41,23 @@
 package com.helger.peppol.smp;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A stand-alone implementation of the {@link ISMPTransportProfile}. For a set
  * of predefined transport profiles have a look at {@link ESMPTransportProfile}.
  */
-@Immutable
+@NotThreadSafe
 public class SMPTransportProfile implements ISMPTransportProfile
 {
   private final String m_sID;
-  private final String m_sName;
+  private String m_sName;
 
   public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
@@ -76,6 +77,16 @@ public class SMPTransportProfile implements ISMPTransportProfile
   public String getName ()
   {
     return m_sName;
+  }
+
+  @Nonnull
+  public EChange setName (@Nonnull @Nonempty final String sName)
+  {
+    ValueEnforcer.notEmpty (sName, "Name");
+    if (sName.equals (m_sName))
+      return EChange.UNCHANGED;
+    m_sName = sName;
+    return EChange.CHANGED;
   }
 
   @Override
