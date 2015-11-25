@@ -46,6 +46,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
@@ -55,12 +56,17 @@ import com.helger.commons.type.ObjectType;
  * of predefined transport profiles have a look at {@link ESMPTransportProfile}.
  */
 @NotThreadSafe
-public class SMPTransportProfile implements ISMPTransportProfile
+public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SMPTransportProfile>
 {
   public static final ObjectType OT = new ObjectType ("smp.transport.profile");
 
   private final String m_sID;
   private String m_sName;
+
+  public SMPTransportProfile (@Nonnull final ISMPTransportProfile aOther)
+  {
+    this (aOther.getID (), aOther.getName ());
+  }
 
   public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
@@ -90,6 +96,12 @@ public class SMPTransportProfile implements ISMPTransportProfile
       return EChange.UNCHANGED;
     m_sName = sName;
     return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public SMPTransportProfile getClone ()
+  {
+    return new SMPTransportProfile (this);
   }
 
   @Override
