@@ -65,7 +65,10 @@ import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
 import com.helger.peppol.smlclient.bdmslcipa.BDMSLCipaService;
 import com.helger.peppol.smlclient.bdmslcipa.BDMSLCipaServiceSoap;
 import com.helger.peppol.smlclient.bdmslcipa.BadRequestFault;
+import com.helger.peppol.smlclient.bdmslcipa.ClearCacheType;
 import com.helger.peppol.smlclient.bdmslcipa.InternalErrorFault;
+import com.helger.peppol.smlclient.bdmslcipa.IsAliveType;
+import com.helger.peppol.smlclient.bdmslcipa.ListParticipantsInType;
 import com.helger.peppol.smlclient.bdmslcipa.ListParticipantsType;
 import com.helger.peppol.smlclient.bdmslcipa.NotFoundFault;
 import com.helger.peppol.smlclient.bdmslcipa.ParticipantsType;
@@ -118,10 +121,11 @@ public class BDMSLClient extends AbstractSMLClientCaller
     return aPort;
   }
 
-  public void prepareChangeCertificate (@Nonnull @Nonempty final String sNewCertificatePublicKey, @Nonnull final LocalDate aMigrationDate) throws BadRequestFault,
-                                                                                                                                           InternalErrorFault,
-                                                                                                                                           NotFoundFault,
-                                                                                                                                           UnauthorizedFault
+  public void prepareChangeCertificate (@Nonnull @Nonempty final String sNewCertificatePublicKey,
+                                        @Nonnull final LocalDate aMigrationDate) throws BadRequestFault,
+                                                                                 InternalErrorFault,
+                                                                                 NotFoundFault,
+                                                                                 UnauthorizedFault
   {
     ValueEnforcer.notEmpty (sNewCertificatePublicKey, "NewCertificatePublicKey");
     ValueEnforcer.notNull (aMigrationDate, "MigrationDate");
@@ -137,7 +141,10 @@ public class BDMSLClient extends AbstractSMLClientCaller
 
   public void createParticipantIdentifier (@Nonnull @Nonempty final String sSMPID,
                                            @Nonnull final IParticipantIdentifier aParticipantID,
-                                           @Nonnull @Nonempty final String sServiceName) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
+                                           @Nonnull @Nonempty final String sServiceName) throws BadRequestFault,
+                                                                                         InternalErrorFault,
+                                                                                         NotFoundFault,
+                                                                                         UnauthorizedFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
@@ -164,7 +171,8 @@ public class BDMSLClient extends AbstractSMLClientCaller
     ListParticipantsType aList;
     try
     {
-      aList = createWSPort ().listParticipants ();
+      final ListParticipantsInType aDummy = new ListParticipantsInType ();
+      aList = createWSPort ().listParticipants (aDummy);
     }
     catch (final UnauthorizedFault ex)
     {
@@ -183,7 +191,8 @@ public class BDMSLClient extends AbstractSMLClientCaller
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("isAlive ()");
 
-    createWSPort ().isAlive ();
+    final IsAliveType aDummy = new IsAliveType ();
+    createWSPort ().isAlive (aDummy);
   }
 
   public void clearCache () throws InternalErrorFault
@@ -191,6 +200,7 @@ public class BDMSLClient extends AbstractSMLClientCaller
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("clearCache ()");
 
-    createWSPort ().clearCache ();
+    final ClearCacheType aDummy = new ClearCacheType ();
+    createWSPort ().clearCache (aDummy);
   }
 }
