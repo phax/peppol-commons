@@ -48,6 +48,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.type.ObjectType;
 
 /**
  * A stand-alone implementation of the {@link ISMPTransportProfile}. For a set
@@ -56,6 +57,8 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class SMPTransportProfile implements ISMPTransportProfile
 {
+  public static final ObjectType OT = new ObjectType ("smp.transport.profile");
+
   private final String m_sID;
   private String m_sName;
 
