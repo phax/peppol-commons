@@ -17,6 +17,9 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * version 4.3.2
+    * Improved the support for custom SMP transport profiles
+    * Updated the BDMSL additional services WSDL to the latest 3.1.0 version
   * version 4.3.1 - 2015-10-30
     * Added new BDMSL client to access the new "/cipaservice" in a convenient way (class `BDMSLClient` in project `peppol-sml-client`)
     * Loosened the regular expression for participant identifier schemes
@@ -150,31 +153,42 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>4.3.1</version>
+  <version>4.3.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>4.3.1</version>
+  <version>4.3.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>4.3.1</version>
+  <version>4.3.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>4.3.1</version>
+  <version>4.3.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>4.3.1</version>
+  <version>4.3.2</version>
+</dependency>
+```
+
+Alternatively use the following code in your `dependencyManagement` section to use it as a BOM:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>peppol-commons-parent-pom</artifactId>
+  <version>4.3.2</version>
+  <type>pom</type>
+  <scope>import</scope>
 </dependency>
 ```
 
