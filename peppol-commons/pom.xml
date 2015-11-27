@@ -213,6 +213,8 @@
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
+            <exclude>src/main/resources/WEB-INF/wsdl/bdx-smp-201407.xsd</exclude>
+            <exclude>src/main/resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd</exclude>
             <exclude>src/main/resources/WEB-INF/wsdl/ws-addr.xsd</exclude>
             <exclude>src/main/resources/WEB-INF/wsdl/xmldsig-core-schema.xsd</exclude>
           </excludes>
