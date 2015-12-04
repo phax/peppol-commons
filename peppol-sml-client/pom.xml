@@ -136,8 +136,9 @@
             <exclude>**/NOTICE</exclude>
             <exclude>**/LICENSE</exclude>
             <exclude>**/LICENSE2</exclude>
+            <exclude>**/*.episode</exclude>
             <exclude>**/*.jks</exclude>
-            <exclude>src/main/resources/WEB-INF/BDMSL*</exclude>
+            <exclude>src/main/resources/WEB-INF/wsdl/BDMSL*</exclude>
           </excludes>
         </configuration>
       </plugin>
