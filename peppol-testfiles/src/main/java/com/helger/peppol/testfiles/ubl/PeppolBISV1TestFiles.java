@@ -83,7 +83,8 @@ public final class PeppolBISV1TestFiles
                                                                   "test-order.xml",
                                                                   "UBL-Order-2.0-Example-International.xml",
                                                                   "UBL-Order-2.0-Example.xml" };
-  private static final String [] ORDERRESPONSES_SUCCESS = new String [] { "CENBII-AcceptOrder-maximal.xml", "CENBII-RejectOrder-maximal.xml" };
+  private static final String [] ORDERRESPONSES_SUCCESS = new String [] { "CENBII-AcceptOrder-maximal.xml",
+                                                                          "CENBII-RejectOrder-maximal.xml" };
   private static final String [] TENDER_SUCCESS = new String [] { "Catalogo preaward_Tender_Risposta con offerta ad una RDO MEPA_BIS 12a.xml" };
   private static final String [] TENDERINGCATALOGUES_SUCCESS = new String [] { "Tender-Sample.xml" };
 
@@ -417,11 +418,9 @@ public final class PeppolBISV1TestFiles
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R323"),
                                                                                                    ErrorDefinition.createWarning ("EUGEN-T10-R003")),
                                                                                  new TestDocument ("atgov-t10-fail-r018.xml",
-                                                                                                   ErrorDefinition.createWarning ("ATGOV-T10-R018"),
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R263"),
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R266"),
-                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R323"),
-                                                                                                   ErrorDefinition.createWarning ("EUGEN-T10-R003")) };
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R323")) };
 
   /**
    * TC01.4.TS1.xml, TC01.5.TS1.xml, TC01.10.TS1.xml, TC01.39.TS1.xml,
@@ -540,7 +539,8 @@ public final class PeppolBISV1TestFiles
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <IReadableResource> getSuccessFiles (@Nonnull final EPeppolUBLTestFileType eFileType, @Nullable final Locale aCountry)
+  public static List <IReadableResource> getSuccessFiles (@Nonnull final EPeppolUBLTestFileType eFileType,
+                                                          @Nullable final Locale aCountry)
   {
     ValueEnforcer.notNull (eFileType, "FileType");
 
@@ -600,7 +600,8 @@ public final class PeppolBISV1TestFiles
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType, @Nullable final Locale aCountry)
+  public static List <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType,
+                                                   @Nullable final Locale aCountry)
   {
     ValueEnforcer.notNull (eFileType, "FileType");
 
@@ -630,7 +631,8 @@ public final class PeppolBISV1TestFiles
     // Build result list
     final List <TestResource> ret = new ArrayList <TestResource> ();
     for (final TestDocument aTestDoc : aFilenames)
-      ret.add (new TestResource (eFileType.getErrorResource (aTestDoc.getFilename ()), aTestDoc.getAllExpectedErrors ()));
+      ret.add (new TestResource (eFileType.getErrorResource (aTestDoc.getFilename ()),
+                                 aTestDoc.getAllExpectedErrors ()));
     return ret;
   }
 }
