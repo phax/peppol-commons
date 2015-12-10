@@ -130,8 +130,9 @@ public final class KeyStoreHelper
    *         In case key store loading fails
    */
   @Nonnull
-  public static KeyStore loadKeyStore (@Nonnull final String sKeyStorePath, @Nullable final String sKeyStorePassword) throws GeneralSecurityException,
-                                                                                                                     IOException
+  public static KeyStore loadKeyStore (@Nonnull final String sKeyStorePath,
+                                       @Nullable final String sKeyStorePassword) throws GeneralSecurityException,
+                                                                                 IOException
   {
     return loadKeyStore (sKeyStorePath, sKeyStorePassword == null ? null : sKeyStorePassword.toCharArray ());
   }
@@ -152,9 +153,12 @@ public final class KeyStoreHelper
    *         In case key store loading fails
    */
   @Nonnull
-  public static KeyStore loadKeyStore (@Nonnull final String sKeyStorePath, @Nullable final char [] aKeyStorePassword) throws GeneralSecurityException,
-                                                                                                                      IOException
+  public static KeyStore loadKeyStore (@Nonnull final String sKeyStorePath,
+                                       @Nullable final char [] aKeyStorePassword) throws GeneralSecurityException,
+                                                                                  IOException
   {
+    ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
+
     // Open the resource stream
     InputStream aIS = ClassPathResource.getInputStream (sKeyStorePath);
     if (aIS == null)
@@ -203,7 +207,7 @@ public final class KeyStoreHelper
   public static KeyStore createKeyStoreWithOnlyOneItem (@Nonnull final KeyStore aBaseKeyStore,
                                                         @Nonnull final String sAliasToCopy,
                                                         @Nullable final char [] aAliasPassword) throws GeneralSecurityException,
-                                                                                               IOException
+                                                                                                IOException
   {
     ValueEnforcer.notNull (aBaseKeyStore, "BaseKeyStore");
     ValueEnforcer.notNull (sAliasToCopy, "AliasToCopy");
