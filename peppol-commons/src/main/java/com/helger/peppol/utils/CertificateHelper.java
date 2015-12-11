@@ -40,6 +40,7 @@
  */
 package com.helger.peppol.utils;
 
+import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -49,6 +50,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.StringInputStream;
@@ -64,6 +66,8 @@ public final class CertificateHelper
 {
   public static final String BEGIN_CERTIFICATE = "-----BEGIN CERTIFICATE-----";
   public static final String END_CERTIFICATE = "-----END CERTIFICATE-----";
+  /** Character set used for String-Certificate conversion */
+  private static final Charset CERT_CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
 
   @SuppressWarnings ("unused")
   @PresentForCodeCoverage
@@ -122,7 +126,7 @@ public final class CertificateHelper
       return null;
 
     // Certificate is always ISO-8859-1 encoded
-    return convertStringToCertficate (new String (aCertBytes, CCharset.CHARSET_ISO_8859_1_OBJ));
+    return convertStringToCertficate (new String (aCertBytes, CERT_CHARSET));
   }
 
   /**
@@ -158,7 +162,7 @@ public final class CertificateHelper
       sRealCertString = _ensureBeginAndEndArePresent (sRealCertString);
 
       return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
-                                                                                               CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                                                               CERT_CHARSET));
     }
     catch (final CertificateException ex)
     {
@@ -168,7 +172,7 @@ public final class CertificateHelper
       String sHexDecodedString;
       try
       {
-        sHexDecodedString = new String (StringHelper.getHexDecoded (sCertString), CCharset.CHARSET_ISO_8859_1_OBJ);
+        sHexDecodedString = new String (StringHelper.getHexDecoded (sCertString), CERT_CHARSET);
       }
       catch (final IllegalArgumentException ex2)
       {
@@ -183,8 +187,33 @@ public final class CertificateHelper
       sRealCertString = _ensureBeginAndEndArePresent (sRealCertString);
 
       return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
-                                                                                               CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                                                               CERT_CHARSET));
     }
+  }
+
+  /**
+   * Remove any eventually preceding {@value #BEGIN_CERTIFICATE} and succeeding
+   * {@value #END_CERTIFICATE} values from the passed certificate string.
+   * Additionally all whitespaces of the string are removed.
+   *
+   * @param sCertificate
+   *        The source certificate string. May be <code>null</code>.
+   * @return <code>null</code> if the input string is <code>null</code> or
+   *         empty, the stripped down string otherwise.
+   */
+  @Nullable
+  public static String getWithoutPEMHeader (@Nullable final String sCertificate)
+  {
+    if (StringHelper.hasNoText (sCertificate))
+      return null;
+
+    // Remove special begin and end stuff
+    String sRealCertificate = sCertificate;
+    sRealCertificate = StringHelper.trimStart (sRealCertificate, BEGIN_CERTIFICATE);
+    sRealCertificate = StringHelper.trimEnd (sRealCertificate, END_CERTIFICATE);
+
+    // Remove all existing whitespace characters
+    return StringHelper.getWithoutAnySpaces (sRealCertificate);
   }
 
   /**
@@ -201,16 +230,10 @@ public final class CertificateHelper
   @Nullable
   public static String getRFC1421CompliantString (@Nullable final String sCertificate)
   {
-    if (StringHelper.hasNoText (sCertificate))
-      return sCertificate;
-
     // Remove special begin and end stuff
-    String sRealCertificate = sCertificate;
-    sRealCertificate = StringHelper.trimStart (sRealCertificate, BEGIN_CERTIFICATE);
-    sRealCertificate = StringHelper.trimEnd (sRealCertificate, END_CERTIFICATE);
-
-    // Remove all existing whitespace characters
-    String sPlainString = StringHelper.getWithoutAnySpaces (sRealCertificate);
+    String sPlainString = getWithoutPEMHeader (sCertificate);
+    if (StringHelper.hasNoText (sPlainString))
+      return null;
 
     // Start building the result
     final int nMaxLineLength = 64;
@@ -231,5 +254,25 @@ public final class CertificateHelper
 
     // Add trailer
     return aSB.append ('\n').append (END_CERTIFICATE).toString ();
+  }
+
+  /**
+   * Convert the passed X.509 certificate string to a byte array.
+   *
+   * @param sCertificate
+   *        The original certificate string. May be <code>null</code> or empty.
+   * @return <code>null</code> if the passed string is <code>null</code> or
+   *         empty or an invalid Base64 string
+   */
+  @Nullable
+  public static byte [] convertCertificateStringToByteArray (@Nullable final String sCertificate)
+  {
+    // Remove prefix/suffix
+    final String sPlainCert = getWithoutPEMHeader (sCertificate);
+    if (StringHelper.hasNoText (sPlainCert))
+      return null;
+
+    // The remaining string is supposed to be Base64 encoded -> decode
+    return Base64.safeDecode (sPlainCert);
   }
 }
