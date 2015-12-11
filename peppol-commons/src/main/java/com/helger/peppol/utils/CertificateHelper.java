@@ -49,6 +49,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CCharset;
@@ -68,6 +71,8 @@ public final class CertificateHelper
   public static final String END_CERTIFICATE = "-----END CERTIFICATE-----";
   /** Character set used for String-Certificate conversion */
   private static final Charset CERT_CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CertificateHelper.class);
 
   @SuppressWarnings ("unused")
   @PresentForCodeCoverage
@@ -109,7 +114,7 @@ public final class CertificateHelper
   }
 
   /**
-   * Convert the passed String to an X.509 certificate.
+   * Convert the passed byte array to an X.509 certificate object.
    *
    * @param aCertBytes
    *        The original certificate bytes. May be <code>null</code> or empty.
@@ -127,6 +132,19 @@ public final class CertificateHelper
 
     // Certificate is always ISO-8859-1 encoded
     return convertStringToCertficate (new String (aCertBytes, CERT_CHARSET));
+  }
+
+  @Nonnull
+  private static X509Certificate _str2cert (@Nonnull final String sCertString,
+                                            @Nonnull final CertificateFactory aCertificateFactory) throws CertificateException
+  {
+    String sRealCertString = sCertString;
+    sRealCertString = _cutUnnecessaryLeadingAndTrailingParts (sRealCertString);
+    sRealCertString = getRFC1421CompliantString (sRealCertString);
+    sRealCertString = _ensureBeginAndEndArePresent (sRealCertString);
+
+    return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
+                                                                                             CERT_CHARSET));
   }
 
   /**
@@ -156,19 +174,15 @@ public final class CertificateHelper
     // Convert certificate string to an object
     try
     {
-      String sRealCertString = sCertString;
-      sRealCertString = _cutUnnecessaryLeadingAndTrailingParts (sRealCertString);
-      sRealCertString = getRFC1421CompliantString (sRealCertString);
-      sRealCertString = _ensureBeginAndEndArePresent (sRealCertString);
-
-      return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
-                                                                                               CERT_CHARSET));
+      return _str2cert (sCertString, aCertificateFactory);
     }
     catch (final CertificateException ex)
     {
       // In some weird configurations, the result string is a hex encoded
       // certificate instead of the string
       // -> Try to work around it
+      s_aLogger.warn ("Failed to decode provided X.509 certificate string: " + sCertString);
+
       String sHexDecodedString;
       try
       {
@@ -181,13 +195,7 @@ public final class CertificateHelper
         throw ex;
       }
 
-      String sRealCertString = sHexDecodedString;
-      sRealCertString = _cutUnnecessaryLeadingAndTrailingParts (sRealCertString);
-      sRealCertString = getRFC1421CompliantString (sRealCertString);
-      sRealCertString = _ensureBeginAndEndArePresent (sRealCertString);
-
-      return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
-                                                                                               CERT_CHARSET));
+      return _str2cert (sHexDecodedString, aCertificateFactory);
     }
   }
 
