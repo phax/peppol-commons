@@ -110,7 +110,7 @@ public final class CertificateHelperTest
   public void testGetRFC1421CompliantString ()
   {
     assertNull (CertificateHelper.getRFC1421CompliantString (null));
-    assertEquals ("", CertificateHelper.getRFC1421CompliantString (""));
+    assertNull (CertificateHelper.getRFC1421CompliantString (""));
 
     // for up to 64 chars it makes no difference
     for (int i = 1; i <= 64; ++i)
