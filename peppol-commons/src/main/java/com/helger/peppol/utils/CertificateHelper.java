@@ -229,7 +229,8 @@ public final class CertificateHelper
    * characters are left, than &lt;CR&gt;&lt;LF&gt; ("\r\n") must be added to
    * the string so that the next characters start on a new line. After the last
    * part, no &lt;CR&gt;&lt;LF&gt; is needed. Respective RFC parts are 1421
-   * 4.3.2.2 and 4.3.2.4
+   * 4.3.2.2 and 4.3.2.4. Additionally {@link #BEGIN_CERTIFICATE} is prepended
+   * and {@link #END_CERTIFICATE} is appended.
    *
    * @param sCertificate
    *        Original certificate string as stored in the DB
@@ -238,8 +239,29 @@ public final class CertificateHelper
   @Nullable
   public static String getRFC1421CompliantString (@Nullable final String sCertificate)
   {
+    // true for backwards compatibility
+    return getRFC1421CompliantString (sCertificate, true);
+  }
+
+  /**
+   * The certificate string needs to be emitted in portions of 64 characters. If
+   * characters are left, than &lt;CR&gt;&lt;LF&gt; ("\r\n") must be added to
+   * the string so that the next characters start on a new line. After the last
+   * part, no &lt;CR&gt;&lt;LF&gt; is needed. Respective RFC parts are 1421
+   * 4.3.2.2 and 4.3.2.4
+   *
+   * @param sCertificate
+   *        Original certificate string as stored in the DB
+   * @param bIncludePEMHeader
+   *        <code>true</code> to include {@link #BEGIN_CERTIFICATE} and
+   *        {@link #END_CERTIFICATE}
+   * @return The RFC 1421 compliant string
+   */
+  @Nullable
+  public static String getRFC1421CompliantString (@Nullable final String sCertificate, final boolean bIncludePEMHeader)
+  {
     // Remove special begin and end stuff
-    String sPlainString = getWithoutPEMHeader (sCertificate);
+    String sPlainString = CertificateHelper.getWithoutPEMHeader (sCertificate);
     if (StringHelper.hasNoText (sPlainString))
       return null;
 
@@ -247,7 +269,9 @@ public final class CertificateHelper
     final int nMaxLineLength = 64;
     final String sCRLF = "\r\n";
     // Start with the prefix
-    final StringBuilder aSB = new StringBuilder (BEGIN_CERTIFICATE).append ('\n');
+    final StringBuilder aSB = new StringBuilder ();
+    if (bIncludePEMHeader)
+      aSB.append (CertificateHelper.BEGIN_CERTIFICATE).append ('\n');
     while (sPlainString.length () > nMaxLineLength)
     {
       // Append line + CRLF
@@ -261,7 +285,10 @@ public final class CertificateHelper
     aSB.append (sPlainString);
 
     // Add trailer
-    return aSB.append ('\n').append (END_CERTIFICATE).toString ();
+    if (bIncludePEMHeader)
+      aSB.append ('\n').append (CertificateHelper.END_CERTIFICATE);
+
+    return aSB.toString ();
   }
 
   /**
