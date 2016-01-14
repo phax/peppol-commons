@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.smlclient.client;
+package com.helger.peppol.smlclient;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -51,7 +51,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.peppol.sml.ESML;
-import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
 import com.helger.peppol.utils.PeppolTechnicalSetup;
