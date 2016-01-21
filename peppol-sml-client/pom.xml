@@ -83,7 +83,7 @@
   </developers>
 
   <properties>
-    <jaxws-plugin.version>2.3.1-b20150201.1248</jaxws-plugin.version>
+    <jaxws-plugin.version>2.4.1</jaxws-plugin.version>
     <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
     <jaxws.version>2.2.9-b14002</jaxws.version>
   </properties>
@@ -150,7 +150,7 @@
         </configuration>
       </plugin>      
       <plugin>
-        <groupId>org.jvnet.jax-ws-commons</groupId>
+        <groupId>org.codehaus.mojo</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
         <version>${jaxws-plugin.version}</version>
         <executions>
@@ -210,7 +210,6 @@
           <bindingDirectory>src/main/jaxb</bindingDirectory>
           <!-- We need to use the same output directory as the JAXB call, because both wsimport and JAXB are creating code for the Identifiers-x.y.xsd file! -->
           <sourceDestDir>target/generated-sources/xjc</sourceDestDir>
-          <target>2.1</target>
           <extension>true</extension>
           <verbose>true</verbose>
           <args>
