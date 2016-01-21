@@ -212,6 +212,7 @@
           <sourceDestDir>target/generated-sources/xjc</sourceDestDir>
           <extension>true</extension>
           <verbose>true</verbose>
+          <target>2.1</target>
           <args>
             <arg>-ph-csu</arg>
           </args>
