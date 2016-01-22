@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Philip Helger (www.helger.com)
+ * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Version: MPL 1.1/EUPL 1.1
@@ -62,7 +62,11 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class IdentifierHelperTest
 {
-  private static final String [] PARTICIPANT_SCHEME_VALID = { "busdox-actorid-upis", "BUSDOX-ACTORID-UPIS", CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "any-actorid-any", "any-ACTORID-any" };
+  private static final String [] PARTICIPANT_SCHEME_VALID = { "busdox-actorid-upis",
+                                                              "BUSDOX-ACTORID-UPIS",
+                                                              CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
+                                                              "any-actorid-any",
+                                                              "any-ACTORID-any" };
   private static final String [] PARTIFCIPANT_SCHEME_INVALID = { null,
                                                                  "",
                                                                  "busdox_actorid_upis",
@@ -129,7 +133,8 @@ public final class IdentifierHelperTest
     final SimpleDocumentTypeIdentifier aDI1 = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleDocumentTypeIdentifier aDI2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleDocumentTypeIdentifier aDI3a = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
-    final SimpleDocumentTypeIdentifier aDI3b = new SimpleDocumentTypeIdentifier ("my-docid-test", "urn:doc:anyotherdoc");
+    final SimpleDocumentTypeIdentifier aDI3b = new SimpleDocumentTypeIdentifier ("my-docid-test",
+                                                                                 "urn:doc:anyotherdoc");
     assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI1));
     assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI2));
     assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI1));
@@ -262,8 +267,11 @@ public final class IdentifierHelperTest
     assertTrue (IdentifierHelper.isValidDocumentTypeIdentifierValue ("invoice"));
     assertTrue (IdentifierHelper.isValidDocumentTypeIdentifierValue ("order "));
 
-    assertTrue (IdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a', CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)));
-    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a', CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH + 1)));
+    assertTrue (IdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
+                                                                                               CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)));
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
+                                                                                                CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                                                     1)));
   }
 
   @Test
@@ -276,7 +284,10 @@ public final class IdentifierHelperTest
     assertTrue (IdentifierHelper.isValidDocumentTypeIdentifier ("doctype::order "));
 
     assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
-    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier ("doctype::" + StringHelper.getRepeated ('a', CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH + 1)));
+    assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier ("doctype::" +
+                                                                 StringHelper.getRepeated ('a',
+                                                                                           CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                                                1)));
     assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier ("doctype:order"));
     assertFalse (IdentifierHelper.isValidDocumentTypeIdentifier ("doctypeorder"));
   }
@@ -293,9 +304,13 @@ public final class IdentifierHelperTest
     assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("990976098897"));
     assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("9909:976098896"));
     assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("9908:976098896"));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue ("9956:DE:EPROC:BMIEVG:BeschA"));
 
-    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a', CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)));
-    assertFalse (IdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a', CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH + 1)));
+    assertTrue (IdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
+                                                                                              CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)));
+    assertFalse (IdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
+                                                                                               CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
+                                                                                                    1)));
   }
 
   @Test
@@ -312,7 +327,10 @@ public final class IdentifierHelperTest
     assertTrue (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098896"));
 
     assertFalse (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummythatiswaytoolongforwhatisexpected::9908:976098896"));
-    assertFalse (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::" + StringHelper.getRepeated ('a', CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH + 1)));
+    assertFalse (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::" +
+                                                                StringHelper.getRepeated ('a',
+                                                                                          CIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
+                                                                                               1)));
     assertFalse (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy:9908:976098896"));
     assertFalse (IdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy9908:976098896"));
   }
@@ -326,8 +344,11 @@ public final class IdentifierHelperTest
     assertTrue (IdentifierHelper.isValidProcessIdentifierValue ("proc1"));
     assertTrue (IdentifierHelper.isValidProcessIdentifierValue ("proc2 "));
 
-    assertTrue (IdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a', CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)));
-    assertFalse (IdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a', CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH + 1)));
+    assertTrue (IdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
+                                                                                          CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)));
+    assertFalse (IdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
+                                                                                           CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
+                                                                                                1)));
   }
 
   @Test
@@ -340,7 +361,10 @@ public final class IdentifierHelperTest
     assertTrue (IdentifierHelper.isValidProcessIdentifier ("process::proc2 "));
 
     assertFalse (IdentifierHelper.isValidProcessIdentifier ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
-    assertFalse (IdentifierHelper.isValidProcessIdentifier ("process::" + StringHelper.getRepeated ('a', CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH + 1)));
+    assertFalse (IdentifierHelper.isValidProcessIdentifier ("process::" +
+                                                            StringHelper.getRepeated ('a',
+                                                                                      CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
+                                                                                           1)));
     assertFalse (IdentifierHelper.isValidProcessIdentifier ("process:proc2"));
     assertFalse (IdentifierHelper.isValidProcessIdentifier ("processproc2"));
   }
@@ -349,10 +373,14 @@ public final class IdentifierHelperTest
   public void testHasDefaultParticipantIdentifierScheme ()
   {
     assertTrue (IdentifierHelper.hasDefaultParticipantIdentifierScheme (SimpleParticipantIdentifier.createWithDefaultScheme ("abc")));
-    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme (new SimpleParticipantIdentifier ("dummy-actorid-upis", "abc")));
-    assertTrue (IdentifierHelper.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME + "::abc"));
-    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME + ":abc"));
-    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME + "abc"));
+    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme (new SimpleParticipantIdentifier ("dummy-actorid-upis",
+                                                                                                          "abc")));
+    assertTrue (IdentifierHelper.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
+                                                                        "::abc"));
+    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
+                                                                         ":abc"));
+    assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
+                                                                         "abc"));
     assertFalse (IdentifierHelper.hasDefaultParticipantIdentifierScheme ("dummy-actorid-upis::abc"));
   }
 
@@ -360,10 +388,14 @@ public final class IdentifierHelperTest
   public void testHasDefaultDocumentTypeIdentifierScheme ()
   {
     assertTrue (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (SimpleDocumentTypeIdentifier.createWithDefaultScheme ("abc")));
-    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (new SimpleDocumentTypeIdentifier ("doctype", "abc")));
-    assertTrue (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME + "::abc"));
-    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME + ":abc"));
-    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME + "abc"));
+    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (new SimpleDocumentTypeIdentifier ("doctype",
+                                                                                                            "abc")));
+    assertTrue (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+                                                                         "::abc"));
+    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+                                                                          ":abc"));
+    assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+                                                                          "abc"));
     assertFalse (IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme ("doctype::abc"));
   }
 
@@ -372,9 +404,12 @@ public final class IdentifierHelperTest
   {
     assertTrue (IdentifierHelper.hasDefaultProcessIdentifierScheme (SimpleProcessIdentifier.createWithDefaultScheme ("abc")));
     assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme (new SimpleProcessIdentifier ("proctype", "abc")));
-    assertTrue (IdentifierHelper.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME + "::abc"));
-    assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME + ":abc"));
-    assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME + "abc"));
+    assertTrue (IdentifierHelper.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
+                                                                    "::abc"));
+    assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
+                                                                     ":abc"));
+    assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
+                                                                     "abc"));
     assertFalse (IdentifierHelper.hasDefaultProcessIdentifierScheme ("proctype::abc"));
   }
 }

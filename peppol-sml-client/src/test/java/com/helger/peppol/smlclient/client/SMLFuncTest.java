@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Philip Helger (www.helger.com)
+ * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Version: MPL 1.1/EUPL 1.1
@@ -93,8 +93,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   private ServiceMetadataPublisherServiceType m_aServiceMetadataPublisher;
 
   @Nonnull
-  private static ServiceMetadataPublisherServiceType _createSMPData (@Nonnull final ManageServiceMetadataServiceCaller aSMLSMPClient,
-                                                                     @Nonnull @Nonempty final String sSMPID) throws Exception
+  private static ServiceMetadataPublisherServiceType _createSMPData (@Nonnull final ManageServiceMetadataServiceCaller aSMLSMPClient, @Nonnull @Nonempty final String sSMPID) throws Exception
   {
     final ServiceMetadataPublisherServiceType aServiceMetadataCreate = new ServiceMetadataPublisherServiceType ();
     aServiceMetadataCreate.setServiceMetadataPublisherID (sSMPID);
@@ -134,7 +133,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ParticipantIdentifierType aPI = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     try
     {
-      aPIClient.delete (aPI);
+      aPIClient.delete (SMP_ID, aPI);
     }
     catch (final com.helger.peppol.smlclient.participant.NotFoundFault e)
     {
@@ -167,12 +166,9 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     m_aSMClient.delete (aServiceMetadataRead.getServiceMetadataPublisherID ());
 
-    assertEquals (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (),
-                  aServiceMetadataRead.getServiceMetadataPublisherID ());
-    assertEquals (m_aServiceMetadataPublisher.getPublisherEndpoint ().getLogicalAddress (),
-                  aServiceMetadataRead.getPublisherEndpoint ().getLogicalAddress ());
-    assertEquals (m_aServiceMetadataPublisher.getPublisherEndpoint ().getPhysicalAddress (),
-                  aServiceMetadataRead.getPublisherEndpoint ().getPhysicalAddress ());
+    assertEquals (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (), aServiceMetadataRead.getServiceMetadataPublisherID ());
+    assertEquals (m_aServiceMetadataPublisher.getPublisherEndpoint ().getLogicalAddress (), aServiceMetadataRead.getPublisherEndpoint ().getLogicalAddress ());
+    assertEquals (m_aServiceMetadataPublisher.getPublisherEndpoint ().getPhysicalAddress (), aServiceMetadataRead.getPublisherEndpoint ().getPhysicalAddress ());
   }
 
   @Test
@@ -187,8 +183,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     {
       System.out.println ("Creating number: " + i);
       final long nIdentifier = nStartIdentifier + i;
-      aPIClient.create (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (),
-                        SimpleParticipantIdentifier.createWithDefaultScheme ("0088:" + nIdentifier));
+      aPIClient.create (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (), SimpleParticipantIdentifier.createWithDefaultScheme ("0088:" + nIdentifier));
     }
 
     m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
@@ -197,8 +192,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     // Delete one that was on a second page
     final long nIdentifier = nStartIdentifier + nLastIdentifier;
-    aPIClient.create (aServiceMetadataCreateNew.getServiceMetadataPublisherID (),
-                      SimpleParticipantIdentifier.createWithDefaultScheme ("0088:" + nIdentifier));
+    aPIClient.create (aServiceMetadataCreateNew.getServiceMetadataPublisherID (), SimpleParticipantIdentifier.createWithDefaultScheme ("0088:" + nIdentifier));
   }
 
   @Test (expected = NotFoundFault.class)
@@ -237,8 +231,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     aPIClient.create (saSrviceMetadataPublisherServiceForBusiness);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
 
@@ -268,8 +261,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     aPIClient.create (aServiceMetadataPublisherServiceForBusiness);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
 
@@ -296,8 +288,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
 
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
@@ -319,8 +310,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     aRecipientBusinessIdentifiers.add (aBusinessIdentifierCreate1);
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
 
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
@@ -353,8 +343,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     aPIClient.createList (aBusinessIdentifiersCreate.values (), SMP_ID);
 
-    final ParticipantIdentifierPageType aResult = aPIClient.list ("",
-                                                                  m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
+    final ParticipantIdentifierPageType aResult = aPIClient.list ("", m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aResult);
 
     final List <ParticipantIdentifierType> aBusinessIdentifiers = aResult.getParticipantIdentifier ();
@@ -408,7 +397,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     try
     {
-      aPIClientOld.delete (aPI);
+      aPIClientOld.delete (SMP_ID, aPI);
       fail ();
     }
     catch (final UnauthorizedFault e)
@@ -417,7 +406,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     }
 
     // Should be able to delete, since New is now the owner
-    aPIClientNew.delete (aPI);
+    aPIClientNew.delete (SMP_ID, aPI);
   }
 
   @Test (expected = BadRequestFault.class)

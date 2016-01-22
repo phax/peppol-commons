@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2015 Philip Helger (www.helger.com)
+    Copyright (C) 2015-2016 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Version: MPL 1.1/EUPL 1.1
@@ -46,7 +46,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>4.3.2-SNAPSHOT</version>
+    <version>4.3.4-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-sml-client</artifactId>
   <packaging>bundle</packaging>
@@ -83,7 +83,7 @@
   </developers>
 
   <properties>
-    <jaxws-plugin.version>2.3.1-b20150201.1248</jaxws-plugin.version>
+    <jaxws-plugin.version>2.4.1</jaxws-plugin.version>
     <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
     <jaxws.version>2.2.9-b14002</jaxws.version>
   </properties>
@@ -129,6 +129,20 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/NOTICE</exclude>
+            <exclude>**/LICENSE</exclude>
+            <exclude>**/LICENSE2</exclude>
+            <exclude>**/*.episode</exclude>
+            <exclude>**/*.jks</exclude>
+            <exclude>src/main/resources/WEB-INF/wsdl/BDMSL*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
@@ -136,7 +150,7 @@
         </configuration>
       </plugin>      
       <plugin>
-        <groupId>org.jvnet.jax-ws-commons</groupId>
+        <groupId>org.codehaus.mojo</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
         <version>${jaxws-plugin.version}</version>
         <executions>
@@ -196,9 +210,9 @@
           <bindingDirectory>src/main/jaxb</bindingDirectory>
           <!-- We need to use the same output directory as the JAXB call, because both wsimport and JAXB are creating code for the Identifiers-x.y.xsd file! -->
           <sourceDestDir>target/generated-sources/xjc</sourceDestDir>
-          <target>2.1</target>
           <extension>true</extension>
           <verbose>true</verbose>
+          <target>2.1</target>
           <args>
             <arg>-ph-csu</arg>
           </args>

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Philip Helger (www.helger.com)
+ * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Version: MPL 1.1/EUPL 1.1
@@ -41,6 +41,8 @@
 package com.helger.peppol.smp;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -60,8 +62,16 @@ public final class SMPTransportProfileTest
     assertEquals ("id", aTP.getID ());
     assertEquals ("name", aTP.getName ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aTP, new SMPTransportProfile ("id", "name"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aTP,
-                                                                           new SMPTransportProfile ("id2", "name"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aTP, new SMPTransportProfile ("id2", "name"));
     CommonsTestHelper.testDefaultSerialization (aTP);
+    CommonsTestHelper.testMicroTypeConversion (aTP);
+
+    assertTrue (aTP.setName ("bla").isChanged ());
+    assertEquals ("bla", aTP.getName ());
+    assertFalse (aTP.setName ("bla").isChanged ());
+    assertEquals ("bla", aTP.getName ());
+
+    CommonsTestHelper.testDefaultSerialization (aTP);
+    CommonsTestHelper.testMicroTypeConversion (aTP);
   }
 }

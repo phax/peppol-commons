@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Philip Helger
+ * Copyright (C) 2015-2016 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,8 +47,8 @@ public final class PeppolBISV1TestFiles
   private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolBISV1TestFiles.class);
   private static final String [] CALLFORTENDERS_SUCCESS = new String [] { "Catalogue pre award_Call for Tender_RDO MEPA_BIS 12a.xml" };
   private static final String [] CATALOGUES_SUCCESS = new String [] { "Consip_Catalogo_UBL.xml" };
-  private static final String [] CREDITNOTES_SUCCESS = new String [] { "BII05 TRDM014 example at.xml",
-                                                                       "BII05 TRDM014 example is.xml",
+  private static final String [] CREDITNOTES_SUCCESS = new String [] { "BII05-TRDM014-example-at.xml",
+                                                                       "BII05-TRDM014-example-is.xml",
                                                                        "creditnote-with-all-elements-new-creditorid.xml",
                                                                        "creditnote-with-all-elements.xml" };
   private static final String [] CREDITNOTES_AT_SUCCESS = new String [] { "atgov_BIS5aCreditNote.xml",
@@ -416,7 +416,11 @@ public final class PeppolBISV1TestFiles
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R263"),
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R266"),
                                                                                                    ErrorDefinition.createWarning ("BIICORE-T10-R323"),
-                                                                                                   ErrorDefinition.createWarning ("EUGEN-T10-R003")) };
+                                                                                                   ErrorDefinition.createWarning ("EUGEN-T10-R003")),
+                                                                                 new TestDocument ("atgov-t10-fail-r018.xml",
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R263"),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R266"),
+                                                                                                   ErrorDefinition.createWarning ("BIICORE-T10-R323")) };
 
   /**
    * TC01.4.TS1.xml, TC01.5.TS1.xml, TC01.10.TS1.xml, TC01.39.TS1.xml,

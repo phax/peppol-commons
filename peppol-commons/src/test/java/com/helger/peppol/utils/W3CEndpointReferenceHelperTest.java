@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Philip Helger (www.helger.com)
+ * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Version: MPL 1.1/EUPL 1.1
@@ -56,7 +56,7 @@ import com.helger.commons.xml.XMLFactory;
 
 /**
  * Test class for class {@link W3CEndpointReferenceHelper}.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class W3CEndpointReferenceHelperTest
@@ -65,8 +65,11 @@ public final class W3CEndpointReferenceHelperTest
   public void testAddress ()
   {
     final String sURL = "http://www.example.org/any";
-    final W3CEndpointReference aEPR = W3CEndpointReferenceHelper.createEndpointReference (sURL);
+    W3CEndpointReference aEPR = W3CEndpointReferenceHelper.createEndpointReference (sURL);
     assertEquals (sURL, W3CEndpointReferenceHelper.getAddress (aEPR));
+
+    aEPR = W3CEndpointReferenceHelper.createEndpointReference ("");
+    assertEquals ("", W3CEndpointReferenceHelper.getAddress (aEPR));
   }
 
   @Test

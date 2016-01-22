@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Philip Helger (www.helger.com)
+ * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Version: MPL 1.1/EUPL 1.1
@@ -244,6 +244,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
+  @Deprecated
   public void delete (@Nonnull final ParticipantIdentifierType aIdentifier) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     // No SMP ID required here, since identifier scheme+value must be unique!

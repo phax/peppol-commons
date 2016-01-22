@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2014-2015 Philip Helger
+    Copyright (C) 2014-2016 Philip Helger
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>4.3.2-SNAPSHOT</version>
+    <version>4.3.4-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-sbdh</artifactId>
   <packaging>bundle</packaging>

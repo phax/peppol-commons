@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Philip Helger (www.helger.com)
+ * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Version: MPL 1.1/EUPL 1.1
@@ -70,7 +70,8 @@ import com.helger.commons.xml.XMLHelper;
  * extract information from it (get....). This class offers a workaround by
  * using DOM serialization to access the content of a
  * {@link W3CEndpointReference}. In case the serialization tag names of
- * {@link W3CEndpointReference} change, this implementation has to be adopted!<br>
+ * {@link W3CEndpointReference} change, this implementation has to be adopted!
+ * <br>
  * The JIRA issue JAX_WS-1132 was filed to help dealing with this issue.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
@@ -90,12 +91,15 @@ public final class W3CEndpointReferenceHelper
    * parameters.
    *
    * @param sAddress
-   *        The address to use. May not be <code>null</code>.
+   *        The address to use. May not be <code>null</code> but may be empty to
+   *        .
    * @return The non-<code>null</code> endpoint reference for the given address
    */
   @Nonnull
   public static W3CEndpointReference createEndpointReference (@Nonnull final String sAddress)
   {
+    ValueEnforcer.notNull (sAddress, "Address");
+
     return new W3CEndpointReferenceBuilder ().address (sAddress).build ();
   }
 
@@ -104,16 +108,17 @@ public final class W3CEndpointReferenceHelper
    * reference parameters.
    *
    * @param sAddress
-   *        The address to use. May not be <code>null</code>.
+   *        The address to use. May not be <code>null</code> but may be empty.
    * @param aReferenceParameters
    *        The non-<code>null</code> list of reference parameters. May not be
    *        <code>null</code>.
    * @return The non-<code>null</code> endpoint reference for the given address
    */
   @Nonnull
-  public static W3CEndpointReference createEndpointReference (@Nonnull final String sAddress,
-                                                              @Nonnull final List <Element> aReferenceParameters)
+  public static W3CEndpointReference createEndpointReference (@Nonnull final String sAddress, @Nonnull final List <Element> aReferenceParameters)
   {
+    ValueEnforcer.notNull (sAddress, "Address");
+
     W3CEndpointReferenceBuilder aBuilder = new W3CEndpointReferenceBuilder ().address (sAddress);
     for (final Element aReferenceParameter : aReferenceParameters)
       aBuilder = aBuilder.referenceParameter (aReferenceParameter);
@@ -152,8 +157,7 @@ public final class W3CEndpointReferenceHelper
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
 
-    final Element eAddress = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference),
-                                                                   "Address");
+    final Element eAddress = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference), "Address");
     return eAddress == null ? null : eAddress.getTextContent ();
   }
 
@@ -171,8 +175,7 @@ public final class W3CEndpointReferenceHelper
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
 
-    final Element eRefParams = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference),
-                                                                     "ReferenceParameters");
+    final Element eRefParams = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference), "ReferenceParameters");
     if (eRefParams == null)
       return null;
 
@@ -190,8 +193,7 @@ public final class W3CEndpointReferenceHelper
    * @return <code>null</code> if the index is invalid
    */
   @Nullable
-  public static Element getReferenceParameter (@Nonnull final W3CEndpointReference aEndpointReference,
-                                               @Nonnegative final int nIndex)
+  public static Element getReferenceParameter (@Nonnull final W3CEndpointReference aEndpointReference, @Nonnegative final int nIndex)
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
     ValueEnforcer.isGE0 (nIndex, "Index");

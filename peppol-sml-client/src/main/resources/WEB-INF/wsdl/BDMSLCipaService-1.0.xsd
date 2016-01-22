@@ -9,7 +9,10 @@
                schemaLocation="Identifiers-1.0.xsd"/>
     <xs:element name="PrepareChangeCertificate" type="PrepareChangeCertificateType"/>
     <xs:element name="SMPAdvancedServiceForParticipantService" type="SMPAdvancedServiceForParticipantType"/>
-    <xs:element name="ListParticipants" type="ListParticipantsType"/>
+    <xs:element name="ListParticipantsOut" type="ListParticipantsType"/>
+    <xs:element name="ClearCache" type="ClearCacheType"/>
+    <xs:element name="IsAlive" type="IsAliveType"/>
+    <xs:element name="ListParticipantsIn" type="ListParticipantsInType"/>
     <xs:complexType name="PrepareChangeCertificateType">
         <xs:sequence>
             <xs:element name="newCertificatePublicKey" type="xs:string" minOccurs="1" maxOccurs="1">
@@ -55,4 +58,7 @@
             </xs:element>
         </xs:sequence>
     </xs:complexType>
+    <xs:complexType name="ListParticipantsInType" />
+    <xs:complexType name="IsAliveType" />
+    <xs:complexType name="ClearCacheType" />
 </xs:schema>

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Philip Helger (www.helger.com)
+ * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Version: MPL 1.1/EUPL 1.1
@@ -41,22 +41,32 @@
 package com.helger.peppol.smp;
 
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.lang.ICloneable;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.type.ObjectType;
 
 /**
  * A stand-alone implementation of the {@link ISMPTransportProfile}. For a set
  * of predefined transport profiles have a look at {@link ESMPTransportProfile}.
  */
-@Immutable
-public class SMPTransportProfile implements ISMPTransportProfile
+@NotThreadSafe
+public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SMPTransportProfile>
 {
+  public static final ObjectType OT = new ObjectType ("smp.transport.profile");
+
   private final String m_sID;
-  private final String m_sName;
+  private String m_sName;
+
+  public SMPTransportProfile (@Nonnull final ISMPTransportProfile aOther)
+  {
+    this (aOther.getID (), aOther.getName ());
+  }
 
   public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
@@ -76,6 +86,22 @@ public class SMPTransportProfile implements ISMPTransportProfile
   public String getName ()
   {
     return m_sName;
+  }
+
+  @Nonnull
+  public EChange setName (@Nonnull @Nonempty final String sName)
+  {
+    ValueEnforcer.notEmpty (sName, "Name");
+    if (sName.equals (m_sName))
+      return EChange.UNCHANGED;
+    m_sName = sName;
+    return EChange.CHANGED;
+  }
+
+  @Nonnull
+  public SMPTransportProfile getClone ()
+  {
+    return new SMPTransportProfile (this);
   }
 
   @Override

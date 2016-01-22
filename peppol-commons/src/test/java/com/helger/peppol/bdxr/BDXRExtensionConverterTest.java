@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2015 Philip Helger (www.helger.com)
+ * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Version: MPL 1.1/EUPL 1.1
@@ -38,62 +38,61 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.smlclient.client;
+package com.helger.peppol.bdxr;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.util.List;
-
-import org.junit.Ignore;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.helger.peppol.sml.ESML;
-import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
-import com.helger.peppol.smlclient.BDMSLClient;
-import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
-import com.helger.peppol.utils.PeppolTechnicalSetup;
+import org.w3c.dom.Element;
 
 /**
- * Test class for class {@link BDMSLClient}.
+ * Test class for class {@link BDXRExtensionConverter}.
  *
- * @author Philip Helger
+ * @author PEPPOL.AT, BRZ, Philip Helger
  */
-@Ignore ("Requires a running SML and a configured certificate")
-public final class BDMSLClientTest extends AbstractSMLClientTestCase
+public final class BDXRExtensionConverterTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BDMSLClientTest.class);
-
-  static
+  @Test
+  public void testConvertFromString ()
   {
-    assertSame (SML_INFO, ESML.DIGIT_TEST);
+    // Use elements
+    final String sXML = "<any xmlns=\"urn:foo\"><child>text1</child><child2 /></any>";
+    final ExtensionType aExtension = BDXRExtensionConverter.convert (sXML);
+    assertNotNull (aExtension);
+    assertNotNull (aExtension.getAny ());
+    assertTrue (aExtension.getAny () instanceof Element);
+
+    assertNull (BDXRExtensionConverter.convert ((String) null));
+    assertNull (BDXRExtensionConverter.convert (""));
+
+    // Convert back to String
+    final String sXML2 = BDXRExtensionConverter.convertToString (aExtension);
+    assertEquals (sXML, sXML2);
+
+    try
+    {
+      // Cannot convert non-element
+      BDXRExtensionConverter.convert ("Plain text");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+
+    // Cannot convert non-element
+    assertNull (BDXRExtensionConverter.convertOrNull ("Plain text"));
   }
 
   @Test
-  public void testCreateAndDeletePublisher () throws Exception
+  public void testConvertFromExtensionType ()
   {
-    PeppolTechnicalSetup.enableSoapLogging (true);
-    try
-    {
-      // Create client
-      final BDMSLClient aClient = new BDMSLClient (SML_INFO);
-      aClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
-
-      s_aLogger.info ("IS_ALIVE");
-      aClient.isAlive ();
-
-      s_aLogger.info ("CLEAR_CACHE");
-      aClient.clearCache ();
-
-      s_aLogger.info ("LIST_PARTICIPANTS");
-      final List <ParticipantListItem> aList = aClient.listParticipants ();
-      assertNull (aList);
-    }
-    finally
-    {
-      PeppolTechnicalSetup.enableSoapLogging (false);
-    }
+    // Try converting an empty extension
+    assertNull (BDXRExtensionConverter.convertToString ((ExtensionType) null));
+    assertNull (BDXRExtensionConverter.convertToString (new ObjectFactory ().createExtensionType ()));
   }
 }
