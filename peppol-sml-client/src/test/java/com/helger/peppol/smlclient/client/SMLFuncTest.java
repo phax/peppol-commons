@@ -391,7 +391,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
     final ParticipantIdentifierType aPI = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     aPIClientOld.create (SMP_ID, aPI);
-    final UUID aMigrationKey = aPIClientOld.prepareToMigrate (aPI, SMP_ID);
+    final String aMigrationKey = aPIClientOld.prepareToMigrate (aPI, SMP_ID);
     assertNotNull (aMigrationKey);
     aPIClientNew.migrate (aPI, aMigrationKey, SMP_ID2);
 
