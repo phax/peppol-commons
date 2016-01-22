@@ -398,23 +398,13 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
   }
 
   /**
-   * @return A new random UUID. May not be <code>null</code>.
-   */
-  @Nonnull
-  @OverrideOnDemand
-  protected UUID createUUID ()
-  {
-    return UUID.randomUUID ();
-  }
-
-  /**
    * Prepares a migrate of the given participant identifier.
    *
    * @param aIdentifier
    *        The participant identifier.
    * @param sSMPID
    *        SMP ID
-   * @return The UUID to transfer out-of-band to the other SMP.
+   * @return The 24 bytes String to transfer out-of-band to the other SMP.
    * @throws BadRequestFault
    *         Is thrown if the request sent to the service was not well-formed.
    * @throws InternalErrorFault
@@ -425,7 +415,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    *         Is thrown if the user was not authorized.
    */
   @Nonnull
-  public UUID prepareToMigrate (@Nonnull final ParticipantIdentifierType aIdentifier, @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
+  public String prepareToMigrate (@Nonnull final ParticipantIdentifierType aIdentifier, @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
                                                                                                                               InternalErrorFault,
                                                                                                                               NotFoundFault,
                                                                                                                               UnauthorizedFault
@@ -436,14 +426,14 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Preparing to migrate participant " + IdentifierHelper.getIdentifierURIEncoded (aIdentifier) + " from SMP '" + sSMPID + "'");
 
-    final UUID aUUID = createUUID ();
+    final String aMigrationKey = UUID.randomUUID().toString().substring(0, 23);
     final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
     aMigrationRecord.setParticipantIdentifier (aIdentifier);
-    aMigrationRecord.setMigrationKey (aUUID.toString ());
+    aMigrationRecord.setMigrationKey (aMigrationKey);
     aMigrationRecord.setServiceMetadataPublisherID (sSMPID);
 
     createWSPort ().prepareToMigrate (aMigrationRecord);
-    return aUUID;
+    return aMigrationKey;
   }
 
   /**
@@ -468,7 +458,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    *         Is thrown if the user was not authorized.
    */
   public void migrate (@Nonnull final ParticipantIdentifierType aIdentifier,
-                       @Nonnull final UUID aMigrationKey,
+                       @Nonnull final String aMigrationKey,
                        @Nonnull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
