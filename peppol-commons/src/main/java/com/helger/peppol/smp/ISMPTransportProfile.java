@@ -44,16 +44,20 @@ import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasName;
 
 /**
- * Base interface for SMP transport profiles.
+ * Base interface for SMP transport profiles. Two transport profiles are
+ * considered equal if the IDs are equal. The name of a transport profile has no
+ * semantic meaning and is only present for interpretation by humans.
  *
  * @author Philip Helger
  * @see ESMPTransportProfile for a set of predefined transport profiles
  */
+@MustImplementEqualsAndHashcode
 public interface ISMPTransportProfile extends IHasID <String>, IHasName, Serializable
 {
   /**
