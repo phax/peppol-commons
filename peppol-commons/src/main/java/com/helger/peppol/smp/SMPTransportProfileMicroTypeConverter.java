@@ -49,7 +49,7 @@ import com.helger.commons.microdom.convert.IMicroTypeConverter;
 
 /**
  * Micro type converter for {@link ISMPTransportProfile} objects
- * 
+ *
  * @author Philip Helger
  */
 public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverter
@@ -57,7 +57,10 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
   private static final String ATTR_ID = "id";
   private static final String ATTR_NAME = "name";
 
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject, @Nullable final String sNamespaceURI, @Nonnull final String sTagName)
+  @Nonnull
+  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+                                              @Nullable final String sNamespaceURI,
+                                              @Nonnull final String sTagName)
   {
     final ISMPTransportProfile aValue = (ISMPTransportProfile) aObject;
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
@@ -66,6 +69,7 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
     return aElement;
   }
 
+  @Nonnull
   public SMPTransportProfile convertToNative (@Nonnull final IMicroElement aElement)
   {
     final String sID = aElement.getAttributeValue (ATTR_ID);

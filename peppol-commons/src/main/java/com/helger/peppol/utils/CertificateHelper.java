@@ -101,7 +101,7 @@ public final class CertificateHelper
   }
 
   @Nonnull
-  private static String _ensureBeginAndEndArePresent (@Nonnull final String sCertString)
+  public static String ensureBeginAndEndArePresent (@Nonnull final String sCertString)
   {
     String sRealCertString = sCertString;
     // Check without newline in case there are blanks between the string the
@@ -141,7 +141,7 @@ public final class CertificateHelper
     String sRealCertString = sCertString;
     sRealCertString = _cutUnnecessaryLeadingAndTrailingParts (sRealCertString);
     sRealCertString = getRFC1421CompliantString (sRealCertString);
-    sRealCertString = _ensureBeginAndEndArePresent (sRealCertString);
+    sRealCertString = ensureBeginAndEndArePresent (sRealCertString);
 
     return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
                                                                                              CERT_CHARSET));

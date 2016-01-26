@@ -47,22 +47,24 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.lang.EnumHelper;
 
 /**
- * This class contains the transport profiles for service registrations.
+ * This class contains predefined transport profiles for service registrations.
+ * A generic implementation of {@link ISMPTransportProfile} can be found in
+ * class {@link SMPTransportProfile}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public enum ESMPTransportProfile implements ISMPTransportProfile
 {
- /** The START transport profile to be used in EndPointType objects */
+  /** The START transport profile to be used in EndPointType objects */
   TRANSPORT_PROFILE_START ("busdox-transport-start", "START"),
 
- /** The AS2 transport profile to be used in EndPointType objects */
+  /** The AS2 transport profile to be used in EndPointType objects */
   TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "AS2"),
 
- /** The AS4 transport profile to be used in EndPointType objects */
+  /** The AS4 transport profile to be used in EndPointType objects */
   @Deprecated TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4"),
 
- /** The BDXR AS4 transport profile to be used in EndPointType objects */
+  /** The BDXR AS4 transport profile to be used in EndPointType objects */
   TRANSPORT_PROFILE_BDXR_AS4 ("bdxr-transport-ebms3-as4-v1p0", "BDXR AS4");
 
   private final String m_sID;
@@ -88,6 +90,13 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
     return m_sName;
   }
 
+  /**
+   * Find the pre-defined transport profile with the passed ID.
+   * 
+   * @param sID
+   *        The ID to be searched. May be <code>null</code>.
+   * @return <code>null</code> if no such transport profile was found.
+   */
   @Nullable
   public static ESMPTransportProfile getFromIDOrNull (@Nullable final String sID)
   {

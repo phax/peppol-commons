@@ -56,6 +56,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
+import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.participant.BadRequestFault;
 import com.helger.peppol.smlclient.participant.InternalErrorFault;
@@ -77,11 +78,7 @@ import com.helger.peppol.smlclient.participant.UnauthorizedFault;
  */
 public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientCaller
 {
-  /** New limit introduced by SMK 3 */
-  public static final int MAX_MIGRATION_KEY_LENGTH = 24;
-
   private static final Logger s_aLogger = LoggerFactory.getLogger (ManageParticipantIdentifierServiceCaller.class);
-  private static final String NO_SMP_ID_REQUIRED = "";
 
   /**
    * Constructs a service caller for the manage business identifier interface.
@@ -270,7 +267,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
                                                                             UnauthorizedFault
   {
     // No SMP ID required here, since identifier scheme+value must be unique!
-    delete (NO_SMP_ID_REQUIRED, aIdentifier);
+    delete ("", aIdentifier);
   }
 
   /**
@@ -445,7 +442,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    *        The base migration key. May not be <code>null</code>. E.g.
    *        <code>UUID.toString()</code>
    * @return The passed string with at last 24 chars
-   * @see #MAX_MIGRATION_KEY_LENGTH
+   * @see CSMLDefault#MAX_MIGRATION_CODE_LENGTH
    */
   @Nonnull
   @Nonempty
@@ -454,10 +451,10 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
     ValueEnforcer.notEmpty (sBaseKey, "BaseKey");
 
     // The SMK 3 imposes a new max length of 24 chars
-    if (sBaseKey.length () <= MAX_MIGRATION_KEY_LENGTH)
+    if (sBaseKey.length () <= CSMLDefault.MAX_MIGRATION_CODE_LENGTH)
       return sBaseKey;
 
-    return sBaseKey.substring (0, MAX_MIGRATION_KEY_LENGTH);
+    return sBaseKey.substring (0, CSMLDefault.MAX_MIGRATION_CODE_LENGTH);
   }
 
   /**
