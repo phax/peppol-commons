@@ -64,13 +64,30 @@ public class ParticipantListItem implements Serializable
   private final String m_sSMPID;
   private final SimpleParticipantIdentifier m_aParticipantID;
 
-  public ParticipantListItem (@Nonnull @Nonempty final String sSMPID, @Nonnull final IParticipantIdentifier aParticipantID)
+  /**
+   * Constructor
+   *
+   * @param sSMPID
+   *        The SMP ID to which the participant belongs. May neither be
+   *        <code>null</code> nor empty.
+   * @param aParticipantID
+   *        The participant identifier. May not be <code>null</code>.
+   */
+  public ParticipantListItem (@Nonnull @Nonempty final String sSMPID,
+                              @Nonnull final IParticipantIdentifier aParticipantID)
   {
-    m_sSMPID = ValueEnforcer.notEmpty (sSMPID, "SMPID");
+    ValueEnforcer.notEmpty (sSMPID, "SMPID");
+    ValueEnforcer.notNull (aParticipantID, "ParticipantID");
+
+    m_sSMPID = sSMPID;
     // Same type, guaranteed to not be changed inside
     m_aParticipantID = new SimpleParticipantIdentifier (aParticipantID);
   }
 
+  /**
+   * @return The SMP-ID to which this participant identifier belongs. Neither
+   *         <code>null</code> nor empty.
+   */
   @Nonnull
   @Nonempty
   public String getSMPID ()
@@ -78,6 +95,10 @@ public class ParticipantListItem implements Serializable
     return m_sSMPID;
   }
 
+  /**
+   * @return The participant identifier as passed in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public IPeppolParticipantIdentifier getParticipantID ()
   {
@@ -104,6 +125,8 @@ public class ParticipantListItem implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("SMPID", m_sSMPID).append ("ParticipantID", m_aParticipantID).toString ();
+    return new ToStringGenerator (null).append ("SMPID", m_sSMPID)
+                                       .append ("ParticipantID", m_aParticipantID)
+                                       .toString ();
   }
 }

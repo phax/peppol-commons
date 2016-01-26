@@ -48,7 +48,7 @@ import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasName;
 
 /**
- * Enumeration with all object types.
+ * Enumeration with all object types relevant to the SML.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */

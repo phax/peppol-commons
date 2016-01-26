@@ -48,7 +48,7 @@ import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasName;
 
 /**
- * Enum with all client commands.
+ * Enum with all SML client commands.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
