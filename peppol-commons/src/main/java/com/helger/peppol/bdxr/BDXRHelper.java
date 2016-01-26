@@ -52,7 +52,7 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
 
 /**
- * A special helper class to convert between regular and BDXR identifiers.
+ * A special helper class to convert between generic and BDXR identifiers types.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */

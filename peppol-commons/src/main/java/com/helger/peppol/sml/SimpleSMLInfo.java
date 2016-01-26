@@ -53,7 +53,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Use instances of this class if you're not happy with the <code>ESML</code>
+ * Use instances of this class if you're not happy with the {@link ESML}
  * enumeration value but need an instance of {@link ISMLInfo}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
@@ -83,8 +83,9 @@ public class SimpleSMLInfo implements ISMLInfo
     m_sDNSZone = sDNSZone;
     // Management service without the trailing slash
     m_sManagementServiceURL = sManagementService.endsWith ("/") ? sManagementService.substring (0,
-                                                                                                sManagementService.length () - 1)
-                                                               : sManagementService;
+                                                                                                sManagementService.length () -
+                                                                                                   1)
+                                                                : sManagementService;
     m_bRequiresClientCertficate = bRequiresClientCertficate;
     try
     {

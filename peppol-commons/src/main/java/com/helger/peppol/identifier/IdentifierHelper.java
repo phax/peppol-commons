@@ -40,13 +40,12 @@
  */
 package com.helger.peppol.identifier;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -72,19 +71,13 @@ import com.helger.peppol.utils.BusdoxURLHelper;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-@Immutable
+@ThreadSafe
 public final class IdentifierHelper
 {
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
   public static final boolean DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED = false;
 
-  // Grab the Charset objects, as they are thread-safe to use. The CharsetEncode
-  // objects are not thread-safe and therefore queried each time
-  private static final Charset CHARSET_ASCII = CCharset.CHARSET_US_ASCII_OBJ;
-  private static final Charset CHARSET_ISO88591 = CCharset.CHARSET_ISO_8859_1_OBJ;
-
   private static final String PATTERN_PARTICIPANT_ID = "^([^:]*):(.*)$";
-
   private static final String PREFIX_PARTICIPANT_IDENTIFIER_SCHEME = CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
                                                                      CIdentifier.URL_SCHEME_VALUE_SEPARATOR;
   private static final String PREFIX_DOCUMENT_TYPE_IDENTIFIER_SCHEME = CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
@@ -172,9 +165,10 @@ public final class IdentifierHelper
 
   /**
    * Check if the given identifier is valid. It is valid if it has at least 1
-   * character and at last 25 characters. This method applies to all identifier
-   * schemes, but there is a special version for participant identifier schemes,
-   * as they are used in DNS names!
+   * character and at last 25 characters (see
+   * {@link CIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}). This method applies to
+   * all identifier schemes, but there is a special version for participant
+   * identifier schemes, as they are used in DNS names!
    *
    * @param sScheme
    *        The scheme to check.
@@ -198,9 +192,11 @@ public final class IdentifierHelper
   /**
    * Check if the given scheme is a valid participant identifier scheme (like
    * {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}). It is valid if
-   * it has at least 1 character and at last 25 characters and matches a certain
-   * regular expression. Please note that the regular expression is applied case
-   * insensitive!<br>
+   * it has at least 1 character and at last 25 characters (see
+   * {@link CIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a certain
+   * regular expression (see
+   * {@link CIdentifier#PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please note that
+   * the regular expression is applied case insensitive!<br>
    * This limitation is important, because the participant identifier scheme is
    * directly encoded into the SML DNS name record.
    *
@@ -208,7 +204,6 @@ public final class IdentifierHelper
    *        The scheme to check.
    * @return <code>true</code> if the passed scheme is a valid participant
    *         identifier scheme, <code>false</code> otherwise.
-   * @see CIdentifier#PARTICIPANT_IDENTIFIER_SCHEME_REGEX
    * @see #isValidIdentifierScheme(String)
    */
   public static boolean isValidParticipantIdentifierScheme (@Nullable final String sScheme)
@@ -239,7 +234,7 @@ public final class IdentifierHelper
       return false;
 
     // Check if the value is US ASCII encoded
-    return areCharsetChecksDisabled () || CHARSET_ASCII.newEncoder ().canEncode (sValue);
+    return areCharsetChecksDisabled () || CCharset.CHARSET_US_ASCII_OBJ.newEncoder ().canEncode (sValue);
   }
 
   /**
@@ -261,7 +256,7 @@ public final class IdentifierHelper
       return false;
 
     // Check if the value is ISO-8859-1 encoded
-    return areCharsetChecksDisabled () || CHARSET_ISO88591.newEncoder ().canEncode (sValue);
+    return areCharsetChecksDisabled () || CCharset.CHARSET_ISO_8859_1_OBJ.newEncoder ().canEncode (sValue);
   }
 
   /**
@@ -283,7 +278,7 @@ public final class IdentifierHelper
       return false;
 
     // Check if the value is ISO-8859-1 encoded
-    return areCharsetChecksDisabled () || CHARSET_ISO88591.newEncoder ().canEncode (sValue);
+    return areCharsetChecksDisabled () || CCharset.CHARSET_ISO_8859_1_OBJ.newEncoder ().canEncode (sValue);
   }
 
   /**

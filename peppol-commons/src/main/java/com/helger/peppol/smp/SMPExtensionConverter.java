@@ -56,7 +56,8 @@ import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 
 /**
  * This class is used for converting between a String representation of the
- * extension element and the "ExtensionType" complex type used in the SMP.
+ * extension element and the "ExtensionType" complex type used in the PEPPOL
+ * SMP.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
@@ -87,11 +88,12 @@ public final class SMPExtensionConverter
   public static String convertToString (@Nullable final ExtensionType aExtension)
   {
     // If there is no extension present, nothing to convert
-    if (aExtension == null)
-      return null;
-
-    // Get the extension content
-    return XMLWriter.getNodeAsString (aExtension.getAny (), s_aXWS);
+    if (aExtension != null && aExtension.getAny () != null)
+    {
+      // Get the extension content
+      return XMLWriter.getNodeAsString (aExtension.getAny (), s_aXWS);
+    }
+    return null;
   }
 
   /**

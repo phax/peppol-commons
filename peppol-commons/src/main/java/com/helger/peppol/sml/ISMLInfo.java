@@ -48,7 +48,9 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.Nonempty;
 
 /**
- * Specifies the different properties an SML implementation uses.
+ * Specifies the different properties an SML implementation uses. A set of
+ * predefined SML information can be found at {@link ESML} whereas a generic
+ * implementation can be found at {@link SimpleSMLInfo}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
@@ -68,6 +70,7 @@ public interface ISMLInfo extends Serializable
    * @return The DNS sub zone name that is used for SMP publishers. This is done
    *         by prepending {@link CSMLDefault#DNS_PUBLISHER_SUBZONE} to the DNS
    *         zone name - never starts with a dot! May not be <code>null</code>.
+   * @see #getDNSZone()
    */
   @Nonnull
   @Nonempty
@@ -84,21 +87,27 @@ public interface ISMLInfo extends Serializable
 
   /**
    * @return The service endpoint URL to manage SMP meta data. Never
-   *         <code>null</code>.
+   *         <code>null</code>. This is usually the URL corresponding to <code>
+   *
+  {@link #getManagementServiceURL()} + "/" + CSMLDefault.MANAGEMENT_SERVICE_METADATA</code>
    */
   @Nonnull
   URL getManageServiceMetaDataEndpointAddress ();
 
   /**
    * @return The service endpoint URL to manage participant identifiers. Never
-   *         <code>null</code>.
+   *         <code>null</code>. This is usually the URL corresponding to <code>
+   *
+  {@link #getManagementServiceURL()} + "/" + CSMLDefault.MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER</code>
    */
   @Nonnull
   URL getManageParticipantIdentifierEndpointAddress ();
 
   /**
    * @return <code>true</code> if this SML requires a client certificate for
-   *         access, <code>false</code> otherwise.
+   *         access, <code>false</code> otherwise. Both production SML and SMK
+   *         require a client certificate. Only a locally running SML software
+   *         may not require a client certificate.
    */
   boolean requiresClientCertificate ();
 }

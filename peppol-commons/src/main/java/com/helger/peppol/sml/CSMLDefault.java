@@ -73,8 +73,8 @@ public final class CSMLDefault
   public static final String MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER = "manageparticipantidentifier";
 
   /**
-   * The maximum length of a migration code identifier. New limit imposed by SMK
-   * 3: 24
+   * The maximum length of a migration code identifier.<br>
+   * New limit imposed by SMK 3: 24
    */
   public static final int MAX_MIGRATION_CODE_LENGTH = 24;
 

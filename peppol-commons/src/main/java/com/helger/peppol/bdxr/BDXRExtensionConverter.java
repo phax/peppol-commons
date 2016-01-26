@@ -54,11 +54,10 @@ import com.helger.commons.xml.serialize.write.EXMLSerializeDocType;
 import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.commons.xml.serialize.write.XMLWriter;
 import com.helger.commons.xml.serialize.write.XMLWriterSettings;
-import com.helger.peppol.bdxr.ExtensionType;
 
 /**
  * This class is used for converting between a String representation of the
- * extension element and the "ExtensionType" complex type used in the SMP.
+ * extension element and the "ExtensionType" complex type used in the BDXR SMP.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
@@ -89,11 +88,14 @@ public final class BDXRExtensionConverter
   public static String convertToString (@Nullable final ExtensionType aExtension)
   {
     // If there is no extension present, nothing to convert
-    if (aExtension == null)
-      return null;
-
-    // Get the extension content
-    return XMLWriter.getNodeAsString ((Node) aExtension.getAny (), s_aXWS);
+    if (aExtension != null)
+    {
+      final Node aNode = (Node) aExtension.getAny ();
+      if (aNode != null)
+        // Get the extension content
+        return XMLWriter.getNodeAsString (aNode, s_aXWS);
+    }
+    return null;
   }
 
   /**
