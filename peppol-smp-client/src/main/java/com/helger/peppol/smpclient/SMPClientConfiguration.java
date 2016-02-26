@@ -62,6 +62,8 @@ import com.helger.peppol.utils.KeyStoreHelper;
  * of the properties file resolving is as follows:
  * <ol>
  * <li>Check for the value of the system property
+ * <code>peppol.smp.client.properties.path</code></li>
+ * <li>Check for the value of the system property
  * <code>smp.client.properties.path</code></li>
  * <li>The filename <code>private-smp-client.properties</code> in the root of
  * the classpath</li>
@@ -81,7 +83,10 @@ public final class SMPClientConfiguration
   {
     final List <String> aFilePaths = new ArrayList <String> ();
     // Check if the system property is present
-    final String sPropertyPath = SystemProperties.getPropertyValue ("smp.client.properties.path");
+    String sPropertyPath = SystemProperties.getPropertyValue ("peppol.smp.client.properties.path");
+    if (StringHelper.hasText (sPropertyPath))
+      aFilePaths.add (sPropertyPath);
+    sPropertyPath = SystemProperties.getPropertyValue ("smp.client.properties.path");
     if (StringHelper.hasText (sPropertyPath))
       aFilePaths.add (sPropertyPath);
 
