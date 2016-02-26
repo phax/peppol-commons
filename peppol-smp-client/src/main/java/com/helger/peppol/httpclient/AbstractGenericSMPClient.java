@@ -36,6 +36,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private final String m_sSMPHost;
 
   private HttpHost m_aProxy;
+  private int m_nConnectionTimeoutMS = 5000;
+  private int m_nRequestTimeoutMS = 10000;
 
   /**
    * Constructor with a direct SMP URL.<br>
@@ -105,6 +107,52 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
+   * @return The connection timeout in milliseconds. Defaults to 5000 (5 secs).
+   */
+  public int getConnectionTimeoutMS ()
+  {
+    return m_nConnectionTimeoutMS;
+  }
+
+  /**
+   * Set the connection timeout in milliseconds.
+   *
+   * @param nConnectionTimeoutMS
+   *        The connection timeout milliseconds to use. Only values &gt; 0 are
+   *        considered.
+   * @return this for chaining
+   */
+  @Nonnull
+  public IMPLTYPE setConnectionTimeoutMS (final int nConnectionTimeoutMS)
+  {
+    m_nConnectionTimeoutMS = nConnectionTimeoutMS;
+    return thisAsT ();
+  }
+
+  /**
+   * @return The request timeout in milliseconds. Defaults to 10000 (10 secs).
+   */
+  public int getRequestTimeoutMS ()
+  {
+    return m_nRequestTimeoutMS;
+  }
+
+  /**
+   * Set the request timeout in milliseconds.
+   *
+   * @param nRequestTimeoutMS
+   *        The request timeout milliseconds to use. Only values &gt; 0 are
+   *        considered.
+   * @return this for chaining
+   */
+  @Nonnull
+  public IMPLTYPE setRequestTimeoutMS (final int nRequestTimeoutMS)
+  {
+    m_nRequestTimeoutMS = nRequestTimeoutMS;
+    return thisAsT ();
+  }
+
+  /**
    * The main execution routine. Overwrite this method to add additional
    * properties to the call.
    *
@@ -113,6 +161,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The HTTP execution response. Never <code>null</code>.
    * @throws IOException
    *         On HTTP error
+   * @see #setProxy(HttpHost)
+   * @see #setConnectionTimeoutMS(int)
+   * @see #setRequestTimeoutMS(int)
    */
   @Nonnull
   @OverrideOnDemand
@@ -120,7 +171,12 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   {
     if (m_aProxy != null)
       aRequest.viaProxy (m_aProxy);
-    return aRequest.connectTimeout (5000).socketTimeout (10000).execute ();
+    if (m_nConnectionTimeoutMS > 0)
+      aRequest.connectTimeout (m_nConnectionTimeoutMS);
+    if (m_nRequestTimeoutMS > 0)
+      aRequest.socketTimeout (m_nRequestTimeoutMS);
+
+    return aRequest.execute ();
   }
 
   /**
