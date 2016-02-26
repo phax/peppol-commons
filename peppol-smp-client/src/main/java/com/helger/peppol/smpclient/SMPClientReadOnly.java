@@ -64,6 +64,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
+import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;

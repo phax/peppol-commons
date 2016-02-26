@@ -51,6 +51,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.mime.CMimeType;
+import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;

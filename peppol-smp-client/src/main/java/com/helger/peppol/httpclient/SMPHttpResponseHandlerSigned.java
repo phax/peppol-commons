@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.smpclient;
+package com.helger.peppol.httpclient;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,6 +84,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.jaxb.AbstractJAXBMarshaller;
+import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.peppol.utils.KeyStoreHelper;
 
 /**
