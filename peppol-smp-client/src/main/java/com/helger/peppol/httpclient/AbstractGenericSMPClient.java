@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
@@ -242,5 +243,15 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     {
       throw getConvertedException (ex);
     }
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("SMPHost", m_sSMPHost)
+                                       .appendIfNotNull ("Proxy", m_aProxy)
+                                       .append ("ConnectionTimeoutMS", m_nConnectionTimeoutMS)
+                                       .append ("RequestTimeoutMS", m_nRequestTimeoutMS)
+                                       .toString ();
   }
 }
