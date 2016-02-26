@@ -72,7 +72,6 @@ import javax.xml.crypto.dsig.keyinfo.X509Data;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.impl.client.AbstractResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -95,7 +94,7 @@ import com.helger.peppol.utils.KeyStoreHelper;
  * @param <T>
  *        The type of object to be handled.
  */
-public final class SMPHttpResponseHandlerSigned <T> extends AbstractResponseHandler <T>
+public final class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
 {
   private static final class ConstantKeySelectorResult implements KeySelectorResult
   {

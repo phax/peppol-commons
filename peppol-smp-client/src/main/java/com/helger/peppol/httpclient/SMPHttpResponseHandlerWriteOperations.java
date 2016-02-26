@@ -46,7 +46,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.impl.client.AbstractResponseHandler;
 import org.apache.http.util.EntityUtils;
 
 /**
@@ -55,7 +54,7 @@ import org.apache.http.util.EntityUtils;
  *
  * @author Philip Helger
  */
-public final class SMPHttpResponseHandlerWriteOperations extends AbstractResponseHandler <Object>
+public final class SMPHttpResponseHandlerWriteOperations extends AbstractSMPResponseHandler <Object>
 {
   @Override
   @Nullable

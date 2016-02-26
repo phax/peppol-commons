@@ -46,7 +46,6 @@ import javax.annotation.Nonnull;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.impl.client.AbstractResponseHandler;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.jaxb.AbstractJAXBMarshaller;
@@ -59,7 +58,7 @@ import com.helger.jaxb.AbstractJAXBMarshaller;
  * @param <T>
  *        The type of object to be handled.
  */
-public final class SMPHttpResponseHandlerUnsigned <T> extends AbstractResponseHandler <T>
+public final class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandler <T>
 {
   private final AbstractJAXBMarshaller <T> m_aMarshaller;
 
