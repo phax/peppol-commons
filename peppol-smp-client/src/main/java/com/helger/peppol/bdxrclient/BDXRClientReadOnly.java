@@ -40,9 +40,7 @@
  */
 package com.helger.peppol.bdxrclient;
 
-import java.io.IOException;
 import java.net.URI;
-import java.net.UnknownHostException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
@@ -52,17 +50,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.bind.JAXBElement;
 
-import org.apache.http.HttpHost;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.peppol.bdxr.EndpointType;
 import com.helger.peppol.bdxr.ProcessType;
@@ -70,6 +63,7 @@ import com.helger.peppol.bdxr.RedirectType;
 import com.helger.peppol.bdxr.ServiceGroupType;
 import com.helger.peppol.bdxr.ServiceInformationType;
 import com.helger.peppol.bdxr.SignedServiceMetadataType;
+import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
@@ -78,7 +72,6 @@ import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
-import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
@@ -94,17 +87,9 @@ import com.helger.peppol.xmldsig.X509DataType;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class BDXRClientReadOnly
+public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientReadOnly>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (BDXRClientReadOnly.class);
-
-  /**
-   * The string representation of the SMP host URL, always ending with a
-   * trailing slash!
-   */
-  private final String m_sSMPHost;
-
-  private HttpHost m_aProxy;
 
   /**
    * Constructor with SML lookup
@@ -117,7 +102,8 @@ public class BDXRClientReadOnly
    * @see BusdoxURLHelper#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public BDXRClientReadOnly (@Nonnull final IParticipantIdentifier aParticipantIdentifier, @Nonnull final ISMLInfo aSMLInfo)
+  public BDXRClientReadOnly (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                             @Nonnull final ISMLInfo aSMLInfo)
   {
     this (BusdoxURLHelper.getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo));
   }
@@ -136,7 +122,7 @@ public class BDXRClientReadOnly
    * @see BusdoxURLHelper#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
   public BDXRClientReadOnly (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                     @Nonnull @Nonempty final String sSMLZoneName)
+                             @Nonnull @Nonempty final String sSMLZoneName)
   {
     this (BusdoxURLHelper.getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName));
   }
@@ -151,111 +137,7 @@ public class BDXRClientReadOnly
    */
   public BDXRClientReadOnly (@Nonnull final URI aSMPHost)
   {
-    ValueEnforcer.notNull (aSMPHost, "SMPHost");
-
-    if (!"http".equals (aSMPHost.getScheme ()))
-      s_aLogger.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme!");
-    // getPort () returns -1 if none was explicitly specified
-    if (aSMPHost.getPort () != 80 && aSMPHost.getPort () != -1)
-      s_aLogger.warn ("SMP URI " + aSMPHost + " is not running on port 80!");
-
-    // Build string and ensure it ends with a "/"
-    final String sSMPHost = aSMPHost.toString ();
-    m_sSMPHost = sSMPHost.endsWith ("/") ? sSMPHost : sSMPHost + '/';
-
-    // Set default proxy from configuration file
-    m_aProxy = SMPClientConfiguration.getHttpProxy ();
-  }
-
-  /**
-   * @return The SMP host URI string we're operating on. Never <code>null</code>
-   *         . Always has a trailing "/".
-   */
-  @Nonnull
-  public String getSMPHostURI ()
-  {
-    return m_sSMPHost;
-  }
-
-  /**
-   * @return The HTTP proxy to be used to access the SMP server. Is
-   *         <code>null</code> by default.
-   */
-  @Nullable
-  public HttpHost getProxy ()
-  {
-    return m_aProxy;
-  }
-
-  /**
-   * Set the proxy to be used to access the SMP server. Note: proxy
-   * authentication is currently not supported!
-   *
-   * @param aProxy
-   *        May be <code>null</code> to indicate no proxy.
-   * @return this for chaining
-   */
-  @Nonnull
-  public BDXRClientReadOnly setProxy (@Nullable final HttpHost aProxy)
-  {
-    m_aProxy = aProxy;
-    return this;
-  }
-
-  /**
-   * The main execution routine. Overwrite this method to add additional
-   * properties to the call.
-   *
-   * @param aRequest
-   *        The request to be executed. Never <code>null</code>.
-   * @return The HTTP execution response. Never <code>null</code>.
-   * @throws IOException
-   *         On HTTP error
-   */
-  @Nonnull
-  @OverrideOnDemand
-  protected Response executeRequest (@Nonnull final Request aRequest) throws IOException
-  {
-    if (m_aProxy != null)
-      aRequest.viaProxy (m_aProxy);
-    return aRequest.connectTimeout (5000).socketTimeout (10000).execute ();
-  }
-
-  /**
-   * Convert the passed generic HTTP exception into a more specific exception.
-   *
-   * @param ex
-   *        The generic exception. May not be <code>null</code>.
-   * @return A new SMP specific exception, using the passed exception as the
-   *         cause.
-   */
-  @Nonnull
-  public static SMPClientException getConvertedException (@Nonnull final Exception ex)
-  {
-    if (ex instanceof SMPClientException)
-      return (SMPClientException) ex;
-
-    if (ex instanceof HttpResponseException)
-    {
-      final HttpResponseException hex = (HttpResponseException) ex;
-      final int nHttpStatus = hex.getStatusCode ();
-      switch (nHttpStatus)
-      {
-        case HttpStatus.SC_BAD_REQUEST:
-          return new SMPClientBadRequestException (hex);
-        case HttpStatus.SC_FORBIDDEN:
-          return new SMPClientUnauthorizedException (hex);
-        case HttpStatus.SC_NOT_FOUND:
-          return new SMPClientNotFoundException (hex);
-      }
-      return new SMPClientException ("Error thrown with HTTP status code " + nHttpStatus, hex);
-    }
-
-    // Special case
-    if (ex instanceof UnknownHostException)
-      return new SMPClientNotFoundException ((UnknownHostException) ex);
-
-    return new SMPClientException ("Unknown error thrown by SMP server (" + ex.getMessage () + ")", ex);
+    super (aSMPHost);
   }
 
   /**
@@ -281,16 +163,10 @@ public class BDXRClientReadOnly
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    try
-    {
-      final Request aRequest = Request.Get (m_sSMPHost +
-                                            IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID));
-      return executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerUnsigned.create (new BDXRMarshallerServiceGroupType ()));
-    }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    final Request aRequest = Request.Get (getSMPHostURI () +
+                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID));
+    return executeGenericRequest (aRequest,
+                                  SMPHttpResponseHandlerUnsigned.create (new BDXRMarshallerServiceGroupType ()));
   }
 
   /**
@@ -352,64 +228,59 @@ public class BDXRClientReadOnly
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
 
-    try
+    final String sURI = getSMPHostURI () +
+                        IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                        "/services/" +
+                        IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID);
+    Request aRequest = Request.Get (sURI);
+    SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
+                                                                 SMPHttpResponseHandlerSigned.create (new BDXRMarshallerSignedServiceMetadataType ()));
+
+    // If the Redirect element is present, then follow 1 redirect.
+    if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
     {
-      final String sURI = m_sSMPHost +
-                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
-                          "/services/" +
-                          IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID);
-      Request aRequest = Request.Get (sURI);
-      SignedServiceMetadataType aMetadata = executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerSigned.create (new BDXRMarshallerSignedServiceMetadataType ()));
+      final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
 
-      // If the Redirect element is present, then follow 1 redirect.
-      if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
+      // Follow the redirect
+      s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+      aRequest = Request.Get (aRedirect.getHref ());
+      aMetadata = executeGenericRequest (aRequest,
+                                         SMPHttpResponseHandlerSigned.create (new BDXRMarshallerSignedServiceMetadataType ()));
+
+      // Check that the certificateUID is correct.
+      boolean bCertificateSubjectFound = false;
+      outer: for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
       {
-        final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
-
-        // Follow the redirect
-        s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
-        aRequest = Request.Get (aRedirect.getHref ());
-        aMetadata = executeRequest (aRequest).handleResponse (SMPHttpResponseHandlerSigned.create (new BDXRMarshallerSignedServiceMetadataType ()));
-
-        // Check that the certificateUID is correct.
-        boolean bCertificateSubjectFound = false;
-        outer: for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
+        final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+        if (aInfoValue instanceof X509DataType)
         {
-          final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
-          if (aInfoValue instanceof X509DataType)
+          final X509DataType aX509Data = (X509DataType) aInfoValue;
+          for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
           {
-            final X509DataType aX509Data = (X509DataType) aInfoValue;
-            for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+            final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
+            // Find the first subject (of type string)
+            if (aX509element.getValue () instanceof String)
             {
-              final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-              // Find the first subject (of type string)
-              if (aX509element.getValue () instanceof String)
+              final String sSubject = (String) aX509element.getValue ();
+              if (!aRedirect.getCertificateUID ().equals (sSubject))
               {
-                final String sSubject = (String) aX509element.getValue ();
-                if (!aRedirect.getCertificateUID ().equals (sSubject))
-                {
-                  throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
-                                                sSubject +
-                                                "'. Required certificate UID is '" +
-                                                aRedirect.getCertificateUID () +
-                                                "'");
-                }
-                bCertificateSubjectFound = true;
-                break outer;
+                throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
+                                              sSubject +
+                                              "'. Required certificate UID is '" +
+                                              aRedirect.getCertificateUID () +
+                                              "'");
               }
+              bCertificateSubjectFound = true;
+              break outer;
             }
           }
         }
-
-        if (!bCertificateSubjectFound)
-          throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
       }
-      return aMetadata;
+
+      if (!bCertificateSubjectFound)
+        throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
     }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    return aMetadata;
   }
 
   /**

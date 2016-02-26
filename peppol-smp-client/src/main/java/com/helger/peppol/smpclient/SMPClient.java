@@ -156,19 +156,12 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    try
-    {
-      final String sBody = new SMPMarshallerServiceGroupType ().getAsXMLString (aServiceGroup);
-      final Request aRequest = Request.Put (getSMPHostURI () +
-                                            IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroup.getParticipantIdentifier ()))
-                                      .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
-                                      .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
-      executeRequest (aRequest).handleResponse (new SMPHttpResponseHandlerWriteOperations ());
-    }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    final String sBody = new SMPMarshallerServiceGroupType ().getAsXMLString (aServiceGroup);
+    final Request aRequest = Request.Put (getSMPHostURI () +
+                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroup.getParticipantIdentifier ()))
+                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
+                                    .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
   /**
@@ -224,17 +217,10 @@ public class SMPClient extends SMPClientReadOnly
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    try
-    {
-      final Request aRequest = Request.Delete (getSMPHostURI () +
-                                               IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID))
-                                      .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-      executeRequest (aRequest).handleResponse (new SMPHttpResponseHandlerWriteOperations ());
-    }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    final Request aRequest = Request.Delete (getSMPHostURI () +
+                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID))
+                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
   /**
@@ -270,21 +256,14 @@ public class SMPClient extends SMPClientReadOnly
     final IParticipantIdentifier aServiceGroupID = aServiceInformation.getParticipantIdentifier ();
     final IDocumentTypeIdentifier aDocumentTypeID = aServiceInformation.getDocumentIdentifier ();
 
-    try
-    {
-      final String sBody = new SMPMarshallerServiceMetadataType ().getAsXMLString (aServiceMetadata);
-      final Request aRequest = Request.Put (getSMPHostURI () +
-                                            IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
-                                            "/services/" +
-                                            IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
-                                      .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
-                                      .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
-      executeRequest (aRequest).handleResponse (new SMPHttpResponseHandlerWriteOperations ());
-    }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    final String sBody = new SMPMarshallerServiceMetadataType ().getAsXMLString (aServiceMetadata);
+    final Request aRequest = Request.Put (getSMPHostURI () +
+                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                                          "/services/" +
+                                          IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
+                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
+                                    .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
   /**
@@ -314,18 +293,11 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    try
-    {
-      final Request aRequest = Request.Delete (getSMPHostURI () +
-                                               IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
-                                               "/services/" +
-                                               IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
-                                      .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-      executeRequest (aRequest).handleResponse (new SMPHttpResponseHandlerWriteOperations ());
-    }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    final Request aRequest = Request.Delete (getSMPHostURI () +
+                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                                             "/services/" +
+                                             IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
+                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 }

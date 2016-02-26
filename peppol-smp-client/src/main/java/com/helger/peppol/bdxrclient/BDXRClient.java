@@ -156,19 +156,12 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    try
-    {
-      final String sBody = new BDXRMarshallerServiceGroupType ().getAsXMLString (aServiceGroup);
-      final Request aRequest = Request.Put (getSMPHostURI () +
-                                            IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroup.getParticipantIdentifier ()))
-                                      .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
-                                      .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
-      executeRequest (aRequest).handleResponse (new SMPHttpResponseHandlerWriteOperations ());
-    }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    final String sBody = new BDXRMarshallerServiceGroupType ().getAsXMLString (aServiceGroup);
+    final Request aRequest = Request.Put (getSMPHostURI () +
+                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroup.getParticipantIdentifier ()))
+                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
+                                    .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
   /**
@@ -227,17 +220,10 @@ public class BDXRClient extends BDXRClientReadOnly
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    try
-    {
-      final Request aRequest = Request.Delete (getSMPHostURI () +
-                                               IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID))
-                                      .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-      executeRequest (aRequest).handleResponse (new SMPHttpResponseHandlerWriteOperations ());
-    }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    final Request aRequest = Request.Delete (getSMPHostURI () +
+                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID))
+                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
   /**
@@ -273,21 +259,14 @@ public class BDXRClient extends BDXRClientReadOnly
     final IParticipantIdentifier aServiceGroupID = aServiceInformation.getParticipantIdentifier ();
     final IDocumentTypeIdentifier aDocumentTypeID = aServiceInformation.getDocumentIdentifier ();
 
-    try
-    {
-      final String sBody = new BDXRMarshallerServiceMetadataType ().getAsXMLString (aServiceMetadata);
-      final Request aRequest = Request.Put (getSMPHostURI () +
-                                            IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
-                                            "/services/" +
-                                            IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
-                                      .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
-                                      .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
-      executeRequest (aRequest).handleResponse (new SMPHttpResponseHandlerWriteOperations ());
-    }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    final String sBody = new BDXRMarshallerServiceMetadataType ().getAsXMLString (aServiceMetadata);
+    final Request aRequest = Request.Put (getSMPHostURI () +
+                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                                          "/services/" +
+                                          IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
+                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
+                                    .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
   /**
@@ -317,18 +296,11 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    try
-    {
-      final Request aRequest = Request.Delete (getSMPHostURI () +
-                                               IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
-                                               "/services/" +
-                                               IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
-                                      .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-      executeRequest (aRequest).handleResponse (new SMPHttpResponseHandlerWriteOperations ());
-    }
-    catch (final Exception ex)
-    {
-      throw getConvertedException (ex);
-    }
+    final Request aRequest = Request.Delete (getSMPHostURI () +
+                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                                             "/services/" +
+                                             IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
+                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 }
