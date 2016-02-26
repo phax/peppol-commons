@@ -71,11 +71,8 @@ import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.X509Data;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.ResponseHandler;
+import org.apache.http.impl.client.AbstractResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -97,7 +94,7 @@ import com.helger.peppol.utils.KeyStoreHelper;
  * @param <T>
  *        The type of object to be handled.
  */
-public final class SMPHttpResponseHandlerSigned <T> implements ResponseHandler <T>
+public final class SMPHttpResponseHandlerSigned <T> extends AbstractResponseHandler <T>
 {
   private static final class ConstantKeySelectorResult implements KeySelectorResult
   {
@@ -261,16 +258,10 @@ public final class SMPHttpResponseHandlerSigned <T> implements ResponseHandler <
     }
   }
 
+  @Override
   @Nonnull
-  public T handleResponse (@Nonnull final HttpResponse aHttpResponse) throws IOException
+  public T handleEntity (@Nonnull final HttpEntity aEntity) throws IOException
   {
-    final StatusLine aStatusLine = aHttpResponse.getStatusLine ();
-    final HttpEntity aEntity = aHttpResponse.getEntity ();
-    if (aStatusLine.getStatusCode () >= 300)
-      throw new HttpResponseException (aStatusLine.getStatusCode (), aStatusLine.getReasonPhrase ());
-    if (aEntity == null)
-      throw new ClientProtocolException ("Response from SMP server contains no content");
-
     // Get complete response as one big byte buffer
     final byte [] aResponseBytes = StreamHelper.getAllBytes (aEntity.getContent ());
     if (ArrayHelper.isEmpty (aResponseBytes))

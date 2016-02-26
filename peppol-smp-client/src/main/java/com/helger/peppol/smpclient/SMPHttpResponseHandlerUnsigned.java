@@ -45,11 +45,8 @@ import java.io.IOException;
 import javax.annotation.Nonnull;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.ResponseHandler;
+import org.apache.http.impl.client.AbstractResponseHandler;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.jaxb.AbstractJAXBMarshaller;
@@ -62,7 +59,7 @@ import com.helger.jaxb.AbstractJAXBMarshaller;
  * @param <T>
  *        The type of object to be handled.
  */
-public final class SMPHttpResponseHandlerUnsigned <T> implements ResponseHandler <T>
+public final class SMPHttpResponseHandlerUnsigned <T> extends AbstractResponseHandler <T>
 {
   private final AbstractJAXBMarshaller <T> m_aMarshaller;
 
@@ -71,16 +68,10 @@ public final class SMPHttpResponseHandlerUnsigned <T> implements ResponseHandler
     m_aMarshaller = ValueEnforcer.notNull (aMarshaller, "Marshaller");
   }
 
+  @Override
   @Nonnull
-  public T handleResponse (@Nonnull final HttpResponse aHttpResponse) throws IOException
+  public T handleEntity (@Nonnull final HttpEntity aEntity) throws IOException
   {
-    final StatusLine aStatusLine = aHttpResponse.getStatusLine ();
-    final HttpEntity aEntity = aHttpResponse.getEntity ();
-    if (aStatusLine.getStatusCode () >= 300)
-      throw new HttpResponseException (aStatusLine.getStatusCode (), aStatusLine.getReasonPhrase ());
-    if (aEntity == null)
-      throw new ClientProtocolException ("Response from SMP server contains no content");
-
     // Read the payload
     final T ret = m_aMarshaller.read (aEntity.getContent ());
     if (ret == null)

@@ -46,11 +46,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.ResponseHandler;
+import org.apache.http.impl.client.AbstractResponseHandler;
 import org.apache.http.util.EntityUtils;
 
 /**
@@ -59,18 +55,12 @@ import org.apache.http.util.EntityUtils;
  *
  * @author Philip Helger
  */
-public final class SMPHttpResponseHandlerWriteOperations implements ResponseHandler <Object>
+public final class SMPHttpResponseHandlerWriteOperations extends AbstractResponseHandler <Object>
 {
+  @Override
   @Nullable
-  public Object handleResponse (@Nonnull final HttpResponse aHttpResponse) throws IOException
+  public Object handleEntity (@Nonnull final HttpEntity aEntity) throws IOException
   {
-    final StatusLine aStatusLine = aHttpResponse.getStatusLine ();
-    final HttpEntity aEntity = aHttpResponse.getEntity ();
-    if (aStatusLine.getStatusCode () >= 300)
-      throw new HttpResponseException (aStatusLine.getStatusCode (), aStatusLine.getReasonPhrase ());
-    if (aEntity == null)
-      throw new ClientProtocolException ("Response from SMP server contains no content");
-
     EntityUtils.consume (aEntity);
     return null;
   }
