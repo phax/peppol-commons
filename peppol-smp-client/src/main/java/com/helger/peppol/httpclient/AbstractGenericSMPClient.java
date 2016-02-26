@@ -181,6 +181,30 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
+   * Execute a generic request on the SMP. This is e.g. helpful for accessing
+   * the PEPPOL Directory BusinessCard API. Compared to
+   * {@link #executeGenericRequest(Request, ResponseHandler)} this method does
+   * NOT convert the {@link IOException} from HTTP communication problems to
+   * {@link IOException}.
+   *
+   * @param aRequest
+   *        The request to be executed. The proxy + connection and request
+   *        timeout are set in this method.
+   * @param aResponseHandler
+   *        The response handler to be used. May not be <code>null</code>.
+   * @return The return value of the response handler.
+   * @throws IOException
+   *         On HTTP communication error
+   * @see #executeGenericRequest(Request, ResponseHandler)
+   */
+  @Nonnull
+  public <T> T executeRequest (@Nonnull final Request aRequest,
+                               @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
+  {
+    return executeRequest (aRequest).handleResponse (aResponseHandler);
+  }
+
+  /**
    * Convert the passed generic HTTP exception into a more specific exception.
    *
    * @param ex
@@ -214,12 +238,15 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     if (ex instanceof UnknownHostException)
       return new SMPClientNotFoundException ((UnknownHostException) ex);
 
+    // Generic version
     return new SMPClientException ("Unknown error thrown by SMP server (" + ex.getMessage () + ")", ex);
   }
 
   /**
    * Execute a generic request on the SMP. This is e.g. helpful for accessing
-   * the PEPPOL Directory BusinessCard API.
+   * the PEPPOL Directory BusinessCard API. This is equivalent to
+   * {@link #executeRequest(Request, ResponseHandler)} but includes the
+   * conversion of Exceptions to {@link SMPClientException} objects.
    *
    * @param aRequest
    *        The request to be executed. The proxy + connection and request
@@ -229,6 +256,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The return value of the response handler.
    * @throws SMPClientException
    *         One of the converted exceptions
+   * @see #executeRequest(Request, ResponseHandler)
    * @see #getConvertedException(Exception)
    */
   @Nonnull
@@ -237,7 +265,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   {
     try
     {
-      return executeRequest (aRequest).handleResponse (aResponseHandler);
+      return executeRequest (aRequest, aResponseHandler);
     }
     catch (final Exception ex)
     {
