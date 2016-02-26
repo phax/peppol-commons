@@ -17,6 +17,8 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * version 4.3.5
+    * Made the SMP query API more flexible so that e.g. the PEPPOL Directory BusinessCards can easily be queried; made the SMP Client more configurable.
   * version 4.3.4
     * Reduced the maximum migration key length from 100 to 24 (new SMK 3 requirement) and adopted the API to use String instead of UUID
   * version 4.3.3
@@ -157,31 +159,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>4.3.4</version>
+  <version>4.3.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>4.3.4</version>
+  <version>4.3.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>4.3.4</version>
+  <version>4.3.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>4.3.4</version>
+  <version>4.3.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>4.3.4</version>
+  <version>4.3.5</version>
 </dependency>
 ```
 
@@ -190,7 +192,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>4.3.4</version>
+  <version>4.3.5</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
