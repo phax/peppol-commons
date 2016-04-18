@@ -53,6 +53,11 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class CBDXRIdentifier
 {
   /**
+   * The default document identifier scheme.
+   */
+  public static final String DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME = "bdx-docid-qns";
+
+  /**
    * The default process identifier to indicate that no default process belongs
    * to it. Must be treated case insensitive.
    */
