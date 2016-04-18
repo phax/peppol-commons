@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://docs.oasis-open.org/bdxr/ns/SMP/2016/04" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:wsa="http://www.w3.org/2005/08/addressing" elementFormDefault="qualified" targetNamespace="http://docs.oasis-open.org/bdxr/ns/SMP/2016/04" id="ServiceMetadataPublishing">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+	<xs:element name="ServiceGroup" type="ServiceGroupType"/>
+	<xs:element name="ServiceMetadata" type="ServiceMetadataType"/>
+	<xs:element name="SignedServiceMetadata" type="SignedServiceMetadataType"/>
+	<xs:complexType name="SignedServiceMetadataType">
+		<xs:sequence>
+			<xs:element ref="ServiceMetadata"/>
+			<xs:element ref="ds:Signature"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceMetadataType">
+		<xs:choice>
+			<xs:element name="ServiceInformation" type="ServiceInformationType"/>
+			<xs:element name="Redirect" type="RedirectType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ServiceInformationType">
+		<xs:sequence>
+			<xs:element ref="ParticipantIdentifier"/>
+			<xs:element ref="DocumentIdentifier"/>
+			<xs:element name="ProcessList" type="ProcessListType"/>
+			<xs:element name="Extension" type="ExtensionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProcessListType">
+		<xs:sequence>
+			<xs:element name="Process" type="ProcessType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProcessType">
+		<xs:sequence>
+			<xs:element ref="ProcessIdentifier"/>
+			<xs:element name="ServiceEndpointList" type="ServiceEndpointList"/>
+			<xs:element name="Extension" type="ExtensionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceEndpointList">
+		<xs:sequence>
+			<xs:element name="Endpoint" type="EndpointType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EndpointType">
+		<xs:sequence>
+			<xs:element name="EndpointURI" type="xs:anyURI"/>
+			<xs:element name="RequireBusinessLevelSignature" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="MinimumAuthenticationLevel" type="xs:string" minOccurs="0"/>
+			<xs:element name="ServiceActivationDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="ServiceExpirationDate" type="xs:dateTime" minOccurs="0"/>
+			<xs:element name="Certificate" type="xs:base64Binary"/>
+			<xs:element name="ServiceDescription" type="xs:string"/>
+			<xs:element name="TechnicalContactUrl" type="xs:anyURI"/>
+			<xs:element name="TechnicalInformationUrl" type="xs:anyURI" minOccurs="0"/>
+			<xs:element name="Extension" type="ExtensionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="transportProfile" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="ServiceGroupType">
+		<xs:sequence>
+			<xs:element ref="ParticipantIdentifier"/>
+			<xs:element name="ServiceMetadataReferenceCollection" type="ServiceMetadataReferenceCollectionType"/>
+			<xs:element name="Extension" type="ExtensionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceMetadataReferenceCollectionType">
+		<xs:sequence>
+			<xs:element name="ServiceMetadataReference" type="ServiceMetadataReferenceType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ServiceMetadataReferenceType">
+		<xs:attribute name="href" type="xs:anyURI"/>
+	</xs:complexType>
+	<xs:complexType name="RedirectType">
+		<xs:sequence>
+			<xs:element name="CertificateUID" type="xs:string"/>
+			<xs:element name="Extension" type="ExtensionType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="href" type="xs:anyURI" use="required"/>
+	</xs:complexType>
+	<xs:element name="ParticipantIdentifier" type="ParticipantIdentifierType"/>
+	<xs:element name="DocumentIdentifier" type="DocumentIdentifierType"/>
+	<xs:element name="ProcessIdentifier" type="ProcessIdentifierType"/>
+	<xs:element name="RecipientIdentifier" type="ParticipantIdentifierType"/>
+	<xs:element name="SenderIdentifier" type="ParticipantIdentifierType"/>
+	<xs:complexType name="ParticipantIdentifierType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="scheme" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DocumentIdentifierType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="scheme" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ProcessIdentifierType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="scheme" type="xs:string"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="ExtensionType">
+		<xs:annotation>
+			<xs:documentation>
+        A single extension for private use.
+      </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExtensionID" type="xs:token">
+				<xs:annotation>
+					<xs:documentation>
+      An identifier for the Extension assigned by the creator of the extension.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExtensionName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+            A name for the Extension assigned by the creator of the extension.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExtensionAgencyID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+            An agency that maintains one or more Extensions.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExtensionAgencyName" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+            The name of the agency that maintains the Extension.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExtensionAgencyURI" type="xs:anyURI">
+				<xs:annotation>
+					<xs:documentation>
+            A URI for the Agency that maintains the Extension.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExtensionVersionID" type="xs:token">
+				<xs:annotation>
+					<xs:documentation>
+            The version of the Extension.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExtensionURI" type="xs:anyURI">
+				<xs:annotation>
+					<xs:documentation>
+            A URI for the Extension.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExtensionReasonCode" type="xs:token">
+				<xs:annotation>
+					<xs:documentation>
+            A code for reason the Extension is being included.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="ExtensionReason" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+            A description of the reason for the Extension.
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:any namespace="##other" processContents="lax"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
