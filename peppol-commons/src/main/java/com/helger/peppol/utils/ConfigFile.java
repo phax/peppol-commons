@@ -62,7 +62,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.SystemProperties;
@@ -194,7 +193,7 @@ public class ConfigFile
   public final String getString (@Nonnull final String sKey, @Nullable final String sDefault)
   {
     final String sValue = m_aProps.getProperty (sKey);
-    return sValue != null ? StringHelper.trim (sValue) : sDefault;
+    return sValue != null ? sValue.trim () : sDefault;
   }
 
   @Nullable

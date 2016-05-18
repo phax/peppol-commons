@@ -69,6 +69,8 @@ public final class CertificateHelper
 {
   public static final String BEGIN_CERTIFICATE = "-----BEGIN CERTIFICATE-----";
   public static final String END_CERTIFICATE = "-----END CERTIFICATE-----";
+  public static final String BEGIN_CERTIFICATE_INVALID = "-----BEGINCERTIFICATE-----";
+  public static final String END_CERTIFICATE_INVALID = "-----ENDCERTIFICATE-----";
   /** Character set used for String-Certificate conversion */
   private static final Charset CERT_CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
 
@@ -95,8 +97,8 @@ public final class CertificateHelper
   private static String _cutUnnecessaryLeadingAndTrailingParts (@Nonnull final String sCertString)
   {
     String ret = sCertString;
-    ret = StringHelper.trimStart (ret, "-----BEGINCERTIFICATE-----");
-    ret = StringHelper.trimEnd (ret, "-----ENDCERTIFICATE-----");
+    ret = StringHelper.trimStart (ret, BEGIN_CERTIFICATE_INVALID);
+    ret = StringHelper.trimEnd (ret, END_CERTIFICATE_INVALID);
     return ret.trim ();
   }
 
