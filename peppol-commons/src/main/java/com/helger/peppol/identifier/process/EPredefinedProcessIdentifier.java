@@ -10,7 +10,6 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 
@@ -214,16 +213,6 @@ public enum EPredefinedProcessIdentifier
     @Nonnull
     public boolean isDefaultScheme() {
         return true;
-    }
-
-    @Nonnull
-    public String getURIEncoded() {
-        return IdentifierHelper.getIdentifierURIEncoded(this);
-    }
-
-    @Nonnull
-    public String getURIPercentEncoded() {
-        return IdentifierHelper.getIdentifierURIPercentEncoded(this);
     }
 
     @Nullable

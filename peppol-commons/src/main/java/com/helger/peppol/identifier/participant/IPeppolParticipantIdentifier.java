@@ -44,42 +44,59 @@ import javax.annotation.Nullable;
 
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.IPeppolIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
+import com.helger.peppol.identifier.validator.IdentifierValidator;
 
 /**
  * Base interface for a PEPPOL read-only participant identifier.
- * 
+ *
  * @author philip
  */
 public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IParticipantIdentifier
 {
+  default boolean isDefaultScheme ()
+  {
+    return IdentifierHelper.hasDefaultParticipantIdentifierScheme (this);
+  }
+
   /**
    * @return <code>true</code> if the identifier is valid according to the
    *         internal and external validation rules as defined by
    *         {@link com.helger.peppol.identifier.validator.IParticipantIdentifierValidatorSPI}
    *         implementations.
    */
-  boolean isValid ();
+  default boolean isValid ()
+  {
+    return IdentifierValidator.isValidParticipantIdentifier (this);
+  }
 
   /**
-   * Extract the issuing agency ID from the passed participant identifier value.<br>
+   * Extract the issuing agency ID from the passed participant identifier value.
+   * <br>
    * Example: extract the <code>0088</code> from the participant identifier
    * <code>iso6523-actorid-upis::0088:123456</code>
-   * 
+   *
    * @return <code>null</code> if the identifier is not of default scheme or if
    *         the identifier is malformed.
    */
   @Nullable
-  String getIssuingAgencyID ();
+  default String getIssuingAgencyID ()
+  {
+    return IdentifierHelper.getIssuingAgencyIDFromParticipantIDValue (this);
+  }
 
   /**
    * Extract the local participant ID from the passed participant identifier
    * value.<br>
    * Example: extract the <code>123456</code> from the participant identifier
    * <code>iso6523-actorid-upis::0088:123456</code>
-   * 
+   *
    * @return <code>null</code> if the identifier is not of default scheme or if
    *         the identifier is malformed.
    */
   @Nullable
-  String getLocalParticipantID ();
+  default String getLocalParticipantID ()
+  {
+    return IdentifierHelper.getLocalParticipantIDFromParticipantIDValue (this);
+  }
 }

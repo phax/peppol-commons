@@ -48,6 +48,7 @@ import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.peppol.identifier.DocumentIdentifierType;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 
 public final class DocumentIdentifierTypeMicroTypeConverter implements IMicroTypeConverter
 {
@@ -59,7 +60,7 @@ public final class DocumentIdentifierTypeMicroTypeConverter implements IMicroTyp
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull @Nonempty final String sTagName)
   {
-    final DocumentIdentifierType aValue = (DocumentIdentifierType) aObject;
+    final IDocumentTypeIdentifier aValue = (IDocumentTypeIdentifier) aObject;
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
     aElement.setAttribute (ATTR_VALUE, aValue.getValue ());

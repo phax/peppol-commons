@@ -49,7 +49,6 @@ import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.validator.IdentifierValidator;
 
 /**
  * This is an immutable sanity class around the
@@ -61,7 +60,9 @@ import com.helger.peppol.identifier.validator.IdentifierValidator;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ReadOnlyParticipantIdentifier extends ParticipantIdentifierType implements IPeppolParticipantIdentifier, Comparable <ReadOnlyParticipantIdentifier>
+public class ReadOnlyParticipantIdentifier extends ParticipantIdentifierType implements
+                                           IPeppolParticipantIdentifier,
+                                           Comparable <ReadOnlyParticipantIdentifier>
 {
   public ReadOnlyParticipantIdentifier (@Nonnull final IIdentifier aIdentifier)
   {
@@ -95,40 +96,6 @@ public class ReadOnlyParticipantIdentifier extends ParticipantIdentifierType imp
   {
     // This is how we make things read-only :)
     throw new UnsupportedOperationException ("setScheme is forbidden on this class!");
-  }
-
-  public boolean isDefaultScheme ()
-  {
-    return IdentifierHelper.hasDefaultParticipantIdentifierScheme (this);
-  }
-
-  @Nonnull
-  public String getURIEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIEncoded (this);
-  }
-
-  @Nonnull
-  public String getURIPercentEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
-  }
-
-  public boolean isValid ()
-  {
-    return IdentifierValidator.isValidParticipantIdentifier (this);
-  }
-
-  @Nullable
-  public String getIssuingAgencyID ()
-  {
-    return IdentifierHelper.getIssuingAgencyIDFromParticipantIDValue (this);
-  }
-
-  @Nullable
-  public String getLocalParticipantID ()
-  {
-    return IdentifierHelper.getLocalParticipantIDFromParticipantIDValue (this);
   }
 
   public int compareTo (@Nonnull final ReadOnlyParticipantIdentifier aOther)

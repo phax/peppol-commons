@@ -40,10 +40,7 @@
  */
 package com.helger.peppol.identifier.doctype;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -52,7 +49,10 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
@@ -67,7 +67,7 @@ import com.helger.peppol.identifier.IdentifierHelper;
 @Immutable
 public final class PredefinedDocumentTypeIdentifierManager
 {
-  private static final Map <String, IPeppolPredefinedDocumentTypeIdentifier> s_aCodes = new HashMap <String, IPeppolPredefinedDocumentTypeIdentifier> ();
+  private static final ICommonsMap <String, IPeppolPredefinedDocumentTypeIdentifier> s_aCodes = new CommonsHashMap <> ();
 
   static
   {
@@ -89,9 +89,9 @@ public final class PredefinedDocumentTypeIdentifierManager
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public static Collection <IPeppolPredefinedDocumentTypeIdentifier> getAllDocumentTypeIdentifiers ()
+  public static ICommonsCollection <IPeppolPredefinedDocumentTypeIdentifier> getAllDocumentTypeIdentifiers ()
   {
-    return CollectionHelper.newList (s_aCodes.values ());
+    return s_aCodes.copyOfValues ();
   }
 
   /**
@@ -100,9 +100,9 @@ public final class PredefinedDocumentTypeIdentifierManager
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public static Set <String> getAllDocumentTypeIdentifierIDs ()
+  public static ICommonsSet <String> getAllDocumentTypeIdentifierIDs ()
   {
-    return CollectionHelper.newSet (s_aCodes.keySet ());
+    return s_aCodes.copyOfKeySet ();
   }
 
   /**

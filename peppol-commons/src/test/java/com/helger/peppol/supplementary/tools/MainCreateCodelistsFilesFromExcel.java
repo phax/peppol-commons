@@ -558,19 +558,23 @@ public final class MainCreateCodelistsFilesFromExcel
       m.annotate (Nonnull.class);
       m.body ()._return (JExpr.lit (true));
 
-      // public String getURIEncoded
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIEncoded");
-      m.annotate (Nonnull.class);
-      m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
-                                     .staticInvoke ("getIdentifierURIEncoded")
-                                     .arg (JExpr._this ()));
+      // Default methods
+      if (false)
+      {
+        // public String getURIEncoded
+        m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIEncoded");
+        m.annotate (Nonnull.class);
+        m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
+                                       .staticInvoke ("getIdentifierURIEncoded")
+                                       .arg (JExpr._this ()));
 
-      // public String getURIPercentEncoded
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
-      m.annotate (Nonnull.class);
-      m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
-                                     .staticInvoke ("getIdentifierURIPercentEncoded")
-                                     .arg (JExpr._this ()));
+        // public String getURIPercentEncoded
+        m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
+        m.annotate (Nonnull.class);
+        m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
+                                       .staticInvoke ("getIdentifierURIPercentEncoded")
+                                       .arg (JExpr._this ()));
+      }
 
       // public IPeppolDocumentTypeIdentifierParts getParts
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifierParts.class, "getParts");
@@ -780,19 +784,23 @@ public final class MainCreateCodelistsFilesFromExcel
       m.annotate (Nonnull.class);
       m.body ()._return (JExpr.lit (true));
 
-      // public String getURIEncoded
-      m = jEnum.method (JMod.PUBLIC, String.class, "getURIEncoded");
-      m.annotate (Nonnull.class);
-      m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
-                                     .staticInvoke ("getIdentifierURIEncoded")
-                                     .arg (JExpr._this ()));
+      // Default methods
+      if (false)
+      {
+        // public String getURIEncoded
+        m = jEnum.method (JMod.PUBLIC, String.class, "getURIEncoded");
+        m.annotate (Nonnull.class);
+        m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
+                                       .staticInvoke ("getIdentifierURIEncoded")
+                                       .arg (JExpr._this ()));
 
-      // public String getURIPercentEncoded
-      m = jEnum.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
-      m.annotate (Nonnull.class);
-      m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
-                                     .staticInvoke ("getIdentifierURIPercentEncoded")
-                                     .arg (JExpr._this ()));
+        // public String getURIPercentEncoded
+        m = jEnum.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
+        m.annotate (Nonnull.class);
+        m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
+                                       .staticInvoke ("getIdentifierURIPercentEncoded")
+                                       .arg (JExpr._this ()));
+      }
 
       // @Nullable public static EPredefinedProcessIdentifier
       // getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier

@@ -40,14 +40,13 @@
  */
 package com.helger.peppol.identifier;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -189,10 +188,10 @@ public final class BusdoxDocumentTypeIdentifierParts implements IBusdoxDocumentT
   {
     ValueEnforcer.notEmpty (sDocTypeID, "DocumentTypeIdentifier");
 
-    final List <String> aMain = StringHelper.getExploded (SUBTYPE_SEPARATOR, sDocTypeID, 2);
+    final ICommonsList <String> aMain = StringHelper.getExploded (SUBTYPE_SEPARATOR, sDocTypeID, 2);
     // List cannot be empty, because we're checking that docType is not empty a
     // few lines above
-    final List <String> aFirst = StringHelper.getExploded (NAMESPACE_SEPARATOR, aMain.get (0), 2);
+    final ICommonsList <String> aFirst = StringHelper.getExploded (NAMESPACE_SEPARATOR, aMain.get (0), 2);
     if (aFirst.size () < 2)
       throw new IllegalArgumentException ("The document identifier '" +
                                           sDocTypeID +

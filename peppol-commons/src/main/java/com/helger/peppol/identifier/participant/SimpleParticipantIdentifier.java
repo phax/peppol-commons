@@ -50,7 +50,6 @@ import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.validator.IdentifierValidator;
 
 /**
  * This is a sanity class around the {@link ParticipantIdentifierType} class
@@ -60,7 +59,10 @@ import com.helger.peppol.identifier.validator.IdentifierValidator;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements IMutablePeppolParticipantIdentifier, Comparable <SimpleParticipantIdentifier>, ICloneable <SimpleParticipantIdentifier>
+public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements
+                                         IMutablePeppolParticipantIdentifier,
+                                         Comparable <SimpleParticipantIdentifier>,
+                                         ICloneable <SimpleParticipantIdentifier>
 {
   public SimpleParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
   {
@@ -75,40 +77,6 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
       throw new IllegalArgumentException ("Participant identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
-  }
-
-  public boolean isDefaultScheme ()
-  {
-    return IdentifierHelper.hasDefaultParticipantIdentifierScheme (this);
-  }
-
-  @Nonnull
-  public String getURIEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIEncoded (this);
-  }
-
-  @Nonnull
-  public String getURIPercentEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
-  }
-
-  public boolean isValid ()
-  {
-    return IdentifierValidator.isValidParticipantIdentifier (this);
-  }
-
-  @Nullable
-  public String getIssuingAgencyID ()
-  {
-    return IdentifierHelper.getIssuingAgencyIDFromParticipantIDValue (this);
-  }
-
-  @Nullable
-  public String getLocalParticipantID ()
-  {
-    return IdentifierHelper.getLocalParticipantIDFromParticipantIDValue (this);
   }
 
   public int compareTo (@Nonnull final SimpleParticipantIdentifier aOther)

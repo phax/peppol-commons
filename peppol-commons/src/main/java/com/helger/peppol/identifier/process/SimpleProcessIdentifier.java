@@ -59,7 +59,10 @@ import com.helger.peppol.identifier.ProcessIdentifierType;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class SimpleProcessIdentifier extends ProcessIdentifierType implements IMutablePeppolProcessIdentifier, Comparable <SimpleProcessIdentifier>, ICloneable <SimpleProcessIdentifier>
+public class SimpleProcessIdentifier extends ProcessIdentifierType implements
+                                     IMutablePeppolProcessIdentifier,
+                                     Comparable <SimpleProcessIdentifier>,
+                                     ICloneable <SimpleProcessIdentifier>
 {
   public SimpleProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
   {
@@ -74,23 +77,6 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements IM
       throw new IllegalArgumentException ("Process identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
-  }
-
-  public boolean isDefaultScheme ()
-  {
-    return IdentifierHelper.hasDefaultProcessIdentifierScheme (this);
-  }
-
-  @Nonnull
-  public String getURIEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIEncoded (this);
-  }
-
-  @Nonnull
-  public String getURIPercentEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
   }
 
   public int compareTo (@Nonnull final SimpleProcessIdentifier aOther)

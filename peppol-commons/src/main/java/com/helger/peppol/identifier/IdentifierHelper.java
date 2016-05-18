@@ -40,7 +40,6 @@
  */
 package com.helger.peppol.identifier;
 
-import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
@@ -52,6 +51,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.exception.InitializationException;
@@ -686,7 +686,9 @@ public final class IdentifierHelper
     ValueEnforcer.notNull (sURIPart, "URIPart");
 
     // This is quicker than splitting with RegEx!
-    final List <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sURIPart, 2);
+    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
+                                                                      sURIPart,
+                                                                      2);
     if (aSplitted.size () != 2)
       return null;
 
@@ -761,7 +763,9 @@ public final class IdentifierHelper
     ValueEnforcer.notNull (sURIPart, "URIPart");
 
     // This is quicker than splitting with RegEx!
-    final List <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sURIPart, 2);
+    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
+                                                                      sURIPart,
+                                                                      2);
     if (aSplitted.size () != 2)
       return null;
 
@@ -836,7 +840,9 @@ public final class IdentifierHelper
     ValueEnforcer.notNull (sURIPart, "URIPart");
 
     // This is quicker than splitting with RegEx!
-    final List <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sURIPart, 2);
+    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
+                                                                      sURIPart,
+                                                                      2);
     if (aSplitted.size () != 2)
       return null;
 

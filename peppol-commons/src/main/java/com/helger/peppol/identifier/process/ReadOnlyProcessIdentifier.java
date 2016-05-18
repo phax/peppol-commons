@@ -59,7 +59,8 @@ import com.helger.peppol.identifier.ProcessIdentifierType;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ReadOnlyProcessIdentifier extends ProcessIdentifierType implements IPeppolProcessIdentifier, Comparable <ReadOnlyProcessIdentifier>
+public class ReadOnlyProcessIdentifier extends ProcessIdentifierType
+                                       implements IPeppolProcessIdentifier, Comparable <ReadOnlyProcessIdentifier>
 {
   public ReadOnlyProcessIdentifier (@Nonnull final IIdentifier aIdentifier)
   {
@@ -93,23 +94,6 @@ public class ReadOnlyProcessIdentifier extends ProcessIdentifierType implements 
   {
     // This is how we make things read-only :)
     throw new UnsupportedOperationException ("setScheme is forbidden on this class!");
-  }
-
-  public boolean isDefaultScheme ()
-  {
-    return IdentifierHelper.hasDefaultProcessIdentifierScheme (this);
-  }
-
-  @Nonnull
-  public String getURIEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIEncoded (this);
-  }
-
-  @Nonnull
-  public String getURIPercentEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
   }
 
   public int compareTo (@Nonnull final ReadOnlyProcessIdentifier aOther)

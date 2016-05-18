@@ -42,13 +42,17 @@ package com.helger.peppol.identifier.process;
 
 import com.helger.peppol.identifier.IPeppolIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
  * Base interface for a PEPPOL read-only process identifier.
- * 
+ *
  * @author philip
  */
 public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIdentifier
 {
-  /* empty */
+  default boolean isDefaultScheme ()
+  {
+    return IdentifierHelper.hasDefaultProcessIdentifierScheme (this);
+  }
 }

@@ -60,7 +60,10 @@ import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements IMutablePeppolDocumentTypeIdentifier, Comparable <SimpleDocumentTypeIdentifier>, ICloneable <SimpleDocumentTypeIdentifier>
+public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements
+                                          IMutablePeppolDocumentTypeIdentifier,
+                                          Comparable <SimpleDocumentTypeIdentifier>,
+                                          ICloneable <SimpleDocumentTypeIdentifier>
 {
   public SimpleDocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
@@ -75,29 +78,6 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
       throw new IllegalArgumentException ("Document Type identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
-  }
-
-  public boolean isDefaultScheme ()
-  {
-    return IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (this);
-  }
-
-  @Nonnull
-  public String getURIEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIEncoded (this);
-  }
-
-  @Nonnull
-  public String getURIPercentEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
-  }
-
-  @Nonnull
-  public IPeppolDocumentTypeIdentifierParts getParts ()
-  {
-    return IdentifierHelper.getDocumentTypeIdentifierParts (this);
   }
 
   public int compareTo (@Nonnull final SimpleDocumentTypeIdentifier aOther)

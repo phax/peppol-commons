@@ -59,7 +59,9 @@ import com.helger.peppol.identifier.IdentifierHelper;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType implements IPeppolDocumentTypeIdentifier, Comparable <ReadOnlyDocumentTypeIdentifier>
+public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType implements
+                                            IPeppolDocumentTypeIdentifier,
+                                            Comparable <ReadOnlyDocumentTypeIdentifier>
 {
   public ReadOnlyDocumentTypeIdentifier (@Nonnull final IIdentifier aIdentifier)
   {
@@ -93,29 +95,6 @@ public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType imple
   {
     // This is how we make things read-only :)
     throw new UnsupportedOperationException ("setScheme is forbidden on this class!");
-  }
-
-  public boolean isDefaultScheme ()
-  {
-    return IdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (this);
-  }
-
-  @Nonnull
-  public String getURIEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIEncoded (this);
-  }
-
-  @Nonnull
-  public String getURIPercentEncoded ()
-  {
-    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
-  }
-
-  @Nonnull
-  public IPeppolDocumentTypeIdentifierParts getParts ()
-  {
-    return IdentifierHelper.getDocumentTypeIdentifierParts (this);
   }
 
   public int compareTo (@Nonnull final ReadOnlyDocumentTypeIdentifier aOther)
