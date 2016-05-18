@@ -50,6 +50,8 @@ import java.math.BigInteger;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.Security;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
@@ -57,8 +59,12 @@ import java.util.Date;
 
 import javax.security.auth.x500.X500Principal;
 
+import org.bouncycastle.cert.X509CertificateHolder;
+import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
+import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.x509.X509V1CertificateGenerator;
+import org.bouncycastle.operator.ContentSigner;
+import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -69,7 +75,6 @@ import com.helger.commons.collection.CollectionHelper;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-@SuppressWarnings ("deprecation")
 public final class KeyStoreHelperTest
 {
   @BeforeClass
@@ -89,15 +94,21 @@ public final class KeyStoreHelperTest
   public static X509Certificate createX509V1Certificate (final KeyPair aKeyPair) throws Exception
   {
     // generate the certificate
-    final X509V1CertificateGenerator certGen = new X509V1CertificateGenerator ();
-    certGen.setSerialNumber (BigInteger.valueOf (System.currentTimeMillis ()));
-    certGen.setIssuerDN (new X500Principal ("CN=Test Certificate"));
-    certGen.setNotBefore (new Date (System.currentTimeMillis () - 50000));
-    certGen.setNotAfter (new Date (System.currentTimeMillis () + 50000));
-    certGen.setSubjectDN (new X500Principal ("CN=Test Certificate"));
-    certGen.setPublicKey (aKeyPair.getPublic ());
-    certGen.setSignatureAlgorithm ("SHA256WithRSAEncryption");
-    return certGen.generate (aKeyPair.getPrivate (), "BC");
+    final PublicKey aPublicKey = aKeyPair.getPublic ();
+    final PrivateKey aPrivateKey = aKeyPair.getPrivate ();
+    final ContentSigner aContentSigner = new JcaContentSignerBuilder ("SHA1withRSA").setProvider (BouncyCastleProvider.PROVIDER_NAME)
+                                                                                    .build (aPrivateKey);
+
+    final X509CertificateHolder aCertHolder = new JcaX509v1CertificateBuilder (new X500Principal ("CN=Test Certificate"),
+                                                                               BigInteger.valueOf (System.currentTimeMillis ()),
+                                                                               new Date (System.currentTimeMillis () -
+                                                                                         50000),
+                                                                               new Date (System.currentTimeMillis () +
+                                                                                         50000),
+                                                                               new X500Principal ("CN=Test Certificate"),
+                                                                               aPublicKey).build (aContentSigner);
+    // Convert to JCA X509Certificate
+    return new JcaX509CertificateConverter ().getCertificate (aCertHolder);
   }
 
   @Test
@@ -154,7 +165,7 @@ public final class KeyStoreHelperTest
   {
     // Load trust store
     final KeyStore aTrustStore = KeyStoreHelper.loadKeyStore (KeyStoreHelper.TRUSTSTORE_PRODUCTION_CLASSPATH,
-                                                             KeyStoreHelper.TRUSTSTORE_PASSWORD);
+                                                              KeyStoreHelper.TRUSTSTORE_PASSWORD);
     assertNotNull (aTrustStore);
 
     // Ensure all name entries are contained
@@ -175,7 +186,7 @@ public final class KeyStoreHelperTest
   {
     // Load trust store
     final KeyStore aTrustStore = KeyStoreHelper.loadKeyStore (KeyStoreHelper.TRUSTSTORE_PILOT_CLASSPATH,
-                                                             KeyStoreHelper.TRUSTSTORE_PASSWORD);
+                                                              KeyStoreHelper.TRUSTSTORE_PASSWORD);
     assertNotNull (aTrustStore);
 
     // Ensure all name entries are contained
@@ -186,7 +197,8 @@ public final class KeyStoreHelperTest
     // System.out.println (SystemProperties.getJavaVersion ());
     final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (KeyStoreHelper.TRUSTSTORE_PILOT_ALIAS_AP);
     final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
+    assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
+                  sIssuerName);
     final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
     assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
                   sSubjectName);
