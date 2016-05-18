@@ -40,10 +40,9 @@
  */
 package com.helger.peppol.identifier.process;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 
@@ -64,7 +63,7 @@ public interface IPeppolPredefinedProcessIdentifier extends IPeppolProcessIdenti
    * @return A list of all document identifiers that are valid in this scenario
    */
   @Nonnull
-  List <? extends IPeppolPredefinedDocumentTypeIdentifier> getDocumentTypeIdentifiers ();
+  ICommonsList <? extends IPeppolPredefinedDocumentTypeIdentifier> getDocumentTypeIdentifiers ();
 
   /**
    * @return The {@link SimpleProcessIdentifier} version of this predefined

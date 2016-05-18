@@ -56,6 +56,8 @@ import org.w3c.dom.Element;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.xml.ChildElementIterator;
 import com.helger.commons.xml.XMLFactory;
 import com.helger.commons.xml.XMLHelper;
@@ -173,7 +175,7 @@ public final class W3CEndpointReferenceHelper
    * @return A mutable element list
    */
   @Nullable
-  public static List <Element> getReferenceParameters (@Nonnull final W3CEndpointReference aEndpointReference)
+  public static ICommonsList <Element> getReferenceParameters (@Nonnull final W3CEndpointReference aEndpointReference)
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
 
@@ -182,7 +184,8 @@ public final class W3CEndpointReferenceHelper
     if (eRefParams == null)
       return null;
 
-    return CollectionHelper.newList (new ChildElementIterator (eRefParams));
+    // All all child elements of ReferenceParameters :)
+    return new CommonsArrayList <> (new ChildElementIterator (eRefParams));
   }
 
   /**
@@ -203,7 +206,7 @@ public final class W3CEndpointReferenceHelper
     ValueEnforcer.isGE0 (nIndex, "Index");
 
     // Get all reference parameters
-    final List <Element> aReferenceParameters = getReferenceParameters (aEndpointReference);
+    final ICommonsList <Element> aReferenceParameters = getReferenceParameters (aEndpointReference);
 
     // And extract the one at the desired index.
     return CollectionHelper.getAtIndex (aReferenceParameters, nIndex);

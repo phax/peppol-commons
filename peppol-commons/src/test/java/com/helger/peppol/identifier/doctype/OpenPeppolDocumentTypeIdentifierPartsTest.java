@@ -46,13 +46,13 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.csv.CSVWriter;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
@@ -167,51 +167,50 @@ public final class OpenPeppolDocumentTypeIdentifierPartsTest
   @Test
   public void testList () throws IOException
   {
-    final List <String> aLines = SimpleFileIO.getAllFileLines (new File ("src/test/resources/doctypes.txt"),
-                                                               CCharset.CHARSET_UTF_8_OBJ);
     final CSVWriter aCSV = new CSVWriter (StreamHelper.createWriter (FileHelper.getOutputStream ("doctypes.csv"),
                                                                      CCharset.CHARSET_ISO_8859_1_OBJ)).setSeparatorChar (';');
-    aCSV.writeNext (new String [] { "Status",
-                                   "Namespace URI",
-                                   "Local name",
-                                   "Transaction ID",
-                                   "Extension",
-                                   "Version",
-                                   "Customization ID" });
-    for (final String sDocTypeID : aLines)
-    {
-      final List <String> aResult = new ArrayList <String> ();
-      IPeppolDocumentTypeIdentifierParts aParts = null;
-      try
-      {
-        aParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
-      }
-      catch (final IllegalArgumentException ex)
-      {
-        try
-        {
-          aParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
-        }
-        catch (final IllegalArgumentException ex2)
-        {
-          aResult.add ("Error");
-          aResult.add (ex.getMessage ());
-          aResult.add (ex2.getMessage ());
-          aResult.add (sDocTypeID);
-        }
-      }
-      if (aParts != null)
-      {
-        aResult.add ("OK");
-        aResult.add (aParts.getRootNS ());
-        aResult.add (aParts.getLocalName ());
-        aResult.add (aParts.getTransactionID ());
-        aResult.add (StringHelper.getImploded (':', aParts.getExtensionIDs ()));
-        aResult.add (aParts.getVersion ());
-        aResult.add (aParts.getAsUBLCustomizationID ());
-      }
-      aCSV.writeNext (aResult);
-    }
+    aCSV.writeNext ("Status",
+                    "Namespace URI",
+                    "Local name",
+                    "Transaction ID",
+                    "Extension",
+                    "Version",
+                    "Customization ID");
+    SimpleFileIO.readFileLines (new File ("src/test/resources/doctypes.txt"),
+                                CCharset.CHARSET_UTF_8_OBJ,
+                                sDocTypeID -> {
+                                  final ICommonsList <String> aResult = new CommonsArrayList <> ();
+                                  IPeppolDocumentTypeIdentifierParts aParts = null;
+                                  try
+                                  {
+                                    aParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+                                  }
+                                  catch (final IllegalArgumentException ex)
+                                  {
+                                    try
+                                    {
+                                      aParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+                                    }
+                                    catch (final IllegalArgumentException ex2)
+                                    {
+                                      aResult.add ("Error");
+                                      aResult.add (ex.getMessage ());
+                                      aResult.add (ex2.getMessage ());
+                                      aResult.add (sDocTypeID);
+                                    }
+                                  }
+                                  if (aParts != null)
+                                  {
+                                    aResult.add ("OK");
+                                    aResult.add (aParts.getRootNS ());
+                                    aResult.add (aParts.getLocalName ());
+                                    aResult.add (aParts.getTransactionID ());
+                                    aResult.add (StringHelper.getImploded (':', aParts.getExtensionIDs ()));
+                                    aResult.add (aParts.getVersion ());
+                                    aResult.add (aParts.getAsUBLCustomizationID ());
+                                  }
+                                  aCSV.writeNext (aResult);
+                                });
     aCSV.close ();
   }
 }

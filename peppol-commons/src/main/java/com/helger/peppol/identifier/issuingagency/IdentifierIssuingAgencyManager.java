@@ -40,16 +40,14 @@
  */
 package com.helger.peppol.identifier.issuingagency;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 
@@ -61,7 +59,7 @@ import com.helger.commons.string.StringHelper;
  */
 public final class IdentifierIssuingAgencyManager
 {
-  private static final List <IIdentifierIssuingAgency> s_aCodes = new ArrayList <IIdentifierIssuingAgency> ();
+  private static final ICommonsList <IIdentifierIssuingAgency> s_aCodes = new CommonsArrayList <> ();
 
   static
   {
@@ -83,9 +81,9 @@ public final class IdentifierIssuingAgencyManager
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public static List <? extends IIdentifierIssuingAgency> getAllAgencies ()
+  public static ICommonsList <? extends IIdentifierIssuingAgency> getAllAgencies ()
   {
-    return CollectionHelper.newList (s_aCodes);
+    return s_aCodes.getClone ();
   }
 
   /**

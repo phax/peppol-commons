@@ -72,10 +72,8 @@ public final class PeppolTechnicalSetup
    */
   public static void enableSoapLogging (final boolean bDebug)
   {
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump",
-                                       Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump",
-                                       Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", bDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", bDebug);
   }
 
   /**
@@ -93,19 +91,17 @@ public final class PeppolTechnicalSetup
     // different....
     enableSoapLogging (bDebug);
 
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dump", Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump",
-                                       Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dump", bDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", bDebug);
 
     SystemProperties.setPropertyValue ("com.sun.xml.ws.fault.SOAPFaultBuilder.disableCaptureStackTrace",
                                        bDebug ? null : "false");
 
-    SystemProperties.setPropertyValue ("com.sun.metro.soap.dump", Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.wss.provider.wsit.SecurityTubeFactory.dump",
-                                       Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityServerTube.dump", Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityClientTube.dump", Boolean.toString (bDebug));
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.metro.soap.dump", bDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.wss.provider.wsit.SecurityTubeFactory.dump", bDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityServerTube.dump", bDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityClientTube.dump", bDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", bDebug);
   }
 
   /**
@@ -126,12 +122,12 @@ public final class PeppolTechnicalSetup
     // The first 2 (*.debug) should both be set to "all" to have the most
     // effects
     return new String [] { "javax.net.debug",
-                          "java.security.debug",
-                          "java.net.useSystemProxies",
-                          "http.proxyHost",
-                          "http.proxyPort",
-                          "http.nonProxyHosts",
-                          "https.proxyHost",
-                          "https.proxyPort" };
+                           "java.security.debug",
+                           "java.net.useSystemProxies",
+                           "http.proxyHost",
+                           "http.proxyPort",
+                           "http.nonProxyHosts",
+                           "https.proxyHost",
+                           "https.proxyPort" };
   }
 }

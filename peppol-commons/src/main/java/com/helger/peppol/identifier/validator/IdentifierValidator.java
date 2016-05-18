@@ -40,8 +40,6 @@
  */
 package com.helger.peppol.identifier.validator;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -50,6 +48,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.participant.IPeppolParticipantIdentifier;
@@ -63,12 +62,12 @@ import com.helger.peppol.identifier.participant.IPeppolParticipantIdentifier;
 public final class IdentifierValidator
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (IdentifierValidator.class);
-  private static final List <IParticipantIdentifierValidatorSPI> s_aParticipantIDValidators;
+  private static final ICommonsList <IParticipantIdentifierValidatorSPI> s_aParticipantIDValidators;
 
   static
   {
     s_aParticipantIDValidators = ServiceLoaderHelper.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
-    if (!s_aParticipantIDValidators.isEmpty ())
+    if (s_aParticipantIDValidators.isNotEmpty ())
       s_aLogger.info ("Loaded " +
                       s_aParticipantIDValidators.size () +
                       " SPI implementations of IParticipantIdentifierValidatorSPI");

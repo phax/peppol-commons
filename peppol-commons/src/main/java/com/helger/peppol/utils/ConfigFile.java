@@ -43,12 +43,6 @@ package com.helger.peppol.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -60,10 +54,13 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
@@ -86,7 +83,7 @@ public class ConfigFile
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConfigFile.class);
 
   private IReadableResource m_aReadResource;
-  private final Properties m_aProps = new Properties ();
+  private final NonBlockingProperties m_aProps = new NonBlockingProperties ();
 
   /**
    * Default constructor does not work. At least one file must be provided!
@@ -142,7 +139,7 @@ public class ConfigFile
         // Does not close the input stream!
         m_aProps.load (aIS);
         if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Loaded configuration from '" + sPath + "': " + Collections.list (m_aProps.keys ()));
+          s_aLogger.debug ("Loaded configuration from '" + sPath + "': " + m_aProps.keySet ());
         m_aReadResource = aRes;
         return ESuccess.SUCCESS;
       }
@@ -238,28 +235,22 @@ public class ConfigFile
   }
 
   /**
-   * @return A {@link Set} with all keys contained in the configuration file
+   * @return A set with all keys contained in the configuration file
    */
   @Nonnull
   @ReturnsMutableCopy
-  public final Set <String> getAllKeys ()
+  public final ICommonsSet <String> getAllKeys ()
   {
     // Convert from Set<Object> to Set<String>
-    final Set <String> ret = new HashSet <String> ();
-    for (final Object o : m_aProps.keySet ())
-      ret.add ((String) o);
-    return ret;
+    return m_aProps.copyOfKeySet ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public final Map <String, String> getAllEntries ()
+  public final ICommonsOrderedMap <String, String> getAllEntries ()
   {
     // Convert from Map<Object,Object> to Map<String, String>
-    final Map <String, String> ret = new HashMap <String, String> ();
-    for (final Map.Entry <Object, Object> o : m_aProps.entrySet ())
-      ret.put ((String) o.getKey (), (String) o.getValue ());
-    return ret;
+    return m_aProps.getClone ();
   }
 
   /**

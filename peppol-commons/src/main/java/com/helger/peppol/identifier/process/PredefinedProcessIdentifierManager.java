@@ -40,10 +40,7 @@
  */
 package com.helger.peppol.identifier.process;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -52,7 +49,10 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
@@ -66,7 +66,7 @@ import com.helger.peppol.identifier.IdentifierHelper;
 @Immutable
 public final class PredefinedProcessIdentifierManager
 {
-  private static final Map <String, IPeppolPredefinedProcessIdentifier> s_aCodes = new HashMap <String, IPeppolPredefinedProcessIdentifier> ();
+  private static final ICommonsMap <String, IPeppolPredefinedProcessIdentifier> s_aCodes = new CommonsHashMap <> ();
 
   static
   {
@@ -88,9 +88,9 @@ public final class PredefinedProcessIdentifierManager
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public static Collection <IPeppolPredefinedProcessIdentifier> getAllProcessIdentifiers ()
+  public static ICommonsCollection <IPeppolPredefinedProcessIdentifier> getAllProcessIdentifiers ()
   {
-    return CollectionHelper.newList (s_aCodes.values ());
+    return s_aCodes.copyOfValues ();
   }
 
   /**
@@ -99,9 +99,9 @@ public final class PredefinedProcessIdentifierManager
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public static Set <String> getAllProcessIdentifierIDs ()
+  public static ICommonsSet <String> getAllProcessIdentifierIDs ()
   {
-    return CollectionHelper.newSet (s_aCodes.keySet ());
+    return s_aCodes.copyOfKeySet ();
   }
 
   /**
