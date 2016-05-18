@@ -16,16 +16,14 @@
  */
 package com.helger.peppol.testfiles;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
@@ -38,9 +36,10 @@ import com.helger.commons.string.ToStringGenerator;
 public final class TestResource
 {
   private final IReadableResource m_aRes;
-  private final Set <ErrorDefinition> m_aExpectedErrors = new HashSet <ErrorDefinition> ();
+  private final ICommonsSet <ErrorDefinition> m_aExpectedErrors = new CommonsHashSet <> ();
 
-  public TestResource (@Nonnull final IReadableResource aRes, @Nullable final Set <ErrorDefinition> aExpectedErrors)
+  public TestResource (@Nonnull final IReadableResource aRes,
+                       @Nullable final ICommonsSet <ErrorDefinition> aExpectedErrors)
   {
     ValueEnforcer.notNull (aRes, "Resource");
 
@@ -77,9 +76,9 @@ public final class TestResource
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <ErrorDefinition> getAllExpectedErrors ()
+  public ICommonsSet <ErrorDefinition> getAllExpectedErrors ()
   {
-    return CollectionHelper.newSet (m_aExpectedErrors);
+    return m_aExpectedErrors.getClone ();
   }
 
   /**
@@ -87,7 +86,7 @@ public final class TestResource
    */
   public boolean hasExpectedErrors ()
   {
-    return !m_aExpectedErrors.isEmpty ();
+    return m_aExpectedErrors.isNotEmpty ();
   }
 
   @Override

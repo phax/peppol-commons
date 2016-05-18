@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.ws.WSClientConfig;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
 import com.helger.peppol.smlclient.smp.InternalErrorFault;
@@ -69,7 +70,7 @@ import com.helger.peppol.smlclient.smp.UnauthorizedFault;
  * @author Ravnholt
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class ManageServiceMetadataServiceCaller extends AbstractSMLClientCaller
+public class ManageServiceMetadataServiceCaller extends WSClientConfig
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ManageServiceMetadataServiceCaller.class);
 
@@ -159,8 +160,8 @@ public class ManageServiceMetadataServiceCaller extends AbstractSMLClientCaller
   public void create (@Nonnull @Nonempty final String sSMPID,
                       @Nonnull @Nonempty final String sSMPAddressPhysical,
                       @Nonnull @Nonempty final String sSMPAddressLogical) throws BadRequestFault,
-                                                                         InternalErrorFault,
-                                                                         UnauthorizedFault
+                                                                          InternalErrorFault,
+                                                                          UnauthorizedFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notEmpty (sSMPAddressPhysical, "SMPAddressPhysical");
@@ -192,8 +193,8 @@ public class ManageServiceMetadataServiceCaller extends AbstractSMLClientCaller
    *         The user name or password was not correct.
    */
   public void create (@Nonnull final ServiceMetadataPublisherServiceType aServiceMetadata) throws BadRequestFault,
-                                                                                          InternalErrorFault,
-                                                                                          UnauthorizedFault
+                                                                                           InternalErrorFault,
+                                                                                           UnauthorizedFault
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
     ValueEnforcer.notEmpty (aServiceMetadata.getServiceMetadataPublisherID (),
@@ -239,9 +240,9 @@ public class ManageServiceMetadataServiceCaller extends AbstractSMLClientCaller
   public void update (@Nonnull @Nonempty final String sSMPID,
                       @Nonnull @Nonempty final String sSMPAddressPhysical,
                       @Nonnull @Nonempty final String sSMPAddressLogical) throws InternalErrorFault,
-                                                                         NotFoundFault,
-                                                                         UnauthorizedFault,
-                                                                         BadRequestFault
+                                                                          NotFoundFault,
+                                                                          UnauthorizedFault,
+                                                                          BadRequestFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notEmpty (sSMPAddressPhysical, "SMPAddressPhysical");
@@ -276,9 +277,9 @@ public class ManageServiceMetadataServiceCaller extends AbstractSMLClientCaller
    *         The request was not well formed.
    */
   public void update (@Nonnull final ServiceMetadataPublisherServiceType aServiceMetadata) throws InternalErrorFault,
-                                                                                          NotFoundFault,
-                                                                                          UnauthorizedFault,
-                                                                                          BadRequestFault
+                                                                                           NotFoundFault,
+                                                                                           UnauthorizedFault,
+                                                                                           BadRequestFault
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
     ValueEnforcer.notEmpty (aServiceMetadata.getServiceMetadataPublisherID (),
@@ -317,9 +318,9 @@ public class ManageServiceMetadataServiceCaller extends AbstractSMLClientCaller
    *         The request was not well formed.
    */
   public void delete (@Nonnull @Nonempty final String sSMPID) throws InternalErrorFault,
-                                                             NotFoundFault,
-                                                             UnauthorizedFault,
-                                                             BadRequestFault
+                                                              NotFoundFault,
+                                                              UnauthorizedFault,
+                                                              BadRequestFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
@@ -346,9 +347,9 @@ public class ManageServiceMetadataServiceCaller extends AbstractSMLClientCaller
    */
   @Nonnull
   public ServiceMetadataPublisherServiceType read (@Nonnull @Nonempty final String sSMPID) throws InternalErrorFault,
-                                                                                          NotFoundFault,
-                                                                                          UnauthorizedFault,
-                                                                                          BadRequestFault
+                                                                                           NotFoundFault,
+                                                                                           UnauthorizedFault,
+                                                                                           BadRequestFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
@@ -375,9 +376,9 @@ public class ManageServiceMetadataServiceCaller extends AbstractSMLClientCaller
    */
   @Nonnull
   public ServiceMetadataPublisherServiceType read (@Nonnull final ServiceMetadataPublisherServiceType aSMPService) throws InternalErrorFault,
-                                                                                                                  NotFoundFault,
-                                                                                                                  UnauthorizedFault,
-                                                                                                                  BadRequestFault
+                                                                                                                   NotFoundFault,
+                                                                                                                   UnauthorizedFault,
+                                                                                                                   BadRequestFault
   {
     ValueEnforcer.notNull (aSMPService, "SMPService");
     ValueEnforcer.notEmpty (aSMPService.getServiceMetadataPublisherID (), "SMPService.ServiceMetadataPublisherID");

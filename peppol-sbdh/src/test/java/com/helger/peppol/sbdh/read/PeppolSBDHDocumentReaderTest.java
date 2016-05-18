@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -31,6 +30,8 @@ import org.junit.Test;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -49,7 +50,7 @@ import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
  */
 public final class PeppolSBDHDocumentReaderTest
 {
-  private static final Map <String, EPeppolSBDHDocumentReadError> BAD_CASES = new HashMap <String, EPeppolSBDHDocumentReadError> ();
+  private static final ICommonsMap <String, EPeppolSBDHDocumentReadError> BAD_CASES = new CommonsHashMap <> ();
 
   static
   {

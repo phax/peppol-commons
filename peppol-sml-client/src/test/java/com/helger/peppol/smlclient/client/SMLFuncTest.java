@@ -46,11 +46,7 @@ import static org.junit.Assert.fail;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 
@@ -59,6 +55,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
@@ -291,7 +291,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final Collection <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new ArrayList <ParticipantIdentifierType> ();
+    final ICommonsList <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new CommonsArrayList <> ();
 
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
 
@@ -311,7 +311,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final Collection <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new ArrayList <ParticipantIdentifierType> ();
+    final ICommonsList <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new CommonsArrayList <> ();
 
     final ParticipantIdentifierType aBusinessIdentifierCreate1 = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
 
@@ -342,7 +342,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final Map <String, ParticipantIdentifierType> aBusinessIdentifiersCreate = new HashMap <String, ParticipantIdentifierType> ();
+    final ICommonsMap <String, ParticipantIdentifierType> aBusinessIdentifiersCreate = new CommonsHashMap <> ();
 
     ParticipantIdentifierType aBusinessIdentifierCreate1 = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     ParticipantIdentifierType aBusinessIdentifierCreate2 = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER2);

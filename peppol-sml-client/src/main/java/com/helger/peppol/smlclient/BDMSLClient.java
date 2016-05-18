@@ -42,8 +42,6 @@ package com.helger.peppol.smlclient;
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,7 +54,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.url.URLHelper;
+import com.helger.commons.ws.WSClientConfig;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
@@ -82,7 +83,7 @@ import com.helger.peppol.smlclient.bdmslcipa.UnauthorizedFault;
  *
  * @author Philip Helger
  */
-public class BDMSLClient extends AbstractSMLClientCaller
+public class BDMSLClient extends WSClientConfig
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (BDMSLClient.class);
 
@@ -163,7 +164,7 @@ public class BDMSLClient extends AbstractSMLClientCaller
   }
 
   @Nullable
-  public List <ParticipantListItem> listParticipants () throws InternalErrorFault
+  public ICommonsList <ParticipantListItem> listParticipants () throws InternalErrorFault
   {
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("listParticipants ()");
@@ -179,10 +180,11 @@ public class BDMSLClient extends AbstractSMLClientCaller
       s_aLogger.error ("Unauthorized to call listParticipants", ex);
       return null;
     }
-    final List <ParticipantListItem> ret = new ArrayList <ParticipantListItem> ();
+    final ICommonsList <ParticipantListItem> ret = new CommonsArrayList <> ();
     if (aList != null)
       for (final ParticipantsType aParticipant : aList.getParticipant ())
-        ret.add (new ParticipantListItem (aParticipant.getServiceMetadataPublisherID (), aParticipant.getParticipantIdentifier ()));
+        ret.add (new ParticipantListItem (aParticipant.getServiceMetadataPublisherID (),
+                                          aParticipant.getParticipantIdentifier ()));
     return ret;
   }
 

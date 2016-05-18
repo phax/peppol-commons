@@ -47,7 +47,7 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
 
 /**
  * A dummy SOAP handler that handles wsse:Security SOAP header elements as
@@ -64,7 +64,7 @@ public class WSSESoapHandler implements SOAPHandler <SOAPMessageContext>
   @Override
   public Set <QName> getHeaders ()
   {
-    return CollectionHelper.newSet (WSSE_HEADER_NAME);
+    return new CommonsHashSet <QName> (WSSE_HEADER_NAME);
   }
 
   public boolean handleMessage (final SOAPMessageContext aContext)

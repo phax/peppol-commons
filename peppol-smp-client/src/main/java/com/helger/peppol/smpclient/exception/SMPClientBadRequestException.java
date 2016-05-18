@@ -49,7 +49,7 @@ import org.apache.http.client.HttpResponseException;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class SMPClientBadRequestException extends SMPClientException
+public class SMPClientBadRequestException extends SMPClientException
 {
   public SMPClientBadRequestException (@Nonnull final HttpResponseException ex)
   {

@@ -40,9 +40,6 @@
  */
 package com.helger.peppol.smpclient;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -52,6 +49,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemProperties;
 import com.helger.peppol.utils.ConfigFile;
@@ -81,7 +80,7 @@ public final class SMPClientConfiguration
 
   static
   {
-    final List <String> aFilePaths = new ArrayList <String> ();
+    final ICommonsList <String> aFilePaths = new CommonsArrayList <> ();
     // Check if the system property is present
     String sPropertyPath = SystemProperties.getPropertyValue ("peppol.smp.client.properties.path");
     if (StringHelper.hasText (sPropertyPath))

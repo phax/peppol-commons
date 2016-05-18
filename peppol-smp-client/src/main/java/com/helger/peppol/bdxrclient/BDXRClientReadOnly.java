@@ -43,8 +43,6 @@ package com.helger.peppol.bdxrclient;
 import java.net.URI;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,7 +54,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.peppol.bdxr.EndpointType;
 import com.helger.peppol.bdxr.ProcessType;
 import com.helger.peppol.bdxr.RedirectType;
@@ -400,17 +399,14 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     if (aServiceInformation != null)
     {
       // Okay, it's not a redirect
-      final List <ProcessType> aAllProcesses = aServiceInformation.getProcessList ().getProcess ();
-      for (final ProcessType aProcessType : aAllProcesses)
+      for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
       {
         // Matches the requested one?
         if (IdentifierHelper.areProcessIdentifiersEqual (aProcessType.getProcessIdentifier (), aProcessID))
         {
-          // Get all endpoints
-          final List <EndpointType> aEndpoints = aProcessType.getServiceEndpointList ().getEndpoint ();
-          // Filter by required transport profile
-          final List <EndpointType> aRelevantEndpoints = new ArrayList <EndpointType> ();
-          for (final EndpointType aEndpoint : aEndpoints)
+          // Filter endpoints by required transport profile
+          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
+          for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
             if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
               aRelevantEndpoints.add (aEndpoint);
 
@@ -429,7 +425,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
           }
 
           // Use the first endpoint or null
-          return CollectionHelper.getFirstElement (aRelevantEndpoints);
+          return aRelevantEndpoints.getFirst ();
         }
       }
     }

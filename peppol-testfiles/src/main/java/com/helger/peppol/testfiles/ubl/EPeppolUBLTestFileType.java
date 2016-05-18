@@ -24,14 +24,14 @@ import com.helger.commons.io.resource.IReadableResource;
 
 public enum EPeppolUBLTestFileType
 {
- CALLFORTENDERS ("test-callfortenders"),
- CATALOGUE ("test-catalogues"),
- CREDITNOTE ("test-creditnotes"),
- INVOICE ("test-invoices"),
- ORDER ("test-orders"),
- ORDERRESPONSE ("test-orderresponses"),
- TENDER ("test-tenders"),
- TENDERINGCATALOGUE ("test-tenderingcatalogues");
+  CALLFORTENDERS ("test-callfortenders"),
+  CATALOGUE ("test-catalogues"),
+  CREDITNOTE ("test-creditnotes"),
+  INVOICE ("test-invoices"),
+  ORDER ("test-orders"),
+  ORDERRESPONSE ("test-orderresponses"),
+  TENDER ("test-tenders"),
+  TENDERINGCATALOGUE ("test-tenderingcatalogues");
 
   private final String m_sDirName;
 

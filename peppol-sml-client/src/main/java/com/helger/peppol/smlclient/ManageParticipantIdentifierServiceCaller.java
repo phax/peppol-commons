@@ -54,6 +54,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.ws.WSClientConfig;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.sml.CSMLDefault;
@@ -76,7 +77,7 @@ import com.helger.peppol.smlclient.participant.UnauthorizedFault;
  * @author Ravnholt
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientCaller
+public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ManageParticipantIdentifierServiceCaller.class);
 
@@ -193,7 +194,7 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
   }
 
   @Nonnull
-  private static String _toString (@Nonnull final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers)
+  private static String _toString (@Nonnull final Iterable <? extends ParticipantIdentifierType> aParticipantIdentifiers)
   {
     final StringBuilder aSB = new StringBuilder ();
     for (final ParticipantIdentifierType aPI : aParticipantIdentifiers)
@@ -243,31 +244,6 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
     aParticipantList.getParticipantIdentifier ().addAll (aParticipantIdentifiers);
     aParticipantList.setServiceMetadataPublisherID (sSMPID);
     createWSPort ().createList (aParticipantList);
-  }
-
-  /**
-   * Deletes a given participant identifier
-   *
-   * @param aIdentifier
-   *        The business identifier to delete. May not be <code>null</code>.
-   * @throws BadRequestFault
-   *         Is thrown if the request sent to the service was not well-formed.
-   * @throws InternalErrorFault
-   *         Is thrown if an internal error happened on the service.
-   * @throws NotFoundFault
-   *         Is thrown if the business identifier could not be found and
-   *         therefore deleted.
-   * @throws UnauthorizedFault
-   *         Is thrown if the user was not authorized.
-   */
-  @Deprecated
-  public void delete (@Nonnull final ParticipantIdentifierType aIdentifier) throws BadRequestFault,
-                                                                            InternalErrorFault,
-                                                                            NotFoundFault,
-                                                                            UnauthorizedFault
-  {
-    // No SMP ID required here, since identifier scheme+value must be unique!
-    delete ("", aIdentifier);
   }
 
   /**
@@ -353,10 +329,10 @@ public class ManageParticipantIdentifierServiceCaller extends AbstractSMLClientC
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void deleteList (@Nonnull @Nonempty final Collection <ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault,
-                                                                                                                   InternalErrorFault,
-                                                                                                                   NotFoundFault,
-                                                                                                                   UnauthorizedFault
+  public void deleteList (@Nonnull @Nonempty final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault,
+                                                                                                                             InternalErrorFault,
+                                                                                                                             NotFoundFault,
+                                                                                                                             UnauthorizedFault
   {
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
 

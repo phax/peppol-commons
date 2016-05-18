@@ -16,27 +16,25 @@
  */
 package com.helger.peppol.testfiles.official;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 
 @Immutable
 public final class OfficialTestFiles
 {
-  private static final List <ClassPathResource> CATALOGUE_01_T19 = new ArrayList <ClassPathResource> ();
-  private static final List <ClassPathResource> CATALOGUE_01_T58 = new ArrayList <ClassPathResource> ();
-  private static final List <ClassPathResource> ORDER_03_T01 = new ArrayList <ClassPathResource> ();
-  private static final List <ClassPathResource> INVOICE_04_T10 = new ArrayList <ClassPathResource> ();
-  private static final List <ClassPathResource> BILLING_05_T14 = new ArrayList <ClassPathResource> ();
-  private static final List <ClassPathResource> ORDERING_28_T01 = new ArrayList <ClassPathResource> ();
-  private static final List <ClassPathResource> ORDERING_28_T76 = new ArrayList <ClassPathResource> ();
-  private static final List <ClassPathResource> DESPATCH_ADVICE_30_T16 = new ArrayList <ClassPathResource> ();
+  private static final ICommonsList <ClassPathResource> CATALOGUE_01_T19 = new CommonsArrayList <> ();
+  private static final ICommonsList <ClassPathResource> CATALOGUE_01_T58 = new CommonsArrayList <> ();
+  private static final ICommonsList <ClassPathResource> ORDER_03_T01 = new CommonsArrayList <> ();
+  private static final ICommonsList <ClassPathResource> INVOICE_04_T10 = new CommonsArrayList <> ();
+  private static final ICommonsList <ClassPathResource> BILLING_05_T14 = new CommonsArrayList <> ();
+  private static final ICommonsList <ClassPathResource> ORDERING_28_T01 = new CommonsArrayList <> ();
+  private static final ICommonsList <ClassPathResource> ORDERING_28_T76 = new CommonsArrayList <> ();
+  private static final ICommonsList <ClassPathResource> DESPATCH_ADVICE_30_T16 = new CommonsArrayList <> ();
 
   static
   {
@@ -97,57 +95,57 @@ public final class OfficialTestFiles
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllTestFilesCatalogue_01_T19 ()
+  public static ICommonsList <ClassPathResource> getAllTestFilesCatalogue_01_T19 ()
   {
-    return CollectionHelper.newList (CATALOGUE_01_T19);
+    return CATALOGUE_01_T19.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllTestFilesCatalogue_01_T58 ()
+  public static ICommonsList <ClassPathResource> getAllTestFilesCatalogue_01_T58 ()
   {
-    return CollectionHelper.newList (CATALOGUE_01_T58);
+    return CATALOGUE_01_T58.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllTestFilesOrder_03_T01 ()
+  public static ICommonsList <ClassPathResource> getAllTestFilesOrder_03_T01 ()
   {
-    return CollectionHelper.newList (ORDER_03_T01);
+    return ORDER_03_T01.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllTestFilesInvoice_04_T10 ()
+  public static ICommonsList <ClassPathResource> getAllTestFilesInvoice_04_T10 ()
   {
-    return CollectionHelper.newList (INVOICE_04_T10);
+    return INVOICE_04_T10.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllTestFilesBilling_05_T14 ()
+  public static ICommonsList <ClassPathResource> getAllTestFilesBilling_05_T14 ()
   {
-    return CollectionHelper.newList (BILLING_05_T14);
+    return BILLING_05_T14.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllTestFilesOrdering_28_T01 ()
+  public static ICommonsList <ClassPathResource> getAllTestFilesOrdering_28_T01 ()
   {
-    return CollectionHelper.newList (ORDERING_28_T01);
+    return ORDERING_28_T01.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllTestFilesOrdering_28_T76 ()
+  public static ICommonsList <ClassPathResource> getAllTestFilesOrdering_28_T76 ()
   {
-    return CollectionHelper.newList (ORDERING_28_T76);
+    return ORDERING_28_T76.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllTestFilesDespatchAdvice_30_T16 ()
+  public static ICommonsList <ClassPathResource> getAllTestFilesDespatchAdvice_30_T16 ()
   {
-    return CollectionHelper.newList (DESPATCH_ADVICE_30_T16);
+    return DESPATCH_ADVICE_30_T16.getClone ();
   }
 }

@@ -51,7 +51,7 @@ import org.apache.http.client.HttpResponseException;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class SMPClientNotFoundException extends SMPClientException
+public class SMPClientNotFoundException extends SMPClientException
 {
   public SMPClientNotFoundException (@Nonnull final HttpResponseException ex)
   {

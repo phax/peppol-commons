@@ -55,7 +55,6 @@ import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.xml.ChildElementIterator;
@@ -209,6 +208,6 @@ public final class W3CEndpointReferenceHelper
     final ICommonsList <Element> aReferenceParameters = getReferenceParameters (aEndpointReference);
 
     // And extract the one at the desired index.
-    return CollectionHelper.getAtIndex (aReferenceParameters, nIndex);
+    return aReferenceParameters == null ? null : aReferenceParameters.getAtIndex (nIndex);
   }
 }

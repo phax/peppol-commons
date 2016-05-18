@@ -43,13 +43,12 @@ package com.helger.peppol.smlclient;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 
-import java.util.List;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
 import com.helger.peppol.utils.PeppolTechnicalSetup;
@@ -86,7 +85,7 @@ public final class BDMSLClientTest extends AbstractSMLClientTestCase
       aClient.clearCache ();
 
       s_aLogger.info ("LIST_PARTICIPANTS");
-      final List <ParticipantListItem> aList = aClient.listParticipants ();
+      final ICommonsList <ParticipantListItem> aList = aClient.listParticipants ();
       assertNull (aList);
     }
     finally

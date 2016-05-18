@@ -86,15 +86,6 @@ public class ConfigFile
   private final NonBlockingProperties m_aProps = new NonBlockingProperties ();
 
   /**
-   * Default constructor does not work. At least one file must be provided!
-   */
-  @Deprecated
-  public ConfigFile ()
-  {
-    this ((String []) null);
-  }
-
-  /**
    * Constructor for explicitly specifying a file path to read.
    *
    * @param aConfigPaths

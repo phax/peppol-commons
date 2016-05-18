@@ -16,13 +16,11 @@
  */
 package com.helger.peppol.testfiles.sbdh;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 
 /**
@@ -32,8 +30,8 @@ import com.helger.commons.io.resource.ClassPathResource;
  */
 public final class PeppolSBDHTestFiles
 {
-  private static final List <ClassPathResource> GOOD_CASES = new ArrayList <ClassPathResource> ();
-  private static final List <ClassPathResource> BAD_CASES = new ArrayList <ClassPathResource> ();
+  private static final ICommonsList <ClassPathResource> GOOD_CASES = new CommonsArrayList <> ();
+  private static final ICommonsList <ClassPathResource> BAD_CASES = new CommonsArrayList <> ();
 
   static
   {
@@ -78,27 +76,27 @@ public final class PeppolSBDHTestFiles
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllGoodCases ()
+  public static ICommonsList <ClassPathResource> getAllGoodCases ()
   {
-    return CollectionHelper.newList (GOOD_CASES);
+    return GOOD_CASES.getClone ();
   }
 
   @Nonnull
   public static ClassPathResource getFirstGoodCase ()
   {
-    return GOOD_CASES.get (0);
+    return GOOD_CASES.getFirst ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <ClassPathResource> getAllBadCases ()
+  public static ICommonsList <ClassPathResource> getAllBadCases ()
   {
-    return CollectionHelper.newList (BAD_CASES);
+    return BAD_CASES.getClone ();
   }
 
   @Nonnull
   public static ClassPathResource getFirstBadCase ()
   {
-    return BAD_CASES.get (0);
+    return BAD_CASES.getFirst ();
   }
 }

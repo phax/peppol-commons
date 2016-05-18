@@ -16,16 +16,14 @@
  */
 package com.helger.peppol.testfiles;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -36,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
 public final class TestDocument
 {
   private final String m_sFilename;
-  private final Set <ErrorDefinition> m_aExpectedErrors = new HashSet <ErrorDefinition> ();
+  private final ICommonsSet <ErrorDefinition> m_aExpectedErrors = new CommonsHashSet <> ();
 
   public TestDocument (@Nonnull @Nonempty final String sFilename, @Nullable final ErrorDefinition... aExpectedErrors)
   {
@@ -66,9 +64,9 @@ public final class TestDocument
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <ErrorDefinition> getAllExpectedErrors ()
+  public ICommonsSet <ErrorDefinition> getAllExpectedErrors ()
   {
-    return CollectionHelper.newSet (m_aExpectedErrors);
+    return m_aExpectedErrors.getClone ();
   }
 
   /**
@@ -76,7 +74,7 @@ public final class TestDocument
    */
   public boolean hasExpectedErrors ()
   {
-    return !m_aExpectedErrors.isEmpty ();
+    return m_aExpectedErrors.isNotEmpty ();
   }
 
   @Override

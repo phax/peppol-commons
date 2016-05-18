@@ -50,7 +50,6 @@ import java.io.IOException;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.csv.CSVWriter;
@@ -75,7 +74,7 @@ public final class OpenPeppolDocumentTypeIdentifierPartsTest
     assertEquals ("local", aParts.getLocalName ());
     assertEquals ("basic:extended:subtype:extended:ext1:extended:ext2::ver1", aParts.getSubTypeIdentifier ());
     assertEquals ("basic", aParts.getTransactionID ());
-    assertEquals (CollectionHelper.newList ("subtype", "ext1", "ext2"), aParts.getExtensionIDs ());
+    assertEquals (new CommonsArrayList <> ("subtype", "ext1", "ext2"), aParts.getExtensionIDs ());
     assertEquals ("ver1", aParts.getVersion ());
   }
 

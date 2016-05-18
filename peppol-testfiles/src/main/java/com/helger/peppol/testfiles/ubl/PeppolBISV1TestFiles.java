@@ -16,8 +16,6 @@
  */
 package com.helger.peppol.testfiles.ubl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -30,6 +28,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.peppol.testfiles.ErrorDefinition;
 import com.helger.peppol.testfiles.TestDocument;
@@ -532,15 +532,15 @@ public final class PeppolBISV1TestFiles
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <IReadableResource> getSuccessFiles (@Nonnull final EPeppolUBLTestFileType eFileType)
+  public static ICommonsList <IReadableResource> getSuccessFiles (@Nonnull final EPeppolUBLTestFileType eFileType)
   {
     return getSuccessFiles (eFileType, null);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <IReadableResource> getSuccessFiles (@Nonnull final EPeppolUBLTestFileType eFileType,
-                                                          @Nullable final Locale aCountry)
+  public static ICommonsList <IReadableResource> getSuccessFiles (@Nonnull final EPeppolUBLTestFileType eFileType,
+                                                                  @Nullable final Locale aCountry)
   {
     ValueEnforcer.notNull (eFileType, "FileType");
 
@@ -585,7 +585,7 @@ public final class PeppolBISV1TestFiles
     }
 
     // Build result list
-    final List <IReadableResource> ret = new ArrayList <IReadableResource> ();
+    final ICommonsList <IReadableResource> ret = new CommonsArrayList <> ();
     for (final String sFilename : aFilenames)
       ret.add (eFileType.getSuccessResource (sFilename));
     return ret;
@@ -593,15 +593,15 @@ public final class PeppolBISV1TestFiles
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType)
+  public static ICommonsList <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType)
   {
     return getErrorFiles (eFileType, null);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static List <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType,
-                                                   @Nullable final Locale aCountry)
+  public static ICommonsList <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType,
+                                                           @Nullable final Locale aCountry)
   {
     ValueEnforcer.notNull (eFileType, "FileType");
 
@@ -629,7 +629,7 @@ public final class PeppolBISV1TestFiles
     }
 
     // Build result list
-    final List <TestResource> ret = new ArrayList <TestResource> ();
+    final ICommonsList <TestResource> ret = new CommonsArrayList <> ();
     for (final TestDocument aTestDoc : aFilenames)
       ret.add (new TestResource (eFileType.getErrorResource (aTestDoc.getFilename ()),
                                  aTestDoc.getAllExpectedErrors ()));

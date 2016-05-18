@@ -49,7 +49,7 @@ import org.apache.http.client.HttpResponseException;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class SMPClientUnauthorizedException extends SMPClientException
+public class SMPClientUnauthorizedException extends SMPClientException
 {
   public SMPClientUnauthorizedException (@Nonnull final HttpResponseException ex)
   {
