@@ -91,7 +91,7 @@ public final class BusdoxURLHelper
   @Nullable
   public static String createPercentEncodedURL (@Nullable final String sURL)
   {
-    return URLCodec.getEncodedURLString (sURL, CCharset.CHARSET_UTF_8_OBJ);
+    return new URLCodec ().getEncodedAsString (sURL, CCharset.CHARSET_UTF_8_OBJ);
   }
 
   /**
@@ -104,7 +104,7 @@ public final class BusdoxURLHelper
   @Nullable
   public static String createPercentDecodedURL (@Nullable final String sURL)
   {
-    return URLCodec.getDecodedURLString (sURL, CCharset.CHARSET_UTF_8_OBJ);
+    return new URLCodec ().getDecodedAsString (sURL, CCharset.CHARSET_UTF_8_OBJ);
   }
 
   /**
@@ -122,7 +122,9 @@ public final class BusdoxURLHelper
   public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
   {
     // Create the MD5 hash
-    final byte [] aDigest = MessageDigestGeneratorHelper.getAllDigestBytes (sValueToHash, URL_CHARSET, EMessageDigestAlgorithm.MD5);
+    final byte [] aDigest = MessageDigestGeneratorHelper.getAllDigestBytes (sValueToHash,
+                                                                            URL_CHARSET,
+                                                                            EMessageDigestAlgorithm.MD5);
     // Convert to hex-encoded string
     return MessageDigestGeneratorHelper.getHexValueFromDigest (aDigest);
   }
@@ -144,7 +146,8 @@ public final class BusdoxURLHelper
    *         In case one argument is invalid
    */
   @Nonnull
-  public static String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier, @Nonnull final ISMLInfo aSML)
+  public static String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                                @Nonnull final ISMLInfo aSML)
   {
     return getDNSNameOfParticipant (aParticipantIdentifier, aSML.getDNSZone ());
   }
@@ -169,7 +172,8 @@ public final class BusdoxURLHelper
    *         In case one argument is invalid
    */
   @Nonnull
-  public static String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier, @Nullable final String sSMLZoneName)
+  public static String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                                @Nullable final String sSMLZoneName)
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notEmpty (aParticipantIdentifier.getScheme (), "ParticipantIdentifier scheme");
@@ -177,7 +181,8 @@ public final class BusdoxURLHelper
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new IllegalArgumentException ("if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
+      throw new IllegalArgumentException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
+                                          sSMLZoneName);
 
     // Check identifier scheme (must be lowercase for the URL later on!)
     final String sIdentifierScheme = aParticipantIdentifier.getScheme ().toLowerCase (URL_LOCALE);
@@ -196,7 +201,9 @@ public final class BusdoxURLHelper
     {
       // Important: create hash from lowercase string!
       // Here the "B-0011223344..." string is assembled!
-      ret.append (CIdentifier.DNS_HASHED_IDENTIFIER_PREFIX).append (getHashValueStringRepresentation (sValue.toLowerCase (URL_LOCALE))).append ('.');
+      ret.append (CIdentifier.DNS_HASHED_IDENTIFIER_PREFIX)
+         .append (getHashValueStringRepresentation (sValue.toLowerCase (URL_LOCALE)))
+         .append ('.');
     }
 
     // append the identifier scheme
@@ -220,7 +227,8 @@ public final class BusdoxURLHelper
   }
 
   @Nonnull
-  public static URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier, @Nonnull final ISMLInfo aSMLInfo)
+  public static URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                            @Nonnull final ISMLInfo aSMLInfo)
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -229,7 +237,8 @@ public final class BusdoxURLHelper
   }
 
   @Nonnull
-  public static URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier, @Nullable final String sSMLZoneName)
+  public static URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                            @Nullable final String sSMLZoneName)
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
@@ -246,7 +255,8 @@ public final class BusdoxURLHelper
   }
 
   @Nonnull
-  public static URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier, @Nonnull final ISMLInfo aSMLInfo)
+  public static URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                            @Nonnull final ISMLInfo aSMLInfo)
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -255,7 +265,8 @@ public final class BusdoxURLHelper
   }
 
   @Nonnull
-  public static URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier, @Nullable final String sSMLZoneName)
+  public static URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                            @Nullable final String sSMLZoneName)
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 

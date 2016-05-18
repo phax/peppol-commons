@@ -40,8 +40,7 @@
  */
 package com.helger.peppol.smpclient;
 
-import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBElement;
+import java.util.List;
 
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.jaxb.AbstractJAXBMarshaller;
@@ -57,13 +56,8 @@ public final class SMPMarshallerServiceMetadataType extends AbstractJAXBMarshall
 {
   public SMPMarshallerServiceMetadataType ()
   {
-    super (ServiceMetadataType.class, (IReadableResource []) null);
-  }
-
-  @Override
-  @Nonnull
-  protected JAXBElement <ServiceMetadataType> wrapObject (@Nonnull final ServiceMetadataType aObject)
-  {
-    return new ObjectFactory ().createServiceMetadata (aObject);
+    super (ServiceMetadataType.class,
+           (List <IReadableResource>) null,
+           o -> new ObjectFactory ().createServiceMetadata (o));
   }
 }

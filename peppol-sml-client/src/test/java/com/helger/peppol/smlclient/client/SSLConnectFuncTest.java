@@ -59,10 +59,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.ws.HostnameVerifierVerifyAll;
+import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.utils.KeyStoreHelper;
-import com.helger.web.https.DoNothingTrustManager;
-import com.helger.web.https.HostnameVerifierAlwaysTrue;
 
 /**
  * This class tests the URL connection to the SML that is secured with client
@@ -84,7 +84,7 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
     aKMF.init (aKeyStore, KEYSTORE_PASSWORD.toCharArray ());
 
     // Trust all
-    final TrustManager [] aTrustMgrs = new TrustManager [] { new DoNothingTrustManager (false) };
+    final TrustManager [] aTrustMgrs = new TrustManager [] { new TrustManagerTrustAll (false) };
 
     // SSL context
     final SSLContext aSSLContext = SSLContext.getInstance ("TLS");
@@ -93,7 +93,7 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
     // Configure and open connection
     final HttpsURLConnection aURLConn = (HttpsURLConnection) new URL (SML_INFO.getManagementServiceURL ()).openConnection ();
     aURLConn.setSSLSocketFactory (aSSLContext.getSocketFactory ());
-    aURLConn.setHostnameVerifier (new HostnameVerifierAlwaysTrue (true));
+    aURLConn.setHostnameVerifier (new HostnameVerifierVerifyAll (true));
     aURLConn.setRequestMethod ("GET");
 
     // Debug status on URL connection

@@ -16,13 +16,13 @@
  */
 package com.helger.peppol.sbdh;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.joda.time.LocalDateTime;
 import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;

@@ -55,7 +55,7 @@ import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.WillClose;
+import javax.annotation.WillNotClose;
 import javax.xml.crypto.AlgorithmMethod;
 import javax.xml.crypto.KeySelector;
 import javax.xml.crypto.KeySelectorException;
@@ -203,59 +203,51 @@ public final class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseH
     m_aMarshaller = ValueEnforcer.notNull (aMarshaller, "Marshaller");
   }
 
-  private static boolean _checkSignature (@Nonnull @WillClose final InputStream aEntityInputStream) throws Exception
+  private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream) throws Exception
   {
-    try
+    // Get response from servlet
+    final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);
+
+    // We make sure that the XML is a Signed. If not, we don't have to check
+    // any certificates.
+
+    // Find Signature element.
+    final NodeList aNodeList = aDocument.getElementsByTagNameNS (XMLSignature.XMLNS, "Signature");
+    if (aNodeList == null || aNodeList.getLength () == 0)
+      throw new IllegalArgumentException ("Element <Signature> not found in SMP XML response");
+
+    // Create a DOMValidateContext and specify a KeySelector
+    // and document context.
+    final X509KeySelector aKeySelector = new X509KeySelector ();
+    final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
+    final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
+
+    // Unmarshal the XMLSignature.
+    final XMLSignature aSignature = aSignatureFactory.unmarshalXMLSignature (aValidateContext);
+
+    // Validate the XMLSignature.
+    final boolean bCoreValid = aSignature.validate (aValidateContext);
+    if (!bCoreValid)
     {
-      // Get response from servlet
-      final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);
-
-      // We make sure that the XML is a Signed. If not, we don't have to check
-      // any certificates.
-
-      // Find Signature element.
-      final NodeList aNodeList = aDocument.getElementsByTagNameNS (XMLSignature.XMLNS, "Signature");
-      if (aNodeList == null || aNodeList.getLength () == 0)
-        throw new IllegalArgumentException ("Element <Signature> not found in SMP XML response");
-
-      // Create a DOMValidateContext and specify a KeySelector
-      // and document context.
-      final X509KeySelector aKeySelector = new X509KeySelector ();
-      final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
-      final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
-
-      // Unmarshal the XMLSignature.
-      final XMLSignature aSignature = aSignatureFactory.unmarshalXMLSignature (aValidateContext);
-
-      // Validate the XMLSignature.
-      final boolean bCoreValid = aSignature.validate (aValidateContext);
-      if (!bCoreValid)
+      // This code block is for debugging purposes only - it has no semantical
+      // influence
+      s_aLogger.info ("Signature failed core validation");
+      final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
+      s_aLogger.info ("  Signature value valid: " + bSignatureValueValid);
+      if (!bSignatureValueValid)
       {
-        // This code block is for debugging purposes only - it has no semantical
-        // influence
-        s_aLogger.info ("Signature failed core validation");
-        final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
-        s_aLogger.info ("  Signature value valid: " + bSignatureValueValid);
-        if (!bSignatureValueValid)
+        // Check the validation status of each Reference.
+        int nIndex = 0;
+        final Iterator <?> i = aSignature.getSignedInfo ().getReferences ().iterator ();
+        while (i.hasNext ())
         {
-          // Check the validation status of each Reference.
-          int nIndex = 0;
-          final Iterator <?> i = aSignature.getSignedInfo ().getReferences ().iterator ();
-          while (i.hasNext ())
-          {
-            final boolean bRefValid = ((Reference) i.next ()).validate (aValidateContext);
-            s_aLogger.info ("  Reference[" + nIndex + "] validity status: " + (bRefValid ? "valid" : "NOT valid!"));
-            ++nIndex;
-          }
+          final boolean bRefValid = ((Reference) i.next ()).validate (aValidateContext);
+          s_aLogger.info ("  Reference[" + nIndex + "] validity status: " + (bRefValid ? "valid" : "NOT valid!"));
+          ++nIndex;
         }
       }
-      return bCoreValid;
     }
-    finally
-    {
-      // Close the input stream
-      StreamHelper.close (aEntityInputStream);
-    }
+    return bCoreValid;
   }
 
   @Override
@@ -267,10 +259,10 @@ public final class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseH
     if (ArrayHelper.isEmpty (aResponseBytes))
       throw new ClientProtocolException ("Could not read SMP server response content");
 
-    try
+    try (final InputStream aIS = new NonBlockingByteArrayInputStream (aResponseBytes))
     {
       // Check the signature
-      if (!_checkSignature (new NonBlockingByteArrayInputStream (aResponseBytes)))
+      if (!_checkSignature (aIS))
         throw new ClientProtocolException ("Signature returned from SMP server was not valid");
     }
     catch (final Exception ex)

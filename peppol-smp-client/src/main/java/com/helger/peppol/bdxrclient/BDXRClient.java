@@ -156,7 +156,7 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sBody = new BDXRMarshallerServiceGroupType ().getAsXMLString (aServiceGroup);
+    final String sBody = new BDXRMarshallerServiceGroupType ().getAsString (aServiceGroup);
     final Request aRequest = Request.Put (getSMPHostURI () +
                                           IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroup.getParticipantIdentifier ()))
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
@@ -259,7 +259,7 @@ public class BDXRClient extends BDXRClientReadOnly
     final IParticipantIdentifier aServiceGroupID = aServiceInformation.getParticipantIdentifier ();
     final IDocumentTypeIdentifier aDocumentTypeID = aServiceInformation.getDocumentIdentifier ();
 
-    final String sBody = new BDXRMarshallerServiceMetadataType ().getAsXMLString (aServiceMetadata);
+    final String sBody = new BDXRMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
     final Request aRequest = Request.Put (getSMPHostURI () +
                                           IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
                                           "/services/" +

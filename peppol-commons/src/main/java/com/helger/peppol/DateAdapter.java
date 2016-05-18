@@ -40,12 +40,11 @@
  */
 package com.helger.peppol;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.datetime.format.PDTFromString;
@@ -69,15 +68,12 @@ public final class DateAdapter
   @Nullable
   public static LocalDateTime getLocalDateTimeFromXSD (@Nullable final String sValue)
   {
-    final DateTimeFormatter aDTF = ISODateTimeFormat.dateTimeParser ();
-    return PDTFromString.getLocalDateTimeFromString (sValue, aDTF);
+    return PDTFromString.getLocalDateTimeFromString (sValue, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
   }
 
   @Nullable
   public static String getAsStringXSD (@Nullable final LocalDateTime aLocalDateTime)
   {
-    return aLocalDateTime == null ? null : ISODateTimeFormat.dateTimeNoMillis ()
-                                                            .withOffsetParsed ()
-                                                            .print (aLocalDateTime);
+    return aLocalDateTime == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (aLocalDateTime);
   }
 }

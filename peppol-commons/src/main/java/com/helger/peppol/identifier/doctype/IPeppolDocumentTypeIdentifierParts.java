@@ -40,11 +40,10 @@
  */
 package com.helger.peppol.identifier.doctype;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.peppol.identifier.IBusdoxDocumentTypeIdentifierParts;
 
 /**
@@ -70,7 +69,7 @@ public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeI
    */
   @Nonnull
   @Nonempty
-  List <String> getExtensionIDs ();
+  ICommonsList <String> getExtensionIDs ();
 
   /**
    * @return The version number

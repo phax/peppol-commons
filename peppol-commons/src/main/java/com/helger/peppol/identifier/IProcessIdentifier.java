@@ -40,14 +40,22 @@
  */
 package com.helger.peppol.identifier;
 
+import javax.annotation.Nonnull;
+
+import com.helger.commons.compare.IComparator;
+
 /**
  * Marker-interface that is specific for process identifiers.<br>
  * This can be used as the read-only/immutable counterpart of the implementation
  * class.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public interface IProcessIdentifier extends IIdentifier
 {
-  /* empty */
+  @Nonnull
+  static IComparator <IProcessIdentifier> comparator ()
+  {
+    return (a, b) -> IdentifierHelper.compareProcessIdentifiers (a, b);
+  }
 }

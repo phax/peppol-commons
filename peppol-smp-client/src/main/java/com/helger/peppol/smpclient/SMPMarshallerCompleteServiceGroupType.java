@@ -40,8 +40,7 @@
  */
 package com.helger.peppol.smpclient;
 
-import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBElement;
+import java.util.List;
 
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.jaxb.AbstractJAXBMarshaller;
@@ -57,13 +56,8 @@ public final class SMPMarshallerCompleteServiceGroupType extends AbstractJAXBMar
 {
   public SMPMarshallerCompleteServiceGroupType ()
   {
-    super (CompleteServiceGroupType.class, (IReadableResource []) null);
-  }
-
-  @Override
-  @Nonnull
-  protected JAXBElement <CompleteServiceGroupType> wrapObject (@Nonnull final CompleteServiceGroupType aObject)
-  {
-    return new ObjectFactory ().createCompleteServiceGroup (aObject);
+    super (CompleteServiceGroupType.class,
+           (List <IReadableResource>) null,
+           o -> new ObjectFactory ().createCompleteServiceGroup (o));
   }
 }

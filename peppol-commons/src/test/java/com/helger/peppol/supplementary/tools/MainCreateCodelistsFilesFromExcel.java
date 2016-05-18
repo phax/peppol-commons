@@ -45,9 +45,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -64,6 +61,9 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -89,6 +89,7 @@ import com.helger.jcodemodel.JArray;
 import com.helger.jcodemodel.JBlock;
 import com.helger.jcodemodel.JCodeModel;
 import com.helger.jcodemodel.JDefinedClass;
+import com.helger.jcodemodel.JDocComment;
 import com.helger.jcodemodel.JEnumConstant;
 import com.helger.jcodemodel.JExpr;
 import com.helger.jcodemodel.JFieldVar;
@@ -133,7 +134,7 @@ public final class MainCreateCodelistsFilesFromExcel
 
   private static void _writeGenericodeFile (@Nonnull final CodeListDocument aCodeList, @Nonnull final String sFilename)
   {
-    final Document aDoc = new Genericode10CodeListMarshaller ().write (aCodeList);
+    final Document aDoc = new Genericode10CodeListMarshaller ().getAsDocument (aCodeList);
     if (aDoc == null)
       throw new IllegalStateException ("Failed to serialize code list");
     final OutputStream aFOS = FileHelper.getOutputStream (sFilename);
@@ -253,14 +254,14 @@ public final class MainCreateCodelistsFilesFromExcel
         jEnumConst.arg (sAgency == null ? JExpr._null () : JExpr.lit (sAgency));
         jEnumConst.arg (JExpr.lit (sISO6523));
         jEnumConst.arg (bDeprecated ? JExpr.TRUE : JExpr.FALSE);
-        jEnumConst.arg (JExpr._new (s_aCodeModel.ref (Version.class)).arg (JExpr.lit (sSince)));
+        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
 
         jEnumConst.javadoc ()
                   .add ("Prefix <code>" + sISO6523 + "</code>, scheme ID <code>" + sSchemeID + "</code><br>\n");
         if (bDeprecated)
           jEnumConst.javadoc ()
                     .add ("<b>This item is deprecated and should not be used to issue new identifiers!</b><br>\n");
-        jEnumConst.javadoc ().add ("@since code list " + sSince);
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
       }
 
       // fields
@@ -389,7 +390,7 @@ public final class MainCreateCodelistsFilesFromExcel
       s_jEnumPredefinedDoc.annotate (CodingStyleguideUnaware.class);
       s_jEnumPredefinedDoc.javadoc ().add ("This file is generated. Do NOT edit!");
 
-      final Set <String> aAllShortcutNames = new HashSet <String> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
 
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
@@ -415,20 +416,20 @@ public final class MainCreateCodelistsFilesFromExcel
         // Assemble extensions
         final JInvocation jExtensions = s_aCodeModel.ref (CollectionHelper.class).staticInvoke ("newList");
         for (final String sExtensionID : aDocIDParts.getExtensionIDs ())
-          jExtensions.arg (JExpr.lit (sExtensionID));
+          jExtensions.arg (sExtensionID);
 
         final String sEnumConstName = RegExHelper.getAsIdentifier (sDocID);
         final JEnumConstant jEnumConst = s_jEnumPredefinedDoc.enumConstant (sEnumConstName);
         jEnumConst.arg (JExpr._new (s_aCodeModel.ref (aDocTypeIDPartsClass))
-                             .arg (JExpr.lit (aDocIDParts.getRootNS ()))
-                             .arg (JExpr.lit (aDocIDParts.getLocalName ()))
-                             .arg (JExpr.lit (aDocIDParts.getTransactionID ()))
+                             .arg (aDocIDParts.getRootNS ())
+                             .arg (aDocIDParts.getLocalName ())
+                             .arg (aDocIDParts.getTransactionID ())
                              .arg (jExtensions)
-                             .arg (JExpr.lit (aDocIDParts.getVersion ())));
+                             .arg (aDocIDParts.getVersion ()));
         jEnumConst.arg (JExpr.lit (sName));
-        jEnumConst.arg (JExpr._new (s_aCodeModel.ref (Version.class)).arg (JExpr.lit (sSince)));
+        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.javadoc ().add ("<code>" + sDocID + "</code>\n");
-        jEnumConst.javadoc ().add ("@since code list " + sSince);
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
         // Also create a shortcut for more readable names
         final String sShortcutName = CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocIDParts);
@@ -512,7 +513,7 @@ public final class MainCreateCodelistsFilesFromExcel
 
       // public List<String> getExtensionIDs ()
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC,
-                                       s_aCodeModel.ref (List.class).narrow (String.class),
+                                       s_aCodeModel.ref (ICommonsList.class).narrow (String.class),
                                        "getExtensionIDs");
       m.annotate (Nonnull.class);
       m.annotate (ReturnsMutableCopy.class);
@@ -639,7 +640,7 @@ public final class MainCreateCodelistsFilesFromExcel
       final String sDocIDs = Genericode10Helper.getRowValue (aRow, "docids");
       // Split the document identifier string into a list of single strings,
       // and check if each of them is a valid predefined document identifier
-      final List <String> aDocIDs = RegExHelper.getSplitToList (sDocIDs, "\n");
+      final ICommonsList <String> aDocIDs = RegExHelper.getSplitToList (sDocIDs, "\n");
       final String sSince = Genericode10Helper.getRowValue (aRow, "since");
 
       final IMicroElement eAgency = eRoot.appendElement ("process");
@@ -664,7 +665,7 @@ public final class MainCreateCodelistsFilesFromExcel
       jEnum.javadoc ().add ("This file is generated. Do NOT edit!");
 
       // enum constants
-      final Set <String> aAllShortcutNames = new HashSet <String> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
         final String sID = Genericode10Helper.getRowValue (aRow, "id");
@@ -695,9 +696,9 @@ public final class MainCreateCodelistsFilesFromExcel
           jArray.add (s_jEnumPredefinedDoc.staticRef (sIdentifier));
         }
         jEnumConst.arg (jArray);
-        jEnumConst.arg (JExpr._new (s_aCodeModel.ref (Version.class)).arg (JExpr.lit (sSince)));
+        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.javadoc ().add (sID);
-        jEnumConst.javadoc ().add ("\n@since code list " + sSince);
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
         // Emit shortcut name for better readability
         final String sShortcutName = CodeGenerationHelper.createShortcutBISIDName (sBISID);
@@ -756,7 +757,7 @@ public final class MainCreateCodelistsFilesFromExcel
       // public List<? extends IPredefinedDocumentTypeIdentifier>
       // getDocumentTypeIdentifiers ()
       m = jEnum.method (JMod.PUBLIC,
-                        s_aCodeModel.ref (List.class)
+                        s_aCodeModel.ref (ICommonsList.class)
                                     .narrow (s_aCodeModel.ref (IPeppolPredefinedDocumentTypeIdentifier.class)
                                                          .wildcard ()),
                         "getDocumentTypeIdentifiers");

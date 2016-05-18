@@ -42,8 +42,9 @@ package com.helger.peppol;
 
 import static org.junit.Assert.assertEquals;
 
-import org.joda.time.DateTimeConstants;
-import org.joda.time.LocalDateTime;
+import java.time.LocalDateTime;
+import java.time.Month;
+
 import org.junit.Test;
 
 import com.helger.datetime.PDTFactory;
@@ -58,7 +59,7 @@ public final class DateAdapterTest
   @Test
   public void testConvertDateTime ()
   {
-    final LocalDateTime d = PDTFactory.createLocalDateTime (2011, DateTimeConstants.JULY, 6, 12, 34);
+    final LocalDateTime d = PDTFactory.createLocalDateTime (2011, Month.JULY, 6, 12, 34);
     final String s = DateAdapter.getAsStringXSD (d);
     assertEquals ("2011-07-06T12:34:00", s);
     final LocalDateTime d2 = DateAdapter.getLocalDateTimeFromXSD (s);

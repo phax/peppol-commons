@@ -17,13 +17,13 @@
 package com.helger.peppol.sbdh.read;
 
 import java.io.InputStream;
+import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillClose;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.joda.time.LocalDateTime;
 import org.unece.cefact.namespaces.sbdh.BusinessScope;
 import org.unece.cefact.namespaces.sbdh.DocumentIdentification;
 import org.unece.cefact.namespaces.sbdh.PartnerIdentification;

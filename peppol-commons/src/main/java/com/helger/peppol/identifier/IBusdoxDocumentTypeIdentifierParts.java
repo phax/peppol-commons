@@ -40,6 +40,8 @@
  */
 package com.helger.peppol.identifier;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -49,10 +51,10 @@ import com.helger.commons.annotation.Nonempty;
  * Contains all the different fields of a document type identifier for BusDox.
  * Note: it is important to note, that the PEPPOL specification separates the
  * sub type identifier more clearly!
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IBusdoxDocumentTypeIdentifierParts
+public interface IBusdoxDocumentTypeIdentifierParts extends Serializable
 {
   /**
    * Separator between namespace and local name

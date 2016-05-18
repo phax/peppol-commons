@@ -51,7 +51,8 @@
           extensionBindingPrefixes="xjc"
           version="2.1">
   <globalBindings generateValueClass="true">
-    <javaType name="org.joda.time.LocalDateTime" xmlType="xs:dateTime"
+    <javaType name="java.time.LocalDateTime"
+              xmlType="xs:dateTime"
               parseMethod="com.helger.peppol.DateAdapter.getLocalDateTimeFromXSD"
               printMethod="com.helger.peppol.DateAdapter.getAsStringXSD" />
   </globalBindings>

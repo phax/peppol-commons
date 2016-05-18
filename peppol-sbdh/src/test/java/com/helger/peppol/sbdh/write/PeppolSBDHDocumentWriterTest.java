@@ -44,10 +44,10 @@ public final class PeppolSBDHDocumentWriterTest
 
     // Create the document data
     final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement ())
-                                           .setSenderWithDefaultScheme ("0088:sender")
-                                           .setReceiverWithDefaultScheme ("0099:receiver")
-                                           .setDocumentTypeWithDefaultScheme ("doctypeid")
-                                           .setProcessWithDefaultScheme ("procid");
+                                                       .setSenderWithDefaultScheme ("0088:sender")
+                                                       .setReceiverWithDefaultScheme ("0099:receiver")
+                                                       .setDocumentTypeWithDefaultScheme ("doctypeid")
+                                                       .setProcessWithDefaultScheme ("procid");
     assertTrue (aData.areAllFieldsSet ());
 
     // Create the SBDH document
@@ -56,7 +56,7 @@ public final class PeppolSBDHDocumentWriterTest
 
     // For debugging
     if (false)
-      System.out.println (new SBDMarshaller ().getAsXMLString (aSBD));
+      System.out.println (new SBDMarshaller ().getAsString (aSBD));
 
     // Read again and compare values
     final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);

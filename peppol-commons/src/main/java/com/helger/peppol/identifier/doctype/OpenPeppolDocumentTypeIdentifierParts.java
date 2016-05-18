@@ -47,7 +47,9 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -80,7 +82,7 @@ public final class OpenPeppolDocumentTypeIdentifierParts implements IPeppolDocum
 
   private final IBusdoxDocumentTypeIdentifierParts m_aBusdoxParts;
   private final String m_sTransactionID;
-  private final List <String> m_aExtensionIDs;
+  private final ICommonsList <String> m_aExtensionIDs;
   private final String m_sVersion;
 
   /**
@@ -120,7 +122,7 @@ public final class OpenPeppolDocumentTypeIdentifierParts implements IPeppolDocum
 
     m_aBusdoxParts = aBusdoxParts;
     m_sTransactionID = sTransactionID;
-    m_aExtensionIDs = CollectionHelper.newUnmodifiableList (aExtensionIDs);
+    m_aExtensionIDs = new CommonsArrayList <> (aExtensionIDs);
     m_sVersion = sVersion;
   }
 
@@ -130,9 +132,9 @@ public final class OpenPeppolDocumentTypeIdentifierParts implements IPeppolDocum
                                                 @Nonnull @Nonempty final List <String> aExtensionIDs,
                                                 @Nonnull @Nonempty final String sVersion)
   {
-    this (new BusdoxDocumentTypeIdentifierParts (sRootNS, sLocalName, _buildSubTypeIdentifier (sTransactionID,
-                                                                                               aExtensionIDs,
-                                                                                               sVersion)),
+    this (new BusdoxDocumentTypeIdentifierParts (sRootNS,
+                                                 sLocalName,
+                                                 _buildSubTypeIdentifier (sTransactionID, aExtensionIDs, sVersion)),
           sTransactionID,
           aExtensionIDs,
           sVersion);
@@ -171,9 +173,10 @@ public final class OpenPeppolDocumentTypeIdentifierParts implements IPeppolDocum
 
   @Nonnull
   @Nonempty
-  public List <String> getExtensionIDs ()
+  @ReturnsMutableCopy
+  public ICommonsList <String> getExtensionIDs ()
   {
-    return m_aExtensionIDs;
+    return m_aExtensionIDs.getClone ();
   }
 
   @Nonnull
@@ -269,7 +272,7 @@ public final class OpenPeppolDocumentTypeIdentifierParts implements IPeppolDocum
                                           sCustomizationID +
                                           "' contains an empty customization ID!");
 
-    final List <String> aExtensionIDs = StringHelper.getExploded (EXTENSION_SEPARATOR, sExtensionIDs);
+    final ICommonsList <String> aExtensionIDs = StringHelper.getExploded (EXTENSION_SEPARATOR, sExtensionIDs);
     return new OpenPeppolDocumentTypeIdentifierParts (aBusdoxParts, sTransactionID, aExtensionIDs, sVersion);
   }
 }

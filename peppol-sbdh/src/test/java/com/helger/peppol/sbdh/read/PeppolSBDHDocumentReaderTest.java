@@ -21,23 +21,23 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import org.joda.time.LocalDateTime;
 import org.junit.Test;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import com.helger.commons.callback.exception.DoNothingExceptionCallback;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.read.DOMReaderSettings;
 import com.helger.datetime.PDTFactory;
+import com.helger.peppol.DateAdapter;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
@@ -99,7 +99,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertEquals ("2.1", aData.getTypeVersion ());
     assertEquals ("Invoice", aData.getType ());
     assertEquals ("123123", aData.getInstanceIdentifier ());
-    assertEquals ("2013-02-19T05:10:10.000", aData.getCreationDateAndTime ().toString ());
+    assertEquals ("2013-02-19T05:10:10", DateAdapter.getAsStringXSD (aData.getCreationDateAndTime ()));
     assertEquals (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, aData.getDocumentTypeScheme ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
                   aData.getDocumentTypeValue ());
@@ -196,7 +196,7 @@ public final class PeppolSBDHDocumentReaderTest
   public void testReadBadNode ()
   {
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader ();
-    final DOMReaderSettings aSettings = new DOMReaderSettings ().setExceptionHandler (new DoNothingExceptionCallback ());
+    final DOMReaderSettings aSettings = new DOMReaderSettings ().setExceptionHandler (t -> {});
     for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());

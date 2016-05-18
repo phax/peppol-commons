@@ -51,7 +51,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.peppol.sml.ESML;
-import com.helger.peppol.smlclient.BDMSLClient;
 import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
 import com.helger.peppol.utils.PeppolTechnicalSetup;
 

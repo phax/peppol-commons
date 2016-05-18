@@ -41,12 +41,10 @@
 package com.helger.peppol.smpclient.functest;
 
 import java.net.URI;
+import java.time.Month;
 
-import javax.annotation.Nonnull;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
-import org.joda.time.DateTimeConstants;
-import org.joda.time.LocalDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,12 +73,6 @@ public final class MainSMPServiceRegistrationCreate
 
   // SMP ObjectFactory
   private static final ObjectFactory s_aOF = new ObjectFactory ();
-
-  @Nonnull
-  private static LocalDateTime _createDate (final int nYear, final int nMonth, final int nDayOfMonth)
-  {
-    return PDTFactory.createLocalDateTime (nYear, nMonth, nDayOfMonth);
-  }
 
   public static void main (final String [] args) throws Exception
   {
@@ -113,8 +105,8 @@ public final class MainSMPServiceRegistrationCreate
               aEndpoint.setEndpointReference (START_AP_ENDPOINTREF);
               aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ());
               aEndpoint.setCertificate (AP_CERT_STRING);
-              aEndpoint.setServiceActivationDate (_createDate (2011, DateTimeConstants.JANUARY, 1));
-              aEndpoint.setServiceExpirationDate (_createDate (2020, DateTimeConstants.DECEMBER, 31));
+              aEndpoint.setServiceActivationDate (PDTFactory.createLocalDateTime (2011, Month.JANUARY, 1));
+              aEndpoint.setServiceExpirationDate (PDTFactory.createLocalDateTime (2020, Month.DECEMBER, 31));
               aEndpoint.setServiceDescription (AP_SERVICE_DESCRIPTION);
               aEndpoint.setTechnicalContactUrl (AP_CONTACT_URL);
               aEndpoint.setTechnicalInformationUrl (AP_INFO_URL);

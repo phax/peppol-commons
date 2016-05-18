@@ -49,7 +49,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.io.file.filter.FileFilterFilenameEndsWith;
+import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.lang.EnumHelper;
@@ -78,7 +78,8 @@ public class MainCreateEnumsGenericode
   private static final String COLID_CODE = "code";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
 
-  private static void _createGenericode10 (final File aFile, final CodeListDocument aCodeList10) throws JClassAlreadyExistsException
+  private static void _createGenericode10 (final File aFile,
+                                           final CodeListDocument aCodeList10) throws JClassAlreadyExistsException
   {
     final SimpleCodeList aSimpleCodeList = aCodeList10.getSimpleCodeList ();
     if (aSimpleCodeList == null)
@@ -169,8 +170,7 @@ public class MainCreateEnumsGenericode
 
   public static void main (final String [] args) throws JClassAlreadyExistsException, IOException
   {
-    for (final File aFile : FileSystemRecursiveIterator.create (new File ("src/main/resources/codelists/ubl"),
-                                                                new FileFilterFilenameEndsWith (".gc")))
+    for (final File aFile : new FileSystemRecursiveIterator ("src/main/resources/codelists/ubl").withFilter (IFileFilter.filenameEndsWith (".gc")))
     {
       System.out.println (aFile.getName ());
       final CodeListDocument aCodeList10 = new Genericode10CodeListMarshaller ().read (new FileSystemResource (aFile));

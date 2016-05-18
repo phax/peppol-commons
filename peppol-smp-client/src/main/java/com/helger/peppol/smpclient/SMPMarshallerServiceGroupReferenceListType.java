@@ -40,8 +40,7 @@
  */
 package com.helger.peppol.smpclient;
 
-import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBElement;
+import java.util.List;
 
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.jaxb.AbstractJAXBMarshaller;
@@ -53,17 +52,13 @@ import com.helger.peppol.smp.ServiceGroupReferenceListType;
  *
  * @author Philip Helger
  */
-public final class SMPMarshallerServiceGroupReferenceListType extends AbstractJAXBMarshaller <ServiceGroupReferenceListType>
+public final class SMPMarshallerServiceGroupReferenceListType extends
+                                                              AbstractJAXBMarshaller <ServiceGroupReferenceListType>
 {
   public SMPMarshallerServiceGroupReferenceListType ()
   {
-    super (ServiceGroupReferenceListType.class, (IReadableResource []) null);
-  }
-
-  @Override
-  @Nonnull
-  protected JAXBElement <ServiceGroupReferenceListType> wrapObject (@Nonnull final ServiceGroupReferenceListType aObject)
-  {
-    return new ObjectFactory ().createServiceGroupReferenceList (aObject);
+    super (ServiceGroupReferenceListType.class,
+           (List <IReadableResource>) null,
+           o -> new ObjectFactory ().createServiceGroupReferenceList (o));
   }
 }

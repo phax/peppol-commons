@@ -40,14 +40,22 @@
  */
 package com.helger.peppol.identifier;
 
+import javax.annotation.Nonnull;
+
+import com.helger.commons.compare.IComparator;
+
 /**
  * Marker-interface that is specific for participant identifiers.<br>
  * This can be used as the read-only/immutable counterpart of the implementation
  * class.
- * 
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public interface IParticipantIdentifier extends IIdentifier
 {
-  /* empty */
+  @Nonnull
+  static IComparator <IParticipantIdentifier> comparator ()
+  {
+    return (a, b) -> IdentifierHelper.compareParticipantIdentifiers (a, b);
+  }
 }

@@ -156,7 +156,7 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sBody = new SMPMarshallerServiceGroupType ().getAsXMLString (aServiceGroup);
+    final String sBody = new SMPMarshallerServiceGroupType ().getAsString (aServiceGroup);
     final Request aRequest = Request.Put (getSMPHostURI () +
                                           IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroup.getParticipantIdentifier ()))
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
@@ -256,7 +256,7 @@ public class SMPClient extends SMPClientReadOnly
     final IParticipantIdentifier aServiceGroupID = aServiceInformation.getParticipantIdentifier ();
     final IDocumentTypeIdentifier aDocumentTypeID = aServiceInformation.getDocumentIdentifier ();
 
-    final String sBody = new SMPMarshallerServiceMetadataType ().getAsXMLString (aServiceMetadata);
+    final String sBody = new SMPMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
     final Request aRequest = Request.Put (getSMPHostURI () +
                                           IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
                                           "/services/" +
