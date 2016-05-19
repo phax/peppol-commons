@@ -50,7 +50,7 @@ import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
  */
 public final class PeppolSBDHDocumentReaderTest
 {
-  private static final ICommonsMap <String, EPeppolSBDHDocumentReadError> BAD_CASES = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, EPeppolSBDHDocumentReadError> BAD_CASES = new CommonsHashMap<> ();
 
   static
   {
@@ -100,7 +100,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertEquals ("2.1", aData.getTypeVersion ());
     assertEquals ("Invoice", aData.getType ());
     assertEquals ("123123", aData.getInstanceIdentifier ());
-    assertEquals ("2013-02-19T05:10:10", PDTWebDateHelper.getAsStringXSD (aData.getCreationDateAndTime ()));
+    assertEquals ("2013-02-19T05:10:10.000", PDTWebDateHelper.getAsStringXSD (aData.getCreationDateAndTime ()));
     assertEquals (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, aData.getDocumentTypeScheme ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
                   aData.getDocumentTypeValue ());
