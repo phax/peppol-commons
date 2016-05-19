@@ -53,8 +53,8 @@
   <globalBindings generateValueClass="true">
     <javaType name="java.time.LocalDateTime"
               xmlType="xs:dateTime"
-              parseMethod="com.helger.peppol.DateAdapter.getLocalDateTimeFromXSD"
-              printMethod="com.helger.peppol.DateAdapter.getAsStringXSD" />
+              parseMethod="com.helger.datetime.util.PDTWebDateHelper.getLocalDateTimeFromXSD"
+              printMethod="com.helger.datetime.util.PDTWebDateHelper.getAsStringXSD" />
   </globalBindings>
   <bindings schemaLocation="../resources/WEB-INF/wsdl/Identifiers-1.0.xsd">
     <schemaBindings>
