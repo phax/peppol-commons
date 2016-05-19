@@ -54,9 +54,10 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.URLCodec;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
-import com.helger.commons.messagedigest.MessageDigestGeneratorHelper;
+import com.helger.commons.messagedigest.MessageDigestValue;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
@@ -122,11 +123,10 @@ public final class BusdoxURLHelper
   public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
   {
     // Create the MD5 hash
-    final byte [] aDigest = MessageDigestGeneratorHelper.getAllDigestBytes (sValueToHash,
-                                                                            URL_CHARSET,
-                                                                            EMessageDigestAlgorithm.MD5);
     // Convert to hex-encoded string
-    return MessageDigestGeneratorHelper.getHexValueFromDigest (aDigest);
+    return MessageDigestValue.create (CharsetManager.getAsBytes (sValueToHash, URL_CHARSET),
+                                      EMessageDigestAlgorithm.MD5)
+                             .getHexEncodedDigestString ();
   }
 
   /**
