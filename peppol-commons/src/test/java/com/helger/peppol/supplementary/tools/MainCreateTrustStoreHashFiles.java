@@ -41,6 +41,7 @@
 package com.helger.peppol.supplementary.tools;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
@@ -52,7 +53,7 @@ import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
-import com.helger.commons.messagedigest.MessageDigestGeneratorHelper;
+import com.helger.commons.messagedigest.MessageDigestValue;
 import com.helger.peppol.utils.KeyStoreHelper;
 
 /**
@@ -65,25 +66,25 @@ public final class MainCreateTrustStoreHashFiles
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateTrustStoreHashFiles.class);
 
-  private static void _create (@Nonnull final String sTruststorePath)
+  private static void _create (@Nonnull final String sTruststorePath) throws IOException
   {
     final IReadableResource aTrustStore = new ClassPathResource (sTruststorePath);
 
-    final byte [] aMD5 = MessageDigestGeneratorHelper.getAllDigestBytesFromInputStream (aTrustStore.getInputStream (),
-                                                                                        EMessageDigestAlgorithm.MD5);
+    final String sMD5 = MessageDigestValue.create (aTrustStore.getInputStream (), EMessageDigestAlgorithm.MD5)
+                                          .getHexEncodedDigestString ();
     SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".md5"),
-                            MessageDigestGeneratorHelper.getHexValueFromDigest (aMD5),
+                            sMD5,
                             CCharset.CHARSET_ISO_8859_1_OBJ);
-    final byte [] aSHA1 = MessageDigestGeneratorHelper.getAllDigestBytesFromInputStream (aTrustStore.getInputStream (),
-                                                                                         EMessageDigestAlgorithm.SHA_1);
+    final String sSHA1 = MessageDigestValue.create (aTrustStore.getInputStream (), EMessageDigestAlgorithm.SHA_1)
+                                           .getHexEncodedDigestString ();
     SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".sha1"),
-                            MessageDigestGeneratorHelper.getHexValueFromDigest (aSHA1),
+                            sSHA1,
                             CCharset.CHARSET_ISO_8859_1_OBJ);
 
     s_aLogger.info ("Done creating hash values for " + sTruststorePath);
   }
 
-  public static void main (final String [] args)
+  public static void main (final String [] args) throws IOException
   {
     _create (KeyStoreHelper.TRUSTSTORE_PRODUCTION_CLASSPATH);
     _create (KeyStoreHelper.TRUSTSTORE_PILOT_CLASSPATH);
