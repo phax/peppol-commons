@@ -78,7 +78,7 @@ public final class BDXRHelper
   }
 
   @Nullable
-  public static SimpleParticipantIdentifier getAsSMPParticipantIdentifier (@Nullable final ParticipantIdentifierType aParticipantID)
+  public static SimpleParticipantIdentifier getAsSMPParticipantIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
   {
     if (aParticipantID == null)
       return null;
@@ -97,7 +97,7 @@ public final class BDXRHelper
   }
 
   @Nullable
-  public static SimpleDocumentTypeIdentifier getAsSMPDocumentTypeIdentifier (@Nullable final DocumentIdentifierType aDocTypeID)
+  public static SimpleDocumentTypeIdentifier getAsSMPDocumentTypeIdentifier (@Nullable final IDocumentTypeIdentifier aDocTypeID)
   {
     if (aDocTypeID == null)
       return null;
@@ -116,7 +116,7 @@ public final class BDXRHelper
   }
 
   @Nullable
-  public static SimpleProcessIdentifier getAsSMPProcessIdentifier (@Nullable final ProcessIdentifierType aProcessID)
+  public static SimpleProcessIdentifier getAsSMPProcessIdentifier (@Nullable final IProcessIdentifier aProcessID)
   {
     if (aProcessID == null)
       return null;
