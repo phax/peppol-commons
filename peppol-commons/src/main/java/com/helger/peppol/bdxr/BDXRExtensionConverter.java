@@ -40,32 +40,38 @@
  */
 package com.helger.peppol.bdxr;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
-
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.xml.serialize.read.DOMReader;
-import com.helger.commons.xml.serialize.write.EXMLSerializeDocType;
-import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.write.XMLWriter;
-import com.helger.commons.xml.serialize.write.XMLWriterSettings;
+import com.helger.json.IJson;
+import com.helger.json.IJsonObject;
+import com.helger.json.JsonArray;
+import com.helger.json.JsonObject;
+import com.helger.json.serialize.JsonReader;
+import com.helger.json.serialize.JsonWriterSettings;
 
 /**
  * This class is used for converting between a String representation of the
- * extension element and the "ExtensionType" complex type used in the BDXR SMP.
+ * extension elements and the list of "ExtensionType" complex types used in the
+ * BDXR SMP. Compared to the PEPPOL SMP, the BDXR SMP uses a complex
+ * ExtensionType and has a multiplicity of 0-n (compared to 0-1 in PEPPOL SMP).
+ * Therefore I've decided to use Json instead of XML to allow for a single
+ * string solution to maintain DB schema compatibility.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
 public final class BDXRExtensionConverter
 {
-  private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE)
-                                                                          .setIndent (EXMLSerializeIndent.NONE);
+  private static final JsonWriterSettings s_aJWS = new JsonWriterSettings ().setIndentEnabled (false)
+                                                                            .setWriteNewlineAtEnd (false);
 
   @PresentForCodeCoverage
   @SuppressWarnings ("unused")
@@ -85,67 +91,85 @@ public final class BDXRExtensionConverter
    *         If the Extension cannot be converted to a String
    */
   @Nullable
-  public static String convertToString (@Nullable final ExtensionType aExtension)
+  public static String convertToString (@Nullable final List <ExtensionType> aExtensions)
   {
     // If there is no extension present, nothing to convert
-    if (aExtension != null)
+    if (CollectionHelper.isNotEmpty (aExtensions))
     {
-      final Node aNode = (Node) aExtension.getAny ();
-      if (aNode != null)
-        // Get the extension content
-        return XMLWriter.getNodeAsString (aNode, s_aXWS);
+      final JsonArray aArray = new JsonArray ();
+      for (final ExtensionType aExtension : aExtensions)
+        if (aExtension != null && aExtension.getAny () != null)
+        {
+          aArray.add (new JsonObject ().add ("ID", aExtension.getExtensionID ())
+                                       .add ("Name", aExtension.getExtensionName ())
+                                       .add ("AgencyID", aExtension.getExtensionAgencyID ())
+                                       .add ("AgencyName", aExtension.getExtensionAgencyName ())
+                                       .add ("AgencyURI", aExtension.getExtensionAgencyURI ())
+                                       .add ("VersionID", aExtension.getExtensionVersionID ())
+                                       .add ("URI", aExtension.getExtensionURI ())
+                                       .add ("ReasonCode", aExtension.getExtensionReasonCode ())
+                                       .add ("Reason", aExtension.getExtensionReason ())
+                                       .add ("Any", aExtension.getAny ()));
+        }
+      return aArray.getAsJsonString (s_aJWS);
     }
     return null;
   }
 
   /**
-   * Convert the passed XML string to an SMP extension type.
+   * Convert the passed Json string to a list of SMP extensions.
    *
-   * @param sXML
-   *        the XML representation to be converted.
+   * @param sJson
+   *        the Json representation to be converted.
    * @return <code>null</code> if the passed string is empty.
    * @throws IllegalArgumentException
    *         If the String cannot be converted to a XML node
    */
   @Nullable
-  public static ExtensionType convert (@Nullable final String sXML)
+  public static ICommonsList <ExtensionType> convert (@Nullable final String sJson)
   {
-    if (StringHelper.hasText (sXML))
+    if (StringHelper.hasText (sJson))
     {
-      try
-      {
-        // Try to interpret as XML
-        final Document aDoc = DOMReader.readXMLDOM (sXML);
-        if (aDoc != null)
-        {
-          final ExtensionType aExtension = new ExtensionType ();
-          aExtension.setAny (aDoc.getDocumentElement ());
-          return aExtension;
-        }
-      }
-      catch (final SAXException ex)
-      {
-        throw new IllegalArgumentException ("Error in parsing extension XML '" + sXML + "'", ex);
-      }
-    }
+      // Try to interpret as JSON
+      final IJson aJson = JsonReader.readFromString (sJson);
+      if (aJson == null || !aJson.isArray ())
+        throw new IllegalArgumentException ("Error in parsing extension JSON '" + sJson + "'");
 
+      final ICommonsList <ExtensionType> ret = new CommonsArrayList <> ();
+      aJson.getAsArray ().forEach (aChild -> {
+        final IJsonObject aObject = aChild.getAsObject ();
+        final ExtensionType aExt = new ExtensionType ();
+        aExt.setExtensionID (aObject.getAsString ("ID"));
+        aExt.setExtensionName (aObject.getAsString ("Name"));
+        aExt.setExtensionAgencyID (aObject.getAsString ("AgencyID"));
+        aExt.setExtensionAgencyName (aObject.getAsString ("AgencyName"));
+        aExt.setExtensionAgencyURI (aObject.getAsString ("AgencyURI"));
+        aExt.setExtensionVersionID (aObject.getAsString ("VersionID"));
+        aExt.setExtensionURI (aObject.getAsString ("URI"));
+        aExt.setExtensionReasonCode (aObject.getAsString ("ReasonCode"));
+        aExt.setExtensionReason (aObject.getAsString ("Reason"));
+        aExt.setAny (aObject.getValue ("Any"));
+        ret.add (aExt);
+      });
+      return ret;
+    }
     return null;
   }
 
   /**
-   * Convert the passed XML string to an SMP extension type.
+   * Convert the passed JSON string to a list of SMP extension types.
    *
-   * @param sXML
-   *        the XML representation to be converted.
+   * @param sJson
+   *        the JSON representation to be converted.
    * @return <code>null</code> if the passed string is empty or cannot be
    *         converted to a XML node
    */
   @Nullable
-  public static ExtensionType convertOrNull (@Nullable final String sXML)
+  public static List <ExtensionType> convertOrNull (@Nullable final String sJson)
   {
     try
     {
-      return convert (sXML);
+      return convert (sJson);
     }
     catch (final IllegalArgumentException ex)
     {

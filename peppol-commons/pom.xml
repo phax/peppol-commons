@@ -96,6 +96,10 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-datetime</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-json</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
