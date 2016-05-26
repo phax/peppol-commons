@@ -48,7 +48,6 @@ import org.apache.http.HttpHost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
@@ -80,7 +79,7 @@ public final class SMPClientConfiguration
 
   static
   {
-    final ICommonsList <String> aFilePaths = new CommonsArrayList <> ();
+    final ICommonsList <String> aFilePaths = new CommonsArrayList<> ();
     // Check if the system property is present
     String sPropertyPath = SystemProperties.getPropertyValue ("peppol.smp.client.properties.path");
     if (StringHelper.hasText (sPropertyPath))
@@ -93,7 +92,7 @@ public final class SMPClientConfiguration
     aFilePaths.add ("private-smp-client.properties");
     aFilePaths.add ("smp-client.properties");
 
-    s_aConfigFile = new ConfigFile (ArrayHelper.newArray (aFilePaths, String.class));
+    s_aConfigFile = new ConfigFile (aFilePaths);
     if (s_aConfigFile.isRead ())
       s_aLogger.info ("Read SMP client properties from " + s_aConfigFile.getReadResource ().getPath ());
     else

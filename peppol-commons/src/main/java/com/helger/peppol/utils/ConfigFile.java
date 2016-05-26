@@ -42,7 +42,6 @@ package com.helger.peppol.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -54,6 +53,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -85,13 +85,30 @@ public class ConfigFile
   private final NonBlockingProperties m_aProps = new NonBlockingProperties ();
 
   /**
+   * Constructor with a single file path to read.
+   *
+   * @param aConfigPaths
+   *        The path to the config file to be read. Must be classpath-relative.
+   */
+  public ConfigFile (@Nonnull @Nonempty final String sConfigPath)
+  {
+    this (new CommonsArrayList<> (sConfigPath));
+  }
+
+  public ConfigFile (@Nonnull @Nonempty final String... aConfigPaths)
+  {
+    this (new CommonsArrayList<> (aConfigPaths));
+  }
+
+  /**
    * Constructor for explicitly specifying a file path to read.
    *
    * @param aConfigPaths
    *        The array of paths to the config files to be read. Must be
-   *        classpath-relative. The first file that could be read will be taken
+   *        classpath-relative. The first file that can be read will be used and
+   *        the others will be ignored.
    */
-  public ConfigFile (@Nonnull @Nonempty final String... aConfigPaths)
+  public ConfigFile (@Nonnull @Nonempty final Iterable <String> aConfigPaths)
   {
     ValueEnforcer.notEmptyNoNullValue (aConfigPaths, "ConfigPaths");
 
@@ -106,7 +123,7 @@ public class ConfigFile
     if (!bRead)
     {
       // No config file found at all
-      s_aLogger.warn ("Failed to resolve config file paths: " + Arrays.toString (aConfigPaths));
+      s_aLogger.warn ("Failed to resolve config file paths: " + aConfigPaths);
     }
   }
 
