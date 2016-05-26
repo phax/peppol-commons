@@ -101,6 +101,13 @@ public final class ConfigFileTest
       new ConfigFile ((String []) null);
       fail ();
     }
+    catch (final IllegalArgumentException ex)
+    {}
+    try
+    {
+      new ConfigFile ((Iterable <String>) null);
+      fail ();
+    }
     catch (final NullPointerException ex)
     {}
     try
