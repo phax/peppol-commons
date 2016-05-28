@@ -99,19 +99,19 @@ import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IProcessIdentifier;
-import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.doctype.OpenPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.doctype.PeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.issuingagency.IIdentifierIssuingAgency;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.process.IPeppolPredefinedProcessIdentifier;
-import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.issuingagency.IIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdentifier;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also

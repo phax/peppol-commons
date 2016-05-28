@@ -34,10 +34,10 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.datetime.PDTFactory;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
-import com.helger.peppol.identifier.peppol.IPeppolDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.IPeppolParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.IPeppolProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
 
 /**
  * This class contains all the PEPPOL data per SBDH document in a syntax neutral

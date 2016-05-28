@@ -65,11 +65,10 @@ import com.helger.peppol.bdxr.SignedServiceMetadataType;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
@@ -403,10 +402,10 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
       {
         // Matches the requested one?
-        if (PeppolIdentifierHelper.areProcessIdentifiersEqual (aProcessType.getProcessIdentifier (), aProcessID))
+        if (IdentifierHelper.areProcessIdentifiersEqual (aProcessType.getProcessIdentifier (), aProcessID))
         {
           // Filter endpoints by required transport profile
-          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
+          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList<> ();
           for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
             if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
               aRelevantEndpoints.add (aEndpoint);

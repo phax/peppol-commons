@@ -47,6 +47,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.peppol.identifier.generic.doctype.part.BusdoxDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.generic.doctype.part.IBusdoxDocumentTypeIdentifierParts;
 
 /**
  * Test class for class {@link BusdoxDocumentTypeIdentifierParts}.

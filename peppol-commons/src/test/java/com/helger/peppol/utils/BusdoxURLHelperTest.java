@@ -53,8 +53,8 @@ import org.junit.Test;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.TextParseException;
 
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

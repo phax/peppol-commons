@@ -40,9 +40,9 @@
  */
 package com.helger.peppol.smpclient.supplementary.example;
 
-import com.helger.peppol.identifier.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.process.EPredefinedProcessIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClient;

@@ -51,21 +51,20 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.IProcessIdentifier;
-import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.doctype.OpenPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.doctype.PeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.utils.BusdoxURLHelper;
 
 /**
@@ -326,198 +325,6 @@ public final class PeppolIdentifierHelper
   public static boolean isValidProcessIdentifier (@Nullable final String sValue)
   {
     return sValue != null && createProcessIdentifierFromURIPartOrNull (sValue) != null;
-  }
-
-  /**
-   * According to the specification, two participant identifiers are equal if
-   * their parts are equal case insensitive.
-   *
-   * @param sIdentifierValue1
-   *        First identifier value to compare. May be <code>null</code>.
-   * @param sIdentifierValue2
-   *        Second identifier value to compare. May be <code>null</code>.
-   * @return <code>true</code> if the identifier values are equal,
-   *         <code>false</code> otherwise. If both are <code>null</code> they
-   *         are considered equal.
-   */
-  public static boolean areParticipantIdentifierValuesEqual (@Nullable final String sIdentifierValue1,
-                                                             @Nullable final String sIdentifierValue2)
-  {
-    // equal case insensitive!
-    return EqualsHelper.equalsIgnoreCase (sIdentifierValue1, sIdentifierValue2);
-  }
-
-  /**
-   * According to the specification, two document identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param sIdentifierValue1
-   *        First identifier value to compare. May be <code>null</code>.
-   * @param sIdentifierValue2
-   *        Second identifier value to compare. May be <code>null</code>.
-   * @return <code>true</code> if the identifier values are equal,
-   *         <code>false</code> otherwise. If both are <code>null</code> they
-   *         are considered equal.
-   */
-  public static boolean areDocumentTypeIdentifierValuesEqual (@Nullable final String sIdentifierValue1,
-                                                              @Nullable final String sIdentifierValue2)
-  {
-    // Case sensitive!
-    return EqualsHelper.equals (sIdentifierValue1, sIdentifierValue2);
-  }
-
-  /**
-   * According to the specification, two process identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param sIdentifierValue1
-   *        First identifier value to compare. May be <code>null</code>.
-   * @param sIdentifierValue2
-   *        Second identifier value to compare. May be <code>null</code>.
-   * @return <code>true</code> if the identifier values are equal,
-   *         <code>false</code> otherwise. If both are <code>null</code> they
-   *         are considered equal.
-   */
-  public static boolean areProcessIdentifierValuesEqual (@Nullable final String sIdentifierValue1,
-                                                         @Nullable final String sIdentifierValue2)
-  {
-    // Case sensitive!
-    return EqualsHelper.equals (sIdentifierValue1, sIdentifierValue2);
-  }
-
-  /**
-   * According to the specification, two participant identifiers are equal if
-   * their parts are equal case insensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean areParticipantIdentifiersEqual (@Nonnull final IParticipantIdentifier aIdentifier1,
-                                                        @Nonnull final IParticipantIdentifier aIdentifier2)
-  {
-    ValueEnforcer.notNull (aIdentifier1, "ParticipantIdentifier1");
-    ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
-
-    // Identifiers are equal, if both scheme and value match case insensitive!
-    return EqualsHelper.equalsIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
-           areParticipantIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
-  }
-
-  /**
-   * According to the specification, two document identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean areDocumentTypeIdentifiersEqual (@Nonnull final IDocumentTypeIdentifier aIdentifier1,
-                                                         @Nonnull final IDocumentTypeIdentifier aIdentifier2)
-  {
-    ValueEnforcer.notNull (aIdentifier1, "DocumentTypeIdentifier1");
-    ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
-
-    // Identifiers are equal, if both scheme and value match case sensitive!
-    return EqualsHelper.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
-           areDocumentTypeIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
-  }
-
-  /**
-   * According to the specification, two process identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return <code>true</code> if the identifiers are equal, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean areProcessIdentifiersEqual (@Nonnull final IProcessIdentifier aIdentifier1,
-                                                    @Nonnull final IProcessIdentifier aIdentifier2)
-  {
-    ValueEnforcer.notNull (aIdentifier1, "ProcessIdentifier1");
-    ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
-
-    // Identifiers are equal, if both scheme and value match case sensitive!
-    return EqualsHelper.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
-           areProcessIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
-  }
-
-  /**
-   * According to the specification, two participant identifiers are equal if
-   * their parts are equal case insensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return 0 if the identifiers are equal, -1 or +1 otherwise.
-   */
-  public static int compareParticipantIdentifiers (@Nonnull final IParticipantIdentifier aIdentifier1,
-                                                   @Nonnull final IParticipantIdentifier aIdentifier2)
-  {
-    ValueEnforcer.notNull (aIdentifier1, "ParticipantIdentifier1");
-    ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
-
-    // Compare case insensitive
-    int ret = CompareHelper.compareIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
-    if (ret == 0)
-      ret = CompareHelper.compareIgnoreCase (aIdentifier1.getValue (), aIdentifier2.getValue ());
-    return ret;
-  }
-
-  /**
-   * According to the specification, two document identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return 0 if the identifiers are equal, -1 or +1 otherwise.
-   */
-  public static int compareDocumentTypeIdentifiers (@Nonnull final IDocumentTypeIdentifier aIdentifier1,
-                                                    @Nonnull final IDocumentTypeIdentifier aIdentifier2)
-  {
-    ValueEnforcer.notNull (aIdentifier1, "DocumentTypeIdentifier1");
-    ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
-
-    // Compare case sensitive
-    int ret = CompareHelper.compare (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
-    if (ret == 0)
-      ret = CompareHelper.compare (aIdentifier1.getValue (), aIdentifier2.getValue ());
-    return ret;
-  }
-
-  /**
-   * According to the specification, two process identifiers are equal if their
-   * parts are equal case sensitive.
-   *
-   * @param aIdentifier1
-   *        First identifier to compare. May not be null.
-   * @param aIdentifier2
-   *        Second identifier to compare. May not be null.
-   * @return 0 if the identifiers are equal, -1 or +1 otherwise.
-   */
-  public static int compareProcessIdentifiers (@Nonnull final IProcessIdentifier aIdentifier1,
-                                               @Nonnull final IProcessIdentifier aIdentifier2)
-  {
-    ValueEnforcer.notNull (aIdentifier1, "ProcessIdentifier1");
-    ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
-
-    // Compare case sensitive
-    int ret = CompareHelper.compare (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
-    if (ret == 0)
-      ret = CompareHelper.compare (aIdentifier1.getValue (), aIdentifier2.getValue ());
-    return ret;
   }
 
   /**

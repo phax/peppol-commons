@@ -69,7 +69,8 @@ public interface IIdentifier extends Serializable
   String getValue ();
 
   /**
-   * Get the identifier URI encoded (without percent encoding).
+   * Get the identifier URI encoded (without percent encoding) as in
+   * <code>scheme::value</code>.
    *
    * @return The URI encoded identifier value. (E.g.
    *         <code>iso6523-actorid-upis::0088:123456</code>)
@@ -81,7 +82,8 @@ public interface IIdentifier extends Serializable
   }
 
   /**
-   * Get the identifier URI and percent encoded (with percent encoding).
+   * Get the identifier URI and percent encoded (with percent encoding) as in
+   * <code>scheme%3A%3Avalue</code>.
    *
    * @return The URI encoded identifier value. (E.g.
    *         <code>iso6523-actorid-upis%3A%3A0088%3A123456</code>)

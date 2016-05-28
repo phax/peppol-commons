@@ -59,7 +59,7 @@ import com.helger.commons.codec.URLCodec;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.messagedigest.MessageDigestValue;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sml.ISMLInfo;

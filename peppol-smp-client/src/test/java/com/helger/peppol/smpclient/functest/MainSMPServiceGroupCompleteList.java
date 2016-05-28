@@ -45,7 +45,7 @@ import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smp.CompleteServiceGroupType;
 import com.helger.peppol.smp.ServiceMetadataType;
 import com.helger.peppol.smpclient.MockSMPClientConfig;

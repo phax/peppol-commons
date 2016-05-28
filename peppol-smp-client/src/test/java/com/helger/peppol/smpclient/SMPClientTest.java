@@ -59,7 +59,7 @@ import com.helger.datetime.PDTFactory;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.ProcessIdentifierType;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.smp.CompleteServiceGroupType;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;

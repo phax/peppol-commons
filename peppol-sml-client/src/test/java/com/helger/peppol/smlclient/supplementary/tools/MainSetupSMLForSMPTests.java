@@ -41,7 +41,7 @@
 package com.helger.peppol.smlclient.supplementary.tools;
 
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;

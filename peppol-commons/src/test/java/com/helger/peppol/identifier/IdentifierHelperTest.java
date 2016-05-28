@@ -48,12 +48,12 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.issuingagency.EPredefinedIdentifierIssuingAgency;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
+import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -99,18 +99,18 @@ public final class IdentifierHelperTest
     final SimpleParticipantIdentifier aPI2 = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
     final SimpleParticipantIdentifier aPI3a = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123456");
     final SimpleParticipantIdentifier aPI3b = new SimpleParticipantIdentifier ("my-actorid-scheme", "0088:12345");
-    assertTrue (PeppolIdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI1));
-    assertTrue (PeppolIdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI2));
-    assertTrue (PeppolIdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI1));
-    assertFalse (PeppolIdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI3a));
-    assertFalse (PeppolIdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI3b));
-    assertFalse (PeppolIdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI3a));
-    assertFalse (PeppolIdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI3b));
-    assertFalse (PeppolIdentifierHelper.areParticipantIdentifiersEqual (aPI3a, aPI3b));
+    assertTrue (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI1));
+    assertTrue (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI2));
+    assertTrue (IdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI1));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI3a));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI3b));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI3a));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI3b));
+    assertFalse (IdentifierHelper.areParticipantIdentifiersEqual (aPI3a, aPI3b));
 
     try
     {
-      PeppolIdentifierHelper.areParticipantIdentifiersEqual (aPI1, null);
+      IdentifierHelper.areParticipantIdentifiersEqual (aPI1, null);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -120,7 +120,7 @@ public final class IdentifierHelperTest
 
     try
     {
-      PeppolIdentifierHelper.areParticipantIdentifiersEqual (null, aPI1);
+      IdentifierHelper.areParticipantIdentifiersEqual (null, aPI1);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -137,18 +137,18 @@ public final class IdentifierHelperTest
     final SimpleDocumentTypeIdentifier aDI3a = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
     final SimpleDocumentTypeIdentifier aDI3b = new SimpleDocumentTypeIdentifier ("my-docid-test",
                                                                                  "urn:doc:anyotherdoc");
-    assertTrue (PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI1));
-    assertTrue (PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI2));
-    assertTrue (PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI1));
-    assertFalse (PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI3a));
-    assertFalse (PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI3b));
-    assertFalse (PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI3a));
-    assertFalse (PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI3b));
-    assertFalse (PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (aDI3a, aDI3b));
+    assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI1));
+    assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI2));
+    assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI1));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI3a));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI3b));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI3a));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI2, aDI3b));
+    assertFalse (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI3a, aDI3b));
 
     try
     {
-      PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, null);
+      IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, null);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -158,7 +158,7 @@ public final class IdentifierHelperTest
 
     try
     {
-      PeppolIdentifierHelper.areDocumentTypeIdentifiersEqual (null, aDI1);
+      IdentifierHelper.areDocumentTypeIdentifiersEqual (null, aDI1);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -174,18 +174,18 @@ public final class IdentifierHelperTest
     final SimpleProcessIdentifier aDI2 = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     final SimpleProcessIdentifier aDI3a = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
     final SimpleProcessIdentifier aDI3b = new SimpleProcessIdentifier ("my-procid-test", "urn:doc:anyotherdoc");
-    assertTrue (PeppolIdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI1));
-    assertTrue (PeppolIdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI2));
-    assertTrue (PeppolIdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI1));
-    assertFalse (PeppolIdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI3a));
-    assertFalse (PeppolIdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI3b));
-    assertFalse (PeppolIdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI3a));
-    assertFalse (PeppolIdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI3b));
-    assertFalse (PeppolIdentifierHelper.areProcessIdentifiersEqual (aDI3a, aDI3b));
+    assertTrue (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI1));
+    assertTrue (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI2));
+    assertTrue (IdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI1));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI3a));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI3b));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI3a));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI3b));
+    assertFalse (IdentifierHelper.areProcessIdentifiersEqual (aDI3a, aDI3b));
 
     try
     {
-      PeppolIdentifierHelper.areProcessIdentifiersEqual (aDI1, null);
+      IdentifierHelper.areProcessIdentifiersEqual (aDI1, null);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -195,7 +195,7 @@ public final class IdentifierHelperTest
 
     try
     {
-      PeppolIdentifierHelper.areProcessIdentifiersEqual (null, aDI1);
+      IdentifierHelper.areProcessIdentifiersEqual (null, aDI1);
       fail ("null parameter not allowed");
     }
     catch (final NullPointerException ex)
@@ -270,10 +270,10 @@ public final class IdentifierHelperTest
     assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue ("order "));
 
     assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                               CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)));
+                                                                                                     CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
-                                                                                                     1)));
+                                                                                                      CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                                                           1)));
   }
 
   @Test
@@ -287,9 +287,9 @@ public final class IdentifierHelperTest
 
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype::" +
-                                                                 StringHelper.getRepeated ('a',
-                                                                                           CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
-                                                                                                1)));
+                                                                       StringHelper.getRepeated ('a',
+                                                                                                 CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                                                      1)));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype:order"));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctypeorder"));
   }
@@ -309,10 +309,10 @@ public final class IdentifierHelperTest
     assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue ("9956:DE:EPROC:BMIEVG:BeschA"));
 
     assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                              CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)));
+                                                                                                    CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)));
     assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                               CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
-                                                                                                    1)));
+                                                                                                     CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
+                                                                                                          1)));
   }
 
   @Test
@@ -330,9 +330,9 @@ public final class IdentifierHelperTest
 
     assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummythatiswaytoolongforwhatisexpected::9908:976098896"));
     assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::" +
-                                                                StringHelper.getRepeated ('a',
-                                                                                          CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
-                                                                                               1)));
+                                                                      StringHelper.getRepeated ('a',
+                                                                                                CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
+                                                                                                     1)));
     assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy:9908:976098896"));
     assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy9908:976098896"));
   }
@@ -347,10 +347,10 @@ public final class IdentifierHelperTest
     assertTrue (PeppolIdentifierHelper.isValidProcessIdentifierValue ("proc2 "));
 
     assertTrue (PeppolIdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                          CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)));
+                                                                                                CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)));
     assertFalse (PeppolIdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                           CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
-                                                                                                1)));
+                                                                                                 CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
+                                                                                                      1)));
   }
 
   @Test
@@ -364,9 +364,9 @@ public final class IdentifierHelperTest
 
     assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
     assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier ("process::" +
-                                                            StringHelper.getRepeated ('a',
-                                                                                      CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
-                                                                                           1)));
+                                                                  StringHelper.getRepeated ('a',
+                                                                                            CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
+                                                                                                 1)));
     assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier ("process:proc2"));
     assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier ("processproc2"));
   }
@@ -376,13 +376,13 @@ public final class IdentifierHelperTest
   {
     assertTrue (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (SimpleParticipantIdentifier.createWithDefaultScheme ("abc")));
     assertFalse (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (new SimpleParticipantIdentifier ("dummy-actorid-upis",
-                                                                                                          "abc")));
+                                                                                                                "abc")));
     assertTrue (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
-                                                                        "::abc"));
+                                                                              "::abc"));
     assertFalse (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
-                                                                         ":abc"));
+                                                                               ":abc"));
     assertFalse (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
-                                                                         "abc"));
+                                                                               "abc"));
     assertFalse (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme ("dummy-actorid-upis::abc"));
   }
 
@@ -391,13 +391,13 @@ public final class IdentifierHelperTest
   {
     assertTrue (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (SimpleDocumentTypeIdentifier.createWithDefaultScheme ("abc")));
     assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (new SimpleDocumentTypeIdentifier ("doctype",
-                                                                                                            "abc")));
+                                                                                                                  "abc")));
     assertTrue (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
-                                                                         "::abc"));
+                                                                               "::abc"));
     assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
-                                                                          ":abc"));
+                                                                                ":abc"));
     assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
-                                                                          "abc"));
+                                                                                "abc"));
     assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme ("doctype::abc"));
   }
 
@@ -405,13 +405,14 @@ public final class IdentifierHelperTest
   public void testHasDefaultProcessIdentifierScheme ()
   {
     assertTrue (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (SimpleProcessIdentifier.createWithDefaultScheme ("abc")));
-    assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (new SimpleProcessIdentifier ("proctype", "abc")));
+    assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (new SimpleProcessIdentifier ("proctype",
+                                                                                                        "abc")));
     assertTrue (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
-                                                                    "::abc"));
+                                                                          "::abc"));
     assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
-                                                                     ":abc"));
+                                                                           ":abc"));
     assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
-                                                                     "abc"));
+                                                                           "abc"));
     assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme ("proctype::abc"));
   }
 }

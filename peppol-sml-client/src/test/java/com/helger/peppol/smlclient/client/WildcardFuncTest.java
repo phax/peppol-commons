@@ -49,7 +49,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
