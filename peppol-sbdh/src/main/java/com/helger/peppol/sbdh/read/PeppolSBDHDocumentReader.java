@@ -41,7 +41,7 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.jaxb.validation.DoNothingValidationEventHandlerFactory;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.sbdh.SBDMarshaller;
@@ -77,8 +77,9 @@ public class PeppolSBDHDocumentReader
 
   /**
    * Check if the passed sender authority is valid or not. By default is must
-   * match {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. Override
-   * this method to allow for other schemes as well.
+   * match
+   * {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * Override this method to allow for other schemes as well.
    *
    * @param sSenderAuthority
    *        The value to be checked. This is the content of the XML attribute
@@ -89,7 +90,7 @@ public class PeppolSBDHDocumentReader
   @OverrideOnDemand
   protected boolean isValidSenderAuthority (@Nullable final String sSenderAuthority)
   {
-    return CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sSenderAuthority);
+    return IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sSenderAuthority);
   }
 
   /**
@@ -116,8 +117,9 @@ public class PeppolSBDHDocumentReader
 
   /**
    * Check if the passed receiver authority is valid or not. By default is must
-   * match {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. Override
-   * this method to allow for other schemes as well.
+   * match
+   * {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * Override this method to allow for other schemes as well.
    *
    * @param sReceiverAuthority
    *        The value to be checked. This is the content of the XML attribute
@@ -129,7 +131,7 @@ public class PeppolSBDHDocumentReader
   @OverrideOnDemand
   protected boolean isValidReceiverAuthority (@Nullable final String sReceiverAuthority)
   {
-    return CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sReceiverAuthority);
+    return IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sReceiverAuthority);
   }
 
   /**

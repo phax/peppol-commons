@@ -41,30 +41,12 @@
 package com.helger.peppol.identifier.generic.participant;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.microdom.convert.IMicroTypeConverter;
 
-public final class SimpleParticipantIdentifierMicroTypeConverter implements IMicroTypeConverter
+public final class SimpleParticipantIdentifierMicroTypeConverter extends ParticipantIdentifierTypeMicroTypeConverter
 {
-  private static final String ATTR_SCHEME = "scheme";
-  private static final String ATTR_VALUE = "value";
-
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
-                                              @Nullable final String sNamespaceURI,
-                                              @Nonnull @Nonempty final String sTagName)
-  {
-    final SimpleParticipantIdentifier aValue = (SimpleParticipantIdentifier) aObject;
-    final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
-    aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
-    aElement.setAttribute (ATTR_VALUE, aValue.getValue ());
-    return aElement;
-  }
-
+  @Override
   @Nonnull
   public SimpleParticipantIdentifier convertToNative (@Nonnull final IMicroElement aElement)
   {

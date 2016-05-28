@@ -49,12 +49,11 @@ import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -66,41 +65,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class IdentifierHelperTest
 {
-  private static final String [] PARTICIPANT_SCHEME_VALID = { "busdox-actorid-upis",
-                                                              "BUSDOX-ACTORID-UPIS",
-                                                              CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
-                                                              "any-actorid-any",
-                                                              "any-ACTORID-any" };
-  private static final String [] PARTIFCIPANT_SCHEME_INVALID = { null,
-                                                                 "",
-                                                                 "busdox_actorid_upis",
-                                                                 "busdox-upis",
-                                                                 "-actorid-upis",
-                                                                 "actorid-upis",
-                                                                 "busdox-actorid-",
-                                                                 "busdox-actorid",
-                                                                 "any-domain_actorid_any-type",
-                                                                 "any-nonactoid-anybutmuchtoooooooooooooooooooooooolong" };
-
-  @Test
-  public void testIsValidParticipantIdentifierScheme ()
-  {
-    // valid
-    for (final String scheme : PARTICIPANT_SCHEME_VALID)
-      assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierScheme (scheme));
-
-    // invalid
-    for (final String scheme : PARTIFCIPANT_SCHEME_INVALID)
-      assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifierScheme (scheme));
-  }
 
   @Test
   public void testAreIdentifiersEqualPariticpantIdentifier ()
   {
-    final SimpleParticipantIdentifier aPI1 = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
-    final SimpleParticipantIdentifier aPI2 = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
-    final SimpleParticipantIdentifier aPI3a = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123456");
-    final SimpleParticipantIdentifier aPI3b = new SimpleParticipantIdentifier ("my-actorid-scheme", "0088:12345");
+    final PeppolParticipantIdentifier aPI1 = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
+    final PeppolParticipantIdentifier aPI2 = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
+    final PeppolParticipantIdentifier aPI3a = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123456");
+    final PeppolParticipantIdentifier aPI3b = new PeppolParticipantIdentifier ("my-actorid-scheme", "0088:12345");
     assertTrue (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI1));
     assertTrue (IdentifierHelper.areParticipantIdentifiersEqual (aPI1, aPI2));
     assertTrue (IdentifierHelper.areParticipantIdentifiersEqual (aPI2, aPI1));
@@ -210,7 +182,7 @@ public final class IdentifierHelperTest
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void getIdentifierURIEncoded ()
   {
-    final SimpleParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
+    final PeppolParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
     assertEquals ("iso6523-actorid-upis::0088:123abc", IdentifierHelper.getIdentifierURIEncoded (aPI));
 
     final SimpleDocumentTypeIdentifier aDI = PeppolDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
@@ -218,7 +190,7 @@ public final class IdentifierHelperTest
 
     try
     {
-      IdentifierHelper.getIdentifierURIEncoded (new SimpleParticipantIdentifier (null, "0088:12345"));
+      IdentifierHelper.getIdentifierURIEncoded (new PeppolParticipantIdentifier (null, "0088:12345"));
       fail ("Empty scheme should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -228,7 +200,7 @@ public final class IdentifierHelperTest
 
     try
     {
-      IdentifierHelper.getIdentifierURIEncoded (new SimpleParticipantIdentifier ("", "0088:12345"));
+      IdentifierHelper.getIdentifierURIEncoded (new PeppolParticipantIdentifier ("", "0088:12345"));
       fail ("Empty scheme should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -238,7 +210,7 @@ public final class IdentifierHelperTest
 
     try
     {
-      IdentifierHelper.getIdentifierURIEncoded (SimpleParticipantIdentifier.createWithDefaultScheme (null));
+      IdentifierHelper.getIdentifierURIEncoded (PeppolParticipantIdentifier.createWithDefaultScheme (null));
       fail ("null value should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -250,15 +222,15 @@ public final class IdentifierHelperTest
   @Test
   public void testGetIdentifierURIPercentEncoded ()
   {
-    SimpleParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
+    PeppolParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
     assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
-    aPI = SimpleParticipantIdentifier.createWithDefaultScheme (EPredefinedIdentifierIssuingAgency.GLN.createIdentifierValue ("123abc"));
+    aPI = PeppolParticipantIdentifier.createWithDefaultScheme (EPredefinedIdentifierIssuingAgency.GLN.createIdentifierValue ("123abc"));
     assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
     aPI = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("123abc");
     assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
 
     // Different value
-    aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088/123abc");
+    aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088/123abc");
     assertEquals ("iso6523-actorid-upis%3A%3A0088%2F123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
   }
 
@@ -297,124 +269,10 @@ public final class IdentifierHelperTest
   }
 
   @Test
-  public void testIsValidParticipantIdentifierValue ()
-  {
-    assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifierValue (null));
-    assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifierValue (""));
-
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue ("9908:976098897"));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue ("9908:976098897 "));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue ("990:976098897"));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue ("990976098897"));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue ("9909:976098896"));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue ("9908:976098896"));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue ("9956:DE:EPROC:BMIEVG:BeschA"));
-
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                    CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)));
-    assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                     CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
-                                                                                                          1)));
-  }
-
-  @Test
-  public void testIsValidParticipantIdentifier ()
-  {
-    assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier (null));
-    assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier (""));
-
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098897"));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098897 "));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::990:976098897"));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::990976098897"));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::9909:976098896"));
-    assertTrue (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::9908:976098896"));
-
-    assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummythatiswaytoolongforwhatisexpected::9908:976098896"));
-    assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy::" +
-                                                                      StringHelper.getRepeated ('a',
-                                                                                                CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
-                                                                                                     1)));
-    assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy:9908:976098896"));
-    assertFalse (PeppolIdentifierHelper.isValidParticipantIdentifier ("any-actorid-dummy9908:976098896"));
-  }
-
-  @Test
-  public void testIsValidProcessIdentifierValue ()
-  {
-    assertFalse (PeppolIdentifierHelper.isValidProcessIdentifierValue (null));
-    assertFalse (PeppolIdentifierHelper.isValidProcessIdentifierValue (""));
-
-    assertTrue (PeppolIdentifierHelper.isValidProcessIdentifierValue ("proc1"));
-    assertTrue (PeppolIdentifierHelper.isValidProcessIdentifierValue ("proc2 "));
-
-    assertTrue (PeppolIdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)));
-    assertFalse (PeppolIdentifierHelper.isValidProcessIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                 CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
-                                                                                                      1)));
-  }
-
-  @Test
-  public void testIsValidProcessIdentifier ()
-  {
-    assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier (null));
-    assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier (""));
-
-    assertTrue (PeppolIdentifierHelper.isValidProcessIdentifier ("process::proc1"));
-    assertTrue (PeppolIdentifierHelper.isValidProcessIdentifier ("process::proc2 "));
-
-    assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
-    assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier ("process::" +
-                                                                  StringHelper.getRepeated ('a',
-                                                                                            CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
-                                                                                                 1)));
-    assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier ("process:proc2"));
-    assertFalse (PeppolIdentifierHelper.isValidProcessIdentifier ("processproc2"));
-  }
-
-  @Test
-  public void testHasDefaultParticipantIdentifierScheme ()
-  {
-    assertTrue (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (SimpleParticipantIdentifier.createWithDefaultScheme ("abc")));
-    assertFalse (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (new SimpleParticipantIdentifier ("dummy-actorid-upis",
-                                                                                                                "abc")));
-    assertTrue (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
-                                                                              "::abc"));
-    assertFalse (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
-                                                                               ":abc"));
-    assertFalse (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
-                                                                               "abc"));
-    assertFalse (PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme ("dummy-actorid-upis::abc"));
-  }
-
-  @Test
   public void testHasDefaultDocumentTypeIdentifierScheme ()
   {
     assertTrue (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (PeppolDocumentTypeIdentifier.createWithDefaultScheme ("abc")));
     assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (new SimpleDocumentTypeIdentifier ("doctype",
                                                                                                                   "abc")));
-    assertTrue (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
-                                                                               "::abc"));
-    assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
-                                                                                ":abc"));
-    assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
-                                                                                "abc"));
-    assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme ("doctype::abc"));
-  }
-
-  @Test
-  public void testHasDefaultProcessIdentifierScheme ()
-  {
-    assertTrue (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (PeppolProcessIdentifier.createWithDefaultScheme ("abc")));
-    assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (new SimpleProcessIdentifier ("proctype",
-                                                                                                        "abc")));
-    assertTrue (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
-                                                                          "::abc"));
-    assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
-                                                                           ":abc"));
-    assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
-                                                                           "abc"));
-    assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme ("proctype::abc"));
   }
 }

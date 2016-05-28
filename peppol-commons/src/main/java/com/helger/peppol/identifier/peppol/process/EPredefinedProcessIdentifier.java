@@ -9,7 +9,6 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
@@ -202,8 +201,8 @@ public enum EPredefinedProcessIdentifier
     }
 
     @Nonnull
-    public SimpleProcessIdentifier getAsProcessIdentifier() {
-        return new SimpleProcessIdentifier(this);
+    public PeppolProcessIdentifier getAsProcessIdentifier() {
+        return new PeppolProcessIdentifier(this);
     }
 
     @Nonnull
@@ -212,7 +211,7 @@ public enum EPredefinedProcessIdentifier
     }
 
     @Nonnull
-    public boolean isDefaultScheme() {
+    public boolean hasDefaultScheme() {
         return true;
     }
 

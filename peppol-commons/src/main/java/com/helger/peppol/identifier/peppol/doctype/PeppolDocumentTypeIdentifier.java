@@ -66,6 +66,7 @@ public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
+  @Nonnull
   private static String _verifyScheme (@Nullable final String sScheme)
   {
     if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
@@ -73,6 +74,7 @@ public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
     return sScheme;
   }
 
+  @Nonnull
   private static String _verifyValue (@Nonnull final String sValue)
   {
     if (!PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (sValue))

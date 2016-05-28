@@ -29,6 +29,7 @@ import org.xml.sax.SAXException;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
@@ -62,9 +63,9 @@ public final class PeppolSBDHDocumentWriterTest
     final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);
     assertNotNull (aDataRead);
 
-    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aDataRead.getSenderScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aDataRead.getSenderScheme ());
     assertEquals ("0088:sender", aDataRead.getSenderValue ());
-    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aDataRead.getReceiverScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aDataRead.getReceiverScheme ());
     assertEquals ("0099:receiver", aDataRead.getReceiverValue ());
     assertEquals ("urn:foobar", aDataRead.getStandard ());
     assertEquals ("2.1", aDataRead.getTypeVersion ());

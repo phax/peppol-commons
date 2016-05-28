@@ -40,8 +40,7 @@
  */
 package com.helger.peppol.smlclient.supplementary.tools;
 
-import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
@@ -79,7 +78,7 @@ public final class MainSetupSMLForSMPTests
 
     try
     {
-      final ParticipantIdentifierType serviceGroupId = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:5798000000001");
+      final PeppolParticipantIdentifier serviceGroupId = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:5798000000001");
       aParticipantClient.create (SMP_ID1, serviceGroupId);
     }
     catch (final Exception e)

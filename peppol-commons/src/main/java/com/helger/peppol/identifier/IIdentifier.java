@@ -43,8 +43,11 @@ package com.helger.peppol.identifier;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Base interface for a single read-only identifier independent of its usage
@@ -62,11 +65,55 @@ public interface IIdentifier extends Serializable
   String getScheme ();
 
   /**
+   * @return <code>true</code> if a non-<code>null</code> and non-empty scheme
+   *         is present.
+   */
+  default boolean hasScheme ()
+  {
+    return StringHelper.hasText (getScheme ());
+  }
+
+  /**
+   * Check if this identifier has the passed scheme.
+   *
+   * @param sScheme
+   *        The scheme to check. May be <code>null</code>.
+   * @return <code>true</code> if the scheme of this identifier matches the
+   *         passed scheme.
+   */
+  default boolean hasScheme (@Nullable final String sScheme)
+  {
+    return EqualsHelper.equals (getScheme (), sScheme);
+  }
+
+  /**
    * @return The identifier value, dependent on the scheme. Never
    *         <code>null</code>.
    */
   @Nonnull
   String getValue ();
+
+  /**
+   * @return <code>true</code> if a non-<code>null</code> and non-empty value is
+   *         present.
+   */
+  default boolean hasValue ()
+  {
+    return StringHelper.hasText (getValue ());
+  }
+
+  /**
+   * Check if this identifier has the passed value.
+   *
+   * @param sValue
+   *        The value to check. May be <code>null</code>.
+   * @return <code>true</code> if the value of this identifier matches the
+   *         passed value.
+   */
+  default boolean hasValue (@Nullable final String sValue)
+  {
+    return EqualsHelper.equals (getValue (), sValue);
+  }
 
   /**
    * Get the identifier URI encoded (without percent encoding) as in

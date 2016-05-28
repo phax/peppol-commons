@@ -43,8 +43,8 @@ package com.helger.peppol.smpclient.functest;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -55,7 +55,7 @@ public final class MainCheckBogusCertificateStrings
 {
   public static void main (final String [] args) throws CertificateException, SMPClientException
   {
-    final SimpleParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("9906:testconsip");
+    final PeppolParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("9906:testconsip");
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aPI, ESML.DIGIT_TEST);
     final X509Certificate aCert = aSMPClient.getEndpointCertificate (aPI,
                                                                      PeppolDocumentTypeIdentifier.createWithDefaultScheme ("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0::2.1"),

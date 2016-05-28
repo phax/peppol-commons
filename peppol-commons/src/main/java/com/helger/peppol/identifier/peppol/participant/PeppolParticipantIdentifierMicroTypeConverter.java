@@ -38,24 +38,21 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.peppol;
+package com.helger.peppol.identifier.peppol.participant;
 
-import com.helger.peppol.identifier.IIdentifier;
+import javax.annotation.Nonnull;
 
-/**
- * Base interface for all PEPPOL read-only identifiers
- *
- * @author philip
- */
-public interface IPeppolIdentifier extends IIdentifier
+import com.helger.commons.microdom.IMicroElement;
+import com.helger.peppol.identifier.generic.participant.ParticipantIdentifierTypeMicroTypeConverter;
+
+public final class PeppolParticipantIdentifierMicroTypeConverter extends ParticipantIdentifierTypeMicroTypeConverter
 {
-  /**
-   * Check if this identifier uses the default scheme. E.g. for participant
-   * identifiers this would be <code>true</code> if the scheme equals
-   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
-   *
-   * @return <code>true</code> if is the default scheme, <code>false</code>
-   *         otherwise.
-   */
-  boolean hasDefaultScheme ();
+  @Override
+  @Nonnull
+  public PeppolParticipantIdentifier convertToNative (@Nonnull final IMicroElement aElement)
+  {
+    final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
+    final String sValue = aElement.getAttributeValue (ATTR_VALUE);
+    return new PeppolParticipantIdentifier (sScheme, sValue);
+  }
 }

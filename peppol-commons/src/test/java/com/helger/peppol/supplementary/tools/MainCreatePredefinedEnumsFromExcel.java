@@ -100,9 +100,7 @@ import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
@@ -111,7 +109,9 @@ import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdent
 import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.issuingagency.IIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdentifier;
+import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also
@@ -119,9 +119,9 @@ import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdent
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class MainCreateCodelistsFilesFromExcel
+public final class MainCreatePredefinedEnumsFromExcel
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateCodelistsFilesFromExcel.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
   private static final Version CODELIST_VERSION = new Version (1, 2, 2);
   private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1.2.2-unofficial.xls";
   private static final String SHEET_PARTICIPANT = "Participant";
@@ -317,14 +317,14 @@ public final class MainCreateCodelistsFilesFromExcel
       jValue.annotate (Nonempty.class);
       mCreateIdentifierValue.body ()._return (fISO6523.plus (JExpr.lit (":")).plus (jValue));
 
-      // public SimpleParticipantIdentifier createIdentifierValue (String)
-      m = jEnum.method (JMod.PUBLIC, SimpleParticipantIdentifier.class, "createParticipantIdentifier");
+      // public PeppolParticipantIdentifier createIdentifierValue (String)
+      m = jEnum.method (JMod.PUBLIC, PeppolParticipantIdentifier.class, "createParticipantIdentifier");
       m.annotate (Nonnull.class);
       jValue = m.param (JMod.FINAL, String.class, "sIdentifier");
       jValue.annotate (Nonnull.class);
       jValue.annotate (Nonempty.class);
       m.body ()
-       ._return (s_aCodeModel.ref (SimpleParticipantIdentifier.class)
+       ._return (s_aCodeModel.ref (PeppolParticipantIdentifier.class)
                              .staticInvoke ("createWithDefaultScheme")
                              .arg (JExpr.invoke (mCreateIdentifierValue).arg (jValue)));
 
@@ -770,10 +770,10 @@ public final class MainCreateCodelistsFilesFromExcel
       m.annotate (ReturnsMutableCopy.class);
       m.body ()._return (s_aCodeModel.ref (CollectionHelper.class).staticInvoke ("newList").arg (fDocIDs));
 
-      // public SimpleProcessIdentifier getAsProcessIdentifier ()
-      m = jEnum.method (JMod.PUBLIC, SimpleProcessIdentifier.class, "getAsProcessIdentifier");
+      // public PeppolProcessIdentifier getAsProcessIdentifier ()
+      m = jEnum.method (JMod.PUBLIC, PeppolProcessIdentifier.class, "getAsProcessIdentifier");
       m.annotate (Nonnull.class);
-      m.body ()._return (JExpr._new (s_aCodeModel.ref (SimpleProcessIdentifier.class)).arg (JExpr._this ()));
+      m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolProcessIdentifier.class)).arg (JExpr._this ()));
 
       // public Version getSince ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");

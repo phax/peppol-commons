@@ -55,6 +55,7 @@ import org.xbill.DNS.TextParseException;
 
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -93,32 +94,32 @@ public final class BusdoxURLHelperTest
   public void testGetDNSNameOfParticipant ()
   {
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc"),
                                                            ESML.DIGIT_PRODUCTION));
     // Same value but different casing
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
                                                            ESML.DIGIT_PRODUCTION));
 
     assertEquals ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("9915:test"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test"),
                                                            ESML.DIGIT_PRODUCTION));
 
     // Wildcard
     assertEquals ("*.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("*"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("*"),
                                                            ESML.DIGIT_PRODUCTION));
 
     // Empty DNS zone
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
                                                            (String) null));
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
+                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
                                                            ""));
 
     if (false)
-      System.out.println (BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("9915:b"),
+      System.out.println (BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:b"),
                                                                    ESML.DIGIT_PRODUCTION));
 
     // Test invalid
@@ -134,44 +135,8 @@ public final class BusdoxURLHelperTest
 
     try
     {
-      // Invalid scheme
-      BusdoxURLHelper.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "0088:123"), "anyzone.org.");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // expected
-    }
-
-    try
-    {
-      // Invalid scheme
-      BusdoxURLHelper.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("invalid.scheme", "0088:123"),
-                                               "anyzone.org.");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // expected
-    }
-
-    try
-    {
-      // Invalid value
-      BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme (null),
-                                               "anyzone.org.");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // expected
-    }
-
-    try
-    {
       // Invalid DNS zone (missing dot)
-      BusdoxURLHelper.getDNSNameOfParticipant (SimpleParticipantIdentifier.createWithDefaultScheme ("0088:valid"),
-                                               "anyzone");
+      BusdoxURLHelper.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("scheme", "value"), "anyzone");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -196,7 +161,7 @@ public final class BusdoxURLHelperTest
   @Test
   public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException
   {
-    final IParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
+    final IParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
     final URI aURI = BusdoxURLHelper.getSMPURIOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
     assertEquals (new URI ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"),
                   aURI);

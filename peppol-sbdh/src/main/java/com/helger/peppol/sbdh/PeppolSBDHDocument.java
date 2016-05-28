@@ -37,7 +37,9 @@ import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
+import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 
 /**
  * This class contains all the PEPPOL data per SBDH document in a syntax neutral
@@ -76,8 +78,9 @@ public class PeppolSBDHDocument
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. May
-   *        neither be <code>null</code> nor empty. This field is mapped to
+   *        {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
+   *        . May neither be <code>null</code> nor empty. This field is mapped
+   *        to
    *        <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code>
    *        .
    * @param sValue
@@ -96,7 +99,8 @@ public class PeppolSBDHDocument
 
   /**
    * Set the sender identifier value using the default identifier
-   * scheme/authority {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * scheme/authority
+   * {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
    *
    * @param sValue
    *        The sender identifier value. May neither be <code>null</code> nor
@@ -107,7 +111,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setSenderWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setSender (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
+    return setSender (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
@@ -141,7 +145,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IPeppolParticipantIdentifier getSenderAsIdentifier ()
   {
-    return PeppolIdentifierHelper.createParticipantIdentifierOrNull (m_sSenderScheme, m_sSenderValue);
+    return PeppolParticipantIdentifier.createIfValid (m_sSenderScheme, m_sSenderValue);
   }
 
   /**
@@ -149,8 +153,9 @@ public class PeppolSBDHDocument
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. May
-   *        neither be <code>null</code> nor empty. This field is mapped to
+   *        {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
+   *        . May neither be <code>null</code> nor empty. This field is mapped
+   *        to
    *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code>
    *        .
    * @param sValue
@@ -160,7 +165,8 @@ public class PeppolSBDHDocument
    * @return this
    */
   @Nonnull
-  public PeppolSBDHDocument setReceiver (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setReceiver (@Nonnull @Nonempty final String sScheme,
+                                         @Nonnull @Nonempty final String sValue)
   {
     m_sReceiverScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sReceiverValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -169,7 +175,8 @@ public class PeppolSBDHDocument
 
   /**
    * Set the receiver identifier value using the default identifier
-   * scheme/authority {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * scheme/authority
+   * {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
    *
    * @param sValue
    *        The sender identifier value. May neither be <code>null</code> nor
@@ -180,7 +187,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setReceiverWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setReceiver (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
+    return setReceiver (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
@@ -214,7 +221,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IPeppolParticipantIdentifier getReceiverAsIdentifier ()
   {
-    return PeppolIdentifierHelper.createParticipantIdentifierOrNull (m_sReceiverScheme, m_sReceiverValue);
+    return PeppolParticipantIdentifier.createIfValid (m_sReceiverScheme, m_sReceiverValue);
   }
 
   /**
@@ -231,7 +238,8 @@ public class PeppolSBDHDocument
    * @return this
    */
   @Nonnull
-  public PeppolSBDHDocument setDocumentType (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setDocumentType (@Nonnull @Nonempty final String sScheme,
+                                             @Nonnull @Nonempty final String sValue)
   {
     m_sDocumentTypeScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sDocumentTypeValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -311,7 +319,8 @@ public class PeppolSBDHDocument
 
   /**
    * Set the document type identifier using the default identifier
-   * scheme/authority {@link CPeppolIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}.
+   * scheme/authority
+   * {@link CPeppolIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}.
    *
    * @param sValue
    *        The process identifier. May neither be <code>null</code> nor empty.
@@ -355,7 +364,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IPeppolProcessIdentifier getProcessAsIdentifier ()
   {
-    return PeppolIdentifierHelper.createProcessIdentifierOrNull (m_sProcessScheme, m_sProcessValue);
+    return PeppolProcessIdentifier.createIfValid (m_sProcessScheme, m_sProcessValue);
   }
 
   /**
@@ -406,10 +415,10 @@ public class PeppolSBDHDocument
    */
   @Nonnull
   public PeppolSBDHDocument setDocumentIdentification (@Nonnull final String sStandard,
-                                                 @Nonnull final String sTypeVersion,
-                                                 @Nonnull final String sType,
-                                                 @Nonnull final String sInstanceIdentifier,
-                                                 @Nonnull final LocalDateTime aCreationDateAndTime)
+                                                       @Nonnull final String sTypeVersion,
+                                                       @Nonnull final String sType,
+                                                       @Nonnull final String sInstanceIdentifier,
+                                                       @Nonnull final LocalDateTime aCreationDateAndTime)
   {
     m_sStandard = ValueEnforcer.notNull (sStandard, "Standard");
     m_sTypeVersion = ValueEnforcer.notNull (sTypeVersion, "TypeVersion");
@@ -648,8 +657,8 @@ public class PeppolSBDHDocument
    *
    * @param aBusinessMessage
    *        The XML business message. May not be <code>null</code>.
-   * @return A pre-filled {@link PeppolSBDHDocument} object with some information
-   *         still missing.
+   * @return A pre-filled {@link PeppolSBDHDocument} object with some
+   *         information still missing.
    * @see #setSender(String, String)
    * @see #setReceiver(String, String)
    * @see #setDocumentType(String, String)

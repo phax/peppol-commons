@@ -100,7 +100,7 @@ public final class IdentifierValidator
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
 
     // Only validate our default scheme
-    if (!aParticipantID.isDefaultScheme ())
+    if (!aParticipantID.hasDefaultScheme ())
       return true;
 
     boolean bAtLeastOneSupported = false;

@@ -46,11 +46,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
-import com.helger.peppol.identifier.peppol.validator.IdentifierValidator;
 
 /**
  * Test class for class {@link IdentifierValidator}.
- * 
+ *
  * @author philip
  */
 public final class IdentifierValidatorTest
@@ -69,7 +68,11 @@ public final class IdentifierValidatorTest
     assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_VAT.createParticipantIdentifier ("123456785")));
     assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_VAT.createParticipantIdentifier ("968218743")));
     assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_VAT.createParticipantIdentifier ("961329310")));
+  }
 
+  @Test
+  public void testWithoutRules ()
+  {
     // No special rules available -> all valid!
     assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.AD_VAT.createParticipantIdentifier ("123456789")));
     assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.AD_VAT.createParticipantIdentifier ("123456785")));

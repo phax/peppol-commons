@@ -50,8 +50,8 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
@@ -64,8 +64,8 @@ import com.helger.peppol.smp.ESMPTransportProfile;
  */
 public final class SMPClientPredefinedEndpointAddressFuncTest
 {
-  private static IParticipantIdentifier PI_AT_Test = SimpleParticipantIdentifier.createWithDefaultScheme ("9915:test");
-  private static IParticipantIdentifier PI_AT_Prod = SimpleParticipantIdentifier.createWithDefaultScheme ("9915:b");
+  private static IParticipantIdentifier PI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
+  private static IParticipantIdentifier PI_AT_Prod = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:b");
 
   static
   {

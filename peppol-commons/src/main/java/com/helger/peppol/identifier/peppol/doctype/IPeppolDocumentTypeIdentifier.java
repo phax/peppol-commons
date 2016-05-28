@@ -54,7 +54,7 @@ import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdent
  */
 public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocumentTypeIdentifier
 {
-  default boolean isDefaultScheme ()
+  default boolean hasDefaultScheme ()
   {
     return PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (this);
   }

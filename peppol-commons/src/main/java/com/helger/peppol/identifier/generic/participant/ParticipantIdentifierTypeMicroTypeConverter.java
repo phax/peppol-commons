@@ -49,10 +49,10 @@ import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 
-public final class ParticipantIdentifierTypeMicroTypeConverter implements IMicroTypeConverter
+public class ParticipantIdentifierTypeMicroTypeConverter implements IMicroTypeConverter
 {
-  private static final String ATTR_SCHEME = "scheme";
-  private static final String ATTR_VALUE = "value";
+  protected static final String ATTR_SCHEME = "scheme";
+  protected static final String ATTR_VALUE = "value";
 
   @Nonnull
   public IMicroElement convertToMicroElement (@Nonnull final Object aObject,

@@ -41,15 +41,10 @@
 package com.helger.peppol.identifier.generic.participant;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 /**
  * Test class for class {@link SimpleParticipantIdentifier}.
@@ -82,98 +77,5 @@ public final class SimpleParticipantIdentifierTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
-  }
-
-  @Test
-  public void testURIStuff ()
-  {
-    final SimpleParticipantIdentifier aID1 = new SimpleParticipantIdentifier ("scheme-actorid-test", "value1");
-    assertEquals ("scheme-actorid-test::value1", aID1.getURIEncoded ());
-    assertEquals ("scheme-actorid-test%3A%3Avalue1", aID1.getURIPercentEncoded ());
-    final SimpleParticipantIdentifier aID2 = SimpleParticipantIdentifier.createFromURIPart ("scheme-actorid-test::value1");
-    assertEquals (aID1, aID2);
-
-    assertNull (SimpleParticipantIdentifier.createFromURIPartOrNull ("scheme1"));
-    assertNull (SimpleParticipantIdentifier.createFromURIPartOrNull (null));
-    try
-    {
-      // No separator
-      SimpleParticipantIdentifier.createFromURIPart ("scheme1");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-  }
-
-  @Test
-  public void testConstraints ()
-  {
-    try
-    {
-      // null key not allowed
-      new SimpleParticipantIdentifier (null, "value");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
-      // null value not allowed
-      new SimpleParticipantIdentifier (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, null);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
-      // Both null not allowed
-      new SimpleParticipantIdentifier (null, null);
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
-      // Empty is not allowed
-      new SimpleParticipantIdentifier (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
-      // Cannot be mapped to ISO-8859-1:
-      new SimpleParticipantIdentifier (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "Љ");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
-      // Scheme too long
-      new SimpleParticipantIdentifier (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
-                                       StringHelper.getRepeated ('a', CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
-                                       "abc");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
-      // Value too long
-      new SimpleParticipantIdentifier (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
-                                       StringHelper.getRepeated ('a',
-                                                                 CPeppolIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH +
-                                                                      1));
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
   }
 }

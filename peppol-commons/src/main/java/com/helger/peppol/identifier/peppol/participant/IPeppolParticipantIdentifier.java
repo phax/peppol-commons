@@ -42,10 +42,15 @@ package com.helger.peppol.identifier.peppol.participant;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.charset.CCharset;
+import com.helger.commons.regex.RegExHelper;
+import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.validator.IdentifierValidator;
+import com.helger.peppol.utils.BusdoxURLHelper;
 
 /**
  * Base interface for a PEPPOL read-only participant identifier.
@@ -54,9 +59,32 @@ import com.helger.peppol.identifier.peppol.validator.IdentifierValidator;
  */
 public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IParticipantIdentifier
 {
-  default boolean isDefaultScheme ()
+  /**
+   * The regular expression to be used for validating participant identifier
+   * schemes (not values!). See BusDox specification 1.0.1, chapter 2.3
+   */
+  String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
+
+  /**
+   * The default identifier scheme ID to be used for participants/businesses.
+   * <br>
+   * The matching values have the format "agency:id" whereas agency should be
+   * within the code-list.<br>
+   * Please note that this is a change to the PEPPOL Common definitions chapter
+   * 3.4! <br>
+   * See also
+   * com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
+   */
+  String DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME = "iso6523-actorid-upis";
+
+  /**
+   * Participant identifier value maximum length (excluding the scheme)
+   */
+  int MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH = 50;
+
+  default boolean hasDefaultScheme ()
   {
-    return PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (this);
+    return hasScheme (DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME);
   }
 
   /**
@@ -65,7 +93,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
    *         {@link com.helger.peppol.identifier.peppol.validator.IParticipantIdentifierValidatorSPI}
    *         implementations.
    */
-  default boolean isValid ()
+  default boolean isSemanticallyValid ()
   {
     return IdentifierValidator.isValidParticipantIdentifier (this);
   }
@@ -74,7 +102,10 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
    * Extract the issuing agency ID from the passed participant identifier value.
    * <br>
    * Example: extract the <code>0088</code> from the participant identifier
-   * <code>iso6523-actorid-upis::0088:123456</code>
+   * <code>iso6523-actorid-upis::0088:123456</code><br>
+   * Note: this only works for participant identifiers that are using the
+   * default scheme (iso6523-actorid-upis) because for the other schemes, I just
+   * can't tell!
    *
    * @return <code>null</code> if the identifier is not of default scheme or if
    *         the identifier is malformed.
@@ -82,14 +113,19 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
   @Nullable
   default String getIssuingAgencyID ()
   {
-    return PeppolIdentifierHelper.getIssuingAgencyIDFromParticipantIDValue (this);
+    if (hasDefaultScheme ())
+      return StringHelper.getExploded (':', getValue (), 2).getAtIndex (0);
+    return null;
   }
 
   /**
    * Extract the local participant ID from the passed participant identifier
    * value.<br>
    * Example: extract the <code>123456</code> from the participant identifier
-   * <code>iso6523-actorid-upis::0088:123456</code>
+   * <code>iso6523-actorid-upis::0088:123456</code><br>
+   * Note: this only works for participant identifiers that are using the
+   * default scheme (iso6523-actorid-upis) because for the other schemes, I just
+   * can't tell!
    *
    * @return <code>null</code> if the identifier is not of default scheme or if
    *         the identifier is malformed.
@@ -97,6 +133,60 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
   @Nullable
   default String getLocalParticipantID ()
   {
-    return PeppolIdentifierHelper.getLocalParticipantIDFromParticipantIDValue (this);
+    if (hasDefaultScheme ())
+      return StringHelper.getExploded (':', getValue (), 2).getAtIndex (1);
+    return null;
+  }
+
+  /**
+   * Check if the given scheme is a valid participant identifier scheme (like
+   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}). It is
+   * valid if it has at least 1 character and at last 25 characters (see
+   * {@link CPeppolIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a
+   * certain regular expression (see
+   * {@link CPeppolIdentifier#PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please note
+   * that the regular expression is applied case insensitive!<br>
+   * This limitation is important, because the participant identifier scheme is
+   * directly encoded into the SML DNS name record.
+   *
+   * @param sScheme
+   *        The scheme to check.
+   * @return <code>true</code> if the passed scheme is a valid participant
+   *         identifier scheme, <code>false</code> otherwise.
+   * @see #isValidIdentifierScheme(String)
+   */
+  static boolean isValidScheme (@Nullable final String sScheme)
+  {
+    if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
+      return false;
+    return RegExHelper.stringMatchesPattern (PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
+                                             sScheme.toLowerCase (BusdoxURLHelper.URL_LOCALE));
+  }
+
+  /**
+   * Check if the passed participant identifier value is valid. A valid
+   * identifier must have at least 1 character and at last
+   * {@link CPeppolIdentifier#MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH}
+   * characters. Also it must be US ASCII encoded. This check method considers
+   * only the value and not the identifier scheme!
+   *
+   * @param sValue
+   *        The participant identifier value to be checked (without the scheme).
+   *        May be <code>null</code>.
+   * @return <code>true</code> if the participant identifier value is valid,
+   *         <code>false</code> otherwise.
+   */
+  static boolean isValidValue (@Nullable final String sValue)
+  {
+    if (sValue == null)
+      return false;
+
+    final int nLength = sValue.length ();
+    if (nLength == 0 || nLength > MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)
+      return false;
+
+    // Check if the value is US ASCII encoded
+    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
+           CCharset.CHARSET_US_ASCII_OBJ.newEncoder ().canEncode (sValue);
   }
 }

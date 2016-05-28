@@ -60,7 +60,7 @@ import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
@@ -130,7 +130,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ParticipantIdentifierType aPI = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
+    final ParticipantIdentifierType aPI = PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     try
     {
       aPIClient.delete (SMP_ID, aPI);
@@ -187,7 +187,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
       System.out.println ("Creating number: " + i);
       final long nIdentifier = nStartIdentifier + i;
       aPIClient.create (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (),
-                        SimpleParticipantIdentifier.createWithDefaultScheme ("0088:" + nIdentifier));
+                        PeppolParticipantIdentifier.createWithDefaultScheme ("0088:" + nIdentifier));
     }
 
     m_aSMClient.delete (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
@@ -197,7 +197,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     // Delete one that was on a second page
     final long nIdentifier = nStartIdentifier + nLastIdentifier;
     aPIClient.create (aServiceMetadataCreateNew.getServiceMetadataPublisherID (),
-                      SimpleParticipantIdentifier.createWithDefaultScheme ("0088:" + nIdentifier));
+                      PeppolParticipantIdentifier.createWithDefaultScheme ("0088:" + nIdentifier));
   }
 
   @Test (expected = NotFoundFault.class)
@@ -228,7 +228,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ParticipantIdentifierType aBusinessIdentifierCreate = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
+    final ParticipantIdentifierType aBusinessIdentifierCreate = PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
 
     final ServiceMetadataPublisherServiceForParticipantType saSrviceMetadataPublisherServiceForBusiness = new ServiceMetadataPublisherServiceForParticipantType ();
     saSrviceMetadataPublisherServiceForBusiness.setParticipantIdentifier (aBusinessIdentifierCreate);
@@ -259,7 +259,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ParticipantIdentifierType aBusinessIdentifierCreate = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
+    final ParticipantIdentifierType aBusinessIdentifierCreate = PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
 
     final ServiceMetadataPublisherServiceForParticipantType aServiceMetadataPublisherServiceForBusiness = new ServiceMetadataPublisherServiceForParticipantType ();
     aServiceMetadataPublisherServiceForBusiness.setParticipantIdentifier (aBusinessIdentifierCreate);
@@ -291,7 +291,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ICommonsList <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new CommonsArrayList <> ();
+    final ICommonsList <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new CommonsArrayList<> ();
 
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
 
@@ -311,9 +311,9 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ICommonsList <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new CommonsArrayList <> ();
+    final ICommonsList <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new CommonsArrayList<> ();
 
-    final ParticipantIdentifierType aBusinessIdentifierCreate1 = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
+    final ParticipantIdentifierType aBusinessIdentifierCreate1 = PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
 
     aRecipientBusinessIdentifiers.add (aBusinessIdentifierCreate1);
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
@@ -342,10 +342,10 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ICommonsMap <String, ParticipantIdentifierType> aBusinessIdentifiersCreate = new CommonsHashMap <> ();
+    final ICommonsMap <String, ParticipantIdentifierType> aBusinessIdentifiersCreate = new CommonsHashMap<> ();
 
-    ParticipantIdentifierType aBusinessIdentifierCreate1 = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
-    ParticipantIdentifierType aBusinessIdentifierCreate2 = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER2);
+    ParticipantIdentifierType aBusinessIdentifierCreate1 = PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
+    ParticipantIdentifierType aBusinessIdentifierCreate2 = PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER2);
 
     aBusinessIdentifiersCreate.put (aBusinessIdentifierCreate1.getValue (), aBusinessIdentifierCreate1);
     aBusinessIdentifiersCreate.put (aBusinessIdentifierCreate2.getValue (), aBusinessIdentifierCreate2);
@@ -399,7 +399,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClientNew = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ParticipantIdentifierType aPI = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
+    final ParticipantIdentifierType aPI = PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     aPIClientOld.create (SMP_ID, aPI);
     final String sMigrationKey = aPIClientOld.prepareToMigrate (aPI, SMP_ID);
     assertNotNull (sMigrationKey);
@@ -441,8 +441,8 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClientNew = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    aPIClientOld.create (SMP_ID, SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
+    aPIClientOld.create (SMP_ID, PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
 
-    aPIClientNew.create (SMP_ID, SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
+    aPIClientNew.create (SMP_ID, PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
   }
 }

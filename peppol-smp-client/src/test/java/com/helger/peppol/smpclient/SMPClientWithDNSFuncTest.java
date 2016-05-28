@@ -51,10 +51,10 @@ import org.junit.Test;
 import com.helger.commons.url.URLHelper;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ServiceGroupType;
@@ -89,7 +89,7 @@ public final class SMPClientWithDNSFuncTest
     // Ensure to delete TEST_BUSINESS_IDENTIFIER
     try
     {
-      final ParticipantIdentifierType aServiceGroupID = SimpleParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER);
+      final ParticipantIdentifierType aServiceGroupID = PeppolParticipantIdentifier.createWithDefaultScheme (TEST_BUSINESS_IDENTIFIER);
       aClient.deleteServiceGroup (aServiceGroupID, SMP_CREDENTIALS);
     }
     catch (final SMPClientNotFoundException e)
@@ -105,8 +105,8 @@ public final class SMPClientWithDNSFuncTest
     final String sParticipantID = "0088:5798000000001";
     final String sDocumentID = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::InvoiceDisputeDisputeInvoice##UBL-2.0";
 
-    final ParticipantIdentifierType aServiceGroupID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantID);
-    final PeppolDocumentTypeIdentifier aDocumentTypeID = PeppolDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
+    final ParticipantIdentifierType aServiceGroupID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantID);
+    final DocumentIdentifierType aDocumentTypeID = PeppolDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
 
     final ServiceGroupType aGroup = SMPClientReadOnly.getServiceGroupByDNS (SML_INFO, aServiceGroupID);
     assertNotNull (aGroup);
@@ -137,7 +137,7 @@ public final class SMPClientWithDNSFuncTest
     final String sParticipantID = "0088:5798000009997";
     final String sDocumentID = "urn:oasis:names:specification:ubl:schema:xsd:SubmitCatalogue-2::SubmitCatalogue##UBL-2.0";
 
-    final ParticipantIdentifierType aServiceGroupID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantID);
+    final ParticipantIdentifierType aServiceGroupID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantID);
     final DocumentIdentifierType aDocumentTypeID = PeppolDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
 
     final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (SML_INFO,

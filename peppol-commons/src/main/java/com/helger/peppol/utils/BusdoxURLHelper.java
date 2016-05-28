@@ -61,7 +61,7 @@ import com.helger.commons.messagedigest.MessageDigestValue;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 
 /**
@@ -186,7 +186,7 @@ public final class BusdoxURLHelper
 
     // Check identifier scheme (must be lowercase for the URL later on!)
     final String sIdentifierScheme = aParticipantIdentifier.getScheme ().toLowerCase (URL_LOCALE);
-    if (!PeppolIdentifierHelper.isValidParticipantIdentifierScheme (sIdentifierScheme))
+    if (!IPeppolParticipantIdentifier.isValidScheme (sIdentifierScheme))
       throw new IllegalArgumentException ("Invalid participant identifier scheme '" + sIdentifierScheme + "'");
 
     // Get the identifier value

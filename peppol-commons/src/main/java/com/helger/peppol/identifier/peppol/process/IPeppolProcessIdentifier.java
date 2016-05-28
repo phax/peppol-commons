@@ -40,7 +40,12 @@
  */
 package com.helger.peppol.identifier.peppol.process;
 
+import javax.annotation.Nullable;
+
+import com.helger.commons.charset.CCharset;
+import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
@@ -51,8 +56,51 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
  */
 public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIdentifier
 {
-  default boolean isDefaultScheme ()
+  default boolean hasDefaultScheme ()
   {
-    return PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (this);
+    return hasScheme (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME);
+  }
+
+  /**
+   * Check if the given identifier is valid. It is valid if it has at least 1
+   * character and at last 25 characters (see
+   * {@link CPeppolIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}). This method
+   * applies to all identifier schemes, but there is a special version for
+   * participant identifier schemes, as they are used in DNS names!
+   *
+   * @param sScheme
+   *        The scheme to check.
+   * @return <code>true</code> if the passed scheme is a valid identifier
+   *         scheme, <code>false</code> otherwise.
+   * @see #isValidParticipantIdentifierScheme(String)
+   * @see #areSchemeMaxLengthChecksDisabled()
+   */
+  static boolean isValidScheme (@Nullable final String sScheme)
+  {
+    // No special rules
+    return PeppolIdentifierHelper.isValidIdentifierScheme (sScheme);
+  }
+
+  /**
+   * Check if the passed process identifier value is valid. A valid identifier
+   * must have at least 1 character and at last
+   * {@link CPeppolIdentifier#MAX_PROCESS_IDENTIFIER_VALUE_LENGTH} characters.
+   * Also it must be ISO-8859-1 encoded.
+   *
+   * @param sValue
+   *        The process identifier value to be checked (without the scheme). May
+   *        be <code>null</code>.
+   * @return <code>true</code> if the process identifier value is valid,
+   *         <code>false</code> otherwise
+   */
+  static boolean isValidValue (@Nullable final String sValue)
+  {
+    final int nLength = StringHelper.getLength (sValue);
+    if (nLength == 0 || nLength > CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)
+      return false;
+
+    // Check if the value is ISO-8859-1 encoded
+    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
+           CCharset.CHARSET_ISO_8859_1_OBJ.newEncoder ().canEncode (sValue);
   }
 }

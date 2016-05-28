@@ -59,7 +59,7 @@ import com.helger.datetime.PDTFactory;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.ProcessIdentifierType;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.smp.CompleteServiceGroupType;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
@@ -119,7 +119,7 @@ public final class SMPClientTest
   @Test
   public void testGetServiceMetadataNotExistsOnExistingSMP () throws SMPClientException
   {
-    final ParticipantIdentifierType aServiceGroupID = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:surleyNotExisting");
+    final ParticipantIdentifierType aServiceGroupID = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:surleyNotExisting");
 
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
     assertNull (aSMPClient.getServiceRegistrationOrNull (aServiceGroupID, MockSMPClientConfig.getDocumentTypeID ()));

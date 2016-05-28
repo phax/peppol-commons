@@ -48,9 +48,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.participant.IMutablePeppolParticipantIdentifier;
 
 /**
  * This is a sanity class around the {@link ParticipantIdentifierType} class
@@ -61,7 +58,7 @@ import com.helger.peppol.identifier.peppol.participant.IMutablePeppolParticipant
  */
 @NotThreadSafe
 public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements
-                                         IMutablePeppolParticipantIdentifier,
+                                         IMutableParticipantIdentifier,
                                          Comparable <SimpleParticipantIdentifier>,
                                          ICloneable <SimpleParticipantIdentifier>
 {
@@ -72,10 +69,6 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
 
   public SimpleParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    if (!PeppolIdentifierHelper.isValidParticipantIdentifierScheme (sScheme))
-      throw new IllegalArgumentException ("Participant identifier scheme '" + sScheme + "' is invalid!");
-    if (!PeppolIdentifierHelper.isValidParticipantIdentifierValue (sValue))
-      throw new IllegalArgumentException ("Participant identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
   }
@@ -90,57 +83,5 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   public SimpleParticipantIdentifier getClone ()
   {
     return new SimpleParticipantIdentifier (this);
-  }
-
-  /**
-   * Create a new participant identifier that uses the default schema
-   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
-   *
-   * @param sValue
-   *        The identifier value like <code>0088:12345678</code>
-   * @return The created {@link SimpleParticipantIdentifier} and never
-   *         <code>null</code>.
-   */
-  @Nonnull
-  public static SimpleParticipantIdentifier createWithDefaultScheme (@Nonnull final String sValue)
-  {
-    return new SimpleParticipantIdentifier (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
-  }
-
-  /**
-   * Create a new participant identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}.
-   *
-   * @param sURIPart
-   *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
-   *        must NOT be percent encoded!
-   * @return The created {@link SimpleParticipantIdentifier} and never
-   *         <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed identifier is not a valid URI encoded identifier
-   */
-  @Nonnull
-  public static SimpleParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
-  {
-    return PeppolIdentifierHelper.createParticipantIdentifierFromURIPart (sURIPart);
-  }
-
-  /**
-   * Create a new participant identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}.
-   *
-   * @param sURIPart
-   *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
-   *        must NOT be percent encoded! May be <code>null</code>.
-   * @return The created {@link SimpleParticipantIdentifier} or
-   *         <code>null</code> if the passed identifier is not a valid URI
-   *         encoded identifier
-   */
-  @Nullable
-  public static SimpleParticipantIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
-  {
-    if (sURIPart == null)
-      return null;
-    return PeppolIdentifierHelper.createParticipantIdentifierFromURIPartOrNull (sURIPart);
   }
 }

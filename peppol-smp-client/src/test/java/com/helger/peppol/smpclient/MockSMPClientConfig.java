@@ -53,8 +53,8 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.utils.CertificateHelper;
 import com.helger.peppol.utils.ConfigFile;
@@ -131,9 +131,9 @@ public final class MockSMPClientConfig
   }
 
   @Nonnull
-  public static final SimpleParticipantIdentifier getParticipantID ()
+  public static final PeppolParticipantIdentifier getParticipantID ()
   {
-    return SimpleParticipantIdentifier.createWithDefaultScheme (s_aConfig.getString ("participantid"));
+    return PeppolParticipantIdentifier.createWithDefaultScheme (s_aConfig.getString ("participantid"));
   }
 
   @Nonnull

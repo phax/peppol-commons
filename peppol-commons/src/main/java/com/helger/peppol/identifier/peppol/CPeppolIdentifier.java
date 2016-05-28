@@ -66,11 +66,6 @@ public final class CPeppolIdentifier
   public static final int MAX_IDENTIFIER_SCHEME_LENGTH = 25;
 
   /**
-   * Participant identifier value maximum length (excluding the scheme)
-   */
-  public static final int MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH = 50;
-
-  /**
    * Document Type identifier value maximum length (excluding the scheme)
    */
   public static final int MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH = 500;
@@ -79,24 +74,6 @@ public final class CPeppolIdentifier
    * Process identifier value maximum length (excluding the scheme)
    */
   public static final int MAX_PROCESS_IDENTIFIER_VALUE_LENGTH = 200;
-
-  /**
-   * The regular expression to be used for validating participant identifier
-   * schemes (not values!). See BusDox specification 1.0.1, chapter 2.3
-   */
-  public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
-
-  /**
-   * The default identifier scheme ID to be used for participants/businesses.
-   * <br>
-   * The matching values have the format "agency:id" whereas agency should be
-   * within the code-list.<br>
-   * Please note that this is a change to the PEPPOL Common definitions chapter
-   * 3.4! <br>
-   * See also
-   * com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
-   */
-  public static final String DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME = "iso6523-actorid-upis";
 
   /**
    * The default document identifier scheme.<br>

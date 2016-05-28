@@ -24,6 +24,7 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 
 /**
  * Test class for class {@link PeppolSBDHDocument}.
@@ -55,28 +56,28 @@ public final class PeppolSBDHDocumentTest
 
     // Sender
     dd.setSenderWithDefaultScheme ("abc");
-    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, dd.getSenderScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, dd.getSenderScheme ());
     assertEquals ("abc", dd.getSenderValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSender ("scheme",
-                                                                                                          "abc"));
+                                                                                                                "abc"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd, new PeppolSBDHDocument ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (dd,
                                                                        new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc"));
 
     // Receiver
     dd.setReceiverWithDefaultScheme ("def");
-    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, dd.getReceiverScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, dd.getReceiverScheme ());
     assertEquals ("def", dd.getReceiverValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")
-                                                                                              .setReceiver ("scheme",
-                                                                                                            "def"));
+                                                                                                    .setReceiver ("scheme",
+                                                                                                                  "def"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (dd,
                                                                        new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")
-                                                                                          .setReceiverWithDefaultScheme ("def"));
+                                                                                                .setReceiverWithDefaultScheme ("def"));
 
     // Document type
     dd.setDocumentTypeWithDefaultScheme ("doctype");
@@ -84,12 +85,12 @@ public final class PeppolSBDHDocumentTest
     assertEquals ("doctype", dd.getDocumentTypeValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")
-                                                                                              .setReceiverWithDefaultScheme ("def")
-                                                                                              .setDocumentTypeWithDefaultScheme ("other"));
+                                                                                                    .setReceiverWithDefaultScheme ("def")
+                                                                                                    .setDocumentTypeWithDefaultScheme ("other"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (dd,
                                                                        new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")
-                                                                                          .setReceiverWithDefaultScheme ("def")
-                                                                                          .setDocumentTypeWithDefaultScheme ("doctype"));
+                                                                                                .setReceiverWithDefaultScheme ("def")
+                                                                                                .setDocumentTypeWithDefaultScheme ("doctype"));
 
     // Process type
     dd.setProcessWithDefaultScheme ("proctype");
@@ -97,13 +98,13 @@ public final class PeppolSBDHDocumentTest
     assertEquals ("proctype", dd.getProcessValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")
-                                                                                              .setReceiverWithDefaultScheme ("def")
-                                                                                              .setDocumentTypeWithDefaultScheme ("doctype")
-                                                                                              .setProcessWithDefaultScheme ("other"));
+                                                                                                    .setReceiverWithDefaultScheme ("def")
+                                                                                                    .setDocumentTypeWithDefaultScheme ("doctype")
+                                                                                                    .setProcessWithDefaultScheme ("other"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (dd,
                                                                        new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")
-                                                                                          .setReceiverWithDefaultScheme ("def")
-                                                                                          .setDocumentTypeWithDefaultScheme ("doctype")
-                                                                                          .setProcessWithDefaultScheme ("proctype"));
+                                                                                                .setReceiverWithDefaultScheme ("def")
+                                                                                                .setDocumentTypeWithDefaultScheme ("doctype")
+                                                                                                .setProcessWithDefaultScheme ("proctype"));
   }
 }

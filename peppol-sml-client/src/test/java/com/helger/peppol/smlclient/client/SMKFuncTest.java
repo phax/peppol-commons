@@ -50,7 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
@@ -80,7 +80,8 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
   }
 
   @Nonnull
-  private static ServiceMetadataPublisherServiceType _createSMPData (@Nonnull final ManageServiceMetadataServiceCaller aSMPClient, @Nonnull @Nonempty final String sSMPID) throws Exception
+  private static ServiceMetadataPublisherServiceType _createSMPData (@Nonnull final ManageServiceMetadataServiceCaller aSMPClient,
+                                                                     @Nonnull @Nonempty final String sSMPID) throws Exception
   {
     final ServiceMetadataPublisherServiceType aServiceMetadataCreate = new ServiceMetadataPublisherServiceType ();
     aServiceMetadataCreate.setServiceMetadataPublisherID (sSMPID);
@@ -112,14 +113,14 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
       try
       {
         s_aLogger.info ("CREATE PARTICIPANT");
-        aPIClient.create (SMP_ID, SimpleParticipantIdentifier.createWithDefaultScheme ("9915:philip"));
+        aPIClient.create (SMP_ID, PeppolParticipantIdentifier.createWithDefaultScheme ("9915:philip"));
         try
         {}
         finally
         {
           s_aLogger.info ("DELETE PARTICIPANT");
           // The version with SMP_ID is required for SMK 3.0
-          aPIClient.delete (SMP_ID, SimpleParticipantIdentifier.createWithDefaultScheme ("9915:philip"));
+          aPIClient.delete (SMP_ID, PeppolParticipantIdentifier.createWithDefaultScheme ("9915:philip"));
         }
       }
       finally

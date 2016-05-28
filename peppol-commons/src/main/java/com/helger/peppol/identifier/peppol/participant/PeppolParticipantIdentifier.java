@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.peppol.process;
+package com.helger.peppol.identifier.peppol.participant;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,22 +48,21 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.ProcessIdentifierType;
-import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 /**
- * This is a sanity class around the {@link ProcessIdentifierType} class with
- * easier construction and some sanity access methods. It may be used in all
- * places where {@link ProcessIdentifierType} objects are required.<br>
+ * A special PEPPOL participant identifier handling all the special constraints
+ * of PEPPOL.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
-public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements IMutablePeppolProcessIdentifier
+public class PeppolParticipantIdentifier extends SimpleParticipantIdentifier
+                                         implements IMutablePeppolParticipantIdentifier
 {
-  public PeppolProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
+  public PeppolParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
@@ -71,20 +70,20 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
   @Nonnull
   private static String _verifyScheme (@Nullable final String sScheme)
   {
-    if (!IPeppolProcessIdentifier.isValidScheme (sScheme))
-      throw new IllegalArgumentException ("Peppol Process identifier scheme '" + sScheme + "' is invalid!");
+    if (!IPeppolParticipantIdentifier.isValidScheme (sScheme))
+      throw new IllegalArgumentException ("Peppol Participant identifier scheme '" + sScheme + "' is invalid!");
     return sScheme;
   }
 
   @Nonnull
   private static String _verifyValue (@Nonnull final String sValue)
   {
-    if (!IPeppolProcessIdentifier.isValidValue (sValue))
-      throw new IllegalArgumentException ("Peppol Process identifier value '" + sValue + "' is invalid!");
+    if (!IPeppolParticipantIdentifier.isValidValue (sValue))
+      throw new IllegalArgumentException ("Peppol Participant identifier value '" + sValue + "' is invalid!");
     return sValue;
   }
 
-  public PeppolProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
+  public PeppolParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     super (_verifyScheme (sScheme), _verifyValue (sValue));
   }
@@ -100,7 +99,9 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  private PeppolProcessIdentifier (final boolean bVerified, @Nonnull final String sScheme, @Nonnull final String sValue)
+  private PeppolParticipantIdentifier (final boolean bVerified,
+                                       @Nonnull final String sScheme,
+                                       @Nonnull final String sValue)
   {
     super (sScheme, sValue);
   }
@@ -108,46 +109,44 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  public PeppolProcessIdentifier getClone ()
+  public PeppolParticipantIdentifier getClone ()
   {
-    return new PeppolProcessIdentifier (this);
+    return new PeppolParticipantIdentifier (this);
   }
 
   /**
-   * Create a new process identifier that uses the default schema
-   * {@link CPeppolIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}
+   * Create a new participant identifier that uses the default schema
+   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
    *
    * @param sValue
-   *        The identifier value like
-   *        <code>urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   * @return The created {@link PeppolProcessIdentifier} and never
+   *        The identifier value like <code>0088:12345678</code>
+   * @return The created {@link PeppolParticipantIdentifier} and never
    *         <code>null</code>.
    */
   @Nonnull
-  public static PeppolProcessIdentifier createWithDefaultScheme (@Nonnull final String sValue)
+  public static PeppolParticipantIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new PeppolProcessIdentifier (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
+    return new PeppolParticipantIdentifier (DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
-   * Create a new process identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}.
+   * Create a new participant identifier from the URI representation. This is
+   * the inverse operation of {@link #getURIEncoded()}.
    *
    * @param sURIPart
-   *        The URI part
-   *        <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   *        . It must NOT be percent encoded!
-   * @return The created {@link PeppolProcessIdentifier} and never
+   *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
+   *        must NOT be percent encoded!
+   * @return The created {@link PeppolParticipantIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
    *         If the passed identifier is not a valid URI encoded identifier
    */
   @Nonnull
-  public static PeppolProcessIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static PeppolParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
-    final PeppolProcessIdentifier ret = createFromURIPartOrNull (sURIPart);
+    final PeppolParticipantIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
-      throw new IllegalArgumentException ("Process identifier '" +
+      throw new IllegalArgumentException ("Peppol Participant identifier '" +
                                           sURIPart +
                                           "' did not include correct delimiter: " +
                                           CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
@@ -156,18 +155,22 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
   }
 
   /**
-   * Create a new process identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}.
+   * Create a new participant identifier from the URI representation. This is
+   * the inverse operation of {@link #getURIEncoded()}. Take the passed URI part
+   * and try to convert it back to a participant identifier. The URI part must
+   * have the layout <code>scheme::value</code>. This method accepts only valid
+   * PEPPOL participant identifier schemes and valid participant identifier
+   * values.
    *
    * @param sURIPart
-   *        The URI part
-   *        <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   *        . It must NOT be percent encoded! May be <code>null</code>.
-   * @return The created {@link PeppolProcessIdentifier} or <code>null</code> if
-   *         the passed identifier is not a valid URI encoded identifier
+   *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
+   *        must NOT be percent encoded! May be <code>null</code>.
+   * @return The created {@link PeppolParticipantIdentifier} or
+   *         <code>null</code> if the passed identifier is not a valid URI
+   *         encoded identifier
    */
   @Nullable
-  public static PeppolProcessIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
+  public static PeppolParticipantIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)
       return null;
@@ -184,8 +187,8 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
 
   /**
    * Take the passed identifier scheme and value try to convert it back to a
-   * process identifier. If the passed scheme is invalid or if the passed value
-   * is invalid, <code>null</code> is returned.
+   * participant identifier. If the passed scheme is invalid or if the passed
+   * value is invalid, <code>null</code> is returned.
    *
    * @param sScheme
    *        The identifier scheme. May be <code>null</code> in which case
@@ -193,27 +196,28 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
    * @param sValue
    *        The identifier value. May be <code>null</code> in which case
    *        <code>null</code> is returned.
-   * @return The process identifier or <code>null</code> if any of the parts is
-   *         invalid.
-   * @see #IPeppolProcessIdentifier.isValidScheme(String)
-   * @see #IPeppolProcessIdentifier.isValidValue(String)
+   * @return The participant identifier or <code>null</code> if any of the parts
+   *         is invalid.
+   * @see #IPeppolParticipantIdentifier.isValidScheme(String)
+   * @see #IPeppolParticipantIdentifier.isValidValue(String)
    */
   @Nullable
-  public static PeppolProcessIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
+  public static PeppolParticipantIdentifier createIfValid (@Nullable final String sScheme,
+                                                           @Nullable final String sValue)
   {
-    if (IPeppolProcessIdentifier.isValidScheme (sScheme) && IPeppolProcessIdentifier.isValidValue (sValue))
-      return new PeppolProcessIdentifier (true, sScheme, sValue);
+    if (IPeppolParticipantIdentifier.isValidScheme (sScheme) && IPeppolParticipantIdentifier.isValidValue (sValue))
+      return new PeppolParticipantIdentifier (true, sScheme, sValue);
     return null;
   }
 
   /**
-   * Check if the passed process identifier is valid. This method checks for the
-   * existence of the scheme and the value and validates both.
+   * Check if the passed participant identifier is valid. This method checks for
+   * the existence of the scheme and the value and validates both.
    *
    * @param sURIPart
-   *        The process identifier to be checked (including the scheme). May be
-   *        <code>null</code>.
-   * @return <code>true</code> if the process identifier is valid,
+   *        The participant identifier to be checked (including the scheme). May
+   *        be <code>null</code>.
+   * @return <code>true</code> if the participant identifier is valid,
    *         <code>false</code> otherwise
    */
   public static boolean isValidURIPart (@Nullable final String sURIPart)

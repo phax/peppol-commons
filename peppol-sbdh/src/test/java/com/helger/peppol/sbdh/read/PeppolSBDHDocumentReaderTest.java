@@ -40,6 +40,7 @@ import com.helger.commons.xml.serialize.read.DOMReaderSettings;
 import com.helger.datetime.PDTFactory;
 import com.helger.datetime.util.PDTWebDateHelper;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
 
@@ -92,9 +93,9 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocument aData = aReader.extractData (aRes);
     assertNotNull (aData);
     assertTrue (aData.areAllFieldsSet ());
-    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getSenderScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getSenderScheme ());
     assertEquals ("0088:7315458756324", aData.getSenderValue ());
-    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getReceiverScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getReceiverScheme ());
     assertEquals ("0088:4562458856624", aData.getReceiverValue ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", aData.getStandard ());
     assertEquals ("2.1", aData.getTypeVersion ());

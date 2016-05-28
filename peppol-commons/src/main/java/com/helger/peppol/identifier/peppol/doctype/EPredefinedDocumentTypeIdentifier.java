@@ -454,7 +454,7 @@ public enum EPredefinedDocumentTypeIdentifier
     }
 
     @Nonnull
-    public boolean isDefaultScheme() {
+    public boolean hasDefaultScheme() {
         return true;
     }
 
