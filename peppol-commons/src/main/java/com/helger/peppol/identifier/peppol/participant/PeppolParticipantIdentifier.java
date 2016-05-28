@@ -133,8 +133,9 @@ public class PeppolParticipantIdentifier extends SimpleParticipantIdentifier
    * the inverse operation of {@link #getURIEncoded()}.
    *
    * @param sURIPart
-   *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
-   *        must NOT be percent encoded!
+   *        The URI part in the format <code>scheme::value</code> (e.g.
+   *        <code>iso6523-actorid-upis::0088:12345678</code>). It must NOT be
+   *        percent encoded!
    * @return The created {@link PeppolParticipantIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
@@ -162,8 +163,9 @@ public class PeppolParticipantIdentifier extends SimpleParticipantIdentifier
    * values.
    *
    * @param sURIPart
-   *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
-   *        must NOT be percent encoded! May be <code>null</code>.
+   *        The URI part in the format <code>scheme::value</code> (e.g.
+   *        <code>iso6523-actorid-upis::0088:12345678</code>). It must NOT be
+   *        percent encoded!
    * @return The created {@link PeppolParticipantIdentifier} or
    *         <code>null</code> if the passed identifier is not a valid URI
    *         encoded identifier

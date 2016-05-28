@@ -116,14 +116,13 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
 
   /**
    * Create a new participant identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. Take the passed URI part
-   * and try to convert it back to a participant identifier. The URI part must
-   * have the layout <code>scheme::value</code>. This method accepts all
-   * identifier schemes and values.
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
+   * the layout <code>scheme::value</code>. This method accepts all identifier
+   * schemes and values.
    *
    * @param sURIPart
-   *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It
-   *        must NOT be percent encoded! May be <code>null</code>.
+   *        The URI part in the format <code>scheme::value</code>. It must NOT
+   *        be percent encoded!
    * @return The created {@link SimpleParticipantIdentifier} or
    *         <code>null</code> if the passed identifier is not a valid URI
    *         encoded identifier

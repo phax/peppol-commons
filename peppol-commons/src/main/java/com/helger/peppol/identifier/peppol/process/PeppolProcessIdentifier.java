@@ -133,9 +133,9 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
    * inverse operation of {@link #getURIEncoded()}.
    *
    * @param sURIPart
-   *        The URI part
+   *        The URI part in the format <code>scheme::value</code> (e.g.
    *        <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   *        . It must NOT be percent encoded!
+   *        ). It must NOT be percent encoded!
    * @return The created {@link PeppolProcessIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
@@ -159,9 +159,9 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
    * inverse operation of {@link #getURIEncoded()}.
    *
    * @param sURIPart
-   *        The URI part
+   *        The URI part in the format <code>scheme::value</code> (e.g.
    *        <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   *        . It must NOT be percent encoded! May be <code>null</code>.
+   *        ). It must NOT be percent encoded! May be <code>null</code>.
    * @return The created {@link PeppolProcessIdentifier} or <code>null</code> if
    *         the passed identifier is not a valid URI encoded identifier
    */

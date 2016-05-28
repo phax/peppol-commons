@@ -41,10 +41,14 @@
 package com.helger.peppol.identifier.generic.process;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ProcessIdentifierType;
 
@@ -82,5 +86,75 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   public SimpleProcessIdentifier getClone ()
   {
     return new SimpleProcessIdentifier (this);
+  }
+
+  /**
+   * Create a new process identifier from the URI representation. This is the
+   * inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier
+   * schemes and values.
+   *
+   * @param sURIPart
+   *        The URI part in the format <code>scheme::value</code>. It must NOT
+   *        be percent encoded! May be <code>null</code>.
+   * @return The created {@link SimpleProcessIdentifier} and never
+   *         <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the passed identifier is not a valid URI encoded identifier
+   */
+  @Nonnull
+  public static SimpleProcessIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  {
+    final SimpleProcessIdentifier ret = createFromURIPartOrNull (sURIPart);
+    if (ret == null)
+      throw new IllegalArgumentException ("Process identifier '" +
+                                          sURIPart +
+                                          "' did not include correct delimiter: " +
+                                          CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
+
+    return ret;
+  }
+
+  /**
+   * Create a new process identifier from the URI representation. This is the
+   * inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier
+   * schemes and values.
+   *
+   * @param sURIPart
+   *        The URI part in the format <code>scheme::value</code>. It must NOT
+   *        be percent encoded! May be <code>null</code>.
+   * @return The created {@link SimpleProcessIdentifier} or <code>null</code> if
+   *         the passed identifier is not a valid URI encoded identifier
+   */
+  @Nullable
+  public static SimpleProcessIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
+  {
+    if (sURIPart == null)
+      return null;
+
+    // This is quicker than splitting with RegEx!
+    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
+                                                                      sURIPart,
+                                                                      2);
+    if (aSplitted.size () != 2)
+      return null;
+
+    return new SimpleProcessIdentifier (aSplitted.get (0), aSplitted.get (1));
+  }
+
+  /**
+   * Check if the passed process identifier is valid. This method checks for the
+   * existence of the scheme and the value and validates both.
+   *
+   * @param sURIPart
+   *        The process identifier to be checked (including the scheme). May be
+   *        <code>null</code>.
+   * @return <code>true</code> if the process identifier is valid,
+   *         <code>false</code> otherwise
+   */
+  public static boolean isValidURIPart (@Nullable final String sURIPart)
+  {
+    return createFromURIPartOrNull (sURIPart) != null;
   }
 }

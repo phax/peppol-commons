@@ -137,7 +137,7 @@ public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
    * @param sURIPart
    *        The URI part in the format <code>scheme::value</code> (e.g.
    *        <code>busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
-   *        ) . It must NOT be percent encoded!
+   *        ). It must NOT be percent encoded!
    * @return The created {@link PeppolDocumentTypeIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
