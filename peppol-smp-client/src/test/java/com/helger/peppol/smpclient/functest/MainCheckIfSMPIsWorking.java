@@ -45,8 +45,8 @@ import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smpclient.MockSMPClientConfig;
 import com.helger.peppol.smpclient.SMPClient;
@@ -86,7 +86,7 @@ public final class MainCheckIfSMPIsWorking
 
     s_aLogger.info ("Retrieving the service group");
     final ServiceGroupType aSGT = aClient.getServiceGroup (PARTICIPANT_ID);
-    if (!IdentifierHelper.areParticipantIdentifiersEqual (aSGT.getParticipantIdentifier (), PARTICIPANT_ID))
+    if (!PeppolIdentifierHelper.areParticipantIdentifiersEqual (aSGT.getParticipantIdentifier (), PARTICIPANT_ID))
       throw new IllegalStateException ("Participant identifiers are not equal!");
 
     s_aLogger.info ("Deleting the service group again");

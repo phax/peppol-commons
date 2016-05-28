@@ -38,45 +38,24 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.process;
+package com.helger.peppol.identifier.peppol;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.IPeppolProcessIdentifier;
+import com.helger.peppol.identifier.IIdentifier;
 
 /**
- * Base interface for predefined process identifiers.
+ * Base interface for all PEPPOL read-only identifiers
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author philip
  */
-public interface IPeppolPredefinedProcessIdentifier extends IPeppolProcessIdentifier
+public interface IPeppolIdentifier extends IIdentifier
 {
   /**
-   * @return The ID of the corresponding PEPPOL BIS.
+   * Check if this identifier uses the default scheme. E.g. for participant
+   * identifiers this would be <code>true</code> if the scheme equals
+   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   *
+   * @return <code>true</code> if is the default scheme, <code>false</code>
+   *         otherwise.
    */
-  @Nonnull
-  String getBISID ();
-
-  /**
-   * @return A list of all document identifiers that are valid in this scenario
-   */
-  @Nonnull
-  ICommonsList <? extends IPeppolPredefinedDocumentTypeIdentifier> getDocumentTypeIdentifiers ();
-
-  /**
-   * @return The {@link SimpleProcessIdentifier} version of this predefined
-   *         process identifier.
-   */
-  @Nonnull
-  SimpleProcessIdentifier getAsProcessIdentifier ();
-
-  /**
-   * @return The internal code list version in which the identifier was added.
-   *         Never <code>null</code>.
-   */
-  @Nonnull
-  Version getSince ();
+  boolean isDefaultScheme ();
 }

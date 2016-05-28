@@ -8,8 +8,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 
 /**
@@ -377,7 +377,7 @@ public enum EPredefinedDocumentTypeIdentifier
     @Nonnull
     @Nonempty
     public String getScheme() {
-        return CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
+        return CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
     }
 
     @Nonnull
@@ -464,7 +464,7 @@ public enum EPredefinedDocumentTypeIdentifier
     public static EPredefinedDocumentTypeIdentifier getFromDocumentTypeIdentifierOrNull(
         @Nullable
         final IDocumentTypeIdentifier aDocTypeID) {
-        if ((aDocTypeID!= null)&&CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals(aDocTypeID.getScheme())) {
+        if ((aDocTypeID!= null)&&CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals(aDocTypeID.getScheme())) {
             for (EPredefinedDocumentTypeIdentifier e: EPredefinedDocumentTypeIdentifier.values()) {
                 if (e.getValue().equals(aDocTypeID.getValue())) {
                     return e;

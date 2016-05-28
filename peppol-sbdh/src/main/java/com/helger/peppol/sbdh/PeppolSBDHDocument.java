@@ -33,11 +33,11 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.datetime.PDTFactory;
-import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
-import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifier;
-import com.helger.peppol.identifier.participant.IPeppolParticipantIdentifier;
-import com.helger.peppol.identifier.process.IPeppolProcessIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.IPeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.IPeppolProcessIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * This class contains all the PEPPOL data per SBDH document in a syntax neutral
@@ -76,7 +76,7 @@ public class PeppolSBDHDocument
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. May
+   *        {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. May
    *        neither be <code>null</code> nor empty. This field is mapped to
    *        <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code>
    *        .
@@ -96,7 +96,7 @@ public class PeppolSBDHDocument
 
   /**
    * Set the sender identifier value using the default identifier
-   * scheme/authority {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * scheme/authority {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
    *
    * @param sValue
    *        The sender identifier value. May neither be <code>null</code> nor
@@ -107,7 +107,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setSenderWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setSender (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
+    return setSender (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
@@ -141,7 +141,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IPeppolParticipantIdentifier getSenderAsIdentifier ()
   {
-    return IdentifierHelper.createParticipantIdentifierOrNull (m_sSenderScheme, m_sSenderValue);
+    return PeppolIdentifierHelper.createParticipantIdentifierOrNull (m_sSenderScheme, m_sSenderValue);
   }
 
   /**
@@ -149,7 +149,7 @@ public class PeppolSBDHDocument
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. May
+   *        {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. May
    *        neither be <code>null</code> nor empty. This field is mapped to
    *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code>
    *        .
@@ -169,7 +169,7 @@ public class PeppolSBDHDocument
 
   /**
    * Set the receiver identifier value using the default identifier
-   * scheme/authority {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * scheme/authority {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
    *
    * @param sValue
    *        The sender identifier value. May neither be <code>null</code> nor
@@ -180,7 +180,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setReceiverWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setReceiver (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
+    return setReceiver (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
@@ -214,7 +214,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IPeppolParticipantIdentifier getReceiverAsIdentifier ()
   {
-    return IdentifierHelper.createParticipantIdentifierOrNull (m_sReceiverScheme, m_sReceiverValue);
+    return PeppolIdentifierHelper.createParticipantIdentifierOrNull (m_sReceiverScheme, m_sReceiverValue);
   }
 
   /**
@@ -241,7 +241,7 @@ public class PeppolSBDHDocument
   /**
    * Set the document type identifier using the default identifier
    * scheme/authority
-   * {@link CIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}.
+   * {@link CPeppolIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}.
    *
    * @param sValue
    *        The document type identifier value. May neither be <code>null</code>
@@ -253,7 +253,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setDocumentTypeWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setDocumentType (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
+    return setDocumentType (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
@@ -285,7 +285,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IPeppolDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
   {
-    return IdentifierHelper.createDocumentTypeIdentifierOrNull (m_sDocumentTypeScheme, m_sDocumentTypeValue);
+    return PeppolIdentifierHelper.createDocumentTypeIdentifierOrNull (m_sDocumentTypeScheme, m_sDocumentTypeValue);
   }
 
   /**
@@ -311,7 +311,7 @@ public class PeppolSBDHDocument
 
   /**
    * Set the document type identifier using the default identifier
-   * scheme/authority {@link CIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}.
+   * scheme/authority {@link CPeppolIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}.
    *
    * @param sValue
    *        The process identifier. May neither be <code>null</code> nor empty.
@@ -323,7 +323,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setProcessWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setProcess (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
+    return setProcess (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
@@ -355,7 +355,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IPeppolProcessIdentifier getProcessAsIdentifier ()
   {
-    return IdentifierHelper.createProcessIdentifierOrNull (m_sProcessScheme, m_sProcessValue);
+    return PeppolIdentifierHelper.createProcessIdentifierOrNull (m_sProcessScheme, m_sProcessValue);
   }
 
   /**

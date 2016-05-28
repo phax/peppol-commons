@@ -38,45 +38,35 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.process;
+package com.helger.peppol.identifier.peppol;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.IPeppolProcessIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
 
 /**
- * Base interface for predefined process identifiers.
+ * Base interface for a PEPPOL read-only document type identifier.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author philip
  */
-public interface IPeppolPredefinedProcessIdentifier extends IPeppolProcessIdentifier
+public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocumentTypeIdentifier
 {
-  /**
-   * @return The ID of the corresponding PEPPOL BIS.
-   */
-  @Nonnull
-  String getBISID ();
+  default boolean isDefaultScheme ()
+  {
+    return PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (this);
+  }
 
   /**
-   * @return A list of all document identifiers that are valid in this scenario
+   * Extract the different identifier parts that are contained in a PEPPOL
+   * document type identifier.
+   *
+   * @return A new object encapsulating the different document type identifier
+   *         parts.
    */
   @Nonnull
-  ICommonsList <? extends IPeppolPredefinedDocumentTypeIdentifier> getDocumentTypeIdentifiers ();
-
-  /**
-   * @return The {@link SimpleProcessIdentifier} version of this predefined
-   *         process identifier.
-   */
-  @Nonnull
-  SimpleProcessIdentifier getAsProcessIdentifier ();
-
-  /**
-   * @return The internal code list version in which the identifier was added.
-   *         Never <code>null</code>.
-   */
-  @Nonnull
-  Version getSince ();
+  default IPeppolDocumentTypeIdentifierParts getParts ()
+  {
+    return PeppolIdentifierHelper.getDocumentTypeIdentifierParts (this);
+  }
 }

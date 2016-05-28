@@ -69,6 +69,7 @@ import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
@@ -402,7 +403,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
       {
         // Matches the requested one?
-        if (IdentifierHelper.areProcessIdentifiersEqual (aProcessType.getProcessIdentifier (), aProcessID))
+        if (PeppolIdentifierHelper.areProcessIdentifiersEqual (aProcessType.getProcessIdentifier (), aProcessID))
         {
           // Filter endpoints by required transport profile
           final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();

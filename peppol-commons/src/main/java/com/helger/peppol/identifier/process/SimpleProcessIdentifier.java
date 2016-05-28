@@ -46,10 +46,11 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ProcessIdentifierType;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.IMutablePeppolProcessIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -71,9 +72,9 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
 
   public SimpleProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
-    if (!IdentifierHelper.isValidIdentifierScheme (sScheme))
+    if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
       throw new IllegalArgumentException ("Process identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierHelper.isValidProcessIdentifierValue (sValue))
+    if (!PeppolIdentifierHelper.isValidProcessIdentifierValue (sValue))
       throw new IllegalArgumentException ("Process identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
@@ -81,7 +82,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
 
   public int compareTo (@Nonnull final SimpleProcessIdentifier aOther)
   {
-    return IdentifierHelper.compareProcessIdentifiers (this, aOther);
+    return PeppolIdentifierHelper.compareProcessIdentifiers (this, aOther);
   }
 
   @Nonnull
@@ -93,7 +94,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
 
   /**
    * Create a new process identifier that uses the default schema
-   * {@link CIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}
+   * {@link CPeppolIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}
    *
    * @param sValue
    *        The identifier value like
@@ -104,7 +105,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   @Nonnull
   public static SimpleProcessIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new SimpleProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
+    return new SimpleProcessIdentifier (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
@@ -123,7 +124,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   @Nonnull
   public static SimpleProcessIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
-    return IdentifierHelper.createProcessIdentifierFromURIPart (sURIPart);
+    return PeppolIdentifierHelper.createProcessIdentifierFromURIPart (sURIPart);
   }
 
   /**
@@ -142,6 +143,6 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   {
     if (sURIPart == null)
       return null;
-    return IdentifierHelper.createProcessIdentifierFromURIPartOrNull (sURIPart);
+    return PeppolIdentifierHelper.createProcessIdentifierFromURIPartOrNull (sURIPart);
   }
 }

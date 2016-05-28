@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 /**
  * Test class for class {@link PeppolSBDHDocument}.
@@ -55,7 +55,7 @@ public final class PeppolSBDHDocumentTest
 
     // Sender
     dd.setSenderWithDefaultScheme ("abc");
-    assertEquals (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, dd.getSenderScheme ());
+    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, dd.getSenderScheme ());
     assertEquals ("abc", dd.getSenderValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSender ("scheme",
@@ -66,7 +66,7 @@ public final class PeppolSBDHDocumentTest
 
     // Receiver
     dd.setReceiverWithDefaultScheme ("def");
-    assertEquals (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, dd.getReceiverScheme ());
+    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, dd.getReceiverScheme ());
     assertEquals ("def", dd.getReceiverValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc"));
@@ -80,7 +80,7 @@ public final class PeppolSBDHDocumentTest
 
     // Document type
     dd.setDocumentTypeWithDefaultScheme ("doctype");
-    assertEquals (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, dd.getDocumentTypeScheme ());
+    assertEquals (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, dd.getDocumentTypeScheme ());
     assertEquals ("doctype", dd.getDocumentTypeValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")
@@ -93,7 +93,7 @@ public final class PeppolSBDHDocumentTest
 
     // Process type
     dd.setProcessWithDefaultScheme ("proctype");
-    assertEquals (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, dd.getProcessScheme ());
+    assertEquals (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, dd.getProcessScheme ());
     assertEquals ("proctype", dd.getProcessValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")

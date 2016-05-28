@@ -46,10 +46,11 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.IMutablePeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * This is a sanity class around the {@link ParticipantIdentifierType} class
@@ -71,9 +72,9 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
 
   public SimpleParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    if (!IdentifierHelper.isValidParticipantIdentifierScheme (sScheme))
+    if (!PeppolIdentifierHelper.isValidParticipantIdentifierScheme (sScheme))
       throw new IllegalArgumentException ("Participant identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierHelper.isValidParticipantIdentifierValue (sValue))
+    if (!PeppolIdentifierHelper.isValidParticipantIdentifierValue (sValue))
       throw new IllegalArgumentException ("Participant identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
@@ -81,7 +82,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
 
   public int compareTo (@Nonnull final SimpleParticipantIdentifier aOther)
   {
-    return IdentifierHelper.compareParticipantIdentifiers (this, aOther);
+    return PeppolIdentifierHelper.compareParticipantIdentifiers (this, aOther);
   }
 
   @Nonnull
@@ -93,7 +94,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
 
   /**
    * Create a new participant identifier that uses the default schema
-   * {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
+   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
    *
    * @param sValue
    *        The identifier value like <code>0088:12345678</code>
@@ -103,7 +104,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   @Nonnull
   public static SimpleParticipantIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new SimpleParticipantIdentifier (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
+    return new SimpleParticipantIdentifier (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
@@ -121,7 +122,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   @Nonnull
   public static SimpleParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
-    return IdentifierHelper.createParticipantIdentifierFromURIPart (sURIPart);
+    return PeppolIdentifierHelper.createParticipantIdentifierFromURIPart (sURIPart);
   }
 
   /**
@@ -140,6 +141,6 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   {
     if (sURIPart == null)
       return null;
-    return IdentifierHelper.createParticipantIdentifierFromURIPartOrNull (sURIPart);
+    return PeppolIdentifierHelper.createParticipantIdentifierFromURIPartOrNull (sURIPart);
   }
 }

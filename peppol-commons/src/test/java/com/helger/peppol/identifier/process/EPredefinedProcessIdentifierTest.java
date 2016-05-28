@@ -50,7 +50,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 /**
  * Test class for class {@link EPredefinedProcessIdentifier}.
@@ -64,7 +64,7 @@ public final class EPredefinedProcessIdentifierTest
   {
     for (final EPredefinedProcessIdentifier e : EPredefinedProcessIdentifier.values ())
     {
-      assertEquals (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, e.getScheme ());
+      assertEquals (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, e.getScheme ());
       assertTrue (StringHelper.hasText (e.getValue ()));
       assertTrue (StringHelper.hasText (e.getBISID ()));
       assertNotNull (e.getDocumentTypeIdentifiers ());

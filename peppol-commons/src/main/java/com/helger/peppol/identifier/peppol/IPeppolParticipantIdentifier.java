@@ -38,45 +38,63 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.process;
+package com.helger.peppol.identifier.peppol;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.IPeppolProcessIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.validator.IdentifierValidator;
 
 /**
- * Base interface for predefined process identifiers.
+ * Base interface for a PEPPOL read-only participant identifier.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author philip
  */
-public interface IPeppolPredefinedProcessIdentifier extends IPeppolProcessIdentifier
+public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IParticipantIdentifier
 {
-  /**
-   * @return The ID of the corresponding PEPPOL BIS.
-   */
-  @Nonnull
-  String getBISID ();
+  default boolean isDefaultScheme ()
+  {
+    return PeppolIdentifierHelper.hasDefaultParticipantIdentifierScheme (this);
+  }
 
   /**
-   * @return A list of all document identifiers that are valid in this scenario
+   * @return <code>true</code> if the identifier is valid according to the
+   *         internal and external validation rules as defined by
+   *         {@link com.helger.peppol.identifier.validator.IParticipantIdentifierValidatorSPI}
+   *         implementations.
    */
-  @Nonnull
-  ICommonsList <? extends IPeppolPredefinedDocumentTypeIdentifier> getDocumentTypeIdentifiers ();
+  default boolean isValid ()
+  {
+    return IdentifierValidator.isValidParticipantIdentifier (this);
+  }
 
   /**
-   * @return The {@link SimpleProcessIdentifier} version of this predefined
-   *         process identifier.
+   * Extract the issuing agency ID from the passed participant identifier value.
+   * <br>
+   * Example: extract the <code>0088</code> from the participant identifier
+   * <code>iso6523-actorid-upis::0088:123456</code>
+   *
+   * @return <code>null</code> if the identifier is not of default scheme or if
+   *         the identifier is malformed.
    */
-  @Nonnull
-  SimpleProcessIdentifier getAsProcessIdentifier ();
+  @Nullable
+  default String getIssuingAgencyID ()
+  {
+    return PeppolIdentifierHelper.getIssuingAgencyIDFromParticipantIDValue (this);
+  }
 
   /**
-   * @return The internal code list version in which the identifier was added.
-   *         Never <code>null</code>.
+   * Extract the local participant ID from the passed participant identifier
+   * value.<br>
+   * Example: extract the <code>123456</code> from the participant identifier
+   * <code>iso6523-actorid-upis::0088:123456</code>
+   *
+   * @return <code>null</code> if the identifier is not of default scheme or if
+   *         the identifier is malformed.
    */
-  @Nonnull
-  Version getSince ();
+  @Nullable
+  default String getLocalParticipantID ()
+  {
+    return PeppolIdentifierHelper.getLocalParticipantIDFromParticipantIDValue (this);
+  }
 }

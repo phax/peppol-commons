@@ -44,6 +44,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.version.Version;
+import com.helger.peppol.identifier.peppol.IPeppolDocumentTypeIdentifier;
 
 /**
  * Base interface for predefined document identifiers.

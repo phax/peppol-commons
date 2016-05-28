@@ -8,10 +8,10 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.identifier.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 
 /**
@@ -179,7 +179,7 @@ public enum EPredefinedProcessIdentifier
     @Nonnull
     @Nonempty
     public String getScheme() {
-        return CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
+        return CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
     }
 
     @Nonnull
@@ -219,7 +219,7 @@ public enum EPredefinedProcessIdentifier
     public static EPredefinedProcessIdentifier getFromProcessIdentifierOrNull(
         @Nullable
         final IProcessIdentifier aProcessID) {
-        if ((aProcessID!= null)&&CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals(aProcessID.getScheme())) {
+        if ((aProcessID!= null)&&CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals(aProcessID.getScheme())) {
             for (EPredefinedProcessIdentifier e: EPredefinedProcessIdentifier.values()) {
                 if (e.getValue().equals(aProcessID.getValue())) {
                     return e;

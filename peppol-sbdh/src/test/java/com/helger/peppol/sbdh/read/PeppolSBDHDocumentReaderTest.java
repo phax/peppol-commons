@@ -39,7 +39,7 @@ import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.read.DOMReaderSettings;
 import com.helger.datetime.PDTFactory;
 import com.helger.datetime.util.PDTWebDateHelper;
-import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
 
@@ -92,19 +92,19 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocument aData = aReader.extractData (aRes);
     assertNotNull (aData);
     assertTrue (aData.areAllFieldsSet ());
-    assertEquals (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getSenderScheme ());
+    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getSenderScheme ());
     assertEquals ("0088:7315458756324", aData.getSenderValue ());
-    assertEquals (CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getReceiverScheme ());
+    assertEquals (CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getReceiverScheme ());
     assertEquals ("0088:4562458856624", aData.getReceiverValue ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", aData.getStandard ());
     assertEquals ("2.1", aData.getTypeVersion ());
     assertEquals ("Invoice", aData.getType ());
     assertEquals ("123123", aData.getInstanceIdentifier ());
     assertEquals ("2013-02-19T05:10:10.000", PDTWebDateHelper.getAsStringXSD (aData.getCreationDateAndTime ()));
-    assertEquals (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, aData.getDocumentTypeScheme ());
+    assertEquals (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, aData.getDocumentTypeScheme ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
                   aData.getDocumentTypeValue ());
-    assertEquals (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aData.getProcessScheme ());
+    assertEquals (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aData.getProcessScheme ());
     assertEquals ("urn:www.cenbii.eu:profile:bii04:ver1.0", aData.getProcessValue ());
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());

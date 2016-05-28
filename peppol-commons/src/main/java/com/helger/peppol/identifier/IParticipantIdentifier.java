@@ -43,6 +43,7 @@ package com.helger.peppol.identifier;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.compare.IComparator;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * Marker-interface that is specific for participant identifiers.<br>
@@ -56,6 +57,6 @@ public interface IParticipantIdentifier extends IIdentifier
   @Nonnull
   static IComparator <IParticipantIdentifier> comparator ()
   {
-    return (a, b) -> IdentifierHelper.compareParticipantIdentifiers (a, b);
+    return (a, b) -> PeppolIdentifierHelper.compareParticipantIdentifiers (a, b);
   }
 }

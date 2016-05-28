@@ -59,9 +59,9 @@ import com.helger.commons.codec.URLCodec;
 import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.messagedigest.MessageDigestValue;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sml.ISMLInfo;
 
 /**
@@ -186,7 +186,7 @@ public final class BusdoxURLHelper
 
     // Check identifier scheme (must be lowercase for the URL later on!)
     final String sIdentifierScheme = aParticipantIdentifier.getScheme ().toLowerCase (URL_LOCALE);
-    if (!IdentifierHelper.isValidParticipantIdentifierScheme (sIdentifierScheme))
+    if (!PeppolIdentifierHelper.isValidParticipantIdentifierScheme (sIdentifierScheme))
       throw new IllegalArgumentException ("Invalid participant identifier scheme '" + sIdentifierScheme + "'");
 
     // Get the identifier value
@@ -201,7 +201,7 @@ public final class BusdoxURLHelper
     {
       // Important: create hash from lowercase string!
       // Here the "B-0011223344..." string is assembled!
-      ret.append (CIdentifier.DNS_HASHED_IDENTIFIER_PREFIX)
+      ret.append (CPeppolIdentifier.DNS_HASHED_IDENTIFIER_PREFIX)
          .append (getHashValueStringRepresentation (sValue.toLowerCase (URL_LOCALE)))
          .append ('.');
     }

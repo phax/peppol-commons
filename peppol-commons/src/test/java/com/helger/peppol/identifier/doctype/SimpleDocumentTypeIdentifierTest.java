@@ -49,7 +49,7 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -123,7 +123,7 @@ public final class SimpleDocumentTypeIdentifierTest
     try
     {
       // null value not allowed
-      new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, null);
+      new SimpleDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -141,7 +141,7 @@ public final class SimpleDocumentTypeIdentifierTest
     try
     {
       // Empty is not allowed
-      new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "");
+      new SimpleDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -150,7 +150,7 @@ public final class SimpleDocumentTypeIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "Љ");
+      new SimpleDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -159,8 +159,8 @@ public final class SimpleDocumentTypeIdentifierTest
     try
     {
       // Scheme too long
-      new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
-                                        StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+      new SimpleDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+                                        StringHelper.getRepeated ('a', CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                         "abc");
       fail ();
     }
@@ -170,9 +170,9 @@ public final class SimpleDocumentTypeIdentifierTest
     try
     {
       // Value too long
-      new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
+      new SimpleDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
                                         StringHelper.getRepeated ('a',
-                                                                  CIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                  CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
                                                                        1));
       fail ();
     }

@@ -48,7 +48,7 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 /**
  * Test class for class {@link SimpleProcessIdentifier}.
@@ -120,7 +120,7 @@ public final class SimpleProcessIdentifierTest
     try
     {
       // null value not allowed
-      new SimpleProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, null);
+      new SimpleProcessIdentifier (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -138,7 +138,7 @@ public final class SimpleProcessIdentifierTest
     try
     {
       // Empty is not allowed
-      new SimpleProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "");
+      new SimpleProcessIdentifier (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -147,7 +147,7 @@ public final class SimpleProcessIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new SimpleProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "Љ");
+      new SimpleProcessIdentifier (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -156,8 +156,8 @@ public final class SimpleProcessIdentifierTest
     try
     {
       // Scheme too long
-      new SimpleProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
-                                   StringHelper.getRepeated ('a', CIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+      new SimpleProcessIdentifier (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
+                                   StringHelper.getRepeated ('a', CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                    "abc");
       fail ();
     }
@@ -167,8 +167,8 @@ public final class SimpleProcessIdentifierTest
     try
     {
       // Value too long
-      new SimpleProcessIdentifier (CIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME,
-                                   StringHelper.getRepeated ('a', CIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH + 1));
+      new SimpleProcessIdentifier (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME,
+                                   StringHelper.getRepeated ('a', CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH + 1));
       fail ();
     }
     catch (final IllegalArgumentException ex)

@@ -99,10 +99,8 @@ import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.doctype.OpenPeppolDocumentTypeIdentifierParts;
@@ -110,6 +108,8 @@ import com.helger.peppol.identifier.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.issuingagency.IIdentifierIssuingAgency;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppol.identifier.process.SimpleProcessIdentifier;
 
@@ -479,7 +479,7 @@ public final class MainCreateCodelistsFilesFromExcel
       JMethod m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getScheme");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
-      m.body ()._return (s_aCodeModel.ref (CIdentifier.class).staticRef ("DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME"));
+      m.body ()._return (s_aCodeModel.ref (CPeppolIdentifier.class).staticRef ("DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME"));
 
       // public String getValue ()
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getValue");
@@ -564,14 +564,14 @@ public final class MainCreateCodelistsFilesFromExcel
         // public String getURIEncoded
         m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIEncoded");
         m.annotate (Nonnull.class);
-        m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
+        m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
                                        .staticInvoke ("getIdentifierURIEncoded")
                                        .arg (JExpr._this ()));
 
         // public String getURIPercentEncoded
         m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
         m.annotate (Nonnull.class);
-        m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
+        m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
                                        .staticInvoke ("getIdentifierURIPercentEncoded")
                                        .arg (JExpr._this ()));
       }
@@ -595,7 +595,7 @@ public final class MainCreateCodelistsFilesFromExcel
         jValue.annotate (Nullable.class);
         final JBlock jIf = m.body ()
                             ._if (jValue.neNull ()
-                                        .cand (s_aCodeModel.ref (CIdentifier.class)
+                                        .cand (s_aCodeModel.ref (CPeppolIdentifier.class)
                                                            .staticRef ("DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME")
                                                            .invoke ("equals")
                                                            .arg (jValue.invoke ("getScheme"))))
@@ -744,7 +744,7 @@ public final class MainCreateCodelistsFilesFromExcel
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
-      m.body ()._return (s_aCodeModel.ref (CIdentifier.class).staticRef ("DEFAULT_PROCESS_IDENTIFIER_SCHEME"));
+      m.body ()._return (s_aCodeModel.ref (CPeppolIdentifier.class).staticRef ("DEFAULT_PROCESS_IDENTIFIER_SCHEME"));
 
       // public String getValue ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getValue");
@@ -790,14 +790,14 @@ public final class MainCreateCodelistsFilesFromExcel
         // public String getURIEncoded
         m = jEnum.method (JMod.PUBLIC, String.class, "getURIEncoded");
         m.annotate (Nonnull.class);
-        m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
+        m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
                                        .staticInvoke ("getIdentifierURIEncoded")
                                        .arg (JExpr._this ()));
 
         // public String getURIPercentEncoded
         m = jEnum.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
         m.annotate (Nonnull.class);
-        m.body ()._return (s_aCodeModel.ref (IdentifierHelper.class)
+        m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
                                        .staticInvoke ("getIdentifierURIPercentEncoded")
                                        .arg (JExpr._this ()));
       }
@@ -812,7 +812,7 @@ public final class MainCreateCodelistsFilesFromExcel
         jValue.annotate (Nullable.class);
         final JBlock jIf = m.body ()
                             ._if (jValue.neNull ()
-                                        .cand (s_aCodeModel.ref (CIdentifier.class)
+                                        .cand (s_aCodeModel.ref (CPeppolIdentifier.class)
                                                            .staticRef ("DEFAULT_PROCESS_IDENTIFIER_SCHEME")
                                                            .invoke ("equals")
                                                            .arg (jValue.invoke ("getScheme"))))

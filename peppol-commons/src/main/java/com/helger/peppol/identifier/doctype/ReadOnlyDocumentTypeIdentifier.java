@@ -45,10 +45,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.UnsupportedOperation;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.IIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.IPeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * This is an immutable sanity class around the {@link DocumentIdentifierType}
@@ -70,9 +71,9 @@ public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType imple
 
   public ReadOnlyDocumentTypeIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    if (!IdentifierHelper.isValidIdentifierScheme (sScheme))
+    if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
       throw new IllegalArgumentException ("Document Type identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierHelper.isValidDocumentTypeIdentifierValue (sValue))
+    if (!PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (sValue))
       throw new IllegalArgumentException ("Document Type identifier value '" + sValue + "' is invalid!");
 
     // Explicitly use the super methods, as the methods of this class throw an
@@ -99,12 +100,12 @@ public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType imple
 
   public int compareTo (@Nonnull final ReadOnlyDocumentTypeIdentifier aOther)
   {
-    return IdentifierHelper.compareDocumentTypeIdentifiers (this, aOther);
+    return PeppolIdentifierHelper.compareDocumentTypeIdentifiers (this, aOther);
   }
 
   /**
    * Create a document type identifier with the common scheme as defined by
-   * {@link CIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
+   * {@link CPeppolIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
    *
    * @param sValue
    *        The document type identifier value
@@ -113,6 +114,6 @@ public class ReadOnlyDocumentTypeIdentifier extends DocumentIdentifierType imple
   @Nonnull
   public static ReadOnlyDocumentTypeIdentifier createWithDefaultScheme (@Nullable final String sValue)
   {
-    return new ReadOnlyDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
+    return new ReadOnlyDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
   }
 }

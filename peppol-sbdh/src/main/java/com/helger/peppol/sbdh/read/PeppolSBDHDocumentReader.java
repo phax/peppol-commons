@@ -41,7 +41,7 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.jaxb.validation.DoNothingValidationEventHandlerFactory;
-import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.sbdh.SBDMarshaller;
@@ -77,7 +77,7 @@ public class PeppolSBDHDocumentReader
 
   /**
    * Check if the passed sender authority is valid or not. By default is must
-   * match {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. Override
+   * match {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. Override
    * this method to allow for other schemes as well.
    *
    * @param sSenderAuthority
@@ -89,7 +89,7 @@ public class PeppolSBDHDocumentReader
   @OverrideOnDemand
   protected boolean isValidSenderAuthority (@Nullable final String sSenderAuthority)
   {
-    return CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sSenderAuthority);
+    return CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sSenderAuthority);
   }
 
   /**
@@ -116,7 +116,7 @@ public class PeppolSBDHDocumentReader
 
   /**
    * Check if the passed receiver authority is valid or not. By default is must
-   * match {@link CIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. Override
+   * match {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}. Override
    * this method to allow for other schemes as well.
    *
    * @param sReceiverAuthority
@@ -129,7 +129,7 @@ public class PeppolSBDHDocumentReader
   @OverrideOnDemand
   protected boolean isValidReceiverAuthority (@Nullable final String sReceiverAuthority)
   {
-    return CIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sReceiverAuthority);
+    return CPeppolIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sReceiverAuthority);
   }
 
   /**

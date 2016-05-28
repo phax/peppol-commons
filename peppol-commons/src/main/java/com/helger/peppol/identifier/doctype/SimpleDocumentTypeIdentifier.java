@@ -46,11 +46,12 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.IMutablePeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * This is a sanity class around the {@link DocumentIdentifierType} class with
@@ -72,9 +73,9 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   public SimpleDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    if (!IdentifierHelper.isValidIdentifierScheme (sScheme))
+    if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
       throw new IllegalArgumentException ("Document Type identifier scheme '" + sScheme + "' is invalid!");
-    if (!IdentifierHelper.isValidDocumentTypeIdentifierValue (sValue))
+    if (!PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (sValue))
       throw new IllegalArgumentException ("Document Type identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
@@ -82,7 +83,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   public int compareTo (@Nonnull final SimpleDocumentTypeIdentifier aOther)
   {
-    return IdentifierHelper.compareDocumentTypeIdentifiers (this, aOther);
+    return PeppolIdentifierHelper.compareDocumentTypeIdentifiers (this, aOther);
   }
 
   @Nonnull
@@ -94,7 +95,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   /**
    * Create a new document type identifier that uses the default schema
-   * {@link CIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
+   * {@link CPeppolIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
    *
    * @param sValue
    *        The identifier value like
@@ -105,7 +106,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @Nonnull
   public static SimpleDocumentTypeIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new SimpleDocumentTypeIdentifier (CIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
+    return new SimpleDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
   }
 
   /**
@@ -124,7 +125,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @Nonnull
   public static SimpleDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
-    return IdentifierHelper.createDocumentTypeIdentifierFromURIPart (sURIPart);
+    return PeppolIdentifierHelper.createDocumentTypeIdentifierFromURIPart (sURIPart);
   }
 
   /**
@@ -144,6 +145,6 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   {
     if (sURIPart == null)
       return null;
-    return IdentifierHelper.createDocumentTypeIdentifierFromURIPartOrNull (sURIPart);
+    return PeppolIdentifierHelper.createDocumentTypeIdentifierFromURIPartOrNull (sURIPart);
   }
 }

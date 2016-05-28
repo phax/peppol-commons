@@ -43,6 +43,7 @@ package com.helger.peppol.identifier;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.compare.IComparator;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * Marker-interface that is specific for process identifiers.<br>
@@ -56,6 +57,6 @@ public interface IProcessIdentifier extends IIdentifier
   @Nonnull
   static IComparator <IProcessIdentifier> comparator ()
   {
-    return (a, b) -> IdentifierHelper.compareProcessIdentifiers (a, b);
+    return (a, b) -> PeppolIdentifierHelper.compareProcessIdentifiers (a, b);
   }
 }

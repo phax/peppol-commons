@@ -43,6 +43,7 @@ package com.helger.peppol.identifier;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.compare.IComparator;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * Marker-interface that is specific for document type identifiers.<br>
@@ -56,6 +57,6 @@ public interface IDocumentTypeIdentifier extends IIdentifier
   @Nonnull
   static IComparator <IDocumentTypeIdentifier> comparator ()
   {
-    return (a, b) -> IdentifierHelper.compareDocumentTypeIdentifiers (a, b);
+    return (a, b) -> PeppolIdentifierHelper.compareDocumentTypeIdentifiers (a, b);
   }
 }
