@@ -59,6 +59,8 @@ import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifierMicroTypeConverter;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierMicroTypeConverter;
+import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
+import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifierMicroTypeConverter;
 import com.helger.peppol.smp.SMPTransportProfile;
 import com.helger.peppol.smp.SMPTransportProfileMicroTypeConverter;
 
@@ -86,6 +88,8 @@ public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroT
                                                  new ProcessIdentifierTypeMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (SimpleProcessIdentifier.class,
                                                  new SimpleProcessIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (PeppolProcessIdentifier.class,
+                                                 new PeppolProcessIdentifierMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (SMPTransportProfile.class,
                                                  new SMPTransportProfileMicroTypeConverter ());
   }

@@ -54,8 +54,8 @@ import com.helger.commons.base64.Base64;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.utils.CertificateHelper;
 import com.helger.peppol.utils.ConfigFile;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
@@ -143,9 +143,9 @@ public final class MockSMPClientConfig
   }
 
   @Nonnull
-  public static final SimpleProcessIdentifier getProcessTypeID ()
+  public static final PeppolProcessIdentifier getProcessTypeID ()
   {
-    return SimpleProcessIdentifier.createWithDefaultScheme (s_aConfig.getString ("processtypeid"));
+    return PeppolProcessIdentifier.createWithDefaultScheme (s_aConfig.getString ("processtypeid"));
   }
 
   @Nonnull

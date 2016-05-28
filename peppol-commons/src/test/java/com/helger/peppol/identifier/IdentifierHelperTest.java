@@ -55,6 +55,7 @@ import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -171,10 +172,10 @@ public final class IdentifierHelperTest
   @Test
   public void testAreIdentifiersEqualProcessIdentifier ()
   {
-    final SimpleProcessIdentifier aDI1 = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
-    final SimpleProcessIdentifier aDI2 = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
-    final SimpleProcessIdentifier aDI3a = SimpleProcessIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
-    final SimpleProcessIdentifier aDI3b = new SimpleProcessIdentifier ("my-procid-test", "urn:doc:anyotherdoc");
+    final PeppolProcessIdentifier aDI1 = PeppolProcessIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
+    final PeppolProcessIdentifier aDI2 = PeppolProcessIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
+    final PeppolProcessIdentifier aDI3a = PeppolProcessIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
+    final PeppolProcessIdentifier aDI3b = new PeppolProcessIdentifier ("my-procid-test", "urn:doc:anyotherdoc");
     assertTrue (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI1));
     assertTrue (IdentifierHelper.areProcessIdentifiersEqual (aDI1, aDI2));
     assertTrue (IdentifierHelper.areProcessIdentifiersEqual (aDI2, aDI1));
@@ -405,7 +406,7 @@ public final class IdentifierHelperTest
   @Test
   public void testHasDefaultProcessIdentifierScheme ()
   {
-    assertTrue (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (SimpleProcessIdentifier.createWithDefaultScheme ("abc")));
+    assertTrue (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (PeppolProcessIdentifier.createWithDefaultScheme ("abc")));
     assertFalse (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (new SimpleProcessIdentifier ("proctype",
                                                                                                         "abc")));
     assertTrue (PeppolIdentifierHelper.hasDefaultProcessIdentifierScheme (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +

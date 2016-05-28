@@ -38,20 +38,21 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.generic.process;
+package com.helger.peppol.identifier.peppol.process;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.microdom.IMicroElement;
+import com.helger.peppol.identifier.generic.process.ProcessIdentifierTypeMicroTypeConverter;
 
-public final class SimpleProcessIdentifierMicroTypeConverter extends ProcessIdentifierTypeMicroTypeConverter
+public final class PeppolProcessIdentifierMicroTypeConverter extends ProcessIdentifierTypeMicroTypeConverter
 {
   @Override
   @Nonnull
-  public SimpleProcessIdentifier convertToNative (@Nonnull final IMicroElement aElement)
+  public PeppolProcessIdentifier convertToNative (@Nonnull final IMicroElement aElement)
   {
     final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
     final String sValue = aElement.getAttributeValue (ATTR_VALUE);
-    return new SimpleProcessIdentifier (sScheme, sValue);
+    return new PeppolProcessIdentifier (sScheme, sValue);
   }
 }

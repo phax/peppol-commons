@@ -59,12 +59,12 @@ import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.utils.BusdoxURLHelper;
 
 /**
@@ -582,11 +582,11 @@ public final class PeppolIdentifierHelper
    * @see #isValidProcessIdentifierValue(String)
    */
   @Nullable
-  public static SimpleProcessIdentifier createProcessIdentifierOrNull (@Nullable final String sScheme,
+  public static PeppolProcessIdentifier createProcessIdentifierOrNull (@Nullable final String sScheme,
                                                                        @Nullable final String sValue)
   {
     if (isValidIdentifierScheme (sScheme) && isValidProcessIdentifierValue (sValue))
-      return new SimpleProcessIdentifier (sScheme, sValue);
+      return new PeppolProcessIdentifier (sScheme, sValue);
     return null;
   }
 
@@ -603,7 +603,7 @@ public final class PeppolIdentifierHelper
    *         <code>null</code> if this string is in an illegal format.
    */
   @Nullable
-  public static SimpleProcessIdentifier createProcessIdentifierFromURIPartOrNull (@Nonnull final String sURIPart)
+  public static PeppolProcessIdentifier createProcessIdentifierFromURIPartOrNull (@Nonnull final String sURIPart)
   {
     ValueEnforcer.notNull (sURIPart, "URIPart");
 
@@ -630,9 +630,9 @@ public final class PeppolIdentifierHelper
    * @see #createProcessIdentifierFromURIPartOrNull(String)
    */
   @Nonnull
-  public static SimpleProcessIdentifier createProcessIdentifierFromURIPart (@Nonnull final String sURIPart)
+  public static PeppolProcessIdentifier createProcessIdentifierFromURIPart (@Nonnull final String sURIPart)
   {
-    final SimpleProcessIdentifier ret = createProcessIdentifierFromURIPartOrNull (sURIPart);
+    final PeppolProcessIdentifier ret = createProcessIdentifierFromURIPartOrNull (sURIPart);
     if (ret == null)
       throw new IllegalArgumentException ("Process identifier '" +
                                           sURIPart +

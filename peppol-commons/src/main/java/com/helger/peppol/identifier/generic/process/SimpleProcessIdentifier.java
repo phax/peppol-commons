@@ -41,16 +41,12 @@
 package com.helger.peppol.identifier.generic.process;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ProcessIdentifierType;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.process.IMutablePeppolProcessIdentifier;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -61,7 +57,7 @@ import com.helger.peppol.identifier.peppol.process.IMutablePeppolProcessIdentifi
  */
 @NotThreadSafe
 public class SimpleProcessIdentifier extends ProcessIdentifierType implements
-                                     IMutablePeppolProcessIdentifier,
+                                     IMutableProcessIdentifier,
                                      Comparable <SimpleProcessIdentifier>,
                                      ICloneable <SimpleProcessIdentifier>
 {
@@ -72,10 +68,6 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
 
   public SimpleProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
-    if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
-      throw new IllegalArgumentException ("Process identifier scheme '" + sScheme + "' is invalid!");
-    if (!PeppolIdentifierHelper.isValidProcessIdentifierValue (sValue))
-      throw new IllegalArgumentException ("Process identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
   }
@@ -90,59 +82,5 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   public SimpleProcessIdentifier getClone ()
   {
     return new SimpleProcessIdentifier (this);
-  }
-
-  /**
-   * Create a new process identifier that uses the default schema
-   * {@link CPeppolIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}
-   *
-   * @param sValue
-   *        The identifier value like
-   *        <code>urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   * @return The created {@link SimpleProcessIdentifier} and never
-   *         <code>null</code>.
-   */
-  @Nonnull
-  public static SimpleProcessIdentifier createWithDefaultScheme (@Nonnull final String sValue)
-  {
-    return new SimpleProcessIdentifier (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
-  }
-
-  /**
-   * Create a new process identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}.
-   *
-   * @param sURIPart
-   *        The URI part
-   *        <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   *        . It must NOT be percent encoded!
-   * @return The created {@link SimpleProcessIdentifier} and never
-   *         <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed identifier is not a valid URI encoded identifier
-   */
-  @Nonnull
-  public static SimpleProcessIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
-  {
-    return PeppolIdentifierHelper.createProcessIdentifierFromURIPart (sURIPart);
-  }
-
-  /**
-   * Create a new process identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}.
-   *
-   * @param sURIPart
-   *        The URI part
-   *        <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   *        . It must NOT be percent encoded! May be <code>null</code>.
-   * @return The created {@link SimpleProcessIdentifier} or <code>null</code> if
-   *         the passed identifier is not a valid URI encoded identifier
-   */
-  @Nullable
-  public static SimpleProcessIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
-  {
-    if (sURIPart == null)
-      return null;
-    return PeppolIdentifierHelper.createProcessIdentifierFromURIPartOrNull (sURIPart);
   }
 }
