@@ -67,7 +67,7 @@ public class DocumentIdentifierTypeMicroTypeConverter implements IMicroTypeConve
   }
 
   @Nonnull
-  public DocumentIdentifierType convertToNative (@Nonnull final IMicroElement aElement)
+  public IDocumentTypeIdentifier convertToNative (@Nonnull final IMicroElement aElement)
   {
     final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
     final String sValue = aElement.getAttributeValue (ATTR_VALUE);

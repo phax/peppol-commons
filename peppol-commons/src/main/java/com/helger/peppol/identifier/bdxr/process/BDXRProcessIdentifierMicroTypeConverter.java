@@ -38,42 +38,21 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.generic.process;
+package com.helger.peppol.identifier.bdxr.process;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.microdom.convert.IMicroTypeConverter;
-import com.helger.peppol.identifier.ProcessIdentifierType;
+import com.helger.peppol.identifier.generic.process.ProcessIdentifierTypeMicroTypeConverter;
 
-public class ProcessIdentifierTypeMicroTypeConverter implements IMicroTypeConverter
+public final class BDXRProcessIdentifierMicroTypeConverter extends ProcessIdentifierTypeMicroTypeConverter
 {
-  protected static final String ATTR_SCHEME = "scheme";
-  protected static final String ATTR_VALUE = "value";
-
+  @Override
   @Nonnull
-  public final IMicroElement convertToMicroElement (@Nonnull final Object aObject,
-                                                    @Nullable final String sNamespaceURI,
-                                                    @Nonnull @Nonempty final String sTagName)
-  {
-    final ProcessIdentifierType aValue = (ProcessIdentifierType) aObject;
-    final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
-    aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
-    aElement.setAttribute (ATTR_VALUE, aValue.getValue ());
-    return aElement;
-  }
-
-  @Nonnull
-  public IProcessIdentifier convertToNative (@Nonnull final IMicroElement aElement)
+  public BDXRProcessIdentifier convertToNative (@Nonnull final IMicroElement aElement)
   {
     final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
     final String sValue = aElement.getAttributeValue (ATTR_VALUE);
-    final ProcessIdentifierType aPI = new ProcessIdentifierType ();
-    aPI.setScheme (sScheme);
-    aPI.setValue (sValue);
-    return aPI;
+    return new BDXRProcessIdentifier (sScheme, sValue);
   }
 }

@@ -67,7 +67,7 @@ public class ParticipantIdentifierTypeMicroTypeConverter implements IMicroTypeCo
   }
 
   @Nonnull
-  public ParticipantIdentifierType convertToNative (@Nonnull final IMicroElement aElement)
+  public IParticipantIdentifier convertToNative (@Nonnull final IMicroElement aElement)
   {
     final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
     final String sValue = aElement.getAttributeValue (ATTR_VALUE);
