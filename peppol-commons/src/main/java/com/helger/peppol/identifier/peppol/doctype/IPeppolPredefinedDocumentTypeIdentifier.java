@@ -44,7 +44,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 
 /**
@@ -52,7 +51,9 @@ import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdent
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IPeppolPredefinedDocumentTypeIdentifier extends IPeppolDocumentTypeIdentifier, IPeppolDocumentTypeIdentifierParts
+public interface IPeppolPredefinedDocumentTypeIdentifier extends
+                                                         IPeppolDocumentTypeIdentifier,
+                                                         IPeppolDocumentTypeIdentifierParts
 {
   /**
    * @return The common name under which a document is known. This is e.g.
@@ -62,11 +63,11 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends IPeppolDocument
   String getCommonName ();
 
   /**
-   * @return The {@link SimpleDocumentTypeIdentifier} version of this predefined
+   * @return The {@link PeppolDocumentTypeIdentifier} version of this predefined
    *         document type identifier.
    */
   @Nonnull
-  SimpleDocumentTypeIdentifier getAsDocumentTypeIdentifier ();
+  PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ();
 
   /**
    * @return The internal code list version in which the identifier was added.

@@ -49,9 +49,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.datetime.PDTFactory;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smp.ObjectFactory;
@@ -78,9 +78,9 @@ public final class MainSMPServiceRegistrationCreate
   {
     final URI SMP_URI = MockSMPClientConfig.getSMPURI ();
     final BasicAuthClientCredentials SMP_CREDENTIALS = MockSMPClientConfig.getSMPCredentials ();
-    final SimpleParticipantIdentifier PARTICIPANT_ID = MockSMPClientConfig.getParticipantID ();
-    final SimpleDocumentTypeIdentifier DOCUMENT_ID = MockSMPClientConfig.getDocumentTypeID ();
-    final SimpleProcessIdentifier PROCESS_ID = MockSMPClientConfig.getProcessTypeID ();
+    final PeppolParticipantIdentifier PARTICIPANT_ID = MockSMPClientConfig.getParticipantID ();
+    final PeppolDocumentTypeIdentifier DOCUMENT_ID = MockSMPClientConfig.getDocumentTypeID ();
+    final PeppolProcessIdentifier PROCESS_ID = MockSMPClientConfig.getProcessTypeID ();
     final W3CEndpointReference START_AP_ENDPOINTREF = MockSMPClientConfig.getAPEndpointRef ();
     final String AP_CERT_STRING = MockSMPClientConfig.getAPCert ();
     final String AP_SERVICE_DESCRIPTION = MockSMPClientConfig.getAPServiceDescription ();

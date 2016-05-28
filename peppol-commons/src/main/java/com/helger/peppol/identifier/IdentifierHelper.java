@@ -56,7 +56,8 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.utils.BusdoxURLHelper;
 
 /**
- * This class contains several identifier related utility methods.
+ * This class contains several identifier related utility methods that works
+ * with ALL kind of identifiers.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
