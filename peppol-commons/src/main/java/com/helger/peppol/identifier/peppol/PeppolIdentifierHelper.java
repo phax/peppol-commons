@@ -53,6 +53,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
@@ -167,7 +168,7 @@ public final class PeppolIdentifierHelper
   public static boolean isValidDocumentTypeIdentifierValue (@Nullable final String sValue)
   {
     final int nLength = StringHelper.getLength (sValue);
-    if (nLength == 0 || nLength > CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)
+    if (nLength == 0 || nLength > IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)
       return false;
 
     // Check if the value is ISO-8859-1 encoded
@@ -201,7 +202,7 @@ public final class PeppolIdentifierHelper
   {
     ValueEnforcer.notNull (aIdentifier, "DocumentTypeIdentifier");
 
-    return CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (aIdentifier.getScheme ());
+    return IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (aIdentifier.getScheme ());
   }
 
   /**

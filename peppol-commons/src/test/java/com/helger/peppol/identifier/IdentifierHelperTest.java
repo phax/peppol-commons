@@ -49,8 +49,8 @@ import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
@@ -244,9 +244,9 @@ public final class IdentifierHelperTest
     assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue ("order "));
 
     assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                     CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)));
+                                                                                                     IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                      CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                                                      IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
                                                                                                            1)));
   }
 
@@ -262,7 +262,7 @@ public final class IdentifierHelperTest
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype::" +
                                                                        StringHelper.getRepeated ('a',
-                                                                                                 CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                                                 IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
                                                                                                       1)));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype:order"));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctypeorder"));

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
 
@@ -82,7 +82,7 @@ public final class PeppolSBDHDocumentTest
 
     // Document type
     dd.setDocumentTypeWithDefaultScheme ("doctype");
-    assertEquals (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, dd.getDocumentTypeScheme ());
+    assertEquals (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, dd.getDocumentTypeScheme ());
     assertEquals ("doctype", dd.getDocumentTypeValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")

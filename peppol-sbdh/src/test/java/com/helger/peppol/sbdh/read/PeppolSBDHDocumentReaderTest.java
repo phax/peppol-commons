@@ -39,7 +39,7 @@ import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.read.DOMReaderSettings;
 import com.helger.datetime.PDTFactory;
 import com.helger.datetime.util.PDTWebDateHelper;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
@@ -103,7 +103,8 @@ public final class PeppolSBDHDocumentReaderTest
     assertEquals ("Invoice", aData.getType ());
     assertEquals ("123123", aData.getInstanceIdentifier ());
     assertEquals ("2013-02-19T05:10:10.000", PDTWebDateHelper.getAsStringXSD (aData.getCreationDateAndTime ()));
-    assertEquals (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, aData.getDocumentTypeScheme ());
+    assertEquals (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
+                  aData.getDocumentTypeScheme ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
                   aData.getDocumentTypeValue ());
     assertEquals (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aData.getProcessScheme ());

@@ -54,6 +54,18 @@ import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdent
  */
 public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocumentTypeIdentifier
 {
+
+  /**
+   * Document Type identifier value maximum length (excluding the scheme)
+   */
+  int MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH = 500;
+
+  /**
+   * The default document identifier scheme.<br>
+   * See PEPPOL Common definitions chapter 3.5
+   */
+  String DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME = "busdox-docid-qns";
+
   default boolean hasDefaultScheme ()
   {
     return PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (this);

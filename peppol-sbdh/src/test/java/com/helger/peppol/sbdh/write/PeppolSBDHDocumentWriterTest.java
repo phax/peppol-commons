@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
@@ -73,7 +73,8 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
-    assertEquals (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, aDataRead.getDocumentTypeScheme ());
+    assertEquals (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
+                  aDataRead.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
     assertEquals (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());

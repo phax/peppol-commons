@@ -33,7 +33,6 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.datetime.PDTFactory;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
@@ -249,7 +248,8 @@ public class PeppolSBDHDocument
   /**
    * Set the document type identifier using the default identifier
    * scheme/authority
-   * {@link CPeppolIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}.
+   * {@link IPeppolDocumentTypeIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
+   * .
    *
    * @param sValue
    *        The document type identifier value. May neither be <code>null</code>
@@ -261,7 +261,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setDocumentTypeWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setDocumentType (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
+    return setDocumentType (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
   }
 
   /**

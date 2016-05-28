@@ -108,7 +108,8 @@ public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
   @Nonnull
   public static PeppolDocumentTypeIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new PeppolDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
+    return new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
+                                             sValue);
   }
 
   /**

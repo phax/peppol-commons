@@ -65,17 +65,6 @@ public final class CPeppolIdentifier
   @Nonnegative
   public static final int MAX_IDENTIFIER_SCHEME_LENGTH = 25;
 
-  /**
-   * Document Type identifier value maximum length (excluding the scheme)
-   */
-  public static final int MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH = 500;
-
-  /**
-   * The default document identifier scheme.<br>
-   * See PEPPOL Common definitions chapter 3.5
-   */
-  public static final String DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME = "busdox-docid-qns";
-
   @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final CPeppolIdentifier s_aInstance = new CPeppolIdentifier ();

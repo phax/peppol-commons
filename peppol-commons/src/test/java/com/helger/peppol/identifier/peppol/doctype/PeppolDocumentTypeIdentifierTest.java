@@ -50,8 +50,6 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -126,7 +124,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // null value not allowed
-      new PeppolDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, null);
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -144,7 +142,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Empty is not allowed
-      new PeppolDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "");
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -153,7 +151,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new PeppolDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "Љ");
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -162,7 +160,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
                                         StringHelper.getRepeated ('a',
                                                                   CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                         "abc");
@@ -174,9 +172,9 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Value too long
-      new PeppolDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
                                         StringHelper.getRepeated ('a',
-                                                                  CPeppolIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                  IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
                                                                        1));
       fail ();
     }

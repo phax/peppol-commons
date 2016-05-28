@@ -101,8 +101,8 @@ import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
@@ -344,7 +344,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     }
   }
 
-  private static void _emitDocumentIdentifiers (final Sheet aDocumentSheet) throws URISyntaxException
+  private static void _emitDocumentTypeIdentifiers (final Sheet aDocumentSheet) throws URISyntaxException
   {
     // Create GeneriCode file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
@@ -480,8 +480,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       JMethod m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getScheme");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
-      m.body ()
-       ._return (s_aCodeModel.ref (CPeppolIdentifier.class).staticRef ("DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME"));
+      m.body ()._return (s_aCodeModel.ref (IPeppolDocumentTypeIdentifier.class).staticRef ("DEFAULT_SCHEME"));
 
       // public String getValue ()
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getValue");
@@ -558,7 +557,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       // public boolean isDefaultScheme ()
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, boolean.class, "isDefaultScheme");
       m.annotate (Nonnull.class);
-      m.body ()._return (JExpr.lit (true));
+      m.body ()._return (JExpr.TRUE);
 
       // Default methods
       if (false)
@@ -597,10 +596,9 @@ public final class MainCreatePredefinedEnumsFromExcel
         jValue.annotate (Nullable.class);
         final JBlock jIf = m.body ()
                             ._if (jValue.neNull ()
-                                        .cand (s_aCodeModel.ref (CPeppolIdentifier.class)
-                                                           .staticRef ("DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME")
-                                                           .invoke ("equals")
-                                                           .arg (jValue.invoke ("getScheme"))))
+                                        .cand (jValue.invoke ("hasScheme")
+                                                     .arg (s_aCodeModel.ref (IPeppolDocumentTypeIdentifier.class)
+                                                                       .staticRef ("DEFAULT_SCHEME"))))
                             ._then ();
         final JForEach jForEach = jIf.forEach (s_jEnumPredefinedDoc, "e", s_jEnumPredefinedDoc.staticInvoke ("values"));
         jForEach.body ()
@@ -857,7 +855,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     _emitIdentifierIssuingAgency (aParticipantSheet);
 
     // Convert document identifiers
-    _emitDocumentIdentifiers (aDocumentSheet);
+    _emitDocumentTypeIdentifiers (aDocumentSheet);
 
     // Convert processes identifiers
     _emitProcessIdentifier (aProcessSheet);
