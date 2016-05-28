@@ -38,50 +38,59 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.peppol.doctype.part;
+package com.helger.peppol.identifier.generic.doctype;
+
+import java.io.Serializable;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.peppol.identifier.generic.doctype.part.IBusdoxDocumentTypeIdentifierParts;
 
 /**
- * Contains all the different fields of a document identifier for PEPPOL in BIS
- * V1 style. Note: the sub type identifier is specified in more detail than in
- * BusDox: <code>&lt;customization id&gt;::&lt;version&gt;</code> even more
- * detailed the customization ID can be split further:
- * <code>&lt;transactionId&gt;:#&lt;extensionId&gt;[#&lt;extensionId&gt;]::&lt;version&gt;</code>
+ * Contains all the different fields of a document type identifier for BusDox.
+ * Note: it is important to note, that the PEPPOL specification separates the
+ * sub type identifier more clearly!
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeIdentifierParts
+public interface IBusdoxDocumentTypeIdentifierParts extends Serializable
 {
   /**
-   * @return The transaction ID
+   * Separator between namespace and local name
    */
-  @Nonnull
-  @Nonempty
-  String getTransactionID ();
+  String NAMESPACE_SEPARATOR = "::";
 
   /**
-   * @return The contained extension IDs
+   * Separator between namespace elements and the optional subtype
    */
-  @Nonnull
-  @Nonempty
-  ICommonsList <String> getExtensionIDs ();
+  String SUBTYPE_SEPARATOR = "##";
 
   /**
-   * @return The version number
+   * @return The root namespace. Never <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
-  String getVersion ();
+  String getRootNS ();
 
   /**
-   * @return transaction ID + extension IDs (no version number)
+   * @return The document element local name. Never <code>null</code> nor empty.
    */
   @Nonnull
   @Nonempty
-  String getAsUBLCustomizationID ();
+  String getLocalName ();
+
+  /**
+   * @return The optional sub type identifier. May be <code>null</code>.
+   */
+  @Nullable
+  String getSubTypeIdentifier ();
+
+  /**
+   * @return The parts assembled into a complete document identifier value.
+   *         Never <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  String getAsDocumentTypeIdentifierValue ();
 }

@@ -10,9 +10,6 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
 
 /**
  * This file is generated. Do NOT edit!

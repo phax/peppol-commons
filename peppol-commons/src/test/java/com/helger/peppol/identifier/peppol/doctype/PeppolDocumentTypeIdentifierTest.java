@@ -52,7 +52,6 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

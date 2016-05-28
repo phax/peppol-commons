@@ -50,7 +50,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 
 /**
  * A special document type identifier that handles the specialities of PEPPOL
@@ -121,7 +120,7 @@ public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
    * @param sValue
    *        The identifier value like
    *        <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
-   * @return The created {@link SimpleParticipantIdentifier} and never
+   * @return The created {@link PeppolDocumentTypeIdentifier} and never
    *         <code>null</code>.
    */
   @Nonnull

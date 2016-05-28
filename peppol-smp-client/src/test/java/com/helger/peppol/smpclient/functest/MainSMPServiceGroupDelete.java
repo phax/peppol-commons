@@ -45,7 +45,7 @@ import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.smpclient.MockSMPClientConfig;
 import com.helger.peppol.smpclient.SMPClient;
 import com.helger.web.http.basicauth.BasicAuthClientCredentials;
@@ -61,7 +61,7 @@ public final class MainSMPServiceGroupDelete
   {
     final URI SMP_URI = MockSMPClientConfig.getSMPURI ();
     final BasicAuthClientCredentials SMP_CREDENTIALS = MockSMPClientConfig.getSMPCredentials ();
-    final SimpleParticipantIdentifier PARTICIPANT_ID = MockSMPClientConfig.getParticipantID ();
+    final PeppolParticipantIdentifier PARTICIPANT_ID = MockSMPClientConfig.getParticipantID ();
 
     // The main SMP client
     final SMPClient aClient = new SMPClient (SMP_URI);

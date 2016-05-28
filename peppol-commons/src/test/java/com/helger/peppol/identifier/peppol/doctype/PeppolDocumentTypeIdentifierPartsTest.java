@@ -47,9 +47,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
 
 /**
  * Test class for class {@link PeppolDocumentTypeIdentifierParts}.

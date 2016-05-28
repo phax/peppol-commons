@@ -48,7 +48,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 
 @Immutable
 final class CodeGenerationHelper

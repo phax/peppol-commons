@@ -49,9 +49,9 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.doctype.OpenPeppolDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 
 /**
  * This class contains several identifier related utility methods.

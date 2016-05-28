@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 
 /**
  * Base interface for a single identifier issuing agency.
@@ -87,7 +87,8 @@ public interface IIdentifierIssuingAgency
   String getISO6523Code ();
 
   /**
-   * Get the real participant identifier value for the given local identifier.<br>
+   * Get the real participant identifier value for the given local identifier.
+   * <br>
    * Example: <code>GLN.createIdentifierValue ("123456")</code> results in
    * <code>0088:123456</code>
    *
@@ -109,7 +110,7 @@ public interface IIdentifierIssuingAgency
    * @return The participant identifier. Never <code>null</code>.
    */
   @Nonnull
-  SimpleParticipantIdentifier createParticipantIdentifier (@Nonnull @Nonempty String sIdentifier);
+  PeppolParticipantIdentifier createParticipantIdentifier (@Nonnull @Nonempty String sIdentifier);
 
   /**
    * @return <code>true</code> if the agency is deprecated and should not be

@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.peppol.doctype.part;
+package com.helger.peppol.identifier.peppol.doctype;
 
 import java.util.List;
 
@@ -53,8 +53,8 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.peppol.identifier.generic.doctype.part.BusdoxDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.generic.doctype.part.IBusdoxDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.generic.doctype.BusdoxDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**
  * A standalone wrapper class for the {@link IPeppolDocumentTypeIdentifierParts}

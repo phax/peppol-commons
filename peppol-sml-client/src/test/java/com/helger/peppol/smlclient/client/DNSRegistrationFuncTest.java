@@ -64,7 +64,7 @@ import org.xbill.DNS.Type;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
@@ -221,7 +221,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     // create PI
     final ManageParticipantIdentifierServiceCaller client = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    final ParticipantIdentifierType aPI = new SimpleParticipantIdentifier (PI_SCHEME, PI_VALUE);
+    final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (PI_SCHEME, PI_VALUE);
     client.create (SMP_ID, aPI);
 
     // verify PI in DNS
@@ -244,11 +244,11 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     final ManageParticipantIdentifierServiceCaller client = new ManageParticipantIdentifierServiceCaller (SML_INFO);
 
-    final ParticipantIdentifierType aPI = new SimpleParticipantIdentifier (PI_WILDCARD_SCHEME, "*");
+    final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (PI_WILDCARD_SCHEME, "*");
     client.create (SMP_ID, aPI);
 
     // verify that PI can be found in Wildcard domain.
-    final String piHost = _DNSLookupPI (new SimpleParticipantIdentifier (PI_WILDCARD_SCHEME, PI_VALUE));
+    final String piHost = _DNSLookupPI (new PeppolParticipantIdentifier (PI_WILDCARD_SCHEME, PI_VALUE));
     assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSName (), piHost);
 
     // verify that Wildcard can be found

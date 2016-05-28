@@ -47,7 +47,6 @@ import com.helger.commons.charset.CCharset;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 
 /**
  * Base interface for a PEPPOL read-only document type identifier.

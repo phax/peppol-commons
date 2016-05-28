@@ -57,9 +57,6 @@ import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
 
 /**
  * Test class for class {@link OpenPeppolDocumentTypeIdentifierParts}.
