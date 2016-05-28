@@ -89,11 +89,37 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
+   * Create a new document type identifier from the URI representation. This is
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
+   * the layout <code>scheme::value</code>. This method accepts all identifier
+   * schemes and values.
+   *
+   * @param sURIPart
+   *        The URI part in the format <code>scheme::value</code>. It must NOT
+   *        be percent encoded!
+   * @return The created {@link SimpleParticipantIdentifier} and never
+   *         <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the passed identifier is not a valid URI encoded identifier
+   */
+  @Nonnull
+  public static SimpleParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  {
+    final SimpleParticipantIdentifier ret = createFromURIPartOrNull (sURIPart);
+    if (ret == null)
+      throw new IllegalArgumentException ("Participant identifier '" +
+                                          sURIPart +
+                                          "' did not include correct delimiter: " +
+                                          CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
+    return ret;
+  }
+
+  /**
    * Create a new participant identifier from the URI representation. This is
    * the inverse operation of {@link #getURIEncoded()}. Take the passed URI part
    * and try to convert it back to a participant identifier. The URI part must
    * have the layout <code>scheme::value</code>. This method accepts all
-   * identifier schemes and valid participant identifier values.
+   * identifier schemes and values.
    *
    * @param sURIPart
    *        The URI part <code>iso6523-actorid-upis::0088:12345678</code>. It

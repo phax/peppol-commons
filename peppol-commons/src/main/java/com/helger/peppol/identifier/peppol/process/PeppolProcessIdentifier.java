@@ -146,7 +146,7 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
   {
     final PeppolProcessIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
-      throw new IllegalArgumentException ("Process identifier '" +
+      throw new IllegalArgumentException ("Peppol Process identifier '" +
                                           sURIPart +
                                           "' did not include correct delimiter: " +
                                           CIdentifier.URL_SCHEME_VALUE_SEPARATOR);

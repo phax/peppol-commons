@@ -41,7 +41,9 @@
 package com.helger.peppol.identifier.peppol.doctype;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+import com.helger.commons.charset.CCharset;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -54,7 +56,6 @@ import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdent
  */
 public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocumentTypeIdentifier
 {
-
   /**
    * Document Type identifier value maximum length (excluding the scheme)
    */
@@ -68,7 +69,7 @@ public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocum
 
   default boolean hasDefaultScheme ()
   {
-    return PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (this);
+    return hasScheme (DEFAULT_SCHEME);
   }
 
   /**
@@ -82,5 +83,47 @@ public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocum
   default IPeppolDocumentTypeIdentifierParts getParts ()
   {
     return PeppolIdentifierHelper.getDocumentTypeIdentifierParts (this);
+  }
+
+  /**
+   * Check if the passed document type identifier scheme is valid or not. For
+   * processes no additional rules apply than the standard rules.
+   *
+   * @param sScheme
+   *        The scheme to check.
+   * @return <code>true</code> if the passed scheme is a valid identifier
+   *         scheme, <code>false</code> otherwise.
+   * @see PeppolIdentifierHelper#isValidIdentifierScheme(String)
+   */
+  static boolean isValidScheme (@Nullable final String sScheme)
+  {
+    // No special rules
+    return PeppolIdentifierHelper.isValidIdentifierScheme (sScheme);
+  }
+
+  /**
+   * Check if the passed document type identifier value is valid. A valid
+   * identifier must have at least 1 character and at last
+   * {@link IPeppolDocumentTypeIdentifier#MAX_VALUE_LENGTH} characters. Also it
+   * must be ISO-8859-1 encoded.
+   *
+   * @param sValue
+   *        The document type identifier value to be checked (without the
+   *        scheme). May be <code>null</code>.
+   * @return <code>true</code> if the document type identifier value is valid,
+   *         <code>false</code> otherwise
+   */
+  public static boolean isValidValue (@Nullable final String sValue)
+  {
+    if (sValue == null)
+      return false;
+
+    final int nLength = sValue.length ();
+    if (nLength == 0 || nLength > MAX_VALUE_LENGTH)
+      return false;
+
+    // Check if the value is ISO-8859-1 encoded
+    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
+           CCharset.CHARSET_ISO_8859_1_OBJ.newEncoder ().canEncode (sValue);
   }
 }

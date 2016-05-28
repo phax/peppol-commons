@@ -48,13 +48,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.charset.CCharset;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
@@ -150,135 +144,6 @@ public final class PeppolIdentifierHelper
     if (areSchemeMaxLengthChecksDisabled ())
       return true;
     return nLength <= CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH;
-  }
-
-  /**
-   * Check if the passed document type identifier value is valid. A valid
-   * identifier must have at least 1 character and at last
-   * {@link IPeppolDocumentTypeIdentifier#MAX_VALUE_LENGTH} characters. Also it
-   * must be ISO-8859-1 encoded.
-   *
-   * @param sValue
-   *        The document type identifier value to be checked (without the
-   *        scheme). May be <code>null</code>.
-   * @return <code>true</code> if the document type identifier value is valid,
-   *         <code>false</code> otherwise
-   */
-  public static boolean isValidDocumentTypeIdentifierValue (@Nullable final String sValue)
-  {
-    final int nLength = StringHelper.getLength (sValue);
-    if (nLength == 0 || nLength > IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH)
-      return false;
-
-    // Check if the value is ISO-8859-1 encoded
-    return areCharsetChecksDisabled () || CCharset.CHARSET_ISO_8859_1_OBJ.newEncoder ().canEncode (sValue);
-  }
-
-  /**
-   * Check if the passed document type identifier is valid. This method checks
-   * for the existence of the scheme and the value and validates both.
-   *
-   * @param sValue
-   *        The document type identifier to be checked (including the scheme).
-   *        May be <code>null</code>.
-   * @return <code>true</code> if the document type identifier is valid,
-   *         <code>false</code> otherwise
-   */
-  public static boolean isValidDocumentTypeIdentifier (@Nullable final String sValue)
-  {
-    return sValue != null && createDocumentTypeIdentifierFromURIPartOrNull (sValue) != null;
-  }
-
-  /**
-   * Check if the passed document type identifier is using the default scheme.
-   *
-   * @param aIdentifier
-   *        The identifier to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the passed identifier uses the default scheme,
-   *         <code>false</code> otherwise
-   */
-  public static boolean hasDefaultDocumentTypeIdentifierScheme (@Nonnull final IDocumentTypeIdentifier aIdentifier)
-  {
-    ValueEnforcer.notNull (aIdentifier, "DocumentTypeIdentifier");
-
-    return IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME.equals (aIdentifier.getScheme ());
-  }
-
-  /**
-   * Take the passed identifier scheme and value try to convert it back to a
-   * document identifier. If the passed scheme is invalid or if the passed value
-   * is invalid, <code>null</code> is returned.
-   *
-   * @param sScheme
-   *        The identifier scheme. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
-   * @param sValue
-   *        The identifier value. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
-   * @return The document type identifier or <code>null</code> if any of the
-   *         parts is invalid.
-   * @see #isValidIdentifierScheme(String)
-   * @see #isValidDocumentTypeIdentifierValue(String)
-   */
-  @Nullable
-  public static PeppolDocumentTypeIdentifier createDocumentTypeIdentifierOrNull (@Nullable final String sScheme,
-                                                                                 @Nullable final String sValue)
-  {
-    if (isValidIdentifierScheme (sScheme) && isValidDocumentTypeIdentifierValue (sValue))
-      return new PeppolDocumentTypeIdentifier (sScheme, sValue);
-    return null;
-  }
-
-  /**
-   * Take the passed URI part and try to convert it back to a document
-   * identifier. The URI part must have the layout <code>scheme::value</code>.
-   * This method returns only valid document type identifier schemes and
-   * document type identifier values.
-   *
-   * @param sURIPart
-   *        The URI part to be scanned. May not be <code>null</code> if a
-   *        correct result is expected.
-   * @return The document type identifier matching the passed URI part or
-   *         <code>null</code> if this string is in an illegal format.
-   */
-  @Nullable
-  public static PeppolDocumentTypeIdentifier createDocumentTypeIdentifierFromURIPartOrNull (@Nonnull final String sURIPart)
-  {
-    ValueEnforcer.notNull (sURIPart, "URIPart");
-
-    // This is quicker than splitting with RegEx!
-    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
-                                                                      sURIPart,
-                                                                      2);
-    if (aSplitted.size () != 2)
-      return null;
-
-    return createDocumentTypeIdentifierOrNull (aSplitted.get (0), aSplitted.get (1));
-  }
-
-  /**
-   * Take the passed URI part and try to convert it back to a document
-   * identifier. The URI part must have the layout <code>scheme::value</code>
-   *
-   * @param sURIPart
-   *        The URI part to be scanned. May not be <code>null</code> if a
-   *        correct result is expected.
-   * @return The document type identifier matching the passed URI part. Never
-   *         <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed identifier is not a valid URI encoded identifier
-   * @see #createDocumentTypeIdentifierFromURIPartOrNull(String)
-   */
-  @Nonnull
-  public static PeppolDocumentTypeIdentifier createDocumentTypeIdentifierFromURIPart (@Nonnull final String sURIPart)
-  {
-    final PeppolDocumentTypeIdentifier ret = createDocumentTypeIdentifierFromURIPartOrNull (sURIPart);
-    if (ret == null)
-      throw new IllegalArgumentException ("Document type identifier '" +
-                                          sURIPart +
-                                          "' did not include correct delimiter: " +
-                                          CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
-    return ret;
   }
 
   /**

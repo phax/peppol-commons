@@ -41,8 +41,10 @@
 package com.helger.peppol.identifier.peppol.doctype;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -61,6 +63,47 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class PeppolDocumentTypeIdentifierTest
 {
+  @Test
+  public void testHasDefaultDocumentTypeIdentifierScheme ()
+  {
+    assertTrue (PeppolDocumentTypeIdentifier.createWithDefaultScheme ("abc").hasDefaultScheme ());
+    assertFalse (new PeppolDocumentTypeIdentifier ("doctype", "abc").hasDefaultScheme ());
+  }
+
+  @Test
+  public void testIsValidDocumentTypeIdentifierValue ()
+  {
+    assertFalse (IPeppolDocumentTypeIdentifier.isValidValue (null));
+    assertFalse (IPeppolDocumentTypeIdentifier.isValidValue (""));
+
+    assertTrue (IPeppolDocumentTypeIdentifier.isValidValue ("invoice"));
+    assertTrue (IPeppolDocumentTypeIdentifier.isValidValue ("order "));
+
+    assertTrue (IPeppolDocumentTypeIdentifier.isValidValue (StringHelper.getRepeated ('a',
+                                                                                      IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH)));
+    assertFalse (IPeppolDocumentTypeIdentifier.isValidValue (StringHelper.getRepeated ('a',
+                                                                                       IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
+                                                                                            1)));
+  }
+
+  @Test
+  public void testIsValidDocumentTypeIdentifier ()
+  {
+    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart (null));
+    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart (""));
+
+    assertTrue (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype::invoice"));
+    assertTrue (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype::order "));
+
+    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctypethatiswaytoolongforwhatisexpected::order"));
+    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype::" +
+                                                              StringHelper.getRepeated ('a',
+                                                                                        IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
+                                                                                             1)));
+    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype:order"));
+    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctypeorder"));
+  }
+
   @Test
   public void testCtor ()
   {
@@ -174,8 +217,7 @@ public final class PeppolDocumentTypeIdentifierTest
       // Value too long
       new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME,
                                         StringHelper.getRepeated ('a',
-                                                                  IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
-                                                                       1));
+                                                                  IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH + 1));
       fail ();
     }
     catch (final IllegalArgumentException ex)

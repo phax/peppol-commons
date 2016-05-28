@@ -45,7 +45,10 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.IdentifierHelper;
 
@@ -83,5 +86,75 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   public SimpleDocumentTypeIdentifier getClone ()
   {
     return new SimpleDocumentTypeIdentifier (this);
+  }
+
+  /**
+   * Create a new document type identifier from the URI representation. This is
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
+   * the layout <code>scheme::value</code>. This method accepts all identifier
+   * schemes and values.
+   *
+   * @param sURIPart
+   *        The URI part in the format <code>scheme::value</code>. It must NOT
+   *        be percent encoded!
+   * @return The created {@link SimpleDocumentTypeIdentifier} and never
+   *         <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the passed identifier is not a valid URI encoded identifier
+   */
+  @Nonnull
+  public static SimpleDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  {
+    final SimpleDocumentTypeIdentifier ret = createFromURIPartOrNull (sURIPart);
+    if (ret == null)
+      throw new IllegalArgumentException ("Document type identifier '" +
+                                          sURIPart +
+                                          "' did not include correct delimiter: " +
+                                          CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
+    return ret;
+  }
+
+  /**
+   * Create a new document type identifier from the URI representation. This is
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
+   * the layout <code>scheme::value</code>. This method accepts all identifier
+   * schemes and values.
+   *
+   * @param sURIPart
+   *        The URI part in the format <code>scheme::value</code>. It must NOT
+   *        be percent encoded! May be <code>null</code>.
+   * @return The created {@link SimpleDocumentTypeIdentifier} or
+   *         <code>null</code> if the passed identifier is not a valid URI
+   *         encoded identifier
+   */
+  @Nullable
+  public static SimpleDocumentTypeIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
+  {
+    if (sURIPart == null)
+      return null;
+
+    // This is quicker than splitting with RegEx!
+    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
+                                                                      sURIPart,
+                                                                      2);
+    if (aSplitted.size () != 2)
+      return null;
+
+    return new SimpleDocumentTypeIdentifier (aSplitted.get (0), aSplitted.get (1));
+  }
+
+  /**
+   * Check if the passed document type identifier is valid. This method checks
+   * for the existence of the scheme and the value and validates both.
+   *
+   * @param sURIPart
+   *        The document type identifier to be checked (including the scheme).
+   *        May be <code>null</code>.
+   * @return <code>true</code> if the document type identifier is valid,
+   *         <code>false</code> otherwise
+   */
+  public static boolean isValidURIPart (@Nullable final String sURIPart)
+  {
+    return createFromURIPartOrNull (sURIPart) != null;
   }
 }

@@ -33,8 +33,8 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.datetime.PDTFactory;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
@@ -77,9 +77,8 @@ public class PeppolSBDHDocument
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}
-   *        . May neither be <code>null</code> nor empty. This field is mapped
-   *        to
+   *        {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME} . May neither be
+   *        <code>null</code> nor empty. This field is mapped to
    *        <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code>
    *        .
    * @param sValue
@@ -98,8 +97,7 @@ public class PeppolSBDHDocument
 
   /**
    * Set the sender identifier value using the default identifier
-   * scheme/authority
-   * {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}.
+   * scheme/authority {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}.
    *
    * @param sValue
    *        The sender identifier value. May neither be <code>null</code> nor
@@ -152,9 +150,8 @@ public class PeppolSBDHDocument
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}
-   *        . May neither be <code>null</code> nor empty. This field is mapped
-   *        to
+   *        {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME} . May neither be
+   *        <code>null</code> nor empty. This field is mapped to
    *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code>
    *        .
    * @param sValue
@@ -174,8 +171,7 @@ public class PeppolSBDHDocument
 
   /**
    * Set the receiver identifier value using the default identifier
-   * scheme/authority
-   * {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}.
+   * scheme/authority {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}.
    *
    * @param sValue
    *        The sender identifier value. May neither be <code>null</code> nor
@@ -247,9 +243,7 @@ public class PeppolSBDHDocument
 
   /**
    * Set the document type identifier using the default identifier
-   * scheme/authority
-   * {@link IPeppolDocumentTypeIdentifier#DEFAULT_SCHEME}
-   * .
+   * scheme/authority {@link IPeppolDocumentTypeIdentifier#DEFAULT_SCHEME} .
    *
    * @param sValue
    *        The document type identifier value. May neither be <code>null</code>
@@ -293,7 +287,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IPeppolDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
   {
-    return PeppolIdentifierHelper.createDocumentTypeIdentifierOrNull (m_sDocumentTypeScheme, m_sDocumentTypeValue);
+    return PeppolDocumentTypeIdentifier.createIfValid (m_sDocumentTypeScheme, m_sDocumentTypeValue);
   }
 
   /**
@@ -319,8 +313,7 @@ public class PeppolSBDHDocument
 
   /**
    * Set the document type identifier using the default identifier
-   * scheme/authority
-   * {@link IPeppolProcessIdentifier#DEFAULT_SCHEME}.
+   * scheme/authority {@link IPeppolProcessIdentifier#DEFAULT_SCHEME}.
    *
    * @param sValue
    *        The process identifier. May neither be <code>null</code> nor empty.

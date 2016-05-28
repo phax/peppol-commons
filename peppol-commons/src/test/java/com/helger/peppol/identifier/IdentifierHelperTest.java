@@ -47,10 +47,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
@@ -190,7 +189,17 @@ public final class IdentifierHelperTest
 
     try
     {
-      IdentifierHelper.getIdentifierURIEncoded (new PeppolParticipantIdentifier (null, "0088:12345"));
+      IdentifierHelper.getIdentifierURIEncoded (null);
+      fail ("null should trigger an error");
+    }
+    catch (final NullPointerException ex)
+    {
+      // expected
+    }
+
+    try
+    {
+      IdentifierHelper.getIdentifierURIEncoded (new SimpleParticipantIdentifier (null, "value"));
       fail ("Empty scheme should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -200,17 +209,7 @@ public final class IdentifierHelperTest
 
     try
     {
-      IdentifierHelper.getIdentifierURIEncoded (new PeppolParticipantIdentifier ("", "0088:12345"));
-      fail ("Empty scheme should trigger an error!");
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // expected
-    }
-
-    try
-    {
-      IdentifierHelper.getIdentifierURIEncoded (PeppolParticipantIdentifier.createWithDefaultScheme (null));
+      IdentifierHelper.getIdentifierURIEncoded (new SimpleParticipantIdentifier ("scheme", null));
       fail ("null value should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -232,47 +231,5 @@ public final class IdentifierHelperTest
     // Different value
     aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088/123abc");
     assertEquals ("iso6523-actorid-upis%3A%3A0088%2F123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
-  }
-
-  @Test
-  public void testIsValidDocumentTypeIdentifierValue ()
-  {
-    assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (null));
-    assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (""));
-
-    assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue ("invoice"));
-    assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue ("order "));
-
-    assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                     IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH)));
-    assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                      IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
-                                                                                                           1)));
-  }
-
-  @Test
-  public void testIsValidDocumentTypeIdentifier ()
-  {
-    assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier (null));
-    assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier (""));
-
-    assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype::invoice"));
-    assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype::order "));
-
-    assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
-    assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype::" +
-                                                                       StringHelper.getRepeated ('a',
-                                                                                                 IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
-                                                                                                      1)));
-    assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype:order"));
-    assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctypeorder"));
-  }
-
-  @Test
-  public void testHasDefaultDocumentTypeIdentifierScheme ()
-  {
-    assertTrue (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (PeppolDocumentTypeIdentifier.createWithDefaultScheme ("abc")));
-    assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (new SimpleDocumentTypeIdentifier ("doctype",
-                                                                                                                  "abc")));
   }
 }

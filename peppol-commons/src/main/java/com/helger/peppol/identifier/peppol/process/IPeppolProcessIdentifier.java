@@ -45,7 +45,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
@@ -73,11 +72,8 @@ public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIde
   }
 
   /**
-   * Check if the given identifier is valid. It is valid if it has at least 1
-   * character and at last 25 characters (see
-   * {@link CPeppolIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}). This method
-   * applies to all identifier schemes, but there is a special version for
-   * participant identifier schemes, as they are used in DNS names!
+   * Check if the passed process identifier scheme is valid or not. For
+   * processes no additional rules apply than the standard rules.
    *
    * @param sScheme
    *        The scheme to check.
