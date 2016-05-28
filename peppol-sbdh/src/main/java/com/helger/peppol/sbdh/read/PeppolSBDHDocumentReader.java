@@ -78,7 +78,7 @@ public class PeppolSBDHDocumentReader
   /**
    * Check if the passed sender authority is valid or not. By default is must
    * match
-   * {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}.
    * Override this method to allow for other schemes as well.
    *
    * @param sSenderAuthority
@@ -90,7 +90,7 @@ public class PeppolSBDHDocumentReader
   @OverrideOnDemand
   protected boolean isValidSenderAuthority (@Nullable final String sSenderAuthority)
   {
-    return IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sSenderAuthority);
+    return IPeppolParticipantIdentifier.DEFAULT_SCHEME.equals (sSenderAuthority);
   }
 
   /**
@@ -118,7 +118,7 @@ public class PeppolSBDHDocumentReader
   /**
    * Check if the passed receiver authority is valid or not. By default is must
    * match
-   * {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}.
    * Override this method to allow for other schemes as well.
    *
    * @param sReceiverAuthority
@@ -131,7 +131,7 @@ public class PeppolSBDHDocumentReader
   @OverrideOnDemand
   protected boolean isValidReceiverAuthority (@Nullable final String sReceiverAuthority)
   {
-    return IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME.equals (sReceiverAuthority);
+    return IPeppolParticipantIdentifier.DEFAULT_SCHEME.equals (sReceiverAuthority);
   }
 
   /**

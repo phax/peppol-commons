@@ -94,20 +94,20 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocument aData = aReader.extractData (aRes);
     assertNotNull (aData);
     assertTrue (aData.areAllFieldsSet ());
-    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getSenderScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_SCHEME, aData.getSenderScheme ());
     assertEquals ("0088:7315458756324", aData.getSenderValue ());
-    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aData.getReceiverScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_SCHEME, aData.getReceiverScheme ());
     assertEquals ("0088:4562458856624", aData.getReceiverValue ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", aData.getStandard ());
     assertEquals ("2.1", aData.getTypeVersion ());
     assertEquals ("Invoice", aData.getType ());
     assertEquals ("123123", aData.getInstanceIdentifier ());
     assertEquals ("2013-02-19T05:10:10.000", PDTWebDateHelper.getAsStringXSD (aData.getCreationDateAndTime ()));
-    assertEquals (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
+    assertEquals (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME,
                   aData.getDocumentTypeScheme ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
                   aData.getDocumentTypeValue ());
-    assertEquals (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aData.getProcessScheme ());
+    assertEquals (IPeppolProcessIdentifier.DEFAULT_SCHEME, aData.getProcessScheme ());
     assertEquals ("urn:www.cenbii.eu:profile:bii04:ver1.0", aData.getProcessValue ());
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());

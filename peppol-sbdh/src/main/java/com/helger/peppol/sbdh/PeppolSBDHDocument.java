@@ -77,7 +77,7 @@ public class PeppolSBDHDocument
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
+   *        {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}
    *        . May neither be <code>null</code> nor empty. This field is mapped
    *        to
    *        <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code>
@@ -99,7 +99,7 @@ public class PeppolSBDHDocument
   /**
    * Set the sender identifier value using the default identifier
    * scheme/authority
-   * {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}.
    *
    * @param sValue
    *        The sender identifier value. May neither be <code>null</code> nor
@@ -110,7 +110,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setSenderWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setSender (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
+    return setSender (IPeppolParticipantIdentifier.DEFAULT_SCHEME, sValue);
   }
 
   /**
@@ -152,7 +152,7 @@ public class PeppolSBDHDocument
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
+   *        {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}
    *        . May neither be <code>null</code> nor empty. This field is mapped
    *        to
    *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code>
@@ -175,7 +175,7 @@ public class PeppolSBDHDocument
   /**
    * Set the receiver identifier value using the default identifier
    * scheme/authority
-   * {@link IPeppolParticipantIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}.
    *
    * @param sValue
    *        The sender identifier value. May neither be <code>null</code> nor
@@ -186,7 +186,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setReceiverWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setReceiver (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
+    return setReceiver (IPeppolParticipantIdentifier.DEFAULT_SCHEME, sValue);
   }
 
   /**
@@ -248,7 +248,7 @@ public class PeppolSBDHDocument
   /**
    * Set the document type identifier using the default identifier
    * scheme/authority
-   * {@link IPeppolDocumentTypeIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
+   * {@link IPeppolDocumentTypeIdentifier#DEFAULT_SCHEME}
    * .
    *
    * @param sValue
@@ -261,7 +261,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setDocumentTypeWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setDocumentType (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
+    return setDocumentType (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, sValue);
   }
 
   /**
@@ -320,7 +320,7 @@ public class PeppolSBDHDocument
   /**
    * Set the document type identifier using the default identifier
    * scheme/authority
-   * {@link IPeppolProcessIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}.
+   * {@link IPeppolProcessIdentifier#DEFAULT_SCHEME}.
    *
    * @param sValue
    *        The process identifier. May neither be <code>null</code> nor empty.
@@ -332,7 +332,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setProcessWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setProcess (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
+    return setProcess (IPeppolProcessIdentifier.DEFAULT_SCHEME, sValue);
   }
 
   /**

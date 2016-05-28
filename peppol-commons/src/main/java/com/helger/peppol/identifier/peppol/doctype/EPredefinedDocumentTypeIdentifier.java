@@ -375,7 +375,7 @@ public enum EPredefinedDocumentTypeIdentifier implements IPeppolPredefinedDocume
   @Nonempty
   public String getScheme ()
   {
-    return IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
+    return IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME;
   }
 
   @Nonnull
@@ -476,7 +476,7 @@ public enum EPredefinedDocumentTypeIdentifier implements IPeppolPredefinedDocume
   public static EPredefinedDocumentTypeIdentifier getFromDocumentTypeIdentifierOrNull (@Nullable final IDocumentTypeIdentifier aDocTypeID)
   {
     if ((aDocTypeID != null) &&
-        IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (aDocTypeID.getScheme ()))
+        IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME.equals (aDocTypeID.getScheme ()))
     {
       for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
       {

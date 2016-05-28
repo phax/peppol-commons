@@ -50,7 +50,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 /**
  * A special PEPPOL participant identifier handling all the special constraints
@@ -116,7 +115,7 @@ public class PeppolParticipantIdentifier extends SimpleParticipantIdentifier
 
   /**
    * Create a new participant identifier that uses the default schema
-   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}
+   * {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}
    *
    * @param sValue
    *        The identifier value like <code>0088:12345678</code>
@@ -126,7 +125,7 @@ public class PeppolParticipantIdentifier extends SimpleParticipantIdentifier
   @Nonnull
   public static PeppolParticipantIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new PeppolParticipantIdentifier (DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, sValue);
+    return new PeppolParticipantIdentifier (DEFAULT_SCHEME, sValue);
   }
 
   /**
@@ -198,8 +197,8 @@ public class PeppolParticipantIdentifier extends SimpleParticipantIdentifier
    *        <code>null</code> is returned.
    * @return The participant identifier or <code>null</code> if any of the parts
    *         is invalid.
-   * @see #IPeppolParticipantIdentifier.isValidScheme(String)
-   * @see #IPeppolParticipantIdentifier.isValidValue(String)
+   * @see IPeppolParticipantIdentifier#isValidScheme(String)
+   * @see IPeppolParticipantIdentifier#isValidValue(String)
    */
   @Nullable
   public static PeppolParticipantIdentifier createIfValid (@Nullable final String sScheme,

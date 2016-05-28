@@ -75,16 +75,16 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
    * See also
    * com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
    */
-  String DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME = "iso6523-actorid-upis";
+  String DEFAULT_SCHEME = "iso6523-actorid-upis";
 
   /**
    * Participant identifier value maximum length (excluding the scheme)
    */
-  int MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH = 50;
+  int MAX_VALUE_LENGTH = 50;
 
   default boolean hasDefaultScheme ()
   {
-    return hasScheme (DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME);
+    return hasScheme (DEFAULT_SCHEME);
   }
 
   /**
@@ -140,12 +140,12 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
 
   /**
    * Check if the given scheme is a valid participant identifier scheme (like
-   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}). It is
-   * valid if it has at least 1 character and at last 25 characters (see
+   * {@link #DEFAULT_SCHEME}). It is valid if it has at least 1 character and at
+   * last 25 characters (see
    * {@link CPeppolIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a
    * certain regular expression (see
-   * {@link CPeppolIdentifier#PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please note
-   * that the regular expression is applied case insensitive!<br>
+   * {@link #PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please note that the regular
+   * expression is applied case insensitive!<br>
    * This limitation is important, because the participant identifier scheme is
    * directly encoded into the SML DNS name record.
    *
@@ -153,7 +153,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
    *        The scheme to check.
    * @return <code>true</code> if the passed scheme is a valid participant
    *         identifier scheme, <code>false</code> otherwise.
-   * @see #isValidIdentifierScheme(String)
+   * @see PeppolIdentifierHelper#isValidIdentifierScheme(String)
    */
   static boolean isValidScheme (@Nullable final String sScheme)
   {
@@ -166,9 +166,8 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
   /**
    * Check if the passed participant identifier value is valid. A valid
    * identifier must have at least 1 character and at last
-   * {@link CPeppolIdentifier#MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH}
-   * characters. Also it must be US ASCII encoded. This check method considers
-   * only the value and not the identifier scheme!
+   * {@link #MAX_VALUE_LENGTH} characters. Also it must be US ASCII encoded.
+   * This check method considers only the value and not the identifier scheme!
    *
    * @param sValue
    *        The participant identifier value to be checked (without the scheme).
@@ -182,7 +181,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
       return false;
 
     final int nLength = sValue.length ();
-    if (nLength == 0 || nLength > MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH)
+    if (nLength == 0 || nLength > MAX_VALUE_LENGTH)
       return false;
 
     // Check if the value is US ASCII encoded

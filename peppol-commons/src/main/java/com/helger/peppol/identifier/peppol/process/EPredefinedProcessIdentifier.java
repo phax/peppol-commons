@@ -171,7 +171,7 @@ public enum EPredefinedProcessIdentifier implements IPeppolPredefinedProcessIden
   @Nonempty
   public String getScheme ()
   {
-    return IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
+    return IPeppolProcessIdentifier.DEFAULT_SCHEME;
   }
 
   @Nonnull
@@ -217,7 +217,7 @@ public enum EPredefinedProcessIdentifier implements IPeppolPredefinedProcessIden
   public static EPredefinedProcessIdentifier getFromProcessIdentifierOrNull (@Nullable final IProcessIdentifier aProcessID)
   {
     if ((aProcessID != null) &&
-        IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals (aProcessID.getScheme ()))
+        IPeppolProcessIdentifier.DEFAULT_SCHEME.equals (aProcessID.getScheme ()))
     {
       for (final EPredefinedProcessIdentifier e : EPredefinedProcessIdentifier.values ())
       {

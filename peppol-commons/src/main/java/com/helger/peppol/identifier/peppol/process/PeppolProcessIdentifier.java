@@ -51,7 +51,6 @@ import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.ProcessIdentifierType;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -115,7 +114,7 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
 
   /**
    * Create a new process identifier that uses the default schema
-   * {@link CPeppolIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}
+   * {@link IPeppolProcessIdentifier#DEFAULT_SCHEME}
    *
    * @param sValue
    *        The identifier value like
@@ -126,7 +125,7 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
   @Nonnull
   public static PeppolProcessIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
+    return new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_SCHEME, sValue);
   }
 
   /**
@@ -195,8 +194,8 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
    *        <code>null</code> is returned.
    * @return The process identifier or <code>null</code> if any of the parts is
    *         invalid.
-   * @see #IPeppolProcessIdentifier.isValidScheme(String)
-   * @see #IPeppolProcessIdentifier.isValidValue(String)
+   * @see IPeppolProcessIdentifier#isValidScheme(String)
+   * @see IPeppolProcessIdentifier#isValidValue(String)
    */
   @Nullable
   public static PeppolProcessIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)

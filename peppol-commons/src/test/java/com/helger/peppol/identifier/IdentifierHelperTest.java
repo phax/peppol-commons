@@ -244,9 +244,9 @@ public final class IdentifierHelperTest
     assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue ("order "));
 
     assertTrue (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                     IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)));
+                                                                                                     IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH)));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (StringHelper.getRepeated ('a',
-                                                                                                      IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                                                      IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
                                                                                                            1)));
   }
 
@@ -262,7 +262,7 @@ public final class IdentifierHelperTest
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype::" +
                                                                        StringHelper.getRepeated ('a',
-                                                                                                 IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                                                 IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
                                                                                                       1)));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctype:order"));
     assertFalse (PeppolIdentifierHelper.isValidDocumentTypeIdentifier ("doctypeorder"));

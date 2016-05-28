@@ -60,7 +60,7 @@ public final class PeppolParticipantIdentifierTest
 {
   private static final String [] PARTICIPANT_SCHEME_VALID = { "busdox-actorid-upis",
                                                               "BUSDOX-ACTORID-UPIS",
-                                                              IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
+                                                              IPeppolParticipantIdentifier.DEFAULT_SCHEME,
                                                               "any-actorid-any",
                                                               "any-ACTORID-any" };
   private static final String [] PARTIFCIPANT_SCHEME_INVALID = { null,
@@ -74,7 +74,7 @@ public final class PeppolParticipantIdentifierTest
                                                                  "any-domain_actorid_any-type",
                                                                  "any-nonactoid-anybutmuchtoooooooooooooooooooooooolong" };
   private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a',
-                                                                           IPeppolParticipantIdentifier.MAX_PARTICIPANT_IDENTIFIER_VALUE_LENGTH);
+                                                                           IPeppolParticipantIdentifier.MAX_VALUE_LENGTH);
   private static final String VALUE_MAX_LENGTH_PLUS_1 = VALUE_MAX_LENGTH + 'a';
 
   @Test
@@ -169,7 +169,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // null value not allowed
-      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, null);
+      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -187,7 +187,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Empty is not allowed
-      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "");
+      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -196,7 +196,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, "Љ");
+      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -205,7 +205,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME +
+      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_SCHEME +
                                        VALUE_MAX_LENGTH_PLUS_1,
                                        "abc");
       fail ();
@@ -216,7 +216,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Value too long
-      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME,
+      new PeppolParticipantIdentifier (IPeppolParticipantIdentifier.DEFAULT_SCHEME,
                                        VALUE_MAX_LENGTH_PLUS_1);
       fail ();
     }

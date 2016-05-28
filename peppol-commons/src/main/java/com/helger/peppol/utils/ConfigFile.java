@@ -87,7 +87,7 @@ public class ConfigFile
   /**
    * Constructor with a single file path to read.
    *
-   * @param aConfigPaths
+   * @param sConfigPath
    *        The path to the config file to be read. Must be classpath-relative.
    */
   public ConfigFile (@Nonnull @Nonempty final String sConfigPath)

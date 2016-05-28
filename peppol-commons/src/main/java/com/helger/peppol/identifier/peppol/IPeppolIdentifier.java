@@ -52,7 +52,7 @@ public interface IPeppolIdentifier extends IIdentifier
   /**
    * Check if this identifier uses the default scheme. E.g. for participant
    * identifiers this would be <code>true</code> if the scheme equals
-   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME}.
+   * <code>iso6523-actorid-upis</code>.
    *
    * @return <code>true</code> if is the default scheme, <code>false</code>
    *         otherwise.

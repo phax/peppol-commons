@@ -64,19 +64,19 @@ public final class PeppolSBDHDocumentWriterTest
     final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);
     assertNotNull (aDataRead);
 
-    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aDataRead.getSenderScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_SCHEME, aDataRead.getSenderScheme ());
     assertEquals ("0088:sender", aDataRead.getSenderValue ());
-    assertEquals (IPeppolParticipantIdentifier.DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME, aDataRead.getReceiverScheme ());
+    assertEquals (IPeppolParticipantIdentifier.DEFAULT_SCHEME, aDataRead.getReceiverScheme ());
     assertEquals ("0099:receiver", aDataRead.getReceiverValue ());
     assertEquals ("urn:foobar", aDataRead.getStandard ());
     assertEquals ("2.1", aDataRead.getTypeVersion ());
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
-    assertEquals (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
+    assertEquals (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME,
                   aDataRead.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
-    assertEquals (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aDataRead.getProcessScheme ());
+    assertEquals (IPeppolProcessIdentifier.DEFAULT_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
     assertTrue (aDataRead.hasBusinessMessage ());
     assertEquals ("root", aDataRead.getBusinessMessage ().getLocalName ());

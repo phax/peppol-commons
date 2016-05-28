@@ -138,7 +138,6 @@ public final class PeppolIdentifierHelper
    *        The scheme to check.
    * @return <code>true</code> if the passed scheme is a valid identifier
    *         scheme, <code>false</code> otherwise.
-   * @see #isValidParticipantIdentifierScheme(String)
    * @see #areSchemeMaxLengthChecksDisabled()
    */
   public static boolean isValidIdentifierScheme (@Nullable final String sScheme)
@@ -156,8 +155,8 @@ public final class PeppolIdentifierHelper
   /**
    * Check if the passed document type identifier value is valid. A valid
    * identifier must have at least 1 character and at last
-   * {@link CPeppolIdentifier#MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH}
-   * characters. Also it must be ISO-8859-1 encoded.
+   * {@link IPeppolDocumentTypeIdentifier#MAX_VALUE_LENGTH} characters. Also it
+   * must be ISO-8859-1 encoded.
    *
    * @param sValue
    *        The document type identifier value to be checked (without the
@@ -168,7 +167,7 @@ public final class PeppolIdentifierHelper
   public static boolean isValidDocumentTypeIdentifierValue (@Nullable final String sValue)
   {
     final int nLength = StringHelper.getLength (sValue);
-    if (nLength == 0 || nLength > IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH)
+    if (nLength == 0 || nLength > IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH)
       return false;
 
     // Check if the value is ISO-8859-1 encoded
@@ -202,7 +201,7 @@ public final class PeppolIdentifierHelper
   {
     ValueEnforcer.notNull (aIdentifier, "DocumentTypeIdentifier");
 
-    return IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (aIdentifier.getScheme ());
+    return IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME.equals (aIdentifier.getScheme ());
   }
 
   /**

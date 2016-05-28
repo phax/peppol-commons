@@ -50,7 +50,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ServiceLoaderHelper;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 
 /**
@@ -83,8 +82,8 @@ public final class IdentifierValidator
   /**
    * Check if the passed participant ID matches all custom rules. But only
    * participant IDs with the default scheme
-   * {@link CPeppolIdentifier#DEFAULT_PARTICIPANT_IDENTIFIER_SCHEME} are validated, as
-   * we don't know the details of the other schemes.<br>
+   * {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME} are validated, as we
+   * don't know the details of the other schemes.<br>
    * This method can be used to generically check the consistency of certain
    * numbering schemes.
    *

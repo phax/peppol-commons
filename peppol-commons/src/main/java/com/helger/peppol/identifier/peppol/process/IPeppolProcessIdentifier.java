@@ -59,17 +59,17 @@ public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIde
   /**
    * Process identifier value maximum length (excluding the scheme)
    */
-  int MAX_PROCESS_IDENTIFIER_VALUE_LENGTH = 200;
+  int MAX_VALUE_LENGTH = 200;
 
   /**
    * The default process identifier scheme.<br>
    * Overrides PEPPOL Common definitions chapter 3.6!
    */
-  String DEFAULT_PROCESS_IDENTIFIER_SCHEME = "cenbii-procid-ubl";
+  String DEFAULT_SCHEME = "cenbii-procid-ubl";
 
   default boolean hasDefaultScheme ()
   {
-    return hasScheme (DEFAULT_PROCESS_IDENTIFIER_SCHEME);
+    return hasScheme (DEFAULT_SCHEME);
   }
 
   /**
@@ -83,8 +83,7 @@ public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIde
    *        The scheme to check.
    * @return <code>true</code> if the passed scheme is a valid identifier
    *         scheme, <code>false</code> otherwise.
-   * @see #isValidParticipantIdentifierScheme(String)
-   * @see #areSchemeMaxLengthChecksDisabled()
+   * @see PeppolIdentifierHelper#isValidIdentifierScheme(String)
    */
   static boolean isValidScheme (@Nullable final String sScheme)
   {
@@ -94,9 +93,8 @@ public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIde
 
   /**
    * Check if the passed process identifier value is valid. A valid identifier
-   * must have at least 1 character and at last
-   * {@link CPeppolIdentifier#MAX_PROCESS_IDENTIFIER_VALUE_LENGTH} characters.
-   * Also it must be ISO-8859-1 encoded.
+   * must have at least 1 character and at last {@link #MAX_VALUE_LENGTH}
+   * characters. Also it must be ISO-8859-1 encoded.
    *
    * @param sValue
    *        The process identifier value to be checked (without the scheme). May
@@ -107,7 +105,7 @@ public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIde
   static boolean isValidValue (@Nullable final String sValue)
   {
     final int nLength = StringHelper.getLength (sValue);
-    if (nLength == 0 || nLength > MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)
+    if (nLength == 0 || nLength > MAX_VALUE_LENGTH)
       return false;
 
     // Check if the value is ISO-8859-1 encoded

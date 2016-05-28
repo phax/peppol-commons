@@ -48,7 +48,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
@@ -97,7 +96,7 @@ public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
 
   /**
    * Create a new document type identifier that uses the default schema
-   * {@link CPeppolIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
+   * {@link IPeppolDocumentTypeIdentifier#DEFAULT_SCHEME}
    *
    * @param sValue
    *        The identifier value like
@@ -108,8 +107,7 @@ public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
   @Nonnull
   public static PeppolDocumentTypeIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
-                                             sValue);
+    return new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, sValue);
   }
 
   /**

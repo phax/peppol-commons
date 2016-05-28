@@ -124,7 +124,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // null value not allowed
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, null);
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -142,7 +142,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Empty is not allowed
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "");
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -151,7 +151,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, "Љ");
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -160,7 +160,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME +
                                         StringHelper.getRepeated ('a',
                                                                   CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                         "abc");
@@ -172,9 +172,9 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Value too long
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME,
+      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME,
                                         StringHelper.getRepeated ('a',
-                                                                  IPeppolDocumentTypeIdentifier.MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH +
+                                                                  IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
                                                                        1));
       fail ();
     }

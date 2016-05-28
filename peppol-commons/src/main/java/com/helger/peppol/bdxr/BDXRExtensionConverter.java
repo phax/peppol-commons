@@ -83,7 +83,7 @@ public final class BDXRExtensionConverter
   /**
    * Convert the passed extension type to a string representation.
    *
-   * @param aExtension
+   * @param aExtensions
    *        The extension to be converted. May be <code>null</code>.
    * @return <code>null</code> if no extension was passed - the XML
    *         representation of the extension otherwise.
@@ -135,7 +135,7 @@ public final class BDXRExtensionConverter
       if (aJson == null || !aJson.isArray ())
         throw new IllegalArgumentException ("Error in parsing extension JSON '" + sJson + "'");
 
-      final ICommonsList <ExtensionType> ret = new CommonsArrayList <> ();
+      final ICommonsList <ExtensionType> ret = new CommonsArrayList<> ();
       aJson.getAsArray ().forEach (aChild -> {
         final IJsonObject aObject = aChild.getAsObject ();
         final ExtensionType aExt = new ExtensionType ();

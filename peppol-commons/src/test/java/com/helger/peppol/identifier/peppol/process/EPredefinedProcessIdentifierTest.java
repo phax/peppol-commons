@@ -64,7 +64,7 @@ public final class EPredefinedProcessIdentifierTest
   {
     for (final EPredefinedProcessIdentifier e : EPredefinedProcessIdentifier.values ())
     {
-      assertEquals (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, e.getScheme ());
+      assertEquals (IPeppolProcessIdentifier.DEFAULT_SCHEME, e.getScheme ());
       assertTrue (StringHelper.hasText (e.getValue ()));
       assertTrue (StringHelper.hasText (e.getBISID ()));
       assertNotNull (e.getDocumentTypeIdentifiers ());

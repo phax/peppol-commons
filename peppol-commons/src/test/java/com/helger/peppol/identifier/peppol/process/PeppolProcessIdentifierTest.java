@@ -124,7 +124,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // null value not allowed
-      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, null);
+      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -142,7 +142,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // Empty is not allowed
-      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "");
+      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -151,7 +151,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, "Љ");
+      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -160,7 +160,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME +
+      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_SCHEME +
                                    StringHelper.getRepeated ('a', CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                    "abc");
       fail ();
@@ -171,9 +171,9 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // Value too long
-      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME,
+      new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_SCHEME,
                                    StringHelper.getRepeated ('a',
-                                                             IPeppolProcessIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
+                                                             IPeppolProcessIdentifier.MAX_VALUE_LENGTH +
                                                                   1));
       fail ();
     }
@@ -191,9 +191,9 @@ public final class PeppolProcessIdentifierTest
     assertTrue (IPeppolProcessIdentifier.isValidValue ("proc2 "));
 
     assertTrue (IPeppolProcessIdentifier.isValidValue (StringHelper.getRepeated ('a',
-                                                                                 IPeppolProcessIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)));
+                                                                                 IPeppolProcessIdentifier.MAX_VALUE_LENGTH)));
     assertFalse (IPeppolProcessIdentifier.isValidValue (StringHelper.getRepeated ('a',
-                                                                                  IPeppolProcessIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
+                                                                                  IPeppolProcessIdentifier.MAX_VALUE_LENGTH +
                                                                                        1)));
   }
 
@@ -216,7 +216,7 @@ public final class PeppolProcessIdentifierTest
     assertFalse (PeppolProcessIdentifier.isValidURIPart ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
     assertFalse (PeppolProcessIdentifier.isValidURIPart ("process::" +
                                                          StringHelper.getRepeated ('a',
-                                                                                   IPeppolProcessIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH +
+                                                                                   IPeppolProcessIdentifier.MAX_VALUE_LENGTH +
                                                                                         1)));
     assertFalse (PeppolProcessIdentifier.isValidURIPart ("process:proc2"));
     assertFalse (PeppolProcessIdentifier.isValidURIPart ("processproc2"));
