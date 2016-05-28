@@ -43,15 +43,14 @@ package com.helger.peppol.utils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.xml.XMLFactory;
 
 /**
@@ -75,7 +74,7 @@ public final class W3CEndpointReferenceHelperTest
   @Test
   public void testReferenceParameters ()
   {
-    final List <Element> aParams = new ArrayList <Element> ();
+    final ICommonsList <Element> aParams = new CommonsArrayList<> ();
     final Document aDummyDoc = XMLFactory.newDocument ();
     Element aElement = aDummyDoc.createElementNS ("urn:ns1", "element1");
     aElement.appendChild (aDummyDoc.createTextNode ("text1"));
@@ -87,7 +86,7 @@ public final class W3CEndpointReferenceHelperTest
     final String sURL = "http://www.example.org/any";
     final W3CEndpointReference aEPR = W3CEndpointReferenceHelper.createEndpointReference (sURL, aParams);
     assertEquals (sURL, W3CEndpointReferenceHelper.getAddress (aEPR));
-    final List <Element> aReads = W3CEndpointReferenceHelper.getReferenceParameters (aEPR);
+    final ICommonsList <Element> aReads = W3CEndpointReferenceHelper.getReferenceParameters (aEPR);
 
     // Note: cannot directly compare aParams and aReads because of different
     // underlying documents

@@ -60,7 +60,7 @@ import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
 import com.helger.commons.messagedigest.MessageDigestValue;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 
@@ -201,7 +201,7 @@ public final class BusdoxURLHelper
     {
       // Important: create hash from lowercase string!
       // Here the "B-0011223344..." string is assembled!
-      ret.append (CPeppolIdentifier.DNS_HASHED_IDENTIFIER_PREFIX)
+      ret.append (PeppolIdentifierHelper.DNS_HASHED_IDENTIFIER_PREFIX)
          .append (getHashValueStringRepresentation (sValue.toLowerCase (URL_LOCALE)))
          .append ('.');
     }

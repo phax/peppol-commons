@@ -61,6 +61,17 @@ import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierP
 @ThreadSafe
 public final class PeppolIdentifierHelper
 {
+  /**
+   * The maximum length of an identifier scheme. This applies to all identifier
+   * schemes (participant, document type and process).
+   */
+  public static final int MAX_IDENTIFIER_SCHEME_LENGTH = 25;
+
+  /**
+   * The identifier prefix for DNS name creation.
+   */
+  public static final String DNS_HASHED_IDENTIFIER_PREFIX = "B-";
+
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
   public static final boolean DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED = false;
 
@@ -143,7 +154,7 @@ public final class PeppolIdentifierHelper
       return false;
     if (areSchemeMaxLengthChecksDisabled ())
       return true;
-    return nLength <= CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH;
+    return nLength <= MAX_IDENTIFIER_SCHEME_LENGTH;
   }
 
   /**

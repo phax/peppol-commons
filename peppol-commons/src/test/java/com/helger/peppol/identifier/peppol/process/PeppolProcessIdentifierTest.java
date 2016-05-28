@@ -50,9 +50,7 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
-import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
-import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * Test class for class {@link PeppolProcessIdentifier}.
@@ -161,7 +159,8 @@ public final class PeppolProcessIdentifierTest
     {
       // Scheme too long
       new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_SCHEME +
-                                   StringHelper.getRepeated ('a', CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+                                   StringHelper.getRepeated ('a',
+                                                             PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                    "abc");
       fail ();
     }
@@ -172,9 +171,7 @@ public final class PeppolProcessIdentifierTest
     {
       // Value too long
       new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_SCHEME,
-                                   StringHelper.getRepeated ('a',
-                                                             IPeppolProcessIdentifier.MAX_VALUE_LENGTH +
-                                                                  1));
+                                   StringHelper.getRepeated ('a', IPeppolProcessIdentifier.MAX_VALUE_LENGTH + 1));
       fail ();
     }
     catch (final IllegalArgumentException ex)

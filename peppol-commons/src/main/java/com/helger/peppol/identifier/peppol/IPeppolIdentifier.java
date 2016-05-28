@@ -43,7 +43,7 @@ package com.helger.peppol.identifier.peppol;
 import com.helger.peppol.identifier.IIdentifier;
 
 /**
- * Base interface for all PEPPOL read-only identifiers
+ * Base interface for all PEPPOL identifiers.
  *
  * @author philip
  */

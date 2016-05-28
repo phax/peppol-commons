@@ -51,7 +51,7 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -204,7 +204,8 @@ public final class PeppolDocumentTypeIdentifierTest
       // Scheme too long
       new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME +
                                         StringHelper.getRepeated ('a',
-                                                                  CPeppolIdentifier.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+                                                                  PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH +
+                                                                       1),
                                         "abc");
       fail ();
     }
