@@ -51,6 +51,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.charset.CCharset;
@@ -74,6 +77,7 @@ public final class BusdoxURLHelper
 {
   public static final Charset URL_CHARSET = CCharset.CHARSET_UTF_8_OBJ;
   public static final Locale URL_LOCALE = Locale.US;
+  private static final Logger s_aLogger = LoggerFactory.getLogger (BusdoxURLHelper.class);
 
   @SuppressWarnings ("unused")
   @PresentForCodeCoverage
@@ -186,8 +190,10 @@ public final class BusdoxURLHelper
 
     // Check identifier scheme (must be lowercase for the URL later on!)
     final String sIdentifierScheme = aParticipantIdentifier.getScheme ().toLowerCase (URL_LOCALE);
+
+    // Was previously an error, but to be more flexible just emit a warning
     if (!IPeppolParticipantIdentifier.isValidScheme (sIdentifierScheme))
-      throw new IllegalArgumentException ("Invalid participant identifier scheme '" + sIdentifierScheme + "'");
+      s_aLogger.warn ("Invalid PEPPOL participant identifier scheme '" + sIdentifierScheme + "' used");
 
     // Get the identifier value
     final String sValue = aParticipantIdentifier.getValue ();

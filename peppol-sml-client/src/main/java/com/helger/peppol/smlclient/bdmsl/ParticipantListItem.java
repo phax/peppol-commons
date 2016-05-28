@@ -50,8 +50,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 
 /**
  * A single item of the participant list.
@@ -62,7 +61,7 @@ import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifi
 public class ParticipantListItem implements Serializable
 {
   private final String m_sSMPID;
-  private final PeppolParticipantIdentifier m_aParticipantID;
+  private final IParticipantIdentifier m_aParticipantID;
 
   /**
    * Constructor
@@ -81,7 +80,7 @@ public class ParticipantListItem implements Serializable
 
     m_sSMPID = sSMPID;
     // Same type, guaranteed to not be changed inside
-    m_aParticipantID = new PeppolParticipantIdentifier (aParticipantID);
+    m_aParticipantID = new SimpleParticipantIdentifier (aParticipantID);
   }
 
   /**
@@ -100,7 +99,7 @@ public class ParticipantListItem implements Serializable
    *         <code>null</code>.
    */
   @Nonnull
-  public IPeppolParticipantIdentifier getParticipantID ()
+  public IParticipantIdentifier getParticipantID ()
   {
     return m_aParticipantID;
   }

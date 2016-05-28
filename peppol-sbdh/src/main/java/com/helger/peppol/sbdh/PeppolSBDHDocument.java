@@ -33,12 +33,15 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.datetime.PDTFactory;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
-import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 
 /**
  * This class contains all the PEPPOL data per SBDH document in a syntax neutral
@@ -140,9 +143,9 @@ public class PeppolSBDHDocument
    *         invalid.
    */
   @Nullable
-  public IPeppolParticipantIdentifier getSenderAsIdentifier ()
+  public IParticipantIdentifier getSenderAsIdentifier ()
   {
-    return PeppolParticipantIdentifier.createIfValid (m_sSenderScheme, m_sSenderValue);
+    return new SimpleParticipantIdentifier (m_sSenderScheme, m_sSenderValue);
   }
 
   /**
@@ -214,9 +217,9 @@ public class PeppolSBDHDocument
    *         invalid.
    */
   @Nullable
-  public IPeppolParticipantIdentifier getReceiverAsIdentifier ()
+  public IParticipantIdentifier getReceiverAsIdentifier ()
   {
-    return PeppolParticipantIdentifier.createIfValid (m_sReceiverScheme, m_sReceiverValue);
+    return new SimpleParticipantIdentifier (m_sReceiverScheme, m_sReceiverValue);
   }
 
   /**
@@ -285,9 +288,9 @@ public class PeppolSBDHDocument
    *         certain information are missing or are invalid.
    */
   @Nullable
-  public IPeppolDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
+  public IDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
   {
-    return PeppolDocumentTypeIdentifier.createIfValid (m_sDocumentTypeScheme, m_sDocumentTypeValue);
+    return new SimpleDocumentTypeIdentifier (m_sDocumentTypeScheme, m_sDocumentTypeValue);
   }
 
   /**
@@ -355,9 +358,9 @@ public class PeppolSBDHDocument
    *         information are missing or are invalid.
    */
   @Nullable
-  public IPeppolProcessIdentifier getProcessAsIdentifier ()
+  public IProcessIdentifier getProcessAsIdentifier ()
   {
-    return PeppolProcessIdentifier.createIfValid (m_sProcessScheme, m_sProcessValue);
+    return new SimpleProcessIdentifier (m_sProcessScheme, m_sProcessValue);
   }
 
   /**
