@@ -13,5 +13,10 @@ New: `PeppolDocumentTypeIdentifier`
 Old: `SimpleProcessIdentifier`
 New: `PeppolProcessIdentifier`
 
+Old: `SimpleParticipantIdentifier`
+New: `PeppolParticipantIdentifier`
+
+This means that the `Simple...Identifier` classes no longer check for PEPPOL specific rules (like schema and value validity).
+
 ##SPI
-The interface `com.helger.peppol.identifier.validator.IParticipantIdentifierValidatorSPI` was moved to `com.helger.peppol.identifier.**peppol**.validator.IParticipantIdentifierValidatorSPI` so all implementations must be updated - don't forget the the `META-INF/services` filenames itself.
+The interface `com.helger.peppol.identifier.validator.IParticipantIdentifierValidatorSPI` was moved to `com.helger.peppol.identifier.**peppol**.validator.IParticipantIdentifierValidatorSPI` so all implementations must be updated - don't forget the  filenames below `META-INF/services` itself.
