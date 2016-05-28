@@ -51,6 +51,8 @@ import org.junit.Test;
 import com.helger.commons.url.URLHelper;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
@@ -121,9 +123,9 @@ public final class SMPClientWithDNSFuncTest
   public void getByDNSTestForDocs () throws Exception
   {
     // ServiceGroup = participant identifier; GLN = 0088
-    final ParticipantIdentifierType aServiceGroupID = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("5798000000001");
+    final IParticipantIdentifier aServiceGroupID = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("5798000000001");
     // Document type identifier from enumeration
-    final DocumentIdentifierType aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A.getAsDocumentTypeIdentifier ();
+    final IDocumentTypeIdentifier aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A.getAsDocumentTypeIdentifier ();
     // Main call to the SMP client with the correct SML to use
     final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (ESML.DEVELOPMENT_LOCAL,
                                                                                                aServiceGroupID,
@@ -137,8 +139,8 @@ public final class SMPClientWithDNSFuncTest
     final String sParticipantID = "0088:5798000009997";
     final String sDocumentID = "urn:oasis:names:specification:ubl:schema:xsd:SubmitCatalogue-2::SubmitCatalogue##UBL-2.0";
 
-    final ParticipantIdentifierType aServiceGroupID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantID);
-    final DocumentIdentifierType aDocumentTypeID = PeppolDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
+    final IParticipantIdentifier aServiceGroupID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantID);
+    final IDocumentTypeIdentifier aDocumentTypeID = PeppolDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
 
     final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (SML_INFO,
                                                                                                aServiceGroupID,

@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 
 
@@ -597,7 +598,7 @@ public enum EPredefinedIdentifierIssuingAgency
     }
 
     @Nonnull
-    public PeppolParticipantIdentifier createParticipantIdentifier(
+    public IPeppolParticipantIdentifier createParticipantIdentifier(
         @Nonnull
         @Nonempty
         final String sIdentifier) {

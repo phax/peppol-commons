@@ -47,6 +47,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
@@ -219,7 +220,7 @@ public final class IdentifierHelperTest
   @Test
   public void testGetIdentifierURIPercentEncoded ()
   {
-    ParticipantIdentifierType aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
+    IParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
     assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
     aPI = PeppolParticipantIdentifier.createWithDefaultScheme (EPredefinedIdentifierIssuingAgency.GLN.createIdentifierValue ("123abc"));
     assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));

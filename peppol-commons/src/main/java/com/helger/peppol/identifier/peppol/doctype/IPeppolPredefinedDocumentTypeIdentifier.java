@@ -66,7 +66,7 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    *         document type identifier.
    */
   @Nonnull
-  PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ();
+  IPeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ();
 
   /**
    * @return The internal code list version in which the identifier was added.
