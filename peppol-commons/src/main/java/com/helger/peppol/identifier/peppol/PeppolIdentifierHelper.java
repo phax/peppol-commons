@@ -56,11 +56,11 @@ import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
@@ -428,11 +428,11 @@ public final class PeppolIdentifierHelper
    * @see #isValidDocumentTypeIdentifierValue(String)
    */
   @Nullable
-  public static SimpleDocumentTypeIdentifier createDocumentTypeIdentifierOrNull (@Nullable final String sScheme,
+  public static PeppolDocumentTypeIdentifier createDocumentTypeIdentifierOrNull (@Nullable final String sScheme,
                                                                                  @Nullable final String sValue)
   {
     if (isValidIdentifierScheme (sScheme) && isValidDocumentTypeIdentifierValue (sValue))
-      return new SimpleDocumentTypeIdentifier (sScheme, sValue);
+      return new PeppolDocumentTypeIdentifier (sScheme, sValue);
     return null;
   }
 
@@ -449,7 +449,7 @@ public final class PeppolIdentifierHelper
    *         <code>null</code> if this string is in an illegal format.
    */
   @Nullable
-  public static SimpleDocumentTypeIdentifier createDocumentTypeIdentifierFromURIPartOrNull (@Nonnull final String sURIPart)
+  public static PeppolDocumentTypeIdentifier createDocumentTypeIdentifierFromURIPartOrNull (@Nonnull final String sURIPart)
   {
     ValueEnforcer.notNull (sURIPart, "URIPart");
 
@@ -477,9 +477,9 @@ public final class PeppolIdentifierHelper
    * @see #createDocumentTypeIdentifierFromURIPartOrNull(String)
    */
   @Nonnull
-  public static SimpleDocumentTypeIdentifier createDocumentTypeIdentifierFromURIPart (@Nonnull final String sURIPart)
+  public static PeppolDocumentTypeIdentifier createDocumentTypeIdentifierFromURIPart (@Nonnull final String sURIPart)
   {
-    final SimpleDocumentTypeIdentifier ret = createDocumentTypeIdentifierFromURIPartOrNull (sURIPart);
+    final PeppolDocumentTypeIdentifier ret = createDocumentTypeIdentifierFromURIPartOrNull (sURIPart);
     if (ret == null)
       throw new IllegalArgumentException ("Document type identifier '" +
                                           sURIPart +

@@ -38,44 +38,20 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.generic.doctype;
+package com.helger.peppol.identifier.peppol.doctype;
 
-import static org.junit.Assert.assertEquals;
+import javax.annotation.Nonnull;
 
-import org.junit.Test;
+import com.helger.commons.microdom.IMicroElement;
+import com.helger.peppol.identifier.generic.doctype.DocumentIdentifierTypeMicroTypeConverter;
 
-import com.helger.commons.mock.CommonsTestHelper;
-
-/**
- * Test class for class {@link SimpleDocumentTypeIdentifier}.
- *
- * @author PEPPOL.AT, BRZ, Philip Helger
- */
-public final class SimpleDocumentTypeIdentifierTest
+public final class PeppolDocumentTypeIdentifierMicroTypeConverter extends DocumentIdentifierTypeMicroTypeConverter
 {
-  @Test
-  public void testCtor ()
+  @Nonnull
+  public PeppolDocumentTypeIdentifier convertToNative (@Nonnull final IMicroElement aElement)
   {
-    final SimpleDocumentTypeIdentifier aID = new SimpleDocumentTypeIdentifier ("scheme", "value");
-    assertEquals ("scheme", aID.getScheme ());
-    assertEquals ("value", aID.getValue ());
-
-    final SimpleDocumentTypeIdentifier aID2 = new SimpleDocumentTypeIdentifier (aID);
-    assertEquals ("scheme", aID2.getScheme ());
-    assertEquals ("value", aID2.getValue ());
-
-    assertEquals (aID, aID2);
-    CommonsTestHelper.testMicroTypeConversion (aID2);
-  }
-
-  @Test
-  public void testBasicMethods ()
-  {
-    final SimpleDocumentTypeIdentifier aID1 = new SimpleDocumentTypeIdentifier ("scheme", "value");
-    final SimpleDocumentTypeIdentifier aID2 = new SimpleDocumentTypeIdentifier ("scheme", "value");
-    final SimpleDocumentTypeIdentifier aID3 = new SimpleDocumentTypeIdentifier ("scheme2", "value");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
+    final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
+    final String sValue = aElement.getAttributeValue (ATTR_VALUE);
+    return new PeppolDocumentTypeIdentifier (sScheme, sValue);
   }
 }

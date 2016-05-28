@@ -17,6 +17,9 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * version 5.0.0 (work in progress)
+    * JDK 8 is now required
+    * Please check the separate [UpdateV5](Update to version 5) page.
   * version 4.3.5
     * Made the SMP query API more flexible so that e.g. the PEPPOL Directory BusinessCards can easily be queried; made the SMP Client more configurable.
   * version 4.3.4

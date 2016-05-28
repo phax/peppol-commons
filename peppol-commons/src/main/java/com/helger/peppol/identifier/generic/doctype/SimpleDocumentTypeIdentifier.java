@@ -48,10 +48,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.IdentifierHelper;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.doctype.IMutablePeppolDocumentTypeIdentifier;
 
 /**
  * This is a sanity class around the {@link DocumentIdentifierType} class with
@@ -62,7 +58,7 @@ import com.helger.peppol.identifier.peppol.doctype.IMutablePeppolDocumentTypeIde
  */
 @NotThreadSafe
 public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements
-                                          IMutablePeppolDocumentTypeIdentifier,
+                                          IMutableDocumentTypeIdentifier,
                                           Comparable <SimpleDocumentTypeIdentifier>,
                                           ICloneable <SimpleDocumentTypeIdentifier>
 {
@@ -73,10 +69,6 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   public SimpleDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
-      throw new IllegalArgumentException ("Document Type identifier scheme '" + sScheme + "' is invalid!");
-    if (!PeppolIdentifierHelper.isValidDocumentTypeIdentifierValue (sValue))
-      throw new IllegalArgumentException ("Document Type identifier value '" + sValue + "' is invalid!");
     setScheme (sScheme);
     setValue (sValue);
   }
@@ -91,60 +83,5 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   public SimpleDocumentTypeIdentifier getClone ()
   {
     return new SimpleDocumentTypeIdentifier (this);
-  }
-
-  /**
-   * Create a new document type identifier that uses the default schema
-   * {@link CPeppolIdentifier#DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME}
-   *
-   * @param sValue
-   *        The identifier value like
-   *        <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
-   * @return The created {@link SimpleParticipantIdentifier} and never
-   *         <code>null</code>.
-   */
-  @Nonnull
-  public static SimpleDocumentTypeIdentifier createWithDefaultScheme (@Nonnull final String sValue)
-  {
-    return new SimpleDocumentTypeIdentifier (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, sValue);
-  }
-
-  /**
-   * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}.
-   *
-   * @param sURIPart
-   *        The URI part
-   *        <code>busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
-   *        . It must NOT be percent encoded!
-   * @return The created {@link SimpleDocumentTypeIdentifier} and never
-   *         <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed identifier is not a valid URI encoded identifier
-   */
-  @Nonnull
-  public static SimpleDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
-  {
-    return PeppolIdentifierHelper.createDocumentTypeIdentifierFromURIPart (sURIPart);
-  }
-
-  /**
-   * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}.
-   *
-   * @param sURIPart
-   *        The URI part
-   *        <code>busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
-   *        . It must NOT be percent encoded! May be <code>null</code>.
-   * @return The created {@link SimpleDocumentTypeIdentifier} or
-   *         <code>null</code> if the passed identifier is not a valid URI
-   *         encoded identifier
-   */
-  @Nullable
-  public static SimpleDocumentTypeIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
-  {
-    if (sURIPart == null)
-      return null;
-    return PeppolIdentifierHelper.createDocumentTypeIdentifierFromURIPartOrNull (sURIPart);
   }
 }

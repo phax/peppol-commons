@@ -57,6 +57,8 @@ import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentif
 import com.helger.peppol.identifier.generic.process.ProcessIdentifierTypeMicroTypeConverter;
 import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifierMicroTypeConverter;
+import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierMicroTypeConverter;
 import com.helger.peppol.smp.SMPTransportProfile;
 import com.helger.peppol.smp.SMPTransportProfileMicroTypeConverter;
 
@@ -70,12 +72,21 @@ public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroT
 {
   public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
   {
-    aRegistry.registerMicroElementTypeConverter (DocumentIdentifierType.class, new DocumentIdentifierTypeMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (SimpleDocumentTypeIdentifier.class, new SimpleDocumentTypeIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (ParticipantIdentifierType.class, new ParticipantIdentifierTypeMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (SimpleParticipantIdentifier.class, new SimpleParticipantIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (ProcessIdentifierType.class, new ProcessIdentifierTypeMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (SimpleProcessIdentifier.class, new SimpleProcessIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (SMPTransportProfile.class, new SMPTransportProfileMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (DocumentIdentifierType.class,
+                                                 new DocumentIdentifierTypeMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (SimpleDocumentTypeIdentifier.class,
+                                                 new SimpleDocumentTypeIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (PeppolDocumentTypeIdentifier.class,
+                                                 new PeppolDocumentTypeIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (ParticipantIdentifierType.class,
+                                                 new ParticipantIdentifierTypeMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (SimpleParticipantIdentifier.class,
+                                                 new SimpleParticipantIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (ProcessIdentifierType.class,
+                                                 new ProcessIdentifierTypeMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (SimpleProcessIdentifier.class,
+                                                 new SimpleProcessIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (SMPTransportProfile.class,
+                                                 new SMPTransportProfileMicroTypeConverter ());
   }
 }

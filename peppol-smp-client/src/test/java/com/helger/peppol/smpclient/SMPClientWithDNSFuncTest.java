@@ -51,9 +51,9 @@ import org.junit.Test;
 import com.helger.commons.url.URLHelper;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
@@ -106,7 +106,7 @@ public final class SMPClientWithDNSFuncTest
     final String sDocumentID = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::InvoiceDisputeDisputeInvoice##UBL-2.0";
 
     final ParticipantIdentifierType aServiceGroupID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantID);
-    final DocumentIdentifierType aDocumentTypeID = SimpleDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
+    final PeppolDocumentTypeIdentifier aDocumentTypeID = PeppolDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
 
     final ServiceGroupType aGroup = SMPClientReadOnly.getServiceGroupByDNS (SML_INFO, aServiceGroupID);
     assertNotNull (aGroup);
@@ -138,7 +138,7 @@ public final class SMPClientWithDNSFuncTest
     final String sDocumentID = "urn:oasis:names:specification:ubl:schema:xsd:SubmitCatalogue-2::SubmitCatalogue##UBL-2.0";
 
     final ParticipantIdentifierType aServiceGroupID = SimpleParticipantIdentifier.createWithDefaultScheme (sParticipantID);
-    final DocumentIdentifierType aDocumentTypeID = SimpleDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
+    final DocumentIdentifierType aDocumentTypeID = PeppolDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
 
     final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (SML_INFO,
                                                                                                aServiceGroupID,

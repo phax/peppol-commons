@@ -49,15 +49,15 @@ import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 
-public final class DocumentIdentifierTypeMicroTypeConverter implements IMicroTypeConverter
+public class DocumentIdentifierTypeMicroTypeConverter implements IMicroTypeConverter
 {
-  private static final String ATTR_SCHEME = "scheme";
-  private static final String ATTR_VALUE = "value";
+  protected static final String ATTR_SCHEME = "scheme";
+  protected static final String ATTR_VALUE = "value";
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
-                                              @Nullable final String sNamespaceURI,
-                                              @Nonnull @Nonempty final String sTagName)
+  public final IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+                                                    @Nullable final String sNamespaceURI,
+                                                    @Nonnull @Nonempty final String sTagName)
   {
     final IDocumentTypeIdentifier aValue = (IDocumentTypeIdentifier) aObject;
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);

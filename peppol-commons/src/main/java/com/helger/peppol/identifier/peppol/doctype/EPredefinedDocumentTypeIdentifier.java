@@ -9,7 +9,6 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
@@ -445,8 +444,8 @@ public enum EPredefinedDocumentTypeIdentifier
     }
 
     @Nonnull
-    public SimpleDocumentTypeIdentifier getAsDocumentTypeIdentifier() {
-        return new SimpleDocumentTypeIdentifier(this);
+    public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier() {
+        return new PeppolDocumentTypeIdentifier(this);
     }
 
     @Nonnull

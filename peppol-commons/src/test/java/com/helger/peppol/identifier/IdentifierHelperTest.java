@@ -53,6 +53,7 @@ import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentif
 import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -132,10 +133,10 @@ public final class IdentifierHelperTest
   @Test
   public void testAreIdentifiersEqualDocumentIdentifier ()
   {
-    final SimpleDocumentTypeIdentifier aDI1 = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
-    final SimpleDocumentTypeIdentifier aDI2 = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
-    final SimpleDocumentTypeIdentifier aDI3a = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
-    final SimpleDocumentTypeIdentifier aDI3b = new SimpleDocumentTypeIdentifier ("my-docid-test",
+    final SimpleDocumentTypeIdentifier aDI1 = PeppolDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
+    final SimpleDocumentTypeIdentifier aDI2 = PeppolDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
+    final SimpleDocumentTypeIdentifier aDI3a = PeppolDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anyotherdoc");
+    final SimpleDocumentTypeIdentifier aDI3b = new PeppolDocumentTypeIdentifier ("my-docid-test",
                                                                                  "urn:doc:anyotherdoc");
     assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI1));
     assertTrue (IdentifierHelper.areDocumentTypeIdentifiersEqual (aDI1, aDI2));
@@ -211,7 +212,7 @@ public final class IdentifierHelperTest
     final SimpleParticipantIdentifier aPI = SimpleParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
     assertEquals ("iso6523-actorid-upis::0088:123abc", IdentifierHelper.getIdentifierURIEncoded (aPI));
 
-    final SimpleDocumentTypeIdentifier aDI = SimpleDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
+    final SimpleDocumentTypeIdentifier aDI = PeppolDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     assertEquals ("busdox-docid-qns::urn:doc:anydoc", IdentifierHelper.getIdentifierURIEncoded (aDI));
 
     try
@@ -389,7 +390,7 @@ public final class IdentifierHelperTest
   @Test
   public void testHasDefaultDocumentTypeIdentifierScheme ()
   {
-    assertTrue (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (SimpleDocumentTypeIdentifier.createWithDefaultScheme ("abc")));
+    assertTrue (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (PeppolDocumentTypeIdentifier.createWithDefaultScheme ("abc")));
     assertFalse (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (new SimpleDocumentTypeIdentifier ("doctype",
                                                                                                                   "abc")));
     assertTrue (PeppolIdentifierHelper.hasDefaultDocumentTypeIdentifierScheme (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME +

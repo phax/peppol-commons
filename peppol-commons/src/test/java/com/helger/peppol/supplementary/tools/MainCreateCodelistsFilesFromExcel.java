@@ -100,13 +100,13 @@ import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdentifierParts;
@@ -128,7 +128,7 @@ public final class MainCreateCodelistsFilesFromExcel
   private static final String SHEET_DOCUMENT = "Document";
   private static final String SHEET_PROCESS = "Process";
   private static final String RESULT_DIRECTORY = "src/main/resources/codelists/";
-  private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppol.";
+  private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppol.identifier.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static JDefinedClass s_jEnumPredefinedDoc;
 
@@ -224,7 +224,7 @@ public final class MainCreateCodelistsFilesFromExcel
     // Create Java source
     try
     {
-      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "identifier.issuingagency")
+      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "issuingagency")
                                               ._enum ("EPredefinedIdentifierIssuingAgency")
                                               ._implements (IIdentifierIssuingAgency.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
@@ -384,13 +384,13 @@ public final class MainCreateCodelistsFilesFromExcel
     // Create Java source
     try
     {
-      s_jEnumPredefinedDoc = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "identifier.doctype")
+      s_jEnumPredefinedDoc = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "doctype")
                                          ._enum ("EPredefinedDocumentTypeIdentifier")
                                          ._implements (IPeppolPredefinedDocumentTypeIdentifier.class);
       s_jEnumPredefinedDoc.annotate (CodingStyleguideUnaware.class);
       s_jEnumPredefinedDoc.javadoc ().add ("This file is generated. Do NOT edit!");
 
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
 
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
@@ -479,7 +479,8 @@ public final class MainCreateCodelistsFilesFromExcel
       JMethod m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getScheme");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
-      m.body ()._return (s_aCodeModel.ref (CPeppolIdentifier.class).staticRef ("DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME"));
+      m.body ()
+       ._return (s_aCodeModel.ref (CPeppolIdentifier.class).staticRef ("DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME"));
 
       // public String getValue ()
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getValue");
@@ -543,10 +544,10 @@ public final class MainCreateCodelistsFilesFromExcel
       m.annotate (Nonempty.class);
       m.body ()._return (fID);
 
-      // public SimpleDocumentTypeIdentifier getAsDocumentTypeIdentifier ()
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, SimpleDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
+      // public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ()
+      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, PeppolDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
       m.annotate (Nonnull.class);
-      m.body ()._return (JExpr._new (s_aCodeModel.ref (SimpleDocumentTypeIdentifier.class)).arg (JExpr._this ()));
+      m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifier.class)).arg (JExpr._this ()));
 
       // public Version getSince ()
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, Version.class, "getSince");
@@ -662,14 +663,14 @@ public final class MainCreateCodelistsFilesFromExcel
     // Create Java source
     try
     {
-      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "identifier.process")
+      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "process")
                                               ._enum ("EPredefinedProcessIdentifier")
                                               ._implements (IPeppolPredefinedProcessIdentifier.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add ("This file is generated. Do NOT edit!");
 
       // enum constants
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
         final String sID = Genericode10Helper.getRowValue (aRow, "id");

@@ -61,13 +61,13 @@
       <package name="com.helger.peppol.identifier" />
     </schemaBindings>
     <bindings node="//xs:complexType[@name='ParticipantIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.IMutableParticipantIdentifier</inheritance:implements>
+      <inheritance:implements>com.helger.peppol.identifier.generic.IMutableParticipantIdentifier</inheritance:implements>
     </bindings> 
     <bindings node="//xs:complexType[@name='DocumentIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.IMutableDocumentTypeIdentifier</inheritance:implements>
+      <inheritance:implements>com.helger.peppol.identifier.generic.IMutableDocumentTypeIdentifier</inheritance:implements>
     </bindings> 
     <bindings node="//xs:complexType[@name='ProcessIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.IMutableProcessIdentifier</inheritance:implements>
+      <inheritance:implements>com.helger.peppol.identifier.generic.IMutableProcessIdentifier</inheritance:implements>
     </bindings> 
   </bindings>
   <!-- Copied from com.sun.tools.ws.processor.modeler.wsdl.PseudoSchemaBuilder from jaxws-tools-2.2.3 -->
@@ -107,13 +107,13 @@
       <package name="com.helger.peppol.bdxr" />
     </schemaBindings>
     <bindings node="//xs:complexType[@name='ParticipantIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.IMutableParticipantIdentifier</inheritance:implements>
+      <inheritance:implements>com.helger.peppol.identifier.generic.IMutableParticipantIdentifier</inheritance:implements>
     </bindings> 
     <bindings node="//xs:complexType[@name='DocumentIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.IMutableDocumentTypeIdentifier</inheritance:implements>
+      <inheritance:implements>com.helger.peppol.identifier.generic.IMutableDocumentTypeIdentifier</inheritance:implements>
     </bindings> 
     <bindings node="//xs:complexType[@name='ProcessIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.IMutableProcessIdentifier</inheritance:implements>
+      <inheritance:implements>com.helger.peppol.identifier.generic.IMutableProcessIdentifier</inheritance:implements>
     </bindings> 
   </bindings>
   <bindings schemaLocation="../resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd">
