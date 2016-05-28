@@ -109,6 +109,7 @@ import com.helger.peppol.identifier.peppol.doctype.OpenPeppolDocumentTypeIdentif
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.issuingagency.IIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
@@ -319,7 +320,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       mCreateIdentifierValue.body ()._return (fISO6523.plus (JExpr.lit (":")).plus (jValue));
 
       // public PeppolParticipantIdentifier createIdentifierValue (String)
-      m = jEnum.method (JMod.PUBLIC, PeppolParticipantIdentifier.class, "createParticipantIdentifier");
+      m = jEnum.method (JMod.PUBLIC, IPeppolParticipantIdentifier.class, "createParticipantIdentifier");
       m.annotate (Nonnull.class);
       jValue = m.param (JMod.FINAL, String.class, "sIdentifier");
       jValue.annotate (Nonnull.class);
@@ -545,7 +546,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       m.body ()._return (fID);
 
       // public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ()
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, PeppolDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
+      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
       m.annotate (Nonnull.class);
       m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifier.class)).arg (JExpr._this ()));
 
