@@ -320,7 +320,7 @@ public class PeppolSBDHDocument
   /**
    * Set the document type identifier using the default identifier
    * scheme/authority
-   * {@link CPeppolIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}.
+   * {@link IPeppolProcessIdentifier#DEFAULT_PROCESS_IDENTIFIER_SCHEME}.
    *
    * @param sValue
    *        The process identifier. May neither be <code>null</code> nor empty.
@@ -332,7 +332,7 @@ public class PeppolSBDHDocument
   @Nonnull
   public PeppolSBDHDocument setProcessWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setProcess (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
+    return setProcess (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
   }
 
   /**

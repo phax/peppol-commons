@@ -71,21 +71,10 @@ public final class CPeppolIdentifier
   public static final int MAX_DOCUMENT_TYPE_IDENTIFIER_VALUE_LENGTH = 500;
 
   /**
-   * Process identifier value maximum length (excluding the scheme)
-   */
-  public static final int MAX_PROCESS_IDENTIFIER_VALUE_LENGTH = 200;
-
-  /**
    * The default document identifier scheme.<br>
    * See PEPPOL Common definitions chapter 3.5
    */
   public static final String DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME = "busdox-docid-qns";
-
-  /**
-   * The default process identifier scheme.<br>
-   * Overrides PEPPOL Common definitions chapter 3.6!
-   */
-  public static final String DEFAULT_PROCESS_IDENTIFIER_SCHEME = "cenbii-procid-ubl";
 
   @SuppressWarnings ("unused")
   @PresentForCodeCoverage

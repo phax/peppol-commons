@@ -25,6 +25,7 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
 
 /**
  * Test class for class {@link PeppolSBDHDocument}.
@@ -94,7 +95,7 @@ public final class PeppolSBDHDocumentTest
 
     // Process type
     dd.setProcessWithDefaultScheme ("proctype");
-    assertEquals (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, dd.getProcessScheme ());
+    assertEquals (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, dd.getProcessScheme ());
     assertEquals ("proctype", dd.getProcessValue ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument ().setSenderWithDefaultScheme ("abc")

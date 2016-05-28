@@ -53,7 +53,6 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.part.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.part.OpenPeppolDocumentTypeIdentifierParts;
@@ -203,21 +202,6 @@ public final class PeppolIdentifierHelper
     ValueEnforcer.notNull (aIdentifier, "DocumentTypeIdentifier");
 
     return CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (aIdentifier.getScheme ());
-  }
-
-  /**
-   * Check if the passed process identifier is using the default scheme.
-   *
-   * @param aIdentifier
-   *        The identifier to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the passed identifier uses the default scheme,
-   *         <code>false</code> otherwise
-   */
-  public static boolean hasDefaultProcessIdentifierScheme (@Nonnull final IProcessIdentifier aIdentifier)
-  {
-    ValueEnforcer.notNull (aIdentifier, "ProcessIdentifier");
-
-    return CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals (aIdentifier.getScheme ());
   }
 
   /**

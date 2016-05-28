@@ -30,6 +30,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
@@ -74,7 +75,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
     assertEquals (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, aDataRead.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
-    assertEquals (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aDataRead.getProcessScheme ());
+    assertEquals (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
     assertTrue (aDataRead.hasBusinessMessage ());
     assertEquals ("root", aDataRead.getBusinessMessage ().getLocalName ());

@@ -41,6 +41,7 @@ import com.helger.datetime.PDTFactory;
 import com.helger.datetime.util.PDTWebDateHelper;
 import com.helger.peppol.identifier.peppol.CPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
 
@@ -105,7 +106,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertEquals (CPeppolIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME, aData.getDocumentTypeScheme ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
                   aData.getDocumentTypeValue ());
-    assertEquals (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aData.getProcessScheme ());
+    assertEquals (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, aData.getProcessScheme ());
     assertEquals ("urn:www.cenbii.eu:profile:bii04:ver1.0", aData.getProcessValue ());
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());

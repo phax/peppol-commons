@@ -56,9 +56,20 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
  */
 public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIdentifier
 {
+  /**
+   * Process identifier value maximum length (excluding the scheme)
+   */
+  int MAX_PROCESS_IDENTIFIER_VALUE_LENGTH = 200;
+
+  /**
+   * The default process identifier scheme.<br>
+   * Overrides PEPPOL Common definitions chapter 3.6!
+   */
+  String DEFAULT_PROCESS_IDENTIFIER_SCHEME = "cenbii-procid-ubl";
+
   default boolean hasDefaultScheme ()
   {
-    return hasScheme (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME);
+    return hasScheme (DEFAULT_PROCESS_IDENTIFIER_SCHEME);
   }
 
   /**
@@ -96,7 +107,7 @@ public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIde
   static boolean isValidValue (@Nullable final String sValue)
   {
     final int nLength = StringHelper.getLength (sValue);
-    if (nLength == 0 || nLength > CPeppolIdentifier.MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)
+    if (nLength == 0 || nLength > MAX_PROCESS_IDENTIFIER_VALUE_LENGTH)
       return false;
 
     // Check if the value is ISO-8859-1 encoded

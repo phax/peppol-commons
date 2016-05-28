@@ -126,7 +126,7 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
   @Nonnull
   public static PeppolProcessIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new PeppolProcessIdentifier (CPeppolIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
+    return new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME, sValue);
   }
 
   /**

@@ -111,6 +111,7 @@ import com.helger.peppol.identifier.peppol.doctype.part.PeppolDocumentTypeIdenti
 import com.helger.peppol.identifier.peppol.issuingagency.IIdentifierIssuingAgency;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdentifier;
+import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 
 /**
@@ -745,7 +746,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
-      m.body ()._return (s_aCodeModel.ref (CPeppolIdentifier.class).staticRef ("DEFAULT_PROCESS_IDENTIFIER_SCHEME"));
+      m.body ()._return (s_aCodeModel.ref (IPeppolProcessIdentifier.class).staticRef ("DEFAULT_SCHEME"));
 
       // public String getValue ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getValue");
@@ -813,10 +814,9 @@ public final class MainCreatePredefinedEnumsFromExcel
         jValue.annotate (Nullable.class);
         final JBlock jIf = m.body ()
                             ._if (jValue.neNull ()
-                                        .cand (s_aCodeModel.ref (CPeppolIdentifier.class)
-                                                           .staticRef ("DEFAULT_PROCESS_IDENTIFIER_SCHEME")
-                                                           .invoke ("equals")
-                                                           .arg (jValue.invoke ("getScheme"))))
+                                        .cand (jValue.invoke ("hasScheme")
+                                                     .arg (s_aCodeModel.ref (IPeppolProcessIdentifier.class)
+                                                                       .staticRef ("DEFAULT_SCHEME"))))
                             ._then ();
         final JForEach jForEach = jIf.forEach (jEnum, "e", jEnum.staticInvoke ("values"));
         jForEach.body ()
