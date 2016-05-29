@@ -46,11 +46,12 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ProcessIdentifierType;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -60,7 +61,10 @@ import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements IMutablePeppolProcessIdentifier
+public class PeppolProcessIdentifier extends ProcessIdentifierType implements
+                                     IMutablePeppolProcessIdentifier,
+                                     Comparable <PeppolProcessIdentifier>,
+                                     ICloneable <PeppolProcessIdentifier>
 {
   public PeppolProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
   {
@@ -85,7 +89,7 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
 
   public PeppolProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
-    super (_verifyScheme (sScheme), _verifyValue (sValue));
+    this (true, _verifyScheme (sScheme), _verifyValue (sValue));
   }
 
   /**
@@ -101,7 +105,13 @@ public class PeppolProcessIdentifier extends SimpleProcessIdentifier implements 
    */
   private PeppolProcessIdentifier (final boolean bVerified, @Nonnull final String sScheme, @Nonnull final String sValue)
   {
-    super (sScheme, sValue);
+    setScheme (sScheme);
+    setValue (sValue);
+  }
+
+  public int compareTo (@Nonnull final PeppolProcessIdentifier aOther)
+  {
+    return IdentifierHelper.compareProcessIdentifiers (this, aOther);
   }
 
   @Override

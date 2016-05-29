@@ -46,10 +46,12 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.DocumentIdentifierType;
+import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 
 /**
  * A special document type identifier that handles the specialities of PEPPOL
@@ -58,8 +60,10 @@ import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier
  * @author Philip Helger
  */
 @NotThreadSafe
-public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
-                                          implements IMutablePeppolDocumentTypeIdentifier
+public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType implements
+                                          IMutablePeppolDocumentTypeIdentifier,
+                                          Comparable <PeppolDocumentTypeIdentifier>,
+                                          ICloneable <PeppolDocumentTypeIdentifier>
 {
   public PeppolDocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
@@ -84,7 +88,7 @@ public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
 
   public PeppolDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    super (_verifyScheme (sScheme), _verifyValue (sValue));
+    this (true, _verifyScheme (sScheme), _verifyValue (sValue));
   }
 
   /**
@@ -102,7 +106,13 @@ public class PeppolDocumentTypeIdentifier extends SimpleDocumentTypeIdentifier
                                         @Nonnull final String sScheme,
                                         @Nonnull final String sValue)
   {
-    super (sScheme, sValue);
+    setScheme (sScheme);
+    setValue (sValue);
+  }
+
+  public int compareTo (@Nonnull final PeppolDocumentTypeIdentifier aOther)
+  {
+    return IdentifierHelper.compareDocumentTypeIdentifiers (this, aOther);
   }
 
   @Override

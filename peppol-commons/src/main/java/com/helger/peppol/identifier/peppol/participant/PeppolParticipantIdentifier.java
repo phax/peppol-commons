@@ -46,10 +46,12 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IdentifierHelper;
+import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 
 /**
  * A special PEPPOL participant identifier handling all the special constraints
@@ -58,8 +60,10 @@ import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentif
  * @author Philip Helger
  */
 @NotThreadSafe
-public class PeppolParticipantIdentifier extends SimpleParticipantIdentifier
-                                         implements IMutablePeppolParticipantIdentifier
+public class PeppolParticipantIdentifier extends ParticipantIdentifierType implements
+                                         IMutablePeppolParticipantIdentifier,
+                                         Comparable <PeppolParticipantIdentifier>,
+                                         ICloneable <PeppolParticipantIdentifier>
 {
   public PeppolParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
   {
@@ -84,7 +88,7 @@ public class PeppolParticipantIdentifier extends SimpleParticipantIdentifier
 
   public PeppolParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    super (_verifyScheme (sScheme), _verifyValue (sValue));
+    this (true, _verifyScheme (sScheme), _verifyValue (sValue));
   }
 
   /**
@@ -102,7 +106,13 @@ public class PeppolParticipantIdentifier extends SimpleParticipantIdentifier
                                        @Nonnull final String sScheme,
                                        @Nonnull final String sValue)
   {
-    super (sScheme, sValue);
+    setScheme (sScheme);
+    setValue (sValue);
+  }
+
+  public int compareTo (@Nonnull final PeppolParticipantIdentifier aOther)
+  {
+    return IdentifierHelper.compareParticipantIdentifiers (this, aOther);
   }
 
   @Override
