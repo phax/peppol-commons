@@ -46,6 +46,20 @@ public interface IIdentifierFactory extends Serializable
   IDocumentTypeIdentifier parseDocumentTypeIdentifier (@Nullable String sURIEncodedIdentifier);
 
   /**
+   * Create a clone of the passed document type identifier using the correct
+   * implementation type.
+   *
+   * @param aDocTypeID
+   *        Source identifier to clone. May be <code>null</code>.
+   * @return <code>null</code> if the passed parameter is <code>null</code>.
+   */
+  @Nullable
+  default IDocumentTypeIdentifier getClone (@Nullable final IDocumentTypeIdentifier aDocTypeID)
+  {
+    return aDocTypeID == null ? null : createDocumentTypeIdentifier (aDocTypeID.getScheme (), aDocTypeID.getValue ());
+  }
+
+  /**
    * Create a new participant identifier.
    *
    * @param sScheme
@@ -73,6 +87,21 @@ public interface IIdentifierFactory extends Serializable
   IParticipantIdentifier parseParticipantIdentifier (@Nullable String sURIEncodedIdentifier);
 
   /**
+   * Create a clone of the passed participant identifier using the correct
+   * implementation type.
+   *
+   * @param aParticipantID
+   *        Source identifier to clone. May be <code>null</code>.
+   * @return <code>null</code> if the passed parameter is <code>null</code>.
+   */
+  @Nullable
+  default IParticipantIdentifier getClone (@Nullable final IParticipantIdentifier aParticipantID)
+  {
+    return aParticipantID == null ? null : createParticipantIdentifier (aParticipantID.getScheme (),
+                                                                        aParticipantID.getValue ());
+  }
+
+  /**
    * Create a new process identifier.
    *
    * @param sScheme
@@ -98,4 +127,18 @@ public interface IIdentifierFactory extends Serializable
    */
   @Nullable
   IProcessIdentifier parseProcessIdentifier (@Nullable String sURIEncodedIdentifier);
+
+  /**
+   * Create a clone of the passed process identifier using the correct
+   * implementation type.
+   *
+   * @param aProcessID
+   *        Source identifier to clone. May be <code>null</code>.
+   * @return <code>null</code> if the passed parameter is <code>null</code>.
+   */
+  @Nullable
+  default IProcessIdentifier getClone (@Nullable final IProcessIdentifier aProcessID)
+  {
+    return aProcessID == null ? null : createProcessIdentifier (aProcessID.getScheme (), aProcessID.getValue ());
+  }
 }

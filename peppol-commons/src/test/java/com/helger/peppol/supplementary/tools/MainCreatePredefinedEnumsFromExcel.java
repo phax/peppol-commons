@@ -546,7 +546,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       m.body ()._return (fID);
 
       // public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ()
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
+      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, PeppolDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
       m.annotate (Nonnull.class);
       m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifier.class)).arg (JExpr._this ()));
 

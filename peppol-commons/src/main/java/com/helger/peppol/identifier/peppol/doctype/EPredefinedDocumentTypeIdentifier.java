@@ -440,7 +440,7 @@ public enum EPredefinedDocumentTypeIdentifier
     }
 
     @Nonnull
-    public IPeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier() {
+    public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier() {
         return new PeppolDocumentTypeIdentifier(this);
     }
 
