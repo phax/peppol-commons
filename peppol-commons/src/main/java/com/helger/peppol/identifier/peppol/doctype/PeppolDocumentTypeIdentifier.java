@@ -52,6 +52,7 @@ import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * A special document type identifier that handles the specialities of PEPPOL
@@ -125,7 +126,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   /**
    * Create a new document type identifier that uses the default schema
-   * {@link IPeppolDocumentTypeIdentifier#DEFAULT_SCHEME}
+   * {@link PeppolIdentifierHelper#DEFAULT_DOCUMENT_TYPE_SCHEME}
    *
    * @param sValue
    *        The identifier value like
@@ -136,7 +137,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @Nonnull
   public static PeppolDocumentTypeIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, sValue);
+    return new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, sValue);
   }
 
   /**

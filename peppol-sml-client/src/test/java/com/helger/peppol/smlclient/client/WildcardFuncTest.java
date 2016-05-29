@@ -48,7 +48,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
@@ -68,7 +68,7 @@ import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 @Ignore ("Requires a running SML")
 public final class WildcardFuncTest extends AbstractSMLClientTestCase
 {
-  private static final String BUSINESS_IDENTIFIER_SCHEME = IPeppolParticipantIdentifier.DEFAULT_SCHEME;
+  private static final String BUSINESS_IDENTIFIER_SCHEME = PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME;
   private static final String WILDCARD_PI = "0088:1111100001111";
   private static final String WILDCARD_ACTORID_ALLOWED_SCHEME = "wildcard-actorid-allowed";
 

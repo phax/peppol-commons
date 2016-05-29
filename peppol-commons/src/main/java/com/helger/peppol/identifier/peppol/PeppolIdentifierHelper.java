@@ -82,6 +82,45 @@ public final class PeppolIdentifierHelper
   @PresentForCodeCoverage
   private static final PeppolIdentifierHelper s_aInstance = new PeppolIdentifierHelper ();
 
+  /**
+   * The default document identifier scheme.<br>
+   * See PEPPOL Common definitions chapter 3.5
+   */
+  public static final String DEFAULT_DOCUMENT_TYPE_SCHEME = "busdox-docid-qns";
+
+  /**
+   * Document Type identifier value maximum length (excluding the scheme)
+   */
+  public static final int MAX_DOCUEMNT_TYPE_VALUE_LENGTH = 500;
+
+  /**
+   * The default identifier scheme ID to be used for participants/businesses.
+   * <br>
+   * The matching values have the format "agency:id" whereas agency should be
+   * within the code-list.<br>
+   * Please note that this is a change to the PEPPOL Common definitions chapter
+   * 3.4! <br>
+   * See also
+   * com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
+   */
+  public static final String DEFAULT_PARTICIPANT_SCHEME = "iso6523-actorid-upis";
+
+  /**
+   * Participant identifier value maximum length (excluding the scheme)
+   */
+  public static final int MAX_PARTICIPANT_VALUE_LENGTH = 50;
+
+  /**
+   * The default process identifier scheme.<br>
+   * Overrides PEPPOL Common definitions chapter 3.6!
+   */
+  public static final String DEFAULT_PROCESS_SCHEME = "cenbii-procid-ubl";
+
+  /**
+   * Process identifier value maximum length (excluding the scheme)
+   */
+  public static final int MAX_PROCESS_VALUE_LENGTH = 200;
+
   private PeppolIdentifierHelper ()
   {}
 

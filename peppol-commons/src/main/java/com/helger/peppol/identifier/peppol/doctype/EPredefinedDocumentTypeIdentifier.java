@@ -9,6 +9,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 
 /**
@@ -376,7 +377,7 @@ public enum EPredefinedDocumentTypeIdentifier
     @Nonnull
     @Nonempty
     public String getScheme() {
-        return IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME;
+        return PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME;
     }
 
     @Nonnull
@@ -463,7 +464,7 @@ public enum EPredefinedDocumentTypeIdentifier
     public static EPredefinedDocumentTypeIdentifier getFromDocumentTypeIdentifierOrNull(
         @Nullable
         final IDocumentTypeIdentifier aDocTypeID) {
-        if ((aDocTypeID!= null)&&aDocTypeID.hasScheme(IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME)) {
+        if ((aDocTypeID!= null)&&aDocTypeID.hasScheme(PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME)) {
             for (EPredefinedDocumentTypeIdentifier e: EPredefinedDocumentTypeIdentifier.values()) {
                 if (e.getValue().equals(aDocTypeID.getValue())) {
                     return e;

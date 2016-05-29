@@ -51,6 +51,7 @@ import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * Test class for class {@link EPredefinedDocumentTypeIdentifier}.
@@ -64,7 +65,7 @@ public final class EPredefinedDocumentTypeIdentifierTest
   {
     for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
     {
-      assertEquals (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, e.getScheme ());
+      assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, e.getScheme ());
       assertTrue (StringHelper.hasText (e.getValue ()));
       assertTrue (StringHelper.hasText (e.getRootNS ()));
       assertTrue (StringHelper.hasText (e.getLocalName ()));

@@ -55,20 +55,9 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
  */
 public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocumentTypeIdentifier
 {
-  /**
-   * Document Type identifier value maximum length (excluding the scheme)
-   */
-  int MAX_VALUE_LENGTH = 500;
-
-  /**
-   * The default document identifier scheme.<br>
-   * See PEPPOL Common definitions chapter 3.5
-   */
-  String DEFAULT_SCHEME = "busdox-docid-qns";
-
   default boolean hasDefaultScheme ()
   {
-    return hasScheme (DEFAULT_SCHEME);
+    return hasScheme (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME);
   }
 
   /**
@@ -103,7 +92,7 @@ public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocum
   /**
    * Check if the passed document type identifier value is valid. A valid
    * identifier must have at least 1 character and at last
-   * {@link IPeppolDocumentTypeIdentifier#MAX_VALUE_LENGTH} characters. Also it
+   * {@link PeppolIdentifierHelper#MAX_DOCUEMNT_TYPE_VALUE_LENGTH} characters. Also it
    * must be ISO-8859-1 encoded.
    *
    * @param sValue
@@ -118,7 +107,7 @@ public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocum
       return false;
 
     final int nLength = sValue.length ();
-    if (nLength == 0 || nLength > MAX_VALUE_LENGTH)
+    if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH)
       return false;
 
     // Check if the value is ISO-8859-1 encoded

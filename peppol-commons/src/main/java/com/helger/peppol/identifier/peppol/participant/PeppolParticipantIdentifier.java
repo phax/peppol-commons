@@ -52,6 +52,7 @@ import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * A special PEPPOL participant identifier handling all the special constraints
@@ -125,7 +126,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
 
   /**
    * Create a new participant identifier that uses the default schema
-   * {@link IPeppolParticipantIdentifier#DEFAULT_SCHEME}
+   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}
    *
    * @param sValue
    *        The identifier value like <code>0088:12345678</code>
@@ -135,7 +136,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   @Nonnull
   public static PeppolParticipantIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new PeppolParticipantIdentifier (DEFAULT_SCHEME, sValue);
+    return new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, sValue);
   }
 
   /**

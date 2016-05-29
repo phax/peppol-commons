@@ -52,6 +52,7 @@ import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ProcessIdentifierType;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -124,7 +125,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
 
   /**
    * Create a new process identifier that uses the default schema
-   * {@link IPeppolProcessIdentifier#DEFAULT_SCHEME}
+   * {@link PeppolIdentifierHelper#DEFAULT_PROCESS_SCHEME}
    *
    * @param sValue
    *        The identifier value like
@@ -135,7 +136,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   @Nonnull
   public static PeppolProcessIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
-    return new PeppolProcessIdentifier (IPeppolProcessIdentifier.DEFAULT_SCHEME, sValue);
+    return new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, sValue);
   }
 
   /**

@@ -9,6 +9,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 
@@ -178,7 +179,7 @@ public enum EPredefinedProcessIdentifier
     @Nonnull
     @Nonempty
     public String getScheme() {
-        return IPeppolProcessIdentifier.DEFAULT_SCHEME;
+        return PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME;
     }
 
     @Nonnull
@@ -218,7 +219,7 @@ public enum EPredefinedProcessIdentifier
     public static EPredefinedProcessIdentifier getFromProcessIdentifierOrNull(
         @Nullable
         final IProcessIdentifier aProcessID) {
-        if ((aProcessID!= null)&&aProcessID.hasScheme(IPeppolProcessIdentifier.DEFAULT_SCHEME)) {
+        if ((aProcessID!= null)&&aProcessID.hasScheme(PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME)) {
             for (EPredefinedProcessIdentifier e: EPredefinedProcessIdentifier.values()) {
                 if (e.getValue().equals(aProcessID.getValue())) {
                     return e;

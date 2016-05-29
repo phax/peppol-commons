@@ -64,26 +64,9 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
    */
   String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
 
-  /**
-   * The default identifier scheme ID to be used for participants/businesses.
-   * <br>
-   * The matching values have the format "agency:id" whereas agency should be
-   * within the code-list.<br>
-   * Please note that this is a change to the PEPPOL Common definitions chapter
-   * 3.4! <br>
-   * See also
-   * com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
-   */
-  String DEFAULT_SCHEME = "iso6523-actorid-upis";
-
-  /**
-   * Participant identifier value maximum length (excluding the scheme)
-   */
-  int MAX_VALUE_LENGTH = 50;
-
   default boolean hasDefaultScheme ()
   {
-    return hasScheme (DEFAULT_SCHEME);
+    return hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME);
   }
 
   /**
@@ -139,7 +122,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
 
   /**
    * Check if the given scheme is a valid participant identifier scheme (like
-   * {@link #DEFAULT_SCHEME}). It is valid if it has at least 1 character and at
+   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}). It is valid if it has at least 1 character and at
    * last 25 characters (see
    * {@link CPeppolIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a
    * certain regular expression (see
@@ -165,7 +148,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
   /**
    * Check if the passed participant identifier value is valid. A valid
    * identifier must have at least 1 character and at last
-   * {@link #MAX_VALUE_LENGTH} characters. Also it must be US ASCII encoded.
+   * {@link PeppolIdentifierHelper#MAX_PARTICIPANT_VALUE_LENGTH} characters. Also it must be US ASCII encoded.
    * This check method considers only the value and not the identifier scheme!
    *
    * @param sValue
@@ -180,7 +163,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
       return false;
 
     final int nLength = sValue.length ();
-    if (nLength == 0 || nLength > MAX_VALUE_LENGTH)
+    if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
       return false;
 
     // Check if the value is US ASCII encoded

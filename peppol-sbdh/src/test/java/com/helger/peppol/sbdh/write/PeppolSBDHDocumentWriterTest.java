@@ -28,9 +28,7 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
-import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.process.IPeppolProcessIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
@@ -64,19 +62,19 @@ public final class PeppolSBDHDocumentWriterTest
     final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);
     assertNotNull (aDataRead);
 
-    assertEquals (IPeppolParticipantIdentifier.DEFAULT_SCHEME, aDataRead.getSenderScheme ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getSenderScheme ());
     assertEquals ("0088:sender", aDataRead.getSenderValue ());
-    assertEquals (IPeppolParticipantIdentifier.DEFAULT_SCHEME, aDataRead.getReceiverScheme ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getReceiverScheme ());
     assertEquals ("0099:receiver", aDataRead.getReceiverValue ());
     assertEquals ("urn:foobar", aDataRead.getStandard ());
     assertEquals ("2.1", aDataRead.getTypeVersion ());
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
-    assertEquals (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME,
+    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME,
                   aDataRead.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
-    assertEquals (IPeppolProcessIdentifier.DEFAULT_SCHEME, aDataRead.getProcessScheme ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
     assertTrue (aDataRead.hasBusinessMessage ());
     assertEquals ("root", aDataRead.getBusinessMessage ().getLocalName ());

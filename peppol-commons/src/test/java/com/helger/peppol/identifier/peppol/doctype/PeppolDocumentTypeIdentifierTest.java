@@ -79,9 +79,9 @@ public final class PeppolDocumentTypeIdentifierTest
     assertTrue (IPeppolDocumentTypeIdentifier.isValidValue ("order "));
 
     assertTrue (IPeppolDocumentTypeIdentifier.isValidValue (StringHelper.getRepeated ('a',
-                                                                                      IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH)));
+                                                                                      PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH)));
     assertFalse (IPeppolDocumentTypeIdentifier.isValidValue (StringHelper.getRepeated ('a',
-                                                                                       IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
+                                                                                       PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
                                                                                             1)));
   }
 
@@ -97,7 +97,7 @@ public final class PeppolDocumentTypeIdentifierTest
     assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctypethatiswaytoolongforwhatisexpected::order"));
     assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype::" +
                                                               StringHelper.getRepeated ('a',
-                                                                                        IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH +
+                                                                                        PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
                                                                                              1)));
     assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype:order"));
     assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctypeorder"));
@@ -166,7 +166,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // null value not allowed
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, null);
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -184,7 +184,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Empty is not allowed
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, "");
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -193,7 +193,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME, "Љ");
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -202,7 +202,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME +
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME +
                                         StringHelper.getRepeated ('a',
                                                                   PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH +
                                                                        1),
@@ -215,9 +215,9 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Value too long
-      new PeppolDocumentTypeIdentifier (IPeppolDocumentTypeIdentifier.DEFAULT_SCHEME,
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME,
                                         StringHelper.getRepeated ('a',
-                                                                  IPeppolDocumentTypeIdentifier.MAX_VALUE_LENGTH + 1));
+                                                                  PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH + 1));
       fail ();
     }
     catch (final IllegalArgumentException ex)
