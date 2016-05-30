@@ -108,7 +108,6 @@ import com.helger.peppol.identifier.peppol.doctype.OpenPeppolDocumentTypeIdentif
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.issuingagency.IIdentifierIssuingAgency;
-import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
@@ -318,7 +317,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       mCreateIdentifierValue.body ()._return (fISO6523.plus (JExpr.lit (":")).plus (jValue));
 
       // public PeppolParticipantIdentifier createIdentifierValue (String)
-      m = jEnum.method (JMod.PUBLIC, IPeppolParticipantIdentifier.class, "createParticipantIdentifier");
+      m = jEnum.method (JMod.PUBLIC, PeppolParticipantIdentifier.class, "createParticipantIdentifier");
       m.annotate (Nonnull.class);
       jValue = m.param (JMod.FINAL, String.class, "sIdentifier");
       jValue.annotate (Nonnull.class);
@@ -390,7 +389,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       s_jEnumPredefinedDoc.annotate (CodingStyleguideUnaware.class);
       s_jEnumPredefinedDoc.javadoc ().add ("This file is generated. Do NOT edit!");
 
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
 
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
@@ -668,7 +667,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       jEnum.javadoc ().add ("This file is generated. Do NOT edit!");
 
       // enum constants
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
         final String sID = Genericode10Helper.getRowValue (aRow, "id");

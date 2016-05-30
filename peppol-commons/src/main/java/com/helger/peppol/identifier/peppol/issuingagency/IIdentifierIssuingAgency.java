@@ -45,7 +45,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 
 /**
  * Base interface for a single identifier issuing agency.
@@ -110,7 +110,7 @@ public interface IIdentifierIssuingAgency
    * @return The participant identifier. Never <code>null</code>.
    */
   @Nonnull
-  IPeppolParticipantIdentifier createParticipantIdentifier (@Nonnull @Nonempty String sIdentifier);
+  IParticipantIdentifier createParticipantIdentifier (@Nonnull @Nonempty String sIdentifier);
 
   /**
    * @return <code>true</code> if the agency is deprecated and should not be
