@@ -81,6 +81,6 @@ public final class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPRespons
   @Nonnull
   public static <U> SMPHttpResponseHandlerUnsigned <U> create (@Nonnull final AbstractJAXBMarshaller <U> aMarshaller)
   {
-    return new SMPHttpResponseHandlerUnsigned <U> (aMarshaller);
+    return new SMPHttpResponseHandlerUnsigned <> (aMarshaller);
   }
 }
