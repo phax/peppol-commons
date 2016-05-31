@@ -102,7 +102,7 @@
       <package name="com.helger.peppol.smp" />
     </schemaBindings>
   </bindings>
-  <bindings schemaLocation="../resources/WEB-INF/wsdl/bdx-smp-20160405.xsd">
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/bdx-smp-201605.xsd">
     <schemaBindings>
       <package name="com.helger.peppol.bdxr" />
     </schemaBindings>
