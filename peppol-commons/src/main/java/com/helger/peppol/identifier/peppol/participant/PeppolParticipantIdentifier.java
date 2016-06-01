@@ -87,6 +87,16 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
     return sValue;
   }
 
+  /**
+   * Create a new object.
+   * 
+   * @param sScheme
+   *        The scheme to use. May not be <code>null</code>.
+   * @param sValue
+   *        The value to use. May not be <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If either scheme or value are invalid
+   */
   public PeppolParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     this (true, _verifyScheme (sScheme), _verifyValue (sValue));

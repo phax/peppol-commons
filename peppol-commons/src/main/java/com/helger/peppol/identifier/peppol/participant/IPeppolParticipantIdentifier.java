@@ -40,11 +40,15 @@
  */
 package com.helger.peppol.identifier.peppol.participant;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.StringParser;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -122,8 +126,8 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
 
   /**
    * Check if the given scheme is a valid participant identifier scheme (like
-   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}). It is valid if it has at least 1 character and at
-   * last 25 characters (see
+   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}). It is valid if
+   * it has at least 1 character and at last 25 characters (see
    * {@link CPeppolIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a
    * certain regular expression (see
    * {@link #PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please note that the regular
@@ -148,8 +152,9 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
   /**
    * Check if the passed participant identifier value is valid. A valid
    * identifier must have at least 1 character and at last
-   * {@link PeppolIdentifierHelper#MAX_PARTICIPANT_VALUE_LENGTH} characters. Also it must be US ASCII encoded.
-   * This check method considers only the value and not the identifier scheme!
+   * {@link PeppolIdentifierHelper#MAX_PARTICIPANT_VALUE_LENGTH} characters.
+   * Also it must be US ASCII encoded. This check method considers only the
+   * value and not the identifier scheme!
    *
    * @param sValue
    *        The participant identifier value to be checked (without the scheme).
@@ -166,8 +171,39 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
     if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
       return false;
 
+    // Check if the separator between identifier issuing agency and value is
+    // present - can only be done if the default scheme is present
+    if (false)
+      if (sValue.indexOf (':') < 0)
+        return false;
+
     // Check if the value is US ASCII encoded
     return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
            CCharset.CHARSET_US_ASCII_OBJ.newEncoder ().canEncode (sValue);
+  }
+
+  /**
+   * Check if the passed identifier value is valid in the PEPPOL default
+   * participant identifier scheme (iso6523-actorid-upis).
+   *
+   * @param sValue
+   *        The value to be validated. Must not be <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code>
+   *         otherwise.
+   */
+  static boolean isValidValueWithDefaultScheme (@Nonnull final String sValue)
+  {
+    // Check if the separator between identifier issuing agency and value is
+    // present - can only be done if the default scheme is present
+    final List <String> aParts = StringHelper.getExploded (':', sValue, 2);
+    if (aParts.size () != 2)
+      return false;
+
+    final String sIdentifierIssuingAgencyID = aParts.get (0);
+    if (sIdentifierIssuingAgencyID.length () != 4 || !StringParser.isUnsignedInt (sIdentifierIssuingAgencyID))
+      return false;
+
+    final String sIdentifierValue = aParts.get (1).trim ();
+    return sIdentifierValue.length () > 0;
   }
 }
