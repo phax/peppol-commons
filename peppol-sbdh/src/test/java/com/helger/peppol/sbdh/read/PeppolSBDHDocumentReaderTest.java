@@ -32,12 +32,12 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.commons.xml.serialize.read.DOMReaderSettings;
-import com.helger.datetime.PDTFactory;
 import com.helger.datetime.util.PDTWebDateHelper;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;

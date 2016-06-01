@@ -48,7 +48,7 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.datetime.PDTFactory;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
