@@ -40,9 +40,6 @@
  */
 package com.helger.peppol.bdxrclient;
 
-import java.util.List;
-
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.bdxr.ObjectFactory;
 import com.helger.peppol.bdxr.ServiceGroupType;
@@ -56,6 +53,6 @@ public final class BDXRMarshallerServiceGroupType extends AbstractJAXBMarshaller
 {
   public BDXRMarshallerServiceGroupType ()
   {
-    super (ServiceGroupType.class, (List <IReadableResource>) null, o -> new ObjectFactory ().createServiceGroup (o));
+    super (ServiceGroupType.class, o -> new ObjectFactory ().createServiceGroup (o));
   }
 }

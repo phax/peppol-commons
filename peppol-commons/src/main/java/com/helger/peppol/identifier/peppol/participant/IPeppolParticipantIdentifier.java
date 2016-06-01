@@ -40,12 +40,11 @@
  */
 package com.helger.peppol.identifier.peppol.participant;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
@@ -195,7 +194,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
   {
     // Check if the separator between identifier issuing agency and value is
     // present - can only be done if the default scheme is present
-    final List <String> aParts = StringHelper.getExploded (':', sValue, 2);
+    final ICommonsList <String> aParts = StringHelper.getExploded (':', sValue, 2);
     if (aParts.size () != 2)
       return false;
 

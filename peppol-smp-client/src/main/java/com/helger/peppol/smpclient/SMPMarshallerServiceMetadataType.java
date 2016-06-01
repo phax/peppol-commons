@@ -40,9 +40,6 @@
  */
 package com.helger.peppol.smpclient;
 
-import java.util.List;
-
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
 import com.helger.peppol.smp.ServiceMetadataType;
@@ -56,8 +53,6 @@ public final class SMPMarshallerServiceMetadataType extends AbstractJAXBMarshall
 {
   public SMPMarshallerServiceMetadataType ()
   {
-    super (ServiceMetadataType.class,
-           (List <IReadableResource>) null,
-           o -> new ObjectFactory ().createServiceMetadata (o));
+    super (ServiceMetadataType.class, o -> new ObjectFactory ().createServiceMetadata (o));
   }
 }

@@ -46,11 +46,10 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Test class for class {@link BDXRExtensionConverter}.
@@ -66,7 +65,7 @@ public final class BDXRExtensionConverterTest
 
     final String sJson = "[{\"ID\":null,\"Name\":null,\"AgencyID\":null,\"AgencyName\":null,\"AgencyURI\":null,\"VersionID\":null,\"URI\":null,\"ReasonCode\":null,\"Reason\":null," +
                          "\"Any\":\"<any xmlns=\\\"urn:foo\\\"><child>text1</child><child2 /></any>\"}]";
-    final List <ExtensionType> aExtensions = BDXRExtensionConverter.convert (sJson);
+    final ICommonsList <ExtensionType> aExtensions = BDXRExtensionConverter.convert (sJson);
     assertNotNull (aExtensions);
     assertEquals (1, aExtensions.size ());
     final ExtensionType aExtension = aExtensions.get (0);
@@ -77,7 +76,7 @@ public final class BDXRExtensionConverterTest
     assertNull (BDXRExtensionConverter.convert (""));
 
     // Convert back to String
-    final String sJson2 = BDXRExtensionConverter.convertToString (new CommonsArrayList <> (aExtension));
+    final String sJson2 = BDXRExtensionConverter.convertToString (new CommonsArrayList<> (aExtension));
     assertEquals (sJson, sJson2);
 
     try
@@ -101,6 +100,6 @@ public final class BDXRExtensionConverterTest
     // Try converting an empty extension
     assertNull (BDXRExtensionConverter.convertToString (null));
     assertEquals ("[]",
-                  BDXRExtensionConverter.convertToString (new CommonsArrayList <> (new ObjectFactory ().createExtensionType ())));
+                  BDXRExtensionConverter.convertToString (new CommonsArrayList<> (new ObjectFactory ().createExtensionType ())));
   }
 }

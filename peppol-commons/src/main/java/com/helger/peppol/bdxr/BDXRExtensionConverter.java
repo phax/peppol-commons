@@ -165,7 +165,7 @@ public final class BDXRExtensionConverter
    *         converted to a XML node
    */
   @Nullable
-  public static List <ExtensionType> convertOrNull (@Nullable final String sJson)
+  public static ICommonsList <ExtensionType> convertOrNull (@Nullable final String sJson)
   {
     try
     {

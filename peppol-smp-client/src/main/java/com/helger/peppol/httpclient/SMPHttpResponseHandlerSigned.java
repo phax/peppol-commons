@@ -50,7 +50,6 @@ import java.security.cert.CertPathValidator;
 import java.security.cert.CertificateFactory;
 import java.security.cert.PKIXParameters;
 import java.security.cert.X509Certificate;
-import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
@@ -79,6 +78,7 @@ import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.xml.serialize.read.DOMReader;
@@ -174,7 +174,7 @@ public final class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseH
             final PKIXParameters aPKIXParams = new PKIXParameters (aKeyStore);
             aPKIXParams.setRevocationEnabled (false);
             final CertificateFactory aCertificateFactory = CertificateFactory.getInstance ("X509");
-            final CertPath aCertPath = aCertificateFactory.generateCertPath (Arrays.asList (aCertArray));
+            final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList<> (aCertArray));
             final CertPathValidator aPathValidator = CertPathValidator.getInstance ("PKIX");
             aPathValidator.validate (aCertPath, aPKIXParams);
 
@@ -280,6 +280,6 @@ public final class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseH
   @Nonnull
   public static <U> SMPHttpResponseHandlerSigned <U> create (@Nonnull final AbstractJAXBMarshaller <U> aMarshaller)
   {
-    return new SMPHttpResponseHandlerSigned <> (aMarshaller);
+    return new SMPHttpResponseHandlerSigned<> (aMarshaller);
   }
 }

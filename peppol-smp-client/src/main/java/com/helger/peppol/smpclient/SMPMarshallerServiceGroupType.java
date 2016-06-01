@@ -40,9 +40,6 @@
  */
 package com.helger.peppol.smpclient;
 
-import java.util.List;
-
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
 import com.helger.peppol.smp.ServiceGroupType;
@@ -56,6 +53,6 @@ public final class SMPMarshallerServiceGroupType extends AbstractJAXBMarshaller 
 {
   public SMPMarshallerServiceGroupType ()
   {
-    super (ServiceGroupType.class, (List <IReadableResource>) null, o -> new ObjectFactory ().createServiceGroup (o));
+    super (ServiceGroupType.class, o -> new ObjectFactory ().createServiceGroup (o));
   }
 }

@@ -40,8 +40,6 @@
  */
 package com.helger.peppol.utils;
 
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -117,7 +115,7 @@ public final class W3CEndpointReferenceHelper
    */
   @Nonnull
   public static W3CEndpointReference createEndpointReference (@Nonnull final String sAddress,
-                                                              @Nonnull final List <Element> aReferenceParameters)
+                                                              @Nonnull final Iterable <Element> aReferenceParameters)
   {
     ValueEnforcer.notNull (sAddress, "Address");
 
@@ -184,7 +182,7 @@ public final class W3CEndpointReferenceHelper
       return null;
 
     // All all child elements of ReferenceParameters :)
-    return new CommonsArrayList <> (new ChildElementIterator (eRefParams));
+    return new CommonsArrayList<> (new ChildElementIterator (eRefParams));
   }
 
   /**
