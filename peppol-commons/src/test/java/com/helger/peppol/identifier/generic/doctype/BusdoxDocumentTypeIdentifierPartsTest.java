@@ -38,7 +38,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier;
+package com.helger.peppol.identifier.generic.doctype;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
