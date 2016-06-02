@@ -40,13 +40,15 @@
  */
 package com.helger.peppol.smlclient;
 
+import java.util.Set;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * A dummy SOAP handler that handles wsse:Security SOAP header elements as
@@ -61,7 +63,8 @@ public class WSSESoapHandler implements SOAPHandler <SOAPMessageContext>
                                                            "wsse");
 
   @Override
-  public ICommonsSet <QName> getHeaders ()
+  @CodingStyleguideUnaware
+  public Set <QName> getHeaders ()
   {
     return new CommonsHashSet <QName> (WSSE_HEADER_NAME);
   }
