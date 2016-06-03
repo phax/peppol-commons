@@ -47,6 +47,7 @@ import com.helger.peppol.identifier.generic.doctype.DocumentIdentifierTypeMicroT
 
 public final class PeppolDocumentTypeIdentifierMicroTypeConverter extends DocumentIdentifierTypeMicroTypeConverter
 {
+  @Override
   @Nonnull
   public PeppolDocumentTypeIdentifier convertToNative (@Nonnull final IMicroElement aElement)
   {

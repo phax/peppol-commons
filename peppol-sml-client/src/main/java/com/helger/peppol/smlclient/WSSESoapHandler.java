@@ -66,7 +66,7 @@ public class WSSESoapHandler implements SOAPHandler <SOAPMessageContext>
   @CodingStyleguideUnaware
   public Set <QName> getHeaders ()
   {
-    return new CommonsHashSet <QName> (WSSE_HEADER_NAME);
+    return new CommonsHashSet <> (WSSE_HEADER_NAME);
   }
 
   public boolean handleMessage (final SOAPMessageContext aContext)

@@ -68,7 +68,6 @@ public final class CBDXRIdentifier
    */
   public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "bdx:noprocess";
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final CBDXRIdentifier s_aInstance = new CBDXRIdentifier ();
 

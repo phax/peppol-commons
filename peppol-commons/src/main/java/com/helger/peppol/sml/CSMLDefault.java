@@ -79,7 +79,6 @@ public final class CSMLDefault
   public static final int MAX_MIGRATION_CODE_LENGTH = 24;
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final CSMLDefault s_aInstance = new CSMLDefault ();
 
   private CSMLDefault ()

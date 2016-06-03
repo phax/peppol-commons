@@ -68,7 +68,6 @@ public final class SMPExtensionConverter
                                                                           .setIndent (EXMLSerializeIndent.NONE);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final SMPExtensionConverter s_aInstance = new SMPExtensionConverter ();
 
   private SMPExtensionConverter ()

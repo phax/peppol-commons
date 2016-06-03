@@ -78,7 +78,6 @@ public final class PeppolIdentifierHelper
   private static final AtomicBoolean s_aCharsetChecksDisabled = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
   private static final AtomicBoolean s_aSchemeMaxLengthChecksDisabled = new AtomicBoolean (DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED);
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final PeppolIdentifierHelper s_aInstance = new PeppolIdentifierHelper ();
 

@@ -74,7 +74,6 @@ public final class BDXRExtensionConverter
                                                                             .setWriteNewlineAtEnd (false);
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final BDXRExtensionConverter s_aInstance = new BDXRExtensionConverter ();
 
   private BDXRExtensionConverter ()
@@ -135,7 +134,7 @@ public final class BDXRExtensionConverter
       if (aJson == null || !aJson.isArray ())
         throw new IllegalArgumentException ("Error in parsing extension JSON '" + sJson + "'");
 
-      final ICommonsList <ExtensionType> ret = new CommonsArrayList<> ();
+      final ICommonsList <ExtensionType> ret = new CommonsArrayList <> ();
       aJson.getAsArray ().forEach (aChild -> {
         final IJsonObject aObject = aChild.getAsObject ();
         final ExtensionType aExt = new ExtensionType ();

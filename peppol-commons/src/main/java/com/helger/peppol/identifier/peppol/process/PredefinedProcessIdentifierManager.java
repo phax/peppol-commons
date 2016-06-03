@@ -66,7 +66,7 @@ import com.helger.peppol.identifier.IdentifierHelper;
 @Immutable
 public final class PredefinedProcessIdentifierManager
 {
-  private static final ICommonsMap <String, IPeppolPredefinedProcessIdentifier> s_aCodes = new CommonsHashMap<> ();
+  private static final ICommonsMap <String, IPeppolPredefinedProcessIdentifier> s_aCodes = new CommonsHashMap <> ();
 
   static
   {
@@ -76,7 +76,6 @@ public final class PredefinedProcessIdentifierManager
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final PredefinedProcessIdentifierManager s_aInstance = new PredefinedProcessIdentifierManager ();
 
   private PredefinedProcessIdentifierManager ()

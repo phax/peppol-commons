@@ -67,7 +67,7 @@ import com.helger.peppol.identifier.IdentifierHelper;
 @Immutable
 public final class PredefinedDocumentTypeIdentifierManager
 {
-  private static final ICommonsMap <String, IPeppolPredefinedDocumentTypeIdentifier> s_aCodes = new CommonsHashMap<> ();
+  private static final ICommonsMap <String, IPeppolPredefinedDocumentTypeIdentifier> s_aCodes = new CommonsHashMap <> ();
 
   static
   {
@@ -77,7 +77,6 @@ public final class PredefinedDocumentTypeIdentifierManager
   }
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final PredefinedDocumentTypeIdentifierManager s_aInstance = new PredefinedDocumentTypeIdentifierManager ();
 
   private PredefinedDocumentTypeIdentifierManager ()

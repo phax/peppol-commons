@@ -73,7 +73,6 @@ public final class IdentifierValidator
                       " SPI implementations of IParticipantIdentifierValidatorSPI");
   }
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final IdentifierValidator s_aInstance = new IdentifierValidator ();
 
@@ -83,8 +82,8 @@ public final class IdentifierValidator
   /**
    * Check if the passed participant ID matches all custom rules. But only
    * participant IDs with the default scheme
-   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} are validated, as we
-   * don't know the details of the other schemes.<br>
+   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} are validated, as
+   * we don't know the details of the other schemes.<br>
    * This method can be used to generically check the consistency of certain
    * numbering schemes.
    *

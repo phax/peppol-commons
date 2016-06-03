@@ -64,7 +64,6 @@ public final class CIdentifier
    */
   public static final String URL_SCHEME_VALUE_SEPARATOR = "::";
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final CIdentifier s_aInstance = new CIdentifier ();
 

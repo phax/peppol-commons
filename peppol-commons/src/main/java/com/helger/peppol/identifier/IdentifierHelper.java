@@ -64,7 +64,6 @@ import com.helger.peppol.utils.BusdoxURLHelper;
 @ThreadSafe
 public final class IdentifierHelper
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final IdentifierHelper s_aInstance = new IdentifierHelper ();
 

@@ -79,7 +79,6 @@ public final class BusdoxURLHelper
   public static final Locale URL_LOCALE = Locale.US;
   private static final Logger s_aLogger = LoggerFactory.getLogger (BusdoxURLHelper.class);
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final BusdoxURLHelper s_aInstance = new BusdoxURLHelper ();
 

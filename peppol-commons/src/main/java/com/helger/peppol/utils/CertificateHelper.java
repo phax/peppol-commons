@@ -76,7 +76,6 @@ public final class CertificateHelper
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (CertificateHelper.class);
 
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final CertificateHelper s_aInstance = new CertificateHelper ();
 

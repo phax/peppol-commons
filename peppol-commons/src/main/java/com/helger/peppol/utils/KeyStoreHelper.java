@@ -108,7 +108,6 @@ public final class KeyStoreHelper
   public static final String TRUSTSTORE_PASSWORD = "peppol";
 
   @PresentForCodeCoverage
-  @SuppressWarnings ("unused")
   private static final KeyStoreHelper s_aInstance = new KeyStoreHelper ();
 
   private KeyStoreHelper ()

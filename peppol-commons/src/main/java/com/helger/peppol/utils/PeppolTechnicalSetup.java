@@ -55,7 +55,6 @@ import com.helger.commons.system.SystemProperties;
 @Immutable
 public final class PeppolTechnicalSetup
 {
-  @SuppressWarnings ("unused")
   @PresentForCodeCoverage
   private static final PeppolTechnicalSetup s_aInstance = new PeppolTechnicalSetup ();
 
