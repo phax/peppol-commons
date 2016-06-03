@@ -554,7 +554,6 @@ public final class MainCreatePredefinedEnumsFromExcel
 
       // public boolean isDefaultScheme ()
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, boolean.class, "isDefaultScheme");
-      m.annotate (Nonnull.class);
       m.body ()._return (JExpr.TRUE);
 
       // Default methods
@@ -779,7 +778,6 @@ public final class MainCreatePredefinedEnumsFromExcel
 
       // public boolean isDefaultScheme ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDefaultScheme");
-      m.annotate (Nonnull.class);
       m.body ()._return (JExpr.lit (true));
 
       // Default methods

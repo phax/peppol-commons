@@ -51,7 +51,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppol.bdxr.ParticipantIdentifierType;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
-import com.helger.peppol.identifier.generic.participant.IMutableParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 
 /**
@@ -63,7 +62,6 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
  */
 @NotThreadSafe
 public class BDXRParticipantIdentifier extends ParticipantIdentifierType implements
-                                       IMutableParticipantIdentifier,
                                        Comparable <BDXRParticipantIdentifier>,
                                        ICloneable <BDXRParticipantIdentifier>
 {

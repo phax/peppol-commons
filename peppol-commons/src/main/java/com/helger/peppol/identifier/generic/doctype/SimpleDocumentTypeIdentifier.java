@@ -61,7 +61,6 @@ import com.helger.peppol.identifier.IdentifierHelper;
  */
 @NotThreadSafe
 public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType implements
-                                          IMutableDocumentTypeIdentifier,
                                           Comparable <SimpleDocumentTypeIdentifier>,
                                           ICloneable <SimpleDocumentTypeIdentifier>
 {

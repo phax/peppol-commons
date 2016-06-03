@@ -127,7 +127,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
    * Check if the given scheme is a valid participant identifier scheme (like
    * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}). It is valid if
    * it has at least 1 character and at last 25 characters (see
-   * {@link CPeppolIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a
+   * {@link PeppolIdentifierHelper#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a
    * certain regular expression (see
    * {@link #PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please note that the regular
    * expression is applied case insensitive!<br>

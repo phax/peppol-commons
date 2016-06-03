@@ -43,11 +43,9 @@ package com.helger.peppol.smp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-import org.w3c.dom.Element;
 
 /**
  * Test class for class {@link SMPExtensionConverter}.
@@ -64,7 +62,6 @@ public final class SMPExtensionConverterTest
     final ExtensionType aExtension = SMPExtensionConverter.convert (sXML);
     assertNotNull (aExtension);
     assertNotNull (aExtension.getAny ());
-    assertTrue (aExtension.getAny () instanceof Element);
 
     assertNull (SMPExtensionConverter.convert ((String) null));
     assertNull (SMPExtensionConverter.convert (""));

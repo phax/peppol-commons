@@ -61,7 +61,6 @@ import com.helger.peppol.identifier.ProcessIdentifierType;
  */
 @NotThreadSafe
 public class SimpleProcessIdentifier extends ProcessIdentifierType implements
-                                     IMutableProcessIdentifier,
                                      Comparable <SimpleProcessIdentifier>,
                                      ICloneable <SimpleProcessIdentifier>
 {

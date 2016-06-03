@@ -173,9 +173,9 @@ public final class PeppolIdentifierHelper
   /**
    * Check if the given identifier is valid. It is valid if it has at least 1
    * character and at last 25 characters (see
-   * {@link CPeppolIdentifier#MAX_IDENTIFIER_SCHEME_LENGTH}). This method
-   * applies to all identifier schemes, but there is a special version for
-   * participant identifier schemes, as they are used in DNS names!
+   * {@link #MAX_IDENTIFIER_SCHEME_LENGTH}). This method applies to all
+   * identifier schemes, but there is a special version for participant
+   * identifier schemes, as they are used in DNS names!
    *
    * @param sScheme
    *        The scheme to check.

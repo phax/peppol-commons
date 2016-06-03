@@ -210,7 +210,6 @@ public enum EPredefinedProcessIdentifier
         return m_aSince;
     }
 
-    @Nonnull
     public boolean isDefaultScheme() {
         return true;
     }

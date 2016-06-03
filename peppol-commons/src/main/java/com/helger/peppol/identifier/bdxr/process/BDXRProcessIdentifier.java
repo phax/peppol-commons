@@ -51,7 +51,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppol.bdxr.ProcessIdentifierType;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
-import com.helger.peppol.identifier.generic.process.IMutableProcessIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 
 /**
@@ -62,10 +61,8 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class BDXRProcessIdentifier extends ProcessIdentifierType implements
-                                   IMutableProcessIdentifier,
-                                   Comparable <BDXRProcessIdentifier>,
-                                   ICloneable <BDXRProcessIdentifier>
+public class BDXRProcessIdentifier extends ProcessIdentifierType
+                                   implements Comparable <BDXRProcessIdentifier>, ICloneable <BDXRProcessIdentifier>
 {
   public BDXRProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
   {

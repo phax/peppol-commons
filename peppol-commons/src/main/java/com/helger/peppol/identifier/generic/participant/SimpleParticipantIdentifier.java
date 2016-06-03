@@ -61,7 +61,6 @@ import com.helger.peppol.identifier.ParticipantIdentifierType;
  */
 @NotThreadSafe
 public class SimpleParticipantIdentifier extends ParticipantIdentifierType implements
-                                         IMutableParticipantIdentifier,
                                          Comparable <SimpleParticipantIdentifier>,
                                          ICloneable <SimpleParticipantIdentifier>
 {

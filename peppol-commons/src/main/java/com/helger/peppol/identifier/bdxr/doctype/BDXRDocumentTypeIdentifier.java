@@ -52,7 +52,6 @@ import com.helger.peppol.bdxr.DocumentIdentifierType;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.doctype.IMutableDocumentTypeIdentifier;
 
 /**
  * This is a sanity class around the {@link DocumentIdentifierType} class with
@@ -63,7 +62,6 @@ import com.helger.peppol.identifier.generic.doctype.IMutableDocumentTypeIdentifi
  */
 @NotThreadSafe
 public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implements
-                                        IMutableDocumentTypeIdentifier,
                                         Comparable <BDXRDocumentTypeIdentifier>,
                                         ICloneable <BDXRDocumentTypeIdentifier>
 {
