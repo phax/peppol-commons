@@ -50,13 +50,17 @@ import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.smpclient.exception.SMPClientException;
+import com.helger.peppol.url.BDXURLProvider;
+import com.helger.peppol.url.IPeppolURLProvider;
 
 public final class MainCheckBogusCertificateStrings
 {
+  private static final IPeppolURLProvider URL_PROVIDER = new BDXURLProvider ();
+
   public static void main (final String [] args) throws CertificateException, SMPClientException
   {
     final PeppolParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("9906:testconsip");
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aPI, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aPI, ESML.DIGIT_TEST);
     final X509Certificate aCert = aSMPClient.getEndpointCertificate (aPI,
                                                                      PeppolDocumentTypeIdentifier.createWithDefaultScheme ("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0::2.1"),
                                                                      PeppolProcessIdentifier.createWithDefaultScheme ("urn:www.cenbii.eu:profile:bii03:ver2.0"),

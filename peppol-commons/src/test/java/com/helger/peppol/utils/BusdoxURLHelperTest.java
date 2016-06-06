@@ -42,23 +42,8 @@ package com.helger.peppol.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 import org.junit.Test;
-import org.xbill.DNS.Name;
-import org.xbill.DNS.TextParseException;
-
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
-import com.helger.peppol.sml.ESML;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link BusdoxURLHelper}.
@@ -87,87 +72,5 @@ public final class BusdoxURLHelperTest
     assertEquals ("a%b", BusdoxURLHelper.createPercentDecodedURL ("a%25b"));
     assertEquals ("a%%b", BusdoxURLHelper.createPercentDecodedURL ("a%25%25b"));
     assertEquals ("a/b", BusdoxURLHelper.createPercentDecodedURL ("a%2Fb"));
-  }
-
-  @Test
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
-  public void testGetDNSNameOfParticipant ()
-  {
-    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc"),
-                                                           ESML.DIGIT_PRODUCTION));
-    // Same value but different casing
-    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
-                                                           ESML.DIGIT_PRODUCTION));
-
-    assertEquals ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test"),
-                                                           ESML.DIGIT_PRODUCTION));
-
-    // Wildcard
-    assertEquals ("*.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("*"),
-                                                           ESML.DIGIT_PRODUCTION));
-
-    // Empty DNS zone
-    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
-                                                           (String) null));
-    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
-                                                           ""));
-
-    if (false)
-      System.out.println (BusdoxURLHelper.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:b"),
-                                                                   ESML.DIGIT_PRODUCTION));
-
-    // Test invalid
-    try
-    {
-      BusdoxURLHelper.getDNSNameOfParticipant (null, "anyzone.org.");
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {
-      // expected
-    }
-
-    try
-    {
-      // Invalid DNS zone (missing dot)
-      BusdoxURLHelper.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("scheme", "value"), "anyzone");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // expected
-    }
-  }
-
-  @Test
-  public void testGetDNSNameOfParticipantWithDNSName () throws TextParseException
-  {
-    // The first part must always end with a DOT
-    Name aName = Name.fromString ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org.",
-                                  Name.fromString ("sml.peppolcentral.org."));
-    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org.", aName.toString ());
-
-    aName = Name.fromString ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org.",
-                             Name.fromString ("sml.peppolcentral.org"));
-    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org.", aName.toString ());
-  }
-
-  @Test
-  public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException
-  {
-    final IParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
-    final URI aURI = BusdoxURLHelper.getSMPURIOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
-    assertEquals (new URI ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"),
-                  aURI);
-
-    final URL aURL = BusdoxURLHelper.getSMPURLOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
-    assertEquals (new URL ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"),
-                  aURL);
   }
 }

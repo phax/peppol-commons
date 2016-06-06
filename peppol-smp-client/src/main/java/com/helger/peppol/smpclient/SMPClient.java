@@ -65,7 +65,7 @@ import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
-import com.helger.peppol.utils.BusdoxURLHelper;
+import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.web.http.CHTTPHeader;
 import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
@@ -87,22 +87,28 @@ public class SMPClient extends SMPClientReadOnly
   /**
    * Constructor with SML lookup
    *
+   * @param aURLProvider
+   *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
    *        The participant identifier to be used. Required to build the SMP
    *        access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
-   * @see BusdoxURLHelper#getSMPURIOfParticipant(IParticipantIdentifier,
+   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public SMPClient (@Nonnull final IParticipantIdentifier aParticipantIdentifier, @Nonnull final ISMLInfo aSMLInfo)
+  public SMPClient (@Nonnull final IPeppolURLProvider aURLProvider,
+                    @Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                    @Nonnull final ISMLInfo aSMLInfo)
   {
-    super (aParticipantIdentifier, aSMLInfo);
+    super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }
 
   /**
    * Constructor with SML lookup
    *
+   * @param aURLProvider
+   *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
    *        The participant identifier to be used. Required to build the SMP
    *        access URI.
@@ -111,12 +117,14 @@ public class SMPClient extends SMPClientReadOnly
    *        URI. Must end with a trailing dot (".") and may neither be
    *        <code>null</code> nor empty to build a correct URL. May not start
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
-   * @see BusdoxURLHelper#getSMPURIOfParticipant(IParticipantIdentifier, String)
+   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
+   *      String)
    */
-  public SMPClient (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  public SMPClient (@Nonnull final IPeppolURLProvider aURLProvider,
+                    @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                     @Nonnull @Nonempty final String sSMLZoneName)
   {
-    super (aParticipantIdentifier, sSMLZoneName);
+    super (aURLProvider, aParticipantIdentifier, sSMLZoneName);
   }
 
   /**

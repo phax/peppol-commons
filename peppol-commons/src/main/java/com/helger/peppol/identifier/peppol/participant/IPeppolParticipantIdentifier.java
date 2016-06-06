@@ -52,7 +52,7 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.validator.IdentifierValidator;
-import com.helger.peppol.utils.BusdoxURLHelper;
+import com.helger.peppol.url.BDXURLProvider;
 
 /**
  * Base interface for a PEPPOL read-only participant identifier.
@@ -145,7 +145,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
     if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
       return false;
     return RegExHelper.stringMatchesPattern (PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
-                                             sScheme.toLowerCase (BusdoxURLHelper.URL_LOCALE));
+                                             sScheme.toLowerCase (BDXURLProvider.URL_LOCALE));
   }
 
   /**

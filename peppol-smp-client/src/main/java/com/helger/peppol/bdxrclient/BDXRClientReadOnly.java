@@ -75,7 +75,7 @@ import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
-import com.helger.peppol.utils.BusdoxURLHelper;
+import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.utils.CertificateHelper;
 import com.helger.peppol.xmldsig.X509DataType;
 
@@ -93,23 +93,28 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   /**
    * Constructor with SML lookup
    *
+   * @param aURLProvider
+   *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
    *        The participant identifier to be used. Required to build the SMP
    *        access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
-   * @see BusdoxURLHelper#getSMPURIOfParticipant(IParticipantIdentifier,
+   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public BDXRClientReadOnly (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  public BDXRClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
+                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                              @Nonnull final ISMLInfo aSMLInfo)
   {
-    this (BusdoxURLHelper.getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo));
+    this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo));
   }
 
   /**
    * Constructor with SML lookup
    *
+   * @param aURLProvider
+   *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
    *        The participant identifier to be used. Required to build the SMP
    *        access URI.
@@ -118,12 +123,14 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *        URI. Must end with a trailing dot (".") and may neither be
    *        <code>null</code> nor empty to build a correct URL. May not start
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
-   * @see BusdoxURLHelper#getSMPURIOfParticipant(IParticipantIdentifier, String)
+   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
+   *      String)
    */
-  public BDXRClientReadOnly (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  public BDXRClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
+                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                              @Nonnull @Nonempty final String sSMLZoneName)
   {
-    this (BusdoxURLHelper.getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName));
+    this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName));
   }
 
   /**
@@ -405,7 +412,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         if (IdentifierHelper.areProcessIdentifiersEqual (aProcessType.getProcessIdentifier (), aProcessID))
         {
           // Filter endpoints by required transport profile
-          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList<> ();
+          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
           for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
             if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
               aRelevantEndpoints.add (aEndpoint);
@@ -489,6 +496,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * Returns a service group. A service group references to the service
    * metadata.
    *
+   * @param aURLProvider
+   *        The URL provider to be used. May not be <code>null</code>.
    * @param aSMLInfo
    *        The SML object to be used
    * @param aServiceGroupID
@@ -505,16 +514,19 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         The request was not well formed.
    */
   @Nonnull
-  public static ServiceGroupType getServiceGroupByDNS (@Nonnull final ISMLInfo aSMLInfo,
+  public static ServiceGroupType getServiceGroupByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
+                                                       @Nonnull final ISMLInfo aSMLInfo,
                                                        @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
-    return new BDXRClientReadOnly (aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
+    return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
 
   /**
    * Gets a signed service metadata object given by its service group id and its
    * document type.
    *
+   * @param aURLProvider
+   *        The URL provider to be used. May not be <code>null</code>.
    * @param aSMLInfo
    *        The SML object to be used
    * @param aServiceGroupID
@@ -532,10 +544,12 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         The request was not well formed.
    */
   @Nonnull
-  public static SignedServiceMetadataType getServiceRegistrationByDNS (@Nonnull final ISMLInfo aSMLInfo,
+  public static SignedServiceMetadataType getServiceRegistrationByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
+                                                                       @Nonnull final ISMLInfo aSMLInfo,
                                                                        @Nonnull final IParticipantIdentifier aServiceGroupID,
                                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
-    return new BDXRClientReadOnly (aServiceGroupID, aSMLInfo).getServiceRegistration (aServiceGroupID, aDocumentTypeID);
+    return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceRegistration (aServiceGroupID,
+                                                                                                    aDocumentTypeID);
   }
 }

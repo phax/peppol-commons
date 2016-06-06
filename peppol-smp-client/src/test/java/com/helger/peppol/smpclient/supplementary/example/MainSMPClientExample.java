@@ -47,6 +47,8 @@ import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClient;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
+import com.helger.peppol.url.BDXURLProvider;
+import com.helger.peppol.url.IPeppolURLProvider;
 
 /**
  * Example application that shows how to invoke the {@link SMPClient}
@@ -55,12 +57,14 @@ import com.helger.peppol.smpclient.SMPClientReadOnly;
  */
 public final class MainSMPClientExample
 {
+  private static final IPeppolURLProvider URL_PROVIDER = new BDXURLProvider ();
+
   public static void main (final String [] args) throws Exception
   {
     // The participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
     // Create the main SMP client using the production SML
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aPI_AT_Test, ESML.DIGIT_PRODUCTION);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aPI_AT_Test, ESML.DIGIT_PRODUCTION);
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
                                                                    EPredefinedProcessIdentifier.BIS4A_V20,

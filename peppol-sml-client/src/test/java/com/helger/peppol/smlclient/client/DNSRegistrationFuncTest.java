@@ -46,6 +46,7 @@ import static org.junit.Assert.assertNull;
 import java.net.InetAddress;
 import java.util.Arrays;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.junit.After;
@@ -69,7 +70,7 @@ import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
-import com.helger.peppol.utils.BusdoxURLHelper;
+import com.helger.peppol.url.BDXURLProvider;
 
 /**
  * This class is for BRZ internal use only!
@@ -101,16 +102,16 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   private static final String INTERNAL_DNS_SERVER = "blixdns0";
 
   @Nullable
-  private static String _DNSLookupPI (final ParticipantIdentifierType aPI) throws Exception
+  private static String _DNSLookupPI (@Nonnull final ParticipantIdentifierType aPI) throws Exception
   {
-    final String sHost = BusdoxURLHelper.getDNSNameOfParticipant (aPI, SML_INFO);
+    final String sHost = new BDXURLProvider ().getDNSNameOfParticipant (aPI, SML_INFO);
     return _DNSLookup (sHost);
   }
 
   @Nullable
-  private static String _DNSLookupPublisher (final String smpId) throws Exception
+  private static String _DNSLookupPublisher (@Nonnull final String sSMPID) throws Exception
   {
-    return _DNSLookup (smpId + "." + SML_INFO.getPublisherDNSName ());
+    return _DNSLookup (sSMPID + "." + SML_INFO.getPublisherDNSName ());
   }
 
   @Nullable

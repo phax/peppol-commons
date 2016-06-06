@@ -62,11 +62,13 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
+import com.helger.peppol.url.BDXURLProvider;
+import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
 /**
  * Expects a local SMP up and running with DNS enabled at port 80 at the ROOT
- * context. See {@link #SMP_URI} constant
+ * context. See SMP_URI constant
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
@@ -81,7 +83,8 @@ public final class SMPClientWithDNSFuncTest
   private static final String SMP_PASSWORD = MockSMPClientConfig.getSMPPassword ();
   private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME,
                                                                                                     SMP_PASSWORD);
-  public static final URI SMP_URI = URLHelper.getAsURI ("http://localhost/");
+  private static final URI SMP_URI = URLHelper.getAsURI ("http://localhost/");
+  private static final IPeppolURLProvider URL_PROVIDER = new BDXURLProvider ();
 
   @BeforeClass
   public static void init () throws Exception
@@ -110,10 +113,11 @@ public final class SMPClientWithDNSFuncTest
     final ParticipantIdentifierType aServiceGroupID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantID);
     final DocumentIdentifierType aDocumentTypeID = PeppolDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
 
-    final ServiceGroupType aGroup = SMPClientReadOnly.getServiceGroupByDNS (SML_INFO, aServiceGroupID);
+    final ServiceGroupType aGroup = SMPClientReadOnly.getServiceGroupByDNS (URL_PROVIDER, SML_INFO, aServiceGroupID);
     assertNotNull (aGroup);
 
-    final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (SML_INFO,
+    final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (URL_PROVIDER,
+                                                                                               SML_INFO,
                                                                                                aServiceGroupID,
                                                                                                aDocumentTypeID);
     assertNotNull (aMetadata);
@@ -127,7 +131,8 @@ public final class SMPClientWithDNSFuncTest
     // Document type identifier from enumeration
     final IDocumentTypeIdentifier aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A.getAsDocumentTypeIdentifier ();
     // Main call to the SMP client with the correct SML to use
-    final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (ESML.DEVELOPMENT_LOCAL,
+    final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (URL_PROVIDER,
+                                                                                               ESML.DEVELOPMENT_LOCAL,
                                                                                                aServiceGroupID,
                                                                                                aDocumentTypeID);
     assertNotNull (aMetadata);
@@ -142,7 +147,8 @@ public final class SMPClientWithDNSFuncTest
     final IParticipantIdentifier aServiceGroupID = PeppolParticipantIdentifier.createWithDefaultScheme (sParticipantID);
     final IDocumentTypeIdentifier aDocumentTypeID = PeppolDocumentTypeIdentifier.createWithDefaultScheme (sDocumentID);
 
-    final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (SML_INFO,
+    final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (URL_PROVIDER,
+                                                                                               SML_INFO,
                                                                                                aServiceGroupID,
                                                                                                aDocumentTypeID);
     assertNotNull (aMetadata);
