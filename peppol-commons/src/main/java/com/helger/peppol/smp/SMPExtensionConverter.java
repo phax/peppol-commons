@@ -48,11 +48,11 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.xml.serialize.read.DOMReader;
-import com.helger.commons.xml.serialize.write.EXMLSerializeDocType;
-import com.helger.commons.xml.serialize.write.EXMLSerializeIndent;
-import com.helger.commons.xml.serialize.write.XMLWriter;
-import com.helger.commons.xml.serialize.write.XMLWriterSettings;
+import com.helger.xml.serialize.read.DOMReader;
+import com.helger.xml.serialize.write.EXMLSerializeDocType;
+import com.helger.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.xml.serialize.write.XMLWriter;
+import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
  * This class is used for converting between a String representation of the

@@ -42,7 +42,7 @@ package com.helger.peppol.identifier.generic.process;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.microdom.IMicroElement;
+import com.helger.xml.microdom.IMicroElement;
 
 public final class SimpleProcessIdentifierMicroTypeConverter extends ProcessIdentifierTypeMicroTypeConverter
 {

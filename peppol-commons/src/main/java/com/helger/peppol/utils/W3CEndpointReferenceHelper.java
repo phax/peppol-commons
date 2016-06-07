@@ -55,9 +55,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.xml.ChildElementIterator;
-import com.helger.commons.xml.XMLFactory;
-import com.helger.commons.xml.XMLHelper;
+import com.helger.xml.ChildElementIterator;
+import com.helger.xml.XMLFactory;
+import com.helger.xml.XMLHelper;
 
 /**
  * As the default WS-Addressing binding since JAXB 2.1 uses the

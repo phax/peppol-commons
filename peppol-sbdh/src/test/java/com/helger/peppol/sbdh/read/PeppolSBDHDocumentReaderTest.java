@@ -36,12 +36,12 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.xml.serialize.read.DOMReader;
-import com.helger.commons.xml.serialize.read.DOMReaderSettings;
 import com.helger.datetime.util.PDTWebDateHelper;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
+import com.helger.xml.serialize.read.DOMReader;
+import com.helger.xml.serialize.read.DOMReaderSettings;
 
 /**
  * Test class for class {@link PeppolSBDHDocumentReader}.

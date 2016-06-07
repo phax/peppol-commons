@@ -26,7 +26,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.xml.serialize.read.DOMReader;
+import com.helger.xml.serialize.read.DOMReader;
 
 /**
  * Test class for class {@link PeppolSBDHTestFiles}

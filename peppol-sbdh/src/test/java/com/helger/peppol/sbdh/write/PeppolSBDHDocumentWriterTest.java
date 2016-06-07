@@ -27,12 +27,12 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.sbdh.SBDMarshaller;
+import com.helger.xml.serialize.read.DOMReader;
 
 public final class PeppolSBDHDocumentWriterTest
 {

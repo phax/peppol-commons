@@ -43,8 +43,6 @@ package com.helger.peppol.config;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.microdom.convert.IMicroTypeConverterRegistrarSPI;
-import com.helger.commons.microdom.convert.IMicroTypeConverterRegistry;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.ProcessIdentifierType;
@@ -71,6 +69,8 @@ import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifierMicroTypeConverter;
 import com.helger.peppol.smp.SMPTransportProfile;
 import com.helger.peppol.smp.SMPTransportProfileMicroTypeConverter;
+import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
+import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 
 /**
  * Special micro type converter for this project.

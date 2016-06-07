@@ -51,7 +51,7 @@ import org.w3c.dom.Element;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.xml.XMLFactory;
+import com.helger.xml.XMLFactory;
 
 /**
  * Test class for class {@link W3CEndpointReferenceHelper}.

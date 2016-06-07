@@ -81,10 +81,10 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.peppol.utils.KeyStoreHelper;
+import com.helger.xml.serialize.read.DOMReader;
 
 /**
  * This is the Apache HTTP client response handler to verify signed HTTP

@@ -45,6 +45,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.xml.mock.XMLTestHelper;
 
 /**
  * Test class for class {@link SimpleProcessIdentifier}.
@@ -66,7 +67,7 @@ public final class SimpleProcessIdentifierTest
     assertEquals ("value", aID2.getValue ());
 
     assertEquals (aID, aID2);
-    CommonsTestHelper.testMicroTypeConversion (aID2);
+    XMLTestHelper.testMicroTypeConversion (aID2);
   }
 
   @Test

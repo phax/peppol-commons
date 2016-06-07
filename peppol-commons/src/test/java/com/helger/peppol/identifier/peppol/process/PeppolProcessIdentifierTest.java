@@ -51,6 +51,7 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.xml.mock.XMLTestHelper;
 
 /**
  * Test class for class {@link PeppolProcessIdentifier}.
@@ -72,7 +73,7 @@ public final class PeppolProcessIdentifierTest
     assertEquals ("value", aID2.getValue ());
 
     assertEquals (aID, aID2);
-    CommonsTestHelper.testMicroTypeConversion (aID2);
+    XMLTestHelper.testMicroTypeConversion (aID2);
   }
 
   @Test

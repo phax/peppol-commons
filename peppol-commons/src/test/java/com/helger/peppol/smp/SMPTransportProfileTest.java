@@ -47,6 +47,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.xml.mock.XMLTestHelper;
 
 /**
  * Test class for class {@link SMPTransportProfile}.
@@ -64,7 +65,7 @@ public final class SMPTransportProfileTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aTP, new SMPTransportProfile ("id", "name"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aTP, new SMPTransportProfile ("id2", "name"));
     CommonsTestHelper.testDefaultSerialization (aTP);
-    CommonsTestHelper.testMicroTypeConversion (aTP);
+    XMLTestHelper.testMicroTypeConversion (aTP);
 
     assertTrue (aTP.setName ("bla").isChanged ());
     assertEquals ("bla", aTP.getName ());
@@ -72,6 +73,6 @@ public final class SMPTransportProfileTest
     assertEquals ("bla", aTP.getName ());
 
     CommonsTestHelper.testDefaultSerialization (aTP);
-    CommonsTestHelper.testMicroTypeConversion (aTP);
+    XMLTestHelper.testMicroTypeConversion (aTP);
   }
 }

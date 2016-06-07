@@ -68,16 +68,10 @@ import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.microdom.IMicroDocument;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.MicroDocument;
-import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.version.Version;
-import com.helger.commons.xml.serialize.write.XMLWriter;
-import com.helger.commons.xml.serialize.write.XMLWriterSettings;
 import com.helger.genericode.Genericode10CodeListMarshaller;
 import com.helger.genericode.Genericode10Helper;
 import com.helger.genericode.excel.ExcelReadOptions;
@@ -111,6 +105,12 @@ import com.helger.peppol.identifier.peppol.issuingagency.IIdentifierIssuingAgenc
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
+import com.helger.xml.microdom.IMicroDocument;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.MicroDocument;
+import com.helger.xml.microdom.serialize.MicroWriter;
+import com.helger.xml.serialize.write.XMLWriter;
+import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also

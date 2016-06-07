@@ -29,8 +29,8 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.LocaleCache;
-import com.helger.commons.xml.serialize.read.DOMReader;
 import com.helger.peppol.testfiles.TestResource;
+import com.helger.xml.serialize.read.DOMReader;
 
 /**
  * Test class for class {@link PeppolBISV1TestFiles}
