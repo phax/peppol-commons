@@ -140,13 +140,6 @@ public enum ESML implements ISMLInfo,IHasID <String>
 
   @Nonnull
   @Nonempty
-  public String getPublisherDNSName ()
-  {
-    return CSMLDefault.DNS_PUBLISHER_SUBZONE + m_sDNSZone;
-  }
-
-  @Nonnull
-  @Nonempty
   public String getManagementServiceURL ()
   {
     return m_sManagementServiceURL;

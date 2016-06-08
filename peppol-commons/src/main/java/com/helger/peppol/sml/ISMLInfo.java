@@ -74,7 +74,10 @@ public interface ISMLInfo extends Serializable
    */
   @Nonnull
   @Nonempty
-  String getPublisherDNSName ();
+  default String getPublisherDNSName ()
+  {
+    return CSMLDefault.DNS_PUBLISHER_SUBZONE + getDNSZone ();
+  }
 
   /**
    * @return The service URL where the management application is running on
