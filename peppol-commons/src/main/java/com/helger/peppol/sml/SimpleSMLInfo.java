@@ -66,7 +66,7 @@ public class SimpleSMLInfo implements ISMLInfo
   private final String m_sDisplayName;
   private final String m_sDNSZone;
   private final String m_sManagementServiceURL;
-  private final boolean m_bRequiresClientCertficate;
+  private final boolean m_bRequiresClientCertificate;
   // Cache for status
   private final URL m_aManageServiceMetaDataEndpointAddress;
   private final URL m_aManageParticipantIdentifierEndpointAddress;
@@ -74,20 +74,20 @@ public class SimpleSMLInfo implements ISMLInfo
   public SimpleSMLInfo (@Nonnull @Nonempty final String sDisplayName,
                         @Nonnull @Nonempty final String sDNSZone,
                         @Nonnull @Nonempty final String sManagementService,
-                        final boolean bRequiresClientCertficate)
+                        final boolean bRequiresClientCertificate)
   {
     this (GlobalIDFactory.getNewPersistentStringID (),
           sDisplayName,
           sDNSZone,
           sManagementService,
-          bRequiresClientCertficate);
+          bRequiresClientCertificate);
   }
 
   SimpleSMLInfo (@Nonnull @Nonempty final String sID,
                  @Nonnull @Nonempty final String sDisplayName,
                  @Nonnull @Nonempty final String sDNSZone,
                  @Nonnull @Nonempty final String sManagementService,
-                 final boolean bRequiresClientCertficate)
+                 final boolean bRequiresClientCertificate)
   {
     ValueEnforcer.notEmpty (sID, "ID");
     ValueEnforcer.notEmpty (sDisplayName, "DisplayName");
@@ -102,7 +102,7 @@ public class SimpleSMLInfo implements ISMLInfo
                                                                                                 sManagementService.length () -
                                                                                                    1)
                                                                 : sManagementService;
-    m_bRequiresClientCertficate = bRequiresClientCertficate;
+    m_bRequiresClientCertificate = bRequiresClientCertificate;
     try
     {
       // Create once
@@ -161,7 +161,7 @@ public class SimpleSMLInfo implements ISMLInfo
 
   public boolean requiresClientCertificate ()
   {
-    return m_bRequiresClientCertficate;
+    return m_bRequiresClientCertificate;
   }
 
   @Override
@@ -174,7 +174,7 @@ public class SimpleSMLInfo implements ISMLInfo
     final SimpleSMLInfo rhs = (SimpleSMLInfo) o;
     return m_sDNSZone.equals (rhs.m_sDNSZone) &&
            m_sManagementServiceURL.equals (rhs.m_sManagementServiceURL) &&
-           m_bRequiresClientCertficate == rhs.m_bRequiresClientCertficate;
+           m_bRequiresClientCertificate == rhs.m_bRequiresClientCertificate;
   }
 
   @Override
@@ -182,7 +182,7 @@ public class SimpleSMLInfo implements ISMLInfo
   {
     return new HashCodeGenerator (this).append (m_sDNSZone)
                                        .append (m_sManagementServiceURL)
-                                       .append (m_bRequiresClientCertficate)
+                                       .append (m_bRequiresClientCertificate)
                                        .getHashCode ();
   }
 
@@ -192,7 +192,7 @@ public class SimpleSMLInfo implements ISMLInfo
     return new ToStringGenerator (this).append ("DisplayName", m_sDisplayName)
                                        .append ("DNSZone", m_sDNSZone)
                                        .append ("ManagementServiceURL", m_sManagementServiceURL)
-                                       .append ("RequiresClientCertificate", m_bRequiresClientCertficate)
+                                       .append ("RequiresClientCertificate", m_bRequiresClientCertificate)
                                        .append ("ManageServiceMetaDataEndpointAddress",
                                                 m_aManageServiceMetaDataEndpointAddress)
                                        .append ("ManageParticipantIdentifierEndpointAddress",

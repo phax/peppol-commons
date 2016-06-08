@@ -47,7 +47,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.exception.InitializationException;
 import com.helger.commons.lang.EnumHelper;
 
 /**
@@ -78,13 +77,7 @@ public enum ESML implements ISMLInfo
   /** http://localhost:8080 */
   DEVELOPMENT_LOCAL ("local", "Development", "smj.peppolcentral.org.", "http://localhost:8080", false);
 
-  private final String m_sID;
-  private final String m_sDisplayName;
-  private final String m_sDNSZone;
-  private final String m_sManagementServiceURL;
-  private final boolean m_bRequiresClientCertificate;
-  private final URL m_aManageServiceMetaDataEndpointAddress;
-  private final URL m_aManageParticipantIdentifierEndpointAddress;
+  private final SimpleSMLInfo m_aProxy;
 
   /**
    * Constructor
@@ -107,70 +100,52 @@ public enum ESML implements ISMLInfo
                 @Nonnull @Nonempty final String sManagementServiceURL,
                 final boolean bRequiresClientCertificate)
   {
-    m_sID = sID;
-    m_sDisplayName = sDisplayName;
-    m_sDNSZone = sDNSZone;
-    m_sManagementServiceURL = sManagementServiceURL;
-    m_bRequiresClientCertificate = bRequiresClientCertificate;
-    try
-    {
-      // Create once
-      m_aManageServiceMetaDataEndpointAddress = new URL (m_sManagementServiceURL +
-                                                         '/' +
-                                                         CSMLDefault.MANAGEMENT_SERVICE_METADATA);
-      m_aManageParticipantIdentifierEndpointAddress = new URL (m_sManagementServiceURL +
-                                                               '/' +
-                                                               CSMLDefault.MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER);
-    }
-    catch (final MalformedURLException ex)
-    {
-      throw new InitializationException ("Failed to convert to URL", ex);
-    }
+    m_aProxy = new SimpleSMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCertificate);
   }
 
   @Nonnull
   @Nonempty
   public String getID ()
   {
-    return m_sID;
+    return m_aProxy.getID ();
   }
 
   @Nonnull
   @Nonempty
   public String getDisplayName ()
   {
-    return m_sDisplayName;
+    return m_aProxy.getDisplayName ();
   }
 
   @Nonnull
   @Nonempty
   public String getDNSZone ()
   {
-    return m_sDNSZone;
+    return m_aProxy.getDNSZone ();
   }
 
   @Nonnull
   @Nonempty
   public String getManagementServiceURL ()
   {
-    return m_sManagementServiceURL;
+    return m_aProxy.getManagementServiceURL ();
   }
 
   @Nonnull
   public URL getManageServiceMetaDataEndpointAddress ()
   {
-    return m_aManageServiceMetaDataEndpointAddress;
+    return m_aProxy.getManageServiceMetaDataEndpointAddress ();
   }
 
   @Nonnull
   public URL getManageParticipantIdentifierEndpointAddress ()
   {
-    return m_aManageParticipantIdentifierEndpointAddress;
+    return m_aProxy.getManageParticipantIdentifierEndpointAddress ();
   }
 
   public boolean requiresClientCertificate ()
   {
-    return m_bRequiresClientCertificate;
+    return m_aProxy.requiresClientCertificate ();
   }
 
   @Nullable
