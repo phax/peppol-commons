@@ -55,6 +55,7 @@ import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.regex.RegExHelper;
+import com.helger.commons.string.StringHelper;
 import com.helger.genericode.Genericode10CodeListMarshaller;
 import com.helger.genericode.Genericode10Helper;
 import com.helger.genericode.v10.CodeListDocument;
@@ -119,7 +120,8 @@ public class MainCreateEnumsFromGenericode
       final String sCode = Genericode10Helper.getRowValue (aRow, COLID_CODE);
       final String sName = Genericode10Helper.getRowValue (aRow, COLID_NAME);
 
-      final String sIdentifier = RegExHelper.getAsIdentifier (sName.toUpperCase (Locale.US)).replaceAll ("__", "_");
+      String sIdentifier = RegExHelper.getAsIdentifier (sName.toUpperCase (Locale.US));
+      sIdentifier = StringHelper.replaceAllRepeatedly (sIdentifier, "__", "_");
       final JEnumConstant jEnumConst = jEnum.enumConstant (sIdentifier);
       jEnumConst.arg (JExpr.lit (sCode));
       jEnumConst.arg (JExpr.lit (sName));
