@@ -58,7 +58,8 @@ public final class SimpleSMLInfoTest
   @Test
   public void testAll ()
   {
-    SimpleSMLInfo si = new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+    SimpleSMLInfo si = new SimpleSMLInfo ("Test 1",
+                                          ESML.DIGIT_PRODUCTION.getDNSZone (),
                                           ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
                                           ESML.DIGIT_PRODUCTION.requiresClientCertificate ());
 
@@ -72,7 +73,8 @@ public final class SimpleSMLInfoTest
     assertTrue (si.requiresClientCertificate ());
 
     // With a trailing slash
-    si = new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+    si = new SimpleSMLInfo ("Test 2",
+                            ESML.DIGIT_PRODUCTION.getDNSZone (),
                             ESML.DIGIT_PRODUCTION.getManagementServiceURL () + '/',
                             ESML.DIGIT_PRODUCTION.requiresClientCertificate ());
     assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
@@ -84,22 +86,22 @@ public final class SimpleSMLInfoTest
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.requiresClientCertificate ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (si,
-                                                                       new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                                          ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                                          ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (si, new SimpleSMLInfo (ESML.DIGIT_PRODUCTION));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
-                                                                           new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone () +
-                                                                                                  ".x",
+                                                                           new SimpleSMLInfo ("SML",
+                                                                                              ESML.DIGIT_PRODUCTION.getDNSZone () +
+                                                                                                     ".x",
                                                                                               ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
                                                                                               ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
-                                                                           new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                           new SimpleSMLInfo ("SML",
+                                                                                              ESML.DIGIT_PRODUCTION.getDNSZone (),
                                                                                               ESML.DIGIT_PRODUCTION.getManagementServiceURL () +
-                                                                                                  ".x",
+                                                                                                                                   ".x",
                                                                                               ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
-                                                                           new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                           new SimpleSMLInfo ("SML",
+                                                                                              ESML.DIGIT_PRODUCTION.getDNSZone (),
                                                                                               ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
                                                                                               !ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
   }
@@ -109,8 +111,19 @@ public final class SimpleSMLInfoTest
   {
     try
     {
+      // Display name may not be empty
+      new SimpleSMLInfo ("",
+                         ESML.DIGIT_PRODUCTION.getDNSZone (),
+                         ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                         true);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+    try
+    {
       // DNS name may not be empty
-      new SimpleSMLInfo ("", ESML.DIGIT_PRODUCTION.getManagementServiceURL (), true);
+      new SimpleSMLInfo ("Test Name", "", ESML.DIGIT_PRODUCTION.getManagementServiceURL (), true);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -119,7 +132,7 @@ public final class SimpleSMLInfoTest
     try
     {
       // Service URL may not be empty
-      new SimpleSMLInfo (ESML.DIGIT_PRODUCTION.getDNSZone (), "", true);
+      new SimpleSMLInfo ("Test Name", ESML.DIGIT_PRODUCTION.getDNSZone (), "", true);
       fail ();
     }
     catch (final IllegalArgumentException ex)

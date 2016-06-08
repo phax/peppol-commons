@@ -61,6 +61,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class SimpleSMLInfo implements ISMLInfo
 {
+  private final String m_sDisplayName;
   private final String m_sDNSZone;
   private final String m_sManagementServiceURL;
   private final boolean m_bRequiresClientCertficate;
@@ -70,16 +71,22 @@ public class SimpleSMLInfo implements ISMLInfo
 
   public SimpleSMLInfo (@Nonnull final ISMLInfo aSMLInfo)
   {
-    this (aSMLInfo.getDNSZone (), aSMLInfo.getManagementServiceURL (), aSMLInfo.requiresClientCertificate ());
+    this (aSMLInfo.getDisplayName (),
+          aSMLInfo.getDNSZone (),
+          aSMLInfo.getManagementServiceURL (),
+          aSMLInfo.requiresClientCertificate ());
   }
 
-  public SimpleSMLInfo (@Nonnull @Nonempty final String sDNSZone,
+  public SimpleSMLInfo (@Nonnull @Nonempty final String sDisplayName,
+                        @Nonnull @Nonempty final String sDNSZone,
                         @Nonnull @Nonempty final String sManagementService,
                         final boolean bRequiresClientCertficate)
   {
+    ValueEnforcer.notEmpty (sDisplayName, "DisplayName");
     ValueEnforcer.notEmpty (sDNSZone, "DNSZone");
     ValueEnforcer.notEmpty (sManagementService, "ManagementService");
 
+    m_sDisplayName = sDisplayName;
     m_sDNSZone = sDNSZone;
     // Management service without the trailing slash
     m_sManagementServiceURL = sManagementService.endsWith ("/") ? sManagementService.substring (0,
@@ -101,6 +108,13 @@ public class SimpleSMLInfo implements ISMLInfo
     {
       throw new InitializationException ("Failed to convert to URL", ex);
     }
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getDisplayName ()
+  {
+    return m_sDisplayName;
   }
 
   @Nonnull
@@ -159,7 +173,8 @@ public class SimpleSMLInfo implements ISMLInfo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("DNSZone", m_sDNSZone)
+    return new ToStringGenerator (this).append ("DisplayName", m_sDisplayName)
+                                       .append ("DNSZone", m_sDNSZone)
                                        .append ("ManagementServiceURL", m_sManagementServiceURL)
                                        .append ("RequiresClientCertificate", m_bRequiresClientCertficate)
                                        .append ("ManageServiceMetaDataEndpointAddress",

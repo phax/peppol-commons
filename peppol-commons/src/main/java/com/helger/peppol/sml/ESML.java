@@ -66,18 +66,21 @@ public enum ESML implements ISMLInfo,IHasID <String>
 {
   /** DIGIT production URL - valid from June 9th, 2015 */
   DIGIT_PRODUCTION ("digitprod",
+                    "SML",
                     "edelivery.tech.ec.europa.eu.",
                     "https://edelivery.tech.ec.europa.eu/edelivery-sml",
                     true),
   /** DIGIT test URL - valid from June 9th, 2015 */
   DIGIT_TEST ("digittest",
+              "SMK",
               "acc.edelivery.tech.ec.europa.eu.",
               "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
               true),
   /** http://localhost:8080 */
-  DEVELOPMENT_LOCAL ("local", "smj.peppolcentral.org.", "http://localhost:8080", false);
+  DEVELOPMENT_LOCAL ("local", "Development", "smj.peppolcentral.org.", "http://localhost:8080", false);
 
   private final String m_sID;
+  private final String m_sDisplayName;
   private final String m_sDNSZone;
   private final String m_sManagementServiceURL;
   private final boolean m_bRequiresClientCertificate;
@@ -100,11 +103,13 @@ public enum ESML implements ISMLInfo,IHasID <String>
    * @throws MalformedURLException
    */
   private ESML (@Nonnull @Nonempty final String sID,
+                @Nonnull @Nonempty final String sDisplayName,
                 @Nonnull @Nonempty final String sDNSZone,
                 @Nonnull @Nonempty final String sManagementServiceURL,
                 final boolean bRequiresClientCertificate)
   {
     m_sID = sID;
+    m_sDisplayName = sDisplayName;
     m_sDNSZone = sDNSZone;
     m_sManagementServiceURL = sManagementServiceURL;
     m_bRequiresClientCertificate = bRequiresClientCertificate;
@@ -129,6 +134,13 @@ public enum ESML implements ISMLInfo,IHasID <String>
   public String getID ()
   {
     return m_sID;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getDisplayName ()
+  {
+    return m_sDisplayName;
   }
 
   @Nonnull
