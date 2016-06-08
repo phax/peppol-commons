@@ -107,7 +107,8 @@ final class CodeGenerationHelper
       {
         // Non-BIS extension
         String sExt = StringHelper.trimStart (sCurExtensionID, "urn:");
-        sExt = sExt.replace ('.', '_').replace (':', '_');
+        sExt = StringHelper.replaceAll (sExt, '.', '_');
+        sExt = StringHelper.replaceAll (sExt, ':', '_');
         sExtensionID += '_';
         sExtensionID += sExt;
       }
