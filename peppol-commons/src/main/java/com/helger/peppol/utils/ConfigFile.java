@@ -92,12 +92,12 @@ public class ConfigFile
    */
   public ConfigFile (@Nonnull @Nonempty final String sConfigPath)
   {
-    this (new CommonsArrayList<> (sConfigPath));
+    this (new CommonsArrayList <> (sConfigPath));
   }
 
   public ConfigFile (@Nonnull @Nonempty final String... aConfigPaths)
   {
-    this (new CommonsArrayList<> (aConfigPaths));
+    this (new CommonsArrayList <> (aConfigPaths));
   }
 
   /**

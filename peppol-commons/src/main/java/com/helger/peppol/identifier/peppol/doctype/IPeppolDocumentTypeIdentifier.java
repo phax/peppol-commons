@@ -92,8 +92,8 @@ public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocum
   /**
    * Check if the passed document type identifier value is valid. A valid
    * identifier must have at least 1 character and at last
-   * {@link PeppolIdentifierHelper#MAX_DOCUEMNT_TYPE_VALUE_LENGTH} characters. Also it
-   * must be ISO-8859-1 encoded.
+   * {@link PeppolIdentifierHelper#MAX_DOCUEMNT_TYPE_VALUE_LENGTH} characters.
+   * Also it must be ISO-8859-1 encoded.
    *
    * @param sValue
    *        The document type identifier value to be checked (without the

@@ -48,7 +48,10 @@ import com.helger.peppol.identifier.peppol.IMutablePeppolIdentifier;
  * 
  * @author philip
  */
-public interface IMutablePeppolProcessIdentifier extends IPeppolProcessIdentifier, IMutablePeppolIdentifier, IMutableProcessIdentifier
+public interface IMutablePeppolProcessIdentifier extends
+                                                 IPeppolProcessIdentifier,
+                                                 IMutablePeppolIdentifier,
+                                                 IMutableProcessIdentifier
 {
   /* empty */
 }

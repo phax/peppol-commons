@@ -78,8 +78,9 @@ public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIde
 
   /**
    * Check if the passed process identifier value is valid. A valid identifier
-   * must have at least 1 character and at last {@link PeppolIdentifierHelper#MAX_PROCESS_VALUE_LENGTH}
-   * characters. Also it must be ISO-8859-1 encoded.
+   * must have at least 1 character and at last
+   * {@link PeppolIdentifierHelper#MAX_PROCESS_VALUE_LENGTH} characters. Also it
+   * must be ISO-8859-1 encoded.
    *
    * @param sValue
    *        The process identifier value to be checked (without the scheme). May

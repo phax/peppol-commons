@@ -48,7 +48,10 @@ import com.helger.peppol.identifier.peppol.IMutablePeppolIdentifier;
  * 
  * @author philip
  */
-public interface IMutablePeppolDocumentTypeIdentifier extends IPeppolDocumentTypeIdentifier, IMutablePeppolIdentifier, IMutableDocumentTypeIdentifier
+public interface IMutablePeppolDocumentTypeIdentifier extends
+                                                      IPeppolDocumentTypeIdentifier,
+                                                      IMutablePeppolIdentifier,
+                                                      IMutableDocumentTypeIdentifier
 {
   /* empty */
 }
