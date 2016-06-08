@@ -46,6 +46,7 @@ import java.net.URL;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
 
 /**
@@ -55,7 +56,7 @@ import com.helger.commons.name.IHasDisplayName;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface ISMLInfo extends IHasDisplayName, Serializable
+public interface ISMLInfo extends IHasDisplayName, IHasID <String>, Serializable
 {
   /**
    * @return The "shorthand" display name like "SML" or "SMK".

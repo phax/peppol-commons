@@ -46,6 +46,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.commons.id.factory.GlobalIDFactory;
+import com.helger.commons.id.factory.MemoryIntIDFactory;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -55,6 +57,12 @@ import com.helger.commons.mock.CommonsTestHelper;
  */
 public final class SimpleSMLInfoTest
 {
+  static
+  {
+    if (!GlobalIDFactory.hasPersistentIntIDFactory ())
+      GlobalIDFactory.setPersistentIntIDFactory (new MemoryIntIDFactory ());
+  }
+
   @Test
   public void testAll ()
   {
@@ -86,7 +94,11 @@ public final class SimpleSMLInfoTest
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.requiresClientCertificate ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (si, new SimpleSMLInfo (ESML.DIGIT_PRODUCTION));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (si,
+                                                                       new SimpleSMLInfo ("SML",
+                                                                                          ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                                          ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                                          ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
                                                                            new SimpleSMLInfo ("SML",
                                                                                               ESML.DIGIT_PRODUCTION.getDNSZone () +

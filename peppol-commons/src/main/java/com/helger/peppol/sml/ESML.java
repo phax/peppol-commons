@@ -48,7 +48,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.exception.InitializationException;
-import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 
 /**
@@ -62,7 +61,7 @@ import com.helger.commons.lang.EnumHelper;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public enum ESML implements ISMLInfo,IHasID <String>
+public enum ESML implements ISMLInfo
 {
   /** DIGIT production URL - valid from June 9th, 2015 */
   DIGIT_PRODUCTION ("digitprod",

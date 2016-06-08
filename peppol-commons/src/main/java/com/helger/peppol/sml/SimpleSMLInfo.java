@@ -50,6 +50,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.id.factory.GlobalIDFactory;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -61,6 +62,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class SimpleSMLInfo implements ISMLInfo
 {
+  private final String m_sID;
   private final String m_sDisplayName;
   private final String m_sDNSZone;
   private final String m_sManagementServiceURL;
@@ -69,23 +71,30 @@ public class SimpleSMLInfo implements ISMLInfo
   private final URL m_aManageServiceMetaDataEndpointAddress;
   private final URL m_aManageParticipantIdentifierEndpointAddress;
 
-  public SimpleSMLInfo (@Nonnull final ISMLInfo aSMLInfo)
-  {
-    this (aSMLInfo.getDisplayName (),
-          aSMLInfo.getDNSZone (),
-          aSMLInfo.getManagementServiceURL (),
-          aSMLInfo.requiresClientCertificate ());
-  }
-
   public SimpleSMLInfo (@Nonnull @Nonempty final String sDisplayName,
                         @Nonnull @Nonempty final String sDNSZone,
                         @Nonnull @Nonempty final String sManagementService,
                         final boolean bRequiresClientCertficate)
   {
+    this (GlobalIDFactory.getNewPersistentStringID (),
+          sDisplayName,
+          sDNSZone,
+          sManagementService,
+          bRequiresClientCertficate);
+  }
+
+  SimpleSMLInfo (@Nonnull @Nonempty final String sID,
+                 @Nonnull @Nonempty final String sDisplayName,
+                 @Nonnull @Nonempty final String sDNSZone,
+                 @Nonnull @Nonempty final String sManagementService,
+                 final boolean bRequiresClientCertficate)
+  {
+    ValueEnforcer.notEmpty (sID, "ID");
     ValueEnforcer.notEmpty (sDisplayName, "DisplayName");
     ValueEnforcer.notEmpty (sDNSZone, "DNSZone");
     ValueEnforcer.notEmpty (sManagementService, "ManagementService");
 
+    m_sID = sID;
     m_sDisplayName = sDisplayName;
     m_sDNSZone = sDNSZone;
     // Management service without the trailing slash
@@ -108,6 +117,13 @@ public class SimpleSMLInfo implements ISMLInfo
     {
       throw new InitializationException ("Failed to convert to URL", ex);
     }
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getID ()
+  {
+    return m_sID;
   }
 
   @Nonnull
