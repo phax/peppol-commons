@@ -240,14 +240,9 @@
         </configuration>
         <dependencies>
           <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-tools</artifactId>
-            <version>${jaxws.version}</version>
-          </dependency>
-          <dependency>
             <groupId>com.helger</groupId>
             <artifactId>ph-wsimport-plugin</artifactId>
-            <version>2.2.8.2-SNAPSHOT</version>
+            <version>2.2.8.2</version>
           </dependency>
           <dependency>
             <groupId>com.helger</groupId>
