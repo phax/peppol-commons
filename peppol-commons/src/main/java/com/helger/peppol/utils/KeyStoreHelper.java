@@ -127,6 +127,8 @@ public final class KeyStoreHelper
    *         In case of a key store error
    * @throws IOException
    *         In case key store loading fails
+   * @throws IllegalArgumentException
+   *         If the keystore path is invalid
    */
   @Nonnull
   public static KeyStore loadKeyStore (@Nonnull final String sKeyStorePath,
@@ -150,6 +152,8 @@ public final class KeyStoreHelper
    *         In case of a key store error
    * @throws IOException
    *         In case key store loading fails
+   * @throws IllegalArgumentException
+   *         If the keystore path is invalid
    */
   @Nonnull
   public static KeyStore loadKeyStore (@Nonnull final String sKeyStorePath,
