@@ -40,6 +40,7 @@
  */
 package com.helger.peppol.utils;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -59,23 +60,23 @@ public final class ConfigFileTest
   @Test
   public void testAll ()
   {
-    final ConfigFile aCF = new ConfigFile ("config.properties");
+    final ConfigFile aCF = ConfigFile.create ("config.properties");
     assertTrue (aCF.isRead ());
     // Existing elements
-    assertEquals ("string", aCF.getString ("element1"));
-    assertEquals (6, aCF.getCharArray ("element1").length);
-    assertEquals (2, aCF.getInt ("element2", 5));
-    assertFalse (aCF.getBoolean ("element3", true));
-    assertEquals ("abc", aCF.getString ("element4"));
+    assertEquals ("string", aCF.getAsString ("element1"));
+    assertArrayEquals ("string".toCharArray (), aCF.getAsCharArray ("element1"));
+    assertEquals (6, aCF.getAsCharArray ("element1").length);
+    assertEquals (2, aCF.getAsInt ("element2", 5));
+    assertFalse (aCF.getAsBoolean ("element3", true));
+    assertEquals ("abc", aCF.getAsString ("element4"));
 
     // Non-existing elements
-    assertNull (aCF.getString ("element1a"));
-    assertNull (aCF.getCharArray ("element1a"));
-    assertEquals (5, aCF.getInt ("element2a", 5));
-    assertTrue (aCF.getBoolean ("element3a", true));
+    assertNull (aCF.getAsString ("element1a"));
+    assertNull (aCF.getAsCharArray ("element1a"));
+    assertEquals (5, aCF.getAsInt ("element2a", 5));
+    assertTrue (aCF.getAsBoolean ("element3a", true));
 
     // All keys
-    assertEquals (5, aCF.getAllKeys ().size ());
     assertEquals (5, aCF.getAllEntries ().size ());
 
     assertNotNull (aCF.toString ());
@@ -84,10 +85,9 @@ public final class ConfigFileTest
   @Test
   public void testNonExisting ()
   {
-    final ConfigFile aCF = new ConfigFile ("non-existent-file.xml");
+    final ConfigFile aCF = ConfigFile.create ("non-existent-file.xml");
     assertFalse (aCF.isRead ());
-    assertNull (aCF.getString ("any"));
-    assertEquals (0, aCF.getAllKeys ().size ());
+    assertNull (aCF.getAsString ("any"));
     assertEquals (0, aCF.getAllEntries ().size ());
 
     assertNotNull (aCF.toString ());
@@ -98,28 +98,28 @@ public final class ConfigFileTest
   {
     try
     {
-      new ConfigFile ((String []) null);
+      ConfigFile.create ((String []) null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new ConfigFile ((Iterable <String>) null);
+      ConfigFile.create ((Iterable <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      new ConfigFile (new String [0]);
+      ConfigFile.create (new String [0]);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new ConfigFile (null, "bla");
+      ConfigFile.create (null, "bla");
       fail ();
     }
     catch (final IllegalArgumentException ex)

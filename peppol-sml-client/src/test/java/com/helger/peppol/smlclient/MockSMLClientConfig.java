@@ -55,8 +55,8 @@ import com.helger.peppol.utils.ConfigFile;
 @Immutable
 public final class MockSMLClientConfig
 {
-  private static final ConfigFile s_aConfig = new ConfigFile ("private-sml-client-test.properties",
-                                                              "sml-client-test.properties");
+  private static final ConfigFile s_aConfig = ConfigFile.create ("private-sml-client-test.properties",
+                                                                 "sml-client-test.properties");
 
   // init
   static
@@ -71,12 +71,12 @@ public final class MockSMLClientConfig
   @Nullable
   public static String getKeystoreLocation ()
   {
-    return s_aConfig.getString ("keystore.location");
+    return s_aConfig.getAsString ("keystore.location");
   }
 
   @Nullable
   public static String getKeystorePassword ()
   {
-    return s_aConfig.getString ("keystore.password");
+    return s_aConfig.getAsString ("keystore.password");
   }
 }

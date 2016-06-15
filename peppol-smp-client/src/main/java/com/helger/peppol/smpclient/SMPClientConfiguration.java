@@ -79,7 +79,7 @@ public final class SMPClientConfiguration
 
   static
   {
-    final ICommonsList <String> aFilePaths = new CommonsArrayList<> ();
+    final ICommonsList <String> aFilePaths = new CommonsArrayList <> ();
     // Check if the system property is present
     String sPropertyPath = SystemProperties.getPropertyValue ("peppol.smp.client.properties.path");
     if (StringHelper.hasText (sPropertyPath))
@@ -92,7 +92,7 @@ public final class SMPClientConfiguration
     aFilePaths.add ("private-smp-client.properties");
     aFilePaths.add ("smp-client.properties");
 
-    s_aConfigFile = new ConfigFile (aFilePaths);
+    s_aConfigFile = ConfigFile.create (aFilePaths);
     if (s_aConfigFile.isRead ())
       s_aLogger.info ("Read SMP client properties from " + s_aConfigFile.getReadResource ().getPath ());
     else
@@ -120,7 +120,7 @@ public final class SMPClientConfiguration
   @Nonnull
   public static String getTruststoreLocation ()
   {
-    return s_aConfigFile.getString ("truststore.location", KeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
+    return s_aConfigFile.getAsString ("truststore.location", KeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
   }
 
   /**
@@ -132,7 +132,7 @@ public final class SMPClientConfiguration
   @Nonnull
   public static String getTruststorePassword ()
   {
-    return s_aConfigFile.getString ("truststore.password", KeyStoreHelper.TRUSTSTORE_PASSWORD);
+    return s_aConfigFile.getAsString ("truststore.password", KeyStoreHelper.TRUSTSTORE_PASSWORD);
   }
 
   /**
@@ -143,8 +143,8 @@ public final class SMPClientConfiguration
   @Nullable
   public static HttpHost getHttpProxy ()
   {
-    final String sProxyHost = s_aConfigFile.getString ("http.proxyHost");
-    final int nProxyPort = s_aConfigFile.getInt ("http.proxyPort", 0);
+    final String sProxyHost = s_aConfigFile.getAsString ("http.proxyHost");
+    final int nProxyPort = s_aConfigFile.getAsInt ("http.proxyPort", 0);
     if (sProxyHost != null && nProxyPort > 0)
       return new HttpHost (sProxyHost, nProxyPort);
 

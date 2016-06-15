@@ -40,7 +40,6 @@
  */
 package com.helger.peppol.utils;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import javax.annotation.Nonnull;
@@ -54,17 +53,21 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.NonBlockingProperties;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringParser;
+import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.SystemProperties;
+import com.helger.commons.traits.IConvertibleByKeyTrait;
+import com.helger.commons.typeconvert.TypeConverterException;
+import com.helger.settings.ISettings;
+import com.helger.settings.Settings;
+import com.helger.settings.exchange.ISettingsPersistence;
+import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
 
 /**
  * Used for accessing configuration files based on properties. By default first
@@ -77,90 +80,25 @@ import com.helger.commons.system.SystemProperties;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
-public class ConfigFile
+public class ConfigFile implements IConvertibleByKeyTrait <String>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConfigFile.class);
 
-  private IReadableResource m_aReadResource;
-  private final NonBlockingProperties m_aProps = new NonBlockingProperties ();
+  private final IReadableResource m_aReadResource;
+  private final ISettings m_aSettings;
 
   /**
-   * Constructor with a single file path to read.
+   * Constructor for the settings that were read
    *
-   * @param sConfigPath
-   *        The path to the config file to be read. Must be classpath-relative.
+   * @param aRes
+   *        The resource that was read. May be <code>null</code>.
+   * @param aSettings
+   *        The settings that were read. May be <code>null</code>.
    */
-  public ConfigFile (@Nonnull @Nonempty final String sConfigPath)
+  protected ConfigFile (@Nullable final IReadableResource aRes, @Nullable final ISettings aSettings)
   {
-    this (new CommonsArrayList <> (sConfigPath));
-  }
-
-  public ConfigFile (@Nonnull @Nonempty final String... aConfigPaths)
-  {
-    this (new CommonsArrayList <> (aConfigPaths));
-  }
-
-  /**
-   * Constructor for explicitly specifying a file path to read.
-   *
-   * @param aConfigPaths
-   *        The array of paths to the config files to be read. Must be
-   *        classpath-relative. The first file that can be read will be used and
-   *        the others will be ignored.
-   */
-  public ConfigFile (@Nonnull @Nonempty final Iterable <String> aConfigPaths)
-  {
-    ValueEnforcer.notEmptyNoNullValue (aConfigPaths, "ConfigPaths");
-
-    boolean bRead = false;
-    for (final String sConfigPath : aConfigPaths)
-      if (_readConfigFile (sConfigPath).isSuccess ())
-      {
-        bRead = true;
-        break;
-      }
-
-    if (!bRead)
-    {
-      // No config file found at all
-      s_aLogger.warn ("Failed to resolve config file paths: " + aConfigPaths);
-    }
-  }
-
-  @Nonnull
-  private ESuccess _readConfigFile (@Nonnull final String sPath)
-  {
-    // Try to get the input stream for the passed property file name
-    IReadableResource aRes = new ClassPathResource (sPath);
-    InputStream aIS = aRes.getInputStream ();
-    if (aIS == null)
-    {
-      // Fallback to file system - maybe this helps...
-      aRes = new FileSystemResource (sPath);
-      aIS = aRes.getInputStream ();
-    }
-    if (aIS != null)
-    {
-      try
-      {
-        // Does not close the input stream!
-        m_aProps.load (aIS);
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Loaded configuration from '" + sPath + "': " + m_aProps.keySet ());
-        m_aReadResource = aRes;
-        return ESuccess.SUCCESS;
-      }
-      catch (final IOException ex)
-      {
-        s_aLogger.error ("Failed to read config file '" + sPath + "'", ex);
-      }
-      finally
-      {
-        // Manually close the input stream!
-        StreamHelper.close (aIS);
-      }
-    }
-    return ESuccess.FAILURE;
+    m_aReadResource = aRes;
+    m_aSettings = aSettings;
   }
 
   /**
@@ -169,7 +107,7 @@ public class ConfigFile
    */
   public boolean isRead ()
   {
-    return m_aReadResource != null;
+    return m_aSettings != null;
   }
 
   /**
@@ -183,81 +121,35 @@ public class ConfigFile
   }
 
   /**
-   * Get the string from the configuration files
-   *
-   * @param sKey
-   *        The key to search
-   * @return <code>null</code> if no such value is in the configuration file.
+   * @return The underlying {@link ISettings} object. May be <code>null</code>
+   *         if reading failed.
    */
   @Nullable
-  public final String getString (@Nonnull final String sKey)
+  public ISettings getSettings ()
   {
-    return getString (sKey, null);
-  }
-
-  /**
-   * Get the string from the configuration files
-   *
-   * @param sKey
-   *        The key to search
-   * @param sDefault
-   *        The default value to be returned if the value was not found. May be
-   *        <code>null</code>.
-   * @return the passed default value if no such value is in the configuration
-   *         file.
-   */
-  @Nullable
-  public final String getString (@Nonnull final String sKey, @Nullable final String sDefault)
-  {
-    final String sValue = m_aProps.getProperty (sKey);
-    return sValue != null ? sValue.trim () : sDefault;
+    return m_aSettings;
   }
 
   @Nullable
-  public final char [] getCharArray (@Nonnull final String sKey)
+  public Object getValue (@Nullable final String sFieldName)
   {
-    return getCharArray (sKey, null);
+    return m_aSettings == null ? null : m_aSettings.getValue (sFieldName);
   }
 
+  // FIXME part of ph-commons >= 8.0.1
   @Nullable
-  public final char [] getCharArray (@Nonnull final String sKey, @Nullable final char [] aDefault)
+  public char [] getAsCharArray (@Nullable final String aKey) throws TypeConverterException
   {
-    final String ret = getString (sKey, null);
-    return ret == null ? aDefault : ret.toCharArray ();
-  }
-
-  public final boolean getBoolean (@Nonnull final String sKey, final boolean bDefault)
-  {
-    return StringParser.parseBool (getString (sKey), bDefault);
-  }
-
-  public final int getInt (@Nonnull final String sKey, final int nDefault)
-  {
-    return StringParser.parseInt (getString (sKey), nDefault);
-  }
-
-  public final long getLong (@Nonnull final String sKey, final long nDefault)
-  {
-    return StringParser.parseLong (getString (sKey), nDefault);
-  }
-
-  /**
-   * @return A set with all keys contained in the configuration file
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public final ICommonsSet <String> getAllKeys ()
-  {
-    // Convert from Set<Object> to Set<String>
-    return m_aProps.copyOfKeySet ();
+    return getConvertedValue (aKey, char [].class);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public final ICommonsOrderedMap <String, String> getAllEntries ()
+  public ICommonsMap <String, Object> getAllEntries ()
   {
-    // Convert from Map<Object,Object> to Map<String, String>
-    return m_aProps.getClone ();
+    if (m_aSettings == null)
+      return new CommonsHashMap <> ();
+    return m_aSettings.getAllEntries ();
   }
 
   /**
@@ -272,7 +164,7 @@ public class ConfigFile
     if (isRead ())
       for (final String sProperty : PeppolTechnicalSetup.getAllJavaNetSystemProperties ())
       {
-        final String sConfigFileValue = getString (sProperty);
+        final String sConfigFileValue = getAsString (sProperty);
         if (sConfigFileValue != null)
         {
           SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
@@ -284,6 +176,68 @@ public class ConfigFile
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("readResource", m_aReadResource).append ("props", m_aProps).toString ();
+    return new ToStringGenerator (this).append ("ReadResource", m_aReadResource)
+                                       .append ("Settings", m_aSettings)
+                                       .toString ();
+  }
+
+  @Nonnull
+  public static ConfigFile create (@Nonnull @Nonempty final String sConfigPath)
+  {
+    return create (new CommonsArrayList <> (sConfigPath));
+  }
+
+  @Nonnull
+  public static ConfigFile create (@Nonnull @Nonempty final String... aConfigPaths)
+  {
+    return create (new CommonsArrayList <> (aConfigPaths));
+  }
+
+  private static final class TrimmedValueSettings extends Settings
+  {
+    public TrimmedValueSettings (@Nonnull @Nonempty final String sName)
+    {
+      super (sName);
+    }
+
+    @Override
+    @Nonnull
+    public EChange setValue (@Nonnull @Nonempty final String sFieldName, @Nullable final Object aNewValue)
+    {
+      return super.setValue (sFieldName, StringHelper.trim ((String) aNewValue));
+    }
+  }
+
+  @Nonnull
+  public static ConfigFile create (@Nonnull @Nonempty final Iterable <String> aConfigPaths)
+  {
+    ValueEnforcer.notEmptyNoNullValue (aConfigPaths, "ConfigPaths");
+
+    final ISettingsPersistence aSPP = new SettingsPersistenceProperties (x -> new TrimmedValueSettings (x));
+    IReadableResource aRes = null;
+    ISettings aSettings = null;
+    for (final String sConfigPath : aConfigPaths)
+    {
+      // Try to get the input stream for the passed property file name
+      aRes = new ClassPathResource (sConfigPath);
+      InputStream aIS = aRes.getInputStream ();
+      if (aIS == null)
+      {
+        // Fallback to file system - maybe this helps...
+        aRes = new FileSystemResource (sConfigPath);
+        aIS = aRes.getInputStream ();
+      }
+      if (aIS != null)
+      {
+        aSettings = aSPP.readSettings (aIS);
+        if (aSettings != null)
+          break;
+      }
+    }
+
+    if (aSettings == null)
+      s_aLogger.warn ("Failed to resolve config file paths: " + aConfigPaths);
+
+    return new ConfigFile (aSettings != null ? aRes : null, aSettings);
   }
 }

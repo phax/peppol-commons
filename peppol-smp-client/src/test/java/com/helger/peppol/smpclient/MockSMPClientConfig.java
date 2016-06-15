@@ -71,8 +71,8 @@ import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 @Immutable
 public final class MockSMPClientConfig
 {
-  private static final ConfigFile s_aConfig = new ConfigFile ("private-smp-client-test.properties",
-                                                              "smp-client-test.properties");
+  private static final ConfigFile s_aConfig = ConfigFile.create ("private-smp-client-test.properties",
+                                                                 "smp-client-test.properties");
 
   // init
   static
@@ -102,13 +102,13 @@ public final class MockSMPClientConfig
   @Nullable
   public static String getSMPUserName ()
   {
-    return s_aConfig.getString ("smp.username");
+    return s_aConfig.getAsString ("smp.username");
   }
 
   @Nullable
   public static String getSMPPassword ()
   {
-    return s_aConfig.getString ("smp.password");
+    return s_aConfig.getAsString ("smp.password");
   }
 
   @Nonnull
@@ -122,7 +122,7 @@ public final class MockSMPClientConfig
   {
     try
     {
-      return new URI (s_aConfig.getString ("smp.uri"));
+      return new URI (s_aConfig.getAsString ("smp.uri"));
     }
     catch (final URISyntaxException ex)
     {
@@ -133,48 +133,48 @@ public final class MockSMPClientConfig
   @Nonnull
   public static final PeppolParticipantIdentifier getParticipantID ()
   {
-    return PeppolParticipantIdentifier.createWithDefaultScheme (s_aConfig.getString ("participantid"));
+    return PeppolParticipantIdentifier.createWithDefaultScheme (s_aConfig.getAsString ("participantid"));
   }
 
   @Nonnull
   public static final PeppolDocumentTypeIdentifier getDocumentTypeID ()
   {
-    return PeppolDocumentTypeIdentifier.createWithDefaultScheme (s_aConfig.getString ("documenttypeid"));
+    return PeppolDocumentTypeIdentifier.createWithDefaultScheme (s_aConfig.getAsString ("documenttypeid"));
   }
 
   @Nonnull
   public static final PeppolProcessIdentifier getProcessTypeID ()
   {
-    return PeppolProcessIdentifier.createWithDefaultScheme (s_aConfig.getString ("processtypeid"));
+    return PeppolProcessIdentifier.createWithDefaultScheme (s_aConfig.getAsString ("processtypeid"));
   }
 
   @Nonnull
   public static final W3CEndpointReference getAPEndpointRef ()
   {
-    return W3CEndpointReferenceHelper.createEndpointReference (s_aConfig.getString ("ap.uri"));
+    return W3CEndpointReferenceHelper.createEndpointReference (s_aConfig.getAsString ("ap.uri"));
   }
 
   @Nullable
   public static String getAPCert ()
   {
-    return s_aConfig.getString ("ap.cert");
+    return s_aConfig.getAsString ("ap.cert");
   }
 
   @Nullable
   public static String getAPServiceDescription ()
   {
-    return s_aConfig.getString ("ap.servicedescription");
+    return s_aConfig.getAsString ("ap.servicedescription");
   }
 
   @Nullable
   public static String getAPContact ()
   {
-    return s_aConfig.getString ("ap.contact");
+    return s_aConfig.getAsString ("ap.contact");
   }
 
   @Nullable
   public static String getAPInfo ()
   {
-    return s_aConfig.getString ("ap.info");
+    return s_aConfig.getAsString ("ap.info");
   }
 }
