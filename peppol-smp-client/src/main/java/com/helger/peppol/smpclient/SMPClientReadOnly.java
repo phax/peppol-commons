@@ -180,10 +180,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (sUserID, "UserID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final Request aRequest = Request.Get (getSMPHostURI () +
-                                          "list/" +
-                                          BusdoxURLHelper.createPercentEncodedURL (sUserID))
-                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    final String sURI = getSMPHostURI () + "list/" + BusdoxURLHelper.createPercentEncodedURL (sUserID);
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("SMPClient getServiceGroupReferenceList@" + sURI);
+
+    final Request aRequest = Request.Get (sURI).addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     return executeGenericRequest (aRequest,
                                   SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerServiceGroupReferenceListType ()));
   }
@@ -225,7 +226,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * the service group and the service metadata. This is a non-specification
    * compliant method.
    *
-   * @param sCompleteURL
+   * @param sCompleteURI
    *        The complete URL for the full service group to query.
    * @return The complete service group containing service group and service
    *         metadata. Never <code>null</code>.
@@ -241,11 +242,14 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @see #getCompleteServiceGroupOrNull(IParticipantIdentifier)
    */
   @Nonnull
-  public CompleteServiceGroupType getCompleteServiceGroup (@Nonnull final String sCompleteURL) throws SMPClientException
+  public CompleteServiceGroupType getCompleteServiceGroup (@Nonnull final String sCompleteURI) throws SMPClientException
   {
-    ValueEnforcer.notEmpty (sCompleteURL, "CompleteURL");
+    ValueEnforcer.notEmpty (sCompleteURI, "CompleteURL");
 
-    final Request aRequest = Request.Get (sCompleteURL);
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("SMPClient getCompleteServiceGroup@" + sCompleteURI);
+
+    final Request aRequest = Request.Get (sCompleteURI);
     return executeGenericRequest (aRequest,
                                   SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerCompleteServiceGroupType ()));
   }
@@ -334,7 +338,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    final Request aRequest = Request.Get (getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ());
+    final String sURI = getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ();
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("SMPClient getServiceGroup@" + sURI);
+
+    final Request aRequest = Request.Get (sURI);
     return executeGenericRequest (aRequest,
                                   SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerServiceGroupType ()));
   }
@@ -402,6 +410,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                         aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("SMPClient getServiceRegistration@" + sURI);
+
     Request aRequest = Request.Get (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
                                                                  SMPHttpResponseHandlerSigned.create (new SMPMarshallerSignedServiceMetadataType ()));
