@@ -53,6 +53,8 @@ import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.datetime.PDTFactory;
@@ -87,6 +89,7 @@ import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 @Ignore
 public final class SMPClientTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger ("dummy");
   private static final String SMP_USERNAME = MockSMPClientConfig.getSMPUserName ();
   private static final String SMP_PASSWORD = MockSMPClientConfig.getSMPPassword ();
   private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME,
@@ -250,11 +253,11 @@ public final class SMPClientTest
 
     final SignedServiceMetadataType aSignedServiceMetadata = aSMPClient.getServiceRegistration (aServiceGroupID,
                                                                                                 aDocumentID);
-    System.out.println ("Service aMetadata ID:" +
-                        aSignedServiceMetadata.getServiceMetadata ()
-                                              .getServiceInformation ()
-                                              .getParticipantIdentifier ()
-                                              .getValue ());
+    s_aLogger.info ("Service aMetadata ID:" +
+                    aSignedServiceMetadata.getServiceMetadata ()
+                                          .getServiceInformation ()
+                                          .getParticipantIdentifier ()
+                                          .getValue ());
 
     aSMPClient.deleteServiceRegistration (aServiceGroupID, aDocumentID, SMP_CREDENTIALS);
     aSMPClient.deleteServiceGroup (MockSMPClientConfig.getParticipantID (), SMP_CREDENTIALS);
