@@ -45,7 +45,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.codec.URLCodec;
-import com.helger.peppol.url.BDXURLProvider;
+import com.helger.peppol.url.PeppolURLProvider;
 
 /**
  * Utility methods for assembling URLs and URL elements required for BusDox.
@@ -71,7 +71,7 @@ public final class BusdoxURLHelper
   @Nullable
   public static String createPercentEncodedURL (@Nullable final String sURL)
   {
-    return new URLCodec ().getEncodedAsString (sURL, BDXURLProvider.URL_CHARSET);
+    return new URLCodec ().getEncodedAsString (sURL, PeppolURLProvider.URL_CHARSET);
   }
 
   /**
@@ -84,6 +84,6 @@ public final class BusdoxURLHelper
   @Nullable
   public static String createPercentDecodedURL (@Nullable final String sURL)
   {
-    return new URLCodec ().getDecodedAsString (sURL, BDXURLProvider.URL_CHARSET);
+    return new URLCodec ().getDecodedAsString (sURL, PeppolURLProvider.URL_CHARSET);
   }
 }

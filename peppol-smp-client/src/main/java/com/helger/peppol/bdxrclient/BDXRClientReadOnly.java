@@ -169,8 +169,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    final Request aRequest = Request.Get (getSMPHostURI () +
-                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID));
+    final Request aRequest = Request.Get (getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ());
     return executeGenericRequest (aRequest,
                                   SMPHttpResponseHandlerUnsigned.create (new BDXRMarshallerServiceGroupType ()));
   }
@@ -235,9 +234,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
 
     final String sURI = getSMPHostURI () +
-                        IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                        aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
-                        IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID);
+                        aDocumentTypeID.getURIPercentEncoded ();
     Request aRequest = Request.Get (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
                                                                  SMPHttpResponseHandlerSigned.create (new BDXRMarshallerSignedServiceMetadataType ()));

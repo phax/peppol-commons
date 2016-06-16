@@ -52,7 +52,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.mime.CMimeType;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
@@ -166,7 +165,7 @@ public class SMPClient extends SMPClientReadOnly
 
     final String sBody = new SMPMarshallerServiceGroupType ().getAsString (aServiceGroup);
     final Request aRequest = Request.Put (getSMPHostURI () +
-                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroup.getParticipantIdentifier ()))
+                                          aServiceGroup.getParticipantIdentifier ().getURIPercentEncoded ())
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
                                     .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
@@ -225,8 +224,7 @@ public class SMPClient extends SMPClientReadOnly
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final Request aRequest = Request.Delete (getSMPHostURI () +
-                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID))
+    final Request aRequest = Request.Delete (getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ())
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
@@ -266,9 +264,9 @@ public class SMPClient extends SMPClientReadOnly
 
     final String sBody = new SMPMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
     final Request aRequest = Request.Put (getSMPHostURI () +
-                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                                          aServiceGroupID.getURIPercentEncoded () +
                                           "/services/" +
-                                          IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
+                                          aDocumentTypeID.getURIPercentEncoded ())
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
                                     .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
@@ -302,9 +300,9 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final Request aRequest = Request.Delete (getSMPHostURI () +
-                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                                             aServiceGroupID.getURIPercentEncoded () +
                                              "/services/" +
-                                             IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
+                                             aDocumentTypeID.getURIPercentEncoded ())
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }

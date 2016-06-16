@@ -56,7 +56,7 @@ import com.helger.peppol.identifier.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.peppol.url.BDXURLProvider;
+import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.url.IPeppolURLProvider;
 
 /**
@@ -68,7 +68,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
 {
   private static final IParticipantIdentifier PI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
   private static final IParticipantIdentifier PI_AT_Prod = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:b");
-  private static final IPeppolURLProvider URL_PROVIDER = new BDXURLProvider ();
+  private static final IPeppolURLProvider URL_PROVIDER = new PeppolURLProvider ();
 
   static
   {

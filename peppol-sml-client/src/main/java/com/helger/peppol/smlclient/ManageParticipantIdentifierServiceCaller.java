@@ -54,8 +54,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.ws.WSClientConfig;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.sml.ISMLInfo;
@@ -186,7 +186,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Trying to create new participant " +
-                      IdentifierHelper.getIdentifierURIEncoded (aSMPParticpantService.getParticipantIdentifier ()) +
+                      aSMPParticpantService.getParticipantIdentifier ().getURIEncoded () +
                       " in SMP '" +
                       aSMPParticpantService.getServiceMetadataPublisherID () +
                       "'");
@@ -196,14 +196,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   @Nonnull
   private static String _toString (@Nonnull final Iterable <? extends ParticipantIdentifierType> aParticipantIdentifiers)
   {
-    final StringBuilder aSB = new StringBuilder ();
-    for (final ParticipantIdentifierType aPI : aParticipantIdentifiers)
-    {
-      if (aSB.length () > 0)
-        aSB.append (", ");
-      aSB.append (IdentifierHelper.getIdentifierURIEncoded (aPI));
-    }
-    return aSB.toString ();
+    return StringHelper.getImploded (", ", aParticipantIdentifiers, ParticipantIdentifierType::getURIEncoded);
   }
 
   /**
@@ -307,7 +300,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Trying to delete participant " +
-                      IdentifierHelper.getIdentifierURIEncoded (aSMPParticpantService.getParticipantIdentifier ()));
+                      aSMPParticpantService.getParticipantIdentifier ().getURIEncoded ());
 
     createWSPort ().delete (aSMPParticpantService);
   }
@@ -474,7 +467,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Preparing to migrate participant " +
-                      IdentifierHelper.getIdentifierURIEncoded (aIdentifier) +
+                      aIdentifier.getURIEncoded () +
                       " from SMP '" +
                       sSMPID +
                       "' using migration key '" +
@@ -525,7 +518,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     // Convert UUID to string
     if (s_aLogger.isInfoEnabled ())
       s_aLogger.info ("Finishing migration of participant " +
-                      IdentifierHelper.getIdentifierURIEncoded (aIdentifier) +
+                      aIdentifier.getURIEncoded () +
                       " to SMP '" +
                       sSMPID +
                       "' using migration key '" +

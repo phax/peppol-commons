@@ -276,9 +276,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    return getCompleteServiceGroup (getSMPHostURI () +
-                                    "complete/" +
-                                    IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID));
+    return getCompleteServiceGroup (getSMPHostURI () + "complete/" + aServiceGroupID.getURIPercentEncoded ());
   }
 
   /**
@@ -336,8 +334,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    final Request aRequest = Request.Get (getSMPHostURI () +
-                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID));
+    final Request aRequest = Request.Get (getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ());
     return executeGenericRequest (aRequest,
                                   SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerServiceGroupType ()));
   }
@@ -402,9 +399,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
 
     final String sURI = getSMPHostURI () +
-                        IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                        aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
-                        IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID);
+                        aDocumentTypeID.getURIPercentEncoded ();
     Request aRequest = Request.Get (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
                                                                  SMPHttpResponseHandlerSigned.create (new SMPMarshallerSignedServiceMetadataType ()));

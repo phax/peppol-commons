@@ -50,12 +50,12 @@ import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.smpclient.exception.SMPClientException;
-import com.helger.peppol.url.BDXURLProvider;
+import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.url.IPeppolURLProvider;
 
 public final class MainCheckBogusCertificateStrings
 {
-  private static final IPeppolURLProvider URL_PROVIDER = new BDXURLProvider ();
+  private static final IPeppolURLProvider URL_PROVIDER = new PeppolURLProvider ();
 
   public static void main (final String [] args) throws CertificateException, SMPClientException
   {

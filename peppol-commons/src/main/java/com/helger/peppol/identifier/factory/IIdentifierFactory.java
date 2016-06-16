@@ -44,6 +44,7 @@ import java.io.Serializable;
 
 import javax.annotation.Nullable;
 
+import com.helger.peppol.identifier.IIdentifier;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
@@ -73,8 +74,7 @@ public interface IIdentifierFactory extends Serializable
 
   /**
    * Parse the provided URI encoded identifier as a document type identifier.
-   * This is the reverse operation of
-   * {@link com.helger.peppol.identifier.IdentifierHelper#getIdentifierURIEncoded(com.helger.peppol.identifier.IIdentifier)}
+   * This is the reverse operation of {@link IIdentifier#getURIEncoded()}
    *
    * @param sURIEncodedIdentifier
    *        The URI encoded identifier in the format <code>scheme::value</code>.
@@ -114,8 +114,7 @@ public interface IIdentifierFactory extends Serializable
 
   /**
    * Parse the provided URI encoded identifier as a participant identifier. This
-   * is the reverse operation of
-   * {@link com.helger.peppol.identifier.IdentifierHelper#getIdentifierURIEncoded(com.helger.peppol.identifier.IIdentifier)}
+   * is the reverse operation of {@link IIdentifier#getURIEncoded()}
    *
    * @param sURIEncodedIdentifier
    *        The URI encoded identifier in the format <code>scheme::value</code>.
@@ -156,8 +155,7 @@ public interface IIdentifierFactory extends Serializable
 
   /**
    * Parse the provided URI encoded identifier as a process identifier. This is
-   * the reverse operation of
-   * {@link com.helger.peppol.identifier.IdentifierHelper#getIdentifierURIEncoded(com.helger.peppol.identifier.IIdentifier)}
+   * the reverse operation of {@link IIdentifier#getURIEncoded()}
    *
    * @param sURIEncodedIdentifier
    *        The URI encoded identifier in the format <code>scheme::value</code>.

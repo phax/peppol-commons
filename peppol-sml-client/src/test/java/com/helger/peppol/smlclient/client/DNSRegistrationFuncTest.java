@@ -70,7 +70,7 @@ import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
-import com.helger.peppol.url.BDXURLProvider;
+import com.helger.peppol.url.PeppolURLProvider;
 
 /**
  * This class is for BRZ internal use only!
@@ -104,7 +104,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   @Nullable
   private static String _DNSLookupPI (@Nonnull final ParticipantIdentifierType aPI) throws Exception
   {
-    final String sHost = new BDXURLProvider ().getDNSNameOfParticipant (aPI, SML_INFO);
+    final String sHost = new PeppolURLProvider ().getDNSNameOfParticipant (aPI, SML_INFO);
     return _DNSLookup (sHost);
   }
 

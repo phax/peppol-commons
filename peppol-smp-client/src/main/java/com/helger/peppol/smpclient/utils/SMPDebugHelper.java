@@ -44,7 +44,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.peppol.identifier.IIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smp.ExtensionType;
 import com.helger.peppol.smp.ProcessType;
@@ -71,7 +70,7 @@ public final class SMPDebugHelper
   @Nonnull
   public static String getAsString (@Nonnull final IIdentifier aIdentifier)
   {
-    return IdentifierHelper.getIdentifierURIEncoded (aIdentifier);
+    return aIdentifier.getURIEncoded ();
   }
 
   @Nonnull

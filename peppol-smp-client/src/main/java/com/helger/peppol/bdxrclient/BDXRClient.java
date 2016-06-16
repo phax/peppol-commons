@@ -57,7 +57,6 @@ import com.helger.peppol.bdxr.ServiceGroupType;
 import com.helger.peppol.bdxr.ServiceInformationType;
 import com.helger.peppol.bdxr.ServiceMetadataType;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
@@ -166,7 +165,7 @@ public class BDXRClient extends BDXRClientReadOnly
 
     final String sBody = new BDXRMarshallerServiceGroupType ().getAsString (aServiceGroup);
     final Request aRequest = Request.Put (getSMPHostURI () +
-                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroup.getParticipantIdentifier ()))
+                                          aServiceGroup.getParticipantIdentifier ().getURIPercentEncoded ())
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
                                     .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
@@ -228,8 +227,7 @@ public class BDXRClient extends BDXRClientReadOnly
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final Request aRequest = Request.Delete (getSMPHostURI () +
-                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID))
+    final Request aRequest = Request.Delete (getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ())
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
@@ -269,9 +267,9 @@ public class BDXRClient extends BDXRClientReadOnly
 
     final String sBody = new BDXRMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
     final Request aRequest = Request.Put (getSMPHostURI () +
-                                          IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                                          aServiceGroupID.getURIPercentEncoded () +
                                           "/services/" +
-                                          IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
+                                          aDocumentTypeID.getURIPercentEncoded ())
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
                                     .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
@@ -305,9 +303,9 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final Request aRequest = Request.Delete (getSMPHostURI () +
-                                             IdentifierHelper.getIdentifierURIPercentEncoded (aServiceGroupID) +
+                                             aServiceGroupID.getURIPercentEncoded () +
                                              "/services/" +
-                                             IdentifierHelper.getIdentifierURIPercentEncoded (aDocumentTypeID))
+                                             aDocumentTypeID.getURIPercentEncoded ())
                                     .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }

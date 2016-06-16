@@ -60,13 +60,13 @@ import com.helger.peppol.sml.ESML;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link BDXURLProvider}.
+ * Test class for class {@link PeppolURLProvider}.
  *
  * @author Philip Helger
  */
 public final class BDXURLProviderTest
 {
-  private static final BDXURLProvider INSTANCE = new BDXURLProvider ();
+  private static final PeppolURLProvider INSTANCE = new PeppolURLProvider ();
 
   @Test
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")

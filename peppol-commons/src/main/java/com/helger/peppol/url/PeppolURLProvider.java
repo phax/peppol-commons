@@ -59,12 +59,20 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 
-public class BDXURLProvider implements IPeppolURLProvider
+/**
+ * The default implementation of {@link IPeppolURLProvider} suitable for the
+ * PEPPOL network.<br>
+ * Layout:
+ * <code>"B-"+hexstring(md5(lowercase(ID-VALUE)))+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
+ *
+ * @author Philip Helger
+ */
+public class PeppolURLProvider implements IPeppolURLProvider
 {
   public static final Charset URL_CHARSET = CCharset.CHARSET_UTF_8_OBJ;
   public static final Locale URL_LOCALE = Locale.US;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BDXURLProvider.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolURLProvider.class);
 
   /**
    * Get the MD5-hash-string-representation of the passed value using the
