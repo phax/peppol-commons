@@ -45,15 +45,12 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.utils.BusdoxURLHelper;
 
 /**
  * This class contains several identifier related utility methods that works
@@ -69,47 +66,6 @@ public final class IdentifierHelper
 
   private IdentifierHelper ()
   {}
-
-  /**
-   * Get the identifier suitable for an URI but NOT percent encoded.
-   *
-   * @param aIdentifier
-   *        The identifier to be encoded. May not be <code>null</code>.
-   * @return The URI encoded participant identifier (scheme::value). Never
-   *         <code>null</code>.
-   * @see IdentifierHelper#getIdentifierURIPercentEncoded(IIdentifier)
-   */
-  @Nonnull
-  @Nonempty
-  public static String getIdentifierURIEncoded (@Nonnull final IIdentifier aIdentifier)
-  {
-    ValueEnforcer.notNull (aIdentifier, "Identifier");
-
-    final String sScheme = aIdentifier.getScheme ();
-    if (StringHelper.hasNoText (sScheme))
-      throw new IllegalArgumentException ("Passed identifier has an empty scheme: " + aIdentifier);
-
-    final String sValue = aIdentifier.getValue ();
-    if (sValue == null)
-      throw new IllegalArgumentException ("Passed identifier has a null value: " + aIdentifier);
-
-    // Combine scheme and value
-    return sScheme + CIdentifier.URL_SCHEME_VALUE_SEPARATOR + sValue;
-  }
-
-  /**
-   * Get the identifier suitable for an URI and percent encoded.
-   *
-   * @param aIdentifier
-   *        The identifier to be encoded. May not be <code>null</code>.
-   * @return Never <code>null</code>.
-   */
-  @Nonnull
-  public static String getIdentifierURIPercentEncoded (@Nonnull final IIdentifier aIdentifier)
-  {
-    final String sURIEncoded = getIdentifierURIEncoded (aIdentifier);
-    return BusdoxURLHelper.createPercentEncodedURL (sURIEncoded);
-  }
 
   /**
    * According to the specification, two participant identifiers are equal if

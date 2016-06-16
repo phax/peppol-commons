@@ -181,24 +181,14 @@ public final class IdentifierHelperTest
   public void getIdentifierURIEncoded ()
   {
     final ParticipantIdentifierType aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
-    assertEquals ("iso6523-actorid-upis::0088:123abc", IdentifierHelper.getIdentifierURIEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis::0088:123abc", aPI.getURIEncoded ());
 
     final DocumentIdentifierType aDI = PeppolDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
-    assertEquals ("busdox-docid-qns::urn:doc:anydoc", IdentifierHelper.getIdentifierURIEncoded (aDI));
+    assertEquals ("busdox-docid-qns::urn:doc:anydoc", aDI.getURIEncoded ());
 
     try
     {
-      IdentifierHelper.getIdentifierURIEncoded (null);
-      fail ("null should trigger an error");
-    }
-    catch (final NullPointerException ex)
-    {
-      // expected
-    }
-
-    try
-    {
-      IdentifierHelper.getIdentifierURIEncoded (new SimpleParticipantIdentifier (null, "value"));
+      new SimpleParticipantIdentifier (null, "value").getURIEncoded ();
       fail ("Empty scheme should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -208,7 +198,7 @@ public final class IdentifierHelperTest
 
     try
     {
-      IdentifierHelper.getIdentifierURIEncoded (new SimpleParticipantIdentifier ("scheme", null));
+      new SimpleParticipantIdentifier ("scheme", null).getURIEncoded ();
       fail ("null value should trigger an error!");
     }
     catch (final IllegalArgumentException ex)
@@ -221,14 +211,14 @@ public final class IdentifierHelperTest
   public void testGetIdentifierURIPercentEncoded ()
   {
     IParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
-    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", aPI.getURIPercentEncoded ());
     aPI = PeppolParticipantIdentifier.createWithDefaultScheme (EPredefinedIdentifierIssuingAgency.GLN.createIdentifierValue ("123abc"));
-    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", aPI.getURIPercentEncoded ());
     aPI = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("123abc");
-    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis%3A%3A0088%3A123abc", aPI.getURIPercentEncoded ());
 
     // Different value
     aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088/123abc");
-    assertEquals ("iso6523-actorid-upis%3A%3A0088%2F123abc", IdentifierHelper.getIdentifierURIPercentEncoded (aPI));
+    assertEquals ("iso6523-actorid-upis%3A%3A0088%2F123abc", aPI.getURIPercentEncoded ());
   }
 }

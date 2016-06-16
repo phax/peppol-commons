@@ -46,8 +46,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.utils.BusdoxURLHelper;
 
 /**
  * Base interface for a single read-only identifier independent of its usage
@@ -123,9 +125,19 @@ public interface IIdentifier extends Serializable
    *         <code>iso6523-actorid-upis::0088:123456</code>)
    */
   @Nonnull
+  @Nonempty
   default String getURIEncoded ()
   {
-    return IdentifierHelper.getIdentifierURIEncoded (this);
+    final String sScheme = getScheme ();
+    if (StringHelper.hasNoText (sScheme))
+      throw new IllegalArgumentException ("Identifier has an empty scheme: " + toString ());
+
+    final String sValue = getValue ();
+    if (sValue == null)
+      throw new IllegalArgumentException ("Identifier has a null value: " + toString ());
+
+    // Combine scheme and value
+    return sScheme + CIdentifier.URL_SCHEME_VALUE_SEPARATOR + sValue;
   }
 
   /**
@@ -138,6 +150,7 @@ public interface IIdentifier extends Serializable
   @Nonnull
   default String getURIPercentEncoded ()
   {
-    return IdentifierHelper.getIdentifierURIPercentEncoded (this);
+    final String sURIEncoded = getURIEncoded ();
+    return BusdoxURLHelper.createPercentEncodedURL (sURIEncoded);
   }
 }
