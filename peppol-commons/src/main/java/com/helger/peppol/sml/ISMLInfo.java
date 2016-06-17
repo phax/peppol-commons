@@ -83,7 +83,7 @@ public interface ISMLInfo extends IHasID <String>, IHasDisplayName, Serializable
    */
   @Nonnull
   @Nonempty
-  default String getPublisherDNSName ()
+  default String getPublisherDNSZone ()
   {
     return CSMLDefault.DNS_PUBLISHER_SUBZONE + getDNSZone ();
   }
@@ -126,9 +126,9 @@ public interface ISMLInfo extends IHasID <String>, IHasDisplayName, Serializable
 
   /**
    * @return <code>true</code> if this SML requires a client certificate for
-   *         access, <code>false</code> otherwise. Both production SML and SMK
-   *         require a client certificate. Only a locally running SML software
-   *         may not require a client certificate.
+   *         access, <code>false</code> otherwise. Both PEPPOL production SML
+   *         and SMK require a client certificate. Only a locally running SML
+   *         software may not require a client certificate.
    */
   boolean isClientCertificateRequired ();
 }

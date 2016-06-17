@@ -59,7 +59,7 @@ public final class ESMLTest
     for (final ESML eSML : ESML.values ())
     {
       assertNotNull (eSML.getDNSZone ());
-      assertNotNull (eSML.getPublisherDNSName ());
+      assertNotNull (eSML.getPublisherDNSZone ());
       assertNotNull (eSML.getManagementServiceURL ());
       assertNotNull (eSML.getManageServiceMetaDataEndpointAddress ());
       assertNotNull (eSML.getManageParticipantIdentifierEndpointAddress ());
@@ -72,7 +72,7 @@ public final class ESMLTest
   public void testNewProductionValues ()
   {
     assertEquals ("edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getDNSZone ());
-    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getPublisherDNSName ());
+    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getPublisherDNSZone ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", ESML.DIGIT_PRODUCTION.getManagementServiceURL ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
                   ESML.DIGIT_PRODUCTION.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
@@ -80,7 +80,7 @@ public final class ESMLTest
                   ESML.DIGIT_PRODUCTION.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
 
     assertEquals ("acc.edelivery.tech.ec.europa.eu.", ESML.DIGIT_TEST.getDNSZone ());
-    assertEquals ("publisher.acc.edelivery.tech.ec.europa.eu.", ESML.DIGIT_TEST.getPublisherDNSName ());
+    assertEquals ("publisher.acc.edelivery.tech.ec.europa.eu.", ESML.DIGIT_TEST.getPublisherDNSZone ());
     assertEquals ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", ESML.DIGIT_TEST.getManagementServiceURL ());
     assertEquals ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
                   ESML.DIGIT_TEST.getManageServiceMetaDataEndpointAddress ().toExternalForm ());

@@ -73,7 +73,7 @@ public final class SMLInfoTest
                                           ESML.DIGIT_PRODUCTION.isClientCertificateRequired ());
 
     assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
-    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSName ());
+    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSZone ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", si.getManagementServiceURL ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
                   si.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
@@ -88,7 +88,7 @@ public final class SMLInfoTest
                             ESML.DIGIT_PRODUCTION.getManagementServiceURL () + '/',
                             ESML.DIGIT_PRODUCTION.isClientCertificateRequired ());
     assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
-    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSName ());
+    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSZone ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", si.getManagementServiceURL ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
                   si.getManageServiceMetaDataEndpointAddress ().toExternalForm ());

@@ -111,7 +111,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   @Nullable
   private static String _DNSLookupPublisher (@Nonnull final String sSMPID) throws Exception
   {
-    return _DNSLookup (sSMPID + "." + SML_INFO.getPublisherDNSName ());
+    return _DNSLookup (sSMPID + "." + SML_INFO.getPublisherDNSZone ());
   }
 
   @Nullable
@@ -227,7 +227,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     // verify PI in DNS
     final String host = _DNSLookupPI (aPI);
-    assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSName (), host);
+    assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), host);
 
     // delete PI
     client.delete (SMP_ID, aPI);
@@ -250,11 +250,11 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     // verify that PI can be found in Wildcard domain.
     final String piHost = _DNSLookupPI (new PeppolParticipantIdentifier (PI_WILDCARD_SCHEME, PI_VALUE));
-    assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSName (), piHost);
+    assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), piHost);
 
     // verify that Wildcard can be found
     final String wildHost = _DNSLookupPI (aPI);
-    assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSName (), wildHost);
+    assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), wildHost);
 
     // delete wildcard
     client.delete (SMP_ID, aPI);
