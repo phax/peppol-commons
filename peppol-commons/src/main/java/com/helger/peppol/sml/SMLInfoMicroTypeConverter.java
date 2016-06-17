@@ -54,7 +54,7 @@ import com.helger.xml.microdom.util.MicroHelper;
  *
  * @author Philip Helger
  */
-public class SimpleSMLInfoMicroTypeConverter implements IMicroTypeConverter
+public class SMLInfoMicroTypeConverter implements IMicroTypeConverter
 {
   private static final String ATTR_ID = "id";
   private static final String ATTR_DISPLAY_NAME = "displayname";
@@ -73,12 +73,12 @@ public class SimpleSMLInfoMicroTypeConverter implements IMicroTypeConverter
     aElement.setAttribute (ATTR_DISPLAY_NAME, aValue.getDisplayName ());
     aElement.appendElement (sNamespaceURI, ELEMENT_DNS_ZONE).appendText (aValue.getDNSZone ());
     aElement.appendElement (sNamespaceURI, ELEMENT_MANAGEMENT_SERVICE).appendText (aValue.getManagementServiceURL ());
-    aElement.setAttribute (ATTR_REQUIRES_CLIENT_CERT, aValue.requiresClientCertificate ());
+    aElement.setAttribute (ATTR_REQUIRES_CLIENT_CERT, aValue.isClientCertificateRequired ());
     return aElement;
   }
 
   @Nonnull
-  public SimpleSMLInfo convertToNative (@Nonnull final IMicroElement aElement)
+  public SMLInfo convertToNative (@Nonnull final IMicroElement aElement)
   {
     final String sID = aElement.getAttributeValue (ATTR_ID);
     final String sDisplayName = aElement.getAttributeValue (ATTR_DISPLAY_NAME);
@@ -86,6 +86,6 @@ public class SimpleSMLInfoMicroTypeConverter implements IMicroTypeConverter
     final String sManagementServiceURL = MicroHelper.getChildTextContent (aElement, ELEMENT_MANAGEMENT_SERVICE);
     final boolean bRequiresClientCert = StringParser.parseBool (aElement.getAttributeValue (ATTR_REQUIRES_CLIENT_CERT),
                                                                 true);
-    return new SimpleSMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCert);
+    return new SMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCert);
   }
 }

@@ -71,7 +71,7 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
-    m_sName = ValueEnforcer.notEmpty (sName, "Name");
+    setName (sName);
   }
 
   @Nonnull

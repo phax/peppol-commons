@@ -52,7 +52,7 @@ import com.helger.commons.name.IHasDisplayName;
 /**
  * Specifies the different properties an SML implementation uses. A set of
  * predefined SML information can be found at {@link ESML} whereas a generic
- * implementation can be found at {@link SimpleSMLInfo}.
+ * implementation can be found at {@link SMLInfo}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
@@ -68,7 +68,7 @@ public interface ISMLInfo extends IHasID <String>, IHasDisplayName, Serializable
   /**
    * @return The DNS zone on which this SML is operating. Never
    *         <code>null</code>. It must be ensured that the value consists only
-   *         from lower case characters!<br>
+   *         of lower case characters!<br>
    *         Example: <code>sml.peppolcentral.org</code>
    */
   @Nonnull
@@ -90,8 +90,9 @@ public interface ISMLInfo extends IHasID <String>, IHasDisplayName, Serializable
 
   /**
    * @return The service URL where the management application is running on
-   *         incl. the host name. Never <code>null</code>. The difference to the
-   *         host name is the eventually present context path.
+   *         including the host name. Never <code>null</code>. The difference to
+   *         the host name is the eventually present context path. This path may
+   *         <b>never</b> end with a slash.
    */
   @Nonnull
   @Nonempty
@@ -101,7 +102,8 @@ public interface ISMLInfo extends IHasID <String>, IHasDisplayName, Serializable
    * @return The service endpoint URL to manage SMP meta data. Never
    *         <code>null</code>. This is usually the URL corresponding to <code>
    *
-  {@link #getManagementServiceURL()} + "/" + CSMLDefault.MANAGEMENT_SERVICE_METADATA</code>
+  {@link #getManagementServiceURL()} + "/" +
+  {@link CSMLDefault#MANAGEMENT_SERVICE_METADATA}</code>
    */
   @Nonnull
   URL getManageServiceMetaDataEndpointAddress ();
@@ -110,10 +112,17 @@ public interface ISMLInfo extends IHasID <String>, IHasDisplayName, Serializable
    * @return The service endpoint URL to manage participant identifiers. Never
    *         <code>null</code>. This is usually the URL corresponding to <code>
    *
-  {@link #getManagementServiceURL()} + "/" + CSMLDefault.MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER</code>
+  {@link #getManagementServiceURL()} + "/" +
+  {@link CSMLDefault#MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER}</code>
    */
   @Nonnull
   URL getManageParticipantIdentifierEndpointAddress ();
+
+  @Deprecated
+  default boolean requiresClientCertificate ()
+  {
+    return isClientCertificateRequired ();
+  }
 
   /**
    * @return <code>true</code> if this SML requires a client certificate for
@@ -121,5 +130,5 @@ public interface ISMLInfo extends IHasID <String>, IHasDisplayName, Serializable
    *         require a client certificate. Only a locally running SML software
    *         may not require a client certificate.
    */
-  boolean requiresClientCertificate ();
+  boolean isClientCertificateRequired ();
 }

@@ -77,7 +77,7 @@ public enum ESML implements ISMLInfo
   /** http://localhost:8080 */
   DEVELOPMENT_LOCAL ("local", "Development", "smj.peppolcentral.org.", "http://localhost:8080", false);
 
-  private final SimpleSMLInfo m_aProxy;
+  private final SMLInfo m_aProxy;
 
   /**
    * Constructor
@@ -100,7 +100,7 @@ public enum ESML implements ISMLInfo
                 @Nonnull @Nonempty final String sManagementServiceURL,
                 final boolean bRequiresClientCertificate)
   {
-    m_aProxy = new SimpleSMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCertificate);
+    m_aProxy = new SMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCertificate);
   }
 
   @Nonnull
@@ -143,9 +143,9 @@ public enum ESML implements ISMLInfo
     return m_aProxy.getManageParticipantIdentifierEndpointAddress ();
   }
 
-  public boolean requiresClientCertificate ()
+  public boolean isClientCertificateRequired ()
   {
-    return m_aProxy.requiresClientCertificate ();
+    return m_aProxy.isClientCertificateRequired ();
   }
 
   @Nullable

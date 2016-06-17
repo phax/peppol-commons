@@ -69,7 +69,7 @@ public abstract class AbstractSMLClientTestCase
   @Nullable
   public static final SSLSocketFactory createConfiguredSSLSocketFactory (@Nonnull final ISMLInfo aSMLInfo) throws Exception
   {
-    if (!aSMLInfo.requiresClientCertificate ())
+    if (!aSMLInfo.isClientCertificateRequired ())
       return null;
 
     // Main key storage

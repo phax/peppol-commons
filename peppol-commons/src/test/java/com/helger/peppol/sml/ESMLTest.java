@@ -63,7 +63,7 @@ public final class ESMLTest
       assertNotNull (eSML.getManagementServiceURL ());
       assertNotNull (eSML.getManageServiceMetaDataEndpointAddress ());
       assertNotNull (eSML.getManageParticipantIdentifierEndpointAddress ());
-      eSML.requiresClientCertificate ();
+      eSML.isClientCertificateRequired ();
       assertSame (eSML, ESML.valueOf (eSML.name ()));
     }
   }
