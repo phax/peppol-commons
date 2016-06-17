@@ -75,15 +75,6 @@ public class SMLInfo implements ISMLInfo, ITypedObject <String>
   private URL m_aManageServiceMetaDataEndpointAddress;
   private URL m_aManageParticipantIdentifierEndpointAddress;
 
-  public SMLInfo (@Nonnull final ESML eSML)
-  {
-    this (eSML.getID (),
-          eSML.getDisplayName (),
-          eSML.getDNSZone (),
-          eSML.getManagementServiceURL (),
-          eSML.isClientCertificateRequired ());
-  }
-
   /**
    * @param sDisplayName
    *        The "shorthand" display name like "SML" or "SMK".
@@ -270,5 +261,15 @@ public class SMLInfo implements ISMLInfo, ITypedObject <String>
                                                 m_aManageParticipantIdentifierEndpointAddress)
                                        .append ("ClientCertificateRequired", m_bClientCertificateRequired)
                                        .toString ();
+  }
+
+  @Nonnull
+  public static SMLInfo create (@Nonnull final ISMLInfo aOther)
+  {
+    return new SMLInfo (aOther.getID (),
+                        aOther.getDisplayName (),
+                        aOther.getDNSZone (),
+                        aOther.getManagementServiceURL (),
+                        aOther.isClientCertificateRequired ());
   }
 }
