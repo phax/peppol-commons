@@ -47,8 +47,8 @@ import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClient;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
-import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.url.IPeppolURLProvider;
+import com.helger.peppol.url.PeppolURLProvider;
 
 /**
  * Example application that shows how to invoke the {@link SMPClient}
@@ -57,7 +57,7 @@ import com.helger.peppol.url.IPeppolURLProvider;
  */
 public final class MainSMPClientExample
 {
-  private static final IPeppolURLProvider URL_PROVIDER = new PeppolURLProvider ();
+  private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
   public static void main (final String [] args) throws Exception
   {

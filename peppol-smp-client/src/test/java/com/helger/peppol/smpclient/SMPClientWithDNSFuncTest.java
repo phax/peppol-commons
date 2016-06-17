@@ -62,8 +62,8 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
-import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppol.url.IPeppolURLProvider;
+import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
 /**
@@ -84,7 +84,7 @@ public final class SMPClientWithDNSFuncTest
   private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME,
                                                                                                     SMP_PASSWORD);
   private static final URI SMP_URI = URLHelper.getAsURI ("http://localhost/");
-  private static final IPeppolURLProvider URL_PROVIDER = new PeppolURLProvider ();
+  private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
   @BeforeClass
   public static void init () throws Exception

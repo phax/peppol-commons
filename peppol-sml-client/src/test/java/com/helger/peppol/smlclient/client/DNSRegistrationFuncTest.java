@@ -104,7 +104,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   @Nullable
   private static String _DNSLookupPI (@Nonnull final ParticipantIdentifierType aPI) throws Exception
   {
-    final String sHost = new PeppolURLProvider ().getDNSNameOfParticipant (aPI, SML_INFO);
+    final String sHost = PeppolURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, SML_INFO);
     return _DNSLookup (sHost);
   }
 

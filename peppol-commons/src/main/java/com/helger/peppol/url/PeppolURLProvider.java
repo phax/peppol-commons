@@ -45,6 +45,7 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,12 +68,20 @@ import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentif
  *
  * @author Philip Helger
  */
+@Immutable
 public class PeppolURLProvider implements IPeppolURLProvider
 {
+  public static final PeppolURLProvider INSTANCE = new PeppolURLProvider ();
   public static final Charset URL_CHARSET = CCharset.CHARSET_UTF_8_OBJ;
   public static final Locale URL_LOCALE = Locale.US;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolURLProvider.class);
+
+  /**
+   * Default constructor.
+   */
+  public PeppolURLProvider ()
+  {}
 
   /**
    * Get the MD5-hash-string-representation of the passed value using the
