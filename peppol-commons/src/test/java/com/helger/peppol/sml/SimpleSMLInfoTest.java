@@ -49,6 +49,7 @@ import org.junit.Test;
 import com.helger.commons.id.factory.GlobalIDFactory;
 import com.helger.commons.id.factory.MemoryIntIDFactory;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.xml.mock.XMLTestHelper;
 
 /**
  * Test class for class {@link SimpleSMLInfo}.
@@ -79,6 +80,7 @@ public final class SimpleSMLInfoTest
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.requiresClientCertificate ());
+    XMLTestHelper.testMicroTypeConversion (si);
 
     // With a trailing slash
     si = new SimpleSMLInfo ("Test 2",
@@ -116,6 +118,8 @@ public final class SimpleSMLInfoTest
                                                                                               ESML.DIGIT_PRODUCTION.getDNSZone (),
                                                                                               ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
                                                                                               !ESML.DIGIT_PRODUCTION.requiresClientCertificate ()));
+
+    XMLTestHelper.testMicroTypeConversion (si);
   }
 
   @Test

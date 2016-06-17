@@ -56,7 +56,7 @@ import com.helger.commons.name.IHasDisplayName;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface ISMLInfo extends IHasDisplayName, IHasID <String>, Serializable
+public interface ISMLInfo extends IHasID <String>, IHasDisplayName, Serializable
 {
   /**
    * @return The "shorthand" display name like "SML" or "SMK".

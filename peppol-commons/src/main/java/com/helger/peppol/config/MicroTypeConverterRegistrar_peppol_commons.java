@@ -67,6 +67,8 @@ import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifi
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifierMicroTypeConverter;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifierMicroTypeConverter;
+import com.helger.peppol.sml.SimpleSMLInfo;
+import com.helger.peppol.sml.SimpleSMLInfoMicroTypeConverter;
 import com.helger.peppol.smp.SMPTransportProfile;
 import com.helger.peppol.smp.SMPTransportProfileMicroTypeConverter;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
@@ -109,6 +111,7 @@ public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroT
     aRegistry.registerMicroElementTypeConverter (BDXRProcessIdentifier.class,
                                                  new BDXRProcessIdentifierMicroTypeConverter ());
 
+    aRegistry.registerMicroElementTypeConverter (SimpleSMLInfo.class, new SimpleSMLInfoMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (SMPTransportProfile.class,
                                                  new SMPTransportProfileMicroTypeConverter ());
   }
