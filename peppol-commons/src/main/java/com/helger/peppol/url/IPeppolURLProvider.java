@@ -97,11 +97,12 @@ public interface IPeppolURLProvider extends Serializable
    * @param aParticipantIdentifier
    *        Participant identifier. May not be <code>null</code>.
    * @param sSMLZoneName
-   *        e.g. "sml.peppolcentral.org.". May be empty. If it is not empty, it
-   *        must end with a dot!
-   * @return DNS record. It does not contain any prefix like http:// or any path
-   *         suffix. It is the plain DNS host name. Since version 1.1.4 this
-   *         method returns the DNS name without the trailing dot!
+   *        e.g. <code>sml.peppolcentral.org.</code>. May be empty. If it is not
+   *        empty, it must end with a dot!
+   * @return DNS record. It does not contain any prefix like
+   *         <code>http://</code> or any path suffix. It is the plain DNS host
+   *         name. Since version 1.1.4 this method returns the DNS name without
+   *         the trailing dot!
    * @throws IllegalArgumentException
    *         In case one argument is invalid
    */
@@ -109,6 +110,21 @@ public interface IPeppolURLProvider extends Serializable
   String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                   @Nullable final String sSMLZoneName);
 
+  /**
+   * Get the SMP URI of the passed participant ID in the provided SML DNS zone
+   * name.
+   *
+   * @param aParticipantIdentifier
+   *        The participant ID. May not be <code>null</code>.
+   * @param aSMLInfo
+   *        The SML zone to use. May not be <code>null</code>.
+   * @return A new URI starting with "http://" and never ending with a slash.
+   * @throws IllegalArgumentException
+   *         If - whysoever - no valid URI could be created.
+   * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
+   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
+   */
   @Nonnull
   default URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                       @Nonnull final ISMLInfo aSMLInfo)
@@ -118,6 +134,21 @@ public interface IPeppolURLProvider extends Serializable
     return getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo.getDNSZone ());
   }
 
+  /**
+   * Get the SMP URI of the passed participant ID in the provided SML DNS zone
+   * name.
+   *
+   * @param aParticipantIdentifier
+   *        The participant ID. May not be <code>null</code>.
+   * @param sSMLZoneName
+   *        The SML zone to use. May be <code>null</code>.
+   * @return A new URI starting with "http://" and never ending with a slash.
+   * @throws IllegalArgumentException
+   *         If - whysoever - no valid URI could be created.
+   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
+   */
   @Nonnull
   default URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                       @Nullable final String sSMLZoneName)
@@ -136,6 +167,21 @@ public interface IPeppolURLProvider extends Serializable
     }
   }
 
+  /**
+   * Get the SMP URL of the passed participant ID in the provided SML DNS zone
+   * name.
+   *
+   * @param aParticipantIdentifier
+   *        The participant ID. May not be <code>null</code>.
+   * @param aSMLInfo
+   *        The SML zone to use. May not be <code>null</code>.
+   * @return A new URL with scheme "http:" and never ending with a slash.
+   * @throws IllegalArgumentException
+   *         If - whysoever - no valid URI/URL could be created.
+   * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
+   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
+   */
   @Nonnull
   default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                       @Nonnull final ISMLInfo aSMLInfo)
@@ -146,6 +192,21 @@ public interface IPeppolURLProvider extends Serializable
     return getSMPURLOfParticipant (aParticipantIdentifier, aSMLInfo.getDNSZone ());
   }
 
+  /**
+   * Get the SMP URL of the passed participant ID in the provided SML DNS zone
+   * name.
+   *
+   * @param aParticipantIdentifier
+   *        The participant ID. May not be <code>null</code>.
+   * @param sSMLZoneName
+   *        The SML zone name to use. May be <code>null</code>.
+   * @return A new URL with scheme "http:" and never ending with a slash.
+   * @throws IllegalArgumentException
+   *         If - whysoever - no valid URI/URL could be created.
+   * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
+   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
+   */
   @Nonnull
   default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                       @Nullable final String sSMLZoneName)
