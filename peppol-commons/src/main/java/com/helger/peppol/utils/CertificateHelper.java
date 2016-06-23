@@ -184,7 +184,8 @@ public final class CertificateHelper
       // In some weird configurations, the result string is a hex encoded
       // certificate instead of the string
       // -> Try to work around it
-      s_aLogger.warn ("Failed to decode provided X.509 certificate string: " + sCertString);
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Failed to decode provided X.509 certificate string: " + sCertString);
 
       String sHexDecodedString;
       try
