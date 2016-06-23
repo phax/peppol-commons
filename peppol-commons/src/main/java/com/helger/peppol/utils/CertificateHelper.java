@@ -160,6 +160,8 @@ public final class CertificateHelper
    * @throws CertificateException
    *         In case the passed string cannot be converted to an X.509
    *         certificate.
+   * @throws IllegalArgumentException
+   *         If the input string is e.g. invalid Base64 encoded.
    */
   @Nullable
   public static X509Certificate convertStringToCertficate (@Nullable final String sCertString) throws CertificateException
@@ -177,7 +179,7 @@ public final class CertificateHelper
     {
       return _str2cert (sCertString, aCertificateFactory);
     }
-    catch (final CertificateException ex)
+    catch (final IllegalArgumentException | CertificateException ex)
     {
       // In some weird configurations, the result string is a hex encoded
       // certificate instead of the string
