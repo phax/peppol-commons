@@ -141,7 +141,7 @@ public final class CertificateHelper
   {
     String sRealCertString = sCertString;
     sRealCertString = _cutUnnecessaryLeadingAndTrailingParts (sRealCertString);
-    sRealCertString = getRFC1421CompliantString (sRealCertString);
+    sRealCertString = getRFC1421CompliantString (sRealCertString, false);
     sRealCertString = ensureBeginAndEndArePresent (sRealCertString);
 
     return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
