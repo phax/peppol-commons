@@ -72,8 +72,8 @@ import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 @Immutable
 public final class MockSMPClientConfig
 {
-  private static final ConfigFile s_aConfig = new ConfigFileBuilder ().addPaths ("private-smp-client-test.properties",
-                                                                                 "smp-client-test.properties")
+  private static final ConfigFile s_aConfig = new ConfigFileBuilder ().addPath ("private-smp-client-test.properties")
+                                                                      .addPath ("smp-client-test.properties")
                                                                       .build ();
 
   // init
