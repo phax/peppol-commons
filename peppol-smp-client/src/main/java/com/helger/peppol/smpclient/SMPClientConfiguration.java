@@ -48,12 +48,9 @@ import org.apache.http.HttpHost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.SystemProperties;
-import com.helger.peppol.utils.ConfigFile;
 import com.helger.peppol.utils.KeyStoreHelper;
+import com.helger.settings.exchange.configfile.ConfigFile;
+import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 
 /**
  * This class manages the configuration properties of the SMP client. The order
@@ -79,24 +76,16 @@ public final class SMPClientConfiguration
 
   static
   {
-    final ICommonsList <String> aFilePaths = new CommonsArrayList <> ();
-    // Check if the system property is present
-    String sPropertyPath = SystemProperties.getPropertyValue ("peppol.smp.client.properties.path");
-    if (StringHelper.hasText (sPropertyPath))
-      aFilePaths.add (sPropertyPath);
-    sPropertyPath = SystemProperties.getPropertyValue ("smp.client.properties.path");
-    if (StringHelper.hasText (sPropertyPath))
-      aFilePaths.add (sPropertyPath);
+    final ConfigFileBuilder aCFB = new ConfigFileBuilder ().addPathFromSystemProperty ("peppol.smp.client.properties.path")
+                                                           .addPathFromSystemProperty ("smp.client.properties.path")
+                                                           .addPaths ("private-smp-client.properties",
+                                                                      "smp-client.properties");
 
-    // Use the default paths
-    aFilePaths.add ("private-smp-client.properties");
-    aFilePaths.add ("smp-client.properties");
-
-    s_aConfigFile = ConfigFile.create (aFilePaths);
+    s_aConfigFile = aCFB.build ();
     if (s_aConfigFile.isRead ())
       s_aLogger.info ("Read SMP client properties from " + s_aConfigFile.getReadResource ().getPath ());
     else
-      s_aLogger.warn ("Failed to read SMP client properties from any of the paths: " + aFilePaths);
+      s_aLogger.warn ("Failed to read SMP client properties");
   }
 
   private SMPClientConfiguration ()

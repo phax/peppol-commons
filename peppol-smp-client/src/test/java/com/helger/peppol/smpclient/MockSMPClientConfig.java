@@ -57,8 +57,10 @@ import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.utils.CertificateHelper;
-import com.helger.peppol.utils.ConfigFile;
+import com.helger.peppol.utils.PeppolTechnicalSetup;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
+import com.helger.settings.exchange.configfile.ConfigFile;
+import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
 /**
@@ -71,8 +73,9 @@ import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 @Immutable
 public final class MockSMPClientConfig
 {
-  private static final ConfigFile s_aConfig = ConfigFile.create ("private-smp-client-test.properties",
-                                                                 "smp-client-test.properties");
+  private static final ConfigFile s_aConfig = new ConfigFileBuilder ().addPaths ("private-smp-client-test.properties",
+                                                                                 "smp-client-test.properties")
+                                                                      .build ();
 
   // init
   static
@@ -93,7 +96,7 @@ public final class MockSMPClientConfig
     }
 
     // Apply system properties
-    s_aConfig.applyAllNetworkSystemProperties ();
+    PeppolTechnicalSetup.applyAllNetworkSystemProperties (s_aConfig);
   }
 
   private MockSMPClientConfig ()

@@ -47,9 +47,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdentifier;
-import com.helger.peppol.identifier.peppol.process.PredefinedProcessIdentifierManager;
-
 /**
  * Test class for class {@link PredefinedProcessIdentifierManager}.
  * 

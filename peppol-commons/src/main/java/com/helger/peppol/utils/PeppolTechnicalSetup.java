@@ -43,9 +43,13 @@ package com.helger.peppol.utils;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.system.SystemProperties;
+import com.helger.settings.exchange.configfile.ConfigFile;
 
 /**
  * Utility methods for this library.
@@ -55,6 +59,8 @@ import com.helger.commons.system.SystemProperties;
 @Immutable
 public final class PeppolTechnicalSetup
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolTechnicalSetup.class);
+
   @PresentForCodeCoverage
   private static final PeppolTechnicalSetup s_aInstance = new PeppolTechnicalSetup ();
 
@@ -128,5 +134,26 @@ public final class PeppolTechnicalSetup
                            "http.nonProxyHosts",
                            "https.proxyHost",
                            "https.proxyPort" };
+  }
+
+  /**
+   * This is a utility method, that applies all Java network/proxy system
+   * properties which are present in the configuration file. It does it only
+   * when the configuration file was read correctly.
+   *
+   * @see PeppolTechnicalSetup#getAllJavaNetSystemProperties()
+   */
+  public static void applyAllNetworkSystemProperties (@Nonnull final ConfigFile aCF)
+  {
+    if (aCF.isRead ())
+      for (final String sProperty : getAllJavaNetSystemProperties ())
+      {
+        final String sConfigFileValue = aCF.getAsString (sProperty);
+        if (sConfigFileValue != null)
+        {
+          SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
+          s_aLogger.info ("Set Java network/proxy system property: " + sProperty + "=" + sConfigFileValue);
+        }
+      }
   }
 }

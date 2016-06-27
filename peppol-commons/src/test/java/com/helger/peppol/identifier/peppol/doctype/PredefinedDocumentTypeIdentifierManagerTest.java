@@ -48,9 +48,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.PredefinedDocumentTypeIdentifierManager;
-
 /**
  * Test class for class {@link PredefinedDocumentTypeIdentifierManager}.
  * 
