@@ -58,7 +58,6 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolURLProvider;
-import com.helger.peppol.utils.PeppolTechnicalSetup;
 
 /**
  * Test class for class {@link SMPClient}.
@@ -74,7 +73,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
   static
   {
     // Ensure the network system properties are assigned
-    PeppolTechnicalSetup.applyAllNetworkSystemProperties (SMPClientConfiguration.getConfigFile ());
+    SMPClientConfiguration.getConfigFile ().applyAllNetworkSystemProperties ();
   }
 
   @Nonnull

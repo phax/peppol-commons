@@ -49,9 +49,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.ws.WSHelper;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
-import com.helger.peppol.utils.PeppolTechnicalSetup;
 
 /**
  * Test class for class {@link BDMSLClient}.
@@ -71,7 +71,7 @@ public final class BDMSLClientTest extends AbstractSMLClientTestCase
   @Test
   public void testCreateAndDeletePublisher () throws Exception
   {
-    PeppolTechnicalSetup.enableSoapLogging (true);
+    WSHelper.enableSoapLogging (true);
     try
     {
       // Create client
@@ -90,7 +90,7 @@ public final class BDMSLClientTest extends AbstractSMLClientTestCase
     }
     finally
     {
-      PeppolTechnicalSetup.enableSoapLogging (false);
+      WSHelper.enableSoapLogging (false);
     }
   }
 }

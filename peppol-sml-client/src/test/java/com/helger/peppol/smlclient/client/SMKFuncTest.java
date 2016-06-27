@@ -50,6 +50,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.ws.WSHelper;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
@@ -58,7 +59,6 @@ import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.MockSMLClientConfig;
 import com.helger.peppol.smlclient.smp.PublisherEndpointType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
-import com.helger.peppol.utils.PeppolTechnicalSetup;
 
 /**
  * @author Philip Helger
@@ -97,7 +97,7 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
   @Test
   public void testCreateAndDeletePublisher () throws Exception
   {
-    PeppolTechnicalSetup.enableSoapLogging (true);
+    WSHelper.enableSoapLogging (true);
     try
     {
       // Create client
@@ -132,7 +132,7 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
     }
     finally
     {
-      PeppolTechnicalSetup.enableSoapLogging (false);
+      WSHelper.enableSoapLogging (false);
     }
   }
 }

@@ -57,7 +57,6 @@ import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.utils.CertificateHelper;
-import com.helger.peppol.utils.PeppolTechnicalSetup;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
@@ -96,7 +95,7 @@ public final class MockSMPClientConfig
     }
 
     // Apply system properties
-    PeppolTechnicalSetup.applyAllNetworkSystemProperties (s_aConfig);
+    s_aConfig.applyAllNetworkSystemProperties ();
   }
 
   private MockSMPClientConfig ()

@@ -78,14 +78,14 @@ public final class SMPClientConfiguration
   {
     final ConfigFileBuilder aCFB = new ConfigFileBuilder ().addPathFromSystemProperty ("peppol.smp.client.properties.path")
                                                            .addPathFromSystemProperty ("smp.client.properties.path")
-                                                           .addPaths ("private-smp-client.properties",
-                                                                      "smp-client.properties");
+                                                           .addPath ("private-smp-client.properties")
+                                                           .addPath ("smp-client.properties");
 
     s_aConfigFile = aCFB.build ();
     if (s_aConfigFile.isRead ())
-      s_aLogger.info ("Read SMP client properties from " + s_aConfigFile.getReadResource ().getPath ());
+      s_aLogger.info ("Read PEPPOL SMP client properties from " + s_aConfigFile.getReadResource ().getPath ());
     else
-      s_aLogger.warn ("Failed to read SMP client properties");
+      s_aLogger.warn ("Failed to read PEPPOL SMP client properties from " + aCFB.getAllPaths ());
   }
 
   private SMPClientConfiguration ()

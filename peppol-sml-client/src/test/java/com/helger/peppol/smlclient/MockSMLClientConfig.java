@@ -43,7 +43,6 @@ package com.helger.peppol.smlclient;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.peppol.utils.PeppolTechnicalSetup;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 
@@ -57,15 +56,15 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 @Immutable
 public final class MockSMLClientConfig
 {
-  private static final ConfigFile s_aConfig = new ConfigFileBuilder ().addPaths ("private-sml-client-test.properties",
-                                                                                 "sml-client-test.properties")
+  private static final ConfigFile s_aConfig = new ConfigFileBuilder ().addPath ("private-sml-client-test.properties")
+                                                                      .addPath ("sml-client-test.properties")
                                                                       .build ();
 
   // init
   static
   {
     // Apply system properties
-    PeppolTechnicalSetup.applyAllNetworkSystemProperties (s_aConfig);
+    s_aConfig.applyAllNetworkSystemProperties ();
   }
 
   private MockSMLClientConfig ()
