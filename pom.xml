@@ -117,7 +117,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-settings</artifactId>
-        <version>3.0.2-SNAPSHOT</version>
+        <version>3.0.2</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
