@@ -40,6 +40,7 @@
  */
 package com.helger.peppol.smpclient.exception;
 
+import java.net.ConnectException;
 import java.net.UnknownHostException;
 
 import javax.annotation.Nonnull;
@@ -59,6 +60,11 @@ public class SMPClientNotFoundException extends SMPClientException
   }
 
   public SMPClientNotFoundException (@Nonnull final UnknownHostException ex)
+  {
+    super (ex);
+  }
+
+  public SMPClientNotFoundException (@Nonnull final ConnectException ex)
   {
     super (ex);
   }

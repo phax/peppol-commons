@@ -48,7 +48,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.bind.JAXBElement;
 
-import org.apache.http.client.fluent.Request;
+import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -184,7 +184,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("SMPClient getServiceGroupReferenceList@" + sURI);
 
-    final Request aRequest = Request.Get (sURI).addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    final HttpGet aRequest = new HttpGet (sURI);
+    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     return executeGenericRequest (aRequest,
                                   SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerServiceGroupReferenceListType ()));
   }
@@ -249,7 +250,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("SMPClient getCompleteServiceGroup@" + sCompleteURI);
 
-    final Request aRequest = Request.Get (sCompleteURI);
+    final HttpGet aRequest = new HttpGet (sCompleteURI);
     return executeGenericRequest (aRequest,
                                   SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerCompleteServiceGroupType ()));
   }
@@ -342,7 +343,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("SMPClient getServiceGroup@" + sURI);
 
-    final Request aRequest = Request.Get (sURI);
+    final HttpGet aRequest = new HttpGet (sURI);
     return executeGenericRequest (aRequest,
                                   SMPHttpResponseHandlerUnsigned.create (new SMPMarshallerServiceGroupType ()));
   }
@@ -414,7 +415,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("SMPClient getServiceRegistration@" + sURI);
 
-    Request aRequest = Request.Get (sURI);
+    HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
                                                                  SMPHttpResponseHandlerSigned.create (new SMPMarshallerSignedServiceMetadataType ()));
 
@@ -425,7 +426,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
       // Follow the redirect
       s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
-      aRequest = Request.Get (aRedirect.getHref ());
+      aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
                                          SMPHttpResponseHandlerSigned.create (new SMPMarshallerSignedServiceMetadataType ()));
 
@@ -588,7 +589,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         if (IdentifierHelper.areProcessIdentifiersEqual (aProcessType.getProcessIdentifier (), aProcessID))
         {
           // Filter all endpoints by required transport profile
-          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
+          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList<> ();
           for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
             if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
               aRelevantEndpoints.add (aEndpoint);

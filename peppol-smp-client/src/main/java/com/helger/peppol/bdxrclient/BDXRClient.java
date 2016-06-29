@@ -44,8 +44,10 @@ import java.net.URI;
 
 import javax.annotation.Nonnull;
 
-import org.apache.http.client.fluent.Request;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -173,9 +175,9 @@ public class BDXRClient extends BDXRClientReadOnly
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("BDXRClient saveServiceGroup@" + sURI);
 
-    final Request aRequest = Request.Put (sURI)
-                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
-                                    .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
+    final HttpPut aRequest = new HttpPut (sURI);
+    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    aRequest.setEntity (new StringEntity (sBody, CONTENT_TYPE_TEXT_XML));
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
@@ -239,8 +241,8 @@ public class BDXRClient extends BDXRClientReadOnly
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("BDXRClient deleteServiceGroup@" + sURI);
 
-    final Request aRequest = Request.Delete (sURI).addHeader (CHTTPHeader.AUTHORIZATION,
-                                                              aCredentials.getRequestValue ());
+    final HttpDelete aRequest = new HttpDelete (sURI);
+    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
@@ -286,9 +288,9 @@ public class BDXRClient extends BDXRClientReadOnly
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("BDXRClient saveServiceRegistration@" + sURI);
 
-    final Request aRequest = Request.Put (sURI)
-                                    .addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ())
-                                    .bodyString (sBody, CONTENT_TYPE_TEXT_XML);
+    final HttpPut aRequest = new HttpPut (sURI);
+    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    aRequest.setEntity (new StringEntity (sBody, CONTENT_TYPE_TEXT_XML));
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
@@ -326,8 +328,8 @@ public class BDXRClient extends BDXRClientReadOnly
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("BDXRClient deleteServiceRegistration@" + sURI);
 
-    final Request aRequest = Request.Delete (sURI).addHeader (CHTTPHeader.AUTHORIZATION,
-                                                              aCredentials.getRequestValue ());
+    final HttpDelete aRequest = new HttpDelete (sURI);
+    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 }

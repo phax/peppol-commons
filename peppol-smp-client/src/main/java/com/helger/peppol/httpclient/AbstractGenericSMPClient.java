@@ -41,6 +41,7 @@
 package com.helger.peppol.httpclient;
 
 import java.io.IOException;
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.UnknownHostException;
 
@@ -51,13 +52,14 @@ import org.apache.http.HttpHost;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.fluent.Request;
-import org.apache.http.client.fluent.Response;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
@@ -193,39 +195,28 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     return thisAsT ();
   }
 
-  /**
-   * The main execution routine. Overwrite this method to add additional
-   * properties to the call.
-   *
-   * @param aRequest
-   *        The request to be executed. Never <code>null</code>.
-   * @return The HTTP execution response. Never <code>null</code>.
-   * @throws IOException
-   *         On HTTP error
-   * @see #setProxy(HttpHost)
-   * @see #setConnectionTimeoutMS(int)
-   * @see #setRequestTimeoutMS(int)
-   */
   @Nonnull
-  @OverrideOnDemand
-  protected Response executeRequest (@Nonnull final Request aRequest) throws IOException
+  private HttpContext _createHttpContext ()
   {
+    final RequestConfig.Builder aRC = RequestConfig.custom ();
     if (m_aProxy != null)
-      aRequest.viaProxy (m_aProxy);
+      aRC.setProxy (m_aProxy);
     if (m_nConnectionTimeoutMS > 0)
-      aRequest.connectTimeout (m_nConnectionTimeoutMS);
+      aRC.setConnectTimeout (m_nConnectionTimeoutMS);
     if (m_nRequestTimeoutMS > 0)
-      aRequest.socketTimeout (m_nRequestTimeoutMS);
+      aRC.setSocketTimeout (m_nRequestTimeoutMS);
 
-    return aRequest.execute ();
+    final HttpClientContext aHttpContext = HttpClientContext.create ();
+    aHttpContext.setRequestConfig (aRC.build ());
+    return aHttpContext;
   }
 
   /**
    * Execute a generic request on the SMP. This is e.g. helpful for accessing
    * the PEPPOL Directory BusinessCard API. Compared to
-   * {@link #executeGenericRequest(Request, ResponseHandler)} this method does
-   * NOT convert the {@link IOException} from HTTP communication problems to
-   * {@link IOException}.
+   * {@link #executeGenericRequest(HttpUriRequest, ResponseHandler)} this method
+   * does NOT convert the {@link IOException} from HTTP communication problems
+   * to {@link IOException}.
    *
    * @param aRequest
    *        The request to be executed. The proxy + connection and request
@@ -235,13 +226,14 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The return value of the response handler.
    * @throws IOException
    *         On HTTP communication error
-   * @see #executeGenericRequest(Request, ResponseHandler)
+   * @see #executeGenericRequest(HttpUriRequest, ResponseHandler)
    */
   @Nonnull
-  public <T> T executeRequest (@Nonnull final Request aRequest,
+  public <T> T executeRequest (@Nonnull final HttpUriRequest aRequest,
                                @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
   {
-    return executeRequest (aRequest).handleResponse (aResponseHandler);
+    final HttpContext aContext = _createHttpContext ();
+    return GlobalSMPClientHttpClientManager.execute (aRequest, aContext, aResponseHandler);
   }
 
   /**
@@ -277,6 +269,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     // Special case
     if (ex instanceof UnknownHostException)
       return new SMPClientNotFoundException ((UnknownHostException) ex);
+    if (ex instanceof ConnectException)
+      return new SMPClientNotFoundException ((ConnectException) ex);
 
     // Generic version
     return new SMPClientException ("Unknown error thrown by SMP server (" + ex.getMessage () + ")", ex);
@@ -285,7 +279,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   /**
    * Execute a generic request on the SMP. This is e.g. helpful for accessing
    * the PEPPOL Directory BusinessCard API. This is equivalent to
-   * {@link #executeRequest(Request, ResponseHandler)} but includes the
+   * {@link #executeRequest(HttpUriRequest, ResponseHandler)} but includes the
    * conversion of Exceptions to {@link SMPClientException} objects.
    *
    * @param aRequest
@@ -296,11 +290,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The return value of the response handler.
    * @throws SMPClientException
    *         One of the converted exceptions
-   * @see #executeRequest(Request, ResponseHandler)
+   * @see #executeRequest(HttpUriRequest, ResponseHandler)
    * @see #getConvertedException(Exception)
    */
   @Nonnull
-  public <T> T executeGenericRequest (@Nonnull final Request aRequest,
+  public <T> T executeGenericRequest (@Nonnull final HttpUriRequest aRequest,
                                       @Nonnull final ResponseHandler <T> aResponseHandler) throws SMPClientException
   {
     try

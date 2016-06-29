@@ -41,13 +41,18 @@
 package com.helger.peppol.httpclient;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.entity.ContentType;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.httpclient.HttpClientHelper;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 
 /**
@@ -72,7 +77,10 @@ public final class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPRespons
   public T handleEntity (@Nonnull final HttpEntity aEntity) throws IOException
   {
     // Read the payload
-    final T ret = m_aMarshaller.read (aEntity.getContent ());
+    final ContentType aContentType = ContentType.getOrDefault (aEntity);
+    final Charset aCharset = HttpClientHelper.getCharset (aContentType);
+    final Reader aReader = new InputStreamReader (aEntity.getContent (), aCharset);
+    final T ret = m_aMarshaller.read (aReader);
     if (ret == null)
       throw new ClientProtocolException ("Malformed XML document returned from SMP server");
     return ret;
@@ -81,6 +89,6 @@ public final class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPRespons
   @Nonnull
   public static <U> SMPHttpResponseHandlerUnsigned <U> create (@Nonnull final AbstractJAXBMarshaller <U> aMarshaller)
   {
-    return new SMPHttpResponseHandlerUnsigned <> (aMarshaller);
+    return new SMPHttpResponseHandlerUnsigned<> (aMarshaller);
   }
 }

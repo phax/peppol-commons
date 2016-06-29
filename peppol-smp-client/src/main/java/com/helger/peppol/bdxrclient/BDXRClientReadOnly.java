@@ -48,7 +48,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.bind.JAXBElement;
 
-import org.apache.http.client.fluent.Request;
+import org.apache.http.client.methods.HttpGet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -173,7 +173,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("BDXRClient getServiceGroup@" + sURI);
 
-    final Request aRequest = Request.Get (sURI);
+    final HttpGet aRequest = new HttpGet (sURI);
     return executeGenericRequest (aRequest,
                                   SMPHttpResponseHandlerUnsigned.create (new BDXRMarshallerServiceGroupType ()));
   }
@@ -244,7 +244,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("BDXRClient getServiceRegistration@" + sURI);
 
-    Request aRequest = Request.Get (sURI);
+    HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
                                                                  SMPHttpResponseHandlerSigned.create (new BDXRMarshallerSignedServiceMetadataType ()));
 
@@ -255,7 +255,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
       // Follow the redirect
       s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
-      aRequest = Request.Get (aRedirect.getHref ());
+      aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
                                          SMPHttpResponseHandlerSigned.create (new BDXRMarshallerSignedServiceMetadataType ()));
 
@@ -418,7 +418,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         if (IdentifierHelper.areProcessIdentifiersEqual (aProcessType.getProcessIdentifier (), aProcessID))
         {
           // Filter endpoints by required transport profile
-          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
+          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList<> ();
           for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
             if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
               aRelevantEndpoints.add (aEndpoint);
