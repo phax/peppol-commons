@@ -53,6 +53,7 @@ public final class SMPMarshallerServiceMetadataType extends AbstractJAXBMarshall
 {
   public SMPMarshallerServiceMetadataType ()
   {
-    super (ServiceMetadataType.class, o -> new ObjectFactory ().createServiceMetadata (o));
+    // No XSD
+    super (ServiceMetadataType.class, null, o -> new ObjectFactory ().createServiceMetadata (o));
   }
 }

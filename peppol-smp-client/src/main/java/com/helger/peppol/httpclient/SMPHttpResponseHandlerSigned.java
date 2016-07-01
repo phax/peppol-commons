@@ -93,7 +93,7 @@ import com.helger.xml.serialize.read.DOMReader;
  * @param <T>
  *        The type of object to be handled.
  */
-public final class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
+public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
 {
   /**
    * Finds and returns a key using the data contained in a {@link KeyInfo}
@@ -258,11 +258,5 @@ public final class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseH
     if (ret == null)
       throw new ClientProtocolException ("Malformed XML document returned from SMP server");
     return ret;
-  }
-
-  @Nonnull
-  public static <U> SMPHttpResponseHandlerSigned <U> create (@Nonnull final AbstractJAXBMarshaller <U> aMarshaller)
-  {
-    return new SMPHttpResponseHandlerSigned<> (aMarshaller);
   }
 }

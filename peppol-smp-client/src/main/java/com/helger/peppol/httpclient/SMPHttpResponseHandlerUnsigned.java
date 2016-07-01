@@ -63,7 +63,7 @@ import com.helger.jaxb.AbstractJAXBMarshaller;
  * @param <T>
  *        The type of object to be handled.
  */
-public final class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandler <T>
+public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandler <T>
 {
   private final AbstractJAXBMarshaller <T> m_aMarshaller;
 
@@ -84,11 +84,5 @@ public final class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPRespons
     if (ret == null)
       throw new ClientProtocolException ("Malformed XML document returned from SMP server");
     return ret;
-  }
-
-  @Nonnull
-  public static <U> SMPHttpResponseHandlerUnsigned <U> create (@Nonnull final AbstractJAXBMarshaller <U> aMarshaller)
-  {
-    return new SMPHttpResponseHandlerUnsigned<> (aMarshaller);
   }
 }

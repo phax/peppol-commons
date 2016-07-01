@@ -175,7 +175,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     final HttpGet aRequest = new HttpGet (sURI);
     return executeGenericRequest (aRequest,
-                                  SMPHttpResponseHandlerUnsigned.create (new BDXRMarshallerServiceGroupType ()));
+                                  new SMPHttpResponseHandlerUnsigned<> (new BDXRMarshallerServiceGroupType ()));
   }
 
   /**
@@ -246,7 +246,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 SMPHttpResponseHandlerSigned.create (new BDXRMarshallerSignedServiceMetadataType ()));
+                                                                 new SMPHttpResponseHandlerSigned<> (new BDXRMarshallerSignedServiceMetadataType ()));
 
     // If the Redirect element is present, then follow 1 redirect.
     if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
@@ -257,7 +257,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
       aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
-                                         SMPHttpResponseHandlerSigned.create (new BDXRMarshallerSignedServiceMetadataType ()));
+                                         new SMPHttpResponseHandlerSigned<> (new BDXRMarshallerSignedServiceMetadataType ()));
 
       // Check that the certificateUID is correct.
       boolean bCertificateSubjectFound = false;

@@ -54,6 +54,7 @@ public final class SMPMarshallerServiceGroupReferenceListType extends
 {
   public SMPMarshallerServiceGroupReferenceListType ()
   {
-    super (ServiceGroupReferenceListType.class, o -> new ObjectFactory ().createServiceGroupReferenceList (o));
+    // No XSD
+    super (ServiceGroupReferenceListType.class, null, o -> new ObjectFactory ().createServiceGroupReferenceList (o));
   }
 }

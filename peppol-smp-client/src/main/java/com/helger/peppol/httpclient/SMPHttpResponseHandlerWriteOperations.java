@@ -54,12 +54,13 @@ import org.apache.http.util.EntityUtils;
  *
  * @author Philip Helger
  */
-public final class SMPHttpResponseHandlerWriteOperations extends AbstractSMPResponseHandler <Object>
+public class SMPHttpResponseHandlerWriteOperations extends AbstractSMPResponseHandler <Object>
 {
   @Override
   @Nullable
   public Object handleEntity (@Nonnull final HttpEntity aEntity) throws IOException
   {
+    // Ignore body
     EntityUtils.consume (aEntity);
     return null;
   }

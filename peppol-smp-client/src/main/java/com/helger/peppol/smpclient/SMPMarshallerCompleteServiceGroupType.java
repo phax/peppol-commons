@@ -53,6 +53,7 @@ public final class SMPMarshallerCompleteServiceGroupType extends AbstractJAXBMar
 {
   public SMPMarshallerCompleteServiceGroupType ()
   {
-    super (CompleteServiceGroupType.class, o -> new ObjectFactory ().createCompleteServiceGroup (o));
+    // No XSD
+    super (CompleteServiceGroupType.class, null, o -> new ObjectFactory ().createCompleteServiceGroup (o));
   }
 }

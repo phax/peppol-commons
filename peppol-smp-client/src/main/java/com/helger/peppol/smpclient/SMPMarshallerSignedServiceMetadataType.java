@@ -53,6 +53,7 @@ public final class SMPMarshallerSignedServiceMetadataType extends AbstractJAXBMa
 {
   public SMPMarshallerSignedServiceMetadataType ()
   {
-    super (SignedServiceMetadataType.class, o -> new ObjectFactory ().createSignedServiceMetadata (o));
+    // No XSD
+    super (SignedServiceMetadataType.class, null, o -> new ObjectFactory ().createSignedServiceMetadata (o));
   }
 }
