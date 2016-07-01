@@ -42,30 +42,14 @@ package com.helger.peppol.httpclient;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.PublicKey;
-import java.security.cert.CertPath;
-import java.security.cert.CertPathValidator;
-import java.security.cert.CertificateFactory;
-import java.security.cert.PKIXParameters;
-import java.security.cert.X509Certificate;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.WillNotClose;
-import javax.xml.crypto.AlgorithmMethod;
-import javax.xml.crypto.KeySelector;
-import javax.xml.crypto.KeySelectorException;
-import javax.xml.crypto.KeySelectorResult;
-import javax.xml.crypto.XMLCryptoContext;
-import javax.xml.crypto.XMLStructure;
 import javax.xml.crypto.dsig.Reference;
-import javax.xml.crypto.dsig.SignatureMethod;
 import javax.xml.crypto.dsig.XMLSignature;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
-import javax.xml.crypto.dsig.keyinfo.KeyInfo;
-import javax.xml.crypto.dsig.keyinfo.X509Data;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
@@ -76,13 +60,9 @@ import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.AbstractJAXBMarshaller;
-import com.helger.peppol.smpclient.SMPClientConfiguration;
-import com.helger.peppol.utils.ConstantKeySelectorResult;
-import com.helger.peppol.utils.KeyStoreHelper;
 import com.helger.xml.serialize.read.DOMReader;
 
 /**
@@ -95,88 +75,6 @@ import com.helger.xml.serialize.read.DOMReader;
  */
 public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
 {
-  /**
-   * Finds and returns a key using the data contained in a {@link KeyInfo}
-   * object
-   *
-   * @author PEPPOL.AT, BRZ, Philip Helger
-   * @see <a href=
-   *      "http://java.sun.com/developer/technicalArticles/xml/dig_signature_api/">
-   *      Programming with the Java XML Digital Signature API</a>
-   */
-  private static final class X509KeySelector extends KeySelector
-  {
-    private final String m_sTrustoreLocation;
-    private final String m_sTrustStorePassword;
-
-    public X509KeySelector ()
-    {
-      m_sTrustoreLocation = SMPClientConfiguration.getTruststoreLocation ();
-      m_sTrustStorePassword = SMPClientConfiguration.getTruststorePassword ();
-    }
-
-    public static boolean algorithmEquals (@Nonnull final String sAlgURI, @Nonnull final String sAlgName)
-    {
-      return (sAlgName.equalsIgnoreCase ("DSA") && sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1)) ||
-             (sAlgName.equalsIgnoreCase ("RSA") && sAlgURI.equalsIgnoreCase (SignatureMethod.RSA_SHA1));
-    }
-
-    @Override
-    public KeySelectorResult select (@Nonnull final KeyInfo aKeyInfo,
-                                     final KeySelector.Purpose aPurpose,
-                                     @Nonnull final AlgorithmMethod aMethod,
-                                     final XMLCryptoContext aCryptoContext) throws KeySelectorException
-    {
-      final Iterator <?> aContentIter = aKeyInfo.getContent ().iterator ();
-      while (aContentIter.hasNext ())
-      {
-        final XMLStructure aStructure = (XMLStructure) aContentIter.next ();
-        if (!(aStructure instanceof X509Data))
-          continue;
-
-        final X509Data aX509Data = (X509Data) aStructure;
-        final Iterator <?> aX509Iter = aX509Data.getContent ().iterator ();
-        while (aX509Iter.hasNext ())
-        {
-          final Object aElement = aX509Iter.next ();
-          if (!(aElement instanceof X509Certificate))
-            continue;
-
-          final X509Certificate aCertificate = (X509Certificate) aElement;
-          try
-          {
-            // Check if the certificate is expired or active.
-            aCertificate.checkValidity ();
-
-            // Checks whether the certificate is in the trusted store.
-            final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
-
-            final KeyStore aKeyStore = KeyStoreHelper.loadKeyStore (m_sTrustoreLocation, m_sTrustStorePassword);
-            // The PKIXParameters constructor may fail because:
-            // - the trustAnchorsParameter is empty
-            final PKIXParameters aPKIXParams = new PKIXParameters (aKeyStore);
-            aPKIXParams.setRevocationEnabled (false);
-            final CertificateFactory aCertificateFactory = CertificateFactory.getInstance ("X509");
-            final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList<> (aCertArray));
-            final CertPathValidator aPathValidator = CertPathValidator.getInstance ("PKIX");
-            aPathValidator.validate (aCertPath, aPKIXParams);
-
-            final PublicKey aPublicKey = aCertificate.getPublicKey ();
-
-            // Make sure the algorithm is compatible with the method.
-            if (algorithmEquals (aMethod.getAlgorithm (), aPublicKey.getAlgorithm ()))
-              return new ConstantKeySelectorResult (aPublicKey);
-          }
-          catch (final Throwable t)
-          {
-            throw new KeySelectorException ("Failed to select public key", t);
-          }
-        }
-      }
-      throw new KeySelectorException ("No public key found!");
-    }
-  }
-
   private static final Logger s_aLogger = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
 
   private final AbstractJAXBMarshaller <T> m_aMarshaller;
@@ -201,7 +99,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.
-    final X509KeySelector aKeySelector = new X509KeySelector ();
+    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector ();
     final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
     final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
 
