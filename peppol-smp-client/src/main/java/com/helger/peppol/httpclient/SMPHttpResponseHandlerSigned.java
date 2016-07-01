@@ -42,7 +42,6 @@ package com.helger.peppol.httpclient;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.Key;
 import java.security.KeyStore;
 import java.security.PublicKey;
 import java.security.cert.CertPath;
@@ -53,7 +52,6 @@ import java.security.cert.X509Certificate;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 import javax.xml.crypto.AlgorithmMethod;
 import javax.xml.crypto.KeySelector;
@@ -83,6 +81,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
+import com.helger.peppol.utils.ConstantKeySelectorResult;
 import com.helger.peppol.utils.KeyStoreHelper;
 import com.helger.xml.serialize.read.DOMReader;
 
@@ -96,22 +95,6 @@ import com.helger.xml.serialize.read.DOMReader;
  */
 public final class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
 {
-  private static final class ConstantKeySelectorResult implements KeySelectorResult
-  {
-    private final Key m_aKey;
-
-    public ConstantKeySelectorResult (@Nullable final Key aKey)
-    {
-      m_aKey = aKey;
-    }
-
-    @Nullable
-    public Key getKey ()
-    {
-      return m_aKey;
-    }
-  }
-
   /**
    * Finds and returns a key using the data contained in a {@link KeyInfo}
    * object
