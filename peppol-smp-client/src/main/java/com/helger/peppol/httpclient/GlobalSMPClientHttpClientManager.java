@@ -12,9 +12,15 @@ import org.apache.http.protocol.HttpContext;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.httpclient.HttpClientManager;
 
+/**
+ * This class contains the central HTTP client manager for the SMP client.
+ * Ideally you call {@link #close()} before your application shuts down.
+ *
+ * @author Philip Helger
+ */
 public final class GlobalSMPClientHttpClientManager
 {
-  private static final HttpClientManager s_aHttpClientMgr = new HttpClientManager ();
+  private static HttpClientManager s_aHttpClientMgr = new HttpClientManager ();
 
   private GlobalSMPClientHttpClientManager ()
   {}
@@ -25,6 +31,13 @@ public final class GlobalSMPClientHttpClientManager
   public static void close ()
   {
     StreamHelper.close (s_aHttpClientMgr);
+    s_aHttpClientMgr = null;
+  }
+
+  private static void _checkClosed ()
+  {
+    if (s_aHttpClientMgr == null)
+      throw new IllegalStateException ("The SMP client HTTP client manager is already closed!");
   }
 
   @Nullable
@@ -32,6 +45,7 @@ public final class GlobalSMPClientHttpClientManager
                                @Nullable final HttpContext aHttpContext,
                                @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
   {
+    _checkClosed ();
     return s_aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
   }
 }
