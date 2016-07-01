@@ -92,11 +92,22 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   public static boolean algorithmEquals (@Nonnull final String sAlgURI, @Nonnull final String sAlgName)
   {
     if (sAlgName.equalsIgnoreCase ("DSA"))
-      return sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1);
-    if (sAlgName.equalsIgnoreCase ("RSA"))
-      return sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1);
-    if (sAlgName.equalsIgnoreCase ("EC"))
-      return sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256");
+    {
+      if (sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1))
+        return true;
+    }
+    else
+      if (sAlgName.equalsIgnoreCase ("RSA"))
+      {
+        if (sAlgURI.equalsIgnoreCase (SignatureMethod.RSA_SHA1))
+          return true;
+      }
+      else
+        if (sAlgName.equalsIgnoreCase ("EC"))
+        {
+          if (sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"))
+            return true;
+        }
     s_aLogger.warn ("Algorithm mismatch between JCA/JCE public key algorithm name ('" +
                     sAlgName +
                     "') and signature algorithm URI ('" +
