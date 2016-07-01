@@ -76,7 +76,7 @@ import com.helger.peppol.utils.KeyStoreHelper;
  *      "http://java.sun.com/developer/technicalArticles/xml/dig_signature_api/">
  *      Programming with the Java XML Digital Signature API</a>
  */
-final class TrustStoreBasedX509KeySelector extends KeySelector
+public final class TrustStoreBasedX509KeySelector extends KeySelector
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (TrustStoreBasedX509KeySelector.class);
 
@@ -111,49 +111,53 @@ final class TrustStoreBasedX509KeySelector extends KeySelector
                                    @Nonnull final AlgorithmMethod aMethod,
                                    final XMLCryptoContext aCryptoContext) throws KeySelectorException
   {
+    // For all XMLStructure
     final Iterator <?> aContentIter = aKeyInfo.getContent ().iterator ();
     while (aContentIter.hasNext ())
     {
       final XMLStructure aStructure = (XMLStructure) aContentIter.next ();
-      if (!(aStructure instanceof X509Data))
-        continue;
-
-      final X509Data aX509Data = (X509Data) aStructure;
-      final Iterator <?> aX509Iter = aX509Data.getContent ().iterator ();
-      while (aX509Iter.hasNext ())
+      if (aStructure instanceof X509Data)
       {
-        final Object aElement = aX509Iter.next ();
-        if (!(aElement instanceof X509Certificate))
-          continue;
-
-        final X509Certificate aCertificate = (X509Certificate) aElement;
-        try
+        final X509Data aX509Data = (X509Data) aStructure;
+        // For all content - can be many different types
+        final Iterator <?> aX509Iter = aX509Data.getContent ().iterator ();
+        while (aX509Iter.hasNext ())
         {
-          // Check if the certificate is expired or active.
-          aCertificate.checkValidity ();
+          final Object aElement = aX509Iter.next ();
+          if (aElement instanceof X509Certificate)
+          {
+            // We found a certificate
+            final X509Certificate aCertificate = (X509Certificate) aElement;
+            try
+            {
+              // Check if the certificate is expired or active.
+              aCertificate.checkValidity ();
 
-          // Checks whether the certificate is in the trusted store.
-          final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
+              // Checks whether the certificate is in the trusted store.
+              final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
 
-          final KeyStore aKeyStore = KeyStoreHelper.loadKeyStore (m_sTrustoreLocation, m_sTrustStorePassword);
-          // The PKIXParameters constructor may fail because:
-          // - the trustAnchorsParameter is empty
-          final PKIXParameters aPKIXParams = new PKIXParameters (aKeyStore);
-          aPKIXParams.setRevocationEnabled (false);
-          final CertificateFactory aCertificateFactory = CertificateFactory.getInstance ("X509");
-          final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList<> (aCertArray));
-          final CertPathValidator aPathValidator = CertPathValidator.getInstance ("PKIX");
-          aPathValidator.validate (aCertPath, aPKIXParams);
+              final KeyStore aKeyStore = KeyStoreHelper.loadKeyStore (m_sTrustoreLocation, m_sTrustStorePassword);
+              // The PKIXParameters constructor may fail because:
+              // - the trustAnchorsParameter is empty
+              final PKIXParameters aPKIXParams = new PKIXParameters (aKeyStore);
+              aPKIXParams.setRevocationEnabled (false);
+              final CertificateFactory aCertificateFactory = CertificateFactory.getInstance ("X509");
+              final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList<> (aCertArray));
+              final CertPathValidator aPathValidator = CertPathValidator.getInstance ("PKIX");
+              aPathValidator.validate (aCertPath, aPKIXParams);
 
-          final PublicKey aPublicKey = aCertificate.getPublicKey ();
+              final PublicKey aPublicKey = aCertificate.getPublicKey ();
 
-          // Make sure the algorithm is compatible with the method.
-          if (algorithmEquals (aMethod.getAlgorithm (), aPublicKey.getAlgorithm ()))
-            return new ConstantKeySelectorResult (aPublicKey);
-        }
-        catch (final Throwable t)
-        {
-          throw new KeySelectorException ("Failed to select public key", t);
+              // Make sure the algorithm is compatible with the method.
+              if (algorithmEquals (aMethod.getAlgorithm (), aPublicKey.getAlgorithm ()))
+                return new ConstantKeySelectorResult (aPublicKey);
+              // Else a warning was already emitted
+            }
+            catch (final Throwable t)
+            {
+              throw new KeySelectorException ("Failed to select public key from certificate " + aCertificate, t);
+            }
+          }
         }
       }
     }
