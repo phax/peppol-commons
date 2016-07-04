@@ -45,6 +45,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.lang.EnumHelper;
+import com.helger.commons.type.ObjectType;
 
 /**
  * This class contains predefined transport profiles for service registrations.
@@ -62,7 +63,8 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "AS2"),
 
   /** The AS4 transport profile to be used in EndPointType objects */
-  @Deprecated TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4"),
+  @Deprecated
+  TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4"),
 
   /** The BDXR AS4 transport profile to be used in EndPointType objects */
   TRANSPORT_PROFILE_BDXR_AS4 ("bdxr-transport-ebms3-as4-v1p0", "BDXR AS4");
@@ -74,6 +76,12 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   {
     m_sID = sID;
     m_sName = sName;
+  }
+
+  @Nonnull
+  public ObjectType getObjectType ()
+  {
+    return SMPTransportProfile.OT;
   }
 
   @Nonnull
@@ -92,7 +100,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
 
   /**
    * Find the pre-defined transport profile with the passed ID.
-   * 
+   *
    * @param sID
    *        The ID to be searched. May be <code>null</code>.
    * @return <code>null</code> if no such transport profile was found.

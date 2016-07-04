@@ -48,6 +48,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.lang.EnumHelper;
+import com.helger.commons.type.ObjectType;
 
 /**
  * Simple enumeration for differentiating the different available SMLs.
@@ -63,17 +64,9 @@ import com.helger.commons.lang.EnumHelper;
 public enum ESML implements ISMLInfo
 {
   /** DIGIT production URL - valid from June 9th, 2015 */
-  DIGIT_PRODUCTION ("digitprod",
-                    "SML",
-                    "edelivery.tech.ec.europa.eu.",
-                    "https://edelivery.tech.ec.europa.eu/edelivery-sml",
-                    true),
+  DIGIT_PRODUCTION ("digitprod", "SML", "edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu/edelivery-sml", true),
   /** DIGIT test URL - valid from June 9th, 2015 */
-  DIGIT_TEST ("digittest",
-              "SMK",
-              "acc.edelivery.tech.ec.europa.eu.",
-              "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
-              true),
+  DIGIT_TEST ("digittest", "SMK", "acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true),
   /** http://localhost:8080 */
   DEVELOPMENT_LOCAL ("local", "Development", "smj.peppolcentral.org.", "http://localhost:8080", false);
 
@@ -101,6 +94,12 @@ public enum ESML implements ISMLInfo
                 final boolean bRequiresClientCertificate)
   {
     m_aProxy = new SMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCertificate);
+  }
+
+  @Nonnull
+  public ObjectType getObjectType ()
+  {
+    return SMLInfo.OT;
   }
 
   @Nonnull

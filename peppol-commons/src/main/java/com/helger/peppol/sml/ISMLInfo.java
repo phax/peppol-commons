@@ -46,8 +46,8 @@ import java.net.URL;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
+import com.helger.commons.type.ITypedObject;
 
 /**
  * Specifies the different properties an SML implementation uses. A set of
@@ -56,7 +56,7 @@ import com.helger.commons.name.IHasDisplayName;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface ISMLInfo extends IHasID <String>, IHasDisplayName, Serializable
+public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serializable
 {
   /**
    * @return The "shorthand" display name like "SML" or "SMK".

@@ -78,9 +78,6 @@ public final class PeppolIdentifierHelper
   private static final AtomicBoolean s_aCharsetChecksDisabled = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
   private static final AtomicBoolean s_aSchemeMaxLengthChecksDisabled = new AtomicBoolean (DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED);
 
-  @PresentForCodeCoverage
-  private static final PeppolIdentifierHelper s_aInstance = new PeppolIdentifierHelper ();
-
   /**
    * The default document identifier scheme.<br>
    * See PEPPOL Common definitions chapter 3.5
@@ -122,6 +119,9 @@ public final class PeppolIdentifierHelper
 
   private PeppolIdentifierHelper ()
   {}
+
+  @PresentForCodeCoverage
+  private static final PeppolIdentifierHelper s_aInstance = new PeppolIdentifierHelper ();
 
   /**
    * @return <code>true</code> if the charset checks for identifier values are

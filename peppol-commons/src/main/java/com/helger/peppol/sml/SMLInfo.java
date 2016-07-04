@@ -52,7 +52,6 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.id.factory.GlobalIDFactory;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.type.ITypedObject;
 import com.helger.commons.type.ObjectType;
 
 /**
@@ -62,7 +61,7 @@ import com.helger.commons.type.ObjectType;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class SMLInfo implements ISMLInfo, ITypedObject <String>
+public class SMLInfo implements ISMLInfo
 {
   public static final ObjectType OT = new ObjectType ("sml.info");
 

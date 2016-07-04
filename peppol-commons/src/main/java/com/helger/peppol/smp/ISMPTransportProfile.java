@@ -46,8 +46,8 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasName;
+import com.helger.commons.type.ITypedObject;
 
 /**
  * Base interface for SMP transport profiles. Two transport profiles are
@@ -58,7 +58,7 @@ import com.helger.commons.name.IHasName;
  * @see ESMPTransportProfile for a set of predefined transport profiles
  */
 @MustImplementEqualsAndHashcode
-public interface ISMPTransportProfile extends IHasID <String>, IHasName, Serializable
+public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, Serializable
 {
   /**
    * Get the ID to be stored in an SMP endpoint.

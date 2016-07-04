@@ -75,6 +75,12 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   }
 
   @Nonnull
+  public ObjectType getObjectType ()
+  {
+    return OT;
+  }
+
+  @Nonnull
   @Nonempty
   public String getID ()
   {
