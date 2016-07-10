@@ -53,12 +53,12 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
-import com.helger.commons.messagedigest.MessageDigestValue;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.security.messagedigest.EMessageDigestAlgorithm;
+import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
  * The default implementation of {@link IPeppolURLProvider} suitable for the

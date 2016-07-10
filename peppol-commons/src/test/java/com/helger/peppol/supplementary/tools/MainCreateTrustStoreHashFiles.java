@@ -52,9 +52,9 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
-import com.helger.commons.messagedigest.MessageDigestValue;
 import com.helger.peppol.utils.KeyStoreHelper;
+import com.helger.security.messagedigest.EMessageDigestAlgorithm;
+import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
  * Utility class to create hash codes of the global trust store to verify if it
