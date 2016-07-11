@@ -53,7 +53,7 @@ import com.helger.commons.random.RandomHelper;
 import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.utils.KeyStoreHelper;
+import com.helger.security.keystore.KeyStoreHelper;
 
 /**
  * Base class for SML client tests, with some utility content.
@@ -73,7 +73,7 @@ public abstract class AbstractSMLClientTestCase
       return null;
 
     // Main key storage
-    final KeyStore aKeyStore = KeyStoreHelper.loadKeyStore (KEYSTORE_PATH, KEYSTORE_PASSWORD);
+    final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (KEYSTORE_PATH, KEYSTORE_PASSWORD);
 
     // Key manager
     final KeyManagerFactory aKeyManagerFactory = KeyManagerFactory.getInstance ("SunX509");

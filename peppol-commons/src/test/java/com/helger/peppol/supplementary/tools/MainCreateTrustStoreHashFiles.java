@@ -52,7 +52,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.peppol.utils.KeyStoreHelper;
+import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
@@ -86,8 +86,8 @@ public final class MainCreateTrustStoreHashFiles
 
   public static void main (final String [] args) throws IOException
   {
-    _create (KeyStoreHelper.TRUSTSTORE_PRODUCTION_CLASSPATH);
-    _create (KeyStoreHelper.TRUSTSTORE_PILOT_CLASSPATH);
-    _create (KeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
+    _create (PeppolKeyStoreHelper.TRUSTSTORE_PRODUCTION_CLASSPATH);
+    _create (PeppolKeyStoreHelper.TRUSTSTORE_PILOT_CLASSPATH);
+    _create (PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
   }
 }

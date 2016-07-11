@@ -76,8 +76,8 @@ import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
-import com.helger.peppol.utils.CertificateHelper;
 import com.helger.peppol.xmldsig.X509DataType;
+import com.helger.security.certificate.CertificateHelper;
 
 /**
  * This class is used for calling the BDXR SMP REST interface. This class only

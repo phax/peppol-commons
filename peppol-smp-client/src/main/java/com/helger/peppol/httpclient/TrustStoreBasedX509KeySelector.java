@@ -65,8 +65,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
-import com.helger.peppol.utils.ConstantKeySelectorResult;
-import com.helger.peppol.utils.KeyStoreHelper;
+import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.keystore.ConstantKeySelectorResult;
+import com.helger.security.keystore.KeyStoreHelper;
 
 /**
  * Finds and returns a key using the data contained in a {@link KeyInfo} object
@@ -147,12 +148,12 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               // Checks whether the certificate is in the trusted store.
               final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
 
-              final KeyStore aKeyStore = KeyStoreHelper.loadKeyStore (m_sTrustoreLocation, m_sTrustStorePassword);
+              final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (m_sTrustoreLocation, m_sTrustStorePassword);
               // The PKIXParameters constructor may fail because:
               // - the trustAnchorsParameter is empty
               final PKIXParameters aPKIXParams = new PKIXParameters (aKeyStore);
               aPKIXParams.setRevocationEnabled (false);
-              final CertificateFactory aCertificateFactory = CertificateFactory.getInstance ("X509");
+              final CertificateFactory aCertificateFactory = CertificateHelper.getX509CertificateFactory ();
               final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList<> (aCertArray));
               final CertPathValidator aPathValidator = CertPathValidator.getInstance ("PKIX");
               aPathValidator.validate (aCertPath, aPKIXParams);

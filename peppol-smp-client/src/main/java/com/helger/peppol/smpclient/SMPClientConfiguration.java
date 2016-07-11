@@ -48,7 +48,7 @@ import org.apache.http.HttpHost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.peppol.utils.KeyStoreHelper;
+import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 
@@ -103,25 +103,25 @@ public final class SMPClientConfiguration
   /**
    * @return The truststore location as specified in the configuration file by
    *         the key <code>truststore.location</code>. If none is present
-   *         {@link KeyStoreHelper#TRUSTSTORE_COMPLETE_CLASSPATH} is returned as
+   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_COMPLETE_CLASSPATH} is returned as
    *         a default.
    */
   @Nonnull
   public static String getTruststoreLocation ()
   {
-    return s_aConfigFile.getAsString ("truststore.location", KeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
+    return s_aConfigFile.getAsString ("truststore.location", PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
   }
 
   /**
    * @return The truststore password as specified in the configuration file by
    *         the key <code>truststore.password</code>. If none is present
-   *         {@link KeyStoreHelper#TRUSTSTORE_PASSWORD} is returned as a
+   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_PASSWORD} is returned as a
    *         default.
    */
   @Nonnull
   public static String getTruststorePassword ()
   {
-    return s_aConfigFile.getAsString ("truststore.password", KeyStoreHelper.TRUSTSTORE_PASSWORD);
+    return s_aConfigFile.getAsString ("truststore.password", PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
   }
 
   /**
