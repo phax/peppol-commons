@@ -92,11 +92,6 @@
       <class ref="javax.xml.ws.wsaddressing.W3CEndpointReference" />
     </bindings>
   </bindings>
-  <bindings schemaLocation="../resources/WEB-INF/wsdl/xmldsig-core-schema.xsd">
-    <schemaBindings>
-      <package name="com.helger.peppol.xmldsig" />
-    </schemaBindings>
-  </bindings>
   <bindings schemaLocation="../resources/WEB-INF/wsdl/ServiceMetadataPublishingTypes-1.0.xsd">
     <schemaBindings>
       <package name="com.helger.peppol.smp" />

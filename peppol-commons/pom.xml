@@ -112,6 +112,10 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-settings</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xsds-xmldsig</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -168,6 +172,18 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>src/main/resources/WEB-INF/wsdl/**/bdx-smp-*.xsd</exclude>
+            <exclude>src/main/resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd</exclude>
+            <exclude>src/main/resources/WEB-INF/wsdl/ws-addr.xsd</exclude>
+            <exclude>src/main/resources/WEB-INF/wsdl/xmldsig-core-schema.xsd</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.jvnet.jaxb2.maven2</groupId>
         <artifactId>maven-jaxb2-plugin</artifactId>
         <version>0.13.1</version>
@@ -210,6 +226,12 @@
               <version>0.11.1</version>
             </plugin>
           </plugins>
+          <episodes>
+            <episode>
+              <groupId>com.helger</groupId>
+              <artifactId>ph-xsds-xmldsig</artifactId>
+            </episode>
+          </episodes>
         </configuration>
         <dependencies>
           <dependency>
@@ -219,17 +241,24 @@
           </dependency>
         </dependencies>
       </plugin>
+      <!-- Delete the directory with only ObjectFactory 
+           Source: http://stackoverflow.com/questions/32635137
+      -->
       <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>src/main/resources/WEB-INF/wsdl/**/bdx-smp-*.xsd</exclude>
-            <exclude>src/main/resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd</exclude>
-            <exclude>src/main/resources/WEB-INF/wsdl/ws-addr.xsd</exclude>
-            <exclude>src/main/resources/WEB-INF/wsdl/xmldsig-core-schema.xsd</exclude>
-          </excludes>
-        </configuration>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <delete dir="${basedir}/target/generated-sources/xjc/com/helger/xsds/" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

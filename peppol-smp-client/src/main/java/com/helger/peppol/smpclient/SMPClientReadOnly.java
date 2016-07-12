@@ -80,10 +80,10 @@ import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
-import com.helger.peppol.xmldsig.X509DataType;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.web.http.CHTTPHeader;
 import com.helger.web.http.basicauth.BasicAuthClientCredentials;
+import com.helger.xsds.xmldsig.X509DataType;
 
 /**
  * This class is used for calling the SMP REST interface. This particular class

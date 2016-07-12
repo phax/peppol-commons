@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.9.0</version>
+    <version>1.9.1</version>
   </parent>
   <artifactId>peppol-commons-parent-pom</artifactId>
   <version>5.0.1-SNAPSHOT</version>
@@ -130,6 +130,13 @@
         <groupId>com.helger</groupId>
         <artifactId>jcodemodel</artifactId>
         <version>2.8.5</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-xsds-parent-pom</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       
       <dependency>
