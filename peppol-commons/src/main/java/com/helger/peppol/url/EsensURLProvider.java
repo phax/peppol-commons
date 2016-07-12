@@ -47,48 +47,51 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.codec.Base32Codec;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
  * The default implementation of {@link IPeppolURLProvider} suitable for the
- * PEPPOL network.<br>
+ * E-SENS network. See e.g. http://wiki.ds.unipi.gr/display/ESENS/PR+-+BDXL<br>
  * Layout:
- * <code>"B-"+hexstring(md5(lowercase(ID-VALUE)))+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
+ * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
  * @author Philip Helger
  */
 @Immutable
-public class PeppolURLProvider implements IPeppolURLProvider
+public class EsensURLProvider implements IPeppolURLProvider
 {
-  public static final IPeppolURLProvider INSTANCE = new PeppolURLProvider ();
+  public static final IPeppolURLProvider INSTANCE = new EsensURLProvider ();
   public static final Charset URL_CHARSET = CCharset.CHARSET_UTF_8_OBJ;
   public static final Locale URL_LOCALE = Locale.US;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolURLProvider.class);
+  private boolean m_bLowercaseValueBeforeHashing = true;
 
   /**
    * Default constructor.
    */
-  public PeppolURLProvider ()
+  public EsensURLProvider ()
   {}
 
+  public boolean isLowercaseValueBeforeHashing ()
+  {
+    return m_bLowercaseValueBeforeHashing;
+  }
+
+  public void setLowercaseValueBeforeHashing (final boolean bLowercaseValueBeforeHashing)
+  {
+    m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing;
+  }
+
   /**
-   * Get the MD5-hash-string-representation of the passed value using the
-   * {@link #URL_CHARSET} encoding. Each hash byte is represented as 2
-   * characters in the range [0-9a-f]. Note: the hash value creation is done
-   * case sensitive! The caller needs to ensure that the value to hash is lower
-   * case!
+   * Get the Base32 encoded, SHA-256 hash-string-representation of the passed
+   * value using the {@link #URL_CHARSET} encoding.
    *
    * @param sValueToHash
    *        The value to be hashed. May not be <code>null</code>.
@@ -97,11 +100,11 @@ public class PeppolURLProvider implements IPeppolURLProvider
   @Nonnull
   public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
   {
-    // Create the MD5 hash
-    // Convert to hex-encoded string
-    return MessageDigestValue.create (CharsetManager.getAsBytes (sValueToHash, URL_CHARSET),
-                                      EMessageDigestAlgorithm.MD5)
-                             .getHexEncodedDigestString ();
+    final byte [] aMessageDigest = MessageDigestValue.create (CharsetManager.getAsBytes (sValueToHash, URL_CHARSET),
+                                                              EMessageDigestAlgorithm.SHA_256)
+                                                     .getAllDigestBytes ();
+    return new Base32Codec ().setAddPaddding (false).getEncodedAsString (aMessageDigest,
+                                                                         CCharset.CHARSET_ISO_8859_1_OBJ);
   }
 
   @Nonnull
@@ -109,40 +112,30 @@ public class PeppolURLProvider implements IPeppolURLProvider
                                          @Nullable final String sSMLZoneName)
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
-    ValueEnforcer.notEmpty (aParticipantIdentifier.getScheme (), "ParticipantIdentifier scheme");
-    ValueEnforcer.notEmpty (aParticipantIdentifier.getValue (), "ParticipantIdentifier value");
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
       throw new IllegalArgumentException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
                                           sSMLZoneName);
 
-    // Check identifier scheme (must be lowercase for the URL later on!)
-    final String sIdentifierScheme = aParticipantIdentifier.getScheme ().toLowerCase (URL_LOCALE);
-
-    // Was previously an error, but to be more flexible just emit a warning
-    if (!IPeppolParticipantIdentifier.isValidScheme (sIdentifierScheme))
-      s_aLogger.warn ("Invalid PEPPOL participant identifier scheme '" + sIdentifierScheme + "' used");
+    final StringBuilder ret = new StringBuilder ();
 
     // Get the identifier value
-    final String sValue = aParticipantIdentifier.getValue ();
-    final StringBuilder ret = new StringBuilder ();
-    if ("*".equals (sValue))
-    {
-      // Wild card registration
-      ret.append ("*.");
-    }
-    else
-    {
-      // Important: create hash from lowercase string!
-      // Here the "B-0011223344..." string is assembled!
-      ret.append (PeppolIdentifierHelper.DNS_HASHED_IDENTIFIER_PREFIX)
-         .append (getHashValueStringRepresentation (sValue.toLowerCase (URL_LOCALE)))
-         .append ('.');
-    }
+    // Important: create hash from lowercase string!
+    String sIdentifierValue = aParticipantIdentifier.getValue ();
+    if (m_bLowercaseValueBeforeHashing)
+      sIdentifierValue = sIdentifierValue.toLowerCase (URL_LOCALE);
+    ret.append (getHashValueStringRepresentation (sIdentifierValue)).append ('.');
 
     // append the identifier scheme
-    ret.append (sIdentifierScheme).append ('.');
+    if (aParticipantIdentifier.hasScheme ())
+    {
+      // Check identifier scheme (must be lowercase for the URL later on!)
+      String sIdentifierScheme = aParticipantIdentifier.getScheme ();
+      if (m_bLowercaseValueBeforeHashing)
+        sIdentifierScheme = sIdentifierScheme.toLowerCase (URL_LOCALE);
+      ret.append (sIdentifierScheme).append ('.');
+    }
 
     // append the SML DNS zone name (if available)
     if (StringHelper.hasText (sSMLZoneName))

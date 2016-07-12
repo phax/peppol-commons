@@ -64,9 +64,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class BDXURLProviderTest
+public final class PeppolURLProviderTest
 {
-  private static final PeppolURLProvider INSTANCE = PeppolURLProvider.INSTANCE;
+  private static final IPeppolURLProvider INSTANCE = PeppolURLProvider.INSTANCE;
 
   @Test
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
