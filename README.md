@@ -17,7 +17,7 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
-  * version 5.0.0 (work in progress)
+  * version 5.0.0
     * JDK 8 is now required
     * Please check the separate [Update to version 5](UpdateV5.md) page.
   * version 4.3.5
