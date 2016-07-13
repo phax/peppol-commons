@@ -199,9 +199,8 @@
           <bindingDirectory>src/main/jaxb</bindingDirectory>
           <!-- Required for schema component designator in binding file -->
           <extension>true</extension>
-          <!--  
-          <forceRegenerate>true</forceRegenerate>
-          -->
+          <strict>false</strict>
+          <catalog>${basedir}/src/main/jaxb/catalog.txt</catalog>
           <args>
             <arg>-no-header</arg>
             <arg>-Xinheritance</arg>

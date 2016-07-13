@@ -49,7 +49,7 @@
            xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:wsa="http://www.w3.org/2005/08/addressing">
-  <xs:import schemaLocation="xmldsig-core-schema.xsd" namespace="http://www.w3.org/2000/09/xmldsig#" />
+  <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" />
   <xs:import schemaLocation="Identifiers-1.0.xsd" namespace="http://busdox.org/transport/identifiers/1.0/" />
   <xs:import schemaLocation="ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
   
