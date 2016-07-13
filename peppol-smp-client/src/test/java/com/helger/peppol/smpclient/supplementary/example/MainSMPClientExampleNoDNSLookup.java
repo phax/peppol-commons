@@ -40,29 +40,26 @@
  */
 package com.helger.peppol.smpclient.supplementary.example;
 
+import com.helger.commons.url.URLHelper;
 import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.EPredefinedProcessIdentifier;
-import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
-import com.helger.peppol.url.PeppolURLProvider;
 
 /**
  * Example application that shows how to invoke the {@link SMPClientReadOnly}
  *
  * @author Philip Helger
  */
-public final class MainSMPClientExample
+public final class MainSMPClientExampleNoDNSLookup
 {
   public static void main (final String [] args) throws Exception
   {
     // The participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
     // Create the main SMP client using the production SML
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
-                                                                aPI_AT_Test,
-                                                                ESML.DIGIT_PRODUCTION);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"));
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
                                                                    EPredefinedProcessIdentifier.BIS4A_V20,
