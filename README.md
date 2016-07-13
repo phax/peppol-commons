@@ -44,9 +44,6 @@ Java library with shared PEPPOL components. It contains the basic algorithms and
 
 This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
 
-Versions <= 3.1.3 are compatible with ph-commons < 6.0.
-Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
-
 This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 
 ## peppol-sbdh
@@ -62,9 +59,6 @@ https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/ICT-Transport-Ope
 From a technical point of view, this library can be used with Java 1.6 or higher.
 
 An example on how to use this project can be found in my **[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet)** project which provides a servlet to receive incoming PEPPOL AS2 messages. Alternatively you may have a look at my **[as2-peppol-client](https://github.com/phax/as2-peppol-client)** project which is used to send PEPPOL AS2 messages.
-
-Versions <= 1.0.1 are compatible with ph-commons < 6.0.
-Versions >= 2.0.0 are compatible with ph-commons >= 6.0.
 
 This project is licensed under the Apache 2 License.
 
@@ -88,15 +82,9 @@ This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-s
 
 This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 
-Versions <= 3.1.3 are compatible with ph-commons < 6.0.
-Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
-
 ## peppol-smp-client
 This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.3.0). 
 This project uses Apache HTTP client to perform the REST lookups on foreign SMPs. The reason to not use the Jersey 1.x client is an incompatibility with Java 8. This means that this version is compliant with Java 1.6+.
-
-Versions <= 3.1.3 are compatible with ph-commons < 6.0.
-Versions >= 4.0.0 are compatible with ph-commons >= 6.0.
 
 I also provide an OSS [SMP server](https://github.com/phax/peppol-smp-server) with a nice management GUI. 
 
@@ -117,15 +105,16 @@ The SMP client supports a proxy server. By default the proxy specified in the co
 Simply call the method `setProxy (org.apache.http.HttpHost)` on an `SMPClient` or `SMPClientReadOnly`. This means you can specify the proxy on a per-call basis.
 Proxy authentication is currently not supported.
   
-### Example usage
+### Example usage (V5 only)
 
 Get the endpoint URL for a participant using a special document type and process:
 ```java
     // The participant identifier
-    final SimpleParticipantIdentifier aPI_AT_Test = SimpleParticipantIdentifier.createWithDefaultScheme ("9915:test");
+    final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
     // Create the main SMP client using the production SML
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aPI_AT_Test, ESML.DIGIT_PRODUCTION);
-    // Resolve the endpoint address
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+                                                                aPI_AT_Test,
+                                                                ESML.DIGIT_PRODUCTION);
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
                                                                    EPredefinedProcessIdentifier.BIS4A_V20,
@@ -138,10 +127,9 @@ Get the endpoint URL for a participant using a special document type and process
 If you don't need the DNS lookup you can use the URL of the SMP directly (equivalent to the previous example):
 ```java
     // The participant identifier
-    final SimpleParticipantIdentifier aPI_AT_Test = SimpleParticipantIdentifier.createWithDefaultScheme ("9915:test");
+    final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
     // Create the main SMP client using the production SML
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"));
-    // Resolve the endpoint address
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"));
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
                                                                    EPredefinedProcessIdentifier.BIS4A_V20,
@@ -153,7 +141,7 @@ If you don't need the DNS lookup you can use the URL of the SMP directly (equiva
 
 #Building from source
 This project is meant to be build by Maven 3.x.
-It requires at least Java 1.6 to be build.
+It requires at least Java 1.8 to be build.
 To build simply call `mvn clean install` in the root folder.
 
 #Maven usage
@@ -162,31 +150,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>4.3.5</version>
+  <version>5.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>4.3.5</version>
+  <version>5.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>4.3.5</version>
+  <version>5.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>4.3.5</version>
+  <version>5.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>4.3.5</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
@@ -195,7 +183,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>4.3.5</version>
+  <version>5.0.0</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
@@ -205,6 +193,10 @@ Note: `peppol-bdxr` was integrated in `peppol-commons` as of version 4.3.0.
 
 The binary version of this library can be found on http://repo2.maven.org/maven2/com/helger/ 
 They depend on several other libraries so I suggest you are going for the Maven source integration.
+
+#References
+ * [PEPPOL Policy for the use of identifiers 3.0.0](https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/PEPPOL_Policy%20for%20use%20of%20identifiers-300.pdf)
+ * [OpenPEPPOL Business Message Envelope (SBDH)](https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-100_2014-01-15.pdf)
 
 ---
 
