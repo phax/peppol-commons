@@ -56,8 +56,6 @@ http://www.peppol.eu/ressource-library/technical-specifications/transport-infras
 The detail document this project refers to can be found at
 https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-100_2014-01-15.pdf
 
-From a technical point of view, this library can be used with Java 1.6 or higher.
-
 An example on how to use this project can be found in my **[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet)** project which provides a servlet to receive incoming PEPPOL AS2 messages. Alternatively you may have a look at my **[as2-peppol-client](https://github.com/phax/as2-peppol-client)** project which is used to send PEPPOL AS2 messages.
 
 This project is licensed under the Apache 2 License.
@@ -86,7 +84,7 @@ This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
 This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.3.0). 
 This project uses Apache HTTP client to perform the REST lookups on foreign SMPs. The reason to not use the Jersey 1.x client is an incompatibility with Java 8. This means that this version is compliant with Java 1.6+.
 
-I also provide an OSS [SMP server](https://github.com/phax/peppol-smp-server) with a nice management GUI. 
+I also provide an OSS [SMP server](https://github.com/phax/peppol-smp-server) with a nice management GUI.
 
 ### Configuration
 The SMP client (both PEPPOL and BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to the trust store!
