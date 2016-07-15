@@ -152,6 +152,6 @@ public final class PeppolKeyStoreHelper
   {
     if (aLK == null || aLK.isSuccess ())
       return null;
-    return _getLoadError (aLK.getErrorMessage (), aLK.getErrorParams ());
+    return _getLoadError (aLK.getError (), aLK.getErrorParams ());
   }
 }
