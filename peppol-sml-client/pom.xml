@@ -54,7 +54,6 @@
   <description>PEPPOL SML client</description>
   <url>https://github.com/phax/peppol-commons/peppol-sml-client</url>
   <inceptionYear>2015</inceptionYear>
-
   <licenses>
     <license>
       <name>MPL 1.1</name>
@@ -67,12 +66,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-
   <developers>
     <developer>
       <id>philip</id>
@@ -81,19 +78,16 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-
   <properties>
     <jaxws-plugin.version>2.4.1</jaxws-plugin.version>
     <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
     <jaxws.version>2.2.9-b14002</jaxws.version>
   </properties>
-
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>peppol-commons</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
@@ -110,7 +104,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -119,12 +112,8 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>
-              com.helger.peppol.smlclient.*
-            </Export-Package>
-            <Import-Package>
-              !javax.annotation.*,*
-            </Import-Package>
+            <Export-Package>com.helger.peppol.smlclient.*</Export-Package>
+            <Import-Package>!javax.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
@@ -148,7 +137,7 @@
         <configuration>
           <additionalparam>-Xdoclint:none</additionalparam>
         </configuration>
-      </plugin>      
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
@@ -218,7 +207,8 @@
           </args>
           <xjcArgs>
             <xjcArg>-no-header</xjcArg>
-            <!-- <xjcArg>-extension</xjcArg> <xjcArg>-episode</xjcArg> -->
+                        <!-- <xjcArg>-extension</xjcArg> <xjcArg>-episode</xjcArg> -->
+
             <xjcArg>-Xph-default-locale</xjcArg>
             <xjcArg>en_US</xjcArg>
             <xjcArg>-Xph-annotate</xjcArg>

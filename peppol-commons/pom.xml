@@ -53,7 +53,6 @@
   <name>peppol-commons</name>
   <url>https://github.com/phax/peppol-commons/peppol-commons</url>
   <inceptionYear>2015</inceptionYear>
-  
   <licenses>
     <license>
       <name>MPL 1.1</name>
@@ -66,12 +65,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
- 
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-
   <developers>
     <developer>
       <id>philip</id>
@@ -80,13 +77,11 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-
   <properties>
     <jaxws-plugin.version>2.3.1-b20150201.1248</jaxws-plugin.version>
     <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
     <jaxws.version>2.2.9-b14002</jaxws.version>
   </properties>
-
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
@@ -116,7 +111,6 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-xsds-xmldsig</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -153,7 +147,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -162,12 +155,13 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>
-              com.helger.peppol.*
-            </Export-Package>
-            <Import-Package>
-              !javax.annotation.*,*
-            </Import-Package>
+            <Export-Package>com.helger.peppol.*</Export-Package>
+            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
+osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.peppol.identifier.peppol.validator.IParticipantIdentifierValidatorSPI)"; cardinality:=multiple</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.peppol.identifier.peppol.validator.ParticipantIdentifierValidatorNorwayOrgNumber,
+osgi.serviceloader; osgi.serviceloader=com.helger.peppol.config.MicroTypeConverterRegistrar_peppol_commons</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
