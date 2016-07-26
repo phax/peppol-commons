@@ -56,6 +56,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.http.CHTTPHeader;
+import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;
@@ -81,8 +83,6 @@ import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.security.certificate.CertificateHelper;
-import com.helger.web.http.CHTTPHeader;
-import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 import com.helger.xsds.xmldsig.X509DataType;
 
 /**

@@ -45,11 +45,11 @@ import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.smp.ServiceGroupReferenceListType;
 import com.helger.peppol.smp.ServiceGroupReferenceType;
 import com.helger.peppol.smpclient.MockSMPClientConfig;
 import com.helger.peppol.smpclient.SMPClient;
-import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
 /**
  * @author philip

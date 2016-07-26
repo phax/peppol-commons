@@ -58,6 +58,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.ProcessIdentifierType;
@@ -78,7 +79,6 @@ import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
-import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
 /**
  * Expects an running SMP, depending on the configuration file. DNS is not

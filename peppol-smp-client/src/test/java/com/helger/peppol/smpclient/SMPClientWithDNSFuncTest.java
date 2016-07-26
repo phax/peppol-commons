@@ -49,6 +49,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.url.URLHelper;
+import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
@@ -64,7 +65,6 @@ import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolURLProvider;
-import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
 /**
  * Expects a local SMP up and running with DNS enabled at port 80 at the ROOT

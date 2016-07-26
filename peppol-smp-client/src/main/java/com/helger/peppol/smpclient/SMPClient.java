@@ -55,6 +55,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.mime.CMimeType;
+import com.helger.http.CHTTPHeader;
+import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
@@ -69,8 +71,6 @@ import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
-import com.helger.web.http.CHTTPHeader;
-import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
 /**
  * This class is used for calling the SMP REST interface. This particular class

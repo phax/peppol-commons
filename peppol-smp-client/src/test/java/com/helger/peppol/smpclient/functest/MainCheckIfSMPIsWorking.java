@@ -45,12 +45,12 @@ import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smpclient.MockSMPClientConfig;
 import com.helger.peppol.smpclient.SMPClient;
-import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
 /**
  * Check if an SMP installation is working. Prior to executing this class, make

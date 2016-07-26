@@ -53,6 +53,7 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
@@ -60,7 +61,6 @@ import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
-import com.helger.web.http.basicauth.BasicAuthClientCredentials;
 
 /**
  * This class manages the special test configuration file for this project. The
