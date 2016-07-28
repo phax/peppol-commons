@@ -180,21 +180,13 @@ public final class IdentifierHelperTest
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void getIdentifierURIEncoded ()
   {
-    final ParticipantIdentifierType aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
+    final IParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc");
     assertEquals ("iso6523-actorid-upis::0088:123abc", aPI.getURIEncoded ());
 
     final DocumentIdentifierType aDI = PeppolDocumentTypeIdentifier.createWithDefaultScheme ("urn:doc:anydoc");
     assertEquals ("busdox-docid-qns::urn:doc:anydoc", aDI.getURIEncoded ());
 
-    try
-    {
-      new SimpleParticipantIdentifier (null, "value").getURIEncoded ();
-      fail ("Empty scheme should trigger an error!");
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // expected
-    }
+    assertEquals ("::value", new SimpleParticipantIdentifier (null, "value").getURIEncoded ());
 
     try
     {
