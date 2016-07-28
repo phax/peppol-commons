@@ -57,12 +57,11 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.mime.CMimeType;
 import com.helger.http.CHTTPHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.bdxr.ObjectFactory;
-import com.helger.peppol.bdxr.ParticipantIdentifierType;
 import com.helger.peppol.bdxr.ServiceGroupType;
 import com.helger.peppol.bdxr.ServiceInformationType;
 import com.helger.peppol.bdxr.ServiceMetadataType;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
+import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifier;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
@@ -86,8 +85,6 @@ public class BDXRClient extends BDXRClientReadOnly
   // The default text/xml content type uses iso-8859-1!
   private static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
                                                                                CCharset.CHARSET_UTF_8_OBJ);
-
-  private static final ObjectFactory s_aObjFactory = new ObjectFactory ();
 
   /**
    * Constructor with SML lookup
@@ -207,11 +204,8 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final ServiceGroupType aServiceGroup = s_aObjFactory.createServiceGroupType ();
-    final ParticipantIdentifierType aBDXRID = new ParticipantIdentifierType ();
-    aBDXRID.setScheme (aParticipantID.getScheme ());
-    aBDXRID.setValue (aParticipantID.getValue ());
-    aServiceGroup.setParticipantIdentifier (aBDXRID);
+    final ServiceGroupType aServiceGroup = new ServiceGroupType ();
+    aServiceGroup.setParticipantIdentifier (new BDXRParticipantIdentifier (aParticipantID));
     saveServiceGroup (aServiceGroup, aCredentials);
     return aServiceGroup;
   }

@@ -62,7 +62,6 @@ import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.smp.ObjectFactory;
 import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smp.ServiceInformationType;
 import com.helger.peppol.smp.ServiceMetadataType;
@@ -86,8 +85,6 @@ public class SMPClient extends SMPClientReadOnly
   // The default text/xml content type uses iso-8859-1!
   private static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
                                                                                CCharset.CHARSET_UTF_8_OBJ);
-
-  private static final ObjectFactory s_aObjFactory = new ObjectFactory ();
 
   /**
    * Constructor with SML lookup
@@ -207,7 +204,7 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final ServiceGroupType aServiceGroup = s_aObjFactory.createServiceGroupType ();
+    final ServiceGroupType aServiceGroup = new ServiceGroupType ();
     aServiceGroup.setParticipantIdentifier (new SimpleParticipantIdentifier (aParticipantID));
     saveServiceGroup (aServiceGroup, aCredentials);
     return aServiceGroup;

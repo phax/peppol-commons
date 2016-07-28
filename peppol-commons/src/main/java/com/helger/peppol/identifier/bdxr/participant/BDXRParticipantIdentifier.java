@@ -72,7 +72,8 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
 
   public BDXRParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    setScheme (sScheme);
+    // Change "" to null
+    setScheme (StringHelper.hasNoText (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 

@@ -72,7 +72,8 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
 
   public BDXRDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    setScheme (sScheme);
+    // Change "" to null
+    setScheme (StringHelper.hasNoText (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 

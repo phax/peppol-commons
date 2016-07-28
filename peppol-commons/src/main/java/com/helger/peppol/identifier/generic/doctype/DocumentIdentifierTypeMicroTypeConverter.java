@@ -61,7 +61,8 @@ public class DocumentIdentifierTypeMicroTypeConverter implements IMicroTypeConve
   {
     final IDocumentTypeIdentifier aValue = (IDocumentTypeIdentifier) aObject;
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
-    aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
+    if (aValue.hasScheme ())
+      aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
     aElement.setAttribute (ATTR_VALUE, aValue.getValue ());
     return aElement;
   }
