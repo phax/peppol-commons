@@ -134,7 +134,7 @@ public final class BDXRExtensionConverter
       if (aJson == null || !aJson.isArray ())
         throw new IllegalArgumentException ("Error in parsing extension JSON '" + sJson + "'");
 
-      final ICommonsList <ExtensionType> ret = new CommonsArrayList <> ();
+      final ICommonsList <ExtensionType> ret = new CommonsArrayList<> ();
       aJson.getAsArray ().forEach (aChild -> {
         final IJsonObject aObject = aChild.getAsObject ();
         final ExtensionType aExt = new ExtensionType ();
@@ -172,7 +172,7 @@ public final class BDXRExtensionConverter
     }
     catch (final IllegalArgumentException ex)
     {
-      // Invalid XML passed
+      // Invalid JSON passed
       return null;
     }
   }
