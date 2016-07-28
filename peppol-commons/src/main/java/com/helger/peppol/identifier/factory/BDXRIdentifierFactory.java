@@ -40,8 +40,10 @@
  */
 package com.helger.peppol.identifier.factory;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.peppol.bdxr.CBDXRIdentifier;
 import com.helger.peppol.identifier.bdxr.doctype.BDXRDocumentTypeIdentifier;
 import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifier;
 import com.helger.peppol.identifier.bdxr.process.BDXRProcessIdentifier;
@@ -53,6 +55,12 @@ import com.helger.peppol.identifier.bdxr.process.BDXRProcessIdentifier;
  */
 public class BDXRIdentifierFactory implements IIdentifierFactory
 {
+  @Nonnull
+  public String getDefaultDocumentTypeIdentifierScheme ()
+  {
+    return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
+  }
+
   @Nullable
   public BDXRDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                   @Nullable final String sValue)
@@ -77,6 +85,12 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   public BDXRParticipantIdentifier parseParticipantIdentifier (@Nullable final String sURIEncodedIdentifier)
   {
     return BDXRParticipantIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
+  }
+
+  @Nonnull
+  public String getDefaultProcessIdentifierScheme ()
+  {
+    return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
   }
 
   @Nullable

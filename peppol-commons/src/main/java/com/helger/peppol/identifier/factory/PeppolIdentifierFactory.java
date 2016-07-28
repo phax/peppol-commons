@@ -40,8 +40,10 @@
  */
 package com.helger.peppol.identifier.factory;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
@@ -56,6 +58,12 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public boolean isDocumentTypeIdentifierSchemeMandatory ()
   {
     return true;
+  }
+
+  @Nonnull
+  public String getDefaultDocumentTypeIdentifierScheme ()
+  {
+    return PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME;
   }
 
   @Nullable
@@ -76,6 +84,12 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     return true;
   }
 
+  @Nonnull
+  public String getDefaultParticipantIdentifierScheme ()
+  {
+    return PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME;
+  }
+
   @Nullable
   public PeppolParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
                                                                   @Nullable final String sValue)
@@ -87,6 +101,12 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public PeppolParticipantIdentifier parseParticipantIdentifier (@Nullable final String sURIEncodedIdentifier)
   {
     return PeppolParticipantIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
+  }
+
+  @Nonnull
+  public String getDefaultProcessIdentifierScheme ()
+  {
+    return PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME;
   }
 
   @Nullable

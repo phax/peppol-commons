@@ -59,9 +59,23 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
  */
 public interface IIdentifierFactory extends Serializable
 {
+  /**
+   * @return <code>true</code> if this identifier type requires a mandatory
+   *         document type identifier scheme, <code>false</code> if not.
+   */
   default boolean isDocumentTypeIdentifierSchemeMandatory ()
   {
     return false;
+  }
+
+  /**
+   * @return The default document type identifier scheme to be used for this
+   *         identifier type. May be <code>null</code>.
+   */
+  @Nullable
+  default String getDefaultDocumentTypeIdentifierScheme ()
+  {
+    return null;
   }
 
   /**
@@ -104,9 +118,23 @@ public interface IIdentifierFactory extends Serializable
     return aDocTypeID == null ? null : createDocumentTypeIdentifier (aDocTypeID.getScheme (), aDocTypeID.getValue ());
   }
 
+  /**
+   * @return <code>true</code> if this identifier type requires a mandatory
+   *         participant identifier scheme, <code>false</code> if not.
+   */
   default boolean isParticipantIdentifierSchemeMandatory ()
   {
     return false;
+  }
+
+  /**
+   * @return The default participant identifier scheme to be used for this
+   *         identifier type. May be <code>null</code>.
+   */
+  @Nullable
+  default String getDefaultParticipantIdentifierScheme ()
+  {
+    return null;
   }
 
   /**
@@ -150,9 +178,23 @@ public interface IIdentifierFactory extends Serializable
                                                                         aParticipantID.getValue ());
   }
 
-  default boolean isProcessSchemeMandatory ()
+  /**
+   * @return <code>true</code> if this identifier type requires a mandatory
+   *         process identifier scheme, <code>false</code> if not.
+   */
+  default boolean isProcessIdentifierSchemeMandatory ()
   {
     return true;
+  }
+
+  /**
+   * @return The default process identifier scheme to be used for this
+   *         identifier type. May be <code>null</code>.
+   */
+  @Nullable
+  default String getDefaultProcessIdentifierScheme ()
+  {
+    return null;
   }
 
   /**
