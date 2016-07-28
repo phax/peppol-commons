@@ -38,22 +38,22 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.smpclient;
+package com.helger.peppol.smp.marshal;
 
 import com.helger.jaxb.AbstractJAXBMarshaller;
+import com.helger.peppol.smp.CompleteServiceGroupType;
 import com.helger.peppol.smp.ObjectFactory;
-import com.helger.peppol.smp.ServiceGroupType;
 
 /**
- * A simple JAXB marshaller for the {@link ServiceGroupType} type.
+ * A simple JAXB marshaller for the {@link CompleteServiceGroupType} type.
  *
  * @author Philip Helger
  */
-public final class SMPMarshallerServiceGroupType extends AbstractJAXBMarshaller <ServiceGroupType>
+public final class SMPMarshallerCompleteServiceGroupType extends AbstractJAXBMarshaller <CompleteServiceGroupType>
 {
-  public SMPMarshallerServiceGroupType ()
+  public SMPMarshallerCompleteServiceGroupType ()
   {
     // No XSD
-    super (ServiceGroupType.class, null, o -> new ObjectFactory ().createServiceGroup (o));
+    super (CompleteServiceGroupType.class, null, o -> new ObjectFactory ().createCompleteServiceGroup (o));
   }
 }

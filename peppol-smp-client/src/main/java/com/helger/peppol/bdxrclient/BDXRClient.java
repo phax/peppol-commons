@@ -60,6 +60,8 @@ import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.bdxr.ServiceGroupType;
 import com.helger.peppol.bdxr.ServiceInformationType;
 import com.helger.peppol.bdxr.ServiceMetadataType;
+import com.helger.peppol.bdxr.marshal.BDXRMarshallerServiceGroupType;
+import com.helger.peppol.bdxr.marshal.BDXRMarshallerServiceMetadataType;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifier;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;

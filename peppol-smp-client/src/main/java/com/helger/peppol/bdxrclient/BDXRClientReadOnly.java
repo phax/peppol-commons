@@ -62,6 +62,8 @@ import com.helger.peppol.bdxr.RedirectType;
 import com.helger.peppol.bdxr.ServiceGroupType;
 import com.helger.peppol.bdxr.ServiceInformationType;
 import com.helger.peppol.bdxr.SignedServiceMetadataType;
+import com.helger.peppol.bdxr.marshal.BDXRMarshallerServiceGroupType;
+import com.helger.peppol.bdxr.marshal.BDXRMarshallerSignedServiceMetadataType;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;

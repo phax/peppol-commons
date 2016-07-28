@@ -38,21 +38,39 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.bdxrclient;
+package com.helger.peppol.identifier.bdxr;
 
-import com.helger.jaxb.AbstractJAXBMarshaller;
-import com.helger.peppol.bdxr.ObjectFactory;
-import com.helger.peppol.bdxr.SignedServiceMetadataType;
+import javax.annotation.concurrent.Immutable;
+
+import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
- * A simple JAXB marshaller for the {@link SignedServiceMetadataType} type.
+ * Constants of OASIS BDX SMP specification.
  *
- * @author Philip Helger
+ * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class BDXRMarshallerSignedServiceMetadataType extends AbstractJAXBMarshaller <SignedServiceMetadataType>
+@Immutable
+public final class CBDXRIdentifier
 {
-  public BDXRMarshallerSignedServiceMetadataType ()
-  {
-    super (SignedServiceMetadataType.class, o -> new ObjectFactory ().createSignedServiceMetadata (o));
-  }
+  /**
+   * The default document identifier scheme.
+   */
+  public static final String DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME = "bdx-docid-qns";
+
+  /**
+   * The default process identifier scheme.
+   */
+  public static final String DEFAULT_PROCESS_IDENTIFIER_SCHEME = "bdx-procid-transport";
+
+  /**
+   * The default process identifier to indicate that no default process belongs
+   * to it. Must be treated case insensitive.
+   */
+  public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "bdx:noprocess";
+
+  @PresentForCodeCoverage
+  private static final CBDXRIdentifier s_aInstance = new CBDXRIdentifier ();
+
+  private CBDXRIdentifier ()
+  {}
 }

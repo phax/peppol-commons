@@ -43,7 +43,7 @@ package com.helger.peppol.identifier.factory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.peppol.bdxr.CBDXRIdentifier;
+import com.helger.peppol.identifier.bdxr.CBDXRIdentifier;
 import com.helger.peppol.identifier.bdxr.doctype.BDXRDocumentTypeIdentifier;
 import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifier;
 import com.helger.peppol.identifier.bdxr.process.BDXRProcessIdentifier;

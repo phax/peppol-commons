@@ -38,21 +38,22 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.bdxrclient;
+package com.helger.peppol.smp.marshal;
 
 import com.helger.jaxb.AbstractJAXBMarshaller;
-import com.helger.peppol.bdxr.ObjectFactory;
-import com.helger.peppol.bdxr.ServiceMetadataType;
+import com.helger.peppol.smp.ObjectFactory;
+import com.helger.peppol.smp.ServiceGroupType;
 
 /**
- * A simple JAXB marshaller for the {@link ServiceMetadataType} type.
+ * A simple JAXB marshaller for the {@link ServiceGroupType} type.
  *
  * @author Philip Helger
  */
-public final class BDXRMarshallerServiceMetadataType extends AbstractJAXBMarshaller <ServiceMetadataType>
+public final class SMPMarshallerServiceGroupType extends AbstractJAXBMarshaller <ServiceGroupType>
 {
-  public BDXRMarshallerServiceMetadataType ()
+  public SMPMarshallerServiceGroupType ()
   {
-    super (ServiceMetadataType.class, o -> new ObjectFactory ().createServiceMetadata (o));
+    // No XSD
+    super (ServiceGroupType.class, null, o -> new ObjectFactory ().createServiceGroup (o));
   }
 }

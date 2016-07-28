@@ -65,6 +65,8 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smp.ServiceInformationType;
 import com.helger.peppol.smp.ServiceMetadataType;
+import com.helger.peppol.smp.marshal.SMPMarshallerServiceGroupType;
+import com.helger.peppol.smp.marshal.SMPMarshallerServiceMetadataType;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
