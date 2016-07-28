@@ -51,6 +51,7 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.IJson;
+import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
@@ -80,39 +81,72 @@ public final class BDXRExtensionConverter
   {}
 
   /**
-   * Convert the passed extension type to a string representation.
+   * Convert the passed extension type to a JSON representation.
    *
    * @param aExtensions
    *        The extension to be converted. May be <code>null</code>.
-   * @return <code>null</code> if no extension was passed - the XML
-   *         representation of the extension otherwise.
-   * @throws IllegalArgumentException
-   *         If the Extension cannot be converted to a String
+   * @return <code>null</code> if no extension or an empty extension was passed
+   *         - the JSON of the extension otherwise.
    */
   @Nullable
-  public static String convertToString (@Nullable final List <ExtensionType> aExtensions)
+  public static IJsonObject convertToJson (@Nullable final ExtensionType aExtension)
+  {
+    // If there is no extension present, nothing to convert
+    if (aExtension != null && aExtension.getAny () != null)
+    {
+      return new JsonObject ().add ("ID", aExtension.getExtensionID ())
+                              .add ("Name", aExtension.getExtensionName ())
+                              .add ("AgencyID", aExtension.getExtensionAgencyID ())
+                              .add ("AgencyName", aExtension.getExtensionAgencyName ())
+                              .add ("AgencyURI", aExtension.getExtensionAgencyURI ())
+                              .add ("VersionID", aExtension.getExtensionVersionID ())
+                              .add ("URI", aExtension.getExtensionURI ())
+                              .add ("ReasonCode", aExtension.getExtensionReasonCode ())
+                              .add ("Reason", aExtension.getExtensionReason ())
+                              .add ("Any", aExtension.getAny ());
+    }
+    return null;
+  }
+
+  /**
+   * Convert the passed extension types to a JSON representation.
+   *
+   * @param aExtensions
+   *        The extension to be converted. May be <code>null</code>.
+   * @return <code>null</code> if no extension was passed - the JSON
+   *         representation of the extensions otherwise.
+   */
+  @Nullable
+  public static IJsonArray convertToJson (@Nullable final List <ExtensionType> aExtensions)
   {
     // If there is no extension present, nothing to convert
     if (CollectionHelper.isNotEmpty (aExtensions))
     {
       final JsonArray aArray = new JsonArray ();
       for (final ExtensionType aExtension : aExtensions)
-        if (aExtension != null && aExtension.getAny () != null)
-        {
-          aArray.add (new JsonObject ().add ("ID", aExtension.getExtensionID ())
-                                       .add ("Name", aExtension.getExtensionName ())
-                                       .add ("AgencyID", aExtension.getExtensionAgencyID ())
-                                       .add ("AgencyName", aExtension.getExtensionAgencyName ())
-                                       .add ("AgencyURI", aExtension.getExtensionAgencyURI ())
-                                       .add ("VersionID", aExtension.getExtensionVersionID ())
-                                       .add ("URI", aExtension.getExtensionURI ())
-                                       .add ("ReasonCode", aExtension.getExtensionReasonCode ())
-                                       .add ("Reason", aExtension.getExtensionReason ())
-                                       .add ("Any", aExtension.getAny ()));
-        }
-      return aArray.getAsJsonString (s_aJWS);
+      {
+        final IJsonObject aObj = convertToJson (aExtension);
+        if (aObj != null)
+          aArray.add (aObj);
+      }
+      return aArray;
     }
     return null;
+  }
+
+  /**
+   * Convert the passed extension types to a string representation.
+   *
+   * @param aExtensions
+   *        The extension to be converted. May be <code>null</code>.
+   * @return <code>null</code> if no extension was passed - the String
+   *         representation of the extensions otherwise.
+   */
+  @Nullable
+  public static String convertToString (@Nullable final List <ExtensionType> aExtensions)
+  {
+    final IJsonArray aArray = convertToJson (aExtensions);
+    return aArray == null ? null : aArray.getAsJsonString (s_aJWS);
   }
 
   /**
