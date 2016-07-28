@@ -53,6 +53,11 @@ import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
  */
 public class PeppolIdentifierFactory implements IIdentifierFactory
 {
+  public boolean isDocumentTypeIdentifierSchemeMandatory ()
+  {
+    return true;
+  }
+
   @Nullable
   public PeppolDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                     @Nullable final String sValue)
@@ -64,6 +69,11 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public PeppolDocumentTypeIdentifier parseDocumentTypeIdentifier (@Nullable final String sURIEncodedIdentifier)
   {
     return PeppolDocumentTypeIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
+  }
+
+  public boolean isParticipantIdentifierSchemeMandatory ()
+  {
+    return true;
   }
 
   @Nullable

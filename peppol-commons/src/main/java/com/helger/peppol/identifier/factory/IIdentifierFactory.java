@@ -59,6 +59,11 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
  */
 public interface IIdentifierFactory extends Serializable
 {
+  default boolean isDocumentTypeIdentifierSchemeMandatory ()
+  {
+    return false;
+  }
+
   /**
    * Create a new document type identifier.
    *
@@ -97,6 +102,11 @@ public interface IIdentifierFactory extends Serializable
   default IDocumentTypeIdentifier getClone (@Nullable final IDocumentTypeIdentifier aDocTypeID)
   {
     return aDocTypeID == null ? null : createDocumentTypeIdentifier (aDocTypeID.getScheme (), aDocTypeID.getValue ());
+  }
+
+  default boolean isParticipantIdentifierSchemeMandatory ()
+  {
+    return false;
   }
 
   /**
@@ -138,6 +148,11 @@ public interface IIdentifierFactory extends Serializable
   {
     return aParticipantID == null ? null : createParticipantIdentifier (aParticipantID.getScheme (),
                                                                         aParticipantID.getValue ());
+  }
+
+  default boolean isProcessSchemeMandatory ()
+  {
+    return true;
   }
 
   /**

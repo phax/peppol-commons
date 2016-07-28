@@ -59,7 +59,7 @@ public class ProcessIdentifierTypeMicroTypeConverter implements IMicroTypeConver
                                                     @Nullable final String sNamespaceURI,
                                                     @Nonnull @Nonempty final String sTagName)
   {
-    final ProcessIdentifierType aValue = (ProcessIdentifierType) aObject;
+    final IProcessIdentifier aValue = (IProcessIdentifier) aObject;
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
     aElement.setAttribute (ATTR_VALUE, aValue.getValue ());

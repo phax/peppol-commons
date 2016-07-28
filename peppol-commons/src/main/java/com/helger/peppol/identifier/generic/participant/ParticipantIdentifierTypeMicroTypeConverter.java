@@ -59,7 +59,7 @@ public class ParticipantIdentifierTypeMicroTypeConverter implements IMicroTypeCo
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull @Nonempty final String sTagName)
   {
-    final ParticipantIdentifierType aValue = (ParticipantIdentifierType) aObject;
+    final IParticipantIdentifier aValue = (IParticipantIdentifier) aObject;
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
     aElement.setAttribute (ATTR_VALUE, aValue.getValue ());

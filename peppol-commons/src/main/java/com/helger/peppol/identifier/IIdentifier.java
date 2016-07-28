@@ -128,9 +128,8 @@ public interface IIdentifier extends Serializable
   @Nonempty
   default String getURIEncoded ()
   {
-    final String sScheme = getScheme ();
-    if (StringHelper.hasNoText (sScheme))
-      throw new IllegalArgumentException ("Identifier has an empty scheme: " + toString ());
+    // Empty scheme is allowed
+    final String sScheme = StringHelper.getNotNull (getScheme ());
 
     final String sValue = getValue ();
     if (sValue == null)
