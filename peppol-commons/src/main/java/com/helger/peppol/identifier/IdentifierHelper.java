@@ -48,6 +48,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
@@ -124,6 +125,24 @@ public final class IdentifierHelper
     return EqualsHelper.equals (sIdentifierValue1, sIdentifierValue2);
   }
 
+  private static int _schemeCompare (@Nullable final String sScheme1,
+                                     @Nullable final String sScheme2,
+                                     final boolean bCaseSensitive)
+  {
+    final String sRealScheme1 = StringHelper.getNotNull (sScheme1);
+    final String sRealScheme2 = StringHelper.getNotNull (sScheme2);
+    return bCaseSensitive ? sRealScheme1.compareTo (sRealScheme2) : sRealScheme1.compareToIgnoreCase (sRealScheme2);
+  }
+
+  private static boolean _schemeEquals (@Nullable final String sScheme1,
+                                        @Nullable final String sScheme2,
+                                        final boolean bCaseSensitive)
+  {
+    final String sRealScheme1 = StringHelper.getNotNull (sScheme1);
+    final String sRealScheme2 = StringHelper.getNotNull (sScheme2);
+    return bCaseSensitive ? sRealScheme1.equals (sRealScheme2) : sRealScheme1.equalsIgnoreCase (sRealScheme2);
+  }
+
   /**
    * According to the specification, two participant identifiers are equal if
    * their parts are equal case insensitive.
@@ -142,7 +161,7 @@ public final class IdentifierHelper
     ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
 
     // Identifiers are equal, if both scheme and value match case insensitive!
-    return EqualsHelper.equalsIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+    return _schemeEquals (aIdentifier1.getScheme (), aIdentifier2.getScheme (), false) &&
            areParticipantIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
   }
 
@@ -164,7 +183,7 @@ public final class IdentifierHelper
     ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
 
     // Identifiers are equal, if both scheme and value match case sensitive!
-    return EqualsHelper.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+    return _schemeEquals (aIdentifier1.getScheme (), aIdentifier2.getScheme (), true) &&
            areDocumentTypeIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
   }
 
@@ -186,7 +205,7 @@ public final class IdentifierHelper
     ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
 
     // Identifiers are equal, if both scheme and value match case sensitive!
-    return EqualsHelper.equals (aIdentifier1.getScheme (), aIdentifier2.getScheme ()) &&
+    return _schemeEquals (aIdentifier1.getScheme (), aIdentifier2.getScheme (), true) &&
            areProcessIdentifierValuesEqual (aIdentifier1.getValue (), aIdentifier2.getValue ());
   }
 
@@ -207,7 +226,7 @@ public final class IdentifierHelper
     ValueEnforcer.notNull (aIdentifier2, "ParticipantIdentifier2");
 
     // Compare case insensitive
-    int ret = CompareHelper.compareIgnoreCase (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
+    int ret = _schemeCompare (aIdentifier1.getScheme (), aIdentifier2.getScheme (), false);
     if (ret == 0)
       ret = CompareHelper.compareIgnoreCase (aIdentifier1.getValue (), aIdentifier2.getValue ());
     return ret;
@@ -230,7 +249,7 @@ public final class IdentifierHelper
     ValueEnforcer.notNull (aIdentifier2, "DocumentTypeIdentifier2");
 
     // Compare case sensitive
-    int ret = CompareHelper.compare (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
+    int ret = _schemeCompare (aIdentifier1.getScheme (), aIdentifier2.getScheme (), true);
     if (ret == 0)
       ret = CompareHelper.compare (aIdentifier1.getValue (), aIdentifier2.getValue ());
     return ret;
@@ -253,7 +272,7 @@ public final class IdentifierHelper
     ValueEnforcer.notNull (aIdentifier2, "ProcessIdentifier2");
 
     // Compare case sensitive
-    int ret = CompareHelper.compare (aIdentifier1.getScheme (), aIdentifier2.getScheme ());
+    int ret = _schemeCompare (aIdentifier1.getScheme (), aIdentifier2.getScheme (), true);
     if (ret == 0)
       ret = CompareHelper.compare (aIdentifier1.getValue (), aIdentifier2.getValue ());
     return ret;
