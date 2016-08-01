@@ -85,6 +85,8 @@
           <excludes>
             <exclude>src/main/resources/peppol-official/**</exclude>
             <exclude>src/main/resources/peppol-ubl/**</exclude>
+            <exclude>**/NOTICE</exclude>
+            <exclude>**/LICENSE</exclude>
           </excludes>
         </configuration>
       </plugin>
