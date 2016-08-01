@@ -83,7 +83,7 @@ public final class BDXRExtensionConverter
   /**
    * Convert the passed extension type to a JSON representation.
    *
-   * @param aExtensions
+   * @param aExtension
    *        The extension to be converted. May be <code>null</code>.
    * @return <code>null</code> if no extension or an empty extension was passed
    *         - the JSON of the extension otherwise.
