@@ -62,6 +62,7 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
  */
 @NotThreadSafe
 public class BDXRParticipantIdentifier extends ParticipantIdentifierType implements
+                                       IBDXRParticipantIdentifier,
                                        Comparable <BDXRParticipantIdentifier>,
                                        ICloneable <BDXRParticipantIdentifier>
 {
@@ -140,7 +141,31 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
     if (aSplitted.size () != 2)
       return null;
 
-    return new BDXRParticipantIdentifier (aSplitted.get (0), aSplitted.get (1));
+    return createIfValid (aSplitted.get (0), aSplitted.get (1));
+  }
+
+  /**
+   * Take the passed identifier scheme and value try to convert it back to a
+   * participant identifier. If the passed scheme is invalid <code>null</code>
+   * is returned.
+   *
+   * @param sScheme
+   *        The identifier scheme. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @param sValue
+   *        The identifier value. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @return The participant identifier or <code>null</code> if any of the parts
+   *         is invalid.
+   * @see IBDXRParticipantIdentifier#isValidScheme(String)
+   * @see IBDXRParticipantIdentifier#isValidValue(String)
+   */
+  @Nullable
+  public static BDXRParticipantIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
+  {
+    if (IBDXRParticipantIdentifier.isValidScheme (sScheme) && IBDXRParticipantIdentifier.isValidValue (sValue))
+      return new BDXRParticipantIdentifier (sScheme, sValue);
+    return null;
   }
 
   /**

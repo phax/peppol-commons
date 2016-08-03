@@ -65,7 +65,7 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   public BDXRDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                   @Nullable final String sValue)
   {
-    return new BDXRDocumentTypeIdentifier (sScheme, sValue);
+    return BDXRDocumentTypeIdentifier.createIfValid (sScheme, sValue);
   }
 
   @Nullable
@@ -74,11 +74,13 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
     return BDXRDocumentTypeIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
   }
 
+  // No default participant identifier scheme
+
   @Nullable
   public BDXRParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
                                                                 @Nullable final String sValue)
   {
-    return new BDXRParticipantIdentifier (sScheme, sValue);
+    return BDXRParticipantIdentifier.createIfValid (sScheme, sValue);
   }
 
   @Nullable
@@ -96,7 +98,7 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   @Nullable
   public BDXRProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    return new BDXRProcessIdentifier (sScheme, sValue);
+    return BDXRProcessIdentifier.createIfValid (sScheme, sValue);
   }
 
   @Nullable

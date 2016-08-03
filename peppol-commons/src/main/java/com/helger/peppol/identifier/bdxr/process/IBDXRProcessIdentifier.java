@@ -38,39 +38,43 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.identifier.bdxr;
+package com.helger.peppol.identifier.bdxr.process;
 
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.peppol.identifier.bdxr.BDXRIdentifierHelper;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 
 /**
- * Constants of OASIS BDXR SMP specification.
+ * Special interface for OASIS BDXR SMP process identifiers.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
-@Immutable
-public final class CBDXRIdentifier
+public interface IBDXRProcessIdentifier extends IProcessIdentifier
 {
   /**
-   * The default document identifier scheme.
+   * Check if the passed process identifier scheme is valid or not.
+   *
+   * @param sScheme
+   *        The scheme to check.
+   * @return Currently always <code>true</code>.
    */
-  public static final String DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME = "bdx-docid-qns";
+  static boolean isValidScheme (@Nullable final String sScheme)
+  {
+    return true;
+  }
 
   /**
-   * The default process identifier scheme.
+   * Check if the passed process identifier value is valid or not.
+   *
+   * @param sValue
+   *        The value to check.
+   * @return <code>true</code> if the passed value is a valid identifier value,
+   *         <code>false</code> otherwise.
+   * @see BDXRIdentifierHelper#isValidIdentifierValue(String)
    */
-  public static final String DEFAULT_PROCESS_IDENTIFIER_SCHEME = "bdx-procid-transport";
-
-  /**
-   * The default process identifier to indicate that no default process belongs
-   * to it. Must be treated case insensitive.
-   */
-  public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "bdx:noprocess";
-
-  @PresentForCodeCoverage
-  private static final CBDXRIdentifier s_aInstance = new CBDXRIdentifier ();
-
-  private CBDXRIdentifier ()
-  {}
+  static boolean isValidValue (@Nullable final String sValue)
+  {
+    return BDXRIdentifierHelper.isValidIdentifierValue (sValue);
+  }
 }

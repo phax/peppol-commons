@@ -62,6 +62,7 @@ import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
  */
 @NotThreadSafe
 public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implements
+                                        IBDXRDocumentTypeIdentifier,
                                         Comparable <BDXRDocumentTypeIdentifier>,
                                         ICloneable <BDXRDocumentTypeIdentifier>
 {
@@ -140,7 +141,31 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
     if (aSplitted.size () != 2)
       return null;
 
-    return new BDXRDocumentTypeIdentifier (aSplitted.get (0), aSplitted.get (1));
+    return createIfValid (aSplitted.get (0), aSplitted.get (1));
+  }
+
+  /**
+   * Take the passed identifier scheme and value try to convert it back to a
+   * document type identifier. If the passed scheme or value are invalid
+   * <code>null</code> is returned.
+   *
+   * @param sScheme
+   *        The identifier scheme. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @param sValue
+   *        The identifier value. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @return The document type identifier or <code>null</code> if any of the
+   *         parts is invalid.
+   * @see IBDXRDocumentTypeIdentifier#isValidScheme(String)
+   * @see IBDXRDocumentTypeIdentifier#isValidValue(String)
+   */
+  @Nullable
+  public static BDXRDocumentTypeIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
+  {
+    if (IBDXRDocumentTypeIdentifier.isValidScheme (sScheme) && IBDXRDocumentTypeIdentifier.isValidValue (sValue))
+      return new BDXRDocumentTypeIdentifier (sScheme, sValue);
+    return null;
   }
 
   /**

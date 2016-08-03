@@ -61,17 +61,20 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class BDXRProcessIdentifier extends ProcessIdentifierType
-                                   implements Comparable <BDXRProcessIdentifier>, ICloneable <BDXRProcessIdentifier>
+public class BDXRProcessIdentifier extends ProcessIdentifierType implements
+                                   IBDXRProcessIdentifier,
+                                   Comparable <BDXRProcessIdentifier>,
+                                   ICloneable <BDXRProcessIdentifier>
 {
   public BDXRProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
-  public BDXRProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
+  public BDXRProcessIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    setScheme (sScheme);
+    // Change "" to null
+    setScheme (StringHelper.hasNoText (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 
@@ -139,7 +142,31 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType
     if (aSplitted.size () != 2)
       return null;
 
-    return new BDXRProcessIdentifier (aSplitted.get (0), aSplitted.get (1));
+    return createIfValid (aSplitted.get (0), aSplitted.get (1));
+  }
+
+  /**
+   * Take the passed identifier scheme and value try to convert it back to a
+   * process identifier. If the passed scheme is invalid <code>null</code> is
+   * returned.
+   *
+   * @param sScheme
+   *        The identifier scheme. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @param sValue
+   *        The identifier value. May be <code>null</code> in which case
+   *        <code>null</code> is returned.
+   * @return The process identifier or <code>null</code> if any of the parts is
+   *         invalid.
+   * @see IBDXRProcessIdentifier#isValidScheme(String)
+   * @see IBDXRProcessIdentifier#isValidValue(String)
+   */
+  @Nullable
+  public static BDXRProcessIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
+  {
+    if (IBDXRProcessIdentifier.isValidScheme (sScheme) && IBDXRProcessIdentifier.isValidValue (sValue))
+      return new BDXRProcessIdentifier (sScheme, sValue);
+    return null;
   }
 
   /**
