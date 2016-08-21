@@ -17,23 +17,28 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
-  * version 5.0.0
+  * 5.1.1 - 2016-08-21
+    * Updated to ph-commons 8.4.x
+    * Improved identifier handling for BDXR 
+  * 5.1.0 - 2016-08-01
+  * 5.0.1 - 2016-07-26
+  * 5.0.0 - 2016-07-12
     * JDK 8 is now required
     * Please check the separate [Update to version 5](UpdateV5.md) page.
-  * version 4.3.5
+  * 4.3.5 - 2016-02-26
     * Made the SMP query API more flexible so that e.g. the PEPPOL Directory BusinessCards can easily be queried; made the SMP Client more configurable.
-  * version 4.3.4
+  * 4.3.4 - 2016-01-26
     * Reduced the maximum migration key length from 100 to 24 (new SMK 3 requirement) and adopted the API to use String instead of UUID
-  * version 4.3.3
+  * 4.3.3 - 2015-12-11
     * Improved the support for BDXR SMP stuff
-  * version 4.3.2
+  * 4.3.2 - 2015-11-26
     * Improved the support for custom SMP transport profiles
     * Updated the BDMSL additional services WSDL to the latest 3.1.0 version
-  * version 4.3.1 - 2015-10-30
+  * 4.3.1 - 2015-10-30
     * Added new BDMSL client to access the new "/cipaservice" in a convenient way (class `BDMSLClient` in project `peppol-sml-client`)
     * Loosened the regular expression for participant identifier schemes
     * Added a new SML participant delete method with SMP ID to work around an SMK 3.0.0 problem 
-  * version 4.3.0 - 2015-10-29
+  * 4.3.0 - 2015-10-29
     * Added support for CIPA BDMSL 3.0 with the wsse:Security header
     * Added BDXR SMP client
     * Integrated the BDXR SMP classes into peppol-commons
