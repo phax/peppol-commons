@@ -75,7 +75,7 @@
     <jaxws-plugin.version>2.3.1-b20150201.1248</jaxws-plugin.version>
     <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
     <jaxws.version>2.2.9-b14002</jaxws.version>
-    <bouncycastle.version>1.54</bouncycastle.version>
+    <bouncycastle.version>1.55</bouncycastle.version>
   </properties>
   
   <dependencyManagement>
