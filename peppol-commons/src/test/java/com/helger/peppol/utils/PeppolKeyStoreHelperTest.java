@@ -58,7 +58,7 @@ import com.helger.security.keystore.KeyStoreHelper;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class KeyStoreHelperTest
+public final class PeppolKeyStoreHelperTest
 {
   @BeforeClass
   public static void init ()
