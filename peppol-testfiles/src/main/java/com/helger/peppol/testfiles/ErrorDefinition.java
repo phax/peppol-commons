@@ -20,27 +20,28 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.error.EErrorLevel;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 public final class ErrorDefinition implements Comparable <ErrorDefinition>
 {
-  private final EErrorLevel m_eLevel;
+  private final IErrorLevel m_aLevel;
   private final String m_sErrorCode;
 
-  private ErrorDefinition (@Nonnull final EErrorLevel eLevel, @Nonnull @Nonempty final String sErrorCode)
+  private ErrorDefinition (@Nonnull final IErrorLevel aLevel, @Nonnull @Nonempty final String sErrorCode)
   {
-    ValueEnforcer.notNull (eLevel, "Level");
+    ValueEnforcer.notNull (aLevel, "Level");
     ValueEnforcer.notEmpty (sErrorCode, "ErrorCode");
-    m_eLevel = eLevel;
+    m_aLevel = aLevel;
     m_sErrorCode = sErrorCode;
   }
 
   @Nonnull
-  public EErrorLevel getLevel ()
+  public IErrorLevel getLevel ()
   {
-    return m_eLevel;
+    return m_aLevel;
   }
 
   @Nonnull
@@ -52,7 +53,7 @@ public final class ErrorDefinition implements Comparable <ErrorDefinition>
 
   public int compareTo (@Nonnull final ErrorDefinition rhs)
   {
-    int i = m_eLevel.compareTo (rhs.m_eLevel);
+    int i = m_aLevel.getNumericLevel () - rhs.m_aLevel.getNumericLevel ();
     if (i == 0)
       i = m_sErrorCode.compareTo (rhs.m_sErrorCode);
     return i;
@@ -66,19 +67,19 @@ public final class ErrorDefinition implements Comparable <ErrorDefinition>
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ErrorDefinition rhs = (ErrorDefinition) o;
-    return m_eLevel.equals (rhs.m_eLevel) && m_sErrorCode.equals (rhs.m_sErrorCode);
+    return m_aLevel.equals (rhs.m_aLevel) && m_sErrorCode.equals (rhs.m_sErrorCode);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_eLevel).append (m_sErrorCode).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aLevel).append (m_sErrorCode).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("level", m_eLevel).append ("errorCode", m_sErrorCode).toString ();
+    return new ToStringGenerator (null).append ("level", m_aLevel).append ("errorCode", m_sErrorCode).toString ();
   }
 
   @Nonnull
