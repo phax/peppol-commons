@@ -79,6 +79,9 @@
   <issuingAgency schemeid="IT:SECETI" agencyname="Servizi Centralizzati SECETI S.p.A." iso6523="0142" since="1.0.0">
     <structure>First field: ICD: 4 digits, Second field: sequence of digits</structure>
   </issuingAgency>
+  <issuingAgency schemeid="DIGST" agencyname="DIGSTORG" iso6523="0184" since="1.2.1">
+    <structure>Defined by Danish Agency for Digitisation</structure>
+  </issuingAgency>
   <issuingAgency schemeid="DK:CPR" agencyname="Danish Ministry of the Interior and Health" iso6523="9901" since="1.0.0">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
   </issuingAgency>
@@ -135,7 +138,10 @@
   <issuingAgency schemeid="TR:VAT" agencyname="Turkey VAT number" iso6523="9952" since="1.1.0" />
   <issuingAgency schemeid="VA:VAT" agencyname="Holy See (Vatican City State) VAT number" iso6523="9953" since="1.1.0" />
   <issuingAgency schemeid="NL:OIN" agencyname="Dutch Originator's Identification Number" iso6523="9954" since="1.1.3" />
-  <issuingAgency schemeid="SE:VAT" agencyname="Swedish VAT number" iso6523="9955" since="1.2.1" />
-  <issuingAgency schemeid="DE:EPROC" agencyname="German EProc number" iso6523="9956" since="1.2.2" />
-  <issuingAgency schemeid="ZZZ" agencyname="Unknown issuer agency&#10;(Not applicable for registration in PEPPOL SML)." iso6523="9999" since="1.2.1" />
+  <issuingAgency schemeid="SE:VAT" agencyname="Swedish VAT number" iso6523="9955" since="1.2.0" />
+  <issuingAgency schemeid="BE:CBE" agencyname="Belgian Crossroad Bank of Enterprises " iso6523="9956" since="1.2.1">
+    <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
+  </issuingAgency>
+  <issuingAgency schemeid="FR:VAT" agencyname="French VAT number" iso6523="9957" since="1.2.1" />
+  <issuingAgency schemeid="DE:EPROC" agencyname="Beschaffungsamt des Bundesministeriums des Innern" iso6523="9958" since="1.2.2" />
 </root>

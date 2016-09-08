@@ -122,7 +122,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
   private static final Version CODELIST_VERSION = new Version (1, 2, 2);
-  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1.2.2-unofficial.xls";
+  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL PartyID Code Lists 1 2 2 - 08092016.xls";
   private static final String SHEET_PARTICIPANT = "Participant";
   private static final String SHEET_DOCUMENT = "Document";
   private static final String SHEET_PROCESS = "Process";
@@ -389,7 +389,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       s_jEnumPredefinedDoc.annotate (CodingStyleguideUnaware.class);
       s_jEnumPredefinedDoc.javadoc ().add ("This file is generated. Do NOT edit!");
 
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
 
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
@@ -666,7 +666,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       jEnum.javadoc ().add ("This file is generated. Do NOT edit!");
 
       // enum constants
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
         final String sID = Genericode10Helper.getRowValue (aRow, "id");

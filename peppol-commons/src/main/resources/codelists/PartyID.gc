@@ -159,6 +159,14 @@
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>DIGST</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>DIGSTORG</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
         <ns0:SimpleValue>DK:CPR</ns0:SimpleValue>
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="name">
@@ -580,19 +588,26 @@
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="code">
-        <ns0:SimpleValue>DE:EPROC</ns0:SimpleValue>
+        <ns0:SimpleValue>BE:CBE</ns0:SimpleValue>
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>German EProc number</ns0:SimpleValue>
+        <ns0:SimpleValue>Belgian Crossroad Bank of Enterprises </ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="code">
-        <ns0:SimpleValue>ZZZ</ns0:SimpleValue>
+        <ns0:SimpleValue>FR:VAT</ns0:SimpleValue>
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>Unknown issuer agency
-(Not applicable for registration in PEPPOL SML).</ns0:SimpleValue>
+        <ns0:SimpleValue>French VAT number</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>DE:EPROC</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Beschaffungsamt des Bundesministeriums des Innern</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
   </ns0:SimpleCodeList>
