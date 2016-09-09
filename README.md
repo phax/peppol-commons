@@ -17,6 +17,9 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * 5.1.2 - 2016-09-09
+    * Updated to ph-commons 8.5.x
+    * Updated PEPPOL identifier codelist to 1.2.2
   * 5.1.1 - 2016-08-21
     * Updated to ph-commons 8.4.x
     * Improved identifier handling for BDXR 
