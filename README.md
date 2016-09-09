@@ -115,8 +115,9 @@ Proxy authentication is currently not supported.
 
 Get the endpoint URL for a participant using a special document type and process:
 ```java
-    // The participant identifier
+    // The PEPPOL participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
+
     // Create the main SMP client using the production SML
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
                                                                 aPI_AT_Test,
@@ -125,22 +126,24 @@ Get the endpoint URL for a participant using a special document type and process
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
                                                                    EPredefinedProcessIdentifier.BIS4A_V20,
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
-    // Endpoint address should be "https://test.erb.gv.at/as2"
+    // Endpoint address should be "https://test.erechnung.gv.at/as2"
     System.out.println ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
                         sEndpointAddress);
 ```
 
 If you don't need the DNS lookup you can use the URL of the SMP directly (equivalent to the previous example):
 ```java
-    // The participant identifier
+    // The PEPPOL participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
+
     // Create the main SMP client using the production SML
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"));
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
                                                                    EPredefinedProcessIdentifier.BIS4A_V20,
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
-    // Endpoint address should be "https://test.erb.gv.at/as2"
+
+    // Endpoint address should be "https://test.erechnung.gv.at/as2"
     System.out.println ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
                         sEndpointAddress);
 ```
@@ -156,31 +159,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.2</version>
 </dependency>
 ```
 
@@ -189,7 +192,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.2</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>

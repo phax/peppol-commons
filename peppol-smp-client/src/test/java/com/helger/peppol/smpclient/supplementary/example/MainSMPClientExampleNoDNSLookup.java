@@ -56,15 +56,17 @@ public final class MainSMPClientExampleNoDNSLookup
 {
   public static void main (final String [] args) throws Exception
   {
-    // The participant identifier
+    // The PEPPOL participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
+
     // Create the main SMP client using the production SML
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"));
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
                                                                    EPredefinedProcessIdentifier.BIS4A_V20,
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
-    // Endpoint address should be "https://test.erb.gv.at/as2"
+
+    // Endpoint address should be "https://test.erechnung.gv.at/as2"
     System.out.println ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
                         sEndpointAddress);
   }

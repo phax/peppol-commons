@@ -57,8 +57,9 @@ public final class MainSMPClientExample
 {
   public static void main (final String [] args) throws Exception
   {
-    // The participant identifier
+    // The PEPPOL participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
+
     // Create the main SMP client using the production SML
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
                                                                 aPI_AT_Test,
@@ -67,7 +68,7 @@ public final class MainSMPClientExample
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
                                                                    EPredefinedProcessIdentifier.BIS4A_V20,
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
-    // Endpoint address should be "https://test.erb.gv.at/as2"
+    // Endpoint address should be "https://test.erechnung.gv.at/as2"
     System.out.println ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
                         sEndpointAddress);
   }
