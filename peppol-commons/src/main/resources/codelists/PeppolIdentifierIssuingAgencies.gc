@@ -1271,22 +1271,5 @@
         <ns0:SimpleValue>1.2.1</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="schemeid">
-        <ns0:SimpleValue>DE:EPROC</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="iso6523">
-        <ns0:SimpleValue>9958</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="schemeagency">
-        <ns0:SimpleValue>Beschaffungsamt des Bundesministeriums des Innern</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>false</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.2.2</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
   </ns0:SimpleCodeList>
 </CodeList>

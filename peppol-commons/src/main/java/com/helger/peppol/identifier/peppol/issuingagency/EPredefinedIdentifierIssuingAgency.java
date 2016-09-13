@@ -593,15 +593,7 @@ public enum EPredefinedIdentifierIssuingAgency
      * 
      * @since code list 1.2.1
      */
-    FR_VAT("FR:VAT", "French VAT number", "9957", false, Version.parse("1.2.1")),
-
-    /**
-     * Prefix <code>9958</code>, scheme ID <code>DE:EPROC</code><br>
-     * 
-     * 
-     * @since code list 1.2.2
-     */
-    DE_EPROC("DE:EPROC", "Beschaffungsamt des Bundesministeriums des Innern", "9958", false, Version.parse("1.2.2"));
+    FR_VAT("FR:VAT", "French VAT number", "9957", false, Version.parse("1.2.1"));
     private final String m_sSchemeID;
     private final String m_sSchemeAgency;
     private final String m_sISO6523;

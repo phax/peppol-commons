@@ -143,5 +143,4 @@
     <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
   </issuingAgency>
   <issuingAgency schemeid="FR:VAT" agencyname="French VAT number" iso6523="9957" since="1.2.1" />
-  <issuingAgency schemeid="DE:EPROC" agencyname="Beschaffungsamt des Bundesministeriums des Innern" iso6523="9958" since="1.2.2" />
 </root>

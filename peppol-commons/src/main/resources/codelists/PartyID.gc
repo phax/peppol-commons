@@ -602,13 +602,5 @@
         <ns0:SimpleValue>French VAT number</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="code">
-        <ns0:SimpleValue>DE:EPROC</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>Beschaffungsamt des Bundesministeriums des Innern</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
   </ns0:SimpleCodeList>
 </CodeList>

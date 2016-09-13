@@ -122,7 +122,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
   private static final Version CODELIST_VERSION = new Version (1, 2, 2);
-  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL PartyID Code Lists 1 2 2 - 08092016.xls";
+  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1 2 1-15072016.xls";
   private static final String SHEET_PARTICIPANT = "Participant";
   private static final String SHEET_DOCUMENT = "Document";
   private static final String SHEET_PROCESS = "Process";
