@@ -17,6 +17,8 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * 5.1.3 - 2016-09-15
+    * Changed PEPPOL identifier codelist to 1.2.1, because 1.2.2 was based on a misunderstanding
   * 5.1.2 - 2016-09-09
     * Updated to ph-commons 8.5.x
     * Updated PEPPOL identifier codelist to 1.2.2
@@ -159,31 +161,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>5.1.2</version>
+  <version>5.1.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>5.1.2</version>
+  <version>5.1.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>5.1.2</version>
+  <version>5.1.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>5.1.2</version>
+  <version>5.1.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>5.1.2</version>
+  <version>5.1.3</version>
 </dependency>
 ```
 
@@ -192,7 +194,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.1.2</version>
+  <version>5.1.3</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
