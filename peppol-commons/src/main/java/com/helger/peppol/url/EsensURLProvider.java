@@ -40,6 +40,7 @@
  */
 package com.helger.peppol.url;
 
+import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.regex.Pattern;
@@ -50,9 +51,11 @@ import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xbill.DNS.ExtendedResolver;
 import org.xbill.DNS.Lookup;
 import org.xbill.DNS.NAPTRRecord;
 import org.xbill.DNS.Record;
+import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
@@ -147,12 +150,29 @@ public class EsensURLProvider implements IPeppolURLProvider
   }
 
   @Nullable
-  private static String _resolveFromNAPTR (@Nonnull final String sDNSName) throws TextParseException
+  private static String _resolveFromNAPTR (@Nonnull final String sDNSName,
+                                           @Nullable final String sPrimaryDNSServer) throws TextParseException
   {
     if (StringHelper.hasNoText (sDNSName))
       return null;
 
     final Lookup aLookup = new Lookup (sDNSName, Type.NAPTR);
+    if (StringHelper.hasText (sPrimaryDNSServer))
+      try
+      {
+        // A special primary DNS server is provided - use as the first one
+        final ExtendedResolver aNewResolver = new ExtendedResolver ();
+        aNewResolver.addResolver (new SimpleResolver (sPrimaryDNSServer));
+        aNewResolver.addResolver (Lookup.getDefaultResolver ());
+        aNewResolver.setTimeout (4);
+        aLookup.setResolver (aNewResolver);
+      }
+      catch (final UnknownHostException ex)
+      {
+        // Stay with the default resolver
+        s_aLogger.info ("Failed to use specific name server '" + sPrimaryDNSServer + "'");
+      }
+
     Record [] aRecords;
     do
     {
@@ -225,6 +245,16 @@ public class EsensURLProvider implements IPeppolURLProvider
                                          @Nullable final String sSMLZoneName,
                                          final boolean bDoNAPTRResolving)
   {
+    // Use the custom SMK/SML DNS server first
+    return getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName, bDoNAPTRResolving, "ns1lux.europa.eu");
+  }
+
+  @Nonnull
+  public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                         @Nullable final String sSMLZoneName,
+                                         final boolean bDoNAPTRResolving,
+                                         @Nullable final String sPrimaryDNSServer)
+  {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
     // Ensure the DNS zone name ends with a dot!
@@ -271,7 +301,7 @@ public class EsensURLProvider implements IPeppolURLProvider
     try
     {
       // Now do the NAPTR resolving
-      final String sResolvedNAPTR = _resolveFromNAPTR (sBuildName);
+      final String sResolvedNAPTR = _resolveFromNAPTR (sBuildName, sPrimaryDNSServer);
       if (sResolvedNAPTR == null)
         throw new IllegalArgumentException ("Failed to resolve '" + sBuildName + "'");
       return sResolvedNAPTR;

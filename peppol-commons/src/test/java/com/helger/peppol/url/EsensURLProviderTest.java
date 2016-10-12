@@ -42,10 +42,11 @@ package com.helger.peppol.url;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 
 /**
@@ -92,15 +93,19 @@ public final class EsensURLProviderTest
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"),
                                                         ESML.DIGIT_PRODUCTION.getDNSZone (),
                                                         false));
+    assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test"),
+                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                        false));
   }
 
   @Test
-  @Ignore ("Missing the original ID; works only if DNS server is reachable")
+  @DevelopersNote ("works only if DNS server is reachable")
   public void testResolve ()
   {
     final EsensURLProvider aURLProvider = new EsensURLProvider ();
-    assertEquals ("http://EHEALTH-TEST-UPRC.publisher.acc.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("ehealth-actorid-qns", "abc"),
-                                                        ESML.DIGIT_TEST));
+    assertEquals ("http://BRZ-TEST-SMP.publisher.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test"),
+                                                        ESML.DIGIT_PRODUCTION));
   }
 }
