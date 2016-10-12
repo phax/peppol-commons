@@ -47,7 +47,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,7 +64,10 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.Base32Codec;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
@@ -79,7 +82,7 @@ import com.helger.security.messagedigest.MessageDigestValue;
  *
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
 public class EsensURLProvider implements IPeppolURLProvider
 {
   public static final IPeppolURLProvider INSTANCE = new EsensURLProvider ();
@@ -88,7 +91,10 @@ public class EsensURLProvider implements IPeppolURLProvider
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (EsensURLProvider.class);
 
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private boolean m_bLowercaseValueBeforeHashing = true;
+  private final ICommonsMap <String, String> m_aDNSCache = new CommonsHashMap <> ();
+  private boolean m_bUseDNSCache = true;
 
   /**
    * Default constructor.
@@ -98,12 +104,41 @@ public class EsensURLProvider implements IPeppolURLProvider
 
   public boolean isLowercaseValueBeforeHashing ()
   {
-    return m_bLowercaseValueBeforeHashing;
+    return m_aRWLock.readLocked ( () -> m_bLowercaseValueBeforeHashing);
   }
 
   public void setLowercaseValueBeforeHashing (final boolean bLowercaseValueBeforeHashing)
   {
-    m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing;
+    m_aRWLock.writeLocked ( () -> m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing);
+  }
+
+  /**
+   * @return <code>true</code> if internal DNS caching is enabled,
+   *         <code>false</code> if not. By default it is enabled.
+   */
+  public boolean isUseDNSCache ()
+  {
+    return m_aRWLock.readLocked ( () -> m_bUseDNSCache);
+  }
+
+  /**
+   * Enable or disable internal DNS caching. By default it is enabled.
+   *
+   * @param bUseDNSCache
+   *        <code>true</code> to enable caching, <code>false</code> to disable
+   *        it.
+   */
+  public void setUseDNSCache (final boolean bUseDNSCache)
+  {
+    m_aRWLock.writeLocked ( () -> m_bUseDNSCache = bUseDNSCache);
+  }
+
+  /**
+   * Remove all internal DNS cache entries.
+   */
+  public void clearDNSCache ()
+  {
+    m_aRWLock.writeLocked ( () -> m_aDNSCache.clear ());
   }
 
   /**
@@ -150,12 +185,13 @@ public class EsensURLProvider implements IPeppolURLProvider
   }
 
   @Nullable
-  private static String _resolveFromNAPTR (@Nonnull final String sDNSName,
-                                           @Nullable final String sPrimaryDNSServer) throws TextParseException
+  private String _resolveFromNAPTR (@Nonnull final String sDNSName,
+                                    @Nullable final String sPrimaryDNSServer) throws TextParseException
   {
     if (StringHelper.hasNoText (sDNSName))
       return null;
 
+    // Use the default (static) cache that is used by default
     final Lookup aLookup = new Lookup (sDNSName, Type.NAPTR);
     if (StringHelper.hasText (sPrimaryDNSServer))
       try
@@ -298,12 +334,25 @@ public class EsensURLProvider implements IPeppolURLProvider
     if (!bDoNAPTRResolving)
       return sBuildName;
 
+    final boolean bUseDNSCache = isUseDNSCache ();
     try
     {
-      // Now do the NAPTR resolving
-      final String sResolvedNAPTR = _resolveFromNAPTR (sBuildName, sPrimaryDNSServer);
+      // Already in cache?
+      String sResolvedNAPTR = bUseDNSCache ? m_aRWLock.readLocked ( () -> m_aDNSCache.get (sBuildName)) : null;
       if (sResolvedNAPTR == null)
-        throw new IllegalArgumentException ("Failed to resolve '" + sBuildName + "'");
+      {
+        // Now do the NAPTR resolving
+        sResolvedNAPTR = _resolveFromNAPTR (sBuildName, sPrimaryDNSServer);
+        if (sResolvedNAPTR == null)
+          throw new IllegalArgumentException ("Failed to resolve '" + sBuildName + "'");
+
+        if (bUseDNSCache)
+        {
+          // Put in cache
+          final String sFinalResolved = sResolvedNAPTR;
+          m_aRWLock.writeLocked ( () -> m_aDNSCache.put (sBuildName, sFinalResolved));
+        }
+      }
       return sResolvedNAPTR;
     }
     catch (final TextParseException ex)
