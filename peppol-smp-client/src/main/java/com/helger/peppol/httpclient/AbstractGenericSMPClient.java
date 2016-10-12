@@ -60,15 +60,23 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 
+/**
+ * Abstract base class for SMP clients - wraps all the HTTP stuff
+ *
+ * @author Philip Helger
+ * @param <IMPLTYPE>
+ *        Real implementation class
+ */
 public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGenericSMPClient <IMPLTYPE>>
+                                               implements IGenericImplTrait <IMPLTYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
 
@@ -106,12 +114,6 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
     // Set default proxy from configuration file
     m_aProxy = SMPClientConfiguration.getHttpProxy ();
-  }
-
-  @Nonnull
-  protected final IMPLTYPE thisAsT ()
-  {
-    return GenericReflection.uncheckedCast (this);
   }
 
   /**
@@ -227,6 +229,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @throws IOException
    *         On HTTP communication error
    * @see #executeGenericRequest(HttpUriRequest, ResponseHandler)
+   * @param <T>
+   *        Expected response type
    */
   @Nonnull
   public <T> T executeRequest (@Nonnull final HttpUriRequest aRequest,
@@ -290,6 +294,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The return value of the response handler.
    * @throws SMPClientException
    *         One of the converted exceptions
+   * @param <T>
+   *        Expected response type
    * @see #executeRequest(HttpUriRequest, ResponseHandler)
    * @see #getConvertedException(Exception)
    */
