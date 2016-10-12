@@ -104,7 +104,7 @@ public final class EsensURLProviderTest
   public void testResolve ()
   {
     final EsensURLProvider aURLProvider = new EsensURLProvider ();
-    assertEquals ("http://BRZ-TEST-SMP.publisher.edelivery.tech.ec.europa.eu",
+    assertEquals ("BRZ-TEST-SMP.publisher.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test"),
                                                         ESML.DIGIT_PRODUCTION));
   }

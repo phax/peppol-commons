@@ -17,6 +17,8 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * 5.1.4 - 2016-10-12
+    * Added missing U-NAPTR resolution in EsensURLProvider
   * 5.1.3 - 2016-09-15
     * Changed PEPPOL identifier codelist to 1.2.1, because 1.2.2 was based on a misunderstanding
   * 5.1.2 - 2016-09-09

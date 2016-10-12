@@ -157,7 +157,7 @@ public class EsensURLProvider implements IPeppolURLProvider
   /**
    * Add entries to the cache. This might be helpful when there is a persistent
    * cache (outside this class) and the old cache entries should be re-added.
-   * 
+   *
    * @param aEntries
    *        The entries to be added. May be <code>null</code>.
    */
@@ -282,7 +282,9 @@ public class EsensURLProvider implements IPeppolURLProvider
         {
           if (s_aLogger.isDebugEnabled ())
             s_aLogger.debug ("Using '" + sFinalDNSName + "' for original DNS name '" + sDNSName + "'");
-          return sFinalDNSName;
+
+          // Strip any prefix
+          return StringHelper.trimStart (sFinalDNSName, "http://");
         }
       }
     }
