@@ -42,6 +42,7 @@ package com.helger.peppol.url;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
@@ -61,13 +62,16 @@ public final class EsensURLProviderTest
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null,
                                                                                          "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128"),
-                                                        ESML.DIGIT_PRODUCTION));
+                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                        false));
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "abc"),
-                                                        ESML.DIGIT_PRODUCTION));
+                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                        false));
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"),
-                                                        ESML.DIGIT_PRODUCTION));
+                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                        false));
   }
 
   @Test
@@ -78,12 +82,25 @@ public final class EsensURLProviderTest
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null,
                                                                                          "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128"),
-                                                        ESML.DIGIT_PRODUCTION));
+                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                        false));
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "abc"),
-                                                        ESML.DIGIT_PRODUCTION));
+                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                        false));
     assertEquals ("WXKAIXB7IZX2SH7CZRVL46JDFINFPTPRAT32E3TRNYFB4J4J354A.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"),
-                                                        ESML.DIGIT_PRODUCTION));
+                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                        false));
+  }
+
+  @Test
+  @Ignore ("Missing the original ID; works only if DNS server is reachable")
+  public void testResolve ()
+  {
+    final EsensURLProvider aURLProvider = new EsensURLProvider ();
+    assertEquals ("http://EHEALTH-TEST-UPRC.publisher.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("ehealth-actorid-qns", "abc"),
+                                                        ESML.DIGIT_TEST));
   }
 }
