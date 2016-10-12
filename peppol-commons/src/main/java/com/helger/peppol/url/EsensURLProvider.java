@@ -43,6 +43,7 @@ package com.helger.peppol.url;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
@@ -60,6 +61,7 @@ import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.Base32Codec;
@@ -139,6 +141,30 @@ public class EsensURLProvider implements IPeppolURLProvider
   public void clearDNSCache ()
   {
     m_aRWLock.writeLocked ( () -> m_aDNSCache.clear ());
+  }
+
+  /**
+   * @return A copy of all entries currently in the cache. Never
+   *         <code>null</code> but maybe empty.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsMap <String, String> getAllCacheEntries ()
+  {
+    return m_aRWLock.readLocked ( () -> m_aDNSCache.getClone ());
+  }
+
+  /**
+   * Add entries to the cache. This might be helpful when there is a persistent
+   * cache (outside this class) and the old cache entries should be re-added.
+   * 
+   * @param aEntries
+   *        The entries to be added. May be <code>null</code>.
+   */
+  public void addCacheEntries (@Nullable final Map <String, String> aEntries)
+  {
+    if (aEntries != null && !aEntries.isEmpty ())
+      m_aRWLock.writeLocked ( () -> m_aDNSCache.putAll (aEntries));
   }
 
   /**
