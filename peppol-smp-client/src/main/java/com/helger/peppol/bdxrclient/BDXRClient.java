@@ -2,6 +2,10 @@
  * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
+ * Note: some files, that were not part of the original package are currently
+ *   licensed under Apache 2.0 license - https://www.apache.org/licenses/LICENSE-2.0
+ *   The respective files contain a special class header!
+ *
  * Version: MPL 1.1/EUPL 1.1
  *
  * The contents of this file are subject to the Mozilla Public License Version
@@ -77,8 +81,12 @@ import com.helger.peppol.url.IPeppolURLProvider;
  * This class is used for calling the BDXR SMP REST interface. This particular
  * class also contains the non-standard writing methods. It inherits all reading
  * methods from {@link BDXRClientReadOnly}.
+ * <p>
+ * Note: this class is also licensed under Apache 2 license, as it was not part
+ * of the original implementation
+ * </p>
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public class BDXRClient extends BDXRClientReadOnly
 {

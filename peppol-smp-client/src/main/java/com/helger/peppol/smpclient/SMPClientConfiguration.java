@@ -2,6 +2,10 @@
  * Copyright (C) 2015-2016 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
+ * Note: some files, that were not part of the original package are currently
+ *   licensed under Apache 2.0 license - https://www.apache.org/licenses/LICENSE-2.0
+ *   The respective files contain a special class header!
+ *
  * Version: MPL 1.1/EUPL 1.1
  *
  * The contents of this file are subject to the Mozilla Public License Version
@@ -65,6 +69,10 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
  * <li>The filename <code>smp-client.properties</code> in the root of the
  * classpath</li>
  * </ol>
+ * <p>
+ * Note: this class is also licensed under Apache 2 license, as it was not part
+ * of the original implementation
+ * </p>
  *
  * @author Philip Helger
  */
@@ -103,8 +111,8 @@ public final class SMPClientConfiguration
   /**
    * @return The truststore location as specified in the configuration file by
    *         the key <code>truststore.location</code>. If none is present
-   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_COMPLETE_CLASSPATH} is returned as
-   *         a default.
+   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_COMPLETE_CLASSPATH} is
+   *         returned as a default.
    */
   @Nonnull
   public static String getTruststoreLocation ()
