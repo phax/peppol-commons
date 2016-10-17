@@ -17,6 +17,8 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * 5.1.5 - 2016-10-17
+    * Improved BDXR extension API
   * 5.1.4 - 2016-10-12
     * Added missing U-NAPTR resolution in EsensURLProvider - thanks to @jerouris for pointing that out
   * 5.1.3 - 2016-09-15
@@ -163,31 +165,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>5.1.3</version>
+  <version>5.1.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>5.1.3</version>
+  <version>5.1.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>5.1.3</version>
+  <version>5.1.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>5.1.3</version>
+  <version>5.1.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>5.1.3</version>
+  <version>5.1.5</version>
 </dependency>
 ```
 
@@ -196,7 +198,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.1.3</version>
+  <version>5.1.5</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
