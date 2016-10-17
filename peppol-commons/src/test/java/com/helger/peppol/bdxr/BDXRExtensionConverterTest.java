@@ -63,8 +63,7 @@ public final class BDXRExtensionConverterTest
   public void testConvertFromString ()
   {
     // Use elements
-
-    final String sJson = "[{\"ID\":null,\"Name\":null,\"AgencyID\":null,\"AgencyName\":null,\"AgencyURI\":null,\"VersionID\":null,\"URI\":null,\"ReasonCode\":null,\"Reason\":null," +
+    final String sJson = "[{\"ID\":\"a\",\"Name\":\"b\",\"AgencyID\":\"c\",\"AgencyName\":\"d\",\"AgencyURI\":\"e\",\"VersionID\":\"f\",\"URI\":\"g\",\"ReasonCode\":\"h\",\"Reason\":\"i\"," +
                          "\"Any\":\"<any xmlns=\\\"urn:foo\\\"><child>text1</child><child2 /></any>\"}]";
     final ICommonsList <ExtensionType> aExtensions = BDXRExtensionConverter.convert (sJson);
     assertNotNull (aExtensions);
@@ -102,5 +101,16 @@ public final class BDXRExtensionConverterTest
     assertNull (BDXRExtensionConverter.convertToString (null));
     assertEquals ("[]",
                   BDXRExtensionConverter.convertToString (new CommonsArrayList<> (new ObjectFactory ().createExtensionType ())));
+  }
+
+  @Test
+  public void testConvertFromXML ()
+  {
+    assertNull (BDXRExtensionConverter.convertXMLToSingleExtension (null));
+    assertNull (BDXRExtensionConverter.convertXMLToSingleExtension (""));
+    final ICommonsList <ExtensionType> aExts = BDXRExtensionConverter.convertXMLToSingleExtension ("<foobar />");
+    assertNotNull (aExts);
+    assertEquals (1, aExts.size ());
+    assertEquals ("[{\"Any\":\"<foobar />\"}]", BDXRExtensionConverter.convertToString (aExts));
   }
 }

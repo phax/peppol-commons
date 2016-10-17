@@ -121,16 +121,28 @@ public final class BDXRExtensionConverter
         aAny = XMLWriter.getNodeAsString ((Element) aAny, s_aXWS);
       }
 
-      return new JsonObject ().add (JSON_ID, aExtension.getExtensionID ())
-                              .add (JSON_NAME, aExtension.getExtensionName ())
-                              .add (JSON_AGENCY_ID, aExtension.getExtensionAgencyID ())
-                              .add (JSON_AGENCY_NAME, aExtension.getExtensionAgencyName ())
-                              .add (JSON_AGENCY_URI, aExtension.getExtensionAgencyURI ())
-                              .add (JSON_VERSION_ID, aExtension.getExtensionVersionID ())
-                              .add (JSON_URI, aExtension.getExtensionURI ())
-                              .add (JSON_REASON_CODE, aExtension.getExtensionReasonCode ())
-                              .add (JSON_REASON, aExtension.getExtensionReason ())
-                              .add (JSON_ANY, aAny);
+      final JsonObject ret = new JsonObject ();
+      if (aExtension.getExtensionID () != null)
+        ret.add (JSON_ID, aExtension.getExtensionID ());
+      if (aExtension.getExtensionName () != null)
+        ret.add (JSON_NAME, aExtension.getExtensionName ());
+      if (aExtension.getExtensionAgencyID () != null)
+        ret.add (JSON_AGENCY_ID, aExtension.getExtensionAgencyID ());
+      if (aExtension.getExtensionAgencyName () != null)
+        ret.add (JSON_AGENCY_NAME, aExtension.getExtensionAgencyName ());
+      if (aExtension.getExtensionAgencyURI () != null)
+        ret.add (JSON_AGENCY_URI, aExtension.getExtensionAgencyURI ());
+      if (aExtension.getExtensionVersionID () != null)
+        ret.add (JSON_VERSION_ID, aExtension.getExtensionVersionID ());
+      if (aExtension.getExtensionURI () != null)
+        ret.add (JSON_URI, aExtension.getExtensionURI ());
+      if (aExtension.getExtensionReasonCode () != null)
+        ret.add (JSON_REASON_CODE, aExtension.getExtensionReasonCode ());
+      if (aExtension.getExtensionReason () != null)
+        ret.add (JSON_REASON, aExtension.getExtensionReason ());
+      if (aAny != null)
+        ret.add (JSON_ANY, aAny);
+      return ret;
     }
     return null;
   }
@@ -174,6 +186,40 @@ public final class BDXRExtensionConverter
   {
     final IJsonArray aArray = convertToJson (aExtensions);
     return aArray == null ? null : aArray.getAsJsonString (s_aJWS);
+  }
+
+  /**
+   * Parse the provided XML, and if it is valid, convert it to a simple
+   * extension. This method exists, so that compatibility to the old PEPPOL SMP
+   * specification is available (single extension with only a DOM Element).
+   *
+   * @param sXML
+   *        The XML to be parsed. May be <code>null</code>.
+   * @return <code>null</code> if no XML or invalid XML is provided, a
+   *         non-<code>null</code> list with a single extension otherwise.
+   */
+  @Nullable
+  public static ICommonsList <ExtensionType> convertXMLToSingleExtension (@Nullable final String sXML)
+  {
+    Element aElement = null;
+    if (StringHelper.hasText (sXML))
+      try
+      {
+        final Document aDoc = DOMReader.readXMLDOM (sXML);
+        if (aDoc != null)
+          aElement = aDoc.getDocumentElement ();
+      }
+      catch (final SAXException ex)
+      {
+        // Fall through
+      }
+
+    if (aElement == null)
+      return null;
+
+    final ExtensionType aExtension = new ExtensionType ();
+    aExtension.setAny (aElement);
+    return new CommonsArrayList<> (aExtension);
   }
 
   /**
