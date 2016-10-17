@@ -45,6 +45,10 @@ import java.util.List;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -57,6 +61,10 @@ import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.serialize.JsonReader;
 import com.helger.json.serialize.JsonWriterSettings;
+import com.helger.xml.serialize.read.DOMReader;
+import com.helger.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.xml.serialize.write.XMLWriter;
+import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
  * This class is used for converting between a String representation of the
@@ -71,6 +79,7 @@ import com.helger.json.serialize.JsonWriterSettings;
 @Immutable
 public final class BDXRExtensionConverter
 {
+  private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE);
   private static final JsonWriterSettings s_aJWS = new JsonWriterSettings ().setIndentEnabled (false)
                                                                             .setWriteNewlineAtEnd (false);
 
@@ -94,6 +103,13 @@ public final class BDXRExtensionConverter
     // If there is no extension present, nothing to convert
     if (aExtension != null && aExtension.getAny () != null)
     {
+      Object aAny = aExtension.getAny ();
+      if (aAny instanceof Element)
+      {
+        // Convert XML to String
+        aAny = XMLWriter.getNodeAsString ((Element) aAny, s_aXWS);
+      }
+
       return new JsonObject ().add ("ID", aExtension.getExtensionID ())
                               .add ("Name", aExtension.getExtensionName ())
                               .add ("AgencyID", aExtension.getExtensionAgencyID ())
@@ -103,7 +119,7 @@ public final class BDXRExtensionConverter
                               .add ("URI", aExtension.getExtensionURI ())
                               .add ("ReasonCode", aExtension.getExtensionReasonCode ())
                               .add ("Reason", aExtension.getExtensionReason ())
-                              .add ("Any", aExtension.getAny ());
+                              .add ("Any", aAny);
     }
     return null;
   }
@@ -181,7 +197,19 @@ public final class BDXRExtensionConverter
         aExt.setExtensionURI (aObject.getAsString ("URI"));
         aExt.setExtensionReasonCode (aObject.getAsString ("ReasonCode"));
         aExt.setExtensionReason (aObject.getAsString ("Reason"));
-        aExt.setAny (aObject.getValue ("Any"));
+
+        final String sAny = aObject.getAsString ("Any");
+        if (StringHelper.hasText (sAny))
+          try
+          {
+            final Document aDoc = DOMReader.readXMLDOM (sAny);
+            if (aDoc != null)
+              aExt.setAny (aDoc.getDocumentElement ());
+          }
+          catch (final SAXException ex)
+          {
+            throw new IllegalStateException ("Failed to parse any as XML: " + sAny, ex);
+          }
         ret.add (aExt);
       });
       return ret;

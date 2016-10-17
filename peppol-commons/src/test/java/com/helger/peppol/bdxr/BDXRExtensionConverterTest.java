@@ -47,6 +47,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.w3c.dom.Node;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -70,7 +71,7 @@ public final class BDXRExtensionConverterTest
     assertEquals (1, aExtensions.size ());
     final ExtensionType aExtension = aExtensions.get (0);
     assertNotNull (aExtension.getAny ());
-    assertTrue (aExtension.getAny () instanceof String);
+    assertTrue (aExtension.getAny () instanceof Node);
 
     assertNull (BDXRExtensionConverter.convert ((String) null));
     assertNull (BDXRExtensionConverter.convert (""));
