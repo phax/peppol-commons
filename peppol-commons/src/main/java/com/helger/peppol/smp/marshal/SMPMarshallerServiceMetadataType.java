@@ -40,7 +40,6 @@
  */
 package com.helger.peppol.smp.marshal;
 
-import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
 import com.helger.peppol.smp.ServiceMetadataType;
 
@@ -49,11 +48,10 @@ import com.helger.peppol.smp.ServiceMetadataType;
  *
  * @author Philip Helger
  */
-public final class SMPMarshallerServiceMetadataType extends AbstractJAXBMarshaller <ServiceMetadataType>
+public final class SMPMarshallerServiceMetadataType extends AbstractSMPMarshaller <ServiceMetadataType>
 {
   public SMPMarshallerServiceMetadataType ()
   {
-    // No XSD
-    super (ServiceMetadataType.class, null, o -> new ObjectFactory ().createServiceMetadata (o));
+    super (ServiceMetadataType.class, x -> new ObjectFactory ().createServiceMetadata (x));
   }
 }

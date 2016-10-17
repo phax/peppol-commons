@@ -40,7 +40,6 @@
  */
 package com.helger.peppol.smp.marshal;
 
-import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
 import com.helger.peppol.smp.ServiceGroupReferenceListType;
 
@@ -50,11 +49,10 @@ import com.helger.peppol.smp.ServiceGroupReferenceListType;
  * @author Philip Helger
  */
 public final class SMPMarshallerServiceGroupReferenceListType extends
-                                                              AbstractJAXBMarshaller <ServiceGroupReferenceListType>
+                                                              AbstractSMPMarshaller <ServiceGroupReferenceListType>
 {
   public SMPMarshallerServiceGroupReferenceListType ()
   {
-    // No XSD
-    super (ServiceGroupReferenceListType.class, null, o -> new ObjectFactory ().createServiceGroupReferenceList (o));
+    super (ServiceGroupReferenceListType.class, x -> new ObjectFactory ().createServiceGroupReferenceList (x));
   }
 }

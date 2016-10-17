@@ -40,7 +40,6 @@
  */
 package com.helger.peppol.bdxr.marshal;
 
-import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.bdxr.ObjectFactory;
 import com.helger.peppol.bdxr.SignedServiceMetadataType;
 
@@ -49,7 +48,7 @@ import com.helger.peppol.bdxr.SignedServiceMetadataType;
  *
  * @author Philip Helger
  */
-public final class BDXRMarshallerSignedServiceMetadataType extends AbstractJAXBMarshaller <SignedServiceMetadataType>
+public final class BDXRMarshallerSignedServiceMetadataType extends AbstractBDXRMarshaller <SignedServiceMetadataType>
 {
   public BDXRMarshallerSignedServiceMetadataType ()
   {

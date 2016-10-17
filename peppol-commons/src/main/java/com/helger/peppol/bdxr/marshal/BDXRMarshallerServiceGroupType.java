@@ -40,7 +40,6 @@
  */
 package com.helger.peppol.bdxr.marshal;
 
-import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.bdxr.ObjectFactory;
 import com.helger.peppol.bdxr.ServiceGroupType;
 
@@ -49,7 +48,7 @@ import com.helger.peppol.bdxr.ServiceGroupType;
  *
  * @author Philip Helger
  */
-public final class BDXRMarshallerServiceGroupType extends AbstractJAXBMarshaller <ServiceGroupType>
+public final class BDXRMarshallerServiceGroupType extends AbstractBDXRMarshaller <ServiceGroupType>
 {
   public BDXRMarshallerServiceGroupType ()
   {

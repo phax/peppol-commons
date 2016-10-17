@@ -40,7 +40,6 @@
  */
 package com.helger.peppol.smp.marshal;
 
-import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
 import com.helger.peppol.smp.ServiceGroupType;
 
@@ -49,11 +48,10 @@ import com.helger.peppol.smp.ServiceGroupType;
  *
  * @author Philip Helger
  */
-public final class SMPMarshallerServiceGroupType extends AbstractJAXBMarshaller <ServiceGroupType>
+public final class SMPMarshallerServiceGroupType extends AbstractSMPMarshaller <ServiceGroupType>
 {
   public SMPMarshallerServiceGroupType ()
   {
-    // No XSD
-    super (ServiceGroupType.class, null, o -> new ObjectFactory ().createServiceGroup (o));
+    super (ServiceGroupType.class, x -> new ObjectFactory ().createServiceGroup (x));
   }
 }

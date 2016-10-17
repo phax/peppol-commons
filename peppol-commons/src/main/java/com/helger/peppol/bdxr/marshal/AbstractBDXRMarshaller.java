@@ -38,20 +38,50 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.smp.marshal;
+package com.helger.peppol.bdxr.marshal;
 
-import com.helger.peppol.smp.ObjectFactory;
-import com.helger.peppol.smp.SignedServiceMetadataType;
+import java.util.function.Function;
+
+import javax.annotation.Nonnull;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+
+import com.helger.jaxb.AbstractJAXBMarshaller;
+import com.helger.jaxb.JAXBMarshallerHelper;
+import com.helger.peppol.bdxr.ObjectFactory;
+import com.helger.xml.namespace.MapBasedNamespaceContext;
 
 /**
- * A simple JAXB marshaller for the {@link SignedServiceMetadataType} type.
+ * Abstract JAXB marshaller with namespace prefix mapping
  *
  * @author Philip Helger
+ * @param <JAXBTYPE>
+ *        JAXB type to use
  */
-public final class SMPMarshallerSignedServiceMetadataType extends AbstractSMPMarshaller <SignedServiceMetadataType>
+public abstract class AbstractBDXRMarshaller <JAXBTYPE> extends AbstractJAXBMarshaller <JAXBTYPE>
 {
-  public SMPMarshallerSignedServiceMetadataType ()
+  private final MapBasedNamespaceContext m_aNSContext;
+
+  public AbstractBDXRMarshaller (@Nonnull final Class <JAXBTYPE> aType,
+                                 @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    super (SignedServiceMetadataType.class, x -> new ObjectFactory ().createSignedServiceMetadata (x));
+    // No XSD
+    super (aType, aWrapper);
+    m_aNSContext = new MapBasedNamespaceContext ();
+    m_aNSContext.addMapping ("bdxr", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());
+    m_aNSContext.addMapping ("ds", "http://www.w3.org/2000/09/xmldsig#");
+  }
+
+  @Override
+  protected void customizeMarshaller (final Marshaller aMarshaller)
+  {
+    try
+    {
+      JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller, m_aNSContext);
+    }
+    catch (final Throwable t)
+    {
+      // Ignore
+    }
   }
 }
