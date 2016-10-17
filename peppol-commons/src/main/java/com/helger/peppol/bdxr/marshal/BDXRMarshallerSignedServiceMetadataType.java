@@ -53,6 +53,6 @@ public final class BDXRMarshallerSignedServiceMetadataType extends AbstractJAXBM
 {
   public BDXRMarshallerSignedServiceMetadataType ()
   {
-    super (SignedServiceMetadataType.class, o -> new ObjectFactory ().createSignedServiceMetadata (o));
+    super (SignedServiceMetadataType.class, x -> new ObjectFactory ().createSignedServiceMetadata (x));
   }
 }

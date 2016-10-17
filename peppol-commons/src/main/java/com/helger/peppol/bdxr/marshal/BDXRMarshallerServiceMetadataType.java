@@ -53,6 +53,6 @@ public final class BDXRMarshallerServiceMetadataType extends AbstractJAXBMarshal
 {
   public BDXRMarshallerServiceMetadataType ()
   {
-    super (ServiceMetadataType.class, o -> new ObjectFactory ().createServiceMetadata (o));
+    super (ServiceMetadataType.class, x -> new ObjectFactory ().createServiceMetadata (x));
   }
 }

@@ -74,11 +74,22 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  * Therefore I've decided to use Json instead of XML to allow for a single
  * string solution to maintain DB schema compatibility.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @Immutable
 public final class BDXRExtensionConverter
 {
+  public static final String JSON_ID = "ID";
+  public static final String JSON_NAME = "Name";
+  public static final String JSON_AGENCY_ID = "AgencyID";
+  public static final String JSON_AGENCY_NAME = "AgencyName";
+  public static final String JSON_AGENCY_URI = "AgencyURI";
+  public static final String JSON_VERSION_ID = "VersionID";
+  public static final String JSON_URI = "URI";
+  public static final String JSON_REASON_CODE = "ReasonCode";
+  public static final String JSON_REASON = "Reason";
+  public static final String JSON_ANY = "Any";
+
   private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE);
   private static final JsonWriterSettings s_aJWS = new JsonWriterSettings ().setIndentEnabled (false)
                                                                             .setWriteNewlineAtEnd (false);
@@ -110,16 +121,16 @@ public final class BDXRExtensionConverter
         aAny = XMLWriter.getNodeAsString ((Element) aAny, s_aXWS);
       }
 
-      return new JsonObject ().add ("ID", aExtension.getExtensionID ())
-                              .add ("Name", aExtension.getExtensionName ())
-                              .add ("AgencyID", aExtension.getExtensionAgencyID ())
-                              .add ("AgencyName", aExtension.getExtensionAgencyName ())
-                              .add ("AgencyURI", aExtension.getExtensionAgencyURI ())
-                              .add ("VersionID", aExtension.getExtensionVersionID ())
-                              .add ("URI", aExtension.getExtensionURI ())
-                              .add ("ReasonCode", aExtension.getExtensionReasonCode ())
-                              .add ("Reason", aExtension.getExtensionReason ())
-                              .add ("Any", aAny);
+      return new JsonObject ().add (JSON_ID, aExtension.getExtensionID ())
+                              .add (JSON_NAME, aExtension.getExtensionName ())
+                              .add (JSON_AGENCY_ID, aExtension.getExtensionAgencyID ())
+                              .add (JSON_AGENCY_NAME, aExtension.getExtensionAgencyName ())
+                              .add (JSON_AGENCY_URI, aExtension.getExtensionAgencyURI ())
+                              .add (JSON_VERSION_ID, aExtension.getExtensionVersionID ())
+                              .add (JSON_URI, aExtension.getExtensionURI ())
+                              .add (JSON_REASON_CODE, aExtension.getExtensionReasonCode ())
+                              .add (JSON_REASON, aExtension.getExtensionReason ())
+                              .add (JSON_ANY, aAny);
     }
     return null;
   }
@@ -188,17 +199,17 @@ public final class BDXRExtensionConverter
       aJson.getAsArray ().forEach (aChild -> {
         final IJsonObject aObject = aChild.getAsObject ();
         final ExtensionType aExt = new ExtensionType ();
-        aExt.setExtensionID (aObject.getAsString ("ID"));
-        aExt.setExtensionName (aObject.getAsString ("Name"));
-        aExt.setExtensionAgencyID (aObject.getAsString ("AgencyID"));
-        aExt.setExtensionAgencyName (aObject.getAsString ("AgencyName"));
-        aExt.setExtensionAgencyURI (aObject.getAsString ("AgencyURI"));
-        aExt.setExtensionVersionID (aObject.getAsString ("VersionID"));
-        aExt.setExtensionURI (aObject.getAsString ("URI"));
-        aExt.setExtensionReasonCode (aObject.getAsString ("ReasonCode"));
-        aExt.setExtensionReason (aObject.getAsString ("Reason"));
+        aExt.setExtensionID (aObject.getAsString (JSON_ID));
+        aExt.setExtensionName (aObject.getAsString (JSON_NAME));
+        aExt.setExtensionAgencyID (aObject.getAsString (JSON_AGENCY_ID));
+        aExt.setExtensionAgencyName (aObject.getAsString (JSON_AGENCY_NAME));
+        aExt.setExtensionAgencyURI (aObject.getAsString (JSON_AGENCY_URI));
+        aExt.setExtensionVersionID (aObject.getAsString (JSON_VERSION_ID));
+        aExt.setExtensionURI (aObject.getAsString (JSON_URI));
+        aExt.setExtensionReasonCode (aObject.getAsString (JSON_REASON_CODE));
+        aExt.setExtensionReason (aObject.getAsString (JSON_REASON));
 
-        final String sAny = aObject.getAsString ("Any");
+        final String sAny = aObject.getAsString (JSON_ANY);
         if (StringHelper.hasText (sAny))
           try
           {

@@ -53,6 +53,6 @@ public final class BDXRMarshallerServiceGroupType extends AbstractJAXBMarshaller
 {
   public BDXRMarshallerServiceGroupType ()
   {
-    super (ServiceGroupType.class, o -> new ObjectFactory ().createServiceGroup (o));
+    super (ServiceGroupType.class, x -> new ObjectFactory ().createServiceGroup (x));
   }
 }
