@@ -85,6 +85,7 @@
           <excludes>
             <exclude>src/main/resources/peppol-official/**</exclude>
             <exclude>src/main/resources/peppol-ubl/**</exclude>
+            <exclude>src/main/resources/simpler-invoicing/**</exclude>
             <exclude>**/NOTICE</exclude>
             <exclude>**/LICENSE</exclude>
           </excludes>

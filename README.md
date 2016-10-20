@@ -79,6 +79,8 @@ A Java library with a lot of UBL and SBDH test files suitable for different scen
 
 This project is licensed under the Apache 2 License.
 
+SimpleInvoicing test files are used from https://github.com/SimplerInvoicing/testset
+
 ## peppol-sml-client
 This project contains the SML client library used by the SMP's to interact with the SML.
 It is based on cipa-sml-client-library 2.2.3.
