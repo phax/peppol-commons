@@ -61,6 +61,13 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
     return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
   }
 
+  public boolean isDocumentTypeIdentifierCaseInsensitive ()
+  {
+    // BDXR document type identifier are to be treated case insensitive by
+    // default
+    return true;
+  }
+
   @Nullable
   public BDXRDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                   @Nullable final String sValue)
@@ -75,6 +82,11 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   }
 
   // No default participant identifier scheme
+  public boolean isParticipantIdentifierCaseInsensitive ()
+  {
+    // BDXR participant identifier are to be treated case insensitive by default
+    return true;
+  }
 
   @Nullable
   public BDXRParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,

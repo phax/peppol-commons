@@ -40,14 +40,9 @@
  */
 package com.helger.peppol.identifier.factory;
 
-import java.io.Serializable;
+import java.util.Locale;
 
 import javax.annotation.Nullable;
-
-import com.helger.peppol.identifier.IIdentifier;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 
 /**
  * A generic factory interface that allows to easily switch between default
@@ -57,183 +52,24 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
  *
  * @author Philip Helger
  */
-public interface IIdentifierFactory extends Serializable
+public interface IIdentifierFactory extends
+                                    IDocumentTypeIdentifierFactory,
+                                    IParticipantIdentifierFactory,
+                                    IProcessIdentifierFactory
 {
   /**
-   * @return <code>true</code> if this identifier type requires a mandatory
-   *         document type identifier scheme, <code>false</code> if not.
-   */
-  default boolean isDocumentTypeIdentifierSchemeMandatory ()
-  {
-    return false;
-  }
-
-  /**
-   * @return The default document type identifier scheme to be used for this
-   *         identifier type. May be <code>null</code>.
-   */
-  @Nullable
-  default String getDefaultDocumentTypeIdentifierScheme ()
-  {
-    return null;
-  }
-
-  /**
-   * Create a new document type identifier.
+   * This method should be used to create case-insensitive identifier values.
+   * Internally this method lower cases the provided value with the rules of
+   * {@link Locale#US}.
    *
-   * @param sScheme
-   *        The scheme to be used.
    * @param sValue
-   *        The value to be used.
-   * @return <code>null</code> if the provided scheme and/or value are/is
-   *         invalid.
+   *        The source value. May be <code>null</code>.
+   * @return <code>null</code> if the source value is <code>null</code>, the
+   *         lowercase value otherwise.
    */
   @Nullable
-  IDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable String sScheme, @Nullable String sValue);
-
-  /**
-   * Parse the provided URI encoded identifier as a document type identifier.
-   * This is the reverse operation of {@link IIdentifier#getURIEncoded()}
-   *
-   * @param sURIEncodedIdentifier
-   *        The URI encoded identifier in the format <code>scheme::value</code>.
-   *        It must NOT be percent encoded!
-   * @return The created identifier or <code>null</code> if the passed
-   *         identifier is not a valid URI encoded identifier
-   */
-  @Nullable
-  IDocumentTypeIdentifier parseDocumentTypeIdentifier (@Nullable String sURIEncodedIdentifier);
-
-  /**
-   * Create a clone of the passed document type identifier using the correct
-   * implementation type.
-   *
-   * @param aDocTypeID
-   *        Source identifier to clone. May be <code>null</code>.
-   * @return <code>null</code> if the passed parameter is <code>null</code>.
-   */
-  @Nullable
-  default IDocumentTypeIdentifier getClone (@Nullable final IDocumentTypeIdentifier aDocTypeID)
+  static String getUnifiedValue (@Nullable final String sValue)
   {
-    return aDocTypeID == null ? null : createDocumentTypeIdentifier (aDocTypeID.getScheme (), aDocTypeID.getValue ());
-  }
-
-  /**
-   * @return <code>true</code> if this identifier type requires a mandatory
-   *         participant identifier scheme, <code>false</code> if not.
-   */
-  default boolean isParticipantIdentifierSchemeMandatory ()
-  {
-    return false;
-  }
-
-  /**
-   * @return The default participant identifier scheme to be used for this
-   *         identifier type. May be <code>null</code>.
-   */
-  @Nullable
-  default String getDefaultParticipantIdentifierScheme ()
-  {
-    return null;
-  }
-
-  /**
-   * Create a new participant identifier.
-   *
-   * @param sScheme
-   *        The scheme to be used.
-   * @param sValue
-   *        The value to be used.
-   * @return <code>null</code> if the provided scheme and/or value are/is
-   *         invalid.
-   */
-  @Nullable
-  IParticipantIdentifier createParticipantIdentifier (@Nullable String sScheme, @Nullable String sValue);
-
-  /**
-   * Parse the provided URI encoded identifier as a participant identifier. This
-   * is the reverse operation of {@link IIdentifier#getURIEncoded()}
-   *
-   * @param sURIEncodedIdentifier
-   *        The URI encoded identifier in the format <code>scheme::value</code>.
-   *        It must NOT be percent encoded!
-   * @return The created identifier or <code>null</code> if the passed
-   *         identifier is not a valid URI encoded identifier
-   */
-  @Nullable
-  IParticipantIdentifier parseParticipantIdentifier (@Nullable String sURIEncodedIdentifier);
-
-  /**
-   * Create a clone of the passed participant identifier using the correct
-   * implementation type.
-   *
-   * @param aParticipantID
-   *        Source identifier to clone. May be <code>null</code>.
-   * @return <code>null</code> if the passed parameter is <code>null</code>.
-   */
-  @Nullable
-  default IParticipantIdentifier getClone (@Nullable final IParticipantIdentifier aParticipantID)
-  {
-    return aParticipantID == null ? null : createParticipantIdentifier (aParticipantID.getScheme (),
-                                                                        aParticipantID.getValue ());
-  }
-
-  /**
-   * @return <code>true</code> if this identifier type requires a mandatory
-   *         process identifier scheme, <code>false</code> if not.
-   */
-  default boolean isProcessIdentifierSchemeMandatory ()
-  {
-    return true;
-  }
-
-  /**
-   * @return The default process identifier scheme to be used for this
-   *         identifier type. May be <code>null</code>.
-   */
-  @Nullable
-  default String getDefaultProcessIdentifierScheme ()
-  {
-    return null;
-  }
-
-  /**
-   * Create a new process identifier.
-   *
-   * @param sScheme
-   *        The scheme to be used.
-   * @param sValue
-   *        The value to be used.
-   * @return <code>null</code> if the provided scheme and/or value are/is
-   *         invalid.
-   */
-  @Nullable
-  IProcessIdentifier createProcessIdentifier (@Nullable String sScheme, @Nullable String sValue);
-
-  /**
-   * Parse the provided URI encoded identifier as a process identifier. This is
-   * the reverse operation of {@link IIdentifier#getURIEncoded()}
-   *
-   * @param sURIEncodedIdentifier
-   *        The URI encoded identifier in the format <code>scheme::value</code>.
-   *        It must NOT be percent encoded!
-   * @return The created identifier or <code>null</code> if the passed
-   *         identifier is not a valid URI encoded identifier
-   */
-  @Nullable
-  IProcessIdentifier parseProcessIdentifier (@Nullable String sURIEncodedIdentifier);
-
-  /**
-   * Create a clone of the passed process identifier using the correct
-   * implementation type.
-   *
-   * @param aProcessID
-   *        Source identifier to clone. May be <code>null</code>.
-   * @return <code>null</code> if the passed parameter is <code>null</code>.
-   */
-  @Nullable
-  default IProcessIdentifier getClone (@Nullable final IProcessIdentifier aProcessID)
-  {
-    return aProcessID == null ? null : createProcessIdentifier (aProcessID.getScheme (), aProcessID.getValue ());
+    return sValue == null ? null : sValue.toLowerCase (Locale.US);
   }
 }
