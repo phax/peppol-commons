@@ -47,10 +47,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.ProcessIdentifierType;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -117,7 +117,10 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
 
   public int compareTo (@Nonnull final PeppolProcessIdentifier aOther)
   {
-    return IdentifierHelper.compareProcessIdentifiers (this, aOther);
+    int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
+    if (ret == 0)
+      ret = CompareHelper.compare (getValue (), aOther.getValue ());
+    return ret;
   }
 
   @Override
