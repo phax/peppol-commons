@@ -69,7 +69,9 @@ public final class PeppolDocumentTypeIdentifierTest
   @Test
   public void testHasDefaultDocumentTypeIdentifierScheme ()
   {
-    assertTrue (PeppolDocumentTypeIdentifier.createWithDefaultScheme ("abc").hasDefaultScheme ());
+    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    assertTrue (aIF.createDocumentTypeIdentifierWithDefaultScheme ("abc")
+                   .hasScheme (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME));
     assertFalse (new PeppolDocumentTypeIdentifier ("doctype", "abc").hasDefaultScheme ());
   }
 
@@ -100,7 +102,7 @@ public final class PeppolDocumentTypeIdentifierTest
     assertEquals ("scheme", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
 
-    assertEquals (aID, aID2);
+    assertTrue (aID.hasSameContent (aID2));
     XMLTestHelper.testMicroTypeConversion (aID2);
   }
 
@@ -217,24 +219,27 @@ public final class PeppolDocumentTypeIdentifierTest
   }
 
   @Test
-  public void testValueOf () throws Exception
+  public void testValue () throws Exception
   {
+    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     final String documentIdAsText = "urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm057:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0";
-    final PeppolDocumentTypeIdentifier documentTypeIdentifier = PeppolDocumentTypeIdentifier.createWithDefaultScheme (documentIdAsText);
+    final IDocumentTypeIdentifier documentTypeIdentifier = aIF.createDocumentTypeIdentifierWithDefaultScheme (documentIdAsText);
     assertEquals (documentTypeIdentifier.getValue (), documentIdAsText);
+    assertTrue (documentTypeIdentifier.hasValue (documentIdAsText));
   }
 
   @Test
   public void testStandardMethods ()
   {
+    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     final String s = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::2.0";
     final String s2 = "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::3.0";
 
-    final PeppolDocumentTypeIdentifier d1 = PeppolDocumentTypeIdentifier.createWithDefaultScheme (s);
-    final PeppolDocumentTypeIdentifier d2 = PeppolDocumentTypeIdentifier.createWithDefaultScheme (s);
+    final IDocumentTypeIdentifier d1 = aIF.createDocumentTypeIdentifierWithDefaultScheme (s);
+    final IDocumentTypeIdentifier d2 = aIF.createDocumentTypeIdentifierWithDefaultScheme (s);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (d1, d2);
 
-    final PeppolDocumentTypeIdentifier d3 = PeppolDocumentTypeIdentifier.createWithDefaultScheme (s2);
+    final IDocumentTypeIdentifier d3 = aIF.createDocumentTypeIdentifierWithDefaultScheme (s2);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (d1, d3);
   }
 

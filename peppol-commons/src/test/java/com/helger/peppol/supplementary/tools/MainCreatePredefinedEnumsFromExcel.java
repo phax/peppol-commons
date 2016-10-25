@@ -93,6 +93,7 @@ import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -322,10 +323,11 @@ public final class MainCreatePredefinedEnumsFromExcel
       jValue = m.param (JMod.FINAL, String.class, "sIdentifier");
       jValue.annotate (Nonnull.class);
       jValue.annotate (Nonempty.class);
-      m.body ()
-       ._return (s_aCodeModel.ref (PeppolParticipantIdentifier.class)
-                             .staticInvoke ("createWithDefaultScheme")
-                             .arg (JExpr.invoke (mCreateIdentifierValue).arg (jValue)));
+      m.body ()._return (JExpr.cast (s_aCodeModel.ref (PeppolParticipantIdentifier.class),
+                                     s_aCodeModel.ref (PeppolIdentifierFactory.class)
+                                                 .staticRef ("INSTANCE")
+                                                 .invoke ("createParticipantIdentifierWithDefaultScheme")
+                                                 .arg (JExpr.invoke (mCreateIdentifierValue).arg (jValue))));
 
       // public boolean isDeprecated ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");

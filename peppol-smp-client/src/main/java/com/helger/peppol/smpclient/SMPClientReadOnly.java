@@ -65,7 +65,6 @@ import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;
-import com.helger.peppol.identifier.IdentifierHelper;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
@@ -594,7 +593,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
       {
         // Matches the requested one?
-        if (IdentifierHelper.areProcessIdentifiersEqual (aProcessType.getProcessIdentifier (), aProcessID))
+        if (aProcessType.getProcessIdentifier ().hasSameContent (aProcessID))
         {
           // Filter all endpoints by required transport profile
           final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList<> ();

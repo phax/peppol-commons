@@ -45,8 +45,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.helger.commons.annotation.DevelopersNote;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 
 /**
@@ -93,9 +93,9 @@ public final class EsensURLProviderTest
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"),
                                                         ESML.DIGIT_PRODUCTION.getDNSZone (),
                                                         false));
-    assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test"),
-                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
+    assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
+                                                        ESML.DIGIT_TEST.getDNSZone (),
                                                         false));
   }
 
@@ -105,7 +105,7 @@ public final class EsensURLProviderTest
   {
     final EsensURLProvider aURLProvider = new EsensURLProvider ();
     assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test"),
+                  aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
                                                         ESML.DIGIT_TEST));
   }
 }

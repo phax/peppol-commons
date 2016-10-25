@@ -58,9 +58,10 @@ import com.helger.commons.base64.Base64;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.settings.exchange.configfile.ConfigFile;
@@ -137,21 +138,21 @@ public final class MockSMPClientConfig
   }
 
   @Nonnull
-  public static final PeppolParticipantIdentifier getParticipantID ()
+  public static final IParticipantIdentifier getParticipantID ()
   {
-    return PeppolParticipantIdentifier.createWithDefaultScheme (s_aConfig.getAsString ("participantid"));
+    return PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (s_aConfig.getAsString ("participantid"));
   }
 
   @Nonnull
-  public static final PeppolDocumentTypeIdentifier getDocumentTypeID ()
+  public static final IDocumentTypeIdentifier getDocumentTypeID ()
   {
-    return PeppolDocumentTypeIdentifier.createWithDefaultScheme (s_aConfig.getAsString ("documenttypeid"));
+    return PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifierWithDefaultScheme (s_aConfig.getAsString ("documenttypeid"));
   }
 
   @Nonnull
-  public static final PeppolProcessIdentifier getProcessTypeID ()
+  public static final IProcessIdentifier getProcessTypeID ()
   {
-    return PeppolProcessIdentifier.createWithDefaultScheme (s_aConfig.getAsString ("processtypeid"));
+    return PeppolIdentifierFactory.INSTANCE.createProcessIdentifierWithDefaultScheme (s_aConfig.getAsString ("processtypeid"));
   }
 
   @Nonnull

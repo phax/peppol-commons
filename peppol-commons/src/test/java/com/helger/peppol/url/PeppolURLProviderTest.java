@@ -52,9 +52,9 @@ import org.junit.Test;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.TextParseException;
 
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -73,32 +73,32 @@ public final class PeppolURLProviderTest
   public void testGetDNSNameOfParticipant ()
   {
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  INSTANCE.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123abc"),
+                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
                                                     ESML.DIGIT_PRODUCTION));
     // Same value but different casing
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  INSTANCE.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
+                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
                                                     ESML.DIGIT_PRODUCTION));
 
-    assertEquals ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  INSTANCE.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test"),
-                                                    ESML.DIGIT_PRODUCTION));
+    assertEquals ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
+                                                    ESML.DIGIT_TEST));
 
     // Wildcard
     assertEquals ("*.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  INSTANCE.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("*"),
+                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("*"),
                                                     ESML.DIGIT_PRODUCTION));
 
     // Empty DNS zone
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  INSTANCE.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
+                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
                                                     (String) null));
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  INSTANCE.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC"),
+                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
                                                     ""));
 
     if (false)
-      System.out.println (INSTANCE.getDNSNameOfParticipant (PeppolParticipantIdentifier.createWithDefaultScheme ("9915:b"),
+      System.out.println (INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b"),
                                                             ESML.DIGIT_PRODUCTION));
 
     // Test invalid
@@ -140,7 +140,7 @@ public final class PeppolURLProviderTest
   @Test
   public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException
   {
-    final IParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:123ABC");
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC");
     final URI aURI = INSTANCE.getSMPURIOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
     assertEquals (new URI ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"),
                   aURI);

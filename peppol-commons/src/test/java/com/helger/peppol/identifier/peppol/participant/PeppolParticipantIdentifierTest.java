@@ -126,7 +126,7 @@ public final class PeppolParticipantIdentifierTest
     assertEquals ("scheme-actorid-test", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
 
-    assertEquals (aID, aID2);
+    assertTrue (aID.hasSameContent (aID2));
     XMLTestHelper.testMicroTypeConversion (aID2);
   }
 
@@ -149,7 +149,7 @@ public final class PeppolParticipantIdentifierTest
     assertEquals ("scheme-actorid-test::value1", aID1.getURIEncoded ());
     assertEquals ("scheme-actorid-test%3A%3Avalue1", aID1.getURIPercentEncoded ());
     final IParticipantIdentifier aID2 = aIF.parseParticipantIdentifier ("scheme-actorid-test::value1");
-    assertEquals (aID1, aID2);
+    assertTrue (aID1.hasSameContent (aID2));
 
     assertNull (aIF.parseParticipantIdentifier ("scheme1"));
     assertNull (aIF.parseParticipantIdentifier (null));
@@ -242,7 +242,9 @@ public final class PeppolParticipantIdentifierTest
   @Test
   public void testHasDefaultScheme ()
   {
-    assertTrue (PeppolParticipantIdentifier.createWithDefaultScheme ("abc").hasDefaultScheme ());
+    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    assertTrue (aIF.createParticipantIdentifierWithDefaultScheme ("abc")
+                   .hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME));
     assertFalse (new PeppolParticipantIdentifier ("dummy-actorid-upis", "abc").hasDefaultScheme ());
   }
 }

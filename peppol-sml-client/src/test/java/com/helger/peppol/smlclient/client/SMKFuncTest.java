@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.ws.WSHelper;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
@@ -113,14 +113,16 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
       try
       {
         s_aLogger.info ("CREATE PARTICIPANT");
-        aPIClient.create (SMP_ID, PeppolParticipantIdentifier.createWithDefaultScheme ("9915:philip"));
+        aPIClient.create (SMP_ID,
+                          PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:philip"));
         try
         {}
         finally
         {
           s_aLogger.info ("DELETE PARTICIPANT");
           // The version with SMP_ID is required for SMK 3.0
-          aPIClient.delete (SMP_ID, PeppolParticipantIdentifier.createWithDefaultScheme ("9915:philip"));
+          aPIClient.delete (SMP_ID,
+                            PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:philip"));
         }
       }
       finally

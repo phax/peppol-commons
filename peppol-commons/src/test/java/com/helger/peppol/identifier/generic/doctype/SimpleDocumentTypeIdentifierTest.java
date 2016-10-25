@@ -41,6 +41,7 @@
 package com.helger.peppol.identifier.generic.doctype;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -65,7 +66,7 @@ public final class SimpleDocumentTypeIdentifierTest
     assertEquals ("scheme", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
 
-    assertEquals (aID, aID2);
+    assertTrue (aID.hasSameContent (aID2));
     XMLTestHelper.testMicroTypeConversion (aID2);
   }
 

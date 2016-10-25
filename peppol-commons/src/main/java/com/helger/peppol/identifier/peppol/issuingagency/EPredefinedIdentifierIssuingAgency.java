@@ -45,6 +45,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 
 
@@ -649,7 +650,7 @@ public enum EPredefinedIdentifierIssuingAgency
         @Nonnull
         @Nonempty
         final String sIdentifier) {
-        return PeppolParticipantIdentifier.createWithDefaultScheme(createIdentifierValue(sIdentifier));
+        return ((PeppolParticipantIdentifier) PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme(createIdentifierValue(sIdentifier)));
     }
 
     public boolean isDeprecated() {

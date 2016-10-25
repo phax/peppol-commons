@@ -53,7 +53,6 @@ import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
-import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
  * This class manages the predefined PEPPOL process identifiers the
@@ -66,7 +65,7 @@ import com.helger.peppol.identifier.IdentifierHelper;
 @Immutable
 public final class PredefinedProcessIdentifierManager
 {
-  private static final ICommonsMap <String, IPeppolPredefinedProcessIdentifier> s_aCodes = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, IPeppolPredefinedProcessIdentifier> s_aCodes = new CommonsHashMap<> ();
 
   static
   {
@@ -118,8 +117,8 @@ public final class PredefinedProcessIdentifierManager
     if (sProcIDValue != null)
       for (final Map.Entry <String, IPeppolPredefinedProcessIdentifier> aEntry : s_aCodes.entrySet ())
       {
-        // Use case insensitive identifier value comparison
-        if (IdentifierHelper.areProcessIdentifierValuesEqual (sProcIDValue, aEntry.getKey ()))
+        // PEPPOL: Case sensitive comparison
+        if (sProcIDValue.equals (aEntry.getKey ()))
           return aEntry.getValue ();
       }
     return null;

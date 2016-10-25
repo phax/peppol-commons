@@ -63,10 +63,14 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.identifier.DocumentIdentifierType;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.ProcessIdentifierType;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.smp.CompleteServiceGroupType;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
@@ -126,7 +130,7 @@ public final class SMPClientTest
   @Test
   public void testGetServiceMetadataNotExistsOnExistingSMP () throws SMPClientException
   {
-    final ParticipantIdentifierType aServiceGroupID = PeppolParticipantIdentifier.createWithDefaultScheme ("0088:surleyNotExisting");
+    final IParticipantIdentifier aServiceGroupID = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:surleyNotExisting");
 
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
     assertNull (aSMPClient.getServiceRegistrationOrNull (aServiceGroupID, MockSMPClientConfig.getDocumentTypeID ()));
@@ -208,9 +212,9 @@ public final class SMPClientTest
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
     aSMPClient.saveServiceGroup (MockSMPClientConfig.getParticipantID (), SMP_CREDENTIALS);
 
-    final ParticipantIdentifierType aServiceGroupID = MockSMPClientConfig.getParticipantID ();
-    final DocumentIdentifierType aDocumentID = MockSMPClientConfig.getDocumentTypeID ();
-    final ProcessIdentifierType aProcessID = MockSMPClientConfig.getProcessTypeID ();
+    final IParticipantIdentifier aServiceGroupID = MockSMPClientConfig.getParticipantID ();
+    final IDocumentTypeIdentifier aDocumentID = MockSMPClientConfig.getDocumentTypeID ();
+    final IProcessIdentifier aProcessID = MockSMPClientConfig.getProcessTypeID ();
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
     {
@@ -239,15 +243,15 @@ public final class SMPClientTest
               aServiceEndpointList.getEndpoint ().add (aEndpoint);
             }
 
-            aProcess.setProcessIdentifier (aProcessID);
+            aProcess.setProcessIdentifier (new SimpleProcessIdentifier (aProcessID));
             aProcess.setServiceEndpointList (aServiceEndpointList);
           }
 
           aProcessList.getProcess ().add (aProcess);
         }
 
-        aServiceInformation.setDocumentIdentifier (aDocumentID);
-        aServiceInformation.setParticipantIdentifier (aServiceGroupID);
+        aServiceInformation.setDocumentIdentifier (new SimpleDocumentTypeIdentifier (aDocumentID));
+        aServiceInformation.setParticipantIdentifier (new SimpleParticipantIdentifier (aServiceGroupID));
         aServiceInformation.setProcessList (aProcessList);
       }
 

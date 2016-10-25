@@ -78,7 +78,7 @@ public final class PeppolProcessIdentifierTest
     assertEquals ("scheme", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
 
-    assertEquals (aID, aID2);
+    assertTrue (aID.hasSameContent (aID2));
     XMLTestHelper.testMicroTypeConversion (aID2);
   }
 
@@ -210,7 +210,9 @@ public final class PeppolProcessIdentifierTest
   @Test
   public void testHasDefaultProcessIdentifierScheme ()
   {
-    assertTrue (PeppolProcessIdentifier.createWithDefaultScheme ("abc").hasDefaultScheme ());
+    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    assertTrue (aIF.createProcessIdentifierWithDefaultScheme ("abc")
+                   .hasScheme (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME));
     assertFalse (new PeppolProcessIdentifier ("proctype", "abc").hasDefaultScheme ());
   }
 }

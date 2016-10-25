@@ -54,9 +54,12 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smp.ObjectFactory;
@@ -82,9 +85,9 @@ public final class MainSMPServiceRegistrationCreate
   {
     final URI SMP_URI = MockSMPClientConfig.getSMPURI ();
     final BasicAuthClientCredentials SMP_CREDENTIALS = MockSMPClientConfig.getSMPCredentials ();
-    final PeppolParticipantIdentifier PARTICIPANT_ID = MockSMPClientConfig.getParticipantID ();
-    final PeppolDocumentTypeIdentifier DOCUMENT_ID = MockSMPClientConfig.getDocumentTypeID ();
-    final PeppolProcessIdentifier PROCESS_ID = MockSMPClientConfig.getProcessTypeID ();
+    final IParticipantIdentifier PARTICIPANT_ID = MockSMPClientConfig.getParticipantID ();
+    final IDocumentTypeIdentifier DOCUMENT_ID = MockSMPClientConfig.getDocumentTypeID ();
+    final IProcessIdentifier PROCESS_ID = MockSMPClientConfig.getProcessTypeID ();
     final W3CEndpointReference START_AP_ENDPOINTREF = MockSMPClientConfig.getAPEndpointRef ();
     final String AP_CERT_STRING = MockSMPClientConfig.getAPCert ();
     final String AP_SERVICE_DESCRIPTION = MockSMPClientConfig.getAPServiceDescription ();
@@ -118,13 +121,13 @@ public final class MainSMPServiceRegistrationCreate
               aEndpoint.setRequireBusinessLevelSignature (false);
               aServiceEndpointList.getEndpoint ().add (aEndpoint);
             }
-            aProcess.setProcessIdentifier (PROCESS_ID);
+            aProcess.setProcessIdentifier (new SimpleProcessIdentifier (PROCESS_ID));
             aProcess.setServiceEndpointList (aServiceEndpointList);
           }
           aProcessList.getProcess ().add (aProcess);
         }
-        aServiceInformation.setDocumentIdentifier (DOCUMENT_ID);
-        aServiceInformation.setParticipantIdentifier (PARTICIPANT_ID);
+        aServiceInformation.setDocumentIdentifier (new SimpleDocumentTypeIdentifier (DOCUMENT_ID));
+        aServiceInformation.setParticipantIdentifier (new SimpleParticipantIdentifier (PARTICIPANT_ID));
         aServiceInformation.setProcessList (aProcessList);
       }
       aServiceMetadata.setServiceInformation (aServiceInformation);

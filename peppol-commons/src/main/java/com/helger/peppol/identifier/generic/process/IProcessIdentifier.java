@@ -41,6 +41,7 @@
 package com.helger.peppol.identifier.generic.process;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.compare.IComparator;
@@ -55,6 +56,13 @@ import com.helger.peppol.identifier.IIdentifier;
  */
 public interface IProcessIdentifier extends IIdentifier
 {
+  default boolean hasSameContent (@Nullable final IProcessIdentifier aOther)
+  {
+    // Check value before scheme because the possibility of a divergent value is
+    // much higher
+    return aOther != null && hasValue (aOther.getValue ()) && hasScheme (aOther.getScheme ());
+  }
+
   @Nonnull
   static IComparator <IProcessIdentifier> comparator ()
   {

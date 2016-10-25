@@ -62,6 +62,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
+@Deprecated
 public final class IdentifierHelperTest
 {
 
