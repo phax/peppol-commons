@@ -44,6 +44,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ICloneable;
@@ -67,6 +68,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
                                      Comparable <PeppolProcessIdentifier>,
                                      ICloneable <PeppolProcessIdentifier>
 {
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public PeppolProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
@@ -88,6 +90,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
     return sValue;
   }
 
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public PeppolProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
     this (true, _verifyScheme (sScheme), _verifyValue (sValue));
@@ -104,7 +107,9 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  private PeppolProcessIdentifier (final boolean bVerified, @Nonnull final String sScheme, @Nonnull final String sValue)
+  protected PeppolProcessIdentifier (final boolean bVerified,
+                                     @Nonnull final String sScheme,
+                                     @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);

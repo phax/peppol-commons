@@ -44,6 +44,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ICloneable;
@@ -66,11 +67,13 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
                                         Comparable <BDXRDocumentTypeIdentifier>,
                                         ICloneable <BDXRDocumentTypeIdentifier>
 {
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public BDXRDocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public BDXRDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     // Change "" to null

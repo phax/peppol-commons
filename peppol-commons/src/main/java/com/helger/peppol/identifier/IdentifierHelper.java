@@ -55,11 +55,14 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 
 /**
  * This class contains several identifier related utility methods that works
- * with ALL kind of identifiers.
+ * with ALL kind of identifiers.<br>
+ * Deprecated as per 5.1.6 because now the case sensitivity of identifiers is
+ * directly handled in the identifier factory.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @ThreadSafe
+@Deprecated
 public final class IdentifierHelper
 {
   @PresentForCodeCoverage

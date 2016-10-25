@@ -55,6 +55,12 @@ import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
  */
 public class PeppolIdentifierFactory implements IIdentifierFactory
 {
+  /** Global instance to be used. */
+  public static final PeppolIdentifierFactory INSTANCE = new PeppolIdentifierFactory ();
+
+  public PeppolIdentifierFactory ()
+  {}
+
   public boolean isDocumentTypeIdentifierSchemeMandatory ()
   {
     return true;

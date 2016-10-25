@@ -44,6 +44,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ICloneable;
@@ -64,11 +65,13 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
                                      Comparable <SimpleProcessIdentifier>,
                                      ICloneable <SimpleProcessIdentifier>
 {
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public SimpleProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public SimpleProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
     setScheme (sScheme);

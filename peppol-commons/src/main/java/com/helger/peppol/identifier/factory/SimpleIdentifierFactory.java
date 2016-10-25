@@ -54,6 +54,12 @@ import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
  */
 public class SimpleIdentifierFactory implements IIdentifierFactory
 {
+  /** Global instance to be used. */
+  public static final SimpleIdentifierFactory INSTANCE = new SimpleIdentifierFactory ();
+
+  public SimpleIdentifierFactory ()
+  {}
+
   @Nullable
   public SimpleDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                     @Nullable final String sValue)

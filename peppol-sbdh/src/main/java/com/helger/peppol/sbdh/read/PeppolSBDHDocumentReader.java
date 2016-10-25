@@ -41,6 +41,8 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.jaxb.validation.DoNothingValidationEventHandlerFactory;
+import com.helger.peppol.identifier.factory.IIdentifierFactory;
+import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
@@ -55,8 +57,17 @@ import com.helger.sbdh.SBDMarshaller;
 @NotThreadSafe
 public class PeppolSBDHDocumentReader
 {
+  private final IIdentifierFactory m_aIdentifierFactory;
+
   public PeppolSBDHDocumentReader ()
-  {}
+  {
+    this (SimpleIdentifierFactory.INSTANCE);
+  }
+
+  public PeppolSBDHDocumentReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  {
+    m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
+  }
 
   /**
    * Check if the passed header version is valid or not. By default is must
@@ -77,9 +88,8 @@ public class PeppolSBDHDocumentReader
 
   /**
    * Check if the passed sender authority is valid or not. By default is must
-   * match
-   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}.
-   * Override this method to allow for other schemes as well.
+   * match {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. Override
+   * this method to allow for other schemes as well.
    *
    * @param sSenderAuthority
    *        The value to be checked. This is the content of the XML attribute
@@ -117,9 +127,8 @@ public class PeppolSBDHDocumentReader
 
   /**
    * Check if the passed receiver authority is valid or not. By default is must
-   * match
-   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}.
-   * Override this method to allow for other schemes as well.
+   * match {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. Override
+   * this method to allow for other schemes as well.
    *
    * @param sReceiverAuthority
    *        The value to be checked. This is the content of the XML attribute
@@ -420,7 +429,7 @@ public class PeppolSBDHDocumentReader
   public PeppolSBDHDocument extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
-    final PeppolSBDHDocument ret = new PeppolSBDHDocument ();
+    final PeppolSBDHDocument ret = new PeppolSBDHDocument (m_aIdentifierFactory);
 
     // Grab the header
     final StandardBusinessDocumentHeader aSBDH = aStandardBusinessDocument.getStandardBusinessDocumentHeader ();

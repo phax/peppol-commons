@@ -44,6 +44,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ICloneable;
@@ -66,6 +67,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
                                          Comparable <PeppolParticipantIdentifier>,
                                          ICloneable <PeppolParticipantIdentifier>
 {
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public PeppolParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
@@ -89,7 +91,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
 
   /**
    * Create a new object.
-   * 
+   *
    * @param sScheme
    *        The scheme to use. May not be <code>null</code>.
    * @param sValue
@@ -97,6 +99,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    * @throws IllegalArgumentException
    *         If either scheme or value are invalid
    */
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public PeppolParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     this (true, _verifyScheme (sScheme), _verifyValue (sValue));
@@ -113,9 +116,9 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  private PeppolParticipantIdentifier (final boolean bVerified,
-                                       @Nonnull final String sScheme,
-                                       @Nonnull final String sValue)
+  protected PeppolParticipantIdentifier (final boolean bVerified,
+                                         @Nonnull final String sScheme,
+                                         @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);

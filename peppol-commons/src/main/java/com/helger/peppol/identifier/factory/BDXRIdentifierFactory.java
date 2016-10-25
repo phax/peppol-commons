@@ -56,6 +56,12 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
  */
 public class BDXRIdentifierFactory implements IIdentifierFactory
 {
+  /** Global instance to be used. */
+  public static final BDXRIdentifierFactory INSTANCE = new BDXRIdentifierFactory ();
+
+  public BDXRIdentifierFactory ()
+  {}
+
   @Nonnull
   public String getDefaultDocumentTypeIdentifierScheme ()
   {

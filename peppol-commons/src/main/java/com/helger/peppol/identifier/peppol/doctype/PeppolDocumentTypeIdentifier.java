@@ -44,6 +44,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ICloneable;
@@ -55,7 +56,7 @@ import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
- * A special document type identifier that handles the specialities of PEPPOL
+ * A special document type identifier that handles the specialties of PEPPOL
  * (like fixed default scheme) etc.
  *
  * @author Philip Helger
@@ -66,6 +67,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
                                           Comparable <PeppolDocumentTypeIdentifier>,
                                           ICloneable <PeppolDocumentTypeIdentifier>
 {
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public PeppolDocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
@@ -87,6 +89,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
     return sValue;
   }
 
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public PeppolDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     this (true, _verifyScheme (sScheme), _verifyValue (sValue));
@@ -103,9 +106,9 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  private PeppolDocumentTypeIdentifier (final boolean bVerified,
-                                        @Nonnull final String sScheme,
-                                        @Nonnull final String sValue)
+  protected PeppolDocumentTypeIdentifier (final boolean bVerified,
+                                          @Nonnull final String sScheme,
+                                          @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);

@@ -27,6 +27,8 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.peppol.identifier.factory.IIdentifierFactory;
+import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
@@ -71,8 +73,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
-    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME,
-                  aDataRead.getDocumentTypeScheme ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aDataRead.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
@@ -85,7 +86,8 @@ public final class PeppolSBDHDocumentWriterTest
   @Test
   public void testBadCase ()
   {
-    final PeppolSBDHDocument aData = new PeppolSBDHDocument ();
+    final IIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
+    final PeppolSBDHDocument aData = new PeppolSBDHDocument (aIF);
     try
     {
       // Not all fields are set

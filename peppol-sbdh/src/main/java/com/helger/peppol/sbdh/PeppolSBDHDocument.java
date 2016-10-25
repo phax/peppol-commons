@@ -33,12 +33,11 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.peppol.identifier.factory.IIdentifierFactory;
+import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
@@ -50,6 +49,7 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 @NotThreadSafe
 public class PeppolSBDHDocument
 {
+  private final IIdentifierFactory m_aIdentifierFactory;
   // Sender
   private String m_sSenderScheme;
   private String m_sSenderValue;
@@ -70,16 +70,35 @@ public class PeppolSBDHDocument
   // BusinessMessage
   private Element m_aBusinessMessage;
 
+  /**
+   * Default constructor.
+   * 
+   * @deprecated Use the version with an explicit identifier factory.
+   */
+  @Deprecated
   public PeppolSBDHDocument ()
-  {}
+  {
+    this (SimpleIdentifierFactory.INSTANCE);
+  }
+
+  /**
+   * Constructor
+   * 
+   * @param aIdentifierFactory
+   *        Identifier factory to be used. May not be <code>null</code>.
+   */
+  public PeppolSBDHDocument (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  {
+    m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
+  }
 
   /**
    * Set the sender identifier.
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} . May neither be
-   *        <code>null</code> nor empty. This field is mapped to
+   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. May
+   *        neither be <code>null</code> nor empty. This field is mapped to
    *        <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code>
    *        .
    * @param sValue
@@ -143,7 +162,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IParticipantIdentifier getSenderAsIdentifier ()
   {
-    return new SimpleParticipantIdentifier (m_sSenderScheme, m_sSenderValue);
+    return m_aIdentifierFactory.createParticipantIdentifier (m_sSenderScheme, m_sSenderValue);
   }
 
   /**
@@ -151,8 +170,8 @@ public class PeppolSBDHDocument
    *
    * @param sScheme
    *        The PEPPOL identifier scheme. This is usually always
-   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} . May neither be
-   *        <code>null</code> nor empty. This field is mapped to
+   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} . May
+   *        neither be <code>null</code> nor empty. This field is mapped to
    *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code>
    *        .
    * @param sValue
@@ -217,7 +236,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IParticipantIdentifier getReceiverAsIdentifier ()
   {
-    return new SimpleParticipantIdentifier (m_sReceiverScheme, m_sReceiverValue);
+    return m_aIdentifierFactory.createParticipantIdentifier (m_sReceiverScheme, m_sReceiverValue);
   }
 
   /**
@@ -244,7 +263,8 @@ public class PeppolSBDHDocument
 
   /**
    * Set the document type identifier using the default identifier
-   * scheme/authority {@link PeppolIdentifierHelper#DEFAULT_DOCUMENT_TYPE_SCHEME} .
+   * scheme/authority
+   * {@link PeppolIdentifierHelper#DEFAULT_DOCUMENT_TYPE_SCHEME} .
    *
    * @param sValue
    *        The document type identifier value. May neither be <code>null</code>
@@ -288,7 +308,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
   {
-    return new SimpleDocumentTypeIdentifier (m_sDocumentTypeScheme, m_sDocumentTypeValue);
+    return m_aIdentifierFactory.createDocumentTypeIdentifier (m_sDocumentTypeScheme, m_sDocumentTypeValue);
   }
 
   /**
@@ -358,7 +378,7 @@ public class PeppolSBDHDocument
   @Nullable
   public IProcessIdentifier getProcessAsIdentifier ()
   {
-    return new SimpleProcessIdentifier (m_sProcessScheme, m_sProcessValue);
+    return m_aIdentifierFactory.createProcessIdentifier (m_sProcessScheme, m_sProcessValue);
   }
 
   /**
