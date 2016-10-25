@@ -157,6 +157,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *         If the passed identifier is not a valid URI encoded identifier
    */
   @Nonnull
+  @Deprecated
   public static PeppolDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
     final PeppolDocumentTypeIdentifier ret = createFromURIPartOrNull (sURIPart);
@@ -233,6 +234,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @return <code>true</code> if the document type identifier is valid,
    *         <code>false</code> otherwise
    */
+  @Deprecated
   public static boolean isValidURIPart (@Nullable final String sURIPart)
   {
     return createFromURIPartOrNull (sURIPart) != null;

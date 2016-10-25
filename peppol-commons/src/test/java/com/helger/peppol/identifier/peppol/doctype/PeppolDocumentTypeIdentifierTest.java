@@ -87,24 +87,6 @@ public final class PeppolDocumentTypeIdentifierTest
   }
 
   @Test
-  public void testIsValidDocumentTypeIdentifier ()
-  {
-    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart (null));
-    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart (""));
-
-    assertTrue (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype::invoice"));
-    assertTrue (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype::order "));
-
-    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctypethatiswaytoolongforwhatisexpected::order"));
-    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype::" +
-                                                              StringHelper.getRepeated ('a',
-                                                                                        PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
-                                                                                             1)));
-    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctype:order"));
-    assertFalse (PeppolDocumentTypeIdentifier.isValidURIPart ("doctypeorder"));
-  }
-
-  @Test
   public void testCtor ()
   {
     final PeppolDocumentTypeIdentifier aID = new PeppolDocumentTypeIdentifier ("scheme", "value");
@@ -136,19 +118,23 @@ public final class PeppolDocumentTypeIdentifierTest
     final PeppolDocumentTypeIdentifier aID1 = new PeppolDocumentTypeIdentifier ("scheme1", "value1");
     assertEquals ("scheme1::value1", aID1.getURIEncoded ());
     assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
-    final PeppolDocumentTypeIdentifier aID2 = PeppolDocumentTypeIdentifier.createFromURIPart ("scheme1::value1");
+    final PeppolDocumentTypeIdentifier aID2 = PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("scheme1::value1");
     assertEquals (aID1, aID2);
 
-    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("scheme1"));
     assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull (null));
-    try
-    {
-      // No separator
-      PeppolDocumentTypeIdentifier.createFromURIPart ("scheme1");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull (""));
+    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("scheme1"));
+
+    assertNotNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctype::invoice"));
+    assertNotNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctype::order "));
+
+    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctypethatiswaytoolongforwhatisexpected::order"));
+    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctype::" +
+                                                                      StringHelper.getRepeated ('a',
+                                                                                                PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
+                                                                                                     1)));
+    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctype:order"));
+    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctypeorder"));
   }
 
   @Test
@@ -218,7 +204,8 @@ public final class PeppolDocumentTypeIdentifierTest
       // Value too long
       new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME,
                                         StringHelper.getRepeated ('a',
-                                                                  PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH + 1));
+                                                                  PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
+                                                                       1));
       fail ();
     }
     catch (final IllegalArgumentException ex)

@@ -68,7 +68,7 @@ public interface IIdentifierFactory extends
    *         lowercase value otherwise.
    */
   @Nullable
-  static String getUnifiedValue (@Nullable final String sValue)
+  default String getUnifiedValue (@Nullable final String sValue)
   {
     return sValue == null ? null : sValue.toLowerCase (Locale.US);
   }

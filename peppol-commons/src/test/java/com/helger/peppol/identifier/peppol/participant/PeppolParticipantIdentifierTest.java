@@ -42,6 +42,7 @@ package com.helger.peppol.identifier.peppol.participant;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -52,6 +53,8 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.xml.mock.XMLTestHelper;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link PeppolParticipantIdentifier}.
@@ -141,22 +144,31 @@ public final class PeppolParticipantIdentifierTest
     final PeppolParticipantIdentifier aID1 = new PeppolParticipantIdentifier ("scheme-actorid-test", "value1");
     assertEquals ("scheme-actorid-test::value1", aID1.getURIEncoded ());
     assertEquals ("scheme-actorid-test%3A%3Avalue1", aID1.getURIPercentEncoded ());
-    final PeppolParticipantIdentifier aID2 = PeppolParticipantIdentifier.createFromURIPart ("scheme-actorid-test::value1");
+    final PeppolParticipantIdentifier aID2 = PeppolParticipantIdentifier.createFromURIPartOrNull ("scheme-actorid-test::value1");
     assertEquals (aID1, aID2);
 
     assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("scheme1"));
     assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull (null));
-    try
-    {
-      // No separator
-      PeppolParticipantIdentifier.createFromURIPart ("scheme1");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+
+    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull (null));
+    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull (""));
+
+    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::9908:976098897"));
+    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::9908:976098897 "));
+    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::990:976098897"));
+    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::990976098897"));
+    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::9909:976098896"));
+    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::9908:976098896"));
+
+    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummythatiswaytoolongforwhatisexpected::9908:976098896"));
+    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::" + VALUE_MAX_LENGTH));
+    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::" + VALUE_MAX_LENGTH_PLUS_1));
+    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy:9908:976098896"));
+    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy9908:976098896"));
   }
 
   @Test
+  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testConstraints ()
   {
     try
@@ -218,8 +230,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Value too long
-      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME,
-                                       VALUE_MAX_LENGTH_PLUS_1);
+      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, VALUE_MAX_LENGTH_PLUS_1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -231,25 +242,5 @@ public final class PeppolParticipantIdentifierTest
   {
     assertTrue (PeppolParticipantIdentifier.createWithDefaultScheme ("abc").hasDefaultScheme ());
     assertFalse (new PeppolParticipantIdentifier ("dummy-actorid-upis", "abc").hasDefaultScheme ());
-  }
-
-  @Test
-  public void testIsValidParticipantIdentifier ()
-  {
-    assertFalse (PeppolParticipantIdentifier.isValidURIPart (null));
-    assertFalse (PeppolParticipantIdentifier.isValidURIPart (""));
-
-    assertTrue (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy::9908:976098897"));
-    assertTrue (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy::9908:976098897 "));
-    assertTrue (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy::990:976098897"));
-    assertTrue (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy::990976098897"));
-    assertTrue (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy::9909:976098896"));
-    assertTrue (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy::9908:976098896"));
-
-    assertFalse (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummythatiswaytoolongforwhatisexpected::9908:976098896"));
-    assertTrue (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy::" + VALUE_MAX_LENGTH));
-    assertFalse (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy::" + VALUE_MAX_LENGTH_PLUS_1));
-    assertFalse (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy:9908:976098896"));
-    assertFalse (PeppolParticipantIdentifier.isValidURIPart ("any-actorid-dummy9908:976098896"));
   }
 }

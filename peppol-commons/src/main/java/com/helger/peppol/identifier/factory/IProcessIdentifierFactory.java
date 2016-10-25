@@ -75,14 +75,14 @@ public interface IProcessIdentifierFactory extends Serializable
   }
 
   /**
-   * @param sIdentifierScheme
+   * @param sScheme
    *        The identifier scheme in use. May be <code>null</code> or empty if
    *        {@link #isProcessIdentifierSchemeMandatory()} is <code>false</code>.
    * @return <code>true</code> if all process identifiers need to be handled
    *         case insensitive (so "abc" equals "ABC"), <code>false</code> if
    *         not.
    */
-  default boolean isProceessIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
+  default boolean isProceessIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
     return false;
   }

@@ -105,6 +105,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
    *         If the passed identifier is not a valid URI encoded identifier
    */
   @Nonnull
+  @Deprecated
   public static SimpleParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
     final SimpleParticipantIdentifier ret = createFromURIPartOrNull (sURIPart);
@@ -155,6 +156,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
    * @return <code>true</code> if the participant identifier is valid,
    *         <code>false</code> otherwise
    */
+  @Deprecated
   public static boolean isValidURIPart (@Nullable final String sURIPart)
   {
     return createFromURIPartOrNull (sURIPart) != null;

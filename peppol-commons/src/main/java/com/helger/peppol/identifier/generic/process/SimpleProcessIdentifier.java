@@ -105,6 +105,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
    *         If the passed identifier is not a valid URI encoded identifier
    */
   @Nonnull
+  @Deprecated
   public static SimpleProcessIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
   {
     final SimpleProcessIdentifier ret = createFromURIPartOrNull (sURIPart);
@@ -155,6 +156,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
    * @return <code>true</code> if the process identifier is valid,
    *         <code>false</code> otherwise
    */
+  @Deprecated
   public static boolean isValidURIPart (@Nullable final String sURIPart)
   {
     return createFromURIPartOrNull (sURIPart) != null;

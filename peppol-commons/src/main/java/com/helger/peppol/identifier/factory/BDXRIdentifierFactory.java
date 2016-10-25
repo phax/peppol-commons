@@ -68,16 +68,17 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
     return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
   }
 
-  public boolean isDocumentTypeIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
+  public boolean isDocumentTypeIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
-    return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (sIdentifierScheme);
+    return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (sScheme);
   }
 
   @Nullable
   public BDXRDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                   @Nullable final String sValue)
   {
-    return BDXRDocumentTypeIdentifier.createIfValid (sScheme, sValue);
+    final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
+    return BDXRDocumentTypeIdentifier.createIfValid (sScheme, sRealValue);
   }
 
   @Nullable
@@ -88,9 +89,9 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
 
   // No default participant identifier scheme
 
-  public boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
+  public boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
-    return PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME.equals (sIdentifierScheme);
+    return PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME.equals (sScheme);
   }
 
   @Nullable
@@ -112,9 +113,9 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
     return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
   }
 
-  public boolean isProcessIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
+  public boolean isProcessIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
-    return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals (sIdentifierScheme);
+    return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals (sScheme);
   }
 
   @Nullable

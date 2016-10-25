@@ -42,6 +42,7 @@ package com.helger.peppol.identifier.peppol.process;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -52,6 +53,8 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.xml.mock.XMLTestHelper;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link PeppolProcessIdentifier}.
@@ -93,22 +96,27 @@ public final class PeppolProcessIdentifierTest
     final PeppolProcessIdentifier aID1 = new PeppolProcessIdentifier ("scheme1", "value1");
     assertEquals ("scheme1::value1", aID1.getURIEncoded ());
     assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
-    final PeppolProcessIdentifier aID2 = PeppolProcessIdentifier.createFromURIPart ("scheme1::value1");
+    final PeppolProcessIdentifier aID2 = PeppolProcessIdentifier.createFromURIPartOrNull ("scheme1::value1");
     assertEquals (aID1, aID2);
 
     assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("scheme1"));
     assertNull (PeppolProcessIdentifier.createFromURIPartOrNull (null));
-    try
-    {
-      // No separator
-      PeppolProcessIdentifier.createFromURIPart ("scheme1");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull (""));
+
+    assertNotNull (PeppolProcessIdentifier.createFromURIPartOrNull ("process::proc1"));
+    assertNotNull (PeppolProcessIdentifier.createFromURIPartOrNull ("process::proc2 "));
+
+    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
+    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("process::" +
+                                                                 StringHelper.getRepeated ('a',
+                                                                                           PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH +
+                                                                                                1)));
+    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("process:proc2"));
+    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("processproc2"));
   }
 
   @Test
+  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testConstraints ()
   {
     try
@@ -200,23 +208,5 @@ public final class PeppolProcessIdentifierTest
   {
     assertTrue (PeppolProcessIdentifier.createWithDefaultScheme ("abc").hasDefaultScheme ());
     assertFalse (new PeppolProcessIdentifier ("proctype", "abc").hasDefaultScheme ());
-  }
-
-  @Test
-  public void testIsValidProcessIdentifier ()
-  {
-    assertFalse (PeppolProcessIdentifier.isValidURIPart (null));
-    assertFalse (PeppolProcessIdentifier.isValidURIPart (""));
-
-    assertTrue (PeppolProcessIdentifier.isValidURIPart ("process::proc1"));
-    assertTrue (PeppolProcessIdentifier.isValidURIPart ("process::proc2 "));
-
-    assertFalse (PeppolProcessIdentifier.isValidURIPart ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
-    assertFalse (PeppolProcessIdentifier.isValidURIPart ("process::" +
-                                                         StringHelper.getRepeated ('a',
-                                                                                   PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH +
-                                                                                        1)));
-    assertFalse (PeppolProcessIdentifier.isValidURIPart ("process:proc2"));
-    assertFalse (PeppolProcessIdentifier.isValidURIPart ("processproc2"));
   }
 }

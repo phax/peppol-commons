@@ -96,9 +96,9 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     return PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME;
   }
 
-  public boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
+  public boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
-    return PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME.equals (sIdentifierScheme);
+    return PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME.equals (sScheme);
   }
 
   @Nullable
