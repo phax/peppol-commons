@@ -131,6 +131,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
    *         the passed identifier is not a valid URI encoded identifier
    */
   @Nullable
+  @Deprecated
   public static SimpleProcessIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)

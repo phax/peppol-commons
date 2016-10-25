@@ -131,6 +131,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
    *         encoded identifier
    */
   @Nullable
+  @Deprecated
   public static SimpleParticipantIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)

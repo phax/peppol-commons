@@ -40,10 +40,6 @@
  */
 package com.helger.peppol.identifier.factory;
 
-import java.util.Locale;
-
-import javax.annotation.Nullable;
-
 /**
  * A generic factory interface that allows to easily switch between default
  * identifiers (<code>Simple...Identifier</code>), Peppol identifiers (
@@ -57,19 +53,5 @@ public interface IIdentifierFactory extends
                                     IParticipantIdentifierFactory,
                                     IProcessIdentifierFactory
 {
-  /**
-   * This method should be used to create case-insensitive identifier values.
-   * Internally this method lower cases the provided value with the rules of
-   * {@link Locale#US}.
-   *
-   * @param sValue
-   *        The source value. May be <code>null</code>.
-   * @return <code>null</code> if the source value is <code>null</code>, the
-   *         lowercase value otherwise.
-   */
-  @Nullable
-  default String getUnifiedValue (@Nullable final String sValue)
-  {
-    return sValue == null ? null : sValue.toLowerCase (Locale.US);
-  }
+  /* empty */
 }

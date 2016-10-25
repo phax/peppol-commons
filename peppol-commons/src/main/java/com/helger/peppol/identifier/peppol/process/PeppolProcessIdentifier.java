@@ -139,6 +139,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    *         <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static PeppolProcessIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
     return new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, sValue);
@@ -183,6 +184,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    *         the passed identifier is not a valid URI encoded identifier
    */
   @Nullable
+  @Deprecated
   public static PeppolProcessIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)

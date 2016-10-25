@@ -51,6 +51,9 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.factory.IIdentifierFactory;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.xml.mock.XMLTestHelper;
 
@@ -141,30 +144,29 @@ public final class PeppolParticipantIdentifierTest
   @Test
   public void testURIStuff ()
   {
-    final PeppolParticipantIdentifier aID1 = new PeppolParticipantIdentifier ("scheme-actorid-test", "value1");
+    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    final IParticipantIdentifier aID1 = new PeppolParticipantIdentifier ("scheme-actorid-test", "value1");
     assertEquals ("scheme-actorid-test::value1", aID1.getURIEncoded ());
     assertEquals ("scheme-actorid-test%3A%3Avalue1", aID1.getURIPercentEncoded ());
-    final PeppolParticipantIdentifier aID2 = PeppolParticipantIdentifier.createFromURIPartOrNull ("scheme-actorid-test::value1");
+    final IParticipantIdentifier aID2 = aIF.parseParticipantIdentifier ("scheme-actorid-test::value1");
     assertEquals (aID1, aID2);
 
-    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("scheme1"));
-    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull (null));
+    assertNull (aIF.parseParticipantIdentifier ("scheme1"));
+    assertNull (aIF.parseParticipantIdentifier (null));
+    assertNull (aIF.parseParticipantIdentifier (""));
 
-    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull (null));
-    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull (""));
+    assertNotNull (aIF.parseParticipantIdentifier ("any-actorid-dummy::9908:976098897"));
+    assertNotNull (aIF.parseParticipantIdentifier ("any-actorid-dummy::9908:976098897 "));
+    assertNotNull (aIF.parseParticipantIdentifier ("any-actorid-dummy::990:976098897"));
+    assertNotNull (aIF.parseParticipantIdentifier ("any-actorid-dummy::990976098897"));
+    assertNotNull (aIF.parseParticipantIdentifier ("any-actorid-dummy::9909:976098896"));
+    assertNotNull (aIF.parseParticipantIdentifier ("any-actorid-dummy::9908:976098896"));
 
-    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::9908:976098897"));
-    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::9908:976098897 "));
-    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::990:976098897"));
-    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::990976098897"));
-    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::9909:976098896"));
-    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::9908:976098896"));
-
-    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummythatiswaytoolongforwhatisexpected::9908:976098896"));
-    assertNotNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::" + VALUE_MAX_LENGTH));
-    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy::" + VALUE_MAX_LENGTH_PLUS_1));
-    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy:9908:976098896"));
-    assertNull (PeppolParticipantIdentifier.createFromURIPartOrNull ("any-actorid-dummy9908:976098896"));
+    assertNull (aIF.parseParticipantIdentifier ("any-actorid-dummythatiswaytoolongforwhatisexpected::9908:976098896"));
+    assertNotNull (aIF.parseParticipantIdentifier ("any-actorid-dummy::" + VALUE_MAX_LENGTH));
+    assertNull (aIF.parseParticipantIdentifier ("any-actorid-dummy::" + VALUE_MAX_LENGTH_PLUS_1));
+    assertNull (aIF.parseParticipantIdentifier ("any-actorid-dummy:9908:976098896"));
+    assertNull (aIF.parseParticipantIdentifier ("any-actorid-dummy9908:976098896"));
   }
 
   @Test

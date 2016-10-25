@@ -51,6 +51,9 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.factory.IIdentifierFactory;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.xml.mock.XMLTestHelper;
 
@@ -93,26 +96,27 @@ public final class PeppolProcessIdentifierTest
   @Test
   public void testURIStuff ()
   {
-    final PeppolProcessIdentifier aID1 = new PeppolProcessIdentifier ("scheme1", "value1");
+    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    final IProcessIdentifier aID1 = new PeppolProcessIdentifier ("scheme1", "value1");
     assertEquals ("scheme1::value1", aID1.getURIEncoded ());
     assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
-    final PeppolProcessIdentifier aID2 = PeppolProcessIdentifier.createFromURIPartOrNull ("scheme1::value1");
+    final IProcessIdentifier aID2 = aIF.parseProcessIdentifier ("scheme1::value1");
     assertEquals (aID1, aID2);
 
-    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("scheme1"));
-    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull (null));
-    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull (""));
+    assertNull (aIF.parseProcessIdentifier ("scheme1"));
+    assertNull (aIF.parseProcessIdentifier (null));
+    assertNull (aIF.parseProcessIdentifier (""));
 
-    assertNotNull (PeppolProcessIdentifier.createFromURIPartOrNull ("process::proc1"));
-    assertNotNull (PeppolProcessIdentifier.createFromURIPartOrNull ("process::proc2 "));
+    assertNotNull (aIF.parseProcessIdentifier ("process::proc1"));
+    assertNotNull (aIF.parseProcessIdentifier ("process::proc2 "));
 
-    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
-    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("process::" +
-                                                                 StringHelper.getRepeated ('a',
-                                                                                           PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH +
-                                                                                                1)));
-    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("process:proc2"));
-    assertNull (PeppolProcessIdentifier.createFromURIPartOrNull ("processproc2"));
+    assertNull (aIF.parseProcessIdentifier ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
+    assertNull (aIF.parseProcessIdentifier ("process::" +
+                                            StringHelper.getRepeated ('a',
+                                                                      PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH +
+                                                                           1)));
+    assertNull (aIF.parseProcessIdentifier ("process:proc2"));
+    assertNull (aIF.parseProcessIdentifier ("processproc2"));
   }
 
   @Test

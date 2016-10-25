@@ -131,6 +131,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *         encoded identifier
    */
   @Nullable
+  @Deprecated
   public static SimpleDocumentTypeIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)

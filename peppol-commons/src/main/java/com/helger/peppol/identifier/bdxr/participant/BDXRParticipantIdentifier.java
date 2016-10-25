@@ -133,6 +133,7 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
    *         if the passed identifier is not a valid URI encoded identifier
    */
   @Nullable
+  @Deprecated
   public static BDXRParticipantIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)

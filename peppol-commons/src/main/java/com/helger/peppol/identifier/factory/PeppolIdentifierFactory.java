@@ -76,13 +76,8 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public PeppolDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                     @Nullable final String sValue)
   {
-    return PeppolDocumentTypeIdentifier.createIfValid (sScheme, sValue);
-  }
-
-  @Nullable
-  public PeppolDocumentTypeIdentifier parseDocumentTypeIdentifier (@Nullable final String sURIEncodedIdentifier)
-  {
-    return PeppolDocumentTypeIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
+    final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
+    return PeppolDocumentTypeIdentifier.createIfValid (sScheme, sRealValue);
   }
 
   public boolean isParticipantIdentifierSchemeMandatory ()
@@ -105,13 +100,8 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public PeppolParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
                                                                   @Nullable final String sValue)
   {
-    return PeppolParticipantIdentifier.createIfValid (sScheme, sValue);
-  }
-
-  @Nullable
-  public PeppolParticipantIdentifier parseParticipantIdentifier (@Nullable final String sURIEncodedIdentifier)
-  {
-    return PeppolParticipantIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
+    final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
+    return PeppolParticipantIdentifier.createIfValid (sScheme, sRealValue);
   }
 
   @Nonnull
@@ -123,12 +113,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   @Nullable
   public PeppolProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    return PeppolProcessIdentifier.createIfValid (sScheme, sValue);
-  }
-
-  @Nullable
-  public PeppolProcessIdentifier parseProcessIdentifier (@Nullable final String sURIEncodedIdentifier)
-  {
-    return PeppolProcessIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
+    final String sRealValue = isProcessIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
+    return PeppolProcessIdentifier.createIfValid (sScheme, sRealValue);
   }
 }

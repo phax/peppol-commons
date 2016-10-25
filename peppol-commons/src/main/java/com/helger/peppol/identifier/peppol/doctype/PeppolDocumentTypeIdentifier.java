@@ -138,6 +138,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *         <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static PeppolDocumentTypeIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
     return new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, sValue);
@@ -184,6 +185,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *         encoded identifier
    */
   @Nullable
+  @Deprecated
   public static PeppolDocumentTypeIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)

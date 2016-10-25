@@ -40,8 +40,6 @@
  */
 package com.helger.peppol.identifier.factory;
 
-import java.io.Serializable;
-
 import javax.annotation.Nullable;
 
 import com.helger.peppol.identifier.IIdentifier;
@@ -53,7 +51,7 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
  * @author Philip Helger
  * @see IIdentifierFactory
  */
-public interface IParticipantIdentifierFactory extends Serializable
+public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
 {
   /**
    * @return <code>true</code> if this identifier type requires a mandatory
@@ -112,7 +110,10 @@ public interface IParticipantIdentifierFactory extends Serializable
    *         identifier is not a valid URI encoded identifier
    */
   @Nullable
-  IParticipantIdentifier parseParticipantIdentifier (@Nullable String sURIEncodedIdentifier);
+  default IParticipantIdentifier parseParticipantIdentifier (@Nullable final String sURIEncodedIdentifier)
+  {
+    return parseURIPartOrNull (sURIEncodedIdentifier, (s, v) -> createParticipantIdentifier (s, v));
+  }
 
   /**
    * Create a clone of the passed participant identifier using the correct

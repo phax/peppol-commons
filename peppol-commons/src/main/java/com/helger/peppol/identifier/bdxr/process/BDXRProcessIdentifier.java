@@ -134,6 +134,7 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType implements
    *         the passed identifier is not a valid URI encoded identifier
    */
   @Nullable
+  @Deprecated
   public static BDXRProcessIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)

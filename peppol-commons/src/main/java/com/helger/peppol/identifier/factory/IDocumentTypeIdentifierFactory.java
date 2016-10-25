@@ -40,8 +40,6 @@
  */
 package com.helger.peppol.identifier.factory;
 
-import java.io.Serializable;
-
 import javax.annotation.Nullable;
 
 import com.helger.peppol.identifier.IIdentifier;
@@ -53,7 +51,7 @@ import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
  * @author Philip Helger
  * @see IIdentifierFactory
  */
-public interface IDocumentTypeIdentifierFactory extends Serializable
+public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
 {
   /**
    * @return <code>true</code> if this identifier type requires a mandatory
@@ -112,7 +110,10 @@ public interface IDocumentTypeIdentifierFactory extends Serializable
    *         identifier is not a valid URI encoded identifier
    */
   @Nullable
-  IDocumentTypeIdentifier parseDocumentTypeIdentifier (@Nullable String sURIEncodedIdentifier);
+  default IDocumentTypeIdentifier parseDocumentTypeIdentifier (@Nullable final String sURIEncodedIdentifier)
+  {
+    return parseURIPartOrNull (sURIEncodedIdentifier, (s, v) -> createDocumentTypeIdentifier (s, v));
+  }
 
   /**
    * Create a clone of the passed document type identifier using the correct

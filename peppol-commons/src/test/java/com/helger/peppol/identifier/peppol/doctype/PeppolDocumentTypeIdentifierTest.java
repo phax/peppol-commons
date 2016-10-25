@@ -51,6 +51,9 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.factory.IIdentifierFactory;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.xml.mock.XMLTestHelper;
 
@@ -115,26 +118,27 @@ public final class PeppolDocumentTypeIdentifierTest
   @Test
   public void testURIStuff ()
   {
-    final PeppolDocumentTypeIdentifier aID1 = new PeppolDocumentTypeIdentifier ("scheme1", "value1");
+    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    final IDocumentTypeIdentifier aID1 = new PeppolDocumentTypeIdentifier ("scheme1", "value1");
     assertEquals ("scheme1::value1", aID1.getURIEncoded ());
     assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
-    final PeppolDocumentTypeIdentifier aID2 = PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("scheme1::value1");
+    final IDocumentTypeIdentifier aID2 = aIF.parseDocumentTypeIdentifier ("scheme1::value1");
     assertEquals (aID1, aID2);
 
-    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull (null));
-    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull (""));
-    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("scheme1"));
+    assertNull (aIF.parseDocumentTypeIdentifier (null));
+    assertNull (aIF.parseDocumentTypeIdentifier (""));
+    assertNull (aIF.parseDocumentTypeIdentifier ("scheme1"));
 
-    assertNotNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctype::invoice"));
-    assertNotNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctype::order "));
+    assertNotNull (aIF.parseDocumentTypeIdentifier ("doctype::invoice"));
+    assertNotNull (aIF.parseDocumentTypeIdentifier ("doctype::order "));
 
-    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctypethatiswaytoolongforwhatisexpected::order"));
-    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctype::" +
-                                                                      StringHelper.getRepeated ('a',
-                                                                                                PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
-                                                                                                     1)));
-    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctype:order"));
-    assertNull (PeppolDocumentTypeIdentifier.createFromURIPartOrNull ("doctypeorder"));
+    assertNull (aIF.parseDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
+    assertNull (aIF.parseDocumentTypeIdentifier ("doctype::" +
+                                                 StringHelper.getRepeated ('a',
+                                                                           PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
+                                                                                1)));
+    assertNull (aIF.parseDocumentTypeIdentifier ("doctype:order"));
+    assertNull (aIF.parseDocumentTypeIdentifier ("doctypeorder"));
   }
 
   @Test

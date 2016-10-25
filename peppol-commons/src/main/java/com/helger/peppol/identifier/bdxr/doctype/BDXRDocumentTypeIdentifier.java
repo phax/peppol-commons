@@ -133,6 +133,7 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
    *         if the passed identifier is not a valid URI encoded identifier
    */
   @Nullable
+  @Deprecated
   public static BDXRDocumentTypeIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)

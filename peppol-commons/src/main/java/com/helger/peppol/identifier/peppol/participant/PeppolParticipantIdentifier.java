@@ -147,6 +147,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    *         <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static PeppolParticipantIdentifier createWithDefaultScheme (@Nonnull final String sValue)
   {
     return new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, sValue);
@@ -196,6 +197,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    *         encoded identifier
    */
   @Nullable
+  @Deprecated
   public static PeppolParticipantIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
   {
     if (sURIPart == null)

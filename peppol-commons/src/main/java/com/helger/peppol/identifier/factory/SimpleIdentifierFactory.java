@@ -64,37 +64,22 @@ public class SimpleIdentifierFactory implements IIdentifierFactory
   public SimpleDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                     @Nullable final String sValue)
   {
-    return new SimpleDocumentTypeIdentifier (sScheme, sValue);
-  }
-
-  @Nullable
-  public SimpleDocumentTypeIdentifier parseDocumentTypeIdentifier (@Nullable final String sURIEncodedIdentifier)
-  {
-    return SimpleDocumentTypeIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
+    final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
+    return new SimpleDocumentTypeIdentifier (sScheme, sRealValue);
   }
 
   @Nullable
   public SimpleParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
                                                                   @Nullable final String sValue)
   {
-    return new SimpleParticipantIdentifier (sScheme, sValue);
-  }
-
-  @Nullable
-  public SimpleParticipantIdentifier parseParticipantIdentifier (@Nullable final String sURIEncodedIdentifier)
-  {
-    return SimpleParticipantIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
+    final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
+    return new SimpleParticipantIdentifier (sScheme, sRealValue);
   }
 
   @Nullable
   public SimpleProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    return new SimpleProcessIdentifier (sScheme, sValue);
-  }
-
-  @Nullable
-  public SimpleProcessIdentifier parseProcessIdentifier (@Nullable final String sURIEncodedIdentifier)
-  {
-    return SimpleProcessIdentifier.createFromURIPartOrNull (sURIEncodedIdentifier);
+    final String sRealValue = isProcessIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
+    return new SimpleProcessIdentifier (sScheme, sRealValue);
   }
 }

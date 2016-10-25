@@ -40,8 +40,6 @@
  */
 package com.helger.peppol.identifier.factory;
 
-import java.io.Serializable;
-
 import javax.annotation.Nullable;
 
 import com.helger.peppol.identifier.IIdentifier;
@@ -53,7 +51,7 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
  * @author Philip Helger
  * @see IIdentifierFactory
  */
-public interface IProcessIdentifierFactory extends Serializable
+public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
 {
   /**
    * @return <code>true</code> if this identifier type requires a mandatory
@@ -82,7 +80,7 @@ public interface IProcessIdentifierFactory extends Serializable
    *         case insensitive (so "abc" equals "ABC"), <code>false</code> if
    *         not.
    */
-  default boolean isProceessIdentifierCaseInsensitive (@Nullable final String sScheme)
+  default boolean isProcessIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
     return false;
   }
@@ -111,7 +109,10 @@ public interface IProcessIdentifierFactory extends Serializable
    *         identifier is not a valid URI encoded identifier
    */
   @Nullable
-  IProcessIdentifier parseProcessIdentifier (@Nullable String sURIEncodedIdentifier);
+  default IProcessIdentifier parseProcessIdentifier (@Nullable final String sURIEncodedIdentifier)
+  {
+    return parseURIPartOrNull (sURIEncodedIdentifier, (s, v) -> createProcessIdentifier (s, v));
+  }
 
   /**
    * Create a clone of the passed process identifier using the correct
