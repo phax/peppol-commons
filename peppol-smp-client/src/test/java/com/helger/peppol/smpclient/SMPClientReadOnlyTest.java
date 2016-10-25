@@ -67,12 +67,12 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
 
     // PEPPOL URL provider
-    SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
-    assertEquals ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
+    SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    assertEquals ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/",
                   aSMPClient.getSMPHostURI ());
 
     // E-SENS URL provider
-    aSMPClient = new SMPClientReadOnly (EsensURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
-    assertEquals ("http://BRZ-TEST-SMP.publisher.edelivery.tech.ec.europa.eu/", aSMPClient.getSMPHostURI ());
+    aSMPClient = new SMPClientReadOnly (EsensURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    assertEquals ("http://BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu/", aSMPClient.getSMPHostURI ());
   }
 }
