@@ -17,7 +17,7 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
-  * 5.2.0 - 2016-xx-yy
+  * 5.2.0 - 2016-10-25
     * Reworked identifier API to improve case sensitivity handling (based on identifier scheme). The rules per identifier factory:
       * BDXR: identifiers based on participant identifier scheme `iso6523-actorid-upis`, document type identifier scheme `bdx-docid-qns` or process identifier scheme `bdx-procid-transport` are treated case **in**sensitive
       * PEPPOL: identifiers based on participant identifier scheme `iso6523-actorid-upis` are treated case **in**sensitive
@@ -172,31 +172,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>5.1.5</version>
+  <version>5.2.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>5.1.5</version>
+  <version>5.2.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>5.1.5</version>
+  <version>5.2.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>5.1.5</version>
+  <version>5.2.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>5.1.5</version>
+  <version>5.2.0</version>
 </dependency>
 ```
 
@@ -205,7 +205,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.1.5</version>
+  <version>5.2.0</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
