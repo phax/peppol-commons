@@ -63,14 +63,17 @@ public interface IParticipantIdentifier extends IIdentifier
     return aOther != null && hasValue (aOther.getValue ()) && hasScheme (aOther.getScheme ());
   }
 
+  default int compareTo (@Nonnull final IParticipantIdentifier aOther)
+  {
+    int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
+    if (ret == 0)
+      ret = CompareHelper.compare (getValue (), aOther.getValue ());
+    return ret;
+  }
+
   @Nonnull
   static IComparator <IParticipantIdentifier> comparator ()
   {
-    return (a, b) -> {
-      int ret = CompareHelper.compare (a.getScheme (), b.getScheme ());
-      if (ret == 0)
-        ret = CompareHelper.compare (a.getValue (), b.getValue ());
-      return ret;
-    };
+    return (a, b) -> a.compareTo (b);
   }
 }

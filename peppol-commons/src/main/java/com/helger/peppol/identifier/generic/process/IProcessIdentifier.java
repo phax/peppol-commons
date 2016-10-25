@@ -63,14 +63,17 @@ public interface IProcessIdentifier extends IIdentifier
     return aOther != null && hasValue (aOther.getValue ()) && hasScheme (aOther.getScheme ());
   }
 
+  default int compareTo (@Nonnull final IProcessIdentifier aOther)
+  {
+    int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
+    if (ret == 0)
+      ret = CompareHelper.compare (getValue (), aOther.getValue ());
+    return ret;
+  }
+
   @Nonnull
   static IComparator <IProcessIdentifier> comparator ()
   {
-    return (a, b) -> {
-      int ret = CompareHelper.compare (a.getScheme (), b.getScheme ());
-      if (ret == 0)
-        ret = CompareHelper.compare (a.getValue (), b.getValue ());
-      return ret;
-    };
+    return (a, b) -> a.compareTo (b);
   }
 }
