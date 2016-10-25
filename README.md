@@ -17,6 +17,8 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * 5.2.0 - 2016-xx-yy
+    * Reworked identifier API to improve case sensitivity handling (based on identifier scheme)
   * 5.1.5 - 2016-10-17
     * Improved BDXR extension API
   * 5.1.4 - 2016-10-12
