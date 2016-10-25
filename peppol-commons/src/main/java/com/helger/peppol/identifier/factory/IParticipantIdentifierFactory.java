@@ -75,11 +75,15 @@ public interface IParticipantIdentifierFactory extends Serializable
   }
 
   /**
+   * @param sIdentifierScheme
+   *        The identifier scheme in use. May be <code>null</code> or empty if
+   *        {@link #isParticipantIdentifierSchemeMandatory()} is
+   *        <code>false</code>.
    * @return <code>true</code> if all participant identifiers need to be handled
    *         case insensitive (so "abc" equals "ABC"), <code>false</code> if
    *         not.
    */
-  default boolean isParticipantIdentifierCaseInsensitive ()
+  default boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
   {
     return false;
   }

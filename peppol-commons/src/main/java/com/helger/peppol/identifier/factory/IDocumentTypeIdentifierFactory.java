@@ -75,11 +75,15 @@ public interface IDocumentTypeIdentifierFactory extends Serializable
   }
 
   /**
+   * @param sIdentifierScheme
+   *        The identifier scheme in use. May be <code>null</code> or empty if
+   *        {@link #isDocumentTypeIdentifierSchemeMandatory()} is
+   *        <code>false</code>.
    * @return <code>true</code> if all document type identifiers need to be
    *         handled case insensitive (so "abc" equals "ABC"),
    *         <code>false</code> if not.
    */
-  default boolean isDocumentTypeIdentifierCaseInsensitive ()
+  default boolean isDocumentTypeIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
   {
     return false;
   }

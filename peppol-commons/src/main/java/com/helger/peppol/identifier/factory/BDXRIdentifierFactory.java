@@ -47,6 +47,7 @@ import com.helger.peppol.identifier.bdxr.CBDXRIdentifier;
 import com.helger.peppol.identifier.bdxr.doctype.BDXRDocumentTypeIdentifier;
 import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifier;
 import com.helger.peppol.identifier.bdxr.process.BDXRProcessIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * Default implementation of {@link IIdentifierFactory} for BDXR identifiers.
@@ -61,11 +62,9 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
     return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
   }
 
-  public boolean isDocumentTypeIdentifierCaseInsensitive ()
+  public boolean isDocumentTypeIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
   {
-    // BDXR document type identifier are to be treated case insensitive by
-    // default
-    return true;
+    return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (sIdentifierScheme);
   }
 
   @Nullable
@@ -82,10 +81,10 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   }
 
   // No default participant identifier scheme
-  public boolean isParticipantIdentifierCaseInsensitive ()
+
+  public boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
   {
-    // BDXR participant identifier are to be treated case insensitive by default
-    return true;
+    return PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME.equals (sIdentifierScheme);
   }
 
   @Nullable
@@ -105,6 +104,11 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   public String getDefaultProcessIdentifierScheme ()
   {
     return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
+  }
+
+  public boolean isProcessIdentifierCaseInsensitive (@Nullable final String sIdentifierScheme)
+  {
+    return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals (sIdentifierScheme);
   }
 
   @Nullable
