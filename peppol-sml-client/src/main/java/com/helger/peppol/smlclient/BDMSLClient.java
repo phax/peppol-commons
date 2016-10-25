@@ -157,6 +157,7 @@ public class BDMSLClient extends WSClientConfig
     final SMPAdvancedServiceForParticipantType aBody = new SMPAdvancedServiceForParticipantType ();
     final ServiceMetadataPublisherServiceForParticipantType aSMP = new ServiceMetadataPublisherServiceForParticipantType ();
     aSMP.setServiceMetadataPublisherID (sSMPID);
+    // Explicit constructor call is needed here!
     aSMP.setParticipantIdentifier (new SimpleParticipantIdentifier (aParticipantID));
     aBody.setCreateParticipantIdentifier (aSMP);
     aBody.setServiceName (sServiceName);
@@ -180,7 +181,7 @@ public class BDMSLClient extends WSClientConfig
       s_aLogger.error ("Unauthorized to call listParticipants", ex);
       return null;
     }
-    final ICommonsList <ParticipantListItem> ret = new CommonsArrayList <> ();
+    final ICommonsList <ParticipantListItem> ret = new CommonsArrayList<> ();
     if (aList != null)
       for (final ParticipantsType aParticipant : aList.getParticipant ())
         ret.add (new ParticipantListItem (aParticipant.getServiceMetadataPublisherID (),

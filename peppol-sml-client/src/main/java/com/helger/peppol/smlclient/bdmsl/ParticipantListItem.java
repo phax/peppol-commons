@@ -50,7 +50,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 
 /**
  * A single item of the participant list.
@@ -79,8 +78,7 @@ public class ParticipantListItem implements Serializable
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
 
     m_sSMPID = sSMPID;
-    // Same type, guaranteed to not be changed inside
-    m_aParticipantID = new SimpleParticipantIdentifier (aParticipantID);
+    m_aParticipantID = aParticipantID;
   }
 
   /**

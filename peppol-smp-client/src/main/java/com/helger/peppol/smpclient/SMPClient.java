@@ -211,6 +211,7 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceGroupType aServiceGroup = new ServiceGroupType ();
+    // Explicit constructor call is needed here!
     aServiceGroup.setParticipantIdentifier (new SimpleParticipantIdentifier (aParticipantID));
     saveServiceGroup (aServiceGroup, aCredentials);
     return aServiceGroup;
