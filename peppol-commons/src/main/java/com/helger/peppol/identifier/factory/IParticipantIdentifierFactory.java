@@ -94,10 +94,26 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
    * @param sValue
    *        The value to be used.
    * @return <code>null</code> if the provided scheme and/or value are/is
-   *         invalid.
+   *         invalid according to the rules of the implementation.
    */
   @Nullable
   IParticipantIdentifier createParticipantIdentifier (@Nullable String sScheme, @Nullable String sValue);
+
+  /**
+   * Create a new participant identifier using the default identifier scheme.
+   * This may result in an <code>null</code> object if no default identifier
+   * scheme is present, but no scheme is forbidden!
+   *
+   * @param sValue
+   *        The value to be used.
+   * @return <code>null</code> if the default scheme and/or the provided value
+   *         are/is invalid according to the rules of the implementation.
+   */
+  @Nullable
+  default IParticipantIdentifier createParticipantIdentifierWithDefaultScheme (@Nullable final String sValue)
+  {
+    return createParticipantIdentifier (getDefaultParticipantIdentifierScheme (), sValue);
+  }
 
   /**
    * Parse the provided URI encoded identifier as a participant identifier. This
@@ -107,7 +123,8 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
    *        The URI encoded identifier in the format <code>scheme::value</code>.
    *        It must NOT be percent encoded!
    * @return The created identifier or <code>null</code> if the passed
-   *         identifier is not a valid URI encoded identifier
+   *         identifier is not a valid URI encoded identifier according to the
+   *         rules of the implementation.
    */
   @Nullable
   default IParticipantIdentifier parseParticipantIdentifier (@Nullable final String sURIEncodedIdentifier)

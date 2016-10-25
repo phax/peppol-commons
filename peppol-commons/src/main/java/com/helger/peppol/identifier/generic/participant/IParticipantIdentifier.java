@@ -42,9 +42,9 @@ package com.helger.peppol.identifier.generic.participant;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.compare.IComparator;
 import com.helger.peppol.identifier.IIdentifier;
-import com.helger.peppol.identifier.IdentifierHelper;
 
 /**
  * Marker-interface that is specific for participant identifiers.<br>
@@ -58,6 +58,11 @@ public interface IParticipantIdentifier extends IIdentifier
   @Nonnull
   static IComparator <IParticipantIdentifier> comparator ()
   {
-    return (a, b) -> IdentifierHelper.compareParticipantIdentifiers (a, b);
+    return (a, b) -> {
+      int ret = CompareHelper.compare (a.getScheme (), b.getScheme ());
+      if (ret == 0)
+        ret = CompareHelper.compare (a.getValue (), b.getValue ());
+      return ret;
+    };
   }
 }
