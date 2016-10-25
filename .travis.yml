@@ -23,4 +23,4 @@ cache:
 
 after_success:
   - mvn deploy --settings travis-settings.xml -DskipTests=true -B -P travis-deploy
- 
+  - bash <(curl -s https://codecov.io/bash)
