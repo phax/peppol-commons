@@ -148,6 +148,9 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    *        The identifier value like <code>0088:12345678</code>
    * @return The created {@link PeppolParticipantIdentifier} and never
    *         <code>null</code>.
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#createParticipantIdentifierWithDefaultScheme(String)}
+   *             instead
    */
   @Nonnull
   @Deprecated
@@ -198,6 +201,9 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    * @return The created {@link PeppolParticipantIdentifier} or
    *         <code>null</code> if the passed identifier is not a valid URI
    *         encoded identifier
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseParticipantIdentifier(String)}
+   *             instead
    */
   @Nullable
   @Deprecated

@@ -140,6 +140,9 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    *        <code>urn:www.cenbii.eu:profile:bii01:ver1.0</code>
    * @return The created {@link PeppolProcessIdentifier} and never
    *         <code>null</code>.
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#createProcessIdentifierWithDefaultScheme(String)}
+   *             instead
    */
   @Nonnull
   @Deprecated
@@ -185,6 +188,9 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    *        ). It must NOT be percent encoded! May be <code>null</code>.
    * @return The created {@link PeppolProcessIdentifier} or <code>null</code> if
    *         the passed identifier is not a valid URI encoded identifier
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseProcessIdentifier(String)}
+   *             instead
    */
   @Nullable
   @Deprecated

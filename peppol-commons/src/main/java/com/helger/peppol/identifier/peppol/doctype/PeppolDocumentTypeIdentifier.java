@@ -139,6 +139,9 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *        <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
    * @return The created {@link PeppolDocumentTypeIdentifier} and never
    *         <code>null</code>.
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#createDocumentTypeIdentifierWithDefaultScheme(String)}
+   *             instead
    */
   @Nonnull
   @Deprecated
@@ -186,6 +189,9 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @return The created {@link PeppolDocumentTypeIdentifier} or
    *         <code>null</code> if the passed identifier is not a valid URI
    *         encoded identifier
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseDocumentTypeIdentifier(String)}
+   *             instead
    */
   @Nullable
   @Deprecated

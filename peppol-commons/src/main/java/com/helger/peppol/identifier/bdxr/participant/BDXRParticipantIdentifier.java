@@ -134,6 +134,9 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
    *        be percent encoded!
    * @return The created {@link BDXRParticipantIdentifier} or <code>null</code>
    *         if the passed identifier is not a valid URI encoded identifier
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseParticipantIdentifier(String)}
+   *             instead
    */
   @Nullable
   @Deprecated

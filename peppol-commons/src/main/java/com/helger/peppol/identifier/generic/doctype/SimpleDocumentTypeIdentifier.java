@@ -132,6 +132,9 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @return The created {@link SimpleDocumentTypeIdentifier} or
    *         <code>null</code> if the passed identifier is not a valid URI
    *         encoded identifier
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseDocumentTypeIdentifier(String)}
+   *             instead
    */
   @Nullable
   @Deprecated

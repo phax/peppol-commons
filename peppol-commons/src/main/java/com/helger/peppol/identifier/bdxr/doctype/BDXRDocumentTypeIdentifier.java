@@ -134,6 +134,9 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
    *        be percent encoded! May be <code>null</code>.
    * @return The created {@link BDXRDocumentTypeIdentifier} or <code>null</code>
    *         if the passed identifier is not a valid URI encoded identifier
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseDocumentTypeIdentifier(String)}
+   *             instead
    */
   @Nullable
   @Deprecated

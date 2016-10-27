@@ -135,6 +135,9 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType implements
    *        be percent encoded! May be <code>null</code>.
    * @return The created {@link BDXRProcessIdentifier} or <code>null</code> if
    *         the passed identifier is not a valid URI encoded identifier
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseProcessIdentifier(String)}
+   *             instead
    */
   @Nullable
   @Deprecated

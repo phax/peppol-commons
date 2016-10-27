@@ -132,6 +132,9 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
    * @return The created {@link SimpleParticipantIdentifier} or
    *         <code>null</code> if the passed identifier is not a valid URI
    *         encoded identifier
+   * @deprecated Use
+   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseParticipantIdentifier(String)}
+   *             instead
    */
   @Nullable
   @Deprecated
