@@ -17,6 +17,8 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * 5.2.1
+    * Added possibility to disable SMP/BDXR client certificate check (see issue #8)
   * 5.2.0 - 2016-10-25
     * Reworked identifier API to improve case sensitivity handling (based on identifier scheme). The rules per identifier factory:
       * BDXR: identifiers based on participant identifier scheme `iso6523-actorid-upis`, document type identifier scheme `bdx-docid-qns` or process identifier scheme `bdx-procid-transport` are treated case **in**sensitive

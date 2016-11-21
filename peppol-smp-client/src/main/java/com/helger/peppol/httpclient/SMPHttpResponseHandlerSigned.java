@@ -83,13 +83,43 @@ import com.helger.xml.serialize.read.DOMReader;
  */
 public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
 {
+  public static final boolean DEFAULT_CHECK_CERTIFICATE = true;
   private static final Logger s_aLogger = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
 
   private final AbstractJAXBMarshaller <T> m_aMarshaller;
+  private boolean m_bCheckCertificate = DEFAULT_CHECK_CERTIFICATE;
 
   public SMPHttpResponseHandlerSigned (@Nonnull final AbstractJAXBMarshaller <T> aMarshaller)
   {
     m_aMarshaller = ValueEnforcer.notNull (aMarshaller, "Marshaller");
+  }
+
+  /**
+   * Check the certificate retrieved from a signed SMP response? This may be
+   * helpful for debugging and testing of SMP client connections!
+   *
+   * @param bCheckCertificate
+   *        <code>true</code> to enable SMP response checking (on by default) or
+   *        <code>false</code> to disable it.
+   * @return this for chaining
+   * @since 5.2.1
+   */
+  @Nonnull
+  public SMPHttpResponseHandlerSigned <T> setCheckCertificate (final boolean bCheckCertificate)
+  {
+    m_bCheckCertificate = bCheckCertificate;
+    return this;
+  }
+
+  /**
+   * @return <code>true</code> if SMP client response certificate checking is
+   *         enabled, <code>false</code> if it is disabled. By default this
+   *         check is enabled (see {@link #DEFAULT_CHECK_CERTIFICATE}).
+   * @since 5.2.1
+   */
+  public boolean isCheckCertificate ()
+  {
+    return m_bCheckCertificate;
   }
 
   private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream) throws Exception
@@ -148,16 +178,21 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     if (ArrayHelper.isEmpty (aResponseBytes))
       throw new ClientProtocolException ("Could not read SMP server response content");
 
-    try (final InputStream aIS = new NonBlockingByteArrayInputStream (aResponseBytes))
+    if (m_bCheckCertificate)
     {
-      // Check the signature
-      if (!_checkSignature (aIS))
-        throw new ClientProtocolException ("Signature returned from SMP server was not valid");
+      try (final InputStream aIS = new NonBlockingByteArrayInputStream (aResponseBytes))
+      {
+        // Check the signature
+        if (!_checkSignature (aIS))
+          throw new ClientProtocolException ("Signature returned from SMP server was not valid");
+      }
+      catch (final Exception ex)
+      {
+        throw new ClientProtocolException ("Error in validating signature returned from SMP server", ex);
+      }
     }
-    catch (final Exception ex)
-    {
-      throw new ClientProtocolException ("Error in validating signature returned from SMP server", ex);
-    }
+    else
+      s_aLogger.warn ("SMP response certificate checking is disabled. This should not happen in production systems!");
 
     // Finally convert to domain object
     final T ret = m_aMarshaller.read (aResponseBytes);

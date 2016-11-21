@@ -424,7 +424,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned<> (new SMPMarshallerSignedServiceMetadataType ()));
+                                                                 new SMPHttpResponseHandlerSigned<> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
     // If the Redirect element is present, then follow 1 redirect.
     if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
@@ -435,7 +435,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
       aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
-                                         new SMPHttpResponseHandlerSigned<> (new SMPMarshallerSignedServiceMetadataType ()));
+                                         new SMPHttpResponseHandlerSigned<> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
       // Check that the certificateUID is correct.
       boolean bCertificateSubjectFound = false;

@@ -98,6 +98,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private int m_nConnectionTimeoutMS = 5000;
   private int m_nRequestTimeoutMS = 10000;
 
+  private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
+
   /**
    * Constructor with a direct SMP URL.<br>
    * Remember: must be HTTP and using port 80 only!
@@ -203,6 +205,35 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   {
     m_nRequestTimeoutMS = nRequestTimeoutMS;
     return thisAsT ();
+  }
+
+  /**
+   * Check the certificate retrieved from a signed SMP response? This may be
+   * helpful for debugging and testing of SMP client connections!
+   *
+   * @param bCheckCertificate
+   *        <code>true</code> to enable SMP response checking (on by default) or
+   *        <code>false</code> to disable it.
+   * @return this for chaining
+   * @since 5.2.1
+   */
+  @Nonnull
+  public IMPLTYPE setCheckCertificate (final boolean bCheckCertificate)
+  {
+    m_bCheckCertificate = bCheckCertificate;
+    return thisAsT ();
+  }
+
+  /**
+   * @return <code>true</code> if SMP client response certificate checking is
+   *         enabled, <code>false</code> if it is disabled. By default this
+   *         check is enabled (see
+   *         {@link SMPHttpResponseHandlerSigned#DEFAULT_CHECK_CERTIFICATE}).
+   * @since 5.2.1
+   */
+  public boolean isCheckCertificate ()
+  {
+    return m_bCheckCertificate;
   }
 
   @Nonnull
@@ -328,6 +359,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                        .appendIfNotNull ("Proxy", m_aProxy)
                                        .append ("ConnectionTimeoutMS", m_nConnectionTimeoutMS)
                                        .append ("RequestTimeoutMS", m_nRequestTimeoutMS)
+                                       .append ("CheckCertificate", m_bCheckCertificate)
                                        .toString ();
   }
 }
