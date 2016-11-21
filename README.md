@@ -7,9 +7,11 @@ This project contains different libraries that are commonly used in the PEPPOL a
   * [`peppol-smp-client`](#peppol-smp-client) - the PEPPOL SMP and BDXR SMP client
   
 These project are used implicitly by the following projects:
-  * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the SMP server with a management GUI
+  * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the phoss SMP server with a management GUI
   * [as2-peppol-client](https://github.com/phax/as2-peppol-client/) - the AP client library
   * [as2-peppol-server](https://github.com/phax/as2-peppol-server/) - the AP server stub
+  
+And some legacy PEPPOL projects:
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
   * [peppol-directory](https://github.com/phax/peppol-directory/) - the PEPPOL Directory (formerly Yellow Pages) development draft
 
@@ -17,7 +19,7 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
-  * 5.2.1
+  * 5.2.1 - 2016-11-21
     * Added possibility to disable SMP/BDXR client certificate check (see issue #8)
   * 5.2.0 - 2016-10-25
     * Reworked identifier API to improve case sensitivity handling (based on identifier scheme). The rules per identifier factory:
@@ -174,31 +176,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>5.2.0</version>
+  <version>5.2.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>5.2.0</version>
+  <version>5.2.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>5.2.0</version>
+  <version>5.2.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>5.2.0</version>
+  <version>5.2.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>5.2.0</version>
+  <version>5.2.1</version>
 </dependency>
 ```
 
@@ -207,7 +209,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.2.0</version>
+  <version>5.2.1</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
