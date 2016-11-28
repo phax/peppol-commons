@@ -52,9 +52,12 @@ import org.junit.Test;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.TextParseException;
 
+import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sml.ESML;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -67,38 +70,68 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class PeppolURLProviderTest
 {
   private static final IPeppolURLProvider INSTANCE = PeppolURLProvider.INSTANCE;
+  private static final IIdentifierFactory IF = PeppolIdentifierFactory.INSTANCE;
 
   @Test
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testGetDNSNameOfParticipant ()
   {
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
+                  INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
                                                     ESML.DIGIT_PRODUCTION));
     // Same value but different casing
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
+                  INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
                                                     ESML.DIGIT_PRODUCTION));
 
     assertEquals ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
-                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
+                  INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("9915:test"),
                                                     ESML.DIGIT_TEST));
+
+    // No identifier scheme
+    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.edelivery.tech.ec.europa.eu",
+                  INSTANCE.getDNSNameOfParticipant (SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier (null,
+                                                                                                                  "0088:123abc"),
+                                                    ESML.DIGIT_PRODUCTION));
+
+    // No identifier value
+    assertEquals ("B-d41d8cd98f00b204e9800998ecf8427e.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
+                  INSTANCE.getDNSNameOfParticipant (SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME,
+                                                                                                                  null),
+                                                    ESML.DIGIT_PRODUCTION));
+
+    // No identifier scheme and value
+    assertEquals ("B-d41d8cd98f00b204e9800998ecf8427e.edelivery.tech.ec.europa.eu",
+                  INSTANCE.getDNSNameOfParticipant (SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier (null,
+                                                                                                                  null),
+                                                    ESML.DIGIT_PRODUCTION));
+
+    // No identifier scheme and value and no SML zone
+    assertEquals ("B-d41d8cd98f00b204e9800998ecf8427e",
+                  INSTANCE.getDNSNameOfParticipant (SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier (null,
+                                                                                                                  null),
+                                                    (String) null));
 
     // Wildcard
     assertEquals ("*.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("*"),
+                  INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("*"),
                                                     ESML.DIGIT_PRODUCTION));
 
     // Empty DNS zone
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
+                  INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
                                                     (String) null));
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
-                  INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
+                  INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
                                                     ""));
 
+    // Very simple zone
+    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.at",
+                  INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
+                                                    "at."));
+
     if (false)
-      System.out.println (INSTANCE.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b"),
+      System.out.println (INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("9915:b"),
                                                             ESML.DIGIT_PRODUCTION));
 
     // Test invalid
@@ -140,7 +173,7 @@ public final class PeppolURLProviderTest
   @Test
   public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException
   {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC");
+    final IParticipantIdentifier aPI = IF.createParticipantIdentifierWithDefaultScheme ("0088:123ABC");
     final URI aURI = INSTANCE.getSMPURIOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
     assertEquals (new URI ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"),
                   aURI);

@@ -109,8 +109,6 @@ public class PeppolURLProvider implements IPeppolURLProvider
                                          @Nullable final String sSMLZoneName)
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
-    ValueEnforcer.notEmpty (aParticipantIdentifier.getScheme (), "ParticipantIdentifier scheme");
-    ValueEnforcer.notEmpty (aParticipantIdentifier.getValue (), "ParticipantIdentifier value");
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
@@ -118,14 +116,15 @@ public class PeppolURLProvider implements IPeppolURLProvider
                                           sSMLZoneName);
 
     // Check identifier scheme (must be lowercase for the URL later on!)
-    final String sIdentifierScheme = aParticipantIdentifier.getScheme ().toLowerCase (URL_LOCALE);
+    final String sIdentifierScheme = StringHelper.getNotNull (aParticipantIdentifier.getScheme ())
+                                                 .toLowerCase (URL_LOCALE);
 
     // Was previously an error, but to be more flexible just emit a warning
     if (!IPeppolParticipantIdentifier.isValidScheme (sIdentifierScheme))
       s_aLogger.warn ("Invalid PEPPOL participant identifier scheme '" + sIdentifierScheme + "' used");
 
     // Get the identifier value
-    final String sValue = aParticipantIdentifier.getValue ();
+    final String sValue = StringHelper.getNotNull (aParticipantIdentifier.getValue ());
     final StringBuilder ret = new StringBuilder ();
     if ("*".equals (sValue))
     {
@@ -141,8 +140,9 @@ public class PeppolURLProvider implements IPeppolURLProvider
          .append ('.');
     }
 
-    // append the identifier scheme
-    ret.append (sIdentifierScheme).append ('.');
+    // append the identifier scheme (if present)
+    if (!sIdentifierScheme.isEmpty ())
+      ret.append (sIdentifierScheme).append ('.');
 
     // append the SML DNS zone name (if available)
     if (StringHelper.hasText (sSMLZoneName))
