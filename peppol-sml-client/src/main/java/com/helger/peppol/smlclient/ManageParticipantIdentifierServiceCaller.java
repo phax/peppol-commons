@@ -197,7 +197,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   @Nonnull
   private static String _toString (@Nonnull final Iterable <? extends IParticipantIdentifier> aParticipantIdentifiers)
   {
-    return StringHelper.getImploded (", ", aParticipantIdentifiers, IParticipantIdentifier::getURIEncoded);
+    return StringHelper.getImplodedMapped (", ", aParticipantIdentifiers, IParticipantIdentifier::getURIEncoded);
   }
 
   /**
