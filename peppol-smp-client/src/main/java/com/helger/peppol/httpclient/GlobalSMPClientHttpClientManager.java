@@ -51,9 +51,11 @@ import javax.annotation.Nullable;
 
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.HttpContext;
 
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.httpclient.HttpClientFactory;
 import com.helger.httpclient.HttpClientManager;
 
 /**
@@ -68,7 +70,17 @@ import com.helger.httpclient.HttpClientManager;
  */
 public final class GlobalSMPClientHttpClientManager
 {
-  private static HttpClientManager s_aHttpClientMgr = new HttpClientManager ();
+  private static HttpClientManager s_aHttpClientMgr = new HttpClientManager ( () -> new HttpClientFactory ()
+  {
+    @Override
+    @Nonnull
+    public HttpClientBuilder createHttpClientBuilder ()
+    {
+      final HttpClientBuilder ret = super.createHttpClientBuilder ();
+      ret.useSystemProperties ();
+      return ret;
+    }
+  }.createHttpClient ());
 
   private GlobalSMPClientHttpClientManager ()
   {}
