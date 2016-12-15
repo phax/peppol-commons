@@ -88,6 +88,8 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   private final String m_sTrustoreLocation;
   private final String m_sTrustStorePassword;
 
+  private transient KeyStore m_aKeyStore;
+
   public TrustStoreBasedX509KeySelector ()
   {
     m_sTrustoreLocation = SMPClientConfiguration.getTruststoreLocation ();
@@ -152,10 +154,12 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               // Checks whether the certificate is in the trusted store.
               final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
 
-              final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (m_sTrustoreLocation, m_sTrustStorePassword);
+              if (m_aKeyStore == null)
+                m_aKeyStore = KeyStoreHelper.loadKeyStoreDirect (m_sTrustoreLocation, m_sTrustStorePassword);
+
               // The PKIXParameters constructor may fail because:
               // - the trustAnchorsParameter is empty
-              final PKIXParameters aPKIXParams = new PKIXParameters (aKeyStore);
+              final PKIXParameters aPKIXParams = new PKIXParameters (m_aKeyStore);
               aPKIXParams.setRevocationEnabled (false);
               final CertificateFactory aCertificateFactory = CertificateHelper.getX509CertificateFactory ();
               final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList<> (aCertArray));
