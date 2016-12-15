@@ -66,6 +66,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
+import com.helger.httpclient.HttpClientManager;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
@@ -95,6 +96,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private final String m_sSMPHost;
 
   private HttpHost m_aProxy;
+  private boolean m_bUseProxySystemProperties = false;
   private int m_nConnectionTimeoutMS = 5000;
   private int m_nRequestTimeoutMS = 10000;
 
@@ -158,6 +160,71 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public IMPLTYPE setProxy (@Nullable final HttpHost aProxy)
   {
     m_aProxy = aProxy;
+    if (aProxy != null && m_bUseProxySystemProperties)
+    {
+      s_aLogger.warn ("Since an explicit Proxy host for all servers is defined, the usage of the system properties is disabled.");
+      m_bUseProxySystemProperties = false;
+    }
+    return thisAsT ();
+  }
+
+  /**
+   * @return <code>true</code> if the system properties for HTTP proxy handling
+   *         are enabled, <code>false</code> if they are disabled. By default
+   *         they are disabled.
+   * @since 5.2.2
+   */
+  public boolean isUseProxySystemProperties ()
+  {
+    return m_bUseProxySystemProperties;
+  }
+
+  /**
+   * Set the usage of the HTTP proxy system properties. This must be enabled if
+   * e.g. non-proxy hosts should be supported (see issue #9). For backwards
+   * compatibility this is disabled by default. If the system properties are
+   * enabled, the proxy set via {@link #setProxy(HttpHost)} is automatically
+   * reset, because the manual proxy host has precedence over the system
+   * properties (internally in Apache HTTPClient) - use the 'http.proxyHost'
+   * system property instead! <br>
+   * Supported properties are (source:
+   * http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/impl/client/HttpClientBuilder.html):
+   * <ul>
+   * <li>ssl.TrustManagerFactory.algorithm</li>
+   * <li>javax.net.ssl.trustStoreType</li>
+   * <li>javax.net.ssl.trustStore</li>
+   * <li>javax.net.ssl.trustStoreProvider</li>
+   * <li>javax.net.ssl.trustStorePassword</li>
+   * <li>ssl.KeyManagerFactory.algorithm</li>
+   * <li>javax.net.ssl.keyStoreType</li>
+   * <li>javax.net.ssl.keyStore</li>
+   * <li>javax.net.ssl.keyStoreProvider</li>
+   * <li>javax.net.ssl.keyStorePassword</li>
+   * <li>https.protocols</li>
+   * <li>https.cipherSuites</li>
+   * <li>http.proxyHost</li>
+   * <li>http.proxyPort</li>
+   * <li>http.nonProxyHosts</li>
+   * <li>http.keepAlive</li>
+   * <li>http.maxConnections</li>
+   * <li>http.agent</li>
+   * </ul>
+   *
+   * @param bUseProxySystemProperties
+   *        <code>true</code> to use system properties, <code>false</code> to
+   *        not use them.
+   * @return this for chaining
+   * @since 5.2.2
+   */
+  @Nonnull
+  public IMPLTYPE setUseProxySystemProperties (final boolean bUseProxySystemProperties)
+  {
+    m_bUseProxySystemProperties = bUseProxySystemProperties;
+    if (bUseProxySystemProperties && m_aProxy != null)
+    {
+      s_aLogger.warn ("Since the proxy system properties should be used, the explicit Proxy is removed.");
+      m_aProxy = null;
+    }
     return thisAsT ();
   }
 
@@ -275,8 +342,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public <T> T executeRequest (@Nonnull final HttpUriRequest aRequest,
                                @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
   {
-    final HttpContext aContext = _createHttpContext ();
-    return GlobalSMPClientHttpClientManager.execute (aRequest, aContext, aResponseHandler);
+    final HttpContext aHttpContext = _createHttpContext ();
+    try (final HttpClientManager aHttpClientMgr = new HttpClientManager ( () -> new SMPHttpClientFactory (m_bUseProxySystemProperties).createHttpClient ()))
+    {
+      return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
+    }
   }
 
   /**

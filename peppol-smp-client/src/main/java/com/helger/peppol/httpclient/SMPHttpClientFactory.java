@@ -44,68 +44,39 @@
  */
 package com.helger.peppol.httpclient;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.protocol.HttpContext;
 
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.httpclient.HttpClientFactory;
-import com.helger.httpclient.HttpClientManager;
 
 /**
- * This class contains the central HTTP client manager for the SMP client.
- * Ideally you call {@link #close()} before your application shuts down.
- * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
- * </p>
+ * Special {@link HttpClientFactory} that uses HTTP system properties to
+ * configure the connection.
  *
  * @author Philip Helger
  */
-public final class GlobalSMPClientHttpClientManager
+public final class SMPHttpClientFactory extends HttpClientFactory
 {
-  private static HttpClientManager s_aHttpClientMgr = new HttpClientManager ( () -> new HttpClientFactory ()
+  private final boolean m_bUseSystemProperties;
+
+  public SMPHttpClientFactory (final boolean bUseSystemProperties)
   {
-    @Override
-    @Nonnull
-    public HttpClientBuilder createHttpClientBuilder ()
-    {
-      final HttpClientBuilder ret = super.createHttpClientBuilder ();
+    m_bUseSystemProperties = bUseSystemProperties;
+  }
+
+  public boolean isUseSystemProperties ()
+  {
+    return m_bUseSystemProperties;
+  }
+
+  @Override
+  @Nonnull
+  public HttpClientBuilder createHttpClientBuilder ()
+  {
+    final HttpClientBuilder ret = super.createHttpClientBuilder ();
+    if (m_bUseSystemProperties)
       ret.useSystemProperties ();
-      return ret;
-    }
-  }.createHttpClient ());
-
-  private GlobalSMPClientHttpClientManager ()
-  {}
-
-  /**
-   * Free up all resources used by the internal {@link HttpClientManager}.
-   */
-  public static void close ()
-  {
-    StreamHelper.close (s_aHttpClientMgr);
-    s_aHttpClientMgr = null;
-  }
-
-  private static void _checkClosed ()
-  {
-    if (s_aHttpClientMgr == null)
-      throw new IllegalStateException ("The SMP client HTTP client manager is already closed!");
-  }
-
-  @Nullable
-  public static <T> T execute (@Nonnull final HttpUriRequest aRequest,
-                               @Nullable final HttpContext aHttpContext,
-                               @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
-  {
-    _checkClosed ();
-    return s_aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
+    return ret;
   }
 }
