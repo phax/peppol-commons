@@ -19,6 +19,8 @@ Note: the sub-projects use different licenses!
 
 ## News and noteworthy
 
+  * 5.2.2 - 2016-12-16
+    * Added possibility to support more proxy settings via system properties (see issue #9)
   * 5.2.1 - 2016-11-21
     * Added possibility to disable SMP/BDXR client certificate check (see issue #8)
   * 5.2.0 - 2016-10-25
@@ -176,31 +178,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>5.2.1</version>
+  <version>5.2.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>5.2.1</version>
+  <version>5.2.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>5.2.1</version>
+  <version>5.2.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>5.2.1</version>
+  <version>5.2.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>5.2.1</version>
+  <version>5.2.2</version>
 </dependency>
 ```
 
@@ -209,7 +211,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.2.1</version>
+  <version>5.2.2</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
