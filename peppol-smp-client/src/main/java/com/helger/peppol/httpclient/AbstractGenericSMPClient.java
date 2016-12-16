@@ -150,7 +150,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * Set the proxy to be used to access the SMP server. Note: proxy
-   * authentication is currently not supported!
+   * authentication is currently not supported!<br>
+   * Note: if {@link #setUseProxySystemProperties(boolean)} is enabled, any
+   * proxy that is set via this method is reset!
    *
    * @param aProxy
    *        May be <code>null</code> to indicate no proxy.

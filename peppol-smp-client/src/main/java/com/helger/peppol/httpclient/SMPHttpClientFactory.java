@@ -55,11 +55,19 @@ import com.helger.httpclient.HttpClientFactory;
  * configure the connection.
  *
  * @author Philip Helger
+ * @since 5.2.2
  */
 public final class SMPHttpClientFactory extends HttpClientFactory
 {
   private final boolean m_bUseSystemProperties;
 
+  /**
+   * Constructor
+   *
+   * @param bUseSystemProperties
+   *        <code>true</code> if system properties should be used,
+   *        <code>false</code> if not.
+   */
   public SMPHttpClientFactory (final boolean bUseSystemProperties)
   {
     m_bUseSystemProperties = bUseSystemProperties;
