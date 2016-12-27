@@ -66,6 +66,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
+import com.helger.httpclient.HttpClientFactory;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
@@ -345,7 +346,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
   {
     final HttpContext aHttpContext = _createHttpContext ();
-    try (final HttpClientManager aHttpClientMgr = new HttpClientManager ( () -> new SMPHttpClientFactory (m_bUseProxySystemProperties).createHttpClient ()))
+    try (final HttpClientManager aHttpClientMgr = new HttpClientManager ( () -> new HttpClientFactory ().setUseSystemProperties (m_bUseProxySystemProperties)
+                                                                                                        .createHttpClient ()))
     {
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
