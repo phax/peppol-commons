@@ -66,6 +66,7 @@ import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smp.RedirectType;
 import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smp.ServiceInformationType;
 import com.helger.peppol.smp.ServiceMetadataType;
@@ -249,7 +250,7 @@ public class SMPClient extends SMPClientReadOnly
 
   /**
    * Saves a service meta data object. The ServiceGroupReference value is
-   * ignored.
+   * ignored. This method can only used to save service information objects.
    *
    * @param aServiceMetadata
    *        The service meta data object to save.
@@ -264,19 +265,21 @@ public class SMPClient extends SMPClientReadOnly
    *         not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
+   * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier,
+   *      RedirectType, BasicAuthClientCredentials)
    */
   public void saveServiceRegistration (@Nonnull final ServiceMetadataType aServiceMetadata,
                                        @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
-    ValueEnforcer.notNull (aServiceMetadata.getServiceInformation (), "ServiceMetadata.ServiceInformation");
-    ValueEnforcer.notNull (aServiceMetadata.getServiceInformation ().getParticipantIdentifier (),
+    final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
+    ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
+    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
                            "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
-    ValueEnforcer.notNull (aServiceMetadata.getServiceInformation ().getDocumentIdentifier (),
+    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (),
                            "ServiceMetadata.ServiceInformation.DocumentIdentifier");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
     final IParticipantIdentifier aServiceGroupID = aServiceInformation.getParticipantIdentifier ();
     final IDocumentTypeIdentifier aDocumentTypeID = aServiceInformation.getDocumentIdentifier ();
 
@@ -288,6 +291,57 @@ public class SMPClient extends SMPClientReadOnly
                         aDocumentTypeID.getURIPercentEncoded ();
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("SMPClient saveServiceRegistration@" + sURI);
+
+    final HttpPut aRequest = new HttpPut (sURI);
+    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    aRequest.setEntity (new StringEntity (sBody, CONTENT_TYPE_TEXT_XML));
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
+  }
+
+  /**
+   * Saves a service meta data object. The ServiceGroupReference value is
+   * ignored. This method can only used to save redirect objects.
+   *
+   * @param aServiceGroupID
+   *        The service group ID to use. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type ID to use. May not be <code>null</code>.
+   * @param aRedirect
+   *        The redirect to be saved. May not be <code>null</code>.
+   * @param aCredentials
+   *        The user name and password to use as aCredentials.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         The user name or password was not correct.
+   * @throws SMPClientNotFoundException
+   *         A HTTP Not Found was received. This can happen if the service was
+   *         not found.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @see #saveServiceRegistration(ServiceMetadataType,
+   *      BasicAuthClientCredentials)
+   */
+  public void saveServiceRedirect (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                   @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                   @Nonnull final RedirectType aRedirect,
+                                   @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  {
+    ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
+    ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
+    ValueEnforcer.notNull (aRedirect, "Redirect");
+    ValueEnforcer.notNull (aCredentials, "Credentials");
+
+    final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
+    aServiceMetadata.setRedirect (aRedirect);
+    final String sBody = new SMPMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
+
+    final String sURI = getSMPHostURI () +
+                        aServiceGroupID.getURIPercentEncoded () +
+                        "/services/" +
+                        aDocumentTypeID.getURIPercentEncoded ();
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("SMPClient saveServiceRedirect@" + sURI);
 
     final HttpPut aRequest = new HttpPut (sURI);
     aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());

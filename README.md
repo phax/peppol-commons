@@ -21,6 +21,7 @@ Note: the sub-projects use different licenses!
   * v5.2.3
     * Updated to BouncyCastle 1.56
     * Binds to ph-web 8.7.1
+    * SMPClient and BDXRClient extended with writing API to create redirects
   * v5.2.2 - 2016-12-16
     * Added possibility to support more proxy settings via system properties (see issue #9)
   * v5.2.1 - 2016-11-21
