@@ -251,9 +251,29 @@ public class BDXRClient extends BDXRClientReadOnly
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
+  private void _saveServiceInformation (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                        @Nonnull final ServiceMetadataType aServiceMetadata,
+                                        @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  {
+    final String sBody = new BDXRMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
+
+    final String sURI = getSMPHostURI () +
+                        aServiceGroupID.getURIPercentEncoded () +
+                        "/services/" +
+                        aDocumentTypeID.getURIPercentEncoded ();
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("BDXRClient saveServiceRegistration@" + sURI);
+
+    final HttpPut aRequest = new HttpPut (sURI);
+    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    aRequest.setEntity (new StringEntity (sBody, CONTENT_TYPE_TEXT_XML));
+    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
+  }
+
   /**
-   * Saves a service meta data object. The ServiceGroupReference value is
-   * ignored.
+   * Saves a service meta data object. This method can only used to save service
+   * information objects!
    *
    * @param aServiceMetadata
    *        The service meta data object to save.
@@ -268,40 +288,69 @@ public class BDXRClient extends BDXRClientReadOnly
    *         not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
+   * @see #saveServiceInformation(ServiceInformationType,
+   *      BasicAuthClientCredentials)
+   * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier,
+   *      RedirectType, BasicAuthClientCredentials)
    */
+  @Deprecated
   public void saveServiceRegistration (@Nonnull final ServiceMetadataType aServiceMetadata,
                                        @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
-    ValueEnforcer.notNull (aServiceMetadata.getServiceInformation (), "ServiceMetadata.ServiceInformation");
-    ValueEnforcer.notNull (aServiceMetadata.getServiceInformation ().getParticipantIdentifier (),
+    final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
+    ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
+    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
                            "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
-    ValueEnforcer.notNull (aServiceMetadata.getServiceInformation ().getDocumentIdentifier (),
+    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (),
                            "ServiceMetadata.ServiceInformation.DocumentIdentifier");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
-    final IParticipantIdentifier aServiceGroupID = aServiceInformation.getParticipantIdentifier ();
-    final IDocumentTypeIdentifier aDocumentTypeID = aServiceInformation.getDocumentIdentifier ();
-
-    final String sBody = new BDXRMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
-    final String sURI = getSMPHostURI () +
-                        aServiceGroupID.getURIPercentEncoded () +
-                        "/services/" +
-                        aDocumentTypeID.getURIPercentEncoded ();
-
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("BDXRClient saveServiceRegistration@" + sURI);
-
-    final HttpPut aRequest = new HttpPut (sURI);
-    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-    aRequest.setEntity (new StringEntity (sBody, CONTENT_TYPE_TEXT_XML));
-    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
+    _saveServiceInformation (aServiceInformation.getParticipantIdentifier (),
+                             aServiceInformation.getDocumentIdentifier (),
+                             aServiceMetadata,
+                             aCredentials);
   }
 
   /**
-   * Saves a service meta data object. The ServiceGroupReference value is
-   * ignored. This method can only used to save redirect objects.
+   * Saves a service information data object.
+   *
+   * @param aServiceInformation
+   *        The service information object to save.
+   * @param aCredentials
+   *        The user name and password to use as aCredentials.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         The user name or password was not correct.
+   * @throws SMPClientNotFoundException
+   *         A HTTP Not Found was received. This can happen if the service was
+   *         not found.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier,
+   *      RedirectType, BasicAuthClientCredentials)
+   */
+  public void saveServiceInformation (@Nonnull final ServiceInformationType aServiceInformation,
+                                      @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  {
+    ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
+    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
+                           "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
+    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (),
+                           "ServiceMetadata.ServiceInformation.DocumentIdentifier");
+    ValueEnforcer.notNull (aCredentials, "Credentials");
+
+    final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
+    aServiceMetadata.setServiceInformation (aServiceInformation);
+    _saveServiceInformation (aServiceInformation.getParticipantIdentifier (),
+                             aServiceInformation.getDocumentIdentifier (),
+                             aServiceMetadata,
+                             aCredentials);
+  }
+
+  /**
+   * Saves a redirect data object.
    *
    * @param aServiceGroupID
    *        The service group ID to use. May not be <code>null</code>.
@@ -320,7 +369,7 @@ public class BDXRClient extends BDXRClientReadOnly
    *         not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceRegistration(ServiceMetadataType,
+   * @see #saveServiceInformation(ServiceInformationType,
    *      BasicAuthClientCredentials)
    */
   public void saveServiceRedirect (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -335,19 +384,7 @@ public class BDXRClient extends BDXRClientReadOnly
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
     aServiceMetadata.setRedirect (aRedirect);
-    final String sBody = new BDXRMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
-
-    final String sURI = getSMPHostURI () +
-                        aServiceGroupID.getURIPercentEncoded () +
-                        "/services/" +
-                        aDocumentTypeID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("BDXRClient saveServiceRedirect@" + sURI);
-
-    final HttpPut aRequest = new HttpPut (sURI);
-    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-    aRequest.setEntity (new StringEntity (sBody, CONTENT_TYPE_TEXT_XML));
-    executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
+    _saveServiceInformation (aServiceGroupID, aDocumentTypeID, aServiceMetadata, aCredentials);
   }
 
   /**

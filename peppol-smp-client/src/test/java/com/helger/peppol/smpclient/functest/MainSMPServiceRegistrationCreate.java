@@ -67,7 +67,6 @@ import com.helger.peppol.smp.ProcessListType;
 import com.helger.peppol.smp.ProcessType;
 import com.helger.peppol.smp.ServiceEndpointList;
 import com.helger.peppol.smp.ServiceInformationType;
-import com.helger.peppol.smp.ServiceMetadataType;
 import com.helger.peppol.smpclient.MockSMPClientConfig;
 import com.helger.peppol.smpclient.SMPClient;
 
@@ -98,41 +97,37 @@ public final class MainSMPServiceRegistrationCreate
     final SMPClient aClient = new SMPClient (SMP_URI);
 
     // Create the service registration
-    final ServiceMetadataType aServiceMetadata = s_aOF.createServiceMetadataType ();
+    final ServiceInformationType aServiceInformation = s_aOF.createServiceInformationType ();
     {
-      final ServiceInformationType aServiceInformation = s_aOF.createServiceInformationType ();
+      final ProcessListType aProcessList = s_aOF.createProcessListType ();
       {
-        final ProcessListType aProcessList = s_aOF.createProcessListType ();
+        final ProcessType aProcess = s_aOF.createProcessType ();
         {
-          final ProcessType aProcess = s_aOF.createProcessType ();
+          final ServiceEndpointList aServiceEndpointList = s_aOF.createServiceEndpointList ();
           {
-            final ServiceEndpointList aServiceEndpointList = s_aOF.createServiceEndpointList ();
-            {
-              final EndpointType aEndpoint = s_aOF.createEndpointType ();
-              aEndpoint.setEndpointReference (START_AP_ENDPOINTREF);
-              aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ());
-              aEndpoint.setCertificate (AP_CERT_STRING);
-              aEndpoint.setServiceActivationDate (PDTFactory.createLocalDateTime (2011, Month.JANUARY, 1));
-              aEndpoint.setServiceExpirationDate (PDTFactory.createLocalDateTime (2020, Month.DECEMBER, 31));
-              aEndpoint.setServiceDescription (AP_SERVICE_DESCRIPTION);
-              aEndpoint.setTechnicalContactUrl (AP_CONTACT_URL);
-              aEndpoint.setTechnicalInformationUrl (AP_INFO_URL);
-              aEndpoint.setMinimumAuthenticationLevel ("1");
-              aEndpoint.setRequireBusinessLevelSignature (false);
-              aServiceEndpointList.getEndpoint ().add (aEndpoint);
-            }
-            aProcess.setProcessIdentifier (new SimpleProcessIdentifier (PROCESS_ID));
-            aProcess.setServiceEndpointList (aServiceEndpointList);
+            final EndpointType aEndpoint = s_aOF.createEndpointType ();
+            aEndpoint.setEndpointReference (START_AP_ENDPOINTREF);
+            aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ());
+            aEndpoint.setCertificate (AP_CERT_STRING);
+            aEndpoint.setServiceActivationDate (PDTFactory.createLocalDateTime (2011, Month.JANUARY, 1));
+            aEndpoint.setServiceExpirationDate (PDTFactory.createLocalDateTime (2020, Month.DECEMBER, 31));
+            aEndpoint.setServiceDescription (AP_SERVICE_DESCRIPTION);
+            aEndpoint.setTechnicalContactUrl (AP_CONTACT_URL);
+            aEndpoint.setTechnicalInformationUrl (AP_INFO_URL);
+            aEndpoint.setMinimumAuthenticationLevel ("1");
+            aEndpoint.setRequireBusinessLevelSignature (false);
+            aServiceEndpointList.getEndpoint ().add (aEndpoint);
           }
-          aProcessList.getProcess ().add (aProcess);
+          aProcess.setProcessIdentifier (new SimpleProcessIdentifier (PROCESS_ID));
+          aProcess.setServiceEndpointList (aServiceEndpointList);
         }
-        aServiceInformation.setDocumentIdentifier (new SimpleDocumentTypeIdentifier (DOCUMENT_ID));
-        aServiceInformation.setParticipantIdentifier (new SimpleParticipantIdentifier (PARTICIPANT_ID));
-        aServiceInformation.setProcessList (aProcessList);
+        aProcessList.getProcess ().add (aProcess);
       }
-      aServiceMetadata.setServiceInformation (aServiceInformation);
+      aServiceInformation.setDocumentIdentifier (new SimpleDocumentTypeIdentifier (DOCUMENT_ID));
+      aServiceInformation.setParticipantIdentifier (new SimpleParticipantIdentifier (PARTICIPANT_ID));
+      aServiceInformation.setProcessList (aProcessList);
     }
-    aClient.saveServiceRegistration (aServiceMetadata, SMP_CREDENTIALS);
+    aClient.saveServiceInformation (aServiceInformation, SMP_CREDENTIALS);
 
     s_aLogger.info ("Done");
   }

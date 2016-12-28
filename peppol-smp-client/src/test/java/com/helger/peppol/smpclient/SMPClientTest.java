@@ -82,7 +82,6 @@ import com.helger.peppol.smp.ServiceGroupReferenceListType;
 import com.helger.peppol.smp.ServiceGroupReferenceType;
 import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smp.ServiceInformationType;
-import com.helger.peppol.smp.ServiceMetadataType;
 import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
@@ -216,48 +215,43 @@ public final class SMPClientTest
     final IDocumentTypeIdentifier aDocumentID = MockSMPClientConfig.getDocumentTypeID ();
     final IProcessIdentifier aProcessID = MockSMPClientConfig.getProcessTypeID ();
 
-    final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
+    final ServiceInformationType aServiceInformation = new ServiceInformationType ();
     {
-      final ServiceInformationType aServiceInformation = new ServiceInformationType ();
+      final ProcessListType aProcessList = new ProcessListType ();
       {
-        final ProcessListType aProcessList = new ProcessListType ();
+        final ProcessType aProcess = new ProcessType ();
         {
-          final ProcessType aProcess = new ProcessType ();
+          final ServiceEndpointList aServiceEndpointList = new ServiceEndpointList ();
           {
-            final ServiceEndpointList aServiceEndpointList = new ServiceEndpointList ();
-            {
-              final EndpointType aEndpoint = new EndpointType ();
-              final W3CEndpointReference aEndpointReferenceType = new W3CEndpointReferenceBuilder ().address ("http://peppol.eu/sampleService/")
-                                                                                                    .build ();
-              aEndpoint.setEndpointReference (aEndpointReferenceType);
-              aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ());
-              // Certificate: Base64.encodeBytes (certificate.getEncoded ());
-              aEndpoint.setCertificate ("1234567890");
-              aEndpoint.setServiceActivationDate (PDTFactory.getCurrentLocalDateTime ());
-              aEndpoint.setServiceDescription ("TEST DESCRIPTION");
-              aEndpoint.setServiceExpirationDate (PDTFactory.getCurrentLocalDateTime ().plusYears (1));
-              aEndpoint.setTechnicalContactUrl ("mailto:smpclient.unittest@helger.com");
-              aEndpoint.setMinimumAuthenticationLevel ("2");
-              aEndpoint.setRequireBusinessLevelSignature (false);
+            final EndpointType aEndpoint = new EndpointType ();
+            final W3CEndpointReference aEndpointReferenceType = new W3CEndpointReferenceBuilder ().address ("http://peppol.eu/sampleService/")
+                                                                                                  .build ();
+            aEndpoint.setEndpointReference (aEndpointReferenceType);
+            aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ());
+            // Certificate: Base64.encodeBytes (certificate.getEncoded ());
+            aEndpoint.setCertificate ("1234567890");
+            aEndpoint.setServiceActivationDate (PDTFactory.getCurrentLocalDateTime ());
+            aEndpoint.setServiceDescription ("TEST DESCRIPTION");
+            aEndpoint.setServiceExpirationDate (PDTFactory.getCurrentLocalDateTime ().plusYears (1));
+            aEndpoint.setTechnicalContactUrl ("mailto:smpclient.unittest@helger.com");
+            aEndpoint.setMinimumAuthenticationLevel ("2");
+            aEndpoint.setRequireBusinessLevelSignature (false);
 
-              aServiceEndpointList.getEndpoint ().add (aEndpoint);
-            }
-
-            aProcess.setProcessIdentifier (new SimpleProcessIdentifier (aProcessID));
-            aProcess.setServiceEndpointList (aServiceEndpointList);
+            aServiceEndpointList.getEndpoint ().add (aEndpoint);
           }
 
-          aProcessList.getProcess ().add (aProcess);
+          aProcess.setProcessIdentifier (new SimpleProcessIdentifier (aProcessID));
+          aProcess.setServiceEndpointList (aServiceEndpointList);
         }
 
-        aServiceInformation.setDocumentIdentifier (new SimpleDocumentTypeIdentifier (aDocumentID));
-        aServiceInformation.setParticipantIdentifier (new SimpleParticipantIdentifier (aServiceGroupID));
-        aServiceInformation.setProcessList (aProcessList);
+        aProcessList.getProcess ().add (aProcess);
       }
 
-      aServiceMetadata.setServiceInformation (aServiceInformation);
+      aServiceInformation.setDocumentIdentifier (new SimpleDocumentTypeIdentifier (aDocumentID));
+      aServiceInformation.setParticipantIdentifier (new SimpleParticipantIdentifier (aServiceGroupID));
+      aServiceInformation.setProcessList (aProcessList);
     }
-    aSMPClient.saveServiceRegistration (aServiceMetadata, SMP_CREDENTIALS);
+    aSMPClient.saveServiceInformation (aServiceInformation, SMP_CREDENTIALS);
 
     final SignedServiceMetadataType aSignedServiceMetadata = aSMPClient.getServiceRegistration (aServiceGroupID,
                                                                                                 aDocumentID);
