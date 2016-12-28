@@ -18,7 +18,7 @@ And some legacy PEPPOL projects:
 Note: the sub-projects use different licenses!
 
 ## News and noteworthy
-  * v5.2.3
+  * v5.2.3 - 2016-12-28
     * Updated to BouncyCastle 1.56
     * Binds to ph-web 8.7.1
     * SMPClient and BDXRClient extended with writing API to create redirects
@@ -181,31 +181,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>5.2.2</version>
+  <version>5.2.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>5.2.2</version>
+  <version>5.2.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>5.2.2</version>
+  <version>5.2.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>5.2.2</version>
+  <version>5.2.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>5.2.2</version>
+  <version>5.2.3</version>
 </dependency>
 ```
 
@@ -214,7 +214,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.2.2</version>
+  <version>5.2.3</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
