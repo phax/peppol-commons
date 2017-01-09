@@ -147,4 +147,18 @@ public final class SMPClientConfiguration
 
     return null;
   }
+
+  /**
+   * Get the content of the property "http.useSystemProperties" or
+   * <code>false</code> if undefined.
+   *
+   * @return <code>true</code> if the SMP client proxy configuration should be
+   *         take from the system properties, or <code>false</code> if not. The
+   *         default behavior is to return <code>false</code>.
+   * @since 5.2.4
+   */
+  public static boolean isUseProxySystemProperties ()
+  {
+    return s_aConfigFile.getAsBoolean ("http.useSystemProperties", false);
+  }
 }

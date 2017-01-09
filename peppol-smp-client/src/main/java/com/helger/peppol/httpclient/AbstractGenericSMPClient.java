@@ -97,7 +97,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private final String m_sSMPHost;
 
   private HttpHost m_aProxy;
-  private boolean m_bUseProxySystemProperties = false;
+  private boolean m_bUseProxySystemProperties;
   private int m_nConnectionTimeoutMS = 5000;
   private int m_nRequestTimeoutMS = 10000;
 
@@ -127,6 +127,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
     // Set default proxy from configuration file
     m_aProxy = SMPClientConfiguration.getHttpProxy ();
+    m_bUseProxySystemProperties = SMPClientConfiguration.isUseProxySystemProperties ();
   }
 
   /**
@@ -189,7 +190,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * enabled, the proxy set via {@link #setProxy(HttpHost)} is automatically
    * reset, because the manual proxy host has precedence over the system
    * properties (internally in Apache HTTPClient) - use the 'http.proxyHost'
-   * system property instead! <br>
+   * system property instead!<br>
+   * Note: since v5.2.4 this property can be configured via an SMP client
+   * properties file (see
+   * {@link SMPClientConfiguration#isUseProxySystemProperties()}).<br>
    * Supported properties are (source:
    * http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/impl/client/HttpClientBuilder.html):
    * <ul>
