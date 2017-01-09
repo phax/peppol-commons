@@ -25,7 +25,7 @@
     <version>1.9.2</version>
   </parent>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.2.4-SNAPSHOT</version>
+  <version>5.2.4</version>
   <packaging>pom</packaging>
   <name>peppol-commons-parent-pom</name>
   <description>Base POM to build the peppol-commons projects</description>
@@ -54,7 +54,7 @@
     <connection>scm:git:git@github.com:phax/peppol-commons.git</connection>
     <developerConnection>scm:git:git@github.com:phax/peppol-commons.git</developerConnection>
     <url>http://github.com/phax/peppol-commons</url>
-    <tag>HEAD</tag>
+    <tag>peppol-commons-parent-pom-5.2.4</tag>
   </scm>
 
   <organization>
