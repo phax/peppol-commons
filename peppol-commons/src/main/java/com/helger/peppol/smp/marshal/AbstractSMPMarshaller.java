@@ -40,12 +40,11 @@
  */
 package com.helger.peppol.smp.marshal;
 
-import java.util.function.Function;
-
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 
+import com.helger.commons.function.IFunction;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.peppol.smp.ObjectFactory;
@@ -63,7 +62,7 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends AbstractJAXBMarsh
   private final MapBasedNamespaceContext m_aNSContext;
 
   public AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     // No XSD
     super (aType, aWrapper);

@@ -40,12 +40,11 @@
  */
 package com.helger.peppol.bdxr.marshal;
 
-import java.util.function.Function;
-
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 
+import com.helger.commons.function.IFunction;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.peppol.bdxr.ObjectFactory;
@@ -63,7 +62,7 @@ public abstract class AbstractBDXRMarshaller <JAXBTYPE> extends AbstractJAXBMars
   private final MapBasedNamespaceContext m_aNSContext;
 
   public AbstractBDXRMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                 @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                 @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     // No XSD
     super (aType, aWrapper);

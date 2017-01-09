@@ -40,7 +40,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.datetime.util.PDTXMLConverter;
-import com.helger.jaxb.validation.DoNothingValidationEventHandlerFactory;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -330,7 +329,7 @@ public class PeppolSBDHDocumentReader
   {
     final SBDMarshaller ret = new SBDMarshaller ();
     // Simply swallow all error messages where possible
-    ret.setValidationEventHandlerFactory (new DoNothingValidationEventHandlerFactory ());
+    ret.setValidationEventHandlerFactory (x -> null);
     return ret;
   }
 

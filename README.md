@@ -18,6 +18,9 @@ And some legacy PEPPOL projects:
 Note: the sub-projects use different licenses!
 
 ## News and noteworthy
+  * v5.2.4
+    * Binds to ph-commons 8.6.0
+    * Updated to dnsjava 2.1.8
   * v5.2.3 - 2016-12-28
     * Updated to BouncyCastle 1.56
     * Binds to ph-web 8.7.1
