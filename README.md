@@ -21,15 +21,15 @@ Note: the sub-projects use different licenses!
   * v5.2.4
     * Binds to ph-commons 8.6.0
     * Updated to dnsjava 2.1.8
-    * Added possibility to define usage of proxy system properties via configuration file (see issue #9)
+    * Added possibility to define usage of proxy system properties via configuration file (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
   * v5.2.3 - 2016-12-28
     * Updated to BouncyCastle 1.56
     * Binds to ph-web 8.7.1
     * SMPClient and BDXRClient extended with writing API to create redirects
   * v5.2.2 - 2016-12-16
-    * Added possibility to support more proxy settings via system properties (see issue #9)
+    * Added possibility to support more proxy settings via system properties (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
   * v5.2.1 - 2016-11-21
-    * Added possibility to disable SMP/BDXR client certificate check (see issue #8)
+    * Added possibility to disable SMP/BDXR client certificate check (see issue [#8](https://github.com/phax/peppol-commons/issues/8))
   * v5.2.0 - 2016-10-25
     * Reworked identifier API to improve case sensitivity handling (based on identifier scheme). The rules per identifier factory:
       * BDXR: identifiers based on participant identifier scheme `iso6523-actorid-upis`, document type identifier scheme `bdx-docid-qns` or process identifier scheme `bdx-procid-transport` are treated case **in**sensitive
