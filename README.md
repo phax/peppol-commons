@@ -131,30 +131,34 @@ It supports the following properties:
   * **`truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
   * **`http.proxyHost`**: the host name or IP address to be used as a HTTP proxy
   * **`http.proxyPort`**: the port of the HTTP proxy. The port must be specified and has no default value!
-  * **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties for HTTP configuration are used for setting up the connection. The default value is `false`. Supported system properties are:
-    * ssl.TrustManagerFactory.algorithm
-    * javax.net.ssl.trustStoreType
-    * javax.net.ssl.trustStore
-    * javax.net.ssl.trustStoreProvider
-    * javax.net.ssl.trustStorePassword
-    * ssl.KeyManagerFactory.algorithm
-    * javax.net.ssl.keyStoreType
-    * javax.net.ssl.keyStore
-    * javax.net.ssl.keyStoreProvider
-    * javax.net.ssl.keyStorePassword
-    * https.protocols
-    * https.cipherSuites
-    * http.proxyHost
-    * http.proxyPort
-    * http.nonProxyHosts
-    * http.keepAlive
-    * http.maxConnections
-    * http.agent
+  * **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties for HTTP configuration are used for setting up the connection. The default value is `false`. Supported system properties are (based on Apache HTTPClient):
+    * `ssl.TrustManagerFactory.algorithm`
+    * `javax.net.ssl.trustStoreType`
+    * `javax.net.ssl.trustStore`
+    * `javax.net.ssl.trustStoreProvider`
+    * `javax.net.ssl.trustStorePassword`
+    * `ssl.KeyManagerFactory.algorithm`
+    * `javax.net.ssl.keyStoreType`
+    * `javax.net.ssl.keyStore`
+    * `javax.net.ssl.keyStoreProvider`
+    * `javax.net.ssl.keyStorePassword`
+    * `https.protocols`
+    * `https.cipherSuites`
+    * `http.proxyHost`
+    * `http.proxyPort`
+    * `http.nonProxyHosts`
+    * `http.keepAlive`
+    * `http.maxConnections`
+    * `http.agent`
   
 ### Specifying a proxy server
 The SMP client supports a proxy server. By default the proxy specified in the configuration file (see above) is used (since version 4.3.0).
-Simply call the method `setProxy (org.apache.http.HttpHost)` on an `SMPClient` or `SMPClientReadOnly`. This means you can specify the proxy on a per-call basis.
+
+Alternatively call the method `setProxy (org.apache.http.HttpHost)` on an `SMPClient` or `SMPClientReadOnly`. This means you can specify the proxy on a per-call basis.
 Proxy authentication is currently not supported.
+
+Since v5.2.2 the method `SMPClient.setUseProxySystemProperties (true)` can be used to enable the usage of the default system properties for HTTP connections (see the section on the configuration file for details). Since v5.2.4 the configuration file property `http.useSystemProperties` can be used to achieve the same without code changes. By enabling the usage of the system properties, the manually set proxy is ignored; if a proxy is manually set after this setting, it disables the usage of the system properties again.
+Note: this of course works for both SMP and BDXR client.
   
 ### Example usage (V5 only)
 
