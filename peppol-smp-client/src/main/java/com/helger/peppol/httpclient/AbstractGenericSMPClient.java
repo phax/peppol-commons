@@ -350,8 +350,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
   {
     final HttpContext aHttpContext = _createHttpContext ();
-    try (final HttpClientManager aHttpClientMgr = new HttpClientManager ( () -> new HttpClientFactory ().setUseSystemProperties (m_bUseProxySystemProperties)
-                                                                                                        .createHttpClient ()))
+    try (final HttpClientManager aHttpClientMgr = new HttpClientManager (new HttpClientFactory ().setUseSystemProperties (m_bUseProxySystemProperties)))
     {
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }

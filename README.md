@@ -18,7 +18,9 @@ And some legacy PEPPOL projects:
 Note: the sub-projects use different licenses!
 
 ## News and noteworthy
-  * v5.2.4
+  * v5.2.5
+    * Binds to ph-web 8.7.2
+  * v5.2.4 - 2017-01-09
     * Binds to ph-commons 8.6.0
     * Updated to dnsjava 2.1.8
     * Added possibility to define usage of proxy system properties via configuration file (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
