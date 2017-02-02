@@ -54,7 +54,7 @@ import com.helger.xml.microdom.util.MicroHelper;
  *
  * @author Philip Helger
  */
-public class SMLInfoMicroTypeConverter implements IMicroTypeConverter
+public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter
 {
   private static final String ATTR_ID = "id";
   private static final String ATTR_DISPLAY_NAME = "displayname";
