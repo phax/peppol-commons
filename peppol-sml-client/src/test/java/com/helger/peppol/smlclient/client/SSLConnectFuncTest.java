@@ -42,6 +42,7 @@ package com.helger.peppol.smlclient.client;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
@@ -56,7 +57,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.random.RandomHelper;
 import com.helger.commons.ws.HostnameVerifierVerifyAll;
@@ -125,13 +125,13 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
     try
     {
       // Show success
-      final String sResult = StreamHelper.getAllBytesAsString (aURLConn.getInputStream (), CCharset.CHARSET_UTF_8_OBJ);
+      final String sResult = StreamHelper.getAllBytesAsString (aURLConn.getInputStream (), StandardCharsets.UTF_8);
       s_aLogger.info ("\n" + sResult);
     }
     catch (final IOException ex)
     {
       // Show error
-      final String sError = StreamHelper.getAllBytesAsString (aURLConn.getErrorStream (), CCharset.CHARSET_UTF_8_OBJ);
+      final String sError = StreamHelper.getAllBytesAsString (aURLConn.getErrorStream (), StandardCharsets.UTF_8);
       s_aLogger.info ("\n" + sError);
     }
   }

@@ -42,13 +42,13 @@ package com.helger.peppol.supplementary.tools;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -74,12 +74,12 @@ public final class MainCreateTrustStoreHashFiles
                                           .getHexEncodedDigestString ();
     SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".md5"),
                             sMD5,
-                            CCharset.CHARSET_ISO_8859_1_OBJ);
+                            StandardCharsets.ISO_8859_1);
     final String sSHA1 = MessageDigestValue.create (aTrustStore.getInputStream (), EMessageDigestAlgorithm.SHA_1)
                                            .getHexEncodedDigestString ();
     SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".sha1"),
                             sSHA1,
-                            CCharset.CHARSET_ISO_8859_1_OBJ);
+                            StandardCharsets.ISO_8859_1);
 
     s_aLogger.info ("Done creating hash values for " + sTruststorePath);
   }

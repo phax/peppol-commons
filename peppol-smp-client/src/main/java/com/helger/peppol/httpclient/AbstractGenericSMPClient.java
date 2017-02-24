@@ -437,6 +437,6 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                        .append ("ConnectionTimeoutMS", m_nConnectionTimeoutMS)
                                        .append ("RequestTimeoutMS", m_nRequestTimeoutMS)
                                        .append ("CheckCertificate", m_bCheckCertificate)
-                                       .toString ();
+                                       .getToString ();
   }
 }

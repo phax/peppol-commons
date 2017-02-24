@@ -124,6 +124,6 @@ public class ParticipantListItem implements Serializable
   {
     return new ToStringGenerator (null).append ("SMPID", m_sSMPID)
                                        .append ("ParticipantID", m_aParticipantID)
-                                       .toString ();
+                                       .getToString ();
   }
 }

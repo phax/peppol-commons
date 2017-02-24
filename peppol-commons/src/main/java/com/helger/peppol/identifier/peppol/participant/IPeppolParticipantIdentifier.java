@@ -40,10 +40,11 @@
  */
 package com.helger.peppol.identifier.peppol.participant;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
@@ -178,7 +179,7 @@ public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IPartic
 
     // Check if the value is US ASCII encoded
     return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
-           CCharset.CHARSET_US_ASCII_OBJ.newEncoder ().canEncode (sValue);
+           StandardCharsets.US_ASCII.newEncoder ().canEncode (sValue);
   }
 
   /**

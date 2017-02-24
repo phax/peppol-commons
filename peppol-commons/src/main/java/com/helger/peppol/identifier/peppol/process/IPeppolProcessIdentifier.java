@@ -40,9 +40,10 @@
  */
 package com.helger.peppol.identifier.peppol.process;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.annotation.Nullable;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
@@ -96,6 +97,6 @@ public interface IPeppolProcessIdentifier extends IPeppolIdentifier, IProcessIde
 
     // Check if the value is ISO-8859-1 encoded
     return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
-           CCharset.CHARSET_ISO_8859_1_OBJ.newEncoder ().canEncode (sValue);
+           StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
   }
 }

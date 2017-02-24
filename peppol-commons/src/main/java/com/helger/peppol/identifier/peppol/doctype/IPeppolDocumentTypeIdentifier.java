@@ -40,10 +40,11 @@
  */
 package com.helger.peppol.identifier.peppol.doctype;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -112,6 +113,6 @@ public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocum
 
     // Check if the value is ISO-8859-1 encoded
     return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
-           CCharset.CHARSET_ISO_8859_1_OBJ.newEncoder ().canEncode (sValue);
+           StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
   }
 }

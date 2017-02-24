@@ -82,6 +82,6 @@ public final class TestDocument
   {
     return new ToStringGenerator (null).append ("filename", m_sFilename)
                                        .append ("expectedErrors", m_aExpectedErrors)
-                                       .toString ();
+                                       .getToString ();
   }
 }

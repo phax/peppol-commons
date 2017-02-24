@@ -207,7 +207,7 @@ public final class OpenPeppolDocumentTypeIdentifierParts implements IPeppolDocum
                                        .append ("transactionID", m_sTransactionID)
                                        .append ("extensionIDs", m_aExtensionIDs)
                                        .append ("version", m_sVersion)
-                                       .toString ();
+                                       .getToString ();
   }
 
   /**

@@ -259,7 +259,7 @@ public class SMLInfo implements ISMLInfo
                                        .append ("ManageParticipantIdentifierEndpointAddress",
                                                 m_aManageParticipantIdentifierEndpointAddress)
                                        .append ("ClientCertificateRequired", m_bClientCertificateRequired)
-                                       .toString ();
+                                       .getToString ();
   }
 
   @Nonnull

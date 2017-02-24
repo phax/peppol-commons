@@ -79,7 +79,7 @@ public final class ErrorDefinition implements Comparable <ErrorDefinition>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("level", m_aLevel).append ("errorCode", m_sErrorCode).toString ();
+    return new ToStringGenerator (null).append ("level", m_aLevel).append ("errorCode", m_sErrorCode).getToString ();
   }
 
   @Nonnull

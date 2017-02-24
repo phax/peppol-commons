@@ -45,6 +45,7 @@
 package com.helger.peppol.bdxrclient;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
@@ -57,7 +58,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.mime.CMimeType;
 import com.helger.http.CHTTPHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
@@ -95,7 +95,7 @@ public class BDXRClient extends BDXRClientReadOnly
 
   // The default text/xml content type uses iso-8859-1!
   private static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
-                                                                               CCharset.CHARSET_UTF_8_OBJ);
+                                                                               StandardCharsets.UTF_8);
 
   /**
    * Constructor with SML lookup

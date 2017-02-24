@@ -72,7 +72,7 @@ public class PeppolSBDHDocument
 
   /**
    * Default constructor.
-   * 
+   *
    * @deprecated Use the version with an explicit identifier factory.
    */
   @Deprecated
@@ -83,7 +83,7 @@ public class PeppolSBDHDocument
 
   /**
    * Constructor
-   * 
+   *
    * @param aIdentifierFactory
    *        Identifier factory to be used. May not be <code>null</code>.
    */
@@ -656,7 +656,7 @@ public class PeppolSBDHDocument
                                        .append ("instanceIdentifier", m_sInstanceIdentifier)
                                        .append ("creationDateAndTime", m_aCreationDateAndTime)
                                        .append ("businessMessage", m_aBusinessMessage)
-                                       .toString ();
+                                       .getToString ();
   }
 
   /**

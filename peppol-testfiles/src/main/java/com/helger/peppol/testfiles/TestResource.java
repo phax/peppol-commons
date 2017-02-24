@@ -94,7 +94,7 @@ public final class TestResource
   {
     return new ToStringGenerator (null).append ("resource", m_aRes)
                                        .append ("expectedErrors", m_aExpectedErrors)
-                                       .toString ();
+                                       .getToString ();
   }
 
   @Nonnull

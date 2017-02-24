@@ -41,6 +41,7 @@
 package com.helger.peppol.url;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Map;
 
@@ -52,7 +53,6 @@ import org.xbill.DNS.TextParseException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.Base32Codec;
 import com.helger.commons.collection.ext.CommonsHashMap;
@@ -76,7 +76,7 @@ import com.helger.security.messagedigest.MessageDigestValue;
 public class EsensURLProvider implements IPeppolURLProvider
 {
   public static final IPeppolURLProvider INSTANCE = new EsensURLProvider ();
-  public static final Charset URL_CHARSET = CCharset.CHARSET_UTF_8_OBJ;
+  public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
@@ -167,8 +167,7 @@ public class EsensURLProvider implements IPeppolURLProvider
     final byte [] aMessageDigest = MessageDigestValue.create (CharsetManager.getAsBytes (sValueToHash, URL_CHARSET),
                                                               EMessageDigestAlgorithm.SHA_256)
                                                      .getAllDigestBytes ();
-    return new Base32Codec ().setAddPaddding (false).getEncodedAsString (aMessageDigest,
-                                                                         CCharset.CHARSET_ISO_8859_1_OBJ);
+    return new Base32Codec ().setAddPaddding (false).getEncodedAsString (aMessageDigest, StandardCharsets.ISO_8859_1);
   }
 
   @Nonnull

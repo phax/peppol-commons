@@ -130,6 +130,6 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ID", m_sID).append ("Name", m_sName).toString ();
+    return new ToStringGenerator (this).append ("ID", m_sID).append ("Name", m_sName).getToString ();
   }
 }

@@ -141,7 +141,7 @@ public final class BusdoxDocumentTypeIdentifierParts implements IBusdoxDocumentT
     return new ToStringGenerator (this).append ("rootNS", m_sRootNS)
                                        .append ("localName", m_sLocalName)
                                        .append ("subTypeIdentifier", m_sSubTypeIdentifier)
-                                       .toString ();
+                                       .getToString ();
   }
 
   /**

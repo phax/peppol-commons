@@ -41,6 +41,7 @@
 package com.helger.peppol.url;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -51,7 +52,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
@@ -72,7 +72,7 @@ import com.helger.security.messagedigest.MessageDigestValue;
 public class PeppolURLProvider implements IPeppolURLProvider
 {
   public static final IPeppolURLProvider INSTANCE = new PeppolURLProvider ();
-  public static final Charset URL_CHARSET = CCharset.CHARSET_UTF_8_OBJ;
+  public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolURLProvider.class);

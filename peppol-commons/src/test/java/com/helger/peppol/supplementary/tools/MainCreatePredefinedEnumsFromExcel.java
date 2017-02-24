@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -59,7 +60,6 @@ import org.w3c.dom.Document;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -219,7 +219,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     final String sXML = MicroWriter.getXMLString (aDoc);
     SimpleFileIO.writeFile (new File (RESULT_DIRECTORY + "PeppolIdentifierIssuingAgencies.xml"),
                             sXML,
-                            CCharset.CHARSET_UTF_8_OBJ);
+                            StandardCharsets.UTF_8);
 
     // Create Java source
     try
@@ -380,7 +380,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     final String sXML = MicroWriter.getXMLString (aDoc);
     SimpleFileIO.writeFile (new File (RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier.xml"),
                             sXML,
-                            CCharset.CHARSET_UTF_8_OBJ);
+                            StandardCharsets.UTF_8);
 
     // Create Java source
     try
@@ -391,7 +391,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       s_jEnumPredefinedDoc.annotate (CodingStyleguideUnaware.class);
       s_jEnumPredefinedDoc.javadoc ().add ("This file is generated. Do NOT edit!");
 
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
 
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
@@ -654,9 +654,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       eAgency.setAttribute ("since", sSince);
     }
     final String sXML = MicroWriter.getXMLString (aDoc);
-    SimpleFileIO.writeFile (new File (RESULT_DIRECTORY + "PeppolProcessIdentifier.xml"),
-                            sXML,
-                            CCharset.CHARSET_UTF_8_OBJ);
+    SimpleFileIO.writeFile (new File (RESULT_DIRECTORY + "PeppolProcessIdentifier.xml"), sXML, StandardCharsets.UTF_8);
 
     // Create Java source
     try
@@ -668,7 +666,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       jEnum.javadoc ().add ("This file is generated. Do NOT edit!");
 
       // enum constants
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
         final String sID = Genericode10Helper.getRowValue (aRow, "id");
@@ -859,7 +857,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     _emitProcessIdentifier (aProcessSheet);
 
     // Write all Java source files
-    final FileCodeWriter aWriter = new FileCodeWriter (new File ("src/main/java"), CCharset.CHARSET_UTF_8_OBJ);
+    final FileCodeWriter aWriter = new FileCodeWriter (new File ("src/main/java"), StandardCharsets.UTF_8);
     s_aCodeModel.build (aWriter);
 
     s_aLogger.info ("Done creating code");
