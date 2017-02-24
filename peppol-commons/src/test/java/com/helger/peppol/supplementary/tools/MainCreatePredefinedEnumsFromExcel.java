@@ -123,7 +123,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
   private static final Version CODELIST_VERSION = new Version (1, 2, 2);
-  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1 2 1-15072016.xls";
+  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1 2 1-20170224.xls";
   private static final String SHEET_PARTICIPANT = "Participant";
   private static final String SHEET_DOCUMENT = "Document";
   private static final String SHEET_PROCESS = "Process";
@@ -391,7 +391,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       s_jEnumPredefinedDoc.annotate (CodingStyleguideUnaware.class);
       s_jEnumPredefinedDoc.javadoc ().add ("This file is generated. Do NOT edit!");
 
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
 
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
@@ -622,6 +622,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     aReadOptions.addColumn (2, "bisid", UseType.REQUIRED, "string", true);
     aReadOptions.addColumn (3, "docids", UseType.REQUIRED, "string", false);
     aReadOptions.addColumn (4, "since", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (5, "deprecated", UseType.REQUIRED, "boolean", false);
     final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aProcessSheet,
                                                                                        aReadOptions,
                                                                                        "PeppolProcessIdentifier",
@@ -645,6 +646,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       // and check if each of them is a valid predefined document identifier
       final ICommonsList <String> aDocIDs = RegExHelper.getSplitToList (sDocIDs, "\n");
       final String sSince = Genericode10Helper.getRowValue (aRow, "since");
+      final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"), false);
 
       final IMicroElement eAgency = eRoot.appendElement ("process");
       eAgency.setAttribute ("id", sID);
@@ -652,6 +654,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       for (final String sDocID : aDocIDs)
         eAgency.appendElement ("document").setAttribute ("id", sDocID);
       eAgency.setAttribute ("since", sSince);
+      eAgency.setAttribute ("depercated", bDeprecated);
     }
     final String sXML = MicroWriter.getXMLString (aDoc);
     SimpleFileIO.writeFile (new File (RESULT_DIRECTORY + "PeppolProcessIdentifier.xml"), sXML, StandardCharsets.UTF_8);
@@ -666,18 +669,21 @@ public final class MainCreatePredefinedEnumsFromExcel
       jEnum.javadoc ().add ("This file is generated. Do NOT edit!");
 
       // enum constants
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet<> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
         final String sID = Genericode10Helper.getRowValue (aRow, "id");
         final String sBISID = Genericode10Helper.getRowValue (aRow, "bisid");
         final String sDocTypeIDs = Genericode10Helper.getRowValue (aRow, "docids");
         final String sSince = Genericode10Helper.getRowValue (aRow, "since");
+        final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"), false);
 
         final String sEnumConstName = RegExHelper.getAsIdentifier (sID);
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         jEnumConst.arg (JExpr.lit (sID));
         jEnumConst.arg (JExpr.lit (sBISID));
+        if (bDeprecated)
+          jEnumConst.annotate (Deprecated.class);
         final JArray jArray = JExpr.newArray (s_jEnumPredefinedDoc);
         for (final String sDocTypeID : RegExHelper.getSplitToList (sDocTypeIDs, "\n"))
         {
@@ -713,6 +719,8 @@ public final class MainCreatePredefinedEnumsFromExcel
                                                  jEnum,
                                                  sShortcutName,
                                                  jEnumConst);
+        if (bDeprecated)
+          aShortcut.annotate (Deprecated.class);
         aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
       }
 
