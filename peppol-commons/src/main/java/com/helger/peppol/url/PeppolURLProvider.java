@@ -71,7 +71,8 @@ import com.helger.security.messagedigest.MessageDigestValue;
 @Immutable
 public class PeppolURLProvider implements IPeppolURLProvider
 {
-  public static final IPeppolURLProvider INSTANCE = new PeppolURLProvider ();
+  public static final PeppolURLProvider MUTABLE_INSTANCE = new PeppolURLProvider ();
+  public static final IPeppolURLProvider INSTANCE = MUTABLE_INSTANCE;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
 

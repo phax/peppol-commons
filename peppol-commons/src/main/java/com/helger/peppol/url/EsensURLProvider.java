@@ -75,13 +75,14 @@ import com.helger.security.messagedigest.MessageDigestValue;
 @ThreadSafe
 public class EsensURLProvider implements IPeppolURLProvider
 {
-  public static final IPeppolURLProvider INSTANCE = new EsensURLProvider ();
+  public static final EsensURLProvider MUTABLE_INSTANCE = new EsensURLProvider ();
+  public static final IPeppolURLProvider INSTANCE = MUTABLE_INSTANCE;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private boolean m_bLowercaseValueBeforeHashing = true;
-  private final ICommonsMap <String, String> m_aDNSCache = new CommonsHashMap <> ();
+  private final ICommonsMap <String, String> m_aDNSCache = new CommonsHashMap<> ();
   private boolean m_bUseDNSCache = true;
 
   /**
