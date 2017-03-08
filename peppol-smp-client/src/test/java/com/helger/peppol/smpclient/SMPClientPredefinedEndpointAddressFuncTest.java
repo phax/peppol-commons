@@ -108,6 +108,14 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
     assertEquals ("https://www.erechnung.gv.at/as2", sEndpointAddress);
   }
 
+  /**
+   * This test reads a live certificate and reads out the serial number. The
+   * current certificates are valid from 03/2017 - 03/2019. If you run this test
+   * afterwards and it fails, either fix the numbers or ignore the test.
+   * 
+   * @throws Throwable
+   *         on error
+   */
   @Test
   public void testGetEndpointCertificate () throws Throwable
   {
@@ -119,7 +127,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                                                                       EPredefinedProcessIdentifier.BIS4A_V20,
                                                                                       ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
     assertNotNull (aEndpointCertificate);
-    assertEquals ("116719724598868153864564000486828614482", aEndpointCertificate.getSerialNumber ().toString ());
+    assertEquals ("116734465033335658986050433351742789051", aEndpointCertificate.getSerialNumber ().toString ());
 
     aEndpointCertificate = _createSMPClient (PI_AT_Prod,
                                              ESML.DIGIT_PRODUCTION).getEndpointCertificate (PI_AT_Prod,
@@ -127,6 +135,6 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                                                                             EPredefinedProcessIdentifier.BIS4A_V20,
                                                                                             ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
     assertNotNull (aEndpointCertificate);
-    assertEquals ("84830725788388898952694772524159165036", aEndpointCertificate.getSerialNumber ().toString ());
+    assertEquals ("47242738920622652381827551755938905883", aEndpointCertificate.getSerialNumber ().toString ());
   }
 }
