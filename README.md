@@ -1,4 +1,4 @@
-#Introduction
+# Introduction
 This project contains different libraries that are commonly used in the PEPPOL area:
   * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with PEPPOL and BDXR
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
@@ -209,12 +209,12 @@ If you don't need the DNS lookup you can use the URL of the SMP directly (equiva
                         sEndpointAddress);
 ```
 
-#Building from source
+# Building from source
 This project is meant to be build by Maven 3.x.
 It requires at least Java 1.8 to be build.
 To build simply call `mvn clean install` in the root folder.
 
-#Maven usage
+# Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
@@ -264,7 +264,7 @@ Note: `peppol-bdxr` was integrated in `peppol-commons` as of version 4.3.0.
 The binary version of this library can be found on http://repo2.maven.org/maven2/com/helger/ 
 They depend on several other libraries so I suggest you are going for the Maven source integration.
 
-#References
+# References
  * [PEPPOL Policy for the use of identifiers 3.0.0](https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/PEPPOL_Policy%20for%20use%20of%20identifiers-300.pdf)
  * [OpenPEPPOL Business Message Envelope (SBDH)](https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-100_2014-01-15.pdf)
 

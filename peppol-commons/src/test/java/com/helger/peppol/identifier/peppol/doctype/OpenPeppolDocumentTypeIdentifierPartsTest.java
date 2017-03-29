@@ -166,7 +166,7 @@ public final class OpenPeppolDocumentTypeIdentifierPartsTest
   @Test
   public void testList () throws IOException
   {
-    try (final CSVWriter aCSV = new CSVWriter (StreamHelper.createWriter (FileHelper.getOutputStream ("doctypes.csv"),
+    try (final CSVWriter aCSV = new CSVWriter (StreamHelper.createWriter (FileHelper.getOutputStream (new File ("doctypes.csv")),
                                                                           StandardCharsets.ISO_8859_1)).setSeparatorChar (';'))
     {
       aCSV.writeNext ("Status",
