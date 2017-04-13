@@ -53,7 +53,6 @@ import org.xbill.DNS.TextParseException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.Base32Codec;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
@@ -82,7 +81,7 @@ public class EsensURLProvider implements IPeppolURLProvider
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private boolean m_bLowercaseValueBeforeHashing = true;
-  private final ICommonsMap <String, String> m_aDNSCache = new CommonsHashMap<> ();
+  private final ICommonsMap <String, String> m_aDNSCache = new CommonsHashMap <> ();
   private boolean m_bUseDNSCache = true;
 
   /**
@@ -165,7 +164,7 @@ public class EsensURLProvider implements IPeppolURLProvider
   @Nonnull
   public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
   {
-    final byte [] aMessageDigest = MessageDigestValue.create (CharsetManager.getAsBytes (sValueToHash, URL_CHARSET),
+    final byte [] aMessageDigest = MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET),
                                                               EMessageDigestAlgorithm.SHA_256)
                                                      .getAllDigestBytes ();
     return new Base32Codec ().setAddPaddding (false).getEncodedAsString (aMessageDigest, StandardCharsets.ISO_8859_1);

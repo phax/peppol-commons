@@ -52,7 +52,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -100,8 +99,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
   {
     // Create the MD5 hash
     // Convert to hex-encoded string
-    return MessageDigestValue.create (CharsetManager.getAsBytes (sValueToHash, URL_CHARSET),
-                                      EMessageDigestAlgorithm.MD5)
+    return MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET), EMessageDigestAlgorithm.MD5)
                              .getHexEncodedDigestString ();
   }
 
