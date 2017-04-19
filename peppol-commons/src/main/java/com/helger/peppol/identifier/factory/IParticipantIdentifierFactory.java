@@ -87,7 +87,9 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Create a new participant identifier.
+   * Create a new participant identifier. This method returns a unified
+   * identifier value if {@link #isParticipantIdentifierCaseInsensitive(String)}
+   * is <code>true</code> for the provided scheme.
    *
    * @param sScheme
    *        The scheme to be used.
@@ -95,6 +97,9 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
    *        The value to be used.
    * @return <code>null</code> if the provided scheme and/or value are/is
    *         invalid according to the rules of the implementation.
+   * @see #createParticipantIdentifierWithDefaultScheme(String)
+   * @see #getUnifiedValue(String)
+   * @see #isParticipantIdentifierCaseInsensitive(String)
    */
   @Nullable
   IParticipantIdentifier createParticipantIdentifier (@Nullable String sScheme, @Nullable String sValue);
@@ -102,12 +107,19 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
   /**
    * Create a new participant identifier using the default identifier scheme.
    * This may result in an <code>null</code> object if no default identifier
-   * scheme is present, but no scheme is forbidden!
+   * scheme is present, but no scheme is forbidden! This method returns a
+   * unified identifier value if
+   * {@link #isParticipantIdentifierCaseInsensitive(String)} is
+   * <code>true</code> for the default scheme.
    *
    * @param sValue
    *        The value to be used.
    * @return <code>null</code> if the default scheme and/or the provided value
    *         are/is invalid according to the rules of the implementation.
+   * @see #createParticipantIdentifier(String, String)
+   * @see #getDefaultParticipantIdentifierScheme()
+   * @see #getUnifiedValue(String)
+   * @see #isParticipantIdentifierCaseInsensitive(String)
    */
   @Nullable
   default IParticipantIdentifier createParticipantIdentifierWithDefaultScheme (@Nullable final String sValue)

@@ -87,7 +87,10 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Create a new document type identifier.
+   * Create a new document type identifier. This method returns a unified
+   * identifier value if
+   * {@link #isDocumentTypeIdentifierCaseInsensitive(String)} is
+   * <code>true</code> for the provided scheme.
    *
    * @param sScheme
    *        The scheme to be used.
@@ -95,6 +98,9 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
    *        The value to be used.
    * @return <code>null</code> if the provided scheme and/or value are/is
    *         invalid according to the rules of the implementation.
+   * @see #createDocumentTypeIdentifierWithDefaultScheme(String)
+   * @see #getUnifiedValue(String)
+   * @see #isDocumentTypeIdentifierCaseInsensitive(String)
    */
   @Nullable
   IDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable String sScheme, @Nullable String sValue);
@@ -102,12 +108,19 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   /**
    * Create a new document type identifier using the default identifier scheme.
    * This may result in an <code>null</code> object if no default identifier
-   * scheme is present, but no scheme is forbidden!
+   * scheme is present, but no scheme is forbidden! This method returns a
+   * unified identifier value if
+   * {@link #isDocumentTypeIdentifierCaseInsensitive(String)} is
+   * <code>true</code> for the default scheme.
    *
    * @param sValue
    *        The value to be used.
    * @return <code>null</code> if the default scheme and/or the provided value
    *         are/is invalid according to the rules of the implementation.
+   * @see #createDocumentTypeIdentifier(String, String)
+   * @see #getDefaultDocumentTypeIdentifierScheme()
+   * @see #getUnifiedValue(String)
+   * @see #isDocumentTypeIdentifierCaseInsensitive(String)
    */
   @Nullable
   default IDocumentTypeIdentifier createDocumentTypeIdentifierWithDefaultScheme (@Nullable final String sValue)
