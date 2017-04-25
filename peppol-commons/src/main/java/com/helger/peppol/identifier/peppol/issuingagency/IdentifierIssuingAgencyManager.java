@@ -50,6 +50,8 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 
 /**
  * This class manages the PEPPOL identifier issuing agencies using the
@@ -210,5 +212,30 @@ public final class IdentifierIssuingAgencyManager
   {
     final IIdentifierIssuingAgency aAgency = getAgencyOfSchemeID (sSchemeID);
     return aAgency == null ? ETriState.UNDEFINED : ETriState.valueOf (aAgency.isDeprecated ());
+  }
+
+  /**
+   * Find the agency that matches the provided participant ID. This method
+   * checks only participants that use the default PEPPOL identifier scheme
+   * `iso6523-actorid-upis`.
+   *
+   * @param aParticipantID
+   *        The participant ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such agency exists or if the participant ID
+   *         is not suitable.
+   * @since 5.2.5
+   */
+  @Nullable
+  public static IIdentifierIssuingAgency getAgencyOfIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
+  {
+    if (aParticipantID != null &&
+        aParticipantID.hasScheme (PeppolIdentifierFactory.INSTANCE.getDefaultParticipantIdentifierScheme ()))
+    {
+      final String sValue = aParticipantID.getValue ();
+      // Value must be at least something like "1234:"
+      if (sValue.length () > 5)
+        return getAgencyOfISO6523Code (sValue.substring (0, 4));
+    }
+    return null;
   }
 }
