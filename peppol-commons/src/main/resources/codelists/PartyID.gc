@@ -114,7 +114,7 @@
         <ns0:SimpleValue>GLN</ns0:SimpleValue>
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>EAN International</ns0:SimpleValue>
+        <ns0:SimpleValue>GS1 GLN</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>

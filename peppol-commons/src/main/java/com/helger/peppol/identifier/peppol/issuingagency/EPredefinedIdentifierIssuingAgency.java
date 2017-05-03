@@ -103,7 +103,7 @@ public enum EPredefinedIdentifierIssuingAgency
      * 
      * @since code list 1.0.0
      */
-    GLN("GLN", "EAN International", "0088", false, Version.parse("1.0.0")),
+    GLN("GLN", "GS1 GLN", "0088", false, Version.parse("1.0.0")),
 
     /**
      * Prefix <code>0096</code>, scheme ID <code>DK:P</code><br>

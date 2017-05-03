@@ -200,7 +200,7 @@
         <ns0:SimpleValue>0088</ns0:SimpleValue>
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="schemeagency">
-        <ns0:SimpleValue>EAN International</ns0:SimpleValue>
+        <ns0:SimpleValue>GS1 GLN</ns0:SimpleValue>
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="deprecated">
         <ns0:SimpleValue>false</ns0:SimpleValue>
