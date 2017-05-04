@@ -76,8 +76,8 @@ final class ActionPanel extends JPanel
     for (final ESMLAction eA : ESMLAction.values ())
       aActions.add (eA);
 
+    // Before action listener
     m_aTFParams = new JTextField ();
-    m_aTFParams.setEnabled (getSelectedAction ().getRequiredParameters () > 0);
 
     m_aCBAction = new JComboBox <> (aActions);
     m_aCBAction.addActionListener (e -> {
@@ -102,6 +102,9 @@ final class ActionPanel extends JPanel
         MainStatusBar.setStatus (aMsg.toString ());
       }
     });
+
+    // Requires m_aCBAction to be present!
+    m_aTFParams.setEnabled (getSelectedAction ().getRequiredParameters () > 0);
 
     m_aTAOut = new JTextArea ();
     m_aTAOut.setLineWrap (true);
