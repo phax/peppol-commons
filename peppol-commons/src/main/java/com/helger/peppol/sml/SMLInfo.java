@@ -104,11 +104,11 @@ public class SMLInfo implements ISMLInfo
           bClientCertificateRequired);
   }
 
-  SMLInfo (@Nonnull @Nonempty final String sID,
-           @Nonnull @Nonempty final String sDisplayName,
-           @Nonnull @Nonempty final String sDNSZone,
-           @Nonnull @Nonempty final String sManagementServiceURL,
-           final boolean bClientCertificateRequired)
+  protected SMLInfo (@Nonnull @Nonempty final String sID,
+                     @Nonnull @Nonempty final String sDisplayName,
+                     @Nonnull @Nonempty final String sDNSZone,
+                     @Nonnull @Nonempty final String sManagementServiceURL,
+                     final boolean bClientCertificateRequired)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     setDisplayName (sDisplayName);

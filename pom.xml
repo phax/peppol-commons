@@ -160,6 +160,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
+        <artifactId>peppol-sml-client-swing</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
         <artifactId>peppol-smp-client</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -189,6 +194,7 @@
     <module>peppol-testfiles</module>
     <module>peppol-sbdh</module>
     <module>peppol-sml-client</module>
+    <module>peppol-sml-client-swing</module>
     <module>peppol-smp-client</module>
   </modules>
 </project>
