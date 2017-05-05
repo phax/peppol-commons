@@ -47,6 +47,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.helger.commons.io.file.FilenameHelper;
+import com.helger.peppol.smlclient.swing.utils.AppProperties;
 import com.helger.peppol.smlclient.swing.utils.FileFilterProperties;
 
 import net.miginfocom.layout.AC;

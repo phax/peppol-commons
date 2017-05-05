@@ -47,6 +47,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.helger.peppol.smlclient.swing.utils.AppProperties;
 import com.helger.peppol.smlclient.swing.utils.FileFilterJKS;
 
 import net.miginfocom.swing.MigLayout;

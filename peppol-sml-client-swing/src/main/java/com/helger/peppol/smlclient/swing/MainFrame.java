@@ -49,6 +49,7 @@ import javax.swing.JPanel;
 
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.ws.TrustManagerTrustAll;
+import com.helger.peppol.smlclient.swing.utils.AppProperties;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.keystore.LoadedKeyStore;

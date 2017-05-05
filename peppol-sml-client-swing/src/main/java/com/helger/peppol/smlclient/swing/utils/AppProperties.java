@@ -35,7 +35,7 @@
  * the provisions above, a recipient may use your version of this file
  * under either the MPL or the EUPL License.
  */
-package com.helger.peppol.smlclient.swing;
+package com.helger.peppol.smlclient.swing.utils;
 
 import java.io.File;
 
@@ -46,9 +46,8 @@ import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
-import com.helger.peppol.smlclient.swing.utils.WrappedSMLInfo;
 
-final class AppProperties
+public final class AppProperties
 {
   private static final class SingletonHolder
   {

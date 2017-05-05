@@ -41,6 +41,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.helger.peppol.smlclient.swing.utils.AppProperties;
+
 import net.miginfocom.swing.MigLayout;
 
 /**

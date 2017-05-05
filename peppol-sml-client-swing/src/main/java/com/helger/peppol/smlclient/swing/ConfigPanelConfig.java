@@ -48,6 +48,7 @@ import javax.swing.JTextField;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smlclient.swing.utils.AppProperties;
 import com.helger.peppol.smlclient.swing.utils.SMLInfoNameComparator;
 import com.helger.peppol.smlclient.swing.utils.WrappedSMLInfo;
 

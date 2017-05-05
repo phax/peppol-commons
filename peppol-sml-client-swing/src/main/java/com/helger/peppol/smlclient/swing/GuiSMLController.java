@@ -56,6 +56,7 @@ import com.helger.peppol.smlclient.participant.ParticipantIdentifierPageType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 import com.helger.peppol.smlclient.support.ESMLObjectType;
 import com.helger.peppol.smlclient.swing.action.ESMLAction;
+import com.helger.peppol.smlclient.swing.utils.AppProperties;
 
 /**
  * @author PEPPOL.AT, BRZ, Jakob Frohnwieser
