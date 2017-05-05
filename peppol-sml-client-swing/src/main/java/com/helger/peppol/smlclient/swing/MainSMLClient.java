@@ -42,14 +42,18 @@ import javax.swing.UIManager;
 /**
  * @author PEPPOL.AT, BRZ, Jakob Frohnwieser
  */
-public class Main {
-  public static void main (final String [] args) {
-    try {
+public class MainSMLClient
+{
+  public static void main (final String [] args)
+  {
+    try
+    {
       UIManager.setLookAndFeel (UIManager.getSystemLookAndFeelClassName ());
       final MainFrame aMainFrame = new MainFrame ();
       aMainFrame.setVisible (true);
     }
-    catch (final Exception e) {
+    catch (final Exception e)
+    {
       System.err.println ("Error showing mainframe");
       e.printStackTrace ();
     }

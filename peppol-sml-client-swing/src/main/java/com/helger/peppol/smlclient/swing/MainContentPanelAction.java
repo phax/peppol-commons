@@ -37,9 +37,6 @@
  */
 package com.helger.peppol.smlclient.swing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -49,37 +46,37 @@ import net.miginfocom.swing.MigLayout;
 
 /**
  * Content action panel
- * 
+ *
  * @author PEPPOL.AT, BRZ, Jakob Frohnwieser
  */
-final class MainContentPanelAction extends JPanel {
-  public MainContentPanelAction (final MainFrame aMainFrame) {
+final class MainContentPanelAction extends JPanel
+{
+  public MainContentPanelAction (final MainFrame aMainFrame)
+  {
     setLayout (new MigLayout ("fill,insets 0"));
 
     final ActionPanel aActionPanel = new ActionPanel ();
 
     final JButton aBtnSettings = new JButton ("<< Settings");
-    aBtnSettings.addActionListener (new ActionListener () {
-      public void actionPerformed (final ActionEvent e) {
-        aMainFrame.setConfigContent ();
-        MainStatusBar.setStatus ("");
-      }
+    aBtnSettings.addActionListener (e -> {
+      aMainFrame.setConfigContent ();
+      MainStatusBar.setStatus ("");
     });
 
     final JButton aBtnAction = new JButton ("Execute action");
-    aBtnAction.addActionListener (new ActionListener () {
-      public void actionPerformed (final ActionEvent e) {
-        final ESMLAction eAction = aActionPanel.getSelectedAction ();
-        MainStatusBar.setStatus ("Executing action " + eAction + ".");
+    aBtnAction.addActionListener (e -> {
+      final ESMLAction eAction = aActionPanel.getSelectedAction ();
+      MainStatusBar.setStatus ("Executing action " + eAction + ".");
 
-        try {
-          aActionPanel.executeAction ();
-          MainStatusBar.setStatus ("Executed action " + eAction + ".");
-        }
-        catch (final Exception ex) {
-          MainStatusBar.setStatusError ("Error executing action" + eAction + ".");
-          throw new RuntimeException ("Error executing action " + eAction + ": " + ex);
-        }
+      try
+      {
+        aActionPanel.executeAction ();
+        MainStatusBar.setStatus ("Executed action " + eAction + ".");
+      }
+      catch (final Exception ex)
+      {
+        MainStatusBar.setStatusError ("Error executing action" + eAction + ".");
+        throw new RuntimeException ("Error executing action " + eAction + ": " + ex);
       }
     });
 

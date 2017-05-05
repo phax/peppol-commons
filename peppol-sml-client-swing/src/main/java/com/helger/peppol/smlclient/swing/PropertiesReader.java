@@ -59,6 +59,9 @@ final class PropertiesReader
 
   private NonBlockingProperties m_aProperties;
 
+  PropertiesReader ()
+  {}
+
   @Nonnull
   public ESuccess readProperties (final File aPath)
   {

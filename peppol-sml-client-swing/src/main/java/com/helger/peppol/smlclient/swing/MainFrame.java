@@ -54,6 +54,7 @@ import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.keystore.LoadedKeyStore;
 
 import net.miginfocom.layout.AC;
+import net.miginfocom.layout.CC;
 import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
@@ -70,12 +71,12 @@ final class MainFrame extends JFrame
 
   public MainFrame ()
   {
-    setTitle ("PEPPOL SML Client");
+    setTitle ("PEPPOL SML Client v2");
 
-    final Dimension screenSize = Toolkit.getDefaultToolkit ().getScreenSize ();
-    setLocation ((screenSize.width - FRAME_WIDTH) / 2, (screenSize.height - FRAME_HEIGHT) / 2);
+    final Dimension aScreenSize = Toolkit.getDefaultToolkit ().getScreenSize ();
+    setLocation ((aScreenSize.width - FRAME_WIDTH) / 2, (aScreenSize.height - FRAME_HEIGHT) / 2);
     setPreferredSize (new Dimension (FRAME_WIDTH, FRAME_HEIGHT));
-    setMinimumSize (new Dimension (FRAME_WIDTH, FRAME_HEIGHT));
+    setMinimumSize (new Dimension (FRAME_WIDTH + 3, FRAME_HEIGHT + 3));
     setDefaultCloseOperation (EXIT_ON_CLOSE);
     setLayout (new MigLayout (new LC ().fillX ().wrap (),
                               new AC ().fill ().align ("left"),
@@ -87,7 +88,7 @@ final class MainFrame extends JFrame
     setConfigContent ();
 
     add (m_aContentPanel, "width 100%,wrap");
-    add (m_aStatusBar, "dock south");
+    add (m_aStatusBar, new CC ().dockSouth ().height ("23!"));
 
     pack ();
   }

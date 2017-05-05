@@ -38,10 +38,6 @@
 package com.helger.peppol.smlclient.swing;
 
 import java.awt.Checkbox;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -59,24 +55,22 @@ import net.miginfocom.swing.MigLayout;
 
 /**
  * Content Panel
- * 
+ *
  * @author PEPPOL.AT, BRZ, Jakob Frohnwieser
  */
-final class ConfigPanelProperties extends JPanel {
+final class ConfigPanelProperties extends JPanel
+{
   private final Checkbox m_aCBEnable;
   private final JTextField m_aTFPropertiesPath;
   private final JButton m_aBtnBrowse;
 
-  public ConfigPanelProperties () {
+  public ConfigPanelProperties ()
+  {
     setLayout (new MigLayout (new LC ().fill (), new AC ().size ("label").gap ().align ("left"), new AC ()));
     setBorder (BorderFactory.createTitledBorder ("Client properties"));
 
     m_aCBEnable = new Checkbox ("Use properties: ", AppProperties.getInstance ().isPropertiesEnabled ());
-    m_aCBEnable.addItemListener (new ItemListener () {
-      public void itemStateChanged (final ItemEvent e) {
-        _setPropertiesEnabled (m_aCBEnable.getState ());
-      }
-    });
+    m_aCBEnable.addItemListener (e -> _setPropertiesEnabled (m_aCBEnable.getState ()));
     m_aTFPropertiesPath = new JTextField (30);
     m_aTFPropertiesPath.setText (FilenameHelper.getCleanPath (AppProperties.getInstance ()
                                                                            .getPropertiesFilename ()
@@ -84,23 +78,22 @@ final class ConfigPanelProperties extends JPanel {
 
     // Client properties file path
     m_aBtnBrowse = new JButton ("Browse");
-    m_aBtnBrowse.addActionListener (new ActionListener () {
-      public void actionPerformed (final ActionEvent e) {
-        final JFileChooser aFileChooser = new JFileChooser (AppProperties.getInstance ()
-                                                                         .getPropertiesFilename ()
-                                                                         .getParentFile ());
-        aFileChooser.setAcceptAllFileFilterUsed (false);
-        aFileChooser.setFileFilter (new FileFilterProperties ());
-        aFileChooser.showOpenDialog (null);
-        final File aSelectedFile = aFileChooser.getSelectedFile ();
-        if (aSelectedFile != null) {
-          m_aTFPropertiesPath.setText (aSelectedFile.getAbsolutePath ());
-          AppProperties.getInstance ().setPropertiesFilename (m_aTFPropertiesPath.getText ());
-          if (AppProperties.getInstance ().readProperties ().isSuccess ())
-            MainStatusBar.setStatus ("Loaded configuration file " + aSelectedFile.getPath ());
-          else
-            MainStatusBar.setStatusError ("Failed to load configuration file " + aSelectedFile.getPath ());
-        }
+    m_aBtnBrowse.addActionListener (e -> {
+      final JFileChooser aFileChooser = new JFileChooser (AppProperties.getInstance ()
+                                                                       .getPropertiesFilename ()
+                                                                       .getParentFile ());
+      aFileChooser.setAcceptAllFileFilterUsed (false);
+      aFileChooser.setFileFilter (new FileFilterProperties ());
+      aFileChooser.showOpenDialog (null);
+      final File aSelectedFile = aFileChooser.getSelectedFile ();
+      if (aSelectedFile != null)
+      {
+        m_aTFPropertiesPath.setText (aSelectedFile.getAbsolutePath ());
+        AppProperties.getInstance ().setPropertiesFilename (m_aTFPropertiesPath.getText ());
+        if (AppProperties.getInstance ().readProperties ().isSuccess ())
+          MainStatusBar.setStatus ("Loaded configuration file " + aSelectedFile.getPath ());
+        else
+          MainStatusBar.setStatusError ("Failed to load configuration file " + aSelectedFile.getPath ());
       }
     });
 
@@ -111,7 +104,8 @@ final class ConfigPanelProperties extends JPanel {
     _setPropertiesEnabled (AppProperties.getInstance ().isPropertiesEnabled ());
   }
 
-  private void _setPropertiesEnabled (final boolean bEnabled) {
+  private void _setPropertiesEnabled (final boolean bEnabled)
+  {
     m_aTFPropertiesPath.setEditable (bEnabled);
     m_aBtnBrowse.setEnabled (bEnabled);
     AppProperties.getInstance ().setPropertiesEnabled (bEnabled);
@@ -122,7 +116,8 @@ final class ConfigPanelProperties extends JPanel {
       AppProperties.getInstance ().clear ();
   }
 
-  public void saveData () {
+  public void saveData ()
+  {
     AppProperties.getInstance ().setPropertiesFilename (m_aTFPropertiesPath.getText ());
     if (m_aCBEnable.getState ())
       AppProperties.getInstance ().writeProperties ();

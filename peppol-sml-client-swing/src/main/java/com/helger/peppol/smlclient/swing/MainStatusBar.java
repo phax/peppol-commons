@@ -48,12 +48,14 @@ import net.miginfocom.swing.MigLayout;
 /**
  * @author PEPPOL.AT, BRZ, Jakob Frohnwieser
  */
-final class MainStatusBar extends JPanel {
+final class MainStatusBar extends JPanel
+{
   private static MainStatusBar s_aInstance;
 
   private final JLabel m_aLabelMessage;
 
-  public MainStatusBar () {
+  public MainStatusBar ()
+  {
     setLayout (new MigLayout ());
     setPreferredSize (new Dimension (10, 23));
     setBorder (new BevelBorder (BevelBorder.LOWERED));
@@ -62,11 +64,13 @@ final class MainStatusBar extends JPanel {
     s_aInstance = this;
   }
 
-  public static void setStatus (final String sMessage) {
+  public static void setStatus (final String sMessage)
+  {
     s_aInstance.m_aLabelMessage.setText (sMessage);
   }
 
-  public static void setStatusError (final String sMessage) {
+  public static void setStatusError (final String sMessage)
+  {
     setStatus ("Error: " + sMessage);
   }
 }

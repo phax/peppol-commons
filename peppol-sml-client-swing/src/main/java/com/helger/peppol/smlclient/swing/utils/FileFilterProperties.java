@@ -41,14 +41,17 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-public final class FileFilterProperties extends FileFilter {
+public final class FileFilterProperties extends FileFilter
+{
   @Override
-  public boolean accept (final File f) {
+  public boolean accept (final File f)
+  {
     return f.isDirectory () || f.getName ().matches (".*\\.properties");
   }
 
   @Override
-  public String getDescription () {
+  public String getDescription ()
+  {
     return "Properties files (*.properties)";
   }
 }

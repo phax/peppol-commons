@@ -37,8 +37,6 @@
  */
 package com.helger.peppol.smlclient.swing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -56,12 +54,14 @@ import net.miginfocom.swing.MigLayout;
 /**
  * @author PEPPOL.AT, BRZ, Jakob Frohnwieser
  */
-final class ConfigPanelImportKey extends JPanel {
+final class ConfigPanelImportKey extends JPanel
+{
   private final JTextField m_aTFPath;
   private final JTextField m_aTFPassword;
   private final JButton m_aBtnBrowse;
 
-  public ConfigPanelImportKey () {
+  public ConfigPanelImportKey ()
+  {
     setLayout (new MigLayout ("fill", "[label][left]", ""));
     // setPreferredSize (mainFrame.getContentPanelDimension ());
     setBorder (BorderFactory.createTitledBorder ("Import Key"));
@@ -72,16 +72,14 @@ final class ConfigPanelImportKey extends JPanel {
     final JLabel lPassword = new JLabel ("Key store password: ");
     m_aTFPassword = new JPasswordField (15);
     m_aBtnBrowse = new JButton ("Browse");
-    m_aBtnBrowse.addActionListener (new ActionListener () {
-      public void actionPerformed (final ActionEvent e) {
-        final JFileChooser aFileChooser = new JFileChooser ();
-        aFileChooser.setAcceptAllFileFilterUsed (false);
-        aFileChooser.setFileFilter (new FileFilterJKS ());
-        aFileChooser.showOpenDialog (null);
-        final File aSelectedFile = aFileChooser.getSelectedFile ();
-        if (aSelectedFile != null)
-          m_aTFPath.setText (aSelectedFile.getAbsolutePath ());
-      }
+    m_aBtnBrowse.addActionListener (e -> {
+      final JFileChooser aFileChooser = new JFileChooser ();
+      aFileChooser.setAcceptAllFileFilterUsed (false);
+      aFileChooser.setFileFilter (new FileFilterJKS ());
+      aFileChooser.showOpenDialog (null);
+      final File aSelectedFile = aFileChooser.getSelectedFile ();
+      if (aSelectedFile != null)
+        m_aTFPath.setText (aSelectedFile.getAbsolutePath ());
     });
 
     add (lPath);
@@ -93,12 +91,14 @@ final class ConfigPanelImportKey extends JPanel {
     initData ();
   }
 
-  public void initData () {
+  public void initData ()
+  {
     m_aTFPath.setText (AppProperties.getInstance ().getKeyStorePath ());
     m_aTFPassword.setText (AppProperties.getInstance ().getKeyStorePassword ());
   }
 
-  public void saveData () {
+  public void saveData ()
+  {
     MainFrame.setKeyStore (m_aTFPath.getText (), m_aTFPassword.getText ());
   }
 }

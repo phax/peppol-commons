@@ -37,9 +37,6 @@
  */
 package com.helger.peppol.smlclient.swing;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -48,15 +45,17 @@ import net.miginfocom.swing.MigLayout;
 
 /**
  * Content Panel
- * 
+ *
  * @author PEPPOL.AT, BRZ, Jakob Frohnwieser
  */
-final class MainContentPanelConfig extends JPanel {
+final class MainContentPanelConfig extends JPanel
+{
   private final ConfigPanelConfig m_aConfigPanel = new ConfigPanelConfig ();
   private final ConfigPanelImportKey m_aImportKeyPanel = new ConfigPanelImportKey ();
   private final ConfigPanelProperties m_aPropertiesPanel = new ConfigPanelProperties ();
 
-  public MainContentPanelConfig (final MainFrame aMainFrame) {
+  public MainContentPanelConfig (final MainFrame aMainFrame)
+  {
     setLayout (new MigLayout ("fill,insets 0"));
     add (m_aConfigPanel, "width 100%, wrap");
     add (m_aImportKeyPanel, "width 100%,wrap");
@@ -64,25 +63,25 @@ final class MainContentPanelConfig extends JPanel {
 
     // Next button
     final JButton aBtnNext = new JButton ("Next >>");
-    aBtnNext.addActionListener (new ActionListener () {
-      public void actionPerformed (final ActionEvent e) {
-        m_aConfigPanel.saveData ();
-        m_aImportKeyPanel.saveData ();
-        m_aPropertiesPanel.saveData ();
-        MainStatusBar.setStatus ("Setting saved");
+    aBtnNext.addActionListener (e -> {
+      m_aConfigPanel.saveData ();
+      m_aImportKeyPanel.saveData ();
+      m_aPropertiesPanel.saveData ();
+      MainStatusBar.setStatus ("Setting saved");
 
-        if (AppProperties.getInstance ().areAllSet ()) {
-          // Switch to action panel
-          aMainFrame.setActionContent ();
-        }
-        else {
-          // Not all fields are set
-          JOptionPane.showMessageDialog (aMainFrame,
-                                         "Not all fields are filled. Please ensure that SML, SMP-ID and keystore parameters are set!",
-                                         "Error",
-                                         JOptionPane.ERROR_MESSAGE);
-          MainStatusBar.setStatusError ("Not all fields are filled.");
-        }
+      if (AppProperties.getInstance ().areAllSet ())
+      {
+        // Switch to action panel
+        aMainFrame.setActionContent ();
+      }
+      else
+      {
+        // Not all fields are set
+        JOptionPane.showMessageDialog (aMainFrame,
+                                       "Not all fields are filled. Please ensure that SML, SMP-ID and keystore parameters are set!",
+                                       "Error",
+                                       JOptionPane.ERROR_MESSAGE);
+        MainStatusBar.setStatusError ("Not all fields are filled.");
       }
     });
     add (aBtnNext, "gapright 20,align right,wrap");

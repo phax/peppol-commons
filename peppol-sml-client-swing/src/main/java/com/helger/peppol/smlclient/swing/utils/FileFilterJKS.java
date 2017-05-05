@@ -41,14 +41,17 @@ import java.io.File;
 
 import javax.swing.filechooser.FileFilter;
 
-public final class FileFilterJKS extends FileFilter {
+public final class FileFilterJKS extends FileFilter
+{
   @Override
-  public boolean accept (final File f) {
+  public boolean accept (final File f)
+  {
     return f.isDirectory () || f.getName ().matches (".*\\.jks");
   }
 
   @Override
-  public String getDescription () {
+  public String getDescription ()
+  {
     return "Java Keystores (*.jks)";
   }
 }

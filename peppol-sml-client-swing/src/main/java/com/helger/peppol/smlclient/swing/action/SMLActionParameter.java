@@ -41,23 +41,33 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Explanation for a single SML action parameter
- * 
+ *
  * @author philip
  */
 @Immutable
-final class SMLActionParameter {
+final class SMLActionParameter
+{
   private final String m_sDescription;
 
-  public SMLActionParameter (@Nonnull @Nonempty final String sDescription) {
+  public SMLActionParameter (@Nonnull @Nonempty final String sDescription)
+  {
     m_sDescription = sDescription;
   }
 
   @Nonnull
   @Nonempty
-  public String getDescription () {
+  public String getDescription ()
+  {
     return m_sDescription;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (null).append ("Description", m_sDescription).getToString ();
   }
 }

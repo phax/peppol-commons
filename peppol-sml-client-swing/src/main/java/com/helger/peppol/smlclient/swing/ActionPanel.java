@@ -51,6 +51,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.string.StringHelper;
 import com.helger.peppol.smlclient.swing.action.ESMLAction;
 
 import net.miginfocom.swing.MigLayout;
@@ -72,9 +74,7 @@ final class ActionPanel extends JPanel
     setPreferredSize (new Dimension (450, 100));
     setBorder (BorderFactory.createTitledBorder ("Command Parameters"));
 
-    final Vector <ESMLAction> aActions = new Vector <> ();
-    for (final ESMLAction eA : ESMLAction.values ())
-      aActions.add (eA);
+    final Vector <ESMLAction> aActions = new CommonsVector <> (ESMLAction.values ());
 
     // Before action listener
     m_aTFParams = new JTextField ();
@@ -90,16 +90,9 @@ final class ActionPanel extends JPanel
       }
       else
       {
-        final StringBuilder aMsg = new StringBuilder (nParams + " paramters are required: ");
-        int nIndex = 0;
-        for (final String sDescription : eAction.getRequiredParameterDescriptions ())
-        {
-          if (++nIndex > 1)
-            aMsg.append (", ");
-          aMsg.append (sDescription);
-        }
-
-        MainStatusBar.setStatus (aMsg.toString ());
+        MainStatusBar.setStatus (nParams +
+                                 " paramters are required: " +
+                                 StringHelper.getImploded (", ", eAction.getRequiredParameterDescriptions ()));
       }
     });
 

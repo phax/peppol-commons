@@ -42,6 +42,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.string.StringHelper;
 import com.helger.peppol.smlclient.support.ESMLCommand;
 import com.helger.peppol.smlclient.support.ESMLObjectType;
 
@@ -110,10 +111,7 @@ public enum ESMLAction
   @Nonnegative
   public ICommonsList <String> getRequiredParameterDescriptions ()
   {
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
-    for (final SMLActionParameter x : m_aParams)
-      ret.add (x.getDescription ());
-    return ret;
+    return new CommonsArrayList <> (m_aParams, SMLActionParameter::getDescription);
   }
 
   @Override
@@ -123,15 +121,9 @@ public enum ESMLAction
     aMsg.append (m_eObjectType.getName ()).append (' ').append (m_eCommand.getName ());
     if (m_aParams.length > 0)
     {
-      aMsg.append (" (");
-      int nIndex = 0;
-      for (final SMLActionParameter x : m_aParams)
-      {
-        if (++nIndex > 1)
-          aMsg.append (", ");
-        aMsg.append (x.getDescription ());
-      }
-      aMsg.append (')');
+      aMsg.append (" (")
+          .append (StringHelper.getImplodedMapped (", ", m_aParams, SMLActionParameter::getDescription))
+          .append (')');
     }
     return aMsg.toString ();
   }
