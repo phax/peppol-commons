@@ -64,6 +64,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.httpclient.HttpClientFactory;
@@ -95,12 +96,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * trailing slash!
    */
   private final String m_sSMPHost;
-
   private HttpHost m_aProxy;
   private boolean m_bUseProxySystemProperties;
+  private boolean m_bUseDNSClientCache;
   private int m_nConnectionTimeoutMS = 5000;
   private int m_nRequestTimeoutMS = 10000;
-
   private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
 
   /**
@@ -128,6 +128,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     // Set default proxy from configuration file
     m_aProxy = SMPClientConfiguration.getHttpProxy ();
     m_bUseProxySystemProperties = SMPClientConfiguration.isUseProxySystemProperties ();
+    m_bUseDNSClientCache = SMPClientConfiguration.isUseDNSClientCache ();
   }
 
   /**
@@ -236,6 +237,32 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
+   * @return <code>true</code> if DNS client caching is enabled (default),
+   *         <code>false</code> if it is disabled.
+   * @since 5.2.5
+   */
+  public boolean isUseDNSClientCache ()
+  {
+    return m_bUseDNSClientCache;
+  }
+
+  /**
+   * Enable or disable DNS client caching. By default caching is enabled.
+   *
+   * @param bUseDNSClientCache
+   *        <code>true</code> to use DNS caching, <code>false</code> to disable
+   *        it.
+   * @return this for chaining
+   * @since 5.2.5
+   */
+  @Nonnull
+  public IMPLTYPE setUseDNSClientCache (final boolean bUseDNSClientCache)
+  {
+    m_bUseDNSClientCache = bUseDNSClientCache;
+    return thisAsT ();
+  }
+
+  /**
    * @return The connection timeout in milliseconds. Defaults to 5000 (5 secs).
    */
   public int getConnectionTimeoutMS ()
@@ -311,7 +338,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   @Nonnull
-  private HttpContext _createHttpContext ()
+  @OverrideOnDemand
+  protected HttpContext createHttpContext ()
   {
     final RequestConfig.Builder aRC = RequestConfig.custom ();
     if (m_aProxy != null)
@@ -349,8 +377,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public <T> T executeRequest (@Nonnull final HttpUriRequest aRequest,
                                @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
   {
-    final HttpContext aHttpContext = _createHttpContext ();
-    try (final HttpClientManager aHttpClientMgr = new HttpClientManager (new HttpClientFactory ().setUseSystemProperties (m_bUseProxySystemProperties)))
+    final HttpClientFactory aHCFactory = new HttpClientFactory ();
+    aHCFactory.setUseSystemProperties (m_bUseProxySystemProperties);
+    aHCFactory.setUseDNSClientCache (m_bUseDNSClientCache);
+    final HttpContext aHttpContext = createHttpContext ();
+    try (final HttpClientManager aHttpClientMgr = new HttpClientManager (aHCFactory))
     {
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
@@ -434,6 +465,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   {
     return new ToStringGenerator (this).append ("SMPHost", m_sSMPHost)
                                        .appendIfNotNull ("Proxy", m_aProxy)
+                                       .append ("UseProxySystemProperties", m_bUseProxySystemProperties)
+                                       .append ("UseDNSClientCache", m_bUseDNSClientCache)
                                        .append ("ConnectionTimeoutMS", m_nConnectionTimeoutMS)
                                        .append ("RequestTimeoutMS", m_nRequestTimeoutMS)
                                        .append ("CheckCertificate", m_bCheckCertificate)

@@ -52,6 +52,7 @@ import org.apache.http.HttpHost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.httpclient.HttpClientFactory;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
@@ -159,6 +160,20 @@ public final class SMPClientConfiguration
    */
   public static boolean isUseProxySystemProperties ()
   {
-    return s_aConfigFile.getAsBoolean ("http.useSystemProperties", false);
+    return s_aConfigFile.getAsBoolean ("http.useSystemProperties", HttpClientFactory.DEFAULT_USE_SYSTEM_PROPERTIES);
+  }
+
+  /**
+   * Get the content of the property "http.useDNSClientCache" or
+   * <code>true</code> if undefined.
+   *
+   * @return <code>true</code> if the SMP client should use DNS client caching
+   *         (default) or <code>false</code> if DNS caching should be disabled.
+   *         The default behavior is to return <code>true</code>.
+   * @since 5.2.5
+   */
+  public static boolean isUseDNSClientCache ()
+  {
+    return s_aConfigFile.getAsBoolean ("http.useDNSClientCache", HttpClientFactory.DEFAULT_USE_DNS_CACHE);
   }
 }
