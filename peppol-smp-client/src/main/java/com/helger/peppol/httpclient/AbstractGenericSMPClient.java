@@ -54,6 +54,7 @@ import javax.annotation.Nullable;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpStatus;
+import org.apache.http.auth.Credentials;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
@@ -97,6 +98,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    */
   private final String m_sSMPHost;
   private HttpHost m_aProxy;
+  private Credentials m_aProxyCredentials;
   private boolean m_bUseProxySystemProperties;
   private boolean m_bUseDNSClientCache;
   private int m_nConnectionTimeoutMS = 5000;
@@ -127,6 +129,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
     // Set default proxy from configuration file
     m_aProxy = SMPClientConfiguration.getHttpProxy ();
+    m_aProxyCredentials = SMPClientConfiguration.getHttpProxyCredentials ();
     m_bUseProxySystemProperties = SMPClientConfiguration.isUseProxySystemProperties ();
     m_bUseDNSClientCache = SMPClientConfiguration.isUseDNSClientCache ();
   }
@@ -144,6 +147,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   /**
    * @return The HTTP proxy to be used to access the SMP server. Is
    *         <code>null</code> by default.
+   * @see #getProxyCredentials()
    */
   @Nullable
   public HttpHost getProxy ()
@@ -153,13 +157,15 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * Set the proxy to be used to access the SMP server. Note: proxy
-   * authentication is currently not supported!<br>
+   * authentication must be set explicitly via
+   * {@link #setProxyCredentials(Credentials)}<br>
    * Note: if {@link #setUseProxySystemProperties(boolean)} is enabled, any
    * proxy that is set via this method is reset!
    *
    * @param aProxy
    *        May be <code>null</code> to indicate no proxy.
    * @return this for chaining
+   * @see #setProxyCredentials(Credentials)
    */
   @Nonnull
   public IMPLTYPE setProxy (@Nullable final HttpHost aProxy)
@@ -170,6 +176,35 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
       s_aLogger.warn ("Since an explicit Proxy host for all servers is defined, the usage of the system properties is disabled.");
       m_bUseProxySystemProperties = false;
     }
+    return thisAsT ();
+  }
+
+  /**
+   * @return The HTTP proxy credentials to be used to access the SMP server. Is
+   *         <code>null</code> by default. This is only used if a proxy is set.
+   * @see #getProxy()
+   */
+  @Nullable
+  public Credentials getProxyCredentials ()
+  {
+    return m_aProxyCredentials;
+  }
+
+  /**
+   * Set the proxy credentials to be used to access the SMP server. Note: proxy
+   * authentication is of course only used if a proxy server is present!
+   *
+   * @param aProxyCredentials
+   *        May be <code>null</code> to indicate no proxy credentials (the
+   *        default). Usually they are of type
+   *        {@link org.apache.http.auth.UsernamePasswordCredentials}.
+   * @return this for chaining
+   * @see #setProxy(HttpHost)
+   */
+  @Nonnull
+  public IMPLTYPE setProxyCredentials (@Nullable final Credentials aProxyCredentials)
+  {
+    m_aProxyCredentials = aProxyCredentials;
     return thisAsT ();
   }
 
@@ -380,6 +415,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     final HttpClientFactory aHCFactory = new HttpClientFactory ();
     aHCFactory.setUseSystemProperties (m_bUseProxySystemProperties);
     aHCFactory.setUseDNSClientCache (m_bUseDNSClientCache);
+    aHCFactory.setProxy (m_aProxy, m_aProxyCredentials);
+
     final HttpContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = new HttpClientManager (aHCFactory))
     {

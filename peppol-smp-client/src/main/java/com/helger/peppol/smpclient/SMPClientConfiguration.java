@@ -49,6 +49,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.apache.http.HttpHost;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -145,6 +146,22 @@ public final class SMPClientConfiguration
     final int nProxyPort = s_aConfigFile.getAsInt ("http.proxyPort", 0);
     if (sProxyHost != null && nProxyPort > 0)
       return new HttpHost (sProxyHost, nProxyPort);
+
+    return null;
+  }
+
+  /**
+   * @return The {@link UsernamePasswordCredentials} object to be used for proxy
+   *         server authentication.
+   * @since 5.2.5
+   */
+  @Nullable
+  public static UsernamePasswordCredentials getHttpProxyCredentials ()
+  {
+    final String sProxyUsername = s_aConfigFile.getAsString ("http.proxyUsername");
+    final String sProxyPassword = s_aConfigFile.getAsString ("http.proxyPassword");
+    if (sProxyUsername != null && sProxyPassword != null)
+      return new UsernamePasswordCredentials (sProxyUsername, sProxyPassword);
 
     return null;
   }
