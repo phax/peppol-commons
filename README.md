@@ -18,8 +18,10 @@ And some legacy PEPPOL projects:
 Note: the sub-projects use different licenses!
 
 ## News and noteworthy
-  * v5.2.5
-    * Binds to ph-web 8.7.2
+  * v5.2.5 - 2017-05-25
+    * Binds to ph-web 8.8.0
+    * Added possibility to define SMP client proxy credentials(see issue [#13](https://github.com/phax/peppol-commons/issues/13))
+    * Added legacy project `peppol-sml-client-swing` due to request
   * v5.2.4 - 2017-01-09
     * Binds to ph-commons 8.6.0
     * Updated to dnsjava 2.1.8
@@ -220,31 +222,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>5.2.4</version>
+  <version>5.2.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>5.2.4</version>
+  <version>5.2.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>5.2.4</version>
+  <version>5.2.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>5.2.4</version>
+  <version>5.2.5</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>5.2.4</version>
+  <version>5.2.5</version>
 </dependency>
 ```
 
@@ -253,7 +255,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.2.4</version>
+  <version>5.2.5</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
