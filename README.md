@@ -4,6 +4,7 @@ This project contains different libraries that are commonly used in the PEPPOL a
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
   * [`peppol-sbdh`](#peppol-sbdh) - PEPPOL specific SBDH handling
   * [`peppol-sml-client`](#peppol-sml-client) - the PEPPOL SML client
+  * [`peppol-sml-client-swing`](#peppol-sml-client-swing) - A standalone PEPPOL SML client with a Swing GUI
   * [`peppol-smp-client`](#peppol-smp-client) - the PEPPOL SMP and BDXR SMP client
   
 These project are used implicitly by the following projects:
@@ -117,6 +118,12 @@ Both classes offer the possibility to set an optional custom `SSLSocketFactory` 
 This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-server/) the SMP server with a management GUI and flexible backends.
 
 This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
+
+## peppol-sml-client-swing
+
+This is a standalone PEPPOL SML client.
+It was reactivated due to request from a long time PEPPOL user but please don't expect too much.
+When using the latest phoss SMP server you don't need this tool, as everything is already integrated into the SMP server.
 
 ## peppol-smp-client
 This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.3.0). 
