@@ -65,8 +65,8 @@ import com.helger.peppol.smlclient.swing.utils.AppProperties;
 @NotThreadSafe
 final class GuiSMLController
 {
-  private static ManageServiceMetadataServiceCaller s_aSMPClient;
-  private static ManageParticipantIdentifierServiceCaller s_aParticipantClient;
+  private static ManageServiceMetadataServiceCaller s_aWSClientSMP;
+  private static ManageParticipantIdentifierServiceCaller s_aWSClientParticipant;
   private static URL s_aParticipantEndpointAddress;
   private static URL s_aSMPClientEndpointAddress;
   private static String s_sSMPID;
@@ -77,17 +77,17 @@ final class GuiSMLController
   @Nonnull
   private static ManageServiceMetadataServiceCaller _getSMPClient ()
   {
-    if (s_aSMPClient == null)
-      s_aSMPClient = new ManageServiceMetadataServiceCaller (s_aSMPClientEndpointAddress);
-    return s_aSMPClient;
+    if (s_aWSClientSMP == null)
+      s_aWSClientSMP = new ManageServiceMetadataServiceCaller (s_aSMPClientEndpointAddress);
+    return s_aWSClientSMP;
   }
 
   @Nonnull
   private static ManageParticipantIdentifierServiceCaller _getParticipantClient ()
   {
-    if (s_aParticipantClient == null)
-      s_aParticipantClient = new ManageParticipantIdentifierServiceCaller (s_aParticipantEndpointAddress);
-    return s_aParticipantClient;
+    if (s_aWSClientParticipant == null)
+      s_aWSClientParticipant = new ManageParticipantIdentifierServiceCaller (s_aParticipantEndpointAddress);
+    return s_aWSClientParticipant;
   }
 
   private static String _create (final ESMLObjectType eObject, final String [] args) throws Exception
@@ -225,8 +225,8 @@ final class GuiSMLController
                                         @Nonnull final ESMLAction eAction,
                                         @Nonnull final String [] aArgs)
   {
-    s_aSMPClient = null;
-    s_aParticipantClient = null;
+    s_aWSClientSMP = null;
+    s_aWSClientParticipant = null;
     s_aParticipantEndpointAddress = aSML.getManageParticipantIdentifierEndpointAddress ();
     s_aSMPClientEndpointAddress = aSML.getManageServiceMetaDataEndpointAddress ();
     s_sSMPID = sSMPID;
