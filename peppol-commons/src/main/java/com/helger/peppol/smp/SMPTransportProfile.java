@@ -59,19 +59,29 @@ import com.helger.commons.type.ObjectType;
 public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SMPTransportProfile>
 {
   public static final ObjectType OT = new ObjectType ("smp.transport.profile");
+  public static final boolean DEFAULT_DEPRECATED = false;
 
   private final String m_sID;
   private String m_sName;
+  private boolean m_bIsDeprecated;
 
   public SMPTransportProfile (@Nonnull final ISMPTransportProfile aOther)
   {
-    this (aOther.getID (), aOther.getName ());
+    this (aOther.getID (), aOther.getName (), aOther.isDeprecated ());
   }
 
   public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
+    this (sID, sName, DEFAULT_DEPRECATED);
+  }
+
+  public SMPTransportProfile (@Nonnull @Nonempty final String sID,
+                              @Nonnull @Nonempty final String sName,
+                              final boolean bIsDeprecated)
+  {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     setName (sName);
+    setDeprecated (bIsDeprecated);
   }
 
   @Nonnull
@@ -95,12 +105,26 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   }
 
   @Nonnull
-  public EChange setName (@Nonnull @Nonempty final String sName)
+  public final EChange setName (@Nonnull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     if (sName.equals (m_sName))
       return EChange.UNCHANGED;
     m_sName = sName;
+    return EChange.CHANGED;
+  }
+
+  public boolean isDeprecated ()
+  {
+    return m_bIsDeprecated;
+  }
+
+  @Nonnull
+  public final EChange setDeprecated (final boolean bIsDeprecated)
+  {
+    if (bIsDeprecated == m_bIsDeprecated)
+      return EChange.UNCHANGED;
+    m_bIsDeprecated = bIsDeprecated;
     return EChange.CHANGED;
   }
 
@@ -130,6 +154,9 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ID", m_sID).append ("Name", m_sName).getToString ();
+    return new ToStringGenerator (this).append ("ID", m_sID)
+                                       .append ("Name", m_sName)
+                                       .append ("Deprecated", m_bIsDeprecated)
+                                       .getToString ();
   }
 }

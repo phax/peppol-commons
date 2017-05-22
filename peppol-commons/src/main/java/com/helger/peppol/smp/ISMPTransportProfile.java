@@ -74,4 +74,15 @@ public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, S
   @Nonnull
   @Nonempty
   String getName ();
+
+  /**
+   * Check if this transport profile is deprecated or not.
+   *
+   * @return <code>true</code> if it is deprecated, <code>false</code> if not.
+   * @since 5.2.6
+   */
+  default boolean isDeprecated ()
+  {
+    return false;
+  }
 }
