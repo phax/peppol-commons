@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
@@ -45,7 +46,8 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement ())
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (),
+                                                                PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithDefaultScheme ("doctypeid")

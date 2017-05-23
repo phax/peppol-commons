@@ -679,11 +679,41 @@ public class PeppolSBDHDocument
    * @see #setProcess(String, String)
    */
   @Nonnull
+  @Deprecated
   public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage)
+  {
+    return create (aBusinessMessage, SimpleIdentifierFactory.INSTANCE);
+  }
+
+  /**
+   * Create a new {@link PeppolSBDHDocument} object for a business message. The
+   * resulting object has all required fields set, except for:
+   * <ul>
+   * <li>sender ID</li>
+   * <li>receiver ID</li>
+   * <li>document type ID</li>
+   * <li>and process ID</li>
+   * </ul>
+   *
+   * @param aBusinessMessage
+   *        The XML business message. May not be <code>null</code>.
+   * @param aIdentifierFactory
+   *        Identifier factory to be used. May not be <code>null</code>.
+   * @return A pre-filled {@link PeppolSBDHDocument} object with some
+   *         information still missing.
+   * @see #setSender(String, String)
+   * @see #setReceiver(String, String)
+   * @see #setDocumentType(String, String)
+   * @see #setProcess(String, String)
+   * @since 5.2.6
+   */
+  @Nonnull
+  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage,
+                                           @Nonnull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
-    final PeppolSBDHDocument ret = new PeppolSBDHDocument ();
+    final PeppolSBDHDocument ret = new PeppolSBDHDocument (aIdentifierFactory);
     ret.setBusinessMessage (aBusinessMessage);
     // 1. Always use UBL 2.1
     // 2. Use a new UUID as the instance identifier
