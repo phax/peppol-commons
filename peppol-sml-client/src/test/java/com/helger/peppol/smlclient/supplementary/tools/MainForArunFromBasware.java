@@ -53,6 +53,7 @@ import com.helger.commons.random.RandomHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.ws.TrustManagerTrustAll;
+import com.helger.commons.ws.WSHelper;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
@@ -87,6 +88,7 @@ public final class MainForArunFromBasware
     // Proxy server settings
     final String sProxyHostname = null;
     final int nProxyPort = 0;
+    WSHelper.setMetroDebugSystemProperties (true);
 
     // STOP MODIFY ABOVE
     // Don't change anything below this line
