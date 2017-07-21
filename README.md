@@ -19,6 +19,8 @@ And some legacy PEPPOL projects:
 Note: the sub-projects use different licenses!
 
 ## News and noteworthy
+  * v5.2.7 - 2017-07-21
+    * Unified identifier handling concerning `""` and `null`
   * v5.2.6 - 2017-05-30
     * Added possibility to deprecate transport profiles
   * v5.2.5 - 2017-05-25

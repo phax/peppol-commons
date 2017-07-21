@@ -65,11 +65,11 @@ public final class BDXRIdentifierFactoryTest
   public void testDocTypeIDCreation ()
   {
     final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
-    assertNull (aIF.createDocumentTypeIdentifier (null, null));
-    assertNull (aIF.createDocumentTypeIdentifier ("bla", null));
+    assertNotNull (aIF.createDocumentTypeIdentifier (null, null));
     assertNotNull (aIF.createDocumentTypeIdentifier (null, "any"));
     assertNotNull (aIF.createDocumentTypeIdentifier (null, ""));
     assertNotNull (aIF.createDocumentTypeIdentifier ("", ""));
+    assertNull (aIF.createDocumentTypeIdentifier ("bla::#:///:::#", null));
   }
 
   @Test

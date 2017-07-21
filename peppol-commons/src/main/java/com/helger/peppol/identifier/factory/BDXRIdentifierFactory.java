@@ -78,7 +78,7 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
                                                                   @Nullable final String sValue)
   {
     final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return BDXRDocumentTypeIdentifier.createIfValid (sScheme, sRealValue);
+    return BDXRDocumentTypeIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 
   // No default participant identifier scheme
@@ -93,7 +93,7 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
                                                                 @Nullable final String sValue)
   {
     final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return BDXRParticipantIdentifier.createIfValid (sScheme, sRealValue);
+    return BDXRParticipantIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 
   @Nonnull
@@ -111,6 +111,6 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   public BDXRProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealValue = isProcessIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return BDXRProcessIdentifier.createIfValid (sScheme, sRealValue);
+    return BDXRProcessIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 }

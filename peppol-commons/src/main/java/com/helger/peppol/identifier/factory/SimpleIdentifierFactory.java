@@ -65,7 +65,7 @@ public class SimpleIdentifierFactory implements IIdentifierFactory
                                                                     @Nullable final String sValue)
   {
     final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return new SimpleDocumentTypeIdentifier (sScheme, sRealValue);
+    return new SimpleDocumentTypeIdentifier (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 
   @Nullable
@@ -73,13 +73,13 @@ public class SimpleIdentifierFactory implements IIdentifierFactory
                                                                   @Nullable final String sValue)
   {
     final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return new SimpleParticipantIdentifier (sScheme, sRealValue);
+    return new SimpleParticipantIdentifier (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 
   @Nullable
   public SimpleProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealValue = isProcessIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return new SimpleProcessIdentifier (sScheme, sRealValue);
+    return new SimpleProcessIdentifier (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 }

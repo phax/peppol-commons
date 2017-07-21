@@ -44,6 +44,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
 
 /**
@@ -73,14 +74,14 @@ public final class BDXRIdentifierHelper
    */
   public static boolean isValidIdentifierScheme (@Nullable final String sScheme)
   {
-    if (sScheme == null || sScheme.length () == 0)
+    if (StringHelper.hasNoText (sScheme))
       return true;
     return URLHelper.getAsURI (sScheme) != null;
   }
 
   /**
-   * Check if an identifier value is valid. Currently this check only contains a
-   * non-<code>null</code>ness check.
+   * Check if an identifier value is valid. Currently this check always returns
+   * true.
    *
    * @param sValue
    *        The value to check. May be <code>null</code>.
@@ -89,6 +90,6 @@ public final class BDXRIdentifierHelper
    */
   public static boolean isValidIdentifierValue (@Nullable final String sValue)
   {
-    return sValue != null;
+    return true;
   }
 }

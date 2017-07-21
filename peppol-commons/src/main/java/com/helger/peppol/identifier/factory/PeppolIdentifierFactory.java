@@ -77,7 +77,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
                                                                     @Nullable final String sValue)
   {
     final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return PeppolDocumentTypeIdentifier.createIfValid (sScheme, sRealValue);
+    return PeppolDocumentTypeIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 
   public boolean isParticipantIdentifierSchemeMandatory ()
@@ -101,7 +101,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
                                                                   @Nullable final String sValue)
   {
     final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return PeppolParticipantIdentifier.createIfValid (sScheme, sRealValue);
+    return PeppolParticipantIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 
   @Nonnull
@@ -114,6 +114,6 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public PeppolProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealValue = isProcessIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return PeppolProcessIdentifier.createIfValid (sScheme, sRealValue);
+    return PeppolProcessIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 }

@@ -104,4 +104,18 @@ public interface IIdentifierFactoryBase extends Serializable
   {
     return sValue == null ? null : sValue.toLowerCase (Locale.US);
   }
+
+  /**
+   * Ensure that <code>null</code> is used instead of an empty string.
+   * 
+   * @param s
+   *        Source string
+   * @return <code>null</code> if the source string was "", the source string
+   *         "as-is" otherwise
+   */
+  @Nullable
+  default String nullNotEmpty (@Nullable final String s)
+  {
+    return "".equals (s) ? null : s;
+  }
 }
