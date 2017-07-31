@@ -43,7 +43,7 @@ package com.helger.peppol.identifier.peppol.doctype;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**

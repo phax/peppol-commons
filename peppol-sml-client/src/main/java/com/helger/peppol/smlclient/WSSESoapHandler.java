@@ -48,7 +48,7 @@ import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.impl.CommonsHashSet;
 
 /**
  * A dummy SOAP handler that handles wsse:Security SOAP header elements as

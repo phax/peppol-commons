@@ -50,8 +50,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.csv.CSVWriter;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;

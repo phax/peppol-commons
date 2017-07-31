@@ -51,7 +51,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.impl.CommonsVector;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.smlclient.swing.action.ESMLAction;
 

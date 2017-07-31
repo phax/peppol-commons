@@ -30,13 +30,13 @@ import org.junit.Test;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.datetime.PDTWebDateHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.datetime.util.PDTWebDateHelper;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;

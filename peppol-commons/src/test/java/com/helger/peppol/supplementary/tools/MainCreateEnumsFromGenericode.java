@@ -49,8 +49,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.io.file.filter.IFileFilter;
-import com.helger.commons.io.file.iterate.FileSystemRecursiveIterator;
+import com.helger.commons.io.file.FileSystemRecursiveIterator;
+import com.helger.commons.io.file.IFileFilter;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasDisplayName;

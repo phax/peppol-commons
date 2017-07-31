@@ -54,8 +54,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.url.URLHelper;
 import com.helger.commons.ws.WSClientConfig;
 import com.helger.datetime.util.PDTXMLConverter;
@@ -181,7 +181,7 @@ public class BDMSLClient extends WSClientConfig
       s_aLogger.error ("Unauthorized to call listParticipants", ex);
       return null;
     }
-    final ICommonsList <ParticipantListItem> ret = new CommonsArrayList<> ();
+    final ICommonsList <ParticipantListItem> ret = new CommonsArrayList <> ();
     if (aList != null)
       for (final ParticipantsType aParticipant : aList.getParticipant ())
         ret.add (new ParticipantListItem (aParticipant.getServiceMetadataPublisherID (),

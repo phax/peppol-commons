@@ -44,7 +44,7 @@ import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 
-import com.helger.commons.function.IFunction;
+import com.helger.commons.functional.IFunction;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.peppol.smp.ObjectFactory;

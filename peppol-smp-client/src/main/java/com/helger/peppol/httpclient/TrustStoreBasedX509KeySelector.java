@@ -67,7 +67,7 @@ import javax.xml.crypto.dsig.keyinfo.X509Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.ConstantKeySelectorResult;

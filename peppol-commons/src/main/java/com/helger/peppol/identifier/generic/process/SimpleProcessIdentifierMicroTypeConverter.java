@@ -41,17 +41,17 @@
 package com.helger.peppol.identifier.generic.process;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import com.helger.xml.microdom.IMicroElement;
+import com.helger.peppol.identifier.AbstractIdentifierMicroTypeConverter;
 
-public final class SimpleProcessIdentifierMicroTypeConverter extends ProcessIdentifierTypeMicroTypeConverter
+public final class SimpleProcessIdentifierMicroTypeConverter extends
+                                                             AbstractIdentifierMicroTypeConverter <SimpleProcessIdentifier>
 {
   @Override
   @Nonnull
-  public SimpleProcessIdentifier convertToNative (@Nonnull final IMicroElement aElement)
+  protected SimpleProcessIdentifier getAsNative (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
-    final String sValue = aElement.getAttributeValue (ATTR_VALUE);
     return new SimpleProcessIdentifier (sScheme, sValue);
   }
 }

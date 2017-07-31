@@ -41,18 +41,17 @@
 package com.helger.peppol.identifier.peppol.doctype;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import com.helger.peppol.identifier.generic.doctype.DocumentIdentifierTypeMicroTypeConverter;
-import com.helger.xml.microdom.IMicroElement;
+import com.helger.peppol.identifier.AbstractIdentifierMicroTypeConverter;
 
-public final class PeppolDocumentTypeIdentifierMicroTypeConverter extends DocumentIdentifierTypeMicroTypeConverter
+public final class PeppolDocumentTypeIdentifierMicroTypeConverter extends
+                                                                  AbstractIdentifierMicroTypeConverter <PeppolDocumentTypeIdentifier>
 {
   @Override
   @Nonnull
-  public PeppolDocumentTypeIdentifier convertToNative (@Nonnull final IMicroElement aElement)
+  protected PeppolDocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
-    final String sValue = aElement.getAttributeValue (ATTR_VALUE);
     return new PeppolDocumentTypeIdentifier (sScheme, sValue);
   }
 }

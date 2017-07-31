@@ -49,8 +49,8 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.w3c.dom.Node;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 
 /**
  * Test class for class {@link BDXRExtensionConverter}.

@@ -46,7 +46,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;

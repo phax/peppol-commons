@@ -58,8 +58,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.http.CHTTPHeader;
 import com.helger.commons.mime.CMimeType;
-import com.helger.http.CHTTPHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.bdxr.RedirectType;
 import com.helger.peppol.bdxr.ServiceGroupType;

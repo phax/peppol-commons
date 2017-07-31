@@ -52,17 +52,16 @@ import com.helger.xml.microdom.convert.IMicroTypeConverter;
  *
  * @author Philip Helger
  */
-public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverter
+public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverter <SMPTransportProfile>
 {
   private static final String ATTR_ID = "id";
   private static final String ATTR_NAME = "name";
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final SMPTransportProfile aValue,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final ISMPTransportProfile aValue = (ISMPTransportProfile) aObject;
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_ID, aValue.getID ());
     aElement.setAttribute (ATTR_NAME, aValue.getName ());

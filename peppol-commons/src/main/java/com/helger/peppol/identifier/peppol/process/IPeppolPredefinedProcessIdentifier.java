@@ -42,7 +42,7 @@ package com.helger.peppol.identifier.peppol.process;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 

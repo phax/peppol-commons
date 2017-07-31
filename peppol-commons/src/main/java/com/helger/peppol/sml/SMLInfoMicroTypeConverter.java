@@ -54,7 +54,7 @@ import com.helger.xml.microdom.util.MicroHelper;
  *
  * @author Philip Helger
  */
-public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter
+public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter <SMLInfo>
 {
   private static final String ATTR_ID = "id";
   private static final String ATTR_DISPLAY_NAME = "displayname";
@@ -63,11 +63,10 @@ public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_REQUIRES_CLIENT_CERT = "clientcert";
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final SMLInfo aValue,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final ISMLInfo aValue = (ISMLInfo) aObject;
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_ID, aValue.getID ());
     aElement.setAttribute (ATTR_DISPLAY_NAME, aValue.getDisplayName ());

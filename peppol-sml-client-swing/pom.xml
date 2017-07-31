@@ -43,7 +43,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>5.2.8-SNAPSHOT</version>
+    <version>6.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-sml-client-swing</artifactId>
   <packaging>jar</packaging>

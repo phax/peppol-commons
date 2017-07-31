@@ -43,35 +43,16 @@ package com.helger.peppol.identifier.generic.participant;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
+import com.helger.peppol.identifier.AbstractIdentifierMicroTypeConverter;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.xml.microdom.IMicroElement;
-import com.helger.xml.microdom.MicroElement;
-import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
-public class ParticipantIdentifierTypeMicroTypeConverter implements IMicroTypeConverter
+public final class ParticipantIdentifierTypeMicroTypeConverter extends
+                                                               AbstractIdentifierMicroTypeConverter <ParticipantIdentifierType>
 {
-  protected static final String ATTR_SCHEME = "scheme";
-  protected static final String ATTR_VALUE = "value";
-
+  @Override
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
-                                              @Nullable final String sNamespaceURI,
-                                              @Nonnull @Nonempty final String sTagName)
+  protected ParticipantIdentifierType getAsNative (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    final IParticipantIdentifier aValue = (IParticipantIdentifier) aObject;
-    final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
-    if (aValue.hasScheme ())
-      aElement.setAttribute (ATTR_SCHEME, aValue.getScheme ());
-    aElement.setAttribute (ATTR_VALUE, aValue.getValue ());
-    return aElement;
-  }
-
-  @Nonnull
-  public IParticipantIdentifier convertToNative (@Nonnull final IMicroElement aElement)
-  {
-    final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
-    final String sValue = aElement.getAttributeValue (ATTR_VALUE);
     final ParticipantIdentifierType aPI = new ParticipantIdentifierType ();
     aPI.setScheme (sScheme);
     aPI.setValue (sValue);

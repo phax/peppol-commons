@@ -40,8 +40,8 @@ package com.helger.peppol.smlclient.swing.action;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.smlclient.support.ESMLCommand;
 import com.helger.peppol.smlclient.support.ESMLObjectType;
