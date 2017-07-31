@@ -50,7 +50,7 @@ import com.helger.xml.serialize.read.DOMReaderSettings;
  */
 public final class PeppolSBDHDocumentReaderTest
 {
-  private static final ICommonsMap <String, EPeppolSBDHDocumentReadError> BAD_CASES = new CommonsHashMap<> ();
+  private static final ICommonsMap <String, EPeppolSBDHDocumentReadError> BAD_CASES = new CommonsHashMap <> ();
 
   static
   {
@@ -101,8 +101,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertEquals ("Invoice", aData.getType ());
     assertEquals ("123123", aData.getInstanceIdentifier ());
     assertEquals ("2013-02-19T05:10:10.000", PDTWebDateHelper.getAsStringXSD (aData.getCreationDateAndTime ()));
-    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME,
-                  aData.getDocumentTypeScheme ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aData.getDocumentTypeScheme ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
                   aData.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
@@ -198,7 +197,8 @@ public final class PeppolSBDHDocumentReaderTest
   public void testReadBadNode ()
   {
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader ();
-    final DOMReaderSettings aSettings = new DOMReaderSettings ().setExceptionHandler (t -> {});
+    final DOMReaderSettings aSettings = new DOMReaderSettings ();
+    aSettings.exceptionCallbacks ().removeAll ();
     for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
