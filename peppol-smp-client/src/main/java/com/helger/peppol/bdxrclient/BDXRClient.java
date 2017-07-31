@@ -58,7 +58,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.http.CHTTPHeader;
+import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.mime.CMimeType;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.bdxr.RedirectType;
@@ -184,7 +184,7 @@ public class BDXRClient extends BDXRClientReadOnly
       s_aLogger.debug ("BDXRClient saveServiceGroup@" + sURI);
 
     final HttpPut aRequest = new HttpPut (sURI);
-    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     aRequest.setEntity (new StringEntity (sBody, CONTENT_TYPE_TEXT_XML));
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
@@ -247,7 +247,7 @@ public class BDXRClient extends BDXRClientReadOnly
       s_aLogger.debug ("BDXRClient deleteServiceGroup@" + sURI);
 
     final HttpDelete aRequest = new HttpDelete (sURI);
-    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
@@ -266,7 +266,7 @@ public class BDXRClient extends BDXRClientReadOnly
       s_aLogger.debug ("BDXRClient saveServiceRegistration@" + sURI);
 
     final HttpPut aRequest = new HttpPut (sURI);
-    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     aRequest.setEntity (new StringEntity (sBody, CONTENT_TYPE_TEXT_XML));
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
@@ -422,7 +422,7 @@ public class BDXRClient extends BDXRClientReadOnly
       s_aLogger.debug ("BDXRClient deleteServiceRegistration@" + sURI);
 
     final HttpDelete aRequest = new HttpDelete (sURI);
-    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 }

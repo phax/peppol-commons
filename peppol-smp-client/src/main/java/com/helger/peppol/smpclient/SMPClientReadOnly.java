@@ -60,7 +60,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.http.CHTTPHeader;
+import com.helger.commons.http.CHttpHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
@@ -192,7 +192,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       s_aLogger.debug ("SMPClient getServiceGroupReferenceList@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    aRequest.addHeader (CHTTPHeader.AUTHORIZATION, aCredentials.getRequestValue ());
+    aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     return executeGenericRequest (aRequest,
                                   new SMPHttpResponseHandlerUnsigned<> (new SMPMarshallerServiceGroupReferenceListType ()));
   }
