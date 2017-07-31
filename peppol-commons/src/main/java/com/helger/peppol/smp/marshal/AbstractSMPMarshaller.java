@@ -59,14 +59,13 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
  */
 public abstract class AbstractSMPMarshaller <JAXBTYPE> extends AbstractJAXBMarshaller <JAXBTYPE>
 {
-  private final MapBasedNamespaceContext m_aNSContext;
+  private final MapBasedNamespaceContext m_aNSContext = new MapBasedNamespaceContext ();
 
   public AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     // No XSD
     super (aType, aWrapper);
-    m_aNSContext = new MapBasedNamespaceContext ();
     m_aNSContext.addMapping ("smp", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());
     m_aNSContext.addMapping ("ds", "http://www.w3.org/2000/09/xmldsig#");
   }
