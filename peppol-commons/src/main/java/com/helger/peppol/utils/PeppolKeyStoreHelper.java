@@ -46,7 +46,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.text.util.TextHelper;
-import com.helger.security.keystore.EKeyStoreLoadError;
 import com.helger.security.keystore.LoadedKey;
 import com.helger.security.keystore.LoadedKeyStore;
 
@@ -104,54 +103,14 @@ public final class PeppolKeyStoreHelper
   {}
 
   @Nullable
-  private static String _getLoadError (@Nonnull final EKeyStoreLoadError eError, @Nullable final String [] aParams)
-  {
-    switch (eError)
-    {
-      case KEYSTORE_NO_PATH:
-        return "No keystore path provided.";
-      case KEYSTORE_LOAD_ERROR_NON_EXISTING:
-        return TextHelper.getFormattedText ("Failed to locate keystore path ''{0}''. Technical details: {1}",
-                                            (Object []) aParams);
-      case KEYSTORE_INVALID_PASSWORD:
-        return TextHelper.getFormattedText ("Invalid password provided for keystore ''{0}''. Technical details: {1}",
-                                            (Object []) aParams);
-      case KEYSTORE_LOAD_ERROR_FORMAT_ERROR:
-        return TextHelper.getFormattedText ("Failed to load the keystore ''{0}'' - invalid format. Technical details: {1}",
-                                            (Object []) aParams);
-      case KEY_NO_ALIAS:
-        return "No alias for keystore entry provided.";
-      case KEY_NO_PASSWORD:
-        return "No alias for keystore entry provided.";
-      case KEY_INVALID_ALIAS:
-        return TextHelper.getFormattedText ("Failed to find alias ''{0}'' in keystore ''{1}''.", (Object []) aParams);
-      case KEY_INVALID_TYPE:
-        return TextHelper.getFormattedText ("Alias ''{0}'' in keystore ''{1}'' has an invalid type. The effective technical type is {2}.",
-                                            (Object []) aParams);
-      case KEY_INVALID_PASSWORD:
-        return TextHelper.getFormattedText ("Invalid password provided for alias ''{0}'' in keystore ''{1}''. Technical details: {2}.",
-                                            (Object []) aParams);
-      case KEY_LOAD_ERROR:
-        return TextHelper.getFormattedText ("Generic error loading alias ''{0}'' in keystore ''{1}''. Technical details: {2}.",
-                                            (Object []) aParams);
-      default:
-        return "Unknown error: " + eError;
-    }
-  }
-
-  @Nullable
   public static String getLoadError (@Nonnull final LoadedKeyStore aLKS)
   {
-    if (aLKS == null || aLKS.isSuccess ())
-      return null;
-    return _getLoadError (aLKS.getError (), aLKS.getErrorParams ());
+    return aLKS == null ? null : aLKS.getErrorText (TextHelper.EN);
   }
 
   @Nullable
   public static String getLoadError (@Nonnull final LoadedKey <?> aLK)
   {
-    if (aLK == null || aLK.isSuccess ())
-      return null;
-    return _getLoadError (aLK.getError (), aLK.getErrorParams ());
+    return aLK == null ? null : aLK.getErrorText (TextHelper.EN);
   }
 }
