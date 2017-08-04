@@ -41,7 +41,8 @@
     under either the MPL or the EUPL License.
 
 -->
-<!--This file was automatically generated. Do NOT edit!-->
+<!--This file was automatically generated.
+Do NOT edit!-->
 <root version="1.2.2">
   <issuingAgency schemeid="FR:SIRENE" agencyname="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" iso6523="0002" since="1.0.0">
     <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters. 2) Check digits: 9th &amp; 14th character respectively</structure>

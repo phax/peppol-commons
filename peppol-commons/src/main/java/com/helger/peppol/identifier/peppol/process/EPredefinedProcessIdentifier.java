@@ -42,7 +42,6 @@ package com.helger.peppol.identifier.peppol.process;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -155,55 +154,55 @@ public enum EPredefinedProcessIdentifier
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS1A = urn_www_cenbii_eu_profile_bii01_ver1_0;
+    public final static EPredefinedProcessIdentifier BIS1A = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS1A_V40 = urn_www_cenbii_eu_profile_bii01_ver2_0;
+    public final static EPredefinedProcessIdentifier BIS1A_V40 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS3A = urn_www_cenbii_eu_profile_bii03_ver1_0;
+    public final static EPredefinedProcessIdentifier BIS3A = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS03A_V20 = urn_www_cenbii_eu_profile_bii03_ver2_0;
+    public final static EPredefinedProcessIdentifier BIS03A_V20 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS4A = urn_www_cenbii_eu_profile_bii04_ver1_0;
+    public final static EPredefinedProcessIdentifier BIS4A = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS4A_V20 = urn_www_cenbii_eu_profile_bii04_ver2_0;
+    public final static EPredefinedProcessIdentifier BIS4A_V20 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS5A = urn_www_cenbii_eu_profile_bii05_ver1_0;
+    public final static EPredefinedProcessIdentifier BIS5A = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS5A_V20 = urn_www_cenbii_eu_profile_bii05_ver2_0;
+    public final static EPredefinedProcessIdentifier BIS5A_V20 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii06_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS6A = urn_www_cenbii_eu_profile_bii06_ver1_0;
+    public final static EPredefinedProcessIdentifier BIS6A = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii06_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii28_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS28A = urn_www_cenbii_eu_profile_bii28_ver2_0;
+    public final static EPredefinedProcessIdentifier BIS28A = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii28_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii30_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS30A = urn_www_cenbii_eu_profile_bii30_ver2_0;
+    public final static EPredefinedProcessIdentifier BIS30A = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii30_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii36_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS36A = urn_www_cenbii_eu_profile_bii36_ver2_0;
+    public final static EPredefinedProcessIdentifier BIS36A = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii36_ver2_0;
     private final String m_sID;
     private final String m_sBISID;
     private final EPredefinedDocumentTypeIdentifier[] m_aDocIDs;

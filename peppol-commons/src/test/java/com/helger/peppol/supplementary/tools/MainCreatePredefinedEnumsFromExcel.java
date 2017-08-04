@@ -130,6 +130,7 @@ public final class MainCreatePredefinedEnumsFromExcel
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppol.identifier.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static JDefinedClass s_jEnumPredefinedDoc;
+  private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
 
   private static void _writeGenericodeFile (@Nonnull final CodeListDocument aCodeList, @Nonnull final String sFilename)
   {
@@ -188,7 +189,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 
     // Save data also as XML
     final IMicroDocument aDoc = new MicroDocument ();
-    aDoc.appendComment ("This file was automatically generated. Do NOT edit!");
+    aDoc.appendComment (DO_NOT_EDIT);
     final IMicroElement eRoot = aDoc.appendElement ("root");
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
@@ -319,11 +320,12 @@ public final class MainCreatePredefinedEnumsFromExcel
       jValue = m.param (JMod.FINAL, String.class, "sIdentifier");
       jValue.annotate (Nonnull.class);
       jValue.annotate (Nonempty.class);
-      m.body ()._return (JExpr.cast (s_aCodeModel.ref (PeppolParticipantIdentifier.class),
-                                     s_aCodeModel.ref (PeppolIdentifierFactory.class)
-                                                 .staticRef ("INSTANCE")
-                                                 .invoke ("createParticipantIdentifierWithDefaultScheme")
-                                                 .arg (JExpr.invoke (mCreateIdentifierValue).arg (jValue))));
+      m.body ()
+       ._return (JExpr.cast (s_aCodeModel.ref (PeppolParticipantIdentifier.class),
+                             s_aCodeModel.ref (PeppolIdentifierFactory.class)
+                                         .staticRef ("INSTANCE")
+                                         .invoke ("createParticipantIdentifierWithDefaultScheme")
+                                         .arg (JExpr.invoke (mCreateIdentifierValue).arg (jValue))));
 
       // public boolean isDeprecated ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
@@ -359,7 +361,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 
     // Save as XML
     final IMicroDocument aDoc = new MicroDocument ();
-    aDoc.appendComment ("This file was automatically generated. Do NOT edit!");
+    aDoc.appendComment (DO_NOT_EDIT);
     final IMicroElement eRoot = aDoc.appendElement ("root");
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
@@ -433,9 +435,7 @@ public final class MainCreatePredefinedEnumsFromExcel
                                            " is already used for " +
                                            aDocIDParts.toString () +
                                            ". Please update the algorithm!");
-        final JFieldVar aShortcut = s_jEnumPredefinedDoc.field (JMod.PUBLIC |
-                                                                JMod.STATIC |
-                                                                JMod.FINAL,
+        final JFieldVar aShortcut = s_jEnumPredefinedDoc.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
                                                                 s_jEnumPredefinedDoc,
                                                                 sShortcutName,
                                                                 jEnumConst);
@@ -443,13 +443,11 @@ public final class MainCreatePredefinedEnumsFromExcel
       }
 
       // fields
-      final JFieldVar fParts = s_jEnumPredefinedDoc.field (JMod.PRIVATE |
-                                                           JMod.FINAL,
+      final JFieldVar fParts = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL,
                                                            IPeppolDocumentTypeIdentifierParts.class,
                                                            "m_aParts");
       final JFieldVar fID = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
-      final JFieldVar fCommonName = s_jEnumPredefinedDoc.field (JMod.PRIVATE |
-                                                                JMod.FINAL,
+      final JFieldVar fCommonName = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL,
                                                                 String.class,
                                                                 "m_sCommonName");
       final JFieldVar fSince = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
@@ -557,16 +555,18 @@ public final class MainCreatePredefinedEnumsFromExcel
         // public String getURIEncoded
         m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIEncoded");
         m.annotate (Nonnull.class);
-        m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
-                                       .staticInvoke ("getIdentifierURIEncoded")
-                                       .arg (JExpr._this ()));
+        m.body ()
+         ._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
+                               .staticInvoke ("getIdentifierURIEncoded")
+                               .arg (JExpr._this ()));
 
         // public String getURIPercentEncoded
         m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
         m.annotate (Nonnull.class);
-        m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
-                                       .staticInvoke ("getIdentifierURIPercentEncoded")
-                                       .arg (JExpr._this ()));
+        m.body ()
+         ._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
+                               .staticInvoke ("getIdentifierURIPercentEncoded")
+                               .arg (JExpr._this ()));
       }
 
       // public IPeppolDocumentTypeIdentifierParts getParts
@@ -578,8 +578,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       // public static EPredefinedDocumentTypeIdentifier
       // getFromDocumentTypeIdentifierOrNull(@Nullable final
       // IDocumentTypeIdentifier aDocTypeID)
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC |
-                                       JMod.STATIC,
+      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC | JMod.STATIC,
                                        s_jEnumPredefinedDoc,
                                        "getFromDocumentTypeIdentifierOrNull");
       {
@@ -627,7 +626,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 
     // Save as XML
     final IMicroDocument aDoc = new MicroDocument ();
-    aDoc.appendComment ("This file was automatically generated. Do NOT edit!");
+    aDoc.appendComment (DO_NOT_EDIT);
     final IMicroElement eRoot = aDoc.appendElement ("root");
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
@@ -705,9 +704,7 @@ public final class MainCreatePredefinedEnumsFromExcel
           throw new IllegalStateException ("The BIS ID shortcut '" +
                                            sShortcutName +
                                            "' is already used - please review the algorithm!");
-        final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC |
-                                                 JMod.STATIC |
-                                                 JMod.FINAL,
+        final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
                                                  jEnum,
                                                  sShortcutName,
                                                  jEnumConst);
@@ -760,7 +757,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       m = jEnum.method (JMod.PUBLIC,
                         s_aCodeModel.ref (ICommonsList.class)
                                     .narrow (s_aCodeModel.ref (IPeppolPredefinedDocumentTypeIdentifier.class)
-                                                         .wildcard ()),
+                                                         .wildcardExtends ()),
                         "getDocumentTypeIdentifiers");
       m.annotate (Nonnull.class);
       m.annotate (ReturnsMutableCopy.class);
@@ -786,16 +783,18 @@ public final class MainCreatePredefinedEnumsFromExcel
         // public String getURIEncoded
         m = jEnum.method (JMod.PUBLIC, String.class, "getURIEncoded");
         m.annotate (Nonnull.class);
-        m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
-                                       .staticInvoke ("getIdentifierURIEncoded")
-                                       .arg (JExpr._this ()));
+        m.body ()
+         ._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
+                               .staticInvoke ("getIdentifierURIEncoded")
+                               .arg (JExpr._this ()));
 
         // public String getURIPercentEncoded
         m = jEnum.method (JMod.PUBLIC, String.class, "getURIPercentEncoded");
         m.annotate (Nonnull.class);
-        m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
-                                       .staticInvoke ("getIdentifierURIPercentEncoded")
-                                       .arg (JExpr._this ()));
+        m.body ()
+         ._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
+                               .staticInvoke ("getIdentifierURIPercentEncoded")
+                               .arg (JExpr._this ()));
       }
 
       // @Nullable public static EPredefinedProcessIdentifier

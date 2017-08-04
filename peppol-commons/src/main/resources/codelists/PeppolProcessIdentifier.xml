@@ -41,7 +41,8 @@
     under either the MPL or the EUPL License.
 
 -->
-<!--This file was automatically generated. Do NOT edit!-->
+<!--This file was automatically generated.
+Do NOT edit!-->
 <root version="1.2.2">
   <process id="urn:www.cenbii.eu:profile:bii01:ver1.0" bisid="urn:www.peppol.eu:bis:peppol1a:ver1.0" since="1.0.0" depercated="true">
     <document id="urn:oasis:names:specification:ubl:schema:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biicoretrdm019:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0" />
