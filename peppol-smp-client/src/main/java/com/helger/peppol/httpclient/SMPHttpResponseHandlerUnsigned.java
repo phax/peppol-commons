@@ -45,8 +45,6 @@
 package com.helger.peppol.httpclient;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
@@ -54,8 +52,10 @@ import javax.annotation.Nonnull;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.entity.ContentType;
+import org.apache.http.util.EntityUtils;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.httpclient.HttpClientHelper;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 
@@ -86,9 +86,21 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
   {
     // Read the payload
     final ContentType aContentType = ContentType.getOrDefault (aEntity);
-    final Charset aCharset = HttpClientHelper.getCharset (aContentType);
-    final Reader aReader = new InputStreamReader (aEntity.getContent (), aCharset);
-    final T ret = m_aMarshaller.read (aReader);
+
+    if (false && GlobalDebug.isDebugMode ())
+    {
+      final Charset aCharset = HttpClientHelper.getCharset (aContentType);
+      final byte [] aContent = EntityUtils.toByteArray (aEntity);
+      System.out.println (new String (aContent, aCharset));
+      final T ret = m_aMarshaller.read (aContent);
+      if (ret == null)
+        throw new ClientProtocolException ("Malformed XML document returned from SMP server");
+      return ret;
+    }
+
+    // Read without charset, because XML has self-determination
+    // Additionally the BOM handling is enabled when using InputStream
+    final T ret = m_aMarshaller.read (aEntity.getContent ());
     if (ret == null)
       throw new ClientProtocolException ("Malformed XML document returned from SMP server");
     return ret;

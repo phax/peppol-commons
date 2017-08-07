@@ -45,12 +45,14 @@
 package com.helger.peppol.smpclient;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
+import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.url.EsensURLProvider;
 import com.helger.peppol.url.PeppolURLProvider;
 
@@ -62,9 +64,9 @@ import com.helger.peppol.url.PeppolURLProvider;
 public final class SMPClientReadOnlyTest
 {
   @Test
-  public void testGetSMPHostURI ()
+  public void testGetSMPHostURI () throws SMPClientException
   {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
+    IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
     // PEPPOL URL provider
     SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
@@ -74,5 +76,10 @@ public final class SMPClientReadOnlyTest
     // E-SENS URL provider
     aSMPClient = new SMPClientReadOnly (EsensURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
     assertEquals ("http://BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu/", aSMPClient.getSMPHostURI ());
+
+    // This instance has a BOM inside
+    aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
+    aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
+    assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
   }
 }
