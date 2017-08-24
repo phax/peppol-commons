@@ -42,11 +42,9 @@ package com.helger.peppol.smp.marshal;
 
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
 
 import com.helger.commons.functional.IFunction;
-import com.helger.jaxb.AbstractJAXBMarshaller;
-import com.helger.jaxb.JAXBMarshallerHelper;
+import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
@@ -57,29 +55,17 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
  * @param <JAXBTYPE>
  *        JAXB type to use
  */
-public abstract class AbstractSMPMarshaller <JAXBTYPE> extends AbstractJAXBMarshaller <JAXBTYPE>
+public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  private final MapBasedNamespaceContext m_aNSContext = new MapBasedNamespaceContext ();
-
   public AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     // No XSD
     super (aType, aWrapper);
-    m_aNSContext.addMapping ("smp", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());
-    m_aNSContext.addMapping ("ds", "http://www.w3.org/2000/09/xmldsig#");
-  }
 
-  @Override
-  protected void customizeMarshaller (final Marshaller aMarshaller)
-  {
-    try
-    {
-      JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller, m_aNSContext);
-    }
-    catch (final Throwable t)
-    {
-      // Ignore
-    }
+    final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
+    aNSContext.addMapping ("smp", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());
+    aNSContext.addMapping ("ds", "http://www.w3.org/2000/09/xmldsig#");
+    setNamespaceContext (aNSContext);
   }
 }

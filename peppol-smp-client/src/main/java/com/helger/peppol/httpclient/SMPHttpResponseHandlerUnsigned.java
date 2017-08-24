@@ -57,7 +57,7 @@ import org.apache.http.util.EntityUtils;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.httpclient.HttpClientHelper;
-import com.helger.jaxb.AbstractJAXBMarshaller;
+import com.helger.jaxb.GenericJAXBMarshaller;
 
 /**
  * This is the Apache HTTP client response handler to verify unsigned HTTP
@@ -73,9 +73,9 @@ import com.helger.jaxb.AbstractJAXBMarshaller;
  */
 public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandler <T>
 {
-  private final AbstractJAXBMarshaller <T> m_aMarshaller;
+  private final GenericJAXBMarshaller <T> m_aMarshaller;
 
-  public SMPHttpResponseHandlerUnsigned (@Nonnull final AbstractJAXBMarshaller <T> aMarshaller)
+  public SMPHttpResponseHandlerUnsigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller)
   {
     m_aMarshaller = ValueEnforcer.notNull (aMarshaller, "Marshaller");
   }

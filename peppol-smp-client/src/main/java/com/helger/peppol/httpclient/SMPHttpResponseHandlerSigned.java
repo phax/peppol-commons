@@ -66,7 +66,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.jaxb.AbstractJAXBMarshaller;
+import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xml.serialize.read.DOMReader;
 
 /**
@@ -86,10 +86,10 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   public static final boolean DEFAULT_CHECK_CERTIFICATE = true;
   private static final Logger s_aLogger = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
 
-  private final AbstractJAXBMarshaller <T> m_aMarshaller;
+  private final GenericJAXBMarshaller <T> m_aMarshaller;
   private boolean m_bCheckCertificate = DEFAULT_CHECK_CERTIFICATE;
 
-  public SMPHttpResponseHandlerSigned (@Nonnull final AbstractJAXBMarshaller <T> aMarshaller)
+  public SMPHttpResponseHandlerSigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller)
   {
     m_aMarshaller = ValueEnforcer.notNull (aMarshaller, "Marshaller");
   }
