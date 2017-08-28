@@ -72,5 +72,6 @@ public final class BusdoxURLHelperTest
     assertEquals ("a%b", BusdoxURLHelper.createPercentDecodedURL ("a%25b"));
     assertEquals ("a%%b", BusdoxURLHelper.createPercentDecodedURL ("a%25%25b"));
     assertEquals ("a/b", BusdoxURLHelper.createPercentDecodedURL ("a%2Fb"));
+    assertEquals ("äöü", BusdoxURLHelper.createPercentDecodedURL ("äöü"));
   }
 }

@@ -55,6 +55,8 @@ import com.helger.peppol.url.PeppolURLProvider;
 @Immutable
 public final class BusdoxURLHelper
 {
+  private static final URLCodec s_aCodec = new URLCodec ();
+
   @PresentForCodeCoverage
   private static final BusdoxURLHelper s_aInstance = new BusdoxURLHelper ();
 
@@ -71,7 +73,7 @@ public final class BusdoxURLHelper
   @Nullable
   public static String createPercentEncodedURL (@Nullable final String sURL)
   {
-    return new URLCodec ().getEncodedAsString (sURL, PeppolURLProvider.URL_CHARSET);
+    return s_aCodec.getEncodedAsString (sURL, PeppolURLProvider.URL_CHARSET);
   }
 
   /**
@@ -84,6 +86,6 @@ public final class BusdoxURLHelper
   @Nullable
   public static String createPercentDecodedURL (@Nullable final String sURL)
   {
-    return new URLCodec ().getDecodedAsString (sURL, PeppolURLProvider.URL_CHARSET);
+    return s_aCodec.getDecodedAsString (sURL, PeppolURLProvider.URL_CHARSET);
   }
 }
