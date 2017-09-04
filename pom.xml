@@ -160,11 +160,6 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
-        <artifactId>peppol-sml-client-swing</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger</groupId>
         <artifactId>peppol-smp-client</artifactId>
         <version>${project.version}</version>
       </dependency>
