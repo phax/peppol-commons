@@ -47,6 +47,9 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.io.file.FileSystemRecursiveIterator;
@@ -75,6 +78,7 @@ import com.helger.jcodemodel.JVar;
 
 public class MainCreateEnumsFromGenericode
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateEnumsFromGenericode.class);
   private static final String COLID_NAME = "name";
   private static final String COLID_CODE = "code";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
@@ -85,24 +89,24 @@ public class MainCreateEnumsFromGenericode
     final SimpleCodeList aSimpleCodeList = aCodeList10.getSimpleCodeList ();
     if (aSimpleCodeList == null)
     {
-      System.out.println ("  does not contain a SimpleCodeList!");
+      s_aLogger.info ("  does not contain a SimpleCodeList!");
       return;
     }
     final Column aColCode = Genericode10Helper.getColumnOfID (aCodeList10.getColumnSet (), COLID_CODE);
     if (aColCode == null)
     {
-      System.out.println ("  No '" + COLID_CODE + "' column found");
+      s_aLogger.info ("  No '" + COLID_CODE + "' column found");
       return;
     }
     if (!Genericode10Helper.isKeyColumn (aCodeList10.getColumnSet (), COLID_CODE))
     {
-      System.out.println ("  Column '" + COLID_CODE + "' is not a key");
+      s_aLogger.info ("  Column '" + COLID_CODE + "' is not a key");
       return;
     }
     final Column aColName = Genericode10Helper.getColumnOfID (aCodeList10.getColumnSet (), COLID_NAME);
     if (aColName == null)
     {
-      System.out.println ("  No '" + COLID_NAME + "' column found");
+      s_aLogger.info ("  No '" + COLID_NAME + "' column found");
       return;
     }
 
@@ -156,10 +160,11 @@ public class MainCreateEnumsFromGenericode
     m.annotate (Nullable.class);
     jID = m.param (JMod.FINAL, String.class, "sID");
     jID.annotate (Nullable.class);
-    m.body ()._return (s_aCodeModel.ref (EnumHelper.class)
-                                   .staticInvoke ("getFromIDOrNull")
-                                   .arg (JExpr.dotclass (jEnum))
-                                   .arg (jID));
+    m.body ()
+     ._return (s_aCodeModel.ref (EnumHelper.class)
+                           .staticInvoke ("getFromIDOrNull")
+                           .arg (JExpr.dotclass (jEnum))
+                           .arg (jID));
 
     // public static String getDisplayNameFromIDOrNull (@Nullable String sID)
     m = jEnum.method (JMod.PUBLIC | JMod.STATIC, String.class, "getDisplayNameFromIDOrNull");
@@ -174,7 +179,7 @@ public class MainCreateEnumsFromGenericode
   {
     for (final File aFile : new FileSystemRecursiveIterator ("src/main/resources/codelists/ubl").withFilter (IFileFilter.filenameEndsWith (".gc")))
     {
-      System.out.println (aFile.getName ());
+      s_aLogger.info (aFile.getName ());
       final CodeListDocument aCodeList10 = new Genericode10CodeListMarshaller ().read (new FileSystemResource (aFile));
       if (aCodeList10 != null)
         _createGenericode10 (aFile, aCodeList10);

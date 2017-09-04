@@ -53,6 +53,8 @@ import javax.annotation.Nonnull;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -81,6 +83,7 @@ import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 @Ignore ("Requires a running SML")
 public final class SMLFuncTest extends AbstractSMLClientTestCase
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (SMLFuncTest.class);
   private static final String SMP_ID = "SMP-TEST-ID";
   private static final String SMP_ID2 = "SMP-TEST-ID2";
 
@@ -186,7 +189,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final int nLastIdentifier = 150;
     for (int i = 0; i <= nLastIdentifier; i++)
     {
-      System.out.println ("Creating number: " + i);
+      s_aLogger.info ("Creating number: " + i);
       final long nIdentifier = nStartIdentifier + i;
       aPIClient.create (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (),
                         PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:" +
@@ -297,7 +300,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ICommonsList <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new CommonsArrayList<> ();
+    final ICommonsList <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new CommonsArrayList <> ();
 
     aPIClient.createList (aRecipientBusinessIdentifiers, SMP_ID);
 
@@ -317,7 +320,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ICommonsList <IParticipantIdentifier> aRecipientBusinessIdentifiers = new CommonsArrayList<> ();
+    final ICommonsList <IParticipantIdentifier> aRecipientBusinessIdentifiers = new CommonsArrayList <> ();
     final IParticipantIdentifier aBusinessIdentifierCreate1 = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     aRecipientBusinessIdentifiers.add (aBusinessIdentifierCreate1);
 
@@ -347,7 +350,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
 
-    final ICommonsMap <String, IParticipantIdentifier> aBusinessIdentifiersCreate = new CommonsHashMap<> ();
+    final ICommonsMap <String, IParticipantIdentifier> aBusinessIdentifiersCreate = new CommonsHashMap <> ();
 
     IParticipantIdentifier aBusinessIdentifierCreate1 = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     IParticipantIdentifier aBusinessIdentifierCreate2 = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER2);

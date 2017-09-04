@@ -46,14 +46,19 @@ package com.helger.peppol.smpclient.supplementary.tools;
 
 import java.io.File;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.base64.Base64;
 import com.helger.commons.io.file.SimpleFileIO;
 
 public class MainCreateBase64EncodedCertificate
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateBase64EncodedCertificate.class);
+
   public static void main (final String [] args)
   {
     final File aFile = new File ("src/test/resources/SMP_PEPPOL_SML_PEPPOL_SERVICE_METADATA_PUBLISHER_TEST_CA.cer");
-    System.out.println (Base64.encodeBytes (SimpleFileIO.getAllFileBytes (aFile)));
+    s_aLogger.info (Base64.encodeBytes (SimpleFileIO.getAllFileBytes (aFile)));
   }
 }

@@ -170,7 +170,7 @@ public class MainTestNAPTR
     {
       final StopWatch aSW = StopWatch.createdStarted ();
       final String sURI = _resolveFromNAPTR (sDN);
-      System.out.println (aSW.stopAndGetMillis () + "ms " + sURI);
+      s_aLogger.info (aSW.stopAndGetMillis () + "ms " + sURI);
     }
   }
 }

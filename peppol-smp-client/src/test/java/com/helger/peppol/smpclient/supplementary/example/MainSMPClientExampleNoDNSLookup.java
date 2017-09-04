@@ -44,6 +44,9 @@
  */
 package com.helger.peppol.smpclient.supplementary.example;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.url.URLHelper;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
@@ -59,6 +62,8 @@ import com.helger.peppol.smpclient.SMPClientReadOnly;
  */
 public final class MainSMPClientExampleNoDNSLookup
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPClientExampleNoDNSLookup.class);
+
   public static void main (final String [] args) throws Exception
   {
     // The PEPPOL participant identifier
@@ -72,7 +77,7 @@ public final class MainSMPClientExampleNoDNSLookup
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
 
     // Endpoint address should be "https://test.erechnung.gv.at/as2"
-    System.out.println ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
-                        sEndpointAddress);
+    s_aLogger.info ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
+                    sEndpointAddress);
   }
 }

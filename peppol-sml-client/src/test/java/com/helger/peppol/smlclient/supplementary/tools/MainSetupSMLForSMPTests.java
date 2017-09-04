@@ -40,6 +40,9 @@
  */
 package com.helger.peppol.smlclient.supplementary.tools;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
@@ -56,6 +59,7 @@ import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
  */
 public final class MainSetupSMLForSMPTests
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSetupSMLForSMPTests.class);
   private static final ISMLInfo SML_INFO = ESML.DEVELOPMENT_LOCAL;
   private static final String SMP_ID1 = "SMP-ID1";
 
@@ -74,7 +78,7 @@ public final class MainSetupSMLForSMPTests
     catch (final Exception e)
     {
       // ignore
-      System.out.println (e.getMessage ());
+      s_aLogger.info (e.getMessage ());
     }
 
     try
@@ -85,7 +89,7 @@ public final class MainSetupSMLForSMPTests
     catch (final Exception e)
     {
       // ignore
-      System.out.println (e.getMessage ());
+      s_aLogger.info (e.getMessage ());
     }
   }
 }

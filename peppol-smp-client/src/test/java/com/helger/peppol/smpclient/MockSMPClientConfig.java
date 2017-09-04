@@ -54,6 +54,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.base64.Base64;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
@@ -77,6 +80,7 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 @Immutable
 public final class MockSMPClientConfig
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MockSMPClientConfig.class);
   private static final ConfigFile s_aConfig = new ConfigFileBuilder ().addPath ("private-smp-client-test.properties")
                                                                       .addPath ("smp-client-test.properties")
                                                                       .build ();
@@ -86,7 +90,7 @@ public final class MockSMPClientConfig
   {
     // How to get the Cert String:
     if (false)
-      System.out.println (Base64.encodeBytes (SimpleFileIO.getAllFileBytes (new File ("src/test/resources/SMP_PEPPOL_SML_PEPPOL_SERVICE_METADATA_PUBLISHER_TEST_CA.cer"))));
+      s_aLogger.info (Base64.encodeBytes (SimpleFileIO.getAllFileBytes (new File ("src/test/resources/SMP_PEPPOL_SML_PEPPOL_SERVICE_METADATA_PUBLISHER_TEST_CA.cer"))));
 
     // Check if the certificate string is correct
     try

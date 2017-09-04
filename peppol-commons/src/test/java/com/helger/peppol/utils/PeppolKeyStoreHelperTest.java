@@ -79,7 +79,6 @@ public final class PeppolKeyStoreHelperTest
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.TRUSTSTORE_PRODUCTION_ALIAS_AP));
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.TRUSTSTORE_PRODUCTION_ALIAS_SMP));
 
-    // System.out.println (SystemProperties.getJavaVersion ());
     final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.TRUSTSTORE_PRODUCTION_ALIAS_AP);
     final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
     assertEquals ("CN=PEPPOL Root CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
@@ -100,7 +99,6 @@ public final class PeppolKeyStoreHelperTest
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.TRUSTSTORE_PILOT_ALIAS_AP));
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.TRUSTSTORE_PILOT_ALIAS_SMP));
 
-    // System.out.println (SystemProperties.getJavaVersion ());
     final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.TRUSTSTORE_PILOT_ALIAS_AP);
     final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
     assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",

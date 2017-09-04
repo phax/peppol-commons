@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -39,6 +41,8 @@ import com.helger.xml.serialize.read.DOMReader;
 
 public final class PeppolSBDHDocumentWriterTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolSBDHDocumentWriterTest.class);
+
   @Test
   public void testCreateSBDH () throws SAXException, PeppolSBDHDocumentReadException
   {
@@ -60,7 +64,7 @@ public final class PeppolSBDHDocumentWriterTest
 
     // For debugging
     if (false)
-      System.out.println (new SBDMarshaller ().getAsString (aSBD));
+      s_aLogger.info (new SBDMarshaller ().getAsString (aSBD));
 
     // Read again and compare values
     final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);

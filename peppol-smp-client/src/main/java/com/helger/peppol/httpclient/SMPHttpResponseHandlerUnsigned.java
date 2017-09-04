@@ -53,6 +53,8 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.debug.GlobalDebug;
@@ -73,6 +75,7 @@ import com.helger.jaxb.GenericJAXBMarshaller;
  */
 public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandler <T>
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (SMPHttpResponseHandlerUnsigned.class);
   private final GenericJAXBMarshaller <T> m_aMarshaller;
 
   public SMPHttpResponseHandlerUnsigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller)
@@ -91,7 +94,7 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
     {
       final Charset aCharset = HttpClientHelper.getCharset (aContentType);
       final byte [] aContent = EntityUtils.toByteArray (aEntity);
-      System.out.println (new String (aContent, aCharset));
+      s_aLogger.info (new String (aContent, aCharset));
       final T ret = m_aMarshaller.read (aContent);
       if (ret == null)
         throw new ClientProtocolException ("Malformed XML document returned from SMP server");

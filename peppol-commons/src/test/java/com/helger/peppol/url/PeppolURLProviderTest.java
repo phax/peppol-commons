@@ -49,6 +49,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xbill.DNS.Name;
 import org.xbill.DNS.TextParseException;
 
@@ -69,6 +71,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class PeppolURLProviderTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolURLProviderTest.class);
   private static final IPeppolURLProvider INSTANCE = PeppolURLProvider.INSTANCE;
   private static final IIdentifierFactory IF = PeppolIdentifierFactory.INSTANCE;
 
@@ -131,8 +134,8 @@ public final class PeppolURLProviderTest
                                                     "at."));
 
     if (false)
-      System.out.println (INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("9915:b"),
-                                                            ESML.DIGIT_PRODUCTION));
+      s_aLogger.info (INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("9915:b"),
+                                                        ESML.DIGIT_PRODUCTION));
 
     // Test invalid
     try
