@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+ <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Copyright (C) 2015-2017 Philip Helger (www.helger.com)
@@ -78,9 +78,9 @@
     </developer>
   </developers>
   <properties>
-    <jaxws-plugin.version>2.3.1-b20150201.1248</jaxws-plugin.version>
+    <jaxws-plugin.version>2.5</jaxws-plugin.version>
     <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
-    <jaxws.version>2.2.9-b14002</jaxws.version>
+    <jaxws.version>2.2.10</jaxws.version>
   </properties>
   <dependencies>
     <dependency>
