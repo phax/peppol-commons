@@ -67,8 +67,8 @@ import javax.xml.crypto.dsig.keyinfo.X509Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.ConstantKeySelectorResult;
 import com.helger.security.keystore.KeyStoreHelper;
@@ -85,15 +85,18 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (TrustStoreBasedX509KeySelector.class);
 
-  private final String m_sTrustoreLocation;
+  private final String m_sTruststoreLocation;
   private final String m_sTrustStorePassword;
 
   private transient KeyStore m_aKeyStore;
 
-  public TrustStoreBasedX509KeySelector ()
+  public TrustStoreBasedX509KeySelector (@Nonnull final String sTruststoreLocation,
+                                         @Nonnull final String sTruststorePassword)
   {
-    m_sTrustoreLocation = SMPClientConfiguration.getTruststoreLocation ();
-    m_sTrustStorePassword = SMPClientConfiguration.getTruststorePassword ();
+    ValueEnforcer.notNull (sTruststoreLocation, "TruststoreLocation");
+    ValueEnforcer.notNull (sTruststorePassword, "TruststorePassword");
+    m_sTruststoreLocation = sTruststoreLocation;
+    m_sTrustStorePassword = sTruststorePassword;
   }
 
   public static boolean algorithmEquals (@Nonnull final String sAlgURI, @Nonnull final String sAlgName)
@@ -155,14 +158,14 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
 
               if (m_aKeyStore == null)
-                m_aKeyStore = KeyStoreHelper.loadKeyStoreDirect (m_sTrustoreLocation, m_sTrustStorePassword);
+                m_aKeyStore = KeyStoreHelper.loadKeyStoreDirect (m_sTruststoreLocation, m_sTrustStorePassword);
 
               // The PKIXParameters constructor may fail because:
               // - the trustAnchorsParameter is empty
               final PKIXParameters aPKIXParams = new PKIXParameters (m_aKeyStore);
               aPKIXParams.setRevocationEnabled (false);
               final CertificateFactory aCertificateFactory = CertificateHelper.getX509CertificateFactory ();
-              final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList<> (aCertArray));
+              final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList <> (aCertArray));
               final CertPathValidator aPathValidator = CertPathValidator.getInstance ("PKIX");
               aPathValidator.validate (aCertPath, aPKIXParams);
 

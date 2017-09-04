@@ -67,6 +67,7 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.peppol.smpclient.SMPClientConfiguration;
 import com.helger.xml.serialize.read.DOMReader;
 
 /**
@@ -135,9 +136,13 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     if (aNodeList == null || aNodeList.getLength () == 0)
       throw new IllegalArgumentException ("Element <Signature> not found in SMP XML response");
 
+    final String sTruststoreLocation = SMPClientConfiguration.getTruststoreLocation ();
+    final String sTrustStorePassword = SMPClientConfiguration.getTruststorePassword ();
+    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (sTruststoreLocation,
+                                                                                            sTrustStorePassword);
+
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.
-    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector ();
     final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
     final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
 
