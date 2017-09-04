@@ -22,6 +22,7 @@ Note: the sub-projects use different licenses!
   * v6.0.0 - work in progress
     * Updated to ph-commons 9.0.0
     * SMP client can now handle responses with BOM
+     * Removed legacy project `peppol-sml-client-swing` again
   * v5.2.7 - 2017-07-21
     * Unified identifier handling concerning `""` and `null`
   * v5.2.6 - 2017-05-30
