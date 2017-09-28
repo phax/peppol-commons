@@ -48,8 +48,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.id.factory.GlobalIDFactory;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.type.ObjectType;
@@ -61,7 +63,7 @@ import com.helger.commons.type.ObjectType;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @NotThreadSafe
-public class SMLInfo implements ISMLInfo
+public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
 {
   public static final ObjectType OT = new ObjectType ("sml.info");
 
@@ -73,6 +75,21 @@ public class SMLInfo implements ISMLInfo
   // Cache for status
   private URL m_aManageServiceMetaDataEndpointAddress;
   private URL m_aManageParticipantIdentifierEndpointAddress;
+
+  /**
+   * Copy constructor.
+   * 
+   * @param aOther
+   *        The object to copy from. May not be <code>null</code>.
+   */
+  public SMLInfo (@Nonnull final ISMLInfo aOther)
+  {
+    this (aOther.getID (),
+          aOther.getDisplayName (),
+          aOther.getDNSZone (),
+          aOther.getManagementServiceURL (),
+          aOther.isClientCertificateRequired ());
+  }
 
   /**
    * @param sDisplayName
@@ -226,6 +243,13 @@ public class SMLInfo implements ISMLInfo
     return EChange.CHANGED;
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public SMLInfo getClone ()
+  {
+    return new SMLInfo (this);
+  }
+
   @Override
   public boolean equals (final Object o)
   {
@@ -260,15 +284,5 @@ public class SMLInfo implements ISMLInfo
                                                 m_aManageParticipantIdentifierEndpointAddress)
                                        .append ("ClientCertificateRequired", m_bClientCertificateRequired)
                                        .getToString ();
-  }
-
-  @Nonnull
-  public static SMLInfo create (@Nonnull final ISMLInfo aOther)
-  {
-    return new SMLInfo (aOther.getID (),
-                        aOther.getDisplayName (),
-                        aOther.getDNSZone (),
-                        aOther.getManagementServiceURL (),
-                        aOther.isClientCertificateRequired ());
   }
 }
