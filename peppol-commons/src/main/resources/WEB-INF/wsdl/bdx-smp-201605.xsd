@@ -177,4 +177,30 @@
 			<xs:any namespace="##other" processContents="lax"/>
 		</xs:sequence>
 	</xs:complexType>
+  
+  <!-- [ph] unofficial extensions: -->
+  <xs:element name="ServiceGroupReferenceList" type="ServiceGroupReferenceListType"/>
+
+  <xs:complexType name="ServiceGroupReferenceListType">
+    <xs:sequence>
+      <xs:element name="ServiceGroupReference" type="ServiceGroupReferenceType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceGroupReferenceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="href" type="xs:anyURI" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:element name="CompleteServiceGroup" type="CompleteServiceGroupType"/>
+  
+  <xs:complexType name="CompleteServiceGroupType">
+    <xs:sequence>
+      <xs:element ref="ServiceGroup" />
+      <xs:element ref="ServiceMetadata" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
 </xs:schema>
