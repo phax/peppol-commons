@@ -110,6 +110,7 @@ public final class PeppolParticipantIdentifierTest
     assertTrue (IPeppolParticipantIdentifier.isValidValue ("9909:976098896"));
     assertTrue (IPeppolParticipantIdentifier.isValidValue ("9908:976098896"));
     assertTrue (IPeppolParticipantIdentifier.isValidValue ("9956:DE:EPROC:BMIEVG:BeschA"));
+    assertTrue (IPeppolParticipantIdentifier.isValidValue ("9906:02419170044_01"));
 
     assertTrue (IPeppolParticipantIdentifier.isValidValue (VALUE_MAX_LENGTH));
     assertFalse (IPeppolParticipantIdentifier.isValidValue (VALUE_MAX_LENGTH_PLUS_1));
@@ -221,8 +222,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME +
-                                       VALUE_MAX_LENGTH_PLUS_1,
+      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME + VALUE_MAX_LENGTH_PLUS_1,
                                        "abc");
       fail ();
     }
