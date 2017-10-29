@@ -71,6 +71,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.ConstantKeySelectorResult;
+import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 
 /**
@@ -85,17 +86,21 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (TrustStoreBasedX509KeySelector.class);
 
-  private final String m_sTruststoreLocation;
+  private final EKeyStoreType m_eTruststoreType;
+  private final String m_sTruststorePath;
   private final String m_sTrustStorePassword;
 
   private transient KeyStore m_aKeyStore;
 
-  public TrustStoreBasedX509KeySelector (@Nonnull final String sTruststoreLocation,
+  public TrustStoreBasedX509KeySelector (@Nonnull final EKeyStoreType eTruststoreType,
+                                         @Nonnull final String sTruststorePath,
                                          @Nonnull final String sTruststorePassword)
   {
-    ValueEnforcer.notNull (sTruststoreLocation, "TruststoreLocation");
+    ValueEnforcer.notNull (eTruststoreType, "TruststoreType");
+    ValueEnforcer.notNull (sTruststorePath, "TruststorePath");
     ValueEnforcer.notNull (sTruststorePassword, "TruststorePassword");
-    m_sTruststoreLocation = sTruststoreLocation;
+    m_eTruststoreType = eTruststoreType;
+    m_sTruststorePath = sTruststorePath;
     m_sTrustStorePassword = sTruststorePassword;
   }
 
@@ -158,7 +163,9 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
 
               if (m_aKeyStore == null)
-                m_aKeyStore = KeyStoreHelper.loadKeyStoreDirect (m_sTruststoreLocation, m_sTrustStorePassword);
+                m_aKeyStore = KeyStoreHelper.loadKeyStoreDirect (m_eTruststoreType,
+                                                                 m_sTruststorePath,
+                                                                 m_sTrustStorePassword);
 
               // The PKIXParameters constructor may fail because:
               // - the trustAnchorsParameter is empty

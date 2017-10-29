@@ -46,6 +46,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.text.util.TextHelper;
+import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.LoadedKey;
 import com.helger.security.keystore.LoadedKeyStore;
 
@@ -57,6 +58,9 @@ import com.helger.security.keystore.LoadedKeyStore;
 @Immutable
 public final class PeppolKeyStoreHelper
 {
+  /** Truststore key store type - always JKS */
+  public static final EKeyStoreType TRUSTSTORE_TYPE = EKeyStoreType.JKS;
+
   /**
    * The classpath entry referencing the global truststore with all OpenPEPPOL
    * production entries

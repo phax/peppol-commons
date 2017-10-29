@@ -79,7 +79,7 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
   public void testConnect () throws Exception
   {
     // Load the client certificate
-    final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (KEYSTORE_PATH, KEYSTORE_PASSWORD);
+    final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (KEYSTORE_TYPE, KEYSTORE_PATH, KEYSTORE_PASSWORD);
     final KeyManagerFactory aKMF = KeyManagerFactory.getInstance ("SunX509");
     aKMF.init (aKeyStore, KEYSTORE_PASSWORD.toCharArray ());
 

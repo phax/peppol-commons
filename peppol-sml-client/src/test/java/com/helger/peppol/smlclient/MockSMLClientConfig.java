@@ -71,9 +71,9 @@ public final class MockSMLClientConfig
   {}
 
   @Nullable
-  public static String getKeystoreLocation ()
+  public static String getKeystorePath ()
   {
-    return s_aConfig.getAsString ("keystore.location");
+    return s_aConfig.getAsString ("keystore.path");
   }
 
   @Nullable

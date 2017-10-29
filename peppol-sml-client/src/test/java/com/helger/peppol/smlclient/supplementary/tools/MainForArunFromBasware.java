@@ -59,6 +59,7 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
+import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 
 /**
@@ -79,6 +80,7 @@ public final class MainForArunFromBasware
     // Use SMK or SML?
     final ISMLInfo aSMLInfo = ESML.DIGIT_TEST;
     // Keystore path and password
+    final EKeyStoreType eKeyStoreType = EKeyStoreType.JKS;
     final String sKeystorePath = "keystore/smp.pilot.jks";
     final String sKeystorePassword = "peppol";
     // Participant to be created
@@ -106,7 +108,7 @@ public final class MainForArunFromBasware
     if (aSMLInfo.isClientCertificateRequired ())
     {
       // Main key storage
-      final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (sKeystorePath, sKeystorePassword);
+      final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (eKeyStoreType, sKeystorePath, sKeystorePassword);
 
       // Key manager
       final KeyManagerFactory aKeyManagerFactory = KeyManagerFactory.getInstance ("SunX509");

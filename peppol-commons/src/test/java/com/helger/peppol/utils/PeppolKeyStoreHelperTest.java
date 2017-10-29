@@ -70,7 +70,8 @@ public final class PeppolKeyStoreHelperTest
   public void testLoadTrustStoreProduction () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_PRODUCTION_CLASSPATH,
+    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
+                                                                    PeppolKeyStoreHelper.TRUSTSTORE_PRODUCTION_CLASSPATH,
                                                                     PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
     assertNotNull (aTrustStore);
 
@@ -90,7 +91,8 @@ public final class PeppolKeyStoreHelperTest
   public void testLoadTrustStorePilot () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_PILOT_CLASSPATH,
+    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
+                                                                    PeppolKeyStoreHelper.TRUSTSTORE_PILOT_CLASSPATH,
                                                                     PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
     assertNotNull (aTrustStore);
 

@@ -53,6 +53,7 @@ import com.helger.commons.random.RandomHelper;
 import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 
 /**
@@ -63,7 +64,8 @@ import com.helger.security.keystore.KeyStoreHelper;
 public abstract class AbstractSMLClientTestCase
 {
   public static final ISMLInfo SML_INFO = ESML.DIGIT_TEST;
-  protected static final String KEYSTORE_PATH = MockSMLClientConfig.getKeystoreLocation ();
+  protected static final EKeyStoreType KEYSTORE_TYPE = EKeyStoreType.JKS;
+  protected static final String KEYSTORE_PATH = MockSMLClientConfig.getKeystorePath ();
   protected static final String KEYSTORE_PASSWORD = MockSMLClientConfig.getKeystorePassword ();
 
   @Nullable
@@ -73,7 +75,7 @@ public abstract class AbstractSMLClientTestCase
       return null;
 
     // Main key storage
-    final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (KEYSTORE_PATH, KEYSTORE_PASSWORD);
+    final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (KEYSTORE_TYPE, KEYSTORE_PATH, KEYSTORE_PASSWORD);
 
     // Key manager
     final KeyManagerFactory aKeyManagerFactory = KeyManagerFactory.getInstance ("SunX509");

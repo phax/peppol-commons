@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.httpclient.HttpClientFactory;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
+import com.helger.security.keystore.EKeyStoreType;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 
@@ -111,15 +112,34 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * @return The truststore location as specified in the configuration file by
-   *         the key <code>truststore.location</code>. If none is present
-   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_COMPLETE_CLASSPATH} is
-   *         returned as a default.
+   * @return The truststore type as specified in the configuration file by the
+   *         key <code>truststore.type</code>. If none is present
+   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_TYPE} is returned as a
+   *         default.
+   * @since 6.0.0
    */
   @Nonnull
-  public static String getTruststoreLocation ()
+  public static EKeyStoreType getTruststoreType ()
   {
-    return s_aConfigFile.getAsString ("truststore.location", PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
+    final String sType = s_aConfigFile.getAsString ("truststore.type");
+    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (sType, PeppolKeyStoreHelper.TRUSTSTORE_TYPE);
+  }
+
+  /**
+   * @return The truststore location as specified in the configuration file by
+   *         the key <code>truststore.path</code>. If none is present
+   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_COMPLETE_CLASSPATH} is
+   *         returned as a default. Note: for backwards compatibility, also the
+   *         key <code>truststore.location</code> is evaluated.
+   * @since 6.0.0 - was getTruststoreLocation before
+   */
+  @Nonnull
+  public static String getTruststorePath ()
+  {
+    String ret = s_aConfigFile.getAsString ("truststore.path");
+    if (ret == null)
+      ret = s_aConfigFile.getAsString ("truststore.location", PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
+    return ret;
   }
 
   /**

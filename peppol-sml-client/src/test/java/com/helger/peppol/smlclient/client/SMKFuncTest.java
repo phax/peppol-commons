@@ -76,7 +76,7 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
     assertSame (SML_INFO, ESML.DIGIT_TEST);
 
     // To get an eventual proxy setting correct
-    MockSMLClientConfig.getKeystoreLocation ();
+    MockSMLClientConfig.getKeystorePath ();
   }
 
   @Nonnull
