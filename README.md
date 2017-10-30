@@ -7,13 +7,13 @@ This project contains different libraries that are commonly used in the PEPPOL a
   * [`peppol-smp-client`](#peppol-smp-client) - the PEPPOL SMP and BDXR SMP client
   
 These project are used implicitly by the following projects:
+  * [peppol-directory](https://github.com/phax/peppol-directory/) - the PEPPOL Directory (formerly Yellow Pages)
   * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the phoss SMP server with a management GUI
   * [as2-peppol-client](https://github.com/phax/as2-peppol-client/) - the AP client library
   * [as2-peppol-server](https://github.com/phax/as2-peppol-server/) - the AP server stub
   
 And some legacy PEPPOL projects:
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
-  * [peppol-directory](https://github.com/phax/peppol-directory/) - the PEPPOL Directory (formerly Yellow Pages) development draft
 
 ## Licensing
 **Note:** the sub-projects use different licenses (for historic reasons)!
