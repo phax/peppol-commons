@@ -23,6 +23,10 @@ import com.helger.commons.collection.impl.CommonsHashSet;
 /**
  * A dummy SOAP handler that handles wsse:Security SOAP header elements as
  * returned by the BDSML 3.0
+ * <p>
+ * Note: this class is also licensed under Apache 2 license, as it was not part
+ * of the original implementation
+ * </p>
  *
  * @author Philip Helger
  */

@@ -23,6 +23,10 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 
 /**
  * A single item of the participant list.
+ * <p>
+ * Note: this class is also licensed under Apache 2 license, as it was not part
+ * of the original implementation
+ * </p>
  *
  * @author Philip Helger
  */

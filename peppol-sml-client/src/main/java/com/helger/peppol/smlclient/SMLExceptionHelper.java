@@ -15,6 +15,10 @@ import javax.annotation.concurrent.Immutable;
 
 /**
  * Utility class to help dealing with SML exception.
+ * <p>
+ * Note: this class is also licensed under Apache 2 license, as it was not part
+ * of the original implementation
+ * </p>
  *
  * @author Philip Helger
  */

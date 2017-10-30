@@ -50,6 +50,10 @@ import com.helger.peppol.smlclient.bdmslcipa.UnauthorizedFault;
 
 /**
  * A client for the new BDMSL specific "CIPA service"
+ * <p>
+ * Note: this class is also licensed under Apache 2 license, as it was not part
+ * of the original implementation
+ * </p>
  *
  * @author Philip Helger
  */
