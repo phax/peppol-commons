@@ -16,13 +16,17 @@ And some legacy PEPPOL projects:
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
   * [peppol-directory](https://github.com/phax/peppol-directory/) - the PEPPOL Directory (formerly Yellow Pages) development draft
 
-Note: the sub-projects use different licenses!
+**Note:** the sub-projects use different licenses!
+Since (and including) version 6 the sub-projects `peppol-commons`, `peppol-sml-client` and `peppol-smp-client` are licensed under the EUPL 1.2 or the MPL 2.0.
+Before version 6 these 3 sub-projects were licensed under EUPL 1.1 or the MPL 1.1.
+The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apache 2.0 license (no change in v6).
 
 ## News and noteworthy
   * v6.0.0 - work in progress
     * Updated to ph-commons 9.0.0
     * SMP client can now handle responses with BOM
-     * Removed legacy project `peppol-sml-client-swing` again
+    * Removed legacy project `peppol-sml-client-swing` again
+    * All sub-projects previously licensed under EUPL 1.1 or MPL 1.1 (`peppol-commons`, `peppol-smp-client` and `peppol-sml-client`) are now licensed under EUPL 1.2 or MPL 2.0
   * v5.2.7 - 2017-07-21
     * Unified identifier handling concerning `""` and `null`
   * v5.2.6 - 2017-05-30
@@ -89,7 +93,7 @@ Java library with shared PEPPOL components. It contains the basic algorithms and
 
 This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
 
-This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
+This project is licensed under EUPL 1.2 or MPL 2.0.
 
 ## peppol-sbdh
 Simple SBDH handler for the use with PEPPOL.
@@ -125,7 +129,7 @@ Both classes offer the possibility to set an optional custom `SSLSocketFactory` 
 
 This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-server/) the SMP server with a management GUI and flexible backends.
 
-This project is licensed under EUPL 1.1 or MPL 1.1 - like CIPA e-Delivery.
+This project is licensed under EUPL 1.2 or MPL 2.0.
 
 ## peppol-sml-client-swing
 

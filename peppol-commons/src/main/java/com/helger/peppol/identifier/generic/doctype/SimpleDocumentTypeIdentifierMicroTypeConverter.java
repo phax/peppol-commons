@@ -2,22 +2,21 @@
  * Copyright (C) 2015-2017 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
- * Version: MPL 1.1/EUPL 1.1
+ * The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
  *
- * The contents of this file are subject to the Mozilla Public License Version
- * 1.1 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at:
- * http://www.mozilla.org/MPL/
+ * Version: MPL 2.0/EUPL 1.2
+ * -
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *
  * Software distributed under the License is distributed on an "AS IS" basis,
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
  * for the specific language governing rights and limitations under the
  * License.
- *
- * The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
- *
+ * -
  * Alternatively, the contents of this file may be used under the
- * terms of the EUPL, Version 1.1 or - as soon they will be approved
+ * terms of the EUPL, Version 1.2 or - as soon they will be approved
  * by the European Commission - subsequent versions of the EUPL
  * (the "Licence"); You may not use this work except in compliance
  * with the Licence.
@@ -29,7 +28,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Licence for the specific language governing permissions and
  * limitations under the Licence.
- *
+ * -
  * If you wish to allow use of your version of this file only
  * under the terms of the EUPL License and not to allow others to use
  * your version of this file under the MPL, indicate your decision by
@@ -50,7 +49,7 @@ public final class SimpleDocumentTypeIdentifierMicroTypeConverter extends
 {
   @Override
   @Nonnull
-  protected SimpleDocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @Nullable final String sValue)
+  protected SimpleDocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     return new SimpleDocumentTypeIdentifier (sScheme, sValue);
   }
