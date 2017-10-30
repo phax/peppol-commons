@@ -29,7 +29,7 @@ import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
  * easier construction and some sanity access methods. It may be used in all
  * places where {@link DocumentIdentifierType} objects are required.<br>
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @NotThreadSafe
 public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implements

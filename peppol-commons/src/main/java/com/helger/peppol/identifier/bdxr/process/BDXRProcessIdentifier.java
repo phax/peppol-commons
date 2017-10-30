@@ -29,7 +29,7 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
  * easier construction and some sanity access methods. It may be used in all
  * places where {@link ProcessIdentifierType} objects are required.<br>
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @NotThreadSafe
 public class BDXRProcessIdentifier extends ProcessIdentifierType implements

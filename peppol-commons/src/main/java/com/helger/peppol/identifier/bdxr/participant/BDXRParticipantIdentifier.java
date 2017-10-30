@@ -29,7 +29,7 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
  * with easier construction and some sanity access methods. It may be used in
  * all places where {@link ParticipantIdentifierType} objects are required.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @NotThreadSafe
 public class BDXRParticipantIdentifier extends ParticipantIdentifierType implements

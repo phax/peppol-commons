@@ -67,7 +67,7 @@ public final class PeppolKeyStoreHelper
    */
   public static final String TRUSTSTORE_COMPLETE_CLASSPATH = "truststore/complete-truststore.jks";
 
-  /** The password used to access the truststores */
+  /** The password used to access the trust stores */
   public static final String TRUSTSTORE_PASSWORD = "peppol";
 
   @PresentForCodeCoverage

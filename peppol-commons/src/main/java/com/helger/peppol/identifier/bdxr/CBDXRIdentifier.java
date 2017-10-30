@@ -17,7 +17,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 /**
  * Constants of OASIS BDXR SMP specification.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @Immutable
 public final class CBDXRIdentifier
