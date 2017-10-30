@@ -4,7 +4,6 @@ This project contains different libraries that are commonly used in the PEPPOL a
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
   * [`peppol-sbdh`](#peppol-sbdh) - PEPPOL specific SBDH handling
   * [`peppol-sml-client`](#peppol-sml-client) - the PEPPOL SML client
-  * [`peppol-sml-client-swing`](#peppol-sml-client-swing) - A standalone PEPPOL SML client with a Swing GUI
   * [`peppol-smp-client`](#peppol-smp-client) - the PEPPOL SMP and BDXR SMP client
   
 These project are used implicitly by the following projects:
@@ -16,7 +15,9 @@ And some legacy PEPPOL projects:
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
   * [peppol-directory](https://github.com/phax/peppol-directory/) - the PEPPOL Directory (formerly Yellow Pages) development draft
 
-**Note:** the sub-projects use different licenses!
+## Licensing
+**Note:** the sub-projects use different licenses (for historic reasons)!
+
 Since (and including) version 6 the sub-projects `peppol-commons`, `peppol-sml-client` and `peppol-smp-client` are licensed under the EUPL 1.2 or the MPL 2.0.
 Before version 6 these 3 sub-projects were licensed under EUPL 1.1 or the MPL 1.1.
 The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apache 2.0 license (no change in v6).
@@ -112,9 +113,9 @@ This project is licensed under the Apache 2 License.
 ## peppol-testfiles
 A Java library with a lot of UBL and SBDH test files suitable for different scenarios.  
 
-This project is licensed under the Apache 2 License.
-
 SimpleInvoicing test files are used from https://github.com/SimplerInvoicing/testset
+
+This project is licensed under the Apache 2 License.
 
 ## peppol-sml-client
 This project contains the SML client library used by the SMP's to interact with the SML.
@@ -131,45 +132,42 @@ This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-s
 
 This project is licensed under EUPL 1.2 or MPL 2.0.
 
-## peppol-sml-client-swing
-
-This is a standalone PEPPOL SML client.
-It was reactivated due to request from a long time PEPPOL user but please don't expect too much.
-When using the latest phoss SMP server you don't need this tool, as everything is already integrated into the SMP server.
-
 ## peppol-smp-client
 This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.3.0). 
 This project uses Apache HTTP client to perform the REST lookups on foreign SMPs. The reason to not use the Jersey 1.x client is an incompatibility with Java 8. This means that this version is compliant with Java 1.6+.
 
-I also provide an OSS [SMP server](https://github.com/phax/peppol-smp-server) with a nice management GUI.
+I also provide an OSS [phoss SMP server](https://github.com/phax/peppol-smp-server) with a nice management GUI.
+
+This project is licensed under EUPL 1.2 or MPL 2.0.
 
 ### Configuration
 The SMP client (both PEPPOL and BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to the trust store!
 
 It supports the following properties:
-  * **`truststore.location`**: the location of the PEPPOL trust store (of type JKS) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
+  * **`truststore.type`** (since v6.0.0): the type of key store to be used. Possible values are `JKS` and `PKCS12`. Defaults to `JKS` (which was the implicit default prior to v6).
+  * **`truststore.path`** (name before v6: **`truststore.location`**): the location of the PEPPOL trust store (of the specified type) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
     * `truststore/complete-truststore.jks` - contains the trust certificates for production and pilot (root, AP, SMP, STS)
     * `truststore/global-truststore.jks` - contains the trust certificates for production only (root, AP, SMP, STS)
     * `truststore/pilot-truststore.jks` - contains the trust certificates for pilot only (root, AP, SMP, STS)
   * **`truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
   * **`http.proxyHost`**: the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
-  * **`http.proxyPort`**: the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.56
-  * **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost` and `http.proxyPort` are ineffective! The default value is `false`.
+  * **`http.proxyPort`**: the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
+  * **`http.proxyUsername`** (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
+  * **`http.proxyPassword`** (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined. 
+  * **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`.
   
 ### Specifying a proxy server
 A proxy server can be specified in two ways:
-  * A single proxy server for **all** hosts - no exemptions and no authorization. This can be specified in the configuration file for all `SMPClient` instances or per `SMPClient` instance.
+  * A single proxy server for **all** hosts - no exemptions. This can be specified in the configuration file for all `SMPClient` instances or per `SMPClient` instance (same for BDXR client - for all clients based on `AbstractGenericSMPClient`).
   * A more complex setup based on the JVM system properties (based on https://docs.oracle.com/javase/8/docs/api/java/net/doc-files/net-properties.html). This can also be specified in the configuration file to enable the usage for all `SMPClient` instances or on a per-instance basis.
 
 **Specify a global proxy server**
-
 The SMP client supports a proxy server. By default the proxy specified in the configuration file (see above) is used (since version 4.3.0).
 
 Alternatively call the method `setProxy (org.apache.http.HttpHost)` on an `SMPClient` or `SMPClientReadOnly`. This means you can specify the proxy on a per-call basis.
-Proxy authentication is currently not supported.
+Proxy authentication is available since v5.2.5 by invoking `setProxyCredentials (org.apache.http.auth.Credentials)` on the SMP or BDXR client.
 
 **Using the JVM system properties**
-
 Since v5.2.2 the method `SMPClient.setUseProxySystemProperties (true)` can be used to enable the usage of the default system properties for HTTP connections (see the section on the configuration file for details). Since v5.2.4 the configuration file property `http.useSystemProperties` can be used to achieve the same without code changes. By enabling the usage of the system properties, the manually set proxy is ignored; if a proxy is manually set after this setting, it disables the usage of the system properties again.
 Note: this of course works for both SMP and BDXR client.
 
@@ -193,7 +191,7 @@ Supported system properties are (based on Apache HTTPClient):
   * `http.maxConnections`
   * `http.agent`
   
-### Example usage (V5 only)
+### Example usage (V5 and later only)
 
 Get the endpoint URL for a participant using a special document type and process:
 ```java
