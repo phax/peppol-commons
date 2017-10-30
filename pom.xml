@@ -39,11 +39,6 @@
       <distribution>repo</distribution>
     </license>
     <license>
-      <name>EUPL v.1.2</name>
-      <url>http://joinup.ec.europa.eu/software/page/eupl/licence-eupl</url>
-      <distribution>repo</distribution>
-    </license>
-    <license>
       <name>Apache 2</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0</url>
       <distribution>repo</distribution>

@@ -18,7 +18,7 @@ And some legacy PEPPOL projects:
 ## Licensing
 **Note:** the sub-projects use different licenses (for historic reasons)!
 
-Since (and including) version 6 the sub-projects `peppol-commons`, `peppol-sml-client` and `peppol-smp-client` are licensed under the EUPL 1.2 or the MPL 2.0.
+Since (and including) version 6 the sub-projects `peppol-commons`, `peppol-sml-client` and `peppol-smp-client` are licensed under the MPL 2.0.
 Before version 6 these 3 sub-projects were licensed under EUPL 1.1 or the MPL 1.1.
 The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apache 2.0 license (no change in v6).
 
@@ -27,7 +27,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
     * Updated to ph-commons 9.0.0
     * SMP client can now handle responses with BOM
     * Removed legacy project `peppol-sml-client-swing` again
-    * All sub-projects previously licensed under EUPL 1.1 or MPL 1.1 (`peppol-commons`, `peppol-smp-client` and `peppol-sml-client`) are now licensed under EUPL 1.2 or MPL 2.0
+    * All sub-projects previously licensed under EUPL 1.1 or MPL 1.1 (`peppol-commons`, `peppol-smp-client` and `peppol-sml-client`) are now licensed under MPL 2.0
   * v5.2.7 - 2017-07-21
     * Unified identifier handling concerning `""` and `null`
   * v5.2.6 - 2017-05-30
@@ -94,7 +94,7 @@ Java library with shared PEPPOL components. It contains the basic algorithms and
 
 This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
 
-This project is licensed under EUPL 1.2 or MPL 2.0.
+This project is licensed under the MPL 2.0 license.
 
 ## peppol-sbdh
 Simple SBDH handler for the use with PEPPOL.
@@ -130,7 +130,7 @@ Both classes offer the possibility to set an optional custom `SSLSocketFactory` 
 
 This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-server/) the SMP server with a management GUI and flexible backends.
 
-This project is licensed under EUPL 1.2 or MPL 2.0.
+This project is licensed under the MPL 2.0 license.
 
 ## peppol-smp-client
 This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.3.0). 
@@ -138,7 +138,7 @@ This project uses Apache HTTP client to perform the REST lookups on foreign SMPs
 
 I also provide an OSS [phoss SMP server](https://github.com/phax/peppol-smp-server) with a nice management GUI.
 
-This project is licensed under EUPL 1.2 or MPL 2.0.
+This project is licensed under the MPL 2.0 license.
 
 ### Configuration
 The SMP client (both PEPPOL and BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to the trust store!
