@@ -35,8 +35,8 @@ public abstract class AbstractSMLClientTestCase
 {
   public static final ISMLInfo SML_INFO = ESML.DIGIT_TEST;
   protected static final EKeyStoreType KEYSTORE_TYPE = EKeyStoreType.JKS;
-  protected static final String KEYSTORE_PATH = MockSMLClientConfig.getKeystorePath ();
-  protected static final String KEYSTORE_PASSWORD = MockSMLClientConfig.getKeystorePassword ();
+  protected static final String KEYSTORE_PATH = MockSMLClientConfig.getKeyStorePath ();
+  protected static final String KEYSTORE_PASSWORD = MockSMLClientConfig.getKeyStorePassword ();
 
   @Nullable
   public static final SSLSocketFactory createConfiguredSSLSocketFactory (@Nonnull final ISMLInfo aSMLInfo) throws Exception

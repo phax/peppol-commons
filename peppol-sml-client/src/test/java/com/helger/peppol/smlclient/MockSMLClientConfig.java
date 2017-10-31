@@ -41,13 +41,13 @@ public final class MockSMLClientConfig
   {}
 
   @Nullable
-  public static String getKeystorePath ()
+  public static String getKeyStorePath ()
   {
     return s_aConfig.getAsString ("keystore.path");
   }
 
   @Nullable
-  public static String getKeystorePassword ()
+  public static String getKeyStorePassword ()
   {
     return s_aConfig.getAsString ("keystore.password");
   }
