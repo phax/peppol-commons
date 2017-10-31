@@ -14,11 +14,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.security.KeyStore;
-import java.security.Security;
 import java.security.cert.X509Certificate;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.helger.security.keystore.KeyStoreHelper;
@@ -30,12 +27,6 @@ import com.helger.security.keystore.KeyStoreHelper;
  */
 public final class PeppolKeyStoreHelperTest
 {
-  @BeforeClass
-  public static void init ()
-  {
-    Security.addProvider (new BouncyCastleProvider ());
-  }
-
   @Test
   public void testLoadTrustStoreProduction () throws Exception
   {
