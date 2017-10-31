@@ -25,7 +25,7 @@ import com.helger.peppol.smpclient.SMPClient;
  * Check if an SMP installation is working. Prior to executing this class, make
  * sure that the file <code>functest.properties</code> filled correctly!
  *
- * @author philip
+ * @author Philip Helger
  */
 public final class MainCheckIfSMPIsWorking
 {

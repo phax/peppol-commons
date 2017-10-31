@@ -25,6 +25,9 @@ import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolURLProvider;
 
+/**
+ * @author Philip Helger
+ */
 public final class MainCheckBogusCertificateStrings
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCheckBogusCertificateStrings.class);

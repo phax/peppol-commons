@@ -37,7 +37,7 @@ import com.helger.peppol.smpclient.MockSMPClientConfig;
 import com.helger.peppol.smpclient.SMPClient;
 
 /**
- * @author philip
+ * @author Philip Helger
  */
 public final class MainSMPServiceRegistrationCreate
 {

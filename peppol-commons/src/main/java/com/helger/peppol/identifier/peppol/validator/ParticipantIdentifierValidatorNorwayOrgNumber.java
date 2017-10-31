@@ -21,8 +21,8 @@ import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIs
 /**
  * Implementation of {@link IParticipantIdentifierValidatorSPI} for the
  * Norwegian Organisation Number.
- * 
- * @author philip
+ *
+ * @author Philip Helger
  */
 @IsSPIImplementation
 public final class ParticipantIdentifierValidatorNorwayOrgNumber implements IParticipantIdentifierValidatorSPI
@@ -42,7 +42,7 @@ public final class ParticipantIdentifierValidatorNorwayOrgNumber implements IPar
 
   /**
    * Static check method.
-   * 
+   *
    * @param sValue
    *        The value to be checked.
    * @return <code>true</code> if the passed value is a valid NO organisation

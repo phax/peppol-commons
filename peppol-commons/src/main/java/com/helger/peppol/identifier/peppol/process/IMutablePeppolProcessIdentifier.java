@@ -16,7 +16,7 @@ import com.helger.peppol.identifier.peppol.IMutablePeppolIdentifier;
 /**
  * Base interface for a PEPPOL process identifier.
  * 
- * @author philip
+ * @author Philip Helger
  */
 public interface IMutablePeppolProcessIdentifier extends
                                                  IPeppolProcessIdentifier,

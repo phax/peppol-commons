@@ -28,7 +28,7 @@ import com.helger.peppol.url.PeppolURLProvider;
 /**
  * Base interface for a PEPPOL read-only participant identifier.
  *
- * @author philip
+ * @author Philip Helger
  */
 public interface IPeppolParticipantIdentifier extends IPeppolIdentifier, IParticipantIdentifier
 {

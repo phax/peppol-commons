@@ -15,7 +15,7 @@ import com.helger.peppol.identifier.IIdentifier;
 /**
  * Base interface for all PEPPOL identifiers.
  *
- * @author philip
+ * @author Philip Helger
  */
 public interface IPeppolIdentifier extends IIdentifier
 {

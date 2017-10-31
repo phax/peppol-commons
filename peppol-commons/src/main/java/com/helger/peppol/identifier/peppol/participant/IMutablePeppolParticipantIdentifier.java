@@ -15,8 +15,8 @@ import com.helger.peppol.identifier.peppol.IMutablePeppolIdentifier;
 
 /**
  * Base interface for a PEPPOL participant identifier.
- * 
- * @author philip
+ *
+ * @author Philip Helger
  */
 public interface IMutablePeppolParticipantIdentifier extends
                                                      IPeppolParticipantIdentifier,

@@ -14,8 +14,8 @@ import com.helger.peppol.identifier.IMutableIdentifier;
 
 /**
  * Base interface for all PEPPOL identifiers
- * 
- * @author philip
+ *
+ * @author Philip Helger
  */
 public interface IMutablePeppolIdentifier extends IPeppolIdentifier, IMutableIdentifier
 {

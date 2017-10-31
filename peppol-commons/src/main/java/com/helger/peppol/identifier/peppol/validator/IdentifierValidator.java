@@ -26,7 +26,7 @@ import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentif
 /**
  * A wrapper around the custom identifier validator implementations.
  *
- * @author philip
+ * @author Philip Helger
  */
 @Immutable
 public final class IdentifierValidator

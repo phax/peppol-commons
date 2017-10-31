@@ -22,7 +22,7 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 /**
  * Base interface for a PEPPOL read-only document type identifier.
  *
- * @author philip
+ * @author Philip Helger
  */
 public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocumentTypeIdentifier
 {

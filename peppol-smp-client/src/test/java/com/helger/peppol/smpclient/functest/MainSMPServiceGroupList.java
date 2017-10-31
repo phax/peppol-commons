@@ -22,7 +22,7 @@ import com.helger.peppol.smpclient.SMPClient;
 import com.helger.peppol.smpclient.utils.SMPDebugHelper;
 
 /**
- * @author philip
+ * @author Philip Helger
  */
 public final class MainSMPServiceGroupList
 {

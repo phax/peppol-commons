@@ -17,8 +17,8 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link ParticipantIdentifierValidatorNorwayOrgNumber}.
- * 
- * @author philip
+ *
+ * @author Philip Helger
  */
 public final class ParticipantIdentifierValidatorNorwayOrgNumberTest
 {

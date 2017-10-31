@@ -20,7 +20,7 @@ import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIs
 /**
  * Test class for class {@link IdentifierValidator}.
  *
- * @author philip
+ * @author Philip Helger
  */
 public final class IdentifierValidatorTest
 {

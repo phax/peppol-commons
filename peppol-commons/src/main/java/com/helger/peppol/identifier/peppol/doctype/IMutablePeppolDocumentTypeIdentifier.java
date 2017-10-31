@@ -15,8 +15,8 @@ import com.helger.peppol.identifier.peppol.IMutablePeppolIdentifier;
 
 /**
  * Base interface for a PEPPOL document type identifier.
- * 
- * @author philip
+ *
+ * @author Philip Helger
  */
 public interface IMutablePeppolDocumentTypeIdentifier extends
                                                       IPeppolDocumentTypeIdentifier,

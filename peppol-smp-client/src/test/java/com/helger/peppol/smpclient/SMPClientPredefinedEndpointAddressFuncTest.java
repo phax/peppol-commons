@@ -32,7 +32,7 @@ import com.helger.peppol.url.PeppolURLProvider;
 /**
  * Test class for class {@link SMPClient}.
  *
- * @author philip
+ * @author Philip Helger
  */
 public final class SMPClientPredefinedEndpointAddressFuncTest
 {
@@ -78,7 +78,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
    * This test reads a live certificate and reads out the serial number. The
    * current certificates are valid from 03/2017 - 03/2019. If you run this test
    * afterwards and it fails, either fix the numbers or ignore the test.
-   * 
+   *
    * @throws Throwable
    *         on error
    */
