@@ -85,7 +85,7 @@ public final class SMPClientConfiguration
    * @since 6.0.0
    */
   @Nonnull
-  public static EKeyStoreType getTruststoreType ()
+  public static EKeyStoreType getTrustStoreType ()
   {
     final String sType = s_aConfigFile.getAsString ("truststore.type");
     return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (sType, PeppolKeyStoreHelper.TRUSTSTORE_TYPE);
@@ -100,7 +100,7 @@ public final class SMPClientConfiguration
    * @since 6.0.0 - was getTruststoreLocation before
    */
   @Nonnull
-  public static String getTruststorePath ()
+  public static String getTrustStorePath ()
   {
     String ret = s_aConfigFile.getAsString ("truststore.path");
     if (ret == null)
@@ -115,7 +115,7 @@ public final class SMPClientConfiguration
    *         default.
    */
   @Nonnull
-  public static String getTruststorePassword ()
+  public static String getTrustStorePassword ()
   {
     return s_aConfigFile.getAsString ("truststore.password", PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
   }

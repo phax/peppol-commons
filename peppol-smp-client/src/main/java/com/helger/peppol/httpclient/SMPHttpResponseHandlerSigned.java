@@ -103,9 +103,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     if (aNodeList == null || aNodeList.getLength () == 0)
       throw new IllegalArgumentException ("Element <Signature> not found in SMP XML response");
 
-    final EKeyStoreType eTruststoreType = SMPClientConfiguration.getTruststoreType ();
-    final String sTruststorePath = SMPClientConfiguration.getTruststorePath ();
-    final String sTrustStorePassword = SMPClientConfiguration.getTruststorePassword ();
+    final EKeyStoreType eTruststoreType = SMPClientConfiguration.getTrustStoreType ();
+    final String sTruststorePath = SMPClientConfiguration.getTrustStorePath ();
+    final String sTrustStorePassword = SMPClientConfiguration.getTrustStorePassword ();
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (eTruststoreType,
                                                                                             sTruststorePath,
                                                                                             sTrustStorePassword);
