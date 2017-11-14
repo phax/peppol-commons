@@ -96,27 +96,50 @@ public final class NAPTRResolver
 
     // Use the default (static) cache that is used by default
     final Lookup aLookup = new Lookup (sDNSName, Type.NAPTR);
-    if (StringHelper.hasText (sPrimaryDNSServer))
-      try
-      {
-        // A special primary DNS server is provided - use as the first one
-        final ExtendedResolver aNewResolver = new ExtendedResolver ();
+    final int nMaxRetries = 1;
+    ExtendedResolver aNewResolver;
+    try
+    {
+      aNewResolver = new ExtendedResolver ();
+      // A special primary DNS server is provided - use as the first one
+      if (StringHelper.hasText (sPrimaryDNSServer))
         aNewResolver.addResolver (new SimpleResolver (sPrimaryDNSServer));
-        aNewResolver.addResolver (Lookup.getDefaultResolver ());
-        aNewResolver.setTimeout (4);
-        aLookup.setResolver (aNewResolver);
-      }
-      catch (final UnknownHostException ex)
-      {
-        // Stay with the default resolver
-        s_aLogger.info ("Failed to use specific name server '" + sPrimaryDNSServer + "'");
-      }
+      aNewResolver.addResolver (Lookup.getDefaultResolver ());
+      // Timeout in seconds
+      aNewResolver.setTimeout (4);
+      aNewResolver.setRetries (nMaxRetries);
+      aLookup.setResolver (aNewResolver);
+    }
+    catch (final UnknownHostException ex)
+    {
+      // Stay with the default resolver
+      s_aLogger.error ("Failed to create DNS resolver", ex);
+      return null;
+    }
 
+    // By default try UDP
+    // Stumbled upon an issue, where UDP datagram size was too small for MTU
+    // size of 1500
     Record [] aRecords;
+    int nLeft = nMaxRetries;
     do
     {
       aRecords = aLookup.run ();
-    } while (aLookup.getResult () == Lookup.TRY_AGAIN);
+      --nLeft;
+    } while (aLookup.getResult () == Lookup.TRY_AGAIN && nLeft >= 0);
+
+    if (aLookup.getResult () == Lookup.TRY_AGAIN)
+    {
+      aNewResolver.setTCP (true);
+
+      // Retry with TCP instead of UDP
+      nLeft = nMaxRetries;
+      do
+      {
+        aRecords = aLookup.run ();
+        --nLeft;
+      } while (aLookup.getResult () == Lookup.TRY_AGAIN && nLeft >= 0);
+    }
 
     if (aLookup.getResult () != Lookup.SUCCESSFUL)
     {
