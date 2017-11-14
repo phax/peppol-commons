@@ -152,8 +152,7 @@ public class EsensURLProvider implements IPeppolURLProvider
                                          @Nullable final String sSMLZoneName,
                                          final boolean bDoNAPTRResolving)
   {
-    // Use the custom SMK/SML DNS server first
-    return getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName, bDoNAPTRResolving, "ns1lux.europa.eu");
+    return getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName, bDoNAPTRResolving, null);
   }
 
   @Nonnull
