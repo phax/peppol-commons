@@ -212,7 +212,9 @@ public class EsensURLProvider implements IPeppolURLProvider
       if (sResolvedNAPTR == null)
       {
         // Now do the NAPTR resolving
-        sResolvedNAPTR = NAPTRResolver.resolveFromNAPTR (sBuildName, sPrimaryDNSServer);
+        sResolvedNAPTR = NAPTRResolver.resolveFromNAPTR (sBuildName,
+                                                         sPrimaryDNSServer,
+                                                         NAPTRResolver.DNS_UNAPTR_SERVICE_NAME_META_SMP);
         if (sResolvedNAPTR == null)
           throw new IllegalArgumentException ("Failed to resolve '" + sBuildName + "'");
 

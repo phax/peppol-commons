@@ -27,6 +27,8 @@ import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.regex.RegExHelper;
@@ -41,6 +43,9 @@ import com.helger.commons.string.StringHelper;
 @Immutable
 public final class NAPTRResolver
 {
+  /** U NAPTR service name for e-SENS/PEPPOL */
+  public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (NAPTRResolver.class);
 
   private NAPTRResolver ()
@@ -80,6 +85,9 @@ public final class NAPTRResolver
    * @param sPrimaryDNSServer
    *        An optional primary DNS server to be used for resolution. May be
    *        <code>null</code> in which case the default resolver will be used.
+   * @param sServiceName
+   *        The service name (inside the U NAPTR) to query. May neither be
+   *        <code>null</code> nor empty. For e-SENS/PEPPOL use "Meta:SMP"
    * @return <code>null</code> if no U-NAPTR was found or could not be resolved.
    *         If non-<code>null</code> the fully qualified domain name, including
    *         and protocol (like http://) is returned.
@@ -89,8 +97,11 @@ public final class NAPTRResolver
    */
   @Nullable
   public static String resolveFromNAPTR (@Nullable final String sDNSName,
-                                         @Nullable final String sPrimaryDNSServer) throws TextParseException
+                                         @Nullable final String sPrimaryDNSServer,
+                                         @Nonnull @Nonempty final String sServiceName) throws TextParseException
   {
+    ValueEnforcer.notEmpty (sServiceName, "ServiceName");
+
     if (StringHelper.hasNoText (sDNSName))
       return null;
 
@@ -152,7 +163,7 @@ public final class NAPTRResolver
     for (final Record record : aRecords)
     {
       final NAPTRRecord naptrRecord = (NAPTRRecord) record;
-      if ("U".equalsIgnoreCase (naptrRecord.getFlags ()) && "Meta:SMP".equals (naptrRecord.getService ()))
+      if ("U".equalsIgnoreCase (naptrRecord.getFlags ()) && sServiceName.equals (naptrRecord.getService ()))
         aMatchingRecords.add (naptrRecord);
     }
 
