@@ -23,71 +23,73 @@ Before version 6 these 3 sub-projects were licensed under EUPL 1.1 or the MPL 1.
 The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apache 2.0 license (no change in v6).
 
 ## News and noteworthy
-  * v6.0.0 - work in progress
-    * Updated to ph-commons 9.0.0
-    * SMP client can now handle responses with BOM
-    * Removed legacy project `peppol-sml-client-swing` again
-    * All sub-projects previously licensed under EUPL 1.1 or MPL 1.1 (`peppol-commons`, `peppol-smp-client` and `peppol-sml-client`) are now licensed under MPL 2.0
-  * v5.2.7 - 2017-07-21
-    * Unified identifier handling concerning `""` and `null`
-  * v5.2.6 - 2017-05-30
-    * Added possibility to deprecate transport profiles
-  * v5.2.5 - 2017-05-25
-    * Binds to ph-web 8.8.0
-    * Added possibility to define SMP client proxy credentials(see issue [#13](https://github.com/phax/peppol-commons/issues/13))
-    * Added legacy project `peppol-sml-client-swing` due to request
-  * v5.2.4 - 2017-01-09
-    * Binds to ph-commons 8.6.0
-    * Updated to dnsjava 2.1.8
-    * Added possibility to define usage of proxy system properties via configuration file (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
-  * v5.2.3 - 2016-12-28
-    * Updated to BouncyCastle 1.56
-    * Binds to ph-web 8.7.1
-    * SMPClient and BDXRClient extended with writing API to create redirects
-  * v5.2.2 - 2016-12-16
-    * Added possibility to support more proxy settings via system properties (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
-  * v5.2.1 - 2016-11-21
-    * Added possibility to disable SMP/BDXR client certificate check (see issue [#8](https://github.com/phax/peppol-commons/issues/8))
-  * v5.2.0 - 2016-10-25
-    * Reworked identifier API to improve case sensitivity handling (based on identifier scheme). The rules per identifier factory:
-      * BDXR: identifiers based on participant identifier scheme `iso6523-actorid-upis`, document type identifier scheme `bdx-docid-qns` or process identifier scheme `bdx-procid-transport` are treated case **in**sensitive
-      * PEPPOL: identifiers based on participant identifier scheme `iso6523-actorid-upis` are treated case **in**sensitive
-      * simple: all identifiers are handled case sensitive.
-  * v5.1.5 - 2016-10-17
-    * Improved BDXR extension API
-  * v5.1.4 - 2016-10-12
-    * Added missing U-NAPTR resolution in EsensURLProvider - thanks to @jerouris for pointing that out
-  * v5.1.3 - 2016-09-15
-    * Changed PEPPOL identifier codelist to 1.2.1, because 1.2.2 was based on a misunderstanding
-  * v5.1.2 - 2016-09-09
-    * Updated to ph-commons 8.5.x
-    * Updated PEPPOL identifier codelist to 1.2.2
-  * v5.1.1 - 2016-08-21
-    * Updated to ph-commons 8.4.x
-    * Improved identifier handling for BDXR 
-  * v5.1.0 - 2016-08-01
-  * v5.0.1 - 2016-07-26
-  * v5.0.0 - 2016-07-12
-    * JDK 8 is now required
-    * Please check the separate [Update to version 5](UpdateV5.md) page.
-  * v4.3.5 - 2016-02-26
-    * Made the SMP query API more flexible so that e.g. the PEPPOL Directory BusinessCards can easily be queried; made the SMP Client more configurable.
-  * v4.3.4 - 2016-01-26
-    * Reduced the maximum migration key length from 100 to 24 (new SMK 3 requirement) and adopted the API to use String instead of UUID
-  * v4.3.3 - 2015-12-11
-    * Improved the support for BDXR SMP stuff
-  * v4.3.2 - 2015-11-26
-    * Improved the support for custom SMP transport profiles
-    * Updated the BDMSL additional services WSDL to the latest 3.1.0 version
-  * v4.3.1 - 2015-10-30
-    * Added new BDMSL client to access the new "/cipaservice" in a convenient way (class `BDMSLClient` in project `peppol-sml-client`)
-    * Loosened the regular expression for participant identifier schemes
-    * Added a new SML participant delete method with SMP ID to work around an SMK 3.0.0 problem 
-  * v4.3.0 - 2015-10-29
-    * Added support for CIPA BDMSL 3.0 with the wsse:Security header
-    * Added BDXR SMP client
-    * Integrated the BDXR SMP classes into peppol-commons
-    * Updated the BDMSL Service WSDL corresponding to the CIPA 3.0.0 release
+
+* v6.0.0 - 2018-01-05
+  * Updated to ph-commons 9.0.0
+  * SMP client can now handle responses with BOM
+  * Removed legacy project `peppol-sml-client-swing` again
+  * Added PEPPOL AS4 transport protocol ID
+  * All sub-projects previously licensed under EUPL 1.1 or MPL 1.1 (`peppol-commons`, `peppol-smp-client` and `peppol-sml-client`) are now licensed under MPL 2.0
+* v5.2.7 - 2017-07-21
+  * Unified identifier handling concerning `""` and `null`
+* v5.2.6 - 2017-05-30
+  * Added possibility to deprecate transport profiles
+* v5.2.5 - 2017-05-25
+  * Binds to ph-web 8.8.0
+  * Added possibility to define SMP client proxy credentials(see issue [#13](https://github.com/phax/peppol-commons/issues/13))
+  * Added legacy project `peppol-sml-client-swing` due to request
+* v5.2.4 - 2017-01-09
+  * Binds to ph-commons 8.6.0
+  * Updated to dnsjava 2.1.8
+  * Added possibility to define usage of proxy system properties via configuration file (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
+* v5.2.3 - 2016-12-28
+  * Updated to BouncyCastle 1.56
+  * Binds to ph-web 8.7.1
+  * SMPClient and BDXRClient extended with writing API to create redirects
+* v5.2.2 - 2016-12-16
+  * Added possibility to support more proxy settings via system properties (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
+* v5.2.1 - 2016-11-21
+  * Added possibility to disable SMP/BDXR client certificate check (see issue [#8](https://github.com/phax/peppol-commons/issues/8))
+* v5.2.0 - 2016-10-25
+  * Reworked identifier API to improve case sensitivity handling (based on identifier scheme). The rules per identifier factory:
+    * BDXR: identifiers based on participant identifier scheme `iso6523-actorid-upis`, document type identifier scheme `bdx-docid-qns` or process identifier scheme `bdx-procid-transport` are treated case **in**sensitive
+    * PEPPOL: identifiers based on participant identifier scheme `iso6523-actorid-upis` are treated case **in**sensitive
+    * simple: all identifiers are handled case sensitive.
+* v5.1.5 - 2016-10-17
+  * Improved BDXR extension API
+* v5.1.4 - 2016-10-12
+  * Added missing U-NAPTR resolution in EsensURLProvider - thanks to @jerouris for pointing that out
+* v5.1.3 - 2016-09-15
+  * Changed PEPPOL identifier codelist to 1.2.1, because 1.2.2 was based on a misunderstanding
+* v5.1.2 - 2016-09-09
+  * Updated to ph-commons 8.5.x
+  * Updated PEPPOL identifier codelist to 1.2.2
+* v5.1.1 - 2016-08-21
+  * Updated to ph-commons 8.4.x
+  * Improved identifier handling for BDXR 
+* v5.1.0 - 2016-08-01
+* v5.0.1 - 2016-07-26
+* v5.0.0 - 2016-07-12
+  * JDK 8 is now required
+  * Please check the separate [Update to version 5](UpdateV5.md) page.
+* v4.3.5 - 2016-02-26
+  * Made the SMP query API more flexible so that e.g. the PEPPOL Directory BusinessCards can easily be queried; made the SMP Client more configurable.
+* v4.3.4 - 2016-01-26
+  * Reduced the maximum migration key length from 100 to 24 (new SMK 3 requirement) and adopted the API to use String instead of UUID
+* v4.3.3 - 2015-12-11
+  * Improved the support for BDXR SMP stuff
+* v4.3.2 - 2015-11-26
+  * Improved the support for custom SMP transport profiles
+  * Updated the BDMSL additional services WSDL to the latest 3.1.0 version
+* v4.3.1 - 2015-10-30
+  * Added new BDMSL client to access the new "/cipaservice" in a convenient way (class `BDMSLClient` in project `peppol-sml-client`)
+  * Loosened the regular expression for participant identifier schemes
+  * Added a new SML participant delete method with SMP ID to work around an SMK 3.0.0 problem 
+* v4.3.0 - 2015-10-29
+  * Added support for CIPA BDMSL 3.0 with the wsse:Security header
+  * Added BDXR SMP client
+  * Integrated the BDXR SMP classes into peppol-commons
+  * Updated the BDMSL Service WSDL corresponding to the CIPA 3.0.0 release
 
 ## peppol-commons
 Java library with shared PEPPOL components. It contains the basic algorithms and the handling for the identifiers.
