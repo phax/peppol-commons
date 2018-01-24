@@ -24,6 +24,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 ## News and noteworthy
 
+* v6.0.1 - work in progress
+  * Removed unused dependency to BouncyCastle
 * v6.0.0 - 2018-01-05
   * Updated to ph-commons 9.0.0
   * SMP client can now handle responses with BOM

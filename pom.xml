@@ -70,7 +70,6 @@
     <jaxws-plugin.version>2.5</jaxws-plugin.version>
     <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
     <jaxws.version>2.2.10</jaxws.version>
-    <bc.version>1.58</bc.version>
   </properties>
   
   <dependencyManagement>
@@ -116,17 +115,7 @@
         <artifactId>jcodemodel</artifactId>
         <version>3.0.1</version>
       </dependency>
-      
-      <dependency>
-        <groupId>org.bouncycastle</groupId>
-        <artifactId>bcprov-jdk15on</artifactId>
-        <version>${bc.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.bouncycastle</groupId>
-        <artifactId>bcpkix-jdk15on</artifactId>
-        <version>${bc.version}</version>
-      </dependency>
+
       <dependency>
         <groupId>dnsjava</groupId>
         <artifactId>dnsjava</artifactId>
