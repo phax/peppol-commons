@@ -41,11 +41,20 @@ public final class PeppolKeyStoreHelperTest
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_AP));
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_SMP));
 
-    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_AP);
-    final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL Root CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
-    final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL ACCESS POINT CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sSubjectName);
+    {
+      final X509Certificate aCertAP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_AP);
+      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
+      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL ACCESS POINT CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sSubjectName);
+    }
+    {
+      final X509Certificate aCertSMP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_SMP);
+      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
+      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sSubjectName);
+    }
   }
 
   @Test
@@ -62,13 +71,24 @@ public final class PeppolKeyStoreHelperTest
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_AP));
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_SMP));
 
-    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_AP);
-    final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
-                  sIssuerName);
-    final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
-                  sSubjectName);
+    {
+      final X509Certificate aCertAP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_AP);
+      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
+                    sIssuerName);
+      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
+                    sSubjectName);
+    }
+    {
+      final X509Certificate aCertSMP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_SMP);
+      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
+                    sIssuerName);
+      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
+                    sSubjectName);
+    }
   }
 
   @Test
@@ -85,11 +105,20 @@ public final class PeppolKeyStoreHelperTest
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_ALIAS_AP));
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_ALIAS_SMP));
 
-    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_ALIAS_AP);
-    final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL Root CA - G2,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
-    final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL ACCESS POINT CA - G2,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+    {
+      final X509Certificate aCertAP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_ALIAS_AP);
+      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root CA - G2,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL ACCESS POINT CA - G2,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+    }
+    {
+      final X509Certificate aCertSMP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_ALIAS_SMP);
+      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root CA - G2,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER CA - G2,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+    }
   }
 
   @Test
@@ -106,10 +135,20 @@ public final class PeppolKeyStoreHelperTest
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_ALIAS_AP));
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_ALIAS_SMP));
 
-    final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_ALIAS_AP);
-    final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL Root TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
-    final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL ACCESS POINT TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+    {
+      final X509Certificate aCertAP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_ALIAS_AP);
+      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL ACCESS POINT TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+    }
+    {
+      final X509Certificate aCertSMP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_ALIAS_SMP);
+      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
+                    sSubjectName);
+    }
   }
 }
