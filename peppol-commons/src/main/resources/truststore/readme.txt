@@ -9,26 +9,44 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
 ====
 
-global-truststore.jks 
-  Is the global trust store for OpenPEPPOL production and works as well for SML, SMP and AP 
-  The contained aliases are:
-  * peppol root ca
-  * peppol access point ca (peppol root ca)
-  * peppol security token service ca (peppol root ca)
-  * peppol service metadata publisher ca (peppol root ca)
-
-pilot-truststore.jks 
+2010/pilot-truststore.jks 
   Is the global trust store for OpenPEPPOL pilot and works as well for SML, SMP and AP 
+  It is valid from 2010-2020
   The contained aliases are:
   * peppol root test ca
   * peppol access point test ca (peppol root test ca)
   * peppol security token service test ca (peppol root test ca)
   * peppol service metadata publisher test ca (peppol root test ca)
 
-complete-truststore.jks 
-  This is the combination of global-truststore.jks and pilot-truststore.jks
+2010/prod-truststore.jks 
+  Is the global trust store for OpenPEPPOL production and works as well for SML, SMP and AP
+  It is valid from 2010-2020
+  The contained aliases are:
+  * peppol root ca
+  * peppol access point ca (peppol root ca)
+  * peppol security token service ca (peppol root ca)
+  * peppol service metadata publisher ca (peppol root ca)
 
-The password to access all trust stores is:
+2018/pilot-truststore.jks 
+  Is the global trust store for OpenPEPPOL pilot and works as well for SML, SMP and AP 
+  It is valid from 2018-2028
+  The contained aliases are:
+  * peppol root test ca - g2
+  * peppol access point test ca - g2 (peppol root test ca - g2)
+  * peppol service metadata publisher test ca - g2 (peppol root test ca - g2)
+
+2018/prod-truststore.jks 
+  Is the global trust store for OpenPEPPOL production and works as well for SML, SMP and AP
+  It is valid from 2018-2028
+  The contained aliases are:
+  * peppol root ca - g2
+  * peppol access point ca - g2 (peppol root ca - g2)
+  * peppol service metadata publisher ca - g2 (peppol root ca - g2)
+
+complete-truststore.jks 
+  This is the combination of all available truststores with the same aliases!
+
+The password to access all trust stores is (case-sensitive):
 peppol
 
 --[EOF]--

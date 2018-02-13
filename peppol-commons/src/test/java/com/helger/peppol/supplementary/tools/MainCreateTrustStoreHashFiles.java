@@ -56,8 +56,10 @@ public final class MainCreateTrustStoreHashFiles
 
   public static void main (final String [] args) throws IOException
   {
-    _create (PeppolKeyStoreHelper.TRUSTSTORE_PRODUCTION_CLASSPATH);
-    _create (PeppolKeyStoreHelper.TRUSTSTORE_PILOT_CLASSPATH);
     _create (PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
+    _create (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_CLASSPATH);
+    _create (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_CLASSPATH);
+    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_CLASSPATH);
+    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_CLASSPATH);
   }
 }

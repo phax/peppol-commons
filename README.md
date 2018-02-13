@@ -22,10 +22,12 @@ Since (and including) version 6 the sub-projects `peppol-commons`, `peppol-sml-c
 Before version 6 these 3 sub-projects were licensed under EUPL 1.1 or the MPL 1.1.
 The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apache 2.0 license (no change in v6).
 
-## News and noteworthy
+# News and noteworthy
 
 * v6.0.1 - work in progress
   * Removed unused dependency to BouncyCastle
+  * Added the new OpenPEPPOL root PKI v3 - valid from 2018-2028
+  * **Important**: the paths to the preconfigured truststore paths have changed - see below for details 
 * v6.0.0 - 2018-01-05
   * Updated to ph-commons 9.0.0
   * SMP client can now handle responses with BOM
@@ -99,6 +101,20 @@ Java library with shared PEPPOL components. It contains the basic algorithms and
 This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
 
 This project is licensed under the MPL 2.0 license.
+
+### Truststore path change in v6.0.1
+
+Old path names (up to and including v6.0.0):
+* truststore/global-truststore.jks (production only PKI v2)
+* truststore/pilot-truststore.jks (pilot only PKI v2)
+* truststore/complete-truststore.jks (production + pilot PKI v2)
+
+New path names (starting from v6.0.1):
+* truststore/2010/prod-truststore.jks (production only PKI v2)
+* truststore/2010/pilot-truststore.jks (pilot only PKI v2)
+* truststore/2018/prod-truststore.jks (production only PKI v3)
+* truststore/2018/pilot-truststore.jks (pilot only PKI v3)
+* truststore/complete-truststore.jks (production + pilot PKI v2 + v3)
 
 ## peppol-sbdh
 Simple SBDH handler for the use with PEPPOL.

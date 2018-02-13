@@ -32,36 +32,6 @@ public final class PeppolKeyStoreHelper
   public static final EKeyStoreType TRUSTSTORE_TYPE = EKeyStoreType.JKS;
 
   /**
-   * The classpath entry referencing the global truststore with all OpenPEPPOL
-   * production entries
-   */
-  public static final String TRUSTSTORE_PRODUCTION_CLASSPATH = "truststore/global-truststore.jks";
-
-  /** The truststore alias for the OpenPEPPOL production root certificate */
-  public static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "peppol root ca";
-
-  /** The truststore alias for the OpenPEPPOL production AP certificate */
-  public static final String TRUSTSTORE_PRODUCTION_ALIAS_AP = "peppol access point ca (peppol root ca)";
-
-  /** The truststore alias for the OpenPEPPOL production SMP certificate */
-  public static final String TRUSTSTORE_PRODUCTION_ALIAS_SMP = "peppol service metadata publisher ca (peppol root ca)";
-
-  /**
-   * The classpath entry referencing the global truststore with all OpenPEPPOL
-   * pilot entries
-   */
-  public static final String TRUSTSTORE_PILOT_CLASSPATH = "truststore/pilot-truststore.jks";
-
-  /** The truststore alias for the OpenPEPPOL pilot root certificate */
-  public static final String TRUSTSTORE_PILOT_ALIAS_ROOT = "peppol root test ca";
-
-  /** The truststore alias for the OpenPEPPOL pilot AP certificate */
-  public static final String TRUSTSTORE_PILOT_ALIAS_AP = "peppol access point test ca (peppol root test ca)";
-
-  /** The truststore alias for the OpenPEPPOL pilot SMP certificate */
-  public static final String TRUSTSTORE_PILOT_ALIAS_SMP = "peppol service metadata publisher test ca (peppol root test ca)";
-
-  /**
    * The classpath entry referencing the complete truststore with all OpenPEPPOL
    * production AND pilot entries
    */
@@ -69,6 +39,90 @@ public final class PeppolKeyStoreHelper
 
   /** The password used to access the trust stores */
   public static final String TRUSTSTORE_PASSWORD = "peppol";
+
+  /**
+   * The truststore configuration for PEPPOL PKI v2 valid from 2010 to 2020.
+   *
+   * @author Philip Helger
+   */
+  @Immutable
+  public static final class Config2010
+  {
+    private Config2010 ()
+    {}
+
+    /**
+     * The classpath entry referencing the global truststore with all OpenPEPPOL
+     * production entries
+     */
+    public static final String TRUSTSTORE_PRODUCTION_CLASSPATH = "truststore/2010/prod-truststore.jks";
+
+    /** The truststore alias for the OpenPEPPOL production root certificate */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "peppol root ca";
+
+    /** The truststore alias for the OpenPEPPOL production AP certificate */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_AP = "peppol access point ca (peppol root ca)";
+
+    /** The truststore alias for the OpenPEPPOL production SMP certificate */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_SMP = "peppol service metadata publisher ca (peppol root ca)";
+
+    /**
+     * The classpath entry referencing the global truststore with all OpenPEPPOL
+     * pilot entries
+     */
+    public static final String TRUSTSTORE_PILOT_CLASSPATH = "truststore/2010/pilot-truststore.jks";
+
+    /** The truststore alias for the OpenPEPPOL pilot root certificate */
+    public static final String TRUSTSTORE_PILOT_ALIAS_ROOT = "peppol root test ca";
+
+    /** The truststore alias for the OpenPEPPOL pilot AP certificate */
+    public static final String TRUSTSTORE_PILOT_ALIAS_AP = "peppol access point test ca (peppol root test ca)";
+
+    /** The truststore alias for the OpenPEPPOL pilot SMP certificate */
+    public static final String TRUSTSTORE_PILOT_ALIAS_SMP = "peppol service metadata publisher test ca (peppol root test ca)";
+  }
+
+  /**
+   * The truststore configuration for PEPPOL PKI v3 valid from 2018 to 2028.
+   *
+   * @author Philip Helger
+   */
+  @Immutable
+  public static final class Config2018
+  {
+    private Config2018 ()
+    {}
+
+    /**
+     * The classpath entry referencing the global truststore with all OpenPEPPOL
+     * production entries
+     */
+    public static final String TRUSTSTORE_PRODUCTION_CLASSPATH = "truststore/2018/prod-truststore.jks";
+
+    /** The truststore alias for the OpenPEPPOL production root certificate */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "peppol root ca - g2";
+
+    /** The truststore alias for the OpenPEPPOL production AP certificate */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_AP = "peppol access point ca - g2 (peppol root ca - g2)";
+
+    /** The truststore alias for the OpenPEPPOL production SMP certificate */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_SMP = "peppol service metadata publisher ca - g2 (peppol root ca - g2)";
+
+    /**
+     * The classpath entry referencing the global truststore with all OpenPEPPOL
+     * pilot entries
+     */
+    public static final String TRUSTSTORE_PILOT_CLASSPATH = "truststore/2018/pilot-truststore.jks";
+
+    /** The truststore alias for the OpenPEPPOL pilot root certificate */
+    public static final String TRUSTSTORE_PILOT_ALIAS_ROOT = "peppol root test ca - g2";
+
+    /** The truststore alias for the OpenPEPPOL pilot AP certificate */
+    public static final String TRUSTSTORE_PILOT_ALIAS_AP = "peppol access point test ca - g2 (peppol root test ca - g2)";
+
+    /** The truststore alias for the OpenPEPPOL pilot SMP certificate */
+    public static final String TRUSTSTORE_PILOT_ALIAS_SMP = "peppol service metadata publisher test ca - g2 (peppol root test ca - g2)";
+  }
 
   @PresentForCodeCoverage
   private static final PeppolKeyStoreHelper s_aInstance = new PeppolKeyStoreHelper ();
