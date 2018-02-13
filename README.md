@@ -24,7 +24,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v6.0.1 - work in progress
+* v6.0.1 - 2018-02-13
   * Removed unused dependency to BouncyCastle
   * Added the new OpenPEPPOL root PKI v3 - valid from 2018-2028
   * **Important**: the paths to the preconfigured truststore paths have changed - see below for details 
@@ -259,31 +259,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>5.2.7</version>
+  <version>6.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>5.2.7</version>
+  <version>6.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>5.2.7</version>
+  <version>6.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>5.2.7</version>
+  <version>6.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>5.2.7</version>
+  <version>6.0.1</version>
 </dependency>
 ```
 
@@ -292,7 +292,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>5.2.7</version>
+  <version>6.0.1</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
