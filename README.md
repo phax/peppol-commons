@@ -24,6 +24,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
+* v6.0.2 - work in progress
+  * Added support for SHA256 and SHA512 in `TrustStoreBasedX509KeySelector`
 * v6.0.1 - 2018-02-13
   * Removed unused dependency to BouncyCastle
   * Added the new OpenPEPPOL root PKI v3 - valid from 2018-2028
