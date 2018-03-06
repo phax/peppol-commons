@@ -26,7 +26,6 @@ import javax.xml.crypto.KeySelectorException;
 import javax.xml.crypto.KeySelectorResult;
 import javax.xml.crypto.XMLCryptoContext;
 import javax.xml.crypto.XMLStructure;
-import javax.xml.crypto.dsig.DigestMethod;
 import javax.xml.crypto.dsig.SignatureMethod;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.X509Data;
@@ -82,8 +81,8 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
       if (sAlgName.equalsIgnoreCase ("RSA"))
       {
         if (sAlgURI.equalsIgnoreCase (SignatureMethod.RSA_SHA1) ||
-            sAlgURI.equalsIgnoreCase (DigestMethod.SHA256) ||
-            sAlgURI.equalsIgnoreCase (DigestMethod.SHA512))
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"))
           return true;
       }
       else
