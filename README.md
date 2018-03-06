@@ -24,8 +24,9 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v6.0.2 - work in progress
-  * Added support for SHA256 and SHA512 in `TrustStoreBasedX509KeySelector`
+* v6.0.2 - 2018-03-06
+  * Added support for SHA256 and SHA512 in `TrustStoreBasedX509KeySelector` for BDXR
+  * Fixed error in `BDXRClientReadOnly` certificate parsing
 * v6.0.1 - 2018-02-13
   * Removed unused dependency to BouncyCastle
   * Added the new OpenPEPPOL root PKI v3 - valid from 2018-2028
@@ -261,31 +262,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>6.0.1</version>
+  <version>6.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>6.0.1</version>
+  <version>6.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>6.0.1</version>
+  <version>6.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>6.0.1</version>
+  <version>6.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>6.0.1</version>
+  <version>6.0.2</version>
 </dependency>
 ```
 
@@ -294,7 +295,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>6.0.1</version>
+  <version>6.0.2</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>

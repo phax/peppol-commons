@@ -26,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.peppol.bdxr.EndpointType;
 import com.helger.peppol.bdxr.ProcessType;
 import com.helger.peppol.bdxr.RedirectType;
@@ -150,7 +151,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     final HttpGet aRequest = new HttpGet (sURI);
     return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned<> (new BDXRMarshallerServiceGroupType ()));
+                                  new SMPHttpResponseHandlerUnsigned <> (new BDXRMarshallerServiceGroupType ()));
   }
 
   /**
@@ -221,7 +222,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned<> (new BDXRMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+                                                                 new SMPHttpResponseHandlerSigned <> (new BDXRMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
     // If the Redirect element is present, then follow 1 redirect.
     if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
@@ -232,7 +233,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
       aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
-                                         new SMPHttpResponseHandlerSigned<> (new BDXRMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+                                         new SMPHttpResponseHandlerSigned <> (new BDXRMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
       // Check that the certificateUID is correct.
       boolean bCertificateSubjectFound = false;
@@ -393,7 +394,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         if (aProcessType.getProcessIdentifier ().equals (aProcessID))
         {
           // Filter endpoints by required transport profile
-          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList<> ();
+          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
           for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
             if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
               aRelevantEndpoints.add (aEndpoint);
@@ -463,14 +464,20 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                                                               aDocumentTypeID,
                                                               aProcessID,
                                                               aTransportProfile);
-    return CertificateHelper.convertByteArrayToCertficate (aCertString);
+    if (aCertString == null)
+      return null;
+    return (X509Certificate) CertificateHelper.getX509CertificateFactory ()
+                                              .generateCertificate (new NonBlockingByteArrayInputStream (aCertString));
   }
 
   @Nullable
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {
     final byte [] aCertString = getEndpointCertificateString (aEndpoint);
-    return CertificateHelper.convertByteArrayToCertficate (aCertString);
+    if (aCertString == null)
+      return null;
+    return (X509Certificate) CertificateHelper.getX509CertificateFactory ()
+                                              .generateCertificate (new NonBlockingByteArrayInputStream (aCertString));
   }
 
   /**
