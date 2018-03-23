@@ -11,6 +11,7 @@
 package com.helger.peppol.url;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
@@ -74,8 +75,12 @@ public final class EsensURLProviderTest
   public void testResolve ()
   {
     final EsensURLProvider aURLProvider = new EsensURLProvider ();
-    assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
-                                                        ESML.DIGIT_TEST));
+    final String sURL = aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
+                                                              ESML.DIGIT_TEST);
+    assertNotNull (sURL);
+    if (true)
+      assertEquals ("test-infra.peppol.at", sURL);
+    else
+      assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu", sURL);
   }
 }
