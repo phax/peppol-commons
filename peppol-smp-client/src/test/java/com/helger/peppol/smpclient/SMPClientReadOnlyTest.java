@@ -41,7 +41,10 @@ public final class SMPClientReadOnlyTest
 
     // E-SENS URL provider
     aSMPClient = new SMPClientReadOnly (EsensURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
-    assertEquals ("http://BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu/", aSMPClient.getSMPHostURI ());
+    if (true)
+      assertEquals ("http://test-infra.peppol.at/", aSMPClient.getSMPHostURI ());
+    else
+      assertEquals ("http://BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu/", aSMPClient.getSMPHostURI ());
 
     // This instance has a BOM inside
     aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
