@@ -53,9 +53,7 @@ Do NOT edit!-->
   <issuingAgency schemeid="DIGST" agencyname="DIGSTORG" iso6523="0184" since="1.2.1">
     <structure>Defined by Danish Agency for Digitisation</structure>
   </issuingAgency>
-  <issuingAgency schemeid="EE:CC" iso6523="0191" since="4.0.0">
-    <structure>Estonian Company Code</structure>
-  </issuingAgency>
+  <issuingAgency schemeid="EE:CC" agencyname="Estonian Company Code" iso6523="0191" since="4.0.0" />
   <issuingAgency schemeid="DK:CPR" agencyname="Danish Ministry of the Interior and Health" iso6523="9901" since="1.0.0">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
   </issuingAgency>

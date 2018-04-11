@@ -129,7 +129,7 @@ public enum EPredefinedIdentifierIssuingAgency
      * 
      * @since code list 4.0.0
      */
-    EE_CC("EE:CC", null, "0191", false, Version.parse("4.0.0")),
+    EE_CC("EE:CC", "Estonian Company Code", "0191", false, Version.parse("4.0.0")),
 
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>

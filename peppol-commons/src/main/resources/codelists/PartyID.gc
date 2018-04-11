@@ -139,6 +139,9 @@
       <ns0:Value ns0:ColumnRef="code">
         <ns0:SimpleValue>EE:CC</ns0:SimpleValue>
       </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Estonian Company Code</ns0:SimpleValue>
+      </ns0:Value>
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="code">
