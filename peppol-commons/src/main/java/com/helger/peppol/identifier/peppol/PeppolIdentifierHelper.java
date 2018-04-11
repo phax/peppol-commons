@@ -18,8 +18,9 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.peppol.identifier.generic.doctype.BusdoxDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.OpenPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 
@@ -178,8 +179,8 @@ public final class PeppolIdentifierHelper
    *         If the passed document type identifier is neither a PEPPOL nor an
    *         OpenPEPPOL document type identifier.
    */
-  @Nonnull
-  public static IPeppolDocumentTypeIdentifierParts getDocumentTypeIdentifierParts (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  @Nullable
+  public static IBusdoxDocumentTypeIdentifierParts getDocumentTypeIdentifierParts (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 
@@ -189,8 +190,16 @@ public final class PeppolIdentifierHelper
     }
     catch (final IllegalArgumentException ex)
     {
-      // Not PEPPOL - try OpenPEPPOL
-      return OpenPeppolDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
+      try
+      {
+        // Not PEPPOL - try OpenPEPPOL
+        return OpenPeppolDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
+      }
+      catch (final IllegalArgumentException ex2)
+      {
+        // Neither nor - e.g. Billing BIS v4
+        return BusdoxDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
+      }
     }
   }
 }

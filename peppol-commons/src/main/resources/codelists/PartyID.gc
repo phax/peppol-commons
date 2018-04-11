@@ -84,7 +84,7 @@
         <ns0:SimpleValue>GLN</ns0:SimpleValue>
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>GS1 GLN</ns0:SimpleValue>
+        <ns0:SimpleValue>EAN International</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>
@@ -133,6 +133,11 @@
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="name">
         <ns0:SimpleValue>DIGSTORG</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>EE:CC</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>
@@ -570,6 +575,14 @@
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="name">
         <ns0:SimpleValue>French VAT number</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="code">
+        <ns0:SimpleValue>FI:VAT</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>Finish VAT number</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
   </ns0:SimpleCodeList>

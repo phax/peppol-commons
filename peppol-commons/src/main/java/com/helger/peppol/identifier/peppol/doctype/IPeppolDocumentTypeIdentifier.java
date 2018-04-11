@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -39,7 +40,7 @@ public interface IPeppolDocumentTypeIdentifier extends IPeppolIdentifier, IDocum
    *         parts.
    */
   @Nonnull
-  default IPeppolDocumentTypeIdentifierParts getParts ()
+  default IBusdoxDocumentTypeIdentifierParts getParts ()
   {
     return PeppolIdentifierHelper.getDocumentTypeIdentifierParts (this);
   }

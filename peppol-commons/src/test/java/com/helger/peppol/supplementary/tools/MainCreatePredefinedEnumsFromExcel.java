@@ -63,6 +63,8 @@ import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.generic.doctype.BusdoxDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -92,7 +94,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
   private static final Version CODELIST_VERSION = new Version (1, 2, 2);
-  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 1 2 1-20170224.xls";
+  private static final String EXCEL_FILE = "src/main/codelists/PEPPOL Code Lists 4.0.0.xls";
   private static final String SHEET_PARTICIPANT = "Participant";
   private static final String SHEET_DOCUMENT = "Document";
   private static final String SHEET_PROCESS = "Process";
@@ -361,60 +363,89 @@ public final class MainCreatePredefinedEnumsFromExcel
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sDocID = Genericode10Helper.getRowValue (aRow, "docid");
+        final String sDocTypeID = Genericode10Helper.getRowValue (aRow, "docid");
         final String sName = Genericode10Helper.getRowValue (aRow, "name");
         final String sSince = Genericode10Helper.getRowValue (aRow, "since");
 
         // Split ID in it's pieces
-        IPeppolDocumentTypeIdentifierParts aDocIDParts;
+        IBusdoxDocumentTypeIdentifierParts aDocIDParts;
+        IPeppolDocumentTypeIdentifierParts aDocIDPartsPeppol;
         Class <?> aDocTypeIDPartsClass;
         try
         {
-          aDocIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocID);
+          // PEPPOL v1
+          aDocIDParts = aDocIDPartsPeppol = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
           aDocTypeIDPartsClass = PeppolDocumentTypeIdentifierParts.class;
         }
         catch (final IllegalArgumentException ex)
         {
-          aDocIDParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString (sDocID);
-          aDocTypeIDPartsClass = OpenPeppolDocumentTypeIdentifierParts.class;
+          try
+          {
+            // OpenPEPPOL v2
+            aDocIDParts = aDocIDPartsPeppol = OpenPeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+            aDocTypeIDPartsClass = OpenPeppolDocumentTypeIdentifierParts.class;
+          }
+          catch (final IllegalArgumentException ex2)
+          {
+            // Neither nor
+            aDocIDParts = BusdoxDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+            aDocIDPartsPeppol = null;
+            aDocTypeIDPartsClass = BusdoxDocumentTypeIdentifierParts.class;
+          }
         }
 
-        // Assemble extensions
-        final JInvocation jExtensions = s_aCodeModel.ref (CollectionHelper.class).staticInvoke ("newList");
-        for (final String sExtensionID : aDocIDParts.getExtensionIDs ())
-          jExtensions.arg (sExtensionID);
-
-        final String sEnumConstName = RegExHelper.getAsIdentifier (sDocID);
+        final String sEnumConstName = RegExHelper.getAsIdentifier (sDocTypeID);
         final JEnumConstant jEnumConst = s_jEnumPredefinedDoc.enumConstant (sEnumConstName);
-        jEnumConst.arg (JExpr._new (s_aCodeModel.ref (aDocTypeIDPartsClass))
-                             .arg (aDocIDParts.getRootNS ())
-                             .arg (aDocIDParts.getLocalName ())
-                             .arg (aDocIDParts.getTransactionID ())
-                             .arg (jExtensions)
-                             .arg (aDocIDParts.getVersion ()));
+
+        if (aDocIDPartsPeppol != null)
+        {
+          // Assemble extensions
+          final JInvocation jExtensions = s_aCodeModel.ref (CollectionHelper.class).staticInvoke ("newList");
+          for (final String sExtensionID : aDocIDPartsPeppol.getExtensionIDs ())
+            jExtensions.arg (sExtensionID);
+
+          final JInvocation aNew = JExpr._new (s_aCodeModel.ref (aDocTypeIDPartsClass))
+                                        .arg (aDocIDParts.getRootNS ())
+                                        .arg (aDocIDParts.getLocalName ())
+                                        .arg (aDocIDPartsPeppol.getTransactionID ())
+                                        .arg (jExtensions)
+                                        .arg (aDocIDPartsPeppol.getVersion ());
+          jEnumConst.arg (aNew);
+        }
+        else
+        {
+          final JInvocation aNew = JExpr._new (s_aCodeModel.ref (aDocTypeIDPartsClass))
+                                        .arg (aDocIDParts.getRootNS ())
+                                        .arg (aDocIDParts.getLocalName ())
+                                        .arg (aDocIDParts.getSubTypeIdentifier ());
+          jEnumConst.arg (aNew);
+        }
         jEnumConst.arg (JExpr.lit (sName));
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
-        jEnumConst.javadoc ().add ("<code>" + sDocID + "</code>\n");
+        jEnumConst.javadoc ().add ("<code>" + sDocTypeID + "</code>\n");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
-        // Also create a shortcut for more readable names
-        final String sShortcutName = CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocIDParts);
-        if (!aAllShortcutNames.add (sShortcutName))
-          throw new IllegalStateException ("The shortcut name " +
-                                           sShortcutName +
-                                           " is already used for " +
-                                           aDocIDParts.toString () +
-                                           ". Please update the algorithm!");
-        final JFieldVar aShortcut = s_jEnumPredefinedDoc.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
-                                                                s_jEnumPredefinedDoc,
-                                                                sShortcutName,
-                                                                jEnumConst);
-        aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
+        if (aDocIDPartsPeppol != null)
+        {
+          // Also create a shortcut for more readable names
+          final String sShortcutName = CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocIDPartsPeppol);
+          if (!aAllShortcutNames.add (sShortcutName))
+            throw new IllegalStateException ("The shortcut name " +
+                                             sShortcutName +
+                                             " is already used for " +
+                                             aDocIDPartsPeppol.toString () +
+                                             ". Please update the algorithm!");
+          final JFieldVar aShortcut = s_jEnumPredefinedDoc.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
+                                                                  s_jEnumPredefinedDoc,
+                                                                  sShortcutName,
+                                                                  jEnumConst);
+          aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
+        }
       }
 
       // fields
       final JFieldVar fParts = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL,
-                                                           IPeppolDocumentTypeIdentifierParts.class,
+                                                           IBusdoxDocumentTypeIdentifierParts.class,
                                                            "m_aParts");
       final JFieldVar fID = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
       final JFieldVar fCommonName = s_jEnumPredefinedDoc.field (JMod.PRIVATE | JMod.FINAL,
@@ -424,7 +455,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 
       // Constructor
       final JMethod jCtor = s_jEnumPredefinedDoc.constructor (JMod.PRIVATE);
-      final JVar jParts = jCtor.param (JMod.FINAL, IPeppolDocumentTypeIdentifierParts.class, "aParts");
+      final JVar jParts = jCtor.param (JMod.FINAL, IBusdoxDocumentTypeIdentifierParts.class, "aParts");
       jParts.annotate (Nonnull.class);
       final JVar jCommonName = jCtor.param (JMod.FINAL, String.class, "sCommonName");
       jCommonName.annotate (Nonnull.class);
@@ -467,31 +498,34 @@ public final class MainCreatePredefinedEnumsFromExcel
       m.annotate (Nonempty.class);
       m.body ()._return (fParts.invoke (m.name ()));
 
-      // public String getTransactionID ()
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getTransactionID");
-      m.annotate (Nonnull.class);
-      m.annotate (Nonempty.class);
-      m.body ()._return (fParts.invoke (m.name ()));
+      if (false)
+      {
+        // public String getTransactionID ()
+        m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getTransactionID");
+        m.annotate (Nonnull.class);
+        m.annotate (Nonempty.class);
+        m.body ()._return (fParts.invoke (m.name ()));
 
-      // public List<String> getExtensionIDs ()
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC,
-                                       s_aCodeModel.ref (ICommonsList.class).narrow (String.class),
-                                       "getExtensionIDs");
-      m.annotate (Nonnull.class);
-      m.annotate (ReturnsMutableCopy.class);
-      m.body ()._return (fParts.invoke (m.name ()));
+        // public List<String> getExtensionIDs ()
+        m = s_jEnumPredefinedDoc.method (JMod.PUBLIC,
+                                         s_aCodeModel.ref (ICommonsList.class).narrow (String.class),
+                                         "getExtensionIDs");
+        m.annotate (Nonnull.class);
+        m.annotate (ReturnsMutableCopy.class);
+        m.body ()._return (fParts.invoke (m.name ()));
 
-      // public String getAsUBLCustomizationID ()
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getAsUBLCustomizationID");
-      m.annotate (Nonnull.class);
-      m.annotate (Nonempty.class);
-      m.body ()._return (fParts.invoke (m.name ()));
+        // public String getAsUBLCustomizationID ()
+        m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getAsUBLCustomizationID");
+        m.annotate (Nonnull.class);
+        m.annotate (Nonempty.class);
+        m.body ()._return (fParts.invoke (m.name ()));
 
-      // public String getVersion ()
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getVersion");
-      m.annotate (Nonnull.class);
-      m.annotate (Nonempty.class);
-      m.body ()._return (fParts.invoke (m.name ()));
+        // public String getVersion ()
+        m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getVersion");
+        m.annotate (Nonnull.class);
+        m.annotate (Nonempty.class);
+        m.body ()._return (fParts.invoke (m.name ()));
+      }
 
       // public String getCommonName ()
       m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, String.class, "getCommonName");
@@ -540,7 +574,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       }
 
       // public IPeppolDocumentTypeIdentifierParts getParts
-      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifierParts.class, "getParts");
+      m = s_jEnumPredefinedDoc.method (JMod.PUBLIC, IBusdoxDocumentTypeIdentifierParts.class, "getParts");
       m.annotate (Nonnull.class);
       m.body ()._return (fParts);
 
@@ -584,7 +618,6 @@ public final class MainCreatePredefinedEnumsFromExcel
     aReadOptions.addColumn (2, "bisid", UseType.REQUIRED, "string", true);
     aReadOptions.addColumn (3, "docids", UseType.REQUIRED, "string", false);
     aReadOptions.addColumn (4, "since", UseType.REQUIRED, "string", false);
-    aReadOptions.addColumn (5, "deprecated", UseType.REQUIRED, "boolean", false);
     final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aProcessSheet,
                                                                                        aReadOptions,
                                                                                        "PeppolProcessIdentifier",
@@ -648,19 +681,26 @@ public final class MainCreatePredefinedEnumsFromExcel
         final JArray jArray = JExpr.newArray (s_jEnumPredefinedDoc);
         for (final String sDocTypeID : RegExHelper.getSplitToList (sDocTypeIDs, "\n"))
         {
-          IPeppolDocumentTypeIdentifierParts aDocTypeIDParts;
+          IPeppolDocumentTypeIdentifierParts aDocTypeIDPartsPeppol;
           try
           {
-            aDocTypeIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+            aDocTypeIDPartsPeppol = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
           }
           catch (final IllegalArgumentException ex)
           {
-            aDocTypeIDParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+            try
+            {
+              aDocTypeIDPartsPeppol = OpenPeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+            }
+            catch (final IllegalArgumentException ex2)
+            {
+              aDocTypeIDPartsPeppol = null;
+            }
           }
 
           // Use the short name for better readability
-          final String sIdentifier = true ? CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocTypeIDParts)
-                                          : RegExHelper.getAsIdentifier (sDocTypeID);
+          final String sIdentifier = aDocTypeIDPartsPeppol != null ? CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocTypeIDPartsPeppol)
+                                                                   : RegExHelper.getAsIdentifier (sDocTypeID);
           jArray.add (s_jEnumPredefinedDoc.staticRef (sIdentifier));
         }
         jEnumConst.arg (jArray);

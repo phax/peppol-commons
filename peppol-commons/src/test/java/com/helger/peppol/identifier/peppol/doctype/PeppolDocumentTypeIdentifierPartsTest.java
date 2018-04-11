@@ -11,7 +11,6 @@
 package com.helger.peppol.identifier.peppol.doctype;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
@@ -32,19 +31,24 @@ public final class PeppolDocumentTypeIdentifierPartsTest
       if (e.getParts () instanceof PeppolDocumentTypeIdentifierParts)
         aParts = PeppolDocumentTypeIdentifierParts.extractFromString (e.getValue ());
       else
-        aParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString (e.getValue ());
-      assertNotNull (aParts);
+        if (e.getParts () instanceof OpenPeppolDocumentTypeIdentifierParts)
+          aParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString (e.getValue ());
+        else
+          aParts = null;
+      if (aParts != null)
+      {
+        // Check BusDox parts
+        assertEquals (e.getRootNS (), aParts.getRootNS ());
+        assertEquals (e.getLocalName (), aParts.getLocalName ());
+        assertEquals (e.getSubTypeIdentifier (), aParts.getSubTypeIdentifier ());
 
-      // Check BusDox parts
-      assertEquals (e.getRootNS (), aParts.getRootNS ());
-      assertEquals (e.getLocalName (), aParts.getLocalName ());
-      assertEquals (e.getSubTypeIdentifier (), aParts.getSubTypeIdentifier ());
-
-      // Check PEPPOL parts
-      assertEquals (e.getTransactionID (), aParts.getTransactionID ());
-      assertEquals (e.getExtensionIDs (), aParts.getExtensionIDs ());
-      assertEquals (e.getVersion (), aParts.getVersion ());
-      assertEquals (e.getAsUBLCustomizationID (), aParts.getAsUBLCustomizationID ());
+        // Check PEPPOL parts
+        final IPeppolDocumentTypeIdentifierParts p = (IPeppolDocumentTypeIdentifierParts) e.getParts ();
+        assertEquals (p.getTransactionID (), aParts.getTransactionID ());
+        assertEquals (p.getExtensionIDs (), aParts.getExtensionIDs ());
+        assertEquals (p.getVersion (), aParts.getVersion ());
+        assertEquals (p.getAsUBLCustomizationID (), aParts.getAsUBLCustomizationID ());
+      }
     }
   }
 

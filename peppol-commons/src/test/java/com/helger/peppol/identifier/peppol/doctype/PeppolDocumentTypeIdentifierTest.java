@@ -23,6 +23,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.xml.mock.XMLTestHelper;
@@ -219,7 +220,7 @@ public final class PeppolDocumentTypeIdentifierTest
     for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
     {
       final PeppolDocumentTypeIdentifier aDocTypeID = new PeppolDocumentTypeIdentifier (e);
-      final IPeppolDocumentTypeIdentifierParts aParts = aDocTypeID.getParts ();
+      final IBusdoxDocumentTypeIdentifierParts aParts = aDocTypeID.getParts ();
       assertNotNull (aParts);
       assertEquals (aDocTypeID.getValue (), aParts.getAsDocumentTypeIdentifierValue ());
     }

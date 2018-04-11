@@ -10,13 +10,13 @@
  */
 package com.helger.peppol.identifier.peppol.issuingagency;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 
 /**
@@ -73,7 +73,7 @@ public enum EPredefinedIdentifierIssuingAgency
      * 
      * @since code list 1.0.0
      */
-    GLN("GLN", "GS1 GLN", "0088", false, Version.parse("1.0.0")),
+    GLN("GLN", "EAN International", "0088", false, Version.parse("1.0.0")),
 
     /**
      * Prefix <code>0096</code>, scheme ID <code>DK:P</code><br>
@@ -122,6 +122,14 @@ public enum EPredefinedIdentifierIssuingAgency
      * @since code list 1.2.1
      */
     DIGST("DIGST", "DIGSTORG", "0184", false, Version.parse("1.2.1")),
+
+    /**
+     * Prefix <code>0191</code>, scheme ID <code>EE:CC</code><br>
+     * 
+     * 
+     * @since code list 4.0.0
+     */
+    EE_CC("EE:CC", null, "0191", false, Version.parse("4.0.0")),
 
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
@@ -564,7 +572,15 @@ public enum EPredefinedIdentifierIssuingAgency
      * 
      * @since code list 1.2.1
      */
-    FR_VAT("FR:VAT", "French VAT number", "9957", false, Version.parse("1.2.1"));
+    FR_VAT("FR:VAT", "French VAT number", "9957", false, Version.parse("1.2.1")),
+
+    /**
+     * Prefix <code>9958</code>, scheme ID <code>FI:VAT</code><br>
+     * 
+     * 
+     * @since code list 4.0.0
+     */
+    FI_VAT("FI:VAT", "Finish VAT number", "9958", false, Version.parse("4.0.0"));
     private final String m_sSchemeID;
     private final String m_sSchemeAgency;
     private final String m_sISO6523;

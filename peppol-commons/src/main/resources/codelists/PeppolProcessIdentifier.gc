@@ -44,10 +44,6 @@
       <ns0:ShortName>Since</ns0:ShortName>
       <ns0:Data ns0:Type="string" />
     </ns0:Column>
-    <ns0:Column ns0:Id="deprecated" ns0:Use="required">
-      <ns0:ShortName>Deprecated</ns0:ShortName>
-      <ns0:Data ns0:Type="boolean" />
-    </ns0:Column>
     <ns0:Key ns0:Id="nameKey">
       <ns0:ShortName>Profile code</ns0:ShortName>
       <ns0:ColumnRef ns0:Ref="name" />
@@ -80,9 +76,6 @@ urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationR
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
       </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>true</ns0:SimpleValue>
-      </ns0:Value>
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="name">
@@ -99,9 +92,6 @@ urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationR
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>false</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>
@@ -120,9 +110,6 @@ urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationR
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
       </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>true</ns0:SimpleValue>
-      </ns0:Value>
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="name">
@@ -139,9 +126,6 @@ urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationR
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>false</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>
@@ -160,9 +144,6 @@ urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationR
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
       </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>true</ns0:SimpleValue>
-      </ns0:Value>
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="name">
@@ -179,9 +160,6 @@ urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationR
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>false</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>
@@ -202,9 +180,6 @@ urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
       </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>true</ns0:SimpleValue>
-      </ns0:Value>
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="name">
@@ -222,9 +197,6 @@ urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.c
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>false</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>
@@ -248,9 +220,6 @@ urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
       </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>true</ns0:SimpleValue>
-      </ns0:Value>
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="name">
@@ -269,9 +238,6 @@ urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::Order##urn:www.cen
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
       </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>false</ns0:SimpleValue>
-      </ns0:Value>
     </ns0:Row>
     <ns0:Row>
       <ns0:Value ns0:ColumnRef="name">
@@ -288,9 +254,6 @@ urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::Order##urn:www.cen
       </ns0:Value>
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>false</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
     <ns0:Row>
@@ -309,8 +272,22 @@ urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::Order##urn:www.cen
       <ns0:Value ns0:ColumnRef="since">
         <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
       </ns0:Value>
-      <ns0:Value ns0:ColumnRef="deprecated">
-        <ns0:SimpleValue>false</ns0:SimpleValue>
+    </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>BII05 - Billing v3</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="id">
+        <ns0:SimpleValue>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="bisid">
+        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol5a:ver3.0</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="docids">
+        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>4.0.0</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
   </ns0:SimpleCodeList>

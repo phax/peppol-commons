@@ -10,16 +10,16 @@
  */
 package com.helger.peppol.identifier.peppol.doctype;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.version.Version;
+import com.helger.peppol.identifier.generic.doctype.BusdoxDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 
 /**
@@ -252,7 +252,15 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 1.2.0
      */
-    urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biitrns071_ver2_0_extended_urn_www_peppol_eu_bis_peppol36a_ver1_0__2_1(new OpenPeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2", "ApplicationResponse", "urn:www.cenbii.eu:transaction:biitrns071:ver2.0", CollectionHelper.newList("urn:www.peppol.eu:bis:peppol36a:ver1.0"), "2.1"), "PEPPOL Message Level Response V1", Version.parse("1.2.0"));
+    urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biitrns071_ver2_0_extended_urn_www_peppol_eu_bis_peppol36a_ver1_0__2_1(new OpenPeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2", "ApplicationResponse", "urn:www.cenbii.eu:transaction:biitrns071:ver2.0", CollectionHelper.newList("urn:www.peppol.eu:bis:peppol36a:ver1.0"), "2.1"), "PEPPOL Message Level Response V1", Version.parse("1.2.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</code>
+     * 
+     * 
+     * @since code list 4.0.0
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1(new BusdoxDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1"), "PEPPOL Billing v3", Version.parse("4.0.0"));
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1}
      */
@@ -365,14 +373,14 @@ public enum EPredefinedDocumentTypeIdentifier
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biitrns071_ver2_0_extended_urn_www_peppol_eu_bis_peppol36a_ver1_0__2_1}
      */
     public final static EPredefinedDocumentTypeIdentifier APPLICATIONRESPONSE_T071_BIS36A = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biitrns071_ver2_0_extended_urn_www_peppol_eu_bis_peppol36a_ver1_0__2_1;
-    private final IPeppolDocumentTypeIdentifierParts m_aParts;
+    private final IBusdoxDocumentTypeIdentifierParts m_aParts;
     private final String m_sID;
     private final String m_sCommonName;
     private final Version m_aSince;
 
     private EPredefinedDocumentTypeIdentifier(
         @Nonnull
-        final IPeppolDocumentTypeIdentifierParts aParts,
+        final IBusdoxDocumentTypeIdentifierParts aParts,
         @Nonnull
         @Nonempty
         final String sCommonName,
@@ -416,30 +424,6 @@ public enum EPredefinedDocumentTypeIdentifier
 
     @Nonnull
     @Nonempty
-    public String getTransactionID() {
-        return m_aParts.getTransactionID();
-    }
-
-    @Nonnull
-    @ReturnsMutableCopy
-    public ICommonsList<String> getExtensionIDs() {
-        return m_aParts.getExtensionIDs();
-    }
-
-    @Nonnull
-    @Nonempty
-    public String getAsUBLCustomizationID() {
-        return m_aParts.getAsUBLCustomizationID();
-    }
-
-    @Nonnull
-    @Nonempty
-    public String getVersion() {
-        return m_aParts.getVersion();
-    }
-
-    @Nonnull
-    @Nonempty
     public String getCommonName() {
         return m_sCommonName;
     }
@@ -465,7 +449,7 @@ public enum EPredefinedDocumentTypeIdentifier
     }
 
     @Nonnull
-    public IPeppolDocumentTypeIdentifierParts getParts() {
+    public IBusdoxDocumentTypeIdentifierParts getParts() {
         return m_aParts;
     }
 

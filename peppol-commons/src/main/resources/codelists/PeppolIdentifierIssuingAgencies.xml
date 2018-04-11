@@ -33,7 +33,7 @@ Do NOT edit!-->
   <issuingAgency schemeid="DUNS" agencyname="Dun and Bradstreet Ltd" iso6523="0060" since="1.0.0">
     <structure>1) 8 digits, 1st-7th digit = number, 8th digit = check number, 2) digit</structure>
   </issuingAgency>
-  <issuingAgency schemeid="GLN" agencyname="GS1 GLN" iso6523="0088" since="1.0.0">
+  <issuingAgency schemeid="GLN" agencyname="EAN International" iso6523="0088" since="1.0.0">
     <structure>1) Eight identification digits and a check digit. A two digit prefix will be added in the future but it will not be used to calculate the check digit. 2) The Organization name is not part of the D-U-N-S number.</structure>
   </issuingAgency>
   <issuingAgency schemeid="DK:P" agencyname="Danish Chamber of Commerce" iso6523="0096" since="1.0.0">
@@ -52,6 +52,9 @@ Do NOT edit!-->
   </issuingAgency>
   <issuingAgency schemeid="DIGST" agencyname="DIGSTORG" iso6523="0184" since="1.2.1">
     <structure>Defined by Danish Agency for Digitisation</structure>
+  </issuingAgency>
+  <issuingAgency schemeid="EE:CC" iso6523="0191" since="4.0.0">
+    <structure>Estonian Company Code</structure>
   </issuingAgency>
   <issuingAgency schemeid="DK:CPR" agencyname="Danish Ministry of the Interior and Health" iso6523="9901" since="1.0.0">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
@@ -114,4 +117,7 @@ Do NOT edit!-->
     <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
   </issuingAgency>
   <issuingAgency schemeid="FR:VAT" agencyname="French VAT number" iso6523="9957" since="1.2.1" />
+  <issuingAgency schemeid="FI:VAT" agencyname="Finish VAT number" iso6523="9958" since="4.0.0">
+    <structure>As agreed in Vienna F2F 2017-05</structure>
+  </issuingAgency>
 </root>

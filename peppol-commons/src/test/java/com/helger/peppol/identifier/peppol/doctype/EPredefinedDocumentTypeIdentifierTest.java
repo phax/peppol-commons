@@ -40,15 +40,21 @@ public final class EPredefinedDocumentTypeIdentifierTest
       assertTrue (StringHelper.hasText (e.getRootNS ()));
       assertTrue (StringHelper.hasText (e.getLocalName ()));
       assertTrue (StringHelper.hasText (e.getSubTypeIdentifier ()));
-      assertTrue (StringHelper.hasText (e.getTransactionID ()));
-      assertNotNull (e.getExtensionIDs ());
-      assertFalse (e.getExtensionIDs ().isEmpty ());
-      assertTrue (StringHelper.hasText (e.getAsUBLCustomizationID ()));
-      assertTrue (StringHelper.hasText (e.getVersion ()));
       assertTrue (StringHelper.hasText (e.getCommonName ()));
       assertEquals (e.getAsDocumentTypeIdentifierValue (), e.getValue ());
       assertSame (e, EPredefinedDocumentTypeIdentifier.valueOf (e.name ()));
       assertSame (e, EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (e));
+
+      final IPeppolDocumentTypeIdentifierParts p = e.getParts () instanceof IPeppolDocumentTypeIdentifierParts ? (IPeppolDocumentTypeIdentifierParts) e.getParts ()
+                                                                                                               : null;
+      if (p != null)
+      {
+        assertTrue (StringHelper.hasText (p.getTransactionID ()));
+        assertNotNull (p.getExtensionIDs ());
+        assertFalse (p.getExtensionIDs ().isEmpty ());
+        assertTrue (StringHelper.hasText (p.getAsUBLCustomizationID ()));
+        assertTrue (StringHelper.hasText (p.getVersion ()));
+      }
     }
     assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (null));
     assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (new SimpleDocumentTypeIdentifier ("bla",

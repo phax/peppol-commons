@@ -350,5 +350,16 @@
         <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
       </ns0:Value>
     </ns0:Row>
+    <ns0:Row>
+      <ns0:Value ns0:ColumnRef="name">
+        <ns0:SimpleValue>PEPPOL Billing v3</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="docid">
+        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</ns0:SimpleValue>
+      </ns0:Value>
+      <ns0:Value ns0:ColumnRef="since">
+        <ns0:SimpleValue>4.0.0</ns0:SimpleValue>
+      </ns0:Value>
+    </ns0:Row>
   </ns0:SimpleCodeList>
 </CodeList>

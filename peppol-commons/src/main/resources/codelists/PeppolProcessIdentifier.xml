@@ -14,7 +14,7 @@
 <!--This file was automatically generated.
 Do NOT edit!-->
 <root version="1.2.2">
-  <process id="urn:www.cenbii.eu:profile:bii01:ver1.0" bisid="urn:www.peppol.eu:bis:peppol1a:ver1.0" since="1.0.0" depercated="true">
+  <process id="urn:www.cenbii.eu:profile:bii01:ver1.0" bisid="urn:www.peppol.eu:bis:peppol1a:ver1.0" since="1.0.0" depercated="false">
     <document id="urn:oasis:names:specification:ubl:schema:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biicoretrdm019:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0" />
     <document id="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm057:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0" />
     <document id="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm058:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0" />
@@ -22,19 +22,19 @@ Do NOT edit!-->
   <process id="urn:www.cenbii.eu:profile:bii01:ver2.0" bisid="urn:www.peppol.eu:bis:peppol1a:ver4.0" since="1.2.0" depercated="false">
     <document id="urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biitrns019:ver2.0:extended:urn:www.peppol.eu:bis:peppol1a:ver4.0::2.0" />
   </process>
-  <process id="urn:www.cenbii.eu:profile:bii03:ver1.0" bisid="urn:www.peppol.eu:bis:peppol3a:ver1.0" since="1.0.0" depercated="true">
+  <process id="urn:www.cenbii.eu:profile:bii03:ver1.0" bisid="urn:www.peppol.eu:bis:peppol3a:ver1.0" since="1.0.0" depercated="false">
     <document id="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0" />
   </process>
   <process id="urn:www.cenbii.eu:profile:bii03:ver2.0" bisid="urn:www.peppol.eu:bis:peppol03a:ver2.0" since="1.2.0" depercated="false">
     <document id="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol03a:ver2.0::2.1" />
   </process>
-  <process id="urn:www.cenbii.eu:profile:bii04:ver1.0" bisid="urn:www.peppol.eu:bis:peppol4a:ver1.0" since="1.0.0" depercated="true">
+  <process id="urn:www.cenbii.eu:profile:bii04:ver1.0" bisid="urn:www.peppol.eu:bis:peppol4a:ver1.0" since="1.0.0" depercated="false">
     <document id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0::2.0" />
   </process>
   <process id="urn:www.cenbii.eu:profile:bii04:ver2.0" bisid="urn:www.peppol.eu:bis:peppol4a:ver2.0" since="1.2.0" depercated="false">
     <document id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.0" />
   </process>
-  <process id="urn:www.cenbii.eu:profile:bii05:ver1.0" bisid="urn:www.peppol.eu:bis:peppol5a:ver1.0" since="1.1.0" depercated="true">
+  <process id="urn:www.cenbii.eu:profile:bii05:ver1.0" bisid="urn:www.peppol.eu:bis:peppol5a:ver1.0" since="1.1.0" depercated="false">
     <document id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0" />
     <document id="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0" />
     <document id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm015:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0" />
@@ -43,7 +43,7 @@ Do NOT edit!-->
     <document id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1" />
     <document id="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1" />
   </process>
-  <process id="urn:www.cenbii.eu:profile:bii06:ver1.0" bisid="urn:www.peppol.eu:bis:peppol6a:ver1.0" since="1.0.0" depercated="true">
+  <process id="urn:www.cenbii.eu:profile:bii06:ver1.0" bisid="urn:www.peppol.eu:bis:peppol6a:ver1.0" since="1.0.0" depercated="false">
     <document id="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0" />
     <document id="urn:oasis:names:specification:ubl:schema:xsd:OrderResponseSimple-2::OrderResponseSimple##urn:www.cenbii.eu:transaction:biicoretrdm002:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0" />
     <document id="urn:oasis:names:specification:ubl:schema:xsd:OrderResponseSimple-2::OrderResponseSimple##urn:www.cenbii.eu:transaction:biicoretrdm003:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0" />
@@ -60,5 +60,8 @@ Do NOT edit!-->
   </process>
   <process id="urn:www.cenbii.eu:profile:bii36:ver2.0" bisid="urn:www.peppol.eu:bis:peppol36a:ver1.0" since="1.2.0" depercated="false">
     <document id="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biitrns071:ver2.0:extended:urn:www.peppol.eu:bis:peppol36a:ver1.0::2.1" />
+  </process>
+  <process id="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" bisid="urn:www.peppol.eu:bis:peppol5a:ver3.0" since="4.0.0" depercated="false">
+    <document id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1" />
   </process>
 </root>
