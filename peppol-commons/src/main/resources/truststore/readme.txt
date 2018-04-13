@@ -43,6 +43,9 @@
   * peppol access point ca - g2 (peppol root ca - g2)
   * peppol service metadata publisher ca - g2 (peppol root ca - g2)
 
+sml-truststore.jks (since v6.0.4)
+  It contains the SSL certificates to access the central PEPPOL SML
+
 complete-truststore.jks 
   This is the combination of all available truststores with the same aliases!
 
