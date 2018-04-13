@@ -24,9 +24,9 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v6.0.4 - work in progress
-  * Added SML SSL certificates into default truststore (`truststore/complete-truststore.jks`)
-  * Replaced truststore SHA-1 files with SHA-256 files
+* v6.0.4 - 2018-04-13
+  * Added SSL certificates of SML into default truststore (`truststore/complete-truststore.jks`)
+  * Replaced truststore SHA-1 files with SHA-256 checksum files
 * v6.0.3 - 2018-04-11
   * Codelist updated (added Estonian Company Code and Billing BIS v3)
 * v6.0.2 - 2018-03-06
@@ -267,31 +267,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>6.0.3</version>
+  <version>6.0.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>6.0.3</version>
+  <version>6.0.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>6.0.3</version>
+  <version>6.0.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>6.0.3</version>
+  <version>6.0.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>6.0.3</version>
+  <version>6.0.4</version>
 </dependency>
 ```
 
@@ -300,7 +300,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>6.0.3</version>
+  <version>6.0.4</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
