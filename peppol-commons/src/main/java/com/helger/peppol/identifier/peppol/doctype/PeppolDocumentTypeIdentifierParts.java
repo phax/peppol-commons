@@ -10,16 +10,11 @@
  */
 package com.helger.peppol.identifier.peppol.doctype;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -36,77 +31,50 @@ import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifie
 public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentTypeIdentifierParts
 {
   /**
-   * Separates the transaction ID from the extensions
-   */
-  public static final String TRANSACTIONID_SEPARATOR = ":#";
-
-  /**
-   * Separates the different extensions from each other
-   */
-  public static final String EXTENSION_SEPARATOR = "#";
-
-  /**
    * Separates the customization ID from the version
    */
   public static final String VERSION_SEPARATOR = "::";
 
   private final IBusdoxDocumentTypeIdentifierParts m_aBusdoxParts;
-  private final String m_sTransactionID;
-  private final ICommonsList <String> m_aExtensionIDs;
+  private final String m_sCustomizationID;
   private final String m_sVersion;
 
   /**
    * Build the BusDox sub type identifier from the PEPPOL specific components.
    *
-   * @param sTransactionID
-   *        Transaction ID
-   * @param aExtensionIDs
-   *        extension IDs (at least one)
+   * @param sCustomizationID
+   *        Customization ID
    * @param sVersion
    *        Version number
    * @return The sub type identifier.
    */
   @Nonnull
-  private static String _buildSubTypeIdentifier (@Nonnull final String sTransactionID,
-                                                 @Nonnull @Nonempty final List <String> aExtensionIDs,
-                                                 @Nonnull final String sVersion)
+  private static String _buildSubTypeIdentifier (@Nonnull final String sCustomizationID, @Nonnull final String sVersion)
   {
-    return sTransactionID +
-           TRANSACTIONID_SEPARATOR +
-           StringHelper.getImploded (EXTENSION_SEPARATOR, aExtensionIDs) +
-           VERSION_SEPARATOR +
-           sVersion;
+    return sCustomizationID + VERSION_SEPARATOR + sVersion;
   }
 
   private PeppolDocumentTypeIdentifierParts (@Nonnull final IBusdoxDocumentTypeIdentifierParts aBusdoxParts,
-                                             @Nonnull @Nonempty final String sTransactionID,
-                                             @Nonnull @Nonempty final List <String> aExtensionIDs,
+                                             @Nonnull @Nonempty final String sCustomizationID,
                                              @Nonnull @Nonempty final String sVersion)
   {
-    ValueEnforcer.notEmpty (sTransactionID, "TransactionID");
-    ValueEnforcer.notEmpty (aExtensionIDs, "ExtensionIDs");
-    for (final String sExtensionID : aExtensionIDs)
-      if (StringHelper.hasNoText (sExtensionID))
-        throw new IllegalArgumentException ("the extension IDs contain at least one empty element!");
+    ValueEnforcer.notEmpty (sCustomizationID, "CustomizationID");
     ValueEnforcer.notEmpty (sVersion, "Version");
 
     m_aBusdoxParts = aBusdoxParts;
-    m_sTransactionID = sTransactionID;
-    m_aExtensionIDs = new CommonsArrayList <> (aExtensionIDs);
+    m_sCustomizationID = sCustomizationID;
     m_sVersion = sVersion;
   }
 
   public PeppolDocumentTypeIdentifierParts (@Nonnull @Nonempty final String sRootNS,
                                             @Nonnull @Nonempty final String sLocalName,
-                                            @Nonnull @Nonempty final String sTransactionID,
-                                            @Nonnull @Nonempty final List <String> aExtensionIDs,
+                                            @Nonnull @Nonempty final String sCustomizationID,
                                             @Nonnull @Nonempty final String sVersion)
   {
     this (new BusdoxDocumentTypeIdentifierParts (sRootNS,
                                                  sLocalName,
-                                                 _buildSubTypeIdentifier (sTransactionID, aExtensionIDs, sVersion)),
-          sTransactionID,
-          aExtensionIDs,
+                                                 _buildSubTypeIdentifier (sCustomizationID, sVersion)),
+          sCustomizationID,
           sVersion);
   }
 
@@ -136,17 +104,10 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
   }
 
   @Nonnull
-  public String getTransactionID ()
-  {
-    return m_sTransactionID;
-  }
-
-  @Nonnull
   @Nonempty
-  @ReturnsMutableCopy
-  public ICommonsList <String> getExtensionIDs ()
+  public String getCustomizationID ()
   {
-    return m_aExtensionIDs.getClone ();
+    return m_sCustomizationID;
   }
 
   @Nonnull
@@ -154,13 +115,6 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
   public String getVersion ()
   {
     return m_sVersion;
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getAsUBLCustomizationID ()
-  {
-    return m_sTransactionID + TRANSACTIONID_SEPARATOR + StringHelper.getImploded (EXTENSION_SEPARATOR, m_aExtensionIDs);
   }
 
   @Nonnull
@@ -173,10 +127,9 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("busdoxParts", m_aBusdoxParts)
-                                       .append ("transactionID", m_sTransactionID)
-                                       .append ("extensionIDs", m_aExtensionIDs)
-                                       .append ("version", m_sVersion)
+    return new ToStringGenerator (this).append ("BusdoxParts", m_aBusdoxParts)
+                                       .append ("CustomizationID", m_sCustomizationID)
+                                       .append ("Version", m_sVersion)
                                        .getToString ();
   }
 
@@ -212,37 +165,26 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
     // <customization id>::<version>
     // --> even more detailed:
     // <transactionId>:#<extensionId>[#<extensionId>]::<version>
+    // or
+    // <transactionId>:extended:<extensionId>[:extended:<extensionId>]::<version>
     final String [] aSubTypeParts = RegExHelper.getSplitToArray (sSubTypeIdentifier, VERSION_SEPARATOR, 2);
     if (aSubTypeParts.length < 2)
       throw new IllegalArgumentException ("The sub type identifier '" +
                                           sSubTypeIdentifier +
                                           "' is missing the separation between customization ID and version!");
+
+    final String sCustomizationID = aSubTypeParts[0];
+    if (StringHelper.hasNoText (sCustomizationID))
+      throw new IllegalArgumentException ("The sub type identifier '" +
+                                          sSubTypeIdentifier +
+                                          "' contains an empty customization ID!");
+
     final String sVersion = aSubTypeParts[1];
     if (StringHelper.hasNoText (sVersion))
       throw new IllegalArgumentException ("The sub type identifier '" +
                                           sSubTypeIdentifier +
                                           "' contains an empty version!");
 
-    final String sCustomizationID = aSubTypeParts[0];
-    final String [] aCustomizationIDs = RegExHelper.getSplitToArray (sCustomizationID, TRANSACTIONID_SEPARATOR, 2);
-    if (aCustomizationIDs.length < 2)
-      throw new IllegalArgumentException ("The sub type identifier '" +
-                                          sSubTypeIdentifier +
-                                          "' is missing the separation between transaction ID and the extensions!");
-
-    final String sTransactionID = aCustomizationIDs[0];
-    if (StringHelper.hasNoText (sTransactionID))
-      throw new IllegalArgumentException ("The customization ID '" +
-                                          sCustomizationID +
-                                          "' contains an empty transaction ID!");
-
-    final String sExtensionIDs = aCustomizationIDs[1];
-    if (StringHelper.hasNoText (sExtensionIDs))
-      throw new IllegalArgumentException ("The customization ID '" +
-                                          sCustomizationID +
-                                          "' contains an empty customization ID!");
-
-    final ICommonsList <String> aExtensionIDs = StringHelper.getExploded (EXTENSION_SEPARATOR, sExtensionIDs);
-    return new PeppolDocumentTypeIdentifierParts (aBusdoxParts, sTransactionID, aExtensionIDs, sVersion);
+    return new PeppolDocumentTypeIdentifierParts (aBusdoxParts, sCustomizationID, sVersion);
   }
 }

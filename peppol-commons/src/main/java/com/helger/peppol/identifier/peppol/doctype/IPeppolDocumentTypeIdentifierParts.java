@@ -13,7 +13,6 @@ package com.helger.peppol.identifier.peppol.doctype;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**
@@ -28,18 +27,19 @@ import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifie
 public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeIdentifierParts
 {
   /**
-   * @return The transaction ID
+   * @return transaction ID + extension IDs (no version number)
    */
   @Nonnull
   @Nonempty
-  String getTransactionID ();
+  String getCustomizationID ();
 
-  /**
-   * @return The contained extension IDs
-   */
   @Nonnull
   @Nonempty
-  ICommonsList <String> getExtensionIDs ();
+  @Deprecated
+  default String getAsUBLCustomizationID ()
+  {
+    return getCustomizationID ();
+  }
 
   /**
    * @return The version number
@@ -47,11 +47,4 @@ public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeI
   @Nonnull
   @Nonempty
   String getVersion ();
-
-  /**
-   * @return transaction ID + extension IDs (no version number)
-   */
-  @Nonnull
-  @Nonempty
-  String getAsUBLCustomizationID ();
 }

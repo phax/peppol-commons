@@ -11,7 +11,6 @@
 package com.helger.peppol.identifier.peppol.doctype;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -45,16 +44,10 @@ public final class EPredefinedDocumentTypeIdentifierTest
       assertSame (e, EPredefinedDocumentTypeIdentifier.valueOf (e.name ()));
       assertSame (e, EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (e));
 
-      final IPeppolDocumentTypeIdentifierParts p = e.getParts () instanceof IPeppolDocumentTypeIdentifierParts ? (IPeppolDocumentTypeIdentifierParts) e.getParts ()
-                                                                                                               : null;
-      if (p != null)
-      {
-        assertTrue (StringHelper.hasText (p.getTransactionID ()));
-        assertNotNull (p.getExtensionIDs ());
-        assertFalse (p.getExtensionIDs ().isEmpty ());
-        assertTrue (StringHelper.hasText (p.getAsUBLCustomizationID ()));
-        assertTrue (StringHelper.hasText (p.getVersion ()));
-      }
+      final IPeppolDocumentTypeIdentifierParts p = e.getParts ();
+      assertNotNull (p);
+      assertTrue (StringHelper.hasText (p.getCustomizationID ()));
+      assertTrue (StringHelper.hasText (p.getVersion ()));
     }
     assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (null));
     assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (new SimpleDocumentTypeIdentifier ("bla",

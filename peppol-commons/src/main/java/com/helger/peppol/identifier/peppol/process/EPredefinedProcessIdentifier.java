@@ -121,7 +121,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @since code list 4.0.0
      */
-    urn_fdc_peppol_eu_2017_poacc_billing_01_1_0("urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", "urn:www.peppol.eu:bis:peppol5a:ver3.0", new EPredefinedDocumentTypeIdentifier[] {EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1 }, Version.parse("4.0.0"));
+    urn_fdc_peppol_eu_2017_poacc_billing_01_1_0("urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", "urn:www.peppol.eu:bis:peppol5a:ver3.0", new EPredefinedDocumentTypeIdentifier[] {EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30 }, Version.parse("4.0.0"));
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      */

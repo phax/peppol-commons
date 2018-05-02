@@ -18,10 +18,8 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.peppol.identifier.generic.doctype.BusdoxDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.OpenPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 
 /**
@@ -176,30 +174,14 @@ public final class PeppolIdentifierHelper
    *        <code>null</code>.
    * @return Never <code>null</code>.
    * @throws IllegalArgumentException
-   *         If the passed document type identifier is neither a PEPPOL nor an
-   *         OpenPEPPOL document type identifier.
+   *         If the passed document type identifier is not a PEPPOL document
+   *         type identifier.
    */
   @Nullable
   public static IBusdoxDocumentTypeIdentifierParts getDocumentTypeIdentifierParts (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 
-    try
-    {
-      return PeppolDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      try
-      {
-        // Not PEPPOL - try OpenPEPPOL
-        return OpenPeppolDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
-      }
-      catch (final IllegalArgumentException ex2)
-      {
-        // Neither nor - e.g. Billing BIS v4
-        return BusdoxDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
-      }
-    }
+    return PeppolDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
   }
 }

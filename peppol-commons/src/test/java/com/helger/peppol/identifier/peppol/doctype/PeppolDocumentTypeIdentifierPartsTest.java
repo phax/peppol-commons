@@ -11,9 +11,21 @@
 package com.helger.peppol.identifier.peppol.doctype;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
+
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.csv.CSVWriter;
+import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * Test class for class {@link PeppolDocumentTypeIdentifierParts}.
@@ -23,32 +35,34 @@ import org.junit.Test;
 public final class PeppolDocumentTypeIdentifierPartsTest
 {
   @Test
+  public void testBasic ()
+  {
+    final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##basic:extended:subtype:extended:ext1:extended:ext2::ver1");
+    assertNotNull (aParts);
+    assertEquals ("root", aParts.getRootNS ());
+    assertEquals ("local", aParts.getLocalName ());
+    assertEquals ("basic:extended:subtype:extended:ext1:extended:ext2::ver1", aParts.getSubTypeIdentifier ());
+    assertEquals ("basic:extended:subtype:extended:ext1:extended:ext2", aParts.getCustomizationID ());
+    assertEquals ("ver1", aParts.getVersion ());
+  }
+
+  @Test
   public void testPredefined ()
   {
     for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
     {
-      IPeppolDocumentTypeIdentifierParts aParts;
-      if (e.getParts () instanceof PeppolDocumentTypeIdentifierParts)
-        aParts = PeppolDocumentTypeIdentifierParts.extractFromString (e.getValue ());
-      else
-        if (e.getParts () instanceof OpenPeppolDocumentTypeIdentifierParts)
-          aParts = OpenPeppolDocumentTypeIdentifierParts.extractFromString (e.getValue ());
-        else
-          aParts = null;
-      if (aParts != null)
-      {
-        // Check BusDox parts
-        assertEquals (e.getRootNS (), aParts.getRootNS ());
-        assertEquals (e.getLocalName (), aParts.getLocalName ());
-        assertEquals (e.getSubTypeIdentifier (), aParts.getSubTypeIdentifier ());
+      final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (e.getValue ());
+      assertNotNull (aParts);
 
-        // Check PEPPOL parts
-        final IPeppolDocumentTypeIdentifierParts p = (IPeppolDocumentTypeIdentifierParts) e.getParts ();
-        assertEquals (p.getTransactionID (), aParts.getTransactionID ());
-        assertEquals (p.getExtensionIDs (), aParts.getExtensionIDs ());
-        assertEquals (p.getVersion (), aParts.getVersion ());
-        assertEquals (p.getAsUBLCustomizationID (), aParts.getAsUBLCustomizationID ());
-      }
+      // Check BusDox parts
+      assertEquals (e.getRootNS (), aParts.getRootNS ());
+      assertEquals (e.getLocalName (), aParts.getLocalName ());
+      assertEquals (e.getSubTypeIdentifier (), aParts.getSubTypeIdentifier ());
+
+      // Check PEPPOL parts
+      final IPeppolDocumentTypeIdentifierParts p = e.getParts ();
+      assertEquals (p.getCustomizationID (), aParts.getCustomizationID ());
+      assertEquals (p.getVersion (), aParts.getVersion ());
     }
   }
 
@@ -67,7 +81,7 @@ public final class PeppolDocumentTypeIdentifierPartsTest
     try
     {
       // No version separator
-      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype");
+      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##customization");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -75,8 +89,8 @@ public final class PeppolDocumentTypeIdentifierPartsTest
 
     try
     {
-      // No transaction separator
-      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype::");
+      // Empty version
+      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##customization::");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -84,47 +98,43 @@ public final class PeppolDocumentTypeIdentifierPartsTest
 
     try
     {
-      // No transaction separator
-      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype::version");
+      // Empty customization
+      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##::version");
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
-    try
-    {
-      // No transactions
-      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype:#::version");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    assertNotNull (PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##customization::version"));
+  }
 
-    try
+  @Test
+  public void testList () throws IOException
+  {
+    try (final CSVWriter aCSV = new CSVWriter (StreamHelper.createWriter (FileHelper.getOutputStream (new File ("doctypes.csv")),
+                                                                          StandardCharsets.ISO_8859_1)).setSeparatorChar (';'))
     {
-      // empty transaction (between ext2 and ext3)
-      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype:#ext1#ext2##ext3::version");
-      fail ();
+      aCSV.writeNext ("Status", "Namespace URI", "Local name", "Customization ID", "Version");
+      SimpleFileIO.readFileLines (new File ("src/test/resources/doctypes.txt"), StandardCharsets.UTF_8, sDocTypeID -> {
+        final ICommonsList <String> aResult = new CommonsArrayList <> ();
+        try
+        {
+          final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+          assertNotNull (aParts);
+          aResult.add ("OK");
+          aResult.add (aParts.getRootNS ());
+          aResult.add (aParts.getLocalName ());
+          aResult.add (aParts.getCustomizationID ());
+          aResult.add (aParts.getVersion ());
+        }
+        catch (final IllegalArgumentException ex)
+        {
+          aResult.add ("Error");
+          aResult.add (ex.getMessage ());
+          aResult.add (sDocTypeID);
+        }
+        aCSV.writeNext (aResult);
+      });
     }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
-      // empty transaction ID
-      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##:#ext1#ext2::version");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
-      // empty version
-      PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##subtype:#ext1#ext2::");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
   }
 }
