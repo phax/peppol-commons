@@ -30,39 +30,39 @@ public final class ParticipantIdentifierSchemeManagerTest
   @Test
   public void testAll ()
   {
-    assertNotNull (ParticipantIdentifierSchemeManager.getAllAgencies ());
-    assertEquals (70, ParticipantIdentifierSchemeManager.getAllAgencies ().size ());
+    assertNotNull (ParticipantIdentifierSchemeManager.getAllSchemes ());
+    assertEquals (70, ParticipantIdentifierSchemeManager.getAllSchemes ().size ());
 
     // test valid
-    assertNotNull (ParticipantIdentifierSchemeManager.getAgencyOfISO6523Code ("0088"));
-    assertTrue (ParticipantIdentifierSchemeManager.containsAgencyWithISO6523Code ("0088"));
+    assertNotNull (ParticipantIdentifierSchemeManager.getSchemeOfISO6523Code ("0088"));
+    assertTrue (ParticipantIdentifierSchemeManager.containsSchemeWithISO6523Code ("0088"));
     assertEquals ("GLN", ParticipantIdentifierSchemeManager.getSchemeIDOfISO6523Code ("0088"));
-    assertNotNull (ParticipantIdentifierSchemeManager.getAgencyOfSchemeID ("GLN"));
-    assertTrue (ParticipantIdentifierSchemeManager.containsAgencyWithSchemeID ("GLN"));
+    assertNotNull (ParticipantIdentifierSchemeManager.getSchemeOfSchemeID ("GLN"));
+    assertTrue (ParticipantIdentifierSchemeManager.containsSchemeWithSchemeID ("GLN"));
     assertEquals ("0088", ParticipantIdentifierSchemeManager.getISO6523CodeOfSchemeID ("GLN"));
 
     // test invalid
-    assertNull (ParticipantIdentifierSchemeManager.getAgencyOfISO6523Code ("1024"));
-    assertFalse (ParticipantIdentifierSchemeManager.containsAgencyWithISO6523Code ("1024"));
+    assertNull (ParticipantIdentifierSchemeManager.getSchemeOfISO6523Code ("1024"));
+    assertFalse (ParticipantIdentifierSchemeManager.containsSchemeWithISO6523Code ("1024"));
     assertNull (ParticipantIdentifierSchemeManager.getSchemeIDOfISO6523Code ("1024"));
-    assertNull (ParticipantIdentifierSchemeManager.getAgencyOfISO6523Code (null));
-    assertFalse (ParticipantIdentifierSchemeManager.containsAgencyWithISO6523Code (null));
+    assertNull (ParticipantIdentifierSchemeManager.getSchemeOfISO6523Code (null));
+    assertFalse (ParticipantIdentifierSchemeManager.containsSchemeWithISO6523Code (null));
     assertNull (ParticipantIdentifierSchemeManager.getSchemeIDOfISO6523Code (null));
-    assertNull (ParticipantIdentifierSchemeManager.getAgencyOfSchemeID ("XYZ"));
-    assertFalse (ParticipantIdentifierSchemeManager.containsAgencyWithSchemeID ("XYZ"));
+    assertNull (ParticipantIdentifierSchemeManager.getSchemeOfSchemeID ("XYZ"));
+    assertFalse (ParticipantIdentifierSchemeManager.containsSchemeWithSchemeID ("XYZ"));
     assertNull (ParticipantIdentifierSchemeManager.getISO6523CodeOfSchemeID ("XYZ"));
-    assertNull (ParticipantIdentifierSchemeManager.getAgencyOfSchemeID (null));
-    assertFalse (ParticipantIdentifierSchemeManager.containsAgencyWithSchemeID (null));
+    assertNull (ParticipantIdentifierSchemeManager.getSchemeOfSchemeID (null));
+    assertFalse (ParticipantIdentifierSchemeManager.containsSchemeWithSchemeID (null));
     assertNull (ParticipantIdentifierSchemeManager.getISO6523CodeOfSchemeID (null));
 
     // Test deprecated
-    assertEquals (ETriState.TRUE, ParticipantIdentifierSchemeManager.isAgencyWithISO6523CodeDeprecated ("9916"));
-    assertEquals (ETriState.TRUE, ParticipantIdentifierSchemeManager.isAgencyWithSchemeIDDeprecated ("AT:CID"));
-    assertEquals (ETriState.FALSE, ParticipantIdentifierSchemeManager.isAgencyWithISO6523CodeDeprecated ("9914"));
-    assertEquals (ETriState.FALSE, ParticipantIdentifierSchemeManager.isAgencyWithSchemeIDDeprecated ("AT:VAT"));
-    assertEquals (ETriState.UNDEFINED, ParticipantIdentifierSchemeManager.isAgencyWithISO6523CodeDeprecated ("abcd"));
-    assertEquals (ETriState.UNDEFINED, ParticipantIdentifierSchemeManager.isAgencyWithSchemeIDDeprecated ("XYZ"));
-    assertEquals (ETriState.UNDEFINED, ParticipantIdentifierSchemeManager.isAgencyWithISO6523CodeDeprecated (null));
-    assertEquals (ETriState.UNDEFINED, ParticipantIdentifierSchemeManager.isAgencyWithSchemeIDDeprecated (null));
+    assertEquals (ETriState.TRUE, ParticipantIdentifierSchemeManager.isSchemeWithISO6523CodeDeprecated ("9916"));
+    assertEquals (ETriState.TRUE, ParticipantIdentifierSchemeManager.isSchemeWithSchemeIDDeprecated ("AT:CID"));
+    assertEquals (ETriState.FALSE, ParticipantIdentifierSchemeManager.isSchemeWithISO6523CodeDeprecated ("9914"));
+    assertEquals (ETriState.FALSE, ParticipantIdentifierSchemeManager.isSchemeWithSchemeIDDeprecated ("AT:VAT"));
+    assertEquals (ETriState.UNDEFINED, ParticipantIdentifierSchemeManager.isSchemeWithISO6523CodeDeprecated ("abcd"));
+    assertEquals (ETriState.UNDEFINED, ParticipantIdentifierSchemeManager.isSchemeWithSchemeIDDeprecated ("XYZ"));
+    assertEquals (ETriState.UNDEFINED, ParticipantIdentifierSchemeManager.isSchemeWithISO6523CodeDeprecated (null));
+    assertEquals (ETriState.UNDEFINED, ParticipantIdentifierSchemeManager.isSchemeWithSchemeIDDeprecated (null));
   }
 }

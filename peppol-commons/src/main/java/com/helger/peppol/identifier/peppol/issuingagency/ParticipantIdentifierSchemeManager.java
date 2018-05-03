@@ -24,20 +24,20 @@ import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 
 /**
- * This class manages the PEPPOL identifier issuing agencies using the
+ * This class manages the PEPPOL Participant identifier schemes using the
  * <b>iso6523-actorid-upis</b> scheme.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public final class ParticipantIdentifierSchemeManager
 {
-  private static final ICommonsList <IParticipantIdentifierScheme> s_aCodes = new CommonsArrayList <> ();
+  private static final ICommonsList <IParticipantIdentifierScheme> s_aPISchemes = new CommonsArrayList <> ();
 
   static
   {
     // Add all predefined identifier issuing agencies
     for (final EPredefinedParticipantIdentifierScheme eIIA : EPredefinedParticipantIdentifierScheme.values ())
-      s_aCodes.add (eIIA);
+      s_aPISchemes.add (eIIA);
   }
 
   @PresentForCodeCoverage
@@ -48,13 +48,33 @@ public final class ParticipantIdentifierSchemeManager
 
   /**
    * @return A non-modifiable list of all PEPPOL identifier issuing agencies.
+   * @deprecated Use {@link #getAllSchemes()} instead
    */
+  @Deprecated
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
   public static ICommonsList <? extends IParticipantIdentifierScheme> getAllAgencies ()
   {
-    return s_aCodes.getClone ();
+    return getAllSchemes ();
+  }
+
+  /**
+   * @return A non-modifiable list of all PEPPOL identifier issuing agencies.
+   */
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableCopy
+  public static ICommonsList <? extends IParticipantIdentifierScheme> getAllSchemes ()
+  {
+    return s_aPISchemes.getClone ();
+  }
+
+  @Deprecated
+  @Nullable
+  public static IParticipantIdentifierScheme getAgencyOfISO6523Code (@Nullable final String sISO6523Code)
+  {
+    return getSchemeOfISO6523Code (sISO6523Code);
   }
 
   /**
@@ -65,10 +85,10 @@ public final class ParticipantIdentifierSchemeManager
    * @return <code>null</code> if no such agency exists.
    */
   @Nullable
-  public static IParticipantIdentifierScheme getAgencyOfISO6523Code (@Nullable final String sISO6523Code)
+  public static IParticipantIdentifierScheme getSchemeOfISO6523Code (@Nullable final String sISO6523Code)
   {
     if (StringHelper.hasText (sISO6523Code))
-      for (final IParticipantIdentifierScheme aAgency : s_aCodes)
+      for (final IParticipantIdentifierScheme aAgency : s_aPISchemes)
         if (aAgency.getISO6523Code ().equalsIgnoreCase (sISO6523Code))
           return aAgency;
     return null;
@@ -81,10 +101,32 @@ public final class ParticipantIdentifierSchemeManager
    *        The value to search. May be <code>null</code>.
    * @return <code>true</code> if such an agency exists, <code>false</code>
    *         otherwise.
+   * @deprecated Use {@link #containsSchemeWithISO6523Code(String)} instead
    */
+  @Deprecated
   public static boolean containsAgencyWithISO6523Code (@Nullable final String sISO6523Code)
   {
-    return getAgencyOfISO6523Code (sISO6523Code) != null;
+    return containsSchemeWithISO6523Code (sISO6523Code);
+  }
+
+  /**
+   * Check if an agency with the given ISO6523 value exists.
+   *
+   * @param sISO6523Code
+   *        The value to search. May be <code>null</code>.
+   * @return <code>true</code> if such an agency exists, <code>false</code>
+   *         otherwise.
+   */
+  public static boolean containsSchemeWithISO6523Code (@Nullable final String sISO6523Code)
+  {
+    return getSchemeOfISO6523Code (sISO6523Code) != null;
+  }
+
+  @Deprecated
+  @Nullable
+  public static String getAgencyIDOfISO6523Code (@Nullable final String sISO6523Code)
+  {
+    return getSchemeIDOfISO6523Code (sISO6523Code);
   }
 
   /**
@@ -99,8 +141,23 @@ public final class ParticipantIdentifierSchemeManager
   @Nullable
   public static String getSchemeIDOfISO6523Code (@Nullable final String sISO6523Code)
   {
-    final IParticipantIdentifierScheme aAgency = getAgencyOfISO6523Code (sISO6523Code);
+    final IParticipantIdentifierScheme aAgency = getSchemeOfISO6523Code (sISO6523Code);
     return aAgency == null ? null : aAgency.getSchemeID ();
+  }
+
+  /**
+   * Find the agency with the respective schemeID value.
+   *
+   * @param sSchemeID
+   *        The value to search. May be <code>null</code>.
+   * @return <code>null</code> if no such agency exists.
+   * @deprecated Use {@link #getSchemeOfSchemeID(String)} instead
+   */
+  @Deprecated
+  @Nullable
+  public static IParticipantIdentifierScheme getAgencyOfSchemeID (@Nullable final String sSchemeID)
+  {
+    return getSchemeOfSchemeID (sSchemeID);
   }
 
   /**
@@ -111,10 +168,10 @@ public final class ParticipantIdentifierSchemeManager
    * @return <code>null</code> if no such agency exists.
    */
   @Nullable
-  public static IParticipantIdentifierScheme getAgencyOfSchemeID (@Nullable final String sSchemeID)
+  public static IParticipantIdentifierScheme getSchemeOfSchemeID (@Nullable final String sSchemeID)
   {
     if (StringHelper.hasText (sSchemeID))
-      for (final IParticipantIdentifierScheme aAgency : s_aCodes)
+      for (final IParticipantIdentifierScheme aAgency : s_aPISchemes)
         if (aAgency.getSchemeID ().equalsIgnoreCase (sSchemeID))
           return aAgency;
     return null;
@@ -127,10 +184,25 @@ public final class ParticipantIdentifierSchemeManager
    *        The value to search. May be <code>null</code>.
    * @return <code>true</code> if such an agency exists, <code>false</code>
    *         otherwise.
+   * @deprecated Use {@link #containsSchemeWithSchemeID(String)} instead
    */
+  @Deprecated
   public static boolean containsAgencyWithSchemeID (@Nullable final String sSchemeID)
   {
-    return getAgencyOfSchemeID (sSchemeID) != null;
+    return containsSchemeWithSchemeID (sSchemeID);
+  }
+
+  /**
+   * Check if an agency with the given schemeID value exists.
+   *
+   * @param sSchemeID
+   *        The value to search. May be <code>null</code>.
+   * @return <code>true</code> if such an agency exists, <code>false</code>
+   *         otherwise.
+   */
+  public static boolean containsSchemeWithSchemeID (@Nullable final String sSchemeID)
+  {
+    return getSchemeOfSchemeID (sSchemeID) != null;
   }
 
   /**
@@ -145,8 +217,27 @@ public final class ParticipantIdentifierSchemeManager
   @Nullable
   public static String getISO6523CodeOfSchemeID (@Nullable final String sSchemeID)
   {
-    final IParticipantIdentifierScheme aAgency = getAgencyOfSchemeID (sSchemeID);
-    return aAgency == null ? null : aAgency.getISO6523Code ();
+    final IParticipantIdentifierScheme aScheme = getSchemeOfSchemeID (sSchemeID);
+    return aScheme == null ? null : aScheme.getISO6523Code ();
+  }
+
+  /**
+   * Check if the specified ISO6523 value references a deprecated issuing
+   * agency.
+   *
+   * @param sISO6523Code
+   *        The value to search. May be <code>null</code>.
+   * @return {@link ETriState#TRUE} if and only if an agency with the passed
+   *         value was found and is deprecated. {@link ETriState#FALSE} if the
+   *         agency was found and is not deprecated. {@link ETriState#UNDEFINED}
+   *         if no such agency exists.
+   * @deprecated Use {@link #isSchemeWithISO6523CodeDeprecated(String)} instead
+   */
+  @Deprecated
+  @Nonnull
+  public static ETriState isAgencyWithISO6523CodeDeprecated (@Nullable final String sISO6523Code)
+  {
+    return isSchemeWithISO6523CodeDeprecated (sISO6523Code);
   }
 
   /**
@@ -161,10 +252,28 @@ public final class ParticipantIdentifierSchemeManager
    *         if no such agency exists.
    */
   @Nonnull
-  public static ETriState isAgencyWithISO6523CodeDeprecated (@Nullable final String sISO6523Code)
+  public static ETriState isSchemeWithISO6523CodeDeprecated (@Nullable final String sISO6523Code)
   {
-    final IParticipantIdentifierScheme aAgency = getAgencyOfISO6523Code (sISO6523Code);
+    final IParticipantIdentifierScheme aAgency = getSchemeOfISO6523Code (sISO6523Code);
     return aAgency == null ? ETriState.UNDEFINED : ETriState.valueOf (aAgency.isDeprecated ());
+  }
+
+  /**
+   * Check if the specified scheme ID references a deprecated issuing agency.
+   *
+   * @param sSchemeID
+   *        The value to search. May be <code>null</code>.
+   * @return {@link ETriState#TRUE} if and only if an agency with the passed
+   *         value was found and is deprecated. {@link ETriState#FALSE} if the
+   *         agency was found and is not deprecated. {@link ETriState#UNDEFINED}
+   *         if no such agency exists.
+   * @deprecated Use {@link #isSchemeWithSchemeIDDeprecated(String)} instead
+   */
+  @Deprecated
+  @Nonnull
+  public static ETriState isAgencyWithSchemeIDDeprecated (@Nullable final String sSchemeID)
+  {
+    return isSchemeWithSchemeIDDeprecated (sSchemeID);
   }
 
   /**
@@ -178,16 +287,23 @@ public final class ParticipantIdentifierSchemeManager
    *         if no such agency exists.
    */
   @Nonnull
-  public static ETriState isAgencyWithSchemeIDDeprecated (@Nullable final String sSchemeID)
+  public static ETriState isSchemeWithSchemeIDDeprecated (@Nullable final String sSchemeID)
   {
-    final IParticipantIdentifierScheme aAgency = getAgencyOfSchemeID (sSchemeID);
+    final IParticipantIdentifierScheme aAgency = getSchemeOfSchemeID (sSchemeID);
     return aAgency == null ? ETriState.UNDEFINED : ETriState.valueOf (aAgency.isDeprecated ());
   }
 
+  @Deprecated
+  @Nullable
+  public static IParticipantIdentifierScheme getAgencyOfIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
+  {
+    return getSchemeOfIdentifier (aParticipantID);
+  }
+
   /**
-   * Find the agency that matches the provided participant ID. This method
-   * checks only participants that use the default PEPPOL identifier scheme
-   * `iso6523-actorid-upis`.
+   * Find the identifier scheme that matches the provided participant ID. This
+   * method checks only participants that use the default PEPPOL identifier
+   * scheme `iso6523-actorid-upis`.
    *
    * @param aParticipantID
    *        The participant ID to search. May be <code>null</code>.
@@ -196,7 +312,7 @@ public final class ParticipantIdentifierSchemeManager
    * @since 5.2.5
    */
   @Nullable
-  public static IParticipantIdentifierScheme getAgencyOfIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
+  public static IParticipantIdentifierScheme getSchemeOfIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
   {
     if (aParticipantID != null &&
         aParticipantID.hasScheme (PeppolIdentifierFactory.INSTANCE.getDefaultParticipantIdentifierScheme ()))
@@ -204,7 +320,7 @@ public final class ParticipantIdentifierSchemeManager
       final String sValue = aParticipantID.getValue ();
       // Value must be at least something like "1234:"
       if (sValue.length () > 5)
-        return getAgencyOfISO6523Code (sValue.substring (0, 4));
+        return getSchemeOfISO6523Code (sValue.substring (0, 4));
     }
     return null;
   }
