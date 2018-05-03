@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedParticipantIdentifierScheme;
 
 /**
  * Implementation of {@link IParticipantIdentifierValidatorSPI} for the
@@ -29,10 +29,12 @@ public final class ParticipantIdentifierValidatorNorwayOrgNumber implements IPar
 {
   private static final int [] WEIGHTS = new int [] { 3, 2, 7, 6, 5, 4, 3, 2 };
 
+  @SuppressWarnings ("deprecation")
   public boolean isSupportedIssuingAgency (@Nonnull @Nonempty final String sIssuingAgencyID)
   {
-    return EPredefinedIdentifierIssuingAgency.NO_ORGNR.getISO6523Code ().equals (sIssuingAgencyID) ||
-           EPredefinedIdentifierIssuingAgency.NO_VAT.getISO6523Code ().equals (sIssuingAgencyID);
+    return EPredefinedParticipantIdentifierScheme.NO_ORGNR.getISO6523Code ().equals (sIssuingAgencyID) ||
+           EPredefinedParticipantIdentifierScheme.NO_ORG.getISO6523Code ().equals (sIssuingAgencyID) ||
+           EPredefinedParticipantIdentifierScheme.NO_VAT.getISO6523Code ().equals (sIssuingAgencyID);
   }
 
   public boolean isValueValid (@Nonnull @Nonempty final String sValue)

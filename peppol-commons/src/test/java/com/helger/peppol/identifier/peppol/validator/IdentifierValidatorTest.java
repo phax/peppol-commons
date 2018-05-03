@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedParticipantIdentifierScheme;
 
 /**
  * Test class for class {@link IdentifierValidator}.
@@ -24,29 +24,30 @@ import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIs
  */
 public final class IdentifierValidatorTest
 {
+  @SuppressWarnings ("deprecation")
   @Test
   public void testNorwayOrgNumber ()
   {
-    assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_ORGNR.createParticipantIdentifier ("")));
-    assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_ORGNR.createParticipantIdentifier ("123456789")));
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_ORGNR.createParticipantIdentifier ("123456785")));
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_ORGNR.createParticipantIdentifier ("968218743")));
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_ORGNR.createParticipantIdentifier ("961329310")));
+    assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_ORGNR.createParticipantIdentifier ("")));
+    assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_ORGNR.createParticipantIdentifier ("123456789")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_ORGNR.createParticipantIdentifier ("123456785")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_ORGNR.createParticipantIdentifier ("968218743")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_ORGNR.createParticipantIdentifier ("961329310")));
 
-    assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_VAT.createParticipantIdentifier ("")));
-    assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_VAT.createParticipantIdentifier ("123456789")));
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_VAT.createParticipantIdentifier ("123456785")));
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_VAT.createParticipantIdentifier ("968218743")));
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.NO_VAT.createParticipantIdentifier ("961329310")));
+    assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_VAT.createParticipantIdentifier ("")));
+    assertFalse (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_VAT.createParticipantIdentifier ("123456789")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_VAT.createParticipantIdentifier ("123456785")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_VAT.createParticipantIdentifier ("968218743")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.NO_VAT.createParticipantIdentifier ("961329310")));
   }
 
   @Test
   public void testWithoutRules ()
   {
     // No special rules available -> all valid!
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.AD_VAT.createParticipantIdentifier ("123456789")));
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.AD_VAT.createParticipantIdentifier ("123456785")));
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.AD_VAT.createParticipantIdentifier ("968218743")));
-    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedIdentifierIssuingAgency.AD_VAT.createParticipantIdentifier ("961329310")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.AD_VAT.createParticipantIdentifier ("123456789")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.AD_VAT.createParticipantIdentifier ("123456785")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.AD_VAT.createParticipantIdentifier ("968218743")));
+    assertTrue (IdentifierValidator.isValidParticipantIdentifier (EPredefinedParticipantIdentifierScheme.AD_VAT.createParticipantIdentifier ("961329310")));
   }
 }

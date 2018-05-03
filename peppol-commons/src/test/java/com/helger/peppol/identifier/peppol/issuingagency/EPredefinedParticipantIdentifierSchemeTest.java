@@ -19,16 +19,16 @@ import org.junit.Test;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Test class for class {@link EPredefinedIdentifierIssuingAgency}.
- * 
+ * Test class for class {@link EPredefinedParticipantIdentifierScheme}.
+ *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class EPredefinedIdentifierIssuingAgencyTest
+public final class EPredefinedParticipantIdentifierSchemeTest
 {
   @Test
   public void testAll ()
   {
-    for (final EPredefinedIdentifierIssuingAgency e : EPredefinedIdentifierIssuingAgency.values ())
+    for (final EPredefinedParticipantIdentifierScheme e : EPredefinedParticipantIdentifierScheme.values ())
     {
       assertTrue (StringHelper.hasText (e.getSchemeID ()));
       // May be null but not empty
@@ -36,7 +36,7 @@ public final class EPredefinedIdentifierIssuingAgencyTest
       if (sAgency != null)
         assertTrue (StringHelper.hasText (sAgency));
       assertTrue (StringHelper.hasText (e.getISO6523Code ()));
-      assertSame (e, EPredefinedIdentifierIssuingAgency.valueOf (e.name ()));
+      assertSame (e, EPredefinedParticipantIdentifierScheme.valueOf (e.name ()));
       assertTrue (e.createIdentifierValue ("abc").endsWith (":abc"));
       assertTrue (e.createParticipantIdentifier ("def").getURIEncoded ().endsWith (":def"));
       assertNotNull (e.getSince ());

@@ -29,21 +29,21 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class IdentifierIssuingAgencyManager
+public final class ParticipantIdentifierSchemeManager
 {
-  private static final ICommonsList <IIdentifierIssuingAgency> s_aCodes = new CommonsArrayList <> ();
+  private static final ICommonsList <IParticipantIdentifierScheme> s_aCodes = new CommonsArrayList <> ();
 
   static
   {
     // Add all predefined identifier issuing agencies
-    for (final EPredefinedIdentifierIssuingAgency eIIA : EPredefinedIdentifierIssuingAgency.values ())
+    for (final EPredefinedParticipantIdentifierScheme eIIA : EPredefinedParticipantIdentifierScheme.values ())
       s_aCodes.add (eIIA);
   }
 
   @PresentForCodeCoverage
-  private static final IdentifierIssuingAgencyManager s_aInstance = new IdentifierIssuingAgencyManager ();
+  private static final ParticipantIdentifierSchemeManager s_aInstance = new ParticipantIdentifierSchemeManager ();
 
-  private IdentifierIssuingAgencyManager ()
+  private ParticipantIdentifierSchemeManager ()
   {}
 
   /**
@@ -52,7 +52,7 @@ public final class IdentifierIssuingAgencyManager
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public static ICommonsList <? extends IIdentifierIssuingAgency> getAllAgencies ()
+  public static ICommonsList <? extends IParticipantIdentifierScheme> getAllAgencies ()
   {
     return s_aCodes.getClone ();
   }
@@ -65,10 +65,10 @@ public final class IdentifierIssuingAgencyManager
    * @return <code>null</code> if no such agency exists.
    */
   @Nullable
-  public static IIdentifierIssuingAgency getAgencyOfISO6523Code (@Nullable final String sISO6523Code)
+  public static IParticipantIdentifierScheme getAgencyOfISO6523Code (@Nullable final String sISO6523Code)
   {
     if (StringHelper.hasText (sISO6523Code))
-      for (final IIdentifierIssuingAgency aAgency : s_aCodes)
+      for (final IParticipantIdentifierScheme aAgency : s_aCodes)
         if (aAgency.getISO6523Code ().equalsIgnoreCase (sISO6523Code))
           return aAgency;
     return null;
@@ -99,7 +99,7 @@ public final class IdentifierIssuingAgencyManager
   @Nullable
   public static String getSchemeIDOfISO6523Code (@Nullable final String sISO6523Code)
   {
-    final IIdentifierIssuingAgency aAgency = getAgencyOfISO6523Code (sISO6523Code);
+    final IParticipantIdentifierScheme aAgency = getAgencyOfISO6523Code (sISO6523Code);
     return aAgency == null ? null : aAgency.getSchemeID ();
   }
 
@@ -111,10 +111,10 @@ public final class IdentifierIssuingAgencyManager
    * @return <code>null</code> if no such agency exists.
    */
   @Nullable
-  public static IIdentifierIssuingAgency getAgencyOfSchemeID (@Nullable final String sSchemeID)
+  public static IParticipantIdentifierScheme getAgencyOfSchemeID (@Nullable final String sSchemeID)
   {
     if (StringHelper.hasText (sSchemeID))
-      for (final IIdentifierIssuingAgency aAgency : s_aCodes)
+      for (final IParticipantIdentifierScheme aAgency : s_aCodes)
         if (aAgency.getSchemeID ().equalsIgnoreCase (sSchemeID))
           return aAgency;
     return null;
@@ -145,7 +145,7 @@ public final class IdentifierIssuingAgencyManager
   @Nullable
   public static String getISO6523CodeOfSchemeID (@Nullable final String sSchemeID)
   {
-    final IIdentifierIssuingAgency aAgency = getAgencyOfSchemeID (sSchemeID);
+    final IParticipantIdentifierScheme aAgency = getAgencyOfSchemeID (sSchemeID);
     return aAgency == null ? null : aAgency.getISO6523Code ();
   }
 
@@ -163,7 +163,7 @@ public final class IdentifierIssuingAgencyManager
   @Nonnull
   public static ETriState isAgencyWithISO6523CodeDeprecated (@Nullable final String sISO6523Code)
   {
-    final IIdentifierIssuingAgency aAgency = getAgencyOfISO6523Code (sISO6523Code);
+    final IParticipantIdentifierScheme aAgency = getAgencyOfISO6523Code (sISO6523Code);
     return aAgency == null ? ETriState.UNDEFINED : ETriState.valueOf (aAgency.isDeprecated ());
   }
 
@@ -180,7 +180,7 @@ public final class IdentifierIssuingAgencyManager
   @Nonnull
   public static ETriState isAgencyWithSchemeIDDeprecated (@Nullable final String sSchemeID)
   {
-    final IIdentifierIssuingAgency aAgency = getAgencyOfSchemeID (sSchemeID);
+    final IParticipantIdentifierScheme aAgency = getAgencyOfSchemeID (sSchemeID);
     return aAgency == null ? ETriState.UNDEFINED : ETriState.valueOf (aAgency.isDeprecated ());
   }
 
@@ -196,7 +196,7 @@ public final class IdentifierIssuingAgencyManager
    * @since 5.2.5
    */
   @Nullable
-  public static IIdentifierIssuingAgency getAgencyOfIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
+  public static IParticipantIdentifierScheme getAgencyOfIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
   {
     if (aParticipantID != null &&
         aParticipantID.hasScheme (PeppolIdentifierFactory.INSTANCE.getDefaultParticipantIdentifierScheme ()))

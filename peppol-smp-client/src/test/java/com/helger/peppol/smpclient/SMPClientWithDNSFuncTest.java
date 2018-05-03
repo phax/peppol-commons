@@ -24,7 +24,7 @@ import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedIdentifierIssuingAgency;
+import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedParticipantIdentifierScheme;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ServiceGroupType;
@@ -94,9 +94,9 @@ public final class SMPClientWithDNSFuncTest
   public void getByDNSTestForDocs () throws Exception
   {
     // ServiceGroup = participant identifier; GLN = 0088
-    final IParticipantIdentifier aServiceGroupID = EPredefinedIdentifierIssuingAgency.GLN.createParticipantIdentifier ("5798000000001");
+    final IParticipantIdentifier aServiceGroupID = EPredefinedParticipantIdentifierScheme.GLN.createParticipantIdentifier ("5798000000001");
     // Document type identifier from enumeration
-    final IDocumentTypeIdentifier aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A.getAsDocumentTypeIdentifier ();
+    final IDocumentTypeIdentifier aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20.getAsDocumentTypeIdentifier ();
     // Main call to the SMP client with the correct SML to use
     final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (URL_PROVIDER,
                                                                                                ESML.DIGIT_TEST,

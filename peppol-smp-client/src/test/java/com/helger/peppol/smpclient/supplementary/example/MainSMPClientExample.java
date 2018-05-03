@@ -42,7 +42,7 @@ public final class MainSMPClientExample
                                                                 ESML.DIGIT_TEST);
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
-                                                                   EPredefinedProcessIdentifier.BIS4A_V20,
+                                                                   EPredefinedProcessIdentifier.BIS4A_V2,
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
     // Endpoint address should be "https://test.erechnung.gv.at/as2"
     s_aLogger.info ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +

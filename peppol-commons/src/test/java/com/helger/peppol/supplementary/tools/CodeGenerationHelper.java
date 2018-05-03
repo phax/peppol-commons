@@ -23,8 +23,6 @@ import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier
 @Immutable
 final class CodeGenerationHelper
 {
-  private static final String SKIP_BIS_PREFIX = "urn:www.peppol.eu:bis:peppol";
-
   private CodeGenerationHelper ()
   {}
 
@@ -33,6 +31,7 @@ final class CodeGenerationHelper
   public static String createShortcutDocumentTypeIDName (@Nonnull final IPeppolDocumentTypeIdentifierParts aDocIDParts)
   {
     // Create a shortcut constant with a more readable name!
+    final String sLocalName = aDocIDParts.getLocalName ();
     final String sCustomizationID = aDocIDParts.getCustomizationID ();
 
     // Invoice
@@ -51,7 +50,12 @@ final class CodeGenerationHelper
     if ("urn:www.cenbii.eu:transaction:biicoretrdm015:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0".equals (sCustomizationID))
       return "INVOICE_T015_BIS6A";
     if ("urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0".equals (sCustomizationID))
-      return "INVOICE_EN16931_PEPPOL_V30";
+    {
+      if ("Invoice".equals (sLocalName))
+        return "INVOICE_EN16931_PEPPOL_V30";
+      if ("CreditNote".equals (sLocalName))
+        return "CREDITNOTE_EN16931_PEPPOL_V30";
+    }
 
     // CreditNote
     if ("urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0".equals (sCustomizationID))
@@ -124,22 +128,9 @@ final class CodeGenerationHelper
   @Nonempty
   public static String createShortcutBISIDName (@Nonnull final String sBISID)
   {
-    if (!sBISID.startsWith (SKIP_BIS_PREFIX))
-      throw new IllegalArgumentException ("Invalid BIS ID: " + sBISID);
-
-    String ret = "BIS" + sBISID.substring (SKIP_BIS_PREFIX.length ());
-    final int nIndex = ret.indexOf (":ver");
-    if (nIndex >= 0)
-    {
-      // Add version number
-      String sVersion = "_V" + ret.substring (nIndex + 4, nIndex + 5) + ret.substring (nIndex + 6, nIndex + 7);
-      if (sVersion.equals ("_V10"))
-      {
-        // For backwards compatibility
-        sVersion = "";
-      }
-      ret = ret.substring (0, nIndex) + sVersion;
-    }
+    String ret = sBISID;
+    ret = StringHelper.removeAll (ret, ' ');
+    ret = StringHelper.replaceAll (ret, '.', '_');
     return ret.toUpperCase (Locale.US);
   }
 }

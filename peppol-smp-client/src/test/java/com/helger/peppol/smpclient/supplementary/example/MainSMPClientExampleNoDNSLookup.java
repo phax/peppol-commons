@@ -39,7 +39,7 @@ public final class MainSMPClientExampleNoDNSLookup
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu"));
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
-                                                                   EPredefinedProcessIdentifier.BIS4A_V20,
+                                                                   EPredefinedProcessIdentifier.BIS4A_V2,
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
 
     // Endpoint address should be "https://test.erechnung.gv.at/as2"

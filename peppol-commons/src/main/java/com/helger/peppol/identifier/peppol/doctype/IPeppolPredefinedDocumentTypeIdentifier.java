@@ -14,7 +14,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**
  * Base interface for predefined document identifiers.
@@ -23,7 +22,7 @@ import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifie
  */
 public interface IPeppolPredefinedDocumentTypeIdentifier extends
                                                          IPeppolDocumentTypeIdentifier,
-                                                         IBusdoxDocumentTypeIdentifierParts
+                                                         IPeppolDocumentTypeIdentifierParts
 {
   /**
    * @return The common name under which a document is known. This is e.g.

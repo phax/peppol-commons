@@ -12,9 +12,7 @@ package com.helger.peppol.identifier.peppol.process;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 
 /**
  * Base interface for predefined process identifiers.
@@ -28,12 +26,6 @@ public interface IPeppolPredefinedProcessIdentifier extends IPeppolProcessIdenti
    */
   @Nonnull
   String getBISID ();
-
-  /**
-   * @return A list of all document identifiers that are valid in this scenario
-   */
-  @Nonnull
-  ICommonsList <? extends IPeppolPredefinedDocumentTypeIdentifier> getDocumentTypeIdentifiers ();
 
   /**
    * @return The {@link PeppolProcessIdentifier} version of this predefined

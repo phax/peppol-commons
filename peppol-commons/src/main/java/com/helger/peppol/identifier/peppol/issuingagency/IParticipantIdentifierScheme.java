@@ -18,11 +18,11 @@ import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 
 /**
- * Base interface for a single identifier issuing agency.
+ * Base interface for a single Participant identifier scheme.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IIdentifierIssuingAgency
+public interface IParticipantIdentifierScheme
 {
   /**
    * Get the scheme ID of this issuing agency.<br>

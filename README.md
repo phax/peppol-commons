@@ -26,6 +26,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 * v6.1.0 - work in progress
   * Reworked internal PEPPOL document type identifier representation (API incompatibility; deleted `OpenPeppolDocumentTypeIdentifierParts`)
+  * The new PEPPOL code lists were integrated. Therefore `EPredefinedIdentifierIssuingAgency` was replaced with `EPredefinedParticipantIdentifierScheme` and `IdentifierIssuingAgencyManager` was renamed to `ParticipantIdentifierSchemeManager`
+  * The document types were removed from the predefined process identifiers 
 * v6.0.4 - 2018-04-13
   * Added SSL certificates of SML into default truststore (`truststore/complete-truststore.jks`)
   * Replaced truststore SHA-1 files with SHA-256 checksum files
