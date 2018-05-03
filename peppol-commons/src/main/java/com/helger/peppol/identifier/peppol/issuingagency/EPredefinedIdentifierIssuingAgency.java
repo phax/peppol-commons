@@ -1,13 +1,3 @@
-/**
- * Copyright (C) 2015-2018 Philip Helger (www.helger.com)
- * philip[at]helger[dot]com
- *
- * The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 package com.helger.peppol.identifier.peppol.issuingagency;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -73,7 +63,7 @@ public enum EPredefinedIdentifierIssuingAgency
      * 
      * @since code list 1.0.0
      */
-    GLN("GLN", "EAN International", "0088", false, Version.parse("1.0.0")),
+    GLN("GLN", "GS1 GLN", "0088", false, Version.parse("1.0.0")),
 
     /**
      * Prefix <code>0096</code>, scheme ID <code>DK:P</code><br>
@@ -116,20 +106,36 @@ public enum EPredefinedIdentifierIssuingAgency
     IT_SECETI("IT:SECETI", "Servizi Centralizzati SECETI S.p.A.", "0142", false, Version.parse("1.0.0")),
 
     /**
-     * Prefix <code>0184</code>, scheme ID <code>DIGST</code><br>
+     * Prefix <code>0184</code>, scheme ID <code>DK:DIGST</code><br>
      * 
      * 
      * @since code list 1.2.1
      */
-    DIGST("DIGST", "DIGSTORG", "0184", false, Version.parse("1.2.1")),
+    DK_DIGST("DK:DIGST", "DIGSTORG", "0184", false, Version.parse("1.2.1")),
+
+    /**
+     * Prefix <code>0190</code>, scheme ID <code>NL:OINO</code><br>
+     * 
+     * 
+     * @since code list 2
+     */
+    NL_OINO("NL:OINO", "Dutch Originator's Identification Number", "0190", false, Version.parse("2")),
 
     /**
      * Prefix <code>0191</code>, scheme ID <code>EE:CC</code><br>
      * 
      * 
-     * @since code list 4.0.0
+     * @since code list 2
      */
-    EE_CC("EE:CC", "Estonian Company Code", "0191", false, Version.parse("4.0.0")),
+    EE_CC("EE:CC", "Centre of Registers and Information Systems of the Ministry of Justice", "0191", false, Version.parse("2")),
+
+    /**
+     * Prefix <code>0192</code>, scheme ID <code>NO:ORG</code><br>
+     * 
+     * 
+     * @since code list 2
+     */
+    NO_ORG("NO:ORG", "The Br\u00f8nn\u00f8ysund Register Centre", "0192", false, Version.parse("2")),
 
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
@@ -544,11 +550,12 @@ public enum EPredefinedIdentifierIssuingAgency
 
     /**
      * Prefix <code>9954</code>, scheme ID <code>NL:OIN</code><br>
+     * <b>This item is deprecated and should not be used to issue new identifiers!</b><br>
      * 
      * 
      * @since code list 1.1.3
      */
-    NL_OIN("NL:OIN", "Dutch Originator's Identification Number", "9954", false, Version.parse("1.1.3")),
+    NL_OIN("NL:OIN", "Dutch Originator's Identification Number", "9954", true, Version.parse("1.1.3")),
 
     /**
      * Prefix <code>9955</code>, scheme ID <code>SE:VAT</code><br>
@@ -572,15 +579,7 @@ public enum EPredefinedIdentifierIssuingAgency
      * 
      * @since code list 1.2.1
      */
-    FR_VAT("FR:VAT", "French VAT number", "9957", false, Version.parse("1.2.1")),
-
-    /**
-     * Prefix <code>9958</code>, scheme ID <code>FI:VAT</code><br>
-     * 
-     * 
-     * @since code list 4.0.0
-     */
-    FI_VAT("FI:VAT", "Finish VAT number", "9958", false, Version.parse("4.0.0"));
+    FR_VAT("FR:VAT", "French VAT number", "9957", false, Version.parse("1.2.1"));
     private final String m_sSchemeID;
     private final String m_sSchemeAgency;
     private final String m_sISO6523;

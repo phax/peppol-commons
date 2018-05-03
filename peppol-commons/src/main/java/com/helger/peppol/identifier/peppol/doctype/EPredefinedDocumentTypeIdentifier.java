@@ -1,22 +1,7 @@
-/**
- * Copyright (C) 2015-2018 Philip Helger (www.helger.com)
- * philip[at]helger[dot]com
- *
- * The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 package com.helger.peppol.identifier.peppol.doctype;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 
 /**
@@ -255,9 +240,17 @@ public enum EPredefinedDocumentTypeIdentifier
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</code>
      * 
      * 
-     * @since code list 4.0.0
+     * @since code list 2
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1(new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0", "2.1"), "PEPPOL Billing v3", Version.parse("4.0.0"));
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1(new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0", "2.1"), "PEPPOL BIS Billing V3", Version.parse("2")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</code>
+     * 
+     * 
+     * @since code list 2
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1(new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0", "2.1"), "PEPPOL BIS Billing V3", Version.parse("2"));
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1}
      */
@@ -374,97 +367,4 @@ public enum EPredefinedDocumentTypeIdentifier
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1}
      */
     public final static EPredefinedDocumentTypeIdentifier INVOICE_EN16931_PEPPOL_V30 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1;
-    private final IPeppolDocumentTypeIdentifierParts m_aParts;
-    private final String m_sID;
-    private final String m_sCommonName;
-    private final Version m_aSince;
-
-    private EPredefinedDocumentTypeIdentifier(
-        @Nonnull
-        final IPeppolDocumentTypeIdentifierParts aParts,
-        @Nonnull
-        @Nonempty
-        final String sCommonName,
-        @Nonnull
-        final Version aSince) {
-        m_aParts = aParts;
-        m_sCommonName = sCommonName;
-        m_sID = m_aParts.getAsDocumentTypeIdentifierValue();
-        m_aSince = aSince;
-    }
-
-    @Nonnull
-    @Nonempty
-    public String getScheme() {
-        return PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME;
-    }
-
-    @Nonnull
-    @Nonempty
-    public String getValue() {
-        return m_sID;
-    }
-
-    @Nonnull
-    @Nonempty
-    public String getRootNS() {
-        return m_aParts.getRootNS();
-    }
-
-    @Nonnull
-    @Nonempty
-    public String getLocalName() {
-        return m_aParts.getLocalName();
-    }
-
-    @Nonnull
-    @Nonempty
-    public String getSubTypeIdentifier() {
-        return m_aParts.getSubTypeIdentifier();
-    }
-
-    @Nonnull
-    @Nonempty
-    public String getCommonName() {
-        return m_sCommonName;
-    }
-
-    @Nonnull
-    @Nonempty
-    public String getAsDocumentTypeIdentifierValue() {
-        return m_sID;
-    }
-
-    @Nonnull
-    public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier() {
-        return new PeppolDocumentTypeIdentifier(this);
-    }
-
-    @Nonnull
-    public Version getSince() {
-        return m_aSince;
-    }
-
-    public boolean isDefaultScheme() {
-        return true;
-    }
-
-    @Nonnull
-    public IPeppolDocumentTypeIdentifierParts getParts() {
-        return m_aParts;
-    }
-
-    @Nullable
-    public static EPredefinedDocumentTypeIdentifier getFromDocumentTypeIdentifierOrNull(
-        @Nullable
-        final IDocumentTypeIdentifier aDocTypeID) {
-        if ((aDocTypeID!= null)&&aDocTypeID.hasScheme(PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME)) {
-            for (EPredefinedDocumentTypeIdentifier e: EPredefinedDocumentTypeIdentifier.values()) {
-                if (e.getValue().equals(aDocTypeID.getValue())) {
-                    return e;
-                }
-            }
-        }
-        return null;
-    }
 }

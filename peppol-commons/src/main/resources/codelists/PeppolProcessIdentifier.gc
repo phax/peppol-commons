@@ -1,294 +1,290 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!--
-
-    Copyright (C) 2015-2018 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
-<CodeList xmlns="http://docs.oasis-open.org/codelist/ns/genericode/1.0/">
-  <ns0:Annotation xmlns:ns0="">
-    <ns0:AppInfo>
-      <ns1:info xmlns:ns1="urn:www.helger.com:schemas:genericode-ext">Automatically created by ph-genericode. Do NOT edit.</ns1:info>
-    </ns0:AppInfo>
-  </ns0:Annotation>
-  <ns0:Identification xmlns:ns0="">
-    <ns0:ShortName>PeppolProcessIdentifier</ns0:ShortName>
-    <ns0:Version>1.2.2</ns0:Version>
-    <ns0:CanonicalUri>urn:peppol.eu:names:identifier:process</ns0:CanonicalUri>
-    <ns0:CanonicalVersionUri>urn:peppol.eu:names:identifier:process-1.0</ns0:CanonicalVersionUri>
-  </ns0:Identification>
-  <ns0:ColumnSet xmlns:ns0="">
-    <ns0:Column ns0:Id="name" ns0:Use="required">
-      <ns0:ShortName>Profile code</ns0:ShortName>
-      <ns0:Data ns0:Type="string" />
-    </ns0:Column>
-    <ns0:Column ns0:Id="id" ns0:Use="required">
-      <ns0:ShortName>Profile ID</ns0:ShortName>
-      <ns0:Data ns0:Type="string" />
-    </ns0:Column>
-    <ns0:Column ns0:Id="bisid" ns0:Use="required">
-      <ns0:ShortName>PEPPOL BIS</ns0:ShortName>
-      <ns0:Data ns0:Type="string" />
-    </ns0:Column>
-    <ns0:Column ns0:Id="docids" ns0:Use="required">
-      <ns0:ShortName>Document identifiers</ns0:ShortName>
-      <ns0:Data ns0:Type="string" />
-    </ns0:Column>
-    <ns0:Column ns0:Id="since" ns0:Use="required">
-      <ns0:ShortName>Since</ns0:ShortName>
-      <ns0:Data ns0:Type="string" />
-    </ns0:Column>
-    <ns0:Key ns0:Id="nameKey">
-      <ns0:ShortName>Profile code</ns0:ShortName>
-      <ns0:ColumnRef ns0:Ref="name" />
-    </ns0:Key>
-    <ns0:Key ns0:Id="idKey">
-      <ns0:ShortName>Profile ID</ns0:ShortName>
-      <ns0:ColumnRef ns0:Ref="id" />
-    </ns0:Key>
-    <ns0:Key ns0:Id="bisidKey">
-      <ns0:ShortName>PEPPOL BIS</ns0:ShortName>
-      <ns0:ColumnRef ns0:Ref="bisid" />
-    </ns0:Key>
-  </ns0:ColumnSet>
-  <ns0:SimpleCodeList xmlns:ns0="">
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII01 - Catalogue only V1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii01:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol1a:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biicoretrdm019:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0
-urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm057:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0
-urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm058:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII01 - Catalogue only V4</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii01:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol1a:ver4.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biitrns019:ver2.0:extended:urn:www.peppol.eu:bis:peppol1a:ver4.0::2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII03 - Order Only V1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii03:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol3a:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII03 - Order Only V2</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii03:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol03a:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol03a:ver2.0::2.1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII04 - Invoice only V1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii04:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol4a:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0::2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII04 - Invoice only V2</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii04:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol4a:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII05 - Billing V1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii05:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol5a:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0
-urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0
-urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm015:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.1.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII05 - Billing V2</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii05:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol5a:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1
-urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII06 - Procurement V1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii06:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol6a:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0
-urn:oasis:names:specification:ubl:schema:xsd:OrderResponseSimple-2::OrderResponseSimple##urn:www.cenbii.eu:transaction:biicoretrdm002:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0
-urn:oasis:names:specification:ubl:schema:xsd:OrderResponseSimple-2::OrderResponseSimple##urn:www.cenbii.eu:transaction:biicoretrdm003:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0
-urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0
-urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0
-urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm015:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.0.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII28 - Ordering V1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii28:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol28a:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1
-urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::Order##urn:www.cenbii.eu:transaction:biitrns076:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII30 - Despatch Advice V1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii30:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol30a:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:www.cenbii.eu:transaction:biitrns016:ver1.0:extended:urn:www.peppol.eu:bis:peppol30a:ver1.0::2.1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII36 - Message Level Response V1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:www.cenbii.eu:profile:bii36:ver2.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol36a:ver1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biitrns071:ver2.0:extended:urn:www.peppol.eu:bis:peppol36a:ver1.0::2.1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>1.2.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-    <ns0:Row>
-      <ns0:Value ns0:ColumnRef="name">
-        <ns0:SimpleValue>BII05 - Billing v3</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="id">
-        <ns0:SimpleValue>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="bisid">
-        <ns0:SimpleValue>urn:www.peppol.eu:bis:peppol5a:ver3.0</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="docids">
-        <ns0:SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</ns0:SimpleValue>
-      </ns0:Value>
-      <ns0:Value ns0:ColumnRef="since">
-        <ns0:SimpleValue>4.0.0</ns0:SimpleValue>
-      </ns0:Value>
-    </ns0:Row>
-  </ns0:SimpleCodeList>
-</CodeList>
+<?xml version="1.0" encoding="UTF-8"?>
+<gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
+  <Annotation>
+    <AppInfo>
+      <ns4:info xmlns:ns4="urn:www.helger.com:schemas:genericode-ext">Automatically created by ph-genericode. Do NOT edit.</ns4:info>
+    </AppInfo>
+  </Annotation>
+  <Identification>
+    <ShortName>PeppolProcessIdentifier</ShortName>
+      <Version>2</Version>
+      <CanonicalUri>urn:peppol.eu:names:identifier:process</CanonicalUri>
+      <CanonicalVersionUri>urn:peppol.eu:names:identifier:process-1.0</CanonicalVersionUri>
+  </Identification>
+  <ColumnSet>
+    <Column Id="name" Use="required">
+      <ShortName>Profile code</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="bisid" Use="required">
+      <ShortName>PEPPOL BIS</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="id" Use="required">
+      <ShortName>Profile ID</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="since" Use="required">
+      <ShortName>Since</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="deprecated" Use="required">
+      <ShortName>Deprecated</ShortName>
+          <Data Type="boolean" />
+    </Column>
+      <Column Id="deprecated-since" Use="optional">
+      <ShortName>Deprecated Since</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Key Id="nameKey">
+      <ShortName>Profile code</ShortName>
+          <ColumnRef Ref="name" />
+    </Key>
+      <Key Id="bisidKey">
+      <ShortName>PEPPOL BIS</ShortName>
+          <ColumnRef Ref="bisid" />
+    </Key>
+      <Key Id="idKey">
+      <ShortName>Profile ID</ShortName>
+          <ColumnRef Ref="id" />
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList>
+    <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Catalogue profile V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 1A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii01:ver1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.0.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>1.2.1</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Catalogue profile V4</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 1A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii01:ver2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Order profile V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 3A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii03:ver1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.0.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>1.2.1</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Order profile V2</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 3A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii03:ver2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Invoice profile V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 4A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii04:ver1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.0.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>1.2.1</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Invoice profile V2</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 4A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii04:ver2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Billing profile V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 5A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii05:ver1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>1.2.1</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Billing profile V2</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 5A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii05:ver2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Billing profile V3</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 5A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 6A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii06:ver1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.0.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>1.2.1</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Ordering profile V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 28A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii28:ver2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Despatch Advice V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 30A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii30:ver2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Message Level Response V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 36A</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.cenbii.eu:profile:bii36:ver2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>1.2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</gc:CodeList>
