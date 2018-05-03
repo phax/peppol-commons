@@ -43,6 +43,12 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   }
 
   @Nullable
+  public PeppolDocumentTypeIdentifier createDocumentTypeIdentifierWithDefaultScheme (@Nullable final String sValue)
+  {
+    return createDocumentTypeIdentifier (getDefaultDocumentTypeIdentifierScheme (), sValue);
+  }
+
+  @Nullable
   public PeppolDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                     @Nullable final String sValue)
   {
@@ -67,6 +73,12 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   }
 
   @Nullable
+  public PeppolParticipantIdentifier createParticipantIdentifierWithDefaultScheme (@Nullable final String sValue)
+  {
+    return createParticipantIdentifier (getDefaultParticipantIdentifierScheme (), sValue);
+  }
+
+  @Nullable
   public PeppolParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
                                                                   @Nullable final String sValue)
   {
@@ -78,6 +90,12 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public String getDefaultProcessIdentifierScheme ()
   {
     return PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME;
+  }
+
+  @Nullable
+  public PeppolProcessIdentifier createProcessIdentifierWithDefaultScheme (@Nullable final String sValue)
+  {
+    return createProcessIdentifier (getDefaultProcessIdentifierScheme (), sValue);
   }
 
   @Nullable

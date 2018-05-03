@@ -8,25 +8,29 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.identifier.peppol.issuingagency;
+package com.helger.peppol.identifier.peppol.pidscheme;
+
+import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 
 /**
  * Base interface for a single Participant identifier scheme.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IParticipantIdentifierScheme
+public interface IParticipantIdentifierScheme extends Serializable
 {
   /**
    * Get the scheme ID of this issuing agency.<br>
-   * Example for GLN <code>"GLN"</code> is returned.
+   * Example for GLN <code>"GLN"</code> is returned.<br>
+   * Hint: this is NOT the meta scheme to be used!
    *
    * @return The scheme ID of this issuing agency. May neither be
    *         <code>null</code> nor empty.
@@ -68,7 +72,10 @@ public interface IParticipantIdentifierScheme
    */
   @Nonnull
   @Nonempty
-  String createIdentifierValue (@Nonnull @Nonempty String sIdentifier);
+  default String createIdentifierValue (@Nonnull @Nonempty final String sIdentifier)
+  {
+    return getISO6523Code () + ":" + sIdentifier;
+  }
 
   /**
    * Get the real participant identifier for the given local identifier.<br>
@@ -80,7 +87,10 @@ public interface IParticipantIdentifierScheme
    * @return The participant identifier. Never <code>null</code>.
    */
   @Nonnull
-  IParticipantIdentifier createParticipantIdentifier (@Nonnull @Nonempty String sIdentifier);
+  default PeppolParticipantIdentifier createParticipantIdentifier (@Nonnull @Nonempty final String sIdentifier)
+  {
+    return PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (createIdentifierValue (sIdentifier));
+  }
 
   /**
    * @return <code>true</code> if the agency is deprecated and should not be

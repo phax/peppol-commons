@@ -57,7 +57,6 @@ import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.FileCodeWriter;
-import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -65,8 +64,7 @@ import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifier
 import com.helger.peppol.identifier.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.issuingagency.IParticipantIdentifierScheme;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.pidscheme.IParticipantIdentifierScheme;
 import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.xml.microdom.IMicroDocument;
@@ -461,7 +459,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     // Create Java source
     try
     {
-      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "issuingagency")
+      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "pidscheme")
                                               ._enum ("EPredefinedParticipantIdentifierScheme")
                                               ._implements (IParticipantIdentifierScheme.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
@@ -553,28 +551,6 @@ public final class MainCreatePredefinedEnumsFromExcel
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fISO6523);
-
-      // public String createIdentifierValue (String)
-      final JMethod mCreateIdentifierValue = jEnum.method (JMod.PUBLIC, String.class, "createIdentifierValue");
-      mCreateIdentifierValue.annotate (Nonnull.class);
-      mCreateIdentifierValue.annotate (Nonempty.class);
-      JVar jValue = mCreateIdentifierValue.param (JMod.FINAL, String.class, "sIdentifier");
-      jValue.annotate (Nonnull.class);
-      jValue.annotate (Nonempty.class);
-      mCreateIdentifierValue.body ()._return (fISO6523.plus (JExpr.lit (":")).plus (jValue));
-
-      // public PeppolParticipantIdentifier createIdentifierValue (String)
-      m = jEnum.method (JMod.PUBLIC, PeppolParticipantIdentifier.class, "createParticipantIdentifier");
-      m.annotate (Nonnull.class);
-      jValue = m.param (JMod.FINAL, String.class, "sIdentifier");
-      jValue.annotate (Nonnull.class);
-      jValue.annotate (Nonempty.class);
-      m.body ()
-       ._return (JExpr.cast (s_aCodeModel.ref (PeppolParticipantIdentifier.class),
-                             s_aCodeModel.ref (PeppolIdentifierFactory.class)
-                                         .staticRef ("INSTANCE")
-                                         .invoke ("createParticipantIdentifierWithDefaultScheme")
-                                         .arg (JExpr.invoke (mCreateIdentifierValue).arg (jValue))));
 
       // public boolean isDeprecated ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");

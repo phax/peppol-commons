@@ -8,13 +8,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.identifier.peppol.issuingagency;
+package com.helger.peppol.identifier.peppol.pidscheme;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -616,23 +614,6 @@ public enum EPredefinedParticipantIdentifierScheme
     @Nonempty
     public String getISO6523Code() {
         return m_sISO6523;
-    }
-
-    @Nonnull
-    @Nonempty
-    public String createIdentifierValue(
-        @Nonnull
-        @Nonempty
-        final String sIdentifier) {
-        return ((m_sISO6523 +":")+ sIdentifier);
-    }
-
-    @Nonnull
-    public PeppolParticipantIdentifier createParticipantIdentifier(
-        @Nonnull
-        @Nonempty
-        final String sIdentifier) {
-        return ((PeppolParticipantIdentifier) PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme(createIdentifierValue(sIdentifier)));
     }
 
     public boolean isDeprecated() {

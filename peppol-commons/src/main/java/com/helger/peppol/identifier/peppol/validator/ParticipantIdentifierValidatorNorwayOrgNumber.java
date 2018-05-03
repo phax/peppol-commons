@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.peppol.issuingagency.EPredefinedParticipantIdentifierScheme;
+import com.helger.peppol.identifier.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
 /**
  * Implementation of {@link IParticipantIdentifierValidatorSPI} for the

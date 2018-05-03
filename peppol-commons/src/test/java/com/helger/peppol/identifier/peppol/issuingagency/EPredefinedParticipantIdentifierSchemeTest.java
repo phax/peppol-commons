@@ -17,6 +17,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
 /**
  * Test class for class {@link EPredefinedParticipantIdentifierScheme}.
