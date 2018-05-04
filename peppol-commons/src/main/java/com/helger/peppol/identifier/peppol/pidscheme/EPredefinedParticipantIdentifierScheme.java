@@ -27,7 +27,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0002</code>, scheme ID <code>FR:SIRENE</code><br>
-     * Structure of the code: 1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters. 2) Check digits: 9th & 14th character respectively<br>
+     * Structure of the code: 1) Number of characters: 9 characters (&quot;SIREN&quot;) 14 &quot; 9+5 (&quot;SIRET&quot;), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters. 2) Check digits: 9th &amp; 14th character respectively<br>
      * Display requirements: The 9 figure code number (SIREN) is written in groups of 3 characters. Example: 784 301 772, The 14 figure code number is written in 3 groups of 3 characters and a
      * single group of 5. Example: 784 301 772 00025<br>
      * Usage information: 1.1.1 - Changed from FR:SIRET to FR:SIRENE (see ISU Jira ISU-231)<br>
@@ -101,7 +101,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0097</code>, scheme ID <code>IT:FTI</code><br>
-     * Structure of the code: Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure: [123] [123456] [123456] [12], 17, < >, A B C D, A: numerical value allocated by the RA to the regional sub-authority, (3 digits), B: numerical value allocated by the sub-authority to the registered organization (mandatory part of the identifier; 6 digits), C: numerical value used by the registered organization (free part; 6 digits), D: numerical check digit calculated by the registered organization; (2 digits), Check digit computation, The check digit is modular 97 computed on ABC as one number.<br>
+     * Structure of the code: Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure: [123] [123456] [123456] [12], 17, &lt; &gt;, A B C D, A: numerical value allocated by the RA to the regional sub-authority, (3 digits), B: numerical value allocated by the sub-authority to the registered organization (mandatory part of the identifier; 6 digits), C: numerical value used by the registered organization (free part; 6 digits), D: numerical check digit calculated by the registered organization; (2 digits), Check digit computation, The check digit is modular 97 computed on ABC as one number.<br>
      * Display requirements: None<br>
      * 
      * @since code list 1.0.0
@@ -118,7 +118,7 @@ public enum EPredefinedParticipantIdentifierScheme
     /**
      * Prefix <code>0135</code>, scheme ID <code>IT:SIA</code><br>
      * Structure of the code: Structure of EDI identifier, Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure:
-     * [1234567] [123] [1] [12345], min 11- max 16, < >, A B C D, A: numerical value (7 digits) assigned by Uffico Provinciale IVA (local branch of Ministry of Finance); B: numerical value a (3 digits) identifying the County; C: numerical check digit (1 digit); D: optional numerical value (up to 5 digits0 used by the registered organization (free part). Check digit computation, The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.<br>
+     * [1234567] [123] [1] [12345], min 11- max 16, &lt; &gt;, A B C D, A: numerical value (7 digits) assigned by Uffico Provinciale IVA (local branch of Ministry of Finance); B: numerical value a (3 digits) identifying the County; C: numerical check digit (1 digit); D: optional numerical value (up to 5 digits0 used by the registered organization (free part). Check digit computation, The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.<br>
      * Display requirements: None<br>
      * 
      * @since code list 1.0.0
@@ -212,7 +212,7 @@ public enum EPredefinedParticipantIdentifierScheme
     /**
      * Prefix <code>9907</code>, scheme ID <code>IT:CF</code><br>
      * Example value: RSSBBR69C48F839A
-     * NOTE: The "CF" is a Fiscal Code that can be "personal" or for a "legal entity".
+     * NOTE: The &quot;CF&quot; is a Fiscal Code that can be &quot;personal&quot; or for a &quot;legal entity&quot;.
      * The CF for legal entities is like the Italian VAT code (IT:VAT)<br>
      * 
      * @since code list 1.0.0

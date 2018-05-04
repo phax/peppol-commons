@@ -90,6 +90,19 @@ public final class MainCreatePredefinedEnumsFromExcel
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
   private static final boolean DEFAULT_DEPRECATED = false;
 
+  @Nullable
+  private static String _maskHtml (@Nullable final String s)
+  {
+    if (s == null)
+      return null;
+    String ret = s;
+    ret = StringHelper.replaceAll (ret, "&", "&amp;");
+    ret = StringHelper.replaceAll (ret, "<", "&lt;");
+    ret = StringHelper.replaceAll (ret, ">", "&gt;");
+    ret = StringHelper.replaceAll (ret, "\"", "&quot;");
+    return ret;
+  }
+
   private static void _writeGenericodeFile (@Nonnull final CodeListDocument aCodeList, @Nonnull final String sFilename)
   {
     final MapBasedNamespaceContext aNsCtx = new MapBasedNamespaceContext ();
@@ -498,13 +511,13 @@ public final class MainCreatePredefinedEnumsFromExcel
                           " and should not be used to issue new identifiers!</b><br>");
         }
         if (StringHelper.hasText (sStructure))
-          jEnumConst.javadoc ().add ("\nStructure of the code: " + sStructure + "<br>");
+          jEnumConst.javadoc ().add ("\nStructure of the code: " + _maskHtml (sStructure) + "<br>");
         if (StringHelper.hasText (sDisplay))
-          jEnumConst.javadoc ().add ("\nDisplay requirements: " + sDisplay + "<br>");
+          jEnumConst.javadoc ().add ("\nDisplay requirements: " + _maskHtml (sDisplay) + "<br>");
         if (StringHelper.hasText (sExamples))
-          jEnumConst.javadoc ().add ("\nExample value: " + sExamples + "<br>");
+          jEnumConst.javadoc ().add ("\nExample value: " + _maskHtml (sExamples) + "<br>");
         if (StringHelper.hasText (sUsage))
-          jEnumConst.javadoc ().add ("\nUsage information: " + sUsage + "<br>");
+          jEnumConst.javadoc ().add ("\nUsage information: " + _maskHtml (sUsage) + "<br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
       }
 
