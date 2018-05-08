@@ -115,8 +115,8 @@
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.peppol.identifier.peppol.validator.IParticipantIdentifierValidatorSPI)"; cardinality:=multiple</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.peppol.identifier.peppol.validator.ParticipantIdentifierValidatorNorwayOrgNumber,
-osgi.serviceloader; osgi.serviceloader=com.helger.peppol.config.MicroTypeConverterRegistrar_peppol_commons</Provide-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.peppol.identifier.peppol.validator.IParticipantIdentifierValidatorSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
@@ -151,7 +151,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.peppol.config.MicroTypeConvert
         <configuration>
           <schemaDirectory>src/main/resources/WEB-INF/wsdl</schemaDirectory>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
-          <!-- Required for schema component designator in binding file -->
+          <!-- Required for schema component designator in binding file -->          
           <extension>true</extension>
           <strict>false</strict>
           <catalog>${basedir}/src/main/jaxb/catalog.txt</catalog>
