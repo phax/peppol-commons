@@ -24,6 +24,9 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
+* v6.1.1 - work in progress
+  * Fixed OSGI ServiceProvider configuration
+  * Updated to ph-commons 9.1.0
 * v6.1.0 - 2018-05-04 (#StarWarsDay release)
   * Reworked internal PEPPOL document type identifier representation (API incompatibility; deleted `OpenPeppolDocumentTypeIdentifierParts`)
   * The new official PEPPOL code lists were integrated. Therefore `EPredefinedIdentifierIssuingAgency` was replaced with `EPredefinedParticipantIdentifierScheme` and `IdentifierIssuingAgencyManager` was renamed to `ParticipantIdentifierSchemeManager`

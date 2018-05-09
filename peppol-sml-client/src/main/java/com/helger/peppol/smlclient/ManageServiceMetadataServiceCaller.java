@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.ws.WSClientConfig;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
 import com.helger.peppol.smlclient.smp.InternalErrorFault;
@@ -32,6 +31,7 @@ import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppol.smlclient.smp.PublisherEndpointType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 import com.helger.peppol.smlclient.smp.UnauthorizedFault;
+import com.helger.wsclient.WSClientConfig;
 
 /**
  * This class is used for calling the service meta data interface of the SML. It

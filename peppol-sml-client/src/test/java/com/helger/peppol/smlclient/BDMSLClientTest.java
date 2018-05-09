@@ -19,9 +19,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.ws.WSHelper;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
+import com.helger.wsclient.WSHelper;
 
 /**
  * Test class for class {@link BDMSLClient}.

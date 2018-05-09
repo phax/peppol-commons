@@ -24,7 +24,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.ws.WSClientConfig;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.CSMLDefault;
@@ -39,6 +38,7 @@ import com.helger.peppol.smlclient.participant.PageRequestType;
 import com.helger.peppol.smlclient.participant.ParticipantIdentifierPageType;
 import com.helger.peppol.smlclient.participant.ServiceMetadataPublisherServiceForParticipantType;
 import com.helger.peppol.smlclient.participant.UnauthorizedFault;
+import com.helger.wsclient.WSClientConfig;
 
 /**
  * This class is used for calling the Manage Participant Identifier interface on

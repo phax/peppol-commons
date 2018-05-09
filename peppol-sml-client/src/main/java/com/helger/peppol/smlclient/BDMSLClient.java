@@ -27,7 +27,6 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.url.URLHelper;
-import com.helger.commons.ws.WSClientConfig;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
@@ -47,6 +46,7 @@ import com.helger.peppol.smlclient.bdmslcipa.PrepareChangeCertificateType;
 import com.helger.peppol.smlclient.bdmslcipa.SMPAdvancedServiceForParticipantType;
 import com.helger.peppol.smlclient.bdmslcipa.ServiceMetadataPublisherServiceForParticipantType;
 import com.helger.peppol.smlclient.bdmslcipa.UnauthorizedFault;
+import com.helger.wsclient.WSClientConfig;
 
 /**
  * A client for the new BDMSL specific "CIPA service"
