@@ -74,7 +74,7 @@ public final class EsensURLProviderTest
   @DevelopersNote ("works only if DNS server is reachable")
   public void testResolve ()
   {
-    final EsensURLProvider aURLProvider = new EsensURLProvider ();
+    final IBDXLURLProvider aURLProvider = EsensURLProvider.INSTANCE;
     final String sURL = aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
                                                               ESML.DIGIT_TEST);
     assertNotNull (sURL);
@@ -82,5 +82,15 @@ public final class EsensURLProviderTest
       assertEquals ("test-infra.peppol.at", sURL);
     else
       assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu", sURL);
+  }
+
+  @Test
+  public void testToop ()
+  {
+    final IBDXLURLProvider aURLProvider = EsensURLProvider.INSTANCE;
+    assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
+                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
+                                                        false));
   }
 }
