@@ -44,8 +44,7 @@
   </developers>
   <properties>
     <jaxws-plugin.version>2.5</jaxws-plugin.version>
-    <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
-    <jaxws.version>2.2.10</jaxws.version>
+    <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->    <jaxws.version>2.2.10</jaxws.version>
   </properties>
   <dependencies>
     <dependency>
@@ -114,7 +113,7 @@
             <Import-Package>!javax.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.peppol.identifier.peppol.validator.IParticipantIdentifierValidatorSPI)"; cardinality:=multiple</Require-Capability>
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.peppol.identifier.peppol.validator.IParticipantIdentifierValidatorSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
             <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.peppol.identifier.peppol.validator.IParticipantIdentifierValidatorSPI,
 osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
@@ -151,8 +150,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
         <configuration>
           <schemaDirectory>src/main/resources/WEB-INF/wsdl</schemaDirectory>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
-          <!-- Required for schema component designator in binding file -->          
-          <extension>true</extension>
+          <!-- Required for schema component designator in binding file -->          <extension>true</extension>
           <strict>false</strict>
           <catalog>${basedir}/src/main/jaxb/catalog.txt</catalog>
           <args>
@@ -172,7 +170,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
             <arg>-Xph-cloneable</arg>
           </args>
           <plugins>
-            <!-- Required for -Xinheritance -->
+                        <!-- Required for -Xinheritance -->
             <plugin>
               <groupId>org.jvnet.jaxb2_commons</groupId>
               <artifactId>jaxb2-basics</artifactId>
