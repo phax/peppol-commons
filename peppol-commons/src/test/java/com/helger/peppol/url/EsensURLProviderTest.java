@@ -30,7 +30,7 @@ public final class EsensURLProviderTest
   @Test
   public void testDefault ()
   {
-    final EsensURLProvider aURLProvider = new EsensURLProvider ();
+    final IBDXLURLProvider aURLProvider = EsensURLProvider.INSTANCE;
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null,
                                                                                          "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128"),

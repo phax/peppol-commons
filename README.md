@@ -26,6 +26,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 * v6.1.2 - work in progress
   * Really fixed OSGI ServiceProvider configuration
+  * Added interface `IBDXLURLProvider`
 * v6.1.1 - 2018-05-14
   * Fixed OSGI ServiceProvider configuration
   * Updated to ph-commons 9.1.0

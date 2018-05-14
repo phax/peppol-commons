@@ -34,7 +34,7 @@ import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
- * The default implementation of {@link IPeppolURLProvider} suitable for the
+ * The default implementation of {@link IBDXLURLProvider} suitable for the
  * E-SENS network. See e.g. http://wiki.ds.unipi.gr/display/ESENS/PR+-+BDXL<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
@@ -42,10 +42,10 @@ import com.helger.security.messagedigest.MessageDigestValue;
  * @author Philip Helger
  */
 @ThreadSafe
-public class EsensURLProvider implements IPeppolURLProvider
+public class EsensURLProvider implements IBDXLURLProvider
 {
   public static final EsensURLProvider MUTABLE_INSTANCE = new EsensURLProvider ();
-  public static final IPeppolURLProvider INSTANCE = MUTABLE_INSTANCE;
+  public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
 
@@ -70,10 +70,6 @@ public class EsensURLProvider implements IPeppolURLProvider
     m_aRWLock.writeLocked ( () -> m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing);
   }
 
-  /**
-   * @return <code>true</code> if internal DNS caching is enabled,
-   *         <code>false</code> if not. By default it is enabled.
-   */
   public boolean isUseDNSCache ()
   {
     return m_aRWLock.readLocked ( () -> m_bUseDNSCache);
@@ -99,13 +95,9 @@ public class EsensURLProvider implements IPeppolURLProvider
     m_aRWLock.writeLocked ( () -> m_aDNSCache.clear ());
   }
 
-  /**
-   * @return A copy of all entries currently in the cache. Never
-   *         <code>null</code> but maybe empty.
-   */
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsMap <String, String> getAllCacheEntries ()
+  public ICommonsMap <String, String> getAllDNSCacheEntries ()
   {
     return m_aRWLock.readLocked ( () -> m_aDNSCache.getClone ());
   }
@@ -138,21 +130,6 @@ public class EsensURLProvider implements IPeppolURLProvider
                                                               EMessageDigestAlgorithm.SHA_256)
                                                      .getAllDigestBytes ();
     return new Base32Codec ().setAddPaddding (false).getEncodedAsString (aMessageDigest, StandardCharsets.ISO_8859_1);
-  }
-
-  @Nonnull
-  public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                         @Nullable final String sSMLZoneName)
-  {
-    return getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName, true);
-  }
-
-  @Nonnull
-  public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                         @Nullable final String sSMLZoneName,
-                                         final boolean bDoNAPTRResolving)
-  {
-    return getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName, bDoNAPTRResolving, null);
   }
 
   @Nonnull
