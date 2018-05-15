@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>6.1.2</version>
+    <version>6.1.3-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-sbdh</artifactId>
   <packaging>bundle</packaging>
