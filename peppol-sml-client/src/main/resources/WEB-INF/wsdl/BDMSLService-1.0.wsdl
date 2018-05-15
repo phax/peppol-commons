@@ -28,8 +28,14 @@ limitations under the License.
                   targetNamespace=
                           "http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/Schema/">
             <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/"
-                      schemaLocation="ManageServiceMetadataService-1.0.xsd"/>
+                      schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd"/>
         </s:schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        	<xsd:import
+        		namespace="http://busdox.org/serviceMetadata/locator/1.0/"
+        		schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd">
+        	</xsd:import>
+     	</xsd:schema>
     </wsdl:types>
     <wsdl:message name="prepareChangeCertificateIn">
         <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
