@@ -45,29 +45,29 @@ public final class SMLExceptionHelper
         return ((com.helger.peppol.smlclient.smp.BadRequestFault) aCause).getFaultInfo ().getFaultMessage ();
       if (aCause instanceof com.helger.peppol.smlclient.participant.BadRequestFault)
         return ((com.helger.peppol.smlclient.participant.BadRequestFault) aCause).getFaultInfo ().getFaultMessage ();
-      if (aCause instanceof com.helger.peppol.smlclient.bdmslcipa.BadRequestFault)
-        return ((com.helger.peppol.smlclient.bdmslcipa.BadRequestFault) aCause).getFaultInfo ().getFaultMessage ();
+      if (aCause instanceof com.helger.peppol.smlclient.bdmsl.BadRequestFault)
+        return ((com.helger.peppol.smlclient.bdmsl.BadRequestFault) aCause).getFaultInfo ().getFaultMessage ();
 
       if (aCause instanceof com.helger.peppol.smlclient.smp.InternalErrorFault)
         return ((com.helger.peppol.smlclient.smp.InternalErrorFault) aCause).getFaultInfo ().getFaultMessage ();
       if (aCause instanceof com.helger.peppol.smlclient.participant.InternalErrorFault)
         return ((com.helger.peppol.smlclient.participant.InternalErrorFault) aCause).getFaultInfo ().getFaultMessage ();
-      if (aCause instanceof com.helger.peppol.smlclient.bdmslcipa.InternalErrorFault)
-        return ((com.helger.peppol.smlclient.bdmslcipa.InternalErrorFault) aCause).getFaultInfo ().getFaultMessage ();
+      if (aCause instanceof com.helger.peppol.smlclient.bdmsl.InternalErrorFault)
+        return ((com.helger.peppol.smlclient.bdmsl.InternalErrorFault) aCause).getFaultInfo ().getFaultMessage ();
 
       if (aCause instanceof com.helger.peppol.smlclient.smp.NotFoundFault)
         return ((com.helger.peppol.smlclient.smp.NotFoundFault) aCause).getFaultInfo ().getFaultMessage ();
       if (aCause instanceof com.helger.peppol.smlclient.participant.NotFoundFault)
         return ((com.helger.peppol.smlclient.participant.NotFoundFault) aCause).getFaultInfo ().getFaultMessage ();
-      if (aCause instanceof com.helger.peppol.smlclient.bdmslcipa.NotFoundFault)
-        return ((com.helger.peppol.smlclient.bdmslcipa.NotFoundFault) aCause).getFaultInfo ().getFaultMessage ();
+      if (aCause instanceof com.helger.peppol.smlclient.bdmsl.NotFoundFault)
+        return ((com.helger.peppol.smlclient.bdmsl.NotFoundFault) aCause).getFaultInfo ().getFaultMessage ();
 
       if (aCause instanceof com.helger.peppol.smlclient.smp.UnauthorizedFault)
         return ((com.helger.peppol.smlclient.smp.UnauthorizedFault) aCause).getFaultInfo ().getFaultMessage ();
       if (aCause instanceof com.helger.peppol.smlclient.participant.UnauthorizedFault)
         return ((com.helger.peppol.smlclient.participant.UnauthorizedFault) aCause).getFaultInfo ().getFaultMessage ();
-      if (aCause instanceof com.helger.peppol.smlclient.bdmslcipa.UnauthorizedFault)
-        return ((com.helger.peppol.smlclient.bdmslcipa.UnauthorizedFault) aCause).getFaultInfo ().getFaultMessage ();
+      if (aCause instanceof com.helger.peppol.smlclient.bdmsl.UnauthorizedFault)
+        return ((com.helger.peppol.smlclient.bdmsl.UnauthorizedFault) aCause).getFaultInfo ().getFaultMessage ();
     }
 
     return null;

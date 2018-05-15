@@ -159,11 +159,11 @@
             </goals>
             <configuration>
               <wsdlFiles>
-                <wsdlFile>BDMSLCipaService-1.0.wsdl</wsdlFile>
+                <wsdlFile>BDMSLService-1.0.wsdl</wsdlFile>
               </wsdlFiles>
-              <wsdlLocation>/WEB-INF/wsdl/BDMSLCipaService-1.0.wsdl</wsdlLocation>
+              <wsdlLocation>/WEB-INF/wsdl/BDMSLService-1.0.wsdl</wsdlLocation>
               <staleFile>${project.build.directory}/stale/.stale-wsimport3</staleFile>
-              <packageName>com.helger.peppol.smlclient.bdmslcipa</packageName>
+              <packageName>com.helger.peppol.smlclient.bdmsl</packageName>
             </configuration>
           </execution>
         </executions>

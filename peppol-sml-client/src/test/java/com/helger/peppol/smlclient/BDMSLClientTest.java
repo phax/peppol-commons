@@ -12,8 +12,11 @@ package com.helger.peppol.smlclient;
 
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import org.junit.Ignore;
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,13 +25,14 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
 import com.helger.wsclient.WSHelper;
+import com.sun.xml.ws.client.ClientTransportException;
 
 /**
  * Test class for class {@link BDMSLClient}.
  *
  * @author Philip Helger
  */
-@Ignore ("Requires a running SML and a configured certificate")
+// @Ignore ("Requires a running SML and a configured certificate")
 public final class BDMSLClientTest extends AbstractSMLClientTestCase
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (BDMSLClientTest.class);
@@ -46,10 +50,12 @@ public final class BDMSLClientTest extends AbstractSMLClientTestCase
     {
       // Create client
       final BDMSLClient aClient = new BDMSLClient (SML_INFO);
-      aClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      aClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
+      aClient.setRequestTimeoutMS (100_000);
 
       s_aLogger.info ("IS_ALIVE");
-      aClient.isAlive ();
+      final boolean bAlive = aClient.isAlive ();
+      assertTrue (bAlive);
 
       s_aLogger.info ("CLEAR_CACHE");
       aClient.clearCache ();
@@ -57,6 +63,28 @@ public final class BDMSLClientTest extends AbstractSMLClientTestCase
       s_aLogger.info ("LIST_PARTICIPANTS");
       final ICommonsList <ParticipantListItem> aList = aClient.listParticipants ();
       assertNull (aList);
+
+      s_aLogger.info ("PREPARE_CHANGE_CERTIFICATE");
+      try
+      {
+        aClient.prepareChangeCertificate ("dummy", null);
+        fail ();
+      }
+      catch (final ClientTransportException ex)
+      {
+        // Expected HTTP 400
+      }
+
+      s_aLogger.info ("CHANGE_CERTIFICATE");
+      try
+      {
+        aClient.changeCertificate ("fake-smp-id", "dummy".getBytes (StandardCharsets.ISO_8859_1));
+        fail ();
+      }
+      catch (final ClientTransportException ex)
+      {
+        // Expected HTTP 400
+      }
     }
     finally
     {

@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.url.URLHelper;
@@ -31,25 +32,27 @@ import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.smlclient.bdmsl.BDMSLService;
+import com.helger.peppol.smlclient.bdmsl.BDMSLServiceSoap;
+import com.helger.peppol.smlclient.bdmsl.BadRequestFault;
+import com.helger.peppol.smlclient.bdmsl.ChangeCertificateType;
+import com.helger.peppol.smlclient.bdmsl.ClearCacheType;
+import com.helger.peppol.smlclient.bdmsl.InternalErrorFault;
+import com.helger.peppol.smlclient.bdmsl.IsAliveType;
+import com.helger.peppol.smlclient.bdmsl.ListParticipantsInType;
+import com.helger.peppol.smlclient.bdmsl.ListParticipantsType;
+import com.helger.peppol.smlclient.bdmsl.NotFoundFault;
 import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
-import com.helger.peppol.smlclient.bdmslcipa.BDMSLCipaService;
-import com.helger.peppol.smlclient.bdmslcipa.BDMSLCipaServiceSoap;
-import com.helger.peppol.smlclient.bdmslcipa.BadRequestFault;
-import com.helger.peppol.smlclient.bdmslcipa.ClearCacheType;
-import com.helger.peppol.smlclient.bdmslcipa.InternalErrorFault;
-import com.helger.peppol.smlclient.bdmslcipa.IsAliveType;
-import com.helger.peppol.smlclient.bdmslcipa.ListParticipantsInType;
-import com.helger.peppol.smlclient.bdmslcipa.ListParticipantsType;
-import com.helger.peppol.smlclient.bdmslcipa.NotFoundFault;
-import com.helger.peppol.smlclient.bdmslcipa.ParticipantsType;
-import com.helger.peppol.smlclient.bdmslcipa.PrepareChangeCertificateType;
-import com.helger.peppol.smlclient.bdmslcipa.SMPAdvancedServiceForParticipantType;
-import com.helger.peppol.smlclient.bdmslcipa.ServiceMetadataPublisherServiceForParticipantType;
-import com.helger.peppol.smlclient.bdmslcipa.UnauthorizedFault;
+import com.helger.peppol.smlclient.bdmsl.ParticipantsType;
+import com.helger.peppol.smlclient.bdmsl.PrepareChangeCertificateType;
+import com.helger.peppol.smlclient.bdmsl.SMPAdvancedServiceForParticipantType;
+import com.helger.peppol.smlclient.bdmsl.ServiceMetadataPublisherServiceForParticipantType;
+import com.helger.peppol.smlclient.bdmsl.UnauthorizedFault;
 import com.helger.wsclient.WSClientConfig;
+import com.sun.xml.ws.client.ClientTransportException;
 
 /**
- * A client for the new BDMSL specific "CIPA service"
+ * A client for the new BDMSL specific "BDMSL service"
  * <p>
  * Note: this class is also licensed under Apache 2 license, as it was not part
  * of the original implementation
@@ -63,7 +66,7 @@ public class BDMSLClient extends WSClientConfig
 
   public BDMSLClient (@Nonnull final ISMLInfo aSMLInfo)
   {
-    super (URLHelper.getAsURL (aSMLInfo.getManagementServiceURL () + "/cipaservice"));
+    super (URLHelper.getAsURL (aSMLInfo.getManagementServiceURL () + "/bdmslservice"));
   }
 
   /**
@@ -88,22 +91,49 @@ public class BDMSLClient extends WSClientConfig
   @Nonnull
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  protected BDMSLCipaServiceSoap createWSPort ()
+  protected BDMSLServiceSoap createWSPort ()
   {
-    final BDMSLCipaService aService = new BDMSLCipaService ();
-    final BDMSLCipaServiceSoap aPort = aService.getBDMSLCipaServicePort ();
+    final BDMSLService aService = new BDMSLService ();
+    final BDMSLServiceSoap aPort = aService.getBDMSLServicePort ();
     applyWSSettingsToBindingProvider ((BindingProvider) aPort);
     return aPort;
   }
 
+  /**
+   * This operation allows a SMP to prepare a change of its certificate. It is
+   * typically called when an SMP has a certificate that is about to expire and
+   * already has the new one.<br>
+   * This operation MUST be called while the certificate that is already
+   * registered in the SML is still valid.
+   *
+   * @param sNewCertificatePublicKey
+   *        The new public key contained in the certificate.
+   * @param aMigrationDate
+   *        The migration date for the new certificate. Can't be in the past. If
+   *        the migrationDate is not empty, then the new certificate MUST be
+   *        valid at the date provided in the migrationDate element. i.e. The
+   *        migrationDate must be within validFrom and validTo dates of the new
+   *        certificate. If the migrationDate element is empty, then the "Valid
+   *        From" date is extracted from the certificate and is used as the
+   *        migrationDate. In this case, the "Not Before" date of the
+   *        certificate must be in the future.
+   * @throws BadRequestFault
+   *         In case of error
+   * @throws InternalErrorFault
+   *         In case of error
+   * @throws NotFoundFault
+   *         In case of error
+   * @throws UnauthorizedFault
+   *         In case of error
+   */
   public void prepareChangeCertificate (@Nonnull @Nonempty final String sNewCertificatePublicKey,
-                                        @Nonnull final LocalDate aMigrationDate) throws BadRequestFault,
-                                                                                 InternalErrorFault,
-                                                                                 NotFoundFault,
-                                                                                 UnauthorizedFault
+                                        @Nullable final LocalDate aMigrationDate) throws ClientTransportException,
+                                                                                  BadRequestFault,
+                                                                                  InternalErrorFault,
+                                                                                  NotFoundFault,
+                                                                                  UnauthorizedFault
   {
     ValueEnforcer.notEmpty (sNewCertificatePublicKey, "NewCertificatePublicKey");
-    ValueEnforcer.notNull (aMigrationDate, "MigrationDate");
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("prepareChangeCertificate (" + sNewCertificatePublicKey + ", " + aMigrationDate + ")");
@@ -114,9 +144,46 @@ public class BDMSLClient extends WSClientConfig
     createWSPort ().prepareChangeCertificate (aBody);
   }
 
+  /**
+   * Change a certificate
+   *
+   * @param sSMPID
+   *        The SMP identifier
+   * @param aNewCertificatePublicKey
+   *        The new public key contained in the certificate.
+   * @throws BadRequestFault
+   *         In case of error
+   * @throws InternalErrorFault
+   *         In case of error
+   * @throws UnauthorizedFault
+   *         In case of error
+   */
+  public void changeCertificate (@Nonnull final String sSMPID,
+                                 @Nonnull @Nonempty final byte [] aNewCertificatePublicKey) throws ClientTransportException,
+                                                                                            BadRequestFault,
+                                                                                            InternalErrorFault,
+                                                                                            UnauthorizedFault
+  {
+    ValueEnforcer.notEmpty (sSMPID, "SMPID");
+    ValueEnforcer.notEmpty (aNewCertificatePublicKey, "NewCertificatePublicKey");
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("changeCertificate (" +
+                       sSMPID +
+                       ", " +
+                       ArrayHelper.getSize (aNewCertificatePublicKey) +
+                       " bytes)");
+
+    final ChangeCertificateType aBody = new ChangeCertificateType ();
+    aBody.setServiceMetadataPublisherID (sSMPID);
+    aBody.setNewCertificatePublicKey (aNewCertificatePublicKey);
+    createWSPort ().changeCertificate (aBody);
+  }
+
   public void createParticipantIdentifier (@Nonnull @Nonempty final String sSMPID,
                                            @Nonnull final IParticipantIdentifier aParticipantID,
-                                           @Nonnull @Nonempty final String sServiceName) throws BadRequestFault,
+                                           @Nonnull @Nonempty final String sServiceName) throws ClientTransportException,
+                                                                                         BadRequestFault,
                                                                                          InternalErrorFault,
                                                                                          NotFoundFault,
                                                                                          UnauthorizedFault
@@ -155,6 +222,11 @@ public class BDMSLClient extends WSClientConfig
       s_aLogger.error ("Unauthorized to call listParticipants", ex);
       return null;
     }
+    catch (final ClientTransportException ex)
+    {
+      s_aLogger.error ("HTTP error invoking listParticipants", ex);
+      return null;
+    }
     final ICommonsList <ParticipantListItem> ret = new CommonsArrayList <> ();
     if (aList != null)
       for (final ParticipantsType aParticipant : aList.getParticipant ())
@@ -163,16 +235,24 @@ public class BDMSLClient extends WSClientConfig
     return ret;
   }
 
-  public void isAlive ()
+  public boolean isAlive ()
   {
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("isAlive ()");
 
-    final IsAliveType aDummy = new IsAliveType ();
-    createWSPort ().isAlive (aDummy);
+    try
+    {
+      final IsAliveType aDummy = new IsAliveType ();
+      createWSPort ().isAlive (aDummy);
+      return true;
+    }
+    catch (final InternalErrorFault | ClientTransportException ex)
+    {
+      return false;
+    }
   }
 
-  public void clearCache () throws InternalErrorFault
+  public void clearCache () throws ClientTransportException, InternalErrorFault
   {
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("clearCache ()");

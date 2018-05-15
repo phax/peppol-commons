@@ -72,7 +72,7 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
     {
       // Create client
       final ManageServiceMetadataServiceCaller aSMPClient = new ManageServiceMetadataServiceCaller (SML_INFO);
-      aSMPClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      aSMPClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
       final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
       aPIClient.setSSLSocketFactory (aSMPClient.getSSLSocketFactory ());

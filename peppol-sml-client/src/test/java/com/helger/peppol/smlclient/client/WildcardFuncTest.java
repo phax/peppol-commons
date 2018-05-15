@@ -57,7 +57,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
   public void initialize () throws Exception
   {
     m_aSMClient = new ManageServiceMetadataServiceCaller (SML_INFO);
-    m_aSMClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    m_aSMClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
     try
     {
       m_aSMClient.delete (SMP_ID);
@@ -90,7 +90,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     try
     {
       final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-      aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
       aPIClient.create (SMP_ID, new PeppolParticipantIdentifier (BUSINESS_IDENTIFIER_SCHEME, "*"));
       fail ("User should not be allowed to register wild card for this scheme : " + BUSINESS_IDENTIFIER_SCHEME);
     }
@@ -106,7 +106,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     try
     {
       final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-      aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
       aPIClient.create (UNAUTHRIZED_SML_ID,
                         new PeppolParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
       fail ("The user should not be authorized to insert PI when wildcard is on for scheme.");
@@ -125,7 +125,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     try
     {
       final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-      aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
       aPIClient.create (SMP_ID, new PeppolParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
       fail ("User should not be allowed to register wild card for this scheme : " + BUSINESS_IDENTIFIER_SCHEME);
     }
@@ -139,7 +139,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
   public void createDeleteWildcard () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
     final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, "*");
     aPIClient.create (SMP_ID, aPI);
 
@@ -147,7 +147,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     try
     {
       final ManageParticipantIdentifierServiceCaller unAuthorizedClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-      unAuthorizedClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+      unAuthorizedClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
       unAuthorizedClient.delete (SMP_ID, aPI);
       fail ("The user does not own the identifier : *");
     }

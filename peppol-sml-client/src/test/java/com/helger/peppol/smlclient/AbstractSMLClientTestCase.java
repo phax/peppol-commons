@@ -39,7 +39,8 @@ public abstract class AbstractSMLClientTestCase
   protected static final String KEYSTORE_PASSWORD = MockSMLClientConfig.getKeyStorePassword ();
 
   @Nullable
-  public static final SSLSocketFactory createConfiguredSSLSocketFactory (@Nonnull final ISMLInfo aSMLInfo) throws Exception
+  public static final SSLSocketFactory createConfiguredSSLSocketFactory (@Nonnull final ISMLInfo aSMLInfo,
+                                                                         final boolean bDebug) throws Exception
   {
     if (!aSMLInfo.isClientCertificateRequired ())
       return null;
@@ -54,7 +55,7 @@ public abstract class AbstractSMLClientTestCase
     // Assign key manager and empty trust manager to SSL context
     final SSLContext aSSLCtx = SSLContext.getInstance ("TLS");
     aSSLCtx.init (aKeyManagerFactory.getKeyManagers (),
-                  new TrustManager [] { new TrustManagerTrustAll (true) },
+                  new TrustManager [] { new TrustManagerTrustAll (bDebug) },
                   RandomHelper.getSecureRandom ());
     return aSSLCtx.getSocketFactory ();
   }

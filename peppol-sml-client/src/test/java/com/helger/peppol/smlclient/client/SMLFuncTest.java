@@ -85,7 +85,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void cleanup () throws Exception
   {
     m_aSMClient = new ManageServiceMetadataServiceCaller (SML_INFO);
-    m_aSMClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    m_aSMClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
     try
     {
       m_aSMClient.delete (SMP_ID);
@@ -103,7 +103,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void dnsCreationTest () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     try
@@ -153,7 +153,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void testManageServiceMetadataWithManyIdentifier () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final long nStartIdentifier = 5798000999999l;
     final int nLastIdentifier = 150;
@@ -203,7 +203,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void testManageBusinessIdentifier () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final IParticipantIdentifier aBusinessIdentifierCreate = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
 
@@ -235,7 +235,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void testManageBusinessIdentifierDoubleDelete () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final IParticipantIdentifier aBusinessIdentifierCreate = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
 
@@ -268,7 +268,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void testManageBusinessIdentifierListWithZeroElements () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final ICommonsList <ParticipantIdentifierType> aRecipientBusinessIdentifiers = new CommonsArrayList <> ();
 
@@ -288,7 +288,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void testManageBusinessIdentifierListWithOneElement () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final ICommonsList <IParticipantIdentifier> aRecipientBusinessIdentifiers = new CommonsArrayList <> ();
     final IParticipantIdentifier aBusinessIdentifierCreate1 = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
@@ -318,7 +318,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void testManageBusinessIdentifierListWithTwoElement () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final ICommonsMap <String, IParticipantIdentifier> aBusinessIdentifiersCreate = new CommonsHashMap <> ();
 
@@ -359,10 +359,10 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void migrateTest () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClientOld = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClientOld.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClientOld.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final ManageServiceMetadataServiceCaller aClient2 = new ManageServiceMetadataServiceCaller (SML_INFO);
-    aClient2.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aClient2.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
     try
     {
       aClient2.delete (SMP_ID2);
@@ -375,7 +375,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     _createSMPData (aClient2, SMP_ID2);
 
     final ManageParticipantIdentifierServiceCaller aPIClientNew = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1);
     aPIClientOld.create (SMP_ID, aPI);
@@ -401,10 +401,10 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   public void createExistingBusinessIdentifierUnauthorized () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClientOld = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClientOld.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClientOld.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final ManageServiceMetadataServiceCaller aClient2 = new ManageServiceMetadataServiceCaller (SML_INFO);
-    aClient2.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aClient2.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
     try
     {
       aClient2.delete (SMP_ID2);
@@ -417,7 +417,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     _createSMPData (aClient2, SMP_ID2);
 
     final ManageParticipantIdentifierServiceCaller aPIClientNew = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO));
+    aPIClientNew.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
 
     aPIClientOld.create (SMP_ID,
                          PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (TEST_BUSINESS_IDENTIFIER1));
