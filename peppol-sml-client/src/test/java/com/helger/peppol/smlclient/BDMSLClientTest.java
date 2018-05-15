@@ -17,6 +17,7 @@ import static org.junit.Assert.fail;
 
 import java.nio.charset.StandardCharsets;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,7 @@ import com.sun.xml.ws.client.ClientTransportException;
  *
  * @author Philip Helger
  */
-// @Ignore ("Requires a running SML and a configured certificate")
+@Ignore ("Requires a running SML and a configured certificate")
 public final class BDMSLClientTest extends AbstractSMLClientTestCase
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (BDMSLClientTest.class);
