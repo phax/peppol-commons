@@ -44,7 +44,8 @@
   </developers>
   <properties>
     <jaxws-plugin.version>2.5</jaxws-plugin.version>
-    <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->    <jaxws.version>2.2.10</jaxws.version>
+    <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
+    <jaxws.version>2.2.10</jaxws.version>
   </properties>
   <dependencies>
     <dependency>
@@ -139,7 +140,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
       <plugin>
         <groupId>org.jvnet.jaxb2.maven2</groupId>
         <artifactId>maven-jaxb2-plugin</artifactId>
-        <version>0.13.3</version>
+        <version>0.14.0</version>
         <executions>
           <execution>
             <goals>
@@ -150,7 +151,8 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
         <configuration>
           <schemaDirectory>src/main/resources/WEB-INF/wsdl</schemaDirectory>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
-          <!-- Required for schema component designator in binding file -->          <extension>true</extension>
+          <!-- Required for schema component designator in binding file -->
+          <extension>true</extension>
           <strict>false</strict>
           <catalog>${basedir}/src/main/jaxb/catalog.txt</catalog>
           <args>
@@ -170,7 +172,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
             <arg>-Xph-cloneable</arg>
           </args>
           <plugins>
-                        <!-- Required for -Xinheritance -->
+            <!-- Required for -Xinheritance -->
             <plugin>
               <groupId>org.jvnet.jaxb2_commons</groupId>
               <artifactId>jaxb2-basics</artifactId>
