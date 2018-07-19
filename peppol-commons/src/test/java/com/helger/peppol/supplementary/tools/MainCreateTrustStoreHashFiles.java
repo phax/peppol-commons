@@ -34,7 +34,7 @@ import com.helger.security.messagedigest.MessageDigestValue;
  */
 public final class MainCreateTrustStoreHashFiles
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateTrustStoreHashFiles.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateTrustStoreHashFiles.class);
 
   private static void _create (@Nonnull final String sTruststorePath) throws IOException
   {
@@ -51,7 +51,7 @@ public final class MainCreateTrustStoreHashFiles
                             sSHA1,
                             StandardCharsets.ISO_8859_1);
 
-    s_aLogger.info ("Done creating hash values for " + sTruststorePath);
+    LOGGER.info ("Done creating hash values for " + sTruststorePath);
   }
 
   public static void main (final String [] args) throws IOException

@@ -29,7 +29,7 @@ import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
  */
 public final class MainSetupSMLForSMPTests
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSetupSMLForSMPTests.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSetupSMLForSMPTests.class);
   private static final ISMLInfo SML_INFO = ESML.DEVELOPMENT_LOCAL;
   private static final String SMP_ID1 = "SMP-ID1";
 
@@ -49,7 +49,7 @@ public final class MainSetupSMLForSMPTests
     catch (final Exception e)
     {
       // ignore
-      s_aLogger.info (e.getMessage ());
+      LOGGER.info (e.getMessage ());
     }
 
     try
@@ -60,7 +60,7 @@ public final class MainSetupSMLForSMPTests
     catch (final Exception e)
     {
       // ignore
-      s_aLogger.info (e.getMessage ());
+      LOGGER.info (e.getMessage ());
     }
   }
 }

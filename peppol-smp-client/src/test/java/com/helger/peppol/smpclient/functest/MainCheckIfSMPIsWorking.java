@@ -29,7 +29,7 @@ import com.helger.peppol.smpclient.SMPClient;
  */
 public final class MainCheckIfSMPIsWorking
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCheckIfSMPIsWorking.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCheckIfSMPIsWorking.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -41,30 +41,30 @@ public final class MainCheckIfSMPIsWorking
     final SMPClient aClient = new SMPClient (SMP_URI);
 
     // Ensure that the service group does not exist
-    s_aLogger.info ("Ensuring that the service group is not existing!");
+    LOGGER.info ("Ensuring that the service group is not existing!");
     if (aClient.getServiceGroupOrNull (PARTICIPANT_ID) != null)
     {
-      s_aLogger.info ("Deleting existing service group for init");
+      LOGGER.info ("Deleting existing service group for init");
       aClient.deleteServiceGroup (PARTICIPANT_ID, SMP_CREDENTIALS);
-      s_aLogger.info ("Finished deletion of service group");
+      LOGGER.info ("Finished deletion of service group");
     }
 
     // Create, read and delete the service group
-    s_aLogger.info ("Creating the new service group");
+    LOGGER.info ("Creating the new service group");
     aClient.saveServiceGroup (PARTICIPANT_ID, SMP_CREDENTIALS);
 
-    s_aLogger.info ("Retrieving the service group");
+    LOGGER.info ("Retrieving the service group");
     final ServiceGroupType aSGT = aClient.getServiceGroup (PARTICIPANT_ID);
     if (!aSGT.getParticipantIdentifier ().equals (PARTICIPANT_ID))
       throw new IllegalStateException ("Participant identifiers are not equal!");
 
-    s_aLogger.info ("Deleting the service group again");
+    LOGGER.info ("Deleting the service group again");
     aClient.deleteServiceGroup (PARTICIPANT_ID, SMP_CREDENTIALS);
 
-    s_aLogger.info ("Checking if the service group is really deleted");
+    LOGGER.info ("Checking if the service group is really deleted");
     if (aClient.getServiceGroupOrNull (PARTICIPANT_ID) != null)
       throw new IllegalStateException ("Deletion of the service group failed!");
 
-    s_aLogger.info ("Seems like the SMP is working as expected!");
+    LOGGER.info ("Seems like the SMP is working as expected!");
   }
 }

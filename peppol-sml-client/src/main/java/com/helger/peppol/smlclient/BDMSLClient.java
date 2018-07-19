@@ -62,7 +62,7 @@ import com.sun.xml.ws.client.ClientTransportException;
  */
 public class BDMSLClient extends WSClientConfig
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BDMSLClient.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BDMSLClient.class);
 
   public BDMSLClient (@Nonnull final ISMLInfo aSMLInfo)
   {
@@ -135,8 +135,8 @@ public class BDMSLClient extends WSClientConfig
   {
     ValueEnforcer.notEmpty (sNewCertificatePublicKey, "NewCertificatePublicKey");
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("prepareChangeCertificate (" + sNewCertificatePublicKey + ", " + aMigrationDate + ")");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("prepareChangeCertificate (" + sNewCertificatePublicKey + ", " + aMigrationDate + ")");
 
     final PrepareChangeCertificateType aBody = new PrepareChangeCertificateType ();
     aBody.setNewCertificatePublicKey (sNewCertificatePublicKey);
@@ -167,8 +167,8 @@ public class BDMSLClient extends WSClientConfig
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notEmpty (aNewCertificatePublicKey, "NewCertificatePublicKey");
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("changeCertificate (" +
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("changeCertificate (" +
                        sSMPID +
                        ", " +
                        ArrayHelper.getSize (aNewCertificatePublicKey) +
@@ -192,8 +192,8 @@ public class BDMSLClient extends WSClientConfig
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notEmpty (sServiceName, "ServiceName");
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("createParticipantIdentifier (" + sSMPID + ", " + aParticipantID + ", " + sServiceName + ")");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("createParticipantIdentifier (" + sSMPID + ", " + aParticipantID + ", " + sServiceName + ")");
 
     final SMPAdvancedServiceForParticipantType aBody = new SMPAdvancedServiceForParticipantType ();
     final ServiceMetadataPublisherServiceForParticipantType aSMP = new ServiceMetadataPublisherServiceForParticipantType ();
@@ -208,8 +208,8 @@ public class BDMSLClient extends WSClientConfig
   @Nullable
   public ICommonsList <ParticipantListItem> listParticipants () throws InternalErrorFault
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("listParticipants ()");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("listParticipants ()");
 
     ListParticipantsType aList;
     try
@@ -219,12 +219,12 @@ public class BDMSLClient extends WSClientConfig
     }
     catch (final UnauthorizedFault ex)
     {
-      s_aLogger.error ("Unauthorized to call listParticipants", ex);
+      LOGGER.error ("Unauthorized to call listParticipants", ex);
       return null;
     }
     catch (final ClientTransportException ex)
     {
-      s_aLogger.error ("HTTP error invoking listParticipants", ex);
+      LOGGER.error ("HTTP error invoking listParticipants", ex);
       return null;
     }
     final ICommonsList <ParticipantListItem> ret = new CommonsArrayList <> ();
@@ -237,8 +237,8 @@ public class BDMSLClient extends WSClientConfig
 
   public boolean isAlive ()
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("isAlive ()");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("isAlive ()");
 
     try
     {
@@ -254,8 +254,8 @@ public class BDMSLClient extends WSClientConfig
 
   public void clearCache () throws ClientTransportException, InternalErrorFault
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("clearCache ()");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("clearCache ()");
 
     final ClearCacheType aDummy = new ClearCacheType ();
     createWSPort ().clearCache (aDummy);

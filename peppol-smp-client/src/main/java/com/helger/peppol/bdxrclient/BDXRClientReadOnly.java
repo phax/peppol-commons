@@ -64,7 +64,7 @@ import com.helger.xsds.xmldsig.X509DataType;
  */
 public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientReadOnly>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BDXRClientReadOnly.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BDXRClientReadOnly.class);
 
   /**
    * Constructor with SML lookup
@@ -146,8 +146,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
     final String sURI = getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("BDXRClient getServiceGroup@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("BDXRClient getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
     return executeGenericRequest (aRequest,
@@ -217,8 +217,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                         aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("BDXRClient getServiceRegistration@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("BDXRClient getServiceRegistration@" + sURI);
 
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
@@ -230,7 +230,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
 
       // Follow the redirect
-      s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+      LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
       aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
                                          new SMPHttpResponseHandlerSigned <> (new BDXRMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
@@ -401,7 +401,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
           if (aRelevantEndpoints.size () != 1)
           {
-            s_aLogger.warn ("Found " +
+            LOGGER.warn ("Found " +
                             aRelevantEndpoints.size () +
                             " endpoints for process " +
                             aProcessID +

@@ -27,7 +27,7 @@ import com.helger.peppol.smpclient.utils.SMPDebugHelper;
  */
 public final class MainSMPServiceGroupCompleteList
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPServiceGroupCompleteList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceGroupCompleteList.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -41,14 +41,14 @@ public final class MainSMPServiceGroupCompleteList
     final CompleteServiceGroupType aCompleteServiceGroup = aClient.getCompleteServiceGroupOrNull (PARTICIPANT_ID);
 
     if (aCompleteServiceGroup == null)
-      s_aLogger.error ("Failed to get complete service group for " + PARTICIPANT_ID);
+      LOGGER.error ("Failed to get complete service group for " + PARTICIPANT_ID);
     else
     {
-      s_aLogger.info (SMPDebugHelper.getAsString (aCompleteServiceGroup.getServiceGroup ()));
+      LOGGER.info (SMPDebugHelper.getAsString (aCompleteServiceGroup.getServiceGroup ()));
       for (final ServiceMetadataType aServiceMetadata : aCompleteServiceGroup.getServiceMetadata ())
-        s_aLogger.info (SMPDebugHelper.getAsString (aServiceMetadata));
+        LOGGER.info (SMPDebugHelper.getAsString (aServiceMetadata));
     }
 
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
   }
 }

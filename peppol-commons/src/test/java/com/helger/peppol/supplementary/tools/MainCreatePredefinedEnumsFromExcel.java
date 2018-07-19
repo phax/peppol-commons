@@ -81,7 +81,7 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
  */
 public final class MainCreatePredefinedEnumsFromExcel
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
   private static final Version CODELIST_VERSION = new Version (2, 0, 0);
   private static final String RESULT_DIRECTORY = "src/main/resources/codelists/";
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppol.identifier.peppol.";
@@ -114,7 +114,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     aMarshaller.setFormattedOutput (true);
     if (aMarshaller.write (aCodeList, new File (sFilename)).isFailure ())
       throw new IllegalStateException ("Failed to write file " + sFilename);
-    s_aLogger.info ("Wrote Genericode file " + sFilename);
+    LOGGER.info ("Wrote Genericode file " + sFilename);
   }
 
   private static void _emitDocumentTypes (final Sheet aDocumentSheet) throws URISyntaxException
@@ -362,7 +362,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     }
     catch (final Exception ex)
     {
-      s_aLogger.warn ("Failed to create source", ex);
+      LOGGER.warn ("Failed to create source", ex);
     }
   }
 
@@ -569,7 +569,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     }
     catch (final Exception ex)
     {
-      s_aLogger.warn ("Failed to create source", ex);
+      LOGGER.warn ("Failed to create source", ex);
     }
   }
 
@@ -754,7 +754,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 
     final Exception ex)
     {
-      s_aLogger.warn ("Failed to create source", ex);
+      LOGGER.warn ("Failed to create source", ex);
     }
   }
 
@@ -810,6 +810,6 @@ public final class MainCreatePredefinedEnumsFromExcel
     final FileCodeWriter aWriter = new FileCodeWriter (new File ("src/main/java"), StandardCharsets.UTF_8);
     s_aCodeModel.build (aWriter);
 
-    s_aLogger.info ("Done creating code");
+    LOGGER.info ("Done creating code");
   }
 }

@@ -50,7 +50,7 @@ import com.helger.peppol.url.PeppolURLProvider;
 @Ignore ("Requires an SML with active DNS connection to be available")
 public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (DNSRegistrationFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (DNSRegistrationFuncTest.class);
 
   /*
    * Wildcard user.
@@ -88,7 +88,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   private static String _DNSLookup (final String sHost) throws Exception
   {
     // Wait to let dns propagate : DNS TTL = 60 secs
-    s_aLogger.info ("Waiting 10 seconds to lookup '" + sHost + "'");
+    LOGGER.info ("Waiting 10 seconds to lookup '" + sHost + "'");
     Thread.sleep (10000);
 
     final Lookup aDNSLookup = new Lookup (sHost, Type.ANY);
@@ -96,7 +96,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     aDNSLookup.setCache (null);
 
     final Record [] aRecords = aDNSLookup.run ();
-    s_aLogger.info ("Lookup returned [" + ArrayHelper.getSize (aRecords) + "]: " + Arrays.toString (aRecords));
+    LOGGER.info ("Lookup returned [" + ArrayHelper.getSize (aRecords) + "]: " + Arrays.toString (aRecords));
 
     if (aRecords == null || aRecords.length == 0)
       return null;
@@ -111,24 +111,24 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
       return aInetAddress.getHostAddress ();
     }
 
-    s_aLogger.info ("Unknown record type found: " + ClassHelper.getClassLocalName (aRecord));
+    LOGGER.info ("Unknown record type found: " + ClassHelper.getClassLocalName (aRecord));
     return aRecord.toString ();
   }
 
   @Before
   public void setupSMPBeforeTests () throws Exception
   {
-    s_aLogger.info ("Creating an SMP");
+    LOGGER.info ("Creating an SMP");
     try
     {
       final ManageServiceMetadataServiceCaller manageServiceMetaData = new ManageServiceMetadataServiceCaller (SML_INFO);
 
       manageServiceMetaData.create (SMP_ID, SMP_1_PHYSICAL_ADDRESS, SMP_1_LOGICAL_ADDRESS);
-      s_aLogger.info ("Created an SMP");
+      LOGGER.info ("Created an SMP");
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Failed: " + ex.getMessage ());
+      LOGGER.error ("Failed: " + ex.getMessage ());
       throw ex;
     }
   }
@@ -136,13 +136,13 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   @After
   public void deleteSMPAfterTests () throws Exception
   {
-    s_aLogger.info ("Deleting an SMP");
+    LOGGER.info ("Deleting an SMP");
     final ManageServiceMetadataServiceCaller manageServiceMetaData = new ManageServiceMetadataServiceCaller (SML_INFO);
 
     try
     {
       manageServiceMetaData.delete (SMP_ID);
-      s_aLogger.info ("Deleted an SMP");
+      LOGGER.info ("Deleted an SMP");
     }
     catch (final NotFoundFault e)
     {
@@ -150,7 +150,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Failed: " + ex.getMessage ());
+      LOGGER.error ("Failed: " + ex.getMessage ());
       throw ex;
     }
   }

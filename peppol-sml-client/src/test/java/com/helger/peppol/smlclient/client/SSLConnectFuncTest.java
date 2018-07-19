@@ -43,7 +43,7 @@ import com.helger.security.keystore.KeyStoreHelper;
 @Ignore ("Requires a keystore to be present and configured")
 public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SSLConnectFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SSLConnectFuncTest.class);
 
   @Test
   public void testConnect () throws Exception
@@ -69,24 +69,24 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
     // Debug status on URL connection
     if (true)
     {
-      s_aLogger.info ("Status code:  " + aURLConn.getResponseCode ());
-      s_aLogger.info ("Cipher suite: " + aURLConn.getCipherSuite ());
-      s_aLogger.info ("Encoding:     " + aURLConn.getContentEncoding ());
+      LOGGER.info ("Status code:  " + aURLConn.getResponseCode ());
+      LOGGER.info ("Cipher suite: " + aURLConn.getCipherSuite ());
+      LOGGER.info ("Encoding:     " + aURLConn.getContentEncoding ());
       if (true)
       {
         int i = 0;
         for (final Certificate aCert : aURLConn.getServerCertificates ())
         {
-          s_aLogger.info (" Cert " + (++i) + ":");
-          s_aLogger.info ("  Cert type:  " + aCert.getType ());
-          s_aLogger.info ("  Hash code:  " + aCert.hashCode ());
-          s_aLogger.info ("  Algorithm:  " + aCert.getPublicKey ().getAlgorithm ());
-          s_aLogger.info ("  Format:     " + aCert.getPublicKey ().getFormat ());
+          LOGGER.info (" Cert " + (++i) + ":");
+          LOGGER.info ("  Cert type:  " + aCert.getType ());
+          LOGGER.info ("  Hash code:  " + aCert.hashCode ());
+          LOGGER.info ("  Algorithm:  " + aCert.getPublicKey ().getAlgorithm ());
+          LOGGER.info ("  Format:     " + aCert.getPublicKey ().getFormat ());
           if (aCert instanceof X509Certificate)
           {
             final X509Certificate aX509 = (X509Certificate) aCert;
-            s_aLogger.info ("   Principal: " + aX509.getIssuerX500Principal ());
-            s_aLogger.info ("   Subject:   " + aX509.getSubjectX500Principal ());
+            LOGGER.info ("   Principal: " + aX509.getIssuerX500Principal ());
+            LOGGER.info ("   Subject:   " + aX509.getSubjectX500Principal ());
           }
         }
       }
@@ -96,13 +96,13 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
     {
       // Show success
       final String sResult = StreamHelper.getAllBytesAsString (aURLConn.getInputStream (), StandardCharsets.UTF_8);
-      s_aLogger.info ("\n" + sResult);
+      LOGGER.info ("\n" + sResult);
     }
     catch (final IOException ex)
     {
       // Show error
       final String sError = StreamHelper.getAllBytesAsString (aURLConn.getErrorStream (), StandardCharsets.UTF_8);
-      s_aLogger.info ("\n" + sError);
+      LOGGER.info ("\n" + sError);
     }
   }
 }

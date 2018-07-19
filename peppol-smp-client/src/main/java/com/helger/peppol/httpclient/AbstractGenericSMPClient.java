@@ -56,7 +56,7 @@ import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGenericSMPClient <IMPLTYPE>>
                                                implements IGenericImplTrait <IMPLTYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
 
   /**
    * The string representation of the SMP host URL, always ending with a
@@ -84,10 +84,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     ValueEnforcer.notNull (aSMPHost, "SMPHost");
 
     if (!"http".equals (aSMPHost.getScheme ()))
-      s_aLogger.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme!");
+      LOGGER.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme!");
     // getPort () returns -1 if none was explicitly specified
     if (aSMPHost.getPort () != 80 && aSMPHost.getPort () != -1)
-      s_aLogger.warn ("SMP URI " + aSMPHost + " is not running on port 80!");
+      LOGGER.warn ("SMP URI " + aSMPHost + " is not running on port 80!");
 
     // Build string and ensure it ends with a "/"
     final String sSMPHost = aSMPHost.toString ();
@@ -139,7 +139,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     m_aProxy = aProxy;
     if (aProxy != null && m_bUseProxySystemProperties)
     {
-      s_aLogger.warn ("Since an explicit Proxy host for all servers is defined, the usage of the system properties is disabled.");
+      LOGGER.warn ("Since an explicit Proxy host for all servers is defined, the usage of the system properties is disabled.");
       m_bUseProxySystemProperties = false;
     }
     return thisAsT ();
@@ -231,7 +231,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     m_bUseProxySystemProperties = bUseProxySystemProperties;
     if (bUseProxySystemProperties && m_aProxy != null)
     {
-      s_aLogger.warn ("Since the proxy system properties should be used, the explicit Proxy is removed.");
+      LOGGER.warn ("Since the proxy system properties should be used, the explicit Proxy is removed.");
       m_aProxy = null;
     }
     return thisAsT ();

@@ -36,7 +36,7 @@ import com.helger.wsclient.WSHelper;
 @Ignore ("Requires a running SML and a configured certificate")
 public final class SMKFuncTest extends AbstractSMLClientTestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SMKFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMKFuncTest.class);
   private static final String L_ENDPOINTADDRESS = "http://test-smp.example.org";
   private static final String P_ENDPOINTADDRESS = "127.0.0.1";
   private static final String SMP_ID = "SMP-TEST-ID-PH";
@@ -78,18 +78,18 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
       aPIClient.setSSLSocketFactory (aSMPClient.getSSLSocketFactory ());
 
       // Create SMP - with network logging
-      s_aLogger.info ("CREATE SMP");
+      LOGGER.info ("CREATE SMP");
       _createSMPData (aSMPClient, SMP_ID);
       try
       {
-        s_aLogger.info ("CREATE PARTICIPANT");
+        LOGGER.info ("CREATE PARTICIPANT");
         aPIClient.create (SMP_ID,
                           PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:philip"));
         try
         {}
         finally
         {
-          s_aLogger.info ("DELETE PARTICIPANT");
+          LOGGER.info ("DELETE PARTICIPANT");
           // The version with SMP_ID is required for SMK 3.0
           aPIClient.delete (SMP_ID,
                             PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:philip"));
@@ -98,7 +98,7 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
       finally
       {
         // Delete SMP
-        s_aLogger.info ("DELETE SMP");
+        LOGGER.info ("DELETE SMP");
         aSMPClient.delete (SMP_ID);
       }
     }

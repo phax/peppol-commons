@@ -31,14 +31,14 @@ import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentif
 @Immutable
 public final class IdentifierValidator
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (IdentifierValidator.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (IdentifierValidator.class);
   private static final ICommonsList <IParticipantIdentifierValidatorSPI> s_aParticipantIDValidators;
 
   static
   {
     s_aParticipantIDValidators = ServiceLoaderHelper.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
     if (s_aParticipantIDValidators.isNotEmpty ())
-      s_aLogger.info ("Loaded " +
+      LOGGER.info ("Loaded " +
                       s_aParticipantIDValidators.size () +
                       " SPI implementations of IParticipantIdentifierValidatorSPI");
   }

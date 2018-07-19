@@ -32,7 +32,7 @@ import com.helger.commons.url.URLHelper;
 
 public class MainTestNAPTR
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainTestNAPTR.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainTestNAPTR.class);
 
   @Nullable
   private static String _getAppliedNAPTRRegEx (@Nonnull final String sRegEx, @Nonnull final String sDomainName)
@@ -48,14 +48,14 @@ public class MainTestNAPTR
     final String sRepl = sRegEx.substring (nSecond + 1, nThird);
     final String sFlags = sRegEx.substring (nThird + 1);
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("NAPTR regex: '" + sEre + "' - '" + sRepl + "' - '" + sFlags + "'");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("NAPTR regex: '" + sEre + "' - '" + sRepl + "' - '" + sFlags + "'");
 
     final int nOptions = "i".equalsIgnoreCase (sFlags) ? Pattern.CASE_INSENSITIVE : 0;
     final String ret = RegExHelper.stringReplacePattern (sEre, nOptions, sDomainName, sRepl);
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("  NAPTR replacement: '" + sDomainName + "' -> '" + ret + "'");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("  NAPTR replacement: '" + sDomainName + "' -> '" + ret + "'");
     return ret;
   }
 
@@ -75,7 +75,7 @@ public class MainTestNAPTR
     if (aLookup.getResult () != Lookup.SUCCESSFUL)
     {
       // Wrong domain name
-      s_aLogger.warn ("Error looking up '" + sDNSName + "': " + aLookup.getErrorString ());
+      LOGGER.warn ("Error looking up '" + sDNSName + "': " + aLookup.getErrorString ());
       return null;
     }
 
@@ -90,7 +90,7 @@ public class MainTestNAPTR
     if (aMatchingRecords.isEmpty ())
     {
       // No matching NAPTR present
-      s_aLogger.warn ("No matching DNS NAPTR records returned for '" + sDNSName + "'");
+      LOGGER.warn ("No matching DNS NAPTR records returned for '" + sDNSName + "'");
       return null;
     }
 
@@ -110,15 +110,15 @@ public class MainTestNAPTR
         final String sFinalDNSName = _getAppliedNAPTRRegEx (sRegEx, sDNSName);
         if (sFinalDNSName != null)
         {
-          if (s_aLogger.isDebugEnabled ())
-            s_aLogger.debug ("Using '" + sFinalDNSName + "' for original DNS name '" + sDNSName + "'");
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("Using '" + sFinalDNSName + "' for original DNS name '" + sDNSName + "'");
           return sFinalDNSName;
         }
       }
     }
 
     // Weird - no regexp present
-    s_aLogger.warn ("None of the matching DNS NAPTR records for '" +
+    LOGGER.warn ("None of the matching DNS NAPTR records for '" +
                     sDNSName +
                     "' has a valid regular expression. Details: " +
                     aMatchingRecords);
@@ -140,7 +140,7 @@ public class MainTestNAPTR
     {
       final StopWatch aSW = StopWatch.createdStarted ();
       final String sURI = _resolveFromNAPTR (sDN);
-      s_aLogger.info (aSW.stopAndGetMillis () + "ms " + sURI);
+      LOGGER.info (aSW.stopAndGetMillis () + "ms " + sURI);
     }
   }
 }

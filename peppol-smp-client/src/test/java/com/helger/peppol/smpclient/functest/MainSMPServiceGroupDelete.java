@@ -25,7 +25,7 @@ import com.helger.peppol.smpclient.SMPClient;
  */
 public final class MainSMPServiceGroupDelete
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPServiceGroupDelete.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceGroupDelete.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -39,6 +39,6 @@ public final class MainSMPServiceGroupDelete
     // Delete the service group
     aClient.deleteServiceGroup (PARTICIPANT_ID, SMP_CREDENTIALS);
 
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
   }
 }

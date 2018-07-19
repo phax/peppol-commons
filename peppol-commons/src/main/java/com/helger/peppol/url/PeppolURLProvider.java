@@ -45,7 +45,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolURLProvider.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolURLProvider.class);
 
   /**
    * Default constructor.
@@ -90,7 +90,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
 
     // Was previously an error, but to be more flexible just emit a warning
     if (!IPeppolParticipantIdentifier.isValidScheme (sIdentifierScheme))
-      s_aLogger.warn ("Invalid PEPPOL participant identifier scheme '" + sIdentifierScheme + "' used");
+      LOGGER.warn ("Invalid PEPPOL participant identifier scheme '" + sIdentifierScheme + "' used");
 
     // Get the identifier value
     final String sValue = StringHelper.getNotNull (aParticipantIdentifier.getValue ());

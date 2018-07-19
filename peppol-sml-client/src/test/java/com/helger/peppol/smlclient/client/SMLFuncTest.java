@@ -53,7 +53,7 @@ import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 @Ignore ("Requires a running SML")
 public final class SMLFuncTest extends AbstractSMLClientTestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SMLFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMLFuncTest.class);
   private static final String SMP_ID = "SMP-TEST-ID";
   private static final String SMP_ID2 = "SMP-TEST-ID2";
 
@@ -159,7 +159,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
     final int nLastIdentifier = 150;
     for (int i = 0; i <= nLastIdentifier; i++)
     {
-      s_aLogger.info ("Creating number: " + i);
+      LOGGER.info ("Creating number: " + i);
       final long nIdentifier = nStartIdentifier + i;
       aPIClient.create (m_aServiceMetadataPublisher.getServiceMetadataPublisherID (),
                         PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:" +

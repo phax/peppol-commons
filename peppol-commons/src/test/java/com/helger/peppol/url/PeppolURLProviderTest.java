@@ -41,7 +41,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class PeppolURLProviderTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolURLProviderTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolURLProviderTest.class);
   private static final IPeppolURLProvider INSTANCE = PeppolURLProvider.INSTANCE;
   private static final IIdentifierFactory IF = PeppolIdentifierFactory.INSTANCE;
 
@@ -104,7 +104,7 @@ public final class PeppolURLProviderTest
                                                     "at."));
 
     if (false)
-      s_aLogger.info (INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("9915:b"),
+      LOGGER.info (INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("9915:b"),
                                                         ESML.DIGIT_PRODUCTION));
 
     // Test invalid

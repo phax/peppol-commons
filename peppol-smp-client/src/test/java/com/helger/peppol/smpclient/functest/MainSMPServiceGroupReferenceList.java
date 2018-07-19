@@ -26,7 +26,7 @@ import com.helger.peppol.smpclient.SMPClient;
  */
 public final class MainSMPServiceGroupReferenceList
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPServiceGroupReferenceList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceGroupReferenceList.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -42,14 +42,14 @@ public final class MainSMPServiceGroupReferenceList
                                                                                                                  SMP_CREDENTIALS);
 
     if (aServiceGroupReferenceList == null)
-      s_aLogger.error ("Failed to get complete service group for " + SMP_USERNAME);
+      LOGGER.error ("Failed to get complete service group for " + SMP_USERNAME);
     else
     {
-      s_aLogger.info ("All service groups owned by " + SMP_USERNAME + ":");
+      LOGGER.info ("All service groups owned by " + SMP_USERNAME + ":");
       for (final ServiceGroupReferenceType aServiceGroupReference : aServiceGroupReferenceList.getServiceGroupReference ())
-        s_aLogger.info ("  " + aServiceGroupReference.getHref ());
+        LOGGER.info ("  " + aServiceGroupReference.getHref ());
     }
 
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
   }
 }

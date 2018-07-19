@@ -25,7 +25,7 @@ import com.helger.peppol.smpclient.SMPClient;
  */
 public final class MainSMPServiceGroupCreate
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPServiceGroupCreate.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceGroupCreate.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -39,6 +39,6 @@ public final class MainSMPServiceGroupCreate
     // Create the service group
     aClient.saveServiceGroup (PARTICIPANT_ID, SMP_CREDENTIALS);
 
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
   }
 }

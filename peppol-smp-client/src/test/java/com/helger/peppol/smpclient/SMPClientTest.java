@@ -62,7 +62,7 @@ import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 @Ignore
 public final class SMPClientTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger ("dummy");
+  private static final Logger LOGGER = LoggerFactory.getLogger ("dummy");
   private static final String SMP_USERNAME = MockSMPClientConfig.getSMPUserName ();
   private static final String SMP_PASSWORD = MockSMPClientConfig.getSMPPassword ();
   private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME,
@@ -221,7 +221,7 @@ public final class SMPClientTest
 
     final SignedServiceMetadataType aSignedServiceMetadata = aSMPClient.getServiceRegistration (aServiceGroupID,
                                                                                                 aDocumentID);
-    s_aLogger.info ("Service aMetadata ID:" +
+    LOGGER.info ("Service aMetadata ID:" +
                     aSignedServiceMetadata.getServiceMetadata ()
                                           .getServiceInformation ()
                                           .getParticipantIdentifier ()

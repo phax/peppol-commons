@@ -57,7 +57,7 @@ import com.helger.peppol.url.IPeppolURLProvider;
  */
 public class BDXRClient extends BDXRClientReadOnly
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BDXRClient.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BDXRClient.class);
 
   // The default text/xml content type uses iso-8859-1!
   private static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
@@ -146,8 +146,8 @@ public class BDXRClient extends BDXRClientReadOnly
     final String sBody = new BDXRMarshallerServiceGroupType ().getAsString (aServiceGroup);
 
     final String sURI = getSMPHostURI () + aServiceGroup.getParticipantIdentifier ().getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("BDXRClient saveServiceGroup@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("BDXRClient saveServiceGroup@" + sURI);
 
     final HttpPut aRequest = new HttpPut (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
@@ -209,8 +209,8 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final String sURI = getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("BDXRClient deleteServiceGroup@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("BDXRClient deleteServiceGroup@" + sURI);
 
     final HttpDelete aRequest = new HttpDelete (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
@@ -228,8 +228,8 @@ public class BDXRClient extends BDXRClientReadOnly
                         aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("BDXRClient saveServiceRegistration@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("BDXRClient saveServiceRegistration@" + sURI);
 
     final HttpPut aRequest = new HttpPut (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
@@ -384,8 +384,8 @@ public class BDXRClient extends BDXRClientReadOnly
                         aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("BDXRClient deleteServiceRegistration@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("BDXRClient deleteServiceRegistration@" + sURI);
 
     final HttpDelete aRequest = new HttpDelete (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());

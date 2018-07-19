@@ -48,7 +48,7 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 @Immutable
 public final class SMPClientConfiguration
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SMPClientConfiguration.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMPClientConfiguration.class);
   private static final ConfigFile s_aConfigFile;
 
   static
@@ -60,9 +60,9 @@ public final class SMPClientConfiguration
 
     s_aConfigFile = aCFB.build ();
     if (s_aConfigFile.isRead ())
-      s_aLogger.info ("Read PEPPOL SMP client properties from " + s_aConfigFile.getReadResource ().getPath ());
+      LOGGER.info ("Read PEPPOL SMP client properties from " + s_aConfigFile.getReadResource ().getPath ());
     else
-      s_aLogger.warn ("Failed to read PEPPOL SMP client properties from " + aCFB.getAllPaths ());
+      LOGGER.warn ("Failed to read PEPPOL SMP client properties from " + aCFB.getAllPaths ());
   }
 
   private SMPClientConfiguration ()

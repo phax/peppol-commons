@@ -41,7 +41,7 @@ import com.helger.xml.serialize.read.DOMReader;
 
 public final class PeppolSBDHDocumentWriterTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolSBDHDocumentWriterTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDocumentWriterTest.class);
 
   @Test
   public void testCreateSBDH () throws SAXException, PeppolSBDHDocumentReadException
@@ -64,7 +64,7 @@ public final class PeppolSBDHDocumentWriterTest
 
     // For debugging
     if (false)
-      s_aLogger.info (new SBDMarshaller ().getAsString (aSBD));
+      LOGGER.info (new SBDMarshaller ().getAsString (aSBD));
 
     // Read again and compare values
     final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);

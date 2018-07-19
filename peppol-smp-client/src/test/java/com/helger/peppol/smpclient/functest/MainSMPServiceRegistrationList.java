@@ -27,7 +27,7 @@ import com.helger.peppol.smpclient.utils.SMPDebugHelper;
  */
 public final class MainSMPServiceRegistrationList
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPServiceRegistrationList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceRegistrationList.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -43,10 +43,10 @@ public final class MainSMPServiceRegistrationList
                                                                                                    DOCUMENT_ID);
 
     if (aSignedServiceMetadata == null)
-      s_aLogger.error ("Failed to get service registration for " + PARTICIPANT_ID + " and " + DOCUMENT_ID);
+      LOGGER.error ("Failed to get service registration for " + PARTICIPANT_ID + " and " + DOCUMENT_ID);
     else
-      s_aLogger.info (SMPDebugHelper.getAsString (aSignedServiceMetadata.getServiceMetadata ()));
+      LOGGER.info (SMPDebugHelper.getAsString (aSignedServiceMetadata.getServiceMetadata ()));
 
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
   }
 }

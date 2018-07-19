@@ -26,7 +26,7 @@ import com.helger.peppol.smpclient.SMPClient;
  */
 public final class MainSMPServiceRegistrationDelete
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPServiceRegistrationDelete.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceRegistrationDelete.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -40,6 +40,6 @@ public final class MainSMPServiceRegistrationDelete
 
     aClient.deleteServiceRegistration (PARTICIPANT_ID, DOCUMENT_ID, SMP_CREDENTIALS);
 
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
   }
 }

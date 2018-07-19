@@ -50,7 +50,7 @@ import com.helger.security.keystore.KeyStoreHelper;
  */
 public final class TrustStoreBasedX509KeySelector extends KeySelector
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (TrustStoreBasedX509KeySelector.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (TrustStoreBasedX509KeySelector.class);
 
   private final EKeyStoreType m_eTruststoreType;
   private final String m_sTruststorePath;
@@ -91,7 +91,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
           if (sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"))
             return true;
         }
-    s_aLogger.warn ("Algorithm mismatch between JCA/JCE public key algorithm name ('" +
+    LOGGER.warn ("Algorithm mismatch between JCA/JCE public key algorithm name ('" +
                     sAlgName +
                     "') and signature algorithm URI ('" +
                     sAlgURI +

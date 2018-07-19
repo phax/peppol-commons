@@ -49,7 +49,7 @@ import com.helger.wsclient.WSClientConfig;
  */
 public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ManageParticipantIdentifierServiceCaller.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ManageParticipantIdentifierServiceCaller.class);
 
   /**
    * Constructs a service caller for the manage business identifier interface.
@@ -155,8 +155,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notEmpty (aSMPParticpantService.getServiceMetadataPublisherID (),
                             "SMPParticpantService.ServiceMetadataPublisherID");
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to create new participant " +
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Trying to create new participant " +
                       aSMPParticpantService.getParticipantIdentifier ().getURIEncoded () +
                       " in SMP '" +
                       aSMPParticpantService.getServiceMetadataPublisherID () +
@@ -198,8 +198,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to create multiple new participants " +
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Trying to create multiple new participants " +
                       _toString (aParticipantIdentifiers) +
                       " in SMP '" +
                       sSMPID +
@@ -274,8 +274,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notNull (aSMPParticpantService.getParticipantIdentifier (),
                            "SMPParticpantService.ParticipantIdentifier");
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to delete participant " +
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Trying to delete participant " +
                       aSMPParticpantService.getParticipantIdentifier ().getURIEncoded ());
 
     createWSPort ().delete (aSMPParticpantService);
@@ -305,8 +305,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   {
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to delete multiple participants " + _toString (aParticipantIdentifiers));
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Trying to delete multiple participants " + _toString (aParticipantIdentifiers));
 
     final ParticipantIdentifierPageType deleteListIn = new ParticipantIdentifierPageType ();
     for (final IParticipantIdentifier aPI : aParticipantIdentifiers)
@@ -378,8 +378,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notNull (aPageRequest, "PageRequest");
     ValueEnforcer.notEmpty (aPageRequest.getServiceMetadataPublisherID (), "PageRequest.ServiceMetadataPublisherID");
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to list participants in SMP '" + aPageRequest.getServiceMetadataPublisherID () + "'");
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Trying to list participants in SMP '" + aPageRequest.getServiceMetadataPublisherID () + "'");
 
     return createWSPort ().list (aPageRequest);
   }
@@ -445,8 +445,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     final String sMigrationKey = createRandomMigrationKey ();
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Preparing to migrate participant " +
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Preparing to migrate participant " +
                       aIdentifier.getURIEncoded () +
                       " from SMP '" +
                       sSMPID +
@@ -497,8 +497,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
     // Convert UUID to string
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Finishing migration of participant " +
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Finishing migration of participant " +
                       aIdentifier.getURIEncoded () +
                       " to SMP '" +
                       sSMPID +

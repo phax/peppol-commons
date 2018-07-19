@@ -52,7 +52,7 @@ import com.helger.xml.serialize.read.DOMReader;
 public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
 {
   public static final boolean DEFAULT_CHECK_CERTIFICATE = true;
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
 
   private final GenericJAXBMarshaller <T> m_aMarshaller;
   private boolean m_bCheckCertificate = DEFAULT_CHECK_CERTIFICATE;
@@ -124,9 +124,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     {
       // This code block is for debugging purposes only - it has no semantical
       // influence
-      s_aLogger.info ("Signature failed core validation");
+      LOGGER.info ("Signature failed core validation");
       final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
-      s_aLogger.info ("  Signature value valid: " + bSignatureValueValid);
+      LOGGER.info ("  Signature value valid: " + bSignatureValueValid);
       if (!bSignatureValueValid)
       {
         // Check the validation status of each Reference.
@@ -135,7 +135,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
         while (i.hasNext ())
         {
           final boolean bRefValid = ((Reference) i.next ()).validate (aValidateContext);
-          s_aLogger.info ("  Reference[" + nIndex + "] validity status: " + (bRefValid ? "valid" : "NOT valid!"));
+          LOGGER.info ("  Reference[" + nIndex + "] validity status: " + (bRefValid ? "valid" : "NOT valid!"));
           ++nIndex;
         }
       }
@@ -166,7 +166,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       }
     }
     else
-      s_aLogger.warn ("SMP response certificate checking is disabled. This should not happen in production systems!");
+      LOGGER.warn ("SMP response certificate checking is disabled. This should not happen in production systems!");
 
     // Finally convert to domain object
     final T ret = m_aMarshaller.read (aResponseBytes);

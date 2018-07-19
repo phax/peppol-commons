@@ -29,7 +29,7 @@ import com.helger.peppol.url.PeppolURLProvider;
  */
 public final class MainSMPClientExample
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPClientExample.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPClientExample.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -45,7 +45,7 @@ public final class MainSMPClientExample
                                                                    EPredefinedProcessIdentifier.BIS4A_V2,
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
     // Endpoint address should be "https://test.erechnung.gv.at/as2"
-    s_aLogger.info ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
+    LOGGER.info ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
                     sEndpointAddress);
   }
 }

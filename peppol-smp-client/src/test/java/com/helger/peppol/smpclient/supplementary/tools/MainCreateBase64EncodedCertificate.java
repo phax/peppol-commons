@@ -20,11 +20,11 @@ import com.helger.commons.io.file.SimpleFileIO;
 
 public class MainCreateBase64EncodedCertificate
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateBase64EncodedCertificate.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateBase64EncodedCertificate.class);
 
   public static void main (final String [] args)
   {
     final File aFile = new File ("src/test/resources/SMP_PEPPOL_SML_PEPPOL_SERVICE_METADATA_PUBLISHER_TEST_CA.cer");
-    s_aLogger.info (Base64.encodeBytes (SimpleFileIO.getAllFileBytes (aFile)));
+    LOGGER.info (Base64.encodeBytes (SimpleFileIO.getAllFileBytes (aFile)));
   }
 }

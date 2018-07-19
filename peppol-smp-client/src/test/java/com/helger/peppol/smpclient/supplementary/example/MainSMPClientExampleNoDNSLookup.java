@@ -28,7 +28,7 @@ import com.helger.peppol.smpclient.SMPClientReadOnly;
  */
 public final class MainSMPClientExampleNoDNSLookup
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPClientExampleNoDNSLookup.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPClientExampleNoDNSLookup.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -43,7 +43,7 @@ public final class MainSMPClientExampleNoDNSLookup
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
 
     // Endpoint address should be "https://test.erechnung.gv.at/as2"
-    s_aLogger.info ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
+    LOGGER.info ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
                     sEndpointAddress);
   }
 }

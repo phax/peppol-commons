@@ -53,7 +53,7 @@ import com.helger.peppol.url.IPeppolURLProvider;
  */
 public class SMPClient extends SMPClientReadOnly
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SMPClient.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMPClient.class);
 
   // The default text/xml content type uses iso-8859-1!
   private static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
@@ -142,8 +142,8 @@ public class SMPClient extends SMPClientReadOnly
     final String sBody = new SMPMarshallerServiceGroupType ().getAsString (aServiceGroup);
     final String sURI = getSMPHostURI () + aServiceGroup.getParticipantIdentifier ().getURIPercentEncoded ();
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("SMPClient saveServiceGroup@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("SMPClient saveServiceGroup@" + sURI);
 
     final HttpPut aRequest = new HttpPut (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
@@ -206,8 +206,8 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final String sURI = getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("SMPClient deleteServiceGroup@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("SMPClient deleteServiceGroup@" + sURI);
 
     final HttpDelete aRequest = new HttpDelete (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
@@ -225,8 +225,8 @@ public class SMPClient extends SMPClientReadOnly
                         aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("SMPClient saveServiceRegistration@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("SMPClient saveServiceRegistration@" + sURI);
 
     final HttpPut aRequest = new HttpPut (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
@@ -381,8 +381,8 @@ public class SMPClient extends SMPClientReadOnly
                         aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("SMPClient deleteServiceRegistration@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("SMPClient deleteServiceRegistration@" + sURI);
 
     final HttpDelete aRequest = new HttpDelete (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());

@@ -39,7 +39,7 @@ import com.helger.wsclient.WSHelper;
  */
 public final class MainForArunFromBasware
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainForArunFromBasware.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainForArunFromBasware.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -98,13 +98,13 @@ public final class MainForArunFromBasware
     {
       // Create
       aParticipantClient.create (SMP_ID, aServiceGroupID);
-      s_aLogger.info ("Successfully created participant " + aServiceGroupID.getURIEncoded ());
+      LOGGER.info ("Successfully created participant " + aServiceGroupID.getURIEncoded ());
     }
     else
     {
       // Delete
       aParticipantClient.delete (SMP_ID, aServiceGroupID);
-      s_aLogger.info ("Successfully deleted participant " + aServiceGroupID.getURIEncoded ());
+      LOGGER.info ("Successfully deleted participant " + aServiceGroupID.getURIEncoded ());
     }
   }
 }

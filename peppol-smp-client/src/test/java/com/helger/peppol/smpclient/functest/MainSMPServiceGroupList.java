@@ -26,7 +26,7 @@ import com.helger.peppol.smpclient.utils.SMPDebugHelper;
  */
 public final class MainSMPServiceGroupList
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPServiceGroupList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceGroupList.class);
 
   public static void main (final String [] args) throws Exception
   {
@@ -39,10 +39,10 @@ public final class MainSMPServiceGroupList
     // Get the service group information
     final ServiceGroupType aServiceGroup = aClient.getServiceGroupOrNull (PARTICIPANT_ID);
     if (aServiceGroup == null)
-      s_aLogger.error ("Failed to get service group infos for " + PARTICIPANT_ID);
+      LOGGER.error ("Failed to get service group infos for " + PARTICIPANT_ID);
     else
-      s_aLogger.info (SMPDebugHelper.getAsString (aServiceGroup));
+      LOGGER.info (SMPDebugHelper.getAsString (aServiceGroup));
 
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
   }
 }

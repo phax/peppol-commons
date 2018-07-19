@@ -67,7 +67,7 @@ import com.helger.xsds.xmldsig.X509DataType;
  */
 public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOnly>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SMPClientReadOnly.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMPClientReadOnly.class);
 
   /**
    * Constructor with SML lookup
@@ -154,8 +154,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final String sURI = getSMPHostURI () + "list/" + BusdoxURLHelper.createPercentEncodedURL (sUserID);
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("SMPClient getServiceGroupReferenceList@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("SMPClient getServiceGroupReferenceList@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
@@ -220,8 +220,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     ValueEnforcer.notEmpty (sCompleteURI, "CompleteURL");
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("SMPClient getCompleteServiceGroup@" + sCompleteURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("SMPClient getCompleteServiceGroup@" + sCompleteURI);
 
     final HttpGet aRequest = new HttpGet (sCompleteURI);
     return executeGenericRequest (aRequest,
@@ -313,8 +313,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
     final String sURI = getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ();
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("SMPClient getServiceGroup@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("SMPClient getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
     return executeGenericRequest (aRequest,
@@ -385,8 +385,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("SMPClient getServiceRegistration@" + sURI);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("SMPClient getServiceRegistration@" + sURI);
 
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
@@ -398,7 +398,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
 
       // Follow the redirect
-      s_aLogger.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+      LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
       aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
                                          new SMPHttpResponseHandlerSigned<> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
@@ -569,7 +569,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
           if (aRelevantEndpoints.size () != 1)
           {
-            s_aLogger.warn ("Found " +
+            LOGGER.warn ("Found " +
                             aRelevantEndpoints.size () +
                             " endpoints for process " +
                             aProcessID +

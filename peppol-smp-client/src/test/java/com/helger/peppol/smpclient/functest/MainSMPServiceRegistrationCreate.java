@@ -41,7 +41,7 @@ import com.helger.peppol.smpclient.SMPClient;
  */
 public final class MainSMPServiceRegistrationCreate
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainSMPServiceRegistrationCreate.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceRegistrationCreate.class);
 
   // SMP ObjectFactory
   private static final ObjectFactory s_aOF = new ObjectFactory ();
@@ -95,6 +95,6 @@ public final class MainSMPServiceRegistrationCreate
     }
     aClient.saveServiceInformation (aServiceInformation, SMP_CREDENTIALS);
 
-    s_aLogger.info ("Done");
+    LOGGER.info ("Done");
   }
 }

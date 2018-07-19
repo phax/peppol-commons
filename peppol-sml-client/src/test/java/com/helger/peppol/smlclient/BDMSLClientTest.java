@@ -36,7 +36,7 @@ import com.sun.xml.ws.client.ClientTransportException;
 @Ignore ("Requires a running SML and a configured certificate")
 public final class BDMSLClientTest extends AbstractSMLClientTestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BDMSLClientTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BDMSLClientTest.class);
 
   static
   {
@@ -54,18 +54,18 @@ public final class BDMSLClientTest extends AbstractSMLClientTestCase
       aClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
       aClient.setRequestTimeoutMS (100_000);
 
-      s_aLogger.info ("IS_ALIVE");
+      LOGGER.info ("IS_ALIVE");
       final boolean bAlive = aClient.isAlive ();
       assertTrue (bAlive);
 
-      s_aLogger.info ("CLEAR_CACHE");
+      LOGGER.info ("CLEAR_CACHE");
       aClient.clearCache ();
 
-      s_aLogger.info ("LIST_PARTICIPANTS");
+      LOGGER.info ("LIST_PARTICIPANTS");
       final ICommonsList <ParticipantListItem> aList = aClient.listParticipants ();
       assertNull (aList);
 
-      s_aLogger.info ("PREPARE_CHANGE_CERTIFICATE");
+      LOGGER.info ("PREPARE_CHANGE_CERTIFICATE");
       try
       {
         aClient.prepareChangeCertificate ("dummy", null);
@@ -76,7 +76,7 @@ public final class BDMSLClientTest extends AbstractSMLClientTestCase
         // Expected HTTP 400
       }
 
-      s_aLogger.info ("CHANGE_CERTIFICATE");
+      LOGGER.info ("CHANGE_CERTIFICATE");
       try
       {
         aClient.changeCertificate ("fake-smp-id", "dummy".getBytes (StandardCharsets.ISO_8859_1));

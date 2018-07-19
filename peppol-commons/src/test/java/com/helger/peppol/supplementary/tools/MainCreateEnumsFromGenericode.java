@@ -48,7 +48,7 @@ import com.helger.jcodemodel.JVar;
 
 public class MainCreateEnumsFromGenericode
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateEnumsFromGenericode.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateEnumsFromGenericode.class);
   private static final String COLID_NAME = "name";
   private static final String COLID_CODE = "code";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
@@ -59,24 +59,24 @@ public class MainCreateEnumsFromGenericode
     final SimpleCodeList aSimpleCodeList = aCodeList10.getSimpleCodeList ();
     if (aSimpleCodeList == null)
     {
-      s_aLogger.info ("  does not contain a SimpleCodeList!");
+      LOGGER.info ("  does not contain a SimpleCodeList!");
       return;
     }
     final Column aColCode = Genericode10Helper.getColumnOfID (aCodeList10.getColumnSet (), COLID_CODE);
     if (aColCode == null)
     {
-      s_aLogger.info ("  No '" + COLID_CODE + "' column found");
+      LOGGER.info ("  No '" + COLID_CODE + "' column found");
       return;
     }
     if (!Genericode10Helper.isKeyColumn (aCodeList10.getColumnSet (), COLID_CODE))
     {
-      s_aLogger.info ("  Column '" + COLID_CODE + "' is not a key");
+      LOGGER.info ("  Column '" + COLID_CODE + "' is not a key");
       return;
     }
     final Column aColName = Genericode10Helper.getColumnOfID (aCodeList10.getColumnSet (), COLID_NAME);
     if (aColName == null)
     {
-      s_aLogger.info ("  No '" + COLID_NAME + "' column found");
+      LOGGER.info ("  No '" + COLID_NAME + "' column found");
       return;
     }
 
@@ -149,7 +149,7 @@ public class MainCreateEnumsFromGenericode
   {
     for (final File aFile : new FileSystemRecursiveIterator ("src/main/resources/codelists/ubl").withFilter (IFileFilter.filenameEndsWith (".gc")))
     {
-      s_aLogger.info (aFile.getName ());
+      LOGGER.info (aFile.getName ());
       final CodeListDocument aCodeList10 = new Genericode10CodeListMarshaller ().read (new FileSystemResource (aFile));
       if (aCodeList10 != null)
         _createGenericode10 (aFile, aCodeList10);

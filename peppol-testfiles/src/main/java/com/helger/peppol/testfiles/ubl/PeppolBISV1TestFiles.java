@@ -44,7 +44,7 @@ import com.helger.peppol.testfiles.TestResource;
 @Immutable
 public final class PeppolBISV1TestFiles
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PeppolBISV1TestFiles.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolBISV1TestFiles.class);
   private static final String [] CALLFORTENDERS_SUCCESS = new String [] { "Catalogue pre award_Call for Tender_RDO MEPA_BIS 12a.xml" };
   private static final String [] CATALOGUES_SUCCESS = new String [] { "Consip_Catalogo_UBL.xml" };
   private static final String [] CREDITNOTES_SUCCESS = new String [] { "BII05-TRDM014-example-at.xml",
@@ -580,7 +580,7 @@ public final class PeppolBISV1TestFiles
         aFilenames = TENDERINGCATALOGUES_SUCCESS;
         break;
       default:
-        s_aLogger.warn ("No success test files present for type " + eFileType);
+        LOGGER.warn ("No success test files present for type " + eFileType);
         break;
     }
 
@@ -624,7 +624,7 @@ public final class PeppolBISV1TestFiles
         aFilenames = ORDERS_ERROR;
         break;
       default:
-        s_aLogger.warn ("No error test files present for type " + eFileType);
+        LOGGER.warn ("No error test files present for type " + eFileType);
         break;
     }
 

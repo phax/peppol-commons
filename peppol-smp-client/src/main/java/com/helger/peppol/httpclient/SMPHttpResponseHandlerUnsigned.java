@@ -41,7 +41,7 @@ import com.helger.jaxb.GenericJAXBMarshaller;
  */
 public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandler <T>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SMPHttpResponseHandlerUnsigned.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpResponseHandlerUnsigned.class);
   private final GenericJAXBMarshaller <T> m_aMarshaller;
 
   public SMPHttpResponseHandlerUnsigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller)
@@ -60,7 +60,7 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
     {
       final Charset aCharset = HttpClientHelper.getCharset (aContentType);
       final byte [] aContent = EntityUtils.toByteArray (aEntity);
-      s_aLogger.info (new String (aContent, aCharset));
+      LOGGER.info (new String (aContent, aCharset));
       final T ret = m_aMarshaller.read (aContent);
       if (ret == null)
         throw new ClientProtocolException ("Malformed XML document returned from SMP server");

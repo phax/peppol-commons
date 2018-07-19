@@ -30,7 +30,7 @@ import com.helger.peppol.url.PeppolURLProvider;
  */
 public final class MainCheckBogusCertificateStrings
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCheckBogusCertificateStrings.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCheckBogusCertificateStrings.class);
   private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
   public static void main (final String [] args) throws CertificateException, SMPClientException
@@ -41,6 +41,6 @@ public final class MainCheckBogusCertificateStrings
                                                                      PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifierWithDefaultScheme ("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0::2.1"),
                                                                      PeppolIdentifierFactory.INSTANCE.createProcessIdentifierWithDefaultScheme ("urn:www.cenbii.eu:profile:bii03:ver2.0"),
                                                                      ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
-    s_aLogger.info (String.valueOf (aCert));
+    LOGGER.info (String.valueOf (aCert));
   }
 }

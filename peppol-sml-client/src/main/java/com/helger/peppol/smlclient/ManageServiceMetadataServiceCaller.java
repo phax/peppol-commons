@@ -42,7 +42,7 @@ import com.helger.wsclient.WSClientConfig;
  */
 public class ManageServiceMetadataServiceCaller extends WSClientConfig
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ManageServiceMetadataServiceCaller.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ManageServiceMetadataServiceCaller.class);
 
   /**
    * Creates a service caller for the service metadata interface
@@ -175,8 +175,8 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
     ValueEnforcer.notEmpty (aServiceMetadata.getPublisherEndpoint ().getLogicalAddress (),
                             "ServiceMetadata.PublisherEndpoint.LogicalAddress");
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to create new SMP '" +
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Trying to create new SMP '" +
                       aServiceMetadata.getServiceMetadataPublisherID () +
                       "' with physical address '" +
                       aServiceMetadata.getPublisherEndpoint ().getPhysicalAddress () +
@@ -260,8 +260,8 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
     ValueEnforcer.notEmpty (aServiceMetadata.getPublisherEndpoint ().getLogicalAddress (),
                             "ServiceMetadata.PublisherEndpoint.LogicalAddress");
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to update SMP '" +
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Trying to update SMP '" +
                       aServiceMetadata.getServiceMetadataPublisherID () +
                       "' with physical address '" +
                       aServiceMetadata.getPublisherEndpoint ().getPhysicalAddress () +
@@ -294,8 +294,8 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to delete SMP '" + sSMPID + "'");
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Trying to delete SMP '" + sSMPID + "'");
 
     createWSPort ().delete (sSMPID);
   }
@@ -353,8 +353,8 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
     ValueEnforcer.notNull (aSMPService, "SMPService");
     ValueEnforcer.notEmpty (aSMPService.getServiceMetadataPublisherID (), "SMPService.ServiceMetadataPublisherID");
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Trying to read SMP '" + aSMPService.getServiceMetadataPublisherID () + "'");
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Trying to read SMP '" + aSMPService.getServiceMetadataPublisherID () + "'");
 
     return createWSPort ().read (aSMPService);
   }
