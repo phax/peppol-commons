@@ -128,7 +128,7 @@ public class EsensURLProvider implements IBDXLURLProvider
   {
     final byte [] aMessageDigest = MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET),
                                                               EMessageDigestAlgorithm.SHA_256)
-                                                     .getAllDigestBytes ();
+                                                     .bytes ();
     return new Base32Codec ().setAddPaddding (false).getEncodedAsString (aMessageDigest, StandardCharsets.ISO_8859_1);
   }
 
