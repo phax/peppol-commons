@@ -36,7 +36,7 @@ public class PeppolSBDHDocumentReadException extends Exception
   }
 
   public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
-                                    @Nullable final String sAdditionalInformation)
+                                          @Nullable final String sAdditionalInformation)
   {
     super ("[" +
            eErrorCode.getID () +
@@ -47,8 +47,8 @@ public class PeppolSBDHDocumentReadException extends Exception
   }
 
   public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
-                                    @Nonnull final String sValue1,
-                                    @Nonnull final String sValue2)
+                                          @Nonnull final String sValue1,
+                                          @Nonnull final String sValue2)
   {
     super ("[" +
            eErrorCode.getID () +
