@@ -91,11 +91,13 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
           if (sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"))
             return true;
         }
-    LOGGER.warn ("Algorithm mismatch between JCA/JCE public key algorithm name ('" +
-                    sAlgName +
-                    "') and signature algorithm URI ('" +
-                    sAlgURI +
-                    "')");
+
+    if (LOGGER.isWarnEnabled ())
+      LOGGER.warn ("Algorithm mismatch between JCA/JCE public key algorithm name ('" +
+                   sAlgName +
+                   "') and signature algorithm URI ('" +
+                   sAlgURI +
+                   "')");
     return false;
   }
 
@@ -131,9 +133,12 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
 
               if (m_aKeyStore == null)
+              {
+                // Load once only
                 m_aKeyStore = KeyStoreHelper.loadKeyStoreDirect (m_eTruststoreType,
                                                                  m_sTruststorePath,
                                                                  m_sTrustStorePassword);
+              }
 
               // The PKIXParameters constructor may fail because:
               // - the trustAnchorsParameter is empty
@@ -151,9 +156,9 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
                 return new ConstantKeySelectorResult (aPublicKey);
               // Else a warning was already emitted
             }
-            catch (final Throwable t)
+            catch (final Exception ex)
             {
-              throw new KeySelectorException ("Failed to select public key from certificate " + aCertificate, t);
+              throw new KeySelectorException ("Failed to select public key from certificate " + aCertificate, ex);
             }
           }
         }
