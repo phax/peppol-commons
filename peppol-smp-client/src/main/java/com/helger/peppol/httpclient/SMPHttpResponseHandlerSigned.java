@@ -81,8 +81,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
   /**
    * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see {@link #DEFAULT_CHECK_CERTIFICATE}).
+   *         enabled, <code>false</code> if it is disabled. By default this check
+   *         is enabled (see {@link #DEFAULT_CHECK_CERTIFICATE}).
    * @since 5.2.1
    */
   public boolean isCheckCertificate ()
@@ -126,7 +126,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       // influence
       LOGGER.info ("Signature failed core validation");
       final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
-      LOGGER.info ("  Signature value valid: " + bSignatureValueValid);
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("  Signature value valid: " + bSignatureValueValid);
       if (!bSignatureValueValid)
       {
         // Check the validation status of each Reference.
@@ -135,7 +136,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
         while (i.hasNext ())
         {
           final boolean bRefValid = ((Reference) i.next ()).validate (aValidateContext);
-          LOGGER.info ("  Reference[" + nIndex + "] validity status: " + (bRefValid ? "valid" : "NOT valid!"));
+          if (LOGGER.isInfoEnabled ())
+            LOGGER.info ("  Reference[" + nIndex + "] validity status: " + (bRefValid ? "valid" : "NOT valid!"));
           ++nIndex;
         }
       }

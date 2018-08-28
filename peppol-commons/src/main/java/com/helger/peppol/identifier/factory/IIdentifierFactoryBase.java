@@ -31,15 +31,18 @@ public interface IIdentifierFactoryBase extends Serializable
 {
   /**
    * Create a new identifier from the URI representation. This is the inverse
-   * operation of {@link IIdentifier#getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * operation of {@link IIdentifier#getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded! May be <code>null</code>.
-   * @return The created {@link IIdentifier} instance or <code>null</code> if
-   *         the passed identifier is not a valid URI encoded identifier
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded! May be <code>null</code>.
+   * @param aConverter
+   *        Converter function to be used. The first parameter is the scheme, the
+   *        second parameter is the value. May not be <code>null</code>.
+   * @return The created {@link IIdentifier} instance or <code>null</code> if the
+   *         passed identifier is not a valid URI encoded identifier
    */
   @Nullable
   default <T extends IIdentifier> T parseURIPartOrNull (@Nullable final String sURIPart,
@@ -77,7 +80,7 @@ public interface IIdentifierFactoryBase extends Serializable
 
   /**
    * Ensure that <code>null</code> is used instead of an empty string.
-   * 
+   *
    * @param s
    *        Source string
    * @return <code>null</code> if the source string was "", the source string

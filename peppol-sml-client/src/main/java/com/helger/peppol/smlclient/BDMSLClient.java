@@ -110,13 +110,15 @@ public class BDMSLClient extends WSClientConfig
    *        The new public key contained in the certificate.
    * @param aMigrationDate
    *        The migration date for the new certificate. Can't be in the past. If
-   *        the migrationDate is not empty, then the new certificate MUST be
-   *        valid at the date provided in the migrationDate element. i.e. The
+   *        the migrationDate is not empty, then the new certificate MUST be valid
+   *        at the date provided in the migrationDate element. i.e. The
    *        migrationDate must be within validFrom and validTo dates of the new
    *        certificate. If the migrationDate element is empty, then the "Valid
    *        From" date is extracted from the certificate and is used as the
-   *        migrationDate. In this case, the "Not Before" date of the
-   *        certificate must be in the future.
+   *        migrationDate. In this case, the "Not Before" date of the certificate
+   *        must be in the future.
+   * @throws ClientTransportException
+   *         if the WS client invocation failed
    * @throws BadRequestFault
    *         In case of error
    * @throws InternalErrorFault
@@ -127,8 +129,7 @@ public class BDMSLClient extends WSClientConfig
    *         In case of error
    */
   public void prepareChangeCertificate (@Nonnull @Nonempty final String sNewCertificatePublicKey,
-                                        @Nullable final LocalDate aMigrationDate) throws ClientTransportException,
-                                                                                  BadRequestFault,
+                                        @Nullable final LocalDate aMigrationDate) throws BadRequestFault,
                                                                                   InternalErrorFault,
                                                                                   NotFoundFault,
                                                                                   UnauthorizedFault
@@ -151,6 +152,8 @@ public class BDMSLClient extends WSClientConfig
    *        The SMP identifier
    * @param aNewCertificatePublicKey
    *        The new public key contained in the certificate.
+   * @throws ClientTransportException
+   *         if the WS client invocation failed
    * @throws BadRequestFault
    *         In case of error
    * @throws InternalErrorFault
@@ -159,8 +162,7 @@ public class BDMSLClient extends WSClientConfig
    *         In case of error
    */
   public void changeCertificate (@Nonnull final String sSMPID,
-                                 @Nonnull @Nonempty final byte [] aNewCertificatePublicKey) throws ClientTransportException,
-                                                                                            BadRequestFault,
+                                 @Nonnull @Nonempty final byte [] aNewCertificatePublicKey) throws BadRequestFault,
                                                                                             InternalErrorFault,
                                                                                             UnauthorizedFault
   {
@@ -168,11 +170,7 @@ public class BDMSLClient extends WSClientConfig
     ValueEnforcer.notEmpty (aNewCertificatePublicKey, "NewCertificatePublicKey");
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("changeCertificate (" +
-                       sSMPID +
-                       ", " +
-                       ArrayHelper.getSize (aNewCertificatePublicKey) +
-                       " bytes)");
+      LOGGER.debug ("changeCertificate (" + sSMPID + ", " + ArrayHelper.getSize (aNewCertificatePublicKey) + " bytes)");
 
     final ChangeCertificateType aBody = new ChangeCertificateType ();
     aBody.setServiceMetadataPublisherID (sSMPID);
@@ -182,8 +180,7 @@ public class BDMSLClient extends WSClientConfig
 
   public void createParticipantIdentifier (@Nonnull @Nonempty final String sSMPID,
                                            @Nonnull final IParticipantIdentifier aParticipantID,
-                                           @Nonnull @Nonempty final String sServiceName) throws ClientTransportException,
-                                                                                         BadRequestFault,
+                                           @Nonnull @Nonempty final String sServiceName) throws BadRequestFault,
                                                                                          InternalErrorFault,
                                                                                          NotFoundFault,
                                                                                          UnauthorizedFault
@@ -252,7 +249,7 @@ public class BDMSLClient extends WSClientConfig
     }
   }
 
-  public void clearCache () throws ClientTransportException, InternalErrorFault
+  public void clearCache () throws InternalErrorFault
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("clearCache ()");

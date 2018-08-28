@@ -33,11 +33,13 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   {}
 
   @Nonnull
+  @Override
   public String getDefaultDocumentTypeIdentifierScheme ()
   {
     return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
   }
 
+  @Override
   public boolean isDocumentTypeIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
     return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (sScheme);
@@ -53,6 +55,7 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
 
   // No default participant identifier scheme
 
+  @Override
   public boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
     return PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME.equals (sScheme);
@@ -67,11 +70,13 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   }
 
   @Nonnull
+  @Override
   public String getDefaultProcessIdentifierScheme ()
   {
     return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
   }
 
+  @Override
   public boolean isProcessIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
     return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals (sScheme);

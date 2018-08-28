@@ -60,7 +60,8 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
     {
       final Charset aCharset = HttpClientHelper.getCharset (aContentType);
       final byte [] aContent = EntityUtils.toByteArray (aEntity);
-      LOGGER.info (new String (aContent, aCharset));
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info (new String (aContent, aCharset));
       final T ret = m_aMarshaller.read (aContent);
       if (ret == null)
         throw new ClientProtocolException ("Malformed XML document returned from SMP server");

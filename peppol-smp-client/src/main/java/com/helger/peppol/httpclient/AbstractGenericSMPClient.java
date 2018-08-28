@@ -53,14 +53,14 @@ import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
  * @param <IMPLTYPE>
  *        Real implementation class
  */
-public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGenericSMPClient <IMPLTYPE>>
-                                               implements IGenericImplTrait <IMPLTYPE>
+public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGenericSMPClient <IMPLTYPE>> implements
+                                               IGenericImplTrait <IMPLTYPE>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
 
   /**
-   * The string representation of the SMP host URL, always ending with a
-   * trailing slash!
+   * The string representation of the SMP host URL, always ending with a trailing
+   * slash!
    */
   private final String m_sSMPHost;
   private HttpHost m_aProxy;
@@ -84,10 +84,13 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     ValueEnforcer.notNull (aSMPHost, "SMPHost");
 
     if (!"http".equals (aSMPHost.getScheme ()))
-      LOGGER.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme!");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme!");
+
     // getPort () returns -1 if none was explicitly specified
     if (aSMPHost.getPort () != 80 && aSMPHost.getPort () != -1)
-      LOGGER.warn ("SMP URI " + aSMPHost + " is not running on port 80!");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("SMP URI " + aSMPHost + " is not running on port 80!");
 
     // Build string and ensure it ends with a "/"
     final String sSMPHost = aSMPHost.toString ();
@@ -101,8 +104,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * @return The SMP host URI string we're operating on. Never <code>null</code>
-   *         . Always has a trailing "/".
+   * @return The SMP host URI string we're operating on. Never <code>null</code> .
+   *         Always has a trailing "/".
    */
   @Nonnull
   public String getSMPHostURI ()
@@ -122,11 +125,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Set the proxy to be used to access the SMP server. Note: proxy
-   * authentication must be set explicitly via
-   * {@link #setProxyCredentials(Credentials)}<br>
-   * Note: if {@link #setUseProxySystemProperties(boolean)} is enabled, any
-   * proxy that is set via this method is reset!
+   * Set the proxy to be used to access the SMP server. Note: proxy authentication
+   * must be set explicitly via {@link #setProxyCredentials(Credentials)}<br>
+   * Note: if {@link #setUseProxySystemProperties(boolean)} is enabled, any proxy
+   * that is set via this method is reset!
    *
    * @param aProxy
    *        May be <code>null</code> to indicate no proxy.
@@ -176,8 +178,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * @return <code>true</code> if the system properties for HTTP proxy handling
-   *         are enabled, <code>false</code> if they are disabled. By default
-   *         they are disabled.
+   *         are enabled, <code>false</code> if they are disabled. By default they
+   *         are disabled.
    * @since 5.2.2
    */
   public boolean isUseProxySystemProperties ()
@@ -220,8 +222,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * </ul>
    *
    * @param bUseProxySystemProperties
-   *        <code>true</code> to use system properties, <code>false</code> to
-   *        not use them.
+   *        <code>true</code> to use system properties, <code>false</code> to not
+   *        use them.
    * @return this for chaining
    * @since 5.2.2
    */
@@ -328,8 +330,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see
+   *         enabled, <code>false</code> if it is disabled. By default this check
+   *         is enabled (see
    *         {@link SMPHttpResponseHandlerSigned#DEFAULT_CHECK_CERTIFICATE}).
    * @since 5.2.1
    */
@@ -356,15 +358,15 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Execute a generic request on the SMP. This is e.g. helpful for accessing
-   * the PEPPOL Directory BusinessCard API. Compared to
+   * Execute a generic request on the SMP. This is e.g. helpful for accessing the
+   * PEPPOL Directory BusinessCard API. Compared to
    * {@link #executeGenericRequest(HttpUriRequest, ResponseHandler)} this method
-   * does NOT convert the {@link IOException} from HTTP communication problems
-   * to {@link IOException}.
+   * does NOT convert the {@link IOException} from HTTP communication problems to
+   * {@link IOException}.
    *
    * @param aRequest
-   *        The request to be executed. The proxy + connection and request
-   *        timeout are set in this method.
+   *        The request to be executed. The proxy + connection and request timeout
+   *        are set in this method.
    * @param aResponseHandler
    *        The response handler to be used. May not be <code>null</code>.
    * @return The return value of the response handler.
@@ -431,14 +433,14 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Execute a generic request on the SMP. This is e.g. helpful for accessing
-   * the PEPPOL Directory BusinessCard API. This is equivalent to
+   * Execute a generic request on the SMP. This is e.g. helpful for accessing the
+   * PEPPOL Directory BusinessCard API. This is equivalent to
    * {@link #executeRequest(HttpUriRequest, ResponseHandler)} but includes the
    * conversion of Exceptions to {@link SMPClientException} objects.
    *
    * @param aRequest
-   *        The request to be executed. The proxy + connection and request
-   *        timeout are set in this method.
+   *        The request to be executed. The proxy + connection and request timeout
+   *        are set in this method.
    * @param aResponseHandler
    *        The response handler to be used. May not be <code>null</code>.
    * @return The return value of the response handler.

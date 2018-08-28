@@ -97,8 +97,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @param sSMLZoneName
    *        The SML DNS zone name to be used. Required to build the SMP access
    *        URI. Must end with a trailing dot (".") and may neither be
-   *        <code>null</code> nor empty to build a correct URL. May not start
-   *        with "http://". Example: <code>sml.peppolcentral.org.</code>
+   *        <code>null</code> nor empty to build a correct URL. May not start with
+   *        "http://". Example: <code>sml.peppolcentral.org.</code>
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      String)
    */
@@ -123,8 +123,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
+   * Returns a service group. A service group references to the service metadata.
+   * This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
@@ -155,14 +155,14 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
+   * Returns a service group. A service group references to the service metadata.
+   * This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
    *        wants to get.
-   * @return The service group. May be <code>null</code> if no such service
-   *         group exists.
+   * @return The service group. May be <code>null</code> if no such service group
+   *         exists.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -230,7 +230,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
 
       // Follow the redirect
-      LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
       aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
                                          new SMPHttpResponseHandlerSigned <> (new BDXRMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
@@ -289,8 +290,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceRegistration(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier)
+   * @see #getServiceRegistration(IParticipantIdentifier, IDocumentTypeIdentifier)
    */
   @Nullable
   public SignedServiceMetadataType getServiceRegistrationOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -358,8 +358,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *        {@link #getServiceRegistrationOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
    *        . May not be <code>null</code>.
    * @param aProcessID
-   *        The process identifier to be looked up. May not be <code>null</code>
-   *        .
+   *        The process identifier to be looked up. May not be <code>null</code> .
    * @param aTransportProfile
    *        The required transport profile to be used. May not be
    *        <code>null</code>.
@@ -401,16 +400,17 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
           if (aRelevantEndpoints.size () != 1)
           {
-            LOGGER.warn ("Found " +
-                            aRelevantEndpoints.size () +
-                            " endpoints for process " +
-                            aProcessID +
-                            " and transport profile " +
-                            aTransportProfile.getID () +
-                            (aRelevantEndpoints.isEmpty () ? ""
-                                                           : ": " +
-                                                             aRelevantEndpoints.toString () +
-                                                             " - using the first one"));
+            if (LOGGER.isWarnEnabled ())
+              LOGGER.warn ("Found " +
+                           aRelevantEndpoints.size () +
+                           " endpoints for process " +
+                           aProcessID +
+                           " and transport profile " +
+                           aTransportProfile.getID () +
+                           (aRelevantEndpoints.isEmpty () ? ""
+                                                          : ": " +
+                                                            aRelevantEndpoints.toString () +
+                                                            " - using the first one"));
           }
 
           // Use the first endpoint or null
@@ -481,8 +481,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
-   * Returns a service group. A service group references to the service
-   * metadata.
+   * Returns a service group. A service group references to the service metadata.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.

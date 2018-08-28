@@ -112,8 +112,9 @@ public final class PeppolDocumentTypeIdentifierPartsTest
   public void testList () throws IOException
   {
     try (final CSVWriter aCSV = new CSVWriter (StreamHelper.createWriter (FileHelper.getOutputStream (new File ("doctypes.csv")),
-                                                                          StandardCharsets.ISO_8859_1)).setSeparatorChar (';'))
+                                                                          StandardCharsets.ISO_8859_1)))
     {
+      aCSV.setSeparatorChar (';');
       aCSV.writeNext ("Status", "Namespace URI", "Local name", "Customization ID", "Version");
       SimpleFileIO.readFileLines (new File ("src/test/resources/doctypes.txt"), StandardCharsets.UTF_8, sDocTypeID -> {
         final ICommonsList <String> aResult = new CommonsArrayList <> ();

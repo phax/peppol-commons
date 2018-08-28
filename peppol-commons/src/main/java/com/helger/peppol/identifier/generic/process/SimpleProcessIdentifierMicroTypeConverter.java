@@ -11,6 +11,7 @@
 package com.helger.peppol.identifier.generic.process;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.peppol.identifier.AbstractIdentifierMicroTypeConverter;
 
@@ -19,7 +20,7 @@ public final class SimpleProcessIdentifierMicroTypeConverter extends
 {
   @Override
   @Nonnull
-  protected SimpleProcessIdentifier getAsNative (@Nonnull final String sScheme, @Nonnull final String sValue)
+  protected SimpleProcessIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     return new SimpleProcessIdentifier (sScheme, sValue);
   }
