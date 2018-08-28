@@ -1,3 +1,5 @@
+dist: trusty
+sudo: required
 language: java
 
 env:
@@ -11,15 +13,27 @@ hnP271b5r1nF+3zrm/c/FLV90rm39CPCq2CtlQ9yvoMk3cNjvtVm6nKDfW4+EgSqFRDlyGBhJgsfTpa9
 UW0XbXpo34OwRkAWnQTbU4rAotheaOqO9TweYdKri4C3m28FdDFcgxWtQPI97KmBi6rVMjEFgjs4/sohl8XtDKXo5eqDUHtChc0b
 aXvGcebsQ6dpiRVLOS/lFoRvsqODeFLMJ1lfW5kIfp/pTK45cOXnq1XJpzFUGWOVIL0PygXrLM0N7ShvrDvuRZsdnqK93I="
 
+addons:
+  sonarcloud:
+    organization: "phax-github"
+    token:
+      secure: "PLCZNxlCbReNUzh1V1Ap8l6RdWBAqetUaAVLd8U5jCk8oF0/C++fpjLS0nXwsXpMqY4kQ9/TREMYiif2IR0hObk5XOOG2hsE6MH3eBehtzYHKOApzkk7IsRGULihJWcpn12jTmXoxGHIR16SEiPJ8
+c1Pnug3IhgpTck3sfXLllHA5S/4HSPNoZnFJ5YvL/EYxtr8KDlF8+scaA7PKCUa/lS3Ycv5hfgOaQN91ElF1F14AlepPeFX2M52/53NP8+xy3WVS6kE3jkVJBJDnfIBMbjCErxYnUvt8iqqzAvkrvWYI+KPw2+NL
+rhnu1REfQ5gY5J73F0zcMSspK8L7o5PvQz2MtW2BLOXlIohjFx/V8cybbYcnjttcvSBe1KE+k6rPqFEAqW99yKlitV9BzycQKjmuvypg+7tUkhfYgyntS3tmRRyJJShX8N76e44Mo/HB/Mv85Xbx5Hx2/ujDT1Wm
+W+/JhJKTOPagJtgQ5Au6M036V0CRGzxZQciqgWgbaR4ehlWY9ZdE8g/wfidVkxa2d/8zgVdt93gyoFt0X3njDeua4Bh0Hqem2aA7uvT7owYcstZZJen2k/G4MmVzaI9SKi6skwee1YQS1TBcWdfkIkMGRR0CsaoY
+DNMU1dbYy3svuJOc7kE8Ly81a1mxiexktfE2YqqHQWe9HkZW6QHo80="
 jdk:
   - oraclejdk8
   
 install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
-  
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
+
+script:
+  - mvn test -B -P coverage sonar:sonar
+
 cache:
   directories:
-  - $HOME/.m2
+    - $HOME/.m2
 
 after_success:
   - mvn deploy --settings travis-settings.xml -DskipTests=true -B -P travis-deploy
