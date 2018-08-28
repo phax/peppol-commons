@@ -74,6 +74,9 @@ public final class PeppolSBDHTestFiles
     }
   }
 
+  private PeppolSBDHTestFiles ()
+  {}
+
   @Nonnull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllGoodCases ()

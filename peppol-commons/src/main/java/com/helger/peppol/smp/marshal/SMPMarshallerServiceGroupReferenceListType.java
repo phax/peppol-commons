@@ -23,6 +23,6 @@ public final class SMPMarshallerServiceGroupReferenceListType extends
 {
   public SMPMarshallerServiceGroupReferenceListType ()
   {
-    super (ServiceGroupReferenceListType.class, x -> new ObjectFactory ().createServiceGroupReferenceList (x));
+    super (ServiceGroupReferenceListType.class, new ObjectFactory ()::createServiceGroupReferenceList);
   }
 }

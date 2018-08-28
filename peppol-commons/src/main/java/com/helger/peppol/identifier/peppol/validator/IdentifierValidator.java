@@ -38,9 +38,10 @@ public final class IdentifierValidator
   {
     s_aParticipantIDValidators = ServiceLoaderHelper.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
     if (s_aParticipantIDValidators.isNotEmpty ())
-      LOGGER.info ("Loaded " +
-                      s_aParticipantIDValidators.size () +
-                      " SPI implementations of IParticipantIdentifierValidatorSPI");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Loaded " +
+                     s_aParticipantIDValidators.size () +
+                     " SPI implementations of IParticipantIdentifierValidatorSPI");
   }
 
   @PresentForCodeCoverage
@@ -59,10 +60,10 @@ public final class IdentifierValidator
    *
    * @param aParticipantID
    *        The participant ID to validate. May not be <code>null</code>.
-   * @return <code>true</code> if a) the identifier is not the default scheme,
-   *         b) if at least one validator matched or c) if no matching validator
-   *         was found at all. The method returns <code>false</code> if a
-   *         matching validator was found, but the ID did not match.
+   * @return <code>true</code> if a) the identifier is not the default scheme, b)
+   *         if at least one validator matched or c) if no matching validator was
+   *         found at all. The method returns <code>false</code> if a matching
+   *         validator was found, but the ID did not match.
    */
   public static boolean isValidParticipantIdentifier (@Nonnull final IPeppolParticipantIdentifier aParticipantID)
   {

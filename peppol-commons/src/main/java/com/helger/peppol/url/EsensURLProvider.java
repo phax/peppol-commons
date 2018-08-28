@@ -79,8 +79,7 @@ public class EsensURLProvider implements IBDXLURLProvider
    * Enable or disable internal DNS caching. By default it is enabled.
    *
    * @param bUseDNSCache
-   *        <code>true</code> to enable caching, <code>false</code> to disable
-   *        it.
+   *        <code>true</code> to enable caching, <code>false</code> to disable it.
    */
   public void setUseDNSCache (final boolean bUseDNSCache)
   {
@@ -92,14 +91,14 @@ public class EsensURLProvider implements IBDXLURLProvider
    */
   public void clearDNSCache ()
   {
-    m_aRWLock.writeLocked ( () -> m_aDNSCache.clear ());
+    m_aRWLock.writeLocked (m_aDNSCache::clear);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getAllDNSCacheEntries ()
   {
-    return m_aRWLock.readLocked ( () -> m_aDNSCache.getClone ());
+    return m_aRWLock.readLocked (m_aDNSCache::getClone);
   }
 
   /**

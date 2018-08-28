@@ -55,10 +55,9 @@ public class PeppolURLProvider implements IPeppolURLProvider
 
   /**
    * Get the MD5-hash-string-representation of the passed value using the
-   * {@link #URL_CHARSET} encoding. Each hash byte is represented as 2
-   * characters in the range [0-9a-f]. Note: the hash value creation is done
-   * case sensitive! The caller needs to ensure that the value to hash is lower
-   * case!
+   * {@link #URL_CHARSET} encoding. Each hash byte is represented as 2 characters
+   * in the range [0-9a-f]. Note: the hash value creation is done case sensitive!
+   * The caller needs to ensure that the value to hash is lower case!
    *
    * @param sValueToHash
    *        The value to be hashed. May not be <code>null</code>.
@@ -90,7 +89,8 @@ public class PeppolURLProvider implements IPeppolURLProvider
 
     // Was previously an error, but to be more flexible just emit a warning
     if (!IPeppolParticipantIdentifier.isValidScheme (sIdentifierScheme))
-      LOGGER.warn ("Invalid PEPPOL participant identifier scheme '" + sIdentifierScheme + "' used");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Invalid PEPPOL participant identifier scheme '" + sIdentifierScheme + "' used");
 
     // Get the identifier value
     final String sValue = StringHelper.getNotNull (aParticipantIdentifier.getValue ());

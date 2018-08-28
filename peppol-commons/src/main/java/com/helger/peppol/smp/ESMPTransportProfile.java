@@ -30,6 +30,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   @Deprecated
   TRANSPORT_PROFILE_START ("busdox-transport-start", "START")
   {
+    @Override
     public boolean isDeprecated ()
     {
       return true;
@@ -43,6 +44,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   @Deprecated
   TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4")
   {
+    @Override
     public boolean isDeprecated ()
     {
       return true;

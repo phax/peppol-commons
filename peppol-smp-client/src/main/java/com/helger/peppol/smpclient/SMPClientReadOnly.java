@@ -100,8 +100,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @param sSMLZoneName
    *        The SML DNS zone name to be used. Required to build the SMP access
    *        URI. Must end with a trailing dot (".") and may neither be
-   *        <code>null</code> nor empty to build a correct URL. May not start
-   *        with "http://". Example: <code>sml.peppolcentral.org.</code>
+   *        <code>null</code> nor empty to build a correct URL. May not start with
+   *        "http://". Example: <code>sml.peppolcentral.org.</code>
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      String)
    */
@@ -143,8 +143,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The userId did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceGroupReferenceListOrNull(String,
-   *      BasicAuthClientCredentials)
+   * @see #getServiceGroupReferenceListOrNull(String, BasicAuthClientCredentials)
    */
   @Nonnull
   public ServiceGroupReferenceListType getServiceGroupReferenceList (@Nonnull final String sUserID,
@@ -160,7 +159,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     final HttpGet aRequest = new HttpGet (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned<> (new SMPMarshallerServiceGroupReferenceListType ()));
+                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupReferenceListType ()));
   }
 
   /**
@@ -171,8 +170,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The username for which to retrieve service groups.
    * @param aCredentials
    *        The user name and password to use as credentials.
-   * @return A list of references to complete service groups or
-   *         <code>null</code> if no such user exists.
+   * @return A list of references to complete service groups or <code>null</code>
+   *         if no such user exists.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -196,9 +195,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a complete service group. A complete service group contains both
-   * the service group and the service metadata. This is a non-specification
-   * compliant method.
+   * Returns a complete service group. A complete service group contains both the
+   * service group and the service metadata. This is a non-specification compliant
+   * method.
    *
    * @param sCompleteURI
    *        The complete URL for the full service group to query.
@@ -225,13 +224,13 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final HttpGet aRequest = new HttpGet (sCompleteURI);
     return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned<> (new SMPMarshallerCompleteServiceGroupType ()));
+                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerCompleteServiceGroupType ()));
   }
 
   /**
-   * Returns a complete service group. A complete service group contains both
-   * the service group and the service metadata. This is a non-specification
-   * compliant method.
+   * Returns a complete service group. A complete service group contains both the
+   * service group and the service metadata. This is a non-specification compliant
+   * method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
@@ -258,9 +257,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a complete service group. A complete service group contains both
-   * the service group and the service metadata. This is a non-specification
-   * compliant method.
+   * Returns a complete service group. A complete service group contains both the
+   * service group and the service metadata. This is a non-specification compliant
+   * method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
@@ -290,8 +289,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
+   * Returns a service group. A service group references to the service metadata.
+   * This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
@@ -318,18 +317,18 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final HttpGet aRequest = new HttpGet (sURI);
     return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned<> (new SMPMarshallerServiceGroupType ()));
+                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupType ()));
   }
 
   /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
+   * Returns a service group. A service group references to the service metadata.
+   * This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
    *        wants to get.
-   * @return The service group. May be <code>null</code> if no such service
-   *         group exists.
+   * @return The service group. May be <code>null</code> if no such service group
+   *         exists.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -390,7 +389,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned<> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+                                                                 new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
     // If the Redirect element is present, then follow 1 redirect.
     if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
@@ -398,10 +397,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
 
       // Follow the redirect
-      LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
       aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
-                                         new SMPHttpResponseHandlerSigned<> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+                                         new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
       // Check that the certificateUID is correct.
       boolean bCertificateSubjectFound = false;
@@ -457,8 +457,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceRegistration(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier)
+   * @see #getServiceRegistration(IParticipantIdentifier, IDocumentTypeIdentifier)
    */
   @Nullable
   public SignedServiceMetadataType getServiceRegistrationOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -526,8 +525,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        {@link #getServiceRegistrationOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
    *        . May not be <code>null</code>.
    * @param aProcessID
-   *        The process identifier to be looked up. May not be <code>null</code>
-   *        .
+   *        The process identifier to be looked up. May not be <code>null</code> .
    * @param aTransportProfile
    *        The required transport profile to be used. May not be
    *        <code>null</code>.
@@ -562,23 +560,24 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         if (aProcessType.getProcessIdentifier ().hasSameContent (aProcessID))
         {
           // Filter all endpoints by required transport profile
-          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList<> ();
+          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
           for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
             if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
               aRelevantEndpoints.add (aEndpoint);
 
           if (aRelevantEndpoints.size () != 1)
           {
-            LOGGER.warn ("Found " +
-                            aRelevantEndpoints.size () +
-                            " endpoints for process " +
-                            aProcessID +
-                            " and transport profile " +
-                            aTransportProfile.getID () +
-                            (aRelevantEndpoints.isEmpty () ? ""
-                                                           : ": " +
-                                                             aRelevantEndpoints.toString () +
-                                                             " - using the first one"));
+            if (LOGGER.isWarnEnabled ())
+              LOGGER.warn ("Found " +
+                           aRelevantEndpoints.size () +
+                           " endpoints for process " +
+                           aProcessID +
+                           " and transport profile " +
+                           aTransportProfile.getID () +
+                           (aRelevantEndpoints.isEmpty () ? ""
+                                                          : ": " +
+                                                            aRelevantEndpoints.toString () +
+                                                            " - using the first one"));
           }
 
           // Use the first endpoint or null
@@ -643,8 +642,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a complete service group. A complete service group contains both
-   * the service group and the service metadata.
+   * Returns a complete service group. A complete service group contains both the
+   * service group and the service metadata.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
@@ -673,8 +672,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a service group. A service group references to the service
-   * metadata.
+   * Returns a service group. A service group references to the service metadata.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.

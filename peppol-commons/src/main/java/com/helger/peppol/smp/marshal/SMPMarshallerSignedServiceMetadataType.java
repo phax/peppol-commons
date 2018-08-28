@@ -22,6 +22,6 @@ public final class SMPMarshallerSignedServiceMetadataType extends AbstractSMPMar
 {
   public SMPMarshallerSignedServiceMetadataType ()
   {
-    super (SignedServiceMetadataType.class, x -> new ObjectFactory ().createSignedServiceMetadata (x));
+    super (SignedServiceMetadataType.class, new ObjectFactory ()::createSignedServiceMetadata);
   }
 }

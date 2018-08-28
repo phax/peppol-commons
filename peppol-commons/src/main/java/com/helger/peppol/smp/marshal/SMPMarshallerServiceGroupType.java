@@ -22,6 +22,6 @@ public final class SMPMarshallerServiceGroupType extends AbstractSMPMarshaller <
 {
   public SMPMarshallerServiceGroupType ()
   {
-    super (ServiceGroupType.class, x -> new ObjectFactory ().createServiceGroup (x));
+    super (ServiceGroupType.class, new ObjectFactory ()::createServiceGroup);
   }
 }

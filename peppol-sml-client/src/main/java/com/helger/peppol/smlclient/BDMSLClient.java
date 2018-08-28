@@ -17,6 +17,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.WebServiceException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +50,6 @@ import com.helger.peppol.smlclient.bdmsl.SMPAdvancedServiceForParticipantType;
 import com.helger.peppol.smlclient.bdmsl.ServiceMetadataPublisherServiceForParticipantType;
 import com.helger.peppol.smlclient.bdmsl.UnauthorizedFault;
 import com.helger.wsclient.WSClientConfig;
-import com.sun.xml.ws.client.ClientTransportException;
 
 /**
  * A client for the new BDMSL specific "BDMSL service"
@@ -117,7 +117,7 @@ public class BDMSLClient extends WSClientConfig
    *        From" date is extracted from the certificate and is used as the
    *        migrationDate. In this case, the "Not Before" date of the certificate
    *        must be in the future.
-   * @throws ClientTransportException
+   * @throws com.sun.xml.ws.client.ClientTransportException
    *         if the WS client invocation failed
    * @throws BadRequestFault
    *         In case of error
@@ -152,7 +152,7 @@ public class BDMSLClient extends WSClientConfig
    *        The SMP identifier
    * @param aNewCertificatePublicKey
    *        The new public key contained in the certificate.
-   * @throws ClientTransportException
+   * @throws com.sun.xml.ws.client.ClientTransportException
    *         if the WS client invocation failed
    * @throws BadRequestFault
    *         In case of error
@@ -219,7 +219,7 @@ public class BDMSLClient extends WSClientConfig
       LOGGER.error ("Unauthorized to call listParticipants", ex);
       return null;
     }
-    catch (final ClientTransportException ex)
+    catch (final WebServiceException ex)
     {
       LOGGER.error ("HTTP error invoking listParticipants", ex);
       return null;
@@ -243,7 +243,7 @@ public class BDMSLClient extends WSClientConfig
       createWSPort ().isAlive (aDummy);
       return true;
     }
-    catch (final InternalErrorFault | ClientTransportException ex)
+    catch (final InternalErrorFault | WebServiceException ex)
     {
       return false;
     }

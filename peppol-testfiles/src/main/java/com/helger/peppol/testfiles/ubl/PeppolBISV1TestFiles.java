@@ -580,7 +580,8 @@ public final class PeppolBISV1TestFiles
         aFilenames = TENDERINGCATALOGUES_SUCCESS;
         break;
       default:
-        LOGGER.warn ("No success test files present for type " + eFileType);
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("No success test files present for type " + eFileType);
         break;
     }
 
@@ -624,7 +625,8 @@ public final class PeppolBISV1TestFiles
         aFilenames = ORDERS_ERROR;
         break;
       default:
-        LOGGER.warn ("No error test files present for type " + eFileType);
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("No error test files present for type " + eFileType);
         break;
     }
 

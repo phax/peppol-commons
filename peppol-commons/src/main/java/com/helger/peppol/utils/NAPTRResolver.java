@@ -155,7 +155,8 @@ public final class NAPTRResolver
     if (aLookup.getResult () != Lookup.SUCCESSFUL)
     {
       // Wrong domain name
-      LOGGER.warn ("Error looking up '" + sDNSName + "': " + aLookup.getErrorString ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Error looking up '" + sDNSName + "': " + aLookup.getErrorString ());
       return null;
     }
 
@@ -170,7 +171,8 @@ public final class NAPTRResolver
     if (aMatchingRecords.isEmpty ())
     {
       // No matching NAPTR present
-      LOGGER.warn ("No matching DNS NAPTR records returned for '" + sDNSName + "'");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("No matching DNS NAPTR records returned for '" + sDNSName + "'");
       return null;
     }
 
@@ -200,10 +202,11 @@ public final class NAPTRResolver
     }
 
     // Weird - no regexp present
-    LOGGER.warn ("None of the matching DNS NAPTR records for '" +
-                    sDNSName +
-                    "' has a valid regular expression. Details: " +
-                    aMatchingRecords);
+    if (LOGGER.isWarnEnabled ())
+      LOGGER.warn ("None of the matching DNS NAPTR records for '" +
+                   sDNSName +
+                   "' has a valid regular expression. Details: " +
+                   aMatchingRecords);
     return null;
   }
 }

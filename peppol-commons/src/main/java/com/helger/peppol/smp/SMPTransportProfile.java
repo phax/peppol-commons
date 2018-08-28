@@ -84,6 +84,7 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
     return EChange.CHANGED;
   }
 
+  @Override
   public boolean isDeprecated ()
   {
     return m_bIsDeprecated;
