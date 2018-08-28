@@ -101,6 +101,7 @@
             <exclude>**/*.episode</exclude>
             <exclude>**/*.jks</exclude>
             <exclude>src/main/resources/WEB-INF/wsdl/BDMSL*</exclude>
+            <exclude>src/main/resources/WEB-INF/wsdl/**</exclude>
           </excludes>
         </configuration>
       </plugin>
