@@ -20,7 +20,8 @@ import javax.annotation.Nullable;
 
 
 /**
- * This file is generated. Do NOT edit!
+ * This file was automatically generated.
+ * Do NOT edit!
  */
 @CodingStyleguideUnaware
 public enum EPredefinedProcessIdentifier
@@ -126,59 +127,59 @@ public enum EPredefinedProcessIdentifier
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS1A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver1_0;
+    public static final EPredefinedProcessIdentifier BIS1A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS1A_V4 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver2_0;
+    public static final EPredefinedProcessIdentifier BIS1A_V4 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS3A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver1_0;
+    public static final EPredefinedProcessIdentifier BIS3A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS3A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver2_0;
+    public static final EPredefinedProcessIdentifier BIS3A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS4A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver1_0;
+    public static final EPredefinedProcessIdentifier BIS4A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS4A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver2_0;
+    public static final EPredefinedProcessIdentifier BIS4A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS5A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver1_0;
+    public static final EPredefinedProcessIdentifier BIS5A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS5A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver2_0;
+    public static final EPredefinedProcessIdentifier BIS5A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver2_0;
     /**
      * Same as {@link #urn_fdc_peppol_eu_2017_poacc_billing_01_1_0}
      */
-    public final static EPredefinedProcessIdentifier BIS5A_V3 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_poacc_billing_01_1_0;
+    public static final EPredefinedProcessIdentifier BIS5A_V3 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_poacc_billing_01_1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii06_ver1_0}
      */
     @Deprecated
-    public final static EPredefinedProcessIdentifier BIS6A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii06_ver1_0;
+    public static final EPredefinedProcessIdentifier BIS6A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii06_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii28_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS28A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii28_ver2_0;
+    public static final EPredefinedProcessIdentifier BIS28A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii28_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii30_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS30A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii30_ver2_0;
+    public static final EPredefinedProcessIdentifier BIS30A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii30_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii36_ver2_0}
      */
-    public final static EPredefinedProcessIdentifier BIS36A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii36_ver2_0;
+    public static final EPredefinedProcessIdentifier BIS36A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii36_ver2_0;
     private final String m_sID;
     private final String m_sBISID;
     private final Version m_aSince;

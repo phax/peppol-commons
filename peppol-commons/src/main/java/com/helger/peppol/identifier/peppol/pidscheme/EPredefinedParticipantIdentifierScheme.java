@@ -18,7 +18,8 @@ import javax.annotation.Nullable;
 
 
 /**
- * This file is generated. Do NOT edit!
+ * This file was automatically generated.
+ * Do NOT edit!
  */
 @CodingStyleguideUnaware
 public enum EPredefinedParticipantIdentifierScheme
