@@ -67,8 +67,8 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   }
 
   /**
-   * Private constructor that passed the pre-checked values directly to the
-   * super class. Has a dummy parameter for a unique signature.
+   * Private constructor that passed the pre-checked values directly to the super
+   * class. Has a dummy parameter for a unique signature.
    *
    * @param bVerified
    *        dummy
@@ -136,7 +136,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    */
   @Nonnull
   @Deprecated
-  public static PeppolProcessIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static PeppolProcessIdentifier createFromURIPart (@Nonnull final String sURIPart)
   {
     final PeppolProcessIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
@@ -181,8 +181,8 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
 
   /**
    * Take the passed identifier scheme and value try to convert it back to a
-   * process identifier. If the passed scheme is invalid or if the passed value
-   * is invalid, <code>null</code> is returned.
+   * process identifier. If the passed scheme is invalid or if the passed value is
+   * invalid, <code>null</code> is returned.
    *
    * @param sScheme
    *        The identifier scheme. May be <code>null</code> in which case

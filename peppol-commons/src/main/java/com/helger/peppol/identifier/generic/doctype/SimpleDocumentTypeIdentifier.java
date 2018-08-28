@@ -65,13 +65,13 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   /**
    * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded!
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded!
    * @return The created {@link SimpleDocumentTypeIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
@@ -79,7 +79,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
    */
   @Nonnull
   @Deprecated
-  public static SimpleDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static SimpleDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart)
   {
     final SimpleDocumentTypeIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
@@ -92,16 +92,15 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   /**
    * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded! May be <code>null</code>.
-   * @return The created {@link SimpleDocumentTypeIdentifier} or
-   *         <code>null</code> if the passed identifier is not a valid URI
-   *         encoded identifier
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded! May be <code>null</code>.
+   * @return The created {@link SimpleDocumentTypeIdentifier} or <code>null</code>
+   *         if the passed identifier is not a valid URI encoded identifier
    * @deprecated Use
    *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseDocumentTypeIdentifier(String)}
    *             instead
@@ -124,12 +123,12 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   /**
-   * Check if the passed document type identifier is valid. This method checks
-   * for the existence of the scheme and the value and validates both.
+   * Check if the passed document type identifier is valid. This method checks for
+   * the existence of the scheme and the value and validates both.
    *
    * @param sURIPart
-   *        The document type identifier to be checked (including the scheme).
-   *        May be <code>null</code>.
+   *        The document type identifier to be checked (including the scheme). May
+   *        be <code>null</code>.
    * @return <code>true</code> if the document type identifier is valid,
    *         <code>false</code> otherwise
    */

@@ -23,6 +23,6 @@ public final class BDXRMarshallerServiceGroupReferenceListType extends
 {
   public BDXRMarshallerServiceGroupReferenceListType ()
   {
-    super (ServiceGroupReferenceListType.class, x -> new ObjectFactory ().createServiceGroupReferenceList (x));
+    super (ServiceGroupReferenceListType.class, new ObjectFactory ()::createServiceGroupReferenceList);
   }
 }

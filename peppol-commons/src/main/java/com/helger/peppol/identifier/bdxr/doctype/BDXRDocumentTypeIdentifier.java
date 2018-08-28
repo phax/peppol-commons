@@ -68,13 +68,13 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
 
   /**
    * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded!
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded!
    * @return The created {@link BDXRDocumentTypeIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
@@ -82,7 +82,7 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
    */
   @Nonnull
   @Deprecated
-  public static BDXRDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static BDXRDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart)
   {
     final BDXRDocumentTypeIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
@@ -95,13 +95,13 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
 
   /**
    * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded! May be <code>null</code>.
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded! May be <code>null</code>.
    * @return The created {@link BDXRDocumentTypeIdentifier} or <code>null</code>
    *         if the passed identifier is not a valid URI encoded identifier
    * @deprecated Use
@@ -136,8 +136,8 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
    * @param sValue
    *        The identifier value. May be <code>null</code> in which case
    *        <code>null</code> is returned.
-   * @return The document type identifier or <code>null</code> if any of the
-   *         parts is invalid.
+   * @return The document type identifier or <code>null</code> if any of the parts
+   *         is invalid.
    * @see IBDXRDocumentTypeIdentifier#isValidScheme(String)
    * @see IBDXRDocumentTypeIdentifier#isValidValue(String)
    */
@@ -150,12 +150,12 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
   }
 
   /**
-   * Check if the passed document type identifier is valid. This method checks
-   * for the existence of the scheme and the value and validates both.
+   * Check if the passed document type identifier is valid. This method checks for
+   * the existence of the scheme and the value and validates both.
    *
    * @param sURIPart
-   *        The document type identifier to be checked (including the scheme).
-   *        May be <code>null</code>.
+   *        The document type identifier to be checked (including the scheme). May
+   *        be <code>null</code>.
    * @return <code>true</code> if the document type identifier is valid,
    *         <code>false</code> otherwise
    */

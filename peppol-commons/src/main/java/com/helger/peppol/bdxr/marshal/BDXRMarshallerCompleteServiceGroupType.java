@@ -22,6 +22,6 @@ public final class BDXRMarshallerCompleteServiceGroupType extends AbstractBDXRMa
 {
   public BDXRMarshallerCompleteServiceGroupType ()
   {
-    super (CompleteServiceGroupType.class, x -> new ObjectFactory ().createCompleteServiceGroup (x));
+    super (CompleteServiceGroupType.class, new ObjectFactory ()::createCompleteServiceGroup);
   }
 }

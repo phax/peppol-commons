@@ -76,8 +76,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Private constructor that passed the pre-checked values directly to the
-   * super class. Has a dummy parameter for a unique signature.
+   * Private constructor that passed the pre-checked values directly to the super
+   * class. Has a dummy parameter for a unique signature.
    *
    * @param bVerified
    *        dummy
@@ -130,8 +130,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Create a new participant identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}.
+   * Create a new participant identifier from the URI representation. This is the
+   * inverse operation of {@link #getURIEncoded()}.
    *
    * @param sURIPart
    *        The URI part in the format <code>scheme::value</code> (e.g.
@@ -144,7 +144,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    */
   @Nonnull
   @Deprecated
-  public static PeppolParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static PeppolParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart)
   {
     final PeppolParticipantIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
@@ -157,20 +157,18 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Create a new participant identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. Take the passed URI part
-   * and try to convert it back to a participant identifier. The URI part must
-   * have the layout <code>scheme::value</code>. This method accepts only valid
-   * PEPPOL participant identifier schemes and valid participant identifier
-   * values.
+   * Create a new participant identifier from the URI representation. This is the
+   * inverse operation of {@link #getURIEncoded()}. Take the passed URI part and
+   * try to convert it back to a participant identifier. The URI part must have
+   * the layout <code>scheme::value</code>. This method accepts only valid PEPPOL
+   * participant identifier schemes and valid participant identifier values.
    *
    * @param sURIPart
    *        The URI part in the format <code>scheme::value</code> (e.g.
    *        <code>iso6523-actorid-upis::0088:12345678</code>). It must NOT be
    *        percent encoded!
-   * @return The created {@link PeppolParticipantIdentifier} or
-   *         <code>null</code> if the passed identifier is not a valid URI
-   *         encoded identifier
+   * @return The created {@link PeppolParticipantIdentifier} or <code>null</code>
+   *         if the passed identifier is not a valid URI encoded identifier
    * @deprecated Use
    *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseParticipantIdentifier(String)}
    *             instead

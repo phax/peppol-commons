@@ -66,12 +66,12 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   /**
    * Create a new process identifier from the URI representation. This is the
    * inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded! May be <code>null</code>.
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded! May be <code>null</code>.
    * @return The created {@link SimpleProcessIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
@@ -79,7 +79,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
    */
   @Nonnull
   @Deprecated
-  public static SimpleProcessIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static SimpleProcessIdentifier createFromURIPart (@Nonnull final String sURIPart)
   {
     final SimpleProcessIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
@@ -94,12 +94,12 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   /**
    * Create a new process identifier from the URI representation. This is the
    * inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded! May be <code>null</code>.
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded! May be <code>null</code>.
    * @return The created {@link SimpleProcessIdentifier} or <code>null</code> if
    *         the passed identifier is not a valid URI encoded identifier
    * @deprecated Use

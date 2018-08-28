@@ -68,13 +68,13 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
 
   /**
    * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded!
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded!
    * @return The created {@link BDXRParticipantIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
@@ -82,7 +82,7 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
    */
   @Nonnull
   @Deprecated
-  public static BDXRParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static BDXRParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart)
   {
     final BDXRParticipantIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
@@ -94,16 +94,16 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
   }
 
   /**
-   * Create a new participant identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * Create a new participant identifier from the URI representation. This is the
+   * inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded!
-   * @return The created {@link BDXRParticipantIdentifier} or <code>null</code>
-   *         if the passed identifier is not a valid URI encoded identifier
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded!
+   * @return The created {@link BDXRParticipantIdentifier} or <code>null</code> if
+   *         the passed identifier is not a valid URI encoded identifier
    * @deprecated Use
    *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseParticipantIdentifier(String)}
    *             instead
@@ -127,8 +127,8 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
 
   /**
    * Take the passed identifier scheme and value try to convert it back to a
-   * participant identifier. If the passed scheme is invalid <code>null</code>
-   * is returned.
+   * participant identifier. If the passed scheme is invalid <code>null</code> is
+   * returned.
    *
    * @param sScheme
    *        The identifier scheme. May be <code>null</code> in which case

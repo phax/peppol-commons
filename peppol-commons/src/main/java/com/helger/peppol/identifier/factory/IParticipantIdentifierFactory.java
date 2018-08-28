@@ -48,8 +48,7 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
    *        {@link #isParticipantIdentifierSchemeMandatory()} is
    *        <code>false</code>.
    * @return <code>true</code> if all participant identifiers need to be handled
-   *         case insensitive (so "abc" equals "ABC"), <code>false</code> if
-   *         not.
+   *         case insensitive (so "abc" equals "ABC"), <code>false</code> if not.
    */
   default boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
@@ -57,16 +56,16 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Create a new participant identifier. This method returns a unified
-   * identifier value if {@link #isParticipantIdentifierCaseInsensitive(String)}
-   * is <code>true</code> for the provided scheme.
+   * Create a new participant identifier. This method returns a unified identifier
+   * value if {@link #isParticipantIdentifierCaseInsensitive(String)} is
+   * <code>true</code> for the provided scheme.
    *
    * @param sScheme
    *        The scheme to be used.
    * @param sValue
    *        The value to be used.
-   * @return <code>null</code> if the provided scheme and/or value are/is
-   *         invalid according to the rules of the implementation.
+   * @return <code>null</code> if the provided scheme and/or value are/is invalid
+   *         according to the rules of the implementation.
    * @see #createParticipantIdentifierWithDefaultScheme(String)
    * @see #getUnifiedValue(String)
    * @see #isParticipantIdentifierCaseInsensitive(String)
@@ -75,11 +74,10 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
   IParticipantIdentifier createParticipantIdentifier (@Nullable String sScheme, @Nullable String sValue);
 
   /**
-   * Create a new participant identifier using the default identifier scheme.
-   * This may result in an <code>null</code> object if no default identifier
-   * scheme is present, but no scheme is forbidden! This method returns a
-   * unified identifier value if
-   * {@link #isParticipantIdentifierCaseInsensitive(String)} is
+   * Create a new participant identifier using the default identifier scheme. This
+   * may result in an <code>null</code> object if no default identifier scheme is
+   * present, but no scheme is forbidden! This method returns a unified identifier
+   * value if {@link #isParticipantIdentifierCaseInsensitive(String)} is
    * <code>true</code> for the default scheme.
    *
    * @param sValue
@@ -104,14 +102,14 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
    * @param sURIEncodedIdentifier
    *        The URI encoded identifier in the format <code>scheme::value</code>.
    *        It must NOT be percent encoded!
-   * @return The created identifier or <code>null</code> if the passed
-   *         identifier is not a valid URI encoded identifier according to the
-   *         rules of the implementation.
+   * @return The created identifier or <code>null</code> if the passed identifier
+   *         is not a valid URI encoded identifier according to the rules of the
+   *         implementation.
    */
   @Nullable
   default IParticipantIdentifier parseParticipantIdentifier (@Nullable final String sURIEncodedIdentifier)
   {
-    return parseURIPartOrNull (sURIEncodedIdentifier, (s, v) -> createParticipantIdentifier (s, v));
+    return parseURIPartOrNull (sURIEncodedIdentifier, this::createParticipantIdentifier);
   }
 
   /**

@@ -418,8 +418,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
           return new SMPClientUnauthorizedException (hex);
         case HttpStatus.SC_NOT_FOUND:
           return new SMPClientNotFoundException (hex);
+        default:
+          return new SMPClientException ("Error thrown with HTTP status code " + nHttpStatus, hex);
       }
-      return new SMPClientException ("Error thrown with HTTP status code " + nHttpStatus, hex);
     }
 
     // Special case

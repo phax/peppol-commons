@@ -69,12 +69,12 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType implements
   /**
    * Create a new process identifier from the URI representation. This is the
    * inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded! May be <code>null</code>.
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded! May be <code>null</code>.
    * @return The created {@link BDXRProcessIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
@@ -82,7 +82,7 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType implements
    */
   @Nonnull
   @Deprecated
-  public static BDXRProcessIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static BDXRProcessIdentifier createFromURIPart (@Nonnull final String sURIPart)
   {
     final BDXRProcessIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
@@ -97,14 +97,14 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType implements
   /**
    * Create a new process identifier from the URI representation. This is the
    * inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded! May be <code>null</code>.
-   * @return The created {@link BDXRProcessIdentifier} or <code>null</code> if
-   *         the passed identifier is not a valid URI encoded identifier
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded! May be <code>null</code>.
+   * @return The created {@link BDXRProcessIdentifier} or <code>null</code> if the
+   *         passed identifier is not a valid URI encoded identifier
    * @deprecated Use
    *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseProcessIdentifier(String)}
    *             instead

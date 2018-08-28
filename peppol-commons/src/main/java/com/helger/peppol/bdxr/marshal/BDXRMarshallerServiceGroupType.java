@@ -22,6 +22,6 @@ public final class BDXRMarshallerServiceGroupType extends AbstractBDXRMarshaller
 {
   public BDXRMarshallerServiceGroupType ()
   {
-    super (ServiceGroupType.class, x -> new ObjectFactory ().createServiceGroup (x));
+    super (ServiceGroupType.class, new ObjectFactory ()::createServiceGroup);
   }
 }

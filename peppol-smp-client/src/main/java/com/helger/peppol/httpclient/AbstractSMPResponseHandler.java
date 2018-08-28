@@ -38,8 +38,7 @@ import com.helger.commons.debug.GlobalDebug;
 public abstract class AbstractSMPResponseHandler <T> implements ResponseHandler <T>
 {
   /**
-   * Handle the response entity and transform it into the actual response
-   * object.
+   * Handle the response entity and transform it into the actual response object.
    *
    * @param aEntity
    *        The entity to handle
@@ -57,7 +56,7 @@ public abstract class AbstractSMPResponseHandler <T> implements ResponseHandler 
    * status code), throws an {@link HttpResponseException}.
    */
   @Nullable
-  public T handleResponse (final HttpResponse aResponse) throws HttpResponseException, IOException
+  public T handleResponse (final HttpResponse aResponse) throws IOException
   {
     final StatusLine aStatusLine = aResponse.getStatusLine ();
     final HttpEntity aEntity = aResponse.getEntity ();

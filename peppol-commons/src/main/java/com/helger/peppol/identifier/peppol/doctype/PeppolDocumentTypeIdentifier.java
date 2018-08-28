@@ -66,8 +66,8 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   /**
-   * Private constructor that passed the pre-checked values directly to the
-   * super class. Has a dummy parameter for a unique signature.
+   * Private constructor that passed the pre-checked values directly to the super
+   * class. Has a dummy parameter for a unique signature.
    *
    * @param bVerified
    *        dummy
@@ -135,7 +135,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    */
   @Nonnull
   @Deprecated
-  public static PeppolDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static PeppolDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart)
   {
     final PeppolDocumentTypeIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
@@ -148,17 +148,16 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   /**
    * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method returns only valid
-   * document type identifier schemes and document type identifier values.
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method returns only valid document
+   * type identifier schemes and document type identifier values.
    *
    * @param sURIPart
    *        The URI part in the format <code>scheme::value</code> (e.g.
    *        <code>busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code>
    *        ) . It must NOT be percent encoded! May be <code>null</code>.
-   * @return The created {@link PeppolDocumentTypeIdentifier} or
-   *         <code>null</code> if the passed identifier is not a valid URI
-   *         encoded identifier
+   * @return The created {@link PeppolDocumentTypeIdentifier} or <code>null</code>
+   *         if the passed identifier is not a valid URI encoded identifier
    * @deprecated Use
    *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseDocumentTypeIdentifier(String)}
    *             instead
@@ -191,8 +190,8 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @param sValue
    *        The identifier value. May be <code>null</code> in which case
    *        <code>null</code> is returned.
-   * @return The document type identifier or <code>null</code> if any of the
-   *         parts is invalid.
+   * @return The document type identifier or <code>null</code> if any of the parts
+   *         is invalid.
    * @see IPeppolDocumentTypeIdentifier#isValidScheme(String)
    * @see IPeppolDocumentTypeIdentifier#isValidValue(String)
    */
@@ -206,12 +205,12 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   /**
-   * Check if the passed document type identifier is valid. This method checks
-   * for the existence of the scheme and the value and validates both.
+   * Check if the passed document type identifier is valid. This method checks for
+   * the existence of the scheme and the value and validates both.
    *
    * @param sURIPart
-   *        The document type identifier to be checked (including the scheme).
-   *        May be <code>null</code>.
+   *        The document type identifier to be checked (including the scheme). May
+   *        be <code>null</code>.
    * @return <code>true</code> if the document type identifier is valid,
    *         <code>false</code> otherwise
    */

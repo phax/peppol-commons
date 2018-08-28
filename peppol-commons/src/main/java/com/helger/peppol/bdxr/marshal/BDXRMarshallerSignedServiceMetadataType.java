@@ -22,6 +22,6 @@ public final class BDXRMarshallerSignedServiceMetadataType extends AbstractBDXRM
 {
   public BDXRMarshallerSignedServiceMetadataType ()
   {
-    super (SignedServiceMetadataType.class, x -> new ObjectFactory ().createSignedServiceMetadata (x));
+    super (SignedServiceMetadataType.class, new ObjectFactory ()::createSignedServiceMetadata);
   }
 }

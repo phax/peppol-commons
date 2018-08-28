@@ -65,13 +65,13 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
 
   /**
    * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded!
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded!
    * @return The created {@link SimpleParticipantIdentifier} and never
    *         <code>null</code>.
    * @throws IllegalArgumentException
@@ -79,7 +79,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
    */
   @Nonnull
   @Deprecated
-  public static SimpleParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart) throws IllegalArgumentException
+  public static SimpleParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart)
   {
     final SimpleParticipantIdentifier ret = createFromURIPartOrNull (sURIPart);
     if (ret == null)
@@ -91,17 +91,16 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Create a new participant identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts all identifier
-   * schemes and values.
+   * Create a new participant identifier from the URI representation. This is the
+   * inverse operation of {@link #getURIEncoded()}. The URI part must have the
+   * layout <code>scheme::value</code>. This method accepts all identifier schemes
+   * and values.
    *
    * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT
-   *        be percent encoded!
-   * @return The created {@link SimpleParticipantIdentifier} or
-   *         <code>null</code> if the passed identifier is not a valid URI
-   *         encoded identifier
+   *        The URI part in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded!
+   * @return The created {@link SimpleParticipantIdentifier} or <code>null</code>
+   *         if the passed identifier is not a valid URI encoded identifier
    * @deprecated Use
    *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseParticipantIdentifier(String)}
    *             instead
