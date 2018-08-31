@@ -11,7 +11,6 @@
 package com.helger.peppol.identifier.peppol.process;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.peppol.identifier.AbstractIdentifierMicroTypeConverter;
 
@@ -20,7 +19,7 @@ public final class PeppolProcessIdentifierMicroTypeConverter extends
 {
   @Override
   @Nonnull
-  protected PeppolProcessIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
+  protected PeppolProcessIdentifier getAsNative (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
     return new PeppolProcessIdentifier (sScheme, sValue);
   }

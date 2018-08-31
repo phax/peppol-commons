@@ -36,7 +36,7 @@ public abstract class AbstractIdentifierMicroTypeConverter <T extends IIdentifie
   }
 
   @Nonnull
-  protected abstract T getAsNative (@Nullable String sScheme, @Nonnull String sValue);
+  protected abstract T getAsNative (@Nonnull String sScheme, @Nonnull String sValue);
 
   @Nonnull
   public final T convertToNative (@Nonnull final IMicroElement aElement)
