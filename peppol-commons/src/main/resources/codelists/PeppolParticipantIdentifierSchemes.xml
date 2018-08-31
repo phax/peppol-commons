@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2018 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <!--This file was automatically generated.
 Do NOT edit!-->
-<root version="2">
+<root version="3">
   <identifier-scheme schemeid="FR:SIRENE" agencyname="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" iso6523="0002" since="1.0.0" deprecated="false">
     <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters. 2) Check digits: 9th &amp; 14th character respectively</structure>
     <display>The 9 figure code number (SIREN) is written in groups of 3 characters. Example: 784 301 772, The 14 figure code number is written in 3 groups of 3 characters and a
@@ -78,6 +66,12 @@ Example: 003710948874</examples>
   <identifier-scheme schemeid="NO:ORG" agencyname="The Brønnøysund Register Centre" iso6523="0192" since="2" deprecated="false">
     <structure>9 digits
 The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="UBLBE" agencyname="UBL.BE" iso6523="0193" since="3" deprecated="false">
+    <structure>Maximum 50 characters
+4 Characters fixed length identifying the type 
+Maximum 46 characters for the identifier itself</structure>
     <display>None</display>
   </identifier-scheme>
   <identifier-scheme schemeid="DK:CPR" agencyname="Danish Ministry of the Interior and Health" iso6523="9901" since="1.0.0" deprecated="false">
@@ -162,4 +156,7 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</examples>
     <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
   </identifier-scheme>
   <identifier-scheme schemeid="FR:VAT" agencyname="French VAT number" iso6523="9957" since="1.2.1" deprecated="false" />
+  <identifier-scheme schemeid="DE:LID" agencyname="German Leitweg ID" iso6523="9958" since="3" deprecated="false">
+    <usage>Temporary until ISO 6523 identifier approved</usage>
+  </identifier-scheme>
 </root>

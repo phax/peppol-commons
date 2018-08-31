@@ -1,13 +1,3 @@
-/**
- * Copyright (C) 2015-2018 Philip Helger (www.helger.com)
- * philip[at]helger[dot]com
- *
- * The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 package com.helger.peppol.identifier.peppol.pidscheme;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -168,6 +158,17 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 2
      */
     NO_ORG("NO:ORG", "The Br\u00f8nn\u00f8ysund Register Centre", "0192", false, Version.parse("2")),
+
+    /**
+     * Prefix <code>0193</code>, scheme ID <code>UBLBE</code><br>
+     * Structure of the code: Maximum 50 characters
+     *  4 Characters fixed length identifying the type 
+     * Maximum 46 characters for the identifier itself<br>
+     * Display requirements: None<br>
+     * 
+     * @since code list 3
+     */
+    UBLBE("UBLBE", "UBL.BE", "0193", false, Version.parse("3")),
 
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
@@ -575,7 +576,15 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.2.1
      */
-    FR_VAT("FR:VAT", "French VAT number", "9957", false, Version.parse("1.2.1"));
+    FR_VAT("FR:VAT", "French VAT number", "9957", false, Version.parse("1.2.1")),
+
+    /**
+     * Prefix <code>9958</code>, scheme ID <code>DE:LID</code><br>
+     * Usage information: Temporary until ISO 6523 identifier approved<br>
+     * 
+     * @since code list 3
+     */
+    DE_LID("DE:LID", "German Leitweg ID", "9958", false, Version.parse("3"));
     private final String m_sSchemeID;
     private final String m_sSchemeAgency;
     private final String m_sISO6523;

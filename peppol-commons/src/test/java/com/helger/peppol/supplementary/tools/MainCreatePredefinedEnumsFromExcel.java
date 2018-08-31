@@ -82,7 +82,7 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
 public final class MainCreatePredefinedEnumsFromExcel
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
-  private static final Version CODELIST_VERSION = new Version (2, 0, 0);
+  private static final Version CODELIST_VERSION = new Version (3);
   private static final String RESULT_DIRECTORY = "src/main/resources/codelists/";
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppol.identifier.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
@@ -214,15 +214,18 @@ public final class MainCreatePredefinedEnumsFromExcel
         final String sShortcutName = CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocIDParts);
         if (sShortcutName != null)
         {
-          if (!aAllShortcutNames.add (sShortcutName))
-            throw new IllegalStateException ("The shortcut name " +
-                                             sShortcutName +
-                                             " for " +
-                                             aDocIDParts.toString () +
-                                             " is already in use. Please update the algorithm!");
+          // Make unique name
+          int nNext = 2;
+          String sRealShortcutName = sShortcutName;
+          while (!aAllShortcutNames.add (sRealShortcutName))
+          {
+            sRealShortcutName = sShortcutName + nNext;
+            nNext++;
+          }
+
           final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
                                                    jEnum,
-                                                   sShortcutName,
+                                                   sRealShortcutName,
                                                    jEnumConst);
           if (bDeprecated)
             aShortcut.annotate (Deprecated.class);

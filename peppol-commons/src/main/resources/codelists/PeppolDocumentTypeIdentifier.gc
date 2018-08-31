@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2018 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
   <Annotation>
     <AppInfo>
@@ -19,7 +7,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolDocumentTypeIdentifier</ShortName>
-      <Version>2</Version>
+      <Version>3</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:documenttypes</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:documenttypes-1.0</CanonicalVersionUri>
   </Identification>
@@ -447,6 +435,23 @@
         <SimpleValue>1.2.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL Ordering profile V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:www.cenbii.eu:transaction:biitrns076:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
@@ -501,6 +506,132 @@
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>DHSC Customized Ordering profile V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0:extended:urn:fdc:peppol-authority.co.uk:spec:ordering:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>DHSC Customized  Ordering profile V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::Order##urn:www.cenbii.eu:transaction:biitrns076:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0:extended:urn:fdc:peppol-authority.co.uk:spec:ordering:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>PEPPOL BIS Billing V3</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::D16B</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>Procurement procedure subscription V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2::ExpressionOfInterestRequest##urn:www.cenbii.eu:transaction:biitrdm081:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t001:ver1.0::2.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>Procurement procedure subscription V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestResponse-2::ExpressionOfInterestResponse##urn:www.cenbii.eu:transaction:biitrdm082:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t002:ver1.0::2.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>Procurement document access V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:TenderStatusRequest-2::TenderStatusRequest##urn:www.cenbii.eu:transaction:biitrdm097:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t003:ver1.0::2.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>Procurement document access V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CallForTenders-2::CallForTenders##urn:www.cenbii.eu:transaction:biitrdm083:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t004:ver1.0::2.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>Tender Submission V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:TenderReceipt-2::TenderReceipt##urn:www.cenbii.eu:transaction:biitrdm045:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t006:ver1.0::2.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>Tender Submission V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="doctypeid">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Tender-2::Tender##urn:www.cenbii.eu:transaction:biitrdm090:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t005:ver1.0::2.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>

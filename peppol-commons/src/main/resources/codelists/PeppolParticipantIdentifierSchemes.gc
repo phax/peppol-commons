@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2018 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
   <Annotation>
     <AppInfo>
@@ -19,7 +7,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolIdentifierIssuingAgencies</ShortName>
-      <Version>2</Version>
+      <Version>3</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:participantidentifierschemes</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:participantidentifierschemes-1.0</CanonicalVersionUri>
   </Identification>
@@ -416,6 +404,31 @@ Example: 003710948874</SimpleValue>
           <Value ColumnRef="structure">
         <SimpleValue>9 digits
 The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.</SimpleValue>
+      </Value>
+          <Value ColumnRef="display">
+        <SimpleValue>None</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
+        <SimpleValue>UBLBE</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0193</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemeagency">
+        <SimpleValue>UBL.BE</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>Maximum 50 characters
+4 Characters fixed length identifying the type 
+Maximum 46 characters for the identifier itself</SimpleValue>
       </Value>
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
@@ -1404,6 +1417,26 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
+        <SimpleValue>DE:LID</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>9958</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemeagency">
+        <SimpleValue>German Leitweg ID</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Temporary until ISO 6523 identifier approved</SimpleValue>
       </Value>
     </Row>
   </SimpleCodeList>

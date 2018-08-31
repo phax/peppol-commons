@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2018 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
   <Annotation>
     <AppInfo>
@@ -19,7 +7,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolProcessIdentifier</ShortName>
-      <Version>2</Version>
+      <Version>3</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:process</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:process-1.0</CanonicalVersionUri>
   </Identification>
@@ -293,6 +281,57 @@
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>Procurement procedure subscription V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>P001</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:2017:pracc:p001:01:1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>Procurement document access V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>P002</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:2017:pracc:p002:01:1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="name">
+        <SimpleValue>Tender Submission V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>P003</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:2017:pracc:p003:01:1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>

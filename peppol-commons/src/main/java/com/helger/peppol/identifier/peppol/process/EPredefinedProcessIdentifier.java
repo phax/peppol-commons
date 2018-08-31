@@ -1,13 +1,3 @@
-/**
- * Copyright (C) 2015-2018 Philip Helger (www.helger.com)
- * philip[at]helger[dot]com
- *
- * The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 package com.helger.peppol.identifier.peppol.process;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -122,7 +112,28 @@ public enum EPredefinedProcessIdentifier
      * 
      * @since code list 1.2.0
      */
-    urn_www_cenbii_eu_profile_bii36_ver2_0("urn:www.cenbii.eu:profile:bii36:ver2.0", "BIS 36A", Version.parse("1.2.0"));
+    urn_www_cenbii_eu_profile_bii36_ver2_0("urn:www.cenbii.eu:profile:bii36:ver2.0", "BIS 36A", Version.parse("1.2.0")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:2017:pracc:p001:01:1.0</code><br>
+     * 
+     * @since code list 3
+     */
+    urn_fdc_peppol_eu_2017_pracc_p001_01_1_0("urn:fdc:peppol.eu:2017:pracc:p001:01:1.0", "P001", Version.parse("3")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:2017:pracc:p002:01:1.0</code><br>
+     * 
+     * @since code list 3
+     */
+    urn_fdc_peppol_eu_2017_pracc_p002_01_1_0("urn:fdc:peppol.eu:2017:pracc:p002:01:1.0", "P002", Version.parse("3")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:2017:pracc:p003:01:1.0</code><br>
+     * 
+     * @since code list 3
+     */
+    urn_fdc_peppol_eu_2017_pracc_p003_01_1_0("urn:fdc:peppol.eu:2017:pracc:p003:01:1.0", "P003", Version.parse("3"));
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      */
@@ -180,6 +191,18 @@ public enum EPredefinedProcessIdentifier
      * Same as {@link #urn_www_cenbii_eu_profile_bii36_ver2_0}
      */
     public static final EPredefinedProcessIdentifier BIS36A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii36_ver2_0;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_2017_pracc_p001_01_1_0}
+     */
+    public static final EPredefinedProcessIdentifier P001_V1 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_pracc_p001_01_1_0;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_2017_pracc_p002_01_1_0}
+     */
+    public static final EPredefinedProcessIdentifier P002_V1 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_pracc_p002_01_1_0;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_2017_pracc_p003_01_1_0}
+     */
+    public static final EPredefinedProcessIdentifier P003_V1 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_pracc_p003_01_1_0;
     private final String m_sID;
     private final String m_sBISID;
     private final Version m_aSince;

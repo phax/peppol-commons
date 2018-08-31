@@ -120,6 +120,7 @@ final class CodeGenerationHelper
     sExt = StringHelper.replaceAll (sExt, '.', '_');
     sExt = StringHelper.replaceAll (sExt, ':', '_');
     sExt = StringHelper.replaceAll (sExt, '#', '_');
+    sExt = StringHelper.replaceAll (sExt, '-', '_');
 
     return (aDocIDParts.getLocalName () + "_" + sExt).toUpperCase (Locale.US);
   }

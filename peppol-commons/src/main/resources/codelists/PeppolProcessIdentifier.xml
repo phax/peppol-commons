@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2018 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <!--This file was automatically generated.
 Do NOT edit!-->
-<root version="2">
+<root version="3">
   <process name="PEPPOL Catalogue profile V1" bisid="BIS 1A" id="urn:www.cenbii.eu:profile:bii01:ver1.0" since="1.0.0" deprecated="true" deprecated-since="1.2.1" />
   <process name="PEPPOL Catalogue profile V4" bisid="BIS 1A" id="urn:www.cenbii.eu:profile:bii01:ver2.0" since="1.2.0" deprecated="false" />
   <process name="PEPPOL Order profile V1" bisid="BIS 3A" id="urn:www.cenbii.eu:profile:bii03:ver1.0" since="1.0.0" deprecated="true" deprecated-since="1.2.1" />
@@ -27,4 +15,7 @@ Do NOT edit!-->
   <process name="PEPPOL Ordering profile V1" bisid="BIS 28A" id="urn:www.cenbii.eu:profile:bii28:ver2.0" since="1.2.0" deprecated="false" />
   <process name="PEPPOL Despatch Advice V1" bisid="BIS 30A" id="urn:www.cenbii.eu:profile:bii30:ver2.0" since="1.2.0" deprecated="false" />
   <process name="PEPPOL Message Level Response V1" bisid="BIS 36A" id="urn:www.cenbii.eu:profile:bii36:ver2.0" since="1.2.0" deprecated="false" />
+  <process name="Procurement procedure subscription V1" bisid="P001" id="urn:fdc:peppol.eu:2017:pracc:p001:01:1.0" since="3" deprecated="false" />
+  <process name="Procurement document access V1" bisid="P002" id="urn:fdc:peppol.eu:2017:pracc:p002:01:1.0" since="3" deprecated="false" />
+  <process name="Tender Submission V1" bisid="P003" id="urn:fdc:peppol.eu:2017:pracc:p003:01:1.0" since="3" deprecated="false" />
 </root>
