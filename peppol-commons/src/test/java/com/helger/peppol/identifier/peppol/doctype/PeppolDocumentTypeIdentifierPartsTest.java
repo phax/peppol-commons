@@ -35,7 +35,7 @@ import com.helger.commons.io.stream.StreamHelper;
 public final class PeppolDocumentTypeIdentifierPartsTest
 {
   @Test
-  public void testBasic ()
+  public void testBasic1 ()
   {
     final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString ("root::local##basic:extended:subtype:extended:ext1:extended:ext2::ver1");
     assertNotNull (aParts);
@@ -44,6 +44,20 @@ public final class PeppolDocumentTypeIdentifierPartsTest
     assertEquals ("basic:extended:subtype:extended:ext1:extended:ext2::ver1", aParts.getSubTypeIdentifier ());
     assertEquals ("basic:extended:subtype:extended:ext1:extended:ext2", aParts.getCustomizationID ());
     assertEquals ("ver1", aParts.getVersion ());
+  }
+
+  @Test
+  public void testBasic2 ()
+  {
+    final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString ("urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2::ExpressionOfInterestRequest##urn:www.cenbii.eu:transaction:biitrdm081:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t001:ver1.0::2.2");
+    assertNotNull (aParts);
+    assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2", aParts.getRootNS ());
+    assertEquals ("ExpressionOfInterestRequest", aParts.getLocalName ());
+    assertEquals ("urn:www.cenbii.eu:transaction:biitrdm081:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t001:ver1.0::2.2",
+                  aParts.getSubTypeIdentifier ());
+    assertEquals ("urn:www.cenbii.eu:transaction:biitrdm081:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t001:ver1.0",
+                  aParts.getCustomizationID ());
+    assertEquals ("2.2", aParts.getVersion ());
   }
 
   @Test
