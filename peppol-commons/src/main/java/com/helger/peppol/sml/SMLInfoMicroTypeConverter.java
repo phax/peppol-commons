@@ -54,7 +54,7 @@ public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter <SML
     final String sDNSZone = MicroHelper.getChildTextContent (aElement, ELEMENT_DNS_ZONE);
     final String sManagementServiceURL = MicroHelper.getChildTextContent (aElement, ELEMENT_MANAGEMENT_SERVICE);
     final boolean bRequiresClientCert = StringParser.parseBool (aElement.getAttributeValue (ATTR_REQUIRES_CLIENT_CERT),
-                                                                true);
+                                                                SMLInfo.DEFAULT_CLIENT_CERTIFICATE_REQUIRED);
     return new SMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCert);
   }
 }

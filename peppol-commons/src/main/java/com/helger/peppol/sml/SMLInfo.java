@@ -35,6 +35,7 @@ import com.helger.commons.type.ObjectType;
 @NotThreadSafe
 public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
 {
+  public static final boolean DEFAULT_CLIENT_CERTIFICATE_REQUIRED = true;
   public static final ObjectType OT = new ObjectType ("sml.info");
 
   private final String m_sID;
@@ -48,7 +49,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
 
   /**
    * Copy constructor.
-   * 
+   *
    * @param aOther
    *        The object to copy from. May not be <code>null</code>.
    */
