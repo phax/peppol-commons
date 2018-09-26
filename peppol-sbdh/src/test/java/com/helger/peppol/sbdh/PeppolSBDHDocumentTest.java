@@ -63,7 +63,7 @@ public final class PeppolSBDHDocumentTest
     assertNotNull (dd.getReceiverAsIdentifier ());
     assertNotNull (dd.getDocumentTypeAsIdentifier ());
     assertNotNull (dd.getProcessAsIdentifier ());
-    assertTrue (dd.areAllFieldsSet ());
+    assertFalse (dd.areAllFieldsSet ());
     assertTrue (dd.areAllAdditionalAttributesValid ());
 
     // Sender
