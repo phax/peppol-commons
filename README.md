@@ -28,6 +28,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 * v6.1.3 - 2018-09-26
     * Requires ph-commons 9.1.3
+    * Updated to PEPPOL codelists v3 snapshots
     * Added support for PEPPOL Envelope (SBDH) specification v1.1 from https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-11_2018-08-31.pdf
 * v6.1.2 - 2018-05-15
     * Really fixed OSGI ServiceProvider configuration
