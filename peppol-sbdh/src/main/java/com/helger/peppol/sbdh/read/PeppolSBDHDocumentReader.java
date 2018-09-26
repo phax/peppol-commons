@@ -503,8 +503,12 @@ public class PeppolSBDHDocumentReader
             throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
                                                        sInstanceIdentifier);
 
-          // Since the scheme is undefined, the default scheme is assumed
-          ret.setDocumentTypeWithDefaultScheme (sInstanceIdentifier);
+          // The scheme was added in Spec v1.1
+          String sScheme = aScope.getIdentifier ();
+          if (sScheme == null)
+            sScheme = PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME;
+
+          ret.setDocumentType (sScheme, sInstanceIdentifier);
           bFoundDocumentIDScope = true;
         }
         else
@@ -514,8 +518,12 @@ public class PeppolSBDHDocumentReader
               throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
                                                          sInstanceIdentifier);
 
-            // Since the scheme is undefined, the default scheme is assumed
-            ret.setProcessWithDefaultScheme (sInstanceIdentifier);
+            // The scheme was added in Spec v1.1
+            String sScheme = aScope.getIdentifier ();
+            if (sScheme == null)
+              sScheme = PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME;
+
+            ret.setProcess (sScheme, sInstanceIdentifier);
             bFoundProcessIDScope = true;
           }
           else

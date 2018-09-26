@@ -37,6 +37,7 @@ public final class PeppolSBDHTestFiles
   {
     // good.xml must be the first file!
     for (final String sFilename : new String [] { "good.xml",
+                                                  "good-v11.xml",
                                                   "good-additional-scopes.xml",
                                                   "good-order-with-qty-ph.xml",
                                                   "good-to-9915-test.xml",
@@ -88,6 +89,12 @@ public final class PeppolSBDHTestFiles
   public static ClassPathResource getFirstGoodCase ()
   {
     return GOOD_CASES.getFirst ();
+  }
+
+  @Nonnull
+  public static ClassPathResource getFirstGoodCaseV11 ()
+  {
+    return GOOD_CASES.findFirst (x -> x.getPath ().endsWith ("good-v11.xml"));
   }
 
   @Nonnull

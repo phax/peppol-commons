@@ -81,9 +81,9 @@ public class PeppolSBDHDocumentWriter
         aSenderID.setAuthority (aData.getSenderScheme ());
         aSenderID.setValue (aData.getSenderValue ());
         aSender.setIdentifier (aSenderID);
-        aSBDH.getSender ().add (aSender);
-
+        aSBDH.addSender (aSender);
       }
+
       // Receiver data
       {
         final Partner aReceiver = new Partner ();
@@ -91,7 +91,7 @@ public class PeppolSBDHDocumentWriter
         aReceiverID.setAuthority (aData.getReceiverScheme ());
         aReceiverID.setValue (aData.getReceiverValue ());
         aReceiver.setIdentifier (aReceiverID);
-        aSBDH.getReceiver ().add (aReceiver);
+        aSBDH.addReceiver (aReceiver);
       }
 
       // Document identification
@@ -108,17 +108,22 @@ public class PeppolSBDHDocumentWriter
       // Business scope
       {
         final BusinessScope aBusinessScope = new BusinessScope ();
-        Scope aScope = new Scope ();
-        aScope.setType (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID);
-        // The scheme is currently not part of the specs!
-        aScope.setInstanceIdentifier (aData.getDocumentTypeValue ());
-        aBusinessScope.getScope ().add (aScope);
-
-        aScope = new Scope ();
-        aScope.setType (CPeppolSBDH.SCOPE_PROCESS_ID);
-        // The scheme is currently not part of the specs!
-        aScope.setInstanceIdentifier (aData.getProcessValue ());
-        aBusinessScope.getScope ().add (aScope);
+        {
+          final Scope aScope = new Scope ();
+          aScope.setType (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID);
+          aScope.setInstanceIdentifier (aData.getDocumentTypeValue ());
+          // The scheme was added in Spec v1.1
+          aScope.setIdentifier (aData.getDocumentTypeScheme ());
+          aBusinessScope.addScope (aScope);
+        }
+        {
+          final Scope aScope = new Scope ();
+          aScope.setType (CPeppolSBDH.SCOPE_PROCESS_ID);
+          aScope.setInstanceIdentifier (aData.getProcessValue ());
+          // The scheme was added in Spec v1.1
+          aScope.setIdentifier (aData.getProcessScheme ());
+          aBusinessScope.addScope (aScope);
+        }
         aSBDH.setBusinessScope (aBusinessScope);
       }
       aSBD.setStandardBusinessDocumentHeader (aSBDH);

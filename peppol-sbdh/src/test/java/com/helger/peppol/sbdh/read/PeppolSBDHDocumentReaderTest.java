@@ -83,7 +83,7 @@ public final class PeppolSBDHDocumentReaderTest
   }
 
   @Test
-  public void testReadGoodAndCheckResults () throws PeppolSBDHDocumentReadException
+  public void testReadGoodV10AndCheckResults () throws PeppolSBDHDocumentReadException
   {
     // Read good.xml
     final IReadableResource aRes = PeppolSBDHTestFiles.getFirstGoodCase ();
@@ -105,6 +105,36 @@ public final class PeppolSBDHDocumentReaderTest
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
                   aData.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
+    assertEquals ("urn:www.cenbii.eu:profile:bii04:ver1.0", aData.getProcessValue ());
+    assertTrue (aData.hasBusinessMessage ());
+    assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());
+
+    CommonsTestHelper.testToStringImplementation (aData);
+  }
+
+  @Test
+  public void testReadGoodV11AndCheckResults () throws PeppolSBDHDocumentReadException
+  {
+    // Read good.xml
+    final IReadableResource aRes = PeppolSBDHTestFiles.getFirstGoodCaseV11 ();
+    assertTrue (aRes.getPath (), aRes.exists ());
+    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader ();
+    final PeppolSBDHDocument aData = aReader.extractData (aRes);
+    assertNotNull (aData);
+    assertTrue (aData.areAllFieldsSet ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aData.getSenderScheme ());
+    assertEquals ("0088:7315458756324", aData.getSenderValue ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aData.getReceiverScheme ());
+    assertEquals ("0088:4562458856624", aData.getReceiverValue ());
+    assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", aData.getStandard ());
+    assertEquals ("2.1", aData.getTypeVersion ());
+    assertEquals ("Invoice", aData.getType ());
+    assertEquals ("123123", aData.getInstanceIdentifier ());
+    assertEquals ("2013-02-19T05:10:10.000", PDTWebDateHelper.getAsStringXSD (aData.getCreationDateAndTime ()));
+    assertEquals ("dtype", aData.getDocumentTypeScheme ());
+    assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
+                  aData.getDocumentTypeValue ());
+    assertEquals ("ptype", aData.getProcessScheme ());
     assertEquals ("urn:www.cenbii.eu:profile:bii04:ver1.0", aData.getProcessValue ());
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());

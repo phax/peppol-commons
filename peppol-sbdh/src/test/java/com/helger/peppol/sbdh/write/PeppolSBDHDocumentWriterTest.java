@@ -57,6 +57,10 @@ public final class PeppolSBDHDocumentWriterTest
                                                        .setDocumentTypeWithDefaultScheme ("doctypeid")
                                                        .setProcessWithDefaultScheme ("procid");
     assertTrue (aData.areAllFieldsSet ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aData.getDocumentTypeScheme ());
+    assertEquals ("doctypeid", aData.getDocumentTypeValue ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
+    assertEquals ("procid", aData.getProcessValue ());
 
     // Create the SBDH document
     final StandardBusinessDocument aSBD = new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (aData);
