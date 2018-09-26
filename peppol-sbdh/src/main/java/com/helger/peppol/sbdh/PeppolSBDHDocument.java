@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.sbdh;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -28,6 +29,8 @@ import org.w3c.dom.Element;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.attr.StringMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -47,7 +50,7 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class PeppolSBDHDocument
+public class PeppolSBDHDocument implements Serializable
 {
   private final IIdentifierFactory m_aIdentifierFactory;
   // Sender
@@ -69,6 +72,8 @@ public class PeppolSBDHDocument
   private LocalDateTime m_aCreationDateAndTime;
   // BusinessMessage
   private Element m_aBusinessMessage;
+  // Additional attributes
+  private final StringMap m_aAdditionalAttrs = new StringMap ();
 
   /**
    * Default constructor.
@@ -382,6 +387,18 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * @return The mutable attribute map where all additional attributes according
+   *         to Spec v1.1, chapter 1.6.1 were added.
+   * @since 6.1.4
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  public StringMap additionalAttributes ()
+  {
+    return m_aAdditionalAttrs;
+  }
+
+  /**
    * Set the content of the fields that are mapped to
    * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
    *
@@ -594,6 +611,22 @@ public class PeppolSBDHDocument
            m_aBusinessMessage != null;
   }
 
+  /**
+   * Check if all additional attributes contain non-reserved names.
+   * 
+   * @return <code>true</code> if no additional attributes are present or if all
+   *         additional attributes contain valid names.
+   */
+  public boolean areAllAdditionalAttributesValid ()
+  {
+    if (m_aAdditionalAttrs.isNotEmpty ())
+      for (final String sName : m_aAdditionalAttrs.keySet ())
+        if (PeppolSBDHAdditionalAttributes.isReservedAttributeName (sName))
+          return false;
+
+    return true;
+  }
+
   @Override
   public boolean equals (final Object o)
   {
@@ -616,7 +649,8 @@ public class PeppolSBDHDocument
            EqualsHelper.equals (m_sType, rhs.m_sType) &&
            EqualsHelper.equals (m_sInstanceIdentifier, rhs.m_sInstanceIdentifier) &&
            EqualsHelper.equals (m_aCreationDateAndTime, rhs.m_aCreationDateAndTime) &&
-           EqualsHelper.equals (m_aBusinessMessage, rhs.m_aBusinessMessage);
+           EqualsHelper.equals (m_aBusinessMessage, rhs.m_aBusinessMessage) &&
+           m_aAdditionalAttrs.equals (rhs.m_aAdditionalAttrs);
   }
 
   @Override
@@ -636,26 +670,28 @@ public class PeppolSBDHDocument
                                        .append (m_sInstanceIdentifier)
                                        .append (m_aCreationDateAndTime)
                                        .append (m_aBusinessMessage)
+                                       .append (m_aAdditionalAttrs)
                                        .getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("senderScheme", m_sSenderScheme)
-                                       .append ("senderValue", m_sSenderValue)
-                                       .append ("receiverScheme", m_sReceiverScheme)
-                                       .append ("receiverValue", m_sReceiverValue)
-                                       .append ("documentTypeScheme", m_sDocumentTypeScheme)
-                                       .append ("documentTypeValue", m_sDocumentTypeValue)
-                                       .append ("processScheme", m_sProcessScheme)
-                                       .append ("processValue", m_sProcessValue)
-                                       .append ("standard", m_sStandard)
-                                       .append ("typeVersion", m_sTypeVersion)
-                                       .append ("type", m_sType)
-                                       .append ("instanceIdentifier", m_sInstanceIdentifier)
-                                       .append ("creationDateAndTime", m_aCreationDateAndTime)
-                                       .append ("businessMessage", m_aBusinessMessage)
+    return new ToStringGenerator (this).append ("SenderScheme", m_sSenderScheme)
+                                       .append ("SenderValue", m_sSenderValue)
+                                       .append ("ReceiverScheme", m_sReceiverScheme)
+                                       .append ("ReceiverValue", m_sReceiverValue)
+                                       .append ("DocumentTypeScheme", m_sDocumentTypeScheme)
+                                       .append ("DocumentTypeValue", m_sDocumentTypeValue)
+                                       .append ("ProcessScheme", m_sProcessScheme)
+                                       .append ("ProcessValue", m_sProcessValue)
+                                       .append ("Standard", m_sStandard)
+                                       .append ("TypeVersion", m_sTypeVersion)
+                                       .append ("Type", m_sType)
+                                       .append ("InstanceIdentifier", m_sInstanceIdentifier)
+                                       .append ("CreationDateAndTime", m_aCreationDateAndTime)
+                                       .append ("BusinessMessage", m_aBusinessMessage)
+                                       .append ("AdditionalAttributes", m_aAdditionalAttrs)
                                        .getToString ();
   }
 

@@ -45,6 +45,18 @@
         <InstanceIdentifier>urn:www.cenbii.eu:profile:bii04:ver1.0</InstanceIdentifier>
         <Identifier>ptype</Identifier>
       </Scope>
+      <Scope>
+        <Type>AddAttr1</Type>
+        <InstanceIdentifier>Value1</InstanceIdentifier>
+      </Scope>
+      <Scope>
+        <Type>AddAttr2</Type>
+        <InstanceIdentifier>Value2</InstanceIdentifier>
+      </Scope>
+      <Scope>
+        <Type>AddAttr3</Type>
+        <InstanceIdentifier>Value3</InstanceIdentifier>
+      </Scope>
     </BusinessScope>
   </StandardBusinessDocumentHeader>
   <ns4:Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ns2="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"

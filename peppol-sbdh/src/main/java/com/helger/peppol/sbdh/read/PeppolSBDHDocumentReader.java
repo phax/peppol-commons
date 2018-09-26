@@ -44,6 +44,7 @@ import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.CPeppolSBDH;
+import com.helger.peppol.sbdh.PeppolSBDHAdditionalAttributes;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.sbdh.SBDMarshaller;
 
@@ -496,8 +497,9 @@ public class PeppolSBDHDocumentReader
       boolean bFoundProcessIDScope = false;
       for (final Scope aScope : aBusinessScope.getScope ())
       {
+        final String sType = aScope.getType ();
         final String sInstanceIdentifier = aScope.getInstanceIdentifier ();
-        if (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID.equals (aScope.getType ()))
+        if (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID.equals (sType))
         {
           if (!isValidDocumentTypeIdentifier (sInstanceIdentifier))
             throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
@@ -512,7 +514,7 @@ public class PeppolSBDHDocumentReader
           bFoundDocumentIDScope = true;
         }
         else
-          if (CPeppolSBDH.SCOPE_PROCESS_ID.equals (aScope.getType ()))
+          if (CPeppolSBDH.SCOPE_PROCESS_ID.equals (sType))
           {
             if (!isValidProcessIdentifier (sInstanceIdentifier))
               throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
@@ -527,9 +529,27 @@ public class PeppolSBDHDocumentReader
             bFoundProcessIDScope = true;
           }
           else
-          {
-            // ignore other types
-          }
+            // read as additional attributes
+            if (!PeppolSBDHAdditionalAttributes.isReservedAttributeName (sType))
+            {
+              if (StringHelper.hasText (sInstanceIdentifier))
+              {
+                // Name and value
+                ret.additionalAttributes ().add (sType, sInstanceIdentifier);
+              }
+              else
+              {
+                // Name only
+                // The problem is that InstanceIdentifier is a mandatory element
+                // and therefore there is no way to differentiate between empty
+                // string and not available
+                ret.additionalAttributes ().add (sType, (String) null);
+              }
+            }
+            else
+            {
+              // Reserved for future use
+            }
       }
       if (!bFoundDocumentIDScope)
         throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER);

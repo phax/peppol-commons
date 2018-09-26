@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.sbdh.write;
 
+import java.util.Map;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -29,6 +31,7 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.string.StringHelper;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
@@ -124,6 +127,17 @@ public class PeppolSBDHDocumentWriter
           aScope.setIdentifier (aData.getProcessScheme ());
           aBusinessScope.addScope (aScope);
         }
+
+        // Add the additional attributes
+        for (final Map.Entry <String, String> aEntry : aData.additionalAttributes ().entrySet ())
+        {
+          final Scope aScope = new Scope ();
+          aScope.setType (aEntry.getKey ());
+          // XSD requires InstanceIdentifier
+          aScope.setInstanceIdentifier (StringHelper.getNotNull (aEntry.getValue ()));
+          aBusinessScope.addScope (aScope);
+        }
+
         aSBDH.setBusinessScope (aBusinessScope);
       }
       aSBD.setStandardBusinessDocumentHeader (aSBDH);

@@ -17,7 +17,9 @@
 package com.helger.peppol.sbdh.write;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -57,18 +59,22 @@ public final class PeppolSBDHDocumentWriterTest
                                                        .setDocumentTypeWithDefaultScheme ("doctypeid")
                                                        .setProcessWithDefaultScheme ("procid");
     assertTrue (aData.areAllFieldsSet ());
+    assertTrue (aData.areAllAdditionalAttributesValid ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aData.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aData.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
     assertEquals ("procid", aData.getProcessValue ());
+    assertEquals (0, aData.additionalAttributes ().size ());
 
     // Create the SBDH document
     final StandardBusinessDocument aSBD = new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (aData);
     assertNotNull (aSBD);
 
+    final String sXML = new SBDMarshaller ().getAsString (aSBD);
+    assertNotNull (sXML);
     // For debugging
     if (false)
-      LOGGER.info (new SBDMarshaller ().getAsString (aSBD));
+      LOGGER.info (sXML);
 
     // Read again and compare values
     final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);
@@ -89,8 +95,107 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("procid", aDataRead.getProcessValue ());
     assertTrue (aDataRead.hasBusinessMessage ());
     assertEquals ("root", aDataRead.getBusinessMessage ().getLocalName ());
+    assertEquals (0, aDataRead.additionalAttributes ().size ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData, aDataRead);
+  }
+
+  @Test
+  public void testCreateSBDHWithAdditionalAttributes () throws SAXException, PeppolSBDHDocumentReadException
+  {
+    // This is our fake business message
+    final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
+
+    // Create the document data
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (),
+                                                                PeppolIdentifierFactory.INSTANCE)
+                                                       .setSenderWithDefaultScheme ("0088:sender")
+                                                       .setReceiverWithDefaultScheme ("0099:receiver")
+                                                       .setDocumentTypeWithDefaultScheme ("doctypeid")
+                                                       .setProcessWithDefaultScheme ("procid");
+    assertTrue (aData.areAllFieldsSet ());
+    assertTrue (aData.areAllAdditionalAttributesValid ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aData.getDocumentTypeScheme ());
+    assertEquals ("doctypeid", aData.getDocumentTypeValue ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
+    assertEquals ("procid", aData.getProcessValue ());
+    assertEquals (0, aData.additionalAttributes ().size ());
+    aData.additionalAttributes ().add ("Attr1", "Value1");
+    aData.additionalAttributes ().add ("Attr2", (String) null);
+    aData.additionalAttributes ().add ("Attr3", "");
+    assertTrue (aData.areAllAdditionalAttributesValid ());
+
+    // Create the SBDH document
+    final StandardBusinessDocument aSBD = new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (aData);
+    assertNotNull (aSBD);
+
+    final String sXML = new SBDMarshaller ().getAsString (aSBD);
+    assertNotNull (sXML);
+    // For debugging
+    if (false)
+      LOGGER.info (sXML);
+
+    // Read again and compare values
+    final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);
+    assertNotNull (aDataRead);
+
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getSenderScheme ());
+    assertEquals ("0088:sender", aDataRead.getSenderValue ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getReceiverScheme ());
+    assertEquals ("0099:receiver", aDataRead.getReceiverValue ());
+    assertEquals ("urn:foobar", aDataRead.getStandard ());
+    assertEquals ("2.1", aDataRead.getTypeVersion ());
+    assertEquals ("root", aDataRead.getType ());
+    assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
+    assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aDataRead.getDocumentTypeScheme ());
+    assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
+    assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
+    assertEquals ("procid", aDataRead.getProcessValue ());
+    assertTrue (aDataRead.hasBusinessMessage ());
+    assertEquals ("root", aDataRead.getBusinessMessage ().getLocalName ());
+    assertEquals (3, aDataRead.additionalAttributes ().size ());
+    assertEquals ("Value1", aDataRead.additionalAttributes ().get ("Attr1"));
+    assertTrue (aDataRead.additionalAttributes ().containsKey ("Attr2"));
+    assertNull (aDataRead.additionalAttributes ().get ("Attr2"));
+    assertTrue (aDataRead.additionalAttributes ().containsKey ("Attr3"));
+    assertNull (aDataRead.additionalAttributes ().get ("Attr3"));
+
+    // Additional attribute Attr3 is different
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aData, aDataRead);
+
+    // Now they should be equal
+    aDataRead.additionalAttributes ().put ("Attr3", "");
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData, aDataRead);
+  }
+
+  @Test
+  public void testInvalidAdditionalAttributes () throws SAXException
+  {
+    final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
+
+    // Create the document data
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (),
+                                                                PeppolIdentifierFactory.INSTANCE)
+                                                       .setSenderWithDefaultScheme ("0088:sender")
+                                                       .setReceiverWithDefaultScheme ("0099:receiver")
+                                                       .setDocumentTypeWithDefaultScheme ("doctypeid")
+                                                       .setProcessWithDefaultScheme ("procid");
+    assertTrue (aData.areAllAdditionalAttributesValid ());
+    aData.additionalAttributes ().clear ();
+    aData.additionalAttributes ().add ("DOCUMENTID", "false");
+    assertFalse (aData.areAllAdditionalAttributesValid ());
+    aData.additionalAttributes ().clear ();
+    aData.additionalAttributes ().add ("PROCESSID", "false");
+    assertFalse (aData.areAllAdditionalAttributesValid ());
+    aData.additionalAttributes ().clear ();
+    aData.additionalAttributes ().add ("TECHNICAL_VALIDATION_URL", "false");
+    assertFalse (aData.areAllAdditionalAttributesValid ());
+    aData.additionalAttributes ().clear ();
+    aData.additionalAttributes ().add ("TECHNICAL_VALIDATION_REQUIRED", "false");
+    assertFalse (aData.areAllAdditionalAttributesValid ());
+    aData.additionalAttributes ().clear ();
+    assertTrue (aData.areAllAdditionalAttributesValid ());
   }
 
   @Test

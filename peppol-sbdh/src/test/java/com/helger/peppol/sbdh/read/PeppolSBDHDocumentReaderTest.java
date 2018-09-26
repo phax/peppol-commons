@@ -106,6 +106,8 @@ public final class PeppolSBDHDocumentReaderTest
                   aData.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
     assertEquals ("urn:www.cenbii.eu:profile:bii04:ver1.0", aData.getProcessValue ());
+    assertNotNull (aData.additionalAttributes ());
+    assertEquals (0, aData.additionalAttributes ().size ());
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());
 
@@ -136,6 +138,14 @@ public final class PeppolSBDHDocumentReaderTest
                   aData.getDocumentTypeValue ());
     assertEquals ("ptype", aData.getProcessScheme ());
     assertEquals ("urn:www.cenbii.eu:profile:bii04:ver1.0", aData.getProcessValue ());
+    assertNotNull (aData.additionalAttributes ());
+    assertEquals (3, aData.additionalAttributes ().size ());
+    assertTrue (aData.additionalAttributes ().containsKey ("AddAttr1"));
+    assertEquals ("Value1", aData.additionalAttributes ().get ("AddAttr1"));
+    assertTrue (aData.additionalAttributes ().containsKey ("AddAttr2"));
+    assertEquals ("Value2", aData.additionalAttributes ().get ("AddAttr2"));
+    assertTrue (aData.additionalAttributes ().containsKey ("AddAttr3"));
+    assertEquals ("Value3", aData.additionalAttributes ().get ("AddAttr3"));
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());
 
