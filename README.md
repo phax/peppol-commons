@@ -1,4 +1,5 @@
 # Introduction
+
 This project contains different libraries that are commonly used in the PEPPOL area:
   * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with PEPPOL and BDXR
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
@@ -16,6 +17,7 @@ And some legacy PEPPOL projects:
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
 
 ## Licensing
+
 **Note:** the sub-projects use different licenses (for historic reasons)!
 
 Since (and including) version 6 the sub-projects `peppol-commons`, `peppol-sml-client` and `peppol-smp-client` are licensed under the MPL 2.0.
@@ -24,7 +26,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v6.1.3 - work in progress
+* v6.1.3 - 2018-09-26
     * Requires ph-commons 9.1.3
     * Added support for PEPPOL Envelope (SBDH) specification v1.1 from https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-11_2018-08-31.pdf
 * v6.1.2 - 2018-05-15
@@ -282,31 +284,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>6.1.2</version>
+  <version>6.1.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>6.1.2</version>
+  <version>6.1.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>6.1.2</version>
+  <version>6.1.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>6.1.2</version>
+  <version>6.1.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>6.1.2</version>
+  <version>6.1.3</version>
 </dependency>
 ```
 
@@ -315,7 +317,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>6.1.2</version>
+  <version>6.1.3</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
