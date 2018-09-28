@@ -51,11 +51,11 @@
       </Scope>
       <Scope>
         <Type>AddAttr2</Type>
-        <InstanceIdentifier>Value2</InstanceIdentifier>
+        <InstanceIdentifier></InstanceIdentifier>
       </Scope>
       <Scope>
         <Type>AddAttr3</Type>
-        <InstanceIdentifier>Value3</InstanceIdentifier>
+        <InstanceIdentifier />
       </Scope>
     </BusinessScope>
   </StandardBusinessDocumentHeader>
