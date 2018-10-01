@@ -18,6 +18,7 @@ package com.helger.peppol.sbdh.read;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -143,9 +144,9 @@ public final class PeppolSBDHDocumentReaderTest
     assertTrue (aData.additionalAttributes ().containsKey ("AddAttr1"));
     assertEquals ("Value1", aData.additionalAttributes ().get ("AddAttr1"));
     assertTrue (aData.additionalAttributes ().containsKey ("AddAttr2"));
-    assertEquals ("Value2", aData.additionalAttributes ().get ("AddAttr2"));
+    assertNull (aData.additionalAttributes ().get ("AddAttr2"));
     assertTrue (aData.additionalAttributes ().containsKey ("AddAttr3"));
-    assertEquals ("Value3", aData.additionalAttributes ().get ("AddAttr3"));
+    assertNull (aData.additionalAttributes ().get ("AddAttr3"));
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());
 
