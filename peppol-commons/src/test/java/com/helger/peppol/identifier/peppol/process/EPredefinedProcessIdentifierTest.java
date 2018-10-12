@@ -10,7 +10,6 @@
  */
 package com.helger.peppol.identifier.peppol.process;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -33,9 +32,10 @@ public final class EPredefinedProcessIdentifierTest
   {
     for (final EPredefinedProcessIdentifier e : EPredefinedProcessIdentifier.values ())
     {
-      assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, e.getScheme ());
+      assertTrue (StringHelper.hasText (e.getScheme ()));
       assertTrue (StringHelper.hasText (e.getValue ()));
-      assertTrue (StringHelper.hasText (e.getBISID ()));
+      if (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (e.getScheme ()))
+        assertTrue (StringHelper.hasText (e.getBISID ()));
       assertSame (e, EPredefinedProcessIdentifier.valueOf (e.name ()));
       assertSame (e, EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (e));
     }

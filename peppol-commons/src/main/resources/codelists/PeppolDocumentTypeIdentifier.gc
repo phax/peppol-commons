@@ -24,12 +24,16 @@
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:documenttypes-1.0</CanonicalVersionUri>
   </Identification>
   <ColumnSet>
-    <Column Id="name" Use="optional">
-      <ShortName>Common Name</ShortName>
+    <Column Id="profilecode" Use="optional">
+      <ShortName>Profile code</ShortName>
           <Data Type="string" />
     </Column>
-      <Column Id="doctypeid" Use="required">
-      <ShortName>PEPPOL Document Identifier</ShortName>
+      <Column Id="scheme" Use="required">
+      <ShortName>PEPPOL Identifier Scheme</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="id" Use="required">
+      <ShortName>PEPPOL Document Type Identifier</ShortName>
           <Data Type="string" />
     </Column>
       <Column Id="since" Use="required">
@@ -44,17 +48,24 @@
       <ShortName>Deprecated since</ShortName>
           <Data Type="string" />
     </Column>
-      <Key Id="doctypeidKey">
-      <ShortName>PEPPOL Document Identifier</ShortName>
-          <ColumnRef Ref="doctypeid" />
+      <Key Id="schemeKey">
+      <ShortName>PEPPOL Identifier Scheme</ShortName>
+          <ColumnRef Ref="scheme" />
+    </Key>
+      <Key Id="idKey">
+      <ShortName>PEPPOL Document Type Identifier</ShortName>
+          <ColumnRef Ref="id" />
     </Key>
   </ColumnSet>
   <SimpleCodeList>
     <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Virtual Company Dossier</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -68,10 +79,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Virtual Company Dossier Package</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:www.peppol.eu:schema:xsd:VirtualCompanyDossierPackage-1::VirtualCompanyDossierPackage##urn:www.cenbii.eu:transaction:biicoretrdm992:ver0.1:#urn:www.peppol.eu:bis:peppol992a:ver1.0::0.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -85,10 +99,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Catalogue Template</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:www.peppol.eu:schema:xsd:CatalogueTemplate-1::CatalogueTemplate##urn:www.cenbii.eu:transaction:biicoretrdm993:ver0.1:#urn:www.peppol.eu:bis:peppol993a:ver1.0::0.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -102,10 +119,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Catalogue profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biicoretrdm019:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -119,10 +139,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Catalogue profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm057:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -136,10 +159,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Catalogue profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm058:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -153,10 +179,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Catalogue profile V4</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biitrns019:ver2.0:extended:urn:www.peppol.eu:bis:peppol1a:ver4.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -167,10 +196,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Order profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -184,24 +216,50 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Order profile V2</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol03a:ver2.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.2.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Order profile V2</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Invoice profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -215,10 +273,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Invoice profile V2</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -229,10 +290,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Billing profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -246,10 +310,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Billing profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -263,10 +330,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Billing profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm015:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -280,10 +350,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Billing profile V2</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -294,10 +367,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Billing profile V2</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -308,10 +384,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -322,10 +401,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:OrderResponseSimple-2::OrderResponseSimple##urn:www.cenbii.eu:transaction:biicoretrdm002:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -336,10 +418,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:OrderResponseSimple-2::OrderResponseSimple##urn:www.cenbii.eu:transaction:biicoretrdm003:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -350,10 +435,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -364,10 +452,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -378,10 +469,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm015:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -392,10 +486,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>EHF Invoice V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0#urn:www.difi.no:ehf:faktura:ver1::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -409,10 +506,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Standalone Credit Note according to EHF V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::2.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -423,10 +523,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Ordering profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -437,10 +540,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Ordering profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::Order##urn:www.cenbii.eu:transaction:biitrns076:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -454,10 +560,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Ordering profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:www.cenbii.eu:transaction:biitrns076:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -468,10 +577,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Despatch Advice V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:www.cenbii.eu:transaction:biitrns016:ver1.0:extended:urn:www.peppol.eu:bis:peppol30a:ver1.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -482,10 +594,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Message Level Response V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biitrns071:ver2.0:extended:urn:www.peppol.eu:bis:peppol36a:ver1.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -496,10 +611,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL BIS Billing V3</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -510,10 +628,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL BIS Billing V3</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -524,10 +645,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>DHSC Customized Ordering profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0:extended:urn:fdc:peppol-authority.co.uk:spec:ordering:ver1.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -538,10 +662,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>DHSC Customized  Ordering profile V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::Order##urn:www.cenbii.eu:transaction:biitrns076:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0:extended:urn:fdc:peppol-authority.co.uk:spec:ordering:ver1.0::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -552,10 +679,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL BIS Billing V3</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::D16B</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -566,10 +696,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Procurement procedure subscription V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2::ExpressionOfInterestRequest##urn:www.cenbii.eu:transaction:biitrdm081:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t001:ver1.0::2.2</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -580,10 +713,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Procurement procedure subscription V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestResponse-2::ExpressionOfInterestResponse##urn:www.cenbii.eu:transaction:biitrdm082:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t002:ver1.0::2.2</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -594,10 +730,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Procurement document access V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:TenderStatusRequest-2::TenderStatusRequest##urn:www.cenbii.eu:transaction:biitrdm097:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t003:ver1.0::2.2</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -608,10 +747,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Procurement document access V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CallForTenders-2::CallForTenders##urn:www.cenbii.eu:transaction:biitrdm083:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t004:ver1.0::2.2</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -622,10 +764,13 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Tender Submission V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:TenderReceipt-2::TenderReceipt##urn:www.cenbii.eu:transaction:biitrdm045:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t006:ver1.0::2.2</SimpleValue>
       </Value>
           <Value ColumnRef="since">
@@ -636,11 +781,133 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Tender Submission V1</SimpleValue>
       </Value>
-          <Value ColumnRef="doctypeid">
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
         <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Tender-2::Tender##urn:www.cenbii.eu:transaction:biitrdm090:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t005:ver1.0::2.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>XRechnung Invoice V1.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>XRechnung CreditNote V1.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>XRechnung Invoice V1.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::D16B</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>OIOUBL UtilityStatement V2.02</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2::UtilityStatement##OIOUBL-2.02::2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>OIOUBL Reminder V2.02</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Reminder-2::Reminder##OIOUBL-2.02::2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>UBL.BE Invoice 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:UBL.BE:1.0.0.20180214::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>UBL.BE Credit Note 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:UBL.BE:1.0.0.20180214::2.1</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>3</SimpleValue>

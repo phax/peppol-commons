@@ -14,7 +14,6 @@ import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -34,14 +33,14 @@ public enum EPredefinedProcessIdentifier
      * @since code list 1.0.0
      */
     @Deprecated
-    urn_www_cenbii_eu_profile_bii01_ver1_0("urn:www.cenbii.eu:profile:bii01:ver1.0", "BIS 1A", Version.parse("1.0.0")),
+    urn_www_cenbii_eu_profile_bii01_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii01:ver1.0", "BIS 1A", Version.parse("1.0.0")),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii01:ver2.0</code><br>
      * 
      * @since code list 1.2.0
      */
-    urn_www_cenbii_eu_profile_bii01_ver2_0("urn:www.cenbii.eu:profile:bii01:ver2.0", "BIS 1A", Version.parse("1.2.0")),
+    urn_www_cenbii_eu_profile_bii01_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii01:ver2.0", "BIS 1A", Version.parse("1.2.0")),
 
     /**
      * <b>This item is deprecated since version 1.2.1 and should not be used to issue new identifiers!</b><br><code>urn:www.cenbii.eu:profile:bii03:ver1.0</code><br>
@@ -49,14 +48,14 @@ public enum EPredefinedProcessIdentifier
      * @since code list 1.0.0
      */
     @Deprecated
-    urn_www_cenbii_eu_profile_bii03_ver1_0("urn:www.cenbii.eu:profile:bii03:ver1.0", "BIS 3A", Version.parse("1.0.0")),
+    urn_www_cenbii_eu_profile_bii03_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii03:ver1.0", "BIS 3A", Version.parse("1.0.0")),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii03:ver2.0</code><br>
      * 
      * @since code list 1.2.0
      */
-    urn_www_cenbii_eu_profile_bii03_ver2_0("urn:www.cenbii.eu:profile:bii03:ver2.0", "BIS 3A", Version.parse("1.2.0")),
+    urn_www_cenbii_eu_profile_bii03_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii03:ver2.0", "BIS 3A", Version.parse("1.2.0")),
 
     /**
      * <b>This item is deprecated since version 1.2.1 and should not be used to issue new identifiers!</b><br><code>urn:www.cenbii.eu:profile:bii04:ver1.0</code><br>
@@ -64,14 +63,14 @@ public enum EPredefinedProcessIdentifier
      * @since code list 1.0.0
      */
     @Deprecated
-    urn_www_cenbii_eu_profile_bii04_ver1_0("urn:www.cenbii.eu:profile:bii04:ver1.0", "BIS 4A", Version.parse("1.0.0")),
+    urn_www_cenbii_eu_profile_bii04_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii04:ver1.0", "BIS 4A", Version.parse("1.0.0")),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii04:ver2.0</code><br>
      * 
      * @since code list 1.2.0
      */
-    urn_www_cenbii_eu_profile_bii04_ver2_0("urn:www.cenbii.eu:profile:bii04:ver2.0", "BIS 4A", Version.parse("1.2.0")),
+    urn_www_cenbii_eu_profile_bii04_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii04:ver2.0", "BIS 4A", Version.parse("1.2.0")),
 
     /**
      * <b>This item is deprecated since version 1.2.1 and should not be used to issue new identifiers!</b><br><code>urn:www.cenbii.eu:profile:bii05:ver1.0</code><br>
@@ -79,21 +78,21 @@ public enum EPredefinedProcessIdentifier
      * @since code list 1.1.0
      */
     @Deprecated
-    urn_www_cenbii_eu_profile_bii05_ver1_0("urn:www.cenbii.eu:profile:bii05:ver1.0", "BIS 5A", Version.parse("1.1.0")),
+    urn_www_cenbii_eu_profile_bii05_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii05:ver1.0", "BIS 5A", Version.parse("1.1.0")),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii05:ver2.0</code><br>
      * 
      * @since code list 1.2.0
      */
-    urn_www_cenbii_eu_profile_bii05_ver2_0("urn:www.cenbii.eu:profile:bii05:ver2.0", "BIS 5A", Version.parse("1.2.0")),
+    urn_www_cenbii_eu_profile_bii05_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii05:ver2.0", "BIS 5A", Version.parse("1.2.0")),
 
     /**
      * <code>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</code><br>
      * 
      * @since code list 2
      */
-    urn_fdc_peppol_eu_2017_poacc_billing_01_1_0("urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", "BIS 5A", Version.parse("2")),
+    urn_fdc_peppol_eu_2017_poacc_billing_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", "BIS 5A", Version.parse("2")),
 
     /**
      * <b>This item is deprecated since version 1.2.1 and should not be used to issue new identifiers!</b><br><code>urn:www.cenbii.eu:profile:bii06:ver1.0</code><br>
@@ -101,49 +100,63 @@ public enum EPredefinedProcessIdentifier
      * @since code list 1.0.0
      */
     @Deprecated
-    urn_www_cenbii_eu_profile_bii06_ver1_0("urn:www.cenbii.eu:profile:bii06:ver1.0", "BIS 6A", Version.parse("1.0.0")),
+    urn_www_cenbii_eu_profile_bii06_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii06:ver1.0", "BIS 6A", Version.parse("1.0.0")),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii28:ver2.0</code><br>
      * 
      * @since code list 1.2.0
      */
-    urn_www_cenbii_eu_profile_bii28_ver2_0("urn:www.cenbii.eu:profile:bii28:ver2.0", "BIS 28A", Version.parse("1.2.0")),
+    urn_www_cenbii_eu_profile_bii28_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii28:ver2.0", "BIS 28A", Version.parse("1.2.0")),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii30:ver2.0</code><br>
      * 
      * @since code list 1.2.0
      */
-    urn_www_cenbii_eu_profile_bii30_ver2_0("urn:www.cenbii.eu:profile:bii30:ver2.0", "BIS 30A", Version.parse("1.2.0")),
+    urn_www_cenbii_eu_profile_bii30_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii30:ver2.0", "BIS 30A", Version.parse("1.2.0")),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii36:ver2.0</code><br>
      * 
      * @since code list 1.2.0
      */
-    urn_www_cenbii_eu_profile_bii36_ver2_0("urn:www.cenbii.eu:profile:bii36:ver2.0", "BIS 36A", Version.parse("1.2.0")),
+    urn_www_cenbii_eu_profile_bii36_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii36:ver2.0", "BIS 36A", Version.parse("1.2.0")),
 
     /**
      * <code>urn:fdc:peppol.eu:2017:pracc:p001:01:1.0</code><br>
      * 
      * @since code list 3
      */
-    urn_fdc_peppol_eu_2017_pracc_p001_01_1_0("urn:fdc:peppol.eu:2017:pracc:p001:01:1.0", "P001", Version.parse("3")),
+    urn_fdc_peppol_eu_2017_pracc_p001_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p001:01:1.0", "P001", Version.parse("3")),
 
     /**
      * <code>urn:fdc:peppol.eu:2017:pracc:p002:01:1.0</code><br>
      * 
      * @since code list 3
      */
-    urn_fdc_peppol_eu_2017_pracc_p002_01_1_0("urn:fdc:peppol.eu:2017:pracc:p002:01:1.0", "P002", Version.parse("3")),
+    urn_fdc_peppol_eu_2017_pracc_p002_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p002:01:1.0", "P002", Version.parse("3")),
 
     /**
      * <code>urn:fdc:peppol.eu:2017:pracc:p003:01:1.0</code><br>
      * 
      * @since code list 3
      */
-    urn_fdc_peppol_eu_2017_pracc_p003_01_1_0("urn:fdc:peppol.eu:2017:pracc:p003:01:1.0", "P003", Version.parse("3"));
+    urn_fdc_peppol_eu_2017_pracc_p003_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p003:01:1.0", "P003", Version.parse("3")),
+
+    /**
+     * <code>Reference-Utility-1.0</code><br>
+     * 
+     * @since code list 3
+     */
+    oioubl_procid_ubl_Reference_Utility_1_0("oioubl-procid-ubl", "Reference-Utility-1.0", null, Version.parse("3")),
+
+    /**
+     * <code>Procurement-ReminderOnly-1.0</code><br>
+     * 
+     * @since code list 3
+     */
+    oioubl_procid_ubl_Procurement_ReminderOnly_1_0("oioubl-procid-ubl", "Procurement-ReminderOnly-1.0", null, Version.parse("3"));
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      */
@@ -213,11 +226,15 @@ public enum EPredefinedProcessIdentifier
      * Same as {@link #urn_fdc_peppol_eu_2017_pracc_p003_01_1_0}
      */
     public static final EPredefinedProcessIdentifier P003_V1 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_pracc_p003_01_1_0;
+    private final String m_sScheme;
     private final String m_sID;
     private final String m_sBISID;
     private final Version m_aSince;
 
     private EPredefinedProcessIdentifier(
+        @Nonnull
+        @Nonempty
+        final String sScheme,
         @Nonnull
         @Nonempty
         final String sID,
@@ -226,6 +243,7 @@ public enum EPredefinedProcessIdentifier
         final String sBISID,
         @Nonnull
         final Version aSince) {
+        m_sScheme = sScheme;
         m_sID = sID;
         m_sBISID = sBISID;
         m_aSince = aSince;
@@ -234,7 +252,7 @@ public enum EPredefinedProcessIdentifier
     @Nonnull
     @Nonempty
     public String getScheme() {
-        return PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME;
+        return m_sScheme;
     }
 
     @Nonnull
@@ -267,9 +285,9 @@ public enum EPredefinedProcessIdentifier
     public static EPredefinedProcessIdentifier getFromProcessIdentifierOrNull(
         @Nullable
         final IProcessIdentifier aProcessID) {
-        if ((aProcessID!= null)&&aProcessID.hasScheme(PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME)) {
+        if (aProcessID!= null) {
             for (EPredefinedProcessIdentifier e: EPredefinedProcessIdentifier.values()) {
-                if (e.getValue().equals(aProcessID.getValue())) {
+                if (e.hasScheme(aProcessID.getScheme())&&e.hasValue(aProcessID.getValue())) {
                     return e;
                 }
             }

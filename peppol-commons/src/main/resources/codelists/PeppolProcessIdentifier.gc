@@ -24,12 +24,16 @@
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:process-1.0</CanonicalVersionUri>
   </Identification>
   <ColumnSet>
-    <Column Id="name" Use="required">
+    <Column Id="profilecode" Use="required">
       <ShortName>Profile code</ShortName>
           <Data Type="string" />
     </Column>
-      <Column Id="bisid" Use="required">
+      <Column Id="bisid" Use="optional">
       <ShortName>PEPPOL BIS</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="scheme" Use="required">
+      <ShortName>Process Scheme</ShortName>
           <Data Type="string" />
     </Column>
       <Column Id="id" Use="required">
@@ -48,13 +52,17 @@
       <ShortName>Deprecated Since</ShortName>
           <Data Type="string" />
     </Column>
-      <Key Id="nameKey">
+      <Key Id="profilecodeKey">
       <ShortName>Profile code</ShortName>
-          <ColumnRef Ref="name" />
+          <ColumnRef Ref="profilecode" />
     </Key>
       <Key Id="bisidKey">
       <ShortName>PEPPOL BIS</ShortName>
           <ColumnRef Ref="bisid" />
+    </Key>
+      <Key Id="schemeKey">
+      <ShortName>Process Scheme</ShortName>
+          <ColumnRef Ref="scheme" />
     </Key>
       <Key Id="idKey">
       <ShortName>Profile ID</ShortName>
@@ -63,11 +71,14 @@
   </ColumnSet>
   <SimpleCodeList>
     <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Catalogue profile V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 1A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii01:ver1.0</SimpleValue>
@@ -83,11 +94,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Catalogue profile V4</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 1A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii01:ver2.0</SimpleValue>
@@ -100,11 +114,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Order profile V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 3A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii03:ver1.0</SimpleValue>
@@ -120,11 +137,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Order profile V2</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 3A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii03:ver2.0</SimpleValue>
@@ -137,11 +157,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Invoice profile V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 4A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii04:ver1.0</SimpleValue>
@@ -157,11 +180,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Invoice profile V2</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 4A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii04:ver2.0</SimpleValue>
@@ -174,11 +200,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Billing profile V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 5A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii05:ver1.0</SimpleValue>
@@ -194,11 +223,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Billing profile V2</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 5A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii05:ver2.0</SimpleValue>
@@ -211,11 +243,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Billing profile V3</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 5A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</SimpleValue>
@@ -228,11 +263,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 6A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii06:ver1.0</SimpleValue>
@@ -248,11 +286,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Ordering profile V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 28A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii28:ver2.0</SimpleValue>
@@ -265,11 +306,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Despatch Advice V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 30A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii30:ver2.0</SimpleValue>
@@ -282,11 +326,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>PEPPOL Message Level Response V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>BIS 36A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:www.cenbii.eu:profile:bii36:ver2.0</SimpleValue>
@@ -299,11 +346,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Procurement procedure subscription V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>P001</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:fdc:peppol.eu:2017:pracc:p001:01:1.0</SimpleValue>
@@ -316,11 +366,14 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Procurement document access V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>P002</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
       </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:fdc:peppol.eu:2017:pracc:p002:01:1.0</SimpleValue>
@@ -333,14 +386,51 @@
       </Value>
     </Row>
       <Row>
-      <Value ColumnRef="name">
+      <Value ColumnRef="profilecode">
         <SimpleValue>Tender Submission V1</SimpleValue>
       </Value>
           <Value ColumnRef="bisid">
         <SimpleValue>P003</SimpleValue>
       </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
           <Value ColumnRef="id">
         <SimpleValue>urn:fdc:peppol.eu:2017:pracc:p003:01:1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>OIOUBL UtilityStatement V2.02</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>oioubl-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>Reference-Utility-1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>OIOUBL Reminder V2.02</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>oioubl-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>Procurement-ReminderOnly-1.0</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>3</SimpleValue>

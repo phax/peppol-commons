@@ -122,11 +122,12 @@ public final class MainCreatePredefinedEnumsFromExcel
     // Create GeneriCode file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
-    aReadOptions.addColumn (0, "name", UseType.OPTIONAL, "string", false);
-    aReadOptions.addColumn (1, "doctypeid", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (2, "since", UseType.REQUIRED, "string", false);
-    aReadOptions.addColumn (3, "deprecated", UseType.REQUIRED, "boolean", false);
-    aReadOptions.addColumn (4, "deprecated-since", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (0, "profilecode", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (1, "scheme", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (2, "id", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (3, "since", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (4, "deprecated", UseType.REQUIRED, "boolean", false);
+    aReadOptions.addColumn (5, "deprecated-since", UseType.OPTIONAL, "string", false);
     final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aDocumentSheet,
                                                                                        aReadOptions,
                                                                                        "PeppolDocumentTypeIdentifier",
@@ -143,8 +144,9 @@ public final class MainCreatePredefinedEnumsFromExcel
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sName = Genericode10Helper.getRowValue (aRow, "name");
-      final String sDocID = Genericode10Helper.getRowValue (aRow, "doctypeid");
+      final String sProfileCode = Genericode10Helper.getRowValue (aRow, "profilecode");
+      final String sScheme = Genericode10Helper.getRowValue (aRow, "scheme");
+      final String sID = Genericode10Helper.getRowValue (aRow, "id");
       final String sSince = Genericode10Helper.getRowValue (aRow, "since");
       final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
                                                           DEFAULT_DEPRECATED);
@@ -153,8 +155,9 @@ public final class MainCreatePredefinedEnumsFromExcel
         throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
 
       final IMicroElement eAgency = eRoot.appendElement ("document-type");
-      eAgency.setAttribute ("id", sDocID);
-      eAgency.setAttribute ("name", sName);
+      eAgency.setAttribute ("profilecode", sProfileCode);
+      eAgency.setAttribute ("scheme", sScheme);
+      eAgency.setAttribute ("id", sID);
       eAgency.setAttribute ("since", sSince);
       eAgency.setAttribute ("deprecated", bDeprecated);
       eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
@@ -175,8 +178,9 @@ public final class MainCreatePredefinedEnumsFromExcel
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sName = Genericode10Helper.getRowValue (aRow, "name");
-        final String sDocTypeID = Genericode10Helper.getRowValue (aRow, "doctypeid");
+        final String sProfileCode = Genericode10Helper.getRowValue (aRow, "profilecode");
+        final String sScheme = Genericode10Helper.getRowValue (aRow, "scheme");
+        final String sID = Genericode10Helper.getRowValue (aRow, "id");
         final String sSince = Genericode10Helper.getRowValue (aRow, "since");
         final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
                                                             DEFAULT_DEPRECATED);
@@ -185,9 +189,9 @@ public final class MainCreatePredefinedEnumsFromExcel
           throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
 
         // Split ID in it's pieces
-        final IPeppolDocumentTypeIdentifierParts aDocIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+        final IPeppolDocumentTypeIdentifierParts aDocIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sID);
 
-        final String sEnumConstName = RegExHelper.getAsIdentifier (sDocTypeID);
+        final String sEnumConstName = RegExHelper.getAsIdentifier (sID);
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         if (bDeprecated)
         {
@@ -198,6 +202,7 @@ public final class MainCreatePredefinedEnumsFromExcel
                           " and should not be used to issue new identifiers!</b><br>");
         }
 
+        jEnumConst.arg (JExpr.lit (sScheme));
         final JInvocation aNew = JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifierParts.class))
                                       .arg (aDocIDParts.getRootNS ())
                                       .arg (aDocIDParts.getLocalName ())
@@ -205,9 +210,9 @@ public final class MainCreatePredefinedEnumsFromExcel
                                       .arg (aDocIDParts.getVersion ());
         jEnumConst.arg (aNew);
 
-        jEnumConst.arg (JExpr.lit (sName));
+        jEnumConst.arg (JExpr.lit (sProfileCode));
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
-        jEnumConst.javadoc ().add ("<code>" + sDocTypeID + "</code><br>");
+        jEnumConst.javadoc ().add ("<code>" + sID + "</code><br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
         // Also create a shortcut for more readable names
@@ -234,25 +239,30 @@ public final class MainCreatePredefinedEnumsFromExcel
       }
 
       // fields
+      final JFieldVar fScheme = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sScheme");
       final JFieldVar fParts = jEnum.field (JMod.PRIVATE | JMod.FINAL,
                                             IPeppolDocumentTypeIdentifierParts.class,
                                             "m_aParts");
       final JFieldVar fID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
-      final JFieldVar fCommonName = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sCommonName");
+      final JFieldVar fProfileCode = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileCode");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
+      final JVar jScheme = jCtor.param (JMod.FINAL, String.class, "sScheme");
+      jScheme.annotate (Nonnull.class);
+      jScheme.annotate (Nonempty.class);
       final JVar jParts = jCtor.param (JMod.FINAL, IPeppolDocumentTypeIdentifierParts.class, "aParts");
       jParts.annotate (Nonnull.class);
-      final JVar jCommonName = jCtor.param (JMod.FINAL, String.class, "sCommonName");
-      jCommonName.annotate (Nonnull.class);
-      jCommonName.annotate (Nonempty.class);
+      final JVar jProfileCode = jCtor.param (JMod.FINAL, String.class, "sProfileCode");
+      jProfileCode.annotate (Nonnull.class);
+      jProfileCode.annotate (Nonempty.class);
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
       jCtor.body ()
+           .assign (fScheme, jScheme)
            .assign (fParts, jParts)
-           .assign (fCommonName, jCommonName)
+           .assign (fProfileCode, jProfileCode)
            .assign (fID, fParts.invoke ("getAsDocumentTypeIdentifierValue"))
            .assign (fSince, jSince);
 
@@ -260,7 +270,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
-      m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class).staticRef ("DEFAULT_DOCUMENT_TYPE_SCHEME"));
+      m.body ()._return (fScheme);
 
       // public String getValue ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getValue");
@@ -317,7 +327,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       m = jEnum.method (JMod.PUBLIC, String.class, "getCommonName");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
-      m.body ()._return (fCommonName);
+      m.body ()._return (fProfileCode);
 
       // public String getAsDocumentTypeIdentifierValue ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getAsDocumentTypeIdentifierValue");
@@ -349,15 +359,13 @@ public final class MainCreatePredefinedEnumsFromExcel
         m.annotate (Nullable.class);
         final JVar jValue = m.param (JMod.FINAL, IDocumentTypeIdentifier.class, "aDocTypeID");
         jValue.annotate (Nullable.class);
-        final JBlock jIf = m.body ()
-                            ._if (jValue.neNull ()
-                                        .cand (jValue.invoke ("hasScheme")
-                                                     .arg (s_aCodeModel.ref (PeppolIdentifierHelper.class)
-                                                                       .staticRef ("DEFAULT_DOCUMENT_TYPE_SCHEME"))))
-                            ._then ();
+        final JBlock jIf = m.body ()._if (jValue.neNull ())._then ();
         final JForEach jForEach = jIf.forEach (jEnum, "e", jEnum.staticInvoke ("values"));
         jForEach.body ()
-                ._if (jForEach.var ().invoke ("getValue").invoke ("equals").arg (jValue.invoke ("getValue")))
+                ._if (jForEach.var ()
+                              .invoke ("hasScheme")
+                              .arg (jValue.invoke ("getScheme"))
+                              .cand (jForEach.var ().invoke ("hasValue").arg (jValue.invoke ("getValue"))))
                 ._then ()
                 ._return (jForEach.var ());
         m.body ()._return (JExpr._null ());
@@ -580,12 +588,13 @@ public final class MainCreatePredefinedEnumsFromExcel
   {
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
-    aReadOptions.addColumn (0, "name", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (1, "bisid", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (2, "id", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (3, "since", UseType.REQUIRED, "string", false);
-    aReadOptions.addColumn (4, "deprecated", UseType.REQUIRED, "boolean", false);
-    aReadOptions.addColumn (5, "deprecated-since", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (0, "profilecode", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (1, "bisid", UseType.OPTIONAL, "string", true);
+    aReadOptions.addColumn (2, "scheme", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (3, "id", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (4, "since", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (5, "deprecated", UseType.REQUIRED, "boolean", false);
+    aReadOptions.addColumn (6, "deprecated-since", UseType.OPTIONAL, "string", false);
 
     final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aProcessSheet,
                                                                                        aReadOptions,
@@ -603,8 +612,9 @@ public final class MainCreatePredefinedEnumsFromExcel
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sName = Genericode10Helper.getRowValue (aRow, "name");
+      final String sProfileCode = Genericode10Helper.getRowValue (aRow, "profilecode");
       final String sBISID = Genericode10Helper.getRowValue (aRow, "bisid");
+      final String sScheme = Genericode10Helper.getRowValue (aRow, "scheme");
       final String sID = Genericode10Helper.getRowValue (aRow, "id");
       final String sSince = Genericode10Helper.getRowValue (aRow, "since");
       final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
@@ -615,8 +625,9 @@ public final class MainCreatePredefinedEnumsFromExcel
         throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
 
       final IMicroElement eAgency = eRoot.appendElement ("process");
-      eAgency.setAttribute ("name", sName);
+      eAgency.setAttribute ("profilecode", sProfileCode);
       eAgency.setAttribute ("bisid", sBISID);
+      eAgency.setAttribute ("scheme", sScheme);
       eAgency.setAttribute ("id", sID);
       eAgency.setAttribute ("since", sSince);
       eAgency.setAttribute ("deprecated", bDeprecated);
@@ -637,18 +648,22 @@ public final class MainCreatePredefinedEnumsFromExcel
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sName = Genericode10Helper.getRowValue (aRow, "name");
+        final String sProfileCode = Genericode10Helper.getRowValue (aRow, "profilecode");
         final String sBISID = Genericode10Helper.getRowValue (aRow, "bisid");
+        final String sScheme = Genericode10Helper.getRowValue (aRow, "scheme");
         final String sID = Genericode10Helper.getRowValue (aRow, "id");
         final String sSince = Genericode10Helper.getRowValue (aRow, "since");
         final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
                                                             DEFAULT_DEPRECATED);
         final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
 
-        final String sEnumConstName = RegExHelper.getAsIdentifier (sID);
+        // Prepend the scheme, if it is non-default
+        final String sIDPrefix = (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme) ? "" : sScheme + "-");
+        final String sEnumConstName = RegExHelper.getAsIdentifier (sIDPrefix + sID);
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
+        jEnumConst.arg (JExpr.lit (sScheme));
         jEnumConst.arg (JExpr.lit (sID));
-        jEnumConst.arg (JExpr.lit (sBISID));
+        jEnumConst.arg (sBISID == null ? JExpr._null () : JExpr.lit (sBISID));
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
@@ -663,9 +678,13 @@ public final class MainCreatePredefinedEnumsFromExcel
 
         // Emit shortcut name for better readability
         // Take version number from name (ends with "V0" where 0 is the version)
-        final String sShortcutName = CodeGenerationHelper.createShortcutBISIDName (sBISID +
-                                                                                   "_" +
-                                                                                   sName.substring (sName.lastIndexOf ('V')));
+        final String sShortcutName;
+        if (StringHelper.hasText (sBISID))
+          sShortcutName = CodeGenerationHelper.createShortcutBISIDName (StringHelper.getConcatenatedOnDemand (sBISID,
+                                                                                                              "_",
+                                                                                                              sProfileCode.substring (sProfileCode.lastIndexOf ('V'))));
+        else
+          sShortcutName = null;
         if (sShortcutName != null)
         {
           if (!aAllShortcutNames.add (sShortcutName))
@@ -683,12 +702,16 @@ public final class MainCreatePredefinedEnumsFromExcel
       }
 
       // fields
+      final JFieldVar fScheme = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sScheme");
       final JFieldVar fID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
       final JFieldVar fBISID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sBISID");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
+      final JVar jScheme = jCtor.param (JMod.FINAL, String.class, "sScheme");
+      jScheme.annotate (Nonnull.class);
+      jScheme.annotate (Nonempty.class);
       final JVar jID = jCtor.param (JMod.FINAL, String.class, "sID");
       jID.annotate (Nonnull.class);
       jID.annotate (Nonempty.class);
@@ -697,13 +720,13 @@ public final class MainCreatePredefinedEnumsFromExcel
       jBISID.annotate (Nonempty.class);
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
-      jCtor.body ().assign (fID, jID).assign (fBISID, jBISID).assign (fSince, jSince);
+      jCtor.body ().assign (fScheme, jScheme).assign (fID, jID).assign (fBISID, jBISID).assign (fSince, jSince);
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
-      m.body ()._return (s_aCodeModel.ref (PeppolIdentifierHelper.class).staticRef ("DEFAULT_PROCESS_SCHEME"));
+      m.body ()._return (fScheme);
 
       // public String getValue ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getValue");
@@ -739,15 +762,13 @@ public final class MainCreatePredefinedEnumsFromExcel
         m.annotate (Nullable.class);
         final JVar jValue = m.param (JMod.FINAL, IProcessIdentifier.class, "aProcessID");
         jValue.annotate (Nullable.class);
-        final JBlock jIf = m.body ()
-                            ._if (jValue.neNull ()
-                                        .cand (jValue.invoke ("hasScheme")
-                                                     .arg (s_aCodeModel.ref (PeppolIdentifierHelper.class)
-                                                                       .staticRef ("DEFAULT_PROCESS_SCHEME"))))
-                            ._then ();
+        final JBlock jIf = m.body ()._if (jValue.neNull ())._then ();
         final JForEach jForEach = jIf.forEach (jEnum, "e", jEnum.staticInvoke ("values"));
         jForEach.body ()
-                ._if (jForEach.var ().invoke ("getValue").invoke ("equals").arg (jValue.invoke ("getValue")))
+                ._if (jForEach.var ()
+                              .invoke ("hasScheme")
+                              .arg (jValue.invoke ("getScheme"))
+                              .cand (jForEach.var ().invoke ("hasValue").arg (jValue.invoke ("getValue"))))
                 ._then ()
                 ._return (jForEach.var ());
         m.body ()._return (JExpr._null ());
