@@ -46,9 +46,9 @@ import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JOp;
 import com.helger.jcodemodel.JVar;
 
-public class MainCreateEnumsFromGenericode
+public class MainCreateEnumsFromUBLGenericode
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateEnumsFromGenericode.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateEnumsFromUBLGenericode.class);
   private static final String COLID_NAME = "name";
   private static final String COLID_CODE = "code";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();

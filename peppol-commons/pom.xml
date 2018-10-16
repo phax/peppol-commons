@@ -132,6 +132,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
             <exclude>src/main/jaxb/catalog.txt</exclude>
             <exclude>**/*.csv</exclude>
             <exclude>**/*.jks</exclude>
+            <exclude>**/*.sha256</exclude>
             <exclude>**/NOTICE</exclude>
             <exclude>**/LICENSE</exclude>
           </excludes>
