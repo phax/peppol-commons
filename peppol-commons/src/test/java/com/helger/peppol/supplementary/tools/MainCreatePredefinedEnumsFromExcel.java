@@ -750,10 +750,6 @@ public final class MainCreatePredefinedEnumsFromExcel
       m.annotate (Nonnull.class);
       m.body ()._return (fSince);
 
-      // public boolean isDefaultScheme ()
-      m = jEnum.method (JMod.PUBLIC, boolean.class, "isDefaultScheme");
-      m.body ()._return (JExpr.lit (true));
-
       // @Nullable public static EPredefinedProcessIdentifier
       // getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier
       // aProcessID)
@@ -777,6 +773,166 @@ public final class MainCreatePredefinedEnumsFromExcel
     catch (
 
     final Exception ex)
+    {
+      LOGGER.warn ("Failed to create source", ex);
+    }
+  }
+
+  private static void _emitTransportProfileIdentifiers (final Sheet aTPSheet) throws URISyntaxException
+  {
+    final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
+                                                                                     .setLineIndexShortName (0);
+    aReadOptions.addColumn (0, "protocol", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (1, "profileversion", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (2, "profileid", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (3, "since", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (4, "deprecated", UseType.REQUIRED, "boolean", false);
+    aReadOptions.addColumn (5, "deprecated-since", UseType.OPTIONAL, "string", false);
+
+    final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aTPSheet,
+                                                                                       aReadOptions,
+                                                                                       "PeppolTransportProfileIdentifier",
+                                                                                       CODELIST_VERSION.getAsString (),
+                                                                                       new URI ("urn:peppol.eu:names:identifier:transportprofile"),
+                                                                                       new URI ("urn:peppol.eu:names:identifier:transportprofile-1.0"),
+                                                                                       null);
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolTransportProfileIdentifier.gc");
+
+    // Save as XML
+    final IMicroDocument aDoc = new MicroDocument ();
+    aDoc.appendComment (DO_NOT_EDIT);
+    final IMicroElement eRoot = aDoc.appendElement ("root");
+    eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
+    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+    {
+      final String sProtocol = Genericode10Helper.getRowValue (aRow, "protocol");
+      final String sProfileVersion = Genericode10Helper.getRowValue (aRow, "profileversion");
+      final String sProfileID = Genericode10Helper.getRowValue (aRow, "profileid");
+      final String sSince = Genericode10Helper.getRowValue (aRow, "since");
+      final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
+                                                          DEFAULT_DEPRECATED);
+      final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
+
+      if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
+        throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
+
+      final IMicroElement eAgency = eRoot.appendElement ("process");
+      eAgency.setAttribute ("protocol", sProtocol);
+      eAgency.setAttribute ("profileversion", sProfileVersion);
+      eAgency.setAttribute ("profileid", sProfileID);
+      eAgency.setAttribute ("since", sSince);
+      eAgency.setAttribute ("deprecated", bDeprecated);
+      eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
+    }
+    MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolTransportProfileIdentifier.xml"));
+
+    // Create Java source
+    try
+    {
+      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "transportprofile")
+                                              ._enum ("EPredefinedTransportProfileIdentifier");
+      jEnum.annotate (CodingStyleguideUnaware.class);
+      jEnum.javadoc ().add (DO_NOT_EDIT);
+
+      // enum constants
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
+      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+      {
+        final String sProtocol = Genericode10Helper.getRowValue (aRow, "protocol");
+        final String sProfileVersion = Genericode10Helper.getRowValue (aRow, "profileversion");
+        final String sProfileID = Genericode10Helper.getRowValue (aRow, "profileid");
+        final String sSince = Genericode10Helper.getRowValue (aRow, "since");
+        final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
+                                                            DEFAULT_DEPRECATED);
+        final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
+
+        // Prepend the scheme, if it is non-default
+        final String sEnumConstName = RegExHelper.getAsIdentifier (sProfileID);
+        final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
+        jEnumConst.arg (JExpr.lit (sProtocol));
+        jEnumConst.arg (JExpr.lit (sProfileVersion));
+        jEnumConst.arg (JExpr.lit (sProfileID));
+        if (bDeprecated)
+        {
+          jEnumConst.annotate (Deprecated.class);
+          jEnumConst.javadoc ()
+                    .add ("<b>This item is deprecated since version " +
+                          sDeprecatedSince +
+                          " and should not be used to issue new identifiers!</b><br>");
+        }
+        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.javadoc ().add ("<code>" + sProfileID + "</code><br>");
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
+
+        // Emit shortcut name for better readability
+        final String sShortcutName = CodeGenerationHelper.createShortcutTransportProtocolName (sProtocol +
+                                                                                               "_" +
+                                                                                               sProfileVersion);
+        if (sShortcutName != null)
+        {
+          if (!aAllShortcutNames.add (sShortcutName))
+            throw new IllegalStateException ("The Transport Profile shortcut '" +
+                                             sShortcutName +
+                                             "' is already used - please review the algorithm!");
+          final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
+                                                   jEnum,
+                                                   sShortcutName,
+                                                   jEnumConst);
+          if (bDeprecated)
+            aShortcut.annotate (Deprecated.class);
+          aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
+        }
+      }
+
+      // fields
+      final JFieldVar fProtocol = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProtocol");
+      final JFieldVar fProfileVersion = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileVersion");
+      final JFieldVar fProfileID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileID");
+      final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
+
+      // Constructor
+      final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
+      final JVar jProtocol = jCtor.param (JMod.FINAL, String.class, "sProtocol");
+      jProtocol.annotate (Nonnull.class);
+      jProtocol.annotate (Nonempty.class);
+      final JVar jProfileVersion = jCtor.param (JMod.FINAL, String.class, "sProfileVersion");
+      jProfileVersion.annotate (Nonnull.class);
+      jProfileVersion.annotate (Nonempty.class);
+      final JVar jProfileID = jCtor.param (JMod.FINAL, String.class, "sProfileID");
+      jProfileID.annotate (Nonnull.class);
+      jProfileID.annotate (Nonempty.class);
+      final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
+      jSince.annotate (Nonnull.class);
+      jCtor.body ()
+           .assign (fProtocol, jProtocol)
+           .assign (fProfileVersion, jProfileVersion)
+           .assign (fProfileID, jProfileID)
+           .assign (fSince, jSince);
+
+      // public String getProtocol()
+      JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getProtocol");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.body ()._return (fProtocol);
+
+      // public String getProfileVersion ()
+      m = jEnum.method (JMod.PUBLIC, String.class, "getProfileVersion");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.body ()._return (fProfileVersion);
+
+      // public String getProfileID ()
+      m = jEnum.method (JMod.PUBLIC, String.class, "getProfileID");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.body ()._return (fProfileID);
+
+      // public Version getSince ()
+      m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
+      m.annotate (Nonnull.class);
+      m.body ()._return (fSince);
+    }
+    catch (final Exception ex)
     {
       LOGGER.warn ("Failed to create source", ex);
     }
@@ -809,7 +965,9 @@ public final class MainCreatePredefinedEnumsFromExcel
                                                          new CodeListFile ("Participant identifier schemes",
                                                                            MainCreatePredefinedEnumsFromExcel::_emitParticipantIdentifierSchemes),
                                                          new CodeListFile ("Processes",
-                                                                           MainCreatePredefinedEnumsFromExcel::_emitProcessIdentifiers) })
+                                                                           MainCreatePredefinedEnumsFromExcel::_emitProcessIdentifiers),
+                                                         new CodeListFile ("Transport profiles",
+                                                                           MainCreatePredefinedEnumsFromExcel::_emitTransportProfileIdentifiers) })
     {
       // Where is the Excel?
       final IReadableResource aXls = new FileSystemResource (aCLF.m_aFile);

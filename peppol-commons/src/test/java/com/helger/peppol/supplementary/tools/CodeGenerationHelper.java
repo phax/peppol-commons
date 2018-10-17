@@ -186,4 +186,14 @@ final class CodeGenerationHelper
     ret = StringHelper.replaceAll (ret, '.', '_');
     return ret.toUpperCase (Locale.US);
   }
+
+  @Nullable
+  @Nonempty
+  public static String createShortcutTransportProtocolName (@Nonnull final String sBISID)
+  {
+    String ret = sBISID;
+    ret = StringHelper.removeAll (ret, ' ');
+    ret = StringHelper.replaceAll (ret, '.', '_');
+    return ret.toUpperCase (Locale.US);
+  }
 }

@@ -277,10 +277,6 @@ public enum EPredefinedProcessIdentifier
         return m_aSince;
     }
 
-    public boolean isDefaultScheme() {
-        return true;
-    }
-
     @Nullable
     public static EPredefinedProcessIdentifier getFromProcessIdentifierOrNull(
         @Nullable

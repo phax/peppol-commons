@@ -26,10 +26,11 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v6.1.4 - work in progress
+* v6.1.4 - 2018-10-17
     * Updated to final code list V3
     * The files `PeppolDocumentTypeIdentifier.*` got new attribute names (`name` &rarr; `profilecode`, `doctypeid` &rarr; `id`, added `scheme`)
     * The files `PeppolProcessIdentifier.*` got new attribute names (`name` &rarr; `profilecode`, `bisid` is now optional, added `scheme`)
+    * Automatically created `EPredefinedTransportProfileIdentifier` plus GC and XML for the transport profile list
 * v6.1.3 - 2018-09-26
     * Requires ph-commons 9.1.3
     * Updated to PEPPOL codelists v3 snapshots
