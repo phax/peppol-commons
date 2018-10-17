@@ -54,8 +54,18 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   /** The BDXR AS4 transport profile to be used in EndPointType objects */
   TRANSPORT_PROFILE_BDXR_AS4 ("bdxr-transport-ebms3-as4-v1p0", "BDXR AS4"),
 
-  /** Special PEPPOL AS4 profile */
-  TRANSPORT_PROFILE_PEPPOL_AS4 ("peppol-transport-as4-v1_0", "PEPPOL AS4");
+  /** Special PEPPOL AS4 profile v1 */
+  @Deprecated
+  TRANSPORT_PROFILE_PEPPOL_AS4 ("peppol-transport-as4-v1_0", "PEPPOL AS4")
+  {
+    @Override
+    public boolean isDeprecated ()
+    {
+      return true;
+    }
+  },
+  /** Special PEPPOL AS4 profile v2 */
+  TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "PEPPOL AS4");
 
   private final String m_sID;
   private final String m_sName;
