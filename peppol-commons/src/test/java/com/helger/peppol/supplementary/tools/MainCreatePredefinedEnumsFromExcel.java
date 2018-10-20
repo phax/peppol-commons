@@ -13,7 +13,6 @@ package com.helger.peppol.supplementary.tools;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,7 +55,7 @@ import com.helger.jcodemodel.JInvocation;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
-import com.helger.jcodemodel.writer.FileCodeWriter;
+import com.helger.jcodemodel.writer.JCMWriter;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
@@ -989,8 +988,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     }
 
     // Write all Java source files
-    final FileCodeWriter aWriter = new FileCodeWriter (new File ("src/main/java"), StandardCharsets.UTF_8);
-    s_aCodeModel.build (aWriter);
+    new JCMWriter (s_aCodeModel).build (new File ("src/main/java"));
 
     LOGGER.info ("Done creating code");
   }

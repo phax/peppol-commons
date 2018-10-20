@@ -35,6 +35,8 @@ import com.helger.peppol.testfiles.ErrorDefinition;
 import com.helger.peppol.testfiles.TestDocument;
 import com.helger.peppol.testfiles.TestResource;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Contains the utility methods to retrieve the test files for a certain
  * document type.
@@ -42,6 +44,7 @@ import com.helger.peppol.testfiles.TestResource;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 @Immutable
+@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public final class PeppolBISV1TestFiles
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolBISV1TestFiles.class);

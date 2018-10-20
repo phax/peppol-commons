@@ -45,6 +45,7 @@ import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JOp;
 import com.helger.jcodemodel.JVar;
+import com.helger.jcodemodel.writer.JCMWriter;
 
 public class MainCreateEnumsFromUBLGenericode
 {
@@ -154,6 +155,6 @@ public class MainCreateEnumsFromUBLGenericode
       if (aCodeList10 != null)
         _createGenericode10 (aFile, aCodeList10);
     }
-    s_aCodeModel.build (new File ("src/main/java"));
+    new JCMWriter (s_aCodeModel).build (new File ("src/main/java"));
   }
 }
