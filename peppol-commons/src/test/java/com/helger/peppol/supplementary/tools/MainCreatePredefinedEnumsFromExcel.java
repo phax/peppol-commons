@@ -44,6 +44,7 @@ import com.helger.genericode.v10.CodeListDocument;
 import com.helger.genericode.v10.Row;
 import com.helger.genericode.v10.UseType;
 import com.helger.jcodemodel.JBlock;
+import com.helger.jcodemodel.JClassAlreadyExistsException;
 import com.helger.jcodemodel.JCodeModel;
 import com.helger.jcodemodel.JDefinedClass;
 import com.helger.jcodemodel.JDocComment;
@@ -370,9 +371,9 @@ public final class MainCreatePredefinedEnumsFromExcel
         m.body ()._return (JExpr._null ());
       }
     }
-    catch (final Exception ex)
+    catch (final JClassAlreadyExistsException ex)
     {
-      LOGGER.warn ("Failed to create source", ex);
+      LOGGER.error ("Failed to create source", ex);
     }
   }
 
@@ -769,9 +770,7 @@ public final class MainCreatePredefinedEnumsFromExcel
         m.body ()._return (JExpr._null ());
       }
     }
-    catch (
-
-    final Exception ex)
+    catch (final JClassAlreadyExistsException ex)
     {
       LOGGER.warn ("Failed to create source", ex);
     }
@@ -931,7 +930,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       m.annotate (Nonnull.class);
       m.body ()._return (fSince);
     }
-    catch (final Exception ex)
+    catch (final JClassAlreadyExistsException ex)
     {
       LOGGER.warn ("Failed to create source", ex);
     }

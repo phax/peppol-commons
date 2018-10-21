@@ -66,7 +66,7 @@ public final class MainForArunFromBasware
     // Don't change anything below this line
 
     // Set proxy as system properties
-    if (StringHelper.hasText (sProxyHostname) && nProxyPort > 0)
+    if (nProxyPort > 0 && StringHelper.hasText (sProxyHostname))
     {
       SystemProperties.setPropertyValue ("http.proxyHost", sProxyHostname);
       SystemProperties.setPropertyValue ("http.proxyPort", nProxyPort);
