@@ -23,6 +23,7 @@ import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.url.IPeppolURLProvider;
+import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.url.PeppolURLProvider;
 
 /**
@@ -33,7 +34,9 @@ public final class MainCheckBogusCertificateStrings
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCheckBogusCertificateStrings.class);
   private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
-  public static void main (final String [] args) throws CertificateException, SMPClientException
+  public static void main (final String [] args) throws CertificateException,
+                                                 SMPClientException,
+                                                 PeppolDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9906:testconsip");
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aPI, ESML.DIGIT_TEST);

@@ -28,7 +28,7 @@ import com.helger.peppol.sml.ESML;
 public final class EsensURLProviderTest
 {
   @Test
-  public void testDefault ()
+  public void testDefault () throws PeppolDNSResolutionException
   {
     final IBDXLURLProvider aURLProvider = EsensURLProvider.INSTANCE;
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA.edelivery.tech.ec.europa.eu",
@@ -47,7 +47,7 @@ public final class EsensURLProviderTest
   }
 
   @Test
-  public void testNoLowercase ()
+  public void testNoLowercase () throws PeppolDNSResolutionException
   {
     final EsensURLProvider aURLProvider = new EsensURLProvider ();
     aURLProvider.setLowercaseValueBeforeHashing (false);
@@ -72,7 +72,7 @@ public final class EsensURLProviderTest
 
   @Test
   @DevelopersNote ("works only if DNS server is reachable")
-  public void testResolve ()
+  public void testResolve () throws PeppolDNSResolutionException
   {
     final IBDXLURLProvider aURLProvider = EsensURLProvider.INSTANCE;
     final String sURL = aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
@@ -85,7 +85,7 @@ public final class EsensURLProviderTest
   }
 
   @Test
-  public void testToop ()
+  public void testToop () throws PeppolDNSResolutionException
   {
     final IBDXLURLProvider aURLProvider = EsensURLProvider.INSTANCE;
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",

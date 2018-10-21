@@ -136,14 +136,14 @@ public class EsensURLProvider implements IBDXLURLProvider
   public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName,
                                          final boolean bDoNAPTRResolving,
-                                         @Nullable final String sPrimaryDNSServer)
+                                         @Nullable final String sPrimaryDNSServer) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new IllegalArgumentException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
-                                          sSMLZoneName);
+      throw new PeppolDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
+                                              sSMLZoneName);
 
     final StringBuilder ret = new StringBuilder ();
 
@@ -194,8 +194,8 @@ public class EsensURLProvider implements IBDXLURLProvider
                                                          NAPTRResolver.DNS_UNAPTR_SERVICE_NAME_META_SMP);
         if (sResolvedNAPTR == null)
         {
-          // TODO 6.2.0 make this a checked exception
-          throw new IllegalArgumentException ("Failed to resolve '" + sBuildName + "'");
+          // Since 6.2.0 this a checked exception
+          throw new PeppolDNSResolutionException ("Failed to resolve '" + sBuildName + "' from DNS NAPTR");
         }
 
         // Strip any special protocol prefix
@@ -213,7 +213,7 @@ public class EsensURLProvider implements IBDXLURLProvider
     }
     catch (final TextParseException ex)
     {
-      throw new IllegalStateException ("Failed to parse '" + sBuildName + "'", ex);
+      throw new PeppolDNSResolutionException ("Failed to parse '" + sBuildName + "'", ex);
     }
   }
 }

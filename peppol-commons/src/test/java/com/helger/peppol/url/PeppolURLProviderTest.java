@@ -47,7 +47,7 @@ public final class PeppolURLProviderTest
 
   @Test
   @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
-  public void testGetDNSNameOfParticipant ()
+  public void testGetDNSNameOfParticipant () throws PeppolDNSResolutionException
   {
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
                   INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
@@ -105,7 +105,7 @@ public final class PeppolURLProviderTest
 
     if (false)
       LOGGER.info (INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("9915:b"),
-                                                        ESML.DIGIT_PRODUCTION));
+                                                     ESML.DIGIT_PRODUCTION));
 
     // Test invalid
     try
@@ -124,7 +124,7 @@ public final class PeppolURLProviderTest
       INSTANCE.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("scheme", "value"), "anyzone");
       fail ();
     }
-    catch (final IllegalArgumentException ex)
+    catch (final PeppolDNSResolutionException ex)
     {
       // expected
     }
@@ -144,7 +144,9 @@ public final class PeppolURLProviderTest
   }
 
   @Test
-  public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException
+  public void testGetSMPURIOfParticipant () throws URISyntaxException,
+                                            MalformedURLException,
+                                            PeppolDNSResolutionException
   {
     final IParticipantIdentifier aPI = IF.createParticipantIdentifierWithDefaultScheme ("0088:123ABC");
     final URI aURI = INSTANCE.getSMPURIOfParticipant (aPI, ESML.DIGIT_PRODUCTION);

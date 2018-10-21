@@ -12,6 +12,7 @@ package com.helger.peppol.httpclient;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.apache.http.HttpEntity;
@@ -38,16 +39,17 @@ import com.helger.commons.debug.GlobalDebug;
 public abstract class AbstractSMPResponseHandler <T> implements ResponseHandler <T>
 {
   /**
-   * Handle the response entity and transform it into the actual response object.
+   * Handle the response entity and transform it into the actual response
+   * object.
    *
    * @param aEntity
-   *        The entity to handle
+   *        The entity to handle. Never <code>null</code>.
    * @return the result. May be <code>null</code>.
    * @throws IOException
    *         if something goes wrong
    */
   @Nullable
-  public abstract T handleEntity (HttpEntity aEntity) throws IOException;
+  public abstract T handleEntity (@Nonnull HttpEntity aEntity) throws IOException;
 
   /**
    * Read the entity from the response body and pass it to the entity handler
@@ -56,15 +58,17 @@ public abstract class AbstractSMPResponseHandler <T> implements ResponseHandler 
    * status code), throws an {@link HttpResponseException}.
    */
   @Nullable
-  public T handleResponse (final HttpResponse aResponse) throws IOException
+  public T handleResponse (@Nonnull final HttpResponse aResponse) throws IOException
   {
     final StatusLine aStatusLine = aResponse.getStatusLine ();
     final HttpEntity aEntity = aResponse.getEntity ();
     if (aStatusLine.getStatusCode () >= 300)
     {
-      final String sEntity = EntityUtils.toString (aEntity);
       if (false && GlobalDebug.isDebugMode ())
+      {
+        final String sEntity = EntityUtils.toString (aEntity);
         throw new HttpResponseException (aStatusLine.getStatusCode (), aStatusLine.getReasonPhrase () + "\n" + sEntity);
+      }
       throw new HttpResponseException (aStatusLine.getStatusCode (), aStatusLine.getReasonPhrase ());
     }
     return aEntity == null ? null : handleEntity (aEntity);

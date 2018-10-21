@@ -27,6 +27,7 @@ import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.url.IPeppolURLProvider;
+import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.url.PeppolURLProvider;
 
 /**
@@ -48,14 +49,13 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
 
   @Nonnull
   private static SMPClient _createSMPClient (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                             @Nonnull final ISMLInfo aSMLInfo)
+                                             @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
-    final SMPClient ret = new SMPClient (URL_PROVIDER, aParticipantIdentifier, aSMLInfo);
-    return ret;
+    return new SMPClient (URL_PROVIDER, aParticipantIdentifier, aSMLInfo);
   }
 
   @Test
-  public void testGetEndpointAddress () throws Throwable
+  public void testGetEndpointAddress () throws Exception
   {
     String sEndpointAddress;
 
@@ -79,11 +79,11 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
    * current certificates are valid from 03/2017 - 03/2019. If you run this test
    * afterwards and it fails, either fix the numbers or ignore the test.
    *
-   * @throws Throwable
+   * @throws Exception
    *         on error
    */
   @Test
-  public void testGetEndpointCertificate () throws Throwable
+  public void testGetEndpointCertificate () throws Exception
   {
     X509Certificate aEndpointCertificate;
 

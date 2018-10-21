@@ -48,7 +48,7 @@ public interface IBDXLURLProvider extends IPeppolURLProvider
 
   @Nonnull
   default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                          @Nullable final String sSMLZoneName)
+                                          @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
   {
     return getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName, true);
   }
@@ -56,7 +56,7 @@ public interface IBDXLURLProvider extends IPeppolURLProvider
   @Nonnull
   default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                           @Nullable final String sSMLZoneName,
-                                          final boolean bDoNAPTRResolving)
+                                          final boolean bDoNAPTRResolving) throws PeppolDNSResolutionException
   {
     return getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName, bDoNAPTRResolving, null);
   }
@@ -65,5 +65,5 @@ public interface IBDXLURLProvider extends IPeppolURLProvider
   String getDNSNameOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier,
                                   @Nullable String sSMLZoneName,
                                   boolean bDoNAPTRResolving,
-                                  @Nullable String sPrimaryDNSServer);
+                                  @Nullable String sPrimaryDNSServer) throws PeppolDNSResolutionException;
 }

@@ -53,6 +53,7 @@ import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
+import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.security.certificate.CertificateHelper;
@@ -79,12 +80,14 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
+   * @throws PeppolDNSResolutionException
+   *         if DNS resolution fails
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
   public SMPClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                            @Nonnull final ISMLInfo aSMLInfo)
+                            @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo));
   }
@@ -100,14 +103,16 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @param sSMLZoneName
    *        The SML DNS zone name to be used. Required to build the SMP access
    *        URI. Must end with a trailing dot (".") and may neither be
-   *        <code>null</code> nor empty to build a correct URL. May not start with
-   *        "http://". Example: <code>sml.peppolcentral.org.</code>
+   *        <code>null</code> nor empty to build a correct URL. May not start
+   *        with "http://". Example: <code>sml.peppolcentral.org.</code>
+   * @throws PeppolDNSResolutionException
+   *         if DNS resolution fails
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      String)
    */
   public SMPClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                            @Nonnull @Nonempty final String sSMLZoneName)
+                            @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName));
   }
@@ -143,7 +148,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The userId did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceGroupReferenceListOrNull(String, BasicAuthClientCredentials)
+   * @see #getServiceGroupReferenceListOrNull(String,
+   *      BasicAuthClientCredentials)
    */
   @Nonnull
   public ServiceGroupReferenceListType getServiceGroupReferenceList (@Nonnull final String sUserID,
@@ -170,8 +176,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The username for which to retrieve service groups.
    * @param aCredentials
    *        The user name and password to use as credentials.
-   * @return A list of references to complete service groups or <code>null</code>
-   *         if no such user exists.
+   * @return A list of references to complete service groups or
+   *         <code>null</code> if no such user exists.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -195,9 +201,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a complete service group. A complete service group contains both the
-   * service group and the service metadata. This is a non-specification compliant
-   * method.
+   * Returns a complete service group. A complete service group contains both
+   * the service group and the service metadata. This is a non-specification
+   * compliant method.
    *
    * @param sCompleteURI
    *        The complete URL for the full service group to query.
@@ -228,9 +234,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a complete service group. A complete service group contains both the
-   * service group and the service metadata. This is a non-specification compliant
-   * method.
+   * Returns a complete service group. A complete service group contains both
+   * the service group and the service metadata. This is a non-specification
+   * compliant method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
@@ -257,9 +263,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a complete service group. A complete service group contains both the
-   * service group and the service metadata. This is a non-specification compliant
-   * method.
+   * Returns a complete service group. A complete service group contains both
+   * the service group and the service metadata. This is a non-specification
+   * compliant method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
@@ -289,8 +295,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a service group. A service group references to the service metadata.
-   * This is a specification compliant method.
+   * Returns a service group. A service group references to the service
+   * metadata. This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
@@ -321,14 +327,14 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a service group. A service group references to the service metadata.
-   * This is a specification compliant method.
+   * Returns a service group. A service group references to the service
+   * metadata. This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
    *        wants to get.
-   * @return The service group. May be <code>null</code> if no such service group
-   *         exists.
+   * @return The service group. May be <code>null</code> if no such service
+   *         group exists.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -457,7 +463,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceRegistration(IParticipantIdentifier, IDocumentTypeIdentifier)
+   * @see #getServiceRegistration(IParticipantIdentifier,
+   *      IDocumentTypeIdentifier)
    */
   @Nullable
   public SignedServiceMetadataType getServiceRegistrationOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -525,7 +532,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        {@link #getServiceRegistrationOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
    *        . May not be <code>null</code>.
    * @param aProcessID
-   *        The process identifier to be looked up. May not be <code>null</code> .
+   *        The process identifier to be looked up. May not be <code>null</code>
+   *        .
    * @param aTransportProfile
    *        The required transport profile to be used. May not be
    *        <code>null</code>.
@@ -642,8 +650,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Returns a complete service group. A complete service group contains both the
-   * service group and the service metadata.
+   * Returns a complete service group. A complete service group contains both
+   * the service group and the service metadata.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
@@ -656,6 +664,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         metadata
    * @throws SMPClientException
    *         in case something goes wrong
+   * @throws PeppolDNSResolutionException
+   *         if DNS resolution fails
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientNotFoundException
@@ -666,13 +676,15 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   @Nonnull
   public static CompleteServiceGroupType getCompleteServiceGroupByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
                                                                        @Nonnull final ISMLInfo aSMLInfo,
-                                                                       @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
+                                                                       @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
+                                                                                                                              PeppolDNSResolutionException
   {
     return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getCompleteServiceGroup (aServiceGroupID);
   }
 
   /**
-   * Returns a service group. A service group references to the service metadata.
+   * Returns a service group. A service group references to the service
+   * metadata.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
@@ -684,6 +696,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @return The service group
    * @throws SMPClientException
    *         in case something goes wrong
+   * @throws PeppolDNSResolutionException
+   *         If DNS resolution fails
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientNotFoundException
@@ -694,7 +708,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   @Nonnull
   public static ServiceGroupType getServiceGroupByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
                                                        @Nonnull final ISMLInfo aSMLInfo,
-                                                       @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
+                                                       @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
+                                                                                                              PeppolDNSResolutionException
   {
     return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
@@ -714,6 +729,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @return A signed service metadata object.
    * @throws SMPClientException
    *         in case something goes wrong
+   * @throws PeppolDNSResolutionException
+   *         if DNS resolution fails
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientNotFoundException
@@ -725,7 +742,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   public static SignedServiceMetadataType getServiceRegistrationByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
                                                                        @Nonnull final ISMLInfo aSMLInfo,
                                                                        @Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+                                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
+                                                                                                                               PeppolDNSResolutionException
   {
     return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceRegistration (aServiceGroupID,
                                                                                                    aDocumentTypeID);

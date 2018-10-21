@@ -20,6 +20,7 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.url.EsensURLProvider;
+import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.url.PeppolURLProvider;
 
 /**
@@ -30,7 +31,7 @@ import com.helger.peppol.url.PeppolURLProvider;
 public final class SMPClientReadOnlyTest
 {
   @Test
-  public void testGetSMPHostURI () throws SMPClientException
+  public void testGetSMPHostURI () throws SMPClientException, PeppolDNSResolutionException
   {
     IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 

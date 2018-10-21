@@ -16,14 +16,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.ProcessIdentifierType;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -67,8 +63,8 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   }
 
   /**
-   * Private constructor that passed the pre-checked values directly to the super
-   * class. Has a dummy parameter for a unique signature.
+   * Private constructor that passed the pre-checked values directly to the
+   * super class. Has a dummy parameter for a unique signature.
    *
    * @param bVerified
    *        dummy
@@ -103,8 +99,8 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
 
   /**
    * Take the passed identifier scheme and value try to convert it back to a
-   * process identifier. If the passed scheme is invalid or if the passed value is
-   * invalid, <code>null</code> is returned.
+   * process identifier. If the passed scheme is invalid or if the passed value
+   * is invalid, <code>null</code> is returned.
    *
    * @param sScheme
    *        The identifier scheme. May be <code>null</code> in which case

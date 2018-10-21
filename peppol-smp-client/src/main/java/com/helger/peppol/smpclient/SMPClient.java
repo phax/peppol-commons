@@ -43,6 +43,7 @@ import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
+import com.helger.peppol.url.PeppolDNSResolutionException;
 
 /**
  * This class is used for calling the SMP REST interface. This particular class
@@ -69,12 +70,14 @@ public class SMPClient extends SMPClientReadOnly
    *        access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
+   * @throws PeppolDNSResolutionException
+   *         if DNS resolution fails
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
   public SMPClient (@Nonnull final IPeppolURLProvider aURLProvider,
                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                    @Nonnull final ISMLInfo aSMLInfo)
+                    @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }
@@ -92,12 +95,14 @@ public class SMPClient extends SMPClientReadOnly
    *        URI. Must end with a trailing dot (".") and may neither be
    *        <code>null</code> nor empty to build a correct URL. May not start
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
+   * @throws PeppolDNSResolutionException
+   *         if DNS resolution fails
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      String)
    */
   public SMPClient (@Nonnull final IPeppolURLProvider aURLProvider,
                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                    @Nonnull @Nonempty final String sSMLZoneName)
+                    @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, sSMLZoneName);
   }

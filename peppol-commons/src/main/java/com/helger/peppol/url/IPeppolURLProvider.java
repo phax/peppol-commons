@@ -44,12 +44,12 @@ public interface IPeppolURLProvider extends Serializable
    * @param aSMLInfo
    *        The SML information object to be used. May not be <code>null</code>.
    * @return DNS record
-   * @throws IllegalArgumentException
-   *         In case one argument is invalid
+   * @throws PeppolDNSResolutionException
+   *         If the URL resolution failed.
    */
   @Nonnull
   default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                          @Nonnull final ISMLInfo aSMLInfo)
+                                          @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -73,12 +73,14 @@ public interface IPeppolURLProvider extends Serializable
    *         <code>http://</code> or any path suffix. It is the plain DNS host
    *         name. Since version 1.1.4 this method returns the DNS name without
    *         the trailing dot!
+   * @throws PeppolDNSResolutionException
+   *         If the URL resolution failed.
    * @throws IllegalArgumentException
    *         In case one argument is invalid
    */
   @Nonnull
   String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                  @Nullable final String sSMLZoneName);
+                                  @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException;
 
   /**
    * Get the SMP URI of the passed participant ID in the provided SML DNS zone
@@ -89,15 +91,15 @@ public interface IPeppolURLProvider extends Serializable
    * @param aSMLInfo
    *        The SML zone to use. May not be <code>null</code>.
    * @return A new URI starting with "http://" and never ending with a slash.
-   * @throws IllegalArgumentException
-   *         If - whysoever - no valid URI could be created.
+   * @throws PeppolDNSResolutionException
+   *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @Nonnull
   default URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nonnull final ISMLInfo aSMLInfo)
+                                      @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -113,15 +115,15 @@ public interface IPeppolURLProvider extends Serializable
    * @param sSMLZoneName
    *        The SML zone to use. May be <code>null</code>.
    * @return A new URI starting with "http://" and never ending with a slash.
-   * @throws IllegalArgumentException
-   *         If - whysoever - no valid URI could be created.
+   * @throws PeppolDNSResolutionException
+   *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @Nonnull
   default URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nullable final String sSMLZoneName)
+                                      @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
@@ -146,15 +148,15 @@ public interface IPeppolURLProvider extends Serializable
    * @param aSMLInfo
    *        The SML zone to use. May not be <code>null</code>.
    * @return A new URL with scheme "http:" and never ending with a slash.
-   * @throws IllegalArgumentException
-   *         If - whysoever - no valid URI/URL could be created.
+   * @throws PeppolDNSResolutionException
+   *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @Nonnull
   default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nonnull final ISMLInfo aSMLInfo)
+                                      @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -171,15 +173,15 @@ public interface IPeppolURLProvider extends Serializable
    * @param sSMLZoneName
    *        The SML zone name to use. May be <code>null</code>.
    * @return A new URL with scheme "http:" and never ending with a slash.
-   * @throws IllegalArgumentException
-   *         If - whysoever - no valid URI/URL could be created.
+   * @throws PeppolDNSResolutionException
+   *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
    */
   @Nonnull
   default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nullable final String sSMLZoneName)
+                                      @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 

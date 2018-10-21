@@ -55,9 +55,10 @@ public class PeppolURLProvider implements IPeppolURLProvider
 
   /**
    * Get the MD5-hash-string-representation of the passed value using the
-   * {@link #URL_CHARSET} encoding. Each hash byte is represented as 2 characters
-   * in the range [0-9a-f]. Note: the hash value creation is done case sensitive!
-   * The caller needs to ensure that the value to hash is lower case!
+   * {@link #URL_CHARSET} encoding. Each hash byte is represented as 2
+   * characters in the range [0-9a-f]. Note: the hash value creation is done
+   * case sensitive! The caller needs to ensure that the value to hash is lower
+   * case!
    *
    * @param sValueToHash
    *        The value to be hashed. May not be <code>null</code>.
@@ -74,14 +75,14 @@ public class PeppolURLProvider implements IPeppolURLProvider
 
   @Nonnull
   public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                         @Nullable final String sSMLZoneName)
+                                         @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new IllegalArgumentException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
-                                          sSMLZoneName);
+      throw new PeppolDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
+                                              sSMLZoneName);
 
     // Check identifier scheme (must be lowercase for the URL later on!)
     final String sIdentifierScheme = StringHelper.getNotNull (aParticipantIdentifier.getScheme ())
