@@ -31,6 +31,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
     * Removed all deprecated methods
     * Converted a runtime exception to a checked exception in `IPeppolURLProvider.getDNSNameOfParticipant`. The new exception class is called `PeppolDNSResolutionException`.
     * Added new class `SMPClientBadResponseException`
+    * Optional SMP data structure XSD validation can be now enabled (see `AbstractSMPMarshaller.setValidationEnabled` and `AbstractBDXRMarshaller.setValidationEnabled`)
 * v6.1.4 - 2018-10-17
     * Updated to final code list V3
     * The files `PeppolDocumentTypeIdentifier.*` got new attribute names (`name` &rarr; `profilecode`, `doctypeid` &rarr; `id`, added `scheme`)
