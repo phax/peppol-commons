@@ -88,12 +88,6 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
   @Nonnull
   URL getManageParticipantIdentifierEndpointAddress ();
 
-  @Deprecated
-  default boolean requiresClientCertificate ()
-  {
-    return isClientCertificateRequired ();
-  }
-
   /**
    * @return <code>true</code> if this SML requires a client certificate for
    *         access, <code>false</code> otherwise. Both PEPPOL production SML

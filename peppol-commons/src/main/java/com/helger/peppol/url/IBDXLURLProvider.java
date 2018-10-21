@@ -46,18 +46,6 @@ public interface IBDXLURLProvider extends IPeppolURLProvider
   @ReturnsMutableCopy
   ICommonsMap <String, String> getAllDNSCacheEntries ();
 
-  /**
-   * @return A copy of all entries currently in the cache. Never
-   *         <code>null</code> but maybe empty.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  @Deprecated
-  default ICommonsMap <String, String> getAllCacheEntries ()
-  {
-    return getAllDNSCacheEntries ();
-  }
-
   @Nonnull
   default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                           @Nullable final String sSMLZoneName)

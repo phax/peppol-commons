@@ -16,12 +16,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.bdxr.ProcessIdentifierType;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 
 /**
@@ -67,66 +65,6 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType implements
   }
 
   /**
-   * Create a new process identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier schemes
-   * and values.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT be
-   *        percent encoded! May be <code>null</code>.
-   * @return The created {@link BDXRProcessIdentifier} and never
-   *         <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed identifier is not a valid URI encoded identifier
-   */
-  @Nonnull
-  @Deprecated
-  public static BDXRProcessIdentifier createFromURIPart (@Nonnull final String sURIPart)
-  {
-    final BDXRProcessIdentifier ret = createFromURIPartOrNull (sURIPart);
-    if (ret == null)
-      throw new IllegalArgumentException ("Process identifier '" +
-                                          sURIPart +
-                                          "' did not include correct delimiter: " +
-                                          CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
-
-    return ret;
-  }
-
-  /**
-   * Create a new process identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier schemes
-   * and values.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT be
-   *        percent encoded! May be <code>null</code>.
-   * @return The created {@link BDXRProcessIdentifier} or <code>null</code> if the
-   *         passed identifier is not a valid URI encoded identifier
-   * @deprecated Use
-   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseProcessIdentifier(String)}
-   *             instead
-   */
-  @Nullable
-  @Deprecated
-  public static BDXRProcessIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
-  {
-    if (sURIPart == null)
-      return null;
-
-    // This is quicker than splitting with RegEx!
-    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
-                                                                      sURIPart,
-                                                                      2);
-    if (aSplitted.size () != 2)
-      return null;
-
-    return createIfValid (aSplitted.get (0), aSplitted.get (1));
-  }
-
-  /**
    * Take the passed identifier scheme and value try to convert it back to a
    * process identifier. If the passed scheme is invalid <code>null</code> is
    * returned.
@@ -148,21 +86,5 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType implements
     if (IBDXRProcessIdentifier.isValidScheme (sScheme) && IBDXRProcessIdentifier.isValidValue (sValue))
       return new BDXRProcessIdentifier (sScheme, sValue);
     return null;
-  }
-
-  /**
-   * Check if the passed process identifier is valid. This method checks for the
-   * existence of the scheme and the value and validates both.
-   *
-   * @param sURIPart
-   *        The process identifier to be checked (including the scheme). May be
-   *        <code>null</code>.
-   * @return <code>true</code> if the process identifier is valid,
-   *         <code>false</code> otherwise
-   */
-  @Deprecated
-  public static boolean isValidURIPart (@Nullable final String sURIPart)
-  {
-    return createFromURIPartOrNull (sURIPart) != null;
   }
 }

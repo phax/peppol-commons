@@ -26,8 +26,10 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v6.1.5 - work in progress
+* v6.2.0 - work in progress
     * Added SMP transport profile "PEPPOL AS4 v2"
+    * Removed all deprecated methods
+    * Converted a runtime exception to a checked exception in `IPeppolURLProvider.getDNSNameOfParticipant`
 * v6.1.4 - 2018-10-17
     * Updated to final code list V3
     * The files `PeppolDocumentTypeIdentifier.*` got new attribute names (`name` &rarr; `profilecode`, `doctypeid` &rarr; `id`, added `scheme`)

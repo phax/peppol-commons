@@ -16,14 +16,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * A special PEPPOL participant identifier handling all the special constraints
@@ -76,8 +72,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Private constructor that passed the pre-checked values directly to the super
-   * class. Has a dummy parameter for a unique signature.
+   * Private constructor that passed the pre-checked values directly to the
+   * super class. Has a dummy parameter for a unique signature.
    *
    * @param bVerified
    *        dummy
@@ -111,86 +107,6 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Create a new participant identifier that uses the default schema
-   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}
-   *
-   * @param sValue
-   *        The identifier value like <code>0088:12345678</code>
-   * @return The created {@link PeppolParticipantIdentifier} and never
-   *         <code>null</code>.
-   * @deprecated Use
-   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#createParticipantIdentifierWithDefaultScheme(String)}
-   *             instead
-   */
-  @Nonnull
-  @Deprecated
-  public static PeppolParticipantIdentifier createWithDefaultScheme (@Nonnull final String sValue)
-  {
-    return new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, sValue);
-  }
-
-  /**
-   * Create a new participant identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code> (e.g.
-   *        <code>iso6523-actorid-upis::0088:12345678</code>). It must NOT be
-   *        percent encoded!
-   * @return The created {@link PeppolParticipantIdentifier} and never
-   *         <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed identifier is not a valid URI encoded identifier
-   */
-  @Nonnull
-  @Deprecated
-  public static PeppolParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart)
-  {
-    final PeppolParticipantIdentifier ret = createFromURIPartOrNull (sURIPart);
-    if (ret == null)
-      throw new IllegalArgumentException ("Peppol Participant identifier '" +
-                                          sURIPart +
-                                          "' did not include correct delimiter: " +
-                                          CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
-
-    return ret;
-  }
-
-  /**
-   * Create a new participant identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}. Take the passed URI part and
-   * try to convert it back to a participant identifier. The URI part must have
-   * the layout <code>scheme::value</code>. This method accepts only valid PEPPOL
-   * participant identifier schemes and valid participant identifier values.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code> (e.g.
-   *        <code>iso6523-actorid-upis::0088:12345678</code>). It must NOT be
-   *        percent encoded!
-   * @return The created {@link PeppolParticipantIdentifier} or <code>null</code>
-   *         if the passed identifier is not a valid URI encoded identifier
-   * @deprecated Use
-   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseParticipantIdentifier(String)}
-   *             instead
-   */
-  @Nullable
-  @Deprecated
-  public static PeppolParticipantIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
-  {
-    if (sURIPart == null)
-      return null;
-
-    // This is quicker than splitting with RegEx!
-    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
-                                                                      sURIPart,
-                                                                      2);
-    if (aSplitted.size () != 2)
-      return null;
-
-    return createIfValid (aSplitted.get (0), aSplitted.get (1));
-  }
-
-  /**
    * Take the passed identifier scheme and value try to convert it back to a
    * participant identifier. If the passed scheme is invalid or if the passed
    * value is invalid, <code>null</code> is returned.
@@ -213,21 +129,5 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
     if (IPeppolParticipantIdentifier.isValidScheme (sScheme) && IPeppolParticipantIdentifier.isValidValue (sValue))
       return new PeppolParticipantIdentifier (true, sScheme, sValue);
     return null;
-  }
-
-  /**
-   * Check if the passed participant identifier is valid. This method checks for
-   * the existence of the scheme and the value and validates both.
-   *
-   * @param sURIPart
-   *        The participant identifier to be checked (including the scheme). May
-   *        be <code>null</code>.
-   * @return <code>true</code> if the participant identifier is valid,
-   *         <code>false</code> otherwise
-   */
-  @Deprecated
-  public static boolean isValidURIPart (@Nullable final String sURIPart)
-  {
-    return createFromURIPartOrNull (sURIPart) != null;
   }
 }

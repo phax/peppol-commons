@@ -33,14 +33,6 @@ public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeI
   @Nonempty
   String getCustomizationID ();
 
-  @Nonnull
-  @Nonempty
-  @Deprecated
-  default String getAsUBLCustomizationID ()
-  {
-    return getCustomizationID ();
-  }
-
   /**
    * @return The version number
    */

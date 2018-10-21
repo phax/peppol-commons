@@ -16,12 +16,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.bdxr.DocumentIdentifierType;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 
 /**
@@ -67,65 +65,6 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
   }
 
   /**
-   * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier schemes
-   * and values.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT be
-   *        percent encoded!
-   * @return The created {@link BDXRDocumentTypeIdentifier} and never
-   *         <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed identifier is not a valid URI encoded identifier
-   */
-  @Nonnull
-  @Deprecated
-  public static BDXRDocumentTypeIdentifier createFromURIPart (@Nonnull final String sURIPart)
-  {
-    final BDXRDocumentTypeIdentifier ret = createFromURIPartOrNull (sURIPart);
-    if (ret == null)
-      throw new IllegalArgumentException ("BDXR Document type identifier '" +
-                                          sURIPart +
-                                          "' did not include correct delimiter: " +
-                                          CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
-    return ret;
-  }
-
-  /**
-   * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier schemes
-   * and values.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT be
-   *        percent encoded! May be <code>null</code>.
-   * @return The created {@link BDXRDocumentTypeIdentifier} or <code>null</code>
-   *         if the passed identifier is not a valid URI encoded identifier
-   * @deprecated Use
-   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseDocumentTypeIdentifier(String)}
-   *             instead
-   */
-  @Nullable
-  @Deprecated
-  public static BDXRDocumentTypeIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
-  {
-    if (sURIPart == null)
-      return null;
-
-    // This is quicker than splitting with RegEx!
-    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
-                                                                      sURIPart,
-                                                                      2);
-    if (aSplitted.size () != 2)
-      return null;
-
-    return createIfValid (aSplitted.get (0), aSplitted.get (1));
-  }
-
-  /**
    * Take the passed identifier scheme and value try to convert it back to a
    * document type identifier. If the passed scheme or value are invalid
    * <code>null</code> is returned.
@@ -136,8 +75,8 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
    * @param sValue
    *        The identifier value. May be <code>null</code> in which case
    *        <code>null</code> is returned.
-   * @return The document type identifier or <code>null</code> if any of the parts
-   *         is invalid.
+   * @return The document type identifier or <code>null</code> if any of the
+   *         parts is invalid.
    * @see IBDXRDocumentTypeIdentifier#isValidScheme(String)
    * @see IBDXRDocumentTypeIdentifier#isValidValue(String)
    */
@@ -147,21 +86,5 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
     if (IBDXRDocumentTypeIdentifier.isValidScheme (sScheme) && IBDXRDocumentTypeIdentifier.isValidValue (sValue))
       return new BDXRDocumentTypeIdentifier (sScheme, sValue);
     return null;
-  }
-
-  /**
-   * Check if the passed document type identifier is valid. This method checks for
-   * the existence of the scheme and the value and validates both.
-   *
-   * @param sURIPart
-   *        The document type identifier to be checked (including the scheme). May
-   *        be <code>null</code>.
-   * @return <code>true</code> if the document type identifier is valid,
-   *         <code>false</code> otherwise
-   */
-  @Deprecated
-  public static boolean isValidURIPart (@Nullable final String sURIPart)
-  {
-    return createFromURIPartOrNull (sURIPart) != null;
   }
 }

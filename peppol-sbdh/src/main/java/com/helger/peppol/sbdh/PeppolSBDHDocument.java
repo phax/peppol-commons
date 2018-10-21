@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.sbdh;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -37,7 +36,6 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
-import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
 import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
@@ -50,7 +48,7 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class PeppolSBDHDocument implements Serializable
+public class PeppolSBDHDocument
 {
   private final IIdentifierFactory m_aIdentifierFactory;
   // Sender
@@ -74,17 +72,6 @@ public class PeppolSBDHDocument implements Serializable
   private Element m_aBusinessMessage;
   // Additional attributes
   private final StringMap m_aAdditionalAttrs = new StringMap ();
-
-  /**
-   * Default constructor.
-   *
-   * @deprecated Use the version with an explicit identifier factory.
-   */
-  @Deprecated
-  public PeppolSBDHDocument ()
-  {
-    this (SimpleIdentifierFactory.INSTANCE);
-  }
 
   /**
    * Constructor
@@ -613,7 +600,7 @@ public class PeppolSBDHDocument implements Serializable
 
   /**
    * Check if all additional attributes contain non-reserved names.
-   * 
+   *
    * @return <code>true</code> if no additional attributes are present or if all
    *         additional attributes contain valid names.
    */
@@ -693,32 +680,6 @@ public class PeppolSBDHDocument implements Serializable
                                        .append ("BusinessMessage", m_aBusinessMessage)
                                        .append ("AdditionalAttributes", m_aAdditionalAttrs)
                                        .getToString ();
-  }
-
-  /**
-   * Create a new {@link PeppolSBDHDocument} object for a business message. The
-   * resulting object has all required fields set, except for:
-   * <ul>
-   * <li>sender ID</li>
-   * <li>receiver ID</li>
-   * <li>document type ID</li>
-   * <li>and process ID</li>
-   * </ul>
-   *
-   * @param aBusinessMessage
-   *        The XML business message. May not be <code>null</code>.
-   * @return A pre-filled {@link PeppolSBDHDocument} object with some
-   *         information still missing.
-   * @see #setSender(String, String)
-   * @see #setReceiver(String, String)
-   * @see #setDocumentType(String, String)
-   * @see #setProcess(String, String)
-   */
-  @Nonnull
-  @Deprecated
-  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage)
-  {
-    return create (aBusinessMessage, SimpleIdentifierFactory.INSTANCE);
   }
 
   /**

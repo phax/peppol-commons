@@ -238,47 +238,6 @@ public class BDXRClient extends BDXRClientReadOnly
   }
 
   /**
-   * Saves a service meta data object. This method can only used to save service
-   * information objects!
-   *
-   * @param aServiceMetadata
-   *        The service meta data object to save.
-   * @param aCredentials
-   *        The user name and password to use as aCredentials.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         The user name or password was not correct.
-   * @throws SMPClientNotFoundException
-   *         A HTTP Not Found was received. This can happen if the service was
-   *         not found.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #saveServiceInformation(ServiceInformationType,
-   *      BasicAuthClientCredentials)
-   * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier,
-   *      RedirectType, BasicAuthClientCredentials)
-   */
-  @Deprecated
-  public void saveServiceRegistration (@Nonnull final ServiceMetadataType aServiceMetadata,
-                                       @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
-  {
-    ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
-    final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
-    ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
-    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
-                           "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
-    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (),
-                           "ServiceMetadata.ServiceInformation.DocumentIdentifier");
-    ValueEnforcer.notNull (aCredentials, "Credentials");
-
-    _saveServiceInformation (aServiceInformation.getParticipantIdentifier (),
-                             aServiceInformation.getDocumentIdentifier (),
-                             aServiceMetadata,
-                             aCredentials);
-  }
-
-  /**
    * Saves a service information data object.
    *
    * @param aServiceInformation

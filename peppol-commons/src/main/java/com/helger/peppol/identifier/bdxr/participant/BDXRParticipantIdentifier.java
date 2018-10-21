@@ -16,12 +16,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.bdxr.ParticipantIdentifierType;
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 
 /**
@@ -67,68 +65,9 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
   }
 
   /**
-   * Create a new document type identifier from the URI representation. This is
-   * the inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier schemes
-   * and values.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT be
-   *        percent encoded!
-   * @return The created {@link BDXRParticipantIdentifier} and never
-   *         <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed identifier is not a valid URI encoded identifier
-   */
-  @Nonnull
-  @Deprecated
-  public static BDXRParticipantIdentifier createFromURIPart (@Nonnull final String sURIPart)
-  {
-    final BDXRParticipantIdentifier ret = createFromURIPartOrNull (sURIPart);
-    if (ret == null)
-      throw new IllegalArgumentException ("BDXR Participant identifier '" +
-                                          sURIPart +
-                                          "' did not include correct delimiter: " +
-                                          CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
-    return ret;
-  }
-
-  /**
-   * Create a new participant identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}. The URI part must have the
-   * layout <code>scheme::value</code>. This method accepts all identifier schemes
-   * and values.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code>. It must NOT be
-   *        percent encoded!
-   * @return The created {@link BDXRParticipantIdentifier} or <code>null</code> if
-   *         the passed identifier is not a valid URI encoded identifier
-   * @deprecated Use
-   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseParticipantIdentifier(String)}
-   *             instead
-   */
-  @Nullable
-  @Deprecated
-  public static BDXRParticipantIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
-  {
-    if (sURIPart == null)
-      return null;
-
-    // This is quicker than splitting with RegEx!
-    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
-                                                                      sURIPart,
-                                                                      2);
-    if (aSplitted.size () != 2)
-      return null;
-
-    return createIfValid (aSplitted.get (0), aSplitted.get (1));
-  }
-
-  /**
    * Take the passed identifier scheme and value try to convert it back to a
-   * participant identifier. If the passed scheme is invalid <code>null</code> is
-   * returned.
+   * participant identifier. If the passed scheme is invalid <code>null</code>
+   * is returned.
    *
    * @param sScheme
    *        The identifier scheme. May be <code>null</code> in which case
@@ -147,21 +86,5 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
     if (IBDXRParticipantIdentifier.isValidScheme (sScheme) && IBDXRParticipantIdentifier.isValidValue (sValue))
       return new BDXRParticipantIdentifier (sScheme, sValue);
     return null;
-  }
-
-  /**
-   * Check if the passed participant identifier is valid. This method checks for
-   * the existence of the scheme and the value.
-   *
-   * @param sURIPart
-   *        The participant identifier to be checked (including the scheme). May
-   *        be <code>null</code>.
-   * @return <code>true</code> if the participant identifier is valid,
-   *         <code>false</code> otherwise
-   */
-  @Deprecated
-  public static boolean isValidURIPart (@Nullable final String sURIPart)
-  {
-    return createFromURIPartOrNull (sURIPart) != null;
   }
 }

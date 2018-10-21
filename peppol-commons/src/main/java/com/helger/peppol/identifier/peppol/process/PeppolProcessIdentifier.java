@@ -102,84 +102,6 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   }
 
   /**
-   * Create a new process identifier that uses the default schema
-   * {@link PeppolIdentifierHelper#DEFAULT_PROCESS_SCHEME}
-   *
-   * @param sValue
-   *        The identifier value like
-   *        <code>urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   * @return The created {@link PeppolProcessIdentifier} and never
-   *         <code>null</code>.
-   * @deprecated Use
-   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#createProcessIdentifierWithDefaultScheme(String)}
-   *             instead
-   */
-  @Nonnull
-  @Deprecated
-  public static PeppolProcessIdentifier createWithDefaultScheme (@Nonnull final String sValue)
-  {
-    return new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, sValue);
-  }
-
-  /**
-   * Create a new process identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code> (e.g.
-   *        <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   *        ). It must NOT be percent encoded!
-   * @return The created {@link PeppolProcessIdentifier} and never
-   *         <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed identifier is not a valid URI encoded identifier
-   */
-  @Nonnull
-  @Deprecated
-  public static PeppolProcessIdentifier createFromURIPart (@Nonnull final String sURIPart)
-  {
-    final PeppolProcessIdentifier ret = createFromURIPartOrNull (sURIPart);
-    if (ret == null)
-      throw new IllegalArgumentException ("Peppol Process identifier '" +
-                                          sURIPart +
-                                          "' did not include correct delimiter: " +
-                                          CIdentifier.URL_SCHEME_VALUE_SEPARATOR);
-
-    return ret;
-  }
-
-  /**
-   * Create a new process identifier from the URI representation. This is the
-   * inverse operation of {@link #getURIEncoded()}.
-   *
-   * @param sURIPart
-   *        The URI part in the format <code>scheme::value</code> (e.g.
-   *        <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii01:ver1.0</code>
-   *        ). It must NOT be percent encoded! May be <code>null</code>.
-   * @return The created {@link PeppolProcessIdentifier} or <code>null</code> if
-   *         the passed identifier is not a valid URI encoded identifier
-   * @deprecated Use
-   *             {@link com.helger.peppol.identifier.factory.IIdentifierFactory#parseProcessIdentifier(String)}
-   *             instead
-   */
-  @Nullable
-  @Deprecated
-  public static PeppolProcessIdentifier createFromURIPartOrNull (@Nullable final String sURIPart)
-  {
-    if (sURIPart == null)
-      return null;
-
-    // This is quicker than splitting with RegEx!
-    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
-                                                                      sURIPart,
-                                                                      2);
-    if (aSplitted.size () != 2)
-      return null;
-
-    return createIfValid (aSplitted.get (0), aSplitted.get (1));
-  }
-
-  /**
    * Take the passed identifier scheme and value try to convert it back to a
    * process identifier. If the passed scheme is invalid or if the passed value is
    * invalid, <code>null</code> is returned.
@@ -201,21 +123,5 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
     if (IPeppolProcessIdentifier.isValidScheme (sScheme) && IPeppolProcessIdentifier.isValidValue (sValue))
       return new PeppolProcessIdentifier (true, sScheme, sValue);
     return null;
-  }
-
-  /**
-   * Check if the passed process identifier is valid. This method checks for the
-   * existence of the scheme and the value and validates both.
-   *
-   * @param sURIPart
-   *        The process identifier to be checked (including the scheme). May be
-   *        <code>null</code>.
-   * @return <code>true</code> if the process identifier is valid,
-   *         <code>false</code> otherwise
-   */
-  @Deprecated
-  public static boolean isValidURIPart (@Nullable final String sURIPart)
-  {
-    return createFromURIPartOrNull (sURIPart) != null;
   }
 }
