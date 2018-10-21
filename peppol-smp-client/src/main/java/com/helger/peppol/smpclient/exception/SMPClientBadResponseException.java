@@ -8,25 +8,24 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.url;
+package com.helger.peppol.smpclient.exception;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
- * New checked exception to be thrown if DNS resolution fails.
+ * This exception is thrown if the evaluation of the SMP response failed
  *
  * @author Philip Helger
  * @since 6.2.0
  */
-public class PeppolDNSResolutionException extends Exception
+public class SMPClientBadResponseException extends SMPClientException
 {
-  public PeppolDNSResolutionException (@Nonnull final String sMessage)
+  public SMPClientBadResponseException (@Nonnull final String sMessage)
   {
     super (sMessage);
   }
 
-  public PeppolDNSResolutionException (@Nonnull final String sMessage, @Nullable final Throwable aCause)
+  public SMPClientBadResponseException (@Nonnull final String sMessage, @Nonnull final Throwable aCause)
   {
     super (sMessage, aCause);
   }

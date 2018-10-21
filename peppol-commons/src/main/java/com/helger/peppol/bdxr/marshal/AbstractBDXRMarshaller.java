@@ -10,13 +10,18 @@
  */
 package com.helger.peppol.bdxr.marshal;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.functional.IFunction;
+import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.peppol.bdxr.ObjectFactory;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xsds.xmldsig.CXMLDSig;
 
 /**
  * Abstract JAXB marshaller with namespace prefix mapping
@@ -27,11 +32,27 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
  */
 public abstract class AbstractBDXRMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
+  // For backwards compatibility
+  public static final boolean DEFAULT_VALIDATION_ENABLED = false;
+  private static final AtomicBoolean VALIDATION_ENABLED = new AtomicBoolean (DEFAULT_VALIDATION_ENABLED);
+
+  public static boolean isValidationEnabled ()
+  {
+    return VALIDATION_ENABLED.get ();
+  }
+
+  public static void setValidationEnabled (final boolean bEnabled)
+  {
+    VALIDATION_ENABLED.set (bEnabled);
+  }
+
+  private static final ClassPathResource XSD = new ClassPathResource ("/WEB-INF/wsdl/bdx-smp-201605.xsd",
+                                                                      AbstractBDXRMarshaller.class.getClassLoader ());
+
   public AbstractBDXRMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                  @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    // No XSD
-    super (aType, aWrapper);
+    super (aType, isValidationEnabled () ? new CommonsArrayList <> (CXMLDSig.getXSDResource (), XSD) : null, aWrapper);
 
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
     aNSContext.addMapping ("bdxr", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());

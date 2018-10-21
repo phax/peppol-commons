@@ -143,8 +143,7 @@ public final class SMPClientTest
   public void testUnauthorizedUser () throws SMPClientException
   {
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
-    final BasicAuthClientCredentials aCredentials = new BasicAuthClientCredentials (SMP_USERNAME +
-                                                                                    "wronguser",
+    final BasicAuthClientCredentials aCredentials = new BasicAuthClientCredentials (SMP_USERNAME + "wronguser",
                                                                                     SMP_PASSWORD);
     try
     {
@@ -222,10 +221,10 @@ public final class SMPClientTest
     final SignedServiceMetadataType aSignedServiceMetadata = aSMPClient.getServiceRegistration (aServiceGroupID,
                                                                                                 aDocumentID);
     LOGGER.info ("Service aMetadata ID:" +
-                    aSignedServiceMetadata.getServiceMetadata ()
-                                          .getServiceInformation ()
-                                          .getParticipantIdentifier ()
-                                          .getValue ());
+                 aSignedServiceMetadata.getServiceMetadata ()
+                                       .getServiceInformation ()
+                                       .getParticipantIdentifier ()
+                                       .getValue ());
 
     aSMPClient.deleteServiceRegistration (aServiceGroupID, aDocumentID, SMP_CREDENTIALS);
     aSMPClient.deleteServiceGroup (MockSMPClientConfig.getParticipantID (), SMP_CREDENTIALS);

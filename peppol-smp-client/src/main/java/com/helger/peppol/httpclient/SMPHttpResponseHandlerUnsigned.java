@@ -16,7 +16,6 @@ import java.nio.charset.Charset;
 import javax.annotation.Nonnull;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
@@ -26,6 +25,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.httpclient.HttpClientHelper;
 import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.peppol.smpclient.exception.SMPClientBadResponseException;
 
 /**
  * This is the Apache HTTP client response handler to verify unsigned HTTP
@@ -51,7 +51,7 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
 
   @Override
   @Nonnull
-  public T handleEntity (@Nonnull final HttpEntity aEntity) throws IOException
+  public T handleEntity (@Nonnull final HttpEntity aEntity) throws SMPClientBadResponseException, IOException
   {
     // Read the payload
     if (false && GlobalDebug.isDebugMode ())
@@ -63,7 +63,7 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
         LOGGER.info (new String (aContent, aCharset));
       final T ret = m_aMarshaller.read (aContent);
       if (ret == null)
-        throw new ClientProtocolException ("Malformed XML document returned from SMP server");
+        throw new SMPClientBadResponseException ("Malformed XML document returned from SMP server");
       return ret;
     }
 
@@ -71,7 +71,7 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
     // Additionally the BOM handling is enabled when using InputStream
     final T ret = m_aMarshaller.read (aEntity.getContent ());
     if (ret == null)
-      throw new ClientProtocolException ("Malformed XML document returned from SMP server");
+      throw new SMPClientBadResponseException ("Malformed XML document returned from SMP server");
     return ret;
   }
 }

@@ -10,13 +10,18 @@
  */
 package com.helger.peppol.smp.marshal;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.functional.IFunction;
+import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.peppol.smp.ObjectFactory;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xsds.xmldsig.CXMLDSig;
 
 /**
  * Abstract JAXB marshaller with namespace prefix mapping
@@ -27,11 +32,33 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
  */
 public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
+  // For backwards compatibility
+  public static final boolean DEFAULT_VALIDATION_ENABLED = false;
+  private static final AtomicBoolean VALIDATION_ENABLED = new AtomicBoolean (DEFAULT_VALIDATION_ENABLED);
+
+  public static boolean isValidationEnabled ()
+  {
+    return VALIDATION_ENABLED.get ();
+  }
+
+  public static void setValidationEnabled (final boolean bEnabled)
+  {
+    VALIDATION_ENABLED.set (bEnabled);
+  }
+
+  private static final ClassPathResource XSD1 = new ClassPathResource ("/WEB-INF/wsdl/Identifiers-1.0.xsd",
+                                                                       AbstractSMPMarshaller.class.getClassLoader ());
+  private static final ClassPathResource XSD2 = new ClassPathResource ("/WEB-INF/wsdl/ws-addr.xsd",
+                                                                       AbstractSMPMarshaller.class.getClassLoader ());
+  private static final ClassPathResource XSD3 = new ClassPathResource ("/WEB-INF/wsdl/ServiceMetadataPublishingTypes-1.0.xsd",
+                                                                       AbstractSMPMarshaller.class.getClassLoader ());
+
   public AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    // No XSD
-    super (aType, aWrapper);
+    super (aType,
+           isValidationEnabled () ? new CommonsArrayList <> (CXMLDSig.getXSDResource (), XSD1, XSD2, XSD3) : null,
+           aWrapper);
 
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
     aNSContext.addMapping ("smp", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());

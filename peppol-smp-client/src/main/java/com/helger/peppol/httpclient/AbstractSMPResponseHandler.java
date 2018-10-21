@@ -18,11 +18,13 @@ import javax.annotation.Nullable;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.util.EntityUtils;
 
 import com.helger.commons.debug.GlobalDebug;
+import com.helger.peppol.smpclient.exception.SMPClientBadResponseException;
 
 /**
  * Abstract {@link ResponseHandler} implementation that ensures a leak free
@@ -46,10 +48,12 @@ public abstract class AbstractSMPResponseHandler <T> implements ResponseHandler 
    *        The entity to handle. Never <code>null</code>.
    * @return the result. May be <code>null</code>.
    * @throws IOException
+   *         on IO error
+   * @throws SMPClientBadResponseException
    *         if something goes wrong
    */
   @Nullable
-  public abstract T handleEntity (@Nonnull HttpEntity aEntity) throws IOException;
+  public abstract T handleEntity (@Nonnull HttpEntity aEntity) throws IOException, SMPClientBadResponseException;
 
   /**
    * Read the entity from the response body and pass it to the entity handler
@@ -71,6 +75,14 @@ public abstract class AbstractSMPResponseHandler <T> implements ResponseHandler 
       }
       throw new HttpResponseException (aStatusLine.getStatusCode (), aStatusLine.getReasonPhrase ());
     }
-    return aEntity == null ? null : handleEntity (aEntity);
+    try
+    {
+      return aEntity == null ? null : handleEntity (aEntity);
+    }
+    catch (final SMPClientBadResponseException ex)
+    {
+      // Wrap to comply to API :(
+      throw new ClientProtocolException (ex);
+    }
   }
 }

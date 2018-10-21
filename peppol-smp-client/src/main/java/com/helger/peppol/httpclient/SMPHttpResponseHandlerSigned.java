@@ -16,17 +16,19 @@ import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.WillNotClose;
+import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.Reference;
 import javax.xml.crypto.dsig.XMLSignature;
+import javax.xml.crypto.dsig.XMLSignatureException;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
@@ -34,6 +36,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.peppol.smpclient.SMPClientConfiguration;
+import com.helger.peppol.smpclient.exception.SMPClientBadResponseException;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.xml.serialize.read.DOMReader;
 
@@ -81,8 +84,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
   /**
    * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this check
-   *         is enabled (see {@link #DEFAULT_CHECK_CERTIFICATE}).
+   *         enabled, <code>false</code> if it is disabled. By default this
+   *         check is enabled (see {@link #DEFAULT_CHECK_CERTIFICATE}).
    * @since 5.2.1
    */
   public boolean isCheckCertificate ()
@@ -90,7 +93,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     return m_bCheckCertificate;
   }
 
-  private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream) throws Exception
+  private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream) throws SAXException,
+                                                                                                       MarshalException,
+                                                                                                       XMLSignatureException
   {
     // Get response from servlet
     final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);
@@ -147,12 +152,12 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
   @Override
   @Nonnull
-  public T handleEntity (@Nonnull final HttpEntity aEntity) throws IOException
+  public T handleEntity (@Nonnull final HttpEntity aEntity) throws SMPClientBadResponseException, IOException
   {
     // Get complete response as one big byte buffer
     final byte [] aResponseBytes = StreamHelper.getAllBytes (aEntity.getContent ());
     if (ArrayHelper.isEmpty (aResponseBytes))
-      throw new ClientProtocolException ("Could not read SMP server response content");
+      throw new SMPClientBadResponseException ("Could not read SMP server response content");
 
     if (m_bCheckCertificate)
     {
@@ -160,20 +165,20 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       {
         // Check the signature
         if (!_checkSignature (aIS))
-          throw new ClientProtocolException ("Signature returned from SMP server was not valid");
+          throw new SMPClientBadResponseException ("Signature returned from SMP server was not valid");
       }
       catch (final Exception ex)
       {
-        throw new ClientProtocolException ("Error in validating signature returned from SMP server", ex);
+        throw new SMPClientBadResponseException ("Error in validating signature returned from SMP server", ex);
       }
     }
     else
-      LOGGER.warn ("SMP response certificate checking is disabled. This should not happen in production systems!");
+      LOGGER.error ("SMP response certificate checking is disabled. This should not happen in production systems!");
 
     // Finally convert to domain object
     final T ret = m_aMarshaller.read (aResponseBytes);
     if (ret == null)
-      throw new ClientProtocolException ("Malformed XML document returned from SMP server");
+      throw new SMPClientBadResponseException ("Malformed XML document returned from SMP server");
     return ret;
   }
 }
