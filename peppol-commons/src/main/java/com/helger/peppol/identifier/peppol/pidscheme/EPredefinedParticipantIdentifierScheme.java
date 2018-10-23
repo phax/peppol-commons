@@ -579,7 +579,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.2.1
      */
-    BE_CBE("BE:CBE", "Belgian Crossroad Bank of Enterprises ", "9956", false, Version.parse("1.2.1")),
+    BE_CBE("BE:CBE", "Belgian Crossroad Bank of Enterprises", "9956", false, Version.parse("1.2.1")),
 
     /**
      * Prefix <code>9957</code>, scheme ID <code>FR:VAT</code><br>

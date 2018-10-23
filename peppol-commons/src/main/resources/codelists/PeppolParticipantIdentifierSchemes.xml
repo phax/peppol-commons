@@ -164,7 +164,7 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</examples>
     <usage>Deprecated by 0190</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="SE:VAT" agencyname="Swedish VAT number" iso6523="9955" since="1.2.0" deprecated="false" />
-  <identifier-scheme schemeid="BE:CBE" agencyname="Belgian Crossroad Bank of Enterprises " iso6523="9956" since="1.2.1" deprecated="false">
+  <identifier-scheme schemeid="BE:CBE" agencyname="Belgian Crossroad Bank of Enterprises" iso6523="9956" since="1.2.1" deprecated="false">
     <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
   </identifier-scheme>
   <identifier-scheme schemeid="FR:VAT" agencyname="French VAT number" iso6523="9957" since="1.2.1" deprecated="false" />

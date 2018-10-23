@@ -117,6 +117,12 @@ public final class MainCreatePredefinedEnumsFromExcel
     LOGGER.info ("Wrote Genericode file " + sFilename);
   }
 
+  @Nullable
+  private static String _getRowValue (@Nonnull final Row aRow, @Nonnull @Nonempty final String sColumnID)
+  {
+    return StringHelper.trim (Genericode10Helper.getRowValue (aRow, sColumnID));
+  }
+
   private static void _emitDocumentTypes (final Sheet aDocumentSheet) throws URISyntaxException
   {
     // Create GeneriCode file
@@ -144,13 +150,12 @@ public final class MainCreatePredefinedEnumsFromExcel
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sProfileCode = Genericode10Helper.getRowValue (aRow, "profilecode");
-      final String sScheme = Genericode10Helper.getRowValue (aRow, "scheme");
-      final String sID = Genericode10Helper.getRowValue (aRow, "id");
-      final String sSince = Genericode10Helper.getRowValue (aRow, "since");
-      final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
-                                                          DEFAULT_DEPRECATED);
-      final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
+      final String sProfileCode = _getRowValue (aRow, "profilecode");
+      final String sScheme = _getRowValue (aRow, "scheme");
+      final String sID = _getRowValue (aRow, "id");
+      final String sSince = _getRowValue (aRow, "since");
+      final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+      final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
         throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
 
@@ -178,13 +183,12 @@ public final class MainCreatePredefinedEnumsFromExcel
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sProfileCode = Genericode10Helper.getRowValue (aRow, "profilecode");
-        final String sScheme = Genericode10Helper.getRowValue (aRow, "scheme");
-        final String sID = Genericode10Helper.getRowValue (aRow, "id");
-        final String sSince = Genericode10Helper.getRowValue (aRow, "since");
-        final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
-                                                            DEFAULT_DEPRECATED);
-        final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
+        final String sProfileCode = _getRowValue (aRow, "profilecode");
+        final String sScheme = _getRowValue (aRow, "scheme");
+        final String sID = _getRowValue (aRow, "id");
+        final String sSince = _getRowValue (aRow, "since");
+        final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
         if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
           throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
 
@@ -432,17 +436,16 @@ public final class MainCreatePredefinedEnumsFromExcel
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sSchemeID = Genericode10Helper.getRowValue (aRow, "schemeid");
-      final String sISO6523 = Genericode10Helper.getRowValue (aRow, "iso6523");
-      final String sAgency = Genericode10Helper.getRowValue (aRow, "schemeagency");
-      final String sSince = Genericode10Helper.getRowValue (aRow, "since");
-      final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
-                                                          DEFAULT_DEPRECATED);
-      final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
-      final String sStructure = Genericode10Helper.getRowValue (aRow, "structure");
-      final String sDisplay = Genericode10Helper.getRowValue (aRow, "display");
-      final String sExamples = Genericode10Helper.getRowValue (aRow, "examples");
-      final String sUsage = Genericode10Helper.getRowValue (aRow, "usage");
+      final String sSchemeID = _getRowValue (aRow, "schemeid");
+      final String sISO6523 = _getRowValue (aRow, "iso6523");
+      final String sAgency = _getRowValue (aRow, "schemeagency");
+      final String sSince = _getRowValue (aRow, "since");
+      final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+      final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
+      final String sStructure = _getRowValue (aRow, "structure");
+      final String sDisplay = _getRowValue (aRow, "display");
+      final String sExamples = _getRowValue (aRow, "examples");
+      final String sUsage = _getRowValue (aRow, "usage");
 
       if (StringHelper.hasNoText (sSchemeID))
         throw new IllegalArgumentException ("schemeID");
@@ -485,17 +488,16 @@ public final class MainCreatePredefinedEnumsFromExcel
       // enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sSchemeID = Genericode10Helper.getRowValue (aRow, "schemeid");
-        final String sISO6523 = Genericode10Helper.getRowValue (aRow, "iso6523");
-        final String sAgency = Genericode10Helper.getRowValue (aRow, "schemeagency");
-        final String sSince = Genericode10Helper.getRowValue (aRow, "since");
-        final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
-                                                            DEFAULT_DEPRECATED);
-        final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
-        final String sStructure = Genericode10Helper.getRowValue (aRow, "structure");
-        final String sDisplay = Genericode10Helper.getRowValue (aRow, "display");
-        final String sExamples = Genericode10Helper.getRowValue (aRow, "examples");
-        final String sUsage = Genericode10Helper.getRowValue (aRow, "usage");
+        final String sSchemeID = _getRowValue (aRow, "schemeid");
+        final String sISO6523 = _getRowValue (aRow, "iso6523");
+        final String sAgency = _getRowValue (aRow, "schemeagency");
+        final String sSince = _getRowValue (aRow, "since");
+        final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
+        final String sStructure = _getRowValue (aRow, "structure");
+        final String sDisplay = _getRowValue (aRow, "display");
+        final String sExamples = _getRowValue (aRow, "examples");
+        final String sUsage = _getRowValue (aRow, "usage");
 
         final JEnumConstant jEnumConst = jEnum.enumConstant (RegExHelper.getAsIdentifier (sSchemeID));
         jEnumConst.arg (JExpr.lit (sSchemeID));
@@ -612,14 +614,13 @@ public final class MainCreatePredefinedEnumsFromExcel
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sProfileCode = Genericode10Helper.getRowValue (aRow, "profilecode");
-      final String sBISID = Genericode10Helper.getRowValue (aRow, "bisid");
-      final String sScheme = Genericode10Helper.getRowValue (aRow, "scheme");
-      final String sID = Genericode10Helper.getRowValue (aRow, "id");
-      final String sSince = Genericode10Helper.getRowValue (aRow, "since");
-      final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
-                                                          DEFAULT_DEPRECATED);
-      final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
+      final String sProfileCode = _getRowValue (aRow, "profilecode");
+      final String sBISID = _getRowValue (aRow, "bisid");
+      final String sScheme = _getRowValue (aRow, "scheme");
+      final String sID = _getRowValue (aRow, "id");
+      final String sSince = _getRowValue (aRow, "since");
+      final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+      final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
 
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
         throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
@@ -648,14 +649,13 @@ public final class MainCreatePredefinedEnumsFromExcel
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sProfileCode = Genericode10Helper.getRowValue (aRow, "profilecode");
-        final String sBISID = Genericode10Helper.getRowValue (aRow, "bisid");
-        final String sScheme = Genericode10Helper.getRowValue (aRow, "scheme");
-        final String sID = Genericode10Helper.getRowValue (aRow, "id");
-        final String sSince = Genericode10Helper.getRowValue (aRow, "since");
-        final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
-                                                            DEFAULT_DEPRECATED);
-        final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
+        final String sProfileCode = _getRowValue (aRow, "profilecode");
+        final String sBISID = _getRowValue (aRow, "bisid");
+        final String sScheme = _getRowValue (aRow, "scheme");
+        final String sID = _getRowValue (aRow, "id");
+        final String sSince = _getRowValue (aRow, "since");
+        final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
 
         // Prepend the scheme, if it is non-default
         final String sIDPrefix = (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme) ? "" : sScheme + "-");
@@ -803,13 +803,12 @@ public final class MainCreatePredefinedEnumsFromExcel
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sProtocol = Genericode10Helper.getRowValue (aRow, "protocol");
-      final String sProfileVersion = Genericode10Helper.getRowValue (aRow, "profileversion");
-      final String sProfileID = Genericode10Helper.getRowValue (aRow, "profileid");
-      final String sSince = Genericode10Helper.getRowValue (aRow, "since");
-      final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
-                                                          DEFAULT_DEPRECATED);
-      final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
+      final String sProtocol = _getRowValue (aRow, "protocol");
+      final String sProfileVersion = _getRowValue (aRow, "profileversion");
+      final String sProfileID = _getRowValue (aRow, "profileid");
+      final String sSince = _getRowValue (aRow, "since");
+      final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+      final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
 
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
         throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
@@ -836,13 +835,12 @@ public final class MainCreatePredefinedEnumsFromExcel
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sProtocol = Genericode10Helper.getRowValue (aRow, "protocol");
-        final String sProfileVersion = Genericode10Helper.getRowValue (aRow, "profileversion");
-        final String sProfileID = Genericode10Helper.getRowValue (aRow, "profileid");
-        final String sSince = Genericode10Helper.getRowValue (aRow, "since");
-        final boolean bDeprecated = StringParser.parseBool (Genericode10Helper.getRowValue (aRow, "deprecated"),
-                                                            DEFAULT_DEPRECATED);
-        final String sDeprecatedSince = Genericode10Helper.getRowValue (aRow, "deprecated-since");
+        final String sProtocol = _getRowValue (aRow, "protocol");
+        final String sProfileVersion = _getRowValue (aRow, "profileversion");
+        final String sProfileID = _getRowValue (aRow, "profileid");
+        final String sSince = _getRowValue (aRow, "since");
+        final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
 
         // Prepend the scheme, if it is non-default
         final String sEnumConstName = RegExHelper.getAsIdentifier (sProfileID);
@@ -987,7 +985,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     }
 
     // Write all Java source files
-    new JCMWriter (s_aCodeModel).build (new File ("src/main/java"));
+    new JCMWriter (s_aCodeModel).build (new File ("src/main/java"), LOGGER::info);
 
     LOGGER.info ("Done creating code");
   }
