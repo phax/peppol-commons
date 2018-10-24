@@ -26,12 +26,12 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v6.2.0 - work in progress
+* v6.2.0 - 2018-10-24
     * Added SMP transport profile "PEPPOL AS4 v2"
     * Removed all deprecated methods
     * Converted a runtime exception to a checked exception in `IPeppolURLProvider.getDNSNameOfParticipant`. The new exception class is called `PeppolDNSResolutionException`.
     * Added new class `SMPClientBadResponseException`
-    * Optional SMP data structure XSD validation can be now enabled (see `AbstractSMPMarshaller.setValidationEnabled` and `AbstractBDXRMarshaller.setValidationEnabled`)
+    * Optional SMP data structure XSD validation can be now enabled (see `AbstractSMPMarshaller.setValidationEnabled` and `AbstractBDXRMarshaller.setValidationEnabled`). By default it is disabled for backwards compatibility.
 * v6.1.4 - 2018-10-17
     * Updated to final code list V3
     * The files `PeppolDocumentTypeIdentifier.*` got new attribute names (`name` &rarr; `profilecode`, `doctypeid` &rarr; `id`, added `scheme`)
@@ -296,31 +296,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>6.1.4</version>
+  <version>6.2.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>6.1.4</version>
+  <version>6.2.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>6.1.4</version>
+  <version>6.2.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>6.1.4</version>
+  <version>6.2.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>6.1.4</version>
+  <version>6.2.0</version>
 </dependency>
 ```
 
@@ -329,7 +329,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>6.1.4</version>
+  <version>6.2.0</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
