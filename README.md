@@ -26,6 +26,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
+* v6.2.1 - work in progress
+    * Requires at least ph-commons 9.1.8
 * v6.2.0 - 2018-10-24
     * Added SMP transport profile "PEPPOL AS4 v2"
     * Removed all deprecated methods
