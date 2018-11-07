@@ -28,6 +28,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 * v6.2.1 - work in progress
     * Requires at least ph-commons 9.1.8
+    * Added a special truststore to access directory.peppol.eu and added this to the complete truststore as well
 * v6.2.0 - 2018-10-24
     * Added SMP transport profile "PEPPOL AS4 v2"
     * Removed all deprecated methods

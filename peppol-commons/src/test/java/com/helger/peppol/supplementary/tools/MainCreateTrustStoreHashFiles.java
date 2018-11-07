@@ -58,6 +58,7 @@ public final class MainCreateTrustStoreHashFiles
   {
     _create (PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
     _create ("truststore/sml-truststore.jks");
+    _create ("truststore/directory-truststore.jks");
     _create (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_CLASSPATH);
     _create (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_CLASSPATH);
     _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_CLASSPATH);
