@@ -65,19 +65,13 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-
-  <properties>
-    <jaxws-plugin.version>2.5</jaxws-plugin.version>
-    <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
-    <jaxws.version>2.2.10</jaxws.version>
-  </properties>
   
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-commons-parent-pom</artifactId>
-        <version>9.1.8</version>
+        <version>9.2.0-SNAPSHOT</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
