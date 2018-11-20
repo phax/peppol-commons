@@ -30,10 +30,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -42,67 +44,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-
-  <profiles>
-    <profile>
-      <id>jdk8</id>
-      <activation>
-        <jdk>1.8</jdk>
-      </activation>
-      <properties>
-        <jaxb.version>2.2.11</jaxb.version>
-        <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
-        <jaxws.version>2.2.10</jaxws.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>jdk9up</id>
-      <activation>
-        <!-- use "12)" to support versions like "11.0.1" -->
-        <jdk>[9,12)</jdk>
-      </activation>
-      <properties>
-        <jaxb.version>2.3.0</jaxb.version>
-        <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
-        <jaxws.version>2.3.1</jaxws.version>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>com.sun.xml.ws</groupId>
-          <artifactId>jaxws-rt</artifactId>
-          <exclusions>
-            <exclusion>
-              <groupId>com.sun.xml.bind</groupId>
-              <artifactId>jaxb-core</artifactId>
-            </exclusion>
-            <exclusion>
-              <groupId>com.sun.xml.bind</groupId>
-              <artifactId>jaxb-impl</artifactId>
-            </exclusion>
-          </exclusions>
-        </dependency>
-      </dependencies>
-    </profile>
-  </profiles>
-  
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-bom</artifactId>
-        <version>${jaxb.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.sun.xml.ws</groupId>
-        <artifactId>jaxws-ri-bom</artifactId>
-        <version>${jaxws.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   
   <dependencies>
     <dependency>
@@ -158,6 +99,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>
