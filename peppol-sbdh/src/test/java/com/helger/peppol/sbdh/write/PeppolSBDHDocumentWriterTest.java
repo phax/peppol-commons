@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
@@ -46,7 +45,7 @@ public final class PeppolSBDHDocumentWriterTest
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDocumentWriterTest.class);
 
   @Test
-  public void testCreateSBDH () throws SAXException, PeppolSBDHDocumentReadException
+  public void testCreateSBDH () throws PeppolSBDHDocumentReadException
   {
     // This is our fake business message
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
@@ -102,7 +101,7 @@ public final class PeppolSBDHDocumentWriterTest
   }
 
   @Test
-  public void testCreateSBDHWithAdditionalAttributes () throws SAXException, PeppolSBDHDocumentReadException
+  public void testCreateSBDHWithAdditionalAttributes () throws PeppolSBDHDocumentReadException
   {
     // This is our fake business message
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
@@ -171,7 +170,7 @@ public final class PeppolSBDHDocumentWriterTest
   }
 
   @Test
-  public void testInvalidAdditionalAttributes () throws SAXException
+  public void testInvalidAdditionalAttributes ()
   {
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 

@@ -14,7 +14,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
@@ -71,28 +70,19 @@ public final class SMPExtensionConverter
    * @param sXML
    *        the XML representation to be converted.
    * @return <code>null</code> if the passed string is empty.
-   * @throws IllegalArgumentException
-   *         If the String cannot be converted to a XML node
    */
   @Nullable
   public static ExtensionType convert (@Nullable final String sXML)
   {
     if (StringHelper.hasText (sXML))
     {
-      try
+      // Try to interpret as XML
+      final Document aDoc = DOMReader.readXMLDOM (sXML);
+      if (aDoc != null)
       {
-        // Try to interpret as XML
-        final Document aDoc = DOMReader.readXMLDOM (sXML);
-        if (aDoc != null)
-        {
-          final ExtensionType aExtension = new ExtensionType ();
-          aExtension.setAny (aDoc.getDocumentElement ());
-          return aExtension;
-        }
-      }
-      catch (final SAXException ex)
-      {
-        throw new IllegalArgumentException ("Error in parsing extension XML '" + sXML + "'", ex);
+        final ExtensionType aExtension = new ExtensionType ();
+        aExtension.setAny (aDoc.getDocumentElement ());
+        return aExtension;
       }
     }
 

@@ -28,8 +28,8 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
@@ -180,7 +180,7 @@ public final class PeppolSBDHDocumentReaderTest
   }
 
   @Test
-  public void testReadGoodNode () throws PeppolSBDHDocumentReadException, SAXException
+  public void testReadGoodNode () throws PeppolSBDHDocumentReadException
   {
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader ();
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
@@ -244,26 +244,29 @@ public final class PeppolSBDHDocumentReaderTest
     {
       final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
       assertTrue (aRes.getPath (), aRes.exists ());
-      try
-      {
-        aReader.extractData (DOMReader.readXMLDOM (aRes, aSettings));
-        fail ();
-      }
-      catch (final SAXException ex)
+
+      final Document aDoc = DOMReader.readXMLDOM (aRes, aSettings);
+      if (aDoc == null)
       {
         // May only occur if an "invalid-sbd-xml" error is expected
         assertEquals (aRes.getPath (), EPeppolSBDHDocumentReadError.INVALID_SBD_XML, aEntry.getValue ());
       }
-      catch (final PeppolSBDHDocumentReadException ex)
-      {
-        // check for expected error code
-        assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
-      }
+      else
+        try
+        {
+          aReader.extractData (aDoc);
+          fail ();
+        }
+        catch (final PeppolSBDHDocumentReadException ex)
+        {
+          // check for expected error code
+          assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
+        }
     }
   }
 
   @Test
-  public void testReadGoodAsBad1 () throws SAXException
+  public void testReadGoodAsBad1 ()
   {
     // Always fails
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader ()
@@ -290,7 +293,7 @@ public final class PeppolSBDHDocumentReaderTest
   }
 
   @Test
-  public void testReadGoodAsBad2 () throws SAXException
+  public void testReadGoodAsBad2 ()
   {
     // Always fails
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader ()

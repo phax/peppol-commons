@@ -17,7 +17,6 @@ import javax.annotation.concurrent.Immutable;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
@@ -171,25 +170,22 @@ public final class BDXRExtensionConverter
   @Nullable
   public static ICommonsList <ExtensionType> convertXMLToSingleExtension (@Nullable final String sXML)
   {
-    Element aElement = null;
     if (StringHelper.hasText (sXML))
-      try
+    {
+      final Document aDoc = DOMReader.readXMLDOM (sXML);
+      if (aDoc != null)
       {
-        final Document aDoc = DOMReader.readXMLDOM (sXML);
-        if (aDoc != null)
-          aElement = aDoc.getDocumentElement ();
+        final Element aElement = aDoc.getDocumentElement ();
+        if (aElement != null)
+        {
+          final ExtensionType aExtension = new ExtensionType ();
+          aExtension.setAny (aElement);
+          return new CommonsArrayList <> (aExtension);
+        }
       }
-      catch (final SAXException ex)
-      {
-        // Fall through
-      }
+    }
 
-    if (aElement == null)
-      return null;
-
-    final ExtensionType aExtension = new ExtensionType ();
-    aExtension.setAny (aElement);
-    return new CommonsArrayList<> (aExtension);
+    return null;
   }
 
   /**
@@ -211,7 +207,7 @@ public final class BDXRExtensionConverter
       if (aJson == null || !aJson.isArray ())
         throw new IllegalArgumentException ("Error in parsing extension JSON '" + sJson + "'");
 
-      final ICommonsList <ExtensionType> ret = new CommonsArrayList<> ();
+      final ICommonsList <ExtensionType> ret = new CommonsArrayList <> ();
       aJson.getAsArray ().forEach (aChild -> {
         final IJsonObject aObject = aChild.getAsObject ();
         final ExtensionType aExt = new ExtensionType ();
@@ -227,16 +223,11 @@ public final class BDXRExtensionConverter
 
         final String sAny = aObject.getAsString (JSON_ANY);
         if (StringHelper.hasText (sAny))
-          try
-          {
-            final Document aDoc = DOMReader.readXMLDOM (sAny);
-            if (aDoc != null)
-              aExt.setAny (aDoc.getDocumentElement ());
-          }
-          catch (final SAXException ex)
-          {
-            throw new IllegalStateException ("Failed to parse any as XML: " + sAny, ex);
-          }
+        {
+          final Document aDoc = DOMReader.readXMLDOM (sAny);
+          if (aDoc != null)
+            aExt.setAny (aDoc.getDocumentElement ());
+        }
         ret.add (aExt);
       });
       return ret;
