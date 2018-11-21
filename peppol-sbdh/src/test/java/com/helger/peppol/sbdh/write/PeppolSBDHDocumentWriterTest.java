@@ -88,6 +88,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("2.1", aDataRead.getTypeVersion ());
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
+    assertEquals (aData.getCreationDateAndTime (), aDataRead.getCreationDateAndTime ());
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aDataRead.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
