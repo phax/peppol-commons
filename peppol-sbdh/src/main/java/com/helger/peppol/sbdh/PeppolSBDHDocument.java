@@ -717,8 +717,8 @@ public class PeppolSBDHDocument
     // 2. Use a new UUID as the instance identifier
     // 3. Use the current date time
     LocalDateTime aNow = PDTFactory.getCurrentLocalDateTime ();
-    // Cut of Nano seconds for XSD serialization
-    aNow = aNow.withNano (aNow.get (ChronoField.MICRO_OF_SECOND) * 1_000);
+    // Cut of micro and nano seconds for XSD serialization
+    aNow = aNow.withNano (aNow.get (ChronoField.MILLI_OF_SECOND) * 1_000_000);
     ret.setDocumentIdentification (aBusinessMessage.getNamespaceURI (),
                                    CPeppolSBDH.TYPE_VERSION_21,
                                    aBusinessMessage.getLocalName (),
