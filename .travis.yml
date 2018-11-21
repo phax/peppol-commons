@@ -25,7 +25,7 @@ DNMU1dbYy3svuJOc7kE8Ly81a1mxiexktfE2YqqHQWe9HkZW6QHo80="
   
 install:
 #  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -e
 
 cache:
   directories:
