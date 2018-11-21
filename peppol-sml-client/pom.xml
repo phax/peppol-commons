@@ -46,9 +46,16 @@
   </developers>
 
   <properties>
+    <!--
+    <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
+    <jaxws-plugin.version>2.3.1</jaxws-plugin.version>
+    <jaxws-plugin.group>org.codehaus.mojo</jaxws-plugin.group>
     <jaxws-plugin.version>2.5</jaxws-plugin.version>
+    -->
+    <jaxws-plugin.group>com.helger.maven</jaxws-plugin.group>
+    <jaxws-plugin.version>2.6</jaxws-plugin.version>
   </properties>
- 
+  
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
@@ -116,7 +123,7 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
+        <groupId>${jaxws-plugin.group}</groupId>
         <artifactId>jaxws-maven-plugin</artifactId>
         <version>${jaxws-plugin.version}</version>
         <executions>
