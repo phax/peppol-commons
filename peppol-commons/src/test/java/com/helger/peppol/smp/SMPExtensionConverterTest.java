@@ -13,7 +13,6 @@ package com.helger.peppol.smp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -40,19 +39,8 @@ public final class SMPExtensionConverterTest
     final String sXML2 = SMPExtensionConverter.convertToString (aExtension);
     assertEquals (sXML, sXML2);
 
-    try
-    {
-      // Cannot convert non-element
-      SMPExtensionConverter.convert ("Plain text");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // expected
-    }
-
     // Cannot convert non-element
-    assertNull (SMPExtensionConverter.convertOrNull ("Plain text"));
+    assertNull (SMPExtensionConverter.convert ("Plain text"));
   }
 
   @Test

@@ -14,7 +14,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 import org.w3c.dom.Node;
@@ -46,22 +45,11 @@ public final class BDXRExtensionConverterTest
     assertNull (BDXRExtensionConverter.convert (""));
 
     // Convert back to String
-    final String sJson2 = BDXRExtensionConverter.convertToString (new CommonsArrayList<> (aExtension));
+    final String sJson2 = BDXRExtensionConverter.convertToString (new CommonsArrayList <> (aExtension));
     assertEquals (sJson, sJson2);
 
-    try
-    {
-      // Cannot convert non-element
-      BDXRExtensionConverter.convert ("Plain text");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // expected
-    }
-
     // Cannot convert non-element
-    assertNull (BDXRExtensionConverter.convertOrNull ("Plain text"));
+    assertNull (BDXRExtensionConverter.convert ("Plain text"));
   }
 
   @Test
@@ -70,7 +58,7 @@ public final class BDXRExtensionConverterTest
     // Try converting an empty extension
     assertNull (BDXRExtensionConverter.convertToString (null));
     assertEquals ("[]",
-                  BDXRExtensionConverter.convertToString (new CommonsArrayList<> (new ObjectFactory ().createExtensionType ())));
+                  BDXRExtensionConverter.convertToString (new CommonsArrayList <> (new ObjectFactory ().createExtensionType ())));
   }
 
   @Test

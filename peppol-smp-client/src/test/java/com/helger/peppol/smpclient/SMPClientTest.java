@@ -125,7 +125,7 @@ public final class SMPClientTest
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
     final ServiceGroupType aServiceGroupCreate = aSMPClient.saveServiceGroup (MockSMPClientConfig.getParticipantID (),
                                                                               SMP_CREDENTIALS);
-    aServiceGroupCreate.setExtension (SMPExtensionConverter.convertOrNull (sExtensionXML));
+    aServiceGroupCreate.setExtension (SMPExtensionConverter.convert (sExtensionXML));
     aSMPClient.saveServiceGroup (aServiceGroupCreate, SMP_CREDENTIALS);
 
     final ParticipantIdentifierType aServiceGroupID = aServiceGroupCreate.getParticipantIdentifier ();

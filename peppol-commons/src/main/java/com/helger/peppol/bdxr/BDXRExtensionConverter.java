@@ -15,6 +15,8 @@ import java.util.List;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -59,6 +61,7 @@ public final class BDXRExtensionConverter
   public static final String JSON_REASON = "Reason";
   public static final String JSON_ANY = "Any";
 
+  private static final Logger LOGGER = LoggerFactory.getLogger (BDXRExtensionConverter.class);
   private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE);
   private static final JsonWriterSettings s_aJWS = new JsonWriterSettings ().setIndentEnabled (false)
                                                                             .setWriteNewlineAtEnd (false);
@@ -193,9 +196,8 @@ public final class BDXRExtensionConverter
    *
    * @param sJson
    *        the Json representation to be converted.
-   * @return <code>null</code> if the passed string is empty.
-   * @throws IllegalArgumentException
-   *         If the String cannot be converted to a XML node
+   * @return <code>null</code> if the passed string is empty or cannot be
+   *         interpreted as JSON.
    */
   @Nullable
   public static ICommonsList <ExtensionType> convert (@Nullable final String sJson)
@@ -205,55 +207,37 @@ public final class BDXRExtensionConverter
       // Try to interpret as JSON
       final IJson aJson = JsonReader.readFromString (sJson);
       if (aJson == null || !aJson.isArray ())
-        throw new IllegalArgumentException ("Error in parsing extension JSON '" + sJson + "'");
+      {
+        LOGGER.warn ("Error in parsing extension JSON '" + sJson + "'");
+      }
+      else
+      {
+        final ICommonsList <ExtensionType> ret = new CommonsArrayList <> ();
+        aJson.getAsArray ().forEach (aChild -> {
+          final IJsonObject aObject = aChild.getAsObject ();
+          final ExtensionType aExt = new ExtensionType ();
+          aExt.setExtensionID (aObject.getAsString (JSON_ID));
+          aExt.setExtensionName (aObject.getAsString (JSON_NAME));
+          aExt.setExtensionAgencyID (aObject.getAsString (JSON_AGENCY_ID));
+          aExt.setExtensionAgencyName (aObject.getAsString (JSON_AGENCY_NAME));
+          aExt.setExtensionAgencyURI (aObject.getAsString (JSON_AGENCY_URI));
+          aExt.setExtensionVersionID (aObject.getAsString (JSON_VERSION_ID));
+          aExt.setExtensionURI (aObject.getAsString (JSON_URI));
+          aExt.setExtensionReasonCode (aObject.getAsString (JSON_REASON_CODE));
+          aExt.setExtensionReason (aObject.getAsString (JSON_REASON));
 
-      final ICommonsList <ExtensionType> ret = new CommonsArrayList <> ();
-      aJson.getAsArray ().forEach (aChild -> {
-        final IJsonObject aObject = aChild.getAsObject ();
-        final ExtensionType aExt = new ExtensionType ();
-        aExt.setExtensionID (aObject.getAsString (JSON_ID));
-        aExt.setExtensionName (aObject.getAsString (JSON_NAME));
-        aExt.setExtensionAgencyID (aObject.getAsString (JSON_AGENCY_ID));
-        aExt.setExtensionAgencyName (aObject.getAsString (JSON_AGENCY_NAME));
-        aExt.setExtensionAgencyURI (aObject.getAsString (JSON_AGENCY_URI));
-        aExt.setExtensionVersionID (aObject.getAsString (JSON_VERSION_ID));
-        aExt.setExtensionURI (aObject.getAsString (JSON_URI));
-        aExt.setExtensionReasonCode (aObject.getAsString (JSON_REASON_CODE));
-        aExt.setExtensionReason (aObject.getAsString (JSON_REASON));
-
-        final String sAny = aObject.getAsString (JSON_ANY);
-        if (StringHelper.hasText (sAny))
-        {
-          final Document aDoc = DOMReader.readXMLDOM (sAny);
-          if (aDoc != null)
-            aExt.setAny (aDoc.getDocumentElement ());
-        }
-        ret.add (aExt);
-      });
-      return ret;
+          final String sAny = aObject.getAsString (JSON_ANY);
+          if (StringHelper.hasText (sAny))
+          {
+            final Document aDoc = DOMReader.readXMLDOM (sAny);
+            if (aDoc != null)
+              aExt.setAny (aDoc.getDocumentElement ());
+          }
+          ret.add (aExt);
+        });
+        return ret;
+      }
     }
     return null;
-  }
-
-  /**
-   * Convert the passed JSON string to a list of SMP extension types.
-   *
-   * @param sJson
-   *        the JSON representation to be converted.
-   * @return <code>null</code> if the passed string is empty or cannot be
-   *         converted to a XML node
-   */
-  @Nullable
-  public static ICommonsList <ExtensionType> convertOrNull (@Nullable final String sJson)
-  {
-    try
-    {
-      return convert (sJson);
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // Invalid JSON passed
-      return null;
-    }
   }
 }
