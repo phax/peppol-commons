@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
@@ -93,8 +92,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     return m_bCheckCertificate;
   }
 
-  private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream) throws SAXException,
-                                                                                                       MarshalException,
+  private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream) throws MarshalException,
                                                                                                        XMLSignatureException
   {
     // Get response from servlet

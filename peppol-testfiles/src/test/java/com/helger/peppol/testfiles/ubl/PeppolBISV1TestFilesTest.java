@@ -25,7 +25,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.locale.LocaleCache;
@@ -39,7 +38,7 @@ import com.helger.xml.serialize.read.DOMReader;
  */
 public final class PeppolBISV1TestFilesTest
 {
-  private static void _testGoodXML (@Nonnull final IReadableResource aRes) throws SAXException
+  private static void _testGoodXML (@Nonnull final IReadableResource aRes)
   {
     assertTrue (aRes.getPath (), aRes.exists ());
 
@@ -49,7 +48,7 @@ public final class PeppolBISV1TestFilesTest
   }
 
   @Test
-  public void testExists () throws SAXException
+  public void testExists ()
   {
     final Locale AT = LocaleCache.getInstance ().getLocale ("de", "AT");
     for (final EPeppolUBLTestFileType e : EPeppolUBLTestFileType.values ())

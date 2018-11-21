@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.xml.serialize.read.DOMReader;
@@ -35,7 +34,7 @@ import com.helger.xml.serialize.read.DOMReader;
  */
 public final class PeppolSBDHTestFilesTest
 {
-  private static void _testGoodXML (@Nonnull final ClassPathResource aRes) throws SAXException
+  private static void _testGoodXML (@Nonnull final ClassPathResource aRes)
   {
     assertTrue (aRes.getPath (), aRes.exists ());
 
@@ -45,7 +44,7 @@ public final class PeppolSBDHTestFilesTest
   }
 
   @Test
-  public void testExists () throws SAXException
+  public void testExists ()
   {
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
       _testGoodXML (aRes);
