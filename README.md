@@ -26,8 +26,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v6.2.1 - work in progress
-    * Requires at least ph-commons 9.1.8
+* v6.2.1 - 2018-11-22
+    * Updated to ph-commons 9.2.0
     * Added a special truststore to access directory.peppol.eu and added this to the complete truststore as well
 * v6.2.0 - 2018-10-24
     * Added SMP transport profile "PEPPOL AS4 v2"
@@ -299,31 +299,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>6.2.0</version>
+  <version>6.2.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>6.2.0</version>
+  <version>6.2.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>6.2.0</version>
+  <version>6.2.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>6.2.0</version>
+  <version>6.2.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>6.2.0</version>
+  <version>6.2.1</version>
 </dependency>
 ```
 
@@ -332,7 +332,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>6.2.0</version>
+  <version>6.2.1</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
