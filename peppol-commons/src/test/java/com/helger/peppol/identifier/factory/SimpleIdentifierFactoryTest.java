@@ -52,6 +52,17 @@ public final class SimpleIdentifierFactoryTest
   }
 
   @Test
+  public void testParticipantIDCreation ()
+  {
+    final SimpleIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
+    assertNotNull (aIF.createParticipantIdentifier (null, null));
+    assertNotNull (aIF.createParticipantIdentifier (null, "any"));
+    assertNotNull (aIF.createParticipantIdentifier (null, ""));
+    assertNotNull (aIF.createParticipantIdentifier ("", ""));
+    assertNotNull (aIF.createParticipantIdentifier ("bla::#:///:::#", null));
+  }
+
+  @Test
   public void testParticipantID ()
   {
     final SimpleIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;

@@ -43,6 +43,28 @@ public final class BDXRIdentifierFactoryTest
   }
 
   @Test
+  public void testProcessIDCreation ()
+  {
+    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    assertNotNull (aIF.createProcessIdentifier (null, null));
+    assertNotNull (aIF.createProcessIdentifier (null, "any"));
+    assertNotNull (aIF.createProcessIdentifier (null, ""));
+    assertNotNull (aIF.createProcessIdentifier ("", ""));
+    assertNotNull (aIF.createProcessIdentifier ("bla::#:///:::#", null));
+  }
+
+  @Test
+  public void testParticipantIDCreation ()
+  {
+    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    assertNotNull (aIF.createParticipantIdentifier (null, null));
+    assertNotNull (aIF.createParticipantIdentifier (null, "any"));
+    assertNotNull (aIF.createParticipantIdentifier (null, ""));
+    assertNotNull (aIF.createParticipantIdentifier ("", ""));
+    assertNull (aIF.createParticipantIdentifier ("bla::#:///:::#", null));
+  }
+
+  @Test
   public void testParticipantIDCaseInsensitive ()
   {
     final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
