@@ -26,6 +26,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
+* v6.2.2 - 2018-11-30
+    * Made process identifier scheme optional when using `SimpleIdentifierFactory`
 * v6.2.1 - 2018-11-22
     * Updated to ph-commons 9.2.0
     * Added a special truststore to access directory.peppol.eu and added this to the complete truststore as well

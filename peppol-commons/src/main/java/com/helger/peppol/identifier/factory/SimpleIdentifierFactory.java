@@ -30,6 +30,11 @@ public class SimpleIdentifierFactory implements IIdentifierFactory
   public SimpleIdentifierFactory ()
   {}
 
+  public boolean isProcessIdentifierSchemeMandatory ()
+  {
+    return false;
+  }
+
   @Nullable
   public SimpleDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                     @Nullable final String sValue)
