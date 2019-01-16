@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
   <Annotation>
     <AppInfo>
@@ -19,7 +7,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolIdentifierIssuingAgencies</ShortName>
-      <Version>3</Version>
+      <Version>4</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:participantidentifierschemes</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:participantidentifierschemes-1.0</CanonicalVersionUri>
   </Identification>
@@ -292,6 +280,30 @@ Example: 003710948874</SimpleValue>
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
+        <SimpleValue>EU:NAL</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0130</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemeagency">
+        <SimpleValue>European Commission, Information Directorate, Data Transmission Service, Rue de
+la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>1) ICD 4 digits, 2) None</SimpleValue>
+      </Value>
+          <Value ColumnRef="display">
+        <SimpleValue>None</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
         <SimpleValue>IT:SIA</SimpleValue>
       </Value>
           <Value ColumnRef="iso6523">
@@ -444,6 +456,40 @@ Maximum 46 characters for the identifier itself</SimpleValue>
       </Value>
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
+        <SimpleValue>SG:UEN</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0195</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemeagency">
+        <SimpleValue>Singaport Nationwide E-Invoice Framework</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
+        <SimpleValue>IS:KTNR</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0196</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemeagency">
+        <SimpleValue>Icelandic National Registry</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -736,7 +782,13 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>In favour of 0196</SimpleValue>
       </Value>
     </Row>
       <Row>

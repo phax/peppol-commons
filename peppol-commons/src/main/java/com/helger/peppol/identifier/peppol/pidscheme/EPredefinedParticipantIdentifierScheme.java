@@ -1,13 +1,3 @@
-/**
- * Copyright (C) 2015-2019 Philip Helger (www.helger.com)
- * philip[at]helger[dot]com
- *
- * The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 package com.helger.peppol.identifier.peppol.pidscheme;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -117,6 +107,15 @@ public enum EPredefinedParticipantIdentifierScheme
     NL_KVK("NL:KVK", "Vereniging van Kamers van Koophandel en Fabrieken in Nederland, Scheme", "0106", false, Version.parse("1.1.2")),
 
     /**
+     * Prefix <code>0130</code>, scheme ID <code>EU:NAL</code><br>
+     * Structure of the code: 1) ICD 4 digits, 2) None<br>
+     * Display requirements: None<br>
+     * 
+     * @since code list 4
+     */
+    EU_NAL("EU:NAL", "European Commission, Information Directorate, Data Transmission Service, Rue de\nla Loi, 200, B-1049 Brussels, Belgium", "0130", false, Version.parse("4")),
+
+    /**
      * Prefix <code>0135</code>, scheme ID <code>IT:SIA</code><br>
      * Structure of the code: Structure of EDI identifier, Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure:
      * [1234567] [123] [1] [12345], min 11- max 16, &lt; &gt;, A B C D, A: numerical value (7 digits) assigned by Uffico Provinciale IVA (local branch of Ministry of Finance); B: numerical value a (3 digits) identifying the County; C: numerical check digit (1 digit); D: optional numerical value (up to 5 digits0 used by the registered organization (free part). Check digit computation, The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.<br>
@@ -179,6 +178,20 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 3
      */
     UBLBE("UBLBE", "UBL.BE", "0193", false, Version.parse("3")),
+
+    /**
+     * Prefix <code>0195</code>, scheme ID <code>SG:UEN</code><br>
+     * 
+     * @since code list 4
+     */
+    SG_UEN("SG:UEN", "Singaport Nationwide E-Invoice Framework", "0195", false, Version.parse("4")),
+
+    /**
+     * Prefix <code>0196</code>, scheme ID <code>IS:KTNR</code><br>
+     * 
+     * @since code list 4
+     */
+    IS_KTNR("IS:KTNR", "Icelandic National Registry", "0196", false, Version.parse("4")),
 
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
@@ -298,10 +311,13 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9917</code>, scheme ID <code>IS:KT</code><br>
+     * <b>This item is deprecated since version 4 and should not be used to issue new identifiers!</b><br>
+     * Usage information: In favour of 0196<br>
      * 
      * @since code list 1.0.0
      */
-    IS_KT("IS:KT", "Icelandic National Registry", "9917", false, Version.parse("1.0.0")),
+    @Deprecated
+    IS_KT("IS:KT", "Icelandic National Registry", "9917", true, Version.parse("1.0.0")),
 
     /**
      * Prefix <code>9918</code>, scheme ID <code>IBAN</code><br>

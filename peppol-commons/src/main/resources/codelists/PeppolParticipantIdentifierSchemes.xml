@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <!--This file was automatically generated.
 Do NOT edit!-->
-<root version="3">
+<root version="4">
   <identifier-scheme schemeid="FR:SIRENE" agencyname="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" iso6523="0002" since="1.0.0" deprecated="false">
     <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters. 2) Check digits: 9th &amp; 14th character respectively</structure>
     <display>The 9 figure code number (SIREN) is written in groups of 3 characters. Example: 784 301 772, The 14 figure code number is written in 3 groups of 3 characters and a
@@ -58,6 +46,10 @@ Example: 003710948874</examples>
     <display>None</display>
   </identifier-scheme>
   <identifier-scheme schemeid="NL:KVK" agencyname="Vereniging van Kamers van Koophandel en Fabrieken in Nederland, Scheme" iso6523="0106" since="1.1.2" deprecated="false" />
+  <identifier-scheme schemeid="EU:NAL" agencyname="European Commission, Information Directorate, Data Transmission Service, Rue de&#xA;la Loi, 200, B-1049 Brussels, Belgium" iso6523="0130" since="4" deprecated="false">
+    <structure>1) ICD 4 digits, 2) None</structure>
+    <display>None</display>
+  </identifier-scheme>
   <identifier-scheme schemeid="IT:SIA" agencyname="SIA-Società Interbancaria per l'Automazione S.p.A." iso6523="0135" since="1.0.0" deprecated="false">
     <structure>Structure of EDI identifier, Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure:
 [1234567] [123] [1] [12345], min 11- max 16, &lt; &gt;, A B C D, A: numerical value (7 digits) assigned by Uffico Provinciale IVA (local branch of Ministry of Finance); B: numerical value a (3 digits) identifying the County; C: numerical check digit (1 digit); D: optional numerical value (up to 5 digits0 used by the registered organization (free part). Check digit computation, The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</structure>
@@ -86,6 +78,8 @@ The organization number consists of 9 digits where the last digit is a control d
 Maximum 46 characters for the identifier itself</structure>
     <display>None</display>
   </identifier-scheme>
+  <identifier-scheme schemeid="SG:UEN" agencyname="Singaport Nationwide E-Invoice Framework" iso6523="0195" since="4" deprecated="false" />
+  <identifier-scheme schemeid="IS:KTNR" agencyname="Icelandic National Registry" iso6523="0196" since="4" deprecated="false" />
   <identifier-scheme schemeid="DK:CPR" agencyname="Danish Ministry of the Interior and Health" iso6523="9901" since="1.0.0" deprecated="false">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
     <display>None</display>
@@ -121,7 +115,9 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</examples>
   </identifier-scheme>
   <identifier-scheme schemeid="AT:GOV" agencyname="Österreichisches Verwaltungs bzw. Organisationskennzeichen" iso6523="9915" since="1.0.0" deprecated="false" />
   <identifier-scheme schemeid="AT:CID" agencyname="Firmenidentifikationsnummer der Statistik Austria" iso6523="9916" since="1.0.0" deprecated="true" deprecated-since="1.0.2" />
-  <identifier-scheme schemeid="IS:KT" agencyname="Icelandic National Registry" iso6523="9917" since="1.0.0" deprecated="false" />
+  <identifier-scheme schemeid="IS:KT" agencyname="Icelandic National Registry" iso6523="9917" since="1.0.0" deprecated="true" deprecated-since="4">
+    <usage>In favour of 0196</usage>
+  </identifier-scheme>
   <identifier-scheme schemeid="IBAN" agencyname="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" iso6523="9918" since="1.0.1" deprecated="false" />
   <identifier-scheme schemeid="AT:KUR" agencyname="Kennziffer des Unternehmensregisters" iso6523="9919" since="1.0.2" deprecated="false">
     <structure>9 characters in total; letter, number x3, letter, number x3, letter</structure>

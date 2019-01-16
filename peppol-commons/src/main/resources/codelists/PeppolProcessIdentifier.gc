@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
   <Annotation>
     <AppInfo>
@@ -19,7 +7,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolProcessIdentifier</ShortName>
-      <Version>3</Version>
+      <Version>4</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:process</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:process-1.0</CanonicalVersionUri>
   </Identification>
@@ -434,6 +422,162 @@
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Invoice Response V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="bisid">
+        <SimpleValue>BIS 63A</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:www.peppol.eu:profile:bis63a:ver1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL BIS Catalogue only 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:poacc:bis:catalogue_only:3</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL BIS Order only 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:poacc:bis:order_only:3</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL BIS Invoice Response 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL BIS Punch Out 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:poacc:bis:punch_out:3</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL BIS Ordering 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:poacc:bis:ordering:3</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL BIS Despatch Advice 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:poacc:bis:despatch_advice:3</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL BIS Order Agreement 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:poacc:bis:order_agreement:3</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL BIS Message Level Response 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:poacc:bis:mlr:3</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>

@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
   <Annotation>
     <AppInfo>
@@ -19,7 +7,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolDocumentTypeIdentifier</ShortName>
-      <Version>3</Version>
+      <Version>4</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:documenttypes</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:documenttypes-1.0</CanonicalVersionUri>
   </Identification>
@@ -911,6 +899,176 @@
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Invoice Response V1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.peppol.eu:transaction:biitrns111:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Catalogue transaction 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:fdc:peppol.eu:poacc:trns:catalogue:3::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Catalogue Response transaction 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:poacc:trns:catalogue_response:3::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Order transaction 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Invoice Response transaction 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:poacc:trns:invoice_response:3::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Punch Out transaction 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:fdc:peppol.eu:poacc:trns:punch_out:3::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Order Response transaction 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response:3::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Despatch Advice transaction 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:fdc:peppol.eu:poacc:trns:despatch_advice:3::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Order Agreement transaction 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_agreement:3::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL Message Level Response transaction 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:poacc:trns:mlr:3::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>

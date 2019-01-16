@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <!--This file was automatically generated.
 Do NOT edit!-->
-<root version="3">
+<root version="4">
   <process profilecode="PEPPOL Catalogue profile V1" bisid="BIS 1A" scheme="cenbii-procid-ubl" id="urn:www.cenbii.eu:profile:bii01:ver1.0" since="1.0.0" deprecated="true" deprecated-since="1.2.1" />
   <process profilecode="PEPPOL Catalogue profile V4" bisid="BIS 1A" scheme="cenbii-procid-ubl" id="urn:www.cenbii.eu:profile:bii01:ver2.0" since="1.2.0" deprecated="false" />
   <process profilecode="PEPPOL Order profile V1" bisid="BIS 3A" scheme="cenbii-procid-ubl" id="urn:www.cenbii.eu:profile:bii03:ver1.0" since="1.0.0" deprecated="true" deprecated-since="1.2.1" />
@@ -32,4 +20,13 @@ Do NOT edit!-->
   <process profilecode="Tender Submission V1" bisid="P003" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:2017:pracc:p003:01:1.0" since="3" deprecated="false" />
   <process profilecode="OIOUBL UtilityStatement V2.02" scheme="oioubl-procid-ubl" id="Reference-Utility-1.0" since="3" deprecated="false" />
   <process profilecode="OIOUBL Reminder V2.02" scheme="oioubl-procid-ubl" id="Procurement-ReminderOnly-1.0" since="3" deprecated="false" />
+  <process profilecode="PEPPOL Invoice Response V1" bisid="BIS 63A" scheme="cenbii-procid-ubl" id="urn:www.peppol.eu:profile:bis63a:ver1.0" since="4" deprecated="false" />
+  <process profilecode="PEPPOL BIS Catalogue only 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:catalogue_only:3" since="4" deprecated="false" />
+  <process profilecode="PEPPOL BIS Order only 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:order_only:3" since="4" deprecated="false" />
+  <process profilecode="PEPPOL BIS Invoice Response 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:invoice_response:3" since="4" deprecated="false" />
+  <process profilecode="PEPPOL BIS Punch Out 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:punch_out:3" since="4" deprecated="false" />
+  <process profilecode="PEPPOL BIS Ordering 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:ordering:3" since="4" deprecated="false" />
+  <process profilecode="PEPPOL BIS Despatch Advice 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:despatch_advice:3" since="4" deprecated="false" />
+  <process profilecode="PEPPOL BIS Order Agreement 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:order_agreement:3" since="4" deprecated="false" />
+  <process profilecode="PEPPOL BIS Message Level Response 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:mlr:3" since="4" deprecated="false" />
 </root>

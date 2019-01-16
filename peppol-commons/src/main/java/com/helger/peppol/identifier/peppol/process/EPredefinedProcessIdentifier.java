@@ -1,13 +1,3 @@
-/**
- * Copyright (C) 2015-2019 Philip Helger (www.helger.com)
- * philip[at]helger[dot]com
- *
- * The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 package com.helger.peppol.identifier.peppol.process;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -156,7 +146,70 @@ public enum EPredefinedProcessIdentifier
      * 
      * @since code list 3
      */
-    oioubl_procid_ubl_Procurement_ReminderOnly_1_0("oioubl-procid-ubl", "Procurement-ReminderOnly-1.0", null, Version.parse("3"));
+    oioubl_procid_ubl_Procurement_ReminderOnly_1_0("oioubl-procid-ubl", "Procurement-ReminderOnly-1.0", null, Version.parse("3")),
+
+    /**
+     * <code>urn:www.peppol.eu:profile:bis63a:ver1.0</code><br>
+     * 
+     * @since code list 4
+     */
+    urn_www_peppol_eu_profile_bis63a_ver1_0("cenbii-procid-ubl", "urn:www.peppol.eu:profile:bis63a:ver1.0", "BIS 63A", Version.parse("4")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:poacc:bis:catalogue_only:3</code><br>
+     * 
+     * @since code list 4
+     */
+    urn_fdc_peppol_eu_poacc_bis_catalogue_only_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:catalogue_only:3", null, Version.parse("4")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:poacc:bis:order_only:3</code><br>
+     * 
+     * @since code list 4
+     */
+    urn_fdc_peppol_eu_poacc_bis_order_only_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:order_only:3", null, Version.parse("4")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</code><br>
+     * 
+     * @since code list 4
+     */
+    urn_fdc_peppol_eu_poacc_bis_invoice_response_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:invoice_response:3", null, Version.parse("4")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:poacc:bis:punch_out:3</code><br>
+     * 
+     * @since code list 4
+     */
+    urn_fdc_peppol_eu_poacc_bis_punch_out_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:punch_out:3", null, Version.parse("4")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:poacc:bis:ordering:3</code><br>
+     * 
+     * @since code list 4
+     */
+    urn_fdc_peppol_eu_poacc_bis_ordering_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:ordering:3", null, Version.parse("4")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:poacc:bis:despatch_advice:3</code><br>
+     * 
+     * @since code list 4
+     */
+    urn_fdc_peppol_eu_poacc_bis_despatch_advice_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:despatch_advice:3", null, Version.parse("4")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:poacc:bis:order_agreement:3</code><br>
+     * 
+     * @since code list 4
+     */
+    urn_fdc_peppol_eu_poacc_bis_order_agreement_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:order_agreement:3", null, Version.parse("4")),
+
+    /**
+     * <code>urn:fdc:peppol.eu:poacc:bis:mlr:3</code><br>
+     * 
+     * @since code list 4
+     */
+    urn_fdc_peppol_eu_poacc_bis_mlr_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:mlr:3", null, Version.parse("4"));
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      */
@@ -226,6 +279,10 @@ public enum EPredefinedProcessIdentifier
      * Same as {@link #urn_fdc_peppol_eu_2017_pracc_p003_01_1_0}
      */
     public static final EPredefinedProcessIdentifier P003_V1 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_pracc_p003_01_1_0;
+    /**
+     * Same as {@link #urn_www_peppol_eu_profile_bis63a_ver1_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS63A_V1 = EPredefinedProcessIdentifier.urn_www_peppol_eu_profile_bis63a_ver1_0;
     private final String m_sScheme;
     private final String m_sID;
     private final String m_sBISID;
