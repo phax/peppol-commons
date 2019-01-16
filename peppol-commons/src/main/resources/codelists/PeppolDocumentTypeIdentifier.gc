@@ -1074,5 +1074,73 @@
         <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SI-UBL 2.0 Invoice</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:nen.nl:nlcius:v1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SI-UBL 2.0 CreditNote</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:nen.nl:nlcius:v1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SG PEPPOL BIS Billing 3.0 Invoice</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SG PEPPOL BIS Billing 3.0 Credit Note</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
   </SimpleCodeList>
 </gc:CodeList>

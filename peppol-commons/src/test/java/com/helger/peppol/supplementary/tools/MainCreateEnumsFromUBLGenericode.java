@@ -47,6 +47,11 @@ import com.helger.jcodemodel.JOp;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.JCMWriter;
 
+/**
+ * Convert <code>src/main/resources/codelists/ubl</code> files to Java enums.
+ * 
+ * @author Philip Helger
+ */
 public class MainCreateEnumsFromUBLGenericode
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateEnumsFromUBLGenericode.class);
