@@ -13,6 +13,7 @@ package com.helger.peppol.sml;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -33,7 +34,8 @@ public final class ESMLTest
       assertNotNull (eSML.getManagementServiceURL ());
       assertNotNull (eSML.getManageServiceMetaDataEndpointAddress ());
       assertNotNull (eSML.getManageParticipantIdentifierEndpointAddress ());
-      eSML.isClientCertificateRequired ();
+      if (eSML != ESML.DEVELOPMENT_LOCAL)
+        assertTrue (eSML.isClientCertificateRequired ());
       assertSame (eSML, ESML.valueOf (eSML.name ()));
     }
   }
@@ -43,7 +45,8 @@ public final class ESMLTest
   {
     assertEquals ("edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getDNSZone ());
     assertEquals ("publisher.edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getPublisherDNSZone ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", ESML.DIGIT_PRODUCTION.getManagementServiceURL ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml",
+                  ESML.DIGIT_PRODUCTION.getManagementServiceURL ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
                   ESML.DIGIT_PRODUCTION.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
