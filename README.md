@@ -26,6 +26,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
+* v6.2.3 - work in progress
+    * Updated to PEPPOL code lists version 4
 * v6.2.2 - 2018-11-30
     * Made process identifier scheme optional when using `SimpleIdentifierFactory`
 * v6.2.1 - 2018-11-22
