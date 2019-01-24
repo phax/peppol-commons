@@ -49,7 +49,7 @@ import com.helger.jcodemodel.writer.JCMWriter;
 
 /**
  * Convert <code>src/main/resources/codelists/ubl</code> files to Java enums.
- * 
+ *
  * @author Philip Helger
  */
 public class MainCreateEnumsFromUBLGenericode
@@ -139,7 +139,7 @@ public class MainCreateEnumsFromUBLGenericode
     m.body ()
      ._return (s_aCodeModel.ref (EnumHelper.class)
                            .staticInvoke ("getFromIDOrNull")
-                           .arg (JExpr.dotclass (jEnum))
+                           .arg (JExpr.dotClass (jEnum))
                            .arg (jID));
 
     // public static String getDisplayNameFromIDOrNull (@Nullable String sID)
