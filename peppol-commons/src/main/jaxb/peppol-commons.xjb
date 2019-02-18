@@ -96,4 +96,32 @@
       <package name="com.helger.peppol.bdxr2" />
     </schemaBindings>
   </bindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/common/SMP-AggregateComponents-2.0.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.bdxr2.ac" />
+    </schemaBindings>
+  </bindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/common/SMP-BasicComponents-2.0.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.bdxr2.bc" />
+    </schemaBindings>
+    <!-- 
+    <bindings node="//xs:complexType[@name='ParticipantIDType']">
+      <inheritance:implements>com.helger.peppol.identifier.generic.participant.IMutableParticipantIdentifier</inheritance:implements>
+    </bindings> 
+    <bindings node="//xs:complexType[@name='IDType']">
+      <inheritance:implements>com.helger.peppol.identifier.IMutableIdentifier</inheritance:implements>
+    </bindings>
+     --> 
+  </bindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/common/SMP-ExtensionComponents-2.0.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.bdxr2.ec" />
+    </schemaBindings>
+  </bindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/common/SMP-UnqualifiedDataTypes-2.0.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.bdxr2.udt" />
+    </schemaBindings>
+  </bindings>
 </bindings>
