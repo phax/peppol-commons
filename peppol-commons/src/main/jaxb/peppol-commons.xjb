@@ -86,4 +86,14 @@
       <package name="com.helger.peppol.wssec" />
     </schemaBindings>
   </bindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/ServiceGroup-2.0.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.bdxr2" />
+    </schemaBindings>
+  </bindings>
+  <bindings schemaLocation="../resources/WEB-INF/wsdl/ServiceMetadata-2.0.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppol.bdxr2" />
+    </schemaBindings>
+  </bindings>
 </bindings>

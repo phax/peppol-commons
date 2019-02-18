@@ -81,6 +81,22 @@
       <artifactId>ph-xsds-xmldsig</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xsds-xmldsig11</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xsds-xades132</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xsds-xades141</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xsds-ccts-cct-schemamodule</artifactId>
+    </dependency>
+    <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
     </dependency>
@@ -190,6 +206,22 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
             <episode>
               <groupId>com.helger</groupId>
               <artifactId>ph-xsds-xmldsig</artifactId>
+            </episode>
+            <episode>
+              <groupId>com.helger</groupId>
+              <artifactId>ph-xsds-xmldsig11</artifactId>
+            </episode>
+            <episode>
+              <groupId>com.helger</groupId>
+              <artifactId>ph-xsds-xades132</artifactId>
+            </episode>
+            <episode>
+              <groupId>com.helger</groupId>
+              <artifactId>ph-xsds-xades141</artifactId>
+            </episode>
+            <episode>
+              <groupId>com.helger</groupId>
+              <artifactId>ph-xsds-ccts-cct-schemamodule</artifactId>
             </episode>
           </episodes>
         </configuration>

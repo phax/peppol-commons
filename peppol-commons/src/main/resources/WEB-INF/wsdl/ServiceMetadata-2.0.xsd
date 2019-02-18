@@ -27,8 +27,8 @@
                schemaLocation="common/SMP-ExtensionComponents-2.0.xsd"/>
 
    <!-- ===== Incorporate W3C signature specification-->
-   <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#"
-               schemaLocation="common/SMP-xmldsig1-schema-2.0.xsd"/>
+   <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" />
+   <xsd:import namespace="http://www.w3.org/2009/xmldsig11#" />
       
    <!-- ===== Element Declarations ===== -->
    <xsd:element name="ServiceMetadata" type="ServiceMetadataType">

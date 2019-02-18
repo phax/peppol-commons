@@ -23,10 +23,8 @@
   <!-- BDXR Technical Committee extensions -->
 
   <!-- Incorporate ETSI signature specifications -->
-  <xsd:import namespace="http://uri.etsi.org/01903/v1.3.2#"
-              schemaLocation="SMP-XAdES01903v132-201601-2.0.xsd"/>
-  <xsd:import namespace="http://uri.etsi.org/01903/v1.4.1#"
-              schemaLocation="SMP-XAdES01903v141-201601-2.0.xsd"/>
+  <xsd:import namespace="http://uri.etsi.org/01903/v1.3.2#"/>
+  <xsd:import namespace="http://uri.etsi.org/01903/v1.4.1#"/>
 
   <!-- ===== Type Declaration ===== -->
   <xsd:complexType name="ExtensionContentType">
