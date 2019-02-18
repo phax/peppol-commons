@@ -33,6 +33,10 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.httpclient.HttpClientFactory;
@@ -66,6 +70,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private final String m_sSMPHost;
   private HttpHost m_aProxy;
   private Credentials m_aProxyCredentials;
+  private final ICommonsOrderedSet <String> m_aNonProxyHosts = new CommonsLinkedHashSet <> ();
   private boolean m_bUseProxySystemProperties;
   private boolean m_bUseDNSClientCache;
   private int m_nConnectionTimeoutMS = 5000;
@@ -100,6 +105,13 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     // Set default proxy from configuration file
     m_aProxy = SMPClientConfiguration.getHttpProxy ();
     m_aProxyCredentials = SMPClientConfiguration.getHttpProxyCredentials ();
+    final String sNonProxyHosts = SMPClientConfiguration.getNonProxyHosts ();
+    if (StringHelper.hasText (sNonProxyHosts))
+      StringHelper.explode ('|', sNonProxyHosts, sHost -> {
+        final String sTrimmedHost = sHost.trim ();
+        if (StringHelper.hasText (sTrimmedHost))
+          m_aNonProxyHosts.add (sTrimmedHost);
+      });
     m_bUseProxySystemProperties = SMPClientConfiguration.isUseProxySystemProperties ();
     m_bUseDNSClientCache = SMPClientConfiguration.isUseDNSClientCache ();
   }
@@ -109,7 +121,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         . Always has a trailing "/".
    */
   @Nonnull
-  public String getSMPHostURI ()
+  public final String getSMPHostURI ()
   {
     return m_sSMPHost;
   }
@@ -120,7 +132,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @see #getProxyCredentials()
    */
   @Nullable
-  public HttpHost getProxy ()
+  public final HttpHost getProxy ()
   {
     return m_aProxy;
   }
@@ -138,7 +150,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @see #setProxyCredentials(Credentials)
    */
   @Nonnull
-  public IMPLTYPE setProxy (@Nullable final HttpHost aProxy)
+  public final IMPLTYPE setProxy (@Nullable final HttpHost aProxy)
   {
     m_aProxy = aProxy;
     if (aProxy != null && m_bUseProxySystemProperties)
@@ -155,7 +167,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @see #getProxy()
    */
   @Nullable
-  public Credentials getProxyCredentials ()
+  public final Credentials getProxyCredentials ()
   {
     return m_aProxyCredentials;
   }
@@ -172,10 +184,23 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @see #setProxy(HttpHost)
    */
   @Nonnull
-  public IMPLTYPE setProxyCredentials (@Nullable final Credentials aProxyCredentials)
+  public final IMPLTYPE setProxyCredentials (@Nullable final Credentials aProxyCredentials)
   {
     m_aProxyCredentials = aProxyCredentials;
     return thisAsT ();
+  }
+
+  /**
+   * @return The hosts for which non HTTP proxy should be used. Never
+   *         <code>null</code> but maybe empty.
+   * @see #getProxy()
+   * @since 6.2.4
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  public final ICommonsOrderedSet <String> nonProxyHosts ()
+  {
+    return m_aNonProxyHosts;
   }
 
   /**
@@ -184,7 +209,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         they are disabled.
    * @since 5.2.2
    */
-  public boolean isUseProxySystemProperties ()
+  public final boolean isUseProxySystemProperties ()
   {
     return m_bUseProxySystemProperties;
   }
@@ -230,7 +255,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @since 5.2.2
    */
   @Nonnull
-  public IMPLTYPE setUseProxySystemProperties (final boolean bUseProxySystemProperties)
+  public final IMPLTYPE setUseProxySystemProperties (final boolean bUseProxySystemProperties)
   {
     m_bUseProxySystemProperties = bUseProxySystemProperties;
     if (bUseProxySystemProperties && m_aProxy != null)
@@ -246,7 +271,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         <code>false</code> if it is disabled.
    * @since 5.2.5
    */
-  public boolean isUseDNSClientCache ()
+  public final boolean isUseDNSClientCache ()
   {
     return m_bUseDNSClientCache;
   }
@@ -261,7 +286,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @since 5.2.5
    */
   @Nonnull
-  public IMPLTYPE setUseDNSClientCache (final boolean bUseDNSClientCache)
+  public final IMPLTYPE setUseDNSClientCache (final boolean bUseDNSClientCache)
   {
     m_bUseDNSClientCache = bUseDNSClientCache;
     return thisAsT ();
@@ -270,7 +295,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   /**
    * @return The connection timeout in milliseconds. Defaults to 5000 (5 secs).
    */
-  public int getConnectionTimeoutMS ()
+  public final int getConnectionTimeoutMS ()
   {
     return m_nConnectionTimeoutMS;
   }
@@ -284,7 +309,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    */
   @Nonnull
-  public IMPLTYPE setConnectionTimeoutMS (final int nConnectionTimeoutMS)
+  public final IMPLTYPE setConnectionTimeoutMS (final int nConnectionTimeoutMS)
   {
     m_nConnectionTimeoutMS = nConnectionTimeoutMS;
     return thisAsT ();
@@ -293,7 +318,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   /**
    * @return The request timeout in milliseconds. Defaults to 10000 (10 secs).
    */
-  public int getRequestTimeoutMS ()
+  public final int getRequestTimeoutMS ()
   {
     return m_nRequestTimeoutMS;
   }
@@ -307,7 +332,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    */
   @Nonnull
-  public IMPLTYPE setRequestTimeoutMS (final int nRequestTimeoutMS)
+  public final IMPLTYPE setRequestTimeoutMS (final int nRequestTimeoutMS)
   {
     m_nRequestTimeoutMS = nRequestTimeoutMS;
     return thisAsT ();
@@ -324,7 +349,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @since 5.2.1
    */
   @Nonnull
-  public IMPLTYPE setCheckCertificate (final boolean bCheckCertificate)
+  public final IMPLTYPE setCheckCertificate (final boolean bCheckCertificate)
   {
     m_bCheckCertificate = bCheckCertificate;
     return thisAsT ();
@@ -337,7 +362,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         {@link SMPHttpResponseHandlerSigned#DEFAULT_CHECK_CERTIFICATE}).
    * @since 5.2.1
    */
-  public boolean isCheckCertificate ()
+  public final boolean isCheckCertificate ()
   {
     return m_bCheckCertificate;
   }
@@ -347,8 +372,6 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   protected HttpContext createHttpContext ()
   {
     final RequestConfig.Builder aRC = RequestConfig.custom ();
-    if (m_aProxy != null)
-      aRC.setProxy (m_aProxy);
     if (m_nConnectionTimeoutMS > 0)
       aRC.setConnectTimeout (m_nConnectionTimeoutMS);
     if (m_nRequestTimeoutMS > 0)
@@ -385,7 +408,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     final HttpClientFactory aHCFactory = new HttpClientFactory ();
     aHCFactory.setUseSystemProperties (m_bUseProxySystemProperties);
     aHCFactory.setUseDNSClientCache (m_bUseDNSClientCache);
-    aHCFactory.setProxy (m_aProxy, m_aProxyCredentials);
+    if (!m_bUseProxySystemProperties)
+    {
+      aHCFactory.setProxy (m_aProxy, m_aProxyCredentials);
+      aHCFactory.nonProxyHosts ().addAll (m_aNonProxyHosts);
+    }
 
     final HttpContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = new HttpClientManager (aHCFactory))

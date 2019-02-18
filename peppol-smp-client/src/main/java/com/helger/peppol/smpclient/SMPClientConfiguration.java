@@ -153,6 +153,17 @@ public final class SMPClientConfiguration
   }
 
   /**
+   * @return A pipe separated list of non-proxy hosts. E.g.
+   *         <code>localhost|127.0.0.1</code>. May be <code>null</code>.
+   * @since 6.2.4
+   */
+  @Nullable
+  public static String getNonProxyHosts ()
+  {
+    return s_aConfigFile.getAsString ("http.nonProxyHosts");
+  }
+
+  /**
    * Get the content of the property "http.useSystemProperties" or
    * <code>false</code> if undefined.
    *
