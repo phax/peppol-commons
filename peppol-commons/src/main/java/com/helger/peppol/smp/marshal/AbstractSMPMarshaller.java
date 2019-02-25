@@ -62,7 +62,9 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarsha
 
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
     aNSContext.addMapping ("smp", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());
+    aNSContext.addMapping ("id", "http://busdox.org/transport/identifiers/1.0/");
     aNSContext.addMapping ("ds", "http://www.w3.org/2000/09/xmldsig#");
+    aNSContext.addMapping ("wsa", "http://www.w3.org/2005/08/addressing");
     setNamespaceContext (aNSContext);
   }
 }
