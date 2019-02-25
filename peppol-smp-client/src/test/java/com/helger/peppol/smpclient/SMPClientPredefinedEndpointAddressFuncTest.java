@@ -93,7 +93,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                                                                       EPredefinedProcessIdentifier.BIS4A_V2,
                                                                                       ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
     assertNotNull (aEndpointCertificate);
-    assertEquals ("116734465033335658986050433351742789051", aEndpointCertificate.getSerialNumber ().toString ());
+    assertEquals ("60887909668878219226152841132441057095", aEndpointCertificate.getSerialNumber ().toString ());
 
     aEndpointCertificate = _createSMPClient (PI_AT_Prod,
                                              ESML.DIGIT_PRODUCTION).getEndpointCertificate (PI_AT_Prod,
@@ -101,6 +101,6 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                                                                             EPredefinedProcessIdentifier.BIS4A_V2,
                                                                                             ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
     assertNotNull (aEndpointCertificate);
-    assertEquals ("47242738920622652381827551755938905883", aEndpointCertificate.getSerialNumber ().toString ());
+    assertEquals ("33760418496732648246480282249276568857", aEndpointCertificate.getSerialNumber ().toString ());
   }
 }
