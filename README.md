@@ -295,50 +295,57 @@ If you don't need the DNS lookup you can use the URL of the SMP directly (equiva
 ```
 
 # Building from source
+
 This project is meant to be build by Maven 3.x.
 It requires at least Java 1.8 to be build.
 To build simply call `mvn clean install` in the root folder.
 
+When integrating this in your IDE, ensure to run `mvn generate-sources` first, so that the automatically generated files are present.
+For the subprojects `peppol-commons` and `peppol-sml-client` add `target/generated-sources/xjc` to your buildpath afterwards.
+
+
 # Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>6.2.2</version>
+  <version>6.2.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>6.2.2</version>
+  <version>6.2.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>6.2.2</version>
+  <version>6.2.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>6.2.2</version>
+  <version>6.2.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>6.2.2</version>
+  <version>6.2.3</version>
 </dependency>
 ```
 
 Alternatively use the following code in your `dependencyManagement` section to use it as a BOM:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>6.2.2</version>
+  <version>6.2.3</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
@@ -350,8 +357,10 @@ The binary version of this library can be found on http://repo2.maven.org/maven2
 They depend on several other libraries so I suggest you are going for the Maven source integration.
 
 # References
- * [PEPPOL Policy for the use of identifiers 3.0.0](https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/PEPPOL_Policy%20for%20use%20of%20identifiers-300.pdf)
- * [OpenPEPPOL Business Message Envelope (SBDH)](https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-100_2014-01-15.pdf)
+
+* [PEPPOL Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
+* [PEPPOL Policy for the use of identifiers 4.0](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf)
+* [PEPPOL Business Message Envelope (SBDH) 1.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.pdf)
 
 ---
 
