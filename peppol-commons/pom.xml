@@ -147,14 +147,18 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>src/main/resources/WEB-INF/wsdl/**/bdx-smp-*.xsd</exclude>
             <exclude>src/main/resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd</exclude>
             <exclude>src/main/resources/WEB-INF/wsdl/ws-addr.xsd</exclude>
-            <exclude>src/main/resources/WEB-INF/wsdl/xmldsig-core-schema.xsd</exclude>
-            <exclude>src/main/jaxb/catalog.txt</exclude>
+            <!-- OASIS SMP 1.0 -->
+            <exclude>src/main/resources/WEB-INF/wsdl/**/bdx-smp-*.xsd</exclude>
+            <!-- OASIS SMP 2.0 -->
+            <exclude>src/main/resources/WEB-INF/wsdl/ServiceGroup-2.0.xsd</exclude>
+            <exclude>src/main/resources/WEB-INF/wsdl/ServiceMetadata-2.0.xsd</exclude>
+            <exclude>src/main/resources/WEB-INF/wsdl/common/*</exclude>
             <exclude>**/*.csv</exclude>
             <exclude>**/*.jks</exclude>
             <exclude>**/*.sha256</exclude>
+            <exclude>**/*.txt</exclude>
             <exclude>**/NOTICE</exclude>
             <exclude>**/LICENSE</exclude>
           </excludes>

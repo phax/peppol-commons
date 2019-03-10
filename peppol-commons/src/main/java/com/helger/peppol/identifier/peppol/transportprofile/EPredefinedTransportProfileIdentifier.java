@@ -75,18 +75,10 @@ public enum EPredefinedTransportProfileIdentifier {
     private final String m_sProfileID;
     private final Version m_aSince;
 
-    private EPredefinedTransportProfileIdentifier(
-        @Nonnull
-        @Nonempty
-        final String sProtocol,
-        @Nonnull
-        @Nonempty
-        final String sProfileVersion,
-        @Nonnull
-        @Nonempty
-        final String sProfileID,
-        @Nonnull
-        final Version aSince) {
+    private EPredefinedTransportProfileIdentifier(@Nonnull @Nonempty final String sProtocol,
+        @Nonnull @Nonempty final String sProfileVersion,
+        @Nonnull @Nonempty final String sProfileID,
+        @Nonnull final Version aSince) {
         m_sProtocol = sProtocol;
         m_sProfileVersion = sProfileVersion;
         m_sProfileID = sProfileID;

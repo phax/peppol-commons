@@ -298,18 +298,10 @@ public enum EPredefinedProcessIdentifier
     private final String m_sBISID;
     private final Version m_aSince;
 
-    private EPredefinedProcessIdentifier(
-        @Nonnull
-        @Nonempty
-        final String sScheme,
-        @Nonnull
-        @Nonempty
-        final String sID,
-        @Nonnull
-        @Nonempty
-        final String sBISID,
-        @Nonnull
-        final Version aSince) {
+    private EPredefinedProcessIdentifier(@Nonnull @Nonempty final String sScheme,
+        @Nonnull @Nonempty final String sID,
+        @Nullable final String sBISID,
+        @Nonnull final Version aSince) {
         m_sScheme = sScheme;
         m_sID = sID;
         m_sBISID = sBISID;
@@ -328,8 +320,7 @@ public enum EPredefinedProcessIdentifier
         return m_sID;
     }
 
-    @Nonnull
-    @Nonempty
+    @Nullable
     public String getBISID() {
         return m_sBISID;
     }
@@ -345,9 +336,7 @@ public enum EPredefinedProcessIdentifier
     }
 
     @Nullable
-    public static EPredefinedProcessIdentifier getFromProcessIdentifierOrNull(
-        @Nullable
-        final IProcessIdentifier aProcessID) {
+    public static EPredefinedProcessIdentifier getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier aProcessID) {
         if (aProcessID!= null) {
             for (EPredefinedProcessIdentifier e: EPredefinedProcessIdentifier.values()) {
                 if (e.hasScheme(aProcessID.getScheme())&&e.hasValue(aProcessID.getValue())) {

@@ -627,17 +627,11 @@ public enum EPredefinedParticipantIdentifierScheme
     private final boolean m_bDeprecated;
     private final Version m_aSince;
 
-    private EPredefinedParticipantIdentifierScheme(
-        @Nonnull
-        @Nonempty
-        final String sSchemeID,
-        @Nullable
-        final String sSchemeAgency,
-        @Nonnull
-        @Nonempty
-        final String sISO6523, final boolean bDeprecated,
-        @Nonnull
-        final Version aSince) {
+    private EPredefinedParticipantIdentifierScheme(@Nonnull @Nonempty final String sSchemeID,
+        @Nullable final String sSchemeAgency,
+        @Nonnull @Nonempty final String sISO6523,
+        final boolean bDeprecated,
+        @Nonnull final Version aSince) {
         m_sSchemeID = sSchemeID;
         m_sSchemeAgency = sSchemeAgency;
         m_sISO6523 = sISO6523;

@@ -742,17 +742,10 @@ public enum EPredefinedDocumentTypeIdentifier
     private final String m_sProfileCode;
     private final Version m_aSince;
 
-    private EPredefinedDocumentTypeIdentifier(
-        @Nonnull
-        @Nonempty
-        final String sScheme,
-        @Nonnull
-        final IPeppolDocumentTypeIdentifierParts aParts,
-        @Nonnull
-        @Nonempty
-        final String sProfileCode,
-        @Nonnull
-        final Version aSince) {
+    private EPredefinedDocumentTypeIdentifier(@Nonnull @Nonempty final String sScheme,
+        @Nonnull final IPeppolDocumentTypeIdentifierParts aParts,
+        @Nonnull @Nonempty final String sProfileCode,
+        @Nonnull final Version aSince) {
         m_sScheme = sScheme;
         m_aParts = aParts;
         m_sProfileCode = sProfileCode;
@@ -830,9 +823,7 @@ public enum EPredefinedDocumentTypeIdentifier
     }
 
     @Nullable
-    public static EPredefinedDocumentTypeIdentifier getFromDocumentTypeIdentifierOrNull(
-        @Nullable
-        final IDocumentTypeIdentifier aDocTypeID) {
+    public static EPredefinedDocumentTypeIdentifier getFromDocumentTypeIdentifierOrNull(@Nullable final IDocumentTypeIdentifier aDocTypeID) {
         if (aDocTypeID!= null) {
             for (EPredefinedDocumentTypeIdentifier e: EPredefinedDocumentTypeIdentifier.values()) {
                 if (e.hasScheme(aDocTypeID.getScheme())&&e.hasValue(aDocTypeID.getValue())) {

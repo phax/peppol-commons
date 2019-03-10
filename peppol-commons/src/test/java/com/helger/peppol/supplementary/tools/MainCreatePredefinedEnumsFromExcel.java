@@ -716,8 +716,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       jID.annotate (Nonnull.class);
       jID.annotate (Nonempty.class);
       final JVar jBISID = jCtor.param (JMod.FINAL, String.class, "sBISID");
-      jBISID.annotate (Nonnull.class);
-      jBISID.annotate (Nonempty.class);
+      jBISID.annotate (Nullable.class);
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
       jCtor.body ().assign (fScheme, jScheme).assign (fID, jID).assign (fBISID, jBISID).assign (fSince, jSince);
@@ -736,8 +735,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 
       // public String getBISID ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getBISID");
-      m.annotate (Nonnull.class);
-      m.annotate (Nonempty.class);
+      m.annotate (Nullable.class);
       m.body ()._return (fBISID);
 
       // public PeppolProcessIdentifier getAsProcessIdentifier ()
