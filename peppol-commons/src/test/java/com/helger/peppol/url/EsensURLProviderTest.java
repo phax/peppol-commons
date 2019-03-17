@@ -36,6 +36,7 @@ public final class EsensURLProviderTest
                                                                                          "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128"),
                                                         ESML.DIGIT_PRODUCTION.getDNSZone (),
                                                         false));
+
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "abc"),
                                                         ESML.DIGIT_PRODUCTION.getDNSZone (),
@@ -43,6 +44,18 @@ public final class EsensURLProviderTest
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"),
                                                         ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                        false));
+
+    // Check case insensitivity
+    assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis",
+                                                                                         "0088:123abc"),
+                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
+                                                        false));
+    assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis",
+                                                                                         "0088:123ABC"),
+                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
                                                         false));
   }
 
