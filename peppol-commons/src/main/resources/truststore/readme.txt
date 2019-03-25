@@ -48,6 +48,7 @@ sml-truststore.jks (since v6.0.4)
 
 directory-truststore.jks (since v6.2.1)
   It contains the SSL certificates to access the central PEPPOL Directory
+  Updated in v6.2.4 to reflect the changes for the new PD hosting
 
 complete-truststore.jks 
   This is the combination of all available truststores with the same aliases!
