@@ -40,6 +40,9 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   /** The AS2 transport profile to be used in EndPointType objects */
   TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "AS2"),
 
+  /** The AS2 v2 transport profile to be used in EndPointType objects */
+  TRANSPORT_PROFILE_AS2_V2 ("busdox-transport-as2-ver2p0", "PEPPOL AS2 v2"),
+
   /** The AS4 transport profile to be used in EndPointType objects */
   @Deprecated
   TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4")
