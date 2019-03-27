@@ -17,6 +17,7 @@
 package com.helger.peppol.sbdh;
 
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 /**
  * Contains an ordered set of custom variables to be provided in PEPPOL SBDH 1.1
@@ -25,7 +26,8 @@ import javax.annotation.Nullable;
  * @author Philip Helger
  * @since 6.1.4
  */
-public class PeppolSBDHAdditionalAttributes
+@Immutable
+public final class PeppolSBDHAdditionalAttributes
 {
   private PeppolSBDHAdditionalAttributes ()
   {}
