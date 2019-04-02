@@ -257,7 +257,9 @@ public class PeppolSBDHDocumentReader
   @OverrideOnDemand
   protected boolean isValidTypeVersion (@Nullable final String sTypeVersion, @Nonnull final Element aBusinessMessage)
   {
-    return CPeppolSBDH.TYPE_VERSION_20.equals (sTypeVersion) || CPeppolSBDH.TYPE_VERSION_21.equals (sTypeVersion);
+    return CPeppolSBDH.TYPE_VERSION_20.equals (sTypeVersion) ||
+           CPeppolSBDH.TYPE_VERSION_21.equals (sTypeVersion) ||
+           CPeppolSBDH.TYPE_VERSION_22.equals (sTypeVersion);
   }
 
   /**

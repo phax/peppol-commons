@@ -43,6 +43,9 @@ public final class CPeppolSBDH
   /** UBL 2.1 constant */
   public static final String TYPE_VERSION_21 = "2.1";
 
+  /** UBL 2.2 constant */
+  public static final String TYPE_VERSION_22 = "2.2";
+
   @PresentForCodeCoverage
   private static final CPeppolSBDH s_aInstance = new CPeppolSBDH ();
 
