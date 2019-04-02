@@ -16,9 +16,15 @@
  */
 package com.helger.peppol.sbdh;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.io.resource.ClassPathResource;
 
 /**
  * Constants for the usage of SBDH headers in PEPPOL.
@@ -45,6 +51,17 @@ public final class CPeppolSBDH
 
   /** UBL 2.2 constant */
   public static final String TYPE_VERSION_22 = "2.2";
+
+  @Nonnull
+  private static ClassLoader _getCL ()
+  {
+    return CPeppolSBDH.class.getClassLoader ();
+  }
+
+  /** XML Schema resources for special payloads */
+  @CodingStyleguideUnaware
+  public static final List <ClassPathResource> PEPPOL_SPECIAL_PAYLOADS_XSDS = new CommonsArrayList <> (new ClassPathResource ("/schemas/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.xsd",
+                                                                                                                              _getCL ())).getAsUnmodifiable ();
 
   @PresentForCodeCoverage
   private static final CPeppolSBDH s_aInstance = new CPeppolSBDH ();

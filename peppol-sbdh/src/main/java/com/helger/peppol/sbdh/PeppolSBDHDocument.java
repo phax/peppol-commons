@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;
@@ -33,6 +34,7 @@ import com.helger.commons.collection.attr.StringMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.mime.IMimeType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
@@ -40,6 +42,8 @@ import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadWriter;
+import com.helger.peppol.sbdh.spec12.TextContentType;
 
 /**
  * This class contains all the PEPPOL data per SBDH document in a syntax neutral
@@ -546,6 +550,23 @@ public class PeppolSBDHDocument
 
     // Create a deep copy of the element to avoid outside modifications
     m_aBusinessMessage = (Element) aBusinessMessage.cloneNode (true);
+    return this;
+  }
+
+  @Nonnull
+  public PeppolSBDHDocument setBusinessMessageTextOnly (@Nonnull final String sTextPayload,
+                                                        @Nonnull final IMimeType aMimeType)
+  {
+    ValueEnforcer.notNull (sTextPayload, "TextPayload");
+    ValueEnforcer.notNull (aMimeType, "MimeType");
+
+    final TextContentType aTC = new TextContentType ();
+    aTC.setValue (sTextPayload);
+    aTC.setMimeType (aMimeType.getAsString ());
+    final Document aDoc = PeppolSBDHPayloadWriter.textContent ().getAsDocument (aTC);
+    if (aDoc == null)
+      throw new IllegalStateException ("Failed to create 'TextContent' element.");
+    m_aBusinessMessage = aDoc.getDocumentElement ();
     return this;
   }
 
