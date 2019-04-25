@@ -39,6 +39,7 @@ public final class PeppolSBDHTestFiles
     for (final String sFilename : new String [] { "good.xml",
                                                   "good-v11.xml",
                                                   "good-additional-scopes.xml",
+                                                  "good-bis3.xml",
                                                   "good-order-with-qty-ph.xml",
                                                   "good-to-9915-test.xml",
                                                   "good-type-version-20.xml" })
