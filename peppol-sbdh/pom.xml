@@ -74,6 +74,7 @@
       <groupId>com.helger</groupId>
       <artifactId>peppol-commons</artifactId>
     </dependency>
+    
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>peppol-testfiles</artifactId>

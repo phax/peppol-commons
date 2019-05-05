@@ -22,12 +22,16 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 
+import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.xml.serialize.write.XMLWriter;
 
 /**
  * Test class for class {@link PeppolSBDHDocument}.
@@ -118,5 +122,36 @@ public final class PeppolSBDHDocumentTest
                                                                                                    .setReceiverWithDefaultScheme ("def")
                                                                                                    .setDocumentTypeWithDefaultScheme ("doctype")
                                                                                                    .setProcessWithDefaultScheme ("proctype"));
+  }
+
+  @Test
+  public void testBinary ()
+  {
+    final IIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
+    final PeppolSBDHDocument dd = new PeppolSBDHDocument (aIF);
+
+    dd.setBusinessMessageBinaryOnly ("abc".getBytes (StandardCharsets.UTF_8),
+                                     CMimeType.APPLICATION_OCTET_STREAM,
+                                     StandardCharsets.UTF_8);
+    assertNotNull (dd.getBusinessMessage ());
+    assertEquals ("<BinaryContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" encoding=\"UTF-8\" mimeType=\"application/octet-stream\">YWJj</BinaryContent>",
+                  XMLWriter.getNodeAsString (dd.getBusinessMessage ()).trim ());
+
+    dd.setBusinessMessageBinaryOnly ("abc".getBytes (StandardCharsets.UTF_8), CMimeType.APPLICATION_XML, null);
+    assertNotNull (dd.getBusinessMessage ());
+    assertEquals ("<BinaryContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" mimeType=\"application/xml\">YWJj</BinaryContent>",
+                  XMLWriter.getNodeAsString (dd.getBusinessMessage ()).trim ());
+  }
+
+  @Test
+  public void testText ()
+  {
+    final IIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
+    final PeppolSBDHDocument dd = new PeppolSBDHDocument (aIF);
+
+    dd.setBusinessMessageTextOnly ("abc", CMimeType.APPLICATION_OCTET_STREAM);
+    assertNotNull (dd.getBusinessMessage ());
+    assertEquals ("<TextContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" mimeType=\"application/octet-stream\">abc</TextContent>",
+                  XMLWriter.getNodeAsString (dd.getBusinessMessage ()).trim ());
   }
 }

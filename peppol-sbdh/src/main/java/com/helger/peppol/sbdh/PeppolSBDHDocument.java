@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.sbdh;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -43,6 +44,7 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadWriter;
+import com.helger.peppol.sbdh.spec12.BinaryContentType;
 import com.helger.peppol.sbdh.spec12.TextContentType;
 
 /**
@@ -553,6 +555,57 @@ public class PeppolSBDHDocument
     return this;
   }
 
+  /**
+   * Set a business message with binary payload. Based on the PEPPOL SBDH v1.2
+   * binary payload specification.
+   *
+   * @param aBinaryPayload
+   *        The bytes to be wrapped. May not be <code>null</code>.
+   * @param aMimeType
+   *        The MIME type to use. May not be <code>null</code>.
+   * @param aCharset
+   *        The character set to be used, if the MIME type is text based. May be
+   *        <code>null</code>.
+   * @return this for chaining
+   * @see #setBusinessMessage(Element)
+   * @see #setBusinessMessageTextOnly(String, IMimeType)
+   * @since 6.2.4
+   */
+  @Nonnull
+  public PeppolSBDHDocument setBusinessMessageBinaryOnly (@Nonnull final byte [] aBinaryPayload,
+                                                          @Nonnull final IMimeType aMimeType,
+                                                          @Nullable final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aBinaryPayload, "BinaryPayload");
+    ValueEnforcer.notNull (aMimeType, "MimeType");
+
+    final BinaryContentType aBC = new BinaryContentType ();
+    aBC.setValue (aBinaryPayload);
+    aBC.setMimeType (aMimeType.getAsString ());
+    aBC.setEncoding (aCharset == null ? null : aCharset.name ());
+    final Document aDoc = PeppolSBDHPayloadWriter.binaryContent ().getAsDocument (aBC);
+    if (aDoc == null)
+      throw new IllegalStateException ("Failed to create 'BinaryContent' element.");
+    m_aBusinessMessage = aDoc.getDocumentElement ();
+    return this;
+  }
+
+  /**
+   * Set a business message with text payload. Based on the PEPPOL SBDH v1.2
+   * text payload specification. Note: the character set of the wrapped text
+   * must be identical to the character set of the SBDH surrounding it. In case
+   * the payload requires a specific character set, it is suggested to use the
+   * binary message.
+   *
+   * @param sTextPayload
+   *        The text to be wrapped. May not be <code>null</code>.
+   * @param aMimeType
+   *        The MIME type to use. May not be <code>null</code>.
+   * @return this for chaining
+   * @see #setBusinessMessage(Element)
+   * @see #setBusinessMessageBinaryOnly(byte[], IMimeType, Charset)
+   * @since 6.2.4
+   */
   @Nonnull
   public PeppolSBDHDocument setBusinessMessageTextOnly (@Nonnull final String sTextPayload,
                                                         @Nonnull final IMimeType aMimeType)
