@@ -26,11 +26,12 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v6.2.4 - work in progress
+* v6.2.4 - 2019-05-05
     * SMPClient got the possibility to configure "non-proxy hosts" using the configuration file setting `http.nonProxyHosts`
     * Update the Directory trust store to contain the new server certificates for `directory.peppol.eu` and `test-directory.peppol.eu`
     * Added support for the new SMP transport profile `busdox-transport-as2-ver2p0` (PEPPOL AS2 profile v2)
     * PEPPOL SBDH now supports reading UBL 2.2
+    * Added support for new SBDH text and binary payloads as specified in PEPPOL Business Message Envelope v1.2
 * v6.2.3 - 2019-01-18
     * Updated to PEPPOL code lists version 4
 * v6.2.2 - 2018-11-30
@@ -314,31 +315,31 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>6.2.3</version>
+  <version>6.2.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>6.2.3</version>
+  <version>6.2.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>6.2.3</version>
+  <version>6.2.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>6.2.3</version>
+  <version>6.2.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>6.2.3</version>
+  <version>6.2.4</version>
 </dependency>
 ```
 
@@ -348,7 +349,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>6.2.3</version>
+  <version>6.2.4</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
