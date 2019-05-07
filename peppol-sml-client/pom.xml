@@ -53,7 +53,7 @@
     <jaxws-plugin.version>2.5</jaxws-plugin.version>
     -->
     <jaxws-plugin.group>com.helger.maven</jaxws-plugin.group>
-    <jaxws-plugin.version>2.6</jaxws-plugin.version>
+    <jaxws-plugin.version>2.6.1</jaxws-plugin.version>
   </properties>
   
   <dependencies>
