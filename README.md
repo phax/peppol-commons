@@ -26,6 +26,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
+* v6.2.5 - 2019-05-07
+    * Fixed Java 12 compatibility
 * v6.2.4 - 2019-05-05
     * SMPClient got the possibility to configure "non-proxy hosts" using the configuration file setting `http.nonProxyHosts`
     * Update the Directory trust store to contain the new server certificates for `directory.peppol.eu` and `test-directory.peppol.eu`
