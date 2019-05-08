@@ -21,11 +21,11 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
-import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.identifier.simple.doctype.IBusdoxDocumentTypeIdentifierParts;
 import com.helger.xml.mock.XMLTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -44,22 +44,6 @@ public final class PeppolDocumentTypeIdentifierTest
     assertTrue (aIF.createDocumentTypeIdentifierWithDefaultScheme ("abc")
                    .hasScheme (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME));
     assertFalse (new PeppolDocumentTypeIdentifier ("doctype", "abc").hasDefaultScheme ());
-  }
-
-  @Test
-  public void testIsValidDocumentTypeIdentifierValue ()
-  {
-    assertFalse (IPeppolDocumentTypeIdentifier.isValidValue (null));
-    assertFalse (IPeppolDocumentTypeIdentifier.isValidValue (""));
-
-    assertTrue (IPeppolDocumentTypeIdentifier.isValidValue ("invoice"));
-    assertTrue (IPeppolDocumentTypeIdentifier.isValidValue ("order "));
-
-    assertTrue (IPeppolDocumentTypeIdentifier.isValidValue (StringHelper.getRepeated ('a',
-                                                                                      PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH)));
-    assertFalse (IPeppolDocumentTypeIdentifier.isValidValue (StringHelper.getRepeated ('a',
-                                                                                       PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
-                                                                                            1)));
   }
 
   @Test

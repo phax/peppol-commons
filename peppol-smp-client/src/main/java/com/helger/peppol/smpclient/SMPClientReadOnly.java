@@ -26,14 +26,16 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.IProcessIdentifier;
+import com.helger.peppol.identifier.ProcessIdentifierType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.CompleteServiceGroupType;
 import com.helger.peppol.smp.EndpointType;
@@ -523,6 +525,13 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return aSignedServiceMetadata == null ? null : getEndpoint (aSignedServiceMetadata, aProcessID, aTransportProfile);
   }
 
+  private static boolean _hasSameContent (@Nonnull final ProcessIdentifierType aPI1,
+                                          @Nonnull final IProcessIdentifier aPI2)
+  {
+    return EqualsHelper.equals (aPI1.getScheme (), aPI2.getScheme ()) &&
+           EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
+  }
+
   /**
    * Extract the Endpoint from the signedServiceMetadata that matches the passed
    * process ID and the optional required transport profile.
@@ -565,7 +574,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
       {
         // Matches the requested one?
-        if (aProcessType.getProcessIdentifier ().hasSameContent (aProcessID))
+        if (_hasSameContent (aProcessType.getProcessIdentifier (), aProcessID))
         {
           // Filter all endpoints by required transport profile
           final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();

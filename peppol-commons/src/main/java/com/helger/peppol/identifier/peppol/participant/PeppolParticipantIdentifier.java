@@ -16,10 +16,18 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.StringParser;
+import com.helger.peppol.identifier.IMutableIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.identifier.peppol.validator.IdentifierValidator;
 
 /**
  * A special PEPPOL participant identifier handling all the special constraints
@@ -29,7 +37,9 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
  */
 @NotThreadSafe
 public class PeppolParticipantIdentifier extends ParticipantIdentifierType implements
-                                         IMutablePeppolParticipantIdentifier,
+                                         IParticipantIdentifier,
+                                         IPeppolIdentifier,
+                                         IMutableIdentifier,
                                          Comparable <PeppolParticipantIdentifier>,
                                          ICloneable <PeppolParticipantIdentifier>
 {
@@ -42,7 +52,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   @Nonnull
   private static String _verifyScheme (@Nullable final String sScheme)
   {
-    if (!IPeppolParticipantIdentifier.isValidScheme (sScheme))
+    if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sScheme))
       throw new IllegalArgumentException ("Peppol Participant identifier scheme '" + sScheme + "' is invalid!");
     return sScheme;
   }
@@ -50,7 +60,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   @Nonnull
   private static String _verifyValue (@Nonnull final String sValue)
   {
-    if (!IPeppolParticipantIdentifier.isValidValue (sValue))
+    if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sValue))
       throw new IllegalArgumentException ("Peppol Participant identifier value '" + sValue + "' is invalid!");
     return sValue;
   }
@@ -90,6 +100,62 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
     setValue (sValue);
   }
 
+  public boolean hasDefaultScheme ()
+  {
+    return hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME);
+  }
+
+  /**
+   * @return <code>true</code> if the identifier is valid according to the
+   *         internal and external validation rules as defined by
+   *         {@link com.helger.peppol.identifier.peppol.validator.IParticipantIdentifierValidatorSPI}
+   *         implementations.
+   */
+  public boolean isSemanticallyValid ()
+  {
+    return IdentifierValidator.isValidParticipantIdentifier (this);
+  }
+
+  /**
+   * Extract the issuing agency ID from the passed participant identifier value.
+   * <br>
+   * Example: extract the <code>0088</code> from the participant identifier
+   * <code>iso6523-actorid-upis::0088:123456</code><br>
+   * Note: this only works for participant identifiers that are using the
+   * default scheme (iso6523-actorid-upis) because for the other schemes, I just
+   * can't tell!
+   *
+   * @return <code>null</code> if the identifier is not of default scheme or if
+   *         the identifier is malformed.
+   */
+  @Nullable
+  public String getIssuingAgencyID ()
+  {
+    if (hasDefaultScheme ())
+      return StringHelper.getExploded (':', getValue (), 2).getAtIndex (0);
+    return null;
+  }
+
+  /**
+   * Extract the local participant ID from the passed participant identifier
+   * value.<br>
+   * Example: extract the <code>123456</code> from the participant identifier
+   * <code>iso6523-actorid-upis::0088:123456</code><br>
+   * Note: this only works for participant identifiers that are using the
+   * default scheme (iso6523-actorid-upis) because for the other schemes, I just
+   * can't tell!
+   *
+   * @return <code>null</code> if the identifier is not of default scheme or if
+   *         the identifier is malformed.
+   */
+  @Nullable
+  public String getLocalParticipantID ()
+  {
+    if (hasDefaultScheme ())
+      return StringHelper.getExploded (':', getValue (), 2).getAtIndex (1);
+    return null;
+  }
+
   public int compareTo (@Nonnull final PeppolParticipantIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
@@ -126,8 +192,34 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   public static PeppolParticipantIdentifier createIfValid (@Nullable final String sScheme,
                                                            @Nullable final String sValue)
   {
-    if (IPeppolParticipantIdentifier.isValidScheme (sScheme) && IPeppolParticipantIdentifier.isValidValue (sValue))
+    if (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sScheme) &&
+        PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sValue))
       return new PeppolParticipantIdentifier (true, sScheme, sValue);
     return null;
+  }
+
+  /**
+   * Check if the passed identifier value is valid in the PEPPOL default
+   * participant identifier scheme (iso6523-actorid-upis).
+   *
+   * @param sValue
+   *        The value to be validated. Must not be <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code>
+   *         otherwise.
+   */
+  public static boolean isValidValueWithDefaultScheme (@Nonnull final String sValue)
+  {
+    // Check if the separator between identifier issuing agency and value is
+    // present - can only be done if the default scheme is present
+    final ICommonsList <String> aParts = StringHelper.getExploded (':', sValue, 2);
+    if (aParts.size () != 2)
+      return false;
+
+    final String sIdentifierIssuingAgencyID = aParts.get (0);
+    if (sIdentifierIssuingAgencyID.length () != 4 || !StringParser.isUnsignedInt (sIdentifierIssuingAgencyID))
+      return false;
+
+    final String sIdentifierValue = aParts.get (1).trim ();
+    return sIdentifierValue.length () > 0;
   }
 }

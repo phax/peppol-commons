@@ -36,6 +36,7 @@ import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+import com.helger.xsds.bdxr.smp1.ExtensionType;
 
 /**
  * This class is used for converting between a String representation of the

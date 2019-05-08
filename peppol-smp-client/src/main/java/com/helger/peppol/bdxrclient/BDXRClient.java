@@ -27,16 +27,13 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.mime.CMimeType;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.bdxr.RedirectType;
-import com.helger.peppol.bdxr.ServiceGroupType;
-import com.helger.peppol.bdxr.ServiceInformationType;
-import com.helger.peppol.bdxr.ServiceMetadataType;
 import com.helger.peppol.bdxr.marshal.BDXRMarshallerServiceGroupType;
 import com.helger.peppol.bdxr.marshal.BDXRMarshallerServiceMetadataType;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
+import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifier;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
@@ -44,6 +41,12 @@ import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolDNSResolutionException;
+import com.helger.xsds.bdxr.smp1.DocumentIdentifierType;
+import com.helger.xsds.bdxr.smp1.ParticipantIdentifierType;
+import com.helger.xsds.bdxr.smp1.RedirectType;
+import com.helger.xsds.bdxr.smp1.ServiceGroupType;
+import com.helger.xsds.bdxr.smp1.ServiceInformationType;
+import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
 
 /**
  * This class is used for calling the BDXR SMP REST interface. This particular
@@ -150,7 +153,7 @@ public class BDXRClient extends BDXRClientReadOnly
 
     final String sBody = new BDXRMarshallerServiceGroupType ().getAsString (aServiceGroup);
 
-    final String sURI = getSMPHostURI () + aServiceGroup.getParticipantIdentifier ().getURIPercentEncoded ();
+    final String sURI = getSMPHostURI () + CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXRClient saveServiceGroup@" + sURI);
 
@@ -222,17 +225,17 @@ public class BDXRClient extends BDXRClientReadOnly
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
-  private void _saveServiceInformation (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+  private void _saveServiceInformation (@Nonnull final ParticipantIdentifierType aServiceGroupID,
+                                        @Nonnull final DocumentIdentifierType aDocumentTypeID,
                                         @Nonnull final ServiceMetadataType aServiceMetadata,
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     final String sBody = new BDXRMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
 
     final String sURI = getSMPHostURI () +
-                        aServiceGroupID.getURIPercentEncoded () +
+                        CIdentifier.getURIPercentEncoded (aServiceGroupID) +
                         "/services/" +
-                        aDocumentTypeID.getURIPercentEncoded ();
+                        CIdentifier.getURIPercentEncoded (aDocumentTypeID);
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXRClient saveServiceRegistration@" + sURI);
 
@@ -258,8 +261,8 @@ public class BDXRClient extends BDXRClientReadOnly
    *         not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier,
-   *      RedirectType, BasicAuthClientCredentials)
+   * @see #saveServiceRedirect(ParticipantIdentifierType,
+   *      DocumentIdentifierType, RedirectType, BasicAuthClientCredentials)
    */
   public void saveServiceInformation (@Nonnull final ServiceInformationType aServiceInformation,
                                       @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
@@ -302,8 +305,8 @@ public class BDXRClient extends BDXRClientReadOnly
    * @see #saveServiceInformation(ServiceInformationType,
    *      BasicAuthClientCredentials)
    */
-  public void saveServiceRedirect (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                   @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+  public void saveServiceRedirect (@Nonnull final ParticipantIdentifierType aServiceGroupID,
+                                   @Nonnull final DocumentIdentifierType aDocumentTypeID,
                                    @Nonnull final RedirectType aRedirect,
                                    @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {

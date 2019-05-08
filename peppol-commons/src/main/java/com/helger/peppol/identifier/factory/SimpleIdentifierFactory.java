@@ -12,9 +12,9 @@ package com.helger.peppol.identifier.factory;
 
 import javax.annotation.Nullable;
 
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
+import com.helger.peppol.identifier.simple.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.simple.process.SimpleProcessIdentifier;
 
 /**
  * Default implementation of {@link IIdentifierFactory} for default (simple)

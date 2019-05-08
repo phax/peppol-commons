@@ -30,8 +30,8 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.url.URLHelper;
 import com.helger.datetime.util.PDTXMLConverter;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.bdmsl.BDMSLService;
 import com.helger.peppol.smlclient.bdmsl.BDMSLServiceSoap;
@@ -110,13 +110,13 @@ public class BDMSLClient extends WSClientConfig
    *        The new public key contained in the certificate.
    * @param aMigrationDate
    *        The migration date for the new certificate. Can't be in the past. If
-   *        the migrationDate is not empty, then the new certificate MUST be valid
-   *        at the date provided in the migrationDate element. i.e. The
+   *        the migrationDate is not empty, then the new certificate MUST be
+   *        valid at the date provided in the migrationDate element. i.e. The
    *        migrationDate must be within validFrom and validTo dates of the new
    *        certificate. If the migrationDate element is empty, then the "Valid
    *        From" date is extracted from the certificate and is used as the
-   *        migrationDate. In this case, the "Not Before" date of the certificate
-   *        must be in the future.
+   *        migrationDate. In this case, the "Not Before" date of the
+   *        certificate must be in the future.
    * @throws com.sun.xml.ws.client.ClientTransportException
    *         if the WS client invocation failed
    * @throws BadRequestFault
@@ -228,7 +228,7 @@ public class BDMSLClient extends WSClientConfig
     if (aList != null)
       for (final ParticipantsType aParticipant : aList.getParticipant ())
         ret.add (new ParticipantListItem (aParticipant.getServiceMetadataPublisherID (),
-                                          aParticipant.getParticipantIdentifier ()));
+                                          SimpleParticipantIdentifier.wrap (aParticipant.getParticipantIdentifier ())));
     return ret;
   }
 

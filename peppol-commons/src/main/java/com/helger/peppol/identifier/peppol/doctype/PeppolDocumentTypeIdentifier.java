@@ -19,7 +19,11 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppol.identifier.DocumentIdentifierType;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IMutableIdentifier;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * A special document type identifier that handles the specialties of PEPPOL
@@ -29,7 +33,9 @@ import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
  */
 @NotThreadSafe
 public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType implements
-                                          IMutablePeppolDocumentTypeIdentifier,
+                                          IPeppolIdentifier,
+                                          IMutableIdentifier,
+                                          IDocumentTypeIdentifier,
                                           Comparable <PeppolDocumentTypeIdentifier>,
                                           ICloneable <PeppolDocumentTypeIdentifier>
 {
@@ -42,7 +48,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @Nonnull
   private static String _verifyScheme (@Nullable final String sScheme)
   {
-    if (!IPeppolDocumentTypeIdentifier.isValidScheme (sScheme))
+    if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierSchemeValid (sScheme))
       throw new IllegalArgumentException ("Peppol Document Type identifier scheme '" + sScheme + "' is invalid!");
     return sScheme;
   }
@@ -50,7 +56,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @Nonnull
   private static String _verifyValue (@Nonnull final String sValue)
   {
-    if (!IPeppolDocumentTypeIdentifier.isValidValue (sValue))
+    if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sValue))
       throw new IllegalArgumentException ("Peppol Document Type identifier value '" + sValue + "' is invalid!");
     return sValue;
   }
@@ -80,12 +86,30 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
     setValue (sValue);
   }
 
+  public boolean hasDefaultScheme ()
+  {
+    return hasScheme (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME);
+  }
+
   public int compareTo (@Nonnull final PeppolDocumentTypeIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
       ret = CompareHelper.compare (getValue (), aOther.getValue ());
     return ret;
+  }
+
+  /**
+   * Extract the different identifier parts that are contained in a PEPPOL
+   * document type identifier.
+   *
+   * @return A new object encapsulating the different document type identifier
+   *         parts.
+   */
+  @Nonnull
+  public IPeppolDocumentTypeIdentifierParts getParts ()
+  {
+    return PeppolIdentifierHelper.getDocumentTypeIdentifierParts (this);
   }
 
   @Override
@@ -116,7 +140,8 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   public static PeppolDocumentTypeIdentifier createIfValid (@Nullable final String sScheme,
                                                             @Nullable final String sValue)
   {
-    if (IPeppolDocumentTypeIdentifier.isValidScheme (sScheme) && IPeppolDocumentTypeIdentifier.isValidValue (sValue))
+    if (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierSchemeValid (sScheme) &&
+        PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sValue))
       return new PeppolDocumentTypeIdentifier (true, sScheme, sValue);
     return null;
   }

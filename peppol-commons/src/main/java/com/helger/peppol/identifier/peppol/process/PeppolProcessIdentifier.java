@@ -18,8 +18,12 @@ import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
+import com.helger.peppol.identifier.IMutableIdentifier;
+import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.identifier.ProcessIdentifierType;
-import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
+import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
+import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -30,7 +34,9 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
  */
 @NotThreadSafe
 public class PeppolProcessIdentifier extends ProcessIdentifierType implements
-                                     IMutablePeppolProcessIdentifier,
+                                     IPeppolIdentifier,
+                                     IProcessIdentifier,
+                                     IMutableIdentifier,
                                      Comparable <PeppolProcessIdentifier>,
                                      ICloneable <PeppolProcessIdentifier>
 {
@@ -43,7 +49,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   @Nonnull
   private static String _verifyScheme (@Nullable final String sScheme)
   {
-    if (!IPeppolProcessIdentifier.isValidScheme (sScheme))
+    if (!PeppolIdentifierFactory.INSTANCE.isProcessIdentifierSchemeValid (sScheme))
       throw new IllegalArgumentException ("Peppol Process identifier scheme '" + sScheme + "' is invalid!");
     return sScheme;
   }
@@ -51,7 +57,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   @Nonnull
   private static String _verifyValue (@Nonnull final String sValue)
   {
-    if (!IPeppolProcessIdentifier.isValidValue (sValue))
+    if (!PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sValue))
       throw new IllegalArgumentException ("Peppol Process identifier value '" + sValue + "' is invalid!");
     return sValue;
   }
@@ -79,6 +85,11 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   {
     setScheme (sScheme);
     setValue (sValue);
+  }
+
+  public boolean hasDefaultScheme ()
+  {
+    return hasScheme (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME);
   }
 
   public int compareTo (@Nonnull final PeppolProcessIdentifier aOther)
@@ -116,7 +127,8 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   @Nullable
   public static PeppolProcessIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    if (IPeppolProcessIdentifier.isValidScheme (sScheme) && IPeppolProcessIdentifier.isValidValue (sValue))
+    if (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierSchemeValid (sScheme) &&
+        PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sValue))
       return new PeppolProcessIdentifier (true, sScheme, sValue);
     return null;
   }

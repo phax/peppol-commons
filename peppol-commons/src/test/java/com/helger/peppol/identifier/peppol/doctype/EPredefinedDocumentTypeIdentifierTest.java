@@ -19,8 +19,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppol.identifier.simple.doctype.SimpleDocumentTypeIdentifier;
 
 /**
  * Test class for class {@link EPredefinedDocumentTypeIdentifier}.

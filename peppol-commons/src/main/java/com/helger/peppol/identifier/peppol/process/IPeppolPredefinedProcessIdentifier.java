@@ -13,14 +13,21 @@ package com.helger.peppol.identifier.peppol.process;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.version.Version;
+import com.helger.peppol.identifier.IProcessIdentifier;
+import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 
 /**
  * Base interface for predefined process identifiers.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public interface IPeppolPredefinedProcessIdentifier extends IPeppolProcessIdentifier
+public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, IPeppolIdentifier
 {
+  default boolean hasDefaultScheme ()
+  {
+    return true;
+  }
+
   /**
    * @return The ID of the corresponding PEPPOL BIS.
    */

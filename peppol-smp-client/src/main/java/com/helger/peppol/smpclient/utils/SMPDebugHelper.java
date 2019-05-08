@@ -13,7 +13,7 @@ package com.helger.peppol.smpclient.utils;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.peppol.identifier.IIdentifier;
+import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smp.ExtensionType;
 import com.helger.peppol.smp.ProcessType;
@@ -38,18 +38,12 @@ public final class SMPDebugHelper
   {}
 
   @Nonnull
-  public static String getAsString (@Nonnull final IIdentifier aIdentifier)
-  {
-    return aIdentifier.getURIEncoded ();
-  }
-
-  @Nonnull
   public static String getAsString (@Nonnull final ServiceGroupType aServiceGroup)
   {
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ("ServiceGroup information:\n");
     aSB.append ("ParticipantIdentifier: ")
-       .append (getAsString (aServiceGroup.getParticipantIdentifier ()))
+       .append (CIdentifier.getURIEncoded (aServiceGroup.getParticipantIdentifier ()))
        .append ('\n');
 
     // References
@@ -83,14 +77,16 @@ public final class SMPDebugHelper
     {
       aSB.append ("  Service information:\n");
       aSB.append ("    Participant: ")
-         .append (getAsString (aServiceInformation.getParticipantIdentifier ()))
+         .append (CIdentifier.getURIEncoded (aServiceInformation.getParticipantIdentifier ()))
          .append ('\n');
       aSB.append ("    Document type: ")
-         .append (getAsString (aServiceInformation.getDocumentIdentifier ()))
+         .append (CIdentifier.getURIEncoded (aServiceInformation.getDocumentIdentifier ()))
          .append ('\n');
       for (final ProcessType aProcess : aServiceInformation.getProcessList ().getProcess ())
       {
-        aSB.append ("      Process: ").append (getAsString (aProcess.getProcessIdentifier ())).append ('\n');
+        aSB.append ("      Process: ")
+           .append (CIdentifier.getURIEncoded (aProcess.getProcessIdentifier ()))
+           .append ('\n');
         for (final EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
         {
           aSB.append ("        Endpoint: ")

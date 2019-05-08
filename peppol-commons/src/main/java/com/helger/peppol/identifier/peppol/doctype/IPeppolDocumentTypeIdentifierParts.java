@@ -13,7 +13,7 @@ package com.helger.peppol.identifier.peppol.doctype;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.simple.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**
  * Contains all the different fields of a document identifier for PEPPOL in BIS

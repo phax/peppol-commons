@@ -12,8 +12,8 @@ package com.helger.peppol.identifier.factory;
 
 import javax.annotation.Nullable;
 
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IIdentifier;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
 
 /**
  * A generic factory interface for document type identifiers.
@@ -47,8 +47,9 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
    *        The identifier scheme in use. May be <code>null</code> or empty if
    *        {@link #isDocumentTypeIdentifierSchemeMandatory()} is
    *        <code>false</code>.
-   * @return <code>true</code> if all document type identifiers need to be handled
-   *         case insensitive (so "abc" equals "ABC"), <code>false</code> if not.
+   * @return <code>true</code> if all document type identifiers need to be
+   *         handled case insensitive (so "abc" equals "ABC"),
+   *         <code>false</code> if not.
    */
   default boolean isDocumentTypeIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
@@ -56,16 +57,44 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
+   * Check if the passed document type identifier scheme is valid or not.
+   *
+   * @param sScheme
+   *        The scheme to check.
+   * @return <code>true</code> if the passed scheme is a valid identifier
+   *         scheme, <code>false</code> otherwise.
+   */
+  default boolean isDocumentTypeIdentifierSchemeValid (@Nullable final String sScheme)
+  {
+    return true;
+  }
+
+  /**
+   * Check if the passed document type identifier value is valid.
+   *
+   * @param sValue
+   *        The document type identifier value to be checked (without the
+   *        scheme). May be <code>null</code>.
+   * @return <code>true</code> if the document type identifier value is valid,
+   *         <code>false</code> otherwise
+   */
+  default boolean isDocumentTypeIdentifierValueValid (@Nullable final String sValue)
+  {
+    return true;
+  }
+
+  /**
    * Create a new document type identifier. This method returns a unified
-   * identifier value if {@link #isDocumentTypeIdentifierCaseInsensitive(String)}
-   * is <code>true</code> for the provided scheme.
+   * identifier value if
+   * {@link #isDocumentTypeIdentifierCaseInsensitive(String)} is
+   * <code>true</code> for the provided scheme.
    *
    * @param sScheme
    *        The scheme to be used.
    * @param sValue
    *        The value to be used.
-   * @return <code>null</code> if the provided scheme and/or value are/is invalid
-   *         according to the rules of the implementation.
+   * @return <code>null</code> if the provided scheme and/or value are/is
+   *         invalid according to the rules of the implementation.
    * @see #createDocumentTypeIdentifierWithDefaultScheme(String)
    * @see #getUnifiedValue(String)
    * @see #isDocumentTypeIdentifierCaseInsensitive(String)
@@ -76,9 +105,10 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   /**
    * Create a new document type identifier using the default identifier scheme.
    * This may result in an <code>null</code> object if no default identifier
-   * scheme is present, but no scheme is forbidden! This method returns a unified
-   * identifier value if {@link #isDocumentTypeIdentifierCaseInsensitive(String)}
-   * is <code>true</code> for the default scheme.
+   * scheme is present, but no scheme is forbidden! This method returns a
+   * unified identifier value if
+   * {@link #isDocumentTypeIdentifierCaseInsensitive(String)} is
+   * <code>true</code> for the default scheme.
    *
    * @param sValue
    *        The value to be used.
@@ -96,15 +126,15 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Parse the provided URI encoded identifier as a document type identifier. This
-   * is the reverse operation of {@link IIdentifier#getURIEncoded()}
+   * Parse the provided URI encoded identifier as a document type identifier.
+   * This is the reverse operation of {@link IIdentifier#getURIEncoded()}
    *
    * @param sURIEncodedIdentifier
    *        The URI encoded identifier in the format <code>scheme::value</code>.
    *        It must NOT be percent encoded!
-   * @return The created identifier or <code>null</code> if the passed identifier
-   *         is not a valid URI encoded identifier according to the rules of the
-   *         implementation.
+   * @return The created identifier or <code>null</code> if the passed
+   *         identifier is not a valid URI encoded identifier according to the
+   *         rules of the implementation.
    */
   @Nullable
   default IDocumentTypeIdentifier parseDocumentTypeIdentifier (@Nullable final String sURIEncodedIdentifier)

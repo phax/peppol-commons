@@ -24,8 +24,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.ParticipantIdentifierType;
+import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.participant.BadRequestFault;
@@ -157,10 +159,10 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     if (LOGGER.isInfoEnabled ())
       LOGGER.info ("Trying to create new participant " +
-                      aSMPParticpantService.getParticipantIdentifier ().getURIEncoded () +
-                      " in SMP '" +
-                      aSMPParticpantService.getServiceMetadataPublisherID () +
-                      "'");
+                   CIdentifier.getURIEncoded (aSMPParticpantService.getParticipantIdentifier ()) +
+                   " in SMP '" +
+                   aSMPParticpantService.getServiceMetadataPublisherID () +
+                   "'");
     createWSPort ().create (aSMPParticpantService);
   }
 
@@ -168,6 +170,12 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   private static String _toString (@Nonnull final Iterable <? extends IParticipantIdentifier> aParticipantIdentifiers)
   {
     return StringHelper.getImplodedMapped (", ", aParticipantIdentifiers, IParticipantIdentifier::getURIEncoded);
+  }
+
+  @Nonnull
+  private static String _toString2 (@Nonnull final Iterable <? extends ParticipantIdentifierType> aParticipantIdentifiers)
+  {
+    return StringHelper.getImplodedMapped (", ", aParticipantIdentifiers, CIdentifier::getURIEncoded);
   }
 
   /**
@@ -200,10 +208,10 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     if (LOGGER.isInfoEnabled ())
       LOGGER.info ("Trying to create multiple new participants " +
-                      _toString (aParticipantIdentifiers) +
-                      " in SMP '" +
-                      sSMPID +
-                      "'");
+                   _toString (aParticipantIdentifiers) +
+                   " in SMP '" +
+                   sSMPID +
+                   "'");
     final ParticipantIdentifierPageType aParticipantList = new ParticipantIdentifierPageType ();
     for (final IParticipantIdentifier aPI : aParticipantIdentifiers)
     {
@@ -276,7 +284,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     if (LOGGER.isInfoEnabled ())
       LOGGER.info ("Trying to delete participant " +
-                      aSMPParticpantService.getParticipantIdentifier ().getURIEncoded ());
+                   CIdentifier.getURIEncoded (aSMPParticpantService.getParticipantIdentifier ()));
 
     createWSPort ().delete (aSMPParticpantService);
   }
@@ -298,21 +306,21 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void deleteList (@Nonnull @Nonempty final Iterable <? extends IParticipantIdentifier> aParticipantIdentifiers) throws BadRequestFault,
-                                                                                                                        InternalErrorFault,
-                                                                                                                        NotFoundFault,
-                                                                                                                        UnauthorizedFault
+  public void deleteList (@Nonnull @Nonempty final Iterable <? extends ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault,
+                                                                                                                           InternalErrorFault,
+                                                                                                                           NotFoundFault,
+                                                                                                                           UnauthorizedFault
   {
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
 
     if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to delete multiple participants " + _toString (aParticipantIdentifiers));
+      LOGGER.info ("Trying to delete multiple participants " + _toString2 (aParticipantIdentifiers));
 
     final ParticipantIdentifierPageType deleteListIn = new ParticipantIdentifierPageType ();
-    for (final IParticipantIdentifier aPI : aParticipantIdentifiers)
+    for (final ParticipantIdentifierType aPI : aParticipantIdentifiers)
     {
       // Constructor call needed for type conversion
-      deleteListIn.addParticipantIdentifier (new SimpleParticipantIdentifier (aPI));
+      deleteListIn.addParticipantIdentifier (aPI.clone ());
     }
     createWSPort ().deleteList (deleteListIn);
   }
@@ -447,12 +455,12 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     if (LOGGER.isInfoEnabled ())
       LOGGER.info ("Preparing to migrate participant " +
-                      aIdentifier.getURIEncoded () +
-                      " from SMP '" +
-                      sSMPID +
-                      "' using migration key '" +
-                      sMigrationKey +
-                      "'");
+                   aIdentifier.getURIEncoded () +
+                   " from SMP '" +
+                   sSMPID +
+                   "' using migration key '" +
+                   sMigrationKey +
+                   "'");
 
     final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
     // Constructor call needed for type conversion
@@ -499,12 +507,12 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     // Convert UUID to string
     if (LOGGER.isInfoEnabled ())
       LOGGER.info ("Finishing migration of participant " +
-                      aIdentifier.getURIEncoded () +
-                      " to SMP '" +
-                      sSMPID +
-                      "' using migration key '" +
-                      sMigrationKey +
-                      "'");
+                   aIdentifier.getURIEncoded () +
+                   " to SMP '" +
+                   sSMPID +
+                   "' using migration key '" +
+                   sMigrationKey +
+                   "'");
 
     final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
     // Constructor call needed for type conversion

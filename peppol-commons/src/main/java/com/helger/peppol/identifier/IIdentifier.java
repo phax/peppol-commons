@@ -19,7 +19,6 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.utils.BusdoxURLHelper;
 
 /**
  * Base interface for a single read-only identifier independent of its usage
@@ -98,15 +97,7 @@ public interface IIdentifier extends Serializable
   @Nonempty
   default String getURIEncoded ()
   {
-    // Empty scheme is allowed
-    final String sScheme = StringHelper.getNotNull (getScheme ());
-
-    final String sValue = getValue ();
-    if (sValue == null)
-      throw new IllegalArgumentException ("Identifier has a null value: " + toString ());
-
-    // Combine scheme and value
-    return sScheme + CIdentifier.URL_SCHEME_VALUE_SEPARATOR + sValue;
+    return CIdentifier.getURIEncoded (this);
   }
 
   /**
@@ -119,7 +110,6 @@ public interface IIdentifier extends Serializable
   @Nonnull
   default String getURIPercentEncoded ()
   {
-    final String sURIEncoded = getURIEncoded ();
-    return BusdoxURLHelper.createPercentEncodedURL (sURIEncoded);
+    return CIdentifier.getURIPercentEncoded (this);
   }
 }

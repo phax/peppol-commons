@@ -13,7 +13,7 @@ package com.helger.peppol.identifier.factory;
 import javax.annotation.Nullable;
 
 import com.helger.peppol.identifier.IIdentifier;
-import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.IProcessIdentifier;
 
 /**
  * A generic factory interface for process identifiers.
@@ -33,8 +33,8 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * @return The default process identifier scheme to be used for this identifier
-   *         type. May be <code>null</code>.
+   * @return The default process identifier scheme to be used for this
+   *         identifier type. May be <code>null</code>.
    */
   @Nullable
   default String getDefaultProcessIdentifierScheme ()
@@ -46,12 +46,40 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
    * @param sScheme
    *        The identifier scheme in use. May be <code>null</code> or empty if
    *        {@link #isProcessIdentifierSchemeMandatory()} is <code>false</code>.
-   * @return <code>true</code> if all process identifiers need to be handled case
-   *         insensitive (so "abc" equals "ABC"), <code>false</code> if not.
+   * @return <code>true</code> if all process identifiers need to be handled
+   *         case insensitive (so "abc" equals "ABC"), <code>false</code> if
+   *         not.
    */
   default boolean isProcessIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
     return false;
+  }
+
+  /**
+   * Check if the passed process identifier scheme is valid or not.
+   *
+   * @param sScheme
+   *        The scheme to check.
+   * @return <code>true</code> if the passed scheme is a valid identifier
+   *         scheme, <code>false</code> otherwise.
+   */
+  default boolean isProcessIdentifierSchemeValid (@Nullable final String sScheme)
+  {
+    return true;
+  }
+
+  /**
+   * Check if the passed process identifier value is valid.
+   *
+   * @param sValue
+   *        The document type identifier value to be checked (without the
+   *        scheme). May be <code>null</code>.
+   * @return <code>true</code> if the document type identifier value is valid,
+   *         <code>false</code> otherwise
+   */
+  default boolean isProcessIdentifierValueValid (@Nullable final String sValue)
+  {
+    return true;
   }
 
   /**
@@ -63,8 +91,8 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
    *        The scheme to be used.
    * @param sValue
    *        The value to be used.
-   * @return <code>null</code> if the provided scheme and/or value are/is invalid
-   *         according to the rules of the implementation.
+   * @return <code>null</code> if the provided scheme and/or value are/is
+   *         invalid according to the rules of the implementation.
    * @see #createProcessIdentifierWithDefaultScheme(String)
    * @see #getUnifiedValue(String)
    * @see #isProcessIdentifierCaseInsensitive(String)
@@ -73,10 +101,10 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
   IProcessIdentifier createProcessIdentifier (@Nullable String sScheme, @Nullable String sValue);
 
   /**
-   * Create a new process identifier using the default identifier scheme. This may
-   * result in an <code>null</code> object if no default identifier scheme is
-   * present, but no scheme is forbidden! This method returns a unified identifier
-   * value if {@link #isProcessIdentifierCaseInsensitive(String)} is
+   * Create a new process identifier using the default identifier scheme. This
+   * may result in an <code>null</code> object if no default identifier scheme
+   * is present, but no scheme is forbidden! This method returns a unified
+   * identifier value if {@link #isProcessIdentifierCaseInsensitive(String)} is
    * <code>true</code> for the default scheme.
    *
    * @param sValue
@@ -101,9 +129,9 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
    * @param sURIEncodedIdentifier
    *        The URI encoded identifier in the format <code>scheme::value</code>.
    *        It must NOT be percent encoded!
-   * @return The created identifier or <code>null</code> if the passed identifier
-   *         is not a valid URI encoded identifier according to the rules of the
-   *         implementation.
+   * @return The created identifier or <code>null</code> if the passed
+   *         identifier is not a valid URI encoded identifier according to the
+   *         rules of the implementation.
    */
   @Nullable
   default IProcessIdentifier parseProcessIdentifier (@Nullable final String sURIEncodedIdentifier)

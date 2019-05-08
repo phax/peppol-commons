@@ -19,8 +19,9 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.bdxr.ProcessIdentifierType;
-import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
+import com.helger.peppol.identifier.IMutableIdentifier;
+import com.helger.peppol.identifier.IProcessIdentifier;
+import com.helger.xsds.bdxr.smp1.ProcessIdentifierType;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -31,7 +32,8 @@ import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
  */
 @NotThreadSafe
 public class BDXRProcessIdentifier extends ProcessIdentifierType implements
-                                   IBDXRProcessIdentifier,
+                                   IProcessIdentifier,
+                                   IMutableIdentifier,
                                    Comparable <BDXRProcessIdentifier>,
                                    ICloneable <BDXRProcessIdentifier>
 {
@@ -62,29 +64,5 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType implements
   public BDXRProcessIdentifier getClone ()
   {
     return new BDXRProcessIdentifier (this);
-  }
-
-  /**
-   * Take the passed identifier scheme and value try to convert it back to a
-   * process identifier. If the passed scheme is invalid <code>null</code> is
-   * returned.
-   *
-   * @param sScheme
-   *        The identifier scheme. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
-   * @param sValue
-   *        The identifier value. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
-   * @return The process identifier or <code>null</code> if any of the parts is
-   *         invalid.
-   * @see IBDXRProcessIdentifier#isValidScheme(String)
-   * @see IBDXRProcessIdentifier#isValidValue(String)
-   */
-  @Nullable
-  public static BDXRProcessIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
-  {
-    if (IBDXRProcessIdentifier.isValidScheme (sScheme) && IBDXRProcessIdentifier.isValidValue (sValue))
-      return new BDXRProcessIdentifier (sScheme, sValue);
-    return null;
   }
 }

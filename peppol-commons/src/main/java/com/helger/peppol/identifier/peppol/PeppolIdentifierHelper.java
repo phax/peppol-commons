@@ -18,7 +18,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 
@@ -43,6 +43,12 @@ public final class PeppolIdentifierHelper
 
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
   public static final boolean DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED = false;
+
+  /**
+   * The regular expression to be used for validating participant identifier
+   * schemes (not values!). See BusDox specification 1.0.1, chapter 2.3
+   */
+  public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
 
   private static final AtomicBoolean s_aCharsetChecksDisabled = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
   private static final AtomicBoolean s_aSchemeMaxLengthChecksDisabled = new AtomicBoolean (DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED);

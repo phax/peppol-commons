@@ -20,6 +20,8 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.xsds.bdxr.smp1.ExtensionType;
+import com.helger.xsds.bdxr.smp1.ObjectFactory;
 
 /**
  * Test class for class {@link BDXRExtensionConverter}.

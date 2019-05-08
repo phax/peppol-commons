@@ -13,8 +13,8 @@ package com.helger.peppol.smlclient.supplementary.tools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;

@@ -10,8 +10,8 @@
  */
 package com.helger.peppol.bdxr.marshal;
 
-import com.helger.peppol.bdxr.ObjectFactory;
-import com.helger.peppol.bdxr.ServiceGroupReferenceListType;
+import com.helger.xsds.bdxr.smp1.ObjectFactory;
+import com.helger.xsds.bdxr.smp1.ServiceGroupReferenceListType;
 
 /**
  * A simple JAXB marshaller for the {@link ServiceGroupReferenceListType} type.

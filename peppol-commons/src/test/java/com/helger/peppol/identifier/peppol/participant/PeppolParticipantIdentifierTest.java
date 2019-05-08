@@ -21,9 +21,9 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.xml.mock.XMLTestHelper;
 
@@ -36,55 +36,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class PeppolParticipantIdentifierTest
 {
-  private static final String [] PARTICIPANT_SCHEME_VALID = { "busdox-actorid-upis",
-                                                              "BUSDOX-ACTORID-UPIS",
-                                                              PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME,
-                                                              "any-actorid-any",
-                                                              "any-ACTORID-any" };
-  private static final String [] PARTIFCIPANT_SCHEME_INVALID = { null,
-                                                                 "",
-                                                                 "busdox_actorid_upis",
-                                                                 "busdox-upis",
-                                                                 "-actorid-upis",
-                                                                 "actorid-upis",
-                                                                 "busdox-actorid-",
-                                                                 "busdox-actorid",
-                                                                 "any-domain_actorid_any-type",
-                                                                 "any-nonactoid-anybutmuchtoooooooooooooooooooooooolong" };
   private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a',
                                                                            PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
   private static final String VALUE_MAX_LENGTH_PLUS_1 = VALUE_MAX_LENGTH + 'a';
-
-  @Test
-  public void testIsValidParticipantIdentifierScheme ()
-  {
-    // valid
-    for (final String scheme : PARTICIPANT_SCHEME_VALID)
-      assertTrue (IPeppolParticipantIdentifier.isValidScheme (scheme));
-
-    // invalid
-    for (final String scheme : PARTIFCIPANT_SCHEME_INVALID)
-      assertFalse (IPeppolParticipantIdentifier.isValidScheme (scheme));
-  }
-
-  @Test
-  public void testIsValidParticipantIdentifierValue ()
-  {
-    assertFalse (IPeppolParticipantIdentifier.isValidValue (null));
-    assertFalse (IPeppolParticipantIdentifier.isValidValue (""));
-
-    assertTrue (IPeppolParticipantIdentifier.isValidValue ("9908:976098897"));
-    assertTrue (IPeppolParticipantIdentifier.isValidValue ("9908:976098897 "));
-    assertTrue (IPeppolParticipantIdentifier.isValidValue ("990:976098897"));
-    assertTrue (IPeppolParticipantIdentifier.isValidValue ("990976098897"));
-    assertTrue (IPeppolParticipantIdentifier.isValidValue ("9909:976098896"));
-    assertTrue (IPeppolParticipantIdentifier.isValidValue ("9908:976098896"));
-    assertTrue (IPeppolParticipantIdentifier.isValidValue ("9956:DE:EPROC:BMIEVG:BeschA"));
-    assertTrue (IPeppolParticipantIdentifier.isValidValue ("9906:02419170044_01"));
-
-    assertTrue (IPeppolParticipantIdentifier.isValidValue (VALUE_MAX_LENGTH));
-    assertFalse (IPeppolParticipantIdentifier.isValidValue (VALUE_MAX_LENGTH_PLUS_1));
-  }
 
   @Test
   public void testCtor ()

@@ -13,30 +13,24 @@ package com.helger.peppol.config;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.peppol.identifier.DocumentIdentifierType;
-import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.ProcessIdentifierType;
 import com.helger.peppol.identifier.bdxr.doctype.BDXRDocumentTypeIdentifier;
 import com.helger.peppol.identifier.bdxr.doctype.BDXRDocumentTypeIdentifierMicroTypeConverter;
 import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifier;
 import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifierMicroTypeConverter;
 import com.helger.peppol.identifier.bdxr.process.BDXRProcessIdentifier;
 import com.helger.peppol.identifier.bdxr.process.BDXRProcessIdentifierMicroTypeConverter;
-import com.helger.peppol.identifier.generic.doctype.DocumentIdentifierTypeMicroTypeConverter;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.doctype.SimpleDocumentTypeIdentifierMicroTypeConverter;
-import com.helger.peppol.identifier.generic.participant.ParticipantIdentifierTypeMicroTypeConverter;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifierMicroTypeConverter;
-import com.helger.peppol.identifier.generic.process.ProcessIdentifierTypeMicroTypeConverter;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifier;
-import com.helger.peppol.identifier.generic.process.SimpleProcessIdentifierMicroTypeConverter;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierMicroTypeConverter;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifierMicroTypeConverter;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifierMicroTypeConverter;
+import com.helger.peppol.identifier.simple.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.simple.doctype.SimpleDocumentTypeIdentifierMicroTypeConverter;
+import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifierMicroTypeConverter;
+import com.helger.peppol.identifier.simple.process.SimpleProcessIdentifier;
+import com.helger.peppol.identifier.simple.process.SimpleProcessIdentifierMicroTypeConverter;
 import com.helger.peppol.sml.SMLInfo;
 import com.helger.peppol.sml.SMLInfoMicroTypeConverter;
 import com.helger.peppol.smp.SMPTransportProfile;
@@ -54,8 +48,6 @@ public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroT
 {
   public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
   {
-    aRegistry.registerMicroElementTypeConverter (DocumentIdentifierType.class,
-                                                 new DocumentIdentifierTypeMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (SimpleDocumentTypeIdentifier.class,
                                                  new SimpleDocumentTypeIdentifierMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (PeppolDocumentTypeIdentifier.class,
@@ -63,8 +55,6 @@ public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroT
     aRegistry.registerMicroElementTypeConverter (BDXRDocumentTypeIdentifier.class,
                                                  new BDXRDocumentTypeIdentifierMicroTypeConverter ());
 
-    aRegistry.registerMicroElementTypeConverter (ParticipantIdentifierType.class,
-                                                 new ParticipantIdentifierTypeMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (SimpleParticipantIdentifier.class,
                                                  new SimpleParticipantIdentifierMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (PeppolParticipantIdentifier.class,
@@ -72,8 +62,6 @@ public final class MicroTypeConverterRegistrar_peppol_commons implements IMicroT
     aRegistry.registerMicroElementTypeConverter (BDXRParticipantIdentifier.class,
                                                  new BDXRParticipantIdentifierMicroTypeConverter ());
 
-    aRegistry.registerMicroElementTypeConverter (ProcessIdentifierType.class,
-                                                 new ProcessIdentifierTypeMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (SimpleProcessIdentifier.class,
                                                  new SimpleProcessIdentifierMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (PeppolProcessIdentifier.class,

@@ -23,9 +23,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
@@ -89,7 +89,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
                                                  .toLowerCase (URL_LOCALE);
 
     // Was previously an error, but to be more flexible just emit a warning
-    if (!IPeppolParticipantIdentifier.isValidScheme (sIdentifierScheme))
+    if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sIdentifierScheme))
       if (LOGGER.isWarnEnabled ())
         LOGGER.warn ("Invalid PEPPOL participant identifier scheme '" + sIdentifierScheme + "' used");
 

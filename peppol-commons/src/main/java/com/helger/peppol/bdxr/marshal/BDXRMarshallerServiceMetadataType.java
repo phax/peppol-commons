@@ -10,8 +10,8 @@
  */
 package com.helger.peppol.bdxr.marshal;
 
-import com.helger.peppol.bdxr.ObjectFactory;
-import com.helger.peppol.bdxr.ServiceMetadataType;
+import com.helger.xsds.bdxr.smp1.ObjectFactory;
+import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
 
 /**
  * A simple JAXB marshaller for the {@link ServiceMetadataType} type.

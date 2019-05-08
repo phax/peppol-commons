@@ -17,7 +17,7 @@ import org.junit.Test;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 
 /**

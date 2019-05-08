@@ -14,6 +14,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.version.Version;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.peppol.IPeppolIdentifier;
 
 /**
  * Base interface for predefined document identifiers.
@@ -21,9 +23,15 @@ import com.helger.commons.version.Version;
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
 public interface IPeppolPredefinedDocumentTypeIdentifier extends
-                                                         IPeppolDocumentTypeIdentifier,
+                                                         IDocumentTypeIdentifier,
+                                                         IPeppolIdentifier,
                                                          IPeppolDocumentTypeIdentifierParts
 {
+  default boolean hasDefaultScheme ()
+  {
+    return true;
+  }
+
   /**
    * @return The common name under which a document is known. This is e.g.
    *         "Order" or "Invoice".
@@ -36,7 +44,7 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    *         document type identifier.
    */
   @Nonnull
-  IPeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ();
+  PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ();
 
   /**
    * @return The internal code list version in which the identifier was added.

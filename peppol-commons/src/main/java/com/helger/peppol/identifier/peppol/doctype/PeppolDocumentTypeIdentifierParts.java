@@ -18,8 +18,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.peppol.identifier.generic.doctype.BusdoxDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.generic.doctype.IBusdoxDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.simple.doctype.BusdoxDocumentTypeIdentifierParts;
+import com.helger.peppol.identifier.simple.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**
  * A standalone wrapper class for the {@link IPeppolDocumentTypeIdentifierParts}

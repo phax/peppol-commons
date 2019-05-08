@@ -21,9 +21,9 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.peppol.identifier.factory.IIdentifierFactory;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
-import com.helger.peppol.identifier.generic.process.IProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.xml.mock.XMLTestHelper;
 
@@ -159,22 +159,6 @@ public final class PeppolProcessIdentifierTest
     }
     catch (final IllegalArgumentException ex)
     {}
-  }
-
-  @Test
-  public void testIsValidProcessIdentifierValue ()
-  {
-    assertFalse (IPeppolProcessIdentifier.isValidValue (null));
-    assertFalse (IPeppolProcessIdentifier.isValidValue (""));
-
-    assertTrue (IPeppolProcessIdentifier.isValidValue ("proc1"));
-    assertTrue (IPeppolProcessIdentifier.isValidValue ("proc2 "));
-
-    assertTrue (IPeppolProcessIdentifier.isValidValue (StringHelper.getRepeated ('a',
-                                                                                 PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH)));
-    assertFalse (IPeppolProcessIdentifier.isValidValue (StringHelper.getRepeated ('a',
-                                                                                  PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH +
-                                                                                       1)));
   }
 
   @Test

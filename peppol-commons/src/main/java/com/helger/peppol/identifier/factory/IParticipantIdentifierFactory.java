@@ -13,7 +13,7 @@ package com.helger.peppol.identifier.factory;
 import javax.annotation.Nullable;
 
 import com.helger.peppol.identifier.IIdentifier;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
 
 /**
  * A generic factory interface for participant identifiers.
@@ -48,7 +48,8 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
    *        {@link #isParticipantIdentifierSchemeMandatory()} is
    *        <code>false</code>.
    * @return <code>true</code> if all participant identifiers need to be handled
-   *         case insensitive (so "abc" equals "ABC"), <code>false</code> if not.
+   *         case insensitive (so "abc" equals "ABC"), <code>false</code> if
+   *         not.
    */
   default boolean isParticipantIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
@@ -56,16 +57,43 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Create a new participant identifier. This method returns a unified identifier
-   * value if {@link #isParticipantIdentifierCaseInsensitive(String)} is
-   * <code>true</code> for the provided scheme.
+   * Check if the given scheme is a valid participant identifier scheme.
+   *
+   * @param sScheme
+   *        The scheme to check.
+   * @return <code>true</code> if the passed scheme is a valid participant
+   *         identifier scheme, <code>false</code> otherwise.
+   */
+  default boolean isParticipantIdentifierSchemeValid (@Nullable final String sScheme)
+  {
+    return true;
+  }
+
+  /**
+   * Check if the passed participant identifier value is valid.
+   *
+   * @param sValue
+   *        The participant identifier value to be checked (without the scheme).
+   *        May be <code>null</code>.
+   * @return <code>true</code> if the participant identifier value is valid,
+   *         <code>false</code> otherwise.
+   */
+  default boolean isParticipantIdentifierValueValid (@Nullable final String sValue)
+  {
+    return true;
+  }
+
+  /**
+   * Create a new participant identifier. This method returns a unified
+   * identifier value if {@link #isParticipantIdentifierCaseInsensitive(String)}
+   * is <code>true</code> for the provided scheme.
    *
    * @param sScheme
    *        The scheme to be used.
    * @param sValue
    *        The value to be used.
-   * @return <code>null</code> if the provided scheme and/or value are/is invalid
-   *         according to the rules of the implementation.
+   * @return <code>null</code> if the provided scheme and/or value are/is
+   *         invalid according to the rules of the implementation.
    * @see #createParticipantIdentifierWithDefaultScheme(String)
    * @see #getUnifiedValue(String)
    * @see #isParticipantIdentifierCaseInsensitive(String)
@@ -74,10 +102,11 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
   IParticipantIdentifier createParticipantIdentifier (@Nullable String sScheme, @Nullable String sValue);
 
   /**
-   * Create a new participant identifier using the default identifier scheme. This
-   * may result in an <code>null</code> object if no default identifier scheme is
-   * present, but no scheme is forbidden! This method returns a unified identifier
-   * value if {@link #isParticipantIdentifierCaseInsensitive(String)} is
+   * Create a new participant identifier using the default identifier scheme.
+   * This may result in an <code>null</code> object if no default identifier
+   * scheme is present, but no scheme is forbidden! This method returns a
+   * unified identifier value if
+   * {@link #isParticipantIdentifierCaseInsensitive(String)} is
    * <code>true</code> for the default scheme.
    *
    * @param sValue
@@ -102,9 +131,9 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
    * @param sURIEncodedIdentifier
    *        The URI encoded identifier in the format <code>scheme::value</code>.
    *        It must NOT be percent encoded!
-   * @return The created identifier or <code>null</code> if the passed identifier
-   *         is not a valid URI encoded identifier according to the rules of the
-   *         implementation.
+   * @return The created identifier or <code>null</code> if the passed
+   *         identifier is not a valid URI encoded identifier according to the
+   *         rules of the implementation.
    */
   @Nullable
   default IParticipantIdentifier parseParticipantIdentifier (@Nullable final String sURIEncodedIdentifier)

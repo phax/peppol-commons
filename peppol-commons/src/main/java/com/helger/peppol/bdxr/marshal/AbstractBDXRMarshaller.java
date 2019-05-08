@@ -19,8 +19,8 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
-import com.helger.peppol.bdxr.ObjectFactory;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xsds.bdxr.smp1.ObjectFactory;
 import com.helger.xsds.xmldsig.CXMLDSig;
 
 /**

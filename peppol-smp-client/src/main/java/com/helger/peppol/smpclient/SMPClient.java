@@ -28,9 +28,11 @@ import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.mime.CMimeType;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
-import com.helger.peppol.identifier.generic.participant.SimpleParticipantIdentifier;
+import com.helger.peppol.identifier.CIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppol.identifier.simple.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.RedirectType;
 import com.helger.peppol.smp.ServiceGroupType;
@@ -145,7 +147,7 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final String sBody = new SMPMarshallerServiceGroupType ().getAsString (aServiceGroup);
-    final String sURI = getSMPHostURI () + aServiceGroup.getParticipantIdentifier ().getURIPercentEncoded ();
+    final String sURI = getSMPHostURI () + CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("SMPClient saveServiceGroup@" + sURI);
@@ -270,8 +272,8 @@ public class SMPClient extends SMPClientReadOnly
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
     aServiceMetadata.setServiceInformation (aServiceInformation);
-    _saveServiceInformation (aServiceInformation.getParticipantIdentifier (),
-                             aServiceInformation.getDocumentIdentifier (),
+    _saveServiceInformation (SimpleParticipantIdentifier.wrap (aServiceInformation.getParticipantIdentifier ()),
+                             SimpleDocumentTypeIdentifier.wrap (aServiceInformation.getDocumentIdentifier ()),
                              aServiceMetadata,
                              aCredentials);
   }

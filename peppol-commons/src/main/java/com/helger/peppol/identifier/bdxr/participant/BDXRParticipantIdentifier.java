@@ -19,8 +19,9 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.bdxr.ParticipantIdentifierType;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
+import com.helger.peppol.identifier.IMutableIdentifier;
+import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.xsds.bdxr.smp1.ParticipantIdentifierType;
 
 /**
  * This is a sanity class around the {@link ParticipantIdentifierType} class
@@ -31,7 +32,8 @@ import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
  */
 @NotThreadSafe
 public class BDXRParticipantIdentifier extends ParticipantIdentifierType implements
-                                       IBDXRParticipantIdentifier,
+                                       IParticipantIdentifier,
+                                       IMutableIdentifier,
                                        Comparable <BDXRParticipantIdentifier>,
                                        ICloneable <BDXRParticipantIdentifier>
 {
@@ -62,29 +64,5 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
   public BDXRParticipantIdentifier getClone ()
   {
     return new BDXRParticipantIdentifier (this);
-  }
-
-  /**
-   * Take the passed identifier scheme and value try to convert it back to a
-   * participant identifier. If the passed scheme is invalid <code>null</code>
-   * is returned.
-   *
-   * @param sScheme
-   *        The identifier scheme. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
-   * @param sValue
-   *        The identifier value. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
-   * @return The participant identifier or <code>null</code> if any of the parts
-   *         is invalid.
-   * @see IBDXRParticipantIdentifier#isValidScheme(String)
-   * @see IBDXRParticipantIdentifier#isValidValue(String)
-   */
-  @Nullable
-  public static BDXRParticipantIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
-  {
-    if (IBDXRParticipantIdentifier.isValidScheme (sScheme) && IBDXRParticipantIdentifier.isValidValue (sValue))
-      return new BDXRParticipantIdentifier (sScheme, sValue);
-    return null;
   }
 }

@@ -21,7 +21,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
-import com.helger.peppol.identifier.peppol.participant.IPeppolParticipantIdentifier;
+import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 
 /**
  * A wrapper around the custom identifier validator implementations.
@@ -60,12 +60,12 @@ public final class IdentifierValidator
    *
    * @param aParticipantID
    *        The participant ID to validate. May not be <code>null</code>.
-   * @return <code>true</code> if a) the identifier is not the default scheme, b)
-   *         if at least one validator matched or c) if no matching validator was
-   *         found at all. The method returns <code>false</code> if a matching
-   *         validator was found, but the ID did not match.
+   * @return <code>true</code> if a) the identifier is not the default scheme,
+   *         b) if at least one validator matched or c) if no matching validator
+   *         was found at all. The method returns <code>false</code> if a
+   *         matching validator was found, but the ID did not match.
    */
-  public static boolean isValidParticipantIdentifier (@Nonnull final IPeppolParticipantIdentifier aParticipantID)
+  public static boolean isValidParticipantIdentifier (@Nonnull final PeppolParticipantIdentifier aParticipantID)
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
 

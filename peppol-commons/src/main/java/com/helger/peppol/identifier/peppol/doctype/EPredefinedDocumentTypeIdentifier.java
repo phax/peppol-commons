@@ -13,7 +13,8 @@ package com.helger.peppol.identifier.peppol.doctype;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
-import com.helger.peppol.identifier.generic.doctype.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

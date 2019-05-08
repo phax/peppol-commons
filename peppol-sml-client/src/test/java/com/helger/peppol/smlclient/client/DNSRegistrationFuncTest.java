@@ -34,7 +34,7 @@ import org.xbill.DNS.Type;
 
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.peppol.identifier.ParticipantIdentifierType;
+import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
@@ -72,7 +72,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   private static final String INTERNAL_DNS_SERVER = "blixdns0";
 
   @Nullable
-  private static String _DNSLookupPI (@Nonnull final ParticipantIdentifierType aPI) throws Exception
+  private static String _DNSLookupPI (@Nonnull final IParticipantIdentifier aPI) throws Exception
   {
     final String sHost = PeppolURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, SML_INFO);
     return _DNSLookup (sHost);

@@ -15,8 +15,8 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
-import com.helger.peppol.identifier.generic.participant.IParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.url.EsensURLProvider;
