@@ -85,6 +85,10 @@
       <artifactId>ph-xsds-bdxr-smp1</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xsds-bdxr-smp2</artifactId>
+    </dependency>
+    <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
     </dependency>
