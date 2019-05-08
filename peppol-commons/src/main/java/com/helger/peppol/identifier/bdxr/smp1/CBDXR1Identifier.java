@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.identifier.bdxr;
+package com.helger.peppol.identifier.bdxr.smp1;
 
 import javax.annotation.concurrent.Immutable;
 
@@ -20,7 +20,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
  * @author Philip Helger
  */
 @Immutable
-public final class CBDXRIdentifier
+public final class CBDXR1Identifier
 {
   /**
    * The default document identifier scheme.
@@ -39,8 +39,8 @@ public final class CBDXRIdentifier
   public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "bdx:noprocess";
 
   @PresentForCodeCoverage
-  private static final CBDXRIdentifier s_aInstance = new CBDXRIdentifier ();
+  private static final CBDXR1Identifier s_aInstance = new CBDXR1Identifier ();
 
-  private CBDXRIdentifier ()
+  private CBDXR1Identifier ()
   {}
 }

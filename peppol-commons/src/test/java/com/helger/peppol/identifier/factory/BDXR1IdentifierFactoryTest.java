@@ -21,20 +21,20 @@ import org.junit.Test;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
-import com.helger.peppol.identifier.bdxr.CBDXRIdentifier;
+import com.helger.peppol.identifier.bdxr.smp1.CBDXR1Identifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
- * Test class for class {@link BDXRIdentifierFactory}.
+ * Test class for class {@link BDXR1IdentifierFactory}.
  *
  * @author Philip Helger
  */
-public final class BDXRIdentifierFactoryTest
+public final class BDXR1IdentifierFactoryTest
 {
   @Test
   public void testDocTypeIDCreation ()
   {
-    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    final BDXR1IdentifierFactory aIF = BDXR1IdentifierFactory.INSTANCE;
     assertNotNull (aIF.createDocumentTypeIdentifier (null, null));
     assertNotNull (aIF.createDocumentTypeIdentifier (null, "any"));
     assertNotNull (aIF.createDocumentTypeIdentifier (null, ""));
@@ -45,7 +45,7 @@ public final class BDXRIdentifierFactoryTest
   @Test
   public void testProcessIDCreation ()
   {
-    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    final BDXR1IdentifierFactory aIF = BDXR1IdentifierFactory.INSTANCE;
     assertNotNull (aIF.createProcessIdentifier (null, null));
     assertNotNull (aIF.createProcessIdentifier (null, "any"));
     assertNotNull (aIF.createProcessIdentifier (null, ""));
@@ -56,7 +56,7 @@ public final class BDXRIdentifierFactoryTest
   @Test
   public void testParticipantIDCreation ()
   {
-    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    final BDXR1IdentifierFactory aIF = BDXR1IdentifierFactory.INSTANCE;
     assertNotNull (aIF.createParticipantIdentifier (null, null));
     assertNotNull (aIF.createParticipantIdentifier (null, "any"));
     assertNotNull (aIF.createParticipantIdentifier (null, ""));
@@ -67,7 +67,7 @@ public final class BDXRIdentifierFactoryTest
   @Test
   public void testParticipantIDCaseInsensitive ()
   {
-    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    final BDXR1IdentifierFactory aIF = BDXR1IdentifierFactory.INSTANCE;
     final String sScheme = PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME;
     final IParticipantIdentifier aID1 = aIF.createParticipantIdentifier (sScheme, "abc");
     assertEquals (sScheme, aID1.getScheme ());
@@ -83,7 +83,7 @@ public final class BDXRIdentifierFactoryTest
   @Test
   public void testParticipantIDCaseSensitive ()
   {
-    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    final BDXR1IdentifierFactory aIF = BDXR1IdentifierFactory.INSTANCE;
     final String sScheme = "cs-actorid-upis";
     final IParticipantIdentifier aID1 = aIF.createParticipantIdentifier (sScheme, "abc");
     assertEquals (sScheme, aID1.getScheme ());
@@ -99,8 +99,8 @@ public final class BDXRIdentifierFactoryTest
   @Test
   public void testDocTypeIDCaseInsensitive ()
   {
-    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
-    final String sScheme = CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
+    final BDXR1IdentifierFactory aIF = BDXR1IdentifierFactory.INSTANCE;
+    final String sScheme = CBDXR1Identifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
     final IDocumentTypeIdentifier aID1 = aIF.createDocumentTypeIdentifier (sScheme, "abc");
     assertEquals (sScheme, aID1.getScheme ());
     assertEquals ("abc", aID1.getValue ());
@@ -115,7 +115,7 @@ public final class BDXRIdentifierFactoryTest
   @Test
   public void testDocTypeIDCaseSensitive ()
   {
-    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    final BDXR1IdentifierFactory aIF = BDXR1IdentifierFactory.INSTANCE;
     // Different scheme - handle case sensitive
     final String sScheme = "cs-doctype-scheme";
     final IDocumentTypeIdentifier aID1 = aIF.createDocumentTypeIdentifier (sScheme, "abc");
@@ -132,9 +132,9 @@ public final class BDXRIdentifierFactoryTest
   @Test
   public void testProcessIDCaseInsensitive ()
   {
-    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    final BDXR1IdentifierFactory aIF = BDXR1IdentifierFactory.INSTANCE;
     // Default scheme - handle case insensitive
-    final String sScheme = CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
+    final String sScheme = CBDXR1Identifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
     final IProcessIdentifier aID1 = aIF.createProcessIdentifier (sScheme, "abc");
     assertEquals (sScheme, aID1.getScheme ());
     assertEquals ("abc", aID1.getValue ());
@@ -149,7 +149,7 @@ public final class BDXRIdentifierFactoryTest
   @Test
   public void testProcessIDCaseSensitive ()
   {
-    final BDXRIdentifierFactory aIF = BDXRIdentifierFactory.INSTANCE;
+    final BDXR1IdentifierFactory aIF = BDXR1IdentifierFactory.INSTANCE;
     // Different scheme - handle case sensitive
     final String sScheme = "cs-docid-qns";
     final IProcessIdentifier aID1 = aIF.createProcessIdentifier (sScheme, "abc");

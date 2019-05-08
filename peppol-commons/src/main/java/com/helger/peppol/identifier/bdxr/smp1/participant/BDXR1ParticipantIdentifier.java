@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.identifier.bdxr.participant;
+package com.helger.peppol.identifier.bdxr.smp1.participant;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,27 +31,27 @@ import com.helger.xsds.bdxr.smp1.ParticipantIdentifierType;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class BDXRParticipantIdentifier extends ParticipantIdentifierType implements
+public class BDXR1ParticipantIdentifier extends ParticipantIdentifierType implements
                                        IParticipantIdentifier,
                                        IMutableIdentifier,
-                                       Comparable <BDXRParticipantIdentifier>,
-                                       ICloneable <BDXRParticipantIdentifier>
+                                       Comparable <BDXR1ParticipantIdentifier>,
+                                       ICloneable <BDXR1ParticipantIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXRParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
+  public BDXR1ParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXRParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public BDXR1ParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     // Change "" to null
     setScheme (StringHelper.hasNoText (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 
-  public int compareTo (@Nonnull final BDXRParticipantIdentifier aOther)
+  public int compareTo (@Nonnull final BDXR1ParticipantIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -61,8 +61,8 @@ public class BDXRParticipantIdentifier extends ParticipantIdentifierType impleme
 
   @Nonnull
   @ReturnsMutableCopy
-  public BDXRParticipantIdentifier getClone ()
+  public BDXR1ParticipantIdentifier getClone ()
   {
-    return new BDXRParticipantIdentifier (this);
+    return new BDXR1ParticipantIdentifier (this);
   }
 }

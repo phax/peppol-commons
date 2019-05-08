@@ -13,58 +13,59 @@ package com.helger.peppol.identifier.factory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.peppol.identifier.bdxr.BDXRIdentifierHelper;
-import com.helger.peppol.identifier.bdxr.CBDXRIdentifier;
-import com.helger.peppol.identifier.bdxr.doctype.BDXRDocumentTypeIdentifier;
-import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifier;
-import com.helger.peppol.identifier.bdxr.process.BDXRProcessIdentifier;
+import com.helger.peppol.identifier.bdxr.smp1.BDXR1IdentifierHelper;
+import com.helger.peppol.identifier.bdxr.smp1.CBDXR1Identifier;
+import com.helger.peppol.identifier.bdxr.smp1.doctype.BDXR1DocumentTypeIdentifier;
+import com.helger.peppol.identifier.bdxr.smp1.participant.BDXR1ParticipantIdentifier;
+import com.helger.peppol.identifier.bdxr.smp1.process.BDXR1ProcessIdentifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
- * Default implementation of {@link IIdentifierFactory} for BDXR identifiers.
+ * Default implementation of {@link IIdentifierFactory} for BDXR SMP v1
+ * identifiers.
  *
  * @author Philip Helger
  */
-public class BDXRIdentifierFactory implements IIdentifierFactory
+public class BDXR1IdentifierFactory implements IIdentifierFactory
 {
   /** Global instance to be used. */
-  public static final BDXRIdentifierFactory INSTANCE = new BDXRIdentifierFactory ();
+  public static final BDXR1IdentifierFactory INSTANCE = new BDXR1IdentifierFactory ();
 
-  public BDXRIdentifierFactory ()
+  public BDXR1IdentifierFactory ()
   {}
 
   @Nonnull
   @Override
   public String getDefaultDocumentTypeIdentifierScheme ()
   {
-    return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
+    return CBDXR1Identifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
   }
 
   @Override
   public boolean isDocumentTypeIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
-    return CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (sScheme);
+    return CBDXR1Identifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME.equals (sScheme);
   }
 
   public boolean isDocumentTypeIdentifierSchemeValid (@Nullable final String sScheme)
   {
-    return BDXRIdentifierHelper.isValidIdentifierScheme (sScheme);
+    return BDXR1IdentifierHelper.isValidIdentifierScheme (sScheme);
   }
 
   public boolean isDocumentTypeIdentifierValueValid (@Nullable final String sValue)
   {
-    return BDXRIdentifierHelper.isValidIdentifierValue (sValue);
+    return BDXR1IdentifierHelper.isValidIdentifierValue (sValue);
   }
 
   @Nullable
-  public BDXRDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
-                                                                  @Nullable final String sValue)
+  public BDXR1DocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
+                                                                   @Nullable final String sValue)
   {
     final String sRealScheme = nullNotEmpty (sScheme);
     final String sRealValue = nullNotEmpty (isDocumentTypeIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
                                                                                                   : sValue);
     if (isDocumentTypeIdentifierSchemeValid (sRealScheme) && isDocumentTypeIdentifierValueValid (sRealValue))
-      return new BDXRDocumentTypeIdentifier (sRealScheme, sRealValue);
+      return new BDXR1DocumentTypeIdentifier (sRealScheme, sRealValue);
     return null;
   }
 
@@ -78,23 +79,23 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
 
   public boolean isParticipantIdentifierSchemeValid (@Nullable final String sScheme)
   {
-    return BDXRIdentifierHelper.isValidIdentifierScheme (sScheme);
+    return BDXR1IdentifierHelper.isValidIdentifierScheme (sScheme);
   }
 
   public boolean isParticipantIdentifierValueValid (@Nullable final String sValue)
   {
-    return BDXRIdentifierHelper.isValidIdentifierValue (sValue);
+    return BDXR1IdentifierHelper.isValidIdentifierValue (sValue);
   }
 
   @Nullable
-  public BDXRParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
-                                                                @Nullable final String sValue)
+  public BDXR1ParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
+                                                                 @Nullable final String sValue)
   {
     final String sRealScheme = nullNotEmpty (sScheme);
     final String sRealValue = nullNotEmpty (isParticipantIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
                                                                                                  : sValue);
     if (isParticipantIdentifierSchemeValid (sRealScheme) && isParticipantIdentifierValueValid (sRealValue))
-      return new BDXRParticipantIdentifier (sRealScheme, sRealValue);
+      return new BDXR1ParticipantIdentifier (sRealScheme, sRealValue);
     return null;
   }
 
@@ -102,29 +103,29 @@ public class BDXRIdentifierFactory implements IIdentifierFactory
   @Override
   public String getDefaultProcessIdentifierScheme ()
   {
-    return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
+    return CBDXR1Identifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
   }
 
   @Override
   public boolean isProcessIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
-    return CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals (sScheme);
+    return CBDXR1Identifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME.equals (sScheme);
   }
 
   public boolean isProcessIdentifierValueValid (final String sValue)
   {
-    return BDXRIdentifierHelper.isValidIdentifierValue (sValue);
+    return BDXR1IdentifierHelper.isValidIdentifierValue (sValue);
   }
 
   @Nullable
-  public BDXRProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
+  public BDXR1ProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealScheme = nullNotEmpty (sScheme);
     final String sRealValue = nullNotEmpty (isProcessIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
                                                                                              : sValue);
 
     if (isProcessIdentifierSchemeValid (sRealScheme) && isProcessIdentifierValueValid (sRealValue))
-      return new BDXRProcessIdentifier (sRealScheme, sRealValue);
+      return new BDXR1ProcessIdentifier (sRealScheme, sRealValue);
     return null;
   }
 }

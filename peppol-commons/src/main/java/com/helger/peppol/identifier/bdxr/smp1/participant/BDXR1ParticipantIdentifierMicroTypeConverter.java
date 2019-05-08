@@ -8,20 +8,20 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.identifier.bdxr.process;
+package com.helger.peppol.identifier.bdxr.smp1.participant;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.peppol.identifier.AbstractIdentifierMicroTypeConverter;
 
-public final class BDXRProcessIdentifierMicroTypeConverter extends
-                                                           AbstractIdentifierMicroTypeConverter <BDXRProcessIdentifier>
+public final class BDXR1ParticipantIdentifierMicroTypeConverter extends
+                                                               AbstractIdentifierMicroTypeConverter <BDXR1ParticipantIdentifier>
 {
   @Override
   @Nonnull
-  protected BDXRProcessIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
+  protected BDXR1ParticipantIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    return new BDXRProcessIdentifier (sScheme, sValue);
+    return new BDXR1ParticipantIdentifier (sScheme, sValue);
   }
 }

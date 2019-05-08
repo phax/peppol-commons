@@ -8,20 +8,20 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.bdxr.marshal;
+package com.helger.peppol.bdxr.smp1.marshal;
 
 import com.helger.xsds.bdxr.smp1.ObjectFactory;
-import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
+import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
 /**
- * A simple JAXB marshaller for the {@link ServiceMetadataType} type.
+ * A simple JAXB marshaller for the {@link SignedServiceMetadataType} type.
  *
  * @author Philip Helger
  */
-public final class BDXRMarshallerServiceMetadataType extends AbstractBDXRMarshaller <ServiceMetadataType>
+public final class BDXRMarshallerSignedServiceMetadataType extends AbstractBDXRMarshaller <SignedServiceMetadataType>
 {
-  public BDXRMarshallerServiceMetadataType ()
+  public BDXRMarshallerSignedServiceMetadataType ()
   {
-    super (ServiceMetadataType.class, new ObjectFactory ()::createServiceMetadata);
+    super (SignedServiceMetadataType.class, new ObjectFactory ()::createSignedServiceMetadata);
   }
 }

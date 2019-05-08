@@ -27,13 +27,13 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.mime.CMimeType;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.bdxr.marshal.BDXRMarshallerServiceGroupType;
-import com.helger.peppol.bdxr.marshal.BDXRMarshallerServiceMetadataType;
+import com.helger.peppol.bdxr.smp1.marshal.BDXRMarshallerServiceGroupType;
+import com.helger.peppol.bdxr.smp1.marshal.BDXRMarshallerServiceMetadataType;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.bdxr.participant.BDXRParticipantIdentifier;
+import com.helger.peppol.identifier.bdxr.smp1.participant.BDXR1ParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
@@ -190,7 +190,7 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceGroupType aServiceGroup = new ServiceGroupType ();
-    aServiceGroup.setParticipantIdentifier (new BDXRParticipantIdentifier (aParticipantID));
+    aServiceGroup.setParticipantIdentifier (new BDXR1ParticipantIdentifier (aParticipantID));
     saveServiceGroup (aServiceGroup, aCredentials);
     return aServiceGroup;
   }

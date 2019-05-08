@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.identifier.bdxr;
+package com.helger.peppol.identifier.bdxr.smp1;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -23,12 +23,12 @@ import com.helger.commons.url.URLHelper;
  * @author Philip Helger
  */
 @Immutable
-public final class BDXRIdentifierHelper
+public final class BDXR1IdentifierHelper
 {
   @PresentForCodeCoverage
-  private static final BDXRIdentifierHelper s_aInstance = new BDXRIdentifierHelper ();
+  private static final BDXR1IdentifierHelper s_aInstance = new BDXR1IdentifierHelper ();
 
-  private BDXRIdentifierHelper ()
+  private BDXR1IdentifierHelper ()
   {}
 
   /**

@@ -19,7 +19,7 @@ import org.junit.Test;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
-import com.helger.peppol.identifier.bdxr.CBDXRIdentifier;
+import com.helger.peppol.identifier.bdxr.smp1.CBDXR1Identifier;
 import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 
 /**
@@ -94,7 +94,7 @@ public final class SimpleIdentifierFactoryTest
   public void testDocTypeID ()
   {
     final SimpleIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
-    String sScheme = CBDXRIdentifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
+    String sScheme = CBDXR1Identifier.DEFAULT_DOCUMENT_TYPE_IDENTIFIER_SCHEME;
     IDocumentTypeIdentifier aID1 = aIF.createDocumentTypeIdentifier (sScheme, "abc");
     assertEquals (sScheme, aID1.getScheme ());
     assertEquals ("abc", aID1.getValue ());
@@ -123,7 +123,7 @@ public final class SimpleIdentifierFactoryTest
   {
     final SimpleIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
     // Default scheme - handle case insensitive
-    final String sScheme = CBDXRIdentifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
+    final String sScheme = CBDXR1Identifier.DEFAULT_PROCESS_IDENTIFIER_SCHEME;
     final IProcessIdentifier aID1 = aIF.createProcessIdentifier (sScheme, "abc");
     assertEquals (sScheme, aID1.getScheme ());
     assertEquals ("abc", aID1.getValue ());

@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.identifier.bdxr.doctype;
+package com.helger.peppol.identifier.bdxr.smp1.doctype;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,27 +31,27 @@ import com.helger.xsds.bdxr.smp1.DocumentIdentifierType;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implements
+public class BDXR1DocumentTypeIdentifier extends DocumentIdentifierType implements
                                         IDocumentTypeIdentifier,
                                         IMutableIdentifier,
-                                        Comparable <BDXRDocumentTypeIdentifier>,
-                                        ICloneable <BDXRDocumentTypeIdentifier>
+                                        Comparable <BDXR1DocumentTypeIdentifier>,
+                                        ICloneable <BDXR1DocumentTypeIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXRDocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  public BDXR1DocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXRDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public BDXR1DocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     // Change "" to null
     setScheme (StringHelper.hasNoText (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 
-  public int compareTo (@Nonnull final BDXRDocumentTypeIdentifier aOther)
+  public int compareTo (@Nonnull final BDXR1DocumentTypeIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -61,8 +61,8 @@ public class BDXRDocumentTypeIdentifier extends DocumentIdentifierType implement
 
   @Nonnull
   @ReturnsMutableCopy
-  public BDXRDocumentTypeIdentifier getClone ()
+  public BDXR1DocumentTypeIdentifier getClone ()
   {
-    return new BDXRDocumentTypeIdentifier (this);
+    return new BDXR1DocumentTypeIdentifier (this);
   }
 }

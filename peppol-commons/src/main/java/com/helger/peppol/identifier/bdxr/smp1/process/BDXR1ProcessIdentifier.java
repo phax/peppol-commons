@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.identifier.bdxr.process;
+package com.helger.peppol.identifier.bdxr.smp1.process;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,27 +31,27 @@ import com.helger.xsds.bdxr.smp1.ProcessIdentifierType;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class BDXRProcessIdentifier extends ProcessIdentifierType implements
+public class BDXR1ProcessIdentifier extends ProcessIdentifierType implements
                                    IProcessIdentifier,
                                    IMutableIdentifier,
-                                   Comparable <BDXRProcessIdentifier>,
-                                   ICloneable <BDXRProcessIdentifier>
+                                   Comparable <BDXR1ProcessIdentifier>,
+                                   ICloneable <BDXR1ProcessIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXRProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
+  public BDXR1ProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXRProcessIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public BDXR1ProcessIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     // Change "" to null
     setScheme (StringHelper.hasNoText (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 
-  public int compareTo (@Nonnull final BDXRProcessIdentifier aOther)
+  public int compareTo (@Nonnull final BDXR1ProcessIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -61,8 +61,8 @@ public class BDXRProcessIdentifier extends ProcessIdentifierType implements
 
   @Nonnull
   @ReturnsMutableCopy
-  public BDXRProcessIdentifier getClone ()
+  public BDXR1ProcessIdentifier getClone ()
   {
-    return new BDXRProcessIdentifier (this);
+    return new BDXR1ProcessIdentifier (this);
   }
 }
