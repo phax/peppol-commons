@@ -18,7 +18,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
 
 /**
- * Helper methods for OASIS BDXR SMP identifiers.
+ * Helper methods for OASIS BDXR SMP v1 identifiers.
  *
  * @author Philip Helger
  */

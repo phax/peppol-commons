@@ -15,7 +15,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
- * Constants of OASIS BDXR SMP specification.
+ * Constants of OASIS BDXR SMP v1 specification.
  *
  * @author Philip Helger
  */
