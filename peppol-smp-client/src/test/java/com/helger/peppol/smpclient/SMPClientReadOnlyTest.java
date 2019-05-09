@@ -19,7 +19,7 @@ import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smpclient.exception.SMPClientException;
-import com.helger.peppol.url.EsensURLProvider;
+import com.helger.peppol.url.BDXLURLProvider;
 import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.peppol.url.PeppolURLProvider;
 
@@ -41,7 +41,7 @@ public final class SMPClientReadOnlyTest
                   aSMPClient.getSMPHostURI ());
 
     // E-SENS URL provider
-    aSMPClient = new SMPClientReadOnly (EsensURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    aSMPClient = new SMPClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
     if (true)
       assertEquals ("http://test-infra.peppol.at/", aSMPClient.getSMPHostURI ());
     else

@@ -21,16 +21,16 @@ import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifi
 import com.helger.peppol.sml.ESML;
 
 /**
- * Test class for class {@link EsensURLProvider}.
+ * Test class for class {@link BDXLURLProvider}.
  *
  * @author Philip Helger
  */
-public final class EsensURLProviderTest
+public final class BDXLURLProviderTest
 {
   @Test
   public void testDefault () throws PeppolDNSResolutionException
   {
-    final IBDXLURLProvider aURLProvider = EsensURLProvider.INSTANCE;
+    final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null,
                                                                                          "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128"),
@@ -62,7 +62,7 @@ public final class EsensURLProviderTest
   @Test
   public void testNoLowercase () throws PeppolDNSResolutionException
   {
-    final EsensURLProvider aURLProvider = new EsensURLProvider ();
+    final BDXLURLProvider aURLProvider = new BDXLURLProvider ();
     aURLProvider.setLowercaseValueBeforeHashing (false);
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null,
@@ -87,7 +87,7 @@ public final class EsensURLProviderTest
   @DevelopersNote ("works only if DNS server is reachable")
   public void testResolve () throws PeppolDNSResolutionException
   {
-    final IBDXLURLProvider aURLProvider = EsensURLProvider.INSTANCE;
+    final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     final String sURL = aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
                                                               ESML.DIGIT_TEST);
     assertNotNull (sURL);
@@ -100,7 +100,7 @@ public final class EsensURLProviderTest
   @Test
   public void testToop () throws PeppolDNSResolutionException
   {
-    final IBDXLURLProvider aURLProvider = EsensURLProvider.INSTANCE;
+    final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
                                                         "toop.acc.edelivery.tech.ec.europa.eu.",

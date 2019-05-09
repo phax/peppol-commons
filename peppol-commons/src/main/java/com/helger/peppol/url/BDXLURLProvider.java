@@ -42,9 +42,9 @@ import com.helger.security.messagedigest.MessageDigestValue;
  * @author Philip Helger
  */
 @ThreadSafe
-public class EsensURLProvider implements IBDXLURLProvider
+public class BDXLURLProvider implements IBDXLURLProvider
 {
-  public static final EsensURLProvider MUTABLE_INSTANCE = new EsensURLProvider ();
+  public static final BDXLURLProvider MUTABLE_INSTANCE = new BDXLURLProvider ();
   public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
@@ -57,7 +57,7 @@ public class EsensURLProvider implements IBDXLURLProvider
   /**
    * Default constructor.
    */
-  public EsensURLProvider ()
+  public BDXLURLProvider ()
   {}
 
   public boolean isLowercaseValueBeforeHashing ()
