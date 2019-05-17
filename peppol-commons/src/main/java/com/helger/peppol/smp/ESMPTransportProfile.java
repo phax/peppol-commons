@@ -26,7 +26,7 @@ import com.helger.commons.type.ObjectType;
  */
 public enum ESMPTransportProfile implements ISMPTransportProfile
 {
-  /** The START transport profile to be used in EndPointType objects */
+  /** The PEPPOL START transport profile */
   @Deprecated
   TRANSPORT_PROFILE_START ("busdox-transport-start", "START")
   {
@@ -37,13 +37,13 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
     }
   },
 
-  /** The AS2 transport profile to be used in EndPointType objects */
+  /** The PEPPOL AS2 transport profile v1 (SHA-1) */
   TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "AS2"),
 
-  /** The AS2 v2 transport profile to be used in EndPointType objects */
+  /** The PEPPOL AS2 v2 transport profile v2 (SHA-256) */
   TRANSPORT_PROFILE_AS2_V2 ("busdox-transport-as2-ver2p0", "PEPPOL AS2 v2"),
 
-  /** The AS4 transport profile to be used in EndPointType objects */
+  /** The AS4 transport profile */
   @Deprecated
   TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4")
   {
@@ -54,10 +54,10 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
     }
   },
 
-  /** The BDXR AS4 transport profile to be used in EndPointType objects */
+  /** The CEF AS4 transport profile */
   TRANSPORT_PROFILE_BDXR_AS4 ("bdxr-transport-ebms3-as4-v1p0", "BDXR AS4"),
 
-  /** Special PEPPOL AS4 profile v1 */
+  /** The PEPPOL AS4 profile v1 */
   @Deprecated
   TRANSPORT_PROFILE_PEPPOL_AS4 ("peppol-transport-as4-v1_0", "PEPPOL AS4")
   {
@@ -67,7 +67,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
       return true;
     }
   },
-  /** Special PEPPOL AS4 profile v2 */
+  /** The PEPPOL AS4 profile v2 */
   TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "PEPPOL AS4");
 
   private final String m_sID;
