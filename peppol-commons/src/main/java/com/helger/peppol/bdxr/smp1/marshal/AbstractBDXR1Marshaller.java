@@ -15,12 +15,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
-import com.helger.xsds.bdxr.smp1.ObjectFactory;
+import com.helger.xsds.bdxr.smp1.CBDXRSMP1;
 import com.helger.xsds.xmldsig.CXMLDSig;
 
 /**
@@ -30,10 +30,9 @@ import com.helger.xsds.xmldsig.CXMLDSig;
  * @param <JAXBTYPE>
  *        JAXB type to use
  */
-public abstract class AbstractBDXRMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
+public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  // For backwards compatibility
-  public static final boolean DEFAULT_VALIDATION_ENABLED = false;
+  public static final boolean DEFAULT_VALIDATION_ENABLED = true;
   private static final AtomicBoolean VALIDATION_ENABLED = new AtomicBoolean (DEFAULT_VALIDATION_ENABLED);
 
   public static boolean isValidationEnabled ()
@@ -46,17 +45,21 @@ public abstract class AbstractBDXRMarshaller <JAXBTYPE> extends GenericJAXBMarsh
     VALIDATION_ENABLED.set (bEnabled);
   }
 
-  private static final ClassPathResource XSD = new ClassPathResource ("/WEB-INF/wsdl/bdx-smp-201605.xsd",
-                                                                      AbstractBDXRMarshaller.class.getClassLoader ());
-
-  public AbstractBDXRMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                 @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+  private static final ICommonsList <ClassPathResource> XSDS;
+  static
   {
-    super (aType, isValidationEnabled () ? new CommonsArrayList <> (CXMLDSig.getXSDResource (), XSD) : null, aWrapper);
+    XSDS = CBDXRSMP1.getAllIncludes ();
+    XSDS.add (CBDXRSMP1.getXSDResource ());
+  }
+
+  public AbstractBDXR1Marshaller (@Nonnull final Class <JAXBTYPE> aType,
+                                  @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+  {
+    super (aType, isValidationEnabled () ? XSDS : null, aWrapper);
 
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
-    aNSContext.addMapping ("bdxr", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());
-    aNSContext.addMapping ("ds", "http://www.w3.org/2000/09/xmldsig#");
+    aNSContext.addMapping (CXMLDSig.DEFAULT_PREFIX, CXMLDSig.NAMESPACE_URI);
+    aNSContext.addMapping (CBDXRSMP1.DEFAULT_PREFIX, CBDXRSMP1.NAMESPACE_URI);
     setNamespaceContext (aNSContext);
   }
 }

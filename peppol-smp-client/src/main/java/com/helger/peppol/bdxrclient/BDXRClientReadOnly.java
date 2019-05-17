@@ -27,8 +27,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.peppol.bdxr.smp1.marshal.BDXRMarshallerServiceGroupType;
-import com.helger.peppol.bdxr.smp1.marshal.BDXRMarshallerSignedServiceMetadataType;
+import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerServiceGroupType;
+import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerSignedServiceMetadataType;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;
@@ -156,7 +156,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     final HttpGet aRequest = new HttpGet (sURI);
     return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new BDXRMarshallerServiceGroupType ()));
+                                  new SMPHttpResponseHandlerUnsigned <> (new BDXR1MarshallerServiceGroupType ()));
   }
 
   /**
@@ -227,7 +227,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned <> (new BDXRMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+                                                                 new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
     // If the Redirect element is present, then follow 1 redirect.
     if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
@@ -239,7 +239,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
       aRequest = new HttpGet (aRedirect.getHref ());
       aMetadata = executeGenericRequest (aRequest,
-                                         new SMPHttpResponseHandlerSigned <> (new BDXRMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+                                         new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
       // Check that the certificateUID is correct.
       boolean bCertificateSubjectFound = false;

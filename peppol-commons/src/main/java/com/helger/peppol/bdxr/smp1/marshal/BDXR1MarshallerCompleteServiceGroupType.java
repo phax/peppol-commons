@@ -10,18 +10,18 @@
  */
 package com.helger.peppol.bdxr.smp1.marshal;
 
+import com.helger.xsds.bdxr.smp1.CompleteServiceGroupType;
 import com.helger.xsds.bdxr.smp1.ObjectFactory;
-import com.helger.xsds.bdxr.smp1.ServiceGroupType;
 
 /**
- * A simple JAXB marshaller for the {@link ServiceGroupType} type.
+ * A simple JAXB marshaller for the {@link CompleteServiceGroupType} type.
  *
  * @author Philip Helger
  */
-public final class BDXRMarshallerServiceGroupType extends AbstractBDXRMarshaller <ServiceGroupType>
+public final class BDXR1MarshallerCompleteServiceGroupType extends AbstractBDXR1Marshaller <CompleteServiceGroupType>
 {
-  public BDXRMarshallerServiceGroupType ()
+  public BDXR1MarshallerCompleteServiceGroupType ()
   {
-    super (ServiceGroupType.class, new ObjectFactory ()::createServiceGroup);
+    super (CompleteServiceGroupType.class, new ObjectFactory ()::createCompleteServiceGroup);
   }
 }

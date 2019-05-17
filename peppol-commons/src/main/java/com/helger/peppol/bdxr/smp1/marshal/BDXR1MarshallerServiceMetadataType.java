@@ -18,9 +18,9 @@ import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
  *
  * @author Philip Helger
  */
-public final class BDXRMarshallerServiceMetadataType extends AbstractBDXRMarshaller <ServiceMetadataType>
+public final class BDXR1MarshallerServiceMetadataType extends AbstractBDXR1Marshaller <ServiceMetadataType>
 {
-  public BDXRMarshallerServiceMetadataType ()
+  public BDXR1MarshallerServiceMetadataType ()
   {
     super (ServiceMetadataType.class, new ObjectFactory ()::createServiceMetadata);
   }

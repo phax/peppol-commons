@@ -27,8 +27,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.mime.CMimeType;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.bdxr.smp1.marshal.BDXRMarshallerServiceGroupType;
-import com.helger.peppol.bdxr.smp1.marshal.BDXRMarshallerServiceMetadataType;
+import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerServiceGroupType;
+import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerServiceMetadataType;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
@@ -151,7 +151,7 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sBody = new BDXRMarshallerServiceGroupType ().getAsString (aServiceGroup);
+    final String sBody = new BDXR1MarshallerServiceGroupType ().getAsString (aServiceGroup);
 
     final String sURI = getSMPHostURI () + CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
     if (LOGGER.isDebugEnabled ())
@@ -230,7 +230,7 @@ public class BDXRClient extends BDXRClientReadOnly
                                         @Nonnull final ServiceMetadataType aServiceMetadata,
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
-    final String sBody = new BDXRMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
+    final String sBody = new BDXR1MarshallerServiceMetadataType ().getAsString (aServiceMetadata);
 
     final String sURI = getSMPHostURI () +
                         CIdentifier.getURIPercentEncoded (aServiceGroupID) +

@@ -20,12 +20,12 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.peppol.bdxr.smp1.BDXRExtensionConverter;
+import com.helger.peppol.bdxr.smp1.BDXR1ExtensionConverter;
 import com.helger.xsds.bdxr.smp1.ExtensionType;
 import com.helger.xsds.bdxr.smp1.ObjectFactory;
 
 /**
- * Test class for class {@link BDXRExtensionConverter}.
+ * Test class for class {@link BDXR1ExtensionConverter}.
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
@@ -37,41 +37,41 @@ public final class BDXRExtensionConverterTest
     // Use elements
     final String sJson = "[{\"ID\":\"a\",\"Name\":\"b\",\"AgencyID\":\"c\",\"AgencyName\":\"d\",\"AgencyURI\":\"e\",\"VersionID\":\"f\",\"URI\":\"g\",\"ReasonCode\":\"h\",\"Reason\":\"i\"," +
                          "\"Any\":\"<any xmlns=\\\"urn:foo\\\"><child>text1</child><child2 /></any>\"}]";
-    final ICommonsList <ExtensionType> aExtensions = BDXRExtensionConverter.convert (sJson);
+    final ICommonsList <ExtensionType> aExtensions = BDXR1ExtensionConverter.convert (sJson);
     assertNotNull (aExtensions);
     assertEquals (1, aExtensions.size ());
     final ExtensionType aExtension = aExtensions.get (0);
     assertNotNull (aExtension.getAny ());
     assertTrue (aExtension.getAny () instanceof Node);
 
-    assertNull (BDXRExtensionConverter.convert ((String) null));
-    assertNull (BDXRExtensionConverter.convert (""));
+    assertNull (BDXR1ExtensionConverter.convert ((String) null));
+    assertNull (BDXR1ExtensionConverter.convert (""));
 
     // Convert back to String
-    final String sJson2 = BDXRExtensionConverter.convertToString (new CommonsArrayList <> (aExtension));
+    final String sJson2 = BDXR1ExtensionConverter.convertToString (new CommonsArrayList <> (aExtension));
     assertEquals (sJson, sJson2);
 
     // Cannot convert non-element
-    assertNull (BDXRExtensionConverter.convert ("Plain text"));
+    assertNull (BDXR1ExtensionConverter.convert ("Plain text"));
   }
 
   @Test
   public void testConvertFromExtensionType ()
   {
     // Try converting an empty extension
-    assertNull (BDXRExtensionConverter.convertToString (null));
+    assertNull (BDXR1ExtensionConverter.convertToString (null));
     assertEquals ("[]",
-                  BDXRExtensionConverter.convertToString (new CommonsArrayList <> (new ObjectFactory ().createExtensionType ())));
+                  BDXR1ExtensionConverter.convertToString (new CommonsArrayList <> (new ObjectFactory ().createExtensionType ())));
   }
 
   @Test
   public void testConvertFromXML ()
   {
-    assertNull (BDXRExtensionConverter.convertXMLToSingleExtension (null));
-    assertNull (BDXRExtensionConverter.convertXMLToSingleExtension (""));
-    final ICommonsList <ExtensionType> aExts = BDXRExtensionConverter.convertXMLToSingleExtension ("<foobar />");
+    assertNull (BDXR1ExtensionConverter.convertXMLToSingleExtension (null));
+    assertNull (BDXR1ExtensionConverter.convertXMLToSingleExtension (""));
+    final ICommonsList <ExtensionType> aExts = BDXR1ExtensionConverter.convertXMLToSingleExtension ("<foobar />");
     assertNotNull (aExts);
     assertEquals (1, aExts.size ());
-    assertEquals ("[{\"Any\":\"<foobar />\"}]", BDXRExtensionConverter.convertToString (aExts));
+    assertEquals ("[{\"Any\":\"<foobar />\"}]", BDXR1ExtensionConverter.convertToString (aExts));
   }
 }

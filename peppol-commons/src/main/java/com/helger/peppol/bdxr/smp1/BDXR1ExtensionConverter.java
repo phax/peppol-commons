@@ -49,7 +49,7 @@ import com.helger.xsds.bdxr.smp1.ExtensionType;
  * @author Philip Helger
  */
 @Immutable
-public final class BDXRExtensionConverter
+public final class BDXR1ExtensionConverter
 {
   public static final String JSON_ID = "ID";
   public static final String JSON_NAME = "Name";
@@ -62,15 +62,15 @@ public final class BDXRExtensionConverter
   public static final String JSON_REASON = "Reason";
   public static final String JSON_ANY = "Any";
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (BDXRExtensionConverter.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BDXR1ExtensionConverter.class);
   private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE);
   private static final JsonWriterSettings s_aJWS = new JsonWriterSettings ().setIndentEnabled (false)
                                                                             .setWriteNewlineAtEnd (false);
 
   @PresentForCodeCoverage
-  private static final BDXRExtensionConverter s_aInstance = new BDXRExtensionConverter ();
+  private static final BDXR1ExtensionConverter s_aInstance = new BDXR1ExtensionConverter ();
 
-  private BDXRExtensionConverter ()
+  private BDXR1ExtensionConverter ()
   {}
 
   /**

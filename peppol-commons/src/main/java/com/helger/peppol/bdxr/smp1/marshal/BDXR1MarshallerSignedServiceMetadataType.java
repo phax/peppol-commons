@@ -18,9 +18,9 @@ import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
  *
  * @author Philip Helger
  */
-public final class BDXRMarshallerSignedServiceMetadataType extends AbstractBDXRMarshaller <SignedServiceMetadataType>
+public final class BDXR1MarshallerSignedServiceMetadataType extends AbstractBDXR1Marshaller <SignedServiceMetadataType>
 {
-  public BDXRMarshallerSignedServiceMetadataType ()
+  public BDXR1MarshallerSignedServiceMetadataType ()
   {
     super (SignedServiceMetadataType.class, new ObjectFactory ()::createSignedServiceMetadata);
   }
