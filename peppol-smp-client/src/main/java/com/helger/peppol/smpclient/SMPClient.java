@@ -147,6 +147,9 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final String sBody = new SMPMarshallerServiceGroupType ().getAsString (aServiceGroup);
+    if (sBody == null)
+      throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
+
     final String sURI = getSMPHostURI () + CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
 
     if (LOGGER.isDebugEnabled ())
@@ -227,6 +230,8 @@ public class SMPClient extends SMPClientReadOnly
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     final String sBody = new SMPMarshallerServiceMetadataType ().getAsString (aServiceMetadata);
+    if (sBody == null)
+      throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 
     final String sURI = getSMPHostURI () +
                         aServiceGroupID.getURIPercentEncoded () +

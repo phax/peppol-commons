@@ -33,6 +33,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
     * Using the OASIS BDXR SMP generated code from `ph-xsds-bdxr-smp1` instead of including it manually
     * Updated to ph-xsds-* 2.2.3
     * Enabled XSD validation in JAXB marshallers by default
+    * `SMPClient` and `BDXRClient` throw an Exception if the writable REST API parameters don't follow the XSD
 * v6.2.5 - 2019-05-07
     * Fixed Java 12 compatibility
 * v6.2.4 - 2019-05-05

@@ -152,6 +152,8 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final String sBody = new BDXR1MarshallerServiceGroupType ().getAsString (aServiceGroup);
+    if (sBody == null)
+      throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
     final String sURI = getSMPHostURI () + CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
     if (LOGGER.isDebugEnabled ())
@@ -231,6 +233,8 @@ public class BDXRClient extends BDXRClientReadOnly
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     final String sBody = new BDXR1MarshallerServiceMetadataType ().getAsString (aServiceMetadata);
+    if (sBody == null)
+      throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 
     final String sURI = getSMPHostURI () +
                         CIdentifier.getURIPercentEncoded (aServiceGroupID) +
