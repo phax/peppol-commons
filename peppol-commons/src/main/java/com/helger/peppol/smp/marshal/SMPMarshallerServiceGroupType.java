@@ -18,10 +18,15 @@ import com.helger.peppol.smp.ServiceGroupType;
  *
  * @author Philip Helger
  */
-public final class SMPMarshallerServiceGroupType extends AbstractSMPMarshaller <ServiceGroupType>
+public class SMPMarshallerServiceGroupType extends AbstractSMPMarshaller <ServiceGroupType>
 {
   public SMPMarshallerServiceGroupType ()
   {
-    super (ServiceGroupType.class, true, new ObjectFactory ()::createServiceGroup);
+    this (true);
+  }
+
+  public SMPMarshallerServiceGroupType (final boolean bValidationEnabled)
+  {
+    super (ServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createServiceGroup);
   }
 }

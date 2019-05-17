@@ -18,7 +18,7 @@ import com.helger.peppol.smp.SignedServiceMetadataType;
  *
  * @author Philip Helger
  */
-public final class SMPMarshallerSignedServiceMetadataType extends AbstractSMPMarshaller <SignedServiceMetadataType>
+public class SMPMarshallerSignedServiceMetadataType extends AbstractSMPMarshaller <SignedServiceMetadataType>
 {
   public SMPMarshallerSignedServiceMetadataType ()
   {

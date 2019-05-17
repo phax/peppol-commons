@@ -38,7 +38,12 @@ public class BDXR2ServiceGroupMarshaller extends GenericJAXBMarshaller <ServiceG
 
   public BDXR2ServiceGroupMarshaller ()
   {
-    super (ServiceGroupType.class, true ? XSDS : null, new ObjectFactory ()::createServiceGroup);
+    this (true);
+  }
+
+  public BDXR2ServiceGroupMarshaller (final boolean bValidationEnabled)
+  {
+    super (ServiceGroupType.class, bValidationEnabled ? XSDS : null, new ObjectFactory ()::createServiceGroup);
 
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
     aNSContext.addMapping (CCCTS.DEFAULT_PREFIX, CCCTS.NAMESPACE_URI);

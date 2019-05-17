@@ -18,10 +18,15 @@ import com.helger.xsds.bdxr.smp1.ServiceGroupType;
  *
  * @author Philip Helger
  */
-public final class BDXR1MarshallerServiceGroupType extends AbstractBDXR1Marshaller <ServiceGroupType>
+public class BDXR1MarshallerServiceGroupType extends AbstractBDXR1Marshaller <ServiceGroupType>
 {
   public BDXR1MarshallerServiceGroupType ()
   {
-    super (ServiceGroupType.class, true, new ObjectFactory ()::createServiceGroup);
+    this (true);
+  }
+
+  public BDXR1MarshallerServiceGroupType (final boolean bValidationEnabled)
+  {
+    super (ServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createServiceGroup);
   }
 }

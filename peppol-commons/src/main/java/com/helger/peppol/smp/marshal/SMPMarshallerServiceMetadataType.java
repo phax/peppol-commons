@@ -18,10 +18,15 @@ import com.helger.peppol.smp.ServiceMetadataType;
  *
  * @author Philip Helger
  */
-public final class SMPMarshallerServiceMetadataType extends AbstractSMPMarshaller <ServiceMetadataType>
+public class SMPMarshallerServiceMetadataType extends AbstractSMPMarshaller <ServiceMetadataType>
 {
   public SMPMarshallerServiceMetadataType ()
   {
-    super (ServiceMetadataType.class, true, new ObjectFactory ()::createServiceMetadata);
+    this (true);
+  }
+
+  public SMPMarshallerServiceMetadataType (final boolean bValidationEnabled)
+  {
+    super (ServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createServiceMetadata);
   }
 }

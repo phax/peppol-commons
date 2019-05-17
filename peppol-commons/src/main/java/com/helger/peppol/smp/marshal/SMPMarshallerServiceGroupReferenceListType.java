@@ -18,11 +18,17 @@ import com.helger.peppol.smp.ServiceGroupReferenceListType;
  *
  * @author Philip Helger
  */
-public final class SMPMarshallerServiceGroupReferenceListType extends
-                                                              AbstractSMPMarshaller <ServiceGroupReferenceListType>
+public class SMPMarshallerServiceGroupReferenceListType extends AbstractSMPMarshaller <ServiceGroupReferenceListType>
 {
   public SMPMarshallerServiceGroupReferenceListType ()
   {
-    super (ServiceGroupReferenceListType.class, true, new ObjectFactory ()::createServiceGroupReferenceList);
+    this (true);
+  }
+
+  public SMPMarshallerServiceGroupReferenceListType (final boolean bValidationEnabled)
+  {
+    super (ServiceGroupReferenceListType.class,
+           bValidationEnabled,
+           new ObjectFactory ()::createServiceGroupReferenceList);
   }
 }

@@ -38,7 +38,12 @@ public class BDXR2ServiceMetadataMarshaller extends GenericJAXBMarshaller <Servi
 
   public BDXR2ServiceMetadataMarshaller ()
   {
-    super (ServiceMetadataType.class, true ? XSDS : null, new ObjectFactory ()::createServiceMetadata);
+    this (true);
+  }
+
+  public BDXR2ServiceMetadataMarshaller (final boolean bValidationEnabled)
+  {
+    super (ServiceMetadataType.class, bValidationEnabled ? XSDS : null, new ObjectFactory ()::createServiceMetadata);
 
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
     aNSContext.addMapping (CCCTS.DEFAULT_PREFIX, CCCTS.NAMESPACE_URI);

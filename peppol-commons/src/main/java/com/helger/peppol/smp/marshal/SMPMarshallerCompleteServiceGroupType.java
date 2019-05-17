@@ -18,10 +18,15 @@ import com.helger.peppol.smp.ObjectFactory;
  *
  * @author Philip Helger
  */
-public final class SMPMarshallerCompleteServiceGroupType extends AbstractSMPMarshaller <CompleteServiceGroupType>
+public class SMPMarshallerCompleteServiceGroupType extends AbstractSMPMarshaller <CompleteServiceGroupType>
 {
   public SMPMarshallerCompleteServiceGroupType ()
   {
-    super (CompleteServiceGroupType.class, true, new ObjectFactory ()::createCompleteServiceGroup);
+    this (true);
+  }
+
+  public SMPMarshallerCompleteServiceGroupType (final boolean bValidationEnabled)
+  {
+    super (CompleteServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createCompleteServiceGroup);
   }
 }
