@@ -22,6 +22,8 @@ public final class BDXR1MarshallerSignedServiceMetadataType extends AbstractBDXR
 {
   public BDXR1MarshallerSignedServiceMetadataType ()
   {
-    super (SignedServiceMetadataType.class, new ObjectFactory ()::createSignedServiceMetadata);
+    // Disable validation, because the mandatory Signature element is created
+    // afterwards
+    super (SignedServiceMetadataType.class, false, new ObjectFactory ()::createSignedServiceMetadata);
   }
 }

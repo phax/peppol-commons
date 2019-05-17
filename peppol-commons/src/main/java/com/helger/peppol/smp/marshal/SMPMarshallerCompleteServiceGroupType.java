@@ -22,6 +22,6 @@ public final class SMPMarshallerCompleteServiceGroupType extends AbstractSMPMars
 {
   public SMPMarshallerCompleteServiceGroupType ()
   {
-    super (CompleteServiceGroupType.class, new ObjectFactory ()::createCompleteServiceGroup);
+    super (CompleteServiceGroupType.class, true, new ObjectFactory ()::createCompleteServiceGroup);
   }
 }

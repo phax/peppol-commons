@@ -22,6 +22,6 @@ public final class BDXR1MarshallerServiceGroupType extends AbstractBDXR1Marshall
 {
   public BDXR1MarshallerServiceGroupType ()
   {
-    super (ServiceGroupType.class, new ObjectFactory ()::createServiceGroup);
+    super (ServiceGroupType.class, true, new ObjectFactory ()::createServiceGroup);
   }
 }

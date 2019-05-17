@@ -22,6 +22,6 @@ public final class BDXR1MarshallerServiceMetadataType extends AbstractBDXR1Marsh
 {
   public BDXR1MarshallerServiceMetadataType ()
   {
-    super (ServiceMetadataType.class, new ObjectFactory ()::createServiceMetadata);
+    super (ServiceMetadataType.class, true, new ObjectFactory ()::createServiceMetadata);
   }
 }

@@ -10,8 +10,6 @@
  */
 package com.helger.peppol.bdxr.smp2.marshal;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
@@ -31,19 +29,6 @@ import com.helger.xsds.xmldsig.CXMLDSig;
  */
 public class BDXR2ServiceGroupMarshaller extends GenericJAXBMarshaller <ServiceGroupType>
 {
-  public static final boolean DEFAULT_VALIDATION_ENABLED = true;
-  private static final AtomicBoolean VALIDATION_ENABLED = new AtomicBoolean (DEFAULT_VALIDATION_ENABLED);
-
-  public static boolean isValidationEnabled ()
-  {
-    return VALIDATION_ENABLED.get ();
-  }
-
-  public static void setValidationEnabled (final boolean bEnabled)
-  {
-    VALIDATION_ENABLED.set (bEnabled);
-  }
-
   private static final ICommonsList <ClassPathResource> XSDS;
   static
   {
@@ -53,7 +38,7 @@ public class BDXR2ServiceGroupMarshaller extends GenericJAXBMarshaller <ServiceG
 
   public BDXR2ServiceGroupMarshaller ()
   {
-    super (ServiceGroupType.class, isValidationEnabled () ? XSDS : null, new ObjectFactory ()::createServiceGroup);
+    super (ServiceGroupType.class, true ? XSDS : null, new ObjectFactory ()::createServiceGroup);
 
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
     aNSContext.addMapping (CCCTS.DEFAULT_PREFIX, CCCTS.NAMESPACE_URI);

@@ -22,6 +22,6 @@ public final class SMPMarshallerServiceMetadataType extends AbstractSMPMarshalle
 {
   public SMPMarshallerServiceMetadataType ()
   {
-    super (ServiceMetadataType.class, new ObjectFactory ()::createServiceMetadata);
+    super (ServiceMetadataType.class, true, new ObjectFactory ()::createServiceMetadata);
   }
 }

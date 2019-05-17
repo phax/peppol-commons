@@ -10,8 +10,6 @@
  */
 package com.helger.peppol.bdxr.smp1.marshal;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
@@ -32,19 +30,6 @@ import com.helger.xsds.xmldsig.CXMLDSig;
  */
 public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  public static final boolean DEFAULT_VALIDATION_ENABLED = true;
-  private static final AtomicBoolean VALIDATION_ENABLED = new AtomicBoolean (DEFAULT_VALIDATION_ENABLED);
-
-  public static boolean isValidationEnabled ()
-  {
-    return VALIDATION_ENABLED.get ();
-  }
-
-  public static void setValidationEnabled (final boolean bEnabled)
-  {
-    VALIDATION_ENABLED.set (bEnabled);
-  }
-
   private static final ICommonsList <ClassPathResource> XSDS;
   static
   {
@@ -53,9 +38,10 @@ public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMars
   }
 
   public AbstractBDXR1Marshaller (@Nonnull final Class <JAXBTYPE> aType,
+                                  final boolean bValidationEnabled,
                                   @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    super (aType, isValidationEnabled () ? XSDS : null, aWrapper);
+    super (aType, bValidationEnabled ? XSDS : null, aWrapper);
 
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
     aNSContext.addMapping (CXMLDSig.DEFAULT_PREFIX, CXMLDSig.NAMESPACE_URI);
