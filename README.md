@@ -28,8 +28,11 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 * v7.0.0 - work in progress
     * Started to rework identifier class hierarchies, interfaces and package assignments - the result is incompatible to the 6.x version
-    * Started integrating OASIS BDXR SMP v2 CSD01 into the existing structure ^
+    * Started integrating OASIS BDXR SMP v2 CSD01 into the existing structure
     * Renamed `EsensURLProvider` to `BDXLURLProvider`
+    * Using the OASIS BDXR SMP generated code from `ph-xsds-bdxr-smp1` instead of including it manually
+    * Updated to ph-xsds-* 2.2.3
+    * Enabled XSD validation in AbstractBDXR1Marshaller by default
 * v6.2.5 - 2019-05-07
     * Fixed Java 12 compatibility
 * v6.2.4 - 2019-05-05
