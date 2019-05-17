@@ -12,6 +12,7 @@ package com.helger.peppol.bdxr.smp1;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
@@ -37,6 +38,7 @@ import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 import com.helger.xsds.bdxr.smp1.ExtensionType;
+import com.helger.xsds.bdxr.smp2.ec.SMPExtensionType;
 
 /**
  * This class is used for converting between a String representation of the
@@ -240,5 +242,21 @@ public final class BDXR1ExtensionConverter
       }
     }
     return null;
+  }
+
+  @Nonnull
+  public static ExtensionType convertFromExtensionBDXR2 (@Nonnull final SMPExtensionType aExt)
+  {
+    final ExtensionType ret = new ExtensionType ();
+    ret.setExtensionID (aExt.getIDValue ());
+    ret.setExtensionName (aExt.getNameValue ());
+    ret.setExtensionAgencyID (aExt.getExtensionAgencyIDValue ());
+    ret.setExtensionAgencyName (aExt.getExtensionAgencyNameValue ());
+    ret.setExtensionAgencyURI (aExt.getExtensionAgencyURIValue ());
+    ret.setExtensionVersionID (aExt.getExtensionVersionIDValue ());
+    ret.setExtensionURI (aExt.getExtensionURIValue ());
+    ret.setExtensionReasonCode (aExt.getExtensionReasonCodeValue ());
+    ret.setExtensionReason (aExt.getExtensionReasonValue ());
+    return ret;
   }
 }
