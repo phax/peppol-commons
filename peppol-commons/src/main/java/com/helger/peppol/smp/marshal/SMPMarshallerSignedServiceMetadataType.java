@@ -22,8 +22,13 @@ public final class SMPMarshallerSignedServiceMetadataType extends AbstractSMPMar
 {
   public SMPMarshallerSignedServiceMetadataType ()
   {
-    // Disable validation, because the mandatory signature element is applied
-    // afterwards
-    super (SignedServiceMetadataType.class, false, new ObjectFactory ()::createSignedServiceMetadata);
+    // Disable validation by default, because the mandatory signature element is
+    // applied afterwards
+    this (false);
+  }
+
+  public SMPMarshallerSignedServiceMetadataType (final boolean bValidationEnabled)
+  {
+    super (SignedServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createSignedServiceMetadata);
   }
 }
