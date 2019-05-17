@@ -32,7 +32,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
     * Renamed `EsensURLProvider` to `BDXLURLProvider`
     * Using the OASIS BDXR SMP generated code from `ph-xsds-bdxr-smp1` instead of including it manually
     * Updated to ph-xsds-* 2.2.3
-    * Enabled XSD validation in AbstractBDXR1Marshaller by default
+    * Enabled XSD validation in JAXB marshallers by default
 * v6.2.5 - 2019-05-07
     * Fixed Java 12 compatibility
 * v6.2.4 - 2019-05-05

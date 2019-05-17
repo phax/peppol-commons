@@ -32,8 +32,7 @@ import com.helger.xsds.xmldsig.CXMLDSig;
  */
 public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  // For backwards compatibility
-  public static final boolean DEFAULT_VALIDATION_ENABLED = false;
+  public static final boolean DEFAULT_VALIDATION_ENABLED = true;
   private static final AtomicBoolean VALIDATION_ENABLED = new AtomicBoolean (DEFAULT_VALIDATION_ENABLED);
 
   public static boolean isValidationEnabled ()
