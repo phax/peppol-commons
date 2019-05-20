@@ -93,15 +93,15 @@ public interface IParticipantIdentifierScheme extends Serializable
   }
 
   /**
-   * @return <code>true</code> if the agency is deprecated and should not be
-   *         used any longer, <code>false</code> otherwise.
-   */
-  boolean isDeprecated ();
-
-  /**
    * @return The internal code list version in which the identifier was added.
    *         Never <code>null</code>.
    */
   @Nonnull
   Version getSince ();
+
+  /**
+   * @return <code>true</code> if the agency is deprecated and should not be
+   *         used any longer, <code>false</code> otherwise.
+   */
+  boolean isDeprecated ();
 }

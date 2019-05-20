@@ -52,4 +52,11 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    */
   @Nonnull
   Version getSince ();
+
+  /**
+   * @return <code>true</code> if this identifier is deprecated,
+   *         <code>false</code> if not.
+   * @since 7.0.0
+   */
+  boolean isDeprecated ();
 }

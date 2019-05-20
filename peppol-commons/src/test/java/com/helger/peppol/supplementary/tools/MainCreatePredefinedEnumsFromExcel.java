@@ -67,6 +67,7 @@ import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierP
 import com.helger.peppol.identifier.peppol.pidscheme.IParticipantIdentifierScheme;
 import com.helger.peppol.identifier.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
+import com.helger.peppol.identifier.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -216,6 +217,7 @@ public final class MainCreatePredefinedEnumsFromExcel
 
         jEnumConst.arg (JExpr.lit (sProfileCode));
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (JExpr.lit (bDeprecated));
         jEnumConst.javadoc ().add ("<code>" + sID + "</code><br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
@@ -250,6 +252,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       final JFieldVar fID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
       final JFieldVar fProfileCode = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileCode");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
+      final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -263,12 +266,14 @@ public final class MainCreatePredefinedEnumsFromExcel
       jProfileCode.annotate (Nonempty.class);
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
+      final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
       jCtor.body ()
            .assign (fScheme, jScheme)
            .assign (fParts, jParts)
            .assign (fProfileCode, jProfileCode)
            .assign (fID, fParts.invoke ("getAsDocumentTypeIdentifierValue"))
-           .assign (fSince, jSince);
+           .assign (fSince, jSince)
+           .assign (fDeprecated, jDeprecated);
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
@@ -344,15 +349,19 @@ public final class MainCreatePredefinedEnumsFromExcel
       m.annotate (Nonnull.class);
       m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifier.class)).arg (JExpr._this ()));
 
+      // public IPeppolDocumentTypeIdentifierParts getParts
+      m = jEnum.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifierParts.class, "getParts");
+      m.annotate (Nonnull.class);
+      m.body ()._return (fParts);
+
       // public Version getSince ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
       m.annotate (Nonnull.class);
       m.body ()._return (fSince);
 
-      // public IPeppolDocumentTypeIdentifierParts getParts
-      m = jEnum.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifierParts.class, "getParts");
-      m.annotate (Nonnull.class);
-      m.body ()._return (fParts);
+      // public boolean isDeprecated ()
+      m = jEnum.method (JMod.PUBLIC, s_aCodeModel.BOOLEAN, "isDeprecated");
+      m.body ()._return (fDeprecated);
 
       // @Nullable
       // public static EPredefinedDocumentTypeIdentifier
@@ -503,8 +512,8 @@ public final class MainCreatePredefinedEnumsFromExcel
         jEnumConst.arg (JExpr.lit (sSchemeID));
         jEnumConst.arg (sAgency == null ? JExpr._null () : JExpr.lit (sAgency));
         jEnumConst.arg (JExpr.lit (sISO6523));
-        jEnumConst.arg (bDeprecated ? JExpr.TRUE : JExpr.FALSE);
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (JExpr.lit (bDeprecated));
 
         jEnumConst.javadoc ()
                   .add ("Prefix <code>" + sISO6523 + "</code>, scheme ID <code>" + sSchemeID + "</code><br>");
@@ -531,8 +540,8 @@ public final class MainCreatePredefinedEnumsFromExcel
       final JFieldVar fSchemeID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sSchemeID");
       final JFieldVar fSchemeAgency = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sSchemeAgency");
       final JFieldVar fISO6523 = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sISO6523");
-      final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
+      final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -544,15 +553,15 @@ public final class MainCreatePredefinedEnumsFromExcel
       final JVar jISO6523 = jCtor.param (JMod.FINAL, String.class, "sISO6523");
       jISO6523.annotate (Nonnull.class);
       jISO6523.annotate (Nonempty.class);
-      final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
+      final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
       jCtor.body ()
            .assign (fSchemeID, jSchemeID)
            .assign (fSchemeAgency, jSchemeAgency)
            .assign (fISO6523, jISO6523)
-           .assign (fDeprecated, jDeprecated)
-           .assign (fSince, jSince);
+           .assign (fSince, jSince)
+           .assign (fDeprecated, jDeprecated);
 
       // public String getSchemeID ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getSchemeID");
@@ -571,14 +580,14 @@ public final class MainCreatePredefinedEnumsFromExcel
       m.annotate (Nonempty.class);
       m.body ()._return (fISO6523);
 
-      // public boolean isDeprecated ()
-      m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
-      m.body ()._return (fDeprecated);
-
       // public Version getSince ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
       m.annotate (Nonnull.class);
       m.body ()._return (fSince);
+
+      // public boolean isDeprecated ()
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
+      m.body ()._return (fDeprecated);
     }
     catch (final Exception ex)
     {
@@ -664,6 +673,8 @@ public final class MainCreatePredefinedEnumsFromExcel
         jEnumConst.arg (JExpr.lit (sScheme));
         jEnumConst.arg (JExpr.lit (sID));
         jEnumConst.arg (sBISID == null ? JExpr._null () : JExpr.lit (sBISID));
+        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (JExpr.lit (bDeprecated));
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
@@ -672,7 +683,6 @@ public final class MainCreatePredefinedEnumsFromExcel
                           sDeprecatedSince +
                           " and should not be used to issue new identifiers!</b><br>");
         }
-        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.javadoc ().add ("<code>" + sID + "</code><br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
@@ -706,6 +716,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       final JFieldVar fID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
       final JFieldVar fBISID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sBISID");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
+      final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -719,7 +730,13 @@ public final class MainCreatePredefinedEnumsFromExcel
       jBISID.annotate (Nullable.class);
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
-      jCtor.body ().assign (fScheme, jScheme).assign (fID, jID).assign (fBISID, jBISID).assign (fSince, jSince);
+      final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
+      jCtor.body ()
+           .assign (fScheme, jScheme)
+           .assign (fID, jID)
+           .assign (fBISID, jBISID)
+           .assign (fSince, jSince)
+           .assign (fDeprecated, jDeprecated);
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
@@ -747,6 +764,10 @@ public final class MainCreatePredefinedEnumsFromExcel
       m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
       m.annotate (Nonnull.class);
       m.body ()._return (fSince);
+
+      // public boolean isDeprecated ()
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
+      m.body ()._return (fDeprecated);
 
       // @Nullable public static EPredefinedProcessIdentifier
       // getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier
@@ -826,6 +847,7 @@ public final class MainCreatePredefinedEnumsFromExcel
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "transportprofile")
                                               ._enum ("EPredefinedTransportProfileIdentifier");
+      jEnum._implements (s_aCodeModel.ref (IPredefinedTransportProfileIdentifier.class));
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
@@ -846,6 +868,8 @@ public final class MainCreatePredefinedEnumsFromExcel
         jEnumConst.arg (JExpr.lit (sProtocol));
         jEnumConst.arg (JExpr.lit (sProfileVersion));
         jEnumConst.arg (JExpr.lit (sProfileID));
+        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (JExpr.lit (bDeprecated));
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
@@ -854,7 +878,6 @@ public final class MainCreatePredefinedEnumsFromExcel
                           sDeprecatedSince +
                           " and should not be used to issue new identifiers!</b><br>");
         }
-        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.javadoc ().add ("<code>" + sProfileID + "</code><br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
@@ -883,6 +906,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       final JFieldVar fProfileVersion = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileVersion");
       final JFieldVar fProfileID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileID");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
+      final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -897,11 +921,13 @@ public final class MainCreatePredefinedEnumsFromExcel
       jProfileID.annotate (Nonempty.class);
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
+      final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
       jCtor.body ()
            .assign (fProtocol, jProtocol)
            .assign (fProfileVersion, jProfileVersion)
            .assign (fProfileID, jProfileID)
-           .assign (fSince, jSince);
+           .assign (fSince, jSince)
+           .assign (fDeprecated, jDeprecated);
 
       // public String getProtocol()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getProtocol");
@@ -925,6 +951,10 @@ public final class MainCreatePredefinedEnumsFromExcel
       m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
       m.annotate (Nonnull.class);
       m.body ()._return (fSince);
+
+      // public boolean isDeprecated ()
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
+      m.body ()._return (fDeprecated);
     }
     catch (final JClassAlreadyExistsException ex)
     {
@@ -970,7 +1000,7 @@ public final class MainCreatePredefinedEnumsFromExcel
                                          aCLF.m_aFile.getAbsolutePath () +
                                          "' could not be found!");
 
-      // Interprete as Excel
+      // Interpret as Excel
       try (final Workbook aWB = new XSSFWorkbook (aXls.getInputStream ()))
       {
         // Check whether all required sheets are present

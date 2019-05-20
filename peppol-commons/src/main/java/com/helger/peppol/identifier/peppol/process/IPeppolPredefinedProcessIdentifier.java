@@ -47,4 +47,11 @@ public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, 
    */
   @Nonnull
   Version getSince ();
+
+  /**
+   * @return <code>true</code> if this identifier is deprecated and should no
+   *         longer be used, <code>false</code> if not.
+   * @since 7.0.0
+   */
+  boolean isDeprecated ();
 }
