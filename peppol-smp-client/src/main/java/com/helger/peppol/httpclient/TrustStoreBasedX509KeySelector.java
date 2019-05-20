@@ -74,21 +74,28 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   {
     if (sAlgName.equalsIgnoreCase ("DSA"))
     {
-      if (sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1))
+      if (sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1) ||
+          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2009/xmldsig11#dsa-sha256"))
         return true;
     }
     else
       if (sAlgName.equalsIgnoreCase ("RSA"))
       {
         if (sAlgURI.equalsIgnoreCase (SignatureMethod.RSA_SHA1) ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha224") ||
             sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha256") ||
-            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha512"))
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha384") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-sha512") ||
+            sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#rsa-ripemd160"))
           return true;
       }
       else
         if (sAlgName.equalsIgnoreCase ("EC"))
         {
-          if (sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256"))
+          if (sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha224") ||
+              sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha256") ||
+              sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha384") ||
+              sAlgURI.equalsIgnoreCase ("http://www.w3.org/2001/04/xmldsig-more#ecdsa-sha512"))
             return true;
         }
 
