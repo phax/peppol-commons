@@ -16,6 +16,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.annotation.DevelopersNote;
+import com.helger.network.port.NetworkPortHelper;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
@@ -87,14 +88,18 @@ public final class BDXLURLProviderTest
   @DevelopersNote ("works only if DNS server is reachable")
   public void testResolve () throws PeppolDNSResolutionException
   {
-    final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
-    final String sURL = aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
-                                                              ESML.DIGIT_TEST);
-    assertNotNull (sURL);
-    if (true)
-      assertEquals ("test-infra.peppol.at", sURL);
-    else
-      assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu", sURL);
+    // Only if online
+    if (NetworkPortHelper.checkPortOpen ("www.google.com", 80, 2000, true).isPortOpen ())
+    {
+      final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
+      final String sURL = aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
+                                                                ESML.DIGIT_TEST);
+      assertNotNull (sURL);
+      if (true)
+        assertEquals ("test-infra.peppol.at", sURL);
+      else
+        assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu", sURL);
+    }
   }
 
   @Test

@@ -110,6 +110,11 @@
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
+      <artifactId>ph-network</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
       <artifactId>jcodemodel</artifactId>
       <scope>test</scope>
     </dependency>
