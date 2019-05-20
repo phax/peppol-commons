@@ -92,11 +92,11 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
           bClientCertificateRequired);
   }
 
-  protected SMLInfo (@Nonnull @Nonempty final String sID,
-                     @Nonnull @Nonempty final String sDisplayName,
-                     @Nonnull @Nonempty final String sDNSZone,
-                     @Nonnull @Nonempty final String sManagementServiceURL,
-                     final boolean bClientCertificateRequired)
+  public SMLInfo (@Nonnull @Nonempty final String sID,
+                  @Nonnull @Nonempty final String sDisplayName,
+                  @Nonnull @Nonempty final String sDNSZone,
+                  @Nonnull @Nonempty final String sManagementServiceURL,
+                  final boolean bClientCertificateRequired)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     setDisplayName (sDisplayName);
@@ -126,7 +126,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
   }
 
   @Nonnull
-  public EChange setDisplayName (@Nonnull @Nonempty final String sDisplayName)
+  public final EChange setDisplayName (@Nonnull @Nonempty final String sDisplayName)
   {
     ValueEnforcer.notEmpty (sDisplayName, "DisplayName");
     if (sDisplayName.equals (m_sDisplayName))
@@ -143,7 +143,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
   }
 
   @Nonnull
-  public EChange setDNSZone (@Nonnull @Nonempty final String sDNSZone)
+  public final EChange setDNSZone (@Nonnull @Nonempty final String sDNSZone)
   {
     ValueEnforcer.notEmpty (sDNSZone, "DNSZone");
     if (sDNSZone.equals (m_sDNSZone))
@@ -172,7 +172,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
   }
 
   @Nonnull
-  public EChange setManagementServiceURL (@Nonnull @Nonempty final String sManagementServiceURL)
+  public final EChange setManagementServiceURL (@Nonnull @Nonempty final String sManagementServiceURL)
   {
     ValueEnforcer.notEmpty (sManagementServiceURL, "ManagementServiceURL");
     if (sManagementServiceURL.equals (m_sManagementServiceURL))
@@ -206,7 +206,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
   }
 
   @Nonnull
-  public EChange setClientCertificateRequired (final boolean bRequiresClientCertificate)
+  public final EChange setClientCertificateRequired (final boolean bRequiresClientCertificate)
   {
     if (bRequiresClientCertificate == m_bClientCertificateRequired)
       return EChange.UNCHANGED;
