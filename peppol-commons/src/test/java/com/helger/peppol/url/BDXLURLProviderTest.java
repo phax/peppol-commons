@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.annotation.DevelopersNote;
-import com.helger.network.port.NetworkPortHelper;
+import com.helger.network.port.NetworkOnlineStatusDeterminator;
 import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ESML;
@@ -89,7 +89,7 @@ public final class BDXLURLProviderTest
   public void testResolve () throws PeppolDNSResolutionException
   {
     // Only if online
-    if (NetworkPortHelper.checkPortOpen ("www.google.com", 80, 2000, true).isPortOpen ())
+    if (NetworkOnlineStatusDeterminator.getNetworkStatus ().isOnline ())
     {
       final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
       final String sURL = aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
