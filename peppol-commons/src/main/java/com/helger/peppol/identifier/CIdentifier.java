@@ -35,7 +35,7 @@ public final class CIdentifier
   public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "busdox:noprocess";
 
   /**
-   * The delimiter used for the service group identifier ("::").
+   * The delimiter used between the identifier scheme and the value ("::").
    */
   public static final String URL_SCHEME_VALUE_SEPARATOR = "::";
 

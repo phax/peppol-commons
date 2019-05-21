@@ -109,6 +109,24 @@ public final class PeppolParticipantIdentifierTest
 
     try
     {
+      // invalid scheme
+      new PeppolParticipantIdentifier ("", "value");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    try
+    {
+      // separator is forbidden
+      new PeppolParticipantIdentifier ("abc::def", "value");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    try
+    {
       // null value not allowed
       new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, null);
       fail ();

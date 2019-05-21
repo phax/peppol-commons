@@ -18,6 +18,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierParts;
@@ -162,9 +163,15 @@ public final class PeppolIdentifierHelper
   {
     if (sScheme == null)
       return false;
+
     final int nLength = sScheme.length ();
     if (nLength == 0)
       return false;
+
+    // The separator may not be used inside the scheme (#27)
+    if (sScheme.indexOf (CIdentifier.URL_SCHEME_VALUE_SEPARATOR) >= 0)
+      return false;
+
     if (areSchemeMaxLengthChecksDisabled ())
       return true;
     return nLength <= MAX_IDENTIFIER_SCHEME_LENGTH;

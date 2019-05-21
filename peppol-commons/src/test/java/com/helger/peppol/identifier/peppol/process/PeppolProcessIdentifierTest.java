@@ -104,6 +104,24 @@ public final class PeppolProcessIdentifierTest
 
     try
     {
+      // invalid scheme
+      new PeppolProcessIdentifier ("", "value");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    try
+    {
+      // separator is forbidden
+      new PeppolProcessIdentifier ("abc::def", "value");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    try
+    {
       // null value not allowed
       new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, null);
       fail ();

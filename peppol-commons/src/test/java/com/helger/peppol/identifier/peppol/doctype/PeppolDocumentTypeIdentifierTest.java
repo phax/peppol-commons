@@ -113,6 +113,24 @@ public final class PeppolDocumentTypeIdentifierTest
 
     try
     {
+      // invalid scheme
+      new PeppolDocumentTypeIdentifier ("", "value");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    try
+    {
+      // separator is forbidden
+      new PeppolDocumentTypeIdentifier ("abc::def", "value");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    try
+    {
       // null value not allowed
       new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, null);
       fail ();
