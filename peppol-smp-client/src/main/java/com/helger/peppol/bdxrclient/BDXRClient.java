@@ -49,9 +49,9 @@ import com.helger.xsds.bdxr.smp1.ServiceInformationType;
 import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
 
 /**
- * This class is used for calling the BDXR SMP REST interface. This particular
- * class also contains the non-standard writing methods. It inherits all reading
- * methods from {@link BDXRClientReadOnly}.
+ * This class is used for calling the OASIS BDXR SMP v1 REST interface. This
+ * particular class also contains the non-standard writing methods. It inherits
+ * all reading methods from {@link BDXRClientReadOnly}.
  * <p>
  * Note: this class is also licensed under Apache 2 license, as it was not part
  * of the original implementation

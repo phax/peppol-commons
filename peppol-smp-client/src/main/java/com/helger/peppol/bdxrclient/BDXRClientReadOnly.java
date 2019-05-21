@@ -53,9 +53,9 @@ import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 import com.helger.xsds.xmldsig.X509DataType;
 
 /**
- * This class is used for calling the BDXR SMP REST interface. This class only
- * contains the read-only methods defined in the SMP specification and nothing
- * else.
+ * This class is used for calling the OASIS BDXR SMP v1 REST interface. This
+ * class only contains the read-only methods defined in the SMP specification
+ * and nothing else.
  * <p>
  * Note: this class is also licensed under Apache 2 license, as it was not part
  * of the original implementation
