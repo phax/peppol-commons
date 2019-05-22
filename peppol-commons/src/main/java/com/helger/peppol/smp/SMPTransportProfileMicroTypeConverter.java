@@ -26,6 +26,7 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
 {
   private static final String ATTR_ID = "id";
   private static final String ATTR_NAME = "name";
+  private static final String ATTR_DEPRECATED = "deprecated";
 
   @Nonnull
   public IMicroElement convertToMicroElement (@Nonnull final SMPTransportProfile aValue,
@@ -35,6 +36,7 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_ID, aValue.getID ());
     aElement.setAttribute (ATTR_NAME, aValue.getName ());
+    aElement.setAttribute (ATTR_DEPRECATED, aValue.isDeprecated ());
     return aElement;
   }
 
@@ -43,6 +45,8 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
   {
     final String sID = aElement.getAttributeValue (ATTR_ID);
     final String sName = aElement.getAttributeValue (ATTR_NAME);
-    return new SMPTransportProfile (sID, sName);
+    final boolean bIsDeprecated = aElement.getAttributeValueAsBool (ATTR_DEPRECATED,
+                                                                    SMPTransportProfile.DEFAULT_DEPRECATED);
+    return new SMPTransportProfile (sID, sName, bIsDeprecated);
   }
 }
