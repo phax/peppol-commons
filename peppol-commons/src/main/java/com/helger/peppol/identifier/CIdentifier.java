@@ -103,6 +103,20 @@ public final class CIdentifier
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
+  @Nonnull
+  @Nonempty
+  public static String getURIEncoded (@Nonnull final com.helger.xsds.bdxr.smp2.bc.ParticipantIDType aID)
+  {
+    return getURIEncoded (aID.getSchemeID (), aID.getValue ());
+  }
+
+  @Nonnull
+  @Nonempty
+  public static String getURIEncoded (@Nonnull final com.helger.xsds.bdxr.smp2.bc.IDType aID)
+  {
+    return getURIEncoded (aID.getSchemeID (), aID.getValue ());
+  }
+
   /**
    * Get the identifier URI encoded (without percent encoding) as in
    * <code>scheme::value</code>.

@@ -75,7 +75,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
    * @since 5.2.1
    */
   @Nonnull
-  public SMPHttpResponseHandlerSigned <T> setCheckCertificate (final boolean bCheckCertificate)
+  public final SMPHttpResponseHandlerSigned <T> setCheckCertificate (final boolean bCheckCertificate)
   {
     m_bCheckCertificate = bCheckCertificate;
     return this;
@@ -87,7 +87,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
    *         check is enabled (see {@link #DEFAULT_CHECK_CERTIFICATE}).
    * @since 5.2.1
    */
-  public boolean isCheckCertificate ()
+  public final boolean isCheckCertificate ()
   {
     return m_bCheckCertificate;
   }
@@ -115,6 +115,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.
+    // TODO OASIS BDXR SMP v2 can have more than one signature
     final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
     final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
 

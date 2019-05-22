@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.bdxrclient;
+package com.helger.peppol.bdxr2client;
 
 import java.net.URI;
 import java.security.cert.CertificateException;
@@ -27,14 +27,16 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerServiceGroupType;
-import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerSignedServiceMetadataType;
+import com.helger.peppol.bdxr.smp2.marshal.BDXR2ServiceGroupMarshaller;
+import com.helger.peppol.bdxr.smp2.marshal.BDXR2ServiceMetadataMarshaller;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;
+import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
+import com.helger.peppol.identifier.simple.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppol.identifier.simple.process.SimpleProcessIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
@@ -45,16 +47,17 @@ import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolDNSResolutionException;
 import com.helger.security.certificate.CertificateHelper;
-import com.helger.xsds.bdxr.smp1.EndpointType;
-import com.helger.xsds.bdxr.smp1.ProcessType;
-import com.helger.xsds.bdxr.smp1.RedirectType;
-import com.helger.xsds.bdxr.smp1.ServiceGroupType;
-import com.helger.xsds.bdxr.smp1.ServiceInformationType;
-import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
+import com.helger.xsds.bdxr.smp2.ServiceGroupType;
+import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
+import com.helger.xsds.bdxr.smp2.ac.CertificateType;
+import com.helger.xsds.bdxr.smp2.ac.EndpointType;
+import com.helger.xsds.bdxr.smp2.ac.ProcessMetadataType;
+import com.helger.xsds.bdxr.smp2.ac.ProcessType;
+import com.helger.xsds.bdxr.smp2.ac.RedirectType;
 import com.helger.xsds.xmldsig.X509DataType;
 
 /**
- * This class is used for calling the OASIS BDXR SMP v1 REST interface. This
+ * This class is used for calling the OASIS BDXR SMP v2 REST interface. This
  * class only contains the read-only methods defined in the SMP specification
  * and nothing else.
  * <p>
@@ -64,9 +67,9 @@ import com.helger.xsds.xmldsig.X509DataType;
  *
  * @author Philip Helger
  */
-public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientReadOnly>
+public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientReadOnly>
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (BDXRClientReadOnly.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BDXR2ClientReadOnly.class);
 
   /**
    * Constructor with SML lookup
@@ -83,9 +86,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public BDXRClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
-                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                             @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+  public BDXR2ClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
+                              @Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                              @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo));
   }
@@ -108,9 +111,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      String)
    */
-  public BDXRClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
-                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                             @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
+  public BDXR2ClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
+                              @Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                              @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName));
   }
@@ -123,7 +126,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *        The address of the SMP service. Must be port 80 and basic http only
    *        (no https!). Example: http://smpcompany.company.org
    */
-  public BDXRClientReadOnly (@Nonnull final URI aSMPHost)
+  public BDXR2ClientReadOnly (@Nonnull final URI aSMPHost)
   {
     super (aSMPHost);
   }
@@ -153,11 +156,10 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     final String sURI = getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("BDXRClient getServiceGroup@" + sURI);
+      LOGGER.debug ("BDXR2Client getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new BDXR1MarshallerServiceGroupType ()));
+    return executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (new BDXR2ServiceGroupMarshaller ()));
   }
 
   /**
@@ -213,8 +215,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *      IDocumentTypeIdentifier)
    */
   @Nonnull
-  public SignedServiceMetadataType getServiceRegistration (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                           @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  public ServiceMetadataType getServiceRegistration (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -224,57 +226,96 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("BDXRClient getServiceRegistration@" + sURI);
+      LOGGER.debug ("BDXR2Client getServiceRegistration@" + sURI);
 
     HttpGet aRequest = new HttpGet (sURI);
-    SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+    ServiceMetadataType aMetadata = executeGenericRequest (aRequest,
+                                                           new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller ()).setCheckCertificate (isCheckCertificate ()));
+    if (!SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()).equals (aDocumentTypeID))
+    {
+      // Inconsistency between request and response
+      throw new SMPClientException ("Requested document type '" +
+                                    aDocumentTypeID.getURIEncoded () +
+                                    "' and received '" +
+                                    CIdentifier.getURIEncoded (aMetadata.getID ()) +
+                                    "' - mismatch. Ignoring request.");
+    }
 
     // If the Redirect element is present, then follow 1 redirect.
-    if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
+    for (final ProcessMetadataType aPM : aMetadata.getProcessMetadata ())
     {
-      final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
-
-      // Follow the redirect
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
-      aRequest = new HttpGet (aRedirect.getHref ());
-      aMetadata = executeGenericRequest (aRequest,
-                                         new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
-
-      // Check that the certificateUID is correct.
-      boolean bCertificateSubjectFound = false;
-      outer: for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
+      final RedirectType aRedirect = aPM.getRedirect ();
+      if (aRedirect != null)
       {
-        final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
-        if (aInfoValue instanceof X509DataType)
-        {
-          final X509DataType aX509Data = (X509DataType) aInfoValue;
-          for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+        // Follow the redirect
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getPublisherURIValue () + "'");
+
+        aRequest = new HttpGet (aRedirect.getPublisherURIValue ());
+        aMetadata = executeGenericRequest (aRequest,
+                                           new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller ()).setCheckCertificate (isCheckCertificate ()));
+
+        // Check that the certificateUID is correct.
+        boolean bCertificateSubjectFound = false;
+        if (aMetadata.hasSignatureEntries ())
+          outer: for (final Object aObj : aMetadata.getSignatureAtIndex (0).getKeyInfo ().getContent ())
           {
-            final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-            // Find the first subject (of type string)
-            if (aX509element.getValue () instanceof String)
+            final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+            if (aInfoValue instanceof X509DataType)
             {
-              final String sSubject = (String) aX509element.getValue ();
-              if (!aRedirect.getCertificateUID ().equals (sSubject))
+              final X509DataType aX509Data = (X509DataType) aInfoValue;
+              for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
               {
-                throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
-                                              sSubject +
-                                              "'. Required certificate UID is '" +
-                                              aRedirect.getCertificateUID () +
-                                              "'");
+                final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
+                // Find the first subject (of type string)
+                if (aX509element.getValue () instanceof X509Certificate)
+                {
+                  final X509Certificate aSecondCert = (X509Certificate) aX509element.getValue ();
+
+                  // Check all certs of the source redirect
+                  boolean bFound = false;
+                  final ICommonsList <X509Certificate> aAllRedirectCerts = new CommonsArrayList <> ();
+                  for (final CertificateType aCT : aRedirect.getCertificate ())
+                  {
+                    try
+                    {
+                      final X509Certificate aRedirectCert = CertificateHelper.convertByteArrayToCertficate (aCT.getContentBinaryObjectValue ());
+                      if (aRedirectCert != null)
+                      {
+                        aAllRedirectCerts.add (aRedirectCert);
+                        // Certificate match?
+                        if (aRedirectCert.equals (aSecondCert))
+                        {
+                          bFound = true;
+                          break;
+                        }
+                      }
+                    }
+                    catch (final CertificateException ex)
+                    {
+                      // Error in certificate in SMP response
+                      LOGGER.error ("SMP Redirect contains an invalid certificate", ex);
+                    }
+                  }
+
+                  if (!bFound)
+                    throw new SMPClientException ("No certificate of the redirect matched the provided certificate. Retrieved certificate is '" +
+                                                  aSecondCert +
+                                                  "'. Allowed certificates according to the redirect are: " +
+                                                  aAllRedirectCerts);
+
+                  bCertificateSubjectFound = true;
+                  break outer;
+                }
               }
-              bCertificateSubjectFound = true;
-              break outer;
             }
           }
-        }
-      }
 
-      if (!bCertificateSubjectFound)
-        throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
+        if (!bCertificateSubjectFound)
+          throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
+      }
     }
+
     return aMetadata;
   }
 
@@ -300,8 +341,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *      IDocumentTypeIdentifier)
    */
   @Nullable
-  public SignedServiceMetadataType getServiceRegistrationOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                 @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  public ServiceMetadataType getServiceRegistrationOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                           @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     try
     {
@@ -351,8 +392,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
 
     // Get meta data for participant/documentType
-    final SignedServiceMetadataType aSignedServiceMetadata = getServiceRegistrationOrNull (aServiceGroupID,
-                                                                                           aDocumentTypeID);
+    final ServiceMetadataType aSignedServiceMetadata = getServiceRegistrationOrNull (aServiceGroupID, aDocumentTypeID);
     return aSignedServiceMetadata == null ? null : getEndpoint (aSignedServiceMetadata, aProcessID, aTransportProfile);
   }
 
@@ -360,7 +400,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * Extract the Endpoint from the signedServiceMetadata that matches the passed
    * process ID and the optional required transport profile.
    *
-   * @param aSignedServiceMetadata
+   * @param aServiceMetadata
    *        The signed service meta data object (e.g. from a call to
    *        {@link #getServiceRegistrationOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
    *        . May not be <code>null</code>.
@@ -373,57 +413,50 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @return <code>null</code> if no matching endpoint was found
    */
   @Nullable
-  public static EndpointType getEndpoint (@Nonnull final SignedServiceMetadataType aSignedServiceMetadata,
+  public static EndpointType getEndpoint (@Nonnull final ServiceMetadataType aServiceMetadata,
                                           @Nonnull final IProcessIdentifier aProcessID,
                                           @Nonnull final ISMPTransportProfile aTransportProfile)
   {
-    ValueEnforcer.notNull (aSignedServiceMetadata, "SignedServiceMetadata");
-    ValueEnforcer.notNull (aSignedServiceMetadata.getServiceMetadata (), "SignedServiceMetadata.ServiceMetadata");
-    if (aSignedServiceMetadata.getServiceMetadata ().getServiceInformation () == null)
-    {
-      // It seems to be a redirect and not service information
-      return null;
-    }
-    ValueEnforcer.notNull (aSignedServiceMetadata.getServiceMetadata ().getServiceInformation ().getProcessList (),
-                           "SignedServiceMetadata.ServiceMetadata.ServiceInformation.ProcessList");
+    ValueEnforcer.notNull (aServiceMetadata, "SignedServiceMetadata");
     ValueEnforcer.notNull (aProcessID, "ProcessID");
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
 
     // Iterate all processes
-    final ServiceInformationType aServiceInformation = aSignedServiceMetadata.getServiceMetadata ()
-                                                                             .getServiceInformation ();
-    if (aServiceInformation != null)
+    for (final ProcessMetadataType aPM : aServiceMetadata.getProcessMetadata ())
     {
-      // Okay, it's not a redirect
-      for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
-      {
-        // Matches the requested one?
-        if (SimpleProcessIdentifier.wrap (aProcessType.getProcessIdentifier ()).hasSameContent (aProcessID))
+      boolean bMatchesProcess = false;
+      for (final ProcessType aP : aPM.getProcess ())
+        if (SimpleProcessIdentifier.wrap (aP.getID ()).equals (aProcessID))
         {
-          // Filter endpoints by required transport profile
-          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
-          for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
-            if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
-              aRelevantEndpoints.add (aEndpoint);
-
-          if (aRelevantEndpoints.size () != 1)
-          {
-            if (LOGGER.isWarnEnabled ())
-              LOGGER.warn ("Found " +
-                           aRelevantEndpoints.size () +
-                           " endpoints for process " +
-                           aProcessID +
-                           " and transport profile " +
-                           aTransportProfile.getID () +
-                           (aRelevantEndpoints.isEmpty () ? ""
-                                                          : ": " +
-                                                            aRelevantEndpoints.toString () +
-                                                            " - using the first one"));
-          }
-
-          // Use the first endpoint or null
-          return aRelevantEndpoints.getFirst ();
+          bMatchesProcess = true;
+          break;
         }
+
+      if (bMatchesProcess)
+      {
+        final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
+        for (final EndpointType aEndpoint : aPM.getEndpoint ())
+          if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfileIDValue ()))
+            aRelevantEndpoints.add (aEndpoint);
+
+        if (aRelevantEndpoints.size () != 1)
+        {
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Found " +
+                         aRelevantEndpoints.size () +
+                         " endpoints for process '" +
+                         aProcessID.getURIEncoded () +
+                         "' and transport profile '" +
+                         aTransportProfile.getID () +
+                         "'" +
+                         (aRelevantEndpoints.isEmpty () ? ""
+                                                        : ": " +
+                                                          aRelevantEndpoints.toString () +
+                                                          " - using the first one"));
+        }
+
+        // Use the first endpoint or null
+        return aRelevantEndpoints.getFirst ();
       }
     }
     return null;
@@ -432,7 +465,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
-    return aEndpoint == null ? null : aEndpoint.getEndpointURI ();
+    return aEndpoint == null ? null : aEndpoint.getAddressURIValue ();
   }
 
   @Nullable
@@ -448,7 +481,11 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   @Nullable
   public static byte [] getEndpointCertificateString (@Nullable final EndpointType aEndpoint)
   {
-    return aEndpoint == null ? null : aEndpoint.getCertificate ();
+    if (aEndpoint == null)
+      return null;
+    if (aEndpoint.getCertificateCount () == 0)
+      return null;
+    return aEndpoint.getCertificateAtIndex (0).getContentBinaryObjectValue ();
   }
 
   @Nullable
@@ -517,7 +554,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                                                        @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
                                                                                                               PeppolDNSResolutionException
   {
-    return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
+    return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
 
   /**
@@ -545,13 +582,13 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         if DNS resolution fails
    */
   @Nonnull
-  public static SignedServiceMetadataType getServiceRegistrationByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
-                                                                       @Nonnull final ISMLInfo aSMLInfo,
-                                                                       @Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
-                                                                                                                               PeppolDNSResolutionException
+  public static ServiceMetadataType getServiceRegistrationByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
+                                                                 @Nonnull final ISMLInfo aSMLInfo,
+                                                                 @Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                                 @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
+                                                                                                                         PeppolDNSResolutionException
   {
-    return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceRegistration (aServiceGroupID,
-                                                                                                    aDocumentTypeID);
+    return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceRegistration (aServiceGroupID,
+                                                                                                     aDocumentTypeID);
   }
 }

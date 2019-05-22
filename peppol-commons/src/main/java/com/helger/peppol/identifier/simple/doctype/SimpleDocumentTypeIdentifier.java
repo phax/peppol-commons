@@ -75,4 +75,10 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   {
     return new SimpleDocumentTypeIdentifier (aID.getScheme (), aID.getValue ());
   }
+
+  @Nonnull
+  public static SimpleDocumentTypeIdentifier wrap (@Nonnull final com.helger.xsds.bdxr.smp2.bc.IDType aID)
+  {
+    return new SimpleDocumentTypeIdentifier (aID.getSchemeID (), aID.getValue ());
+  }
 }

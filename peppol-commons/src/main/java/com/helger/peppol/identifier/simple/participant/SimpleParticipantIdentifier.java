@@ -75,4 +75,10 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   {
     return new SimpleParticipantIdentifier (aID.getScheme (), aID.getValue ());
   }
+
+  @Nonnull
+  public static SimpleParticipantIdentifier wrap (@Nonnull final com.helger.xsds.bdxr.smp2.bc.IDType aID)
+  {
+    return new SimpleParticipantIdentifier (aID.getSchemeID (), aID.getValue ());
+  }
 }
