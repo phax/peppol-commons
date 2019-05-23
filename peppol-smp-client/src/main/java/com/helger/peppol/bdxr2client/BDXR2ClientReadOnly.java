@@ -69,6 +69,8 @@ import com.helger.xsds.xmldsig.X509DataType;
  */
 public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientReadOnly>
 {
+  private static final String PATH_PREFIX_OASIS_BDXR_SMP_2 = "bdxr-smp-2/";
+
   private static final Logger LOGGER = LoggerFactory.getLogger (BDXR2ClientReadOnly.class);
 
   /**
@@ -154,7 +156,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    final String sURI = getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ();
+    final String sURI = getSMPHostURI () + PATH_PREFIX_OASIS_BDXR_SMP_2 + aServiceGroupID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXR2Client getServiceGroup@" + sURI);
 
@@ -222,6 +224,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
 
     final String sURI = getSMPHostURI () +
+                        PATH_PREFIX_OASIS_BDXR_SMP_2 +
                         aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
