@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +28,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.entity.ContentType;
 import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.commons.mime.CMimeType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
@@ -62,6 +65,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                                IGenericImplTrait <IMPLTYPE>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
+
+  // The default text/xml content type uses iso-8859-1!
+  protected static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
+                                                                                 StandardCharsets.UTF_8);
 
   /**
    * The string representation of the SMP host URL, always ending with a

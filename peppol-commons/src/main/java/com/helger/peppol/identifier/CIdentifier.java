@@ -191,6 +191,20 @@ public final class CIdentifier
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
+  @Nonnull
+  @Nonempty
+  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.bdxr.smp2.bc.ParticipantIDType aID)
+  {
+    return getURIPercentEncoded (aID.getSchemeID (), aID.getValue ());
+  }
+
+  @Nonnull
+  @Nonempty
+  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.bdxr.smp2.bc.IDType aID)
+  {
+    return getURIPercentEncoded (aID.getSchemeID (), aID.getValue ());
+  }
+
   /**
    * Get the identifier URI and percent encoded (with percent encoding) as in
    * <code>scheme%3A%3Avalue</code>.

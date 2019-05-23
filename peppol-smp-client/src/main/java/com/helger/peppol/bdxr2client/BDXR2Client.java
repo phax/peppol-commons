@@ -8,9 +8,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.bdxrclient;
+package com.helger.peppol.bdxr2client;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -24,13 +25,13 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerServiceGroupType;
-import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerServiceMetadataType;
+import com.helger.peppol.bdxr.smp2.marshal.BDXR2ServiceGroupMarshaller;
+import com.helger.peppol.bdxr.smp2.marshal.BDXR2ServiceMetadataMarshaller;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.bdxr.smp1.participant.BDXR1ParticipantIdentifier;
+import com.helger.peppol.identifier.bdxr.smp2.participant.BDXR2ParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
@@ -38,17 +39,18 @@ import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolDNSResolutionException;
-import com.helger.xsds.bdxr.smp1.DocumentIdentifierType;
-import com.helger.xsds.bdxr.smp1.ParticipantIdentifierType;
-import com.helger.xsds.bdxr.smp1.RedirectType;
-import com.helger.xsds.bdxr.smp1.ServiceGroupType;
-import com.helger.xsds.bdxr.smp1.ServiceInformationType;
-import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
+import com.helger.xsds.bdxr.smp2.ServiceGroupType;
+import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
+import com.helger.xsds.bdxr.smp2.ac.EndpointType;
+import com.helger.xsds.bdxr.smp2.ac.ProcessMetadataType;
+import com.helger.xsds.bdxr.smp2.ac.RedirectType;
+import com.helger.xsds.bdxr.smp2.bc.IDType;
+import com.helger.xsds.bdxr.smp2.bc.ParticipantIDType;
 
 /**
- * This class is used for calling the OASIS BDXR SMP v1 REST interface. This
+ * This class is used for calling the OASIS BDXR SMP v2 REST interface. This
  * particular class also contains the non-standard writing methods. It inherits
- * all reading methods from {@link BDXRClientReadOnly}.
+ * all reading methods from {@link BDXR2ClientReadOnly}.
  * <p>
  * Note: this class is also licensed under Apache 2 license, as it was not part
  * of the original implementation
@@ -56,9 +58,9 @@ import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
  *
  * @author Philip Helger
  */
-public class BDXRClient extends BDXRClientReadOnly
+public class BDXR2Client extends BDXR2ClientReadOnly
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (BDXRClient.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BDXR2Client.class);
 
   /**
    * Constructor with SML lookup
@@ -75,9 +77,9 @@ public class BDXRClient extends BDXRClientReadOnly
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public BDXRClient (@Nonnull final IPeppolURLProvider aURLProvider,
-                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                     @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+  public BDXR2Client (@Nonnull final IPeppolURLProvider aURLProvider,
+                      @Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                      @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }
@@ -100,9 +102,9 @@ public class BDXRClient extends BDXRClientReadOnly
    * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      String)
    */
-  public BDXRClient (@Nonnull final IPeppolURLProvider aURLProvider,
-                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                     @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
+  public BDXR2Client (@Nonnull final IPeppolURLProvider aURLProvider,
+                      @Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                      @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, sSMLZoneName);
   }
@@ -115,7 +117,7 @@ public class BDXRClient extends BDXRClientReadOnly
    *        The address of the SMP service. Must be port 80 and basic http only
    *        (no https!). Example: http://smpcompany.company.org
    */
-  public BDXRClient (@Nonnull final URI aSMPHost)
+  public BDXR2Client (@Nonnull final URI aSMPHost)
   {
     super (aSMPHost);
   }
@@ -145,13 +147,15 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sBody = new BDXR1MarshallerServiceGroupType ().getAsString (aServiceGroup);
+    final String sBody = new BDXR2ServiceGroupMarshaller ().getAsString (aServiceGroup);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
-    final String sURI = getSMPHostURI () + CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantIdentifier ());
+    final String sURI = getSMPHostURI () +
+                        PATH_OASIS_BDXR_SMP_2 +
+                        CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantID ());
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("BDXRClient saveServiceGroup@" + sURI);
+      LOGGER.debug ("BDXR2Client saveServiceGroup@" + sURI);
 
     final HttpPut aRequest = new HttpPut (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
@@ -186,7 +190,8 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceGroupType aServiceGroup = new ServiceGroupType ();
-    aServiceGroup.setParticipantIdentifier (new BDXR1ParticipantIdentifier (aParticipantID));
+    aServiceGroup.setParticipantID (new BDXR2ParticipantIdentifier (aParticipantID.getScheme (),
+                                                                    aParticipantID.getValue ()));
     saveServiceGroup (aServiceGroup, aCredentials);
     return aServiceGroup;
   }
@@ -214,30 +219,29 @@ public class BDXRClient extends BDXRClientReadOnly
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sURI = getSMPHostURI () + aServiceGroupID.getURIPercentEncoded ();
+    final String sURI = getSMPHostURI () + PATH_OASIS_BDXR_SMP_2 + aServiceGroupID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("BDXRClient deleteServiceGroup@" + sURI);
+      LOGGER.debug ("BDXR2Client deleteServiceGroup@" + sURI);
 
     final HttpDelete aRequest = new HttpDelete (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
-  private void _saveServiceInformation (@Nonnull final ParticipantIdentifierType aServiceGroupID,
-                                        @Nonnull final DocumentIdentifierType aDocumentTypeID,
-                                        @Nonnull final ServiceMetadataType aServiceMetadata,
+  private void _saveServiceInformation (@Nonnull final ServiceMetadataType aServiceMetadata,
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
-    final String sBody = new BDXR1MarshallerServiceMetadataType ().getAsString (aServiceMetadata);
+    final String sBody = new BDXR2ServiceMetadataMarshaller ().getAsString (aServiceMetadata);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 
     final String sURI = getSMPHostURI () +
-                        CIdentifier.getURIPercentEncoded (aServiceGroupID) +
+                        PATH_OASIS_BDXR_SMP_2 +
+                        CIdentifier.getURIPercentEncoded (aServiceMetadata.getParticipantID ()) +
                         "/services/" +
-                        CIdentifier.getURIPercentEncoded (aDocumentTypeID);
+                        CIdentifier.getURIPercentEncoded (aServiceMetadata.getID ());
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("BDXRClient saveServiceRegistration@" + sURI);
+      LOGGER.debug ("BDXR2Client saveServiceRegistration@" + sURI);
 
     final HttpPut aRequest = new HttpPut (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
@@ -248,8 +252,12 @@ public class BDXRClient extends BDXRClientReadOnly
   /**
    * Saves a service information data object.
    *
-   * @param aServiceInformation
-   *        The service information object to save. May not be
+   * @param aServiceGroupID
+   *        The service group ID to use. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type ID to use. May not be <code>null</code>.
+   * @param aEndpoints
+   *        The endpoints to the created or updated. May not be
    *        <code>null</code>.
    * @param aCredentials
    *        The user name and password to use as credentials. May not be
@@ -263,25 +271,29 @@ public class BDXRClient extends BDXRClientReadOnly
    *         not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceRedirect(ParticipantIdentifierType,
-   *      DocumentIdentifierType, RedirectType, BasicAuthClientCredentials)
+   * @see #saveServiceRedirect(ParticipantIDType, IDType, RedirectType,
+   *      BasicAuthClientCredentials)
    */
-  public void saveServiceInformation (@Nonnull final ServiceInformationType aServiceInformation,
-                                      @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void saveServiceEndpoints (@Nonnull final ParticipantIDType aServiceGroupID,
+                                    @Nonnull final IDType aDocumentTypeID,
+                                    @Nonnull final List <EndpointType> aEndpoints,
+                                    @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
-    ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
-    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
-                           "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
-    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (),
-                           "ServiceMetadata.ServiceInformation.DocumentIdentifier");
+    ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
+    ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
+    ValueEnforcer.notNull (aEndpoints, "Endpoints");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
-    aServiceMetadata.setServiceInformation (aServiceInformation);
-    _saveServiceInformation (aServiceInformation.getParticipantIdentifier (),
-                             aServiceInformation.getDocumentIdentifier (),
-                             aServiceMetadata,
-                             aCredentials);
+    aServiceMetadata.setSMPVersionID ("2.0");
+    aServiceMetadata.setID (aDocumentTypeID);
+    aServiceMetadata.setParticipantID (aServiceGroupID);
+
+    final ProcessMetadataType aPM = new ProcessMetadataType ();
+    aPM.getEndpoint ().addAll (aEndpoints);
+    aServiceMetadata.addProcessMetadata (aPM);
+
+    _saveServiceInformation (aServiceMetadata, aCredentials);
   }
 
   /**
@@ -305,11 +317,11 @@ public class BDXRClient extends BDXRClientReadOnly
    *         not found.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #saveServiceInformation(ServiceInformationType,
+   * @see #saveServiceEndpoints(ParticipantIDType, IDType, List,
    *      BasicAuthClientCredentials)
    */
-  public void saveServiceRedirect (@Nonnull final ParticipantIdentifierType aServiceGroupID,
-                                   @Nonnull final DocumentIdentifierType aDocumentTypeID,
+  public void saveServiceRedirect (@Nonnull final ParticipantIDType aServiceGroupID,
+                                   @Nonnull final IDType aDocumentTypeID,
                                    @Nonnull final RedirectType aRedirect,
                                    @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
@@ -319,8 +331,15 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
-    aServiceMetadata.setRedirect (aRedirect);
-    _saveServiceInformation (aServiceGroupID, aDocumentTypeID, aServiceMetadata, aCredentials);
+    aServiceMetadata.setSMPVersionID ("2.0");
+    aServiceMetadata.setID (aDocumentTypeID);
+    aServiceMetadata.setParticipantID (aServiceGroupID);
+
+    final ProcessMetadataType aPM = new ProcessMetadataType ();
+    aPM.setRedirect (aRedirect);
+    aServiceMetadata.addProcessMetadata (aPM);
+
+    _saveServiceInformation (aServiceMetadata, aCredentials);
   }
 
   /**
@@ -354,11 +373,12 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final String sURI = getSMPHostURI () +
+                        PATH_OASIS_BDXR_SMP_2 +
                         aServiceGroupID.getURIPercentEncoded () +
                         "/services/" +
                         aDocumentTypeID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("BDXRClient deleteServiceRegistration@" + sURI);
+      LOGGER.debug ("BDXR2Client deleteServiceRegistration@" + sURI);
 
     final HttpDelete aRequest = new HttpDelete (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());

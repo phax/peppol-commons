@@ -11,13 +11,11 @@
 package com.helger.peppol.smpclient;
 
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.http.CHttpHeader;
-import com.helger.commons.mime.CMimeType;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.peppol.identifier.CIdentifier;
@@ -57,10 +54,6 @@ import com.helger.peppol.url.PeppolDNSResolutionException;
 public class SMPClient extends SMPClientReadOnly
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPClient.class);
-
-  // The default text/xml content type uses iso-8859-1!
-  private static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
-                                                                               StandardCharsets.UTF_8);
 
   /**
    * Constructor with SML lookup
@@ -127,9 +120,10 @@ public class SMPClient extends SMPClientReadOnly
    * not used.
    *
    * @param aServiceGroup
-   *        The service group to save.
+   *        The service group to save. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as aCredentials.
+   *        The user name and password to use as credentials. May not be
+   *        <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -198,9 +192,11 @@ public class SMPClient extends SMPClientReadOnly
    * Deletes a service group given by its service group id.
    *
    * @param aServiceGroupID
-   *        The service group id of the service group to delete.
+   *        The service group id of the service group to delete. May not be
+   *        <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as aCredentials.
+   *        The user name and password to use as credentials. May not be
+   *        <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientNotFoundException
@@ -250,9 +246,11 @@ public class SMPClient extends SMPClientReadOnly
    * Saves a service information data object.
    *
    * @param aServiceInformation
-   *        The service information object to save.
+   *        The service information object to save. May not be
+   *        <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as aCredentials.
+   *        The user name and password to use as credentials. May not be
+   *        <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -293,7 +291,8 @@ public class SMPClient extends SMPClientReadOnly
    * @param aRedirect
    *        The redirect to be saved. May not be <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as aCredentials.
+   *        The user name and password to use as credentials. May not be
+   *        <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -326,11 +325,14 @@ public class SMPClient extends SMPClientReadOnly
    * document type.
    *
    * @param aServiceGroupID
-   *        The service group id of the service meta data to delete.
+   *        The service group id of the service meta data to delete. May not be
+   *        <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service meta data to delete.
+   *        The document type of the service meta data to delete. May not be
+   *        <code>null</code>.
    * @param aCredentials
-   *        The user name and password to use as aCredentials.
+   *        The user name and password to use as credentials. May not be
+   *        <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
