@@ -33,7 +33,7 @@ public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMars
   private static final ICommonsList <ClassPathResource> XSDS;
   static
   {
-    XSDS = CBDXRSMP1.getAllIncludes ();
+    XSDS = CBDXRSMP1.getAllXSDIncludes ();
     XSDS.add (CBDXRSMP1.getXSDResource ());
   }
 

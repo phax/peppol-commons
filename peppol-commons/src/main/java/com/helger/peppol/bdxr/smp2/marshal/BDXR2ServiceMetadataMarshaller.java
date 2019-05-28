@@ -32,7 +32,7 @@ public class BDXR2ServiceMetadataMarshaller extends GenericJAXBMarshaller <Servi
   private static final ICommonsList <ClassPathResource> XSDS;
   static
   {
-    XSDS = CBDXRSMP2.getAllIncludes ();
+    XSDS = CBDXRSMP2.getAllXSDIncludes ();
     XSDS.add (CBDXRSMP2.getXSDResourceServiceMetadata ());
   }
 
