@@ -19,7 +19,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
@@ -56,7 +55,7 @@ public abstract class AbstractSMLClientTestCase
     final SSLContext aSSLCtx = SSLContext.getInstance ("TLS");
     aSSLCtx.init (aKeyManagerFactory.getKeyManagers (),
                   new TrustManager [] { new TrustManagerTrustAll (bDebug) },
-                  RandomHelper.getSecureRandom ());
+                  null);
     return aSSLCtx.getSocketFactory ();
   }
 }

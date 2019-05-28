@@ -19,7 +19,6 @@ import javax.net.ssl.TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.ws.TrustManagerTrustAll;
@@ -88,7 +87,7 @@ public final class MainForArunFromBasware
       final SSLContext aSSLCtx = SSLContext.getInstance ("TLS");
       aSSLCtx.init (aKeyManagerFactory.getKeyManagers (),
                     new TrustManager [] { new TrustManagerTrustAll (false) },
-                    RandomHelper.getSecureRandom ());
+                    null);
       aParticipantClient.setSSLSocketFactory (aSSLCtx.getSocketFactory ());
     }
 

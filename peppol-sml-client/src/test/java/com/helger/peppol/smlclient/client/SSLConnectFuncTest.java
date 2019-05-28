@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.ws.HostnameVerifierVerifyAll;
 import com.helger.commons.ws.TrustManagerTrustAll;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
@@ -58,7 +57,7 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
 
     // SSL context
     final SSLContext aSSLContext = SSLContext.getInstance ("TLS");
-    aSSLContext.init (aKMF.getKeyManagers (), aTrustMgrs, RandomHelper.getSecureRandom ());
+    aSSLContext.init (aKMF.getKeyManagers (), aTrustMgrs, null);
 
     // Configure and open connection
     final HttpsURLConnection aURLConn = (HttpsURLConnection) new URL (SML_INFO.getManagementServiceURL ()).openConnection ();
