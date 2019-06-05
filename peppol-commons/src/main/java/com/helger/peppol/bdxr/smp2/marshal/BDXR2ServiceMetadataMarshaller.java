@@ -29,12 +29,7 @@ import com.helger.xsds.xmldsig.CXMLDSig;
  */
 public class BDXR2ServiceMetadataMarshaller extends GenericJAXBMarshaller <ServiceMetadataType>
 {
-  private static final ICommonsList <ClassPathResource> XSDS;
-  static
-  {
-    XSDS = CBDXRSMP2.getAllXSDIncludes ();
-    XSDS.add (CBDXRSMP2.getXSDResourceServiceMetadata ());
-  }
+  private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDResourceServiceMetadata ();
 
   public BDXR2ServiceMetadataMarshaller ()
   {
