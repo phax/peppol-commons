@@ -469,6 +469,16 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * @return <code>true</code> if a standard is present, <code>false</code> if
+   *         not.
+   * @since 7.0.0
+   */
+  public boolean hasStandard ()
+  {
+    return StringHelper.hasText (m_sStandard);
+  }
+
+  /**
    * The version number of the enveloped business message (such as the value
    * "2.1" for OASIS UBL 2.1 or "2.0" for OASIS UBL 2.0). This field is mapped
    * to
@@ -484,6 +494,16 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * @return <code>true</code> if a type version is present, <code>false</code>
+   *         if not.
+   * @since 7.0.0
+   */
+  public boolean hasTypeVersion ()
+  {
+    return StringHelper.hasText (m_sTypeVersion);
+  }
+
+  /**
    * Message type - mandatory in SBDH. XML local element name of the
    * root-element in the business message. This field is mapped to
    * <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code>.
@@ -494,6 +514,15 @@ public class PeppolSBDHDocument
   public String getType ()
   {
     return m_sType;
+  }
+
+  /**
+   * @return <code>true</code> if a type is present, <code>false</code> if not.
+   * @since 7.0.0
+   */
+  public boolean hasType ()
+  {
+    return StringHelper.hasText (m_sType);
   }
 
   /**
@@ -518,6 +547,16 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * @return <code>true</code> if an instance identifier is present,
+   *         <code>false</code> if not.
+   * @since 7.0.0
+   */
+  public boolean hasInstanceIdentifier ()
+  {
+    return StringHelper.hasText (m_sInstanceIdentifier);
+  }
+
+  /**
    * The date and time for when this envelope was created. It is NOT necessarily
    * the same as the issue date of the business document (such as the invoice)
    * being enveloped. It is NOT necessarily the date time for transmission.<br>
@@ -532,6 +571,16 @@ public class PeppolSBDHDocument
   public LocalDateTime getCreationDateAndTime ()
   {
     return m_aCreationDateAndTime;
+  }
+
+  /**
+   * @return <code>true</code> if creation date and time is present,
+   *         <code>false</code> if not.
+   * @since 7.0.0
+   */
+  public boolean hasCreationDateAndTime ()
+  {
+    return m_aCreationDateAndTime != null;
   }
 
   /**
