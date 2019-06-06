@@ -12,16 +12,11 @@ package com.helger.peppol.identifier.peppol;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 
 /**
  * This class contains several identifier related utility methods.
@@ -175,26 +170,5 @@ public final class PeppolIdentifierHelper
     if (areSchemeMaxLengthChecksDisabled ())
       return true;
     return nLength <= MAX_IDENTIFIER_SCHEME_LENGTH;
-  }
-
-  /**
-   * Convert the passed document type identifier into its parts. First the old
-   * PEPPOL scheme for identifiers is tried, and afterwards the OpenPEPPOL
-   * scheme for document type identifiers is used.
-   *
-   * @param aIdentifier
-   *        The document type identifier to be split. May not be
-   *        <code>null</code>.
-   * @return Never <code>null</code>.
-   * @throws IllegalArgumentException
-   *         If the passed document type identifier is not a PEPPOL document
-   *         type identifier.
-   */
-  @Nullable
-  public static IPeppolDocumentTypeIdentifierParts getDocumentTypeIdentifierParts (@Nonnull final IDocumentTypeIdentifier aIdentifier)
-  {
-    ValueEnforcer.notNull (aIdentifier, "Identifier");
-
-    return PeppolDocumentTypeIdentifierParts.extractFromString (aIdentifier.getValue ());
   }
 }

@@ -49,17 +49,21 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     return PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME;
   }
 
+  @Override
   public boolean isDocumentTypeIdentifierSchemeValid (@Nullable final String sScheme)
   {
     return PeppolIdentifierHelper.isValidIdentifierScheme (sScheme);
   }
 
+  @Override
   public boolean isDocumentTypeIdentifierValueValid (@Nullable final String sValue)
   {
     if (sValue == null)
       return false;
 
     final int nLength = sValue.length ();
+
+    // > 0 and <= 500 chars
     if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH)
       return false;
 
@@ -119,6 +123,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
    *         identifier scheme, <code>false</code> otherwise.
    * @see PeppolIdentifierHelper#isValidIdentifierScheme(String)
    */
+  @Override
   public boolean isParticipantIdentifierSchemeValid (@Nullable final String sScheme)
   {
     if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
@@ -140,12 +145,14 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
    * @return <code>true</code> if the participant identifier value is valid,
    *         <code>false</code> otherwise.
    */
+  @Override
   public boolean isParticipantIdentifierValueValid (@Nullable final String sValue)
   {
     if (sValue == null)
       return false;
 
     final int nLength = sValue.length ();
+    // > 0 and <= 50 characters
     if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
       return false;
 
@@ -182,14 +189,17 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     return PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME;
   }
 
+  @Override
   public boolean isProcessIdentifierSchemeValid (@Nullable final String sScheme)
   {
     return PeppolIdentifierHelper.isValidIdentifierScheme (sScheme);
   }
 
+  @Override
   public boolean isProcessIdentifierValueValid (@Nullable final String sValue)
   {
     final int nLength = StringHelper.getLength (sValue);
+    // > 0 or <= 200 chars
     if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH)
       return false;
 

@@ -43,11 +43,6 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
                                          Comparable <PeppolParticipantIdentifier>,
                                          ICloneable <PeppolParticipantIdentifier>
 {
-  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public PeppolParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
-  {
-    this (aIdentifier.getScheme (), aIdentifier.getValue ());
-  }
 
   @Nonnull
   private static String _verifyScheme (@Nullable final String sScheme)
@@ -63,6 +58,12 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
     if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sValue))
       throw new IllegalArgumentException ("Peppol Participant identifier value '" + sValue + "' is invalid!");
     return sValue;
+  }
+
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
+  public PeppolParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
+  {
+    this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   /**
@@ -216,9 +217,11 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
       return false;
 
     final String sIdentifierIssuingAgencyID = aParts.get (0);
+    // First part must be 4 digit numeric
     if (sIdentifierIssuingAgencyID.length () != 4 || !StringParser.isUnsignedInt (sIdentifierIssuingAgencyID))
       return false;
 
+    // Remaining part must not be empty
     final String sIdentifierValue = aParts.get (1).trim ();
     return sIdentifierValue.length () > 0;
   }

@@ -11,6 +11,7 @@
 package com.helger.peppol.identifier.peppol.doctype;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
@@ -18,6 +19,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.peppol.identifier.IDocumentTypeIdentifier;
 import com.helger.peppol.identifier.simple.doctype.BusdoxDocumentTypeIdentifierParts;
 import com.helger.peppol.identifier.simple.doctype.IBusdoxDocumentTypeIdentifierParts;
 
@@ -186,5 +188,26 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
                                           "' contains an empty version!");
 
     return new PeppolDocumentTypeIdentifierParts (aBusdoxParts, sCustomizationID, sVersion);
+  }
+
+  /**
+   * Convert the passed document type identifier into its parts. First the old
+   * PEPPOL scheme for identifiers is tried, and afterwards the OpenPEPPOL
+   * scheme for document type identifiers is used.
+   *
+   * @param aIdentifier
+   *        The document type identifier to be split. May not be
+   *        <code>null</code>.
+   * @return Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the passed document type identifier is not a PEPPOL document
+   *         type identifier.
+   */
+  @Nullable
+  public static IPeppolDocumentTypeIdentifierParts extractFromIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  {
+    ValueEnforcer.notNull (aIdentifier, "Identifier");
+
+    return extractFromString (aIdentifier.getValue ());
   }
 }

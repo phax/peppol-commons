@@ -30,10 +30,12 @@ public interface IParticipantIdentifierScheme extends Serializable
   /**
    * Get the scheme ID of this issuing agency.<br>
    * Example for GLN <code>"GLN"</code> is returned.<br>
-   * Hint: this is NOT the meta scheme to be used!
+   * Hint: this is NOT the meta scheme to be used!<br>
+   * Hint: this value was deprecated in BIS v3 - use the numeric code only.
    *
    * @return The scheme ID of this issuing agency. May neither be
    *         <code>null</code> nor empty.
+   * @see #getISO6523Code()
    */
   @Nonnull
   @Nonempty
@@ -69,6 +71,7 @@ public interface IParticipantIdentifierScheme extends Serializable
    * @param sIdentifier
    *        The local participant identifier to be used.
    * @return The participant identifier value part. Never <code>null</code>.
+   * @see #getISO6523Code()
    */
   @Nonnull
   @Nonempty

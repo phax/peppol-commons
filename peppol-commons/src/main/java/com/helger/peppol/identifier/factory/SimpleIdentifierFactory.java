@@ -30,6 +30,7 @@ public class SimpleIdentifierFactory implements IIdentifierFactory
   public SimpleIdentifierFactory ()
   {}
 
+  @Override
   public boolean isProcessIdentifierSchemeMandatory ()
   {
     return false;

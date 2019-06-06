@@ -39,11 +39,6 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
                                           Comparable <PeppolDocumentTypeIdentifier>,
                                           ICloneable <PeppolDocumentTypeIdentifier>
 {
-  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public PeppolDocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
-  {
-    this (aIdentifier.getScheme (), aIdentifier.getValue ());
-  }
 
   @Nonnull
   private static String _verifyScheme (@Nullable final String sScheme)
@@ -59,6 +54,12 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
     if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sValue))
       throw new IllegalArgumentException ("Peppol Document Type identifier value '" + sValue + "' is invalid!");
     return sValue;
+  }
+
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
+  public PeppolDocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  {
+    this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
@@ -109,7 +110,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @Nonnull
   public IPeppolDocumentTypeIdentifierParts getParts ()
   {
-    return PeppolIdentifierHelper.getDocumentTypeIdentifierParts (this);
+    return PeppolDocumentTypeIdentifierParts.extractFromIdentifier (this);
   }
 
   @Override

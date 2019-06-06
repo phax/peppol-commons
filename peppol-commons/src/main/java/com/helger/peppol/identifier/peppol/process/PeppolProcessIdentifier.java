@@ -40,12 +40,6 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
                                      Comparable <PeppolProcessIdentifier>,
                                      ICloneable <PeppolProcessIdentifier>
 {
-  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public PeppolProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
-  {
-    this (aIdentifier.getScheme (), aIdentifier.getValue ());
-  }
-
   @Nonnull
   private static String _verifyScheme (@Nullable final String sScheme)
   {
@@ -60,6 +54,12 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
     if (!PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sValue))
       throw new IllegalArgumentException ("Peppol Process identifier value '" + sValue + "' is invalid!");
     return sValue;
+  }
+
+  @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
+  public PeppolProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
+  {
+    this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
