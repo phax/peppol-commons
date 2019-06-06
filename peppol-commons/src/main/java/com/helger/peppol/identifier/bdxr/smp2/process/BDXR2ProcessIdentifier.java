@@ -19,6 +19,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.IMutableIdentifier;
 import com.helger.peppol.identifier.IProcessIdentifier;
 import com.helger.xsds.bdxr.smp2.bc.IDType;
 
@@ -32,6 +33,7 @@ import com.helger.xsds.bdxr.smp2.bc.IDType;
 @NotThreadSafe
 public class BDXR2ProcessIdentifier extends IDType implements
                                     IProcessIdentifier,
+                                    IMutableIdentifier,
                                     Comparable <BDXR2ProcessIdentifier>,
                                     ICloneable <BDXR2ProcessIdentifier>
 {
@@ -53,6 +55,11 @@ public class BDXR2ProcessIdentifier extends IDType implements
   public final String getScheme ()
   {
     return getSchemeID ();
+  }
+
+  public final void setScheme (@Nullable final String sScheme)
+  {
+    setSchemeID (sScheme);
   }
 
   public int compareTo (@Nonnull final BDXR2ProcessIdentifier aOther)

@@ -19,6 +19,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.identifier.IMutableIdentifier;
 import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.xsds.bdxr.smp2.bc.ParticipantIDType;
 
@@ -32,6 +33,7 @@ import com.helger.xsds.bdxr.smp2.bc.ParticipantIDType;
 @NotThreadSafe
 public class BDXR2ParticipantIdentifier extends ParticipantIDType implements
                                         IParticipantIdentifier,
+                                        IMutableIdentifier,
                                         Comparable <BDXR2ParticipantIdentifier>,
                                         ICloneable <BDXR2ParticipantIdentifier>
 {
@@ -53,6 +55,11 @@ public class BDXR2ParticipantIdentifier extends ParticipantIDType implements
   public final String getScheme ()
   {
     return getSchemeID ();
+  }
+
+  public final void setScheme (@Nullable final String sScheme)
+  {
+    setSchemeID (sScheme);
   }
 
   public int compareTo (@Nonnull final BDXR2ParticipantIdentifier aOther)

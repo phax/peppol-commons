@@ -20,6 +20,7 @@ import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.identifier.IDocumentTypeIdentifier;
+import com.helger.peppol.identifier.IMutableIdentifier;
 import com.helger.xsds.bdxr.smp2.bc.IDType;
 
 /**
@@ -32,6 +33,7 @@ import com.helger.xsds.bdxr.smp2.bc.IDType;
 @NotThreadSafe
 public class BDXR2DocumentTypeIdentifier extends IDType implements
                                          IDocumentTypeIdentifier,
+                                         IMutableIdentifier,
                                          Comparable <BDXR2DocumentTypeIdentifier>,
                                          ICloneable <BDXR2DocumentTypeIdentifier>
 {
@@ -53,6 +55,11 @@ public class BDXR2DocumentTypeIdentifier extends IDType implements
   public final String getScheme ()
   {
     return getSchemeID ();
+  }
+
+  public final void setScheme (@Nullable final String sScheme)
+  {
+    setSchemeID (sScheme);
   }
 
   public int compareTo (@Nonnull final BDXR2DocumentTypeIdentifier aOther)
