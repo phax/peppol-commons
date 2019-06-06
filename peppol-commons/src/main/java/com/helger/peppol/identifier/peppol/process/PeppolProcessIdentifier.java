@@ -121,8 +121,8 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    *        <code>null</code> is returned.
    * @return The process identifier or <code>null</code> if any of the parts is
    *         invalid.
-   * @see IPeppolProcessIdentifier#isValidScheme(String)
-   * @see IPeppolProcessIdentifier#isValidValue(String)
+   * @see PeppolIdentifierFactory#isProcessIdentifierSchemeValid(String)
+   * @see PeppolIdentifierFactory#isProcessIdentifierValueValid(String)
    */
   @Nullable
   public static PeppolProcessIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)

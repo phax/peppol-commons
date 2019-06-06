@@ -133,8 +133,8 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *        <code>null</code> is returned.
    * @return The document type identifier or <code>null</code> if any of the
    *         parts is invalid.
-   * @see IPeppolDocumentTypeIdentifier#isValidScheme(String)
-   * @see IPeppolDocumentTypeIdentifier#isValidValue(String)
+   * @see PeppolIdentifierFactory#isDocumentTypeIdentifierSchemeValid(String)
+   * @see PeppolIdentifierFactory#isDocumentTypeIdentifierValueValid(String)
    */
   @Nullable
   public static PeppolDocumentTypeIdentifier createIfValid (@Nullable final String sScheme,
