@@ -121,10 +121,12 @@ public final class CIdentifier
    * Get the identifier URI encoded (without percent encoding) as in
    * <code>scheme::value</code>.
    *
-   * @param aID
-   *        The ID to be encoded. May not be <code>null</code>.
-   * @return The URI encoded identifier value. (E.g.
-   *         <code>iso6523-actorid-upis::0088:123456</code>)
+   * @param sScheme
+   *        The scheme part to be encoded. May be <code>null</code>.
+   * @param sValue
+   *        The value part to be encoded. May be <code>null</code>.
+   * @return The URI encoded identifier value in the form
+   *         <code><i>scheme</i>::<i>value</i></code>
    */
   @Nonnull
   @Nonempty
@@ -209,8 +211,10 @@ public final class CIdentifier
    * Get the identifier URI and percent encoded (with percent encoding) as in
    * <code>scheme%3A%3Avalue</code>.
    *
-   * @param aID
-   *        The ID to be encoded. May not be <code>null</code>.
+   * @param sScheme
+   *        The scheme part to be encoded. May be <code>null</code>.
+   * @param sValue
+   *        The value part to be encoded. May be <code>null</code>.
    * @return The URI encoded identifier value. (E.g.
    *         <code>iso6523-actorid-upis%3A%3A0088%3A123456</code>)
    */

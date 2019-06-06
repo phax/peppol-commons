@@ -108,8 +108,8 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
    * it has at least 1 character and at last 25 characters (see
    * {@link PeppolIdentifierHelper#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a
    * certain regular expression (see
-   * {@link #PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please note that the regular
-   * expression is applied case insensitive!<br>
+   * {@link PeppolIdentifierHelper#PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please
+   * note that the regular expression is applied case insensitive!<br>
    * This limitation is important, because the participant identifier scheme is
    * directly encoded into the SML DNS name record.
    *

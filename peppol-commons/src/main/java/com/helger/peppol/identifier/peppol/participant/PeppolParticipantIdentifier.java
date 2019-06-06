@@ -185,8 +185,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    *        <code>null</code> is returned.
    * @return The participant identifier or <code>null</code> if any of the parts
    *         is invalid.
-   * @see IPeppolParticipantIdentifier#isValidScheme(String)
-   * @see IPeppolParticipantIdentifier#isValidValue(String)
+   * @see PeppolIdentifierFactory#isParticipantIdentifierSchemeValid(String)
+   * @see PeppolIdentifierFactory#isParticipantIdentifierValueValid(String)
    */
   @Nullable
   public static PeppolParticipantIdentifier createIfValid (@Nullable final String sScheme,
