@@ -11,6 +11,7 @@
 package com.helger.peppol.identifier.factory;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,7 +22,6 @@ import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.identifier.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.identifier.peppol.process.PeppolProcessIdentifier;
-import com.helger.peppol.url.PeppolURLProvider;
 
 /**
  * Default implementation of {@link IIdentifierFactory} for PEPPOL identifiers.
@@ -129,7 +129,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
       return false;
     return RegExHelper.stringMatchesPattern (PeppolIdentifierHelper.PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
-                                             sScheme.toLowerCase (PeppolURLProvider.URL_LOCALE));
+                                             sScheme.toLowerCase (Locale.US));
   }
 
   /**
