@@ -160,7 +160,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (sUserID, "UserID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sURI = getSMPHostURI () + "list/" + CIdentifier.createPercentEncodedURL (sUserID);
+    final String sURI = getSMPHostURI () + "list/" + CIdentifier.createPercentEncoded (sUserID);
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("SMPClient getServiceGroupReferenceList@" + sURI);
 

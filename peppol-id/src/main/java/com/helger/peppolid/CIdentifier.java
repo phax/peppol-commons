@@ -154,7 +154,7 @@ public final class CIdentifier
    * @return <code>null</code> if the input string was <code>null</code>.
    */
   @Nullable
-  public static String createPercentEncodedURL (@Nullable final String sURL)
+  public static String createPercentEncoded (@Nullable final String sURL)
   {
     return CODEC.getEncodedAsString (sURL, StandardCharsets.UTF_8);
   }
@@ -167,7 +167,7 @@ public final class CIdentifier
    * @return <code>null</code> if the input string was <code>null</code>.
    */
   @Nullable
-  public static String createPercentDecodedURL (@Nullable final String sURL)
+  public static String createPercentDecoded (@Nullable final String sURL)
   {
     return CODEC.getDecodedAsString (sURL, StandardCharsets.UTF_8);
   }
@@ -252,6 +252,6 @@ public final class CIdentifier
   public static String getURIPercentEncoded (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sURIEncoded = getURIEncoded (sScheme, sValue);
-    return createPercentEncodedURL (sURIEncoded);
+    return createPercentEncoded (sURIEncoded);
   }
 }

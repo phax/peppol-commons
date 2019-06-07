@@ -25,25 +25,25 @@ public final class CIdentifierTest
   @Test
   public void testCreatePercentEncodedURL ()
   {
-    assertNull (CIdentifier.createPercentEncodedURL (null));
-    assertEquals ("", CIdentifier.createPercentEncodedURL (""));
-    assertEquals ("abc", CIdentifier.createPercentEncodedURL ("abc"));
-    assertEquals ("a%25b", CIdentifier.createPercentEncodedURL ("a%b"));
-    assertEquals ("a%25%25b", CIdentifier.createPercentEncodedURL ("a%%b"));
-    assertEquals ("a%2Fb", CIdentifier.createPercentEncodedURL ("a/b"));
+    assertNull (CIdentifier.createPercentEncoded (null));
+    assertEquals ("", CIdentifier.createPercentEncoded (""));
+    assertEquals ("abc", CIdentifier.createPercentEncoded ("abc"));
+    assertEquals ("a%25b", CIdentifier.createPercentEncoded ("a%b"));
+    assertEquals ("a%25%25b", CIdentifier.createPercentEncoded ("a%%b"));
+    assertEquals ("a%2Fb", CIdentifier.createPercentEncoded ("a/b"));
   }
 
   @Test
   public void testCreatePercentDecodedURL ()
   {
-    assertNull (CIdentifier.createPercentDecodedURL (null));
-    assertEquals ("", CIdentifier.createPercentDecodedURL (""));
-    assertEquals ("abc", CIdentifier.createPercentDecodedURL ("abc"));
-    assertEquals (":", CIdentifier.createPercentDecodedURL ("%3A"));
-    assertEquals ("::", CIdentifier.createPercentDecodedURL ("%3A%3a"));
-    assertEquals ("a%b", CIdentifier.createPercentDecodedURL ("a%25b"));
-    assertEquals ("a%%b", CIdentifier.createPercentDecodedURL ("a%25%25b"));
-    assertEquals ("a/b", CIdentifier.createPercentDecodedURL ("a%2Fb"));
-    assertEquals ("äöü", CIdentifier.createPercentDecodedURL ("äöü"));
+    assertNull (CIdentifier.createPercentDecoded (null));
+    assertEquals ("", CIdentifier.createPercentDecoded (""));
+    assertEquals ("abc", CIdentifier.createPercentDecoded ("abc"));
+    assertEquals (":", CIdentifier.createPercentDecoded ("%3A"));
+    assertEquals ("::", CIdentifier.createPercentDecoded ("%3A%3a"));
+    assertEquals ("a%b", CIdentifier.createPercentDecoded ("a%25b"));
+    assertEquals ("a%%b", CIdentifier.createPercentDecoded ("a%25%25b"));
+    assertEquals ("a/b", CIdentifier.createPercentDecoded ("a%2Fb"));
+    assertEquals ("äöü", CIdentifier.createPercentDecoded ("äöü"));
   }
 }
