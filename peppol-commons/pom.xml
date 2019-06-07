@@ -133,8 +133,6 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
           <excludes>
             <exclude>src/main/resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd</exclude>
             <exclude>src/main/resources/WEB-INF/wsdl/ws-addr.xsd</exclude>
-            <!-- OASIS SMP 1.0 -->
-            <exclude>src/main/resources/WEB-INF/wsdl/**/bdx-smp-*.xsd</exclude>
             <exclude>**/*.csv</exclude>
             <exclude>**/*.jks</exclude>
             <exclude>**/*.sha256</exclude>
@@ -156,7 +154,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
           </execution>
         </executions>
         <configuration>
-          <schemaDirectory>src/main/resources/WEB-INF/wsdl</schemaDirectory>
+          <schemaDirectory>src/main/resources/schemas</schemaDirectory>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
           <!-- Required for schema component designator in binding file -->
           <extension>true</extension>
@@ -191,6 +189,10 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
               <groupId>com.helger</groupId>
               <artifactId>ph-xsds-xmldsig</artifactId>
             </episode>
+            <episode>
+              <groupId>com.helger</groupId>
+              <artifactId>peppol-id</artifactId>
+            </episode>
           </episodes>
         </configuration>
         <dependencies>
@@ -214,6 +216,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
             </goals>
             <configuration>
               <target>
+                <delete dir="${basedir}/target/generated-sources/xjc/com/helger/peppolid/" />
                 <delete dir="${basedir}/target/generated-sources/xjc/com/helger/xsds/" />
               </target>
             </configuration>

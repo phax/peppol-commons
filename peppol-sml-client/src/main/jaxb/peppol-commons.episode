@@ -2,16 +2,16 @@
 <bindings version="2.1" xmlns="http://java.sun.com/xml/ns/jaxb">
   <bindings xmlns:tns="http://busdox.org/transport/identifiers/1.0/" if-exists="true" scd="x-schema::tns">
     <schemaBindings map="false">
-      <package name="com.helger.peppol.identifier"/>
+      <package name="com.helger.peppolid"/>
     </schemaBindings>
     <bindings if-exists="true" scd="~tns:ParticipantIdentifierType">
-      <class ref="com.helger.peppol.identifier.ParticipantIdentifierType"/>
+      <class ref="com.helger.peppolid.ParticipantIdentifierType"/>
     </bindings>
     <bindings if-exists="true" scd="~tns:DocumentIdentifierType">
-      <class ref="com.helger.peppol.identifier.DocumentIdentifierType"/>
+      <class ref="com.helger.peppolid.DocumentIdentifierType"/>
     </bindings>
     <bindings if-exists="true" scd="~tns:ProcessIdentifierType">
-      <class ref="com.helger.peppol.identifier.ProcessIdentifierType"/>
+      <class ref="com.helger.peppolid.ProcessIdentifierType"/>
     </bindings>
   </bindings>
 </bindings>

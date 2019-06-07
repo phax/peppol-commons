@@ -32,7 +32,6 @@ import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerUnsigned;
-import com.helger.peppol.identifier.ProcessIdentifierType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.CompleteServiceGroupType;
 import com.helger.peppol.smp.EndpointType;
@@ -53,11 +52,12 @@ import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolDNSResolutionException;
-import com.helger.peppol.utils.BusdoxURLHelper;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
+import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.ProcessIdentifierType;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.xsds.xmldsig.X509DataType;
 
@@ -160,7 +160,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (sUserID, "UserID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sURI = getSMPHostURI () + "list/" + BusdoxURLHelper.createPercentEncodedURL (sUserID);
+    final String sURI = getSMPHostURI () + "list/" + CIdentifier.createPercentEncodedURL (sUserID);
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("SMPClient getServiceGroupReferenceList@" + sURI);
 
