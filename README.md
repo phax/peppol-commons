@@ -1,6 +1,7 @@
 # Introduction
 
 This project contains different libraries that are commonly used in the PEPPOL area:
+  * [`peppol-id`](#peppol-id) - the ID data structures
   * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with PEPPOL and BDXR
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
   * [`peppol-sbdh`](#peppol-sbdh) - PEPPOL specific SBDH handling
@@ -8,8 +9,8 @@ This project contains different libraries that are commonly used in the PEPPOL a
   * [`peppol-smp-client`](#peppol-smp-client) - the PEPPOL SMP and BDXR SMP client
   
 These project are used implicitly by the following projects:
-  * [peppol-directory](https://github.com/phax/peppol-directory/) - the PEPPOL Directory (formerly Yellow Pages)
-  * [peppol-smp-server](https://github.com/phax/peppol-smp-server/) - the phoss SMP server with a management GUI
+  * [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for PEPPOL and TOOP
+  * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
   * [as2-peppol-client](https://github.com/phax/as2-peppol-client/) - the AP client library
   * [as2-peppol-server](https://github.com/phax/as2-peppol-server/) - the AP server stub
   
@@ -35,6 +36,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
     * Enabled XSD validation in JAXB marshallers by default
     * `SMPClient` and `BDXRClient` throw an Exception if the writable REST API parameters don't follow the XSD
     * Added new class `BDXR2ClientReadOnly` as SMP client for OASIS BDXR SMP v2 (WS 06) specification
+    * Added new subprobject `peppol-id`
 * v6.2.5 - 2019-05-07
     * Fixed Java 12 compatibility
 * v6.2.4 - 2019-05-05
@@ -155,6 +157,11 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
     * Added BDXR SMP client
     * Integrated the BDXR SMP classes into peppol-commons
     * Updated the BDMSL Service WSDL corresponding to the CIPA 3.0.0 release
+
+## peppol-id
+
+Java library with shared IDs.
+First created in version 7.0.0.
 
 ## peppol-commons
 Java library with shared PEPPOL components. It contains the basic algorithms and the handling for the identifiers.
