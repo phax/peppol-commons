@@ -85,7 +85,7 @@ public final class MainCreatePredefinedEnumsFromExcel
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
   private static final Version CODELIST_VERSION = new Version (4);
   private static final String RESULT_DIRECTORY = "src/main/resources/codelists/";
-  private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppol.identifier.peppol.";
+  private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
   private static final boolean DEFAULT_DEPRECATED = false;
