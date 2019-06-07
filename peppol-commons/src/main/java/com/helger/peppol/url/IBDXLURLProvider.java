@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.peppol.identifier.IParticipantIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
 
 /**
  * BDXP URL provider. Layout:
