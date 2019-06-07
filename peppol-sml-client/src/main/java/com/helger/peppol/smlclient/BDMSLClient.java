@@ -30,8 +30,6 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.url.URLHelper;
 import com.helger.datetime.util.PDTXMLConverter;
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.bdmsl.BDMSLService;
 import com.helger.peppol.smlclient.bdmsl.BDMSLServiceSoap;
@@ -49,6 +47,8 @@ import com.helger.peppol.smlclient.bdmsl.PrepareChangeCertificateType;
 import com.helger.peppol.smlclient.bdmsl.SMPAdvancedServiceForParticipantType;
 import com.helger.peppol.smlclient.bdmsl.ServiceMetadataPublisherServiceForParticipantType;
 import com.helger.peppol.smlclient.bdmsl.UnauthorizedFault;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
 
 /**

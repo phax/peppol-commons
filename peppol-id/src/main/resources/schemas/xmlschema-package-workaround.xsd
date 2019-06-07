@@ -23,7 +23,7 @@
     </documentation>
     <appinfo>
       <jaxb:schemaBindings>
-        <jaxb:package name="com.helger.peppol.xsd" />
+        <jaxb:package name="com.helger.peppolid.xsd" />
       </jaxb:schemaBindings>
     </appinfo>
   </annotation>

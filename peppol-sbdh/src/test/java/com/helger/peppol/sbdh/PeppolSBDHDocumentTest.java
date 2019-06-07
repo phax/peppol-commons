@@ -28,9 +28,9 @@ import org.junit.Test;
 
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.peppol.identifier.factory.IIdentifierFactory;
-import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
+import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.peppolid.factory.SimpleIdentifierFactory;
+import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.xml.serialize.write.XMLWriter;
 
 /**
