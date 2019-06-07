@@ -1,0 +1,184 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< com.helger:peppol-id >------------------------
+[INFO] Building peppol-id 7.0.0-SNAPSHOT
+[INFO] -------------------------------[ bundle ]-------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ peppol-id ---
+[INFO] Deleting C:\dev\git\peppol-commons\peppol-id\target
+[INFO] 
+[INFO] --- maven-jaxb2-plugin:0.14.0:generate (default) @ peppol-id ---
+[INFO] Sources are not up-to-date, XJC will be executed.
+[INFO] Episode file [C:\dev\git\peppol-commons\peppol-id\target\generated-sources\xjc\META-INF\sun-jaxb.episode] was augmented with if-exists="true" attributes.
+[INFO] 
+[INFO] --- maven-antrun-plugin:1.8:run (default) @ peppol-id ---
+[INFO] Executing tasks
+
+main:
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- ph-buildinfo-maven-plugin:3.0.0:generate-buildinfo (default) @ peppol-id ---
+[INFO] Successfully created temp directory buildinfo-maven-plugin
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ peppol-id ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 19 resources
+[INFO] Copying 1 resource
+[INFO] Copying 1 resource to META-INF
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.0:compile (default-compile) @ peppol-id ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 71 source files to C:\dev\git\peppol-commons\peppol-id\target\classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[23,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[33,50] cannot find symbol
+  symbol: class ParticipantIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[68,94] package com.helger.peppol.identifier does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[26,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[35,51] cannot find symbol
+  symbol: class DocumentIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[26,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[36,46] cannot find symbol
+  symbol: class ProcessIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[23,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[33,51] cannot find symbol
+  symbol: class DocumentIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[68,95] package com.helger.peppol.identifier does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[30,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[39,50] cannot find symbol
+  symbol: class ParticipantIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[22,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[32,46] cannot find symbol
+  symbol: class ProcessIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[67,90] package com.helger.peppol.identifier does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/CIdentifier.java:[20,34] package com.helger.peppolid0.utils does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[33,8] com.helger.peppolid.simple.participant.SimpleParticipantIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[48,5] cannot find symbol
+  symbol:   method setScheme(java.lang.String)
+  location: class com.helger.peppolid.simple.participant.SimpleParticipantIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[49,5] cannot find symbol
+  symbol:   method setValue(java.lang.String)
+  location: class com.helger.peppolid.simple.participant.SimpleParticipantIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[35,8] com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[86,5] cannot find symbol
+  symbol:   method setScheme(java.lang.String)
+  location: class com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[87,5] cannot find symbol
+  symbol:   method setValue(java.lang.String)
+  location: class com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[36,8] com.helger.peppolid.peppol.process.PeppolProcessIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[86,5] cannot find symbol
+  symbol:   method setScheme(java.lang.String)
+  location: class com.helger.peppolid.peppol.process.PeppolProcessIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[87,5] cannot find symbol
+  symbol:   method setValue(java.lang.String)
+  location: class com.helger.peppolid.peppol.process.PeppolProcessIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[33,8] com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[48,5] cannot find symbol
+  symbol:   method setScheme(java.lang.String)
+  location: class com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[49,5] cannot find symbol
+  symbol:   method setValue(java.lang.String)
+  location: class com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[39,8] com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[100,5] cannot find symbol
+  symbol:   method setScheme(java.lang.String)
+  location: class com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[101,5] cannot find symbol
+  symbol:   method setValue(java.lang.String)
+  location: class com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[32,8] com.helger.peppolid.simple.process.SimpleProcessIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[47,5] cannot find symbol
+  symbol:   method setScheme(java.lang.String)
+  location: class com.helger.peppolid.simple.process.SimpleProcessIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[48,5] cannot find symbol
+  symbol:   method setValue(java.lang.String)
+  location: class com.helger.peppolid.simple.process.SimpleProcessIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/CIdentifier.java:[225,12] cannot find symbol
+  symbol:   variable BusdoxURLHelper
+  location: class com.helger.peppolid.CIdentifier
+[INFO] 35 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.910 s
+[INFO] Finished at: 2019-06-07T16:28:30+02:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.0:compile (default-compile) on project peppol-id: Compilation failure: Compilation failure: 
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[23,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[33,50] cannot find symbol
+[ERROR]   symbol: class ParticipantIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[68,94] package com.helger.peppol.identifier does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[26,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[35,51] cannot find symbol
+[ERROR]   symbol: class DocumentIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[26,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[36,46] cannot find symbol
+[ERROR]   symbol: class ProcessIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[23,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[33,51] cannot find symbol
+[ERROR]   symbol: class DocumentIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[68,95] package com.helger.peppol.identifier does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[30,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[39,50] cannot find symbol
+[ERROR]   symbol: class ParticipantIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[22,30] package com.helger.peppolid0id does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[32,46] cannot find symbol
+[ERROR]   symbol: class ProcessIdentifierType
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[67,90] package com.helger.peppol.identifier does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/CIdentifier.java:[20,34] package com.helger.peppolid0.utils does not exist
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[33,8] com.helger.peppolid.simple.participant.SimpleParticipantIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[48,5] cannot find symbol
+[ERROR]   symbol:   method setScheme(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.simple.participant.SimpleParticipantIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/participant/SimpleParticipantIdentifier.java:[49,5] cannot find symbol
+[ERROR]   symbol:   method setValue(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.simple.participant.SimpleParticipantIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[35,8] com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[86,5] cannot find symbol
+[ERROR]   symbol:   method setScheme(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/doctype/PeppolDocumentTypeIdentifier.java:[87,5] cannot find symbol
+[ERROR]   symbol:   method setValue(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[36,8] com.helger.peppolid.peppol.process.PeppolProcessIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[86,5] cannot find symbol
+[ERROR]   symbol:   method setScheme(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.peppol.process.PeppolProcessIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/process/PeppolProcessIdentifier.java:[87,5] cannot find symbol
+[ERROR]   symbol:   method setValue(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.peppol.process.PeppolProcessIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[33,8] com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[48,5] cannot find symbol
+[ERROR]   symbol:   method setScheme(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/doctype/SimpleDocumentTypeIdentifier.java:[49,5] cannot find symbol
+[ERROR]   symbol:   method setValue(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[39,8] com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[100,5] cannot find symbol
+[ERROR]   symbol:   method setScheme(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/peppol/participant/PeppolParticipantIdentifier.java:[101,5] cannot find symbol
+[ERROR]   symbol:   method setValue(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[32,8] com.helger.peppolid.simple.process.SimpleProcessIdentifier is not abstract and does not override abstract method getValue() in com.helger.peppolid.IIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[47,5] cannot find symbol
+[ERROR]   symbol:   method setScheme(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.simple.process.SimpleProcessIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/simple/process/SimpleProcessIdentifier.java:[48,5] cannot find symbol
+[ERROR]   symbol:   method setValue(java.lang.String)
+[ERROR]   location: class com.helger.peppolid.simple.process.SimpleProcessIdentifier
+[ERROR] /C:/dev/git/peppol-commons/peppol-id/src/main/java/com/helger/peppolid/CIdentifier.java:[225,12] cannot find symbol
+[ERROR]   symbol:   variable BusdoxURLHelper
+[ERROR]   location: class com.helger.peppolid.CIdentifier
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

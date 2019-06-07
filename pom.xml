@@ -124,6 +124,11 @@
 
       <dependency>
         <groupId>com.helger</groupId>
+        <artifactId>peppol-id</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
         <artifactId>peppol-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -169,6 +174,7 @@
   </dependencies>
   
   <modules>
+    <module>peppol-id</module>
     <module>peppol-commons</module>
     <module>peppol-testfiles</module>
     <module>peppol-sbdh</module>

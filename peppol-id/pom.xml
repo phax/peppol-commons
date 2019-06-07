@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.helger</groupId>
+    <artifactId>peppol-commons-parent-pom</artifactId>
+    <version>7.0.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>peppol-id</artifactId>
+  <packaging>bundle</packaging>
+  <name>peppol-id</name>
+  <url>https://github.com/phax/peppol-commons/peppol-id</url>
+  <inceptionYear>2015</inceptionYear>
+  
+  <licenses>
+    <license>
+      <name>MPL 2.0</name>
+      <url>http://mozilla.org/MPL/2.0/</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
+  <organization>
+    <name>Philip Helger</name>
+    <url>http://www.helger.com</url>
+  </organization>
+  
+  <developers>
+    <developer>
+      <id>philip</id>
+      <name>Philip Helger</name>
+      <email>ph(at)helger.com</email>
+      <url>http://www.helger.com</url>
+    </developer>
+  </developers>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xml</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-jaxb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xsds-xmldsig</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xsds-bdxr-smp1</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xsds-bdxr-smp2</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-poi</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-genericode</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-network</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>jcodemodel</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Automatic-Module-Name>com.helger.peppolid</Automatic-Module-Name>
+            <Export-Package>com.helger.pepppolid.*</Export-Package>
+            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
+osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.peppolid.peppol.validator.IParticipantIdentifierValidatorSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.peppolid.peppol.validator.IParticipantIdentifierValidatorSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
+          </instructions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.mycila</groupId>
+        <artifactId>license-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/*.csv</exclude>
+            <exclude>**/*.jks</exclude>
+            <exclude>**/*.sha256</exclude>
+            <exclude>**/*.txt</exclude>
+            <exclude>**/NOTICE</exclude>
+            <exclude>**/LICENSE</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <artifactId>maven-jaxb2-plugin</artifactId>
+        <version>0.14.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <schemaDirectory>src/main/resources/schemas</schemaDirectory>
+          <bindingDirectory>src/main/jaxb</bindingDirectory>
+          <!-- Required for schema component designator in binding file -->
+          <extension>true</extension>
+          <strict>false</strict>
+          <catalog>${basedir}/src/main/jaxb/catalog.txt</catalog>
+          <args>
+            <arg>-no-header</arg>
+            <arg>-Xinheritance</arg>
+            <arg>-Xph-default-locale</arg>
+            <arg>en_US</arg>
+            <arg>-Xph-annotate</arg>
+            <arg>-Xph-fields-private</arg>
+            <arg>-Xph-code-quality</arg>
+            <arg>-Xph-implements</arg>
+            <arg>java.io.Serializable</arg>
+            <arg>-Xph-equalshashcode</arg>
+            <arg>-Xph-tostring</arg>
+            <arg>-Xph-list-extension</arg>
+            <arg>-Xph-csu</arg>
+            <arg>-Xph-cloneable2</arg>
+          </args>
+          <plugins>
+            <!-- Required for -Xinheritance -->
+            <plugin>
+              <groupId>org.jvnet.jaxb2_commons</groupId>
+              <artifactId>jaxb2-basics</artifactId>
+              <version>0.12.0</version>
+            </plugin>
+          </plugins>
+          <episodes>
+            <episode>
+              <groupId>com.helger</groupId>
+              <artifactId>ph-xsds-xmldsig</artifactId>
+            </episode>
+          </episodes>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.helger</groupId>
+            <artifactId>ph-jaxb22-plugin</artifactId>
+            <version>2.3.2.2</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <!-- Delete the directory with only ObjectFactory 
+           Source: http://stackoverflow.com/questions/32635137
+      -->
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target>
+                <delete dir="${basedir}/target/generated-sources/xjc/com/helger/xsds/" />
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+-->
+<!-- 
+
+        	Genericode File TaxCategoryID
+        	
+        	Oriol Bausà
+
+     -->
+<CodeList xsi:schemaLocation="http://docs.oasis-open.org/codelist/ns/genericode/1.0/ ../xsd/genericode.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://docs.oasis-open.org/codelist/ns/genericode/1.0/">
+  <Identification xmlns="">
+    <ShortName>TaxCategoryID</ShortName>
+    <Version>D08B</Version>
+    <CanonicalUri>UN/ECE 5305</CanonicalUri>
+    <CanonicalVersionUri>UN/ECE 5305-D08B</CanonicalVersionUri>
+    <LocationUri>http://docs.oasis-open.org/ubl/os-ubl-2.0/cl/gc/default/TaxCategoryID-2.0.gc</LocationUri>
+  </Identification>
+  <ColumnSet xmlns="">
+    <Column Id="code" Use="required">
+      <ShortName>Code</ShortName>
+      <Data Type="normalizedString"/>
+    </Column>
+    <Column Id="name" Use="optional">
+      <ShortName>Name</ShortName>
+      <Data Type="string"/>
+    </Column>
+    <Key Id="codeKey">
+      <ShortName>CodeKey</ShortName>
+      <ColumnRef Ref="code"/>
+    </Key>
+  </ColumnSet>
+  <SimpleCodeList xmlns="">
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>A</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Mixed tax rate</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AA</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Lower rate</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AB</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Exempt for resale</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AC</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Value Added Tax (VAT) not now due for payment</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AD</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Value Added Tax (VAT) due from a previous invoice</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AE</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>VAT Reverse Charge</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>B</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Transferred (VAT)</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>C</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Duty paid by supplier</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>E</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Exempt from tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>G</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Free export item, tax not charged</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>H</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Higher rate</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>O</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Services outside scope of tax</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>S</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Standard rate</SimpleValue>
+      </Value>
+    </Row>
+    <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>Z</SimpleValue>
+      </Value>
+      <Value ColumnRef="name">
+        <SimpleValue>Zero rated goods</SimpleValue>
+      </Value>
+    </Row>
+  </SimpleCodeList>
+</CodeList>
+
