@@ -20,8 +20,6 @@ import org.junit.Test;
 
 import com.helger.commons.url.URLHelper;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.identifier.peppol.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppol.identifier.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ServiceGroupType;
@@ -32,6 +30,8 @@ import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
+import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
 /**
  * Expects a local SMP up and running with DNS enabled at port 80 at the ROOT
