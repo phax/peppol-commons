@@ -30,12 +30,12 @@ import com.helger.xsds.xmldsig.CXMLDSig;
  */
 public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  private static final ClassPathResource XSD1 = new ClassPathResource ("/WEB-INF/wsdl/Identifiers-1.0.xsd",
-                                                                       AbstractSMPMarshaller.class.getClassLoader ());
-  private static final ClassPathResource XSD2 = new ClassPathResource ("/WEB-INF/wsdl/ws-addr.xsd",
-                                                                       AbstractSMPMarshaller.class.getClassLoader ());
-  private static final ClassPathResource XSD3 = new ClassPathResource ("/WEB-INF/wsdl/ServiceMetadataPublishingTypes-1.0.xsd",
-                                                                       AbstractSMPMarshaller.class.getClassLoader ());
+  public static final ClassPathResource XSD1 = new ClassPathResource ("/schemas/Identifiers-1.0.xsd",
+                                                                      AbstractSMPMarshaller.class.getClassLoader ());
+  public static final ClassPathResource XSD2 = new ClassPathResource ("/schemas/ws-addr.xsd",
+                                                                      AbstractSMPMarshaller.class.getClassLoader ());
+  public static final ClassPathResource XSD3 = new ClassPathResource ("/schemas/ServiceMetadataPublishingTypes-1.0.xsd",
+                                                                      AbstractSMPMarshaller.class.getClassLoader ());
 
   public AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 final boolean bValidationEnabled,
