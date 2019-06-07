@@ -13,15 +13,15 @@ package com.helger.peppol.smpclient.supplementary.example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.IProcessIdentifier;
-import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smpclient.SMPClientReadOnly;
 import com.helger.peppol.url.PeppolURLProvider;
+import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 
 public final class MainSMPClientCaseSensitivity
 {

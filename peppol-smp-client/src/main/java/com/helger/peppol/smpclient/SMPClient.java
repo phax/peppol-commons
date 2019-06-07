@@ -25,11 +25,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.httpclient.SMPHttpResponseHandlerWriteOperations;
-import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.simple.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.RedirectType;
 import com.helger.peppol.smp.ServiceGroupType;
@@ -43,6 +38,11 @@ import com.helger.peppol.smpclient.exception.SMPClientNotFoundException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolDNSResolutionException;
+import com.helger.peppolid.CIdentifier;
+import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 
 /**
  * This class is used for calling the SMP REST interface. This particular class

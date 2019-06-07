@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+-->
+<xs:schema id="ServiceMetadataPublishing"
+           targetNamespace="http://busdox.org/serviceMetadata/publishing/1.0/"
+           elementFormDefault="qualified"
+           xmlns="http://busdox.org/serviceMetadata/publishing/1.0/"
+           xmlns:ids="http://busdox.org/transport/identifiers/1.0/" 
+           xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:wsa="http://www.w3.org/2005/08/addressing">
+  <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" />
+  <xs:import namespace="http://busdox.org/transport/identifiers/1.0/" />
+  <xs:import schemaLocation="ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
+  
+  <!-- unofficial extensions -->
+  <xs:element name="ServiceGroupReferenceList" type="ServiceGroupReferenceListType"/>
+
+  <xs:complexType name="ServiceGroupReferenceListType">
+    <xs:sequence>
+      <xs:element name="ServiceGroupReference" type="ServiceGroupReferenceType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceGroupReferenceType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="href" type="xs:anyURI" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:element name="CompleteServiceGroup" type="CompleteServiceGroupType"/>
+  
+  <xs:complexType name="CompleteServiceGroupType">
+    <xs:sequence>
+      <xs:element ref="ServiceGroup" />
+      <xs:element ref="ServiceMetadata" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- officially specified SMP stuff -->
+  <xs:element name="ServiceGroup" type="ServiceGroupType"/>
+  <xs:element name="ServiceMetadata" type="ServiceMetadataType"/>
+  <xs:element name="SignedServiceMetadata" type="SignedServiceMetadataType"/>
+  
+  <xs:complexType name="SignedServiceMetadataType">
+    <xs:annotation>
+      <xs:documentation>The SignedServiceMetadata structure is a ServiceMetadata structure 
+      that has been signed by the ServiceMetadataPublisher, according to governance policies.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="ServiceMetadata">
+        <xs:annotation>
+          <xs:documentation>The ServiceMetadata element covered by the signature.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element ref="ds:Signature">
+        <xs:annotation>
+          <xs:documentation>Represents an enveloped XML signature over the SignedServiceMetadata element.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceMetadataType">
+    <xs:annotation>
+      <xs:documentation>
+This data structure represents Metadata about a specific electronic service. 
+The role of the ServiceMetadata structure is to associate a participant identifier 
+with the ability to receive a specific document type over a specific transport. It 
+also describes which business processes a document can participate in, and various 
+operational data such as service activation and expiration times.
+The ServiceMetadata resource contains all the metadata about a service that a sender
+Access Point needs to know in order to send a message to that service.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="ServiceInformation" type="ServiceInformationType">
+          <xs:annotation>
+            <xs:documentation>Contains service information for an actual service registration, rather than a redirect to another SMP</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="Redirect" type="RedirectType">
+          <xs:annotation>
+            <xs:documentation>
+For recipients that want to associate more than one SMP with their participant identifier, 
+they may redirect senders to an alternative SMP for specific document types. To achieve 
+this, the ServiceMetadata element defines the optional element ‘Redirect’. This element 
+holds the URL of the alternative SMP, as well as the Subject Unique Identifier of the 
+destination SMPs certificate used to sign its resources.
+In the case where a client encounters such a redirection element, the client MUST follow 
+the first redirect reference to the alternative SMP. If the SignedServiceMetadata resource 
+at the alternative SMP also contains a redirection element, the client SHOULD NOT follow 
+that redirect. It is the responsibility of the client to enforce this constraint.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceInformationType">
+    <xs:sequence>
+      <xs:element ref="ids:ParticipantIdentifier">
+        <xs:annotation>
+          <xs:documentation>The participant identifier. Comprises the identifier, and an identifier scheme. This identifier MUST have the same value of the {id} part of the URI of the enclosing ServiceMetadata resource.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element ref="ids:DocumentIdentifier">
+        <xs:annotation>
+          <xs:documentation>Represents the type of document that the recipient is able to handle.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProcessList" type="ProcessListType">
+        <xs:annotation>
+          <xs:documentation>Represents the processes that a specific document type can participate in, and endpoint address and binding information. Each process element describes a specific business process that accepts this type of document as input and holds a list of endpoint addresses (in the case that the service supports multiple transports) of services that implement the business process, plus information about the transport used for each endpoint.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Extension" type="ExtensionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The extension element may contain any XML element. Clients MAY ignore this element.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProcessListType">
+    <xs:annotation>
+      <xs:documentation>List of processes</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Process" type="ProcessType" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProcessType">
+    <xs:sequence>
+      <xs:element ref="ids:ProcessIdentifier">
+        <xs:annotation>
+          <xs:documentation>The identifier of the process.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ServiceEndpointList" type="ServiceEndpointList">
+        <xs:annotation>
+          <xs:documentation>List of one or more endpoints that support this process.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Extension" type="ExtensionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The extension element may contain any XML element. Clients MAY ignore this element.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceEndpointList">
+    <xs:annotation>
+      <xs:documentation>Contains a list of all endpoint</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Endpoint" type="EndpointType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Endpoint represents the technical endpoint and address type of the recipient, as an URL.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EndpointType">
+    <xs:sequence>
+      <xs:element ref="wsa:EndpointReference">
+        <xs:annotation>
+          <xs:documentation>The address of an endpoint, as an WS-Addressing Endpoint Reference</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RequireBusinessLevelSignature" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Set to &quot;true&quot; if the recipient requires business-level signatures for the message, meaning a signature applied to the business message before the message is put on the transport. This is independent of the transport-level signatures that a specific transport profile, such as the START profile, might mandate. This flag does not indicate which type of business-level signature might be required. Setting or consuming business-level signatures would typically be the responsibility of the final senders and receivers of messages, rather than a set of APs.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MinimumAuthenticationLevel" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Indicates the minimum authentication level that recipient requires. The specific semantics of this field is defined in a specific instance of the BUSDOX infrastructure. It could for example reflect the value of the &quot;urn:eu:busdox:attribute:assurance-level&quot; SAML attribute defined in the START specification.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ServiceActivationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Activation date of the service. Senders should ignore services that are not yet activated.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ServiceExpirationDate" type="xs:dateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Expiration date of the service. Senders should ignore services that are expired.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Certificate" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Holds the complete signing certificate of the recipient AP, as a PEM base 64 encoded X509 DER formatted value.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ServiceDescription" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>A human readable description of the service</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TechnicalContactUrl" type="xs:anyURI">
+        <xs:annotation>
+          <xs:documentation>Represents a link to human readable contact information. This might also be an email address.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TechnicalInformationUrl" type="xs:anyURI" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>A URL to human readable documentation of the service format. This could for example be a web site containing links to XML Schemas, WSDLs, Schematrons and other relevant resources.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Extension" type="ExtensionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The extension element may contain any XML element. Clients MAY ignore this element.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="transportProfile" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Indicates the type of BUSDOX transport that is being used between access points, e.g. the BUSDOX START profile. This specification defines the following identifier URI which denotes the BUSDOX START transport: &quot;busdox-transport-start&quot;</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="ServiceGroupType">
+    <xs:annotation>
+      <xs:documentation>The ServiceGroup structure represents a set of services 
+      associated with a specific participant identifier that is handled by a 
+      specific Service Metadata Publisher. The ServiceGroup structure holds a 
+      list of references to SignedServiceMetadata resources in the ServiceList
+      structure.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="ids:ParticipantIdentifier">
+        <xs:annotation>
+          <xs:documentation>Represents the business level endpoint key and key type, e.g. a DUNS or GLN number that is associated with a group of services. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ServiceMetadataReferenceCollection" type="ServiceMetadataReferenceCollectionType">
+        <xs:annotation>
+          <xs:documentation>The ServiceMetadataReferenceCollection structure holds a list of references to SignedServiceMetadata structures. From this list, a sender can follow the references to get each SignedServiceMetadata structure.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Extension" type="ExtensionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The extension element may contain any XML element. Clients MAY ignore this element.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="ServiceMetadataReferenceCollectionType">
+    <xs:annotation>
+      <xs:documentation>Contains the URL to a specific SignedServiceMetadata instance. Note 
+      that references MUST refer to SignedServiceMetadata records that are signed by the 
+      certificate of the SMP. It must not point to SignedServiceMetadata resources published 
+      by external SMPs.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ServiceMetadataReference" type="ServiceMetadataReferenceType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="ServiceMetadataReferenceType">
+    <xs:attribute name="href" type="xs:anyURI">
+      <xs:annotation>
+        <xs:documentation>Contains the URL to a specific SignedServiceMetadata instance.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+  <xs:complexType name="RedirectType">
+    <xs:sequence>
+      <xs:element name="CertificateUID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Holds the Subject Unique Identifier of the certificate of the destination SMP. A client SHOULD validate that the Subject Unique Identifier of the certificate used to sign the resource at the destination SMP matches the Subject Unique Identifier published in the redirecting SMP.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Extension" type="ExtensionType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The extension element may contain any XML element. Clients MAY ignore this element.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="href" type="xs:anyURI">
+      <xs:annotation>
+        <xs:documentation>The destination URL of the redirect.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  
+  <xs:complexType name="ExtensionType">
+    <xs:annotation>
+      <xs:documentation>
+Child elements of the [smp:Extension] element are known as &quot;custom 
+extension elements&quot;. Extension points may be used for optional extensions 
+of service metadata. This implies:
+* Extension elements added to a specific Service Metadata resource MUST be ignorable 
+by any client of the transport infrastructure. The ability to parse and adjust client 
+behavior based on an extension element MUST NOT be a prerequisite for a client to 
+locate a service, or to make a successful request at the referenced service. 
+* A client MAY ignore any extension element added to specific service metadata 
+resource instances.      
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:any processContents="skip"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

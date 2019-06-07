@@ -26,22 +26,6 @@
               parseMethod="com.helger.commons.datetime.PDTWebDateHelper.getLocalDateTimeFromXSD"
               printMethod="com.helger.commons.datetime.PDTWebDateHelper.getAsStringXSD" />
   </globalBindings>
-  <bindings schemaLocation="../resources/WEB-INF/wsdl/Identifiers-1.0.xsd">
-    <schemaBindings>
-      <package name="com.helger.peppol.identifier" />
-    </schemaBindings>
-    <!--  
-    <bindings node="//xs:complexType[@name='ParticipantIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.generic.participant.IMutableParticipantIdentifier</inheritance:implements>
-    </bindings> 
-    <bindings node="//xs:complexType[@name='DocumentIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.generic.doctype.IMutableDocumentTypeIdentifier</inheritance:implements>
-    </bindings> 
-    <bindings node="//xs:complexType[@name='ProcessIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.generic.process.IMutableProcessIdentifier</inheritance:implements>
-    </bindings>
-    --> 
-  </bindings>
   <!-- Copied from com.sun.tools.ws.processor.modeler.wsdl.PseudoSchemaBuilder from jaxws-tools-2.2.3 -->
   <!-- See http://jaxb.java.net/nonav/2.2.3u1/docs/vendorCustomizations.html for details -->
   <bindings scd="x-schema::wsa" if-exists="true">
@@ -64,12 +48,12 @@
       <class ref="javax.xml.ws.wsaddressing.W3CEndpointReference" />
     </bindings>
   </bindings>
-  <bindings schemaLocation="../resources/WEB-INF/wsdl/ServiceMetadataPublishingTypes-1.0.xsd">
+  <bindings schemaLocation="../resources/schemas/ServiceMetadataPublishingTypes-1.0.xsd">
     <schemaBindings>
       <package name="com.helger.peppol.smp" />
     </schemaBindings>
   </bindings>
-  <bindings schemaLocation="../resources/WEB-INF/wsdl/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+  <bindings schemaLocation="../resources/schemas/oasis-200401-wss-wssecurity-utility-1.0.xsd">
     <schemaBindings>
       <package name="com.helger.peppol.wssec" />
     </schemaBindings>

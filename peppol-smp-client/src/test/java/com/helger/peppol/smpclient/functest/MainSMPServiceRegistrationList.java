@@ -15,12 +15,12 @@ import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IParticipantIdentifier;
 import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.MockSMPClientConfig;
 import com.helger.peppol.smpclient.SMPClient;
 import com.helger.peppol.smpclient.utils.SMPDebugHelper;
+import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
 
 /**
  * @author Philip Helger

@@ -20,12 +20,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.identifier.IDocumentTypeIdentifier;
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.IProcessIdentifier;
-import com.helger.peppol.identifier.simple.doctype.SimpleDocumentTypeIdentifier;
-import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
-import com.helger.peppol.identifier.simple.process.SimpleProcessIdentifier;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smp.ObjectFactory;
@@ -35,6 +29,12 @@ import com.helger.peppol.smp.ServiceEndpointList;
 import com.helger.peppol.smp.ServiceInformationType;
 import com.helger.peppol.smpclient.MockSMPClientConfig;
 import com.helger.peppol.smpclient.SMPClient;
+import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
+import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
+import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 
 /**
  * @author Philip Helger

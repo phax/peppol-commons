@@ -24,10 +24,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.identifier.CIdentifier;
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.ParticipantIdentifierType;
-import com.helger.peppol.identifier.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.participant.BadRequestFault;
@@ -40,6 +36,10 @@ import com.helger.peppol.smlclient.participant.PageRequestType;
 import com.helger.peppol.smlclient.participant.ParticipantIdentifierPageType;
 import com.helger.peppol.smlclient.participant.ServiceMetadataPublisherServiceForParticipantType;
 import com.helger.peppol.smlclient.participant.UnauthorizedFault;
+import com.helger.peppolid.CIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.ParticipantIdentifierType;
+import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
 
 /**

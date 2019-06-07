@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file was automatically generated.
+Do NOT edit!-->
+<root version="4">
+  <process protocol="START" profileversion="1.0.1" profileid="busdox-transport-start" since="1.0.0" deprecated="true" deprecated-since="1.0.0" />
+  <process protocol="AS2" profileversion="1.0" profileid="busdox-transport-as2-ver1p0" since="1.0.0" deprecated="false" />
+  <process protocol="AS4" profileversion="1.0" profileid="peppol-transport-as4-v1_0" since="2" deprecated="true" deprecated-since="3" />
+  <process protocol="AS4" profileversion="2.0" profileid="peppol-transport-as4-v2_0" since="3" deprecated="false" />
+</root>

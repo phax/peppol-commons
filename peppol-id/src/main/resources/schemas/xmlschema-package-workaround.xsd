@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
+
+    This Source Code Form is subject to the terms of the Mozilla Public
+    License, v. 2.0. If a copy of the MPL was not distributed with this
+    file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+-->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+        targetNamespace="http://www.w3.org/2001/XMLSchema"
+        xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+        jaxb:version="2.0">
+  <annotation>
+    <documentation>
+      This is a workaround for the problem of the created "org.w3._2001.xmlschema" package.
+      
+      Source: https://jaxb.java.net/guide/Customizing_Java_packages.html#Tip__get_rid_of_the_org_w3__2001_xmlschema_package
+    </documentation>
+    <appinfo>
+      <jaxb:schemaBindings>
+        <jaxb:package name="com.helger.peppolid.xsd" />
+      </jaxb:schemaBindings>
+    </appinfo>
+  </annotation>
+</schema>

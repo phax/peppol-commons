@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.peppol.identifier.factory.PeppolIdentifierFactory;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
@@ -28,6 +27,7 @@ import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.MockSMLClientConfig;
 import com.helger.peppol.smlclient.smp.PublisherEndpointType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.wsclient.WSHelper;
 
 /**

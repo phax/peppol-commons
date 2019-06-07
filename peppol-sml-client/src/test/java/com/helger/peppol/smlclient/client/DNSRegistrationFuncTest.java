@@ -34,13 +34,13 @@ import org.xbill.DNS.Type;
 
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.peppol.identifier.IParticipantIdentifier;
-import com.helger.peppol.identifier.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppol.url.PeppolURLProvider;
+import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 
 /**
  * This class is for BRZ internal use only!

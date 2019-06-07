@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file was automatically generated.
+Do NOT edit!-->
+<root version="4">
+  <identifier-scheme schemeid="FR:SIRENE" agencyname="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" iso6523="0002" since="1.0.0" deprecated="false">
+    <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters. 2) Check digits: 9th &amp; 14th character respectively</structure>
+    <display>The 9 figure code number (SIREN) is written in groups of 3 characters. Example: 784 301 772, The 14 figure code number is written in 3 groups of 3 characters and a
+single group of 5. Example: 784 301 772 00025</display>
+    <usage>1.1.1 - Changed from FR:SIRET to FR:SIRENE (see ISU Jira ISU-231)</usage>
+  </identifier-scheme>
+  <identifier-scheme schemeid="SE:ORGNR" agencyname="The National Tax Board" iso6523="0007" since="1.0.0" deprecated="false">
+    <structure>1) 10 digits. 1st digit = Group number, 2nd - 9th digit = Ordinalnumber1st digit, = Group number, 10th digit = Check digit, 2) Last digit.</structure>
+    <display>Single group of 10 digits.</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="FR:SIRET" agencyname="DU PONT DE NEMOURS" iso6523="0009" since="1.1.1" deprecated="false">
+    <structure>1) 14 digits, 2) None</structure>
+    <display>In four groups, Groups 1 - 3 = three digits each, Group 4 = five digits</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="FI:OVT" agencyname="National Board of Taxes, (Verohallitus)" iso6523="0037" since="1.0.0" deprecated="false">
+    <structure>1) ICD 4 Digits, Organization code upto 11 characters, Organization name upto 250 characters, 2) None
+- Example: 00371234567800001
+- 0037 Country code for Finland (ISO 6523  International Code Designator (ICD) value)
+- 12345678 Business ID without hyphen 
+- 00001 Optional specifier for organisation unit (assigned by the organisation itself)</structure>
+    <display>None</display>
+    <examples>OVT identifier conforming to standard ISO6523.   
+- Constant 0037 (Finnish tax administration organisation code)
+- Finnish local tax ID, 8 characters with initial zero and no hyphen
+- Free-format 5 characters, for example profit center.  
+Example: 003710948874</examples>
+  </identifier-scheme>
+  <identifier-scheme schemeid="DUNS" agencyname="Dun and Bradstreet Ltd" iso6523="0060" since="1.0.0" deprecated="false">
+    <structure>1) 8 digits, 1st-7th digit = number, 8th digit = check number, 2) digit</structure>
+    <display>Single group of 8 digits</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="GLN" agencyname="GS1 GLN" iso6523="0088" since="1.0.0" deprecated="false">
+    <structure>1) Eight identification digits and a check digit. A two digit prefix will be added in the future but it will not be used to calculate the check digit. 2) The Organization name is not part of the D-U-N-S number.</structure>
+    <display>IIIIIIIIC where all characters are the digits 0, to 9, I = an identification digit and C = the check digit. When the prefix (P) is added the display requirement will be eleven digits, PPIIIIIIIIC.</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="DK:P" agencyname="Danish Chamber of Commerce" iso6523="0096" since="1.0.0" deprecated="false">
+    <structure>1) 13 digits including check digits, 2) None</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="IT:FTI" agencyname="FTI - Ediforum Italia" iso6523="0097" since="1.0.0" deprecated="false">
+    <structure>Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure: [123] [123456] [123456] [12], 17, &lt; &gt;, A B C D, A: numerical value allocated by the RA to the regional sub-authority, (3 digits), B: numerical value allocated by the sub-authority to the registered organization (mandatory part of the identifier; 6 digits), C: numerical value used by the registered organization (free part; 6 digits), D: numerical check digit calculated by the registered organization; (2 digits), Check digit computation, The check digit is modular 97 computed on ABC as one number.</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="NL:KVK" agencyname="Vereniging van Kamers van Koophandel en Fabrieken in Nederland, Scheme" iso6523="0106" since="1.1.2" deprecated="false" />
+  <identifier-scheme schemeid="EU:NAL" agencyname="European Commission, Information Directorate, Data Transmission Service, Rue de&#xA;la Loi, 200, B-1049 Brussels, Belgium" iso6523="0130" since="4" deprecated="false">
+    <structure>1) ICD 4 digits, 2) None</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="IT:SIA" agencyname="SIA-Società Interbancaria per l'Automazione S.p.A." iso6523="0135" since="1.0.0" deprecated="false">
+    <structure>Structure of EDI identifier, Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure:
+[1234567] [123] [1] [12345], min 11- max 16, &lt; &gt;, A B C D, A: numerical value (7 digits) assigned by Uffico Provinciale IVA (local branch of Ministry of Finance); B: numerical value a (3 digits) identifying the County; C: numerical check digit (1 digit); D: optional numerical value (up to 5 digits0 used by the registered organization (free part). Check digit computation, The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="IT:SECETI" agencyname="Servizi Centralizzati SECETI S.p.A." iso6523="0142" since="1.0.0" deprecated="false">
+    <structure>First field: ICD: 4 digits, Second field: sequence of digits</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="DK:DIGST" agencyname="DIGSTORG" iso6523="0184" since="1.2.1" deprecated="false">
+    <structure>Defined by Danish Agency for Digitisation</structure>
+  </identifier-scheme>
+  <identifier-scheme schemeid="NL:OINO" agencyname="Dutch Originator's Identification Number" iso6523="0190" since="2" deprecated="false" />
+  <identifier-scheme schemeid="EE:CC" agencyname="Centre of Registers and Information Systems of the Ministry of Justice" iso6523="0191" since="2" deprecated="false">
+    <structure>Always 8-digit number</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="NO:ORG" agencyname="The Brønnøysund Register Centre" iso6523="0192" since="2" deprecated="false">
+    <structure>9 digits
+The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="UBLBE" agencyname="UBL.BE" iso6523="0193" since="3" deprecated="false">
+    <structure>Maximum 50 characters
+4 Characters fixed length identifying the type 
+Maximum 46 characters for the identifier itself</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="SG:UEN" agencyname="Singaport Nationwide E-Invoice Framework" iso6523="0195" since="4" deprecated="false" />
+  <identifier-scheme schemeid="IS:KTNR" agencyname="Icelandic National Registry" iso6523="0196" since="4" deprecated="false" />
+  <identifier-scheme schemeid="DK:CPR" agencyname="Danish Ministry of the Interior and Health" iso6523="9901" since="1.0.0" deprecated="false">
+    <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
+    <display>None</display>
+  </identifier-scheme>
+  <identifier-scheme schemeid="DK:CVR" agencyname="The Danish Commerce and Companies Agency" iso6523="9902" since="1.0.0" deprecated="false">
+    <examples>7603770123</examples>
+  </identifier-scheme>
+  <identifier-scheme schemeid="DK:SE" agencyname="Danish Ministry of Taxation, Central Customs and Tax Administration" iso6523="9904" since="1.0.0" deprecated="false">
+    <examples>DK26769388</examples>
+  </identifier-scheme>
+  <identifier-scheme schemeid="DK:VANS" agencyname="Danish VANS providers" iso6523="9905" since="1.0.0" deprecated="false">
+    <examples>DK26769388</examples>
+  </identifier-scheme>
+  <identifier-scheme schemeid="IT:VAT" agencyname="Ufficio responsabile gestione partite IVA" iso6523="9906" since="1.0.0" deprecated="false">
+    <examples>IT06363391001</examples>
+  </identifier-scheme>
+  <identifier-scheme schemeid="IT:CF" agencyname="TAX Authority" iso6523="9907" since="1.0.0" deprecated="false">
+    <examples>RSSBBR69C48F839A
+NOTE: The "CF" is a Fiscal Code that can be "personal" or for a "legal entity".
+The CF for legal entities is like the Italian VAT code (IT:VAT)</examples>
+  </identifier-scheme>
+  <identifier-scheme schemeid="NO:ORGNR" agencyname="Enhetsregisteret ved Bronnoysundregisterne" iso6523="9908" since="1.0.0" deprecated="false" />
+  <identifier-scheme schemeid="NO:VAT" agencyname="Enhetsregisteret ved Bronnoysundregisterne" iso6523="9909" since="1.0.0" deprecated="true" deprecated-since="1.1.0">
+    <examples>990399123</examples>
+  </identifier-scheme>
+  <identifier-scheme schemeid="HU:VAT" iso6523="9910" since="1.0.0" deprecated="false">
+    <examples>990399123MVA</examples>
+  </identifier-scheme>
+  <identifier-scheme schemeid="EU:VAT" agencyname="National ministries of Economy" iso6523="9912" since="1.0.0" deprecated="true" deprecated-since="1.1.0" />
+  <identifier-scheme schemeid="EU:REID" agencyname="Business Registers Network" iso6523="9913" since="1.0.0" deprecated="false" />
+  <identifier-scheme schemeid="AT:VAT" agencyname="Österreichische Umsatzsteuer-Identifikationsnummer" iso6523="9914" since="1.0.0" deprecated="false">
+    <examples>ATU12345678</examples>
+  </identifier-scheme>
+  <identifier-scheme schemeid="AT:GOV" agencyname="Österreichisches Verwaltungs bzw. Organisationskennzeichen" iso6523="9915" since="1.0.0" deprecated="false" />
+  <identifier-scheme schemeid="AT:CID" agencyname="Firmenidentifikationsnummer der Statistik Austria" iso6523="9916" since="1.0.0" deprecated="true" deprecated-since="1.0.2" />
+  <identifier-scheme schemeid="IS:KT" agencyname="Icelandic National Registry" iso6523="9917" since="1.0.0" deprecated="true" deprecated-since="4">
+    <usage>In favour of 0196</usage>
+  </identifier-scheme>
+  <identifier-scheme schemeid="IBAN" agencyname="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" iso6523="9918" since="1.0.1" deprecated="false" />
+  <identifier-scheme schemeid="AT:KUR" agencyname="Kennziffer des Unternehmensregisters" iso6523="9919" since="1.0.2" deprecated="false">
+    <structure>9 characters in total; letter, number x3, letter, number x3, letter</structure>
+  </identifier-scheme>
+  <identifier-scheme schemeid="ES:VAT" agencyname="Agencia Española de Administración Tributaria" iso6523="9920" since="1.0.2" deprecated="false" />
+  <identifier-scheme schemeid="IT:IPA" agencyname="Indice delle Pubbliche Amministrazioni" iso6523="9921" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="AD:VAT" agencyname="Andorra VAT number" iso6523="9922" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="AL:VAT" agencyname="Albania VAT number" iso6523="9923" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="BA:VAT" agencyname="Bosnia and Herzegovina VAT number" iso6523="9924" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="BE:VAT" agencyname="Belgium VAT number" iso6523="9925" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="BG:VAT" agencyname="Bulgaria VAT number" iso6523="9926" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="CH:VAT" agencyname="Switzerland VAT number" iso6523="9927" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="CY:VAT" agencyname="Cyprus VAT number" iso6523="9928" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="CZ:VAT" agencyname="Czech Republic VAT number" iso6523="9929" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="DE:VAT" agencyname="Germany VAT number" iso6523="9930" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="EE:VAT" agencyname="Estonia VAT number" iso6523="9931" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="GB:VAT" agencyname="United Kingdom VAT number" iso6523="9932" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="GR:VAT" agencyname="Greece VAT number" iso6523="9933" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="HR:VAT" agencyname="Croatia VAT number" iso6523="9934" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="IE:VAT" agencyname="Ireland VAT number" iso6523="9935" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="LI:VAT" agencyname="Liechtenstein VAT number" iso6523="9936" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="LT:VAT" agencyname="Lithuania VAT number" iso6523="9937" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="LU:VAT" agencyname="Luxemburg VAT number" iso6523="9938" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="LV:VAT" agencyname="Latvia VAT number" iso6523="9939" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="MC:VAT" agencyname="Monaco VAT number" iso6523="9940" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="ME:VAT" agencyname="Montenegro VAT number" iso6523="9941" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="MK:VAT" agencyname="Macedonia, the former Yugoslav Republic of VAT number" iso6523="9942" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="MT:VAT" agencyname="Malta VAT number" iso6523="9943" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="NL:VAT" agencyname="Netherlands VAT number" iso6523="9944" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="PL:VAT" agencyname="Poland VAT number" iso6523="9945" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="PT:VAT" agencyname="Portugal VAT number" iso6523="9946" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="RO:VAT" agencyname="Romania VAT number" iso6523="9947" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="RS:VAT" agencyname="Serbia VAT number" iso6523="9948" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="SI:VAT" agencyname="Slovenia VAT number" iso6523="9949" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="SK:VAT" agencyname="Slovakia VAT number" iso6523="9950" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="SM:VAT" agencyname="San Marino VAT number" iso6523="9951" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="TR:VAT" agencyname="Turkey VAT number" iso6523="9952" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="VA:VAT" agencyname="Holy See (Vatican City State) VAT number" iso6523="9953" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="NL:OIN" agencyname="Dutch Originator's Identification Number" iso6523="9954" since="1.1.3" deprecated="true" deprecated-since="2">
+    <usage>Deprecated by 0190</usage>
+  </identifier-scheme>
+  <identifier-scheme schemeid="SE:VAT" agencyname="Swedish VAT number" iso6523="9955" since="1.2.0" deprecated="false" />
+  <identifier-scheme schemeid="BE:CBE" agencyname="Belgian Crossroad Bank of Enterprises" iso6523="9956" since="1.2.1" deprecated="false">
+    <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
+  </identifier-scheme>
+  <identifier-scheme schemeid="FR:VAT" agencyname="French VAT number" iso6523="9957" since="1.2.1" deprecated="false" />
+  <identifier-scheme schemeid="DE:LID" agencyname="German Leitweg ID" iso6523="9958" since="3" deprecated="false">
+    <usage>Temporary until ISO 6523 identifier approved</usage>
+  </identifier-scheme>
+</root>

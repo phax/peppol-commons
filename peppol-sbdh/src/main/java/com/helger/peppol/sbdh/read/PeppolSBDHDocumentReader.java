@@ -40,12 +40,12 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.datetime.util.PDTXMLConverter;
-import com.helger.peppol.identifier.factory.IIdentifierFactory;
-import com.helger.peppol.identifier.factory.SimpleIdentifierFactory;
-import com.helger.peppol.identifier.peppol.PeppolIdentifierHelper;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHAdditionalAttributes;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
+import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.peppolid.factory.SimpleIdentifierFactory;
+import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
 
 /**

@@ -13,7 +13,6 @@ package com.helger.peppol.smpclient.utils;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.peppol.identifier.CIdentifier;
 import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smp.ExtensionType;
 import com.helger.peppol.smp.ProcessType;
@@ -24,6 +23,7 @@ import com.helger.peppol.smp.ServiceMetadataReferenceCollectionType;
 import com.helger.peppol.smp.ServiceMetadataReferenceType;
 import com.helger.peppol.smp.ServiceMetadataType;
 import com.helger.peppol.utils.W3CEndpointReferenceHelper;
+import com.helger.peppolid.CIdentifier;
 
 /**
  * SMP utilities for debugging purposes. It converts the complex types to
