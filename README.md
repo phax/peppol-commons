@@ -21,7 +21,7 @@ And some legacy PEPPOL projects:
 
 **Note:** the sub-projects use different licenses (for historic reasons)!
 
-Since (and including) version 6 the sub-projects `peppol-commons`, `peppol-sml-client` and `peppol-smp-client` are licensed under the MPL 2.0.
+Since (and including) version 6 the sub-projects `peppol-id`, `peppol-commons`, `peppol-sml-client` and `peppol-smp-client` are licensed under the MPL 2.0.
 Before version 6 these 3 sub-projects were licensed under EUPL 1.1 or the MPL 1.1.
 The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apache 2.0 license (no change in v6).
 
@@ -36,7 +36,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
     * Enabled XSD validation in JAXB marshallers by default
     * `SMPClient` and `BDXRClient` throw an Exception if the writable REST API parameters don't follow the XSD
     * Added new class `BDXR2ClientReadOnly` as SMP client for OASIS BDXR SMP v2 (WS 06) specification
-    * Added new subprobject `peppol-id`
+    * Added new subprobject `peppol-id` that moved all the `com.helger.peppol.identifier` packages to `com.helger.peppolid` 
 * v6.2.5 - 2019-05-07
     * Fixed Java 12 compatibility
 * v6.2.4 - 2019-05-05
@@ -164,6 +164,7 @@ Java library with shared IDs.
 First created in version 7.0.0.
 
 ## peppol-commons
+
 Java library with shared PEPPOL components. It contains the basic algorithms and the handling for the identifiers.
 
 This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
