@@ -99,7 +99,7 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.peppolid</Automatic-Module-Name>
-            <Export-Package>com.helger.pepppolid.*</Export-Package>
+            <Export-Package>com.helger.peppolid.*</Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
