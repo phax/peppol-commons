@@ -1,7 +1,7 @@
 # Introduction
 
 This project contains different libraries that are commonly used in the PEPPOL area:
-  * [`peppol-id`](#peppol-id) - the ID data structures
+  * [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
   * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with PEPPOL and BDXR
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
   * [`peppol-sbdh`](#peppol-sbdh) - PEPPOL specific SBDH handling
@@ -27,7 +27,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v7.0.0 - work in progress
+* v7.0.0 - 2019-06-10
     * Started to rework identifier class hierarchies, interfaces and package assignments - the result is incompatible to the 6.x version
     * Started integrating OASIS BDXR SMP v2 CSD01 identifiers into the existing structure
     * Renamed `EsensURLProvider` to `BDXLURLProvider`
@@ -333,32 +333,38 @@ Add the following to your pom.xml to use this artifact:
 ```xml
 <dependency>
   <groupId>com.helger</groupId>
+  <artifactId>peppol-id</artifactId>
+  <version>7.0.0</version>
+</dependency>
+
+<dependency>
+  <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>6.2.5</version>
+  <version>7.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>6.2.5</version>
+  <version>7.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>6.2.5</version>
+  <version>7.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>6.2.5</version>
+  <version>7.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>6.2.5</version>
+  <version>7.0.0</version>
 </dependency>
 ```
 
@@ -368,7 +374,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>6.2.5</version>
+  <version>7.0.0</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
