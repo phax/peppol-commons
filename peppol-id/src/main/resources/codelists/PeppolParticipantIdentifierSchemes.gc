@@ -478,7 +478,7 @@ Maximum 46 characters for the identifier itself</SimpleValue>
         <SimpleValue>0195</SimpleValue>
       </Value>
           <Value ColumnRef="schemeagency">
-        <SimpleValue>Singaport Nationwide E-Invoice Framework</SimpleValue>
+        <SimpleValue>Singapore Nationwide E-Invoice Framework</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>4</SimpleValue>

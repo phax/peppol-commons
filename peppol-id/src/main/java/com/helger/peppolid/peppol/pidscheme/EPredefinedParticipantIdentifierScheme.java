@@ -194,7 +194,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 4
      */
-    SG_UEN("SG:UEN", "Singaport Nationwide E-Invoice Framework", "0195", Version.parse("4"), false),
+    SG_UEN("SG:UEN", "Singapore Nationwide E-Invoice Framework", "0195", Version.parse("4"), false),
 
     /**
      * Prefix <code>0196</code>, scheme ID <code>IS:KTNR</code><br>

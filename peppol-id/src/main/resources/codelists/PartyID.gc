@@ -181,7 +181,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>SG:UEN</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Singaport Nationwide E-Invoice Framework</SimpleValue>
+        <SimpleValue>Singapore Nationwide E-Invoice Framework</SimpleValue>
       </Value>
     </Row>
       <Row>

@@ -90,7 +90,7 @@ The organization number consists of 9 digits where the last digit is a control d
 Maximum 46 characters for the identifier itself</structure>
     <display>None</display>
   </identifier-scheme>
-  <identifier-scheme schemeid="SG:UEN" agencyname="Singaport Nationwide E-Invoice Framework" iso6523="0195" since="4" deprecated="false" />
+  <identifier-scheme schemeid="SG:UEN" agencyname="Singapore Nationwide E-Invoice Framework" iso6523="0195" since="4" deprecated="false" />
   <identifier-scheme schemeid="IS:KTNR" agencyname="Icelandic National Registry" iso6523="0196" since="4" deprecated="false" />
   <identifier-scheme schemeid="DK:CPR" agencyname="Danish Ministry of the Interior and Health" iso6523="9901" since="1.0.0" deprecated="false">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
