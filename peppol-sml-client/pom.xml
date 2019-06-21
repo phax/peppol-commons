@@ -46,14 +46,14 @@
   </developers>
 
   <properties>
-    <!--
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
-    <jaxws-plugin.version>2.3.1</jaxws-plugin.version>
+    <jaxws-plugin.version>2.3.2</jaxws-plugin.version>
+    <!--
     <jaxws-plugin.group>org.codehaus.mojo</jaxws-plugin.group>
     <jaxws-plugin.version>2.5</jaxws-plugin.version>
-    -->
     <jaxws-plugin.group>com.helger.maven</jaxws-plugin.group>
     <jaxws-plugin.version>2.6.1</jaxws-plugin.version>
+    -->
   </properties>
   
   <dependencies>
