@@ -482,7 +482,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   }
 
   @Nullable
-  public static byte [] getEndpointCertificateString (@Nullable final EndpointType aEndpoint)
+  public static byte [] getEndpointCertificateBytes (@Nullable final EndpointType aEndpoint)
   {
     if (aEndpoint == null)
       return null;
@@ -492,13 +492,13 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   }
 
   @Nullable
-  public byte [] getEndpointCertificateString (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                               @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                               @Nonnull final IProcessIdentifier aProcessID,
-                                               @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
+  public byte [] getEndpointCertificateBytes (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                              @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                              @Nonnull final IProcessIdentifier aProcessID,
+                                              @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
     final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return getEndpointCertificateString (aEndpoint);
+    return getEndpointCertificateBytes (aEndpoint);
   }
 
   @Nullable
@@ -508,10 +508,10 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                                                  @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                         CertificateException
   {
-    final byte [] aCertString = getEndpointCertificateString (aServiceGroupID,
-                                                              aDocumentTypeID,
-                                                              aProcessID,
-                                                              aTransportProfile);
+    final byte [] aCertString = getEndpointCertificateBytes (aServiceGroupID,
+                                                             aDocumentTypeID,
+                                                             aProcessID,
+                                                             aTransportProfile);
     if (aCertString == null)
       return null;
     return (X509Certificate) CertificateHelper.getX509CertificateFactory ()
@@ -521,7 +521,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   @Nullable
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {
-    final byte [] aCertString = getEndpointCertificateString (aEndpoint);
+    final byte [] aCertString = getEndpointCertificateBytes (aEndpoint);
     if (aCertString == null)
       return null;
     return (X509Certificate) CertificateHelper.getX509CertificateFactory ()

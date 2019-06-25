@@ -27,6 +27,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
+* v7.0.1 - 2019-6-25
+    * Fixed a naming issues for predefined identifier 0195
 * v7.0.0 - 2019-06-10
     * Started to rework identifier class hierarchies, interfaces and package assignments - the result is incompatible to the 6.x version
     * Started integrating OASIS BDXR SMP v2 CSD01 identifiers into the existing structure
@@ -334,37 +336,37 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>7.0.0</version>
+  <version>7.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>7.0.0</version>
+  <version>7.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>7.0.0</version>
+  <version>7.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>7.0.0</version>
+  <version>7.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>7.0.0</version>
+  <version>7.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>7.0.0</version>
+  <version>7.0.1</version>
 </dependency>
 ```
 
@@ -374,7 +376,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>7.0.0</version>
+  <version>7.0.1</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
