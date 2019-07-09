@@ -27,7 +27,9 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v7.0.1 - 2019-6-25
+* v7.0.2 - work in progress
+    * Using more base types in certain APIs for better interoperability (binary incompatible change)
+* v7.0.1 - 2019-06-25
     * Fixed a naming issues for predefined identifier 0195
 * v7.0.0 - 2019-06-10
     * Started to rework identifier class hierarchies, interfaces and package assignments - the result is incompatible to the 6.x version

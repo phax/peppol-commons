@@ -109,14 +109,7 @@ public final class CIdentifier
 
   @Nonnull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final com.helger.xsds.bdxr.smp2.bc.ParticipantIDType aID)
-  {
-    return getURIEncoded (aID.getSchemeID (), aID.getValue ());
-  }
-
-  @Nonnull
-  @Nonempty
-  public static String getURIEncoded (@Nonnull final com.helger.xsds.bdxr.smp2.bc.IDType aID)
+  public static String getURIEncoded (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)
   {
     return getURIEncoded (aID.getSchemeID (), aID.getValue ());
   }
@@ -225,14 +218,7 @@ public final class CIdentifier
 
   @Nonnull
   @Nonempty
-  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.bdxr.smp2.bc.ParticipantIDType aID)
-  {
-    return getURIPercentEncoded (aID.getSchemeID (), aID.getValue ());
-  }
-
-  @Nonnull
-  @Nonempty
-  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.bdxr.smp2.bc.IDType aID)
+  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)
   {
     return getURIPercentEncoded (aID.getSchemeID (), aID.getValue ());
   }

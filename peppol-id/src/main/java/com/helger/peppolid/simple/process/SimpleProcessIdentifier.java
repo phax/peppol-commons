@@ -76,7 +76,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   }
 
   @Nonnull
-  public static SimpleProcessIdentifier wrap (@Nonnull final com.helger.xsds.bdxr.smp2.bc.IDType aID)
+  public static SimpleProcessIdentifier wrap (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)
   {
     return new SimpleProcessIdentifier (aID.getSchemeID (), aID.getValue ());
   }

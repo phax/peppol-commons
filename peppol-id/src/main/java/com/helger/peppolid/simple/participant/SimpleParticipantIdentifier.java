@@ -77,7 +77,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   @Nonnull
-  public static SimpleParticipantIdentifier wrap (@Nonnull final com.helger.xsds.bdxr.smp2.bc.IDType aID)
+  public static SimpleParticipantIdentifier wrap (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)
   {
     return new SimpleParticipantIdentifier (aID.getSchemeID (), aID.getValue ());
   }
