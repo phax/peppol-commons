@@ -165,9 +165,17 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 Java library with shared IDs.
 First created in version 7.0.0.
 
+Make sure to run `mvn generate-sources` before using it in the IDE.
+The additional code is created in `target/generated-sources/xjc`. 
+
+This project is licensed under the MPL 2.0 license.
+
 ## peppol-commons
 
-Java library with shared PEPPOL components. It contains the basic algorithms and the handling for the identifiers.
+Java library with shared PEPPOL components. It contains the basic algorithms. Since v7 this depends on the `peppol-id` submodule.
+
+Make sure to run `mvn generate-sources` before using it in the IDE.
+The additional code is created in `target/generated-sources/xjc`. 
 
 This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
 
@@ -188,9 +196,13 @@ New path names (starting from v6.0.1):
 * truststore/complete-truststore.jks (production + pilot PKI v2 + v3)
 
 ## peppol-sbdh
+
 Simple SBDH handler for the use with PEPPOL.
 It offers the possibility to extract all meta data from an SBDH document as well as 
 set all meta data to an SBDH document.
+
+Make sure to run `mvn generate-sources` before using it in the IDE.
+The additional code is created in `target/generated-sources/xjc`. 
 
 This projects implements the "Envelope specification" as listed on
 http://www.peppol.eu/ressource-library/technical-specifications/transport-infrastructure/infrastructure-resources.
@@ -202,6 +214,7 @@ An example on how to use this project can be found in my **[as2-peppol-servlet](
 This project is licensed under the Apache 2 License.
 
 ## peppol-testfiles
+
 A Java library with a lot of UBL and SBDH test files suitable for different scenarios.  
 
 SimpleInvoicing test files are used from https://github.com/SimplerInvoicing/testset
@@ -209,9 +222,13 @@ SimpleInvoicing test files are used from https://github.com/SimplerInvoicing/tes
 This project is licensed under the Apache 2 License.
 
 ## peppol-sml-client
+
 This project contains the SML client library used by the SMP's to interact with the SML.
 It is based on cipa-sml-client-library 2.2.3.
 This library is usually only used within SMP servers, to communicate the changes to the central SML.
+
+Make sure to run `mvn generate-sources` before using it in the IDE.
+The additional code is created in `target/generated-sources/xjc`. 
 
 This project contains 2 main classes for talking to the PEPPOL SML:
   * `ManageServiceMetadataServiceCaller` which is used to change SMP assignments in the SML. This must be called for a new SMP to register it once at the SML.
@@ -224,6 +241,7 @@ This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-s
 This project is licensed under the MPL 2.0 license.
 
 ## peppol-smp-client
+
 This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.3.0). 
 This project uses Apache HTTP client to perform the REST lookups on foreign SMPs. The reason to not use the Jersey 1.x client is an incompatibility with Java 8. This means that this version is compliant with Java 1.6+.
 
