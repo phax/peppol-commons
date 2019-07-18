@@ -20,6 +20,7 @@ import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smpclient.MockSMPClientConfig;
 import com.helger.peppol.smpclient.SMPClient;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 
 /**
  * Check if an SMP installation is working. Prior to executing this class, make
@@ -55,7 +56,7 @@ public final class MainCheckIfSMPIsWorking
 
     LOGGER.info ("Retrieving the service group");
     final ServiceGroupType aSGT = aClient.getServiceGroup (PARTICIPANT_ID);
-    if (!aSGT.getParticipantIdentifier ().equals (PARTICIPANT_ID))
+    if (!SimpleParticipantIdentifier.wrap (aSGT.getParticipantIdentifier ()).equals (PARTICIPANT_ID))
       throw new IllegalStateException ("Participant identifiers are not equal!");
 
     LOGGER.info ("Deleting the service group again");
