@@ -345,7 +345,7 @@ This project is meant to be build by Maven 3.x.
 It requires at least Java 1.8 to be build.
 To build simply call `mvn clean install` in the root folder.
 
-When integrating this in your IDE, ensure to run `mvn generate-sources` first, so that the automatically generated files are present.
+When integrating this in your IDE, ensure to run `mvn process-sources` first, so that the automatically generated files are present.
 For the subprojects `peppol-id`, `peppol-commons`, `peppol-sbdh` and `peppol-sml-client` add `target/generated-sources/xjc` to your buildpath afterwards.
 
 # Maven usage
