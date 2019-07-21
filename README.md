@@ -346,8 +346,7 @@ It requires at least Java 1.8 to be build.
 To build simply call `mvn clean install` in the root folder.
 
 When integrating this in your IDE, ensure to run `mvn generate-sources` first, so that the automatically generated files are present.
-For the subprojects `peppol-commons` and `peppol-sml-client` add `target/generated-sources/xjc` to your buildpath afterwards.
-
+For the subprojects `peppol-id`, `peppol-commons`, `peppol-sbdh` and `peppol-sml-client` add `target/generated-sources/xjc` to your buildpath afterwards.
 
 # Maven usage
 Add the following to your pom.xml to use this artifact:
