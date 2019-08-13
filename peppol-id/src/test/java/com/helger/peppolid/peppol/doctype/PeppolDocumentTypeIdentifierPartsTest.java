@@ -25,10 +25,6 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.csv.CSVWriter;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 
 /**
  * Test class for class {@link PeppolDocumentTypeIdentifierParts}.
@@ -128,8 +124,8 @@ public final class PeppolDocumentTypeIdentifierPartsTest
   @Test
   public void testList () throws IOException
   {
-    try (final CSVWriter aCSV = new CSVWriter (StreamHelper.createWriter (FileHelper.getOutputStream (new File ("doctypes.csv")),
-                                                                          StandardCharsets.ISO_8859_1)))
+    try (final CSVWriter aCSV = new CSVWriter (FileHelper.getBufferedWriter (new File ("doctypes.csv"),
+                                                                             StandardCharsets.ISO_8859_1)))
     {
       aCSV.setSeparatorChar (';');
       aCSV.writeNext ("Status", "Namespace URI", "Local name", "Customization ID", "Version");
