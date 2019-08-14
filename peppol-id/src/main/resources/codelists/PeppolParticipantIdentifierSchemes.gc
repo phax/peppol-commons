@@ -19,7 +19,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolIdentifierIssuingAgencies</ShortName>
-      <Version>4</Version>
+      <Version>5</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:participantidentifierschemes</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:participantidentifierschemes-1.0</CanonicalVersionUri>
   </Identification>
@@ -32,7 +32,15 @@
       <ShortName>ICD value</ShortName>
           <Data Type="string" />
     </Column>
-      <Column Id="schemeagency" Use="optional">
+      <Column Id="country" Use="required">
+      <ShortName>Country</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="schemename" Use="required">
+      <ShortName>Scheme Name</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="issuingagency" Use="optional">
       <ShortName>Issuing Organization</ShortName>
           <Data Type="string" />
     </Column>
@@ -72,6 +80,14 @@
       <ShortName>ICD value</ShortName>
           <ColumnRef Ref="iso6523" />
     </Key>
+      <Key Id="countryKey">
+      <ShortName>Country</ShortName>
+          <ColumnRef Ref="country" />
+    </Key>
+      <Key Id="schemenameKey">
+      <ShortName>Scheme Name</ShortName>
+          <ColumnRef Ref="schemename" />
+    </Key>
   </ColumnSet>
   <SimpleCodeList>
     <Row>
@@ -81,14 +97,20 @@
           <Value ColumnRef="iso6523">
         <SimpleValue>0002</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>FR</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>System Information et Repertoire des Entreprise et des Etablissements: SIRENE</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters. 2) Check digits: 9th &amp; 14th character respectively</SimpleValue>
@@ -108,14 +130,20 @@ single group of 5. Example: 784 301 772 00025</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0007</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>SE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Organisationsnummer</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>The National Tax Board</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) 10 digits. 1st digit = Group number, 2nd - 9th digit = Ordinalnumber1st digit, = Group number, 10th digit = Check digit, 2) Last digit.</SimpleValue>
@@ -131,14 +159,20 @@ single group of 5. Example: 784 301 772 00025</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0009</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>FR</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>SIRET-CODE</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>DU PONT DE NEMOURS</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) 14 digits, 2) None</SimpleValue>
@@ -154,14 +188,20 @@ single group of 5. Example: 784 301 772 00025</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0037</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>FI</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>LY-tunnus</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>National Board of Taxes, (Verohallitus)</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) ICD 4 Digits, Organization code upto 11 characters, Organization name upto 250 characters, 2) None
@@ -188,14 +228,20 @@ Example: 003710948874</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0060</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>international</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Data Universal Numbering System (D-U-N-S Number)</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Dun and Bradstreet Ltd</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) 8 digits, 1st-7th digit = number, 8th digit = check number, 2) digit</SimpleValue>
@@ -211,14 +257,20 @@ Example: 003710948874</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0088</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>international</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Global Location Number</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>GS1 GLN</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) Eight identification digits and a check digit. A two digit prefix will be added in the future but it will not be used to calculate the check digit. 2) The Organization name is not part of the D-U-N-S number.</SimpleValue>
@@ -234,14 +286,20 @@ Example: 003710948874</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0096</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>DK</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>DANISH CHAMBER OF COMMERCE Scheme</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Danish Chamber of Commerce</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) 13 digits including check digits, 2) None</SimpleValue>
@@ -257,14 +315,20 @@ Example: 003710948874</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0097</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>IT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>FTI - Ediforum Italia</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>FTI - Ediforum Italia</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure: [123] [123456] [123456] [12], 17, &lt; &gt;, A B C D, A: numerical value allocated by the RA to the regional sub-authority, (3 digits), B: numerical value allocated by the sub-authority to the registered organization (mandatory part of the identifier; 6 digits), C: numerical value used by the registered organization (free part; 6 digits), D: numerical check digit calculated by the registered organization; (2 digits), Check digit computation, The check digit is modular 97 computed on ABC as one number.</SimpleValue>
@@ -280,14 +344,21 @@ Example: 003710948874</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0106</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
-        <SimpleValue>Vereniging van Kamers van Koophandel en Fabrieken in Nederland, Scheme</SimpleValue>
+          <Value ColumnRef="country">
+        <SimpleValue>NL</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Vereniging van Kamers van Koophandel en Fabrieken in Nederland (Association of
+Chambers of Commerce and Industry in the Netherlands), Scheme</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>Vereniging van Kamers van Koophandel en Fabrieken in Nederland</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -297,15 +368,20 @@ Example: 003710948874</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0130</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
-        <SimpleValue>European Commission, Information Directorate, Data Transmission Service, Rue de
-la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
+          <Value ColumnRef="country">
+        <SimpleValue>international</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Directorates of the European Commission</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>European Commission, Information Directorate, Data Transmission Service</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) ICD 4 digits, 2) None</SimpleValue>
@@ -321,14 +397,20 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0135</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>IT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>SIA Object Identifiers</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>SIA-Società Interbancaria per l'Automazione S.p.A.</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Structure of EDI identifier, Character repertoire, The EDI identifier consists of digits only. The identifier has a fixed length. No separators are required. Structure:
@@ -345,14 +427,20 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0142</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>IT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>SECETI Object Identifiers</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Servizi Centralizzati SECETI S.p.A.</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>First field: ICD: 4 digits, Second field: sequence of digits</SimpleValue>
@@ -363,19 +451,95 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
+        <SimpleValue>AU:ABN</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0151</SimpleValue>
+      </Value>
+          <Value ColumnRef="country">
+        <SimpleValue>AU</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Australian Business Number (ABN) Scheme</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>Australian Taxation Office</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>0</SimpleValue>
+      </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>The ABN is an 11 digit numeric identifier. The first two digits are check digits calculated using a modulus 89 of the weighted digits. The first digit of the number is guaranteed to be non-zero by adding 10 to the modulus (so the first two digits range from 10 through to 99). For companies the last 9 digits are identical to their existing Australian Company Number (CAN) which includes a single trailing check digit. For other entities the digits are randomly allocated but are guaranteed to fail the CAN check. This allows the Australian Securities and Investment Commission (ASIC) to continue allocating CAN during a transition period. The valid characters are numeric digits 0-9.</SimpleValue>
+      </Value>
+          <Value ColumnRef="display">
+        <SimpleValue>It is displayed as follows: -, XX XXX XXX XXX</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
+        <SimpleValue>CH:UIDB</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0183</SimpleValue>
+      </Value>
+          <Value ColumnRef="country">
+        <SimpleValue>CH</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Swiss Unique Business Identification Number (UIDB)</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>Swiss Federal Statistical Office (FSO)</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>CHEXXXXXXXXP
+UID number, is composed by 9 digits and is random generated and has no internal means.
+1)
+12 characters
+CHE: Swiss Country Code following ISO 3166-1.
+XXXXXXXX: 8 digits for the number itself
+P: check digit
+2)
+CHEXXXXXXXXP, the last digit</SimpleValue>
+      </Value>
+          <Value ColumnRef="display">
+        <SimpleValue>There is no requirements. As suggested in the standards eCH-0097 (http://www.ech.ch) the transmission of the UID is without any separator.
+For display reason is suggested to use this format CHE-XXX.XXX.XXP minus-character ('-') after 'CHE' and separator dot-character ('.') after 6th and 9th character</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Also called "Numéro d'identification suisse des enterprises (IDE)"</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
         <SimpleValue>DK:DIGST</SimpleValue>
       </Value>
           <Value ColumnRef="iso6523">
         <SimpleValue>0184</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>DK</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>DIGSTORG</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>DIGSTORG</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.2.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Defined by Danish Agency for Digitisation</SimpleValue>
@@ -388,14 +552,20 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0190</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
-        <SimpleValue>Dutch Originator's Identification Number</SimpleValue>
+          <Value ColumnRef="country">
+        <SimpleValue>NL</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Organisatie-identificatienummer (OIN)</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>Logius</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -405,14 +575,20 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0191</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>EE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Company code</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Centre of Registers and Information Systems of the Ministry of Justice</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Always 8-digit number</SimpleValue>
@@ -428,14 +604,20 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0192</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>NO</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Organisasjonsnummer</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>The Brønnøysund Register Centre</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>9 digits
@@ -452,14 +634,20 @@ The organization number consists of 9 digits where the last digit is a control d
           <Value ColumnRef="iso6523">
         <SimpleValue>0193</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>BE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>UBL.BE Party Identifier</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>UBL.BE</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Maximum 50 characters
@@ -477,14 +665,20 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0195</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>SG</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Singapore Nationwide E-Invoice Framework</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>lnfocomm Media Development Authority</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -494,14 +688,115 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>0196</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>IS</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Icelandic identifier</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Icelandic National Registry</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
+        <SimpleValue>0</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
+        <SimpleValue>DK:ERST</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0198</SimpleValue>
+      </Value>
+          <Value ColumnRef="country">
+        <SimpleValue>DK</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>ERSTORG</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>The Danish Business Authority</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>DKXXXXXXXX
+Two characters (DK) followed by 8 digits eg. DK12345678</SimpleValue>
+      </Value>
+          <Value ColumnRef="display">
+        <SimpleValue>10 characters, no space or other separator</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
+        <SimpleValue>LEI</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0199</SimpleValue>
+      </Value>
+          <Value ColumnRef="country">
+        <SimpleValue>international</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Legal Entity Identifier (LEI)</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>As of December 2018, there are 33 LEI issuing organizations in the world.</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>The ISO 17442 standard specifies the minimum reference data, which must the format of the organization identifiers, be Supplied for each LEI:
+* The official name of the legal entity as recorded in the official registers.
+* The registered address of that legal entity.
+* The country of formation.
+* The codes for the representation of names of countries and their subdivisions.
+* The date of the first LEI assignment; the date of last update of the
+* LEI information; and the date of expiry, if applicable.
+Additional information may be registered as agreed between the legal entity and its LEI issuing organization.
+etc. - see ICD sheet for further information</SimpleValue>
+      </Value>
+          <Value ColumnRef="display">
+        <SimpleValue>The entire 20 character code (including the check digits)</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
+        <SimpleValue>LT:LEC</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0200</SimpleValue>
+      </Value>
+          <Value ColumnRef="country">
+        <SimpleValue>LT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Legal entity code</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>State Enterprise Centre of Registers</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>0</SimpleValue>
+      </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>9 (nine) digits
+Each legal entity's code number is multiplied by 1, 2, 3, 4, 5, 6, 7, 8
+(weighting) starting from the left-hand side of the code. Calculates the sum of the product, divided by 11. The remainder of the division, which must be less than 10, is the 9th, control, number of the legal entity's code.</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -511,14 +806,20 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9901</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>DK</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Danish Ministry of the Interior and Health</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Danish Ministry of the Interior and Health</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) First field: ICD: 4 digits, Second field: sequence of digits</SimpleValue>
@@ -534,14 +835,20 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9902</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>DK</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>The Danish Commerce and Companies Agency</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>The Danish Commerce and Companies Agency</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>7603770123</SimpleValue>
@@ -554,14 +861,20 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9904</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>DK</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Danish Ministry of Taxation, Central Customs and Tax Administration</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Danish Ministry of Taxation, Central Customs and Tax Administration</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>DK26769388</SimpleValue>
@@ -574,14 +887,20 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9905</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>DK</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Danish VANS providers</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Danish VANS providers</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>DK26769388</SimpleValue>
@@ -594,14 +913,17 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9906</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>IT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Ufficio responsabile gestione partite IVA</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>IT06363391001</SimpleValue>
@@ -614,14 +936,20 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9907</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>IT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>TAX Authority</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>TAX Authority</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>RSSBBR69C48F839A
@@ -636,14 +964,20 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9908</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>NO</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Enhetsregisteret ved Bronnoysundregisterne</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>The Brønnøysund Register Centre</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -653,14 +987,20 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9909</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>NO</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Norwegian VAT number</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Enhetsregisteret ved Bronnoysundregisterne</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
+        <SimpleValue>1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>1.1.0</SimpleValue>
@@ -676,11 +1016,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9910</SimpleValue>
       </Value>
+          <Value ColumnRef="country">
+        <SimpleValue>HU</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Hungary VAT number</SimpleValue>
+      </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>990399123MVA</SimpleValue>
@@ -693,17 +1039,23 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9912</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>international</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>National ministries of Economy</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
+        <SimpleValue>1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>1.1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>Must start with the country code</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -713,14 +1065,20 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9913</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>international</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Business Registers Network</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Business Registers Network</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -730,14 +1088,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9914</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>AT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Österreichische Umsatzsteuer-Identifikationsnummer</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>ATU12345678</SimpleValue>
@@ -750,14 +1111,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9915</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>AT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Österreichisches Verwaltungs bzw. Organisationskennzeichen</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -767,14 +1131,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9916</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>AT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Firmenidentifikationsnummer der Statistik Austria</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
+        <SimpleValue>1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>1.0.2</SimpleValue>
@@ -787,14 +1154,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9917</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>IS</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Icelandic National Registry</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
+        <SimpleValue>1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>4</SimpleValue>
@@ -810,14 +1180,20 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9918</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>international</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -827,14 +1203,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9919</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>AT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Kennziffer des Unternehmensregisters</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>9 characters in total; letter, number x3, letter, number x3, letter</SimpleValue>
@@ -847,14 +1226,20 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9920</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>ES</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Agencia Española de Administración Tributaria</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Agencia Española de Administración Tributaria</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.0.2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -864,14 +1249,20 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9921</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>IT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Indice delle Pubbliche Amministrazioni</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Indice delle Pubbliche Amministrazioni</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -881,14 +1272,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9922</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>AD</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Andorra VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -898,14 +1292,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9923</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>AL</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Albania VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -915,14 +1312,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9924</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>BA</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Bosnia and Herzegovina VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -932,14 +1332,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9925</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>BE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Belgium VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -949,14 +1352,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9926</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>BG</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Bulgaria VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -966,14 +1372,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9927</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>CH</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Switzerland VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -983,14 +1392,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9928</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>CY</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Cyprus VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1000,14 +1412,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9929</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>CZ</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Czech Republic VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1017,14 +1432,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9930</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>DE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Germany VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1034,14 +1452,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9931</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>EE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Estonia VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1051,14 +1472,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9932</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>GB</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>United Kingdom VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1068,14 +1492,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9933</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>GR</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Greece VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1085,14 +1512,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9934</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>HR</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Croatia VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1102,14 +1532,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9935</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>IE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Ireland VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1119,14 +1552,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9936</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>LI</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Liechtenstein VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1136,14 +1572,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9937</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>LT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Lithuania VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1153,14 +1592,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9938</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>LU</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Luxemburg VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1170,14 +1612,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9939</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>LV</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Latvia VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1187,14 +1632,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9940</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>MC</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Monaco VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1204,14 +1652,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9941</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>ME</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Montenegro VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1221,14 +1672,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9942</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>MK</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Macedonia, the former Yugoslav Republic of VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1238,14 +1692,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9943</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>MT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Malta VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1255,14 +1712,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9944</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>NL</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Netherlands VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1272,14 +1732,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9945</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>PL</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Poland VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1289,14 +1752,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9946</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>PT</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Portugal VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1306,14 +1772,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9947</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>RO</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Romania VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1323,14 +1792,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9948</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>RS</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Serbia VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1340,14 +1812,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9949</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>SI</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Slovenia VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1357,14 +1832,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9950</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>SK</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Slovakia VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1374,14 +1852,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9951</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>SM</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>San Marino VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1391,14 +1872,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9952</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>TR</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Turkey VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1408,14 +1892,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9953</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>VA</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Holy See (Vatican City State) VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1425,14 +1912,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9954</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>NL</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Dutch Originator's Identification Number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.1.3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
+        <SimpleValue>1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
@@ -1448,14 +1938,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9955</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>SE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>Swedish VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.2.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1465,14 +1958,20 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9956</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>BE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Belgian Crossroad Bank of Enterprise number</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
         <SimpleValue>Belgian Crossroad Bank of Enterprises </SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.2.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</SimpleValue>
@@ -1485,14 +1984,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9957</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>FR</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>French VAT number</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>1.2.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1502,14 +2004,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="iso6523">
         <SimpleValue>9958</SimpleValue>
       </Value>
-          <Value ColumnRef="schemeagency">
+          <Value ColumnRef="country">
+        <SimpleValue>DE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
         <SimpleValue>German Leitweg ID</SimpleValue>
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>0</SimpleValue>
       </Value>
           <Value ColumnRef="usage">
         <SimpleValue>Temporary until ISO 6523 identifier approved</SimpleValue>

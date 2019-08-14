@@ -13,7 +13,7 @@
 -->
 <!--This file was automatically generated.
 Do NOT edit!-->
-<root version="4">
+<root version="5">
   <process profilecode="PEPPOL Catalogue profile V1" bisid="BIS 1A" scheme="cenbii-procid-ubl" id="urn:www.cenbii.eu:profile:bii01:ver1.0" since="1.0.0" deprecated="true" deprecated-since="1.2.1" />
   <process profilecode="PEPPOL Catalogue profile V4" bisid="BIS 1A" scheme="cenbii-procid-ubl" id="urn:www.cenbii.eu:profile:bii01:ver2.0" since="1.2.0" deprecated="false" />
   <process profilecode="PEPPOL Order profile V1" bisid="BIS 3A" scheme="cenbii-procid-ubl" id="urn:www.cenbii.eu:profile:bii03:ver1.0" since="1.0.0" deprecated="true" deprecated-since="1.2.1" />

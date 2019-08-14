@@ -16,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
-import com.helger.peppolid.peppol.validator.IdentifierValidator;
 
 /**
  * Test class for class {@link IdentifierValidator}.

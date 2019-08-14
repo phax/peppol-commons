@@ -19,7 +19,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolProcessIdentifier</ShortName>
-      <Version>4</Version>
+      <Version>5</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:process</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:process-1.0</CanonicalVersionUri>
   </Identification>

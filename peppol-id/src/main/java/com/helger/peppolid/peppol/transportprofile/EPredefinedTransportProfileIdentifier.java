@@ -53,7 +53,14 @@ public enum EPredefinedTransportProfileIdentifier
      * 
      * @since code list 3
      */
-    peppol_transport_as4_v2_0("AS4", "2.0", "peppol-transport-as4-v2_0", Version.parse("3"), false);
+    peppol_transport_as4_v2_0("AS4", "2.0", "peppol-transport-as4-v2_0", Version.parse("3"), false),
+
+    /**
+     * <code>busdox-transport-as2-ver2p0</code><br>
+     * 
+     * @since code list 5
+     */
+    busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), false);
     /**
      * Same as {@link #busdox_transport_start}
      */
@@ -72,6 +79,10 @@ public enum EPredefinedTransportProfileIdentifier
      * Same as {@link #peppol_transport_as4_v2_0}
      */
     public static final EPredefinedTransportProfileIdentifier AS4_2_0 = EPredefinedTransportProfileIdentifier.peppol_transport_as4_v2_0;
+    /**
+     * Same as {@link #busdox_transport_as2_ver2p0}
+     */
+    public static final EPredefinedTransportProfileIdentifier AS2_2_0 = EPredefinedTransportProfileIdentifier.busdox_transport_as2_ver2p0;
     private final String m_sProtocol;
     private final String m_sProfileVersion;
     private final String m_sProfileID;

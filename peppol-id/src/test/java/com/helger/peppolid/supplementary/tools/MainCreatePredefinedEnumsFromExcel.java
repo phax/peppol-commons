@@ -34,7 +34,6 @@ import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.StringParser;
 import com.helger.commons.version.Version;
 import com.helger.genericode.Genericode10CodeListMarshaller;
 import com.helger.genericode.Genericode10Helper;
@@ -83,12 +82,19 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
 public final class MainCreatePredefinedEnumsFromExcel
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
-  private static final Version CODELIST_VERSION = new Version (4);
+  private static final Version CODELIST_VERSION = new Version (5);
   private static final String RESULT_DIRECTORY = "src/main/resources/codelists/";
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
   private static final boolean DEFAULT_DEPRECATED = false;
+
+  private static boolean _parseDeprecated (final String s)
+  {
+    if (StringHelper.hasText (s))
+      return "1".equals (s) || "true".equalsIgnoreCase (s) || "yes".equalsIgnoreCase (s);
+    return DEFAULT_DEPRECATED;
+  }
 
   @Nullable
   private static String _maskHtml (@Nullable final String s)
@@ -155,7 +161,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       final String sScheme = _getRowValue (aRow, "scheme");
       final String sID = _getRowValue (aRow, "id");
       final String sSince = _getRowValue (aRow, "since");
-      final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+      final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
       final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
         throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
@@ -188,7 +194,7 @@ public final class MainCreatePredefinedEnumsFromExcel
         final String sScheme = _getRowValue (aRow, "scheme");
         final String sID = _getRowValue (aRow, "id");
         final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
         final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
         if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
           throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
@@ -415,16 +421,19 @@ public final class MainCreatePredefinedEnumsFromExcel
     // Read excel file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
-    aReadOptions.addColumn (0, "schemeid", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (1, "iso6523", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (2, "schemeagency", UseType.OPTIONAL, "string", false);
-    aReadOptions.addColumn (3, "since", UseType.REQUIRED, "string", false);
-    aReadOptions.addColumn (4, "deprecated", UseType.REQUIRED, "boolean", false);
-    aReadOptions.addColumn (5, "deprecated-since", UseType.OPTIONAL, "string", false);
-    aReadOptions.addColumn (6, "structure", UseType.OPTIONAL, "string", false);
-    aReadOptions.addColumn (7, "display", UseType.OPTIONAL, "string", false);
-    aReadOptions.addColumn (8, "examples", UseType.OPTIONAL, "string", false);
-    aReadOptions.addColumn (9, "usage", UseType.OPTIONAL, "string", false);
+    int nCol = 0;
+    aReadOptions.addColumn (nCol++, "schemeid", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (nCol++, "iso6523", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (nCol++, "country", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (nCol++, "schemename", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (nCol++, "issuingagency", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "since", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (nCol++, "deprecated", UseType.REQUIRED, "boolean", false);
+    aReadOptions.addColumn (nCol++, "deprecated-since", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "structure", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "display", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "examples", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "usage", UseType.OPTIONAL, "string", false);
 
     // Convert to GeneriCode
     final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aParticipantSheet,
@@ -447,9 +456,11 @@ public final class MainCreatePredefinedEnumsFromExcel
     {
       final String sSchemeID = _getRowValue (aRow, "schemeid");
       final String sISO6523 = _getRowValue (aRow, "iso6523");
-      final String sAgency = _getRowValue (aRow, "schemeagency");
+      final String sCountryCode = _getRowValue (aRow, "country");
+      final String sSchemeName = _getRowValue (aRow, "schemename");
+      final String sIssuingAgency = _getRowValue (aRow, "issuingagency");
       final String sSince = _getRowValue (aRow, "since");
-      final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+      final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
       final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
       final String sStructure = _getRowValue (aRow, "structure");
       final String sDisplay = _getRowValue (aRow, "display");
@@ -469,7 +480,10 @@ public final class MainCreatePredefinedEnumsFromExcel
 
       final IMicroElement eAgency = eRoot.appendElement ("identifier-scheme");
       eAgency.setAttribute ("schemeid", sSchemeID);
-      eAgency.setAttribute ("agencyname", sAgency);
+      eAgency.setAttribute ("country", sCountryCode);
+      eAgency.setAttribute ("schemename", sSchemeName);
+      // legacy name
+      eAgency.setAttribute ("agencyname", sIssuingAgency);
       eAgency.setAttribute ("iso6523", sISO6523);
       eAgency.setAttribute ("since", sSince);
       eAgency.setAttribute ("deprecated", bDeprecated);
@@ -499,9 +513,11 @@ public final class MainCreatePredefinedEnumsFromExcel
       {
         final String sSchemeID = _getRowValue (aRow, "schemeid");
         final String sISO6523 = _getRowValue (aRow, "iso6523");
-        final String sAgency = _getRowValue (aRow, "schemeagency");
+        final String sCountryCode = _getRowValue (aRow, "country");
+        final String sSchemeName = _getRowValue (aRow, "schemename");
+        final String sIssuingAgency = _getRowValue (aRow, "issuingagency");
         final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
         final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
         final String sStructure = _getRowValue (aRow, "structure");
         final String sDisplay = _getRowValue (aRow, "display");
@@ -510,8 +526,10 @@ public final class MainCreatePredefinedEnumsFromExcel
 
         final JEnumConstant jEnumConst = jEnum.enumConstant (RegExHelper.getAsIdentifier (sSchemeID));
         jEnumConst.arg (JExpr.lit (sSchemeID));
-        jEnumConst.arg (sAgency == null ? JExpr._null () : JExpr.lit (sAgency));
         jEnumConst.arg (JExpr.lit (sISO6523));
+        jEnumConst.arg (JExpr.lit (sCountryCode));
+        jEnumConst.arg (JExpr.lit (sSchemeName));
+        jEnumConst.arg (sIssuingAgency == null ? JExpr._null () : JExpr.lit (sIssuingAgency));
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.arg (JExpr.lit (bDeprecated));
 
@@ -538,8 +556,10 @@ public final class MainCreatePredefinedEnumsFromExcel
 
       // fields
       final JFieldVar fSchemeID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sSchemeID");
-      final JFieldVar fSchemeAgency = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sSchemeAgency");
       final JFieldVar fISO6523 = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sISO6523");
+      final JFieldVar fCountryCode = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sCountryCode");
+      final JFieldVar fSchemeName = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sSchemeName");
+      final JFieldVar fIssuingAgency = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sIssuingAgency");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
@@ -548,18 +568,26 @@ public final class MainCreatePredefinedEnumsFromExcel
       final JVar jSchemeID = jCtor.param (JMod.FINAL, String.class, "sSchemeID");
       jSchemeID.annotate (Nonnull.class);
       jSchemeID.annotate (Nonempty.class);
-      final JVar jSchemeAgency = jCtor.param (JMod.FINAL, String.class, "sSchemeAgency");
-      jSchemeAgency.annotate (Nullable.class);
       final JVar jISO6523 = jCtor.param (JMod.FINAL, String.class, "sISO6523");
       jISO6523.annotate (Nonnull.class);
       jISO6523.annotate (Nonempty.class);
+      final JVar jCountryCode = jCtor.param (JMod.FINAL, String.class, "sCountryCode");
+      jCountryCode.annotate (Nonnull.class);
+      jCountryCode.annotate (Nonempty.class);
+      final JVar jSchemeName = jCtor.param (JMod.FINAL, String.class, "sSchemeName");
+      jSchemeName.annotate (Nonnull.class);
+      jSchemeName.annotate (Nonempty.class);
+      final JVar jIssuingAgency = jCtor.param (JMod.FINAL, String.class, "sIssuingAgency");
+      jIssuingAgency.annotate (Nullable.class);
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
       final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
       jCtor.body ()
            .assign (fSchemeID, jSchemeID)
-           .assign (fSchemeAgency, jSchemeAgency)
            .assign (fISO6523, jISO6523)
+           .assign (fCountryCode, jCountryCode)
+           .assign (fSchemeName, jSchemeName)
+           .assign (fIssuingAgency, jIssuingAgency)
            .assign (fSince, jSince)
            .assign (fDeprecated, jDeprecated);
 
@@ -569,16 +597,28 @@ public final class MainCreatePredefinedEnumsFromExcel
       m.annotate (Nonempty.class);
       m.body ()._return (fSchemeID);
 
-      // public String getSchemeAgency ()
-      m = jEnum.method (JMod.PUBLIC, String.class, "getSchemeAgency");
-      m.annotate (Nullable.class);
-      m.body ()._return (fSchemeAgency);
-
       // public String getISO6523Code ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getISO6523Code");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fISO6523);
+
+      // public String getCountryCode ()
+      m = jEnum.method (JMod.PUBLIC, String.class, "getCountryCode");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.body ()._return (fCountryCode);
+
+      // public String getSchemeName ()
+      m = jEnum.method (JMod.PUBLIC, String.class, "getSchemeName");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.body ()._return (fSchemeName);
+
+      // public String getSchemeAgency ()
+      m = jEnum.method (JMod.PUBLIC, String.class, "getSchemeAgency");
+      m.annotate (Nullable.class);
+      m.body ()._return (fIssuingAgency);
 
       // public Version getSince ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
@@ -628,7 +668,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       final String sScheme = _getRowValue (aRow, "scheme");
       final String sID = _getRowValue (aRow, "id");
       final String sSince = _getRowValue (aRow, "since");
-      final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+      final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
       final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
 
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
@@ -663,7 +703,7 @@ public final class MainCreatePredefinedEnumsFromExcel
         final String sScheme = _getRowValue (aRow, "scheme");
         final String sID = _getRowValue (aRow, "id");
         final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
         final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
 
         // Prepend the scheme, if it is non-default
@@ -826,7 +866,7 @@ public final class MainCreatePredefinedEnumsFromExcel
       final String sProfileVersion = _getRowValue (aRow, "profileversion");
       final String sProfileID = _getRowValue (aRow, "profileid");
       final String sSince = _getRowValue (aRow, "since");
-      final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+      final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
       final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
 
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
@@ -859,7 +899,7 @@ public final class MainCreatePredefinedEnumsFromExcel
         final String sProfileVersion = _getRowValue (aRow, "profileversion");
         final String sProfileID = _getRowValue (aRow, "profileid");
         final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = StringParser.parseBool (_getRowValue (aRow, "deprecated"), DEFAULT_DEPRECATED);
+        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
         final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
 
         // Prepend the scheme, if it is non-default

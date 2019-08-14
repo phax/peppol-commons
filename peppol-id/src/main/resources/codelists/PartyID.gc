@@ -19,9 +19,9 @@
   </Annotation>
   <Identification>
     <ShortName>Scheme Agency</ShortName>
-      <Version>4</Version>
+      <Version>5</Version>
       <CanonicalUri>PEPPOL</CanonicalUri>
-      <CanonicalVersionUri>PEPPOL-4</CanonicalVersionUri>
+      <CanonicalVersionUri>PEPPOL-5</CanonicalVersionUri>
       <LocationUri>PartyID.gc</LocationUri>
   </Identification>
   <ColumnSet>
@@ -30,7 +30,7 @@
           <Data Type="string" />
     </Column>
       <Column Id="name" Use="optional">
-      <ShortName>Issuing Organization</ShortName>
+      <ShortName>Country</ShortName>
           <Data Type="string" />
     </Column>
       <Key Id="codeKey">
@@ -44,7 +44,7 @@
         <SimpleValue>FR:SIRENE</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)</SimpleValue>
+        <SimpleValue>FR</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -52,7 +52,7 @@
         <SimpleValue>SE:ORGNR</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>The National Tax Board</SimpleValue>
+        <SimpleValue>SE</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -60,7 +60,7 @@
         <SimpleValue>FR:SIRET</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>DU PONT DE NEMOURS</SimpleValue>
+        <SimpleValue>FR</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -68,7 +68,7 @@
         <SimpleValue>FI:OVT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>National Board of Taxes, (Verohallitus)</SimpleValue>
+        <SimpleValue>FI</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -76,7 +76,7 @@
         <SimpleValue>DUNS</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Dun and Bradstreet Ltd</SimpleValue>
+        <SimpleValue>international</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -84,7 +84,7 @@
         <SimpleValue>GLN</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>GS1 GLN</SimpleValue>
+        <SimpleValue>international</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -92,7 +92,7 @@
         <SimpleValue>DK:P</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Danish Chamber of Commerce</SimpleValue>
+        <SimpleValue>DK</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -100,7 +100,7 @@
         <SimpleValue>IT:FTI</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>FTI - Ediforum Italia</SimpleValue>
+        <SimpleValue>IT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -108,7 +108,7 @@
         <SimpleValue>NL:KVK</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Vereniging van Kamers van Koophandel en Fabrieken in Nederland, Scheme</SimpleValue>
+        <SimpleValue>NL</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -116,8 +116,7 @@
         <SimpleValue>EU:NAL</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>European Commission, Information Directorate, Data Transmission Service, Rue de
-la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
+        <SimpleValue>international</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -125,7 +124,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>IT:SIA</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>SIA-Società Interbancaria per l'Automazione S.p.A.</SimpleValue>
+        <SimpleValue>IT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -133,7 +132,23 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>IT:SECETI</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Servizi Centralizzati SECETI S.p.A.</SimpleValue>
+        <SimpleValue>IT</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>AU:ABN</SimpleValue>
+      </Value>
+          <Value ColumnRef="name">
+        <SimpleValue>AU</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>CH:UIDB</SimpleValue>
+      </Value>
+          <Value ColumnRef="name">
+        <SimpleValue>CH</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -141,7 +156,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>DK:DIGST</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>DIGSTORG</SimpleValue>
+        <SimpleValue>DK</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -149,7 +164,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>NL:OINO</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Dutch Originator's Identification Number</SimpleValue>
+        <SimpleValue>NL</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -157,7 +172,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>EE:CC</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Centre of Registers and Information Systems of the Ministry of Justice</SimpleValue>
+        <SimpleValue>EE</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -165,7 +180,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>NO:ORG</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>The Brønnøysund Register Centre</SimpleValue>
+        <SimpleValue>NO</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -173,7 +188,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>UBLBE</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>UBL.BE</SimpleValue>
+        <SimpleValue>BE</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -181,7 +196,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>SG:UEN</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Singapore Nationwide E-Invoice Framework</SimpleValue>
+        <SimpleValue>SG</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -189,7 +204,31 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>IS:KTNR</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Icelandic National Registry</SimpleValue>
+        <SimpleValue>IS</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>DK:ERST</SimpleValue>
+      </Value>
+          <Value ColumnRef="name">
+        <SimpleValue>DK</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>LEI</SimpleValue>
+      </Value>
+          <Value ColumnRef="name">
+        <SimpleValue>international</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>LT:LEC</SimpleValue>
+      </Value>
+          <Value ColumnRef="name">
+        <SimpleValue>LT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -197,7 +236,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>DK:CPR</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Danish Ministry of the Interior and Health</SimpleValue>
+        <SimpleValue>DK</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -205,7 +244,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>DK:CVR</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>The Danish Commerce and Companies Agency</SimpleValue>
+        <SimpleValue>DK</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -213,7 +252,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>DK:SE</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Danish Ministry of Taxation, Central Customs and Tax Administration</SimpleValue>
+        <SimpleValue>DK</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -221,7 +260,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>DK:VANS</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Danish VANS providers</SimpleValue>
+        <SimpleValue>DK</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -229,7 +268,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>IT:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Ufficio responsabile gestione partite IVA</SimpleValue>
+        <SimpleValue>IT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -237,7 +276,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>IT:CF</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>TAX Authority</SimpleValue>
+        <SimpleValue>IT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -245,7 +284,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>NO:ORGNR</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Enhetsregisteret ved Bronnoysundregisterne</SimpleValue>
+        <SimpleValue>NO</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -253,12 +292,15 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>NO:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Enhetsregisteret ved Bronnoysundregisterne</SimpleValue>
+        <SimpleValue>NO</SimpleValue>
       </Value>
     </Row>
       <Row>
       <Value ColumnRef="code">
         <SimpleValue>HU:VAT</SimpleValue>
+      </Value>
+          <Value ColumnRef="name">
+        <SimpleValue>HU</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -266,7 +308,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>EU:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>National ministries of Economy</SimpleValue>
+        <SimpleValue>international</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -274,7 +316,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>EU:REID</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Business Registers Network</SimpleValue>
+        <SimpleValue>international</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -282,7 +324,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>AT:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Österreichische Umsatzsteuer-Identifikationsnummer</SimpleValue>
+        <SimpleValue>AT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -290,7 +332,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>AT:GOV</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Österreichisches Verwaltungs bzw. Organisationskennzeichen</SimpleValue>
+        <SimpleValue>AT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -298,7 +340,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>AT:CID</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Firmenidentifikationsnummer der Statistik Austria</SimpleValue>
+        <SimpleValue>AT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -306,7 +348,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>IS:KT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Icelandic National Registry</SimpleValue>
+        <SimpleValue>IS</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -314,7 +356,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>IBAN</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T</SimpleValue>
+        <SimpleValue>international</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -322,7 +364,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>AT:KUR</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Kennziffer des Unternehmensregisters</SimpleValue>
+        <SimpleValue>AT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -330,7 +372,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>ES:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Agencia Española de Administración Tributaria</SimpleValue>
+        <SimpleValue>ES</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -338,7 +380,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>IT:IPA</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Indice delle Pubbliche Amministrazioni</SimpleValue>
+        <SimpleValue>IT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -346,7 +388,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>AD:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Andorra VAT number</SimpleValue>
+        <SimpleValue>AD</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -354,7 +396,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>AL:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Albania VAT number</SimpleValue>
+        <SimpleValue>AL</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -362,7 +404,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>BA:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Bosnia and Herzegovina VAT number</SimpleValue>
+        <SimpleValue>BA</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -370,7 +412,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>BE:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Belgium VAT number</SimpleValue>
+        <SimpleValue>BE</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -378,7 +420,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>BG:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Bulgaria VAT number</SimpleValue>
+        <SimpleValue>BG</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -386,7 +428,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>CH:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Switzerland VAT number</SimpleValue>
+        <SimpleValue>CH</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -394,7 +436,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>CY:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Cyprus VAT number</SimpleValue>
+        <SimpleValue>CY</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -402,7 +444,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>CZ:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Czech Republic VAT number</SimpleValue>
+        <SimpleValue>CZ</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -410,7 +452,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>DE:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Germany VAT number</SimpleValue>
+        <SimpleValue>DE</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -418,7 +460,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>EE:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Estonia VAT number</SimpleValue>
+        <SimpleValue>EE</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -426,7 +468,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>GB:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>United Kingdom VAT number</SimpleValue>
+        <SimpleValue>GB</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -434,7 +476,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>GR:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Greece VAT number</SimpleValue>
+        <SimpleValue>GR</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -442,7 +484,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>HR:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Croatia VAT number</SimpleValue>
+        <SimpleValue>HR</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -450,7 +492,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>IE:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Ireland VAT number</SimpleValue>
+        <SimpleValue>IE</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -458,7 +500,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>LI:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Liechtenstein VAT number</SimpleValue>
+        <SimpleValue>LI</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -466,7 +508,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>LT:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Lithuania VAT number</SimpleValue>
+        <SimpleValue>LT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -474,7 +516,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>LU:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Luxemburg VAT number</SimpleValue>
+        <SimpleValue>LU</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -482,7 +524,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>LV:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Latvia VAT number</SimpleValue>
+        <SimpleValue>LV</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -490,7 +532,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>MC:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Monaco VAT number</SimpleValue>
+        <SimpleValue>MC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -498,7 +540,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>ME:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Montenegro VAT number</SimpleValue>
+        <SimpleValue>ME</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -506,7 +548,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>MK:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Macedonia, the former Yugoslav Republic of VAT number</SimpleValue>
+        <SimpleValue>MK</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -514,7 +556,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>MT:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Malta VAT number</SimpleValue>
+        <SimpleValue>MT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -522,7 +564,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>NL:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Netherlands VAT number</SimpleValue>
+        <SimpleValue>NL</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -530,7 +572,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>PL:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Poland VAT number</SimpleValue>
+        <SimpleValue>PL</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -538,7 +580,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>PT:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Portugal VAT number</SimpleValue>
+        <SimpleValue>PT</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -546,7 +588,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>RO:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Romania VAT number</SimpleValue>
+        <SimpleValue>RO</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -554,7 +596,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>RS:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Serbia VAT number</SimpleValue>
+        <SimpleValue>RS</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -562,7 +604,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>SI:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Slovenia VAT number</SimpleValue>
+        <SimpleValue>SI</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -570,7 +612,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>SK:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Slovakia VAT number</SimpleValue>
+        <SimpleValue>SK</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -578,7 +620,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>SM:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>San Marino VAT number</SimpleValue>
+        <SimpleValue>SM</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -586,7 +628,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>TR:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Turkey VAT number</SimpleValue>
+        <SimpleValue>TR</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -594,7 +636,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>VA:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Holy See (Vatican City State) VAT number</SimpleValue>
+        <SimpleValue>VA</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -602,7 +644,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>NL:OIN</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Dutch Originator's Identification Number</SimpleValue>
+        <SimpleValue>NL</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -610,7 +652,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>SE:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Swedish VAT number</SimpleValue>
+        <SimpleValue>SE</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -618,7 +660,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>BE:CBE</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>Belgian Crossroad Bank of Enterprises </SimpleValue>
+        <SimpleValue>BE</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -626,7 +668,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>FR:VAT</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>French VAT number</SimpleValue>
+        <SimpleValue>FR</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -634,7 +676,7 @@ la Loi, 200, B-1049 Brussels, Belgium</SimpleValue>
         <SimpleValue>DE:LID</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>German Leitweg ID</SimpleValue>
+        <SimpleValue>DE</SimpleValue>
       </Value>
     </Row>
   </SimpleCodeList>

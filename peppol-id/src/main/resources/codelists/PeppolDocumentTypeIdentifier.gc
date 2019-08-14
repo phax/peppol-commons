@@ -19,7 +19,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolDocumentTypeIdentifier</ShortName>
-      <Version>4</Version>
+      <Version>5</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:documenttypes</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:documenttypes-1.0</CanonicalVersionUri>
   </Identification>
@@ -811,7 +811,10 @@
         <SimpleValue>3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>5</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -828,7 +831,10 @@
         <SimpleValue>3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>5</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -845,7 +851,10 @@
         <SimpleValue>3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>5</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1149,6 +1158,57 @@
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>XRechnung UBL Invoice V1.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>XRechnung UBL CreditNote V1.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>5</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>XRechnung CII Invoice V1.2</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::D16B</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>5</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>

@@ -19,7 +19,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolTransportProfileIdentifier</ShortName>
-      <Version>4</Version>
+      <Version>5</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:transportprofile</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:transportprofile-1.0</CanonicalVersionUri>
   </Identification>
@@ -123,6 +123,23 @@
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="protocol">
+        <SimpleValue>AS2</SimpleValue>
+      </Value>
+          <Value ColumnRef="profileversion">
+        <SimpleValue>2.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="profileid">
+        <SimpleValue>busdox-transport-as2-ver2p0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>5</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
