@@ -27,7 +27,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v7.0.2 - work in progress
+* v7.0.2 - 2019-08-16
     * Using more base types in certain APIs for better interoperability (binary incompatible change)
     * Updated to PEPPOL Code List v5
 * v7.0.1 - 2019-06-25
@@ -356,37 +356,37 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>7.0.1</version>
+  <version>7.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>7.0.1</version>
+  <version>7.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>7.0.1</version>
+  <version>7.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>7.0.1</version>
+  <version>7.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>7.0.1</version>
+  <version>7.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>7.0.1</version>
+  <version>7.0.2</version>
 </dependency>
 ```
 
@@ -396,7 +396,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>7.0.1</version>
+  <version>7.0.2</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
