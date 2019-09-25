@@ -612,7 +612,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL BIS Billing V3</SimpleValue>
+        <SimpleValue>PEPPOL BIS Billing UBL Invoice V3</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -629,7 +629,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL BIS Billing V3</SimpleValue>
+        <SimpleValue>PEPPOL BIS Billing UBL CreditNote V3</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -680,7 +680,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL BIS Billing V3</SimpleValue>
+        <SimpleValue>PEPPOL BIS Billing CII Invoice V3</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
