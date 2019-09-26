@@ -120,7 +120,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Catalogue profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Catalogue profile Catalogue V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -140,7 +140,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Catalogue profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Catalogue profile ApplicationResponse V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -160,7 +160,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Catalogue profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Catalogue profile ApplicationResponse V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -291,7 +291,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Billing profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Billing profile Invoice V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -311,7 +311,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Billing profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Billing profile CreditNote V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -331,7 +331,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Billing profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Billing profile Invoice V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -351,7 +351,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Billing profile V2</SimpleValue>
+        <SimpleValue>PEPPOL Billing profile Invoice V2</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -368,7 +368,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Billing profile V2</SimpleValue>
+        <SimpleValue>PEPPOL Billing profile CreditNote V2</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -385,7 +385,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Procurement profile Order V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -402,7 +402,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Procurement profile OrderResponseSimple V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -419,7 +419,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Procurement profile OrderResponseSimple V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -436,7 +436,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Procurement profile Invoice V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -453,7 +453,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Procurement profile CreditNote V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -470,7 +470,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Procurement profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Procurement profile Invoice V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -524,7 +524,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Ordering profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Ordering profile Order V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -541,7 +541,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Ordering profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Ordering profile OrderResponse V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -561,7 +561,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>PEPPOL Ordering profile V1</SimpleValue>
+        <SimpleValue>PEPPOL Ordering profile OrderResponse V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -646,7 +646,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>DHSC Customized Ordering profile V1</SimpleValue>
+        <SimpleValue>DHSC Customized Ordering profile Order V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -663,7 +663,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>DHSC Customized  Ordering profile V1</SimpleValue>
+        <SimpleValue>DHSC Customized  Ordering profile OrderResponse V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -697,7 +697,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>Procurement procedure subscription V1</SimpleValue>
+        <SimpleValue>Procurement procedure subscription Request V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -714,7 +714,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>Procurement procedure subscription V1</SimpleValue>
+        <SimpleValue>Procurement procedure subscription Response V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -731,7 +731,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>Procurement document access V1</SimpleValue>
+        <SimpleValue>Procurement document access TenderStatusRequest V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -748,7 +748,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>Procurement document access V1</SimpleValue>
+        <SimpleValue>Procurement document access CallForTenders V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -765,7 +765,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>Tender Submission V1</SimpleValue>
+        <SimpleValue>Tender Submission TenderReceipt V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -782,7 +782,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>Tender Submission V1</SimpleValue>
+        <SimpleValue>Tender Submission Tender V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -799,7 +799,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>XRechnung Invoice V1.1</SimpleValue>
+        <SimpleValue>XRechnung UBL Invoice V1.1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -819,7 +819,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>XRechnung CreditNote V1.1</SimpleValue>
+        <SimpleValue>XRechnung UBL CreditNote V1.1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -839,7 +839,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>XRechnung Invoice V1.1</SimpleValue>
+        <SimpleValue>XRechnung CII Invoice V1.1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
