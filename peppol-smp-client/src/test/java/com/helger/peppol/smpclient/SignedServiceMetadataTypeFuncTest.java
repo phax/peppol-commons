@@ -46,7 +46,7 @@ public final class SignedServiceMetadataTypeFuncTest
   private static final Logger LOGGER = LoggerFactory.getLogger (SignedServiceMetadataTypeFuncTest.class);
 
   @Test
-  public void testReadNetEDIResponse () throws Exception
+  public void testReadInvalid () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
     aMarshaller.setValidationEventHandlerFactory (x -> new LoggingValidationEventHandler ());
@@ -102,5 +102,47 @@ public final class SignedServiceMetadataTypeFuncTest
         ++nIndex;
       }
     }
+  }
+
+  @Test
+  public void testReadValid () throws Exception
+  {
+    final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
+    aMarshaller.setValidationEventHandlerFactory (x -> new LoggingValidationEventHandler ());
+
+    final byte [] aBytes = StreamHelper.getAllBytes (new ClassPathResource ("smp/signed-service-metadata2.xml"));
+    assertNotNull (aBytes);
+
+    final SignedServiceMetadataType aSSM = aMarshaller.read (aBytes);
+    assertNotNull (aSSM);
+
+    final Document aDocument = DOMReader.readXMLDOM (aBytes);
+    assertNotNull (aDocument);
+
+    // Find Signature element.
+    final NodeList aNodeList = aDocument.getElementsByTagNameNS (XMLSignature.XMLNS, "Signature");
+    assertNotNull (aNodeList);
+    assertTrue (aNodeList.getLength () > 0);
+
+    final EKeyStoreType eTruststoreType = SMPClientConfiguration.getTrustStoreType ();
+    final String sTruststorePath = SMPClientConfiguration.getTrustStorePath ();
+    final String sTrustStorePassword = SMPClientConfiguration.getTrustStorePassword ();
+    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (eTruststoreType,
+                                                                                            sTruststorePath,
+                                                                                            sTrustStorePassword);
+
+    // Create a DOMValidateContext and specify a KeySelector
+    // and document context.
+    // TODO OASIS BDXR SMP v2 can have more than one signature
+    final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
+    final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
+
+    // Unmarshal the XMLSignature.
+    final XMLSignature aSignature = aSignatureFactory.unmarshalXMLSignature (aValidateContext);
+    assertNotNull (aSignature);
+
+    // Validate the XMLSignature.
+    final boolean bCoreValid = aSignature.validate (aValidateContext);
+    assertTrue (bCoreValid);
   }
 }
