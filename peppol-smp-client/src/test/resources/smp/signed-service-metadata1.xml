@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SignedServiceMetadata xmlns:ids="http://busdox.org/transport/identifiers/1.0/" xmlns="http://busdox.org/serviceMetadata/publishing/1.0/">
+  <ServiceMetadata>
+    <ServiceInformation>
+      <ids:ParticipantIdentifier scheme="iso6523-actorid-upis">0088:5026744000002</ids:ParticipantIdentifier>
+      <ids:DocumentIdentifier scheme="busdox-docid-qns">urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1</ids:DocumentIdentifier>
+      <ProcessList>
+        <Process>
+          <ids:ProcessIdentifier scheme="cenbii-procid-ubl">urn:www.cenbii.eu:profile:bii05:ver2.0</ids:ProcessIdentifier>
+          <ServiceEndpointList>
+            <Endpoint transportProfile="busdox-transport-as2-ver1p0">
+              <EndpointReference xmlns="http://www.w3.org/2005/08/addressing">
+                <Address>https://peppol.netedi.com/receive.aspx</Address>
+                <ReferenceParameters />
+                <Metadata />
+              </EndpointReference>
+              <RequireBusinessLevelSignature>false</RequireBusinessLevelSignature>
+              <MinimumAuthenticationLevel>1</MinimumAuthenticationLevel>
+              <ServiceActivationDate>2016-11-02T00:00:00Z</ServiceActivationDate>
+              <ServiceExpirationDate>2026-11-02T00:00:00Z</ServiceExpirationDate>
+              <Certificate>MIIFrzCCA5egAwIBAgIQGFKQA5zJVxoqVfAb9mWQeTANBgkqhkiG9w0BAQsFADBOMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQT3BlblBFUFBPTCBBSVNCTDEkMCIGA1UEAxMbUEVQUE9MIEFDQ0VTUyBQT0lOVCBDQSAtIEcyMB4XDTE4MDgyMjAwMDAwMFoXDTIwMDgxMTIzNTk1OVowWTESMBAGA1UEAwwJUE5PMDAwMDcwMR0wGwYDVQQLDBRQRVBQT0wgUFJPRFVDVElPTiBBUDEXMBUGA1UECgwOTmV0RURJIExpbWl0ZWQxCzAJBgNVBAYTAkdCMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1KooR117dfXXw3ZGRBWQcnI6qZ9tN1d2fkORBUIH2TIEAUm6EuctVVJWZvcfSXHJV/9L1+MLS4vH5hJq1qtvMBGCECfkFlCToCZSoAeaAuHesUVY75KicECuOTvnUYvHPZ4QShOPx/BsAVIGE4yrVOgzxhooaDk37bbhW47s+l1DRDigsAl3765fGKxo29ksSM/QNEwFDZQj0xbVX6VQMr9uf52wEAVuSSmO6NSQtTU2AThWlji+TZHBiUdUZzUf2MbMpjq/Z5iC42qYrEV7K3mynddNwl7rb4NZtse5KPTad/4Wnxuamnk/yhgvREcPTt86EOEszyD0AMLRVOvYtQIDAQABo4IBfDCCAXgwDAYDVR0TAQH/BAIwADAOBgNVHQ8BAf8EBAMCA6gwFgYDVR0lAQH/BAwwCgYIKwYBBQUHAwIwHQYDVR0OBBYEFKW6T7mr2Us2wxWiHGvsYQSZcQrxMF0GA1UdHwRWMFQwUqBQoE6GTGh0dHA6Ly9wa2ktY3JsLnN5bWF1dGguY29tL2NhXzdiZWRjYmNjNGY3MjRlZmUzMGQ1MDA2ZGRhNjgxYmEwL0xhdGVzdENSTC5jcmwwNwYIKwYBBQUHAQEEKzApMCcGCCsGAQUFBzABhhtodHRwOi8vcGtpLW9jc3Auc3ltYXV0aC5jb20wHwYDVR0jBBgwFoAUhyXfWyOmxDv5n98bpSCR3eT0PIEwLQYKYIZIAYb4RQEQAwQfMB0GE2CGSAGG+EUBEAECAwEBgbLX9DYWBjk1NzYwODA5BgpghkgBhvhFARAFBCswKQIBABYkYUhSMGNITTZMeTl3YTJrdGNtRXVjM2x0WVhWMGFDNWpiMjA9MA0GCSqGSIb3DQEBCwUAA4ICAQAgCD1KFy+qEzzOiIHFpKUrrvYaiKmYma8FJx6D1fYb326Ioux2SxYp+v54h49nrKNxi8HQVsquQD18Q6/+iWIws3Ml4/KGdHzrT7uMpij3svzxjsXjsF5GoJx2wczemWC3M5/BqGYl+bRlDXkKCi9KrWrt2ElliFPIk6Tmo28s+gftoRkLQGEhGelM4cr0W211/yZXombq6KGkAZ21WLWyQLNO9OYgKixuLHIwP863SSW/1/jIbCKwCU0D4Xzom/wrGrat1KS6iHJhPHH2Pcl0SI3UvfOxuzjA0bszhEcag0mp7WBI9iYwOEVTUsc1vKq87Vs9OOCJnXRJzeRXXL2z7l/QOeM/LLw4t6br2/qViutJewnemsM+s5ZhIViUyK7yvYe/M/Md0hwh569xbtQVaoA+TahNulvmUCTauh0rzQWmtPzk8mw05PeskqOXvJPlEWTFgFc0EF5FV58/z210UZdq45SQicq1ktcJcK05WBN1exKajYlBbByDSjGZWcMY0dBLyKqyQtOdpliRaSu7N6hsJiUXi/zccL2Glrf1LKlDQTITPoKQAc5m0wxC3oZLN+foyozWWNMmLKuo/ZxfsfdNr904CcqEqyoaoNwa1vPyAmE1KGUdCrmzbqJouCYy+UlgkFuGXx4wqMBwZuIEr05K3bKOUwQ90kLTXyJCLw==</Certificate>
+              <ServiceDescription />
+              <TechnicalContactUrl>support@netedi.co.uk</TechnicalContactUrl>
+              <TechnicalInformationUrl>+44 (0) 1772 977781</TechnicalInformationUrl>
+            </Endpoint>
+          </ServiceEndpointList>
+        </Process>
+      </ProcessList>
+    </ServiceInformation>
+  </ServiceMetadata>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>Y0fKSXshxz7JcVsxpyjsGjggi0M=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>HxfB+JmK0yYME9o565ZfITq0NUFbDGr/mo76ep1a6XphIquhP514yA1HVmetT+vCpSJMUuYT5sUXcUHrh941t2mEJc3pnO6fJcebL31eZrpk3f30PlAyn9p1qKMVg+FNPYJ49NILx9VwbREP/UkTOtAM0n2f1+Y4wJdHrtnHwKIcjUll6Je2gojNen8GBCyUqZfyvAnSxwBi1M9K7AYvFJyWj/j04OrD4chRe8NTX7t1RAqA24goiApddK+gbE9snNh9EEWsb/w39y5KtMfi6cvyTJuzc/efrQQVh0udfc0ks1x1k+paLUEG+lDL9h76/ZaZMwttVWC3a0m6bFC3HA==</SignatureValue>
+    <KeyInfo>
+      <X509Data>
+        <X509IssuerSerial>
+          <X509IssuerName>CN=PEPPOL SERVICE METADATA PUBLISHER CA - G2, O=OpenPEPPOL AISBL, C=BE</X509IssuerName>
+          <X509SerialNumber>143140745490843280332289789538574196587</X509SerialNumber>
+        </X509IssuerSerial>
+        <X509SubjectName>C=GB, O=NetEDI Limited, OU=PEPPOL PRODUCTION SMP, CN=PNO000070</X509SubjectName>
+        <X509Certificate>MIIFvjCCA6agAwIBAgIQa6/noP2cx1eKXtSm2gbfazANBgkqhkiG9w0BAQsFADBcMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQT3BlblBFUFBPTCBBSVNCTDEyMDAGA1UEAxMpUEVQUE9MIFNFUlZJQ0UgTUVUQURBVEEgUFVCTElTSEVSIENBIC0gRzIwHhcNMTkwMzExMDAwMDAwWhcNMjEwMjI4MjM1OTU5WjBaMRIwEAYDVQQDDAlQTk8wMDAwNzAxHjAcBgNVBAsMFVBFUFBPTCBQUk9EVUNUSU9OIFNNUDEXMBUGA1UECgwOTmV0RURJIExpbWl0ZWQxCzAJBgNVBAYTAkdCMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAotD1dJfZj4ysBe+z0HbEgeTN1WcI6nUcOfj4C1VVHPz+Yhf+lPnWHAdrxtCetLUtrF5t2vu1NT0vtaeTbDXvUOAszNxR+3rbZCV0bFJ87qP0gKr7bnzePfwi8GdSrzygkuPApcIb6GY5/tIEOD4JOSI4LdsP3JB9ba8E1rPnBpPGB+dE1PiOx2SXayzL3IuGJJEva+L8VO7jvHSdzJig08y5KFzF4GOq2tsSff65FId0X639rzxX0cJKngl18CQHmizF4NiDqOpLqgDPYNa/d1+Frn91XxeMIuvI2F0CTa/2lVMQB/9qlSlaW/z3rmrz+CeiQGJhjGLsKvvwqe/J1QIDAQABo4IBfDCCAXgwDAYDVR0TAQH/BAIwADAOBgNVHQ8BAf8EBAMCA6gwFgYDVR0lAQH/BAwwCgYIKwYBBQUHAwIwHQYDVR0OBBYEFCjnpg6/9UtK85rVTOU4d1LS+JR/MF0GA1UdHwRWMFQwUqBQoE6GTGh0dHA6Ly9wa2ktY3JsLnN5bWF1dGguY29tL2NhX2I1YjM2NGIwNzNlNmRkY2RiMzMzNTAxODNhM2VlM2UxL0xhdGVzdENSTC5jcmwwNwYIKwYBBQUHAQEEKzApMCcGCCsGAQUFBzABhhtodHRwOi8vcGtpLW9jc3Auc3ltYXV0aC5jb20wHwYDVR0jBBgwFoAUKjd2FcrukB+vmaVjbJU7NqejRHAwLQYKYIZIAYb4RQEQAwQfMB0GE2CGSAGG+EUBEAECAwEBgbLYhFIWBjk1NzYwODA5BgpghkgBhvhFARAFBCswKQIBABYkYUhSMGNITTZMeTl3YTJrdGNtRXVjM2x0WVhWMGFDNWpiMjA9MA0GCSqGSIb3DQEBCwUAA4ICAQBLBP3+eoOqnAnH9cs8UIeGgGE6oLyIx1CiCURGOpyGeyAfUuL32K4RLuglhzaJs1Yl7v6z0CKZICtXUVg/D4dnv1SQ9xURItp6tWv2uuL9NZwLxvxzszjKtyKrhKvVgqC3yvMCBqo6UZHtXcEnXOQ9lWuNGGhdVC9UbdDqnLXNXYlX9xaBUb9fMo/tqHf/o1yf+cbtDsCVcPTKMLCvE5yuC2ToYI9iYw/oQsoejAeCHbaGk7RSO/v8WRczZzjM7AGSvuQuxmeNYbeVaVh4oAYGZMRscCzxP7c2MS5GogIaTYHEJTeGCWcQ/rOpkU2kMHXtKGsdNUMyiRHu5UTq4oh/kgWJweY8K7QVfJdRvoU8KaFBobGE6d9RcgWv6Z7TCJUVVYllfeqyTtTq3deAXGaVs+HaW5o/uRaJRnZrfaDbVTRYCaHqYDMSn81LGThOq3QLssNPBMszK9JxTQPmkIywVQC5+YVNvoN0bdGdNq7D+SH9rerNVEb7c74wbTRIu5dILQwLzdZWyL/vGvLoH0dmp+YT34O7yBWjX37ElFeth58fj6zTvRDQPvPgROLVLzc4/eom3mT7wHHafSovn0ncNOukIWMSwiA6F0gMsI2bulqTPVaJGstufRTlDCfeQ6XUaKu29xmQFEsfPf8ISVE/I6B+0q8H6W+i10gZ7yDzcw==</X509Certificate>
+      </X509Data>
+    </KeyInfo>
+  </Signature>
+</SignedServiceMetadata>
