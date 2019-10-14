@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <!--This file was automatically generated.
 Do NOT edit!-->
-<root version="5">
+<root version="6">
   <process profilecode="PEPPOL Catalogue profile V1" bisid="BIS 1A" scheme="cenbii-procid-ubl" id="urn:www.cenbii.eu:profile:bii01:ver1.0" since="1.0.0" deprecated="true" deprecated-since="1.2.1" />
   <process profilecode="PEPPOL Catalogue profile V4" bisid="BIS 1A" scheme="cenbii-procid-ubl" id="urn:www.cenbii.eu:profile:bii01:ver2.0" since="1.2.0" deprecated="false" />
   <process profilecode="PEPPOL Order profile V1" bisid="BIS 3A" scheme="cenbii-procid-ubl" id="urn:www.cenbii.eu:profile:bii03:ver1.0" since="1.0.0" deprecated="true" deprecated-since="1.2.1" />
@@ -41,4 +29,7 @@ Do NOT edit!-->
   <process profilecode="PEPPOL BIS Despatch Advice 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:despatch_advice:3" since="4" deprecated="false" />
   <process profilecode="PEPPOL BIS Order Agreement 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:order_agreement:3" since="4" deprecated="false" />
   <process profilecode="PEPPOL BIS Message Level Response 3.0" scheme="cenbii-procid-ubl" id="urn:fdc:peppol.eu:poacc:bis:mlr:3" since="4" deprecated="false" />
+  <process profilecode="PEF.PL Accounting Note v1" scheme="cenbii-procid-ubl" id="urn:fdc:www.efaktura.gov.pl:ver1.0:account_corr:ver1.0" since="6" deprecated="false" />
+  <process profilecode="PEF.PL Correcting Invoice v1" scheme="cenbii-procid-ubl" id="urn:fdc:www.efaktura.gov.pl:ver1.0:corr_inv:ver1.0" since="6" deprecated="false" />
+  <process profilecode="PEF.PL Receipt Advice v1" scheme="cenbii-procid-ubl" id="urn:fdc:www.efaktura.gov.pl:ver1.0:receipt_advice:ver1.0" since="6" deprecated="false" />
 </root>

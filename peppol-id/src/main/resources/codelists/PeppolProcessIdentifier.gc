@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
   <Annotation>
     <AppInfo>
@@ -19,13 +7,13 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolProcessIdentifier</ShortName>
-      <Version>5</Version>
+      <Version>6</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:process</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:process-1.0</CanonicalVersionUri>
   </Identification>
   <ColumnSet>
     <Column Id="profilecode" Use="required">
-      <ShortName>Profile code</ShortName>
+      <ShortName>Profile Name</ShortName>
           <Data Type="string" />
     </Column>
       <Column Id="bisid" Use="optional">
@@ -53,7 +41,7 @@
           <Data Type="string" />
     </Column>
       <Key Id="profilecodeKey">
-      <ShortName>Profile code</ShortName>
+      <ShortName>Profile Name</ShortName>
           <ColumnRef Ref="profilecode" />
     </Key>
       <Key Id="bisidKey">
@@ -590,6 +578,57 @@
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEF.PL Accounting Note v1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:www.efaktura.gov.pl:ver1.0:account_corr:ver1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEF.PL Correcting Invoice v1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:www.efaktura.gov.pl:ver1.0:corr_inv:ver1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEF.PL Receipt Advice v1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:www.efaktura.gov.pl:ver1.0:receipt_advice:ver1.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>

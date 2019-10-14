@@ -1,13 +1,3 @@
-/**
- * Copyright (C) 2015-2019 Philip Helger (www.helger.com)
- * philip[at]helger[dot]com
- *
- * The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
- *
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
 package com.helger.peppolid.peppol.process;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -219,7 +209,28 @@ public enum EPredefinedProcessIdentifier
      * 
      * @since code list 4
      */
-    urn_fdc_peppol_eu_poacc_bis_mlr_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:mlr:3", null, Version.parse("4"), false);
+    urn_fdc_peppol_eu_poacc_bis_mlr_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:mlr:3", null, Version.parse("4"), false),
+
+    /**
+     * <code>urn:fdc:www.efaktura.gov.pl:ver1.0:account_corr:ver1.0</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_fdc_www_efaktura_gov_pl_ver1_0_account_corr_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver1.0:account_corr:ver1.0", null, Version.parse("6"), false),
+
+    /**
+     * <code>urn:fdc:www.efaktura.gov.pl:ver1.0:corr_inv:ver1.0</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_fdc_www_efaktura_gov_pl_ver1_0_corr_inv_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver1.0:corr_inv:ver1.0", null, Version.parse("6"), false),
+
+    /**
+     * <code>urn:fdc:www.efaktura.gov.pl:ver1.0:receipt_advice:ver1.0</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_fdc_www_efaktura_gov_pl_ver1_0_receipt_advice_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver1.0:receipt_advice:ver1.0", null, Version.parse("6"), false);
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      */

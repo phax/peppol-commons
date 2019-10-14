@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
   <Annotation>
     <AppInfo>
@@ -19,9 +7,9 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolDocumentTypeIdentifier</ShortName>
-      <Version>5</Version>
+      <Version>6</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:documenttypes</CanonicalUri>
-      <CanonicalVersionUri>urn:peppol.eu:names:identifier:documenttypes-1.0</CanonicalVersionUri>
+      <CanonicalVersionUri>urn:peppol.eu:names:identifier:documenttypes-2.0</CanonicalVersionUri>
   </Identification>
   <ColumnSet>
     <Column Id="profilecode" Use="optional">
@@ -46,6 +34,22 @@
     </Column>
       <Column Id="deprecated-since" Use="optional">
       <ShortName>Deprecated since</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="comment" Use="optional">
+      <ShortName>Comment</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="issued-by-openpeppol" Use="required">
+      <ShortName>Issued OpenPEPPOL?</ShortName>
+          <Data Type="boolean" />
+    </Column>
+      <Column Id="bis-version" Use="optional">
+      <ShortName>BIS version</ShortName>
+          <Data Type="int" />
+    </Column>
+      <Column Id="domain-community" Use="required">
+      <ShortName>Domain Community</ShortName>
           <Data Type="string" />
     </Column>
       <Key Id="schemeKey">
@@ -77,6 +81,15 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -96,6 +109,15 @@
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -117,6 +139,15 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -136,6 +167,15 @@
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -157,6 +197,15 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -177,6 +226,15 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -193,6 +251,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -214,6 +281,15 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -234,6 +310,18 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>3</SimpleValue>
       </Value>
+          <Value ColumnRef="comment">
+        <SimpleValue>Typo in name!</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -250,6 +338,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -271,6 +368,15 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -287,6 +393,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -308,6 +423,15 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -327,6 +451,15 @@
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -348,6 +481,15 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -364,6 +506,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -382,6 +533,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -398,6 +558,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -416,6 +585,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -432,6 +610,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -450,6 +637,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -467,6 +663,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -483,6 +688,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -504,6 +718,12 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -521,6 +741,12 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -537,6 +763,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -558,6 +793,18 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>3</SimpleValue>
       </Value>
+          <Value ColumnRef="comment">
+        <SimpleValue>Typo in name!</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -574,6 +821,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -592,6 +848,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -608,6 +873,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -626,6 +900,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -642,6 +925,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -660,6 +952,12 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -676,6 +974,12 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -694,6 +998,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -710,6 +1023,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -728,6 +1050,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -744,6 +1075,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -762,6 +1102,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -779,6 +1128,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -795,6 +1153,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>PRAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -816,6 +1183,12 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>5</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -835,6 +1208,12 @@
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>5</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -856,6 +1235,12 @@
           <Value ColumnRef="deprecated-since">
         <SimpleValue>5</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -872,6 +1257,12 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -890,6 +1281,12 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -906,6 +1303,12 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -924,6 +1327,12 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -940,6 +1349,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>1</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -958,6 +1376,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -974,6 +1401,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -992,6 +1428,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -1008,6 +1453,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1026,6 +1480,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -1042,6 +1505,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1060,6 +1532,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -1076,6 +1557,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1094,6 +1584,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -1110,6 +1609,12 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1128,6 +1633,12 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -1144,6 +1655,15 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1162,6 +1682,15 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -1178,6 +1707,12 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1196,6 +1731,12 @@
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
@@ -1212,6 +1753,179 @@
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEF.PL Accounting Note v1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:fdc:www.efaktura.gov.pl:ver1.0:trns:account_corr:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEF.PL Correcting Invoice v1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0#extended#urn:fdc:www.efaktura.gov.pl:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEF.PL Receipt Advice v1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2::ReceiptAdvice##urn:fdc:www.efaktura.gov.pl:ver1.0:trns:receipt_advice:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>AU-NZ PEPPOL BIS Billing 3.0 Invoice</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>AU-NZ PEPPOL BIS Billing 3.0 CreditNote</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>AU-NZ Self-Billing 3.0 Invoice</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>AU-NZ Self-Billing 3.0 CreditNote</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
       </Value>
     </Row>
   </SimpleCodeList>
