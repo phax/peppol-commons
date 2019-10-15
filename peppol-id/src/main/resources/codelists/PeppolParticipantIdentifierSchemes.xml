@@ -9,23 +9,24 @@ Do NOT edit!-->
 The 14 figure code number is written in 3 groups of 3 characters and a single group of 5. Example: 784 301 772 00025</display>
     <examples>784301772
 78430177200025</examples>
-    <usage>RegEx: [0-9]{9}([0-9]{5})?
-Check digits: Luhn Algorithm</usage>
+    <validation-rules>RegEx: [0-9]{9}([0-9]{5})?
+Check digits: Luhn Algorithm</validation-rules>
+    <usage>1.1.1 - Changed from FR:SIRET to FR:SIRENE (see ISU Jira ISU-231)</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="SE:ORGNR" country="SE" schemename="Organisationsnummer" agencyname="The National Tax Board" iso6523="0007" since="1.0.0" deprecated="false">
     <structure>1) 10 digits. 1st digit = Group number, 2nd - 9th digit = Ordinalnumber; 1st digit, = Group number, 10th digit = Check digit
 2) Last digit.</structure>
     <display>Single group of 10 digits.</display>
     <examples>2120000787</examples>
-    <usage>RegEx: [0-9]{10}
-Check digits: Luhn Algorithm</usage>
+    <validation-rules>RegEx: [0-9]{10}
+Check digits: Luhn Algorithm</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="FR:SIRET" country="FR" schemename="SIRET-CODE" agencyname="DU PONT DE NEMOURS" iso6523="0009" since="1.1.1" deprecated="false">
     <structure>1) 14 digits
 2) None</structure>
     <display>In four groups, Groups 1 - 3 = three digits each, Group 4 = five digits</display>
     <examples>78430177200025</examples>
-    <usage>RegEx: [0-9]{14}</usage>
+    <validation-rules>RegEx: [0-9]{14}</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="FI:OVT" country="FI" schemename="LY-tunnus" agencyname="National Board of Taxes, (Verohallitus)" iso6523="0037" since="1.0.0" deprecated="false">
     <structure>1) ICD 4 Digits, Organization code (8 digits, 1st-7th digit = number, 8th digit = check number), optional specifier for organisational unit (5 digits)
@@ -36,22 +37,30 @@ Check digits: Luhn Algorithm</usage>
     <display>None</display>
     <examples>0037:00371234567800001
 0037:1234567800001</examples>
-    <usage>RegEx: 0037[0-9]{8}[0-9A-Z]{0,5}
-Check Digit: mod11 of 8-digit OrgCode (weights 2, 4, 8, 5, 10, 9, 7 [right to left] or 7, 9, 10, 5, 8, 4, 2, 1 [left to right])</usage>
+    <validation-rules>RegEx: 0037[0-9]{8}[0-9A-Z]{0,5}
+Check Digit: mod11 of 8-digit OrgCode (weights 2, 4, 8, 5, 10, 9, 7 [right to left] or 7, 9, 10, 5, 8, 4, 2, 1 [left to right])</validation-rules>
+    <usage>OVT identifier conforming to standard ISO6523.   
+- Constant 0037 (Finnish tax administration organisation code)
+- Finnish local tax ID, 8 characters with initial zero and no hyphen
++K4:K5</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="DUNS" country="international" schemename="Data Universal Numbering System (D-U-N-S Number)" agencyname="Dun and Bradstreet Ltd" iso6523="0060" since="1.0.0" deprecated="false">
     <structure>1) Eight identification digits and a check digit. A two digit prefix will be added in the future but it will not be used to calculate the check digit.
 2) The Organization name is not part of the D-U-N-S number.</structure>
     <display>IIIIIIIIC where all characters are the digits 0, to 9, I = an identification digit and C = the check digit. When the prefix (P) is added the display requirement will be eleven digits, PPIIIIIIIIC.</display>
     <examples>812810734</examples>
-    <usage>RegEx: [0-9]{9}</usage>
+    <validation-rules>RegEx: [0-9]{9}</validation-rules>
+    <usage>Check digits were removed to get a bigger number area
+UPIK search to validate DUNS numbers
+"D&amp;B Direct 2.0" API available</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="GLN" country="international" schemename="Global Location Number" agencyname="GS1 GLN" iso6523="0088" since="1.0.0" deprecated="false">
     <structure>1) 13 digits including check digits, 2) None</structure>
     <display>None</display>
     <examples>1548079098355</examples>
-    <usage>RegEx: [0-9]{13}
-Check Digit: mod10 (weights 1, 3)</usage>
+    <validation-rules>RegEx: [0-9]{13}
+Check Digit: mod10 (weights 1, 3)</validation-rules>
+    <usage>GLN-13 are the only supports supported atm</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="DK:P" country="DK" schemename="DANISH CHAMBER OF COMMERCE Scheme" agencyname="Danish Chamber of Commerce" iso6523="0096" since="1.0.0" deprecated="false">
     <structure>Character repertoire: the EDI identifier consists of digits only.
@@ -63,8 +72,8 @@ C: numerical value used by the registered organization (free part; 6 digits)
 D: numerical check digit calculated by the registered organization; (2 digits)
 Check digit computation: The check digit is modular 97 computed on ABC as one number.</structure>
     <display>None</display>
-    <usage>RegEx: [0-9]{17}
-Check Digits: mod97</usage>
+    <validation-rules>RegEx: [0-9]{17}
+Check Digits: mod97</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="IT:FTI" country="IT" schemename="FTI - Ediforum Italia" agencyname="FTI - Ediforum Italia" iso6523="0097" since="1.0.0" deprecated="false">
     <structure>Character repertoire: The EDI identifier consists of digits only.
@@ -77,8 +86,9 @@ C: numerical check digit (1 digit);
 D: optional numerical value (up to 5 digits used by the registered organization (free part).
 Check digit computation: The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</structure>
     <display>None</display>
-    <usage>RegEx: [0-9]{11,16}
-The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</usage>
+    <validation-rules>RegEx: [0-9]{11,16}
+The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</validation-rules>
+    <usage>We couldn't find the checksum algorithm in the scanned PDF of 1976</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="NL:KVK" country="NL" schemename="Vereniging van Kamers van Koophandel en Fabrieken in Nederland (Association of&#xA;Chambers of Commerce and Industry in the Netherlands), Scheme" agencyname="Vereniging van Kamers van Koophandel en Fabrieken in Nederland" iso6523="0106" since="1.1.2" deprecated="false">
     <structure>Character repertoire: The EDI identifier consists of digits only.
@@ -91,20 +101,25 @@ C: numerical value used by the registered organization (free part; 6 digits)
 D: numerical check digit calculated by the registered organization; (2 digits)
 Check digit computation, The check digit is modular 97 computed on ABC as one number.</structure>
     <display>None</display>
-    <usage>RegEx: [0-9]{17}
-Check Digits: mod97</usage>
+    <validation-rules>RegEx: [0-9]{17}
+Check Digits: mod97</validation-rules>
+    <usage>Real numbers seem to be 8 characters</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="EU:NAL" country="international" schemename="Directorates of the European Commission" agencyname="European Commission, Information Directorate, Data Transmission Service" iso6523="0130" since="4" deprecated="false">
     <structure>1) ICD 4 digits, 2) None</structure>
     <display>None</display>
+    <usage>Requested by TICC-10 and TICC-11;
+in SML since 2019-08-23</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="IT:SIA" country="IT" schemename="SIA Object Identifiers" agencyname="SIA-Società Interbancaria per l'Automazione S.p.A." iso6523="0135" since="1.0.0" deprecated="false">
     <structure>First field: ICD: 4 digits, Second field: sequence of digits</structure>
     <display>None</display>
+    <usage>Propose to deprecate</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="IT:SECETI" country="IT" schemename="SECETI Object Identifiers" agencyname="Servizi Centralizzati SECETI S.p.A." iso6523="0142" since="1.0.0" deprecated="false">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
     <display>None</display>
+    <usage>Propose to deprecate</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="AU:ABN" country="AU" schemename="Australian Business Number (ABN) Scheme" agencyname="Australian Taxation Office" iso6523="0151" since="5" deprecated="false">
     <structure>The ABN is an 11 digit numeric identifier.
@@ -114,14 +129,15 @@ For companies the last 9 digits are identical to their existing Australian Compa
 For other entities the digits are randomly allocated but are guaranteed to fail the CAN check. This allows the Australian Securities and Investment Commission (ASIC) to continue allocating CAN during a transition period. The valid characters are numeric digits 0-9.</structure>
     <display>It is displayed as follows: -, XX XXX XXX XXX</display>
     <examples>51 824 753 556</examples>
-    <usage>RegEx: [0-9]{11}
+    <validation-rules>RegEx: [0-9]{11}
 Check number: mod 89 (weights)
 * Subtract 1 from the first (left-most) digit of the ABN to give a new 11 digit number
 * Multiply each of the digits in this new number by a "weighting factor" based on its position as shown in the table below
 *Sum the resulting 11 products
 * Divide the sum total by 89, noting the remainder
 * If the remainder is zero the number is a valid ABN
-Weight: 10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19</usage>
+Weight: 10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19</validation-rules>
+    <usage>https://abr.business.gov.au/Help/AbnFormat</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="CH:UIDB" country="CH" schemename="Swiss Unique Business Identification Number (UIDB)" agencyname="Swiss Federal Statistical Office (FSO)" iso6523="0183" since="5" deprecated="false">
     <structure>CHEXXXXXXXXP
@@ -135,13 +151,14 @@ P: check digit
 CHEXXXXXXXXP, the last digit</structure>
     <display>There is no requirements. As suggested in the standards eCH-0097 (http://www.ech.ch) the transmission of the UID is without any separator.
 For display reason is suggested to use this format CHE-XXX.XXX.XXP minus-character ('-') after 'CHE' and separator dot-character ('.') after 6th and 9th character</display>
-    <usage>RegEx: CHE[0-9]{9}
-Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</usage>
+    <validation-rules>RegEx: CHE[0-9]{9}
+Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</validation-rules>
+    <usage>Also called "Numéro d'identification suisse des enterprises (IDE)"</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="DK:DIGST" country="DK" schemename="DIGSTORG" agencyname="DIGSTORG" iso6523="0184" since="1.2.1" deprecated="false">
     <structure>8 or 10 digits</structure>
     <display>Group of 10 digits</display>
-    <usage>RegEx: [0-9]{8}([0-9]{2})?</usage>
+    <validation-rules>RegEx: [0-9]{8}([0-9]{2})?</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="NL:OINO" country="NL" schemename="Organisatie-identificatienummer (OIN)" agencyname="Logius" iso6523="0190" since="2" deprecated="false">
     <structure>20 digits
@@ -152,7 +169,8 @@ Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</usage>
 2) No check digit</structure>
     <display>In one group of 20 digits</display>
     <examples>00000001820029336000</examples>
-    <usage>RegEx: [0-9]{20}</usage>
+    <validation-rules>RegEx: [0-9]{20}</validation-rules>
+    <usage>Get all OINs from http://portaal.digikoppeling.nl/registers/</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="EE:CC" country="EE" schemename="Company code" agencyname="Centre of Registers and Information Systems of the Ministry of Justice" iso6523="0191" since="2" deprecated="false">
     <structure>Always 8-digit number
@@ -164,7 +182,7 @@ Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</usage>
 2)</structure>
     <display>None</display>
     <examples>10137025</examples>
-    <usage>RegEx: [1789][0-9]{7}
+    <validation-rules>RegEx: [1789][0-9]{7}
 CheckDigit as last char.
 Python code to check:
 def calc_check_digit(number):
@@ -174,22 +192,23 @@ def calc_check_digit(number):
     if check == 10:
         check = sum((((i + 2) % 9) + 1) * int(n)
                     for i, n in enumerate(number[:-1])) % 11
-    return str(check % 10)</usage>
+    return str(check % 10)</validation-rules>
+    <usage>See https://ariregister.rik.ee/index?lang=eng</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="NO:ORG" country="NO" schemename="Organisasjonsnummer" agencyname="The Brønnøysund Register Centre" iso6523="0192" since="2" deprecated="false">
     <structure>9 digits
 The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.</structure>
     <display>None</display>
     <examples>745707327</examples>
-    <usage>RegEx: [0-9]{9}
-Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</usage>
+    <validation-rules>RegEx: [0-9]{9}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="UBLBE" country="BE" schemename="UBL.BE Party Identifier" agencyname="UBL.BE" iso6523="0193" since="3" deprecated="false">
     <structure>Maximum 50 characters
 4 Characters fixed length identifying the type 
 Maximum 46 characters for the identifier itself</structure>
     <display>None</display>
-    <usage>RegEx: .{4,50}</usage>
+    <validation-rules>RegEx: .{4,50}</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="SG:UEN" country="international" schemename="Singapore Nationwide E-Invoice Framework" agencyname="lnfocomm Media Development Authority" iso6523="0195" since="4" deprecated="false">
     <structure>The code comprises of 3 fields
@@ -197,7 +216,8 @@ Maximum 46 characters for the identifier itself</structure>
 2nd field = Special identifier (e.g. country identifier, test identifier, etc)
 3rd field = Organisation identifrer No check value</structure>
     <display>None, except all fields are left justified</display>
-    <usage>RegEx: [a-z]{2}[a-z]{3}([0-9]{8}|[0-9]{9}|[RST][0-9]{2}[a-z]{2}[0-9]{4})[0-9a-z]</usage>
+    <validation-rules>RegEx: [a-z]{2}[a-z]{3}([0-9]{8}|[0-9]{9}|[RST][0-9]{2}[a-z]{2}[0-9]{4})[0-9a-z]</validation-rules>
+    <usage>https://www.uen.gov.sg/ueninternet/faces/pages/admin/aboutUEN.jspx?_afrLoop=1018044967911865&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fdr4mq9l0_26</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="IS:KTNR" country="IS" schemename="Icelandic identifier" agencyname="Icelandic National Registry" iso6523="0196" since="4" deprecated="false">
     <structure>10 digit string using numerical characters from 0 to 9
@@ -206,15 +226,15 @@ Ninth character "C":
 C = 11 - ((3xD1 + 2xD2 + 7xM1 + 6xM2 + 5xY1 + 4xY2 + 3xR1 + 2xR2) mod 11)</structure>
     <display>Whole string: nnnnnnnnnn
 Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn</display>
-    <usage>RegEx: [0-9]{10}
-Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)</usage>
+    <validation-rules>RegEx: [0-9]{10}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="DK:ERST" country="DK" schemename="ERSTORG" agencyname="The Danish Business Authority" iso6523="0198" since="5" deprecated="false">
     <structure>DKXXXXXXXX
 Two characters (DK) followed by 8 digits eg. DK12345678</structure>
     <display>10 characters, no space or other separator</display>
-    <usage>RegEx: DK[0-9]{8}
-Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</usage>
+    <validation-rules>RegEx: DK[0-9]{8}
+Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="LEI" country="international" schemename="Legal Entity Identifier (LEI)" agencyname="As of December 2018, there are 33 LEI issuing organizations in the world." iso6523="0199" since="5" deprecated="false">
     <structure>The ISO 17442 standard specifies the minimum reference data, which must the format of the organization identifiers, be Supplied for each LEI:
@@ -258,8 +278,8 @@ Generating the check digits
 5. Convert alpha characters into numeric characters in accordance with letters in #1.
 6. Apply the check character system, MOD 97-10, in accordance with ISO/IEC 7064.</structure>
     <display>The entire 20 character code (including the check digits)</display>
-    <usage>RegEx: [A-Z0-9]{18}[0-9]{2}
-Check digit: mod97-10</usage>
+    <validation-rules>RegEx: [A-Z0-9]{18}[0-9]{2}
+Check digit: mod97-10</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="LT:LEC" country="LT" schemename="Legal entity code" agencyname="State Enterprise Centre of Registers" iso6523="0200" since="5" deprecated="false">
     <structure>9 (nine) digits
@@ -267,24 +287,27 @@ Each legal entity's code number is multiplied by 1, 2, 3, 4, 5, 6, 7, 8
 (weighting) starting from the left-hand side of the code. Calculates the sum of the product, divided by 11. The remainder of the division, which must be less than 10, is the 9th, control, number of the legal entity's code.</structure>
     <display>None</display>
     <examples>111963319</examples>
-    <usage>RegEx: [0-9]{9}
-Check number: see text</usage>
+    <validation-rules>RegEx: [0-9]{9}
+Check number: see text</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="IT:CUUO" country="IT" schemename="Codice Univoco Unità Organizzativa iPA" agencyname="Agenzia per l’Italia digitale" iso6523="0201" since="6" deprecated="false">
     <structure>String of 6 alphanumeric characters</structure>
     <display>None</display>
-    <usage>RegEx: [0-9a-zA-Z]{6}
-No checkdigit</usage>
+    <validation-rules>RegEx: [0-9a-zA-Z]{6}
+No checkdigit</validation-rules>
+    <usage>"Alphanumeric characters"</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="DE:LWID" country="DE" schemename="Leitweg-ID" agencyname="Koordinierungsstelle für IT-Standards (KoSIT)" iso6523="0204" since="6" deprecated="false">
     <structure>Up to 44 alphanumeric characters
 Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 2 numeric characters”</structure>
     <display>Whole string</display>
-    <usage>RegEx: [0-9]{0,12}(\-[0-9a-zA-Z]{0,30}(\-[0-9]{2}))</usage>
+    <validation-rules>RegEx: [0-9]{0,12}(\-[0-9a-zA-Z]{0,30}(\-[0-9]{2}))</validation-rules>
+    <usage>Each part is somehow optional</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="DK:CPR" country="DK" schemename="Danish Ministry of the Interior and Health" agencyname="Danish Ministry of the Interior and Health" iso6523="9901" since="1.0.0" deprecated="false">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
     <display>None</display>
+    <usage>Personal identifier</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="DK:CVR" country="DK" schemename="The Danish Commerce and Companies Agency" agencyname="The Danish Commerce and Companies Agency" iso6523="9902" since="1.0.0" deprecated="false">
     <examples>7603770123</examples>
@@ -300,6 +323,8 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
   </identifier-scheme>
   <identifier-scheme schemeid="IT:CF" country="IT" schemename="TAX Authority" agencyname="TAX Authority" iso6523="9907" since="1.0.0" deprecated="false">
     <examples>RSSBBR69C48F839A</examples>
+    <usage>NOTE: The "CF" is a Fiscal Code that can be "personal" or for a "legal entity".
+The CF for legal entities is like the Italian VAT code (IT:VAT)</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="NO:ORGNR" country="NO" schemename="Enhetsregisteret ved Bronnoysundregisterne" agencyname="The Brønnøysund Register Centre" iso6523="9908" since="1.0.0" deprecated="false" />
   <identifier-scheme schemeid="NO:VAT" country="NO" schemename="Norwegian VAT number" agencyname="Enhetsregisteret ved Bronnoysundregisterne" iso6523="9909" since="1.0.0" deprecated="true" deprecated-since="1.1.0">
@@ -317,7 +342,9 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
   </identifier-scheme>
   <identifier-scheme schemeid="AT:GOV" country="AT" schemename="Österreichisches Verwaltungs bzw. Organisationskennzeichen" iso6523="9915" since="1.0.0" deprecated="false" />
   <identifier-scheme schemeid="AT:CID" country="AT" schemename="Firmenidentifikationsnummer der Statistik Austria" iso6523="9916" since="1.0.0" deprecated="true" deprecated-since="1.0.2" />
-  <identifier-scheme schemeid="IS:KT" country="IS" schemename="Icelandic National Registry" iso6523="9917" since="1.0.0" deprecated="true" deprecated-since="4" />
+  <identifier-scheme schemeid="IS:KT" country="IS" schemename="Icelandic National Registry" iso6523="9917" since="1.0.0" deprecated="true" deprecated-since="4">
+    <usage>In favour of 0196</usage>
+  </identifier-scheme>
   <identifier-scheme schemeid="IBAN" country="international" schemename="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" agencyname="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" iso6523="9918" since="1.0.1" deprecated="false" />
   <identifier-scheme schemeid="AT:KUR" country="AT" schemename="Kennziffer des Unternehmensregisters" iso6523="9919" since="1.0.2" deprecated="false">
     <structure>9 characters in total; letter, number x3, letter, number x3, letter</structure>
@@ -356,11 +383,15 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
   <identifier-scheme schemeid="SM:VAT" country="SM" schemename="San Marino VAT number" iso6523="9951" since="1.1.0" deprecated="false" />
   <identifier-scheme schemeid="TR:VAT" country="TR" schemename="Turkey VAT number" iso6523="9952" since="1.1.0" deprecated="false" />
   <identifier-scheme schemeid="VA:VAT" country="VA" schemename="Holy See (Vatican City State) VAT number" iso6523="9953" since="1.1.0" deprecated="false" />
-  <identifier-scheme schemeid="NL:OIN" country="NL" schemename="Dutch Originator's Identification Number" iso6523="9954" since="1.1.3" deprecated="true" deprecated-since="2" />
+  <identifier-scheme schemeid="NL:OIN" country="NL" schemename="Dutch Originator's Identification Number" iso6523="9954" since="1.1.3" deprecated="true" deprecated-since="2">
+    <usage>Deprecated by 0190</usage>
+  </identifier-scheme>
   <identifier-scheme schemeid="SE:VAT" country="SE" schemename="Swedish VAT number" iso6523="9955" since="1.2.0" deprecated="false" />
   <identifier-scheme schemeid="BE:CBE" country="BE" schemename="Belgian Crossroad Bank of Enterprise number" agencyname="Belgian Crossroad Bank of Enterprises" iso6523="9956" since="1.2.1" deprecated="false">
     <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
   </identifier-scheme>
   <identifier-scheme schemeid="FR:VAT" country="FR" schemename="French VAT number" iso6523="9957" since="1.2.1" deprecated="false" />
-  <identifier-scheme schemeid="DE:LID" country="DE" schemename="German Leitweg ID" iso6523="9958" since="3" deprecated="true" deprecated-since="6" />
+  <identifier-scheme schemeid="DE:LID" country="DE" schemename="German Leitweg ID" iso6523="9958" since="3" deprecated="true" deprecated-since="6">
+    <usage>Temporary until ISO 6523 identifier approved</usage>
+  </identifier-scheme>
 </root>

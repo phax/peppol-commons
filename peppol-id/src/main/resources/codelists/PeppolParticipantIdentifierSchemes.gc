@@ -9,7 +9,7 @@
     <ShortName>PeppolIdentifierIssuingAgencies</ShortName>
       <Version>6</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:participantidentifierschemes</CanonicalUri>
-      <CanonicalVersionUri>urn:peppol.eu:names:identifier:participantidentifierschemes-1.0</CanonicalVersionUri>
+      <CanonicalVersionUri>urn:peppol.eu:names:identifier:participantidentifierschemes-2.0</CanonicalVersionUri>
   </Identification>
   <ColumnSet>
     <Column Id="schemeid" Use="required">
@@ -56,8 +56,12 @@
       <ShortName>Example Values</ShortName>
           <Data Type="string" />
     </Column>
-      <Column Id="usage" Use="optional">
+      <Column Id="validation-rules" Use="optional">
       <ShortName>Validation Rules</ShortName>
+          <Data Type="string" />
+    </Column>
+      <Column Id="usage" Use="optional">
+      <ShortName>Usage notes</ShortName>
           <Data Type="string" />
     </Column>
       <Key Id="schemeidKey">
@@ -98,7 +102,7 @@
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters.
@@ -112,9 +116,12 @@ The 14 figure code number is written in 3 groups of 3 characters and a single gr
         <SimpleValue>784301772
 78430177200025</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{9}([0-9]{5})?
 Check digits: Luhn Algorithm</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>1.1.1 - Changed from FR:SIRET to FR:SIRENE (see ISU Jira ISU-231)</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -137,7 +144,7 @@ Check digits: Luhn Algorithm</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) 10 digits. 1st digit = Group number, 2nd - 9th digit = Ordinalnumber; 1st digit, = Group number, 10th digit = Check digit
@@ -149,7 +156,7 @@ Check digits: Luhn Algorithm</SimpleValue>
           <Value ColumnRef="examples">
         <SimpleValue>2120000787</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{10}
 Check digits: Luhn Algorithm</SimpleValue>
       </Value>
@@ -174,7 +181,7 @@ Check digits: Luhn Algorithm</SimpleValue>
         <SimpleValue>1.1.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) 14 digits
@@ -186,7 +193,7 @@ Check digits: Luhn Algorithm</SimpleValue>
           <Value ColumnRef="examples">
         <SimpleValue>78430177200025</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{14}</SimpleValue>
       </Value>
     </Row>
@@ -210,7 +217,7 @@ Check digits: Luhn Algorithm</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) ICD 4 Digits, Organization code (8 digits, 1st-7th digit = number, 8th digit = check number), optional specifier for organisational unit (5 digits)
@@ -226,9 +233,15 @@ Check digits: Luhn Algorithm</SimpleValue>
         <SimpleValue>0037:00371234567800001
 0037:1234567800001</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: 0037[0-9]{8}[0-9A-Z]{0,5}
 Check Digit: mod11 of 8-digit OrgCode (weights 2, 4, 8, 5, 10, 9, 7 [right to left] or 7, 9, 10, 5, 8, 4, 2, 1 [left to right])</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>OVT identifier conforming to standard ISO6523.   
+- Constant 0037 (Finnish tax administration organisation code)
+- Finnish local tax ID, 8 characters with initial zero and no hyphen
++K4:K5</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -251,7 +264,7 @@ Check Digit: mod11 of 8-digit OrgCode (weights 2, 4, 8, 5, 10, 9, 7 [right to le
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) Eight identification digits and a check digit. A two digit prefix will be added in the future but it will not be used to calculate the check digit.
@@ -263,8 +276,13 @@ Check Digit: mod11 of 8-digit OrgCode (weights 2, 4, 8, 5, 10, 9, 7 [right to le
           <Value ColumnRef="examples">
         <SimpleValue>812810734</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{9}</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Check digits were removed to get a bigger number area
+UPIK search to validate DUNS numbers
+"D&amp;B Direct 2.0" API available</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -287,7 +305,7 @@ Check Digit: mod11 of 8-digit OrgCode (weights 2, 4, 8, 5, 10, 9, 7 [right to le
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) 13 digits including check digits, 2) None</SimpleValue>
@@ -298,9 +316,12 @@ Check Digit: mod11 of 8-digit OrgCode (weights 2, 4, 8, 5, 10, 9, 7 [right to le
           <Value ColumnRef="examples">
         <SimpleValue>1548079098355</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{13}
 Check Digit: mod10 (weights 1, 3)</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>GLN-13 are the only supports supported atm</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -323,7 +344,7 @@ Check Digit: mod10 (weights 1, 3)</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Character repertoire: the EDI identifier consists of digits only.
@@ -338,7 +359,7 @@ Check digit computation: The check digit is modular 97 computed on ABC as one nu
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{17}
 Check Digits: mod97</SimpleValue>
       </Value>
@@ -363,7 +384,7 @@ Check Digits: mod97</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Character repertoire: The EDI identifier consists of digits only.
@@ -379,9 +400,12 @@ Check digit computation: The check digit algorithm is the one published in the G
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{11,16}
 The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>We couldn't find the checksum algorithm in the scanned PDF of 1976</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -405,7 +429,7 @@ Chambers of Commerce and Industry in the Netherlands), Scheme</SimpleValue>
         <SimpleValue>1.1.2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Character repertoire: The EDI identifier consists of digits only.
@@ -421,9 +445,12 @@ Check digit computation, The check digit is modular 97 computed on ABC as one nu
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{17}
 Check Digits: mod97</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Real numbers seem to be 8 characters</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -446,13 +473,17 @@ Check Digits: mod97</SimpleValue>
         <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) ICD 4 digits, 2) None</SimpleValue>
       </Value>
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Requested by TICC-10 and TICC-11;
+in SML since 2019-08-23</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -475,13 +506,16 @@ Check Digits: mod97</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>First field: ICD: 4 digits, Second field: sequence of digits</SimpleValue>
       </Value>
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Propose to deprecate</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -504,13 +538,16 @@ Check Digits: mod97</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) First field: ICD: 4 digits, Second field: sequence of digits</SimpleValue>
       </Value>
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Propose to deprecate</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -533,7 +570,7 @@ Check Digits: mod97</SimpleValue>
         <SimpleValue>5</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>The ABN is an 11 digit numeric identifier.
@@ -548,7 +585,7 @@ For other entities the digits are randomly allocated but are guaranteed to fail 
           <Value ColumnRef="examples">
         <SimpleValue>51 824 753 556</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{11}
 Check number: mod 89 (weights)
 * Subtract 1 from the first (left-most) digit of the ABN to give a new 11 digit number
@@ -557,6 +594,9 @@ Check number: mod 89 (weights)
 * Divide the sum total by 89, noting the remainder
 * If the remainder is zero the number is a valid ABN
 Weight: 10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>https://abr.business.gov.au/Help/AbnFormat</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -596,9 +636,12 @@ CHEXXXXXXXXP, the last digit</SimpleValue>
         <SimpleValue>There is no requirements. As suggested in the standards eCH-0097 (http://www.ech.ch) the transmission of the UID is without any separator.
 For display reason is suggested to use this format CHE-XXX.XXX.XXP minus-character ('-') after 'CHE' and separator dot-character ('.') after 6th and 9th character</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: CHE[0-9]{9}
 Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Also called "Numéro d'identification suisse des enterprises (IDE)"</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -621,7 +664,7 @@ Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</SimpleValue>
         <SimpleValue>1.2.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>8 or 10 digits</SimpleValue>
@@ -629,7 +672,7 @@ Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</SimpleValue>
           <Value ColumnRef="display">
         <SimpleValue>Group of 10 digits</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{8}([0-9]{2})?</SimpleValue>
       </Value>
     </Row>
@@ -653,7 +696,7 @@ Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</SimpleValue>
         <SimpleValue>2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>20 digits
@@ -669,8 +712,11 @@ Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</SimpleValue>
           <Value ColumnRef="examples">
         <SimpleValue>00000001820029336000</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{20}</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Get all OINs from http://portaal.digikoppeling.nl/registers/</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -693,7 +739,7 @@ Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</SimpleValue>
         <SimpleValue>2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Always 8-digit number
@@ -710,7 +756,7 @@ Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</SimpleValue>
           <Value ColumnRef="examples">
         <SimpleValue>10137025</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [1789][0-9]{7}
 CheckDigit as last char.
 Python code to check:
@@ -722,6 +768,9 @@ def calc_check_digit(number):
         check = sum((((i + 2) % 9) + 1) * int(n)
                     for i, n in enumerate(number[:-1])) % 11
     return str(check % 10)</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>See https://ariregister.rik.ee/index?lang=eng</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -744,7 +793,7 @@ def calc_check_digit(number):
         <SimpleValue>2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>9 digits
@@ -756,7 +805,7 @@ The organization number consists of 9 digits where the last digit is a control d
           <Value ColumnRef="examples">
         <SimpleValue>745707327</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{9}
 Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</SimpleValue>
       </Value>
@@ -781,7 +830,7 @@ Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</SimpleValue>
         <SimpleValue>3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Maximum 50 characters
@@ -791,7 +840,7 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: .{4,50}</SimpleValue>
       </Value>
     </Row>
@@ -815,7 +864,7 @@ Maximum 46 characters for the identifier itself</SimpleValue>
         <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>The code comprises of 3 fields
@@ -826,8 +875,11 @@ Maximum 46 characters for the identifier itself</SimpleValue>
           <Value ColumnRef="display">
         <SimpleValue>None, except all fields are left justified</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [a-z]{2}[a-z]{3}([0-9]{8}|[0-9]{9}|[RST][0-9]{2}[a-z]{2}[0-9]{4})[0-9a-z]</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>https://www.uen.gov.sg/ueninternet/faces/pages/admin/aboutUEN.jspx?_afrLoop=1018044967911865&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fdr4mq9l0_26</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -850,7 +902,7 @@ Maximum 46 characters for the identifier itself</SimpleValue>
         <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>10 digit string using numerical characters from 0 to 9
@@ -862,7 +914,7 @@ C = 11 - ((3xD1 + 2xD2 + 7xM1 + 6xM2 + 5xY1 + 4xY2 + 3xR1 + 2xR2) mod 11)</Simpl
         <SimpleValue>Whole string: nnnnnnnnnn
 Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{10}
 Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)</SimpleValue>
       </Value>
@@ -896,7 +948,7 @@ Two characters (DK) followed by 8 digits eg. DK12345678</SimpleValue>
           <Value ColumnRef="display">
         <SimpleValue>10 characters, no space or other separator</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: DK[0-9]{8}
 Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</SimpleValue>
       </Value>
@@ -968,7 +1020,7 @@ Generating the check digits
           <Value ColumnRef="display">
         <SimpleValue>The entire 20 character code (including the check digits)</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [A-Z0-9]{18}[0-9]{2}
 Check digit: mod97-10</SimpleValue>
       </Value>
@@ -1006,7 +1058,7 @@ Each legal entity's code number is multiplied by 1, 2, 3, 4, 5, 6, 7, 8
           <Value ColumnRef="examples">
         <SimpleValue>111963319</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{9}
 Check number: see text</SimpleValue>
       </Value>
@@ -1039,9 +1091,12 @@ Check number: see text</SimpleValue>
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9a-zA-Z]{6}
 No checkdigit</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>"Alphanumeric characters"</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1073,8 +1128,11 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
           <Value ColumnRef="display">
         <SimpleValue>Whole string</SimpleValue>
       </Value>
-          <Value ColumnRef="usage">
+          <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: [0-9]{0,12}(\-[0-9a-zA-Z]{0,30}(\-[0-9]{2}))</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Each part is somehow optional</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1097,13 +1155,16 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>1) First field: ICD: 4 digits, Second field: sequence of digits</SimpleValue>
       </Value>
           <Value ColumnRef="display">
         <SimpleValue>None</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Personal identifier</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1126,7 +1187,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>7603770123</SimpleValue>
@@ -1152,7 +1213,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>DK26769388</SimpleValue>
@@ -1178,7 +1239,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>DK26769388</SimpleValue>
@@ -1201,7 +1262,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>IT06363391001</SimpleValue>
@@ -1227,10 +1288,14 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>RSSBBR69C48F839A</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>NOTE: The "CF" is a Fiscal Code that can be "personal" or for a "legal entity".
+The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1253,7 +1318,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1276,7 +1341,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>1</SimpleValue>
+        <SimpleValue>true</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>1.1.0</SimpleValue>
@@ -1302,7 +1367,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>990399123MVA</SimpleValue>
@@ -1325,7 +1390,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>1</SimpleValue>
+        <SimpleValue>true</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>1.1.0</SimpleValue>
@@ -1354,7 +1419,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1374,7 +1439,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>ATU12345678</SimpleValue>
@@ -1397,7 +1462,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1417,7 +1482,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>1</SimpleValue>
+        <SimpleValue>true</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>1.0.2</SimpleValue>
@@ -1440,10 +1505,13 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>1</SimpleValue>
+        <SimpleValue>true</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>In favour of 0196</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1466,7 +1534,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1486,7 +1554,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>9 characters in total; letter, number x3, letter, number x3, letter</SimpleValue>
@@ -1512,7 +1580,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.0.2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1558,7 +1626,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1578,7 +1646,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1598,7 +1666,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1618,7 +1686,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1638,7 +1706,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1658,7 +1726,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1678,7 +1746,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1698,7 +1766,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1718,7 +1786,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1738,7 +1806,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1758,7 +1826,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1778,7 +1846,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1798,7 +1866,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1818,7 +1886,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1838,7 +1906,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1858,7 +1926,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1878,7 +1946,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1898,7 +1966,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1918,7 +1986,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1938,7 +2006,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1958,7 +2026,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1978,7 +2046,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1998,7 +2066,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2018,7 +2086,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2038,7 +2106,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2058,7 +2126,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2078,7 +2146,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2098,7 +2166,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2118,7 +2186,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2138,7 +2206,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2158,7 +2226,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2178,7 +2246,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2198,10 +2266,13 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.1.3</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>1</SimpleValue>
+        <SimpleValue>true</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>2</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Deprecated by 0190</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2221,7 +2292,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.2.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2244,7 +2315,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.2.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</SimpleValue>
@@ -2267,7 +2338,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>1.2.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>0</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2291,6 +2362,9 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Temporary until ISO 6523 identifier approved</SimpleValue>
       </Value>
     </Row>
   </SimpleCodeList>
