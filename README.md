@@ -27,6 +27,9 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
+* v7.0.3 - work in progress
+    * Started adding support for Code Lists v6
+    * Removed the explicit certificate from directory.peppol.eu because it is renewed too often (see issue [#31](https://github.com/phax/peppol-commons/issues/31))
 * v7.0.2 - 2019-08-16
     * Using more base types in certain APIs for better interoperability (binary incompatible change)
     * Updated to PEPPOL Code List v5
