@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2019 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    The Original Code is Copyright The PEPPOL project (http://www.peppol.eu)
-
-    This Source Code Form is subject to the terms of the Mozilla Public
-    License, v. 2.0. If a copy of the MPL was not distributed with this
-    file, You can obtain one at http://mozilla.org/MPL/2.0/.
-
--->
 <gc:CodeList xmlns:gc="http://docs.oasis-open.org/codelist/ns/genericode/1.0/" xmlns="">
   <Annotation>
     <AppInfo>
@@ -19,9 +7,9 @@
   </Annotation>
   <Identification>
     <ShortName>Scheme Agency</ShortName>
-      <Version>5</Version>
+      <Version>6</Version>
       <CanonicalUri>PEPPOL</CanonicalUri>
-      <CanonicalVersionUri>PEPPOL-5</CanonicalVersionUri>
+      <CanonicalVersionUri>PEPPOL-6</CanonicalVersionUri>
       <LocationUri>PartyID.gc</LocationUri>
   </Identification>
   <ColumnSet>
@@ -196,7 +184,7 @@
         <SimpleValue>SG:UEN</SimpleValue>
       </Value>
           <Value ColumnRef="name">
-        <SimpleValue>SG</SimpleValue>
+        <SimpleValue>international</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -229,6 +217,22 @@
       </Value>
           <Value ColumnRef="name">
         <SimpleValue>LT</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>IT:CUUO</SimpleValue>
+      </Value>
+          <Value ColumnRef="name">
+        <SimpleValue>IT</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="code">
+        <SimpleValue>DE:LWID</SimpleValue>
+      </Value>
+          <Value ColumnRef="name">
+        <SimpleValue>DE</SimpleValue>
       </Value>
     </Row>
       <Row>

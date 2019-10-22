@@ -79,9 +79,9 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public final class MainCreatePredefinedEnumsFromExcel
+public final class MainCreatePredefinedEnumsFromExcel_v5
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel_v5.class);
   private static final Version CODELIST_VERSION = new Version (5);
   private static final String RESULT_DIRECTORY = "src/main/resources/codelists/";
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
@@ -1025,13 +1025,13 @@ public final class MainCreatePredefinedEnumsFromExcel
   public static void main (final String [] args) throws Exception
   {
     for (final CodeListFile aCLF : new CodeListFile [] { new CodeListFile ("Document types",
-                                                                           MainCreatePredefinedEnumsFromExcel::_emitDocumentTypes),
+                                                                           MainCreatePredefinedEnumsFromExcel_v5::_emitDocumentTypes),
                                                          new CodeListFile ("Participant identifier schemes",
-                                                                           MainCreatePredefinedEnumsFromExcel::_emitParticipantIdentifierSchemes),
+                                                                           MainCreatePredefinedEnumsFromExcel_v5::_emitParticipantIdentifierSchemes),
                                                          new CodeListFile ("Processes",
-                                                                           MainCreatePredefinedEnumsFromExcel::_emitProcessIdentifiers),
+                                                                           MainCreatePredefinedEnumsFromExcel_v5::_emitProcessIdentifiers),
                                                          new CodeListFile ("Transport profiles",
-                                                                           MainCreatePredefinedEnumsFromExcel::_emitTransportProfileIdentifiers) })
+                                                                           MainCreatePredefinedEnumsFromExcel_v5::_emitTransportProfileIdentifiers) })
     {
       // Where is the Excel?
       final IReadableResource aXls = new FileSystemResource (aCLF.m_aFile);
