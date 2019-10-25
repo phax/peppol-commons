@@ -93,6 +93,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
   private static final boolean DEFAULT_DEPRECATED = false;
   private static final boolean DEFAULT_ISSUED_BY_OPENPEPPOL = false;
+  private static final String FILENAME_SUFFIX = "V6";
 
   private static boolean _parseBoolean (final String s, final boolean bFallback)
   {
@@ -168,7 +169,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                                                        new URI ("urn:peppol.eu:names:identifier:documenttypes"),
                                                                                        new URI ("urn:peppol.eu:names:identifier:documenttypes-2.0"),
                                                                                        null);
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier.gc");
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier" + FILENAME_SUFFIX + ".gc");
 
     // Save as XML
     {
@@ -205,14 +206,15 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         eAgency.setAttribute ("bis-version", sBISVersion);
         eAgency.setAttribute ("domain-community", sDomainCommunity);
       }
-      MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier.xml"));
+      MicroWriter.writeToFile (aDoc,
+                               new File (RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier" + FILENAME_SUFFIX + ".xml"));
     }
 
     // Create Java source
     try
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "doctype")
-                                              ._enum ("EPredefinedDocumentTypeIdentifier")
+                                              ._enum ("EPredefinedDocumentTypeIdentifier" + FILENAME_SUFFIX)
                                               ._implements (IPeppolPredefinedDocumentTypeIdentifier.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
@@ -497,7 +499,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                                                        new URI ("PEPPOL-" +
                                                                                                 CODELIST_VERSION.getAsString ()),
                                                                                        new URI ("PartyID.gc"));
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PartyID.gc");
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PartyID" + FILENAME_SUFFIX + ".gc");
   }
 
   private static void _handleParticipantIdentifierSchemes (final Sheet aParticipantSheet) throws URISyntaxException
@@ -530,7 +532,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                                                        new URI ("urn:peppol.eu:names:identifier:participantidentifierschemes"),
                                                                                        new URI ("urn:peppol.eu:names:identifier:participantidentifierschemes-2.0"),
                                                                                        null);
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolParticipantIdentifierSchemes.gc");
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolParticipantIdentifierSchemes" + FILENAME_SUFFIX + ".gc");
 
     _writeValidationPartyIdFile (aParticipantSheet);
 
@@ -588,14 +590,18 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         if (StringHelper.hasText (sUsage))
           eAgency.appendElement ("usage").appendText (sUsage);
       }
-      MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolParticipantIdentifierSchemes.xml"));
+      MicroWriter.writeToFile (aDoc,
+                               new File (RESULT_DIRECTORY +
+                                         "PeppolParticipantIdentifierSchemes" +
+                                         FILENAME_SUFFIX +
+                                         ".xml"));
     }
 
     // Create Java source
     try
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "pidscheme")
-                                              ._enum ("EPredefinedParticipantIdentifierScheme")
+                                              ._enum ("EPredefinedParticipantIdentifierScheme" + FILENAME_SUFFIX)
                                               ._implements (IParticipantIdentifierScheme.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
@@ -752,7 +758,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
     }
   }
 
-  private static void _emitProcessIdentifiers (final Sheet aProcessSheet) throws URISyntaxException
+  private static void _handleProcessIdentifiers (final Sheet aProcessSheet) throws URISyntaxException
   {
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
@@ -771,7 +777,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                                                        new URI ("urn:peppol.eu:names:identifier:process"),
                                                                                        new URI ("urn:peppol.eu:names:identifier:process-1.0"),
                                                                                        null);
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolProcessIdentifier.gc");
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolProcessIdentifier" + FILENAME_SUFFIX + ".gc");
 
     // Save as XML
     final IMicroDocument aDoc = new MicroDocument ();
@@ -800,13 +806,13 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       eAgency.setAttribute ("deprecated", bDeprecated);
       eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
     }
-    MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolProcessIdentifier.xml"));
+    MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolProcessIdentifier" + FILENAME_SUFFIX + ".xml"));
 
     // Create Java source
     try
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "process")
-                                              ._enum ("EPredefinedProcessIdentifier")
+                                              ._enum ("EPredefinedProcessIdentifier" + FILENAME_SUFFIX)
                                               ._implements (IPeppolPredefinedProcessIdentifier.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
@@ -952,7 +958,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
     }
   }
 
-  private static void _emitTransportProfileIdentifiers (final Sheet aTPSheet) throws URISyntaxException
+  private static void _handleTransportProfileIdentifiers (final Sheet aTPSheet) throws URISyntaxException
   {
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
@@ -970,7 +976,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                                                        new URI ("urn:peppol.eu:names:identifier:transportprofile"),
                                                                                        new URI ("urn:peppol.eu:names:identifier:transportprofile-1.0"),
                                                                                        null);
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolTransportProfileIdentifier.gc");
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolTransportProfileIdentifier" + FILENAME_SUFFIX + ".gc");
 
     // Save as XML
     final IMicroDocument aDoc = new MicroDocument ();
@@ -997,13 +1003,17 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       eAgency.setAttribute ("deprecated", bDeprecated);
       eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
     }
-    MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolTransportProfileIdentifier.xml"));
+    MicroWriter.writeToFile (aDoc,
+                             new File (RESULT_DIRECTORY +
+                                       "PeppolTransportProfileIdentifier" +
+                                       FILENAME_SUFFIX +
+                                       ".xml"));
 
     // Create Java source
     try
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "transportprofile")
-                                              ._enum ("EPredefinedTransportProfileIdentifier");
+                                              ._enum ("EPredefinedTransportProfileIdentifier" + FILENAME_SUFFIX);
       jEnum._implements (s_aCodeModel.ref (IPredefinedTransportProfileIdentifier.class));
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
@@ -1145,9 +1155,9 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                          new CodeListFile ("Participant identifier schemes",
                                                                            MainCreatePredefinedEnumsFromExcel_v6::_handleParticipantIdentifierSchemes),
                                                          new CodeListFile ("Processes",
-                                                                           MainCreatePredefinedEnumsFromExcel_v6::_emitProcessIdentifiers),
+                                                                           MainCreatePredefinedEnumsFromExcel_v6::_handleProcessIdentifiers),
                                                          new CodeListFile ("Transport profiles",
-                                                                           MainCreatePredefinedEnumsFromExcel_v6::_emitTransportProfileIdentifiers) })
+                                                                           MainCreatePredefinedEnumsFromExcel_v6::_handleTransportProfileIdentifiers) })
     {
       // Where is the Excel?
       final IReadableResource aXls = new FileSystemResource (aCLF.m_aFile);

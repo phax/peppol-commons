@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
  * Do NOT edit!
  */
 @CodingStyleguideUnaware
-public enum EPredefinedProcessIdentifier
+public enum EPredefinedProcessIdentifierV6
     implements IPeppolPredefinedProcessIdentifier
 {
 
@@ -219,87 +219,108 @@ public enum EPredefinedProcessIdentifier
      * 
      * @since code list 4
      */
-    urn_fdc_peppol_eu_poacc_bis_mlr_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:mlr:3", null, Version.parse("4"), false);
+    urn_fdc_peppol_eu_poacc_bis_mlr_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:mlr:3", null, Version.parse("4"), false),
+
+    /**
+     * <code>urn:fdc:www.efaktura.gov.pl:ver1.0:account_corr:ver1.0</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_fdc_www_efaktura_gov_pl_ver1_0_account_corr_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver1.0:account_corr:ver1.0", null, Version.parse("6"), false),
+
+    /**
+     * <code>urn:fdc:www.efaktura.gov.pl:ver1.0:corr_inv:ver1.0</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_fdc_www_efaktura_gov_pl_ver1_0_corr_inv_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver1.0:corr_inv:ver1.0", null, Version.parse("6"), false),
+
+    /**
+     * <code>urn:fdc:www.efaktura.gov.pl:ver1.0:receipt_advice:ver1.0</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_fdc_www_efaktura_gov_pl_ver1_0_receipt_advice_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver1.0:receipt_advice:ver1.0", null, Version.parse("6"), false);
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      */
     @Deprecated
-    public static final EPredefinedProcessIdentifier BIS1A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver1_0;
+    public static final EPredefinedProcessIdentifierV6 BIS1A_V1 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii01_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver2_0}
      */
-    public static final EPredefinedProcessIdentifier BIS1A_V4 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver2_0;
+    public static final EPredefinedProcessIdentifierV6 BIS1A_V4 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii01_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver1_0}
      */
     @Deprecated
-    public static final EPredefinedProcessIdentifier BIS3A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver1_0;
+    public static final EPredefinedProcessIdentifierV6 BIS3A_V1 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii03_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver2_0}
      */
-    public static final EPredefinedProcessIdentifier BIS3A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver2_0;
+    public static final EPredefinedProcessIdentifierV6 BIS3A_V2 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii03_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver1_0}
      */
     @Deprecated
-    public static final EPredefinedProcessIdentifier BIS4A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver1_0;
+    public static final EPredefinedProcessIdentifierV6 BIS4A_V1 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii04_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver2_0}
      */
-    public static final EPredefinedProcessIdentifier BIS4A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver2_0;
+    public static final EPredefinedProcessIdentifierV6 BIS4A_V2 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii04_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver1_0}
      */
     @Deprecated
-    public static final EPredefinedProcessIdentifier BIS5A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver1_0;
+    public static final EPredefinedProcessIdentifierV6 BIS5A_V1 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii05_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver2_0}
      */
-    public static final EPredefinedProcessIdentifier BIS5A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver2_0;
+    public static final EPredefinedProcessIdentifierV6 BIS5A_V2 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii05_ver2_0;
     /**
      * Same as {@link #urn_fdc_peppol_eu_2017_poacc_billing_01_1_0}
      */
-    public static final EPredefinedProcessIdentifier BIS5A_V3 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_poacc_billing_01_1_0;
+    public static final EPredefinedProcessIdentifierV6 BIS5A_V3 = EPredefinedProcessIdentifierV6 .urn_fdc_peppol_eu_2017_poacc_billing_01_1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii06_ver1_0}
      */
     @Deprecated
-    public static final EPredefinedProcessIdentifier BIS6A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii06_ver1_0;
+    public static final EPredefinedProcessIdentifierV6 BIS6A_V1 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii06_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii28_ver2_0}
      */
-    public static final EPredefinedProcessIdentifier BIS28A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii28_ver2_0;
+    public static final EPredefinedProcessIdentifierV6 BIS28A_V1 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii28_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii30_ver2_0}
      */
-    public static final EPredefinedProcessIdentifier BIS30A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii30_ver2_0;
+    public static final EPredefinedProcessIdentifierV6 BIS30A_V1 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii30_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii36_ver2_0}
      */
-    public static final EPredefinedProcessIdentifier BIS36A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii36_ver2_0;
+    public static final EPredefinedProcessIdentifierV6 BIS36A_V1 = EPredefinedProcessIdentifierV6 .urn_www_cenbii_eu_profile_bii36_ver2_0;
     /**
      * Same as {@link #urn_fdc_peppol_eu_2017_pracc_p001_01_1_0}
      */
-    public static final EPredefinedProcessIdentifier P001_V1 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_pracc_p001_01_1_0;
+    public static final EPredefinedProcessIdentifierV6 P001_V1 = EPredefinedProcessIdentifierV6 .urn_fdc_peppol_eu_2017_pracc_p001_01_1_0;
     /**
      * Same as {@link #urn_fdc_peppol_eu_2017_pracc_p002_01_1_0}
      */
-    public static final EPredefinedProcessIdentifier P002_V1 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_pracc_p002_01_1_0;
+    public static final EPredefinedProcessIdentifierV6 P002_V1 = EPredefinedProcessIdentifierV6 .urn_fdc_peppol_eu_2017_pracc_p002_01_1_0;
     /**
      * Same as {@link #urn_fdc_peppol_eu_2017_pracc_p003_01_1_0}
      */
-    public static final EPredefinedProcessIdentifier P003_V1 = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_pracc_p003_01_1_0;
+    public static final EPredefinedProcessIdentifierV6 P003_V1 = EPredefinedProcessIdentifierV6 .urn_fdc_peppol_eu_2017_pracc_p003_01_1_0;
     /**
      * Same as {@link #urn_www_peppol_eu_profile_bis63a_ver1_0}
      */
-    public static final EPredefinedProcessIdentifier BIS63A_V1 = EPredefinedProcessIdentifier.urn_www_peppol_eu_profile_bis63a_ver1_0;
+    public static final EPredefinedProcessIdentifierV6 BIS63A_V1 = EPredefinedProcessIdentifierV6 .urn_www_peppol_eu_profile_bis63a_ver1_0;
     private final String m_sScheme;
     private final String m_sID;
     private final String m_sBISID;
     private final Version m_aSince;
     private final boolean m_bDeprecated;
 
-    private EPredefinedProcessIdentifier(@Nonnull @Nonempty final String sScheme,
+    private EPredefinedProcessIdentifierV6(@Nonnull @Nonempty final String sScheme,
         @Nonnull @Nonempty final String sID,
         @Nullable final String sBISID,
         @Nonnull final Version aSince,
@@ -343,9 +364,9 @@ public enum EPredefinedProcessIdentifier
     }
 
     @Nullable
-    public static EPredefinedProcessIdentifier getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier aProcessID) {
+    public static EPredefinedProcessIdentifierV6 getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier aProcessID) {
         if (aProcessID!= null) {
-            for (EPredefinedProcessIdentifier e: EPredefinedProcessIdentifier.values()) {
+            for (EPredefinedProcessIdentifierV6 e: EPredefinedProcessIdentifierV6 .values()) {
                 if (e.hasScheme(aProcessID.getScheme())&&e.hasValue(aProcessID.getValue())) {
                     return e;
                 }
