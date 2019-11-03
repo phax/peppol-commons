@@ -31,6 +31,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
     * Started adding support for Code Lists v6 (for preview purposes only)
     * Removed the explicit certificate from directory.peppol.eu because it is renewed too often (see issue [#31](https://github.com/phax/peppol-commons/issues/31))
     * Added new class `PeppolCertificateHelper`
+    * Added possibility to customize the User Agent of SMP clients
     * Added X509 certificates as constants in `PeppolKeyStoreHelper`
 * v7.0.2 - 2019-08-16
     * Using more base types in certain APIs for better interoperability (binary incompatible change)

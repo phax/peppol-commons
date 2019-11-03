@@ -38,6 +38,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -83,6 +84,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private int m_nConnectionTimeoutMS = 5000;
   private int m_nRequestTimeoutMS = 10000;
   private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
+  private String m_sUserAgent;
 
   /**
    * Constructor with a direct SMP URL.<br>
@@ -346,6 +348,18 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
+   * @return <code>true</code> if SMP client response certificate checking is
+   *         enabled, <code>false</code> if it is disabled. By default this
+   *         check is enabled (see
+   *         {@link SMPHttpResponseHandlerSigned#DEFAULT_CHECK_CERTIFICATE}).
+   * @since 5.2.1
+   */
+  public final boolean isCheckCertificate ()
+  {
+    return m_bCheckCertificate;
+  }
+
+  /**
    * Check the certificate retrieved from a signed SMP response? This may be
    * helpful for debugging and testing of SMP client connections!
    *
@@ -363,15 +377,30 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see
-   *         {@link SMPHttpResponseHandlerSigned#DEFAULT_CHECK_CERTIFICATE}).
-   * @since 5.2.1
+   * @return The custom user agent HTTP header to be used. <code>null</code> by
+   *         default.
+   * @since 7.0.3
    */
-  public final boolean isCheckCertificate ()
+  @Nullable
+  public final String getUserAgent ()
   {
-    return m_bCheckCertificate;
+    return m_sUserAgent;
+  }
+
+  /**
+   * Set a custom user agent HTTP header to be used. If none is set, the default
+   * from the underlying Apache HTTP Client library is used.
+   *
+   * @param sUserAgent
+   *        The custom user agent to be used. May be <code>null</code>.
+   * @return this for chaining
+   * @since 7.0.3
+   */
+  @Nonnull
+  public final IMPLTYPE setUserAgent (@Nullable final String sUserAgent)
+  {
+    m_sUserAgent = sUserAgent;
+    return thisAsT ();
   }
 
   @Nonnull
@@ -424,6 +453,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     final HttpContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = new HttpClientManager (aHCFactory))
     {
+      if (StringHelper.hasText (m_sUserAgent))
+        aRequest.addHeader (CHttpHeader.USER_AGENT, m_sUserAgent);
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
   }
