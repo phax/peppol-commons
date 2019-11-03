@@ -28,6 +28,26 @@ import com.helger.security.keystore.KeyStoreHelper;
 public final class PeppolKeyStoreHelperTest
 {
   @Test
+  public void testConstants ()
+  {
+    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PRODUCTION_ROOT);
+    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PRODUCTION_AP);
+    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PRODUCTION_SMP);
+
+    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PILOT_ROOT);
+    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PILOT_AP);
+    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PILOT_SMP);
+
+    assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
+    assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
+    assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
+
+    assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
+    assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
+    assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
+  }
+
+  @Test
   public void testLoadTrustStore2010Production () throws Exception
   {
     // Load trust store

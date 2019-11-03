@@ -23,7 +23,7 @@ import javax.naming.ldap.Rdn;
  * @author Philip Helger
  * @since 7.0.3
  */
-public class PeppolCertificateHelper
+public final class PeppolCertificateHelper
 {
   private PeppolCertificateHelper ()
   {}
