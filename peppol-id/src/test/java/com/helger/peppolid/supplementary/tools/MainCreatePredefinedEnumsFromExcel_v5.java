@@ -130,7 +130,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
     return StringHelper.trim (Genericode10Helper.getRowValue (aRow, sColumnID));
   }
 
-  private static void _emitDocumentTypes (final Sheet aDocumentSheet) throws URISyntaxException
+  private static void _handleDocumentTypes (final Sheet aDocumentSheet) throws URISyntaxException
   {
     // Create GeneriCode file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
@@ -416,7 +416,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
     _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PartyID.gc");
   }
 
-  private static void _emitParticipantIdentifierSchemes (final Sheet aParticipantSheet) throws URISyntaxException
+  private static void _handleParticipantIdentifierSchemes (final Sheet aParticipantSheet) throws URISyntaxException
   {
     // Read excel file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
@@ -635,7 +635,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
     }
   }
 
-  private static void _emitProcessIdentifiers (final Sheet aProcessSheet) throws URISyntaxException
+  private static void _handleProcessIdentifiers (final Sheet aProcessSheet) throws URISyntaxException
   {
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
@@ -835,7 +835,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
     }
   }
 
-  private static void _emitTransportProfileIdentifiers (final Sheet aTPSheet) throws URISyntaxException
+  private static void _handleTransportProfileIdentifiers (final Sheet aTPSheet) throws URISyntaxException
   {
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
@@ -1025,13 +1025,13 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
   public static void main (final String [] args) throws Exception
   {
     for (final CodeListFile aCLF : new CodeListFile [] { new CodeListFile ("Document types",
-                                                                           MainCreatePredefinedEnumsFromExcel_v5::_emitDocumentTypes),
+                                                                           MainCreatePredefinedEnumsFromExcel_v5::_handleDocumentTypes),
                                                          new CodeListFile ("Participant identifier schemes",
-                                                                           MainCreatePredefinedEnumsFromExcel_v5::_emitParticipantIdentifierSchemes),
+                                                                           MainCreatePredefinedEnumsFromExcel_v5::_handleParticipantIdentifierSchemes),
                                                          new CodeListFile ("Processes",
-                                                                           MainCreatePredefinedEnumsFromExcel_v5::_emitProcessIdentifiers),
+                                                                           MainCreatePredefinedEnumsFromExcel_v5::_handleProcessIdentifiers),
                                                          new CodeListFile ("Transport profiles",
-                                                                           MainCreatePredefinedEnumsFromExcel_v5::_emitTransportProfileIdentifiers) })
+                                                                           MainCreatePredefinedEnumsFromExcel_v5::_handleTransportProfileIdentifiers) })
     {
       // Where is the Excel?
       final IReadableResource aXls = new FileSystemResource (aCLF.m_aFile);
