@@ -124,7 +124,7 @@ public final class PeppolDocumentTypeIdentifierPartsTest
   @Test
   public void testList () throws IOException
   {
-    try (final CSVWriter aCSV = new CSVWriter (FileHelper.getBufferedWriter (new File ("doctypes.csv"),
+    try (final CSVWriter aCSV = new CSVWriter (FileHelper.getBufferedWriter (new File ("target/doctypes.csv"),
                                                                              StandardCharsets.ISO_8859_1)))
     {
       aCSV.setSeparatorChar (';');
