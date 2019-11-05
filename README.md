@@ -27,7 +27,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
-* v7.0.3 - work in progress
+* v7.0.3 - 2019-11-05
     * Started adding support for Code Lists v6 (for preview purposes only)
     * Removed the explicit certificate from directory.peppol.eu because it is renewed too often (see issue [#31](https://github.com/phax/peppol-commons/issues/31))
     * Added new class `PeppolCertificateHelper`
@@ -362,37 +362,37 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>7.0.2</version>
+  <version>7.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>7.0.2</version>
+  <version>7.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>7.0.2</version>
+  <version>7.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>7.0.2</version>
+  <version>7.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>7.0.2</version>
+  <version>7.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>7.0.2</version>
+  <version>7.0.3</version>
 </dependency>
 ```
 
@@ -402,7 +402,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>7.0.2</version>
+  <version>7.0.3</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
