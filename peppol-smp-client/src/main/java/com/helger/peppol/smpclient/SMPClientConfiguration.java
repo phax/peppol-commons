@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.httpclient.HttpClientFactory;
+import com.helger.peppol.httpclient.AbstractGenericSMPClient;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.settings.exchange.configfile.ConfigFile;
@@ -189,5 +190,31 @@ public final class SMPClientConfiguration
   public static boolean isUseDNSClientCache ()
   {
     return s_aConfigFile.getAsBoolean ("http.useDNSClientCache", HttpClientFactory.DEFAULT_USE_DNS_CACHE);
+  }
+
+  /**
+   * Get the content of the property "http.connect.timeout.ms" or the default
+   * value.
+   *
+   * @return The connection timeout of the SMP client in milliseconds. Defaults
+   *         to 5 seconds.
+   * @since 7.0.4
+   */
+  public static int getConnectionTimeoutMS ()
+  {
+    return s_aConfigFile.getAsInt ("http.connect.timeout.ms", AbstractGenericSMPClient.DEFAULT_CONNECTION_TIMEOUT_MS);
+  }
+
+  /**
+   * Get the content of the property "http.request.timeout.ms" or the default
+   * value.
+   *
+   * @return The request timeout of the SMP client in milliseconds. Defaults to
+   *         10 seconds.
+   * @since 7.0.4
+   */
+  public static int getRequestTimeoutMS ()
+  {
+    return s_aConfigFile.getAsInt ("http.request.timeout.ms", AbstractGenericSMPClient.DEFAULT_REQUEST_TIMEOUT_MS);
   }
 }

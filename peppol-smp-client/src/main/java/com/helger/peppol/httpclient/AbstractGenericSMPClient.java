@@ -65,11 +65,14 @@ import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
 public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGenericSMPClient <IMPLTYPE>> implements
                                                IGenericImplTrait <IMPLTYPE>
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
+  public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 5_000;
+  public static final int DEFAULT_REQUEST_TIMEOUT_MS = 10_000;
 
   // The default text/xml content type uses iso-8859-1!
   protected static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
                                                                                  StandardCharsets.UTF_8);
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
 
   /**
    * The string representation of the SMP host URL, always ending with a
@@ -81,8 +84,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private final ICommonsOrderedSet <String> m_aNonProxyHosts = new CommonsLinkedHashSet <> ();
   private boolean m_bUseProxySystemProperties;
   private boolean m_bUseDNSClientCache;
-  private int m_nConnectionTimeoutMS = 5000;
-  private int m_nRequestTimeoutMS = 10000;
+  private int m_nConnectionTimeoutMS;
+  private int m_nRequestTimeoutMS;
   private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
   private String m_sUserAgent;
 
@@ -123,6 +126,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
       });
     m_bUseProxySystemProperties = SMPClientConfiguration.isUseProxySystemProperties ();
     m_bUseDNSClientCache = SMPClientConfiguration.isUseDNSClientCache ();
+    m_nConnectionTimeoutMS = SMPClientConfiguration.getConnectionTimeoutMS ();
+    m_nRequestTimeoutMS = SMPClientConfiguration.getRequestTimeoutMS ();
   }
 
   /**

@@ -27,6 +27,8 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 # News and noteworthy
 
+* v7.0.4 - work in progress
+    * Made SMP client connection timeout and request timeout configurable via the configuration file (see [#33](https://github.com/phax/peppol-commons/issues/33))
 * v7.0.3 - 2019-11-05
     * Started adding support for Code Lists v6 (for preview purposes only)
     * Removed the explicit certificate from directory.peppol.eu because it is renewed too often (see issue [#31](https://github.com/phax/peppol-commons/issues/31))
@@ -273,6 +275,8 @@ It supports the following properties:
   * **`http.proxyUsername`** (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
   * **`http.proxyPassword`** (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined. 
   * **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`.
+  * **`http.connect.timeout.ms`** (since 7.0.4): set the connection timeout in milliseconds. The default value is 5000 meaning 5 seconds.
+  * **`http.request.timeout.ms`** (since 7.0.4): set the request timeout in milliseconds. The default value is 10000 meaning 10 seconds.
   
 ### Specifying a proxy server
 A proxy server can be specified in two ways:
