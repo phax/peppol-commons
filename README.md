@@ -21,15 +21,20 @@ And some legacy PEPPOL projects:
 
 **Note:** the sub-projects use different licenses (for historic reasons)!
 
-Since (and including) version 6 the sub-projects `peppol-id`, `peppol-commons`, `peppol-sml-client` and `peppol-smp-client` are licensed under the MPL 2.0.
-Before version 6 these 3 sub-projects were licensed under EUPL 1.1 or the MPL 1.1.
-The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apache 2.0 license (no change in v6).
+* `peppol-id` - MPL 2.0 (introduced in v7.0.0 based on peppol-commons)
+* `peppol-commons` - Apache 2.0 (v6 changed from EUPL 1.1 to MPL 2.0; v7.0.4 changed from MPL 2.0 to Apache 2.0)
+* `peppol-testfiles` - Apache 2.0
+* `peppol-sbdh` - Apache 2.0
+* `peppol-sml-client` - MPL 2.0 (v6 changed from EUPL 1.1 to MPL 2.0)
+* `peppol-smp-client` - MPL 2.0 (v6 changed from EUPL 1.1 to MPL 2.0)
 
 # News and noteworthy
 
 * v7.0.4 - work in progress
     * Made SMP client connection timeout and request timeout configurable via the configuration file (see [#33](https://github.com/phax/peppol-commons/issues/33))
     * The new Peppol V6 codelist has no dedicated process code list anymore
+    * Integrated the classes `PeppolCerticateChecker` and `EPeppolCertificateCheckResult` from phase4and extended them
+    * The license of submodule `peppol-commons` changed from MPL 2.0 to Apache 2.0 
 * v7.0.3 - 2019-11-05
     * Started adding support for Code Lists v6 (for preview purposes only)
     * Removed the explicit certificate from directory.peppol.eu because it is renewed too often (see issue [#31](https://github.com/phax/peppol-commons/issues/31))
@@ -189,9 +194,7 @@ Java library with shared PEPPOL components. It contains the basic algorithms. Si
 Make sure to run `mvn generate-sources` before using it in the IDE.
 The additional code is created in `target/generated-sources/xjc`. 
 
-This is based on the cipa-commons-busdox and cipa-peppol-types project version 2.2.3 but without the support for the START protocol.
-
-This project is licensed under the MPL 2.0 license.
+This project is licensed under the Apache 2 License.
 
 ### Truststore path change in v6.0.1
 
