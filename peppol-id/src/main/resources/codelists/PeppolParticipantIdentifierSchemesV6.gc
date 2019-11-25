@@ -417,7 +417,8 @@ Check digit computation: The check digit algorithm is the one published in the G
 The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</SimpleValue>
       </Value>
           <Value ColumnRef="usage">
-        <SimpleValue>We couldn't find the checksum algorithm in the scanned PDF of 1976</SimpleValue>
+        <SimpleValue>We couldn't find the checksum algorithm in the scanned PDF of 1976
+Proposed to deprecate</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1202,7 +1203,11 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
-        <SimpleValue>7603770123</SimpleValue>
+        <SimpleValue>13585628</SimpleValue>
+      </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: [1-9][0-9]{7}
+Check digit: mod11 (weights, 2, 7, 6, 5, 4, 3, 2, 1)</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1230,6 +1235,10 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
           <Value ColumnRef="examples">
         <SimpleValue>DK26769388</SimpleValue>
       </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: DK[0-9]{8}
+Taks: validate Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
@@ -1256,6 +1265,9 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
           <Value ColumnRef="examples">
         <SimpleValue>DK26769388</SimpleValue>
       </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Propose to deprecate (only 7 identifiers, only IBM - all look like test)</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
@@ -1279,6 +1291,13 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
           <Value ColumnRef="examples">
         <SimpleValue>IT06363391001</SimpleValue>
       </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: IT[0-9]{11}
+first 7: company identifiers
+next 3: province of residence (between "001" and "100"; or "120", "121", "888" "999")
+Last: check digit
+Check digit: Luhn</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
@@ -1291,7 +1310,7 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
         <SimpleValue>IT</SimpleValue>
       </Value>
           <Value ColumnRef="schemename">
-        <SimpleValue>TAX Authority</SimpleValue>
+        <SimpleValue>Codice Fiscale</SimpleValue>
       </Value>
           <Value ColumnRef="issuingagency">
         <SimpleValue>TAX Authority</SimpleValue>
@@ -1304,6 +1323,16 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>RSSBBR69C48F839A</SimpleValue>
+      </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: [0-9]{11} (company identification)
+first 7: company identifiers
+next 3: province of residence (between "001" and "100"; or "120", "121", "888" "999")
+Last: check digit
+Check digit: Luhn
+
+RegEx: [A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST][0-9LMNPQRSTUV]{2}[A-Z][0-9LMNPQRSTUV]{3}[A-Z] (personal identification)
+Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/it/codicefiscale.py</SimpleValue>
       </Value>
           <Value ColumnRef="usage">
         <SimpleValue>NOTE: The "CF" is a Fiscal Code that can be "personal" or for a "legal entity".
@@ -1332,6 +1361,17 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>9 digits
+The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.</SimpleValue>
+      </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: [0-9]{9}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Same as 0192</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
@@ -1359,7 +1399,14 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
-        <SimpleValue>990399123</SimpleValue>
+        <SimpleValue>990399123MVA</SimpleValue>
+      </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: NO[0-9]{9}MVA
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Numerical part is the OrgNumber</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1381,8 +1428,9 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
-          <Value ColumnRef="examples">
-        <SimpleValue>990399123MVA</SimpleValue>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: HU[0-9]{8}
+Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu/anum.py</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1410,6 +1458,12 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="structure">
         <SimpleValue>Must start with the country code</SimpleValue>
       </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: [A-Z]{2}[A-Z0-9]{,20}</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Proposed to undeprecate; longest known is 18 chars (incl. country code)</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
@@ -1432,6 +1486,9 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Proposed to deprecate</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1475,6 +1532,15 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="examples">
+        <SimpleValue>b</SimpleValue>
+      </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: [A-Z][A-Z0-9]*</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>No entity behind id</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1522,6 +1588,20 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>4</SimpleValue>
       </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>10 digit string using numerical characters from 0 to 9
+Based on individuals birthdate or legal entities registration date D1D2M1M2Y1Y2R1R2CM D = day, M = month, Y = year, R = random. C = checksum, M = century.
+Ninth character "C":
+C = 11 - ((3xD1 + 2xD2 + 7xM1 + 6xM2 + 5xY1 + 4xY2 + 3xR1 + 2xR2) mod 11)</SimpleValue>
+      </Value>
+          <Value ColumnRef="display">
+        <SimpleValue>Whole string: nnnnnnnnnn
+Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn</SimpleValue>
+      </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: [0-9]{10}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)</SimpleValue>
+      </Value>
           <Value ColumnRef="usage">
         <SimpleValue>In favour of 0196</SimpleValue>
       </Value>
@@ -1548,6 +1628,11 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>RegEx: [A-Z]{2}[0-9]{2}[A-Z-0-9]{11,30}
+Checking: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.py
+https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
@@ -1570,6 +1655,9 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>9 characters in total; letter, number x3, letter, number x3, letter</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Propose to deprecated</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1606,7 +1694,7 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
         <SimpleValue>IT</SimpleValue>
       </Value>
           <Value ColumnRef="schemename">
-        <SimpleValue>Indice delle Pubbliche Amministrazioni</SimpleValue>
+        <SimpleValue>Codice Destinatario</SimpleValue>
       </Value>
           <Value ColumnRef="issuingagency">
         <SimpleValue>Indice delle Pubbliche Amministrazioni</SimpleValue>
@@ -1619,6 +1707,9 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated-since">
         <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="usage">
+        <SimpleValue>Propose to deprecate; not used in BIS 3</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2332,6 +2423,14 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
           <Value ColumnRef="structure">
         <SimpleValue>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</SimpleValue>
       </Value>
+          <Value ColumnRef="examples">
+        <SimpleValue>0899965307</SimpleValue>
+      </Value>
+          <Value ColumnRef="validation-rules">
+        <SimpleValue>RegEx: 0[0-9]{9}
+Check digit: mod97
+See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py</SimpleValue>
+      </Value>
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
@@ -2376,7 +2475,7 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</SimpleValue>
         <SimpleValue>6</SimpleValue>
       </Value>
           <Value ColumnRef="usage">
-        <SimpleValue>Temporary until ISO 6523 identifier approved</SimpleValue>
+        <SimpleValue>Replaced by 0204</SimpleValue>
       </Value>
     </Row>
   </SimpleCodeList>

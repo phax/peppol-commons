@@ -13,6 +13,7 @@ package com.helger.peppolid.supplementary.tools;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
@@ -28,8 +29,11 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.functional.IThrowingConsumer;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -55,19 +59,22 @@ import com.helger.jcodemodel.JExpr;
 import com.helger.jcodemodel.JFieldVar;
 import com.helger.jcodemodel.JForEach;
 import com.helger.jcodemodel.JInvocation;
+import com.helger.jcodemodel.JLambdaMethodRef;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.JCMWriter;
+import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.pidscheme.IParticipantIdentifierScheme;
-import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.microdom.IMicroDocument;
@@ -94,6 +101,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
   private static final boolean DEFAULT_DEPRECATED = false;
   private static final boolean DEFAULT_ISSUED_BY_OPENPEPPOL = false;
   private static final String FILENAME_SUFFIX = "V6";
+  private static final ICommonsMap <IProcessIdentifier, ICommonsList <String>> KNOWN_PROCESS_IDS = new CommonsLinkedHashMap <> ();
 
   private static boolean _parseBoolean (final String s, final boolean bFallback)
   {
@@ -125,6 +133,25 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
     return ret;
   }
 
+  @Nonnull
+  private static ICommonsList <IProcessIdentifier> _getProcIDs (@Nonnull final String sProcessIDs)
+  {
+    final ICommonsList <IProcessIdentifier> ret = new CommonsArrayList <> ();
+    for (final String s : StringHelper.getExploded ('\n', StringHelper.replaceAll (sProcessIDs, '\r', '\n')))
+    {
+      final String sProcessID = s.trim ();
+      if (StringHelper.hasNoText (sProcessID))
+        throw new IllegalStateException ("Found empty process ID in '" + sProcessIDs + "'");
+      final IProcessIdentifier aProcID = PeppolIdentifierFactory.INSTANCE.parseProcessIdentifier (sProcessID);
+      if (aProcID == null)
+        throw new IllegalStateException ("Failed to parse process ID '" + sProcessID + "'");
+      ret.add (aProcID);
+    }
+    if (ret.isEmpty ())
+      throw new IllegalStateException ("Found no single process ID in '" + sProcessIDs + "'");
+    return ret;
+  }
+
   private static void _writeGenericodeFile (@Nonnull final CodeListDocument aCodeList, @Nonnull final String sFilename)
   {
     final MapBasedNamespaceContext aNsCtx = new MapBasedNamespaceContext ();
@@ -152,16 +179,20 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
     // Create GeneriCode file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
-    aReadOptions.addColumn (0, "profilecode", UseType.OPTIONAL, "string", false);
-    aReadOptions.addColumn (1, "scheme", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (2, "id", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (3, "since", UseType.REQUIRED, "string", false);
-    aReadOptions.addColumn (4, "deprecated", UseType.REQUIRED, "boolean", false);
-    aReadOptions.addColumn (5, "deprecated-since", UseType.OPTIONAL, "string", false);
-    aReadOptions.addColumn (6, "comment", UseType.OPTIONAL, "string", false);
-    aReadOptions.addColumn (7, "issued-by-openpeppol", UseType.REQUIRED, "boolean", false);
-    aReadOptions.addColumn (8, "bis-version", UseType.OPTIONAL, "int", false);
-    aReadOptions.addColumn (9, "domain-community", UseType.REQUIRED, "string", false);
+    {
+      int nCol = 0;
+      aReadOptions.addColumn (nCol++, "profilecode", UseType.OPTIONAL, "string", false);
+      aReadOptions.addColumn (nCol++, "scheme", UseType.REQUIRED, "string", true);
+      aReadOptions.addColumn (nCol++, "id", UseType.REQUIRED, "string", true);
+      aReadOptions.addColumn (nCol++, "since", UseType.REQUIRED, "string", false);
+      aReadOptions.addColumn (nCol++, "deprecated", UseType.REQUIRED, "boolean", false);
+      aReadOptions.addColumn (nCol++, "deprecated-since", UseType.OPTIONAL, "string", false);
+      aReadOptions.addColumn (nCol++, "comment", UseType.OPTIONAL, "string", false);
+      aReadOptions.addColumn (nCol++, "issued-by-openpeppol", UseType.REQUIRED, "boolean", false);
+      aReadOptions.addColumn (nCol++, "bis-version", UseType.OPTIONAL, "int", false);
+      aReadOptions.addColumn (nCol++, "domain-community", UseType.REQUIRED, "string", false);
+      aReadOptions.addColumn (nCol++, "process-ids", UseType.REQUIRED, "string", false);
+    }
     final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aDocumentSheet,
                                                                                        aReadOptions,
                                                                                        "PeppolDocumentTypeIdentifier",
@@ -194,6 +225,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         if (StringHelper.hasText (sBISVersion) && !StringParser.isUnsignedInt (sBISVersion))
           throw new IllegalStateException ("Code list entry has an invalid BIS version number - must be numeric");
         final String sDomainCommunity = _getRowValue (aRow, "domain-community");
+        final String sProcessIDs = _getRowValue (aRow, "process-ids");
 
         final IMicroElement eAgency = eRoot.appendElement ("document-type");
         eAgency.setAttribute ("profilecode", sProfileCode);
@@ -205,6 +237,15 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         eAgency.setAttribute ("issued-by-openpeppol", bIssuedByOpenPEPPOL);
         eAgency.setAttribute ("bis-version", sBISVersion);
         eAgency.setAttribute ("domain-community", sDomainCommunity);
+        final ICommonsList <IProcessIdentifier> aProcIDs = _getProcIDs (sProcessIDs);
+        for (final IProcessIdentifier aProcID : aProcIDs)
+        {
+          eAgency.appendElement ("process-id")
+                 .setAttribute ("scheme", aProcID.getScheme ())
+                 .setAttribute ("value", aProcID.getValue ());
+          KNOWN_PROCESS_IDS.computeIfAbsent (aProcID, k -> new CommonsArrayList <> ())
+                           .add (CIdentifier.getURIEncoded (sScheme, sID));
+        }
       }
       MicroWriter.writeToFile (aDoc,
                                new File (RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier" + FILENAME_SUFFIX + ".xml"));
@@ -240,6 +281,8 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
           throw new IllegalStateException ("Code list entry has an invalid BIS version number - must be numeric");
         final int nBISVersion = StringParser.parseInt (sBISVersion, -1);
         final String sDomainCommunity = _getRowValue (aRow, "domain-community");
+        final String sProcessIDs = _getRowValue (aRow, "process-ids");
+        final ICommonsList <IProcessIdentifier> aProcIDs = _getProcIDs (sProcessIDs);
 
         // Split ID in it's pieces
         final IPeppolDocumentTypeIdentifierParts aDocIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sID);
@@ -273,6 +316,12 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         jEnumConst.arg (JExpr.lit (bIssuedByOpenPEPPOL));
         jEnumConst.arg (JExpr.lit (nBISVersion));
         jEnumConst.arg (JExpr.lit (sDomainCommunity));
+
+        final JInvocation eProcIDs = JExpr._new (s_aCodeModel.ref (CommonsArrayList.class).narrowEmpty ());
+        for (final IProcessIdentifier aProcID : aProcIDs)
+          eProcIDs.arg (JExpr.lit (aProcID.getURIEncoded ()));
+        jEnumConst.arg (eProcIDs);
+
         jEnumConst.javadoc ().add ("<code>" + sID + "</code><br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
@@ -314,6 +363,9 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                          "m_bIssuedByOpenPEPPOL");
       final JFieldVar fBISVersion = jEnum.field (JMod.PRIVATE | JMod.FINAL, int.class, "m_nBISVersion");
       final JFieldVar fDomainCommunity = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sDomainCommunity");
+      final JFieldVar fProcIDs = jEnum.field (JMod.PRIVATE | JMod.FINAL,
+                                              s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class),
+                                              "m_aProcIDs");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -335,6 +387,12 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       final JVar jDomainCommunity = jCtor.param (JMod.FINAL, String.class, "sDomainCommunity");
       jDomainCommunity.annotate (Nonnull.class);
       jDomainCommunity.annotate (Nonempty.class);
+      final JVar jProcIDs = jCtor.param (JMod.FINAL,
+                                         s_aCodeModel.ref (ICommonsList.class).narrow (String.class),
+                                         "aProcIDs");
+      jProcIDs.annotate (Nonnull.class);
+      jProcIDs.annotate (Nonempty.class);
+
       jCtor.body ()
            .assign (fScheme, jScheme)
            .assign (fParts, jParts)
@@ -345,7 +403,15 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
            .assign (fDeprecatedSince, jDeprecatedSince)
            .assign (fIssuedByOpenPEPPOL, jIssuedByOpenPEPPOL)
            .assign (fBISVersion, jBISVersion)
-           .assign (fDomainCommunity, jDomainCommunity);
+           .assign (fDomainCommunity, jDomainCommunity)
+           .assign (fProcIDs,
+                    s_aCodeModel.ref (CommonsArrayList.class)
+                                .narrowEmpty ()
+                                ._new ()
+                                .arg (jProcIDs)
+                                .arg (new JLambdaMethodRef (s_aCodeModel.ref (PeppolIdentifierFactory.class)
+                                                                        .staticRef ("INSTANCE"),
+                                                            "parseProcessIdentifier")));
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
@@ -454,6 +520,15 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fDomainCommunity);
+
+      // public ICommonsList<IProcessIdentifier> getAllProcessIDs ()
+      m = jEnum.method (JMod.PUBLIC,
+                        s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class),
+                        "getAllProcessIDs");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.annotate (ReturnsMutableCopy.class);
+      m.body ()._return (fProcIDs.invoke ("getClone"));
 
       // @Nullable
       // public static EPredefinedDocumentTypeIdentifier
@@ -758,76 +833,23 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
     }
   }
 
-  private static void _handleProcessIdentifiers (final Sheet aProcessSheet) throws URISyntaxException
+  private static void _handleProcessIdentifiers ()
   {
-    final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
-                                                                                     .setLineIndexShortName (0);
-    aReadOptions.addColumn (0, "profilecode", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (1, "bisid", UseType.OPTIONAL, "string", true);
-    aReadOptions.addColumn (2, "scheme", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (3, "id", UseType.REQUIRED, "string", true);
-    aReadOptions.addColumn (4, "since", UseType.REQUIRED, "string", false);
-    aReadOptions.addColumn (5, "deprecated", UseType.REQUIRED, "boolean", false);
-    aReadOptions.addColumn (6, "deprecated-since", UseType.OPTIONAL, "string", false);
-
-    final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aProcessSheet,
-                                                                                       aReadOptions,
-                                                                                       "PeppolProcessIdentifier",
-                                                                                       CODELIST_VERSION.getAsString (),
-                                                                                       new URI ("urn:peppol.eu:names:identifier:process"),
-                                                                                       new URI ("urn:peppol.eu:names:identifier:process-1.0"),
-                                                                                       null);
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolProcessIdentifier" + FILENAME_SUFFIX + ".gc");
-
-    // Save as XML
-    final IMicroDocument aDoc = new MicroDocument ();
-    aDoc.appendComment (DO_NOT_EDIT);
-    final IMicroElement eRoot = aDoc.appendElement ("root");
-    eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
-    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
-    {
-      final String sProfileCode = _getRowValue (aRow, "profilecode");
-      final String sBISID = _getRowValue (aRow, "bisid");
-      final String sScheme = _getRowValue (aRow, "scheme");
-      final String sID = _getRowValue (aRow, "id");
-      final String sSince = _getRowValue (aRow, "since");
-      final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
-      final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
-
-      if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
-        throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
-
-      final IMicroElement eAgency = eRoot.appendElement ("process");
-      eAgency.setAttribute ("profilecode", sProfileCode);
-      eAgency.setAttribute ("bisid", sBISID);
-      eAgency.setAttribute ("scheme", sScheme);
-      eAgency.setAttribute ("id", sID);
-      eAgency.setAttribute ("since", sSince);
-      eAgency.setAttribute ("deprecated", bDeprecated);
-      eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
-    }
-    MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolProcessIdentifier" + FILENAME_SUFFIX + ".xml"));
-
     // Create Java source
     try
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "process")
                                               ._enum ("EPredefinedProcessIdentifier" + FILENAME_SUFFIX)
-                                              ._implements (IPeppolPredefinedProcessIdentifier.class);
+                                              ._implements (IProcessIdentifier.class)
+                                              ._implements (IPeppolIdentifier.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
       // enum constants
-      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
-      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+      for (final Map.Entry <IProcessIdentifier, ICommonsList <String>> aEntry : KNOWN_PROCESS_IDS.entrySet ())
       {
-        final String sProfileCode = _getRowValue (aRow, "profilecode");
-        final String sBISID = _getRowValue (aRow, "bisid");
-        final String sScheme = _getRowValue (aRow, "scheme");
-        final String sID = _getRowValue (aRow, "id");
-        final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
-        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
+        final String sScheme = aEntry.getKey ().getScheme ();
+        final String sID = aEntry.getKey ().getValue ();
 
         // Prepend the scheme, if it is non-default
         final String sIDPrefix = (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme) ? "" : sScheme + "-");
@@ -835,51 +857,24 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         jEnumConst.arg (JExpr.lit (sScheme));
         jEnumConst.arg (JExpr.lit (sID));
-        jEnumConst.arg (sBISID == null ? JExpr._null () : JExpr.lit (sBISID));
-        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
-        jEnumConst.arg (JExpr.lit (bDeprecated));
-        if (bDeprecated)
-        {
-          jEnumConst.annotate (Deprecated.class);
-          jEnumConst.javadoc ()
-                    .add ("<b>This item is deprecated since version " +
-                          sDeprecatedSince +
-                          " and should not be used to issue new identifiers!</b><br>");
-        }
-        jEnumConst.javadoc ().add ("<code>" + sID + "</code><br>");
-        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
-        // Emit shortcut name for better readability
-        // Take version number from name (ends with "V0" where 0 is the version)
-        final String sShortcutName;
-        if (StringHelper.hasText (sBISID))
-          sShortcutName = CodeGenerationHelper.createShortcutBISIDName (StringHelper.getConcatenatedOnDemand (sBISID,
-                                                                                                              "_",
-                                                                                                              sProfileCode.substring (sProfileCode.lastIndexOf ('V'))));
-        else
-          sShortcutName = null;
-        if (sShortcutName != null)
-        {
-          if (!aAllShortcutNames.add (sShortcutName))
-            throw new IllegalStateException ("The BIS ID shortcut '" +
-                                             sShortcutName +
-                                             "' is already used - please review the algorithm!");
-          final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
-                                                   jEnum,
-                                                   sShortcutName,
-                                                   jEnumConst);
-          if (bDeprecated)
-            aShortcut.annotate (Deprecated.class);
-          aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
-        }
+        final JInvocation eDocTypeIDs = JExpr._new (s_aCodeModel.ref (CommonsArrayList.class).narrowEmpty ());
+        for (final String sDocTypeID : aEntry.getValue ())
+          eDocTypeIDs.arg (JExpr.lit (sDocTypeID));
+        jEnumConst.arg (eDocTypeIDs);
+
+        jEnumConst.javadoc ().add ("<code>" + sID + "</code><br>");
+        for (final String sDocTypeID : aEntry.getValue ())
+          jEnumConst.javadoc ().add ("\nUse with DocTypeID <code>" + sDocTypeID + "</code><br>");
       }
 
       // fields
       final JFieldVar fScheme = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sScheme");
       final JFieldVar fID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
-      final JFieldVar fBISID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sBISID");
-      final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
-      final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
+      final JFieldVar fDocTypeIDs = jEnum.field (JMod.PRIVATE | JMod.FINAL,
+                                                 s_aCodeModel.ref (ICommonsList.class)
+                                                             .narrow (IDocumentTypeIdentifier.class),
+                                                 "m_aDocTypeIDs");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -889,17 +884,22 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       final JVar jID = jCtor.param (JMod.FINAL, String.class, "sID");
       jID.annotate (Nonnull.class);
       jID.annotate (Nonempty.class);
-      final JVar jBISID = jCtor.param (JMod.FINAL, String.class, "sBISID");
-      jBISID.annotate (Nullable.class);
-      final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
-      jSince.annotate (Nonnull.class);
-      final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
+      final JVar jDocTypeIDs = jCtor.param (JMod.FINAL,
+                                            s_aCodeModel.ref (ICommonsList.class).narrow (String.class),
+                                            "aDocTypeIDs");
+      jDocTypeIDs.annotate (Nonnull.class);
+      jDocTypeIDs.annotate (Nonempty.class);
       jCtor.body ()
            .assign (fScheme, jScheme)
            .assign (fID, jID)
-           .assign (fBISID, jBISID)
-           .assign (fSince, jSince)
-           .assign (fDeprecated, jDeprecated);
+           .assign (fDocTypeIDs,
+                    s_aCodeModel.ref (CommonsArrayList.class)
+                                .narrowEmpty ()
+                                ._new ()
+                                .arg (jDocTypeIDs)
+                                .arg (new JLambdaMethodRef (s_aCodeModel.ref (PeppolIdentifierFactory.class)
+                                                                        .staticRef ("INSTANCE"),
+                                                            "parseDocumentTypeIdentifier")));
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
@@ -913,24 +913,27 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       m.annotate (Nonempty.class);
       m.body ()._return (fID);
 
-      // public String getBISID ()
-      m = jEnum.method (JMod.PUBLIC, String.class, "getBISID");
-      m.annotate (Nullable.class);
-      m.body ()._return (fBISID);
+      // public ICommonsList<IDocumentTypeIdentifier> getAllDocTypeIDs ()
+      m = jEnum.method (JMod.PUBLIC,
+                        s_aCodeModel.ref (ICommonsList.class).narrow (IDocumentTypeIdentifier.class),
+                        "getAllDocTypeIDs");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.annotate (ReturnsMutableCopy.class);
+      m.body ()._return (fDocTypeIDs.invoke ("getClone"));
+
+      // public boolean hasDefaultScheme()
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "hasDefaultScheme");
+      m.body ()
+       ._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
+                             .staticRef ("DEFAULT_DOCUMENT_TYPE_SCHEME")
+                             .invoke ("equals")
+                             .arg (fScheme));
 
       // public PeppolProcessIdentifier getAsProcessIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolProcessIdentifier.class, "getAsProcessIdentifier");
       m.annotate (Nonnull.class);
       m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolProcessIdentifier.class)).arg (JExpr._this ()));
-
-      // public Version getSince ()
-      m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
-      m.annotate (Nonnull.class);
-      m.body ()._return (fSince);
-
-      // public boolean isDeprecated ()
-      m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
-      m.body ()._return (fDeprecated);
 
       // @Nullable public static EPredefinedProcessIdentifier
       // getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier
@@ -1150,12 +1153,11 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
 
   public static void main (final String [] args) throws Exception
   {
+    // DocumentType must be before Processes to fill the static list
     for (final CodeListFile aCLF : new CodeListFile [] { new CodeListFile ("Document types",
                                                                            MainCreatePredefinedEnumsFromExcel_v6::_handleDocumentTypes),
                                                          new CodeListFile ("Participant identifier schemes",
                                                                            MainCreatePredefinedEnumsFromExcel_v6::_handleParticipantIdentifierSchemes),
-                                                         new CodeListFile ("Processes",
-                                                                           MainCreatePredefinedEnumsFromExcel_v6::_handleProcessIdentifiers),
                                                          new CodeListFile ("Transport profiles",
                                                                            MainCreatePredefinedEnumsFromExcel_v6::_handleTransportProfileIdentifiers) })
     {
@@ -1177,6 +1179,8 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         aCLF.m_aHandler.accept (aSheet);
       }
     }
+
+    _handleProcessIdentifiers ();
 
     // Write all Java source files
     new JCMWriter (s_aCodeModel).build (new File ("src/main/java"), LOGGER::info);

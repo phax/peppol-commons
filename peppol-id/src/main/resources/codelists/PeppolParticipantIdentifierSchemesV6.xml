@@ -100,7 +100,8 @@ Check digit computation: The check digit algorithm is the one published in the G
     <display>None</display>
     <validation-rules>RegEx: [0-9]{11,16}
 The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</validation-rules>
-    <usage>We couldn't find the checksum algorithm in the scanned PDF of 1976</usage>
+    <usage>We couldn't find the checksum algorithm in the scanned PDF of 1976
+Proposed to deprecate</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="NL:KVK" country="NL" schemename="Vereniging van Kamers van Koophandel en Fabrieken in Nederland (Association of&#xA;Chambers of Commerce and Industry in the Netherlands), Scheme" agencyname="Vereniging van Kamers van Koophandel en Fabrieken in Nederland" iso6523="0106" since="1.1.2" deprecated="false">
     <structure>Character repertoire: The EDI identifier consists of digits only.
@@ -322,47 +323,98 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
     <usage>Personal identifier</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="DK:CVR" country="DK" schemename="The Danish Commerce and Companies Agency" agencyname="The Danish Commerce and Companies Agency" iso6523="9902" since="1.0.0" deprecated="false">
-    <examples>7603770123</examples>
+    <examples>13585628</examples>
+    <validation-rules>RegEx: [1-9][0-9]{7}
+Check digit: mod11 (weights, 2, 7, 6, 5, 4, 3, 2, 1)</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="DK:SE" country="DK" schemename="Danish Ministry of Taxation, Central Customs and Tax Administration" agencyname="Danish Ministry of Taxation, Central Customs and Tax Administration" iso6523="9904" since="1.0.0" deprecated="false">
     <examples>DK26769388</examples>
+    <validation-rules>RegEx: DK[0-9]{8}
+Taks: validate Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="DK:VANS" country="DK" schemename="Danish VANS providers" agencyname="Danish VANS providers" iso6523="9905" since="1.0.0" deprecated="false">
     <examples>DK26769388</examples>
+    <usage>Propose to deprecate (only 7 identifiers, only IBM - all look like test)</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="IT:VAT" country="IT" schemename="Ufficio responsabile gestione partite IVA" iso6523="9906" since="1.0.0" deprecated="false">
     <examples>IT06363391001</examples>
+    <validation-rules>RegEx: IT[0-9]{11}
+first 7: company identifiers
+next 3: province of residence (between "001" and "100"; or "120", "121", "888" "999")
+Last: check digit
+Check digit: Luhn</validation-rules>
   </identifier-scheme>
-  <identifier-scheme schemeid="IT:CF" country="IT" schemename="TAX Authority" agencyname="TAX Authority" iso6523="9907" since="1.0.0" deprecated="false">
+  <identifier-scheme schemeid="IT:CF" country="IT" schemename="Codice Fiscale" agencyname="TAX Authority" iso6523="9907" since="1.0.0" deprecated="false">
     <examples>RSSBBR69C48F839A</examples>
+    <validation-rules>RegEx: [0-9]{11} (company identification)
+first 7: company identifiers
+next 3: province of residence (between "001" and "100"; or "120", "121", "888" "999")
+Last: check digit
+Check digit: Luhn
+
+RegEx: [A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST][0-9LMNPQRSTUV]{2}[A-Z][0-9LMNPQRSTUV]{3}[A-Z] (personal identification)
+Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/it/codicefiscale.py</validation-rules>
     <usage>NOTE: The "CF" is a Fiscal Code that can be "personal" or for a "legal entity".
 The CF for legal entities is like the Italian VAT code (IT:VAT)</usage>
   </identifier-scheme>
-  <identifier-scheme schemeid="NO:ORGNR" country="NO" schemename="Enhetsregisteret ved Bronnoysundregisterne" agencyname="The Brønnøysund Register Centre" iso6523="9908" since="1.0.0" deprecated="false" />
+  <identifier-scheme schemeid="NO:ORGNR" country="NO" schemename="Enhetsregisteret ved Bronnoysundregisterne" agencyname="The Brønnøysund Register Centre" iso6523="9908" since="1.0.0" deprecated="false">
+    <structure>9 digits
+The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.</structure>
+    <validation-rules>RegEx: [0-9]{9}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</validation-rules>
+    <usage>Same as 0192</usage>
+  </identifier-scheme>
   <identifier-scheme schemeid="NO:VAT" country="NO" schemename="Norwegian VAT number" agencyname="Enhetsregisteret ved Bronnoysundregisterne" iso6523="9909" since="1.0.0" deprecated="true" deprecated-since="1.1.0">
-    <examples>990399123</examples>
+    <examples>990399123MVA</examples>
+    <validation-rules>RegEx: NO[0-9]{9}MVA
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</validation-rules>
+    <usage>Numerical part is the OrgNumber</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="HU:VAT" country="HU" schemename="Hungary VAT number" iso6523="9910" since="1.0.0" deprecated="false">
-    <examples>990399123MVA</examples>
+    <validation-rules>RegEx: HU[0-9]{8}
+Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu/anum.py</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="EU:VAT" country="international" schemename="National ministries of Economy" iso6523="9912" since="1.0.0" deprecated="true" deprecated-since="1.1.0">
     <structure>Must start with the country code</structure>
+    <validation-rules>RegEx: [A-Z]{2}[A-Z0-9]{,20}</validation-rules>
+    <usage>Proposed to undeprecate; longest known is 18 chars (incl. country code)</usage>
   </identifier-scheme>
-  <identifier-scheme schemeid="EU:REID" country="international" schemename="Business Registers Network" agencyname="Business Registers Network" iso6523="9913" since="1.0.0" deprecated="false" />
+  <identifier-scheme schemeid="EU:REID" country="international" schemename="Business Registers Network" agencyname="Business Registers Network" iso6523="9913" since="1.0.0" deprecated="false">
+    <usage>Proposed to deprecate</usage>
+  </identifier-scheme>
   <identifier-scheme schemeid="AT:VAT" country="AT" schemename="Österreichische Umsatzsteuer-Identifikationsnummer" iso6523="9914" since="1.0.0" deprecated="false">
     <examples>ATU12345678</examples>
   </identifier-scheme>
-  <identifier-scheme schemeid="AT:GOV" country="AT" schemename="Österreichisches Verwaltungs bzw. Organisationskennzeichen" iso6523="9915" since="1.0.0" deprecated="false" />
+  <identifier-scheme schemeid="AT:GOV" country="AT" schemename="Österreichisches Verwaltungs bzw. Organisationskennzeichen" iso6523="9915" since="1.0.0" deprecated="false">
+    <examples>b</examples>
+    <validation-rules>RegEx: [A-Z][A-Z0-9]*</validation-rules>
+    <usage>No entity behind id</usage>
+  </identifier-scheme>
   <identifier-scheme schemeid="AT:CID" country="AT" schemename="Firmenidentifikationsnummer der Statistik Austria" iso6523="9916" since="1.0.0" deprecated="true" deprecated-since="1.0.2" />
   <identifier-scheme schemeid="IS:KT" country="IS" schemename="Icelandic National Registry" iso6523="9917" since="1.0.0" deprecated="true" deprecated-since="4">
+    <structure>10 digit string using numerical characters from 0 to 9
+Based on individuals birthdate or legal entities registration date D1D2M1M2Y1Y2R1R2CM D = day, M = month, Y = year, R = random. C = checksum, M = century.
+Ninth character "C":
+C = 11 - ((3xD1 + 2xD2 + 7xM1 + 6xM2 + 5xY1 + 4xY2 + 3xR1 + 2xR2) mod 11)</structure>
+    <display>Whole string: nnnnnnnnnn
+Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn</display>
+    <validation-rules>RegEx: [0-9]{10}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)</validation-rules>
     <usage>In favour of 0196</usage>
   </identifier-scheme>
-  <identifier-scheme schemeid="IBAN" country="international" schemename="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" agencyname="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" iso6523="9918" since="1.0.1" deprecated="false" />
+  <identifier-scheme schemeid="IBAN" country="international" schemename="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" agencyname="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" iso6523="9918" since="1.0.1" deprecated="false">
+    <structure>RegEx: [A-Z]{2}[0-9]{2}[A-Z-0-9]{11,30}
+Checking: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.py
+https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</structure>
+  </identifier-scheme>
   <identifier-scheme schemeid="AT:KUR" country="AT" schemename="Kennziffer des Unternehmensregisters" iso6523="9919" since="1.0.2" deprecated="false">
     <structure>9 characters in total; letter, number x3, letter, number x3, letter</structure>
+    <usage>Propose to deprecated</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="ES:VAT" country="ES" schemename="Agencia Española de Administración Tributaria" agencyname="Agencia Española de Administración Tributaria" iso6523="9920" since="1.0.2" deprecated="false" />
-  <identifier-scheme schemeid="IT:IPA" country="IT" schemename="Indice delle Pubbliche Amministrazioni" agencyname="Indice delle Pubbliche Amministrazioni" iso6523="9921" since="1.1.0" deprecated="true" deprecated-since="6" />
+  <identifier-scheme schemeid="IT:IPA" country="IT" schemename="Codice Destinatario" agencyname="Indice delle Pubbliche Amministrazioni" iso6523="9921" since="1.1.0" deprecated="true" deprecated-since="6">
+    <usage>Propose to deprecate; not used in BIS 3</usage>
+  </identifier-scheme>
   <identifier-scheme schemeid="AD:VAT" country="AD" schemename="Andorra VAT number" iso6523="9922" since="1.1.0" deprecated="false" />
   <identifier-scheme schemeid="AL:VAT" country="AL" schemename="Albania VAT number" iso6523="9923" since="1.1.0" deprecated="false" />
   <identifier-scheme schemeid="BA:VAT" country="BA" schemename="Bosnia and Herzegovina VAT number" iso6523="9924" since="1.1.0" deprecated="false" />
@@ -401,9 +453,13 @@ The CF for legal entities is like the Italian VAT code (IT:VAT)</usage>
   <identifier-scheme schemeid="SE:VAT" country="SE" schemename="Swedish VAT number" iso6523="9955" since="1.2.0" deprecated="false" />
   <identifier-scheme schemeid="BE:CBE" country="BE" schemename="Belgian Crossroad Bank of Enterprise number" agencyname="Belgian Crossroad Bank of Enterprises" iso6523="9956" since="1.2.1" deprecated="false">
     <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
+    <examples>0899965307</examples>
+    <validation-rules>RegEx: 0[0-9]{9}
+Check digit: mod97
+See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py</validation-rules>
   </identifier-scheme>
   <identifier-scheme schemeid="FR:VAT" country="FR" schemename="French VAT number" iso6523="9957" since="1.2.1" deprecated="false" />
   <identifier-scheme schemeid="DE:LID" country="DE" schemename="German Leitweg ID" iso6523="9958" since="3" deprecated="true" deprecated-since="6">
-    <usage>Temporary until ISO 6523 identifier approved</usage>
+    <usage>Replaced by 0204</usage>
   </identifier-scheme>
 </root>

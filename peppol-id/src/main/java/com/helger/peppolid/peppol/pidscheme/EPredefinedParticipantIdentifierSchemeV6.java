@@ -148,7 +148,8 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Display requirements: None<br>
      * Validation rules: RegEx: [0-9]{11,16}
      * The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.<br>
-     * Usage information: We couldn't find the checksum algorithm in the scanned PDF of 1976<br>
+     * Usage information: We couldn't find the checksum algorithm in the scanned PDF of 1976
+     * Proposed to deprecate<br>
      * 
      * @since code list 1.0.0
      */
@@ -470,7 +471,9 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9902</code>, scheme ID <code>DK:CVR</code><br>
-     * Example value: 7603770123<br>
+     * Example value: 13585628<br>
+     * Validation rules: RegEx: [1-9][0-9]{7}
+     * Check digit: mod11 (weights, 2, 7, 6, 5, 4, 3, 2, 1)<br>
      * 
      * @since code list 1.0.0
      */
@@ -479,6 +482,8 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9904</code>, scheme ID <code>DK:SE</code><br>
      * Example value: DK26769388<br>
+     * Validation rules: RegEx: DK[0-9]{8}
+     * Taks: validate Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)<br>
      * 
      * @since code list 1.0.0
      */
@@ -487,6 +492,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9905</code>, scheme ID <code>DK:VANS</code><br>
      * Example value: DK26769388<br>
+     * Usage information: Propose to deprecate (only 7 identifiers, only IBM - all look like test)<br>
      * 
      * @since code list 1.0.0
      */
@@ -495,6 +501,11 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9906</code>, scheme ID <code>IT:VAT</code><br>
      * Example value: IT06363391001<br>
+     * Validation rules: RegEx: IT[0-9]{11}
+     * first 7: company identifiers
+     * next 3: province of residence (between &quot;001&quot; and &quot;100&quot;; or &quot;120&quot;, &quot;121&quot;, &quot;888&quot; &quot;999&quot;)
+     * Last: check digit
+     * Check digit: Luhn<br>
      * 
      * @since code list 1.0.0
      */
@@ -503,15 +514,28 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9907</code>, scheme ID <code>IT:CF</code><br>
      * Example value: RSSBBR69C48F839A<br>
+     * Validation rules: RegEx: [0-9]{11} (company identification)
+     * first 7: company identifiers
+     * next 3: province of residence (between &quot;001&quot; and &quot;100&quot;; or &quot;120&quot;, &quot;121&quot;, &quot;888&quot; &quot;999&quot;)
+     * Last: check digit
+     * Check digit: Luhn
+     * 
+     * RegEx: [A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST][0-9LMNPQRSTUV]{2}[A-Z][0-9LMNPQRSTUV]{3}[A-Z] (personal identification)
+     * Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/it/codicefiscale.py<br>
      * Usage information: NOTE: The &quot;CF&quot; is a Fiscal Code that can be &quot;personal&quot; or for a &quot;legal entity&quot;.
      * The CF for legal entities is like the Italian VAT code (IT:VAT)<br>
      * 
      * @since code list 1.0.0
      */
-    IT_CF("IT:CF", "9907", "IT", "TAX Authority", "TAX Authority", Version.parse("1.0.0"), false, null),
+    IT_CF("IT:CF", "9907", "IT", "Codice Fiscale", "TAX Authority", Version.parse("1.0.0"), false, null),
 
     /**
      * Prefix <code>9908</code>, scheme ID <code>NO:ORGNR</code><br>
+     * Structure of the code: 9 digits
+     * The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.<br>
+     * Validation rules: RegEx: [0-9]{9}
+     * Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)<br>
+     * Usage information: Same as 0192<br>
      * 
      * @since code list 1.0.0
      */
@@ -520,7 +544,10 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9909</code>, scheme ID <code>NO:VAT</code><br>
      * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
-     * Example value: 990399123<br>
+     * Example value: 990399123MVA<br>
+     * Validation rules: RegEx: NO[0-9]{9}MVA
+     * Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)<br>
+     * Usage information: Numerical part is the OrgNumber<br>
      * 
      * @since code list 1.0.0
      */
@@ -529,7 +556,8 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9910</code>, scheme ID <code>HU:VAT</code><br>
-     * Example value: 990399123MVA<br>
+     * Validation rules: RegEx: HU[0-9]{8}
+     * Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu/anum.py<br>
      * 
      * @since code list 1.0.0
      */
@@ -539,6 +567,8 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Prefix <code>9912</code>, scheme ID <code>EU:VAT</code><br>
      * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
      * Structure of the code: Must start with the country code<br>
+     * Validation rules: RegEx: [A-Z]{2}[A-Z0-9]{,20}<br>
+     * Usage information: Proposed to undeprecate; longest known is 18 chars (incl. country code)<br>
      * 
      * @since code list 1.0.0
      */
@@ -547,6 +577,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9913</code>, scheme ID <code>EU:REID</code><br>
+     * Usage information: Proposed to deprecate<br>
      * 
      * @since code list 1.0.0
      */
@@ -562,6 +593,9 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9915</code>, scheme ID <code>AT:GOV</code><br>
+     * Example value: b<br>
+     * Validation rules: RegEx: [A-Z][A-Z0-9]*<br>
+     * Usage information: No entity behind id<br>
      * 
      * @since code list 1.0.0
      */
@@ -579,6 +613,14 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9917</code>, scheme ID <code>IS:KT</code><br>
      * <b>This item is deprecated since version 4 and should not be used to issue new identifiers!</b><br>
+     * Structure of the code: 10 digit string using numerical characters from 0 to 9
+     * Based on individuals birthdate or legal entities registration date D1D2M1M2Y1Y2R1R2CM D = day, M = month, Y = year, R = random. C = checksum, M = century.
+     * Ninth character &quot;C&quot;:
+     * C = 11 - ((3xD1 + 2xD2 + 7xM1 + 6xM2 + 5xY1 + 4xY2 + 3xR1 + 2xR2) mod 11)<br>
+     * Display requirements: Whole string: nnnnnnnnnn
+     * Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn<br>
+     * Validation rules: RegEx: [0-9]{10}
+     * Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)<br>
      * Usage information: In favour of 0196<br>
      * 
      * @since code list 1.0.0
@@ -588,6 +630,9 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9918</code>, scheme ID <code>IBAN</code><br>
+     * Structure of the code: RegEx: [A-Z]{2}[0-9]{2}[A-Z-0-9]{11,30}
+     * Checking: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.py
+     * https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat<br>
      * 
      * @since code list 1.0.1
      */
@@ -596,6 +641,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9919</code>, scheme ID <code>AT:KUR</code><br>
      * Structure of the code: 9 characters in total; letter, number x3, letter, number x3, letter<br>
+     * Usage information: Propose to deprecated<br>
      * 
      * @since code list 1.0.2
      */
@@ -611,11 +657,12 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9921</code>, scheme ID <code>IT:IPA</code><br>
      * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br>
+     * Usage information: Propose to deprecate; not used in BIS 3<br>
      * 
      * @since code list 1.1.0
      */
     @Deprecated
-    IT_IPA("IT:IPA", "9921", "IT", "Indice delle Pubbliche Amministrazioni", "Indice delle Pubbliche Amministrazioni", Version.parse("1.1.0"), true, Version.parse("6")),
+    IT_IPA("IT:IPA", "9921", "IT", "Codice Destinatario", "Indice delle Pubbliche Amministrazioni", Version.parse("1.1.0"), true, Version.parse("6")),
 
     /**
      * Prefix <code>9922</code>, scheme ID <code>AD:VAT</code><br>
@@ -861,6 +908,10 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9956</code>, scheme ID <code>BE:CBE</code><br>
      * Structure of the code: Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)<br>
+     * Example value: 0899965307<br>
+     * Validation rules: RegEx: 0[0-9]{9}
+     * Check digit: mod97
+     * See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py<br>
      * 
      * @since code list 1.2.1
      */
@@ -876,7 +927,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9958</code>, scheme ID <code>DE:LID</code><br>
      * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br>
-     * Usage information: Temporary until ISO 6523 identifier approved<br>
+     * Usage information: Replaced by 0204<br>
      * 
      * @since code list 3
      */
@@ -983,7 +1034,8 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Display requirements: None<br>
      * Validation rules: RegEx: [0-9]{11,16}
      * The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.<br>
-     * Usage information: We couldn't find the checksum algorithm in the scanned PDF of 1976<br>
+     * Usage information: We couldn't find the checksum algorithm in the scanned PDF of 1976
+     * Proposed to deprecate<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _0097 = EPredefinedParticipantIdentifierSchemeV6 .IT_FTI;
     /**
@@ -1245,56 +1297,86 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     public static final EPredefinedParticipantIdentifierSchemeV6 _9901 = EPredefinedParticipantIdentifierSchemeV6 .DK_CPR;
     /**
      * Prefix <code>9902</code>, scheme ID <code>DK:CVR</code><br>
-     * Example value: 7603770123<br>
+     * Example value: 13585628<br>
+     * Validation rules: RegEx: [1-9][0-9]{7}
+     * Check digit: mod11 (weights, 2, 7, 6, 5, 4, 3, 2, 1)<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9902 = EPredefinedParticipantIdentifierSchemeV6 .DK_CVR;
     /**
      * Prefix <code>9904</code>, scheme ID <code>DK:SE</code><br>
      * Example value: DK26769388<br>
+     * Validation rules: RegEx: DK[0-9]{8}
+     * Taks: validate Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9904 = EPredefinedParticipantIdentifierSchemeV6 .DK_SE;
     /**
      * Prefix <code>9905</code>, scheme ID <code>DK:VANS</code><br>
      * Example value: DK26769388<br>
+     * Usage information: Propose to deprecate (only 7 identifiers, only IBM - all look like test)<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9905 = EPredefinedParticipantIdentifierSchemeV6 .DK_VANS;
     /**
      * Prefix <code>9906</code>, scheme ID <code>IT:VAT</code><br>
      * Example value: IT06363391001<br>
+     * Validation rules: RegEx: IT[0-9]{11}
+     * first 7: company identifiers
+     * next 3: province of residence (between &quot;001&quot; and &quot;100&quot;; or &quot;120&quot;, &quot;121&quot;, &quot;888&quot; &quot;999&quot;)
+     * Last: check digit
+     * Check digit: Luhn<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9906 = EPredefinedParticipantIdentifierSchemeV6 .IT_VAT;
     /**
      * Prefix <code>9907</code>, scheme ID <code>IT:CF</code><br>
      * Example value: RSSBBR69C48F839A<br>
+     * Validation rules: RegEx: [0-9]{11} (company identification)
+     * first 7: company identifiers
+     * next 3: province of residence (between &quot;001&quot; and &quot;100&quot;; or &quot;120&quot;, &quot;121&quot;, &quot;888&quot; &quot;999&quot;)
+     * Last: check digit
+     * Check digit: Luhn
+     * 
+     * RegEx: [A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST][0-9LMNPQRSTUV]{2}[A-Z][0-9LMNPQRSTUV]{3}[A-Z] (personal identification)
+     * Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/it/codicefiscale.py<br>
      * Usage information: NOTE: The &quot;CF&quot; is a Fiscal Code that can be &quot;personal&quot; or for a &quot;legal entity&quot;.
      * The CF for legal entities is like the Italian VAT code (IT:VAT)<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9907 = EPredefinedParticipantIdentifierSchemeV6 .IT_CF;
     /**
      * Prefix <code>9908</code>, scheme ID <code>NO:ORGNR</code><br>
+     * Structure of the code: 9 digits
+     * The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.<br>
+     * Validation rules: RegEx: [0-9]{9}
+     * Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)<br>
+     * Usage information: Same as 0192<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9908 = EPredefinedParticipantIdentifierSchemeV6 .NO_ORGNR;
     /**
      * Prefix <code>9909</code>, scheme ID <code>NO:VAT</code><br>
      * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
-     * Example value: 990399123<br>
+     * Example value: 990399123MVA<br>
+     * Validation rules: RegEx: NO[0-9]{9}MVA
+     * Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)<br>
+     * Usage information: Numerical part is the OrgNumber<br>
      */
     @Deprecated
     public static final EPredefinedParticipantIdentifierSchemeV6 _9909 = EPredefinedParticipantIdentifierSchemeV6 .NO_VAT;
     /**
      * Prefix <code>9910</code>, scheme ID <code>HU:VAT</code><br>
-     * Example value: 990399123MVA<br>
+     * Validation rules: RegEx: HU[0-9]{8}
+     * Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu/anum.py<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9910 = EPredefinedParticipantIdentifierSchemeV6 .HU_VAT;
     /**
      * Prefix <code>9912</code>, scheme ID <code>EU:VAT</code><br>
      * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
      * Structure of the code: Must start with the country code<br>
+     * Validation rules: RegEx: [A-Z]{2}[A-Z0-9]{,20}<br>
+     * Usage information: Proposed to undeprecate; longest known is 18 chars (incl. country code)<br>
      */
     @Deprecated
     public static final EPredefinedParticipantIdentifierSchemeV6 _9912 = EPredefinedParticipantIdentifierSchemeV6 .EU_VAT;
     /**
      * Prefix <code>9913</code>, scheme ID <code>EU:REID</code><br>
+     * Usage information: Proposed to deprecate<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9913 = EPredefinedParticipantIdentifierSchemeV6 .EU_REID;
     /**
@@ -1304,6 +1386,9 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     public static final EPredefinedParticipantIdentifierSchemeV6 _9914 = EPredefinedParticipantIdentifierSchemeV6 .AT_VAT;
     /**
      * Prefix <code>9915</code>, scheme ID <code>AT:GOV</code><br>
+     * Example value: b<br>
+     * Validation rules: RegEx: [A-Z][A-Z0-9]*<br>
+     * Usage information: No entity behind id<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9915 = EPredefinedParticipantIdentifierSchemeV6 .AT_GOV;
     /**
@@ -1315,17 +1400,29 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9917</code>, scheme ID <code>IS:KT</code><br>
      * <b>This item is deprecated since version 4 and should not be used to issue new identifiers!</b><br>
+     * Structure of the code: 10 digit string using numerical characters from 0 to 9
+     * Based on individuals birthdate or legal entities registration date D1D2M1M2Y1Y2R1R2CM D = day, M = month, Y = year, R = random. C = checksum, M = century.
+     * Ninth character &quot;C&quot;:
+     * C = 11 - ((3xD1 + 2xD2 + 7xM1 + 6xM2 + 5xY1 + 4xY2 + 3xR1 + 2xR2) mod 11)<br>
+     * Display requirements: Whole string: nnnnnnnnnn
+     * Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn<br>
+     * Validation rules: RegEx: [0-9]{10}
+     * Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)<br>
      * Usage information: In favour of 0196<br>
      */
     @Deprecated
     public static final EPredefinedParticipantIdentifierSchemeV6 _9917 = EPredefinedParticipantIdentifierSchemeV6 .IS_KT;
     /**
      * Prefix <code>9918</code>, scheme ID <code>IBAN</code><br>
+     * Structure of the code: RegEx: [A-Z]{2}[0-9]{2}[A-Z-0-9]{11,30}
+     * Checking: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.py
+     * https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9918 = EPredefinedParticipantIdentifierSchemeV6 .IBAN;
     /**
      * Prefix <code>9919</code>, scheme ID <code>AT:KUR</code><br>
      * Structure of the code: 9 characters in total; letter, number x3, letter, number x3, letter<br>
+     * Usage information: Propose to deprecated<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9919 = EPredefinedParticipantIdentifierSchemeV6 .AT_KUR;
     /**
@@ -1335,6 +1432,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9921</code>, scheme ID <code>IT:IPA</code><br>
      * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br>
+     * Usage information: Propose to deprecate; not used in BIS 3<br>
      */
     @Deprecated
     public static final EPredefinedParticipantIdentifierSchemeV6 _9921 = EPredefinedParticipantIdentifierSchemeV6 .IT_IPA;
@@ -1480,6 +1578,10 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9956</code>, scheme ID <code>BE:CBE</code><br>
      * Structure of the code: Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)<br>
+     * Example value: 0899965307<br>
+     * Validation rules: RegEx: 0[0-9]{9}
+     * Check digit: mod97
+     * See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py<br>
      */
     public static final EPredefinedParticipantIdentifierSchemeV6 _9956 = EPredefinedParticipantIdentifierSchemeV6 .BE_CBE;
     /**
@@ -1489,7 +1591,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     /**
      * Prefix <code>9958</code>, scheme ID <code>DE:LID</code><br>
      * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br>
-     * Usage information: Temporary until ISO 6523 identifier approved<br>
+     * Usage information: Replaced by 0204<br>
      */
     @Deprecated
     public static final EPredefinedParticipantIdentifierSchemeV6 _9958 = EPredefinedParticipantIdentifierSchemeV6 .DE_LID;

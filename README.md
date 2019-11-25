@@ -29,6 +29,7 @@ The sub-projects `peppol-sbdh` and `peppol-testfiles` are licensed under the Apa
 
 * v7.0.4 - work in progress
     * Made SMP client connection timeout and request timeout configurable via the configuration file (see [#33](https://github.com/phax/peppol-commons/issues/33))
+    * The new Peppol V6 codelist has no dedicated process code list anymore
 * v7.0.3 - 2019-11-05
     * Started adding support for Code Lists v6 (for preview purposes only)
     * Removed the explicit certificate from directory.peppol.eu because it is renewed too often (see issue [#31](https://github.com/phax/peppol-commons/issues/31))
