@@ -13,6 +13,7 @@ package com.helger.peppol.utils;
 import java.security.cert.X509Certificate;
 
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
@@ -23,6 +24,7 @@ import javax.naming.ldap.Rdn;
  * @author Philip Helger
  * @since 7.0.3
  */
+@Immutable
 public final class PeppolCertificateHelper
 {
   private PeppolCertificateHelper ()
