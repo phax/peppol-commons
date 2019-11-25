@@ -11,8 +11,9 @@ This project contains different libraries that are commonly used in the PEPPOL a
 These project are used implicitly by the following projects:
   * [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for PEPPOL and TOOP
   * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
-  * [as2-peppol-client](https://github.com/phax/as2-peppol-client/) - the AP client library
-  * [as2-peppol-server](https://github.com/phax/as2-peppol-server/) - the AP server stub
+  * [as2-peppol-client](https://github.com/phax/as2-peppol-client/) - the AS2 AP client library
+  * [as2-peppol-server](https://github.com/phax/as2-peppol-server/) - the AS2 AP server stub
+  * [phase4](https://github.com/phax/phase4/) - an implementation of AS4
   
 And some legacy PEPPOL projects:
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
