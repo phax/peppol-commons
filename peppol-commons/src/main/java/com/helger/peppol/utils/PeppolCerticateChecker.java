@@ -252,7 +252,7 @@ public final class PeppolCerticateChecker
       aPKIXParams.setRevocationEnabled (true);
 
       // Enable On-Line Certificate Status Protocol (OCSP) support
-      final boolean bEnableOCSP = isOCSPEnabled () && (eCheckOSCP.isUndefined () || eCheckOSCP.isTrue ());
+      final boolean bEnableOCSP = eCheckOSCP.isUndefined () ? isOCSPEnabled () : eCheckOSCP.isTrue ();
       try
       {
         Security.setProperty ("ocsp.enable", Boolean.toString (bEnableOCSP));
@@ -421,7 +421,7 @@ public final class PeppolCerticateChecker
                                                                         @Nonnull final ETriState eCacheOSCResult,
                                                                         @Nonnull final ETriState eCheckOSCP)
   {
-    final boolean bCache = isCacheOCSPResults () && (eCacheOSCResult.isUndefined () || eCacheOSCResult.isTrue ());
+    final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
     return _checkCertificate (aCert, aCheckDT, PEPPOL_AP_CA_ISSUERS, bCache ? OCSP_CACHE_AP : null, eCheckOSCP);
   }
 
@@ -447,7 +447,7 @@ public final class PeppolCerticateChecker
                                                                          @Nonnull final ETriState eCacheOSCResult,
                                                                          @Nonnull final ETriState eCheckOSCP)
   {
-    final boolean bCache = isCacheOCSPResults () && (eCacheOSCResult.isUndefined () || eCacheOSCResult.isTrue ());
+    final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
     return _checkCertificate (aCert, aCheckDT, PEPPOL_SMP_CA_ISSUERS, bCache ? OCSP_CACHE_SMP : null, eCheckOSCP);
   }
 }
