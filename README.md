@@ -34,7 +34,7 @@ And some legacy PEPPOL projects:
 * v7.0.4 - work in progress
     * Made SMP client connection timeout and request timeout configurable via the configuration file (see [#33](https://github.com/phax/peppol-commons/issues/33))
     * The new Peppol V6 codelist has no dedicated process code list anymore
-    * Integrated the classes `PeppolCerticateChecker` and `EPeppolCertificateCheckResult` from phase4and extended them
+    * Integrated the classes `PeppolCerticateChecker` and `EPeppolCertificateCheckResult` from phase4 and extended them
     * The license of submodule `peppol-commons` changed from MPL 2.0 to Apache 2.0 
 * v7.0.3 - 2019-11-05
     * Started adding support for Code Lists v6 (for preview purposes only)

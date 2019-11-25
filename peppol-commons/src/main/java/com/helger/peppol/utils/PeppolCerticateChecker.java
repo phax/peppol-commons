@@ -53,6 +53,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.functional.IFunction;
+import com.helger.commons.state.ETriState;
 import com.helger.commons.timing.StopWatch;
 
 /**
@@ -117,10 +118,12 @@ public final class PeppolCerticateChecker
 
   private static final PeppolOSCPCache OCSP_CACHE_AP = new PeppolOSCPCache (aCert -> Boolean.valueOf (isPeppolAPCertificateRevoked (aCert,
                                                                                                                                     null,
+                                                                                                                                    ETriState.UNDEFINED,
                                                                                                                                     getExceptionHdl ())),
                                                                             "peppol-oscp-cache-ap");
   private static final PeppolOSCPCache OCSP_CACHE_SMP = new PeppolOSCPCache (aCert -> Boolean.valueOf (isPeppolSMPCertificateRevoked (aCert,
                                                                                                                                       null,
+                                                                                                                                      ETriState.UNDEFINED,
                                                                                                                                       getExceptionHdl ())),
                                                                              "peppol-oscp-cache-smp");
 
@@ -211,6 +214,9 @@ public final class PeppolCerticateChecker
    *        <code>null</code> nor empty.
    * @param aCheckDT
    *        The check date time. May be <code>null</code>.
+   * @param eCheckOSCP
+   *        Possibility to override the OSCP checking flag on a per query basis.
+   *        Use {@link ETriState#UNDEFINED} to only use the global flag.
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
    * @return <code>true</code> if it is revoked, <code>false</code> if not.
@@ -218,10 +224,12 @@ public final class PeppolCerticateChecker
   public static boolean isCertificateRevoked (@Nonnull final X509Certificate aCert,
                                               @Nonnull final ICommonsList <X509Certificate> aValidCAs,
                                               @Nullable final LocalDateTime aCheckDT,
+                                              @Nonnull final ETriState eCheckOSCP,
                                               @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
     ValueEnforcer.notNull (aCert, "Cert");
     ValueEnforcer.notEmpty (aValidCAs, "ValidCAs");
+    ValueEnforcer.notNull (eCheckOSCP, "CheckOSCP");
     ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
 
     if (LOGGER.isDebugEnabled ())
@@ -244,7 +252,7 @@ public final class PeppolCerticateChecker
       aPKIXParams.setRevocationEnabled (true);
 
       // Enable On-Line Certificate Status Protocol (OCSP) support
-      final boolean bEnableOCSP = isOCSPEnabled ();
+      final boolean bEnableOCSP = isOCSPEnabled () && (eCheckOSCP.isUndefined () || eCheckOSCP.isTrue ());
       try
       {
         Security.setProperty ("ocsp.enable", Boolean.toString (bEnableOCSP));
@@ -304,15 +312,19 @@ public final class PeppolCerticateChecker
    *        The certificate to be check. May not be <code>null</code>.
    * @param aCheckDT
    *        The check date time. May be <code>null</code>.
+   * @param eCheckOSCP
+   *        Possibility to override the OSCP checking flag on a per query basis.
+   *        Use {@link ETriState#UNDEFINED} to only use the global flag.
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
    * @return <code>true</code> if it is revoked, <code>false</code> if not.
    */
   public static boolean isPeppolAPCertificateRevoked (@Nonnull final X509Certificate aCert,
                                                       @Nullable final LocalDateTime aCheckDT,
+                                                      @Nonnull final ETriState eCheckOSCP,
                                                       @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
-    return isCertificateRevoked (aCert, PEPPOL_AP_CA_CERTS, aCheckDT, aExceptionHdl);
+    return isCertificateRevoked (aCert, PEPPOL_AP_CA_CERTS, aCheckDT, eCheckOSCP, aExceptionHdl);
   }
 
   /**
@@ -322,15 +334,69 @@ public final class PeppolCerticateChecker
    *        The certificate to be check. May not be <code>null</code>.
    * @param aCheckDT
    *        The check date time. May be <code>null</code>.
+   * @param eCheckOSCP
+   *        Possibility to override the OSCP checking flag on a per query basis.
+   *        Use {@link ETriState#UNDEFINED} to only use the global flag.
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
    * @return <code>true</code> if it is revoked, <code>false</code> if not.
    */
   public static boolean isPeppolSMPCertificateRevoked (@Nonnull final X509Certificate aCert,
                                                        @Nullable final LocalDateTime aCheckDT,
+                                                       @Nonnull final ETriState eCheckOSCP,
                                                        @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
-    return isCertificateRevoked (aCert, PEPPOL_SMP_CA_CERTS, aCheckDT, aExceptionHdl);
+    return isCertificateRevoked (aCert, PEPPOL_SMP_CA_CERTS, aCheckDT, eCheckOSCP, aExceptionHdl);
+  }
+
+  @Nonnull
+  private static EPeppolCertificateCheckResult _checkCertificate (@Nullable final X509Certificate aCert,
+                                                                  @Nonnull final LocalDateTime aCheckDT,
+                                                                  @Nonnull final ICommonsList <X500Principal> aIssuers,
+                                                                  @Nullable final PeppolOSCPCache aCache,
+                                                                  @Nonnull final ETriState eCheckOSCP)
+  {
+    if (aCert == null)
+      return EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED;
+
+    // Check date valid
+    final Date aCheckDate = PDTFactory.createDate (aCheckDT);
+    try
+    {
+      aCert.checkValidity (aCheckDate);
+    }
+    catch (final CertificateNotYetValidException ex)
+    {
+      return EPeppolCertificateCheckResult.NOT_YET_VALID;
+    }
+    catch (final CertificateExpiredException ex)
+    {
+      return EPeppolCertificateCheckResult.EXPIRED;
+    }
+
+    // Check if issuer is known
+    final X500Principal aIssuer = aCert.getIssuerX500Principal ();
+    if (!aIssuers.contains (aIssuer))
+    {
+      // Not a PEPPOL AP certificate
+      return EPeppolCertificateCheckResult.UNSUPPORTED_ISSUER;
+    }
+
+    // Check OCSP/CLR
+    if (aCache != null)
+    {
+      final boolean bRevoked = aCache.getFromCache (aCert).booleanValue ();
+      if (bRevoked)
+        return EPeppolCertificateCheckResult.REVOKED;
+    }
+    else
+    {
+      // No caching deasired
+      if (isPeppolAPCertificateRevoked (aCert, aCheckDT, eCheckOSCP, getExceptionHdl ()))
+        return EPeppolCertificateCheckResult.REVOKED;
+    }
+
+    return EPeppolCertificateCheckResult.VALID;
   }
 
   /**
@@ -340,52 +406,23 @@ public final class PeppolCerticateChecker
    *        The certificate to be checked. May be <code>null</code>.
    * @param aCheckDT
    *        The check date and time to use. May not be <code>null</code>.
+   * @param eCacheOSCResult
+   *        Possibility to override the usage of OSCP caching flag on a per
+   *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
+   *        global flag.
+   * @param eCheckOSCP
+   *        Possibility to override the OSCP checking flag on a per query basis.
+   *        Use {@link ETriState#UNDEFINED} to solely use the global flag.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkPeppolAPCertificate (@Nullable final X509Certificate aCert,
-                                                                        @Nonnull final LocalDateTime aCheckDT)
+                                                                        @Nonnull final LocalDateTime aCheckDT,
+                                                                        @Nonnull final ETriState eCacheOSCResult,
+                                                                        @Nonnull final ETriState eCheckOSCP)
   {
-    if (aCert == null)
-      return EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED;
-
-    // Check date valid
-    final Date aCheckDate = PDTFactory.createDate (aCheckDT);
-    try
-    {
-      aCert.checkValidity (aCheckDate);
-    }
-    catch (final CertificateNotYetValidException ex)
-    {
-      return EPeppolCertificateCheckResult.NOT_YET_VALID;
-    }
-    catch (final CertificateExpiredException ex)
-    {
-      return EPeppolCertificateCheckResult.EXPIRED;
-    }
-
-    // Check if issuer is known
-    final X500Principal aIssuer = aCert.getIssuerX500Principal ();
-    if (!PEPPOL_AP_CA_ISSUERS.contains (aIssuer))
-    {
-      // Not a PEPPOL AP certificate
-      return EPeppolCertificateCheckResult.UNSUPPORTED_ISSUER;
-    }
-
-    // Check OCSP/CLR
-    if (isCacheOCSPResults ())
-    {
-      final boolean bRevoked = OCSP_CACHE_AP.getFromCache (aCert).booleanValue ();
-      if (bRevoked)
-        return EPeppolCertificateCheckResult.REVOKED;
-    }
-    else
-    {
-      if (isPeppolAPCertificateRevoked (aCert, aCheckDT, getExceptionHdl ()))
-        return EPeppolCertificateCheckResult.REVOKED;
-    }
-
-    return EPeppolCertificateCheckResult.VALID;
+    final boolean bCache = isCacheOCSPResults () && (eCacheOSCResult.isUndefined () || eCacheOSCResult.isTrue ());
+    return _checkCertificate (aCert, aCheckDT, PEPPOL_AP_CA_ISSUERS, bCache ? OCSP_CACHE_AP : null, eCheckOSCP);
   }
 
   /**
@@ -395,51 +432,22 @@ public final class PeppolCerticateChecker
    *        The certificate to be checked. May be <code>null</code>.
    * @param aCheckDT
    *        The check date and time to use. May not be <code>null</code>.
+   * @param eCacheOSCResult
+   *        Possibility to override the usage of OSCP caching flag on a per
+   *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
+   *        global flag.
+   * @param eCheckOSCP
+   *        Possibility to override the OSCP checking flag on a per query basis.
+   *        Use {@link ETriState#UNDEFINED} to solely use the global flag.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkPeppolSMPCertificate (@Nullable final X509Certificate aCert,
-                                                                         @Nonnull final LocalDateTime aCheckDT)
+                                                                         @Nonnull final LocalDateTime aCheckDT,
+                                                                         @Nonnull final ETriState eCacheOSCResult,
+                                                                         @Nonnull final ETriState eCheckOSCP)
   {
-    if (aCert == null)
-      return EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED;
-
-    // Check date valid
-    final Date aCheckDate = PDTFactory.createDate (aCheckDT);
-    try
-    {
-      aCert.checkValidity (aCheckDate);
-    }
-    catch (final CertificateNotYetValidException ex)
-    {
-      return EPeppolCertificateCheckResult.NOT_YET_VALID;
-    }
-    catch (final CertificateExpiredException ex)
-    {
-      return EPeppolCertificateCheckResult.EXPIRED;
-    }
-
-    // Check if issuer is known
-    final X500Principal aIssuer = aCert.getIssuerX500Principal ();
-    if (!PEPPOL_SMP_CA_ISSUERS.contains (aIssuer))
-    {
-      // Not a PEPPOL SMP certificate
-      return EPeppolCertificateCheckResult.UNSUPPORTED_ISSUER;
-    }
-
-    // Check OCSP/CLR
-    if (isCacheOCSPResults ())
-    {
-      final boolean bRevoked = OCSP_CACHE_SMP.getFromCache (aCert).booleanValue ();
-      if (bRevoked)
-        return EPeppolCertificateCheckResult.REVOKED;
-    }
-    else
-    {
-      if (isPeppolSMPCertificateRevoked (aCert, aCheckDT, getExceptionHdl ()))
-        return EPeppolCertificateCheckResult.REVOKED;
-    }
-
-    return EPeppolCertificateCheckResult.VALID;
+    final boolean bCache = isCacheOCSPResults () && (eCacheOSCResult.isUndefined () || eCacheOSCResult.isTrue ());
+    return _checkCertificate (aCert, aCheckDT, PEPPOL_SMP_CA_ISSUERS, bCache ? OCSP_CACHE_SMP : null, eCheckOSCP);
   }
 }
