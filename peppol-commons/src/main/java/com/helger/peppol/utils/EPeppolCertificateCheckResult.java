@@ -17,9 +17,11 @@
 package com.helger.peppol.utils;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.state.IValidityIndicator;
 
 /**
@@ -63,5 +65,18 @@ public enum EPeppolCertificateCheckResult implements IHasID <String>, IValidityI
   public boolean isValid ()
   {
     return this == VALID;
+  }
+
+  /**
+   * Find the item with the passed ID.
+   *
+   * @param sID
+   *        The ID to be searched. May be <code>null</code>.
+   * @return <code>null</code> if no such item was found.
+   */
+  @Nullable
+  public static EPeppolCertificateCheckResult getFromIDOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrNull (EPeppolCertificateCheckResult.class, sID);
   }
 }
