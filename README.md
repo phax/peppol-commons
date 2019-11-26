@@ -31,7 +31,7 @@ And some legacy PEPPOL projects:
 
 # News and noteworthy
 
-* v7.0.4 - work in progress
+* v7.0.4 - 2019-11-26
     * Made SMP client connection timeout and request timeout configurable via the configuration file (see [#33](https://github.com/phax/peppol-commons/issues/33))
     * The new Peppol V6 codelist has no dedicated process code list anymore
     * Integrated the classes `PeppolCerticateChecker` and `EPeppolCertificateCheckResult` from phase4 and extended them
@@ -371,37 +371,37 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>7.0.3</version>
+  <version>7.0.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>7.0.3</version>
+  <version>7.0.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>7.0.3</version>
+  <version>7.0.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>7.0.3</version>
+  <version>7.0.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>7.0.3</version>
+  <version>7.0.4</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>7.0.3</version>
+  <version>7.0.4</version>
 </dependency>
 ```
 
@@ -411,7 +411,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>7.0.3</version>
+  <version>7.0.4</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
