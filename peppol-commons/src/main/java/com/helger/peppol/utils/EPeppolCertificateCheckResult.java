@@ -79,4 +79,21 @@ public enum EPeppolCertificateCheckResult implements IHasID <String>, IValidityI
   {
     return EnumHelper.getFromIDOrNull (EPeppolCertificateCheckResult.class, sID);
   }
+
+  /**
+   * Find the item with the passed ID.
+   *
+   * @param sID
+   *        The ID to be searched. May be <code>null</code>.
+   * @param eDefault
+   *        The default value to be returned if no such ID is contained. May be
+   *        <code>null</code>.
+   * @return <code>eDefault</code> if no such item was found.
+   */
+  @Nullable
+  public static EPeppolCertificateCheckResult getFromIDOrDefault (@Nullable final String sID,
+                                                                  @Nullable final EPeppolCertificateCheckResult eDefault)
+  {
+    return EnumHelper.getFromIDOrDefault (EPeppolCertificateCheckResult.class, sID, eDefault);
+  }
 }
