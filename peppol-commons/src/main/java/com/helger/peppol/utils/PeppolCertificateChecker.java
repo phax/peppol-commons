@@ -63,12 +63,12 @@ import com.helger.commons.timing.StopWatch;
  * @since 7.0.4
  */
 @ThreadSafe
-public final class PeppolCerticateChecker
+public final class PeppolCertificateChecker
 {
   public static final boolean DEFAULT_OSCP_CHECK_ENABLED = true;
   public static final boolean DEFAULT_CACHE_OSCP_RESULTS = true;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCerticateChecker.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateChecker.class);
 
   /** Peppol Access Point (AP) stuff */
   private static final ICommonsList <X509Certificate> PEPPOL_AP_CA_CERTS = new CommonsArrayList <> ();
@@ -127,7 +127,7 @@ public final class PeppolCerticateChecker
                                                                                                                                       getExceptionHdl ())),
                                                                              "peppol-oscp-cache-smp");
 
-  private PeppolCerticateChecker ()
+  private PeppolCertificateChecker ()
   {}
 
   /**
@@ -351,7 +351,7 @@ public final class PeppolCerticateChecker
 
   @Nonnull
   private static EPeppolCertificateCheckResult _checkCertificate (@Nullable final X509Certificate aCert,
-                                                                  @Nonnull final LocalDateTime aCheckDT,
+                                                                  @Nullable final LocalDateTime aCheckDT,
                                                                   @Nonnull final ICommonsList <X500Principal> aIssuers,
                                                                   @Nullable final PeppolOSCPCache aCache,
                                                                   @Nonnull final ETriState eCheckOSCP)
@@ -363,7 +363,11 @@ public final class PeppolCerticateChecker
     final Date aCheckDate = PDTFactory.createDate (aCheckDT);
     try
     {
-      aCert.checkValidity (aCheckDate);
+      // null means now
+      if (aCheckDate == null)
+        aCert.checkValidity ();
+      else
+        aCert.checkValidity (aCheckDate);
     }
     catch (final CertificateNotYetValidException ex)
     {
@@ -391,7 +395,7 @@ public final class PeppolCerticateChecker
     }
     else
     {
-      // No caching deasired
+      // No caching desired
       if (isPeppolAPCertificateRevoked (aCert, aCheckDT, eCheckOSCP, getExceptionHdl ()))
         return EPeppolCertificateCheckResult.REVOKED;
     }
@@ -405,7 +409,8 @@ public final class PeppolCerticateChecker
    * @param aCert
    *        The certificate to be checked. May be <code>null</code>.
    * @param aCheckDT
-   *        The check date and time to use. May not be <code>null</code>.
+   *        The check date and time to use. May be <code>null</code> which means
+   *        "now".
    * @param eCacheOSCResult
    *        Possibility to override the usage of OSCP caching flag on a per
    *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
@@ -417,7 +422,7 @@ public final class PeppolCerticateChecker
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkPeppolAPCertificate (@Nullable final X509Certificate aCert,
-                                                                        @Nonnull final LocalDateTime aCheckDT,
+                                                                        @Nullable final LocalDateTime aCheckDT,
                                                                         @Nonnull final ETriState eCacheOSCResult,
                                                                         @Nonnull final ETriState eCheckOSCP)
   {
@@ -431,7 +436,8 @@ public final class PeppolCerticateChecker
    * @param aCert
    *        The certificate to be checked. May be <code>null</code>.
    * @param aCheckDT
-   *        The check date and time to use. May not be <code>null</code>.
+   *        The check date and time to use. May be <code>null</code> which means
+   *        "now".
    * @param eCacheOSCResult
    *        Possibility to override the usage of OSCP caching flag on a per
    *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
@@ -443,7 +449,7 @@ public final class PeppolCerticateChecker
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkPeppolSMPCertificate (@Nullable final X509Certificate aCert,
-                                                                         @Nonnull final LocalDateTime aCheckDT,
+                                                                         @Nullable final LocalDateTime aCheckDT,
                                                                          @Nonnull final ETriState eCacheOSCResult,
                                                                          @Nonnull final ETriState eCheckOSCP)
   {
