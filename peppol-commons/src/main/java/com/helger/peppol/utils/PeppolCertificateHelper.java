@@ -37,9 +37,22 @@ public final class PeppolCertificateHelper
   {}
 
   @Nullable
-  public static String getSubjectCN (@Nullable final X509Certificate aCert) throws InvalidNameException
+  public static String getSubjectCN (@Nullable final X509Certificate aCert)
   {
-    return aCert != null ? getCN (aCert.getSubjectX500Principal ().getName ()) : null;
+    return aCert != null ? getCNOrNull (aCert.getSubjectX500Principal ().getName ()) : null;
+  }
+
+  @Nullable
+  public static String getCNOrNull (@Nullable final String sPrincipal)
+  {
+    try
+    {
+      return getCN (sPrincipal);
+    }
+    catch (final InvalidNameException ex)
+    {
+      return null;
+    }
   }
 
   @Nullable
