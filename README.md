@@ -282,13 +282,14 @@ It supports the following properties:
   * **`http.proxyUsername`** (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
   * **`http.proxyPassword`** (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined. 
   * **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`.
-  * **`http.connect.timeout.ms`** (since 7.0.4): set the connection timeout in milliseconds. The default value is 5000 meaning 5 seconds.
-  * **`http.request.timeout.ms`** (since 7.0.4): set the request timeout in milliseconds. The default value is 10000 meaning 10 seconds.
+  * **`http.connect.timeout.ms`** (since 7.0.4): set the connection timeout in milliseconds. The default value is `5000` meaning 5 seconds.
+  * **`http.request.timeout.ms`** (since 7.0.4): set the request timeout in milliseconds. The default value is `10000` meaning 10 seconds.
   
 ### Specifying a proxy server
+
 A proxy server can be specified in two ways:
-  * A single proxy server for **all** hosts - no exemptions. This can be specified in the configuration file for all `SMPClient` instances or per `SMPClient` instance (same for BDXR client - for all clients based on `AbstractGenericSMPClient`).
-  * A more complex setup based on the JVM system properties (based on https://docs.oracle.com/javase/8/docs/api/java/net/doc-files/net-properties.html). This can also be specified in the configuration file to enable the usage for all `SMPClient` instances or on a per-instance basis.
+* A single proxy server for **all** hosts - no exemptions. This can be specified in the configuration file for all `SMPClient` instances or per `SMPClient` instance (same for BDXR client - for all clients based on `AbstractGenericSMPClient`).
+* A more complex setup based on the JVM system properties (based on https://docs.oracle.com/javase/8/docs/api/java/net/doc-files/net-properties.html). This can also be specified in the configuration file to enable the usage for all `SMPClient` instances or on a per-instance basis.
 
 **Specify a global proxy server**
 The SMP client supports a proxy server. By default the proxy specified in the configuration file (see above) is used (since version 4.3.0).
@@ -320,7 +321,7 @@ Supported system properties are (based on Apache HTTPClient):
   * `http.maxConnections`
   * `http.agent`
   
-### Example usage (V5 and later only)
+### Example usage
 
 Get the endpoint URL for a participant using a special document type and process:
 ```java
