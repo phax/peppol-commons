@@ -45,6 +45,7 @@
 
 sml-truststore.jks (since v6.0.4)
   It contains the SSL certificates to access the central PEPPOL SML
+  Updated 2019-12-03 for the new SMK certificate chain
 
 directory-truststore.jks (since v6.2.1)
   It contains the SSL certificates to access the central PEPPOL Directory

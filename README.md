@@ -31,6 +31,8 @@ And some legacy PEPPOL projects:
 
 # News and noteworthy
 
+* v7.0.5 - work in progress
+    * Added the new SMK TLS certificate chain to `sml-truststore.jks` and `complete-truststore.jks`
 * v7.0.4 - 2019-11-26
     * Made SMP client connection timeout and request timeout configurable via the configuration file (see [#33](https://github.com/phax/peppol-commons/issues/33))
     * The new Peppol V6 codelist has no dedicated process code list anymore
