@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
  * Do NOT edit!
  */
 @CodingStyleguideUnaware
-public enum EPredefinedTransportProfileIdentifierV6
+public enum EPredefinedTransportProfileIdentifierV7
     implements IPredefinedTransportProfileIdentifier
 {
 
@@ -65,31 +65,31 @@ public enum EPredefinedTransportProfileIdentifierV6
      * Same as {@link #busdox_transport_start}
      */
     @Deprecated
-    public static final EPredefinedTransportProfileIdentifierV6 START_1_0_1 = EPredefinedTransportProfileIdentifierV6 .busdox_transport_start;
+    public static final EPredefinedTransportProfileIdentifierV7 START_1_0_1 = EPredefinedTransportProfileIdentifierV7 .busdox_transport_start;
     /**
      * Same as {@link #busdox_transport_as2_ver1p0}
      */
-    public static final EPredefinedTransportProfileIdentifierV6 AS2_1_0 = EPredefinedTransportProfileIdentifierV6 .busdox_transport_as2_ver1p0;
+    public static final EPredefinedTransportProfileIdentifierV7 AS2_1_0 = EPredefinedTransportProfileIdentifierV7 .busdox_transport_as2_ver1p0;
     /**
      * Same as {@link #peppol_transport_as4_v1_0}
      */
     @Deprecated
-    public static final EPredefinedTransportProfileIdentifierV6 AS4_1_0 = EPredefinedTransportProfileIdentifierV6 .peppol_transport_as4_v1_0;
+    public static final EPredefinedTransportProfileIdentifierV7 AS4_1_0 = EPredefinedTransportProfileIdentifierV7 .peppol_transport_as4_v1_0;
     /**
      * Same as {@link #peppol_transport_as4_v2_0}
      */
-    public static final EPredefinedTransportProfileIdentifierV6 AS4_2_0 = EPredefinedTransportProfileIdentifierV6 .peppol_transport_as4_v2_0;
+    public static final EPredefinedTransportProfileIdentifierV7 AS4_2_0 = EPredefinedTransportProfileIdentifierV7 .peppol_transport_as4_v2_0;
     /**
      * Same as {@link #busdox_transport_as2_ver2p0}
      */
-    public static final EPredefinedTransportProfileIdentifierV6 AS2_2_0 = EPredefinedTransportProfileIdentifierV6 .busdox_transport_as2_ver2p0;
+    public static final EPredefinedTransportProfileIdentifierV7 AS2_2_0 = EPredefinedTransportProfileIdentifierV7 .busdox_transport_as2_ver2p0;
     private final String m_sProtocol;
     private final String m_sProfileVersion;
     private final String m_sProfileID;
     private final Version m_aSince;
     private final boolean m_bDeprecated;
 
-    private EPredefinedTransportProfileIdentifierV6(@Nonnull @Nonempty final String sProtocol,
+    private EPredefinedTransportProfileIdentifierV7(@Nonnull @Nonempty final String sProtocol,
         @Nonnull @Nonempty final String sProfileVersion,
         @Nonnull @Nonempty final String sProfileID,
         @Nonnull final Version aSince,

@@ -19,7 +19,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolProcessIdentifier</ShortName>
-      <Version>5</Version>
+      <Version>6</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:process</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:process-1.0</CanonicalVersionUri>
   </Identification>
@@ -590,6 +590,23 @@
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>4</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEPPOL BIS Catalogue only, without response 3.0</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>cenbii-procid-ubl</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:fdc:peppol.eu:poacc:bis:catalogue_wo_response:3</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>

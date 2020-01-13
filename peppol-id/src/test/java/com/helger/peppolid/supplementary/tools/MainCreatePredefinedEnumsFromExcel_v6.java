@@ -13,9 +13,7 @@ package com.helger.peppolid.supplementary.tools;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Map;
 
-import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -25,25 +23,19 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.functional.IThrowingConsumer;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.StringParser;
 import com.helger.commons.version.Version;
 import com.helger.genericode.Genericode10CodeListMarshaller;
-import com.helger.genericode.Genericode10Helper;
 import com.helger.genericode.excel.ExcelReadOptions;
 import com.helger.genericode.excel.ExcelSheetToCodeList10;
 import com.helger.genericode.v10.CodeListDocument;
@@ -59,22 +51,19 @@ import com.helger.jcodemodel.JExpr;
 import com.helger.jcodemodel.JFieldVar;
 import com.helger.jcodemodel.JForEach;
 import com.helger.jcodemodel.JInvocation;
-import com.helger.jcodemodel.JLambdaMethodRef;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.JCMWriter;
-import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.pidscheme.IParticipantIdentifierScheme;
+import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.microdom.IMicroDocument;
@@ -93,64 +82,10 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromExcel_v6.class);
   private static final Version CODELIST_VERSION = new Version (6);
-  private static final String CODELIST_FILE_SUFFIX = " draft";
   private static final String RESULT_DIRECTORY = "src/main/resources/codelists/";
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
-  private static final boolean DEFAULT_DEPRECATED = false;
-  private static final boolean DEFAULT_ISSUED_BY_OPENPEPPOL = false;
-  private static final String FILENAME_SUFFIX = "V6";
-  private static final ICommonsMap <IProcessIdentifier, ICommonsList <String>> KNOWN_PROCESS_IDS = new CommonsLinkedHashMap <> ();
-
-  private static boolean _parseBoolean (final String s, final boolean bFallback)
-  {
-    if (StringHelper.hasText (s))
-      return "1".equals (s) || "true".equalsIgnoreCase (s) || "yes".equalsIgnoreCase (s);
-    return bFallback;
-  }
-
-  private static boolean _parseDeprecated (final String s)
-  {
-    return _parseBoolean (s, DEFAULT_DEPRECATED);
-  }
-
-  private static boolean _parseIssuedByOpenPEPPOL (final String s)
-  {
-    return _parseBoolean (s, DEFAULT_ISSUED_BY_OPENPEPPOL);
-  }
-
-  @Nullable
-  private static String _maskHtml (@Nullable final String s)
-  {
-    if (s == null)
-      return null;
-    String ret = s;
-    ret = StringHelper.replaceAll (ret, "&", "&amp;");
-    ret = StringHelper.replaceAll (ret, "<", "&lt;");
-    ret = StringHelper.replaceAll (ret, ">", "&gt;");
-    ret = StringHelper.replaceAll (ret, "\"", "&quot;");
-    return ret;
-  }
-
-  @Nonnull
-  private static ICommonsList <IProcessIdentifier> _getProcIDs (@Nonnull final String sProcessIDs)
-  {
-    final ICommonsList <IProcessIdentifier> ret = new CommonsArrayList <> ();
-    for (final String s : StringHelper.getExploded ('\n', StringHelper.replaceAll (sProcessIDs, '\r', '\n')))
-    {
-      final String sProcessID = s.trim ();
-      if (StringHelper.hasNoText (sProcessID))
-        throw new IllegalStateException ("Found empty process ID in '" + sProcessIDs + "'");
-      final IProcessIdentifier aProcID = PeppolIdentifierFactory.INSTANCE.parseProcessIdentifier (sProcessID);
-      if (aProcID == null)
-        throw new IllegalStateException ("Failed to parse process ID '" + sProcessID + "'");
-      ret.add (aProcID);
-    }
-    if (ret.isEmpty ())
-      throw new IllegalStateException ("Found no single process ID in '" + sProcessIDs + "'");
-    return ret;
-  }
 
   private static void _writeGenericodeFile (@Nonnull final CodeListDocument aCodeList, @Nonnull final String sFilename)
   {
@@ -167,95 +102,58 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
     LOGGER.info ("Wrote Genericode file " + sFilename);
   }
 
-  @Nullable
-  private static String _getRowValue (@Nonnull final Row aRow, @Nonnull @Nonempty final String sColumnID)
-  {
-    final String sPure = Genericode10Helper.getRowValue (aRow, sColumnID);
-    return StringHelper.trim (sPure);
-  }
-
   private static void _handleDocumentTypes (final Sheet aDocumentSheet) throws URISyntaxException
   {
     // Create GeneriCode file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
-    {
-      int nCol = 0;
-      aReadOptions.addColumn (nCol++, "profilecode", UseType.OPTIONAL, "string", false);
-      aReadOptions.addColumn (nCol++, "scheme", UseType.REQUIRED, "string", true);
-      aReadOptions.addColumn (nCol++, "id", UseType.REQUIRED, "string", true);
-      aReadOptions.addColumn (nCol++, "since", UseType.REQUIRED, "string", false);
-      aReadOptions.addColumn (nCol++, "deprecated", UseType.REQUIRED, "boolean", false);
-      aReadOptions.addColumn (nCol++, "deprecated-since", UseType.OPTIONAL, "string", false);
-      aReadOptions.addColumn (nCol++, "comment", UseType.OPTIONAL, "string", false);
-      aReadOptions.addColumn (nCol++, "issued-by-openpeppol", UseType.REQUIRED, "boolean", false);
-      aReadOptions.addColumn (nCol++, "bis-version", UseType.OPTIONAL, "int", false);
-      aReadOptions.addColumn (nCol++, "domain-community", UseType.REQUIRED, "string", false);
-      aReadOptions.addColumn (nCol++, "process-ids", UseType.REQUIRED, "string", false);
-    }
+    aReadOptions.addColumn (0, "profilecode", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (1, "scheme", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (2, "id", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (3, "since", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (4, "deprecated", UseType.REQUIRED, "boolean", false);
+    aReadOptions.addColumn (5, "deprecated-since", UseType.OPTIONAL, "string", false);
     final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aDocumentSheet,
                                                                                        aReadOptions,
                                                                                        "PeppolDocumentTypeIdentifier",
                                                                                        CODELIST_VERSION.getAsString (),
                                                                                        new URI ("urn:peppol.eu:names:identifier:documenttypes"),
-                                                                                       new URI ("urn:peppol.eu:names:identifier:documenttypes-2.0"),
+                                                                                       new URI ("urn:peppol.eu:names:identifier:documenttypes-1.0"),
                                                                                        null);
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier" + FILENAME_SUFFIX + ".gc");
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier.gc");
 
     // Save as XML
+    final IMicroDocument aDoc = new MicroDocument ();
+    aDoc.appendComment (DO_NOT_EDIT);
+    final IMicroElement eRoot = aDoc.appendElement ("root");
+    eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
+    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final IMicroDocument aDoc = new MicroDocument ();
-      aDoc.appendComment (DO_NOT_EDIT);
-      final IMicroElement eRoot = aDoc.appendElement ("root");
-      eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
-      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
-      {
-        final String sProfileCode = _getRowValue (aRow, "profilecode");
-        final String sScheme = _getRowValue (aRow, "scheme");
-        final String sID = _getRowValue (aRow, "id");
-        final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
-        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
-        if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
-          throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
-        final boolean bIssuedByOpenPEPPOL = _parseIssuedByOpenPEPPOL (_getRowValue (aRow, "issued-by-openpeppol"));
-        final String sBISVersion = _getRowValue (aRow, "bis-version");
-        if (bIssuedByOpenPEPPOL && StringHelper.hasNoText (sBISVersion))
-          throw new IllegalStateException ("If issued by OpenPEPPOL, a BIS version is required");
-        if (StringHelper.hasText (sBISVersion) && !StringParser.isUnsignedInt (sBISVersion))
-          throw new IllegalStateException ("Code list entry has an invalid BIS version number - must be numeric");
-        final String sDomainCommunity = _getRowValue (aRow, "domain-community");
-        final String sProcessIDs = _getRowValue (aRow, "process-ids");
+      final String sProfileCode = CodeGenerationHelper.getRowValue (aRow, "profilecode");
+      final String sScheme = CodeGenerationHelper.getRowValue (aRow, "scheme");
+      final String sID = CodeGenerationHelper.getRowValue (aRow, "id");
+      final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
+      final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
+                                                                                                            "deprecated"));
+      final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
+      if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
+        throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
 
-        final IMicroElement eAgency = eRoot.appendElement ("document-type");
-        eAgency.setAttribute ("profilecode", sProfileCode);
-        eAgency.setAttribute ("scheme", sScheme);
-        eAgency.setAttribute ("id", sID);
-        eAgency.setAttribute ("since", sSince);
-        eAgency.setAttribute ("deprecated", bDeprecated);
-        eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
-        eAgency.setAttribute ("issued-by-openpeppol", bIssuedByOpenPEPPOL);
-        eAgency.setAttribute ("bis-version", sBISVersion);
-        eAgency.setAttribute ("domain-community", sDomainCommunity);
-        final ICommonsList <IProcessIdentifier> aProcIDs = _getProcIDs (sProcessIDs);
-        for (final IProcessIdentifier aProcID : aProcIDs)
-        {
-          eAgency.appendElement ("process-id")
-                 .setAttribute ("scheme", aProcID.getScheme ())
-                 .setAttribute ("value", aProcID.getValue ());
-          KNOWN_PROCESS_IDS.computeIfAbsent (aProcID, k -> new CommonsArrayList <> ())
-                           .add (CIdentifier.getURIEncoded (sScheme, sID));
-        }
-      }
-      MicroWriter.writeToFile (aDoc,
-                               new File (RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier" + FILENAME_SUFFIX + ".xml"));
+      final IMicroElement eAgency = eRoot.appendElement ("document-type");
+      eAgency.setAttribute ("profilecode", sProfileCode);
+      eAgency.setAttribute ("scheme", sScheme);
+      eAgency.setAttribute ("id", sID);
+      eAgency.setAttribute ("since", sSince);
+      eAgency.setAttribute ("deprecated", bDeprecated);
+      eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
     }
+    MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolDocumentTypeIdentifier.xml"));
 
     // Create Java source
     try
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "doctype")
-                                              ._enum ("EPredefinedDocumentTypeIdentifier" + FILENAME_SUFFIX)
+                                              ._enum ("EPredefinedDocumentTypeIdentifier")
                                               ._implements (IPeppolPredefinedDocumentTypeIdentifier.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
@@ -265,24 +163,15 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       // Add all enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sProfileCode = _getRowValue (aRow, "profilecode");
-        final String sScheme = _getRowValue (aRow, "scheme");
-        final String sID = _getRowValue (aRow, "id");
-        final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
-        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
+        final String sProfileCode = CodeGenerationHelper.getRowValue (aRow, "profilecode");
+        final String sScheme = CodeGenerationHelper.getRowValue (aRow, "scheme");
+        final String sID = CodeGenerationHelper.getRowValue (aRow, "id");
+        final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
+        final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
+                                                                                                              "deprecated"));
+        final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
         if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
           throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
-        final boolean bIssuedByOpenPEPPOL = _parseIssuedByOpenPEPPOL (_getRowValue (aRow, "issued-by-openpeppol"));
-        final String sBISVersion = _getRowValue (aRow, "bis-version");
-        if (bIssuedByOpenPEPPOL && StringHelper.hasNoText (sBISVersion))
-          throw new IllegalStateException ("If issued by OpenPEPPOL, a BIS version is required");
-        if (StringHelper.hasText (sBISVersion) && !StringParser.isUnsignedInt (sBISVersion))
-          throw new IllegalStateException ("Code list entry has an invalid BIS version number - must be numeric");
-        final int nBISVersion = StringParser.parseInt (sBISVersion, -1);
-        final String sDomainCommunity = _getRowValue (aRow, "domain-community");
-        final String sProcessIDs = _getRowValue (aRow, "process-ids");
-        final ICommonsList <IProcessIdentifier> aProcIDs = _getProcIDs (sProcessIDs);
 
         // Split ID in it's pieces
         final IPeppolDocumentTypeIdentifierParts aDocIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sID);
@@ -309,19 +198,6 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         jEnumConst.arg (JExpr.lit (sProfileCode));
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.arg (JExpr.lit (bDeprecated));
-        jEnumConst.arg (StringHelper.hasNoText (sDeprecatedSince) ? JExpr._null ()
-                                                                  : s_aCodeModel.ref (Version.class)
-                                                                                .staticInvoke ("parse")
-                                                                                .arg (sDeprecatedSince));
-        jEnumConst.arg (JExpr.lit (bIssuedByOpenPEPPOL));
-        jEnumConst.arg (JExpr.lit (nBISVersion));
-        jEnumConst.arg (JExpr.lit (sDomainCommunity));
-
-        final JInvocation eProcIDs = JExpr._new (s_aCodeModel.ref (CommonsArrayList.class).narrowEmpty ());
-        for (final IProcessIdentifier aProcID : aProcIDs)
-          eProcIDs.arg (JExpr.lit (aProcID.getURIEncoded ()));
-        jEnumConst.arg (eProcIDs);
-
         jEnumConst.javadoc ().add ("<code>" + sID + "</code><br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
@@ -357,15 +233,6 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       final JFieldVar fProfileCode = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileCode");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
-      final JFieldVar fDeprecatedSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aDeprecatedSince");
-      final JFieldVar fIssuedByOpenPEPPOL = jEnum.field (JMod.PRIVATE | JMod.FINAL,
-                                                         boolean.class,
-                                                         "m_bIssuedByOpenPEPPOL");
-      final JFieldVar fBISVersion = jEnum.field (JMod.PRIVATE | JMod.FINAL, int.class, "m_nBISVersion");
-      final JFieldVar fDomainCommunity = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sDomainCommunity");
-      final JFieldVar fProcIDs = jEnum.field (JMod.PRIVATE | JMod.FINAL,
-                                              s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class),
-                                              "m_aProcIDs");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -380,38 +247,13 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
       final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
-      final JVar jDeprecatedSince = jCtor.param (JMod.FINAL, Version.class, "aDeprecatedSince");
-      jDeprecatedSince.annotate (Nullable.class);
-      final JVar jIssuedByOpenPEPPOL = jCtor.param (JMod.FINAL, boolean.class, "bIssuedByOpenPEPPOL");
-      final JVar jBISVersion = jCtor.param (JMod.FINAL, int.class, "nBISVersion");
-      final JVar jDomainCommunity = jCtor.param (JMod.FINAL, String.class, "sDomainCommunity");
-      jDomainCommunity.annotate (Nonnull.class);
-      jDomainCommunity.annotate (Nonempty.class);
-      final JVar jProcIDs = jCtor.param (JMod.FINAL,
-                                         s_aCodeModel.ref (ICommonsList.class).narrow (String.class),
-                                         "aProcIDs");
-      jProcIDs.annotate (Nonnull.class);
-      jProcIDs.annotate (Nonempty.class);
-
       jCtor.body ()
            .assign (fScheme, jScheme)
            .assign (fParts, jParts)
            .assign (fProfileCode, jProfileCode)
            .assign (fID, fParts.invoke ("getAsDocumentTypeIdentifierValue"))
            .assign (fSince, jSince)
-           .assign (fDeprecated, jDeprecated)
-           .assign (fDeprecatedSince, jDeprecatedSince)
-           .assign (fIssuedByOpenPEPPOL, jIssuedByOpenPEPPOL)
-           .assign (fBISVersion, jBISVersion)
-           .assign (fDomainCommunity, jDomainCommunity)
-           .assign (fProcIDs,
-                    s_aCodeModel.ref (CommonsArrayList.class)
-                                .narrowEmpty ()
-                                ._new ()
-                                .arg (jProcIDs)
-                                .arg (new JLambdaMethodRef (s_aCodeModel.ref (PeppolIdentifierFactory.class)
-                                                                        .staticRef ("INSTANCE"),
-                                                            "parseProcessIdentifier")));
+           .assign (fDeprecated, jDeprecated);
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
@@ -485,7 +327,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       // public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
       m.annotate (Nonnull.class);
-      m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifier.class)).arg (fScheme).arg (fID));
+      m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifier.class)).arg (JExpr._this ()));
 
       // public IPeppolDocumentTypeIdentifierParts getParts
       m = jEnum.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifierParts.class, "getParts");
@@ -500,35 +342,6 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       // public boolean isDeprecated ()
       m = jEnum.method (JMod.PUBLIC, s_aCodeModel.BOOLEAN, "isDeprecated");
       m.body ()._return (fDeprecated);
-
-      // public Version getDeprecatedSince ()
-      m = jEnum.method (JMod.PUBLIC, Version.class, "getDeprecatedSince");
-      m.annotate (Nullable.class);
-      m.body ()._return (fDeprecatedSince);
-
-      // public boolean isIssuedByOpenPEPPOL ()
-      m = jEnum.method (JMod.PUBLIC, s_aCodeModel.BOOLEAN, "isIssuedByOpenPEPPOL");
-      m.body ()._return (fIssuedByOpenPEPPOL);
-
-      // public int isIssuedByOpenPEPPOL ()
-      m = jEnum.method (JMod.PUBLIC, s_aCodeModel.INT, "getBISVersion");
-      m.annotate (CheckForSigned.class);
-      m.body ()._return (fBISVersion);
-
-      // public String getDomainCommunity ()
-      m = jEnum.method (JMod.PUBLIC, String.class, "getDomainCommunity");
-      m.annotate (Nonnull.class);
-      m.annotate (Nonempty.class);
-      m.body ()._return (fDomainCommunity);
-
-      // public ICommonsList<IProcessIdentifier> getAllProcessIDs ()
-      m = jEnum.method (JMod.PUBLIC,
-                        s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class),
-                        "getAllProcessIDs");
-      m.annotate (Nonnull.class);
-      m.annotate (Nonempty.class);
-      m.annotate (ReturnsMutableCopy.class);
-      m.body ()._return (fProcIDs.invoke ("getClone"));
 
       // @Nullable
       // public static EPredefinedDocumentTypeIdentifier
@@ -574,7 +387,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                                                        new URI ("PEPPOL-" +
                                                                                                 CODELIST_VERSION.getAsString ()),
                                                                                        new URI ("PartyID.gc"));
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PartyID" + FILENAME_SUFFIX + ".gc");
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PartyID.gc");
   }
 
   private static void _handleParticipantIdentifierSchemes (final Sheet aParticipantSheet) throws URISyntaxException
@@ -582,22 +395,19 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
     // Read excel file
     final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
                                                                                      .setLineIndexShortName (0);
-    {
-      int nCol = 0;
-      aReadOptions.addColumn (nCol++, "schemeid", UseType.REQUIRED, "string", true);
-      aReadOptions.addColumn (nCol++, "iso6523", UseType.REQUIRED, "string", true);
-      aReadOptions.addColumn (nCol++, "country", UseType.REQUIRED, "string", true);
-      aReadOptions.addColumn (nCol++, "schemename", UseType.REQUIRED, "string", true);
-      aReadOptions.addColumn (nCol++, "issuingagency", UseType.OPTIONAL, "string", false);
-      aReadOptions.addColumn (nCol++, "since", UseType.REQUIRED, "string", false);
-      aReadOptions.addColumn (nCol++, "deprecated", UseType.REQUIRED, "boolean", false);
-      aReadOptions.addColumn (nCol++, "deprecated-since", UseType.OPTIONAL, "string", false);
-      aReadOptions.addColumn (nCol++, "structure", UseType.OPTIONAL, "string", false);
-      aReadOptions.addColumn (nCol++, "display", UseType.OPTIONAL, "string", false);
-      aReadOptions.addColumn (nCol++, "examples", UseType.OPTIONAL, "string", false);
-      aReadOptions.addColumn (nCol++, "validation-rules", UseType.OPTIONAL, "string", false);
-      aReadOptions.addColumn (nCol++, "usage", UseType.OPTIONAL, "string", false);
-    }
+    int nCol = 0;
+    aReadOptions.addColumn (nCol++, "schemeid", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (nCol++, "iso6523", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (nCol++, "country", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (nCol++, "schemename", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (nCol++, "issuingagency", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "since", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (nCol++, "deprecated", UseType.REQUIRED, "boolean", false);
+    aReadOptions.addColumn (nCol++, "deprecated-since", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "structure", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "display", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "examples", UseType.OPTIONAL, "string", false);
+    aReadOptions.addColumn (nCol++, "usage", UseType.OPTIONAL, "string", false);
 
     // Convert to GeneriCode
     final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aParticipantSheet,
@@ -605,78 +415,70 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                                                        "PeppolIdentifierIssuingAgencies",
                                                                                        CODELIST_VERSION.getAsString (),
                                                                                        new URI ("urn:peppol.eu:names:identifier:participantidentifierschemes"),
-                                                                                       new URI ("urn:peppol.eu:names:identifier:participantidentifierschemes-2.0"),
+                                                                                       new URI ("urn:peppol.eu:names:identifier:participantidentifierschemes-1.0"),
                                                                                        null);
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolParticipantIdentifierSchemes" + FILENAME_SUFFIX + ".gc");
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolParticipantIdentifierSchemes.gc");
 
     _writeValidationPartyIdFile (aParticipantSheet);
 
     // Save data also as XML
+    final IMicroDocument aDoc = new MicroDocument ();
+    aDoc.appendComment (DO_NOT_EDIT);
+    final IMicroElement eRoot = aDoc.appendElement ("root");
+    eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
+    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final IMicroDocument aDoc = new MicroDocument ();
-      aDoc.appendComment (DO_NOT_EDIT);
-      final IMicroElement eRoot = aDoc.appendElement ("root");
-      eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
-      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
-      {
-        final String sSchemeID = _getRowValue (aRow, "schemeid");
-        final String sISO6523 = _getRowValue (aRow, "iso6523");
-        final String sCountryCode = _getRowValue (aRow, "country");
-        final String sSchemeName = _getRowValue (aRow, "schemename");
-        final String sIssuingAgency = _getRowValue (aRow, "issuingagency");
-        final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
-        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
-        final String sStructure = _getRowValue (aRow, "structure");
-        final String sDisplay = _getRowValue (aRow, "display");
-        final String sExamples = _getRowValue (aRow, "examples");
-        final String sValidationRules = _getRowValue (aRow, "validation-rules");
-        final String sUsage = _getRowValue (aRow, "usage");
+      final String sSchemeID = CodeGenerationHelper.getRowValue (aRow, "schemeid");
+      final String sISO6523 = CodeGenerationHelper.getRowValue (aRow, "iso6523");
+      final String sCountryCode = CodeGenerationHelper.getRowValue (aRow, "country");
+      final String sSchemeName = CodeGenerationHelper.getRowValue (aRow, "schemename");
+      final String sIssuingAgency = CodeGenerationHelper.getRowValue (aRow, "issuingagency");
+      final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
+      final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
+                                                                                                            "deprecated"));
+      final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
+      final String sStructure = CodeGenerationHelper.getRowValue (aRow, "structure");
+      final String sDisplay = CodeGenerationHelper.getRowValue (aRow, "display");
+      final String sExamples = CodeGenerationHelper.getRowValue (aRow, "examples");
+      final String sUsage = CodeGenerationHelper.getRowValue (aRow, "usage");
 
-        if (StringHelper.hasNoText (sSchemeID))
-          throw new IllegalStateException ("schemeID");
-        if (sSchemeID.indexOf (' ') >= 0)
-          throw new IllegalStateException ("Scheme IDs are not supposed to contain spaces!");
-        if (StringHelper.hasNoText (sISO6523))
-          throw new IllegalStateException ("ISO6523Code");
-        if (!RegExHelper.stringMatchesPattern ("[0-9]{4}", sISO6523))
-          throw new IllegalStateException ("The ISO 6523 code '" + sISO6523 + "' does not consist of 4 numbers");
-        if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
-          throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
+      if (StringHelper.hasNoText (sSchemeID))
+        throw new IllegalArgumentException ("schemeID");
+      if (sSchemeID.indexOf (' ') >= 0)
+        throw new IllegalArgumentException ("Scheme IDs are not supposed to contain spaces!");
+      if (StringHelper.hasNoText (sISO6523))
+        throw new IllegalArgumentException ("ISO6523Code");
+      if (!RegExHelper.stringMatchesPattern ("[0-9]{4}", sISO6523))
+        throw new IllegalArgumentException ("The ISO 6523 code '" + sISO6523 + "' does not consist of 4 numbers");
+      if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
+        throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
 
-        final IMicroElement eAgency = eRoot.appendElement ("identifier-scheme");
-        eAgency.setAttribute ("schemeid", sSchemeID);
-        eAgency.setAttribute ("country", sCountryCode);
-        eAgency.setAttribute ("schemename", sSchemeName);
-        // legacy name
-        eAgency.setAttribute ("agencyname", sIssuingAgency);
-        eAgency.setAttribute ("iso6523", sISO6523);
-        eAgency.setAttribute ("since", sSince);
-        eAgency.setAttribute ("deprecated", bDeprecated);
-        eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
-        if (StringHelper.hasText (sStructure))
-          eAgency.appendElement ("structure").appendText (sStructure);
-        if (StringHelper.hasText (sDisplay))
-          eAgency.appendElement ("display").appendText (sDisplay);
-        if (StringHelper.hasText (sExamples))
-          eAgency.appendElement ("examples").appendText (sExamples);
-        if (StringHelper.hasText (sValidationRules))
-          eAgency.appendElement ("validation-rules").appendText (sValidationRules);
-        if (StringHelper.hasText (sUsage))
-          eAgency.appendElement ("usage").appendText (sUsage);
-      }
-      MicroWriter.writeToFile (aDoc,
-                               new File (RESULT_DIRECTORY +
-                                         "PeppolParticipantIdentifierSchemes" +
-                                         FILENAME_SUFFIX +
-                                         ".xml"));
+      final IMicroElement eAgency = eRoot.appendElement ("identifier-scheme");
+      eAgency.setAttribute ("schemeid", sSchemeID);
+      eAgency.setAttribute ("country", sCountryCode);
+      eAgency.setAttribute ("schemename", sSchemeName);
+      // legacy name
+      eAgency.setAttribute ("agencyname", sIssuingAgency);
+      eAgency.setAttribute ("iso6523", sISO6523);
+      eAgency.setAttribute ("since", sSince);
+      eAgency.setAttribute ("deprecated", bDeprecated);
+      eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
+      if (StringHelper.hasText (sStructure))
+        eAgency.appendElement ("structure").appendText (sStructure);
+      if (StringHelper.hasText (sDisplay))
+        eAgency.appendElement ("display").appendText (sDisplay);
+      if (StringHelper.hasText (sExamples))
+        eAgency.appendElement ("examples").appendText (sExamples);
+      if (StringHelper.hasText (sUsage))
+        eAgency.appendElement ("usage").appendText (sUsage);
     }
+    MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolParticipantIdentifierSchemes.xml"));
 
     // Create Java source
     try
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "pidscheme")
-                                              ._enum ("EPredefinedParticipantIdentifierScheme" + FILENAME_SUFFIX)
+                                              ._enum ("EPredefinedParticipantIdentifierScheme")
                                               ._implements (IParticipantIdentifierScheme.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
@@ -684,19 +486,19 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       // enum constants
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sSchemeID = _getRowValue (aRow, "schemeid");
-        final String sISO6523 = _getRowValue (aRow, "iso6523");
-        final String sCountryCode = _getRowValue (aRow, "country");
-        final String sSchemeName = _getRowValue (aRow, "schemename");
-        final String sIssuingAgency = _getRowValue (aRow, "issuingagency");
-        final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
-        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
-        final String sStructure = _getRowValue (aRow, "structure");
-        final String sDisplay = _getRowValue (aRow, "display");
-        final String sExamples = _getRowValue (aRow, "examples");
-        final String sValidationRules = _getRowValue (aRow, "validation-rules");
-        final String sUsage = _getRowValue (aRow, "usage");
+        final String sSchemeID = CodeGenerationHelper.getRowValue (aRow, "schemeid");
+        final String sISO6523 = CodeGenerationHelper.getRowValue (aRow, "iso6523");
+        final String sCountryCode = CodeGenerationHelper.getRowValue (aRow, "country");
+        final String sSchemeName = CodeGenerationHelper.getRowValue (aRow, "schemename");
+        final String sIssuingAgency = CodeGenerationHelper.getRowValue (aRow, "issuingagency");
+        final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
+        final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
+                                                                                                              "deprecated"));
+        final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
+        final String sStructure = CodeGenerationHelper.getRowValue (aRow, "structure");
+        final String sDisplay = CodeGenerationHelper.getRowValue (aRow, "display");
+        final String sExamples = CodeGenerationHelper.getRowValue (aRow, "examples");
+        final String sUsage = CodeGenerationHelper.getRowValue (aRow, "usage");
 
         final JEnumConstant jEnumConst = jEnum.enumConstant (RegExHelper.getAsIdentifier (sSchemeID));
         jEnumConst.arg (JExpr.lit (sSchemeID));
@@ -706,10 +508,6 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         jEnumConst.arg (sIssuingAgency == null ? JExpr._null () : JExpr.lit (sIssuingAgency));
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.arg (JExpr.lit (bDeprecated));
-        jEnumConst.arg (sDeprecatedSince == null ? JExpr._null ()
-                                                 : s_aCodeModel.ref (Version.class)
-                                                               .staticInvoke ("parse")
-                                                               .arg (sDeprecatedSince));
 
         jEnumConst.javadoc ()
                   .add ("Prefix <code>" + sISO6523 + "</code>, scheme ID <code>" + sSchemeID + "</code><br>");
@@ -722,25 +520,15 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                           " and should not be used to issue new identifiers!</b><br>");
         }
         if (StringHelper.hasText (sStructure))
-          jEnumConst.javadoc ().add ("\nStructure of the code: " + _maskHtml (sStructure) + "<br>");
+          jEnumConst.javadoc ()
+                    .add ("\nStructure of the code: " + CodeGenerationHelper.maskHtml (sStructure) + "<br>");
         if (StringHelper.hasText (sDisplay))
-          jEnumConst.javadoc ().add ("\nDisplay requirements: " + _maskHtml (sDisplay) + "<br>");
+          jEnumConst.javadoc ().add ("\nDisplay requirements: " + CodeGenerationHelper.maskHtml (sDisplay) + "<br>");
         if (StringHelper.hasText (sExamples))
-          jEnumConst.javadoc ().add ("\nExample value: " + _maskHtml (sExamples) + "<br>");
-        if (StringHelper.hasText (sValidationRules))
-          jEnumConst.javadoc ().add ("\nValidation rules: " + _maskHtml (sValidationRules) + "<br>");
+          jEnumConst.javadoc ().add ("\nExample value: " + CodeGenerationHelper.maskHtml (sExamples) + "<br>");
         if (StringHelper.hasText (sUsage))
-          jEnumConst.javadoc ().add ("\nUsage information: " + _maskHtml (sUsage) + "<br>");
+          jEnumConst.javadoc ().add ("\nUsage information: " + CodeGenerationHelper.maskHtml (sUsage) + "<br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
-
-        // Add a reference via the ISO 6523 value
-        {
-          final JFieldVar jEnumConstRef = jEnum.field (JMod.PUBLIC_STATIC_FINAL, jEnum, "_" + sISO6523, jEnumConst);
-          if (bDeprecated)
-            jEnumConstRef.annotate (Deprecated.class);
-          // Just copy all javadocs
-          jEnumConstRef.javadoc ().addAll (jEnumConst.javadoc ());
-        }
       }
 
       // fields
@@ -751,7 +539,6 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       final JFieldVar fIssuingAgency = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sIssuingAgency");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
-      final JFieldVar fDeprecatedSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aDeprecatedSince");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -772,8 +559,6 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
       final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
-      final JVar jDeprecatedSince = jCtor.param (JMod.FINAL, Version.class, "aDeprecatedSince");
-      jDeprecatedSince.annotate (Nullable.class);
       jCtor.body ()
            .assign (fSchemeID, jSchemeID)
            .assign (fISO6523, jISO6523)
@@ -781,8 +566,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
            .assign (fSchemeName, jSchemeName)
            .assign (fIssuingAgency, jIssuingAgency)
            .assign (fSince, jSince)
-           .assign (fDeprecated, jDeprecated)
-           .assign (fDeprecatedSince, jDeprecatedSince);
+           .assign (fDeprecated, jDeprecated);
 
       // public String getSchemeID ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getSchemeID");
@@ -821,35 +605,85 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       // public boolean isDeprecated ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
       m.body ()._return (fDeprecated);
-
-      // public Version getDeprecatedSince ()
-      m = jEnum.method (JMod.PUBLIC, Version.class, "getDeprecatedSince");
-      m.annotate (Nullable.class);
-      m.body ()._return (fDeprecatedSince);
     }
     catch (final Exception ex)
     {
-      LOGGER.error ("Failed to create source", ex);
+      LOGGER.warn ("Failed to create source", ex);
     }
   }
 
-  private static void _handleProcessIdentifiers ()
+  private static void _handleProcessIdentifiers (final Sheet aProcessSheet) throws URISyntaxException
   {
+    final ExcelReadOptions <UseType> aReadOptions = new ExcelReadOptions <UseType> ().setLinesToSkip (1)
+                                                                                     .setLineIndexShortName (0);
+    aReadOptions.addColumn (0, "profilecode", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (1, "bisid", UseType.OPTIONAL, "string", true);
+    aReadOptions.addColumn (2, "scheme", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (3, "id", UseType.REQUIRED, "string", true);
+    aReadOptions.addColumn (4, "since", UseType.REQUIRED, "string", false);
+    aReadOptions.addColumn (5, "deprecated", UseType.REQUIRED, "boolean", false);
+    aReadOptions.addColumn (6, "deprecated-since", UseType.OPTIONAL, "string", false);
+
+    final CodeListDocument aCodeList = ExcelSheetToCodeList10.convertToSimpleCodeList (aProcessSheet,
+                                                                                       aReadOptions,
+                                                                                       "PeppolProcessIdentifier",
+                                                                                       CODELIST_VERSION.getAsString (),
+                                                                                       new URI ("urn:peppol.eu:names:identifier:process"),
+                                                                                       new URI ("urn:peppol.eu:names:identifier:process-1.0"),
+                                                                                       null);
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolProcessIdentifier.gc");
+
+    // Save as XML
+    final IMicroDocument aDoc = new MicroDocument ();
+    aDoc.appendComment (DO_NOT_EDIT);
+    final IMicroElement eRoot = aDoc.appendElement ("root");
+    eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
+    for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
+    {
+      final String sProfileCode = CodeGenerationHelper.getRowValue (aRow, "profilecode");
+      final String sBISID = CodeGenerationHelper.getRowValue (aRow, "bisid");
+      final String sScheme = CodeGenerationHelper.getRowValue (aRow, "scheme");
+      final String sID = CodeGenerationHelper.getRowValue (aRow, "id");
+      final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
+      final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
+                                                                                                            "deprecated"));
+      final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
+
+      if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
+        throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
+
+      final IMicroElement eAgency = eRoot.appendElement ("process");
+      eAgency.setAttribute ("profilecode", sProfileCode);
+      eAgency.setAttribute ("bisid", sBISID);
+      eAgency.setAttribute ("scheme", sScheme);
+      eAgency.setAttribute ("id", sID);
+      eAgency.setAttribute ("since", sSince);
+      eAgency.setAttribute ("deprecated", bDeprecated);
+      eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
+    }
+    MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolProcessIdentifier.xml"));
+
     // Create Java source
     try
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "process")
-                                              ._enum ("EPredefinedProcessIdentifier" + FILENAME_SUFFIX)
-                                              ._implements (IProcessIdentifier.class)
-                                              ._implements (IPeppolIdentifier.class);
+                                              ._enum ("EPredefinedProcessIdentifier")
+                                              ._implements (IPeppolPredefinedProcessIdentifier.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
       // enum constants
-      for (final Map.Entry <IProcessIdentifier, ICommonsList <String>> aEntry : KNOWN_PROCESS_IDS.entrySet ())
+      final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
+      for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sScheme = aEntry.getKey ().getScheme ();
-        final String sID = aEntry.getKey ().getValue ();
+        final String sProfileCode = CodeGenerationHelper.getRowValue (aRow, "profilecode");
+        final String sBISID = CodeGenerationHelper.getRowValue (aRow, "bisid");
+        final String sScheme = CodeGenerationHelper.getRowValue (aRow, "scheme");
+        final String sID = CodeGenerationHelper.getRowValue (aRow, "id");
+        final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
+        final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
+                                                                                                              "deprecated"));
+        final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
 
         // Prepend the scheme, if it is non-default
         final String sIDPrefix = (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme) ? "" : sScheme + "-");
@@ -857,24 +691,51 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         jEnumConst.arg (JExpr.lit (sScheme));
         jEnumConst.arg (JExpr.lit (sID));
-
-        final JInvocation eDocTypeIDs = JExpr._new (s_aCodeModel.ref (CommonsArrayList.class).narrowEmpty ());
-        for (final String sDocTypeID : aEntry.getValue ())
-          eDocTypeIDs.arg (JExpr.lit (sDocTypeID));
-        jEnumConst.arg (eDocTypeIDs);
-
+        jEnumConst.arg (sBISID == null ? JExpr._null () : JExpr.lit (sBISID));
+        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (JExpr.lit (bDeprecated));
+        if (bDeprecated)
+        {
+          jEnumConst.annotate (Deprecated.class);
+          jEnumConst.javadoc ()
+                    .add ("<b>This item is deprecated since version " +
+                          sDeprecatedSince +
+                          " and should not be used to issue new identifiers!</b><br>");
+        }
         jEnumConst.javadoc ().add ("<code>" + sID + "</code><br>");
-        for (final String sDocTypeID : aEntry.getValue ())
-          jEnumConst.javadoc ().add ("\nUse with DocTypeID <code>" + sDocTypeID + "</code><br>");
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
+
+        // Emit shortcut name for better readability
+        // Take version number from name (ends with "V0" where 0 is the version)
+        final String sShortcutName;
+        if (StringHelper.hasText (sBISID))
+          sShortcutName = CodeGenerationHelper.createShortcutBISIDName (StringHelper.getConcatenatedOnDemand (sBISID,
+                                                                                                              "_",
+                                                                                                              sProfileCode.substring (sProfileCode.lastIndexOf ('V'))));
+        else
+          sShortcutName = null;
+        if (sShortcutName != null)
+        {
+          if (!aAllShortcutNames.add (sShortcutName))
+            throw new IllegalStateException ("The BIS ID shortcut '" +
+                                             sShortcutName +
+                                             "' is already used - please review the algorithm!");
+          final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
+                                                   jEnum,
+                                                   sShortcutName,
+                                                   jEnumConst);
+          if (bDeprecated)
+            aShortcut.annotate (Deprecated.class);
+          aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
+        }
       }
 
       // fields
       final JFieldVar fScheme = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sScheme");
       final JFieldVar fID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
-      final JFieldVar fDocTypeIDs = jEnum.field (JMod.PRIVATE | JMod.FINAL,
-                                                 s_aCodeModel.ref (ICommonsList.class)
-                                                             .narrow (IDocumentTypeIdentifier.class),
-                                                 "m_aDocTypeIDs");
+      final JFieldVar fBISID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sBISID");
+      final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
+      final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -884,22 +745,17 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       final JVar jID = jCtor.param (JMod.FINAL, String.class, "sID");
       jID.annotate (Nonnull.class);
       jID.annotate (Nonempty.class);
-      final JVar jDocTypeIDs = jCtor.param (JMod.FINAL,
-                                            s_aCodeModel.ref (ICommonsList.class).narrow (String.class),
-                                            "aDocTypeIDs");
-      jDocTypeIDs.annotate (Nonnull.class);
-      jDocTypeIDs.annotate (Nonempty.class);
+      final JVar jBISID = jCtor.param (JMod.FINAL, String.class, "sBISID");
+      jBISID.annotate (Nullable.class);
+      final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
+      jSince.annotate (Nonnull.class);
+      final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
       jCtor.body ()
            .assign (fScheme, jScheme)
            .assign (fID, jID)
-           .assign (fDocTypeIDs,
-                    s_aCodeModel.ref (CommonsArrayList.class)
-                                .narrowEmpty ()
-                                ._new ()
-                                .arg (jDocTypeIDs)
-                                .arg (new JLambdaMethodRef (s_aCodeModel.ref (PeppolIdentifierFactory.class)
-                                                                        .staticRef ("INSTANCE"),
-                                                            "parseDocumentTypeIdentifier")));
+           .assign (fBISID, jBISID)
+           .assign (fSince, jSince)
+           .assign (fDeprecated, jDeprecated);
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
@@ -913,27 +769,24 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       m.annotate (Nonempty.class);
       m.body ()._return (fID);
 
-      // public ICommonsList<IDocumentTypeIdentifier> getAllDocTypeIDs ()
-      m = jEnum.method (JMod.PUBLIC,
-                        s_aCodeModel.ref (ICommonsList.class).narrow (IDocumentTypeIdentifier.class),
-                        "getAllDocTypeIDs");
-      m.annotate (Nonnull.class);
-      m.annotate (Nonempty.class);
-      m.annotate (ReturnsMutableCopy.class);
-      m.body ()._return (fDocTypeIDs.invoke ("getClone"));
-
-      // public boolean hasDefaultScheme()
-      m = jEnum.method (JMod.PUBLIC, boolean.class, "hasDefaultScheme");
-      m.body ()
-       ._return (s_aCodeModel.ref (PeppolIdentifierHelper.class)
-                             .staticRef ("DEFAULT_DOCUMENT_TYPE_SCHEME")
-                             .invoke ("equals")
-                             .arg (fScheme));
+      // public String getBISID ()
+      m = jEnum.method (JMod.PUBLIC, String.class, "getBISID");
+      m.annotate (Nullable.class);
+      m.body ()._return (fBISID);
 
       // public PeppolProcessIdentifier getAsProcessIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolProcessIdentifier.class, "getAsProcessIdentifier");
       m.annotate (Nonnull.class);
       m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolProcessIdentifier.class)).arg (JExpr._this ()));
+
+      // public Version getSince ()
+      m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
+      m.annotate (Nonnull.class);
+      m.body ()._return (fSince);
+
+      // public boolean isDeprecated ()
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
+      m.body ()._return (fDeprecated);
 
       // @Nullable public static EPredefinedProcessIdentifier
       // getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier
@@ -979,7 +832,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                                                                                        new URI ("urn:peppol.eu:names:identifier:transportprofile"),
                                                                                        new URI ("urn:peppol.eu:names:identifier:transportprofile-1.0"),
                                                                                        null);
-    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolTransportProfileIdentifier" + FILENAME_SUFFIX + ".gc");
+    _writeGenericodeFile (aCodeList, RESULT_DIRECTORY + "PeppolTransportProfileIdentifier.gc");
 
     // Save as XML
     final IMicroDocument aDoc = new MicroDocument ();
@@ -988,12 +841,13 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
     eRoot.setAttribute ("version", CODELIST_VERSION.getAsString ());
     for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
     {
-      final String sProtocol = _getRowValue (aRow, "protocol");
-      final String sProfileVersion = _getRowValue (aRow, "profileversion");
-      final String sProfileID = _getRowValue (aRow, "profileid");
-      final String sSince = _getRowValue (aRow, "since");
-      final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
-      final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
+      final String sProtocol = CodeGenerationHelper.getRowValue (aRow, "protocol");
+      final String sProfileVersion = CodeGenerationHelper.getRowValue (aRow, "profileversion");
+      final String sProfileID = CodeGenerationHelper.getRowValue (aRow, "profileid");
+      final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
+      final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
+                                                                                                            "deprecated"));
+      final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
 
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
         throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
@@ -1006,17 +860,13 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       eAgency.setAttribute ("deprecated", bDeprecated);
       eAgency.setAttribute ("deprecated-since", sDeprecatedSince);
     }
-    MicroWriter.writeToFile (aDoc,
-                             new File (RESULT_DIRECTORY +
-                                       "PeppolTransportProfileIdentifier" +
-                                       FILENAME_SUFFIX +
-                                       ".xml"));
+    MicroWriter.writeToFile (aDoc, new File (RESULT_DIRECTORY + "PeppolTransportProfileIdentifier.xml"));
 
     // Create Java source
     try
     {
       final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "transportprofile")
-                                              ._enum ("EPredefinedTransportProfileIdentifier" + FILENAME_SUFFIX);
+                                              ._enum ("EPredefinedTransportProfileIdentifier");
       jEnum._implements (s_aCodeModel.ref (IPredefinedTransportProfileIdentifier.class));
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
@@ -1025,12 +875,13 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
       for (final Row aRow : aCodeList.getSimpleCodeList ().getRow ())
       {
-        final String sProtocol = _getRowValue (aRow, "protocol");
-        final String sProfileVersion = _getRowValue (aRow, "profileversion");
-        final String sProfileID = _getRowValue (aRow, "profileid");
-        final String sSince = _getRowValue (aRow, "since");
-        final boolean bDeprecated = _parseDeprecated (_getRowValue (aRow, "deprecated"));
-        final String sDeprecatedSince = _getRowValue (aRow, "deprecated-since");
+        final String sProtocol = CodeGenerationHelper.getRowValue (aRow, "protocol");
+        final String sProfileVersion = CodeGenerationHelper.getRowValue (aRow, "profileversion");
+        final String sProfileID = CodeGenerationHelper.getRowValue (aRow, "profileid");
+        final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
+        final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
+                                                                                                              "deprecated"));
+        final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
 
         // Prepend the scheme, if it is non-default
         final String sEnumConstName = RegExHelper.getAsIdentifier (sProfileID);
@@ -1144,20 +995,22 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
                           sFilenamePart +
                           " v" +
                           CODELIST_VERSION.getAsString (false) +
-                          CODELIST_FILE_SUFFIX +
                           ".xlsx").getAbsoluteFile ();
-      ValueEnforcer.isTrue (m_aFile.exists (), () -> "File '" + m_aFile.getAbsolutePath () + "' does not exist!");
+      if (!m_aFile.exists ())
+        throw new IllegalArgumentException ("File '" + m_aFile.getAbsolutePath () + "' does not exist!");
       m_aHandler = aHandler;
     }
+
   }
 
   public static void main (final String [] args) throws Exception
   {
-    // DocumentType must be before Processes to fill the static list
     for (final CodeListFile aCLF : new CodeListFile [] { new CodeListFile ("Document types",
                                                                            MainCreatePredefinedEnumsFromExcel_v6::_handleDocumentTypes),
                                                          new CodeListFile ("Participant identifier schemes",
                                                                            MainCreatePredefinedEnumsFromExcel_v6::_handleParticipantIdentifierSchemes),
+                                                         new CodeListFile ("Processes",
+                                                                           MainCreatePredefinedEnumsFromExcel_v6::_handleProcessIdentifiers),
                                                          new CodeListFile ("Transport profiles",
                                                                            MainCreatePredefinedEnumsFromExcel_v6::_handleTransportProfileIdentifiers) })
     {
@@ -1179,8 +1032,6 @@ public final class MainCreatePredefinedEnumsFromExcel_v6
         aCLF.m_aHandler.accept (aSheet);
       }
     }
-
-    _handleProcessIdentifiers ();
 
     // Write all Java source files
     new JCMWriter (s_aCodeModel).build (new File ("src/main/java"), LOGGER::info);

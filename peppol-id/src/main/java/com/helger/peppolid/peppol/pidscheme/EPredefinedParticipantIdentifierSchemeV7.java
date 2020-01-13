@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
  * Do NOT edit!
  */
 @CodingStyleguideUnaware
-public enum EPredefinedParticipantIdentifierSchemeV6
+public enum EPredefinedParticipantIdentifierSchemeV7
     implements IParticipantIdentifierScheme
 {
 
@@ -500,6 +500,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9906</code>, scheme ID <code>IT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * Example value: IT06363391001<br>
      * Validation rules: RegEx: IT[0-9]{11}
      * first 7: company identifiers
@@ -509,7 +510,8 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * 
      * @since code list 1.0.0
      */
-    IT_VAT("IT:VAT", "9906", "IT", "Ufficio responsabile gestione partite IVA", null, Version.parse("1.0.0"), false, null),
+    @Deprecated
+    IT_VAT("IT:VAT", "9906", "IT", "Ufficio responsabile gestione partite IVA", null, Version.parse("1.0.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9907</code>, scheme ID <code>IT:CF</code><br>
@@ -556,24 +558,25 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9910</code>, scheme ID <code>HU:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * Validation rules: RegEx: HU[0-9]{8}
      * Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu/anum.py<br>
      * 
      * @since code list 1.0.0
      */
-    HU_VAT("HU:VAT", "9910", "HU", "Hungary VAT number", null, Version.parse("1.0.0"), false, null),
+    @Deprecated
+    HU_VAT("HU:VAT", "9910", "HU", "Hungary VAT number", null, Version.parse("1.0.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9912</code>, scheme ID <code>EU:VAT</code><br>
-     * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
      * Structure of the code: Must start with the country code<br>
      * Validation rules: RegEx: [A-Z]{2}[A-Z0-9]{,20}<br>
-     * Usage information: Proposed to undeprecate; longest known is 18 chars (incl. country code)<br>
+     * Usage information: Proposed to undeprecate; longest known is 18 chars (incl. country code)
+     * Deprecated in 1.1.0; undeprecated in v6<br>
      * 
      * @since code list 1.0.0
      */
-    @Deprecated
-    EU_VAT("EU:VAT", "9912", "international", "National ministries of Economy", null, Version.parse("1.0.0"), true, Version.parse("1.1.0")),
+    EU_VAT("EU:VAT", "9912", "international", "National ministries of Economy", null, Version.parse("1.0.0"), false, null),
 
     /**
      * Prefix <code>9913</code>, scheme ID <code>EU:REID</code><br>
@@ -585,11 +588,13 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9914</code>, scheme ID <code>AT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * Example value: ATU12345678<br>
      * 
      * @since code list 1.0.0
      */
-    AT_VAT("AT:VAT", "9914", "AT", "\u00d6sterreichische Umsatzsteuer-Identifikationsnummer", null, Version.parse("1.0.0"), false, null),
+    @Deprecated
+    AT_VAT("AT:VAT", "9914", "AT", "\u00d6sterreichische Umsatzsteuer-Identifikationsnummer", null, Version.parse("1.0.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9915</code>, scheme ID <code>AT:GOV</code><br>
@@ -649,10 +654,12 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9920</code>, scheme ID <code>ES:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.0.2
      */
-    ES_VAT("ES:VAT", "9920", "ES", "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria", "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria", Version.parse("1.0.2"), false, null),
+    @Deprecated
+    ES_VAT("ES:VAT", "9920", "ES", "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria", "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria", Version.parse("1.0.2"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9921</code>, scheme ID <code>IT:IPA</code><br>
@@ -666,227 +673,291 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9922</code>, scheme ID <code>AD:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    AD_VAT("AD:VAT", "9922", "AD", "Andorra VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    AD_VAT("AD:VAT", "9922", "AD", "Andorra VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9923</code>, scheme ID <code>AL:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    AL_VAT("AL:VAT", "9923", "AL", "Albania VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    AL_VAT("AL:VAT", "9923", "AL", "Albania VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9924</code>, scheme ID <code>BA:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    BA_VAT("BA:VAT", "9924", "BA", "Bosnia and Herzegovina VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    BA_VAT("BA:VAT", "9924", "BA", "Bosnia and Herzegovina VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9925</code>, scheme ID <code>BE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    BE_VAT("BE:VAT", "9925", "BE", "Belgium VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    BE_VAT("BE:VAT", "9925", "BE", "Belgium VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9926</code>, scheme ID <code>BG:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    BG_VAT("BG:VAT", "9926", "BG", "Bulgaria VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    BG_VAT("BG:VAT", "9926", "BG", "Bulgaria VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9927</code>, scheme ID <code>CH:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    CH_VAT("CH:VAT", "9927", "CH", "Switzerland VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    CH_VAT("CH:VAT", "9927", "CH", "Switzerland VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9928</code>, scheme ID <code>CY:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    CY_VAT("CY:VAT", "9928", "CY", "Cyprus VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    CY_VAT("CY:VAT", "9928", "CY", "Cyprus VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9929</code>, scheme ID <code>CZ:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    CZ_VAT("CZ:VAT", "9929", "CZ", "Czech Republic VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    CZ_VAT("CZ:VAT", "9929", "CZ", "Czech Republic VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9930</code>, scheme ID <code>DE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    DE_VAT("DE:VAT", "9930", "DE", "Germany VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    DE_VAT("DE:VAT", "9930", "DE", "Germany VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9931</code>, scheme ID <code>EE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    EE_VAT("EE:VAT", "9931", "EE", "Estonia VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    EE_VAT("EE:VAT", "9931", "EE", "Estonia VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9932</code>, scheme ID <code>GB:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    GB_VAT("GB:VAT", "9932", "GB", "United Kingdom VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    GB_VAT("GB:VAT", "9932", "GB", "United Kingdom VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9933</code>, scheme ID <code>GR:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    GR_VAT("GR:VAT", "9933", "GR", "Greece VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    GR_VAT("GR:VAT", "9933", "GR", "Greece VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9934</code>, scheme ID <code>HR:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    HR_VAT("HR:VAT", "9934", "HR", "Croatia VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    HR_VAT("HR:VAT", "9934", "HR", "Croatia VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9935</code>, scheme ID <code>IE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    IE_VAT("IE:VAT", "9935", "IE", "Ireland VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    IE_VAT("IE:VAT", "9935", "IE", "Ireland VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9936</code>, scheme ID <code>LI:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    LI_VAT("LI:VAT", "9936", "LI", "Liechtenstein VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    LI_VAT("LI:VAT", "9936", "LI", "Liechtenstein VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9937</code>, scheme ID <code>LT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    LT_VAT("LT:VAT", "9937", "LT", "Lithuania VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    LT_VAT("LT:VAT", "9937", "LT", "Lithuania VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9938</code>, scheme ID <code>LU:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    LU_VAT("LU:VAT", "9938", "LU", "Luxemburg VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    LU_VAT("LU:VAT", "9938", "LU", "Luxemburg VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9939</code>, scheme ID <code>LV:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    LV_VAT("LV:VAT", "9939", "LV", "Latvia VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    LV_VAT("LV:VAT", "9939", "LV", "Latvia VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9940</code>, scheme ID <code>MC:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    MC_VAT("MC:VAT", "9940", "MC", "Monaco VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    MC_VAT("MC:VAT", "9940", "MC", "Monaco VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9941</code>, scheme ID <code>ME:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    ME_VAT("ME:VAT", "9941", "ME", "Montenegro VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    ME_VAT("ME:VAT", "9941", "ME", "Montenegro VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9942</code>, scheme ID <code>MK:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    MK_VAT("MK:VAT", "9942", "MK", "Macedonia, the former Yugoslav Republic of VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    MK_VAT("MK:VAT", "9942", "MK", "Macedonia, the former Yugoslav Republic of VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9943</code>, scheme ID <code>MT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    MT_VAT("MT:VAT", "9943", "MT", "Malta VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    MT_VAT("MT:VAT", "9943", "MT", "Malta VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9944</code>, scheme ID <code>NL:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    NL_VAT("NL:VAT", "9944", "NL", "Netherlands VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    NL_VAT("NL:VAT", "9944", "NL", "Netherlands VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9945</code>, scheme ID <code>PL:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    PL_VAT("PL:VAT", "9945", "PL", "Poland VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    PL_VAT("PL:VAT", "9945", "PL", "Poland VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9946</code>, scheme ID <code>PT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    PT_VAT("PT:VAT", "9946", "PT", "Portugal VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    PT_VAT("PT:VAT", "9946", "PT", "Portugal VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9947</code>, scheme ID <code>RO:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    RO_VAT("RO:VAT", "9947", "RO", "Romania VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    RO_VAT("RO:VAT", "9947", "RO", "Romania VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9948</code>, scheme ID <code>RS:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    RS_VAT("RS:VAT", "9948", "RS", "Serbia VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    RS_VAT("RS:VAT", "9948", "RS", "Serbia VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9949</code>, scheme ID <code>SI:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    SI_VAT("SI:VAT", "9949", "SI", "Slovenia VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    SI_VAT("SI:VAT", "9949", "SI", "Slovenia VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9950</code>, scheme ID <code>SK:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    SK_VAT("SK:VAT", "9950", "SK", "Slovakia VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    SK_VAT("SK:VAT", "9950", "SK", "Slovakia VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9951</code>, scheme ID <code>SM:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    SM_VAT("SM:VAT", "9951", "SM", "San Marino VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    SM_VAT("SM:VAT", "9951", "SM", "San Marino VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9952</code>, scheme ID <code>TR:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    TR_VAT("TR:VAT", "9952", "TR", "Turkey VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    TR_VAT("TR:VAT", "9952", "TR", "Turkey VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9953</code>, scheme ID <code>VA:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.1.0
      */
-    VA_VAT("VA:VAT", "9953", "VA", "Holy See (Vatican City State) VAT number", null, Version.parse("1.1.0"), false, null),
+    @Deprecated
+    VA_VAT("VA:VAT", "9953", "VA", "Holy See (Vatican City State) VAT number", null, Version.parse("1.1.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9954</code>, scheme ID <code>NL:OIN</code><br>
@@ -900,10 +971,12 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9955</code>, scheme ID <code>SE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.2.0
      */
-    SE_VAT("SE:VAT", "9955", "SE", "Swedish VAT number", null, Version.parse("1.2.0"), false, null),
+    @Deprecated
+    SE_VAT("SE:VAT", "9955", "SE", "Swedish VAT number", null, Version.parse("1.2.0"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9956</code>, scheme ID <code>BE:CBE</code><br>
@@ -919,10 +992,12 @@ public enum EPredefinedParticipantIdentifierSchemeV6
 
     /**
      * Prefix <code>9957</code>, scheme ID <code>FR:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.2.1
      */
-    FR_VAT("FR:VAT", "9957", "FR", "French VAT number", null, Version.parse("1.2.1"), false, null),
+    @Deprecated
+    FR_VAT("FR:VAT", "9957", "FR", "French VAT number", null, Version.parse("1.2.1"), true, Version.parse("7")),
 
     /**
      * Prefix <code>9958</code>, scheme ID <code>DE:LID</code><br>
@@ -945,7 +1020,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Check digits: Luhn Algorithm<br>
      * Usage information: 1.1.1 - Changed from FR:SIRET to FR:SIRENE (see ISU Jira ISU-231)<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0002 = EPredefinedParticipantIdentifierSchemeV6 .FR_SIRENE;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0002 = EPredefinedParticipantIdentifierSchemeV7 .FR_SIRENE;
     /**
      * Prefix <code>0007</code>, scheme ID <code>SE:ORGNR</code><br>
      * Structure of the code: 1) 10 digits. 1st digit = Group number, 2nd - 9th digit = Ordinalnumber; 1st digit, = Group number, 10th digit = Check digit
@@ -955,7 +1030,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: [0-9]{10}
      * Check digits: Luhn Algorithm<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0007 = EPredefinedParticipantIdentifierSchemeV6 .SE_ORGNR;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0007 = EPredefinedParticipantIdentifierSchemeV7 .SE_ORGNR;
     /**
      * Prefix <code>0009</code>, scheme ID <code>FR:SIRET</code><br>
      * Structure of the code: 1) 14 digits
@@ -964,7 +1039,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Example value: 78430177200025<br>
      * Validation rules: RegEx: [0-9]{14}<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0009 = EPredefinedParticipantIdentifierSchemeV6 .FR_SIRET;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0009 = EPredefinedParticipantIdentifierSchemeV7 .FR_SIRET;
     /**
      * Prefix <code>0037</code>, scheme ID <code>FI:OVT</code><br>
      * Structure of the code: 1) ICD 4 Digits, Organization code (8 digits, 1st-7th digit = number, 8th digit = check number), optional specifier for organisational unit (5 digits)
@@ -982,7 +1057,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * - Finnish local tax ID, 8 characters with initial zero and no hyphen
      * +K4:K5<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0037 = EPredefinedParticipantIdentifierSchemeV6 .FI_OVT;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0037 = EPredefinedParticipantIdentifierSchemeV7 .FI_OVT;
     /**
      * Prefix <code>0060</code>, scheme ID <code>DUNS</code><br>
      * Structure of the code: 1) Eight identification digits and a check digit. A two digit prefix will be added in the future but it will not be used to calculate the check digit.
@@ -994,7 +1069,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * UPIK search to validate DUNS numbers
      * &quot;D&amp;B Direct 2.0&quot; API available<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0060 = EPredefinedParticipantIdentifierSchemeV6 .DUNS;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0060 = EPredefinedParticipantIdentifierSchemeV7 .DUNS;
     /**
      * Prefix <code>0088</code>, scheme ID <code>GLN</code><br>
      * Structure of the code: 1) 13 digits including check digits, 2) None<br>
@@ -1004,7 +1079,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Check Digit: mod10 (weights 1, 3)<br>
      * Usage information: GLN-13 are the only supports supported atm<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0088 = EPredefinedParticipantIdentifierSchemeV6 .GLN;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0088 = EPredefinedParticipantIdentifierSchemeV7 .GLN;
     /**
      * Prefix <code>0096</code>, scheme ID <code>DK:P</code><br>
      * Structure of the code: Character repertoire: the EDI identifier consists of digits only.
@@ -1019,7 +1094,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: [0-9]{17}
      * Check Digits: mod97<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0096 = EPredefinedParticipantIdentifierSchemeV6 .DK_P;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0096 = EPredefinedParticipantIdentifierSchemeV7 .DK_P;
     /**
      * Prefix <code>0097</code>, scheme ID <code>IT:FTI</code><br>
      * Structure of the code: Character repertoire: The EDI identifier consists of digits only.
@@ -1037,7 +1112,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Usage information: We couldn't find the checksum algorithm in the scanned PDF of 1976
      * Proposed to deprecate<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0097 = EPredefinedParticipantIdentifierSchemeV6 .IT_FTI;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0097 = EPredefinedParticipantIdentifierSchemeV7 .IT_FTI;
     /**
      * Prefix <code>0106</code>, scheme ID <code>NL:KVK</code><br>
      * Structure of the code: Character repertoire: The EDI identifier consists of digits only.
@@ -1054,7 +1129,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Check Digits: mod97<br>
      * Usage information: Real numbers seem to be 8 characters<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0106 = EPredefinedParticipantIdentifierSchemeV6 .NL_KVK;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0106 = EPredefinedParticipantIdentifierSchemeV7 .NL_KVK;
     /**
      * Prefix <code>0130</code>, scheme ID <code>EU:NAL</code><br>
      * Structure of the code: 1) ICD 4 digits, 2) None<br>
@@ -1062,21 +1137,21 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Usage information: Requested by TICC-10 and TICC-11;
      * in SML since 2019-08-23<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0130 = EPredefinedParticipantIdentifierSchemeV6 .EU_NAL;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0130 = EPredefinedParticipantIdentifierSchemeV7 .EU_NAL;
     /**
      * Prefix <code>0135</code>, scheme ID <code>IT:SIA</code><br>
      * Structure of the code: First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
      * Usage information: Propose to deprecate<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0135 = EPredefinedParticipantIdentifierSchemeV6 .IT_SIA;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0135 = EPredefinedParticipantIdentifierSchemeV7 .IT_SIA;
     /**
      * Prefix <code>0142</code>, scheme ID <code>IT:SECETI</code><br>
      * Structure of the code: 1) First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
      * Usage information: Propose to deprecate<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0142 = EPredefinedParticipantIdentifierSchemeV6 .IT_SECETI;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0142 = EPredefinedParticipantIdentifierSchemeV7 .IT_SECETI;
     /**
      * Prefix <code>0151</code>, scheme ID <code>AU:ABN</code><br>
      * Structure of the code: The ABN is an 11 digit numeric identifier.
@@ -1096,7 +1171,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Weight: 10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19<br>
      * Usage information: https://abr.business.gov.au/Help/AbnFormat<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0151 = EPredefinedParticipantIdentifierSchemeV6 .AU_ABN;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0151 = EPredefinedParticipantIdentifierSchemeV7 .AU_ABN;
     /**
      * Prefix <code>0183</code>, scheme ID <code>CH:UIDB</code><br>
      * Structure of the code: CHEXXXXXXXXP
@@ -1114,14 +1189,14 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)<br>
      * Usage information: Also called &quot;Numéro d'identification suisse des enterprises (IDE)&quot;<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0183 = EPredefinedParticipantIdentifierSchemeV6 .CH_UIDB;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0183 = EPredefinedParticipantIdentifierSchemeV7 .CH_UIDB;
     /**
      * Prefix <code>0184</code>, scheme ID <code>DK:DIGST</code><br>
      * Structure of the code: 8 or 10 digits<br>
      * Display requirements: Group of 10 digits<br>
      * Validation rules: RegEx: [0-9]{8}([0-9]{2})?<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0184 = EPredefinedParticipantIdentifierSchemeV6 .DK_DIGST;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0184 = EPredefinedParticipantIdentifierSchemeV7 .DK_DIGST;
     /**
      * Prefix <code>0190</code>, scheme ID <code>NL:OINO</code><br>
      * Structure of the code: 20 digits
@@ -1135,7 +1210,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: [0-9]{20}<br>
      * Usage information: Get all OINs from http://portaal.digikoppeling.nl/registers/<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0190 = EPredefinedParticipantIdentifierSchemeV6 .NL_OINO;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0190 = EPredefinedParticipantIdentifierSchemeV7 .NL_OINO;
     /**
      * Prefix <code>0191</code>, scheme ID <code>EE:CC</code><br>
      * Structure of the code: Always 8-digit number
@@ -1160,7 +1235,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      *     return str(check % 10)<br>
      * Usage information: See https://ariregister.rik.ee/index?lang=eng<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0191 = EPredefinedParticipantIdentifierSchemeV6 .EE_CC;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0191 = EPredefinedParticipantIdentifierSchemeV7 .EE_CC;
     /**
      * Prefix <code>0192</code>, scheme ID <code>NO:ORG</code><br>
      * Structure of the code: 9 digits
@@ -1170,7 +1245,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: [0-9]{9}
      * Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0192 = EPredefinedParticipantIdentifierSchemeV6 .NO_ORG;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0192 = EPredefinedParticipantIdentifierSchemeV7 .NO_ORG;
     /**
      * Prefix <code>0193</code>, scheme ID <code>UBLBE</code><br>
      * Structure of the code: Maximum 50 characters
@@ -1179,7 +1254,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Display requirements: None<br>
      * Validation rules: RegEx: .{4,50}<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0193 = EPredefinedParticipantIdentifierSchemeV6 .UBLBE;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0193 = EPredefinedParticipantIdentifierSchemeV7 .UBLBE;
     /**
      * Prefix <code>0195</code>, scheme ID <code>SG:UEN</code><br>
      * Structure of the code: The code comprises of 3 fields
@@ -1190,7 +1265,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: [a-z]{2}[a-z]{3}([0-9]{8}|[0-9]{9}|[RST][0-9]{2}[a-z]{2}[0-9]{4})[0-9a-z]<br>
      * Usage information: https://www.uen.gov.sg/ueninternet/faces/pages/admin/aboutUEN.jspx?_afrLoop=1018044967911865&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fdr4mq9l0_26<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0195 = EPredefinedParticipantIdentifierSchemeV6 .SG_UEN;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0195 = EPredefinedParticipantIdentifierSchemeV7 .SG_UEN;
     /**
      * Prefix <code>0196</code>, scheme ID <code>IS:KTNR</code><br>
      * Structure of the code: 10 digit string using numerical characters from 0 to 9
@@ -1202,7 +1277,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: [0-9]{10}
      * Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0196 = EPredefinedParticipantIdentifierSchemeV6 .IS_KTNR;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0196 = EPredefinedParticipantIdentifierSchemeV7 .IS_KTNR;
     /**
      * Prefix <code>0198</code>, scheme ID <code>DK:ERST</code><br>
      * Structure of the code: DKXXXXXXXX
@@ -1211,7 +1286,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: DK[0-9]{8}
      * Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0198 = EPredefinedParticipantIdentifierSchemeV6 .DK_ERST;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0198 = EPredefinedParticipantIdentifierSchemeV7 .DK_ERST;
     /**
      * Prefix <code>0199</code>, scheme ID <code>LEI</code><br>
      * Structure of the code: The ISO 17442 standard specifies the minimum reference data, which must the format of the organization identifiers, be Supplied for each LEI:
@@ -1258,7 +1333,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: [A-Z0-9]{18}[0-9]{2}
      * Check digit: mod97-10<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0199 = EPredefinedParticipantIdentifierSchemeV6 .LEI;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0199 = EPredefinedParticipantIdentifierSchemeV7 .LEI;
     /**
      * Prefix <code>0200</code>, scheme ID <code>LT:LEC</code><br>
      * Structure of the code: 9 (nine) digits
@@ -1269,7 +1344,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: [0-9]{9}
      * Check number: see text<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0200 = EPredefinedParticipantIdentifierSchemeV6 .LT_LEC;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0200 = EPredefinedParticipantIdentifierSchemeV7 .LT_LEC;
     /**
      * Prefix <code>0201</code>, scheme ID <code>IT:CUUO</code><br>
      * Structure of the code: String of 6 alphanumeric characters<br>
@@ -1278,7 +1353,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * No checkdigit<br>
      * Usage information: &quot;Alphanumeric characters&quot;<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0201 = EPredefinedParticipantIdentifierSchemeV6 .IT_CUUO;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0201 = EPredefinedParticipantIdentifierSchemeV7 .IT_CUUO;
     /**
      * Prefix <code>0204</code>, scheme ID <code>DE:LWID</code><br>
      * Structure of the code: Up to 44 alphanumeric characters
@@ -1287,36 +1362,37 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Validation rules: RegEx: [0-9]{0,12}(\-[0-9a-zA-Z]{0,30}(\-[0-9]{2}))<br>
      * Usage information: Each part is somehow optional<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _0204 = EPredefinedParticipantIdentifierSchemeV6 .DE_LWID;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _0204 = EPredefinedParticipantIdentifierSchemeV7 .DE_LWID;
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
      * Structure of the code: 1) First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
      * Usage information: Personal identifier<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9901 = EPredefinedParticipantIdentifierSchemeV6 .DK_CPR;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9901 = EPredefinedParticipantIdentifierSchemeV7 .DK_CPR;
     /**
      * Prefix <code>9902</code>, scheme ID <code>DK:CVR</code><br>
      * Example value: 13585628<br>
      * Validation rules: RegEx: [1-9][0-9]{7}
      * Check digit: mod11 (weights, 2, 7, 6, 5, 4, 3, 2, 1)<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9902 = EPredefinedParticipantIdentifierSchemeV6 .DK_CVR;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9902 = EPredefinedParticipantIdentifierSchemeV7 .DK_CVR;
     /**
      * Prefix <code>9904</code>, scheme ID <code>DK:SE</code><br>
      * Example value: DK26769388<br>
      * Validation rules: RegEx: DK[0-9]{8}
      * Taks: validate Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9904 = EPredefinedParticipantIdentifierSchemeV6 .DK_SE;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9904 = EPredefinedParticipantIdentifierSchemeV7 .DK_SE;
     /**
      * Prefix <code>9905</code>, scheme ID <code>DK:VANS</code><br>
      * Example value: DK26769388<br>
      * Usage information: Propose to deprecate (only 7 identifiers, only IBM - all look like test)<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9905 = EPredefinedParticipantIdentifierSchemeV6 .DK_VANS;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9905 = EPredefinedParticipantIdentifierSchemeV7 .DK_VANS;
     /**
      * Prefix <code>9906</code>, scheme ID <code>IT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * Example value: IT06363391001<br>
      * Validation rules: RegEx: IT[0-9]{11}
      * first 7: company identifiers
@@ -1324,7 +1400,8 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Last: check digit
      * Check digit: Luhn<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9906 = EPredefinedParticipantIdentifierSchemeV6 .IT_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9906 = EPredefinedParticipantIdentifierSchemeV7 .IT_VAT;
     /**
      * Prefix <code>9907</code>, scheme ID <code>IT:CF</code><br>
      * Example value: RSSBBR69C48F839A<br>
@@ -1339,7 +1416,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Usage information: NOTE: The &quot;CF&quot; is a Fiscal Code that can be &quot;personal&quot; or for a &quot;legal entity&quot;.
      * The CF for legal entities is like the Italian VAT code (IT:VAT)<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9907 = EPredefinedParticipantIdentifierSchemeV6 .IT_CF;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9907 = EPredefinedParticipantIdentifierSchemeV7 .IT_CF;
     /**
      * Prefix <code>9908</code>, scheme ID <code>NO:ORGNR</code><br>
      * Structure of the code: 9 digits
@@ -1348,7 +1425,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)<br>
      * Usage information: Same as 0192<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9908 = EPredefinedParticipantIdentifierSchemeV6 .NO_ORGNR;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9908 = EPredefinedParticipantIdentifierSchemeV7 .NO_ORGNR;
     /**
      * Prefix <code>9909</code>, scheme ID <code>NO:VAT</code><br>
      * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
@@ -1358,45 +1435,48 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Usage information: Numerical part is the OrgNumber<br>
      */
     @Deprecated
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9909 = EPredefinedParticipantIdentifierSchemeV6 .NO_VAT;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9909 = EPredefinedParticipantIdentifierSchemeV7 .NO_VAT;
     /**
      * Prefix <code>9910</code>, scheme ID <code>HU:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * Validation rules: RegEx: HU[0-9]{8}
      * Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu/anum.py<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9910 = EPredefinedParticipantIdentifierSchemeV6 .HU_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9910 = EPredefinedParticipantIdentifierSchemeV7 .HU_VAT;
     /**
      * Prefix <code>9912</code>, scheme ID <code>EU:VAT</code><br>
-     * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
      * Structure of the code: Must start with the country code<br>
      * Validation rules: RegEx: [A-Z]{2}[A-Z0-9]{,20}<br>
-     * Usage information: Proposed to undeprecate; longest known is 18 chars (incl. country code)<br>
+     * Usage information: Proposed to undeprecate; longest known is 18 chars (incl. country code)
+     * Deprecated in 1.1.0; undeprecated in v6<br>
      */
-    @Deprecated
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9912 = EPredefinedParticipantIdentifierSchemeV6 .EU_VAT;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9912 = EPredefinedParticipantIdentifierSchemeV7 .EU_VAT;
     /**
      * Prefix <code>9913</code>, scheme ID <code>EU:REID</code><br>
      * Usage information: Proposed to deprecate<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9913 = EPredefinedParticipantIdentifierSchemeV6 .EU_REID;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9913 = EPredefinedParticipantIdentifierSchemeV7 .EU_REID;
     /**
      * Prefix <code>9914</code>, scheme ID <code>AT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      * Example value: ATU12345678<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9914 = EPredefinedParticipantIdentifierSchemeV6 .AT_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9914 = EPredefinedParticipantIdentifierSchemeV7 .AT_VAT;
     /**
      * Prefix <code>9915</code>, scheme ID <code>AT:GOV</code><br>
      * Example value: b<br>
      * Validation rules: RegEx: [A-Z][A-Z0-9]*<br>
      * Usage information: No entity behind id<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9915 = EPredefinedParticipantIdentifierSchemeV6 .AT_GOV;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9915 = EPredefinedParticipantIdentifierSchemeV7 .AT_GOV;
     /**
      * Prefix <code>9916</code>, scheme ID <code>AT:CID</code><br>
      * <b>This item is deprecated since version 1.0.2 and should not be used to issue new identifiers!</b><br>
      */
     @Deprecated
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9916 = EPredefinedParticipantIdentifierSchemeV6 .AT_CID;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9916 = EPredefinedParticipantIdentifierSchemeV7 .AT_CID;
     /**
      * Prefix <code>9917</code>, scheme ID <code>IS:KT</code><br>
      * <b>This item is deprecated since version 4 and should not be used to issue new identifiers!</b><br>
@@ -1411,170 +1491,238 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Usage information: In favour of 0196<br>
      */
     @Deprecated
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9917 = EPredefinedParticipantIdentifierSchemeV6 .IS_KT;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9917 = EPredefinedParticipantIdentifierSchemeV7 .IS_KT;
     /**
      * Prefix <code>9918</code>, scheme ID <code>IBAN</code><br>
      * Structure of the code: RegEx: [A-Z]{2}[0-9]{2}[A-Z-0-9]{11,30}
      * Checking: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.py
      * https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9918 = EPredefinedParticipantIdentifierSchemeV6 .IBAN;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9918 = EPredefinedParticipantIdentifierSchemeV7 .IBAN;
     /**
      * Prefix <code>9919</code>, scheme ID <code>AT:KUR</code><br>
      * Structure of the code: 9 characters in total; letter, number x3, letter, number x3, letter<br>
      * Usage information: Propose to deprecated<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9919 = EPredefinedParticipantIdentifierSchemeV6 .AT_KUR;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9919 = EPredefinedParticipantIdentifierSchemeV7 .AT_KUR;
     /**
      * Prefix <code>9920</code>, scheme ID <code>ES:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9920 = EPredefinedParticipantIdentifierSchemeV6 .ES_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9920 = EPredefinedParticipantIdentifierSchemeV7 .ES_VAT;
     /**
      * Prefix <code>9921</code>, scheme ID <code>IT:IPA</code><br>
      * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br>
      * Usage information: Propose to deprecate; not used in BIS 3<br>
      */
     @Deprecated
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9921 = EPredefinedParticipantIdentifierSchemeV6 .IT_IPA;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9921 = EPredefinedParticipantIdentifierSchemeV7 .IT_IPA;
     /**
      * Prefix <code>9922</code>, scheme ID <code>AD:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9922 = EPredefinedParticipantIdentifierSchemeV6 .AD_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9922 = EPredefinedParticipantIdentifierSchemeV7 .AD_VAT;
     /**
      * Prefix <code>9923</code>, scheme ID <code>AL:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9923 = EPredefinedParticipantIdentifierSchemeV6 .AL_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9923 = EPredefinedParticipantIdentifierSchemeV7 .AL_VAT;
     /**
      * Prefix <code>9924</code>, scheme ID <code>BA:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9924 = EPredefinedParticipantIdentifierSchemeV6 .BA_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9924 = EPredefinedParticipantIdentifierSchemeV7 .BA_VAT;
     /**
      * Prefix <code>9925</code>, scheme ID <code>BE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9925 = EPredefinedParticipantIdentifierSchemeV6 .BE_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9925 = EPredefinedParticipantIdentifierSchemeV7 .BE_VAT;
     /**
      * Prefix <code>9926</code>, scheme ID <code>BG:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9926 = EPredefinedParticipantIdentifierSchemeV6 .BG_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9926 = EPredefinedParticipantIdentifierSchemeV7 .BG_VAT;
     /**
      * Prefix <code>9927</code>, scheme ID <code>CH:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9927 = EPredefinedParticipantIdentifierSchemeV6 .CH_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9927 = EPredefinedParticipantIdentifierSchemeV7 .CH_VAT;
     /**
      * Prefix <code>9928</code>, scheme ID <code>CY:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9928 = EPredefinedParticipantIdentifierSchemeV6 .CY_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9928 = EPredefinedParticipantIdentifierSchemeV7 .CY_VAT;
     /**
      * Prefix <code>9929</code>, scheme ID <code>CZ:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9929 = EPredefinedParticipantIdentifierSchemeV6 .CZ_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9929 = EPredefinedParticipantIdentifierSchemeV7 .CZ_VAT;
     /**
      * Prefix <code>9930</code>, scheme ID <code>DE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9930 = EPredefinedParticipantIdentifierSchemeV6 .DE_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9930 = EPredefinedParticipantIdentifierSchemeV7 .DE_VAT;
     /**
      * Prefix <code>9931</code>, scheme ID <code>EE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9931 = EPredefinedParticipantIdentifierSchemeV6 .EE_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9931 = EPredefinedParticipantIdentifierSchemeV7 .EE_VAT;
     /**
      * Prefix <code>9932</code>, scheme ID <code>GB:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9932 = EPredefinedParticipantIdentifierSchemeV6 .GB_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9932 = EPredefinedParticipantIdentifierSchemeV7 .GB_VAT;
     /**
      * Prefix <code>9933</code>, scheme ID <code>GR:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9933 = EPredefinedParticipantIdentifierSchemeV6 .GR_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9933 = EPredefinedParticipantIdentifierSchemeV7 .GR_VAT;
     /**
      * Prefix <code>9934</code>, scheme ID <code>HR:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9934 = EPredefinedParticipantIdentifierSchemeV6 .HR_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9934 = EPredefinedParticipantIdentifierSchemeV7 .HR_VAT;
     /**
      * Prefix <code>9935</code>, scheme ID <code>IE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9935 = EPredefinedParticipantIdentifierSchemeV6 .IE_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9935 = EPredefinedParticipantIdentifierSchemeV7 .IE_VAT;
     /**
      * Prefix <code>9936</code>, scheme ID <code>LI:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9936 = EPredefinedParticipantIdentifierSchemeV6 .LI_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9936 = EPredefinedParticipantIdentifierSchemeV7 .LI_VAT;
     /**
      * Prefix <code>9937</code>, scheme ID <code>LT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9937 = EPredefinedParticipantIdentifierSchemeV6 .LT_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9937 = EPredefinedParticipantIdentifierSchemeV7 .LT_VAT;
     /**
      * Prefix <code>9938</code>, scheme ID <code>LU:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9938 = EPredefinedParticipantIdentifierSchemeV6 .LU_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9938 = EPredefinedParticipantIdentifierSchemeV7 .LU_VAT;
     /**
      * Prefix <code>9939</code>, scheme ID <code>LV:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9939 = EPredefinedParticipantIdentifierSchemeV6 .LV_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9939 = EPredefinedParticipantIdentifierSchemeV7 .LV_VAT;
     /**
      * Prefix <code>9940</code>, scheme ID <code>MC:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9940 = EPredefinedParticipantIdentifierSchemeV6 .MC_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9940 = EPredefinedParticipantIdentifierSchemeV7 .MC_VAT;
     /**
      * Prefix <code>9941</code>, scheme ID <code>ME:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9941 = EPredefinedParticipantIdentifierSchemeV6 .ME_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9941 = EPredefinedParticipantIdentifierSchemeV7 .ME_VAT;
     /**
      * Prefix <code>9942</code>, scheme ID <code>MK:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9942 = EPredefinedParticipantIdentifierSchemeV6 .MK_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9942 = EPredefinedParticipantIdentifierSchemeV7 .MK_VAT;
     /**
      * Prefix <code>9943</code>, scheme ID <code>MT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9943 = EPredefinedParticipantIdentifierSchemeV6 .MT_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9943 = EPredefinedParticipantIdentifierSchemeV7 .MT_VAT;
     /**
      * Prefix <code>9944</code>, scheme ID <code>NL:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9944 = EPredefinedParticipantIdentifierSchemeV6 .NL_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9944 = EPredefinedParticipantIdentifierSchemeV7 .NL_VAT;
     /**
      * Prefix <code>9945</code>, scheme ID <code>PL:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9945 = EPredefinedParticipantIdentifierSchemeV6 .PL_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9945 = EPredefinedParticipantIdentifierSchemeV7 .PL_VAT;
     /**
      * Prefix <code>9946</code>, scheme ID <code>PT:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9946 = EPredefinedParticipantIdentifierSchemeV6 .PT_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9946 = EPredefinedParticipantIdentifierSchemeV7 .PT_VAT;
     /**
      * Prefix <code>9947</code>, scheme ID <code>RO:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9947 = EPredefinedParticipantIdentifierSchemeV6 .RO_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9947 = EPredefinedParticipantIdentifierSchemeV7 .RO_VAT;
     /**
      * Prefix <code>9948</code>, scheme ID <code>RS:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9948 = EPredefinedParticipantIdentifierSchemeV6 .RS_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9948 = EPredefinedParticipantIdentifierSchemeV7 .RS_VAT;
     /**
      * Prefix <code>9949</code>, scheme ID <code>SI:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9949 = EPredefinedParticipantIdentifierSchemeV6 .SI_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9949 = EPredefinedParticipantIdentifierSchemeV7 .SI_VAT;
     /**
      * Prefix <code>9950</code>, scheme ID <code>SK:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9950 = EPredefinedParticipantIdentifierSchemeV6 .SK_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9950 = EPredefinedParticipantIdentifierSchemeV7 .SK_VAT;
     /**
      * Prefix <code>9951</code>, scheme ID <code>SM:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9951 = EPredefinedParticipantIdentifierSchemeV6 .SM_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9951 = EPredefinedParticipantIdentifierSchemeV7 .SM_VAT;
     /**
      * Prefix <code>9952</code>, scheme ID <code>TR:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9952 = EPredefinedParticipantIdentifierSchemeV6 .TR_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9952 = EPredefinedParticipantIdentifierSchemeV7 .TR_VAT;
     /**
      * Prefix <code>9953</code>, scheme ID <code>VA:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9953 = EPredefinedParticipantIdentifierSchemeV6 .VA_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9953 = EPredefinedParticipantIdentifierSchemeV7 .VA_VAT;
     /**
      * Prefix <code>9954</code>, scheme ID <code>NL:OIN</code><br>
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br>
      * Usage information: Deprecated by 0190<br>
      */
     @Deprecated
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9954 = EPredefinedParticipantIdentifierSchemeV6 .NL_OIN;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9954 = EPredefinedParticipantIdentifierSchemeV7 .NL_OIN;
     /**
      * Prefix <code>9955</code>, scheme ID <code>SE:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9955 = EPredefinedParticipantIdentifierSchemeV6 .SE_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9955 = EPredefinedParticipantIdentifierSchemeV7 .SE_VAT;
     /**
      * Prefix <code>9956</code>, scheme ID <code>BE:CBE</code><br>
      * Structure of the code: Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)<br>
@@ -1583,18 +1731,20 @@ public enum EPredefinedParticipantIdentifierSchemeV6
      * Check digit: mod97
      * See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py<br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9956 = EPredefinedParticipantIdentifierSchemeV6 .BE_CBE;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9956 = EPredefinedParticipantIdentifierSchemeV7 .BE_CBE;
     /**
      * Prefix <code>9957</code>, scheme ID <code>FR:VAT</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br>
      */
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9957 = EPredefinedParticipantIdentifierSchemeV6 .FR_VAT;
+    @Deprecated
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9957 = EPredefinedParticipantIdentifierSchemeV7 .FR_VAT;
     /**
      * Prefix <code>9958</code>, scheme ID <code>DE:LID</code><br>
      * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br>
      * Usage information: Replaced by 0204<br>
      */
     @Deprecated
-    public static final EPredefinedParticipantIdentifierSchemeV6 _9958 = EPredefinedParticipantIdentifierSchemeV6 .DE_LID;
+    public static final EPredefinedParticipantIdentifierSchemeV7 _9958 = EPredefinedParticipantIdentifierSchemeV7 .DE_LID;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;
@@ -1604,7 +1754,7 @@ public enum EPredefinedParticipantIdentifierSchemeV6
     private final boolean m_bDeprecated;
     private final Version m_aDeprecatedSince;
 
-    private EPredefinedParticipantIdentifierSchemeV6(@Nonnull @Nonempty final String sSchemeID,
+    private EPredefinedParticipantIdentifierSchemeV7(@Nonnull @Nonempty final String sSchemeID,
         @Nonnull @Nonempty final String sISO6523,
         @Nonnull @Nonempty final String sCountryCode,
         @Nonnull @Nonempty final String sSchemeName,

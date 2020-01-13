@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
  * Do NOT edit!
  */
 @CodingStyleguideUnaware
-public enum EPredefinedDocumentTypeIdentifierV6
+public enum EPredefinedDocumentTypeIdentifierV7
     implements IPeppolPredefinedDocumentTypeIdentifier
 {
 
@@ -478,11 +478,19 @@ public enum EPredefinedDocumentTypeIdentifierV6
     urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0", "2.1"), "SG PEPPOL BIS Billing 3.0 Invoice", Version.parse("4"), false, null, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
 
     /**
-     * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</code><br>
+     * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</code><br>
      * 
      * @since code list 4
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "CreditNote", "urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0", "2.1"), "SG PEPPOL BIS Billing 3.0 Credit Note", Version.parse("4"), false, null, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+    @Deprecated
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "CreditNote", "urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0", "2.1"), "SG PEPPOL BIS Billing 3.0 Credit Note", Version.parse("4"), true, Version.parse("6"), true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0", "2.1"), "SG PEPPOL BIS Billing 3.0 Credit Note", Version.parse("6"), false, null, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1</code><br>
@@ -552,312 +560,339 @@ public enum EPredefinedDocumentTypeIdentifierV6
      * 
      * @since code list 6
      */
-    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_selfbilling_international_aunz_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0", "2.1"), "AU-NZ Self-Billing 3.0 CreditNote", Version.parse("6"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"));
+    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_selfbilling_international_aunz_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0", "2.1"), "AU-NZ Self-Billing 3.0 CreditNote", Version.parse("6"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biitrns010_ver2_0_extended_urn_www_peppol_eu_bis_peppol4a_ver2_0_extended_urn_www_simplerinvoicing_org_si_si_ubl_ver1_2__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2", "2.1"), "SI-UBL 1.2 Invoice", Version.parse("6"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii04:ver1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol3a_ver2_0_extended_urn_www_simplerinvoicing_org_si_si_ubl_ver1_2__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Order-2", "Order", "urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2", "2.1"), "SI-UBL 1.2 Order", Version.parse("6"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii03:ver2.0"));
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 VIRTUALCOMPANYDOSSIER_T991_BIS991A = EPredefinedDocumentTypeIdentifierV6 .urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 VIRTUALCOMPANYDOSSIER_T991_BIS991A = EPredefinedDocumentTypeIdentifierV7 .urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1;
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossierPackage_1__VirtualCompanyDossierPackage__urn_www_cenbii_eu_transaction_biicoretrdm992_ver0_1__urn_www_peppol_eu_bis_peppol992a_ver1_0__0_1}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 VIRTUALCOMPANYDOSSIERPACKAGE_T992_BIS992A = EPredefinedDocumentTypeIdentifierV6 .urn_www_peppol_eu_schema_xsd_VirtualCompanyDossierPackage_1__VirtualCompanyDossierPackage__urn_www_cenbii_eu_transaction_biicoretrdm992_ver0_1__urn_www_peppol_eu_bis_peppol992a_ver1_0__0_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 VIRTUALCOMPANYDOSSIERPACKAGE_T992_BIS992A = EPredefinedDocumentTypeIdentifierV7 .urn_www_peppol_eu_schema_xsd_VirtualCompanyDossierPackage_1__VirtualCompanyDossierPackage__urn_www_cenbii_eu_transaction_biicoretrdm992_ver0_1__urn_www_peppol_eu_bis_peppol992a_ver1_0__0_1;
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_CatalogueTemplate_1__CatalogueTemplate__urn_www_cenbii_eu_transaction_biicoretrdm993_ver0_1__urn_www_peppol_eu_bis_peppol993a_ver1_0__0_1}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 CATALOGUETEMPLATE_T993_BIS993A = EPredefinedDocumentTypeIdentifierV6 .urn_www_peppol_eu_schema_xsd_CatalogueTemplate_1__CatalogueTemplate__urn_www_cenbii_eu_transaction_biicoretrdm993_ver0_1__urn_www_peppol_eu_bis_peppol993a_ver1_0__0_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CATALOGUETEMPLATE_T993_BIS993A = EPredefinedDocumentTypeIdentifierV7 .urn_www_peppol_eu_schema_xsd_CatalogueTemplate_1__CatalogueTemplate__urn_www_cenbii_eu_transaction_biicoretrdm993_ver0_1__urn_www_peppol_eu_bis_peppol993a_ver1_0__0_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_www_cenbii_eu_transaction_biicoretrdm019_ver1_0__urn_www_peppol_eu_bis_peppol1a_ver1_0__2_0}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 CATALOGUE_T019_BIS1A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_www_cenbii_eu_transaction_biicoretrdm019_ver1_0__urn_www_peppol_eu_bis_peppol1a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 CATALOGUE_T019_BIS1A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_www_cenbii_eu_transaction_biicoretrdm019_ver1_0__urn_www_peppol_eu_bis_peppol1a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biicoretrdm057_ver1_0__urn_www_peppol_eu_bis_peppol1a_ver1_0__2_0}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 APPLICATIONRESPONSE_T057_BIS1A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biicoretrdm057_ver1_0__urn_www_peppol_eu_bis_peppol1a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 APPLICATIONRESPONSE_T057_BIS1A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biicoretrdm057_ver1_0__urn_www_peppol_eu_bis_peppol1a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biicoretrdm058_ver1_0__urn_www_peppol_eu_bis_peppol1a_ver1_0__2_0}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 APPLICATIONRESPONSE_T058_BIS1A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biicoretrdm058_ver1_0__urn_www_peppol_eu_bis_peppol1a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 APPLICATIONRESPONSE_T058_BIS1A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biicoretrdm058_ver1_0__urn_www_peppol_eu_bis_peppol1a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_www_cenbii_eu_transaction_biitrns019_ver2_0_extended_urn_www_peppol_eu_bis_peppol1a_ver4_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CATALOGUE_T019_BIS1A_V40 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_www_cenbii_eu_transaction_biitrns019_ver2_0_extended_urn_www_peppol_eu_bis_peppol1a_ver4_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CATALOGUE_T019_BIS1A_V40 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_www_cenbii_eu_transaction_biitrns019_ver2_0_extended_urn_www_peppol_eu_bis_peppol1a_ver4_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biicoretrdm001_ver1_0__urn_www_peppol_eu_bis_peppol3a_ver1_0__2_0}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDER_T001_BIS3A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biicoretrdm001_ver1_0__urn_www_peppol_eu_bis_peppol3a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDER_T001_BIS3A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biicoretrdm001_ver1_0__urn_www_peppol_eu_bis_peppol3a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol03a_ver2_0__2_1}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDER_T001_BIS03A_V20 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol03a_ver2_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDER_T001_BIS03A_V20 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol03a_ver2_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol3a_ver2_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDER_T001_BIS3A_V20 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol3a_ver2_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDER_T001_BIS3A_V20 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol3a_ver2_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol4a_ver1_0__2_0}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_T010_BIS4A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol4a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_T010_BIS4A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol4a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biitrns010_ver2_0_extended_urn_www_peppol_eu_bis_peppol4a_ver2_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_T010_BIS4A_V20 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biitrns010_ver2_0_extended_urn_www_peppol_eu_bis_peppol4a_ver2_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_T010_BIS4A_V20 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biitrns010_ver2_0_extended_urn_www_peppol_eu_bis_peppol4a_ver2_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol5a_ver1_0__2_0}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_T010_BIS5A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol5a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_T010_BIS5A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol5a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biicoretrdm014_ver1_0__urn_www_peppol_eu_bis_peppol5a_ver1_0__2_0}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_T014_BIS5A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biicoretrdm014_ver1_0__urn_www_peppol_eu_bis_peppol5a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_T014_BIS5A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biicoretrdm014_ver1_0__urn_www_peppol_eu_bis_peppol5a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm015_ver1_0__urn_www_peppol_eu_bis_peppol5a_ver1_0__2_0}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_T015_BIS5A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm015_ver1_0__urn_www_peppol_eu_bis_peppol5a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_T015_BIS5A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm015_ver1_0__urn_www_peppol_eu_bis_peppol5a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biitrns010_ver2_0_extended_urn_www_peppol_eu_bis_peppol5a_ver2_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_T010_BIS5A_V20 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biitrns010_ver2_0_extended_urn_www_peppol_eu_bis_peppol5a_ver2_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_T010_BIS5A_V20 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biitrns010_ver2_0_extended_urn_www_peppol_eu_bis_peppol5a_ver2_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biitrns014_ver2_0_extended_urn_www_peppol_eu_bis_peppol5a_ver2_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_T014_BIS5A_V20 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biitrns014_ver2_0_extended_urn_www_peppol_eu_bis_peppol5a_ver2_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_T014_BIS5A_V20 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biitrns014_ver2_0_extended_urn_www_peppol_eu_bis_peppol5a_ver2_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biicoretrdm001_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDER_T001_BIS6A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biicoretrdm001_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDER_T001_BIS6A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biicoretrdm001_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderResponseSimple_2__OrderResponseSimple__urn_www_cenbii_eu_transaction_biicoretrdm002_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDERRESPONSESIMPLE_T002_BIS6A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponseSimple_2__OrderResponseSimple__urn_www_cenbii_eu_transaction_biicoretrdm002_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDERRESPONSESIMPLE_T002_BIS6A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponseSimple_2__OrderResponseSimple__urn_www_cenbii_eu_transaction_biicoretrdm002_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderResponseSimple_2__OrderResponseSimple__urn_www_cenbii_eu_transaction_biicoretrdm003_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDERRESPONSESIMPLE_T003_BIS6A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponseSimple_2__OrderResponseSimple__urn_www_cenbii_eu_transaction_biicoretrdm003_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDERRESPONSESIMPLE_T003_BIS6A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponseSimple_2__OrderResponseSimple__urn_www_cenbii_eu_transaction_biicoretrdm003_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_T010_BIS6A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_T010_BIS6A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biicoretrdm014_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_T014_BIS6A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biicoretrdm014_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_T014_BIS6A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biicoretrdm014_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm015_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_T015_BIS6A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm015_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_T015_BIS6A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm015_ver1_0__urn_www_peppol_eu_bis_peppol6a_ver1_0__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol4a_ver1_0_urn_www_difi_no_ehf_faktura_ver1__2_0}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_T010_BIS4A_WWW_DIFI_NO_EHF_FAKTURA_VER1 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol4a_ver1_0_urn_www_difi_no_ehf_faktura_ver1__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_T010_BIS4A_WWW_DIFI_NO_EHF_FAKTURA_VER1 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biicoretrdm010_ver1_0__urn_www_peppol_eu_bis_peppol4a_ver1_0_urn_www_difi_no_ehf_faktura_ver1__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biicoretrdm014_ver1_0__urn_www_cenbii_eu_profile_biixx_ver1_0_urn_www_difi_no_ehf_kreditnota_ver1__2_0}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_T014_WWW_CENBII_EU_PROFILE_BIIXX_VER1_0_WWW_DIFI_NO_EHF_KREDITNOTA_VER1 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biicoretrdm014_ver1_0__urn_www_cenbii_eu_profile_biixx_ver1_0_urn_www_difi_no_ehf_kreditnota_ver1__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_T014_WWW_CENBII_EU_PROFILE_BIIXX_VER1_0_WWW_DIFI_NO_EHF_KREDITNOTA_VER1 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_www_cenbii_eu_transaction_biicoretrdm014_ver1_0__urn_www_cenbii_eu_profile_biixx_ver1_0_urn_www_difi_no_ehf_kreditnota_ver1__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDER_T001_BIS28A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDER_T001_BIS28A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__Order__urn_www_cenbii_eu_transaction_biitrns076_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0__2_1}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDER_T076_BIS28A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__Order__urn_www_cenbii_eu_transaction_biitrns076_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDER_T076_BIS28A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__Order__urn_www_cenbii_eu_transaction_biitrns076_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_www_cenbii_eu_transaction_biitrns076_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDER_T076_BIS28A2 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_www_cenbii_eu_transaction_biitrns076_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDER_T076_BIS28A2 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_www_cenbii_eu_transaction_biitrns076_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_www_cenbii_eu_transaction_biitrns016_ver1_0_extended_urn_www_peppol_eu_bis_peppol30a_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 DESPATCHADVICE_T016_BIS30A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_www_cenbii_eu_transaction_biitrns016_ver1_0_extended_urn_www_peppol_eu_bis_peppol30a_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 DESPATCHADVICE_T016_BIS30A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_www_cenbii_eu_transaction_biitrns016_ver1_0_extended_urn_www_peppol_eu_bis_peppol30a_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biitrns071_ver2_0_extended_urn_www_peppol_eu_bis_peppol36a_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 APPLICATIONRESPONSE_T071_BIS36A = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biitrns071_ver2_0_extended_urn_www_peppol_eu_bis_peppol36a_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 APPLICATIONRESPONSE_T071_BIS36A = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_cenbii_eu_transaction_biitrns071_ver2_0_extended_urn_www_peppol_eu_bis_peppol36a_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_EN16931_PEPPOL_V30 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_EN16931_PEPPOL_V30 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_EN16931_PEPPOL_V30 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_EN16931_PEPPOL_V30 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0_extended_urn_fdc_peppol_authority_co_uk_spec_ordering_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 DHSC_CUSTOMIZED_ORDERING_PROFILE_V1_ORDER = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0_extended_urn_fdc_peppol_authority_co_uk_spec_ordering_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 DHSC_CUSTOMIZED_ORDERING_PROFILE_V1_ORDER = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0_extended_urn_fdc_peppol_authority_co_uk_spec_ordering_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__Order__urn_www_cenbii_eu_transaction_biitrns076_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0_extended_urn_fdc_peppol_authority_co_uk_spec_ordering_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 DHSC_CUSTOMIZED_ORDERING_PROFILE_V1_ORDER_RESPONSE = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__Order__urn_www_cenbii_eu_transaction_biitrns076_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0_extended_urn_fdc_peppol_authority_co_uk_spec_ordering_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 DHSC_CUSTOMIZED_ORDERING_PROFILE_V1_ORDER_RESPONSE = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__Order__urn_www_cenbii_eu_transaction_biitrns076_ver2_0_extended_urn_www_peppol_eu_bis_peppol28a_ver1_0_extended_urn_fdc_peppol_authority_co_uk_spec_ordering_ver1_0__2_1;
     /**
      * Same as {@link #urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__D16B}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_CII_EN16931_PEPPOL_V30 = EPredefinedDocumentTypeIdentifierV6 .urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__D16B;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_CII_EN16931_PEPPOL_V30 = EPredefinedDocumentTypeIdentifierV7 .urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0__D16B;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ExpressionOfInterestRequest_2__ExpressionOfInterestRequest__urn_www_cenbii_eu_transaction_biitrdm081_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t001_ver1_0__2_2}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 EXPRESSION_OF_INTEREST_REQUEST_V1 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ExpressionOfInterestRequest_2__ExpressionOfInterestRequest__urn_www_cenbii_eu_transaction_biitrdm081_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t001_ver1_0__2_2;
+    public static final EPredefinedDocumentTypeIdentifierV7 EXPRESSION_OF_INTEREST_REQUEST_V1 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ExpressionOfInterestRequest_2__ExpressionOfInterestRequest__urn_www_cenbii_eu_transaction_biitrdm081_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t001_ver1_0__2_2;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ExpressionOfInterestResponse_2__ExpressionOfInterestResponse__urn_www_cenbii_eu_transaction_biitrdm082_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t002_ver1_0__2_2}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 EXPRESSION_OF_INTEREST_RESPONSE_V1 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ExpressionOfInterestResponse_2__ExpressionOfInterestResponse__urn_www_cenbii_eu_transaction_biitrdm082_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t002_ver1_0__2_2;
+    public static final EPredefinedDocumentTypeIdentifierV7 EXPRESSION_OF_INTEREST_RESPONSE_V1 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ExpressionOfInterestResponse_2__ExpressionOfInterestResponse__urn_www_cenbii_eu_transaction_biitrdm082_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t002_ver1_0__2_2;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_TenderStatusRequest_2__TenderStatusRequest__urn_www_cenbii_eu_transaction_biitrdm097_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t003_ver1_0__2_2}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 TENDER_STATUS_REQUEST_V1 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_TenderStatusRequest_2__TenderStatusRequest__urn_www_cenbii_eu_transaction_biitrdm097_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t003_ver1_0__2_2;
+    public static final EPredefinedDocumentTypeIdentifierV7 TENDER_STATUS_REQUEST_V1 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_TenderStatusRequest_2__TenderStatusRequest__urn_www_cenbii_eu_transaction_biitrdm097_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t003_ver1_0__2_2;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CallForTenders_2__CallForTenders__urn_www_cenbii_eu_transaction_biitrdm083_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t004_ver1_0__2_2}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CALL_FOR_TENDERS_V1 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CallForTenders_2__CallForTenders__urn_www_cenbii_eu_transaction_biitrdm083_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t004_ver1_0__2_2;
+    public static final EPredefinedDocumentTypeIdentifierV7 CALL_FOR_TENDERS_V1 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CallForTenders_2__CallForTenders__urn_www_cenbii_eu_transaction_biitrdm083_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t004_ver1_0__2_2;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_TenderReceipt_2__TenderReceipt__urn_www_cenbii_eu_transaction_biitrdm045_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t006_ver1_0__2_2}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 TENDER_RECEIPT_V1 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_TenderReceipt_2__TenderReceipt__urn_www_cenbii_eu_transaction_biitrdm045_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t006_ver1_0__2_2;
+    public static final EPredefinedDocumentTypeIdentifierV7 TENDER_RECEIPT_V1 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_TenderReceipt_2__TenderReceipt__urn_www_cenbii_eu_transaction_biitrdm045_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t006_ver1_0__2_2;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Tender_2__Tender__urn_www_cenbii_eu_transaction_biitrdm090_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t005_ver1_0__2_2}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 TENDER_V1 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Tender_2__Tender__urn_www_cenbii_eu_transaction_biitrdm090_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t005_ver1_0__2_2;
+    public static final EPredefinedDocumentTypeIdentifierV7 TENDER_V1 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Tender_2__Tender__urn_www_cenbii_eu_transaction_biitrdm090_ver3_0_extended_urn_fdc_peppol_eu_2017_pracc_t005_ver1_0__2_2;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__2_1}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 XRECHNUNG_INVOICE_UBL_V11 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 XRECHNUNG_INVOICE_UBL_V11 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__2_1}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 XRECHNUNG_CREDIT_NOTE_UBL_V11 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 XRECHNUNG_CREDIT_NOTE_UBL_V11 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__2_1;
     /**
      * Same as {@link #urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__D16B}
      */
     @Deprecated
-    public static final EPredefinedDocumentTypeIdentifierV6 XRECHNUNG_INVOICE_CII_V11 = EPredefinedDocumentTypeIdentifierV6 .urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__D16B;
+    public static final EPredefinedDocumentTypeIdentifierV7 XRECHNUNG_INVOICE_CII_V11 = EPredefinedDocumentTypeIdentifierV7 .urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__D16B;
     /**
      * Same as {@link #urn_oioubl_names_specification_oioubl_schema_xsd_UtilityStatement_2__UtilityStatement__OIOUBL_2_02__2_0}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 OIOUBL_UTILITY_STATEMENT_202 = EPredefinedDocumentTypeIdentifierV6 .urn_oioubl_names_specification_oioubl_schema_xsd_UtilityStatement_2__UtilityStatement__OIOUBL_2_02__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 OIOUBL_UTILITY_STATEMENT_202 = EPredefinedDocumentTypeIdentifierV7 .urn_oioubl_names_specification_oioubl_schema_xsd_UtilityStatement_2__UtilityStatement__OIOUBL_2_02__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Reminder_2__Reminder__OIOUBL_2_02__2_0}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 OIOUBL_REMINDER_202 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Reminder_2__Reminder__OIOUBL_2_02__2_0;
+    public static final EPredefinedDocumentTypeIdentifierV7 OIOUBL_REMINDER_202 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Reminder_2__Reminder__OIOUBL_2_02__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_UBL_BE_1_0_0_20180214__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 UBL_BE_INVOICE_UBL_V11 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_UBL_BE_1_0_0_20180214__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 UBL_BE_INVOICE_UBL_V11 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_UBL_BE_1_0_0_20180214__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_UBL_BE_1_0_0_20180214__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 UBL_BE_CREDIT_NOTE_UBL_V11 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_UBL_BE_1_0_0_20180214__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 UBL_BE_CREDIT_NOTE_UBL_V11 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_UBL_BE_1_0_0_20180214__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_peppol_eu_transaction_biitrns111_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 APPLICATIONRESPONSE_WWW_PEPPOL_EU_TRANSACTION_BIITRNS111_VER1_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_peppol_eu_transaction_biitrns111_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 APPLICATIONRESPONSE_WWW_PEPPOL_EU_TRANSACTION_BIITRNS111_VER1_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_www_peppol_eu_transaction_biitrns111_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_fdc_peppol_eu_poacc_trns_catalogue_3__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CATALOGUE_FDC_PEPPOL_EU_POACC_TRNS_CATALOGUE_3 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_fdc_peppol_eu_poacc_trns_catalogue_3__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CATALOGUE_FDC_PEPPOL_EU_POACC_TRNS_CATALOGUE_3 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_fdc_peppol_eu_poacc_trns_catalogue_3__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_poacc_trns_catalogue_response_3__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 APPLICATIONRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_CATALOGUE_RESPONSE_3 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_poacc_trns_catalogue_response_3__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 APPLICATIONRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_CATALOGUE_RESPONSE_3 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_poacc_trns_catalogue_response_3__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDER_FDC_PEPPOL_EU_POACC_TRNS_ORDER_3 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDER_FDC_PEPPOL_EU_POACC_TRNS_ORDER_3 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_poacc_trns_invoice_response_3__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 APPLICATIONRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_INVOICE_RESPONSE_3 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_poacc_trns_invoice_response_3__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 APPLICATIONRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_INVOICE_RESPONSE_3 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_poacc_trns_invoice_response_3__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_fdc_peppol_eu_poacc_trns_punch_out_3__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CATALOGUE_FDC_PEPPOL_EU_POACC_TRNS_PUNCH_OUT_3 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_fdc_peppol_eu_poacc_trns_punch_out_3__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CATALOGUE_FDC_PEPPOL_EU_POACC_TRNS_PUNCH_OUT_3 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Catalogue_2__Catalogue__urn_fdc_peppol_eu_poacc_trns_punch_out_3__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_RESPONSE_3 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_RESPONSE_3 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_poacc_trns_despatch_advice_3__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 DESPATCHADVICE_FDC_PEPPOL_EU_POACC_TRNS_DESPATCH_ADVICE_3 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_poacc_trns_despatch_advice_3__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 DESPATCHADVICE_FDC_PEPPOL_EU_POACC_TRNS_DESPATCH_ADVICE_3 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_poacc_trns_despatch_advice_3__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_agreement_3__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_AGREEMENT_3 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_agreement_3__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_AGREEMENT_3 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_agreement_3__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_poacc_trns_mlr_3__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 APPLICATIONRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_MLR_3 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_poacc_trns_mlr_3__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 APPLICATIONRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_MLR_3 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_poacc_trns_mlr_3__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_nen_nl_nlcius_v1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_CEN_EU_EN16931_2017_COMPLIANT_FDC_NEN_NL_NLCIUS_V1_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_nen_nl_nlcius_v1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_CEN_EU_EN16931_2017_COMPLIANT_FDC_NEN_NL_NLCIUS_V1_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_nen_nl_nlcius_v1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_nen_nl_nlcius_v1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_FDC_NEN_NL_NLCIUS_V1_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_nen_nl_nlcius_v1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_FDC_NEN_NL_NLCIUS_V1_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_nen_nl_nlcius_v1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_SG_3_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_SG_3_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_SG_3_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1;
+    @Deprecated
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_SG_3_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_SG_3_02 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_sg_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_2__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_2 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_2__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_2 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_2__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_2__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_2 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_2__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_2 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_2__2_1;
     /**
      * Same as {@link #urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_2__D16B}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_2 = EPredefinedDocumentTypeIdentifierV6 .urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_2__D16B;
+    public static final EPredefinedDocumentTypeIdentifierV7 CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_2 = EPredefinedDocumentTypeIdentifierV7 .urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_2__D16B;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_fdc_www_efaktura_gov_pl_ver1_0_trns_account_corr_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_FDC_WWW_EFAKTURA_GOV_PL_VER1_0_TRNS_ACCOUNT_CORR_VER1_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_fdc_www_efaktura_gov_pl_ver1_0_trns_account_corr_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_FDC_WWW_EFAKTURA_GOV_PL_VER1_0_TRNS_ACCOUNT_CORR_VER1_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_fdc_www_efaktura_gov_pl_ver1_0_trns_account_corr_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0_extended_urn_fdc_www_efaktura_gov_pl_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_FDC_PEPPOL_EU_2017_POACC_BILLING_3_0_EXTENDED_FDC_WWW_EFAKTURA_GOV_PL_VER1_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0_extended_urn_fdc_www_efaktura_gov_pl_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_FDC_PEPPOL_EU_2017_POACC_BILLING_3_0_EXTENDED_FDC_WWW_EFAKTURA_GOV_PL_VER1_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_fdc_peppol_eu_2017_poacc_billing_3_0_extended_urn_fdc_www_efaktura_gov_pl_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ReceiptAdvice_2__ReceiptAdvice__urn_fdc_www_efaktura_gov_pl_ver1_0_trns_receipt_advice_ver1_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 RECEIPTADVICE_FDC_WWW_EFAKTURA_GOV_PL_VER1_0_TRNS_RECEIPT_ADVICE_VER1_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_ReceiptAdvice_2__ReceiptAdvice__urn_fdc_www_efaktura_gov_pl_ver1_0_trns_receipt_advice_ver1_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 RECEIPTADVICE_FDC_WWW_EFAKTURA_GOV_PL_VER1_0_TRNS_RECEIPT_ADVICE_VER1_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_ReceiptAdvice_2__ReceiptAdvice__urn_fdc_www_efaktura_gov_pl_ver1_0_trns_receipt_advice_ver1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_aunz_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_AUNZ_3_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_aunz_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_AUNZ_3_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_aunz_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_aunz_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_AUNZ_3_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_aunz_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_AUNZ_3_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_billing_international_aunz_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_selfbilling_international_aunz_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 INVOICE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_SELFBILLING_INTERNATIONAL_AUNZ_3_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_selfbilling_international_aunz_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_SELFBILLING_INTERNATIONAL_AUNZ_3_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_selfbilling_international_aunz_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_selfbilling_international_aunz_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifierV6 CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_SELFBILLING_INTERNATIONAL_AUNZ_3_0 = EPredefinedDocumentTypeIdentifierV6 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_selfbilling_international_aunz_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifierV7 CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_SELFBILLING_INTERNATIONAL_AUNZ_3_0 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_conformant_urn_fdc_peppol_eu_2017_poacc_selfbilling_international_aunz_3_0__2_1;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biitrns010_ver2_0_extended_urn_www_peppol_eu_bis_peppol4a_ver2_0_extended_urn_www_simplerinvoicing_org_si_si_ubl_ver1_2__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifierV7 INVOICE_WWW_CENBII_EU_TRANSACTION_BIITRNS010_VER2_0_EXTENDED_WWW_PEPPOL_EU_BIS_PEPPOL4A_VER2_0_EXTENDED_WWW_SIMPLERINVOICING_ORG_SI_SI_UBL_VER1_2 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_www_cenbii_eu_transaction_biitrns010_ver2_0_extended_urn_www_peppol_eu_bis_peppol4a_ver2_0_extended_urn_www_simplerinvoicing_org_si_si_ubl_ver1_2__2_1;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol3a_ver2_0_extended_urn_www_simplerinvoicing_org_si_si_ubl_ver1_2__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifierV7 ORDER_WWW_CENBII_EU_TRANSACTION_BIITRNS001_VER2_0_EXTENDED_WWW_PEPPOL_EU_BIS_PEPPOL3A_VER2_0_EXTENDED_WWW_SIMPLERINVOICING_ORG_SI_SI_UBL_VER1_2 = EPredefinedDocumentTypeIdentifierV7 .urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_www_cenbii_eu_transaction_biitrns001_ver2_0_extended_urn_www_peppol_eu_bis_peppol3a_ver2_0_extended_urn_www_simplerinvoicing_org_si_si_ubl_ver1_2__2_1;
     private final String m_sScheme;
     private final IPeppolDocumentTypeIdentifierParts m_aParts;
     private final String m_sID;
@@ -870,7 +905,7 @@ public enum EPredefinedDocumentTypeIdentifierV6
     private final String m_sDomainCommunity;
     private final ICommonsList<IProcessIdentifier> m_aProcIDs;
 
-    private EPredefinedDocumentTypeIdentifierV6(@Nonnull @Nonempty final String sScheme,
+    private EPredefinedDocumentTypeIdentifierV7(@Nonnull @Nonempty final String sScheme,
         @Nonnull final IPeppolDocumentTypeIdentifierParts aParts,
         @Nonnull @Nonempty final String sProfileCode,
         @Nonnull final Version aSince,
@@ -994,9 +1029,9 @@ public enum EPredefinedDocumentTypeIdentifierV6
     }
 
     @Nullable
-    public static EPredefinedDocumentTypeIdentifierV6 getFromDocumentTypeIdentifierOrNull(@Nullable final IDocumentTypeIdentifier aDocTypeID) {
+    public static EPredefinedDocumentTypeIdentifierV7 getFromDocumentTypeIdentifierOrNull(@Nullable final IDocumentTypeIdentifier aDocTypeID) {
         if (aDocTypeID!= null) {
-            for (EPredefinedDocumentTypeIdentifierV6 e: EPredefinedDocumentTypeIdentifierV6 .values()) {
+            for (EPredefinedDocumentTypeIdentifierV7 e: EPredefinedDocumentTypeIdentifierV7 .values()) {
                 if (e.hasScheme(aDocTypeID.getScheme())&&e.hasValue(aDocTypeID.getValue())) {
                     return e;
                 }

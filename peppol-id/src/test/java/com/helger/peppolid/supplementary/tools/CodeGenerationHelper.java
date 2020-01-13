@@ -18,13 +18,49 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.string.StringHelper;
+import com.helger.genericode.Genericode10Helper;
+import com.helger.genericode.v10.Row;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 
 @Immutable
 final class CodeGenerationHelper
 {
+  private static final boolean DEFAULT_DEPRECATED = false;
+
   private CodeGenerationHelper ()
   {}
+
+  static boolean parseBoolean (final String s, final boolean bFallback)
+  {
+    if (StringHelper.hasText (s))
+      return "1".equals (s) || "true".equalsIgnoreCase (s) || "yes".equalsIgnoreCase (s);
+    return bFallback;
+  }
+
+  static boolean parseDeprecated (final String s)
+  {
+    return parseBoolean (s, DEFAULT_DEPRECATED);
+  }
+
+  @Nullable
+  static String maskHtml (@Nullable final String s)
+  {
+    if (s == null)
+      return null;
+    String ret = s;
+    ret = StringHelper.replaceAll (ret, "&", "&amp;");
+    ret = StringHelper.replaceAll (ret, "<", "&lt;");
+    ret = StringHelper.replaceAll (ret, ">", "&gt;");
+    ret = StringHelper.replaceAll (ret, "\"", "&quot;");
+    return ret;
+  }
+
+  @Nullable
+  static String getRowValue (@Nonnull final Row aRow, @Nonnull @Nonempty final String sColumnID)
+  {
+    final String sPure = Genericode10Helper.getRowValue (aRow, sColumnID);
+    return StringHelper.trim (sPure);
+  }
 
   @Nonnull
   @Nonempty

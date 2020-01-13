@@ -219,7 +219,14 @@ public enum EPredefinedProcessIdentifier
      * 
      * @since code list 4
      */
-    urn_fdc_peppol_eu_poacc_bis_mlr_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:mlr:3", null, Version.parse("4"), false);
+    urn_fdc_peppol_eu_poacc_bis_mlr_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:mlr:3", null, Version.parse("4"), false),
+
+    /**
+     * <code>urn:fdc:peppol.eu:poacc:bis:catalogue_wo_response:3</code><br>
+     * 
+     * @since code list 6
+     */
+    urn_fdc_peppol_eu_poacc_bis_catalogue_wo_response_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:catalogue_wo_response:3", null, Version.parse("6"), false);
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      */

@@ -31,6 +31,8 @@ And some legacy PEPPOL projects:
 
 # News and noteworthy
 
+* v7.0.6 - work in progress
+    * Updated to Peppol Code List v6
 * v7.0.5 - 2019-12-04
     * Added the new SMK TLS certificate chain to `sml-truststore.jks` and `complete-truststore.jks`
 * v7.0.4 - 2019-11-26

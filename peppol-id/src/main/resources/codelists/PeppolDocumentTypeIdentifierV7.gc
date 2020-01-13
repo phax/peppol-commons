@@ -19,7 +19,7 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolDocumentTypeIdentifier</ShortName>
-      <Version>6</Version>
+      <Version>7</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:documenttypes</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:documenttypes-2.0</CanonicalVersionUri>
   </Identification>
@@ -65,7 +65,8 @@
           <Data Type="string" />
     </Column>
       <Column Id="process-ids" Use="required">
-      <ShortName>Associated Process Identifier(s)</ShortName>
+      <ShortName>Associated Process/Profile Identifier(s)
+(Format scheme::value)</ShortName>
           <Data Type="string" />
     </Column>
       <Key Id="schemeKey">
@@ -1883,6 +1884,41 @@ cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:bis:order_only:3</SimpleValue>
         <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="comment">
+        <SimpleValue>Typo in name!</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="bis-version">
+        <SimpleValue>3</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+          <Value ColumnRef="process-ids">
+        <SimpleValue>cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SG PEPPOL BIS Billing 3.0 Credit Note</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="issued-by-openpeppol">
@@ -2162,6 +2198,58 @@ cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:bis:order_only:3</SimpleValue>
       </Value>
           <Value ColumnRef="process-ids">
         <SimpleValue>cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SI-UBL 1.2 Invoice</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+          <Value ColumnRef="process-ids">
+        <SimpleValue>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii04:ver1.0</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SI-UBL 1.2 Order</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="issued-by-openpeppol">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="domain-community">
+        <SimpleValue>POAC</SimpleValue>
+      </Value>
+          <Value ColumnRef="process-ids">
+        <SimpleValue>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii03:ver2.0</SimpleValue>
       </Value>
     </Row>
   </SimpleCodeList>

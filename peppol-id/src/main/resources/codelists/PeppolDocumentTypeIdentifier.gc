@@ -19,21 +19,21 @@
   </Annotation>
   <Identification>
     <ShortName>PeppolDocumentTypeIdentifier</ShortName>
-      <Version>5</Version>
+      <Version>6</Version>
       <CanonicalUri>urn:peppol.eu:names:identifier:documenttypes</CanonicalUri>
       <CanonicalVersionUri>urn:peppol.eu:names:identifier:documenttypes-1.0</CanonicalVersionUri>
   </Identification>
   <ColumnSet>
     <Column Id="profilecode" Use="optional">
-      <ShortName>Profile code</ShortName>
+      <ShortName>Profile name</ShortName>
           <Data Type="string" />
     </Column>
       <Column Id="scheme" Use="required">
-      <ShortName>PEPPOL Identifier Scheme</ShortName>
+      <ShortName>Peppol Document Type Identifier Scheme</ShortName>
           <Data Type="string" />
     </Column>
       <Column Id="id" Use="required">
-      <ShortName>PEPPOL Document Type Identifier</ShortName>
+      <ShortName>Peppol Document Type Identifier Value</ShortName>
           <Data Type="string" />
     </Column>
       <Column Id="since" Use="required">
@@ -49,11 +49,11 @@
           <Data Type="string" />
     </Column>
       <Key Id="schemeKey">
-      <ShortName>PEPPOL Identifier Scheme</ShortName>
+      <ShortName>Peppol Document Type Identifier Scheme</ShortName>
           <ColumnRef Ref="scheme" />
     </Key>
       <Key Id="idKey">
-      <ShortName>PEPPOL Document Type Identifier</ShortName>
+      <ShortName>Peppol Document Type Identifier Value</ShortName>
           <ColumnRef Ref="id" />
     </Key>
   </ColumnSet>
@@ -663,7 +663,7 @@
     </Row>
       <Row>
       <Value ColumnRef="profilecode">
-        <SimpleValue>DHSC Customized  Ordering profile OrderResponse V1</SimpleValue>
+        <SimpleValue>DHSC Customized Ordering profile OrderResponse V1</SimpleValue>
       </Value>
           <Value ColumnRef="scheme">
         <SimpleValue>busdox-docid-qns</SimpleValue>
@@ -1160,6 +1160,26 @@
         <SimpleValue>4</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SG PEPPOL BIS Billing 3.0 Credit Note</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
@@ -1209,6 +1229,159 @@
       </Value>
           <Value ColumnRef="since">
         <SimpleValue>5</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEF.PL Accounting Note v1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:fdc:www.efaktura.gov.pl:ver1.0:trns:account_corr:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEF.PL Correcting Invoice v1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0#extended#urn:fdc:www.efaktura.gov.pl:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>PEF.PL Receipt Advice v1</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2::ReceiptAdvice##urn:fdc:www.efaktura.gov.pl:ver1.0:trns:receipt_advice:ver1.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>AU-NZ PEPPOL BIS Billing 3.0 Invoice</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>AU-NZ PEPPOL BIS Billing 3.0 CreditNote</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>AU-NZ Self-Billing 3.0 Invoice</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>AU-NZ Self-Billing 3.0 CreditNote</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SI-UBL 1.2 Invoice</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="profilecode">
+        <SimpleValue>SI-UBL 1.2 Order</SimpleValue>
+      </Value>
+          <Value ColumnRef="scheme">
+        <SimpleValue>busdox-docid-qns</SimpleValue>
+      </Value>
+          <Value ColumnRef="id">
+        <SimpleValue>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>6</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
         <SimpleValue>false</SimpleValue>

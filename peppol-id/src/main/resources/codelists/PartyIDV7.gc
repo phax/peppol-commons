@@ -19,9 +19,9 @@
   </Annotation>
   <Identification>
     <ShortName>Scheme Agency</ShortName>
-      <Version>6</Version>
+      <Version>7</Version>
       <CanonicalUri>PEPPOL</CanonicalUri>
-      <CanonicalVersionUri>PEPPOL-6</CanonicalVersionUri>
+      <CanonicalVersionUri>PEPPOL-7</CanonicalVersionUri>
       <LocationUri>PartyID.gc</LocationUri>
   </Identification>
   <ColumnSet>

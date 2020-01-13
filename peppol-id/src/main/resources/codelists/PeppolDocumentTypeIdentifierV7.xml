@@ -13,7 +13,7 @@
 -->
 <!--This file was automatically generated.
 Do NOT edit!-->
-<root version="6">
+<root version="7">
   <document-type profilecode="Virtual Company Dossier" scheme="busdox-docid-qns" id="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" since="1.0.0" deprecated="true" deprecated-since="2" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -201,7 +201,10 @@ Do NOT edit!-->
   <document-type profilecode="SG PEPPOL BIS Billing 3.0 Invoice" scheme="busdox-docid-qns" id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1" since="4" deprecated="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type profilecode="SG PEPPOL BIS Billing 3.0 Credit Note" scheme="busdox-docid-qns" id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1" since="4" deprecated="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+  <document-type profilecode="SG PEPPOL BIS Billing 3.0 Credit Note" scheme="busdox-docid-qns" id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1" since="4" deprecated="true" deprecated-since="6" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type profilecode="SG PEPPOL BIS Billing 3.0 Credit Note" scheme="busdox-docid-qns" id="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1" since="6" deprecated="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type profilecode="XRechnung UBL Invoice V1.2" scheme="busdox-docid-qns" id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1" since="5" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
@@ -233,5 +236,11 @@ Do NOT edit!-->
   </document-type>
   <document-type profilecode="AU-NZ Self-Billing 3.0 CreditNote" scheme="busdox-docid-qns" id="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" since="6" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type profilecode="SI-UBL 1.2 Invoice" scheme="busdox-docid-qns" id="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1" since="6" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
+    <process-id scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii04:ver1.0" />
+  </document-type>
+  <document-type profilecode="SI-UBL 1.2 Order" scheme="busdox-docid-qns" id="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1" since="6" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
+    <process-id scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii03:ver2.0" />
   </document-type>
 </root>
