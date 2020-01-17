@@ -98,7 +98,7 @@ public final class SMPClientTest
     final IParticipantIdentifier aServiceGroupID = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:surleyNotExisting");
 
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
-    assertNull (aSMPClient.getServiceRegistrationOrNull (aServiceGroupID, MockSMPClientConfig.getDocumentTypeID ()));
+    assertNull (aSMPClient.getServiceMetadataOrNull (aServiceGroupID, MockSMPClientConfig.getDocumentTypeID ()));
   }
 
   @Test
@@ -218,7 +218,7 @@ public final class SMPClientTest
     }
     aSMPClient.saveServiceInformation (aServiceInformation, SMP_CREDENTIALS);
 
-    final SignedServiceMetadataType aSignedServiceMetadata = aSMPClient.getServiceRegistration (aServiceGroupID,
+    final SignedServiceMetadataType aSignedServiceMetadata = aSMPClient.getServiceMetadata (aServiceGroupID,
                                                                                                 aDocumentID);
     LOGGER.info ("Service aMetadata ID:" +
                  aSignedServiceMetadata.getServiceMetadata ()

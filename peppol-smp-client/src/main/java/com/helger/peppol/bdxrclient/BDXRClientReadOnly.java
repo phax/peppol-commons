@@ -234,50 +234,51 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                                                                  new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
     // If the Redirect element is present, then follow 1 redirect.
-    if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
-    {
-      final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
-
-      // Follow the redirect
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
-      aRequest = new HttpGet (aRedirect.getHref ());
-      aMetadata = executeGenericRequest (aRequest,
-                                         new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
-
-      // Check that the certificateUID is correct.
-      boolean bCertificateSubjectFound = false;
-      outer: for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
+    if (isFollowSMPRedirects ())
+      if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
       {
-        final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
-        if (aInfoValue instanceof X509DataType)
+        final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
+
+        // Follow the redirect
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+        aRequest = new HttpGet (aRedirect.getHref ());
+        aMetadata = executeGenericRequest (aRequest,
+                                           new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+
+        // Check that the certificateUID is correct.
+        boolean bCertificateSubjectFound = false;
+        outer: for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
         {
-          final X509DataType aX509Data = (X509DataType) aInfoValue;
-          for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+          final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+          if (aInfoValue instanceof X509DataType)
           {
-            final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-            // Find the first subject (of type string)
-            if (aX509element.getValue () instanceof String)
+            final X509DataType aX509Data = (X509DataType) aInfoValue;
+            for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
             {
-              final String sSubject = (String) aX509element.getValue ();
-              if (!aRedirect.getCertificateUID ().equals (sSubject))
+              final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
+              // Find the first subject (of type string)
+              if (aX509element.getValue () instanceof String)
               {
-                throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
-                                              sSubject +
-                                              "'. Required certificate UID is '" +
-                                              aRedirect.getCertificateUID () +
-                                              "'");
+                final String sSubject = (String) aX509element.getValue ();
+                if (!aRedirect.getCertificateUID ().equals (sSubject))
+                {
+                  throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
+                                                sSubject +
+                                                "'. Required certificate UID is '" +
+                                                aRedirect.getCertificateUID () +
+                                                "'");
+                }
+                bCertificateSubjectFound = true;
+                break outer;
               }
-              bCertificateSubjectFound = true;
-              break outer;
             }
           }
         }
-      }
 
-      if (!bCertificateSubjectFound)
-        throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
-    }
+        if (!bCertificateSubjectFound)
+          throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
+      }
     return aMetadata;
   }
 

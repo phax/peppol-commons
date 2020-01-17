@@ -68,7 +68,9 @@ import com.helger.xsds.xmldsig.X509DataType;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOnly>
+public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOnly> implements
+                               ISMPServiceGroupProvider,
+                               ISMPServiceMetadataProvider
 {
   public static final String URL_PART_COMPLETE = "complete";
   public static final String URL_PART_LIST = "list";
@@ -384,12 +386,45 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The service group id or document type did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceRegistrationOrNull(IParticipantIdentifier,
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
    *      IDocumentTypeIdentifier)
+   * @deprecated Use
+   *             {@link #getServiceMetadata(IParticipantIdentifier,IDocumentTypeIdentifier)}
+   *             instead
    */
+  @Deprecated
   @Nonnull
   public SignedServiceMetadataType getServiceRegistration (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                            @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    return getServiceMetadata (aServiceGroupID, aDocumentTypeID);
+  }
+
+  /**
+   * Gets a signed service metadata object given by its service group id and its
+   * document type. This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @return A signed service metadata object. Never <code>null</code>.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientNotFoundException
+   *         The service group id or document type did not exist.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
+   *      IDocumentTypeIdentifier)
+   */
+  @Nonnull
+  public SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -409,50 +444,51 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                                                  new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
 
     // If the Redirect element is present, then follow 1 redirect.
-    if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
-    {
-      final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
-
-      // Follow the redirect
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
-      aRequest = new HttpGet (aRedirect.getHref ());
-      aMetadata = executeGenericRequest (aRequest,
-                                         new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
-
-      // Check that the certificateUID is correct.
-      boolean bCertificateSubjectFound = false;
-      outer: for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
+    if (isFollowSMPRedirects ())
+      if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
       {
-        final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
-        if (aInfoValue instanceof X509DataType)
+        final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
+
+        // Follow the redirect
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+        aRequest = new HttpGet (aRedirect.getHref ());
+        aMetadata = executeGenericRequest (aRequest,
+                                           new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+
+        // Check that the certificateUID is correct.
+        boolean bCertificateSubjectFound = false;
+        outer: for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
         {
-          final X509DataType aX509Data = (X509DataType) aInfoValue;
-          for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+          final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+          if (aInfoValue instanceof X509DataType)
           {
-            final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-            // Find the first subject (of type string)
-            if (aX509element.getValue () instanceof String)
+            final X509DataType aX509Data = (X509DataType) aInfoValue;
+            for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
             {
-              final String sSubject = (String) aX509element.getValue ();
-              if (!aRedirect.getCertificateUID ().equals (sSubject))
+              final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
+              // Find the first subject (of type string)
+              if (aX509element.getValue () instanceof String)
               {
-                throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
-                                              sSubject +
-                                              "'. Required certificate UID is '" +
-                                              aRedirect.getCertificateUID () +
-                                              "'");
+                final String sSubject = (String) aX509element.getValue ();
+                if (!aRedirect.getCertificateUID ().equals (sSubject))
+                {
+                  throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
+                                                sSubject +
+                                                "'. Required certificate UID is '" +
+                                                aRedirect.getCertificateUID () +
+                                                "'");
+                }
+                bCertificateSubjectFound = true;
+                break outer;
               }
-              bCertificateSubjectFound = true;
-              break outer;
             }
           }
         }
-      }
 
-      if (!bCertificateSubjectFound)
-        throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
-    }
+        if (!bCertificateSubjectFound)
+          throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
+      }
     return aMetadata;
   }
 
@@ -474,16 +510,46 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceRegistration(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier)
+   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
+   * @deprecated Use
+   *             {@link #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)}
+   *             instead
    */
+  @Deprecated
   @Nullable
   public SignedServiceMetadataType getServiceRegistrationOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
+    return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
+  }
+
+  /**
+   * Gets a signed service metadata object given by its service group id and its
+   * document type. This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @return A signed service metadata object or <code>null</code> if no such
+   *         registration is present.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
+   */
+  @Nullable
+  public SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                             @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
     try
     {
-      return getServiceRegistration (aServiceGroupID, aDocumentTypeID);
+      return getServiceMetadata (aServiceGroupID, aDocumentTypeID);
     }
     catch (final SMPClientNotFoundException ex)
     {
@@ -515,7 +581,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceRegistrationOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
    */
   @Nullable
   public EndpointType getEndpoint (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -529,8 +595,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
 
     // Get meta data for participant/documentType
-    final SignedServiceMetadataType aSignedServiceMetadata = getServiceRegistrationOrNull (aServiceGroupID,
-                                                                                           aDocumentTypeID);
+    final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
+                                                                                       aDocumentTypeID);
     return aSignedServiceMetadata == null ? null : getEndpoint (aSignedServiceMetadata, aProcessID, aTransportProfile);
   }
 
@@ -547,7 +613,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *
    * @param aSignedServiceMetadata
    *        The signed service meta data object (e.g. from a call to
-   *        {@link #getServiceRegistrationOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
+   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
    *        . May not be <code>null</code>.
    * @param aProcessID
    *        The process identifier to be looked up. May not be <code>null</code>
@@ -853,7 +919,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
                                                                                                                                PeppolDNSResolutionException
   {
-    return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceRegistration (aServiceGroupID,
-                                                                                                   aDocumentTypeID);
+    return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
+                                                                                               aDocumentTypeID);
   }
 }

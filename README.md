@@ -29,159 +29,6 @@ And some legacy PEPPOL projects:
 * `peppol-sml-client` - MPL 2.0 (v6 changed from EUPL 1.1 to MPL 2.0)
 * `peppol-smp-client` - MPL 2.0 (v6 changed from EUPL 1.1 to MPL 2.0)
 
-# News and noteworthy
-
-* v7.0.6 - work in progress
-    * Updated to Peppol Code List v6
-* v7.0.5 - 2019-12-04
-    * Added the new SMK TLS certificate chain to `sml-truststore.jks` and `complete-truststore.jks`
-* v7.0.4 - 2019-11-26
-    * Made SMP client connection timeout and request timeout configurable via the configuration file (see [#33](https://github.com/phax/peppol-commons/issues/33))
-    * The new Peppol V6 codelist has no dedicated process code list anymore
-    * Integrated the classes `PeppolCerticateChecker` and `EPeppolCertificateCheckResult` from phase4 and extended them
-    * The license of submodule `peppol-commons` changed from MPL 2.0 to Apache 2.0 
-* v7.0.3 - 2019-11-05
-    * Started adding support for Code Lists v6 (for preview purposes only)
-    * Removed the explicit certificate from directory.peppol.eu because it is renewed too often (see issue [#31](https://github.com/phax/peppol-commons/issues/31))
-    * Added new class `PeppolCertificateHelper`
-    * Added possibility to customize the User Agent of SMP clients
-    * Added X509 certificates as constants in `PeppolKeyStoreHelper`
-* v7.0.2 - 2019-08-16
-    * Using more base types in certain APIs for better interoperability (binary incompatible change)
-    * Updated to PEPPOL Code List v5
-* v7.0.1 - 2019-06-25
-    * Fixed a naming issues for predefined identifier 0195
-* v7.0.0 - 2019-06-10
-    * Started to rework identifier class hierarchies, interfaces and package assignments - the result is incompatible to the 6.x version
-    * Started integrating OASIS BDXR SMP v2 CSD01 identifiers into the existing structure
-    * Renamed `EsensURLProvider` to `BDXLURLProvider`
-    * Using the OASIS BDXR SMP generated code from `ph-xsds-bdxr-smp1` instead of including it manually
-    * Updated to ph-xsds-* 2.2.3
-    * Enabled XSD validation in JAXB marshallers by default
-    * `SMPClient` and `BDXRClient` throw an Exception if the writable REST API parameters don't follow the XSD
-    * Added new class `BDXR2ClientReadOnly` as SMP client for OASIS BDXR SMP v2 (WS 06) specification
-    * Added new subprobject `peppol-id` that moved all the `com.helger.peppol.identifier` packages to `com.helger.peppolid` 
-* v6.2.5 - 2019-05-07
-    * Fixed Java 12 compatibility
-* v6.2.4 - 2019-05-05
-    * SMPClient got the possibility to configure "non-proxy hosts" using the configuration file setting `http.nonProxyHosts`
-    * Update the Directory trust store to contain the new server certificates for `directory.peppol.eu` and `test-directory.peppol.eu`
-    * Added support for the new SMP transport profile `busdox-transport-as2-ver2p0` (PEPPOL AS2 profile v2)
-    * PEPPOL SBDH now supports reading UBL 2.2
-    * Added support for new SBDH text and binary payloads as specified in PEPPOL Business Message Envelope v1.2
-* v6.2.3 - 2019-01-18
-    * Updated to PEPPOL code lists version 4
-* v6.2.2 - 2018-11-30
-    * Made process identifier scheme optional when using `SimpleIdentifierFactory`
-* v6.2.1 - 2018-11-22
-    * Updated to ph-commons 9.2.0
-    * Added a special truststore to access directory.peppol.eu and added this to the complete truststore as well
-* v6.2.0 - 2018-10-24
-    * Added SMP transport profile "PEPPOL AS4 v2"
-    * Removed all deprecated methods
-    * Converted a runtime exception to a checked exception in `IPeppolURLProvider.getDNSNameOfParticipant`. The new exception class is called `PeppolDNSResolutionException`.
-    * Added new class `SMPClientBadResponseException`
-    * Optional SMP data structure XSD validation can be now enabled (see `AbstractSMPMarshaller.setValidationEnabled` and `AbstractBDXRMarshaller.setValidationEnabled`). By default it is disabled for backwards compatibility.
-* v6.1.4 - 2018-10-17
-    * Updated to final code list V3
-    * The files `PeppolDocumentTypeIdentifier.*` got new attribute names (`name` &rarr; `profilecode`, `doctypeid` &rarr; `id`, added `scheme`)
-    * The files `PeppolProcessIdentifier.*` got new attribute names (`name` &rarr; `profilecode`, `bisid` is now optional, added `scheme`)
-    * Automatically created `EPredefinedTransportProfileIdentifier` plus GC and XML for the transport profile list
-* v6.1.3 - 2018-09-26
-    * Requires ph-commons 9.1.3
-    * Updated to PEPPOL codelists v3 snapshots
-    * Added support for PEPPOL Envelope (SBDH) specification v1.1 from https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-11_2018-08-31.pdf
-* v6.1.2 - 2018-05-15
-    * Really fixed OSGI ServiceProvider configuration
-    * Added interface `IBDXLURLProvider`
-    * Updated the BDMSL service to the latest version 
-* v6.1.1 - 2018-05-14
-    * Fixed OSGI ServiceProvider configuration
-    * Updated to ph-commons 9.1.0
-* v6.1.0 - 2018-05-04 (#StarWarsDay release)
-    * Reworked internal PEPPOL document type identifier representation (API incompatibility; deleted `OpenPeppolDocumentTypeIdentifierParts`)
-    * The new official PEPPOL code lists were integrated. Therefore `EPredefinedIdentifierIssuingAgency` was replaced with `EPredefinedParticipantIdentifierScheme` and `IdentifierIssuingAgencyManager` was renamed to `ParticipantIdentifierSchemeManager`
-    * The document types were removed from the predefined process identifiers
-    * The shortcut constants of the predefined process identifiers were slightly changed (the final "0" was removed, so `BIS1A_V20` is now `BIS1A_V2`) 
-* v6.0.4 - 2018-04-13
-    * Added SSL certificates of SML into default truststore (`truststore/complete-truststore.jks`)
-    * Replaced truststore SHA-1 files with SHA-256 checksum files
-* v6.0.3 - 2018-04-11
-    * Codelist updated (added Estonian Company Code and Billing BIS v3)
-* v6.0.2 - 2018-03-06
-    * Added support for SHA256 and SHA512 in `TrustStoreBasedX509KeySelector` for BDXR
-    * Fixed error in `BDXRClientReadOnly` certificate parsing
-* v6.0.1 - 2018-02-13
-    * Removed unused dependency to BouncyCastle
-    * Added the new OpenPEPPOL root PKI v3 - valid from 2018-2028
-    * **Important**: the paths to the preconfigured truststore paths have changed - see below for details 
-* v6.0.0 - 2018-01-05
-    * Updated to ph-commons 9.0.0
-    * SMP client can now handle responses with BOM
-    * Removed legacy project `peppol-sml-client-swing` again
-    * Added PEPPOL AS4 transport protocol ID
-    * All sub-projects previously licensed under EUPL 1.1 or MPL 1.1 (`peppol-commons`, `peppol-smp-client` and `peppol-sml-client`) are now licensed under MPL 2.0
-* v5.2.7 - 2017-07-21
-    * Unified identifier handling concerning `""` and `null`
-* v5.2.6 - 2017-05-30
-    * Added possibility to deprecate transport profiles
-* v5.2.5 - 2017-05-25
-    * Binds to ph-web 8.8.0
-    * Added possibility to define SMP client proxy credentials(see issue [#13](https://github.com/phax/peppol-commons/issues/13))
-    * Added legacy project `peppol-sml-client-swing` due to request
-* v5.2.4 - 2017-01-09
-    * Binds to ph-commons 8.6.0
-    * Updated to dnsjava 2.1.8
-    * Added possibility to define usage of proxy system properties via configuration file (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
-* v5.2.3 - 2016-12-28
-    * Updated to BouncyCastle 1.56
-    * Binds to ph-web 8.7.1
-    * SMPClient and BDXRClient extended with writing API to create redirects
-* v5.2.2 - 2016-12-16
-    * Added possibility to support more proxy settings via system properties (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
-* v5.2.1 - 2016-11-21
-    * Added possibility to disable SMP/BDXR client certificate check (see issue [#8](https://github.com/phax/peppol-commons/issues/8))
-* v5.2.0 - 2016-10-25
-    * Reworked identifier API to improve case sensitivity handling (based on identifier scheme). The rules per identifier factory:
-    * BDXR: identifiers based on participant identifier scheme `iso6523-actorid-upis`, document type identifier scheme `bdx-docid-qns` or process identifier scheme `bdx-procid-transport` are treated case **in**sensitive
-    * PEPPOL: identifiers based on participant identifier scheme `iso6523-actorid-upis` are treated case **in**sensitive
-    * simple: all identifiers are handled case sensitive.
-* v5.1.5 - 2016-10-17
-    * Improved BDXR extension API
-* v5.1.4 - 2016-10-12
-    * Added missing U-NAPTR resolution in EsensURLProvider - thanks to @jerouris for pointing that out
-* v5.1.3 - 2016-09-15
-    * Changed PEPPOL identifier codelist to 1.2.1, because 1.2.2 was based on a misunderstanding
-* v5.1.2 - 2016-09-09
-    * Updated to ph-commons 8.5.x
-    * Updated PEPPOL identifier codelist to 1.2.2
-* v5.1.1 - 2016-08-21
-    * Updated to ph-commons 8.4.x
-    * Improved identifier handling for BDXR 
-* v5.1.0 - 2016-08-01
-* v5.0.1 - 2016-07-26
-* v5.0.0 - 2016-07-12
-    * JDK 8 is now required
-    * Please check the separate [Update to version 5](UpdateV5.md) page.
-* v4.3.5 - 2016-02-26
-    * Made the SMP query API more flexible so that e.g. the PEPPOL Directory BusinessCards can easily be queried; made the SMP Client more configurable.
-* v4.3.4 - 2016-01-26
-    * Reduced the maximum migration key length from 100 to 24 (new SMK 3 requirement) and adopted the API to use String instead of UUID
-* v4.3.3 - 2015-12-11
-    * Improved the support for BDXR SMP stuff
-* v4.3.2 - 2015-11-26
-    * Improved the support for custom SMP transport profiles
-    * Updated the BDMSL additional services WSDL to the latest 3.1.0 version
-* v4.3.1 - 2015-10-30
-    * Added new BDMSL client to access the new "/cipaservice" in a convenient way (class `BDMSLClient` in project `peppol-sml-client`)
-    * Loosened the regular expression for participant identifier schemes
-    * Added a new SML participant delete method with SMP ID to work around an SMK 3.0.0 problem 
-* v4.3.0 - 2015-10-29
-    * Added support for CIPA BDMSL 3.0 with the wsse:Security header
-    * Added BDXR SMP client
-    * Integrated the BDXR SMP classes into peppol-commons
-    * Updated the BDMSL Service WSDL corresponding to the CIPA 3.0.0 release
-
 ## peppol-id
 
 Java library with shared IDs.
@@ -432,6 +279,162 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * [PEPPOL Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
 * [PEPPOL Policy for the use of identifiers 4.0](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf)
 * [PEPPOL Business Message Envelope (SBDH) 1.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.pdf)
+
+
+# News and noteworthy
+
+* v7.0.6 - work in progress
+    * Updated to Peppol Code List v6
+    * Improved the SMP client API
+    * Added possibility to customize the "follow redirects" setting of the SMP client 
+* v7.0.5 - 2019-12-04
+    * Added the new SMK TLS certificate chain to `sml-truststore.jks` and `complete-truststore.jks`
+* v7.0.4 - 2019-11-26
+    * Made SMP client connection timeout and request timeout configurable via the configuration file (see [#33](https://github.com/phax/peppol-commons/issues/33))
+    * The new Peppol V6 codelist has no dedicated process code list anymore
+    * Integrated the classes `PeppolCerticateChecker` and `EPeppolCertificateCheckResult` from phase4 and extended them
+    * The license of submodule `peppol-commons` changed from MPL 2.0 to Apache 2.0 
+* v7.0.3 - 2019-11-05
+    * Started adding support for Code Lists v6 (for preview purposes only)
+    * Removed the explicit certificate from directory.peppol.eu because it is renewed too often (see issue [#31](https://github.com/phax/peppol-commons/issues/31))
+    * Added new class `PeppolCertificateHelper`
+    * Added possibility to customize the User Agent of SMP clients
+    * Added X509 certificates as constants in `PeppolKeyStoreHelper`
+* v7.0.2 - 2019-08-16
+    * Using more base types in certain APIs for better interoperability (binary incompatible change)
+    * Updated to PEPPOL Code List v5
+* v7.0.1 - 2019-06-25
+    * Fixed a naming issues for predefined identifier 0195
+* v7.0.0 - 2019-06-10
+    * Started to rework identifier class hierarchies, interfaces and package assignments - the result is incompatible to the 6.x version
+    * Started integrating OASIS BDXR SMP v2 CSD01 identifiers into the existing structure
+    * Renamed `EsensURLProvider` to `BDXLURLProvider`
+    * Using the OASIS BDXR SMP generated code from `ph-xsds-bdxr-smp1` instead of including it manually
+    * Updated to ph-xsds-* 2.2.3
+    * Enabled XSD validation in JAXB marshallers by default
+    * `SMPClient` and `BDXRClient` throw an Exception if the writable REST API parameters don't follow the XSD
+    * Added new class `BDXR2ClientReadOnly` as SMP client for OASIS BDXR SMP v2 (WS 06) specification
+    * Added new subprobject `peppol-id` that moved all the `com.helger.peppol.identifier` packages to `com.helger.peppolid` 
+* v6.2.5 - 2019-05-07
+    * Fixed Java 12 compatibility
+* v6.2.4 - 2019-05-05
+    * SMPClient got the possibility to configure "non-proxy hosts" using the configuration file setting `http.nonProxyHosts`
+    * Update the Directory trust store to contain the new server certificates for `directory.peppol.eu` and `test-directory.peppol.eu`
+    * Added support for the new SMP transport profile `busdox-transport-as2-ver2p0` (PEPPOL AS2 profile v2)
+    * PEPPOL SBDH now supports reading UBL 2.2
+    * Added support for new SBDH text and binary payloads as specified in PEPPOL Business Message Envelope v1.2
+* v6.2.3 - 2019-01-18
+    * Updated to PEPPOL code lists version 4
+* v6.2.2 - 2018-11-30
+    * Made process identifier scheme optional when using `SimpleIdentifierFactory`
+* v6.2.1 - 2018-11-22
+    * Updated to ph-commons 9.2.0
+    * Added a special truststore to access directory.peppol.eu and added this to the complete truststore as well
+* v6.2.0 - 2018-10-24
+    * Added SMP transport profile "PEPPOL AS4 v2"
+    * Removed all deprecated methods
+    * Converted a runtime exception to a checked exception in `IPeppolURLProvider.getDNSNameOfParticipant`. The new exception class is called `PeppolDNSResolutionException`.
+    * Added new class `SMPClientBadResponseException`
+    * Optional SMP data structure XSD validation can be now enabled (see `AbstractSMPMarshaller.setValidationEnabled` and `AbstractBDXRMarshaller.setValidationEnabled`). By default it is disabled for backwards compatibility.
+* v6.1.4 - 2018-10-17
+    * Updated to final code list V3
+    * The files `PeppolDocumentTypeIdentifier.*` got new attribute names (`name` &rarr; `profilecode`, `doctypeid` &rarr; `id`, added `scheme`)
+    * The files `PeppolProcessIdentifier.*` got new attribute names (`name` &rarr; `profilecode`, `bisid` is now optional, added `scheme`)
+    * Automatically created `EPredefinedTransportProfileIdentifier` plus GC and XML for the transport profile list
+* v6.1.3 - 2018-09-26
+    * Requires ph-commons 9.1.3
+    * Updated to PEPPOL codelists v3 snapshots
+    * Added support for PEPPOL Envelope (SBDH) specification v1.1 from https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-11_2018-08-31.pdf
+* v6.1.2 - 2018-05-15
+    * Really fixed OSGI ServiceProvider configuration
+    * Added interface `IBDXLURLProvider`
+    * Updated the BDMSL service to the latest version 
+* v6.1.1 - 2018-05-14
+    * Fixed OSGI ServiceProvider configuration
+    * Updated to ph-commons 9.1.0
+* v6.1.0 - 2018-05-04 (#StarWarsDay release)
+    * Reworked internal PEPPOL document type identifier representation (API incompatibility; deleted `OpenPeppolDocumentTypeIdentifierParts`)
+    * The new official PEPPOL code lists were integrated. Therefore `EPredefinedIdentifierIssuingAgency` was replaced with `EPredefinedParticipantIdentifierScheme` and `IdentifierIssuingAgencyManager` was renamed to `ParticipantIdentifierSchemeManager`
+    * The document types were removed from the predefined process identifiers
+    * The shortcut constants of the predefined process identifiers were slightly changed (the final "0" was removed, so `BIS1A_V20` is now `BIS1A_V2`) 
+* v6.0.4 - 2018-04-13
+    * Added SSL certificates of SML into default truststore (`truststore/complete-truststore.jks`)
+    * Replaced truststore SHA-1 files with SHA-256 checksum files
+* v6.0.3 - 2018-04-11
+    * Codelist updated (added Estonian Company Code and Billing BIS v3)
+* v6.0.2 - 2018-03-06
+    * Added support for SHA256 and SHA512 in `TrustStoreBasedX509KeySelector` for BDXR
+    * Fixed error in `BDXRClientReadOnly` certificate parsing
+* v6.0.1 - 2018-02-13
+    * Removed unused dependency to BouncyCastle
+    * Added the new OpenPEPPOL root PKI v3 - valid from 2018-2028
+    * **Important**: the paths to the preconfigured truststore paths have changed - see below for details 
+* v6.0.0 - 2018-01-05
+    * Updated to ph-commons 9.0.0
+    * SMP client can now handle responses with BOM
+    * Removed legacy project `peppol-sml-client-swing` again
+    * Added PEPPOL AS4 transport protocol ID
+    * All sub-projects previously licensed under EUPL 1.1 or MPL 1.1 (`peppol-commons`, `peppol-smp-client` and `peppol-sml-client`) are now licensed under MPL 2.0
+* v5.2.7 - 2017-07-21
+    * Unified identifier handling concerning `""` and `null`
+* v5.2.6 - 2017-05-30
+    * Added possibility to deprecate transport profiles
+* v5.2.5 - 2017-05-25
+    * Binds to ph-web 8.8.0
+    * Added possibility to define SMP client proxy credentials(see issue [#13](https://github.com/phax/peppol-commons/issues/13))
+    * Added legacy project `peppol-sml-client-swing` due to request
+* v5.2.4 - 2017-01-09
+    * Binds to ph-commons 8.6.0
+    * Updated to dnsjava 2.1.8
+    * Added possibility to define usage of proxy system properties via configuration file (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
+* v5.2.3 - 2016-12-28
+    * Updated to BouncyCastle 1.56
+    * Binds to ph-web 8.7.1
+    * SMPClient and BDXRClient extended with writing API to create redirects
+* v5.2.2 - 2016-12-16
+    * Added possibility to support more proxy settings via system properties (see issue [#9](https://github.com/phax/peppol-commons/issues/9))
+* v5.2.1 - 2016-11-21
+    * Added possibility to disable SMP/BDXR client certificate check (see issue [#8](https://github.com/phax/peppol-commons/issues/8))
+* v5.2.0 - 2016-10-25
+    * Reworked identifier API to improve case sensitivity handling (based on identifier scheme). The rules per identifier factory:
+    * BDXR: identifiers based on participant identifier scheme `iso6523-actorid-upis`, document type identifier scheme `bdx-docid-qns` or process identifier scheme `bdx-procid-transport` are treated case **in**sensitive
+    * PEPPOL: identifiers based on participant identifier scheme `iso6523-actorid-upis` are treated case **in**sensitive
+    * simple: all identifiers are handled case sensitive.
+* v5.1.5 - 2016-10-17
+    * Improved BDXR extension API
+* v5.1.4 - 2016-10-12
+    * Added missing U-NAPTR resolution in EsensURLProvider - thanks to @jerouris for pointing that out
+* v5.1.3 - 2016-09-15
+    * Changed PEPPOL identifier codelist to 1.2.1, because 1.2.2 was based on a misunderstanding
+* v5.1.2 - 2016-09-09
+    * Updated to ph-commons 8.5.x
+    * Updated PEPPOL identifier codelist to 1.2.2
+* v5.1.1 - 2016-08-21
+    * Updated to ph-commons 8.4.x
+    * Improved identifier handling for BDXR 
+* v5.1.0 - 2016-08-01
+* v5.0.1 - 2016-07-26
+* v5.0.0 - 2016-07-12
+    * JDK 8 is now required
+    * Please check the separate [Update to version 5](UpdateV5.md) page.
+* v4.3.5 - 2016-02-26
+    * Made the SMP query API more flexible so that e.g. the PEPPOL Directory BusinessCards can easily be queried; made the SMP Client more configurable.
+* v4.3.4 - 2016-01-26
+    * Reduced the maximum migration key length from 100 to 24 (new SMK 3 requirement) and adopted the API to use String instead of UUID
+* v4.3.3 - 2015-12-11
+    * Improved the support for BDXR SMP stuff
+* v4.3.2 - 2015-11-26
+    * Improved the support for custom SMP transport profiles
+    * Updated the BDMSL additional services WSDL to the latest 3.1.0 version
+* v4.3.1 - 2015-10-30
+    * Added new BDMSL client to access the new "/cipaservice" in a convenient way (class `BDMSLClient` in project `peppol-sml-client`)
+    * Loosened the regular expression for participant identifier schemes
+    * Added a new SML participant delete method with SMP ID to work around an SMK 3.0.0 problem 
+* v4.3.0 - 2015-10-29
+    * Added support for CIPA BDMSL 3.0 with the wsse:Security header
+    * Added BDXR SMP client
+    * Integrated the BDXR SMP classes into peppol-commons
+    * Updated the BDMSL Service WSDL corresponding to the CIPA 3.0.0 release
 
 ---
 

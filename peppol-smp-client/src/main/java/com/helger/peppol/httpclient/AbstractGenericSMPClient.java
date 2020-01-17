@@ -67,10 +67,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 {
   public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 5_000;
   public static final int DEFAULT_REQUEST_TIMEOUT_MS = 10_000;
+  public static final boolean DEFAULT_FOLLOW_REDIRECTS = true;
 
   // The default text/xml content type uses iso-8859-1!
-  protected static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
-                                                                                 StandardCharsets.UTF_8);
+  public static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
+                                                                              StandardCharsets.UTF_8);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
 
@@ -87,6 +88,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private int m_nConnectionTimeoutMS;
   private int m_nRequestTimeoutMS;
   private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
+  private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private String m_sUserAgent;
 
   /**
@@ -378,6 +380,34 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public final IMPLTYPE setCheckCertificate (final boolean bCheckCertificate)
   {
     m_bCheckCertificate = bCheckCertificate;
+    return thisAsT ();
+  }
+
+  /**
+   * @return <code>true</code> if SMP redirects should be followed,
+   *         <code>false</code> if not. By default this check is enabled (see
+   *         {@link #DEFAULT_FOLLOW_REDIRECTS}).
+   * @since 7.0.6
+   */
+  public final boolean isFollowSMPRedirects ()
+  {
+    return m_bFollowSMPRedirects;
+  }
+
+  /**
+   * Should the SMP client follow the SMP redirects that can be found in service
+   * registrations. Enabled by default.
+   *
+   * @param bFollowSMPRedirects
+   *        <code>true</code> to follow SMP redirects (on by default) or
+   *        <code>false</code> to disable it.
+   * @return this for chaining
+   * @since 7.0.6
+   */
+  @Nonnull
+  public final IMPLTYPE setFollowSMPRedirects (final boolean bFollowSMPRedirects)
+  {
+    m_bFollowSMPRedirects = bFollowSMPRedirects;
     return thisAsT ();
   }
 
