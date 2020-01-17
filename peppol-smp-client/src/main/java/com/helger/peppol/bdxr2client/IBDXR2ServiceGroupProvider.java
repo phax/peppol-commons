@@ -8,14 +8,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.smpclient;
+package com.helger.peppol.bdxr2client;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.peppol.smp.ServiceGroupType;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.xsds.bdxr.smp2.ServiceGroupType;
 
 /**
  * Abstract interface to retrieve a service group instance.
@@ -23,7 +23,7 @@ import com.helger.peppolid.IParticipantIdentifier;
  * @author Philip Helger
  * @since 7.0.6
  */
-public interface ISMPServiceGroupProvider
+public interface IBDXR2ServiceGroupProvider
 {
   /**
    * Returns a service group. A service group references to the service

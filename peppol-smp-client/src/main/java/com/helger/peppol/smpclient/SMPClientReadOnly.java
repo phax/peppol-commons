@@ -337,23 +337,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                   new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupType ()));
   }
 
-  /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        The service group id corresponding to the service group which one
-   *        wants to get.
-   * @return The service group. May be <code>null</code> if no such service
-   *         group exists.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceGroup(IParticipantIdentifier)
-   */
   @Nullable
   public ServiceGroupType getServiceGroupOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
@@ -523,26 +506,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
   }
 
-  /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type. This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @return A signed service metadata object or <code>null</code> if no such
-   *         registration is present.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
-   */
   @Nullable
   public SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                              @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
@@ -555,49 +518,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     {
       return null;
     }
-  }
-
-  /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type. This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @param aProcessID
-   *        The process ID of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @param aTransportProfile
-   *        The transport profile of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @return The endpoint from the signed service metadata object or
-   *         <code>null</code> if no such registration is present.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
-   */
-  @Nullable
-  public EndpointType getEndpoint (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                   @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                   @Nonnull final IProcessIdentifier aProcessID,
-                                   @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    ValueEnforcer.notNull (aServiceGroupID, "serviceGroupID");
-    ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
-    ValueEnforcer.notNull (aProcessID, "ProcessID");
-    ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
-
-    // Get meta data for participant/documentType
-    final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
-                                                                                       aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null : getEndpoint (aSignedServiceMetadata, aProcessID, aTransportProfile);
   }
 
   private static boolean _hasSameContent (@Nonnull final ProcessIdentifierType aPI1,
@@ -697,36 +617,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Get the endpoint address URI from the specified endpoint.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no endpoint address URI
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   */
-  @Nullable
-  public String getEndpointAddress (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                    @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                    @Nonnull final IProcessIdentifier aProcessID,
-                                    @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return getEndpointAddress (aEndpoint);
-  }
-
-  /**
    * Get the certificate string from the provided SMP endpoint.
    *
    * @param aEndpoint
@@ -738,72 +628,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   public static String getEndpointCertificateString (@Nullable final EndpointType aEndpoint)
   {
     return aEndpoint == null ? null : aEndpoint.getCertificate ();
-  }
-
-  /**
-   * Get the certificate string from the specified endpoint.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   */
-  @Nullable
-  public String getEndpointCertificateString (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                              @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                              @Nonnull final IProcessIdentifier aProcessID,
-                                              @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return getEndpointCertificateString (aEndpoint);
-  }
-
-  /**
-   * Get the certificate from the specified endpoint.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @throws CertificateException
-   *         In case the conversion from byte to X509 certificate failed
-   */
-  @Nullable
-  public X509Certificate getEndpointCertificate (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                 @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                 @Nonnull final IProcessIdentifier aProcessID,
-                                                 @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
-                                                                                                        CertificateException
-  {
-    final String sCertString = getEndpointCertificateString (aServiceGroupID,
-                                                             aDocumentTypeID,
-                                                             aProcessID,
-                                                             aTransportProfile);
-    return CertificateHelper.convertStringToCertficate (sCertString);
   }
 
   /**

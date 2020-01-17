@@ -66,7 +66,9 @@ import com.helger.xsds.xmldsig.X509DataType;
  *
  * @author Philip Helger
  */
-public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientReadOnly>
+public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientReadOnly> implements
+                                 IBDXR2ServiceGroupProvider,
+                                 IBDXR2ServiceMetadataProvider
 {
   public static final String PATH_OASIS_BDXR_SMP_2 = "bdxr-smp-2/";
   public static final String URL_PART_SERVICES = "services";
@@ -164,23 +166,6 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     return executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (new BDXR2ServiceGroupMarshaller ()));
   }
 
-  /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        The service group id corresponding to the service group which one
-   *        wants to get.
-   * @return The service group. May be <code>null</code> if no such service
-   *         group exists.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceGroup(IParticipantIdentifier)
-   */
   @Nullable
   public ServiceGroupType getServiceGroupOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
@@ -213,12 +198,45 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         The service group id or document type did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceRegistrationOrNull(IParticipantIdentifier,
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
    *      IDocumentTypeIdentifier)
+   * @deprecated Use
+   *             {@link #getServiceMetadata(IParticipantIdentifier,IDocumentTypeIdentifier)}
+   *             instead
    */
+  @Deprecated
   @Nonnull
   public ServiceMetadataType getServiceRegistration (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                      @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    return getServiceMetadata (aServiceGroupID, aDocumentTypeID);
+  }
+
+  /**
+   * Gets a signed service metadata object given by its service group id and its
+   * document type. This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @return A signed service metadata object. Never <code>null</code>.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientNotFoundException
+   *         The service group id or document type did not exist.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
+   *      IDocumentTypeIdentifier)
+   */
+  @Nonnull
+  public ServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                 @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -343,16 +361,26 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceRegistration(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier)
+   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
+   * @deprecated Use
+   *             {@link #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)}
+   *             instead
    */
+  @Deprecated
   @Nullable
   public ServiceMetadataType getServiceRegistrationOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                            @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
+    return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
+  }
+
+  @Nullable
+  public ServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
     try
     {
-      return getServiceRegistration (aServiceGroupID, aDocumentTypeID);
+      return getServiceMetadata (aServiceGroupID, aDocumentTypeID);
     }
     catch (final SMPClientNotFoundException ex)
     {
@@ -361,54 +389,12 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   }
 
   /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type. This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @param aProcessID
-   *        The process ID of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @param aTransportProfile
-   *        The transport profile of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @return The endpoint from the signed service metadata object or
-   *         <code>null</code> if no such registration is present.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceRegistrationOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
-   */
-  @Nullable
-  public EndpointType getEndpoint (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                   @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                   @Nonnull final IProcessIdentifier aProcessID,
-                                   @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    ValueEnforcer.notNull (aServiceGroupID, "serviceGroupID");
-    ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
-    ValueEnforcer.notNull (aProcessID, "ProcessID");
-    ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
-
-    // Get meta data for participant/documentType
-    final ServiceMetadataType aSignedServiceMetadata = getServiceRegistrationOrNull (aServiceGroupID, aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null : getEndpoint (aSignedServiceMetadata, aProcessID, aTransportProfile);
-  }
-
-  /**
    * Extract the Endpoint from the signedServiceMetadata that matches the passed
    * process ID and the optional required transport profile.
    *
    * @param aServiceMetadata
    *        The signed service meta data object (e.g. from a call to
-   *        {@link #getServiceRegistrationOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
+   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
    *        . May not be <code>null</code>.
    * @param aProcessID
    *        The process identifier to be looked up. May not be <code>null</code>
@@ -483,36 +469,6 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   }
 
   /**
-   * Get the endpoint address URI from the specified endpoint.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no endpoint address URI
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   */
-  @Nullable
-  public String getEndpointAddress (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                    @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                    @Nonnull final IProcessIdentifier aProcessID,
-                                    @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return getEndpointAddress (aEndpoint);
-  }
-
-  /**
    * Get the certificate bytes from the provided SMP endpoint.<br>
    * Note: if the endpoint has more than one certificate, the first one is
    * returned.
@@ -530,72 +486,6 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     if (aEndpoint.getCertificateCount () == 0)
       return null;
     return aEndpoint.getCertificateAtIndex (0).getContentBinaryObjectValue ();
-  }
-
-  /**
-   * Get the certificate bytes from the specified endpoint.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   */
-  @Nullable
-  public byte [] getEndpointCertificateBytes (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                              @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                              @Nonnull final IProcessIdentifier aProcessID,
-                                              @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return getEndpointCertificateBytes (aEndpoint);
-  }
-
-  /**
-   * Get the certificate from the specified endpoint.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @throws CertificateException
-   *         In case the conversion from byte to X509 certificate failed
-   */
-  @Nullable
-  public X509Certificate getEndpointCertificate (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                 @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                 @Nonnull final IProcessIdentifier aProcessID,
-                                                 @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
-                                                                                                        CertificateException
-  {
-    final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID,
-                                                            aDocumentTypeID,
-                                                            aProcessID,
-                                                            aTransportProfile);
-    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 
   /**
@@ -678,7 +568,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
                                                                                                                          PeppolDNSResolutionException
   {
-    return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceRegistration (aServiceGroupID,
-                                                                                                     aDocumentTypeID);
+    return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
+                                                                                                 aDocumentTypeID);
   }
 }

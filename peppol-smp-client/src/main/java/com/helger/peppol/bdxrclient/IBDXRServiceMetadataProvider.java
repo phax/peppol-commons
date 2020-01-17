@@ -8,7 +8,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-package com.helger.peppol.smpclient;
+package com.helger.peppol.bdxrclient;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -17,9 +17,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.peppol.smp.EndpointType;
 import com.helger.peppol.smp.ISMPTransportProfile;
-import com.helger.peppol.smp.SignedServiceMetadataType;
 import com.helger.peppol.smpclient.exception.SMPClientBadRequestException;
 import com.helger.peppol.smpclient.exception.SMPClientException;
 import com.helger.peppol.smpclient.exception.SMPClientUnauthorizedException;
@@ -27,6 +25,8 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.security.certificate.CertificateHelper;
+import com.helger.xsds.bdxr.smp1.EndpointType;
+import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
 /**
  * Abstract interface to retrieve a service metadata instance.
@@ -34,7 +34,7 @@ import com.helger.security.certificate.CertificateHelper;
  * @author Philip Helger
  * @since 7.0.6
  */
-public interface ISMPServiceMetadataProvider
+public interface IBDXRServiceMetadataProvider
 {
   /**
    * Gets a signed service metadata object given by its service group id and its
@@ -98,13 +98,14 @@ public interface ISMPServiceMetadataProvider
     final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
                                                                                        aDocumentTypeID);
     return aSignedServiceMetadata == null ? null
-                                          : SMPClientReadOnly.getEndpoint (aSignedServiceMetadata,
-                                                                           aProcessID,
-                                                                           aTransportProfile);
+                                          : BDXRClientReadOnly.getEndpoint (aSignedServiceMetadata,
+                                                                            aProcessID,
+                                                                            aTransportProfile);
   }
 
   /**
-   * Get the endpoint address URI from the specified endpoint.
+   * Get the endpoint address URI from the specified endpoint.<br>
+   * This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -130,11 +131,11 @@ public interface ISMPServiceMetadataProvider
                                      @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
     final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return SMPClientReadOnly.getEndpointAddress (aEndpoint);
+    return BDXRClientReadOnly.getEndpointAddress (aEndpoint);
   }
 
   /**
-   * Get the certificate string from the specified endpoint.
+   * Get the certificate bytes from the specified endpoint.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -154,13 +155,13 @@ public interface ISMPServiceMetadataProvider
    *         The request was not well formed.
    */
   @Nullable
-  default String getEndpointCertificateString (@Nonnull final IParticipantIdentifier aServiceGroupID,
+  default byte [] getEndpointCertificateBytes (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
                                                @Nonnull final IProcessIdentifier aProcessID,
                                                @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
     final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return SMPClientReadOnly.getEndpointCertificateString (aEndpoint);
+    return BDXRClientReadOnly.getEndpointCertificateBytes (aEndpoint);
   }
 
   /**
@@ -192,10 +193,10 @@ public interface ISMPServiceMetadataProvider
                                                   @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                          CertificateException
   {
-    final String sCertString = getEndpointCertificateString (aServiceGroupID,
-                                                             aDocumentTypeID,
-                                                             aProcessID,
-                                                             aTransportProfile);
-    return CertificateHelper.convertStringToCertficate (sCertString);
+    final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID,
+                                                            aDocumentTypeID,
+                                                            aProcessID,
+                                                            aTransportProfile);
+    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 }
