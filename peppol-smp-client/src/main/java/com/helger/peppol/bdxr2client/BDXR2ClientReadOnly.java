@@ -511,6 +511,16 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     return getEndpointAddress (aEndpoint);
   }
 
+  /**
+   * Get the certificate bytes from the provided SMP endpoint.<br>
+   * Note: if the endpoint has more than one certificate, the first one is
+   * returned.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the
+   *         endpoint has no certificate.
+   */
   @Nullable
   public static byte [] getEndpointCertificateBytes (@Nullable final EndpointType aEndpoint)
   {
@@ -552,7 +562,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   }
 
   /**
-   * Get the certificate bytes from the specified endpoint.
+   * Get the certificate from the specified endpoint.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -587,6 +597,16 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 
+  /**
+   * Get the certificate bytes from the specified endpoint.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws CertificateException
+   *         In case the conversion from byte to X509 certificate failed
+   */
   @Nullable
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {

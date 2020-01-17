@@ -614,12 +614,42 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return null;
   }
 
+  /**
+   * Get the endpoint address URI from the provided SMP endpoint.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the
+   *         endpoint has no address URI.
+   */
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
-    return aEndpoint == null ? null : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
+    return aEndpoint == null ||
+           aEndpoint.getEndpointReference () == null ? null
+                                                     : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
   }
 
+  /**
+   * Get the endpoint address URI from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no endpoint address URI
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   */
   @Nullable
   public String getEndpointAddress (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -630,12 +660,40 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return getEndpointAddress (aEndpoint);
   }
 
+  /**
+   * Get the certificate string from the provided SMP endpoint.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the
+   *         endpoint has no certificate.
+   */
   @Nullable
   public static String getEndpointCertificateString (@Nullable final EndpointType aEndpoint)
   {
     return aEndpoint == null ? null : aEndpoint.getCertificate ();
   }
 
+  /**
+   * Get the certificate string from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   */
   @Nullable
   public String getEndpointCertificateString (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                               @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -646,6 +704,28 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return getEndpointCertificateString (aEndpoint);
   }
 
+  /**
+   * Get the certificate from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @throws CertificateException
+   *         In case the conversion from byte to X509 certificate failed
+   */
   @Nullable
   public X509Certificate getEndpointCertificate (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -660,6 +740,16 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return CertificateHelper.convertStringToCertficate (sCertString);
   }
 
+  /**
+   * Get the certificate bytes from the specified endpoint.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws CertificateException
+   *         In case the conversion from byte to X509 certificate failed
+   */
   @Nullable
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {
