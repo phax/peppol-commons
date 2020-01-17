@@ -432,12 +432,40 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     return null;
   }
 
+  /**
+   * Get the endpoint address URI from the provided SMP endpoint.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the
+   *         endpoint has no address URI.
+   */
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
     return aEndpoint == null ? null : aEndpoint.getEndpointURI ();
   }
 
+  /**
+   * Get the endpoint address URI from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no endpoint address URI
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   */
   @Nullable
   public String getEndpointAddress (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -448,22 +476,125 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     return getEndpointAddress (aEndpoint);
   }
 
+  /**
+   * Get the certificate bytes from the provided SMP endpoint.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the
+   *         endpoint has no certificate.
+   * @deprecated in v7.0.6. Use
+   *             {@link #getEndpointCertificateBytes(EndpointType)} instead
+   */
+  @Deprecated
   @Nullable
   public static byte [] getEndpointCertificateString (@Nullable final EndpointType aEndpoint)
+  {
+    return getEndpointCertificateBytes (aEndpoint);
+  }
+
+  /**
+   * Get the certificate bytes from the provided SMP endpoint.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the
+   *         endpoint has no certificate.
+   * @since 7.0.6
+   */
+  @Nullable
+  public static byte [] getEndpointCertificateBytes (@Nullable final EndpointType aEndpoint)
   {
     return aEndpoint == null ? null : aEndpoint.getCertificate ();
   }
 
+  /**
+   * Get the certificate bytes from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @deprecated in v7.0.6. Use
+   *             {@link #getEndpointCertificateBytes(IParticipantIdentifier,IDocumentTypeIdentifier,IProcessIdentifier,ISMPTransportProfile)}
+   *             instead
+   */
+  @Deprecated
   @Nullable
   public byte [] getEndpointCertificateString (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
                                                @Nonnull final IProcessIdentifier aProcessID,
                                                @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
-    final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return getEndpointCertificateString (aEndpoint);
+    return getEndpointCertificateBytes (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
   }
 
+  /**
+   * Get the certificate bytes from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @since 7.0.6
+   */
+  @Nullable
+  public byte [] getEndpointCertificateBytes (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                              @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                              @Nonnull final IProcessIdentifier aProcessID,
+                                              @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
+  {
+    final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
+    return getEndpointCertificateBytes (aEndpoint);
+  }
+
+  /**
+   * Get the certificate bytes from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @throws CertificateException
+   *         In case the conversion from byte to X509 certificate failed
+   * @since 7.0.6
+   */
   @Nullable
   public X509Certificate getEndpointCertificate (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -471,17 +602,17 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                                                  @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                         CertificateException
   {
-    final byte [] aCertBytes = getEndpointCertificateString (aServiceGroupID,
-                                                             aDocumentTypeID,
-                                                             aProcessID,
-                                                             aTransportProfile);
+    final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID,
+                                                            aDocumentTypeID,
+                                                            aProcessID,
+                                                            aTransportProfile);
     return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 
   @Nullable
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {
-    final byte [] aCertBytes = getEndpointCertificateString (aEndpoint);
+    final byte [] aCertBytes = getEndpointCertificateBytes (aEndpoint);
     return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 

@@ -467,12 +467,40 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     return null;
   }
 
+  /**
+   * Get the endpoint address URI from the provided SMP endpoint.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the
+   *         endpoint has no address URI.
+   */
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
     return aEndpoint == null ? null : aEndpoint.getAddressURIValue ();
   }
 
+  /**
+   * Get the endpoint address URI from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no endpoint address URI
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   */
   @Nullable
   public String getEndpointAddress (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -493,6 +521,26 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     return aEndpoint.getCertificateAtIndex (0).getContentBinaryObjectValue ();
   }
 
+  /**
+   * Get the certificate bytes from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   */
   @Nullable
   public byte [] getEndpointCertificateBytes (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                               @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -503,6 +551,28 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     return getEndpointCertificateBytes (aEndpoint);
   }
 
+  /**
+   * Get the certificate bytes from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @throws CertificateException
+   *         In case the conversion from byte to X509 certificate failed
+   */
   @Nullable
   public X509Certificate getEndpointCertificate (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
