@@ -26,7 +26,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.peppol.bdxr.smp2.marshal.BDXR2ServiceGroupMarshaller;
 import com.helger.peppol.bdxr.smp2.marshal.BDXR2ServiceMetadataMarshaller;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
@@ -70,6 +69,7 @@ import com.helger.xsds.xmldsig.X509DataType;
 public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientReadOnly>
 {
   public static final String PATH_OASIS_BDXR_SMP_2 = "bdxr-smp-2/";
+  public static final String URL_PART_SERVICES = "services";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (BDXR2ClientReadOnly.class);
 
@@ -226,7 +226,9 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     final String sURI = getSMPHostURI () +
                         PATH_OASIS_BDXR_SMP_2 +
                         aServiceGroupID.getURIPercentEncoded () +
-                        "/services/" +
+                        "/" +
+                        URL_PART_SERVICES +
+                        "/" +
                         aDocumentTypeID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXR2Client getServiceRegistration@" + sURI);
@@ -508,24 +510,18 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                                                  @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                         CertificateException
   {
-    final byte [] aCertString = getEndpointCertificateBytes (aServiceGroupID,
-                                                             aDocumentTypeID,
-                                                             aProcessID,
-                                                             aTransportProfile);
-    if (aCertString == null)
-      return null;
-    return (X509Certificate) CertificateHelper.getX509CertificateFactory ()
-                                              .generateCertificate (new NonBlockingByteArrayInputStream (aCertString));
+    final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID,
+                                                            aDocumentTypeID,
+                                                            aProcessID,
+                                                            aTransportProfile);
+    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 
   @Nullable
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {
-    final byte [] aCertString = getEndpointCertificateBytes (aEndpoint);
-    if (aCertString == null)
-      return null;
-    return (X509Certificate) CertificateHelper.getX509CertificateFactory ()
-                                              .generateCertificate (new NonBlockingByteArrayInputStream (aCertString));
+    final byte [] aCertBytes = getEndpointCertificateBytes (aEndpoint);
+    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 
   /**

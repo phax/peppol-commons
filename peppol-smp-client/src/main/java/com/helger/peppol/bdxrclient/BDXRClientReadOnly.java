@@ -26,7 +26,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerServiceGroupType;
 import com.helger.peppol.bdxr.smp1.marshal.BDXR1MarshallerSignedServiceMetadataType;
 import com.helger.peppol.httpclient.AbstractGenericSMPClient;
@@ -472,24 +471,18 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                                                  @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                         CertificateException
   {
-    final byte [] aCertString = getEndpointCertificateString (aServiceGroupID,
-                                                              aDocumentTypeID,
-                                                              aProcessID,
-                                                              aTransportProfile);
-    if (aCertString == null)
-      return null;
-    return (X509Certificate) CertificateHelper.getX509CertificateFactory ()
-                                              .generateCertificate (new NonBlockingByteArrayInputStream (aCertString));
+    final byte [] aCertBytes = getEndpointCertificateString (aServiceGroupID,
+                                                             aDocumentTypeID,
+                                                             aProcessID,
+                                                             aTransportProfile);
+    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 
   @Nullable
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {
-    final byte [] aCertString = getEndpointCertificateString (aEndpoint);
-    if (aCertString == null)
-      return null;
-    return (X509Certificate) CertificateHelper.getX509CertificateFactory ()
-                                              .generateCertificate (new NonBlockingByteArrayInputStream (aCertString));
+    final byte [] aCertBytes = getEndpointCertificateString (aEndpoint);
+    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 
   /**
