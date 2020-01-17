@@ -223,37 +223,37 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>7.0.5</version>
+  <version>7.0.6</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>7.0.5</version>
+  <version>7.0.6</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>7.0.5</version>
+  <version>7.0.6</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>7.0.5</version>
+  <version>7.0.6</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>7.0.5</version>
+  <version>7.0.6</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>7.0.5</version>
+  <version>7.0.6</version>
 </dependency>
 ```
 
@@ -263,7 +263,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>7.0.5</version>
+  <version>7.0.6</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
@@ -283,7 +283,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v7.0.6 - work in progress
+* v7.0.6 - 2020-01-17
     * Updated to Peppol Code List v6
     * Improved the SMP client API
     * Added possibility to customize the "follow redirects" setting of the SMP client 
