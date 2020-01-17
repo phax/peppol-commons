@@ -231,7 +231,9 @@ public class SMPClient extends SMPClientReadOnly
 
     final String sURI = getSMPHostURI () +
                         aServiceGroupID.getURIPercentEncoded () +
-                        "/services/" +
+                        "/" +
+                        URL_PART_SERVICES +
+                        "/" +
                         aDocumentTypeID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("SMPClient saveServiceRegistration@" + sURI);
@@ -352,7 +354,9 @@ public class SMPClient extends SMPClientReadOnly
 
     final String sURI = getSMPHostURI () +
                         aServiceGroupID.getURIPercentEncoded () +
-                        "/services/" +
+                        "/" +
+                        URL_PART_SERVICES +
+                        "/" +
                         aDocumentTypeID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("SMPClient deleteServiceRegistration@" + sURI);

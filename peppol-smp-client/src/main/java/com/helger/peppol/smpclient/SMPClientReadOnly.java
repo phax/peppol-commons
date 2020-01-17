@@ -70,6 +70,10 @@ import com.helger.xsds.xmldsig.X509DataType;
  */
 public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOnly>
 {
+  public static final String URL_PART_COMPLETE = "complete";
+  public static final String URL_PART_LIST = "list";
+  public static final String URL_PART_SERVICES = "services";
+
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPClientReadOnly.class);
 
   /**
@@ -160,7 +164,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (sUserID, "UserID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sURI = getSMPHostURI () + "list/" + CIdentifier.createPercentEncoded (sUserID);
+    final String sURI = getSMPHostURI () + URL_PART_LIST + "/" + CIdentifier.createPercentEncoded (sUserID);
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("SMPClient getServiceGroupReferenceList@" + sURI);
 
@@ -261,7 +265,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    return getCompleteServiceGroup (getSMPHostURI () + "complete/" + aServiceGroupID.getURIPercentEncoded ());
+    return getCompleteServiceGroup (getSMPHostURI () +
+                                    URL_PART_COMPLETE +
+                                    "/" +
+                                    aServiceGroupID.getURIPercentEncoded ());
   }
 
   /**
@@ -389,7 +396,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final String sURI = getSMPHostURI () +
                         aServiceGroupID.getURIPercentEncoded () +
-                        "/services/" +
+                        "/" +
+                        URL_PART_SERVICES +
+                        "/" +
                         aDocumentTypeID.getURIPercentEncoded ();
 
     if (LOGGER.isDebugEnabled ())

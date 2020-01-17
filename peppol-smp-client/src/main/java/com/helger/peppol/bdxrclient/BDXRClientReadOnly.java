@@ -66,6 +66,8 @@ import com.helger.xsds.xmldsig.X509DataType;
  */
 public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientReadOnly>
 {
+  public static final String URL_PART_SERVICES = "services";
+
   private static final Logger LOGGER = LoggerFactory.getLogger (BDXRClientReadOnly.class);
 
   /**
@@ -221,7 +223,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     final String sURI = getSMPHostURI () +
                         aServiceGroupID.getURIPercentEncoded () +
-                        "/services/" +
+                        "/" +
+                        URL_PART_SERVICES +
+                        "/" +
                         aDocumentTypeID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXRClient getServiceRegistration@" + sURI);

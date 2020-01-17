@@ -234,7 +234,9 @@ public class BDXRClient extends BDXRClientReadOnly
 
     final String sURI = getSMPHostURI () +
                         CIdentifier.getURIPercentEncoded (aServiceGroupID) +
-                        "/services/" +
+                        "/" +
+                        URL_PART_SERVICES +
+                        "/" +
                         CIdentifier.getURIPercentEncoded (aDocumentTypeID);
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXRClient saveServiceRegistration@" + sURI);
@@ -355,7 +357,9 @@ public class BDXRClient extends BDXRClientReadOnly
 
     final String sURI = getSMPHostURI () +
                         aServiceGroupID.getURIPercentEncoded () +
-                        "/services/" +
+                        "/" +
+                        URL_PART_SERVICES +
+                        "/" +
                         aDocumentTypeID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXRClient deleteServiceRegistration@" + sURI);
