@@ -17,15 +17,20 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.xml.mock.XMLTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -189,5 +194,21 @@ public final class PeppolParticipantIdentifierTest
     assertTrue (aIF.createParticipantIdentifierWithDefaultScheme ("abc")
                    .hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME));
     assertFalse (new PeppolParticipantIdentifier ("dummy-actorid-upis", "abc").hasDefaultScheme ());
+  }
+
+  @Test
+  public void testJacksonIssue34 () throws JsonProcessingException
+  {
+    final Map <String, Object> map = new HashMap <> ();
+    map.put ("participantId", new PeppolParticipantIdentifier ("iso6523-actorid-upis", "9915:test"));
+    try
+    {
+      new ObjectMapper ().writeValueAsString (map);
+      fail ("Should have thrown a JsonMappingException due to a backing StackOverflowError");
+    }
+    catch (final JsonMappingException ex)
+    {
+      assertTrue (ex.getCause () instanceof StackOverflowError);
+    }
   }
 }
