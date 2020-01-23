@@ -42,7 +42,7 @@ public class SMPMarshallerServiceMetadataTypeTest
                      "        <id:ProcessIdentifier scheme=\"cenbii-procid-ubl\">urn:www.cenbii.eu:profile:bii04:ver1.0</id:ProcessIdentifier>\r\n" +
                      "        <ServiceEndpointList>\r\n" +
                      "          <Endpoint transportProfile=\"busdox-transport-as2-ver1p0\">\r\n" +
-                     "            <EndpointReference xmlns=\"http://www.w3.org/2005/08/addressing\"><Address>https://peppol.bluzor.com/oxalis/as2</Address></EndpointReference>\r\n" +
+                     "            <EndpointReference xmlns=\"http://www.w3.org/2005/08/addressing\"><Address>https://example.org/as2</Address></EndpointReference>\r\n" +
                      "            <RequireBusinessLevelSignature>true</RequireBusinessLevelSignature>\r\n" +
                      "            <ServiceActivationDate>\r\n" +
                      "              2019-01-16T01:00:00.000+01:00\r\n" +
