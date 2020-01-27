@@ -76,8 +76,11 @@ public final class PeppolKeyStoreHelper
    * The truststore configuration for PEPPOL PKI v2 valid from 2010 to 2020.
    *
    * @author Philip Helger
+   * @deprecated As the certificates expired on January 26th/27th 2020 and can
+   *             therefore no longer be used.
    */
   @Immutable
+  @Deprecated
   public static final class Config2010
   {
     private Config2010 ()

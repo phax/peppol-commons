@@ -85,11 +85,6 @@ public final class PeppolCertificateChecker
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
-    // PKI v2 after v3 because lower precedence
-    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PILOT_AP);
-    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PRODUCTION_AP);
-    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PILOT_SMP);
-    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PRODUCTION_SMP);
 
     // all issuers
     PEPPOL_AP_CA_ISSUERS = new CommonsArrayList <> (PEPPOL_AP_CA_CERTS, X509Certificate::getSubjectX500Principal);

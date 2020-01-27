@@ -271,7 +271,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 
 Note: `peppol-bdxr` was integrated in `peppol-commons` as of version 4.3.0.
 
-The binary version of this library can be found on http://repo2.maven.org/maven2/com/helger/ 
+The binary version of this library can be found on https://repo1.maven.org/maven2/com/helger/ 
 They depend on several other libraries so I suggest you are going for the Maven source integration.
 
 # References
@@ -283,6 +283,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v7.0.7 - work in progress
+    * Removed the Peppol PKI v2 certificates from the complete trust store as they expired in January 2020
 * v7.0.6 - 2020-01-17
     * Updated to Peppol Code List v6
     * Improved the SMP client API
