@@ -43,7 +43,7 @@ public class BDXR1MarshallerServiceMetadataTypeTest
                      "        <ProcessIdentifier scheme=\"cenbii-procid-ubl\">urn:www.cenbii.eu:profile:bii04:ver1.0</ProcessIdentifier>\r\n" +
                      "        <ServiceEndpointList>\r\n" +
                      "          <Endpoint transportProfile=\"busdox-transport-as2-ver1p0\">\r\n" +
-                     "            <EndpointURI>https://peppol.bluzor.com/oxalis/as2</EndpointURI>\r\n" +
+                     "            <EndpointURI>https://example.org/as2</EndpointURI>\r\n" +
                      "            <RequireBusinessLevelSignature>true</RequireBusinessLevelSignature>\r\n" +
                      "            <ServiceActivationDate>\r\n" +
                      "              2019-01-16T01:00:00.000+01:00\r\n" +
