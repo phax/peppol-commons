@@ -59,11 +59,11 @@
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>ph-security</artifactId>
+      <artifactId>ph-xml</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>ph-xml</artifactId>
+      <artifactId>ph-security</artifactId>
     </dependency>
     
     <dependency>
@@ -79,11 +79,6 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-genericode</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-network</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
