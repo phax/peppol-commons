@@ -29,7 +29,7 @@
     </documentation>
     <appinfo>
       <jaxb:schemaBindings>
-        <jaxb:package name="com.helger.peppol.xsd" />
+        <jaxb:package name="com.helger.smpclient.peppol.xsd" />
       </jaxb:schemaBindings>
     </appinfo>
   </annotation>

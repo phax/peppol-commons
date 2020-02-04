@@ -38,9 +38,9 @@ import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
-import com.helger.peppol.url.PeppolURLProvider;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
+import com.helger.smpclient.url.PeppolURLProvider;
 
 /**
  * This class is for BRZ internal use only!

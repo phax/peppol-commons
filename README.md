@@ -287,6 +287,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * The SMP client configuration can now also be addressed via the `SMP_CLIENT_CONFIG` environment variable
     * Removed the Peppol PKI v2 certificates from the complete trust store as they expired in January 2020
     * Moved the SMP code from `peppol-commons` to `peppol-smp-client` and adopted package names
+        * The `peppol-smp-client` project was total restructured - everything is now under package `com.helger.smpclient`
+        * The generated classes for the Peppol SMP XSD where moved from `com.helger.peppol.smp` to `com.helger.smpclient.peppol.jaxb`
 * v7.0.6 - 2020-01-17
     * Updated to Peppol Code List v6
     * Improved the SMP client API
