@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.utils;
+package com.helger.peppol.smpclient.utils;
 
 import java.net.UnknownHostException;
 import java.util.regex.Pattern;

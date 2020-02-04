@@ -22,7 +22,6 @@ import com.helger.peppol.smp.ServiceInformationType;
 import com.helger.peppol.smp.ServiceMetadataReferenceCollectionType;
 import com.helger.peppol.smp.ServiceMetadataReferenceType;
 import com.helger.peppol.smp.ServiceMetadataType;
-import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 
 /**

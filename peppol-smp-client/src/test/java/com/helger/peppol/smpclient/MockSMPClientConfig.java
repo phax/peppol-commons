@@ -27,7 +27,7 @@ import com.helger.commons.base64.Base64;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
-import com.helger.peppol.utils.W3CEndpointReferenceHelper;
+import com.helger.peppol.smpclient.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;

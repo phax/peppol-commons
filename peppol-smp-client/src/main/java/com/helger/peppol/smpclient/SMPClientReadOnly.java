@@ -50,9 +50,9 @@ import com.helger.peppol.smpclient.marshal.SMPMarshallerCompleteServiceGroupType
 import com.helger.peppol.smpclient.marshal.SMPMarshallerServiceGroupReferenceListType;
 import com.helger.peppol.smpclient.marshal.SMPMarshallerServiceGroupType;
 import com.helger.peppol.smpclient.marshal.SMPMarshallerSignedServiceMetadataType;
+import com.helger.peppol.smpclient.utils.W3CEndpointReferenceHelper;
 import com.helger.peppol.url.IPeppolURLProvider;
 import com.helger.peppol.url.PeppolDNSResolutionException;
-import com.helger.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;

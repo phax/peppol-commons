@@ -34,7 +34,7 @@ import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.utils.NAPTRResolver;
+import com.helger.peppol.smpclient.utils.NAPTRResolver;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;

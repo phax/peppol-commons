@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.utils;
+package com.helger.peppol.smpclient.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,6 +27,7 @@ import org.w3c.dom.Element;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.peppol.smpclient.utils.W3CEndpointReferenceHelper;
 import com.helger.xml.XMLFactory;
 
 /**
