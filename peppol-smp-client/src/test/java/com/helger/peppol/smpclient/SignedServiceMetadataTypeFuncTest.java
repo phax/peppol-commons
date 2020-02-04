@@ -32,7 +32,7 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 import com.helger.peppol.httpclient.TrustStoreBasedX509KeySelector;
 import com.helger.peppol.smp.SignedServiceMetadataType;
-import com.helger.peppol.smp.marshal.SMPMarshallerSignedServiceMetadataType;
+import com.helger.peppol.smpclient.marshal.SMPMarshallerSignedServiceMetadataType;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.xml.serialize.read.DOMReader;
 

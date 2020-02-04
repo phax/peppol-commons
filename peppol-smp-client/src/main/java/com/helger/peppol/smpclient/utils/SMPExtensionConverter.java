@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.smp;
+package com.helger.peppol.smpclient.utils;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -23,6 +23,7 @@ import org.w3c.dom.Document;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.smp.ExtensionType;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.write.EXMLSerializeDocType;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;

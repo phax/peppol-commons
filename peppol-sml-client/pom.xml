@@ -59,7 +59,7 @@
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
-      <artifactId>peppol-commons</artifactId>
+      <artifactId>ph-commons</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
@@ -69,10 +69,23 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-wsclient</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>peppol-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>peppol-id</artifactId>
+    </dependency>
     
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>peppol-smp-client</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

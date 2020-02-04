@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.smp.marshal;
+package com.helger.peppol.smpclient.marshal;
 
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 import com.helger.peppol.smp.ServiceMetadataType;
+import com.helger.peppol.smpclient.marshal.SMPMarshallerServiceMetadataType;
 
 /**
  * Test class for class {@link SMPMarshallerServiceMetadataType}

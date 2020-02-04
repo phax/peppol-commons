@@ -14,25 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.smp.marshal;
+package com.helger.peppol.smpclient.marshal;
 
+import com.helger.peppol.smp.CompleteServiceGroupType;
 import com.helger.peppol.smp.ObjectFactory;
-import com.helger.peppol.smp.ServiceMetadataType;
 
 /**
- * A simple JAXB marshaller for the {@link ServiceMetadataType} type.
+ * A simple JAXB marshaller for the {@link CompleteServiceGroupType} type.
  *
  * @author Philip Helger
  */
-public class SMPMarshallerServiceMetadataType extends AbstractSMPMarshaller <ServiceMetadataType>
+public class SMPMarshallerCompleteServiceGroupType extends AbstractSMPMarshaller <CompleteServiceGroupType>
 {
-  public SMPMarshallerServiceMetadataType ()
+  public SMPMarshallerCompleteServiceGroupType ()
   {
     this (true);
   }
 
-  public SMPMarshallerServiceMetadataType (final boolean bValidationEnabled)
+  public SMPMarshallerCompleteServiceGroupType (final boolean bValidationEnabled)
   {
-    super (ServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createServiceMetadata);
+    super (CompleteServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createCompleteServiceGroup);
   }
 }

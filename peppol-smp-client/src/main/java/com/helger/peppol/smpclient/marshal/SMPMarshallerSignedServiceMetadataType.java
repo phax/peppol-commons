@@ -14,25 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.smp.marshal;
+package com.helger.peppol.smpclient.marshal;
 
-import com.helger.peppol.smp.CompleteServiceGroupType;
 import com.helger.peppol.smp.ObjectFactory;
+import com.helger.peppol.smp.SignedServiceMetadataType;
 
 /**
- * A simple JAXB marshaller for the {@link CompleteServiceGroupType} type.
+ * A simple JAXB marshaller for the {@link SignedServiceMetadataType} type.
  *
  * @author Philip Helger
  */
-public class SMPMarshallerCompleteServiceGroupType extends AbstractSMPMarshaller <CompleteServiceGroupType>
+public class SMPMarshallerSignedServiceMetadataType extends AbstractSMPMarshaller <SignedServiceMetadataType>
 {
-  public SMPMarshallerCompleteServiceGroupType ()
+  public SMPMarshallerSignedServiceMetadataType ()
   {
-    this (true);
+    // Disable validation by default, because the mandatory signature element is
+    // applied afterwards
+    this (false);
   }
 
-  public SMPMarshallerCompleteServiceGroupType (final boolean bValidationEnabled)
+  public SMPMarshallerSignedServiceMetadataType (final boolean bValidationEnabled)
   {
-    super (CompleteServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createCompleteServiceGroup);
+    super (SignedServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createSignedServiceMetadata);
   }
 }
