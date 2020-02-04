@@ -20,11 +20,10 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.peppol.smp.marshal.SMPMarshallerSignedServiceMetadataType;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
 /**
- * Test class for class {@link SMPMarshallerSignedServiceMetadataType}
+ * Test class for class {@link BDXR1MarshallerSignedServiceMetadataType}
  *
  * @author Philip Helger
  */
