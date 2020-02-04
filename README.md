@@ -283,9 +283,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v7.0.7 - work in progress
+* v8.0.0 - work in progress
     * The SMP client configuration can now also be addressed via the `SMP_CLIENT_CONFIG` environment variable
     * Removed the Peppol PKI v2 certificates from the complete trust store as they expired in January 2020
+    * Moved the SMP code from `peppol-commons` to `peppol-smp-client` and adopted package names
 * v7.0.6 - 2020-01-17
     * Updated to Peppol Code List v6
     * Improved the SMP client API
