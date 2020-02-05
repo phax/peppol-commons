@@ -31,8 +31,17 @@ import com.helger.commons.lang.EnumHelper;
  */
 public enum ESMPAPIType implements IHasID <String>
 {
+  /**
+   * An SMP using the "Peppol" SMP specification.
+   */
   PEPPOL ("peppol"),
+  /**
+   * An SMP using the OASIS BDXR SMP v1 specification.
+   */
   OASIS_BDXR_V1 ("bdxr1"),
+  /**
+   * An SMP using the OASIS BDXR SMP v2 specification.
+   */
   OASIS_BDXR_V2 ("bdxr2");
 
   private final String m_sID;
