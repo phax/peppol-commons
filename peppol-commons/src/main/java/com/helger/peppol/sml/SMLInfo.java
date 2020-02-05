@@ -36,7 +36,7 @@ import com.helger.commons.type.ObjectType;
  * Use instances of this class if you're not happy with the {@link ESML}
  * enumeration value but need an instance of {@link ISMLInfo}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @NotThreadSafe
 public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>

@@ -18,16 +18,7 @@ These project are used implicitly by the following projects:
 And some legacy PEPPOL projects:
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
 
-## Licensing
-
-**Note:** the sub-projects use different licenses (for historic reasons)!
-
-* `peppol-id` - MPL 2.0 (introduced in v7.0.0 based on peppol-commons)
-* `peppol-commons` - Apache 2.0 (v6 changed from EUPL 1.1 to MPL 2.0; v7.0.4 changed from MPL 2.0 to Apache 2.0)
-* `peppol-testfiles` - Apache 2.0
-* `peppol-sbdh` - Apache 2.0
-* `peppol-sml-client` - MPL 2.0 (v6 changed from EUPL 1.1 to MPL 2.0)
-* `peppol-smp-client` - MPL 2.0 (v6 changed from EUPL 1.1 to MPL 2.0)
+This project is licensed under the Apache 2.0 license.
 
 ## peppol-id
 
@@ -37,16 +28,12 @@ First created in version 7.0.0.
 Make sure to run `mvn generate-sources` before using it in the IDE.
 The additional code is created in `target/generated-sources/xjc`. 
 
-This project is licensed under the MPL 2.0 license.
-
 ## peppol-commons
 
 Java library with shared PEPPOL components. It contains the basic algorithms. Since v7 this depends on the `peppol-id` submodule.
 
 Make sure to run `mvn generate-sources` before using it in the IDE.
 The additional code is created in `target/generated-sources/xjc`. 
-
-This project is licensed under the Apache 2 License.
 
 ### Truststore path change in v6.0.1
 
@@ -78,15 +65,11 @@ https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/ICT-Transport-Ope
 
 An example on how to use this project can be found in my **[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet)** project which provides a servlet to receive incoming PEPPOL AS2 messages. Alternatively you may have a look at my **[as2-peppol-client](https://github.com/phax/as2-peppol-client)** project which is used to send PEPPOL AS2 messages.
 
-This project is licensed under the Apache 2 License.
-
 ## peppol-testfiles
 
 A Java library with a lot of UBL and SBDH test files suitable for different scenarios.  
 
 SimpleInvoicing test files are used from https://github.com/SimplerInvoicing/testset
-
-This project is licensed under the Apache 2 License.
 
 ## peppol-sml-client
 
@@ -105,16 +88,12 @@ Both classes offer the possibility to set an optional custom `SSLSocketFactory` 
 
 This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-server/) the SMP server with a management GUI and flexible backends.
 
-This project is licensed under the MPL 2.0 license.
-
 ## peppol-smp-client
 
 This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.3.0). 
 This project uses Apache HTTP client to perform the REST lookups on foreign SMPs. The reason to not use the Jersey 1.x client is an incompatibility with Java 8. This means that this version is compliant with Java 1.6+.
 
 I also provide an OSS [phoss SMP server](https://github.com/phax/peppol-smp-server) with a nice management GUI.
-
-This project is licensed under the MPL 2.0 license.
 
 ### Configuration
 The SMP client (both PEPPOL and BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the environment variable `SMP_CLIENT_CONFIG` (since v7.0.7), the system property `peppol.smp.client.properties.path` (since v4.3.5), the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to e.g. the trust store!
@@ -289,6 +268,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Moved the SMP code from `peppol-commons` to `peppol-smp-client` and adopted package names
         * The `peppol-smp-client` project was total restructured - everything is now under package `com.helger.smpclient`
         * The generated classes for the Peppol SMP XSD where moved from `com.helger.peppol.smp` to `com.helger.smpclient.peppol.jaxb`
+    * Unified licensing to be Apache 2.0    
 * v7.0.6 - 2020-01-17
     * Updated to Peppol Code List v6
     * Improved the SMP client API

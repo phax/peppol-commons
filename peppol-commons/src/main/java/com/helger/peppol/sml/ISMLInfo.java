@@ -30,7 +30,7 @@ import com.helger.commons.type.ITypedObject;
  * predefined SML information can be found at {@link ESML} whereas a generic
  * implementation can be found at {@link SMLInfo}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serializable
 {

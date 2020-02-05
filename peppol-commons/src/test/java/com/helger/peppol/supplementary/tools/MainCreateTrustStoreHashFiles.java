@@ -36,7 +36,7 @@ import com.helger.security.messagedigest.MessageDigestValue;
  * Utility class to create hash codes of the global trust store to verify if it
  * is valid or not.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public final class MainCreateTrustStoreHashFiles
 {

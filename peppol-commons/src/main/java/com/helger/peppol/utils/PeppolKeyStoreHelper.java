@@ -38,7 +38,7 @@ import com.helger.security.keystore.LoadedKeyStore;
 /**
  * Helper methods to access Java key stores of type JKS (Java KeyStore).
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @Immutable
 public final class PeppolKeyStoreHelper

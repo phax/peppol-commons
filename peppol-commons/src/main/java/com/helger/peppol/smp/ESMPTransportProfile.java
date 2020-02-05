@@ -28,7 +28,7 @@ import com.helger.commons.type.ObjectType;
  * A generic implementation of {@link ISMPTransportProfile} can be found in
  * class {@link SMPTransportProfile}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public enum ESMPTransportProfile implements ISMPTransportProfile
 {

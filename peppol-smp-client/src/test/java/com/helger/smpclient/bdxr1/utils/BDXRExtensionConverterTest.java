@@ -32,7 +32,7 @@ import com.helger.xsds.bdxr.smp1.ObjectFactory;
 /**
  * Test class for class {@link BDXR1ExtensionConverter}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public final class BDXRExtensionConverterTest
 {

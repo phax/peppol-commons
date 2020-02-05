@@ -29,7 +29,7 @@ import com.helger.security.keystore.KeyStoreHelper;
 /**
  * Test class for class {@link PeppolKeyStoreHelper}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @SuppressWarnings ("deprecation")
 public final class PeppolKeyStoreHelperTest

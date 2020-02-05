@@ -28,7 +28,7 @@ import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 /**
  * Test class for class {@link SMPExtensionConverter}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public final class SMPExtensionConverterTest
 {

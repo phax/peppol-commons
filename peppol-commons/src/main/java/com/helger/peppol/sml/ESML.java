@@ -35,7 +35,7 @@ import com.helger.commons.type.ObjectType;
  * management application is running on localhost in the ROOT context!</li>
  * </ul>
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public enum ESML implements ISMLInfo
 {

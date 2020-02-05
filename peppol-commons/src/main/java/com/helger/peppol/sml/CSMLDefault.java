@@ -26,7 +26,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
  * You can of course use the values in this file as the default values in case
  * no configuration item is specified.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @Immutable
 public final class CSMLDefault

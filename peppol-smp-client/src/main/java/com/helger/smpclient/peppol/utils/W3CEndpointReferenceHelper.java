@@ -49,7 +49,7 @@ import com.helger.xml.XMLHelper;
  * <br>
  * The JIRA issue JAX_WS-1132 was filed to help dealing with this issue.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @Immutable
 public final class W3CEndpointReferenceHelper

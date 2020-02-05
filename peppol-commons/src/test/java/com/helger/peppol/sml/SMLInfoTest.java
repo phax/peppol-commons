@@ -30,7 +30,7 @@ import com.helger.xml.mock.XMLTestHelper;
 /**
  * Test class for class {@link SMLInfo}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public final class SMLInfoTest
 {

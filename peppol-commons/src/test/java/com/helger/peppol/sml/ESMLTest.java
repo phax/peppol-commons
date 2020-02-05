@@ -26,7 +26,7 @@ import org.junit.Test;
 /**
  * Test class for class {@link ESML}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public final class ESMLTest
 {

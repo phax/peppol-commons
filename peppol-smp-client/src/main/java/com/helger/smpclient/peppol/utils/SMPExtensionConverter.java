@@ -35,7 +35,7 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  * extension element and the "ExtensionType" complex type used in the PEPPOL
  * SMP.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 @Immutable
 public final class SMPExtensionConverter
