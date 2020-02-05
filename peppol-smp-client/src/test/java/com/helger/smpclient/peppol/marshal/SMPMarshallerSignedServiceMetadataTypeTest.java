@@ -73,9 +73,9 @@ public class SMPMarshallerSignedServiceMetadataTypeTest
     SignedServiceMetadataType aObj = new SMPMarshallerSignedServiceMetadataType (false).read (s);
     assertNotNull (aObj);
 
-    for (final String sFilename : new String [] { "signed-service-metadata-c14n-inclusive.xml",
-                                                  "signed-service-metadata1.xml",
-                                                  "signed-service-metadata2.xml" })
+    for (final String sFilename : new String [] { "signed-service-metadata1.xml",
+                                                  "signed-service-metadata2.xml",
+                                                  "signed-service-metadata3-c14n-inclusive.xml" })
     {
       final IReadableResource aRes = new ClassPathResource ("smp/" + sFilename);
       assertTrue (aRes.exists ());
