@@ -202,37 +202,37 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>7.0.6</version>
+  <version>8.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>7.0.6</version>
+  <version>8.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>7.0.6</version>
+  <version>8.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>7.0.6</version>
+  <version>8.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>7.0.6</version>
+  <version>8.0.0</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>7.0.6</version>
+  <version>8.0.0</version>
 </dependency>
 ```
 
@@ -242,7 +242,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>7.0.6</version>
+  <version>8.0.0</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
@@ -262,13 +262,13 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.0.0 - work in progress
+* v8.0.0 - 2020-02-05
     * The SMP client configuration can now also be addressed via the `SMP_CLIENT_CONFIG` environment variable
     * Removed the Peppol PKI v2 certificates from the complete trust store as they expired in January 2020
     * Moved the SMP code from `peppol-commons` to `peppol-smp-client` and adopted package names
         * The `peppol-smp-client` project was total restructured - everything is now under package `com.helger.smpclient`
-        * The generated classes for the Peppol SMP XSD where moved from `com.helger.peppol.smp` to `com.helger.smpclient.peppol.jaxb`
-    * Unified licensing to be Apache 2.0    
+        * The generated classes for the Peppol SMP XSD were moved from `com.helger.peppol.smp` to `com.helger.smpclient.peppol.jaxb`
+    * Unified licensing to Apache 2.0    
 * v7.0.6 - 2020-01-17
     * Updated to Peppol Code List v6
     * Improved the SMP client API
