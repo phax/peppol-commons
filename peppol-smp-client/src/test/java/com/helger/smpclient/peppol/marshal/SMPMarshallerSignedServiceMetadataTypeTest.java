@@ -17,9 +17,12 @@
 package com.helger.smpclient.peppol.marshal;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
 
 /**
@@ -67,7 +70,17 @@ public class SMPMarshallerSignedServiceMetadataTypeTest
                      // Parsing would fail in Signature
                      "  <ds:Signature/>\r\n" +
                      "</SignedServiceMetadata>";
-    final SignedServiceMetadataType aObj = new SMPMarshallerSignedServiceMetadataType (false).read (s);
+    SignedServiceMetadataType aObj = new SMPMarshallerSignedServiceMetadataType (false).read (s);
     assertNotNull (aObj);
+
+    for (final String sFilename : new String [] { "signed-service-metadata-c14n-inclusive.xml",
+                                                  "signed-service-metadata1.xml",
+                                                  "signed-service-metadata2.xml" })
+    {
+      final IReadableResource aRes = new ClassPathResource ("smp/" + sFilename);
+      assertTrue (aRes.exists ());
+      aObj = new SMPMarshallerSignedServiceMetadataType (true).read (aRes);
+      assertNotNull ("Error in " + sFilename, aObj);
+    }
   }
 }
