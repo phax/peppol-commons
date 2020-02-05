@@ -54,9 +54,9 @@ public final class SMPClientConfiguration
 
   static
   {
-    final ConfigFileBuilder aCFB = new ConfigFileBuilder ().addPathFromEnvVar ("SMP_CLIENT_CONFIG")
-                                                           .addPathFromSystemProperty ("peppol.smp.client.properties.path")
+    final ConfigFileBuilder aCFB = new ConfigFileBuilder ().addPathFromSystemProperty ("peppol.smp.client.properties.path")
                                                            .addPathFromSystemProperty ("smp.client.properties.path")
+                                                           .addPathFromEnvVar ("SMP_CLIENT_CONFIG")
                                                            .addPath ("private-smp-client.properties")
                                                            .addPath ("smp-client.properties");
 
