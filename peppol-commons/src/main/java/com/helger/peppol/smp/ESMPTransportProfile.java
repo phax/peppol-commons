@@ -43,13 +43,19 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
     }
   },
 
-  /** The PEPPOL AS2 transport profile v1 (SHA-1) */
-  TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "PEPPOL AS2 v1"),
+  /**
+   * The PEPPOL AS2 transport profile v1 (SHA-1). Updated with AS2 v2 on
+   * 2020-02-01
+   */
+  TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "Peppol AS2 v1"),
 
-  /** The PEPPOL AS2 v2 transport profile v2 (SHA-256) */
-  TRANSPORT_PROFILE_AS2_V2 ("busdox-transport-as2-ver2p0", "PEPPOL AS2 v2"),
+  /**
+   * The PEPPOL AS2 v2 transport profile v2 (SHA-256). Mandatory (when using
+   * AS2) in Peppol since 2020-02-01.
+   */
+  TRANSPORT_PROFILE_AS2_V2 ("busdox-transport-as2-ver2p0", "Peppol AS2 v2"),
 
-  /** The AS4 transport profile */
+  /** The AS4 transport profile - too unspecific. Don't use */
   @Deprecated
   TRANSPORT_PROFILE_AS4 ("busdox-transport-ebms3-as4", "AS4")
   {
@@ -65,7 +71,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
 
   /** The PEPPOL AS4 profile v1 */
   @Deprecated
-  TRANSPORT_PROFILE_PEPPOL_AS4 ("peppol-transport-as4-v1_0", "PEPPOL AS4 v1")
+  TRANSPORT_PROFILE_PEPPOL_AS4 ("peppol-transport-as4-v1_0", "Peppol AS4 v1")
   {
     @Override
     public boolean isDeprecated ()
@@ -74,7 +80,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
     }
   },
   /** The PEPPOL AS4 profile v2 */
-  TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "PEPPOL AS4 v2");
+  TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "Peppol AS4 v2");
 
   private final String m_sID;
   private final String m_sName;
