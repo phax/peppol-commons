@@ -59,6 +59,17 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-jaxws-pom</artifactId>
       <type>pom</type>
+      <exclusions>
+        <!-- Use jakarta activation instead -->
+        <exclusion>
+          <groupId>com.sun.activation</groupId>
+          <artifactId>javax.activation</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.activation</groupId>
+          <artifactId>javax.activation-api</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.helger</groupId>
