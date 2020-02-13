@@ -487,7 +487,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     aHCFactory.setUseDNSClientCache (m_bUseDNSClientCache);
     if (!m_bUseProxySystemProperties)
     {
-      aHCFactory.setProxy (m_aProxy, m_aProxyCredentials);
+      aHCFactory.setProxyHost (m_aProxy);
+      aHCFactory.setProxyCredentials (m_aProxyCredentials);
       aHCFactory.nonProxyHosts ().addAll (m_aNonProxyHosts);
     }
 
