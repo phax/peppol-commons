@@ -31,7 +31,6 @@ import org.apache.http.auth.Credentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ContentType;
@@ -42,7 +41,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.mime.CMimeType;
@@ -51,6 +49,7 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.httpclient.HttpClientFactory;
 import com.helger.httpclient.HttpClientManager;
+import com.helger.httpclient.HttpClientSettings;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -71,8 +70,8 @@ import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGenericSMPClient <IMPLTYPE>> implements
                                                IGenericImplTrait <IMPLTYPE>
 {
-  public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 5_000;
-  public static final int DEFAULT_REQUEST_TIMEOUT_MS = 10_000;
+  public static final int DEFAULT_CONNECTION_TIMEOUT_MS = HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT_MS;
+  public static final int DEFAULT_REQUEST_TIMEOUT_MS = HttpClientSettings.DEFAULT_SOCKET_TIMEOUT_MS;
   public static final boolean DEFAULT_FOLLOW_REDIRECTS = true;
 
   // The default text/xml content type uses iso-8859-1!
@@ -86,16 +85,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * trailing slash!
    */
   private final String m_sSMPHost;
-  private HttpHost m_aProxy;
-  private Credentials m_aProxyCredentials;
-  private final ICommonsOrderedSet <String> m_aNonProxyHosts = new CommonsLinkedHashSet <> ();
-  private boolean m_bUseProxySystemProperties;
-  private boolean m_bUseDNSClientCache;
-  private int m_nConnectionTimeoutMS;
-  private int m_nRequestTimeoutMS;
   private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private String m_sUserAgent;
+  private SMPClientHttpSettings m_aSettings;
 
   /**
    * Constructor with a direct SMP URL.<br>
@@ -121,21 +114,6 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     // Build string and ensure it ends with a "/"
     final String sSMPHost = aSMPHost.toString ();
     m_sSMPHost = sSMPHost.endsWith ("/") ? sSMPHost : sSMPHost + '/';
-
-    // Set default proxy from configuration file
-    m_aProxy = SMPClientConfiguration.getHttpProxy ();
-    m_aProxyCredentials = SMPClientConfiguration.getHttpProxyCredentials ();
-    final String sNonProxyHosts = SMPClientConfiguration.getNonProxyHosts ();
-    if (StringHelper.hasText (sNonProxyHosts))
-      StringHelper.explode ('|', sNonProxyHosts, sHost -> {
-        final String sTrimmedHost = sHost.trim ();
-        if (StringHelper.hasText (sTrimmedHost))
-          m_aNonProxyHosts.add (sTrimmedHost);
-      });
-    m_bUseProxySystemProperties = SMPClientConfiguration.isUseProxySystemProperties ();
-    m_bUseDNSClientCache = SMPClientConfiguration.isUseDNSClientCache ();
-    m_nConnectionTimeoutMS = SMPClientConfiguration.getConnectionTimeoutMS ();
-    m_nRequestTimeoutMS = SMPClientConfiguration.getRequestTimeoutMS ();
   }
 
   /**
@@ -149,14 +127,26 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
+   * @return The HTTP client settings to be configured. Never <code>null</code>.
+   * @since 8.0.1
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  public final SMPClientHttpSettings httpSettings ()
+  {
+    return m_aSettings;
+  }
+
+  /**
    * @return The HTTP proxy to be used to access the SMP server. Is
    *         <code>null</code> by default.
    * @see #getProxyCredentials()
    */
   @Nullable
+  @Deprecated
   public final HttpHost getProxy ()
   {
-    return m_aProxy;
+    return m_aSettings.getProxyHost ();
   }
 
   /**
@@ -172,14 +162,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @see #setProxyCredentials(Credentials)
    */
   @Nonnull
+  @Deprecated
   public final IMPLTYPE setProxy (@Nullable final HttpHost aProxy)
   {
-    m_aProxy = aProxy;
-    if (aProxy != null && m_bUseProxySystemProperties)
-    {
-      LOGGER.warn ("Since an explicit Proxy host for all servers is defined, the usage of the system properties is disabled.");
-      m_bUseProxySystemProperties = false;
-    }
+    m_aSettings.setProxyHost (aProxy);
     return thisAsT ();
   }
 
@@ -189,9 +175,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @see #getProxy()
    */
   @Nullable
+  @Deprecated
   public final Credentials getProxyCredentials ()
   {
-    return m_aProxyCredentials;
+    return m_aSettings.getProxyCredentials ();
   }
 
   /**
@@ -206,9 +193,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @see #setProxy(HttpHost)
    */
   @Nonnull
+  @Deprecated
   public final IMPLTYPE setProxyCredentials (@Nullable final Credentials aProxyCredentials)
   {
-    m_aProxyCredentials = aProxyCredentials;
+    m_aSettings.setProxyCredentials (aProxyCredentials);
     return thisAsT ();
   }
 
@@ -220,9 +208,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    */
   @Nonnull
   @ReturnsMutableObject
+  @Deprecated
   public final ICommonsOrderedSet <String> nonProxyHosts ()
   {
-    return m_aNonProxyHosts;
+    return m_aSettings.nonProxyHosts ();
   }
 
   /**
@@ -231,9 +220,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         they are disabled.
    * @since 5.2.2
    */
+  @Deprecated
   public final boolean isUseProxySystemProperties ()
   {
-    return m_bUseProxySystemProperties;
+    return m_aSettings.isUseSystemProperties ();
   }
 
   /**
@@ -277,14 +267,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @since 5.2.2
    */
   @Nonnull
+  @Deprecated
   public final IMPLTYPE setUseProxySystemProperties (final boolean bUseProxySystemProperties)
   {
-    m_bUseProxySystemProperties = bUseProxySystemProperties;
-    if (bUseProxySystemProperties && m_aProxy != null)
-    {
-      LOGGER.warn ("Since the proxy system properties should be used, the explicit Proxy is removed.");
-      m_aProxy = null;
-    }
+    m_aSettings.setUseSystemProperties (bUseProxySystemProperties);
     return thisAsT ();
   }
 
@@ -293,9 +279,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         <code>false</code> if it is disabled.
    * @since 5.2.5
    */
+  @Deprecated
   public final boolean isUseDNSClientCache ()
   {
-    return m_bUseDNSClientCache;
+    return m_aSettings.isUseDNSClientCache ();
   }
 
   /**
@@ -308,18 +295,20 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @since 5.2.5
    */
   @Nonnull
+  @Deprecated
   public final IMPLTYPE setUseDNSClientCache (final boolean bUseDNSClientCache)
   {
-    m_bUseDNSClientCache = bUseDNSClientCache;
+    m_aSettings.setUseDNSClientCache (bUseDNSClientCache);
     return thisAsT ();
   }
 
   /**
    * @return The connection timeout in milliseconds. Defaults to 5000 (5 secs).
    */
+  @Deprecated
   public final int getConnectionTimeoutMS ()
   {
-    return m_nConnectionTimeoutMS;
+    return m_aSettings.getConnectionTimeoutMS ();
   }
 
   /**
@@ -331,18 +320,20 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    */
   @Nonnull
+  @Deprecated
   public final IMPLTYPE setConnectionTimeoutMS (final int nConnectionTimeoutMS)
   {
-    m_nConnectionTimeoutMS = nConnectionTimeoutMS;
+    m_aSettings.setConnectionTimeoutMS (nConnectionTimeoutMS);
     return thisAsT ();
   }
 
   /**
    * @return The request timeout in milliseconds. Defaults to 10000 (10 secs).
    */
+  @Deprecated
   public final int getRequestTimeoutMS ()
   {
-    return m_nRequestTimeoutMS;
+    return m_aSettings.getSocketTimeoutMS ();
   }
 
   /**
@@ -354,9 +345,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    */
   @Nonnull
+  @Deprecated
   public final IMPLTYPE setRequestTimeoutMS (final int nRequestTimeoutMS)
   {
-    m_nRequestTimeoutMS = nRequestTimeoutMS;
+    m_aSettings.setSocketTimeoutMS (nRequestTimeoutMS);
     return thisAsT ();
   }
 
@@ -448,15 +440,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @OverrideOnDemand
   protected HttpContext createHttpContext ()
   {
-    final RequestConfig.Builder aRC = RequestConfig.custom ();
-    if (m_nConnectionTimeoutMS > 0)
-      aRC.setConnectTimeout (m_nConnectionTimeoutMS);
-    if (m_nRequestTimeoutMS > 0)
-      aRC.setSocketTimeout (m_nRequestTimeoutMS);
-
-    final HttpClientContext aHttpContext = HttpClientContext.create ();
-    aHttpContext.setRequestConfig (aRC.build ());
-    return aHttpContext;
+    return HttpClientContext.create ();
   }
 
   /**
@@ -482,18 +466,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public <T> T executeRequest (@Nonnull final HttpUriRequest aRequest,
                                @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
   {
-    final HttpClientFactory aHCFactory = new HttpClientFactory ();
-    aHCFactory.setUseSystemProperties (m_bUseProxySystemProperties);
-    aHCFactory.setUseDNSClientCache (m_bUseDNSClientCache);
-    if (!m_bUseProxySystemProperties)
-    {
-      aHCFactory.setProxyHost (m_aProxy);
-      aHCFactory.setProxyCredentials (m_aProxyCredentials);
-      aHCFactory.nonProxyHosts ().addAll (m_aNonProxyHosts);
-    }
-
     final HttpContext aHttpContext = createHttpContext ();
-    try (final HttpClientManager aHttpClientMgr = new HttpClientManager (aHCFactory))
+    try (final HttpClientManager aHttpClientMgr = new HttpClientManager (new HttpClientFactory (m_aSettings)))
     {
       if (StringHelper.hasText (m_sUserAgent))
         aRequest.addHeader (CHttpHeader.USER_AGENT, m_sUserAgent);
@@ -583,12 +557,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public String toString ()
   {
     return new ToStringGenerator (this).append ("SMPHost", m_sSMPHost)
-                                       .appendIfNotNull ("Proxy", m_aProxy)
-                                       .append ("UseProxySystemProperties", m_bUseProxySystemProperties)
-                                       .append ("UseDNSClientCache", m_bUseDNSClientCache)
-                                       .append ("ConnectionTimeoutMS", m_nConnectionTimeoutMS)
-                                       .append ("RequestTimeoutMS", m_nRequestTimeoutMS)
                                        .append ("CheckCertificate", m_bCheckCertificate)
+                                       .append ("FollowSMPRedirects", m_bFollowSMPRedirects)
+                                       .append ("UserAgent", m_sUserAgent)
+                                       .append ("Settings", m_aSettings)
                                        .getToString ();
   }
 }

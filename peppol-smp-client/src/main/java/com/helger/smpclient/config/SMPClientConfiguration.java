@@ -25,12 +25,11 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.httpclient.HttpClientFactory;
+import com.helger.httpclient.HttpClientSettings;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
-import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 
 /**
  * This class manages the configuration properties of the SMP client. The order
@@ -182,7 +181,7 @@ public final class SMPClientConfiguration
    */
   public static boolean isUseProxySystemProperties ()
   {
-    return s_aConfigFile.getAsBoolean ("http.useSystemProperties", HttpClientFactory.DEFAULT_USE_SYSTEM_PROPERTIES);
+    return s_aConfigFile.getAsBoolean ("http.useSystemProperties", HttpClientSettings.DEFAULT_USE_SYSTEM_PROPERTIES);
   }
 
   /**
@@ -196,7 +195,7 @@ public final class SMPClientConfiguration
    */
   public static boolean isUseDNSClientCache ()
   {
-    return s_aConfigFile.getAsBoolean ("http.useDNSClientCache", HttpClientFactory.DEFAULT_USE_DNS_CACHE);
+    return s_aConfigFile.getAsBoolean ("http.useDNSClientCache", HttpClientSettings.DEFAULT_USE_DNS_CACHE);
   }
 
   /**
@@ -209,7 +208,7 @@ public final class SMPClientConfiguration
    */
   public static int getConnectionTimeoutMS ()
   {
-    return s_aConfigFile.getAsInt ("http.connect.timeout.ms", AbstractGenericSMPClient.DEFAULT_CONNECTION_TIMEOUT_MS);
+    return s_aConfigFile.getAsInt ("http.connect.timeout.ms", HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT_MS);
   }
 
   /**
@@ -222,6 +221,6 @@ public final class SMPClientConfiguration
    */
   public static int getRequestTimeoutMS ()
   {
-    return s_aConfigFile.getAsInt ("http.request.timeout.ms", AbstractGenericSMPClient.DEFAULT_REQUEST_TIMEOUT_MS);
+    return s_aConfigFile.getAsInt ("http.request.timeout.ms", HttpClientSettings.DEFAULT_SOCKET_TIMEOUT_MS);
   }
 }

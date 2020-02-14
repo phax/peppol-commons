@@ -263,7 +263,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 * v8.0.1 - work in progress
-    * Updated to ph-web 9.1.7
+    * Updated to ph-web 9.1.8
 * v8.0.0 - 2020-02-05
     * The SMP client configuration can now also be addressed via the `SMP_CLIENT_CONFIG` environment variable
     * Removed the Peppol PKI v2 certificates from the complete trust store as they expired in January 2020
