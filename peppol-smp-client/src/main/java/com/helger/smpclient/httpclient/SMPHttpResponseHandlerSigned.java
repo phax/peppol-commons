@@ -131,7 +131,12 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
     // Validate the XMLSignature.
     final boolean bCoreValid = aSignature.validate (aValidateContext);
-    if (!bCoreValid)
+    if (bCoreValid)
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Signature validation was successful");
+    }
+    else
     {
       // This code block is for debugging purposes only - it has no semantical
       // influence

@@ -88,7 +88,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private String m_sUserAgent;
-  private SMPClientHttpSettings m_aSettings;
+  private SMPHttpClientSettings m_aHttpClientSettings;
 
   /**
    * Constructor with a direct SMP URL.<br>
@@ -132,9 +132,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    */
   @Nonnull
   @ReturnsMutableObject
-  public final SMPClientHttpSettings httpSettings ()
+  public final SMPHttpClientSettings httpClientSettings ()
   {
-    return m_aSettings;
+    return m_aHttpClientSettings;
   }
 
   /**
@@ -146,7 +146,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final HttpHost getProxy ()
   {
-    return m_aSettings.getProxyHost ();
+    return m_aHttpClientSettings.getProxyHost ();
   }
 
   /**
@@ -165,7 +165,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final IMPLTYPE setProxy (@Nullable final HttpHost aProxy)
   {
-    m_aSettings.setProxyHost (aProxy);
+    m_aHttpClientSettings.setProxyHost (aProxy);
     return thisAsT ();
   }
 
@@ -178,7 +178,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final Credentials getProxyCredentials ()
   {
-    return m_aSettings.getProxyCredentials ();
+    return m_aHttpClientSettings.getProxyCredentials ();
   }
 
   /**
@@ -196,7 +196,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final IMPLTYPE setProxyCredentials (@Nullable final Credentials aProxyCredentials)
   {
-    m_aSettings.setProxyCredentials (aProxyCredentials);
+    m_aHttpClientSettings.setProxyCredentials (aProxyCredentials);
     return thisAsT ();
   }
 
@@ -211,7 +211,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final ICommonsOrderedSet <String> nonProxyHosts ()
   {
-    return m_aSettings.nonProxyHosts ();
+    return m_aHttpClientSettings.nonProxyHosts ();
   }
 
   /**
@@ -223,7 +223,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final boolean isUseProxySystemProperties ()
   {
-    return m_aSettings.isUseSystemProperties ();
+    return m_aHttpClientSettings.isUseSystemProperties ();
   }
 
   /**
@@ -270,7 +270,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final IMPLTYPE setUseProxySystemProperties (final boolean bUseProxySystemProperties)
   {
-    m_aSettings.setUseSystemProperties (bUseProxySystemProperties);
+    m_aHttpClientSettings.setUseSystemProperties (bUseProxySystemProperties);
     return thisAsT ();
   }
 
@@ -282,7 +282,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final boolean isUseDNSClientCache ()
   {
-    return m_aSettings.isUseDNSClientCache ();
+    return m_aHttpClientSettings.isUseDNSClientCache ();
   }
 
   /**
@@ -298,7 +298,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final IMPLTYPE setUseDNSClientCache (final boolean bUseDNSClientCache)
   {
-    m_aSettings.setUseDNSClientCache (bUseDNSClientCache);
+    m_aHttpClientSettings.setUseDNSClientCache (bUseDNSClientCache);
     return thisAsT ();
   }
 
@@ -308,7 +308,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final int getConnectionTimeoutMS ()
   {
-    return m_aSettings.getConnectionTimeoutMS ();
+    return m_aHttpClientSettings.getConnectionTimeoutMS ();
   }
 
   /**
@@ -323,7 +323,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final IMPLTYPE setConnectionTimeoutMS (final int nConnectionTimeoutMS)
   {
-    m_aSettings.setConnectionTimeoutMS (nConnectionTimeoutMS);
+    m_aHttpClientSettings.setConnectionTimeoutMS (nConnectionTimeoutMS);
     return thisAsT ();
   }
 
@@ -333,7 +333,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final int getRequestTimeoutMS ()
   {
-    return m_aSettings.getSocketTimeoutMS ();
+    return m_aHttpClientSettings.getSocketTimeoutMS ();
   }
 
   /**
@@ -348,7 +348,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Deprecated
   public final IMPLTYPE setRequestTimeoutMS (final int nRequestTimeoutMS)
   {
-    m_aSettings.setSocketTimeoutMS (nRequestTimeoutMS);
+    m_aHttpClientSettings.setSocketTimeoutMS (nRequestTimeoutMS);
     return thisAsT ();
   }
 
@@ -467,7 +467,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
   {
     final HttpContext aHttpContext = createHttpContext ();
-    try (final HttpClientManager aHttpClientMgr = new HttpClientManager (new HttpClientFactory (m_aSettings)))
+    try (final HttpClientManager aHttpClientMgr = new HttpClientManager (new HttpClientFactory (m_aHttpClientSettings)))
     {
       if (StringHelper.hasText (m_sUserAgent))
         aRequest.addHeader (CHttpHeader.USER_AGENT, m_sUserAgent);
@@ -560,7 +560,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                        .append ("CheckCertificate", m_bCheckCertificate)
                                        .append ("FollowSMPRedirects", m_bFollowSMPRedirects)
                                        .append ("UserAgent", m_sUserAgent)
-                                       .append ("Settings", m_aSettings)
+                                       .append ("HttpClientSettings", m_aHttpClientSettings)
                                        .getToString ();
   }
 }

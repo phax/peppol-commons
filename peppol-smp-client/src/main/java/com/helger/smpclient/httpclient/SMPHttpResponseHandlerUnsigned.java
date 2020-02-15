@@ -59,9 +59,9 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
   @Nonnull
   public T handleEntity (@Nonnull final HttpEntity aEntity) throws SMPClientBadResponseException, IOException
   {
-    // Read the payload
     if (false && GlobalDebug.isDebugMode ())
     {
+      // Read the payload
       final ContentType aContentType = ContentType.getOrDefault (aEntity);
       final Charset aCharset = HttpClientHelper.getCharset (aContentType);
       final byte [] aContent = EntityUtils.toByteArray (aEntity);
