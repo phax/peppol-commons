@@ -12,11 +12,23 @@ import com.helger.smpclient.config.SMPClientConfiguration;
  */
 public class SMPHttpClientSettings extends HttpClientSettings
 {
+  /**
+   * Constructor. Initializes all settings from configuration file.
+   */
   public SMPHttpClientSettings ()
+  {
+    resetToConfiguration ();
+  }
+
+  /**
+   * Overwrite all settings that can appear in the configuration file.
+   */
+  public final void resetToConfiguration ()
   {
     setUseSystemProperties (SMPClientConfiguration.isUseProxySystemProperties ());
     setProxyHost (SMPClientConfiguration.getHttpProxy ());
     setProxyCredentials (SMPClientConfiguration.getHttpProxyCredentials ());
+    nonProxyHosts ().clear ();
     addNonProxyHostsFromPipeString (SMPClientConfiguration.getNonProxyHosts ());
     setUseDNSClientCache (SMPClientConfiguration.isUseDNSClientCache ());
     setConnectionTimeoutMS (SMPClientConfiguration.getConnectionTimeoutMS ());

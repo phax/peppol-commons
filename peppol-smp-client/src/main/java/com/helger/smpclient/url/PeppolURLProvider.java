@@ -37,7 +37,7 @@ import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
  * The default implementation of {@link IPeppolURLProvider} suitable for the
- * PEPPOL network.<br>
+ * Peppol network.<br>
  * Layout:
  * <code>"B-"+hexstring(md5(lowercase(ID-VALUE)))+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
@@ -97,7 +97,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
     // Was previously an error, but to be more flexible just emit a warning
     if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sIdentifierScheme))
       if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Invalid PEPPOL participant identifier scheme '" + sIdentifierScheme + "' used");
+        LOGGER.warn ("Invalid Peppol participant identifier scheme '" + sIdentifierScheme + "' used");
 
     // Get the identifier value
     final String sValue = StringHelper.getNotNull (aParticipantIdentifier.getValue ());

@@ -88,7 +88,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private String m_sUserAgent;
-  private SMPHttpClientSettings m_aHttpClientSettings;
+  private final SMPHttpClientSettings m_aHttpClientSettings = new SMPHttpClientSettings ();
 
   /**
    * Constructor with a direct SMP URL.<br>
