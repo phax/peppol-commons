@@ -42,12 +42,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.mime.CMimeType;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
-import com.helger.httpclient.HttpClientFactory;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.HttpClientSettings;
 import com.helger.smpclient.config.SMPClientConfiguration;
@@ -87,7 +84,6 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private final String m_sSMPHost;
   private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
-  private String m_sUserAgent;
   private final SMPHttpClientSettings m_aHttpClientSettings = new SMPHttpClientSettings ();
 
   /**
@@ -141,6 +137,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The HTTP proxy to be used to access the SMP server. Is
    *         <code>null</code> by default.
    * @see #getProxyCredentials()
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Nullable
   @Deprecated
@@ -160,6 +157,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        May be <code>null</code> to indicate no proxy.
    * @return this for chaining
    * @see #setProxyCredentials(Credentials)
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -173,6 +171,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The HTTP proxy credentials to be used to access the SMP server. Is
    *         <code>null</code> by default. This is only used if a proxy is set.
    * @see #getProxy()
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Nullable
   @Deprecated
@@ -191,6 +190,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        {@link org.apache.http.auth.UsernamePasswordCredentials}.
    * @return this for chaining
    * @see #setProxy(HttpHost)
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -205,6 +205,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         <code>null</code> but maybe empty.
    * @see #getProxy()
    * @since 6.2.4
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @ReturnsMutableObject
@@ -219,6 +220,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         are enabled, <code>false</code> if they are disabled. By default
    *         they are disabled.
    * @since 5.2.2
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   public final boolean isUseProxySystemProperties ()
@@ -265,6 +267,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        not use them.
    * @return this for chaining
    * @since 5.2.2
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -278,6 +281,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return <code>true</code> if DNS client caching is enabled (default),
    *         <code>false</code> if it is disabled.
    * @since 5.2.5
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   public final boolean isUseDNSClientCache ()
@@ -293,6 +297,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        it.
    * @return this for chaining
    * @since 5.2.5
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -304,6 +309,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * @return The connection timeout in milliseconds. Defaults to 5000 (5 secs).
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   public final int getConnectionTimeoutMS ()
@@ -318,6 +324,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        The connection timeout milliseconds to use. Only values &gt; 0 are
    *        considered.
    * @return this for chaining
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -329,6 +336,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * @return The request timeout in milliseconds. Defaults to 10000 (10 secs).
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   public final int getRequestTimeoutMS ()
@@ -343,6 +351,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        The request timeout milliseconds to use. Only values &gt; 0 are
    *        considered.
    * @return this for chaining
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -413,11 +422,13 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The custom user agent HTTP header to be used. <code>null</code> by
    *         default.
    * @since 7.0.3
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
+  @Deprecated
   @Nullable
   public final String getUserAgent ()
   {
-    return m_sUserAgent;
+    return m_aHttpClientSettings.getUserAgent ();
   }
 
   /**
@@ -428,11 +439,13 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        The custom user agent to be used. May be <code>null</code>.
    * @return this for chaining
    * @since 7.0.3
+   * @deprecated Use {@link #httpClientSettings()} instead
    */
+  @Deprecated
   @Nonnull
   public final IMPLTYPE setUserAgent (@Nullable final String sUserAgent)
   {
-    m_sUserAgent = sUserAgent;
+    m_aHttpClientSettings.setUserAgent (sUserAgent);
     return thisAsT ();
   }
 
@@ -467,10 +480,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
   {
     final HttpContext aHttpContext = createHttpContext ();
-    try (final HttpClientManager aHttpClientMgr = new HttpClientManager (new HttpClientFactory (m_aHttpClientSettings)))
+    try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
     {
-      if (StringHelper.hasText (m_sUserAgent))
-        aRequest.addHeader (CHttpHeader.USER_AGENT, m_sUserAgent);
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
   }
@@ -559,7 +570,6 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     return new ToStringGenerator (this).append ("SMPHost", m_sSMPHost)
                                        .append ("CheckCertificate", m_bCheckCertificate)
                                        .append ("FollowSMPRedirects", m_bFollowSMPRedirects)
-                                       .append ("UserAgent", m_sUserAgent)
                                        .append ("HttpClientSettings", m_aHttpClientSettings)
                                        .getToString ();
   }

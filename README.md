@@ -202,37 +202,37 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>8.0.0</version>
+  <version>8.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>8.0.0</version>
+  <version>8.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>8.0.0</version>
+  <version>8.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>8.0.0</version>
+  <version>8.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>8.0.0</version>
+  <version>8.0.1</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>8.0.0</version>
+  <version>8.0.1</version>
 </dependency>
 ```
 
@@ -242,7 +242,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>8.0.0</version>
+  <version>8.0.1</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
@@ -262,8 +262,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.0.1 - work in progress
-    * Updated to ph-web 9.1.8
+* v8.0.1 - 2020-02-16
+    * Updated to ph-web 9.1.9
     * Changed the SMP client HTTP configuration to use the new `HttpClientSettings` class
 * v8.0.0 - 2020-02-05
     * The SMP client configuration can now also be addressed via the `SMP_CLIENT_CONFIG` environment variable
