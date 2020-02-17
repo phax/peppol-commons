@@ -17,6 +17,7 @@
 package com.helger.smpclient.url;
 
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
@@ -123,7 +124,7 @@ public final class NAPTRResolver
         aNewResolver.addResolver (new SimpleResolver (sPrimaryDNSServer));
       aNewResolver.addResolver (Lookup.getDefaultResolver ());
       // Timeout in seconds
-      aNewResolver.setTimeout (4);
+      aNewResolver.setTimeout (Duration.ofSeconds (4));
       aNewResolver.setRetries (nMaxRetries);
       aLookup.setResolver (aNewResolver);
     }

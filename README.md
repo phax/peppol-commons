@@ -262,6 +262,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.0.2 - work in progress
+    * Updated to dnsjava 3.0.0
 * v8.0.1 - 2020-02-16
     * Updated to ph-web 9.1.9
     * Changed the SMP client HTTP configuration to use the new `HttpClientSettings` class
