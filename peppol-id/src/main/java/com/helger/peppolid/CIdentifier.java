@@ -16,16 +16,14 @@
  */
 package com.helger.peppolid;
 
-import java.nio.charset.StandardCharsets;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.codec.URLCodec;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.url.URLHelper;
 
 /**
  * Constants on BUSDOX identifiers that are not PEPPOL specific.
@@ -46,8 +44,6 @@ public final class CIdentifier
    * The delimiter used between the identifier scheme and the value ("::").
    */
   public static final String URL_SCHEME_VALUE_SEPARATOR = "::";
-
-  private static final URLCodec CODEC = new URLCodec ();
 
   @PresentForCodeCoverage
   private static final CIdentifier s_aInstance = new CIdentifier ();
@@ -155,7 +151,7 @@ public final class CIdentifier
   @Nullable
   public static String createPercentEncoded (@Nullable final String sURL)
   {
-    return CODEC.getEncodedAsString (sURL, StandardCharsets.UTF_8);
+    return sURL == null ? null : URLHelper.urlEncode (sURL);
   }
 
   /**
@@ -168,7 +164,7 @@ public final class CIdentifier
   @Nullable
   public static String createPercentDecoded (@Nullable final String sURL)
   {
-    return CODEC.getDecodedAsString (sURL, StandardCharsets.UTF_8);
+    return sURL == null ? null : URLHelper.urlDecode (sURL);
   }
 
   /**
