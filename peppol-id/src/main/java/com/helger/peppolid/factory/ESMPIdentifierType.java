@@ -1,0 +1,84 @@
+/**
+ * Copyright (C) 2015-2020 Philip Helger and contributors
+ * philip[at]helger[dot]com
+ *
+ * The Original Code is Copyright The Peppol project (http://www.peppol.eu)
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+package com.helger.peppolid.factory;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.EnumHelper;
+import com.helger.commons.name.IHasDisplayName;
+
+/**
+ * Defines the identifier types to be used - simple (allows all), Peppol
+ * (special schemes) or BDXR (different implementation type).
+ *
+ * @author Philip Helger
+ * @since 8.0.2
+ */
+public enum ESMPIdentifierType implements IHasID <String>, IHasDisplayName
+{
+  SIMPLE ("simple", "Simple", SimpleIdentifierFactory.INSTANCE),
+  PEPPOL ("peppol", "Peppol", PeppolIdentifierFactory.INSTANCE),
+  BDXR1 ("bdxr1", "OASIS BDXR v1", BDXR1IdentifierFactory.INSTANCE),
+  BDXR2 ("bdxr2", "OASIS BDXR v2", BDXR2IdentifierFactory.INSTANCE);
+
+  private final String m_sID;
+  private final String m_sDisplayName;
+  private final IIdentifierFactory m_aIF;
+
+  private ESMPIdentifierType (@Nonnull @Nonempty final String sID,
+                              @Nonnull @Nonempty final String sDisplayName,
+                              @Nonnull final IIdentifierFactory aIF)
+  {
+    m_sID = sID;
+    m_sDisplayName = sDisplayName;
+    m_aIF = aIF;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getID ()
+  {
+    return m_sID;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getDisplayName ()
+  {
+    return m_sDisplayName;
+  }
+
+  @Nonnull
+  public IIdentifierFactory getIdentifierFactory ()
+  {
+    return m_aIF;
+  }
+
+  @Nullable
+  public static ESMPIdentifierType getFromIDOrNull (@Nullable final String sID)
+  {
+    return getFromIDOrDefault (sID, null);
+  }
+
+  @Nullable
+  public static ESMPIdentifierType getFromIDOrDefault (@Nullable final String sID,
+                                                       @Nullable final ESMPIdentifierType eDefault)
+  {
+    // Legacy ID
+    if ("bdxr".equals (sID))
+      return BDXR1;
+
+    return EnumHelper.getFromIDOrDefault (ESMPIdentifierType.class, sID, eDefault);
+  }
+}

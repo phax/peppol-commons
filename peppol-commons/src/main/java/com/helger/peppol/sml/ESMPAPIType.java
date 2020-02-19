@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
+import com.helger.commons.name.IHasDisplayName;
 
 /**
  * Enumerates the different SMP APIs available.
@@ -29,26 +30,28 @@ import com.helger.commons.lang.EnumHelper;
  * @author Philip Helger
  * @since 7.0.0
  */
-public enum ESMPAPIType implements IHasID <String>
+public enum ESMPAPIType implements IHasID <String>, IHasDisplayName
 {
   /**
    * An SMP using the "Peppol" SMP specification.
    */
-  PEPPOL ("peppol"),
+  PEPPOL ("peppol", "Peppol"),
   /**
    * An SMP using the OASIS BDXR SMP v1 specification.
    */
-  OASIS_BDXR_V1 ("bdxr1"),
+  OASIS_BDXR_V1 ("bdxr1", "OASIS BDXR v1"),
   /**
    * An SMP using the OASIS BDXR SMP v2 specification.
    */
-  OASIS_BDXR_V2 ("bdxr2");
+  OASIS_BDXR_V2 ("bdxr2", "OASIS BDXR v2");
 
   private final String m_sID;
+  private final String m_sDisplayName;
 
-  private ESMPAPIType (@Nonnull @Nonempty final String sID)
+  private ESMPAPIType (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sDisplayName)
   {
     m_sID = sID;
+    m_sDisplayName = sDisplayName;
   }
 
   @Nonnull
@@ -56,6 +59,13 @@ public enum ESMPAPIType implements IHasID <String>
   public String getID ()
   {
     return m_sID;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getDisplayName ()
+  {
+    return m_sDisplayName;
   }
 
   @Nullable
