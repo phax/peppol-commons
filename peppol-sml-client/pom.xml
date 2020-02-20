@@ -86,6 +86,12 @@
     
     <dependency>
       <groupId>com.helger</groupId>
+      <artifactId>ph-http</artifactId>
+      <optional>true</optional>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.helger</groupId>
       <artifactId>ph-web</artifactId>
       <scope>test</scope>
     </dependency>
