@@ -119,7 +119,7 @@
       <dependency>
         <groupId>dnsjava</groupId>
         <artifactId>dnsjava</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1</version>
       </dependency>
 
       <dependency>
