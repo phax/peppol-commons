@@ -98,6 +98,11 @@ public final class PeppolCertificateChecker
   private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked",
                                                                                                   ex);
 
+  /**
+   * Responses can be cached up to 6 hours.
+   * 
+   * @author Philip Helger
+   */
   @ThreadSafe
   private static final class PeppolOSCPCache extends MappedCache <X509Certificate, String, Boolean>
   {
