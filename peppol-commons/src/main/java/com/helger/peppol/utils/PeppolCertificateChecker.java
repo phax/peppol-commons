@@ -27,11 +27,14 @@ import java.security.cert.CollectionCertStoreParameters;
 import java.security.cert.PKIXBuilderParameters;
 import java.security.cert.PKIXCertPathBuilderResult;
 import java.security.cert.PKIXCertPathValidatorResult;
+import java.security.cert.PKIXRevocationChecker;
 import java.security.cert.TrustAnchor;
 import java.security.cert.X509CertSelector;
 import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.EnumSet;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
@@ -45,7 +48,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.cache.MappedCache;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -55,6 +57,9 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.functional.IFunction;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.timing.StopWatch;
+
+import net.jodah.expiringmap.ExpirationPolicy;
+import net.jodah.expiringmap.ExpiringMap;
 
 /**
  * The Peppol certificate checker
@@ -99,33 +104,52 @@ public final class PeppolCertificateChecker
                                                                                                   ex);
 
   /**
-   * Responses can be cached up to 6 hours.
+   * An revocation cache that checks the revocation status of each certificate
+   * and keeps the status for up to 6 hours.
    *
    * @author Philip Helger
    */
   @ThreadSafe
-  private static final class PeppolOSCPCache extends MappedCache <X509Certificate, String, Boolean>
+  private static final class PeppolRevocationCache
   {
-    public PeppolOSCPCache (final IFunction <X509Certificate, Boolean> aValueProvider, final String sCacheName)
+    private final ExpiringMap <String, Boolean> m_aCache;
+    private final IFunction <X509Certificate, Boolean> m_aValueProvider;
+
+    public PeppolRevocationCache (@Nonnull final IFunction <X509Certificate, Boolean> aValueProvider)
     {
-      super (aCert -> aCert.getSubjectX500Principal ().getName () + "-" + aCert.getSerialNumber ().toString (),
-             aValueProvider,
-             1000,
-             sCacheName,
-             false);
+      m_aCache = ExpiringMap.builder ()
+                            .expirationPolicy (ExpirationPolicy.CREATED)
+                            .expiration (6, TimeUnit.HOURS)
+                            .build ();
+      m_aValueProvider = aValueProvider;
+    }
+
+    @Nonnull
+    private static String _getKey (@Nonnull final X509Certificate aCert)
+    {
+      return aCert.getSubjectX500Principal ().getName () + "-" + aCert.getSerialNumber ().toString ();
+    }
+
+    public boolean isRevoked (@Nonnull final X509Certificate aCert)
+    {
+      final String sKey = _getKey (aCert);
+      return m_aCache.computeIfAbsent (sKey, k -> m_aValueProvider.apply (aCert)).booleanValue ();
+    }
+
+    public void clearCache ()
+    {
+      m_aCache.clear ();
     }
   }
 
-  private static final PeppolOSCPCache OCSP_CACHE_AP = new PeppolOSCPCache (aCert -> Boolean.valueOf (isPeppolAPCertificateRevoked (aCert,
-                                                                                                                                    null,
-                                                                                                                                    ETriState.UNDEFINED,
-                                                                                                                                    getExceptionHdl ())),
-                                                                            "peppol-oscp-cache-ap");
-  private static final PeppolOSCPCache OCSP_CACHE_SMP = new PeppolOSCPCache (aCert -> Boolean.valueOf (isPeppolSMPCertificateRevoked (aCert,
-                                                                                                                                      null,
-                                                                                                                                      ETriState.UNDEFINED,
-                                                                                                                                      getExceptionHdl ())),
-                                                                             "peppol-oscp-cache-smp");
+  private static final PeppolRevocationCache REVOCATION_CACHE_AP = new PeppolRevocationCache (aCert -> Boolean.valueOf (isPeppolAPCertificateRevoked (aCert,
+                                                                                                                                                      null,
+                                                                                                                                                      ETriState.UNDEFINED,
+                                                                                                                                                      getExceptionHdl ())));
+  private static final PeppolRevocationCache REVOCATION_CACHE_SMP = new PeppolRevocationCache (aCert -> Boolean.valueOf (isPeppolSMPCertificateRevoked (aCert,
+                                                                                                                                                        null,
+                                                                                                                                                        ETriState.UNDEFINED,
+                                                                                                                                                        getExceptionHdl ())));
 
   private PeppolCertificateChecker ()
   {}
@@ -177,8 +201,8 @@ public final class PeppolCertificateChecker
    */
   public static void clearOCSPCache ()
   {
-    OCSP_CACHE_AP.clearCache ();
-    OCSP_CACHE_SMP.clearCache ();
+    REVOCATION_CACHE_AP.clearCache ();
+    REVOCATION_CACHE_SMP.clearCache ();
   }
 
   /**
@@ -276,6 +300,11 @@ public final class PeppolCertificateChecker
 
       // Throws an exception in case of an error
       final CertPathBuilder aCPB = CertPathBuilder.getInstance ("PKIX");
+      final PKIXRevocationChecker rc = (PKIXRevocationChecker) aCPB.getRevocationChecker ();
+      // OCSP over CLR is the default
+      // Allow fallback to CLR
+      rc.setOptions (EnumSet.of (PKIXRevocationChecker.Option.ONLY_END_ENTITY));
+
       final PKIXCertPathBuilderResult aBuilderResult = (PKIXCertPathBuilderResult) aCPB.build (aPKIXParams);
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("OCSP/CLR builder result = " + aBuilderResult);
@@ -353,7 +382,7 @@ public final class PeppolCertificateChecker
                                                                   @Nullable final LocalDateTime aCheckDT,
                                                                   @Nonnull final ICommonsList <X500Principal> aIssuers,
                                                                   @Nonnull final ICommonsList <X509Certificate> aValidCAs,
-                                                                  @Nullable final PeppolOSCPCache aCache,
+                                                                  @Nullable final PeppolRevocationCache aCache,
                                                                   @Nonnull final ETriState eCheckOSCP)
   {
     if (aCert == null)
@@ -389,7 +418,7 @@ public final class PeppolCertificateChecker
     // Check OCSP/CLR
     if (aCache != null)
     {
-      final boolean bRevoked = aCache.getFromCache (aCert).booleanValue ();
+      final boolean bRevoked = aCache.isRevoked (aCert);
       if (bRevoked)
         return EPeppolCertificateCheckResult.REVOKED;
     }
@@ -431,7 +460,7 @@ public final class PeppolCertificateChecker
                               aCheckDT,
                               PEPPOL_AP_CA_ISSUERS,
                               PEPPOL_AP_CA_CERTS,
-                              bCache ? OCSP_CACHE_AP : null,
+                              bCache ? REVOCATION_CACHE_AP : null,
                               eCheckOSCP);
   }
 
@@ -463,7 +492,7 @@ public final class PeppolCertificateChecker
                               aCheckDT,
                               PEPPOL_SMP_CA_ISSUERS,
                               PEPPOL_SMP_CA_CERTS,
-                              bCache ? OCSP_CACHE_SMP : null,
+                              bCache ? REVOCATION_CACHE_SMP : null,
                               eCheckOSCP);
   }
 }
