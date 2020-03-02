@@ -100,7 +100,7 @@ public final class PeppolCertificateChecker
 
   /**
    * Responses can be cached up to 6 hours.
-   * 
+   *
    * @author Philip Helger
    */
   @ThreadSafe
@@ -248,7 +248,6 @@ public final class PeppolCertificateChecker
       // Certificate -> trust anchors; name constraints MUST be null
       final ICommonsSet <TrustAnchor> aTrustAnchors = new CommonsHashSet <> (aValidCAs, x -> new TrustAnchor (x, null));
       final PKIXBuilderParameters aPKIXParams = new PKIXBuilderParameters (aTrustAnchors, aSelector);
-
       aPKIXParams.setRevocationEnabled (true);
 
       // Enable On-Line Certificate Status Protocol (OCSP) support
@@ -353,6 +352,7 @@ public final class PeppolCertificateChecker
   private static EPeppolCertificateCheckResult _checkCertificate (@Nullable final X509Certificate aCert,
                                                                   @Nullable final LocalDateTime aCheckDT,
                                                                   @Nonnull final ICommonsList <X500Principal> aIssuers,
+                                                                  @Nonnull final ICommonsList <X509Certificate> aValidCAs,
                                                                   @Nullable final PeppolOSCPCache aCache,
                                                                   @Nonnull final ETriState eCheckOSCP)
   {
@@ -396,7 +396,7 @@ public final class PeppolCertificateChecker
     else
     {
       // No caching desired
-      if (isPeppolAPCertificateRevoked (aCert, aCheckDT, eCheckOSCP, getExceptionHdl ()))
+      if (isCertificateRevoked (aCert, aValidCAs, aCheckDT, eCheckOSCP, getExceptionHdl ()))
         return EPeppolCertificateCheckResult.REVOKED;
     }
 
@@ -427,7 +427,12 @@ public final class PeppolCertificateChecker
                                                                         @Nonnull final ETriState eCheckOSCP)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return _checkCertificate (aCert, aCheckDT, PEPPOL_AP_CA_ISSUERS, bCache ? OCSP_CACHE_AP : null, eCheckOSCP);
+    return _checkCertificate (aCert,
+                              aCheckDT,
+                              PEPPOL_AP_CA_ISSUERS,
+                              PEPPOL_AP_CA_CERTS,
+                              bCache ? OCSP_CACHE_AP : null,
+                              eCheckOSCP);
   }
 
   /**
@@ -454,6 +459,11 @@ public final class PeppolCertificateChecker
                                                                          @Nonnull final ETriState eCheckOSCP)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return _checkCertificate (aCert, aCheckDT, PEPPOL_SMP_CA_ISSUERS, bCache ? OCSP_CACHE_SMP : null, eCheckOSCP);
+    return _checkCertificate (aCert,
+                              aCheckDT,
+                              PEPPOL_SMP_CA_ISSUERS,
+                              PEPPOL_SMP_CA_CERTS,
+                              bCache ? OCSP_CACHE_SMP : null,
+                              eCheckOSCP);
   }
 }
