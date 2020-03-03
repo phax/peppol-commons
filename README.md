@@ -202,37 +202,37 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>8.0.1</version>
+  <version>8.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>8.0.1</version>
+  <version>8.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>8.0.1</version>
+  <version>8.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>8.0.1</version>
+  <version>8.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>8.0.1</version>
+  <version>8.0.2</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>8.0.1</version>
+  <version>8.0.2</version>
 </dependency>
 ```
 
@@ -242,7 +242,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>8.0.1</version>
+  <version>8.0.2</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
@@ -262,12 +262,13 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.0.2 - work in progress
+* v8.0.2 - 2020-03-03
     * Updated to dnsjava 3.0.1
     * Added new enum `ESMPIdentifierType`
     * Added `ESMPAPIType.getDisplayName()`
     * Added the upcoming CEF SMK/SML cipher suites
     * A problem with the OCSP checking of SMP certificates was resolved
+    * Changed the certificate revocation cache to have a timeout of 6 hours
 * v8.0.1 - 2020-02-16
     * Updated to ph-web 9.1.9
     * Changed the SMP client HTTP configuration to use the new `HttpClientSettings` class
