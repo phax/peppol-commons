@@ -62,7 +62,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   private final String m_sTruststorePath;
   private final String m_sTrustStorePassword;
 
-  private transient KeyStore m_aKeyStore;
+  private transient KeyStore m_aTrustStore;
 
   public TrustStoreBasedX509KeySelector (@Nonnull final EKeyStoreType eTruststoreType,
                                          @Nonnull final String sTruststorePath,
@@ -145,17 +145,17 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               // Checks whether the certificate is in the trusted store.
               final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
 
-              if (m_aKeyStore == null)
+              if (m_aTrustStore == null)
               {
                 // Load once only
-                m_aKeyStore = KeyStoreHelper.loadKeyStoreDirect (m_eTruststoreType,
-                                                                 m_sTruststorePath,
-                                                                 m_sTrustStorePassword);
+                m_aTrustStore = KeyStoreHelper.loadKeyStoreDirect (m_eTruststoreType,
+                                                                   m_sTruststorePath,
+                                                                   m_sTrustStorePassword);
               }
 
               // The PKIXParameters constructor may fail because:
               // - the trustAnchorsParameter is empty
-              final PKIXParameters aPKIXParams = new PKIXParameters (m_aKeyStore);
+              final PKIXParameters aPKIXParams = new PKIXParameters (m_aTrustStore);
               aPKIXParams.setRevocationEnabled (false);
               final CertificateFactory aCertificateFactory = CertificateHelper.getX509CertificateFactory ();
               final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList <> (aCertArray));

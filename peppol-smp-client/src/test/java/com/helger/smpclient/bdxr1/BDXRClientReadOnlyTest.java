@@ -33,6 +33,7 @@ import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.url.BDXLURLProvider;
 import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
 /**
  * Test class for class {@link BDXRClientReadOnly}
@@ -75,6 +76,7 @@ public final class BDXRClientReadOnlyTest
     final IDocumentTypeIdentifier aDocTypeID = SimpleIdentifierFactory.INSTANCE.createDocumentTypeIdentifier ("toop-doctypeid-qns",
                                                                                                               "urn:eu:toop:ns:dataexchange-1p40::Response##urn:eu.toop.response.registeredorganization::1.40");
 
+    // TOOP SML
     final ISMLInfo aSMLInfo = new SMLInfo ("toop",
                                            "SMK",
                                            "toop.acc.edelivery.tech.ec.europa.eu.",
@@ -84,6 +86,7 @@ public final class BDXRClientReadOnlyTest
     // PEPPOL URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolURLProvider.INSTANCE, aPI, aSMLInfo);
     aBDXRClient.setVerifySignature (false);
-    aBDXRClient.getServiceMetadata (aPI, aDocTypeID);
+    final SignedServiceMetadataType aMetadata = aBDXRClient.getServiceMetadata (aPI, aDocTypeID);
+    assertNotNull (aMetadata);
   }
 }

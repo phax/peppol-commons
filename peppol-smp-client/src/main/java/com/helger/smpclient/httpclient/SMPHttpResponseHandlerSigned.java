@@ -77,7 +77,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
   /**
    * Check the certificate retrieved from a signed SMP response? This may be
-   * helpful for debugging and testing of SMP client connections!
+   * helpful for debugging and testing of SMP client connections!<br>
+   * Uses the trust store configured in the SMP client configuration.
    *
    * @param bVerifySignature
    *        <code>true</code> to enable SMP response checking (on by default) or
@@ -95,7 +96,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
   /**
    * Check the certificate retrieved from a signed SMP response? This may be
-   * helpful for debugging and testing of SMP client connections!
+   * helpful for debugging and testing of SMP client connections!<br>
+   * Uses the trust store configured in the SMP client configuration.
    *
    * @param bVerifySignature
    *        <code>true</code> to enable SMP response checking (on by default) or
@@ -219,7 +221,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       }
     }
     else
-      LOGGER.error ("SMP response certificate checking is disabled. This should not happen in production systems!");
+    {
+      LOGGER.warn ("SMP response signature verification is disabled. This should not happen in production systems!");
+    }
 
     // Finally convert to domain object
     final T ret = m_aMarshaller.read (aResponseBytes);

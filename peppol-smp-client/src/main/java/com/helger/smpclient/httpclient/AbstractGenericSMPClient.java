@@ -389,7 +389,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * Check the certificate retrieved from a signed SMP response? This may be
-   * helpful for debugging and testing of SMP client connections!
+   * helpful for debugging and testing of SMP client connections!<br>
+   * Uses the trust store configured in the SMP client configuration.
    *
    * @param bVerifySignature
    *        <code>true</code> to enable SMP response checking (on by default) or
@@ -407,7 +408,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * Check the certificate retrieved from a signed SMP response? This may be
-   * helpful for debugging and testing of SMP client connections!
+   * helpful for debugging and testing of SMP client connections!<br>
+   * Uses the trust store configured in the SMP client configuration.
    *
    * @param bVerifySignature
    *        <code>true</code> to enable SMP response checking (on by default) or
@@ -600,7 +602,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public String toString ()
   {
     return new ToStringGenerator (this).append ("SMPHost", m_sSMPHost)
-                                       .append ("CheckCertificate", m_bVerifySignature)
+                                       .append ("VerifySignature", m_bVerifySignature)
                                        .append ("FollowSMPRedirects", m_bFollowSMPRedirects)
                                        .append ("HttpClientSettings", m_aHttpClientSettings)
                                        .getToString ();
