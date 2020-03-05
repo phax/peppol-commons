@@ -259,7 +259,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
 
     HttpGet aRequest = new HttpGet (sURI);
     ServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                           new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller ()).setVerifySignature (isCheckCertificate ()));
+                                                           new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller ()).setVerifySignature (isVerifySignature ()));
     if (!SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()).equals (aDocumentTypeID))
     {
       // Inconsistency between request and response
@@ -283,7 +283,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
 
           aRequest = new HttpGet (aRedirect.getPublisherURIValue ());
           aMetadata = executeGenericRequest (aRequest,
-                                             new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller ()).setVerifySignature (isCheckCertificate ()));
+                                             new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller ()).setVerifySignature (isVerifySignature ()));
 
           // Check that the certificateUID is correct.
           boolean bCertificateSubjectFound = false;

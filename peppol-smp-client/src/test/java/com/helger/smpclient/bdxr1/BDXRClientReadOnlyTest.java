@@ -23,8 +23,12 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.peppol.sml.ESML;
+import com.helger.peppol.sml.ISMLInfo;
+import com.helger.peppol.sml.SMLInfo;
+import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.url.BDXLURLProvider;
 import com.helger.smpclient.url.PeppolDNSResolutionException;
@@ -62,5 +66,24 @@ public final class BDXRClientReadOnlyTest
     // This fails because the PEPPOL server is configured for PEPPOL layout and
     // not OASIS!
     assertNotNull (aBDXRClient.getServiceGroupOrNull (aPI));
+  }
+
+  @Test
+  public void testRead () throws PeppolDNSResolutionException, SMPClientException
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9930:167064991");
+    final IDocumentTypeIdentifier aDocTypeID = SimpleIdentifierFactory.INSTANCE.createDocumentTypeIdentifier ("toop-doctypeid-qns",
+                                                                                                              "urn:eu:toop:ns:dataexchange-1p40::Response##urn:eu.toop.response.registeredorganization::1.40");
+
+    final ISMLInfo aSMLInfo = new SMLInfo ("toop",
+                                           "SMK",
+                                           "toop.acc.edelivery.tech.ec.europa.eu.",
+                                           "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
+                                           true);
+
+    // PEPPOL URL provider
+    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolURLProvider.INSTANCE, aPI, aSMLInfo);
+    aBDXRClient.setVerifySignature (false);
+    aBDXRClient.getServiceMetadata (aPI, aDocTypeID);
   }
 }

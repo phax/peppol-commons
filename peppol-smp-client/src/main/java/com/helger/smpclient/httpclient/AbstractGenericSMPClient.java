@@ -82,7 +82,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * trailing slash!
    */
   private final String m_sSMPHost;
-  private boolean m_bCheckCertificate = SMPHttpResponseHandlerSigned.DEFAULT_CHECK_CERTIFICATE;
+  private boolean m_bVerifySignature = SMPHttpResponseHandlerSigned.DEFAULT_VERIFY_SIGNATURE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private final SMPHttpClientSettings m_aHttpClientSettings = new SMPHttpClientSettings ();
 
@@ -365,28 +365,60 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return <code>true</code> if SMP client response certificate checking is
    *         enabled, <code>false</code> if it is disabled. By default this
    *         check is enabled (see
-   *         {@link SMPHttpResponseHandlerSigned#DEFAULT_CHECK_CERTIFICATE}).
+   *         {@link SMPHttpResponseHandlerSigned#DEFAULT_VERIFY_SIGNATURE}).
    * @since 5.2.1
+   * @deprecated since 8.0.3; Use {@link #isVerifySignature()} instead
    */
+  @Deprecated
   public final boolean isCheckCertificate ()
   {
-    return m_bCheckCertificate;
+    return isVerifySignature ();
+  }
+
+  /**
+   * @return <code>true</code> if SMP client response certificate checking is
+   *         enabled, <code>false</code> if it is disabled. By default this
+   *         check is enabled (see
+   *         {@link SMPHttpResponseHandlerSigned#DEFAULT_VERIFY_SIGNATURE}).
+   * @since 8.0.3
+   */
+  public final boolean isVerifySignature ()
+  {
+    return m_bVerifySignature;
   }
 
   /**
    * Check the certificate retrieved from a signed SMP response? This may be
    * helpful for debugging and testing of SMP client connections!
    *
-   * @param bCheckCertificate
+   * @param bVerifySignature
    *        <code>true</code> to enable SMP response checking (on by default) or
    *        <code>false</code> to disable it.
    * @return this for chaining
    * @since 5.2.1
+   * @deprecated since 8.0.3; Use {@link #setVerifySignature(boolean)} instead
+   */
+  @Deprecated
+  @Nonnull
+  public final IMPLTYPE setCheckCertificate (final boolean bVerifySignature)
+  {
+    return setVerifySignature (bVerifySignature);
+  }
+
+  /**
+   * Check the certificate retrieved from a signed SMP response? This may be
+   * helpful for debugging and testing of SMP client connections!
+   *
+   * @param bVerifySignature
+   *        <code>true</code> to enable SMP response checking (on by default) or
+   *        <code>false</code> to disable it.
+   * @return this for chaining
+   * @since 8.0.3
    */
   @Nonnull
-  public final IMPLTYPE setCheckCertificate (final boolean bCheckCertificate)
+  public final IMPLTYPE setVerifySignature (final boolean bVerifySignature)
   {
-    m_bCheckCertificate = bCheckCertificate;
+    m_bVerifySignature = bVerifySignature;
     return thisAsT ();
   }
 
@@ -568,7 +600,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public String toString ()
   {
     return new ToStringGenerator (this).append ("SMPHost", m_sSMPHost)
-                                       .append ("CheckCertificate", m_bCheckCertificate)
+                                       .append ("CheckCertificate", m_bVerifySignature)
                                        .append ("FollowSMPRedirects", m_bFollowSMPRedirects)
                                        .append ("HttpClientSettings", m_aHttpClientSettings)
                                        .getToString ();
