@@ -255,7 +255,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+                                                                 new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setVerifySignature (isCheckCertificate ()));
 
     // If the Redirect element is present, then follow 1 redirect.
     if (isFollowSMPRedirects ())
@@ -268,7 +268,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
           LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         aRequest = new HttpGet (aRedirect.getHref ());
         aMetadata = executeGenericRequest (aRequest,
-                                           new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setCheckCertificate (isCheckCertificate ()));
+                                           new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType ()).setVerifySignature (isCheckCertificate ()));
 
         // Check that the certificateUID is correct.
         boolean bCertificateSubjectFound = false;

@@ -36,6 +36,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
@@ -60,11 +61,14 @@ import com.helger.xml.serialize.read.DOMReader;
  */
 public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
 {
-  public static final boolean DEFAULT_CHECK_CERTIFICATE = true;
+  public static final boolean DEFAULT_VERIFY_SIGNATURE = true;
+  @Deprecated
+  @DevelopersNote ("since 8.0.3")
+  public static final boolean DEFAULT_CHECK_CERTIFICATE = DEFAULT_VERIFY_SIGNATURE;
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
 
   private final GenericJAXBMarshaller <T> m_aMarshaller;
-  private boolean m_bCheckCertificate = DEFAULT_CHECK_CERTIFICATE;
+  private boolean m_bVerifySignature = DEFAULT_VERIFY_SIGNATURE;
 
   public SMPHttpResponseHandlerSigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller)
   {
@@ -75,28 +79,59 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
    * Check the certificate retrieved from a signed SMP response? This may be
    * helpful for debugging and testing of SMP client connections!
    *
-   * @param bCheckCertificate
+   * @param bVerifySignature
    *        <code>true</code> to enable SMP response checking (on by default) or
    *        <code>false</code> to disable it.
    * @return this for chaining
    * @since 5.2.1
+   * @deprecated since 8.0.3; Use {@link #setVerifySignature(boolean)} instead
+   */
+  @Deprecated
+  @Nonnull
+  public final SMPHttpResponseHandlerSigned <T> setCheckCertificate (final boolean bVerifySignature)
+  {
+    return setVerifySignature (bVerifySignature);
+  }
+
+  /**
+   * Check the certificate retrieved from a signed SMP response? This may be
+   * helpful for debugging and testing of SMP client connections!
+   *
+   * @param bVerifySignature
+   *        <code>true</code> to enable SMP response checking (on by default) or
+   *        <code>false</code> to disable it.
+   * @return this for chaining
+   * @since 8.0.3
    */
   @Nonnull
-  public final SMPHttpResponseHandlerSigned <T> setCheckCertificate (final boolean bCheckCertificate)
+  public final SMPHttpResponseHandlerSigned <T> setVerifySignature (final boolean bVerifySignature)
   {
-    m_bCheckCertificate = bCheckCertificate;
+    m_bVerifySignature = bVerifySignature;
     return this;
   }
 
   /**
    * @return <code>true</code> if SMP client response certificate checking is
    *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see {@link #DEFAULT_CHECK_CERTIFICATE}).
+   *         check is enabled (see {@link #DEFAULT_VERIFY_SIGNATURE}).
    * @since 5.2.1
+   * @deprecated since 8.0.3; Use {@link #isVerifySignature()} instead
    */
+  @Deprecated
   public final boolean isCheckCertificate ()
   {
-    return m_bCheckCertificate;
+    return isVerifySignature ();
+  }
+
+  /**
+   * @return <code>true</code> if SMP client response certificate checking is
+   *         enabled, <code>false</code> if it is disabled. By default this
+   *         check is enabled (see {@link #DEFAULT_VERIFY_SIGNATURE}).
+   * @since 8.0.3
+   */
+  public final boolean isVerifySignature ()
+  {
+    return m_bVerifySignature;
   }
 
   private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream) throws MarshalException,
@@ -170,7 +205,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     if (ArrayHelper.isEmpty (aResponseBytes))
       throw new SMPClientBadResponseException ("Could not read SMP server response content");
 
-    if (m_bCheckCertificate)
+    if (m_bVerifySignature)
     {
       try (final InputStream aIS = new NonBlockingByteArrayInputStream (aResponseBytes))
       {
