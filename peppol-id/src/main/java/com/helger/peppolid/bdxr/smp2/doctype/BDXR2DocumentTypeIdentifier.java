@@ -82,4 +82,18 @@ public class BDXR2DocumentTypeIdentifier extends IDType implements
   {
     return new BDXR2DocumentTypeIdentifier (this);
   }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    // for compareTo
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // for compareTo
+    return super.hashCode ();
+  }
 }

@@ -127,6 +127,20 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
     return new PeppolDocumentTypeIdentifier (this);
   }
 
+  @Override
+  public boolean equals (final Object o)
+  {
+    // for compareTo
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // for compareTo
+    return super.hashCode ();
+  }
+
   /**
    * Take the passed identifier scheme and value try to convert it back to a
    * document identifier. If the passed scheme is invalid or if the passed value

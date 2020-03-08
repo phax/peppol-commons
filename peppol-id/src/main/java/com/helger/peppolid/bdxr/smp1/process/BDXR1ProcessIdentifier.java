@@ -38,10 +38,10 @@ import com.helger.xsds.bdxr.smp1.ProcessIdentifierType;
  */
 @NotThreadSafe
 public class BDXR1ProcessIdentifier extends ProcessIdentifierType implements
-                                   IProcessIdentifier,
-                                   IMutableIdentifier,
-                                   Comparable <BDXR1ProcessIdentifier>,
-                                   ICloneable <BDXR1ProcessIdentifier>
+                                    IProcessIdentifier,
+                                    IMutableIdentifier,
+                                    Comparable <BDXR1ProcessIdentifier>,
+                                    ICloneable <BDXR1ProcessIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public BDXR1ProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
@@ -70,5 +70,19 @@ public class BDXR1ProcessIdentifier extends ProcessIdentifierType implements
   public BDXR1ProcessIdentifier getClone ()
   {
     return new BDXR1ProcessIdentifier (this);
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    // for compareTo
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // for compareTo
+    return super.hashCode ();
   }
 }

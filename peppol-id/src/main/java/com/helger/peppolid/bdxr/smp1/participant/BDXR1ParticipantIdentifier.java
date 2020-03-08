@@ -38,10 +38,10 @@ import com.helger.xsds.bdxr.smp1.ParticipantIdentifierType;
  */
 @NotThreadSafe
 public class BDXR1ParticipantIdentifier extends ParticipantIdentifierType implements
-                                       IParticipantIdentifier,
-                                       IMutableIdentifier,
-                                       Comparable <BDXR1ParticipantIdentifier>,
-                                       ICloneable <BDXR1ParticipantIdentifier>
+                                        IParticipantIdentifier,
+                                        IMutableIdentifier,
+                                        Comparable <BDXR1ParticipantIdentifier>,
+                                        ICloneable <BDXR1ParticipantIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public BDXR1ParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
@@ -70,5 +70,19 @@ public class BDXR1ParticipantIdentifier extends ParticipantIdentifierType implem
   public BDXR1ParticipantIdentifier getClone ()
   {
     return new BDXR1ParticipantIdentifier (this);
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    // for compareTo
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // for compareTo
+    return super.hashCode ();
   }
 }

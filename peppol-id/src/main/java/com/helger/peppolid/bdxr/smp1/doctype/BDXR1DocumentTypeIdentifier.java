@@ -38,10 +38,10 @@ import com.helger.xsds.bdxr.smp1.DocumentIdentifierType;
  */
 @NotThreadSafe
 public class BDXR1DocumentTypeIdentifier extends DocumentIdentifierType implements
-                                        IDocumentTypeIdentifier,
-                                        IMutableIdentifier,
-                                        Comparable <BDXR1DocumentTypeIdentifier>,
-                                        ICloneable <BDXR1DocumentTypeIdentifier>
+                                         IDocumentTypeIdentifier,
+                                         IMutableIdentifier,
+                                         Comparable <BDXR1DocumentTypeIdentifier>,
+                                         ICloneable <BDXR1DocumentTypeIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public BDXR1DocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
@@ -70,5 +70,19 @@ public class BDXR1DocumentTypeIdentifier extends DocumentIdentifierType implemen
   public BDXR1DocumentTypeIdentifier getClone ()
   {
     return new BDXR1DocumentTypeIdentifier (this);
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    // for compareTo
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // for compareTo
+    return super.hashCode ();
   }
 }

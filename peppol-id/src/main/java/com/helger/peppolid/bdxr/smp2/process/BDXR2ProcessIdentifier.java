@@ -82,4 +82,18 @@ public class BDXR2ProcessIdentifier extends IDType implements
   {
     return new BDXR2ProcessIdentifier (this);
   }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    // for compareTo
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // for compareTo
+    return super.hashCode ();
+  }
 }

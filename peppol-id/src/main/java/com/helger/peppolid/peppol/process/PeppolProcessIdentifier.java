@@ -114,6 +114,20 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
     return new PeppolProcessIdentifier (this);
   }
 
+  @Override
+  public boolean equals (final Object o)
+  {
+    // for compareTo
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // for compareTo
+    return super.hashCode ();
+  }
+
   /**
    * Take the passed identifier scheme and value try to convert it back to a
    * process identifier. If the passed scheme is invalid or if the passed value
