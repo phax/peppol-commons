@@ -67,17 +67,17 @@ public class BDXLURLProvider implements IBDXLURLProvider
 
   public boolean isLowercaseValueBeforeHashing ()
   {
-    return m_aRWLock.readLocked ( () -> m_bLowercaseValueBeforeHashing);
+    return m_aRWLock.readLockedBoolean ( () -> m_bLowercaseValueBeforeHashing);
   }
 
   public void setLowercaseValueBeforeHashing (final boolean bLowercaseValueBeforeHashing)
   {
-    m_aRWLock.writeLocked ( () -> m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing);
+    m_aRWLock.writeLockedBoolean ( () -> m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing);
   }
 
   public boolean isUseDNSCache ()
   {
-    return m_aRWLock.readLocked ( () -> m_bUseDNSCache);
+    return m_aRWLock.readLockedBoolean ( () -> m_bUseDNSCache);
   }
 
   /**
@@ -89,7 +89,7 @@ public class BDXLURLProvider implements IBDXLURLProvider
    */
   public void setUseDNSCache (final boolean bUseDNSCache)
   {
-    m_aRWLock.writeLocked ( () -> m_bUseDNSCache = bUseDNSCache);
+    m_aRWLock.writeLockedBoolean ( () -> m_bUseDNSCache = bUseDNSCache);
   }
 
   /**
@@ -104,7 +104,7 @@ public class BDXLURLProvider implements IBDXLURLProvider
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getAllDNSCacheEntries ()
   {
-    return m_aRWLock.readLocked (m_aDNSCache::getClone);
+    return m_aRWLock.readLockedGet (m_aDNSCache::getClone);
   }
 
   /**
@@ -190,7 +190,7 @@ public class BDXLURLProvider implements IBDXLURLProvider
     try
     {
       // Already in cache?
-      String sResolvedNAPTR = bUseDNSCache ? m_aRWLock.readLocked ( () -> m_aDNSCache.get (sBuildName)) : null;
+      String sResolvedNAPTR = bUseDNSCache ? m_aRWLock.readLockedGet ( () -> m_aDNSCache.get (sBuildName)) : null;
       if (sResolvedNAPTR == null)
       {
         // Now do the NAPTR resolving
@@ -211,7 +211,7 @@ public class BDXLURLProvider implements IBDXLURLProvider
         {
           // Put in cache
           final String sFinalResolved = sResolvedNAPTR;
-          m_aRWLock.writeLocked ( () -> m_aDNSCache.put (sBuildName, sFinalResolved));
+          m_aRWLock.writeLockedGet ( () -> m_aDNSCache.put (sBuildName, sFinalResolved));
         }
       }
       return sResolvedNAPTR;

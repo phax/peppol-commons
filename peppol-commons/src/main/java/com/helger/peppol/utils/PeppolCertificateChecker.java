@@ -212,7 +212,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static Consumer <? super GeneralSecurityException> getExceptionHdl ()
   {
-    return s_aRWLock.readLocked ( () -> s_aExceptionHdl);
+    return s_aRWLock.readLockedGet ( () -> s_aExceptionHdl);
   }
 
   /**
@@ -225,7 +225,7 @@ public final class PeppolCertificateChecker
   public static void setExceptionHdl (@Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
     ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
-    s_aRWLock.writeLocked ( () -> s_aExceptionHdl = aExceptionHdl);
+    s_aRWLock.writeLockedGet ( () -> s_aExceptionHdl = aExceptionHdl);
   }
 
   /**
