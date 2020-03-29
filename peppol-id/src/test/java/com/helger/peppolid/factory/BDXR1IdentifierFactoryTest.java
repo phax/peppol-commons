@@ -28,7 +28,6 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.bdxr.smp1.CBDXR1Identifier;
-import com.helger.peppolid.factory.BDXR1IdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 
 /**

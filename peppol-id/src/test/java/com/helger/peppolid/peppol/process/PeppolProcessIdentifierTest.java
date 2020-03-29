@@ -31,7 +31,6 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.xml.mock.XMLTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

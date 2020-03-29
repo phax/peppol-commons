@@ -31,8 +31,6 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppolid.simple.doctype.IBusdoxDocumentTypeIdentifierParts;
 import com.helger.xml.mock.XMLTestHelper;
 

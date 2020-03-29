@@ -23,9 +23,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
-import com.helger.peppolid.peppol.process.PredefinedProcessIdentifierManager;
-
 /**
  * Test class for class {@link PredefinedProcessIdentifierManager}.
  *

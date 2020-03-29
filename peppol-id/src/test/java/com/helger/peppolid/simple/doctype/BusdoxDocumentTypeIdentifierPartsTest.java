@@ -23,8 +23,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.peppolid.simple.doctype.BusdoxDocumentTypeIdentifierParts;
-import com.helger.peppolid.simple.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**
  * Test class for class {@link BusdoxDocumentTypeIdentifierParts}.

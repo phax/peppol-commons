@@ -26,8 +26,6 @@ import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
 
 /**

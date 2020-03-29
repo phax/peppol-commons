@@ -24,7 +24,6 @@ import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 
 /**
