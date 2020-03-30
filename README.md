@@ -263,7 +263,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 * v8.0.3 - work in progress
-    * Updated to ph-commons 9.4.0
+    * Updated to ph-commons 9.4.1
 * v8.0.2 - 2020-03-03
     * Updated to dnsjava 3.0.1
     * Added new enum `ESMPIdentifierType`

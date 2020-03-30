@@ -164,7 +164,7 @@ public final class CIdentifier
   @Nullable
   public static String createPercentDecoded (@Nullable final String sURL)
   {
-    return sURL == null ? null : URLHelper.urlDecode (sURL);
+    return URLHelper.urlDecodeOrNull (sURL);
   }
 
   /**
