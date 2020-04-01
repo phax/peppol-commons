@@ -202,37 +202,37 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>8.0.2</version>
+  <version>8.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>8.0.2</version>
+  <version>8.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>8.0.2</version>
+  <version>8.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>8.0.2</version>
+  <version>8.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>8.0.2</version>
+  <version>8.0.3</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>8.0.2</version>
+  <version>8.0.3</version>
 </dependency>
 ```
 
@@ -242,7 +242,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>8.0.2</version>
+  <version>8.0.3</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
@@ -262,7 +262,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.0.3 - work in progress
+* v8.0.3 - 2020-04-01 (not a joke)
     * Updated to ph-commons 9.4.1
 * v8.0.2 - 2020-03-03
     * Updated to dnsjava 3.0.1
