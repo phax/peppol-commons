@@ -262,6 +262,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.0.4 - work in progress
+    * Extended the SMP client API with `getAllDocumentTypes` from a service group
 * v8.0.3 - 2020-04-01 (not a joke)
     * Updated to ph-commons 9.4.1
 * v8.0.2 - 2020-03-03

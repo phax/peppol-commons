@@ -38,6 +38,7 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.security.certificate.CertificateHelper;
@@ -59,6 +60,8 @@ import com.helger.xsds.bdxr.smp2.ac.EndpointType;
 import com.helger.xsds.bdxr.smp2.ac.ProcessMetadataType;
 import com.helger.xsds.bdxr.smp2.ac.ProcessType;
 import com.helger.xsds.bdxr.smp2.ac.RedirectType;
+import com.helger.xsds.bdxr.smp2.ac.ServiceReferenceType;
+import com.helger.xsds.bdxr.smp2.bc.IDType;
 import com.helger.xsds.xmldsig.X509DataType;
 
 /**
@@ -183,6 +186,43 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     {
       return null;
     }
+  }
+
+  /**
+   * Extract all document types from the passed Service group.
+   *
+   * @param aSG
+   *        The service group to parse. May be <code>null</code>.
+   * @param aIdentifierFactory
+   *        The identifier factory to be used. May not be <code>null</code>.
+   * @return Never <code>null</code> but a maybe empty list.
+   * @since 8.0.4
+   */
+  @Nonnull
+  public static ICommonsList <IDocumentTypeIdentifier> getAllDocumentTypes (@Nullable final ServiceGroupType aSG,
+                                                                            @Nonnull final IIdentifierFactory aIdentifierFactory)
+  {
+    ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
+
+    final ICommonsList <IDocumentTypeIdentifier> ret = new CommonsArrayList <> ();
+
+    if (aSG != null)
+      for (final ServiceReferenceType aSMR : aSG.getServiceReference ())
+      {
+        final IDType aID = aSMR.getID ();
+        if (aID != null)
+        {
+          final IDocumentTypeIdentifier aDocType = aIdentifierFactory.createDocumentTypeIdentifier (aID.getSchemeID (),
+                                                                                                    aID.getValue ());
+          if (aDocType != null)
+          {
+            // Found a document type
+            ret.add (aDocType);
+          }
+        }
+      }
+
+    return ret;
   }
 
   /**

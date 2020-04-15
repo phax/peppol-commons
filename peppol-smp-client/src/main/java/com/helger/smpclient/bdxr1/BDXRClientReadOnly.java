@@ -19,6 +19,8 @@ package com.helger.smpclient.bdxr1;
 import java.net.URI;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.Locale;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,11 +34,14 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
+import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.bdxr1.marshal.BDXR1MarshallerServiceGroupType;
@@ -55,6 +60,7 @@ import com.helger.xsds.bdxr.smp1.ProcessType;
 import com.helger.xsds.bdxr.smp1.RedirectType;
 import com.helger.xsds.bdxr.smp1.ServiceGroupType;
 import com.helger.xsds.bdxr.smp1.ServiceInformationType;
+import com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 import com.helger.xsds.xmldsig.X509DataType;
 
@@ -183,6 +189,70 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
+   * Extract all parsable document types from the passed Service group.
+   *
+   * @param aSG
+   *        The service group to parse. May be <code>null</code>.
+   * @param aIdentifierFactory
+   *        The identifier factory to be used. May not be <code>null</code>.
+   * @param aUnhandledHrefHandler
+   *        An optional consumer for Hrefs that could not be parsed into a
+   *        document type identifier. May be <code>null</code>.
+   * @return Never <code>null</code> but a maybe empty list.
+   * @since 8.0.4
+   */
+  @Nonnull
+  public static ICommonsList <IDocumentTypeIdentifier> getAllDocumentTypes (@Nullable final ServiceGroupType aSG,
+                                                                            @Nonnull final IIdentifierFactory aIdentifierFactory,
+                                                                            @Nullable final Consumer <String> aUnhandledHrefHandler)
+  {
+    ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
+
+    final ICommonsList <IDocumentTypeIdentifier> ret = new CommonsArrayList <> ();
+
+    if (aSG != null && aSG.getParticipantIdentifier () != null && aSG.getServiceMetadataReferenceCollection () != null)
+    {
+      final String sPathStart = "/" +
+                                CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) +
+                                "/" +
+                                URL_PART_SERVICES +
+                                "/";
+      for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                        .getServiceMetadataReference ())
+      {
+        final String sOriginalHref = aSMR.getHref ();
+        // Decoded href is important for unification
+        final String sHref = CIdentifier.createPercentDecoded (sOriginalHref);
+
+        boolean bSuccess = false;
+
+        // Case insensitive "indexOf" here
+        final int nPathStart = StringHelper.getIndexOfIgnoreCase (sHref, sPathStart, Locale.US);
+        if (nPathStart >= 0)
+        {
+          final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
+          final IDocumentTypeIdentifier aDocType = aIdentifierFactory.parseDocumentTypeIdentifier (sDocType);
+          if (aDocType != null)
+          {
+            // Found a document type
+            ret.add (aDocType);
+            bSuccess = true;
+          }
+        }
+
+        if (!bSuccess)
+        {
+          // Failed to parse as doc type
+          if (aUnhandledHrefHandler != null)
+            aUnhandledHrefHandler.accept (sOriginalHref);
+        }
+      }
+    }
+
+    return ret;
+  }
+
+  /**
    * Gets a signed service metadata object given by its service group id and its
    * document type. This is a specification compliant method.
    *
@@ -203,7 +273,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         The request was not well formed.
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,
    *      IDocumentTypeIdentifier)
-   * @deprecated Use
+   * @deprecated Since v8.0.0; Use
    *             {@link #getServiceMetadata(IParticipantIdentifier,IDocumentTypeIdentifier)}
    *             instead
    */
@@ -236,6 +306,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         The request was not well formed.
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,
    *      IDocumentTypeIdentifier)
+   * @since v8.0.0
    */
   @Nonnull
   public SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -325,7 +396,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
-   * @deprecated Use
+   * @deprecated Since v8.0.0; Use
    *             {@link #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)}
    *             instead
    */
@@ -337,6 +408,27 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
   }
 
+  /**
+   * Gets a signed service metadata object given by its service group id and its
+   * document type. This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @return A signed service metadata object or <code>null</code> if no such
+   *         registration is present.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
+   * @since v8.0.0
+   */
   @Nullable
   public SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                              @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
