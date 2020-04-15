@@ -70,15 +70,15 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                          ESML.DIGIT_TEST).getEndpointAddress (PI_AT_Test,
                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
                                                                               EPredefinedProcessIdentifier.BIS5A_V3,
-                                                                              ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
-    assertEquals ("https://test.erechnung.gv.at/as2", sEndpointAddress);
+                                                                              ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
+    assertEquals ("https://testap.erechnung.gv.at/as4", sEndpointAddress);
 
     sEndpointAddress = _createSMPClient (PI_AT_Prod,
                                          ESML.DIGIT_PRODUCTION).getEndpointAddress (PI_AT_Prod,
                                                                                     EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
                                                                                     EPredefinedProcessIdentifier.BIS5A_V3,
-                                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
-    assertEquals ("https://www.erechnung.gv.at/as2", sEndpointAddress);
+                                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
+    assertEquals ("https://www.erechnung.gv.at/as4", sEndpointAddress);
   }
 
   /**
