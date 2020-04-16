@@ -196,43 +196,43 @@ When integrating this in your IDE, ensure to run `mvn process-sources` first, so
 For the subprojects `peppol-id`, `peppol-commons`, `peppol-sbdh` and `peppol-sml-client` add `target/generated-sources/xjc` to your buildpath afterwards.
 
 # Maven usage
-Add the following to your pom.xml to use this artifact:
+Add the following to your pom.xml to use this artifact, replacing `x.y.z` with the latest version number (see below):
 
 ```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-id</artifactId>
-  <version>8.0.3</version>
+  <version>x.y.z</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons</artifactId>
-  <version>8.0.3</version>
+  <version>x.y.z</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-testfiles</artifactId>
-  <version>8.0.3</version>
+  <version>x.y.z</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sbdh</artifactId>
-  <version>8.0.3</version>
+  <version>x.y.z</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-sml-client</artifactId>
-  <version>8.0.3</version>
+  <version>x.y.z</version>
 </dependency>
 
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-smp-client</artifactId>
-  <version>8.0.3</version>
+  <version>x.y.z</version>
 </dependency>
 ```
 
@@ -242,7 +242,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>8.0.3</version>
+  <version>x.y.z</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
@@ -262,7 +262,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.0.4 - work in progress
+* v8.0.4 - 2020-04-16
     * Extended the SMP client API with `getAllDocumentTypes` from a service group
 * v8.0.3 - 2020-04-01 (not a joke)
     * Updated to ph-commons 9.4.1
