@@ -115,7 +115,7 @@ public final class NAPTRResolver
     // Use the default (static) cache that is used by default
     final Lookup aLookup = new Lookup (sDNSName, Type.NAPTR);
     final int nMaxRetries = 1;
-    ExtendedResolver aNewResolver;
+    final ExtendedResolver aNewResolver;
     try
     {
       aNewResolver = new ExtendedResolver ();
