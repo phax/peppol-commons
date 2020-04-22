@@ -27,6 +27,7 @@ import com.helger.xsds.bdxr.smp1.ServiceGroupReferenceListType;
 public class BDXR1MarshallerServiceGroupReferenceListType extends
                                                           AbstractBDXR1Marshaller <ServiceGroupReferenceListType>
 {
+  @Deprecated
   public BDXR1MarshallerServiceGroupReferenceListType ()
   {
     this (true);

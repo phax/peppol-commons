@@ -26,6 +26,7 @@ import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
  */
 public class SMPMarshallerSignedServiceMetadataType extends AbstractSMPMarshaller <SignedServiceMetadataType>
 {
+  @Deprecated
   public SMPMarshallerSignedServiceMetadataType ()
   {
     // Disable validation by default, because the mandatory signature element is

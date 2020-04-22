@@ -26,6 +26,7 @@ import com.helger.smpclient.peppol.jaxb.ServiceGroupReferenceListType;
  */
 public class SMPMarshallerServiceGroupReferenceListType extends AbstractSMPMarshaller <ServiceGroupReferenceListType>
 {
+  @Deprecated
   public SMPMarshallerServiceGroupReferenceListType ()
   {
     this (true);

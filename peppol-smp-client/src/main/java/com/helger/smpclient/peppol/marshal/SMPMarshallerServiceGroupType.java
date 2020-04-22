@@ -26,6 +26,7 @@ import com.helger.smpclient.peppol.jaxb.ServiceGroupType;
  */
 public class SMPMarshallerServiceGroupType extends AbstractSMPMarshaller <ServiceGroupType>
 {
+  @Deprecated
   public SMPMarshallerServiceGroupType ()
   {
     this (true);

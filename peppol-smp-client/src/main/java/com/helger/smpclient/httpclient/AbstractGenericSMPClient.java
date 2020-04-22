@@ -70,6 +70,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public static final int DEFAULT_CONNECTION_TIMEOUT_MS = HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT_MS;
   public static final int DEFAULT_REQUEST_TIMEOUT_MS = HttpClientSettings.DEFAULT_SOCKET_TIMEOUT_MS;
   public static final boolean DEFAULT_FOLLOW_REDIRECTS = true;
+  public static final boolean DEFAULT_XML_SCHEMA_VALIDATION = true;
 
   // The default text/xml content type uses iso-8859-1!
   public static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
@@ -84,6 +85,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private final String m_sSMPHost;
   private boolean m_bVerifySignature = SMPHttpResponseHandlerSigned.DEFAULT_VERIFY_SIGNATURE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
+  private boolean m_bXMLSchemaValidation = DEFAULT_XML_SCHEMA_VALIDATION;
   private final SMPHttpClientSettings m_aHttpClientSettings = new SMPHttpClientSettings ();
 
   /**
@@ -453,6 +455,34 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
+   * @return <code>true</code> if responses should be checked against the XML
+   *         Schemas, <code>false</code> if not. By default this check is
+   *         enabled (see {@link #DEFAULT_XML_SCHEMA_VALIDATION}).
+   * @since 8.0.5
+   */
+  public final boolean isXMLSchemaValidation ()
+  {
+    return m_bXMLSchemaValidation;
+  }
+
+  /**
+   * Should the SMP client perform XML Schema validation or not. Enabled by
+   * default.
+   *
+   * @param bXMLSchemaValidation
+   *        <code>true</code> to perform XML Schema validation,
+   *        <code>false</code> to disable it.
+   * @return this for chaining
+   * @since 8.0.5
+   */
+  @Nonnull
+  public final IMPLTYPE setXMLSchemaValidation (final boolean bXMLSchemaValidation)
+  {
+    m_bXMLSchemaValidation = bXMLSchemaValidation;
+    return thisAsT ();
+  }
+
+  /**
    * @return The custom user agent HTTP header to be used. <code>null</code> by
    *         default.
    * @since 7.0.3
@@ -604,6 +634,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     return new ToStringGenerator (this).append ("SMPHost", m_sSMPHost)
                                        .append ("VerifySignature", m_bVerifySignature)
                                        .append ("FollowSMPRedirects", m_bFollowSMPRedirects)
+                                       .append ("XMLSchemaValidation", m_bXMLSchemaValidation)
                                        .append ("HttpClientSettings", m_aHttpClientSettings)
                                        .getToString ();
   }

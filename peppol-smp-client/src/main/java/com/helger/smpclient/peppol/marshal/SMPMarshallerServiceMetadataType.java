@@ -26,6 +26,7 @@ import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
  */
 public class SMPMarshallerServiceMetadataType extends AbstractSMPMarshaller <ServiceMetadataType>
 {
+  @Deprecated
   public SMPMarshallerServiceMetadataType ()
   {
     this (true);

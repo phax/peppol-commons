@@ -26,6 +26,7 @@ import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
  */
 public class BDXR1MarshallerServiceMetadataType extends AbstractBDXR1Marshaller <ServiceMetadataType>
 {
+  @Deprecated
   public BDXR1MarshallerServiceMetadataType ()
   {
     this (true);

@@ -32,7 +32,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -176,7 +175,6 @@ public final class SMPClientTest
   }
 
   @Test
-  @DevelopersNote ("May fails to validate the signed response because of test keystore")
   public void testCRUDServiceRegistration () throws Exception
   {
     final SMPClient aSMPClient = new SMPClient (SMP_URI);

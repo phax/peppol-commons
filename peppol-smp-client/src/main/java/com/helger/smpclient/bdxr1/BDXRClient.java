@@ -151,7 +151,7 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sBody = new BDXR1MarshallerServiceGroupType ().getAsString (aServiceGroup);
+    final String sBody = new BDXR1MarshallerServiceGroupType (isXMLSchemaValidation ()).getAsString (aServiceGroup);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
@@ -234,7 +234,7 @@ public class BDXRClient extends BDXRClientReadOnly
                                         @Nonnull final ServiceMetadataType aServiceMetadata,
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
-    final String sBody = new BDXR1MarshallerServiceMetadataType ().getAsString (aServiceMetadata);
+    final String sBody = new BDXR1MarshallerServiceMetadataType (isXMLSchemaValidation ()).getAsString (aServiceMetadata);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 

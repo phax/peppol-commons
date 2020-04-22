@@ -172,7 +172,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
       LOGGER.debug ("BDXR2Client getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    return executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (new BDXR2ServiceGroupMarshaller ()));
+    return executeGenericRequest (aRequest,
+                                  new SMPHttpResponseHandlerUnsigned <> (new BDXR2ServiceGroupMarshaller (isXMLSchemaValidation ())));
   }
 
   @Nullable
@@ -297,9 +298,11 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXR2Client getServiceRegistration@" + sURI);
 
+    final boolean bXSDValidation = isXMLSchemaValidation ();
+    final boolean bVerifySignature = isVerifySignature ();
     HttpGet aRequest = new HttpGet (sURI);
     ServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                           new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller ()).setVerifySignature (isVerifySignature ()));
+                                                           new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation)).setVerifySignature (bVerifySignature));
     if (!SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()).equals (aDocumentTypeID))
     {
       // Inconsistency between request and response
@@ -323,7 +326,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
 
           aRequest = new HttpGet (aRedirect.getPublisherURIValue ());
           aMetadata = executeGenericRequest (aRequest,
-                                             new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller ()).setVerifySignature (isVerifySignature ()));
+                                             new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation)).setVerifySignature (bVerifySignature));
 
           // Check that the certificateUID is correct.
           boolean bCertificateSubjectFound = false;

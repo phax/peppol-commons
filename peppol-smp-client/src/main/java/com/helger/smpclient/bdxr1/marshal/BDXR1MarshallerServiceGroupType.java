@@ -26,6 +26,7 @@ import com.helger.xsds.bdxr.smp1.ServiceGroupType;
  */
 public class BDXR1MarshallerServiceGroupType extends AbstractBDXR1Marshaller <ServiceGroupType>
 {
+  @Deprecated
   public BDXR1MarshallerServiceGroupType ()
   {
     this (true);

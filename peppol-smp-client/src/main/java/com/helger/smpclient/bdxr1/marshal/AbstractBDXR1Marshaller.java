@@ -34,7 +34,7 @@ import com.helger.xsds.bdxr.smp1.CBDXRSMP1;
  */
 public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP1.getAllXSDIncludes ();
+  private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP1.getAllXSDResources ();
 
   public AbstractBDXR1Marshaller (@Nonnull final Class <JAXBTYPE> aType,
                                   final boolean bValidationEnabled,

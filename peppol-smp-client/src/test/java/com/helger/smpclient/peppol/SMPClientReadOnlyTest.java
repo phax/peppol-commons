@@ -22,9 +22,11 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.peppol.sml.ESML;
+import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
 import com.helger.smpclient.url.BDXLURLProvider;
 import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.smpclient.url.PeppolURLProvider;
@@ -57,5 +59,21 @@ public final class SMPClientReadOnlyTest
     aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
     aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
     assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
+  }
+
+  @Test
+  public void test2303 () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0887290276");
+
+    // PEPPOL URL provider
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
+    assertEquals ("http://B-c9f280672264cdb82eac528c265ed029.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
+                  aSMPClient.getSMPHostURI ());
+
+    final IDocumentTypeIdentifier aDocumentTypeID = PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifierWithDefaultScheme ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1");
+    aSMPClient.setXMLSchemaValidation (false);
+    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI, aDocumentTypeID);
+    assertNotNull (aSM);
   }
 }

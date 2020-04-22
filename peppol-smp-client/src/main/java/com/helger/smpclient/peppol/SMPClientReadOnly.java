@@ -185,7 +185,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     final HttpGet aRequest = new HttpGet (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
     return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupReferenceListType ()));
+                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupReferenceListType (isXMLSchemaValidation ())));
   }
 
   /**
@@ -250,7 +250,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final HttpGet aRequest = new HttpGet (sCompleteURI);
     return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerCompleteServiceGroupType ()));
+                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerCompleteServiceGroupType (isXMLSchemaValidation ())));
   }
 
   /**
@@ -346,7 +346,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final HttpGet aRequest = new HttpGet (sURI);
     return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupType ()));
+                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupType (isXMLSchemaValidation ())));
   }
 
   @Nullable
@@ -516,9 +516,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("SMPClient getServiceRegistration@" + sURI);
 
+    final boolean bXSDValidation = isXMLSchemaValidation ();
+    final boolean bVerifySignature = isVerifySignature ();
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType ()).setVerifySignature (isVerifySignature ()));
+                                                                 new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType (bXSDValidation)).setVerifySignature (bVerifySignature));
 
     // If the Redirect element is present, then follow 1 redirect.
     if (isFollowSMPRedirects ())
@@ -531,7 +533,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
           LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         aRequest = new HttpGet (aRedirect.getHref ());
         aMetadata = executeGenericRequest (aRequest,
-                                           new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType ()).setVerifySignature (isVerifySignature ()));
+                                           new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType (bXSDValidation)).setVerifySignature (bVerifySignature));
 
         // Check that the certificateUID is correct.
         boolean bCertificateSubjectFound = false;

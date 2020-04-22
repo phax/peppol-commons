@@ -255,15 +255,20 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # References
 
-* [PEPPOL Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
 * [PEPPOL Policy for the use of identifiers 4.0](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf)
 * [PEPPOL Business Message Envelope (SBDH) 1.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.pdf)
+
+## Obsoleted references
+
+* [PEPPOL Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
 
 
 # News and noteworthy
 
 * v8.0.5 - work in progress
     * Extracted `BDXR1NamespaceContext` and `BDXR2NamespaceContext`
+    * Made XML Schema validation for SMP clients customizable
+    * By default the XML Schema validation for querying service metadata is now enabled (breaking change)  
 * v8.0.4 - 2020-04-16
     * Extended the SMP client API with `getAllDocumentTypes` from a service group
 * v8.0.3 - 2020-04-01 (not a joke)
