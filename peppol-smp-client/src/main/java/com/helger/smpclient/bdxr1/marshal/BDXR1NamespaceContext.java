@@ -14,25 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.bdxr2.marshal;
+package com.helger.smpclient.bdxr1.marshal;
 
-import com.helger.xsds.bdxr.smp2.ObjectFactory;
-import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
+import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xsds.bdxr.smp1.CBDXRSMP1;
+import com.helger.xsds.xmldsig.CXMLDSig;
 
 /**
- * OASIS BDXR SMP v2 ServiceMetadata marshaller
+ * The default namespace context for OASIS BDXR SMP v1.0.
  *
  * @author Philip Helger
+ * @since 8.0.5
  */
-public class BDXR2ServiceMetadataMarshaller extends AbstractBDXR2Marshaller <ServiceMetadataType>
+public class BDXR1NamespaceContext extends MapBasedNamespaceContext
 {
-  public BDXR2ServiceMetadataMarshaller ()
+  public BDXR1NamespaceContext ()
   {
-    this (true);
-  }
-
-  public BDXR2ServiceMetadataMarshaller (final boolean bValidationEnabled)
-  {
-    super (ServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createServiceMetadata);
+    addMapping (CXMLDSig.DEFAULT_PREFIX, CXMLDSig.NAMESPACE_URI);
+    addMapping (CBDXRSMP1.DEFAULT_PREFIX, CBDXRSMP1.NAMESPACE_URI);
   }
 }

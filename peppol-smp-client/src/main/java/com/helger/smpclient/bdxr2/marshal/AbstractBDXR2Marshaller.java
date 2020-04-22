@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.bdxr1.marshal;
+package com.helger.smpclient.bdxr2.marshal;
 
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
@@ -23,7 +23,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
-import com.helger.xsds.bdxr.smp1.CBDXRSMP1;
+import com.helger.xsds.bdxr.smp2.CBDXRSMP2;
 
 /**
  * Abstract JAXB marshaller with namespace prefix mapping
@@ -31,17 +31,18 @@ import com.helger.xsds.bdxr.smp1.CBDXRSMP1;
  * @author Philip Helger
  * @param <JAXBTYPE>
  *        JAXB type to use
+ * @since 8.0.5
  */
-public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
+public abstract class AbstractBDXR2Marshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP1.getAllXSDIncludes ();
+  private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDIncludes ();
 
-  public AbstractBDXR1Marshaller (@Nonnull final Class <JAXBTYPE> aType,
+  public AbstractBDXR2Marshaller (@Nonnull final Class <JAXBTYPE> aType,
                                   final boolean bValidationEnabled,
                                   @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     super (aType, bValidationEnabled ? XSDS : null, aWrapper);
 
-    setNamespaceContext (new BDXR1NamespaceContext ());
+    setNamespaceContext (new BDXR2NamespaceContext ());
   }
 }

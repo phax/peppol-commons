@@ -262,6 +262,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.0.5 - work in progress
+    * Extracted `BDXR1NamespaceContext` and `BDXR2NamespaceContext`
 * v8.0.4 - 2020-04-16
     * Extended the SMP client API with `getAllDocumentTypes` from a service group
 * v8.0.3 - 2020-04-01 (not a joke)

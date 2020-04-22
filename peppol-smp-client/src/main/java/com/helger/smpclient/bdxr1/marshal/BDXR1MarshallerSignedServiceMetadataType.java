@@ -26,6 +26,7 @@ import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
  */
 public class BDXR1MarshallerSignedServiceMetadataType extends AbstractBDXR1Marshaller <SignedServiceMetadataType>
 {
+  @Deprecated
   public BDXR1MarshallerSignedServiceMetadataType ()
   {
     // Disable validation by default, because the mandatory Signature element is
