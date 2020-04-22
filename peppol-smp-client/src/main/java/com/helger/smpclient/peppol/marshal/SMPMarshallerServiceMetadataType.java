@@ -16,6 +16,7 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
 
@@ -27,6 +28,7 @@ import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
 public class SMPMarshallerServiceMetadataType extends AbstractSMPMarshaller <ServiceMetadataType>
 {
   @Deprecated
+  @DevelopersNote ("Since v8.0.5")
   public SMPMarshallerServiceMetadataType ()
   {
     this (true);

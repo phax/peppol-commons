@@ -139,7 +139,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The HTTP proxy to be used to access the SMP server. Is
    *         <code>null</code> by default.
    * @see #getProxyCredentials()
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Nullable
   @Deprecated
@@ -159,7 +159,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        May be <code>null</code> to indicate no proxy.
    * @return this for chaining
    * @see #setProxyCredentials(Credentials)
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -173,7 +173,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The HTTP proxy credentials to be used to access the SMP server. Is
    *         <code>null</code> by default. This is only used if a proxy is set.
    * @see #getProxy()
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Nullable
   @Deprecated
@@ -192,7 +192,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        {@link org.apache.http.auth.UsernamePasswordCredentials}.
    * @return this for chaining
    * @see #setProxy(HttpHost)
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -207,7 +207,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         <code>null</code> but maybe empty.
    * @see #getProxy()
    * @since 6.2.4
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @ReturnsMutableObject
@@ -222,7 +222,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         are enabled, <code>false</code> if they are disabled. By default
    *         they are disabled.
    * @since 5.2.2
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   public final boolean isUseProxySystemProperties ()
@@ -269,7 +269,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        not use them.
    * @return this for chaining
    * @since 5.2.2
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -283,7 +283,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return <code>true</code> if DNS client caching is enabled (default),
    *         <code>false</code> if it is disabled.
    * @since 5.2.5
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   public final boolean isUseDNSClientCache ()
@@ -299,7 +299,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        it.
    * @return this for chaining
    * @since 5.2.5
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -311,7 +311,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * @return The connection timeout in milliseconds. Defaults to 5000 (5 secs).
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   public final int getConnectionTimeoutMS ()
@@ -326,7 +326,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        The connection timeout milliseconds to use. Only values &gt; 0 are
    *        considered.
    * @return this for chaining
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -338,7 +338,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * @return The request timeout in milliseconds. Defaults to 10000 (10 secs).
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   public final int getRequestTimeoutMS ()
@@ -353,7 +353,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        The request timeout milliseconds to use. Only values &gt; 0 are
    *        considered.
    * @return this for chaining
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Nonnull
   @Deprecated
@@ -486,7 +486,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The custom user agent HTTP header to be used. <code>null</code> by
    *         default.
    * @since 7.0.3
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   @Nullable
@@ -503,7 +503,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        The custom user agent to be used. May be <code>null</code>.
    * @return this for chaining
    * @since 7.0.3
-   * @deprecated Use {@link #httpClientSettings()} instead
+   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
    */
   @Deprecated
   @Nonnull

@@ -16,6 +16,7 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.smpclient.peppol.jaxb.CompleteServiceGroupType;
 import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 
@@ -27,6 +28,7 @@ import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 public class SMPMarshallerCompleteServiceGroupType extends AbstractSMPMarshaller <CompleteServiceGroupType>
 {
   @Deprecated
+  @DevelopersNote ("Since v8.0.5")
   public SMPMarshallerCompleteServiceGroupType ()
   {
     this (true);

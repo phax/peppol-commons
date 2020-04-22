@@ -247,7 +247,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         The request was not well formed.
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,
    *      IDocumentTypeIdentifier)
-   * @deprecated Use
+   * @deprecated since v8.0.0; Use
    *             {@link #getServiceMetadata(IParticipantIdentifier,IDocumentTypeIdentifier)}
    *             instead
    */
@@ -411,7 +411,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
-   * @deprecated Use
+   * @deprecated since v8.0.0; Use
    *             {@link #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)}
    *             instead
    */

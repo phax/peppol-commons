@@ -16,6 +16,7 @@
  */
 package com.helger.smpclient.bdxr1.marshal;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.xsds.bdxr.smp1.CompleteServiceGroupType;
 import com.helger.xsds.bdxr.smp1.ObjectFactory;
 
@@ -27,6 +28,7 @@ import com.helger.xsds.bdxr.smp1.ObjectFactory;
 public class BDXR1MarshallerCompleteServiceGroupType extends AbstractBDXR1Marshaller <CompleteServiceGroupType>
 {
   @Deprecated
+  @DevelopersNote ("Since v8.0.5")
   public BDXR1MarshallerCompleteServiceGroupType ()
   {
     this (true);

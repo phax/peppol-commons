@@ -268,7 +268,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * v8.0.5 - work in progress
     * Extracted `BDXR1NamespaceContext` and `BDXR2NamespaceContext`
     * Made XML Schema validation for SMP clients customizable
-    * By default the XML Schema validation for querying service metadata is now enabled (breaking change)  
+    * By default the XML Schema validation for querying service metadata is now enabled (breaking change)
+    * Removed methods deprecated in v7.x
 * v8.0.4 - 2020-04-16
     * Extended the SMP client API with `getAllDocumentTypes` from a service group
 * v8.0.3 - 2020-04-01 (not a joke)

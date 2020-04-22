@@ -539,62 +539,12 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *        The endpoint to be used. May be <code>null</code>.
    * @return <code>null</code> if the endpoint is <code>null</code> if the
    *         endpoint has no certificate.
-   * @deprecated in v7.0.6. Use
-   *             {@link #getEndpointCertificateBytes(EndpointType)} instead
-   */
-  @Deprecated
-  @Nullable
-  public static byte [] getEndpointCertificateString (@Nullable final EndpointType aEndpoint)
-  {
-    return getEndpointCertificateBytes (aEndpoint);
-  }
-
-  /**
-   * Get the certificate bytes from the provided SMP endpoint.
-   *
-   * @param aEndpoint
-   *        The endpoint to be used. May be <code>null</code>.
-   * @return <code>null</code> if the endpoint is <code>null</code> if the
-   *         endpoint has no certificate.
    * @since 7.0.6
    */
   @Nullable
   public static byte [] getEndpointCertificateBytes (@Nullable final EndpointType aEndpoint)
   {
     return aEndpoint == null ? null : aEndpoint.getCertificate ();
-  }
-
-  /**
-   * Get the certificate bytes from the specified endpoint.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @deprecated in v7.0.6. Use
-   *             {@link #getEndpointCertificateBytes(IParticipantIdentifier,IDocumentTypeIdentifier,IProcessIdentifier,ISMPTransportProfile)}
-   *             instead
-   */
-  @Deprecated
-  @Nullable
-  public byte [] getEndpointCertificateString (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                               @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                               @Nonnull final IProcessIdentifier aProcessID,
-                                               @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    return getEndpointCertificateBytes (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
   }
 
   /**
