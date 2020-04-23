@@ -140,7 +140,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
       final String sID = CodeGenerationHelper.getRowValue (aRow, "id");
       final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
       final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
-                                                                                                            "deprecated"));
+                                                                                                          "deprecated"));
       final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
         throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
@@ -174,7 +174,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
         final String sID = CodeGenerationHelper.getRowValue (aRow, "id");
         final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
         final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
-                                                                                                              "deprecated"));
+                                                                                                            "deprecated"));
         final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
         if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
           throw new IllegalStateException ("Code list entry is deprecated but there is no deprecated-since entry");
@@ -441,7 +441,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
       final String sIssuingAgency = CodeGenerationHelper.getRowValue (aRow, "issuingagency");
       final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
       final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
-                                                                                                            "deprecated"));
+                                                                                                          "deprecated"));
       final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
       final String sStructure = CodeGenerationHelper.getRowValue (aRow, "structure");
       final String sDisplay = CodeGenerationHelper.getRowValue (aRow, "display");
@@ -499,7 +499,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
         final String sIssuingAgency = CodeGenerationHelper.getRowValue (aRow, "issuingagency");
         final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
         final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
-                                                                                                              "deprecated"));
+                                                                                                            "deprecated"));
         final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
         final String sStructure = CodeGenerationHelper.getRowValue (aRow, "structure");
         final String sDisplay = CodeGenerationHelper.getRowValue (aRow, "display");
@@ -526,8 +526,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
                           " and should not be used to issue new identifiers!</b><br>");
         }
         if (StringHelper.hasText (sStructure))
-          jEnumConst.javadoc ()
-                    .add ("\nStructure of the code: " + CodeGenerationHelper.maskHtml (sStructure) + "<br>");
+          jEnumConst.javadoc ().add ("\nStructure of the code: " + CodeGenerationHelper.maskHtml (sStructure) + "<br>");
         if (StringHelper.hasText (sDisplay))
           jEnumConst.javadoc ().add ("\nDisplay requirements: " + CodeGenerationHelper.maskHtml (sDisplay) + "<br>");
         if (StringHelper.hasText (sExamples))
@@ -652,7 +651,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
       final String sID = CodeGenerationHelper.getRowValue (aRow, "id");
       final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
       final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
-                                                                                                            "deprecated"));
+                                                                                                          "deprecated"));
       final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
 
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
@@ -688,7 +687,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
         final String sID = CodeGenerationHelper.getRowValue (aRow, "id");
         final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
         final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
-                                                                                                              "deprecated"));
+                                                                                                            "deprecated"));
         final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
 
         // Prepend the scheme, if it is non-default
@@ -852,7 +851,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
       final String sProfileID = CodeGenerationHelper.getRowValue (aRow, "profileid");
       final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
       final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
-                                                                                                            "deprecated"));
+                                                                                                          "deprecated"));
       final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
 
       if (bDeprecated && StringHelper.hasNoText (sDeprecatedSince))
@@ -886,7 +885,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
         final String sProfileID = CodeGenerationHelper.getRowValue (aRow, "profileid");
         final String sSince = CodeGenerationHelper.getRowValue (aRow, "since");
         final boolean bDeprecated = CodeGenerationHelper.parseDeprecated (CodeGenerationHelper.getRowValue (aRow,
-                                                                                                              "deprecated"));
+                                                                                                            "deprecated"));
         final String sDeprecatedSince = CodeGenerationHelper.getRowValue (aRow, "deprecated-since");
 
         // Prepend the scheme, if it is non-default
@@ -997,7 +996,7 @@ public final class MainCreatePredefinedEnumsFromExcel_v5
     public CodeListFile (@Nonnull final String sFilenamePart,
                          @Nonnull final IThrowingConsumer <? super Sheet, Exception> aHandler)
     {
-      m_aFile = new File ("src/test/resources/codelists/PEPPOL Code Lists - " +
+      m_aFile = new File ("src/test/resources/codelists/old/PEPPOL Code Lists - " +
                           sFilenamePart +
                           " v" +
                           CODELIST_VERSION.getAsString (false) +
