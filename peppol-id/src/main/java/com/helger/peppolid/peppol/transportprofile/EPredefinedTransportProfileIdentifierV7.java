@@ -40,11 +40,12 @@ public enum EPredefinedTransportProfileIdentifierV7
     busdox_transport_start("START", "1.0.1", "busdox-transport-start", Version.parse("1.0.0"), true),
 
     /**
-     * <code>busdox-transport-as2-ver1p0</code><br>
+     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>busdox-transport-as2-ver1p0</code><br>
      * 
      * @since code list 1.0.0
      */
-    busdox_transport_as2_ver1p0("AS2", "1.0", "busdox-transport-as2-ver1p0", Version.parse("1.0.0"), false),
+    @Deprecated
+    busdox_transport_as2_ver1p0("AS2", "1.0", "busdox-transport-as2-ver1p0", Version.parse("1.0.0"), true),
 
     /**
      * <b>This item is deprecated since version 3 and should not be used to issue new identifiers!</b><br><code>peppol-transport-as4-v1_0</code><br>
@@ -75,6 +76,7 @@ public enum EPredefinedTransportProfileIdentifierV7
     /**
      * Same as {@link #busdox_transport_as2_ver1p0}
      */
+    @Deprecated
     public static final EPredefinedTransportProfileIdentifierV7 AS2_1_0 = EPredefinedTransportProfileIdentifierV7 .busdox_transport_as2_ver1p0;
     /**
      * Same as {@link #peppol_transport_as4_v1_0}

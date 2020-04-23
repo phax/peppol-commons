@@ -229,7 +229,7 @@ Maximum 46 characters for the identifier itself</structure>
     <display>None</display>
     <validation-rules>RegEx: .{4,50}</validation-rules>
   </identifier-scheme>
-  <identifier-scheme schemeid="SG:UEN" country="international" schemename="Singapore Nationwide E-Invoice Framework" agencyname="lnfocomm Media Development Authority" iso6523="0195" since="4" deprecated="false">
+  <identifier-scheme schemeid="SG:UEN" country="SG" schemename="Singapore Nationwide E-Invoice Framework" agencyname="lnfocomm Media Development Authority" iso6523="0195" since="4" deprecated="false">
     <structure>The code comprises of 3 fields
 1st field = ICD
 2nd field = Special identifier (e.g. country identifier, test identifier, etc)
@@ -323,6 +323,18 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
     <validation-rules>RegEx: [0-9]{0,12}(\-[0-9a-zA-Z]{0,30}(\-[0-9]{2}))</validation-rules>
     <usage>Each part is somehow optional</usage>
   </identifier-scheme>
+  <identifier-scheme schemeid="BE:EN" country="BE" schemename="Numero d'entreprise / ondernemingsnummer / Unternehmensnummer" agencyname="Banque-Carrefour des Entreprises (BCE) / Kruispuntbank van Ondernemingen (KBO) / Zentrale Datenbank der Unternehmen (ZOU)&#xA;Service public fédéral Economie, P.M.E. Classes moyennes et Energie" iso6523="0208" since="7" deprecated="false">
+    <structure>10 numeric characters.
+1. Enterprise identification number: the first digit has to be "0" or "1"
+2. Establishment unit identification number: the first digit has to be "2".
+The two last characters are check digits. They are the result of the following computation: 97 - ((8 first digits) modulo 97).</structure>
+    <display>The identification number can be displayed in the following ways:
+For enterprise numbers:
+- a group of four digits, then two groups of three digits, each group separated by a dot. Example: 1234.456.789
+- one digit, then three groups of three digits, each separated by a dot. Example: 1.234.456.789
+For establishment unit numbers:
+- one digit, then three groups of three digits, each separated by a dot. Example: 2.123.456.789</display>
+  </identifier-scheme>
   <identifier-scheme schemeid="DK:CPR" country="DK" schemename="Danish Ministry of the Interior and Health" agencyname="Danish Ministry of the Interior and Health" iso6523="9901" since="1.0.0" deprecated="false">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
     <display>None</display>
@@ -342,7 +354,7 @@ Taks: validate Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</validation-r
     <examples>DK26769388</examples>
     <usage>Propose to deprecate (only 7 identifiers, only IBM - all look like test)</usage>
   </identifier-scheme>
-  <identifier-scheme schemeid="IT:VAT" country="IT" schemename="Ufficio responsabile gestione partite IVA" iso6523="9906" since="1.0.0" deprecated="true" deprecated-since="7">
+  <identifier-scheme schemeid="IT:VAT" country="IT" schemename="Ufficio responsabile gestione partite IVA" iso6523="9906" since="1.0.0" deprecated="false">
     <examples>IT06363391001</examples>
     <validation-rules>RegEx: IT[0-9]{11}
 first 7: company identifiers
@@ -350,7 +362,7 @@ next 3: province of residence (between "001" and "100"; or "120", "121", "888" "
 Last: check digit
 Check digit: Luhn</validation-rules>
   </identifier-scheme>
-  <identifier-scheme schemeid="IT:CF" country="IT" schemename="Codice Fiscale" agencyname="TAX Authority" iso6523="9907" since="1.0.0" deprecated="false">
+  <identifier-scheme schemeid="IT:CF" country="IT" schemename="TAX Authority" agencyname="TAX Authority" iso6523="9907" since="1.0.0" deprecated="false">
     <examples>RSSBBR69C48F839A</examples>
     <validation-rules>RegEx: [0-9]{11} (company identification)
 first 7: company identifiers
@@ -376,20 +388,20 @@ Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</validation-rules>
 Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</validation-rules>
     <usage>Numerical part is the OrgNumber</usage>
   </identifier-scheme>
-  <identifier-scheme schemeid="HU:VAT" country="HU" schemename="Hungary VAT number" iso6523="9910" since="1.0.0" deprecated="true" deprecated-since="7">
+  <identifier-scheme schemeid="HU:VAT" country="HU" schemename="Hungary VAT number" iso6523="9910" since="1.0.0" deprecated="false">
     <validation-rules>RegEx: HU[0-9]{8}
 Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu/anum.py</validation-rules>
   </identifier-scheme>
-  <identifier-scheme schemeid="EU:VAT" country="international" schemename="National ministries of Economy" iso6523="9912" since="1.0.0" deprecated="false">
+  <identifier-scheme schemeid="EU:VAT" country="international" schemename="National ministries of Economy" iso6523="9912" since="1.0.0" deprecated="true" deprecated-since="1.1.0">
     <structure>Must start with the country code</structure>
     <validation-rules>RegEx: [A-Z]{2}[A-Z0-9]{,20}</validation-rules>
     <usage>Proposed to undeprecate; longest known is 18 chars (incl. country code)
-Deprecated in 1.1.0; undeprecated in v6</usage>
+Deprecated in 1.1.0</usage>
   </identifier-scheme>
   <identifier-scheme schemeid="EU:REID" country="international" schemename="Business Registers Network" agencyname="Business Registers Network" iso6523="9913" since="1.0.0" deprecated="false">
     <usage>Proposed to deprecate</usage>
   </identifier-scheme>
-  <identifier-scheme schemeid="AT:VAT" country="AT" schemename="Österreichische Umsatzsteuer-Identifikationsnummer" iso6523="9914" since="1.0.0" deprecated="true" deprecated-since="7">
+  <identifier-scheme schemeid="AT:VAT" country="AT" schemename="Österreichische Umsatzsteuer-Identifikationsnummer" iso6523="9914" since="1.0.0" deprecated="false">
     <examples>ATU12345678</examples>
   </identifier-scheme>
   <identifier-scheme schemeid="AT:GOV" country="AT" schemename="Österreichisches Verwaltungs bzw. Organisationskennzeichen" iso6523="9915" since="1.0.0" deprecated="false">
@@ -418,46 +430,46 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</struc
     <structure>9 characters in total; letter, number x3, letter, number x3, letter</structure>
     <usage>Propose to deprecated</usage>
   </identifier-scheme>
-  <identifier-scheme schemeid="ES:VAT" country="ES" schemename="Agencia Española de Administración Tributaria" agencyname="Agencia Española de Administración Tributaria" iso6523="9920" since="1.0.2" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="IT:IPA" country="IT" schemename="Codice Destinatario" agencyname="Indice delle Pubbliche Amministrazioni" iso6523="9921" since="1.1.0" deprecated="true" deprecated-since="6">
+  <identifier-scheme schemeid="ES:VAT" country="ES" schemename="Agencia Española de Administración Tributaria" agencyname="Agencia Española de Administración Tributaria" iso6523="9920" since="1.0.2" deprecated="false" />
+  <identifier-scheme schemeid="IT:IPA" country="IT" schemename="Indice delle Pubbliche Amministrazioni" agencyname="Indice delle Pubbliche Amministrazioni" iso6523="9921" since="1.1.0" deprecated="true" deprecated-since="6">
     <usage>Propose to deprecate; not used in BIS 3</usage>
   </identifier-scheme>
-  <identifier-scheme schemeid="AD:VAT" country="AD" schemename="Andorra VAT number" iso6523="9922" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="AL:VAT" country="AL" schemename="Albania VAT number" iso6523="9923" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="BA:VAT" country="BA" schemename="Bosnia and Herzegovina VAT number" iso6523="9924" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="BE:VAT" country="BE" schemename="Belgium VAT number" iso6523="9925" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="BG:VAT" country="BG" schemename="Bulgaria VAT number" iso6523="9926" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="CH:VAT" country="CH" schemename="Switzerland VAT number" iso6523="9927" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="CY:VAT" country="CY" schemename="Cyprus VAT number" iso6523="9928" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="CZ:VAT" country="CZ" schemename="Czech Republic VAT number" iso6523="9929" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="DE:VAT" country="DE" schemename="Germany VAT number" iso6523="9930" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="EE:VAT" country="EE" schemename="Estonia VAT number" iso6523="9931" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="GB:VAT" country="GB" schemename="United Kingdom VAT number" iso6523="9932" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="GR:VAT" country="GR" schemename="Greece VAT number" iso6523="9933" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="HR:VAT" country="HR" schemename="Croatia VAT number" iso6523="9934" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="IE:VAT" country="IE" schemename="Ireland VAT number" iso6523="9935" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="LI:VAT" country="LI" schemename="Liechtenstein VAT number" iso6523="9936" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="LT:VAT" country="LT" schemename="Lithuania VAT number" iso6523="9937" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="LU:VAT" country="LU" schemename="Luxemburg VAT number" iso6523="9938" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="LV:VAT" country="LV" schemename="Latvia VAT number" iso6523="9939" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="MC:VAT" country="MC" schemename="Monaco VAT number" iso6523="9940" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="ME:VAT" country="ME" schemename="Montenegro VAT number" iso6523="9941" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="MK:VAT" country="MK" schemename="Macedonia, the former Yugoslav Republic of VAT number" iso6523="9942" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="MT:VAT" country="MT" schemename="Malta VAT number" iso6523="9943" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="NL:VAT" country="NL" schemename="Netherlands VAT number" iso6523="9944" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="PL:VAT" country="PL" schemename="Poland VAT number" iso6523="9945" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="PT:VAT" country="PT" schemename="Portugal VAT number" iso6523="9946" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="RO:VAT" country="RO" schemename="Romania VAT number" iso6523="9947" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="RS:VAT" country="RS" schemename="Serbia VAT number" iso6523="9948" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="SI:VAT" country="SI" schemename="Slovenia VAT number" iso6523="9949" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="SK:VAT" country="SK" schemename="Slovakia VAT number" iso6523="9950" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="SM:VAT" country="SM" schemename="San Marino VAT number" iso6523="9951" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="TR:VAT" country="TR" schemename="Turkey VAT number" iso6523="9952" since="1.1.0" deprecated="true" deprecated-since="7" />
-  <identifier-scheme schemeid="VA:VAT" country="VA" schemename="Holy See (Vatican City State) VAT number" iso6523="9953" since="1.1.0" deprecated="true" deprecated-since="7" />
+  <identifier-scheme schemeid="AD:VAT" country="AD" schemename="Andorra VAT number" iso6523="9922" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="AL:VAT" country="AL" schemename="Albania VAT number" iso6523="9923" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="BA:VAT" country="BA" schemename="Bosnia and Herzegovina VAT number" iso6523="9924" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="BE:VAT" country="BE" schemename="Belgium VAT number" iso6523="9925" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="BG:VAT" country="BG" schemename="Bulgaria VAT number" iso6523="9926" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="CH:VAT" country="CH" schemename="Switzerland VAT number" iso6523="9927" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="CY:VAT" country="CY" schemename="Cyprus VAT number" iso6523="9928" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="CZ:VAT" country="CZ" schemename="Czech Republic VAT number" iso6523="9929" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="DE:VAT" country="DE" schemename="Germany VAT number" iso6523="9930" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="EE:VAT" country="EE" schemename="Estonia VAT number" iso6523="9931" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="GB:VAT" country="GB" schemename="United Kingdom VAT number" iso6523="9932" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="GR:VAT" country="GR" schemename="Greece VAT number" iso6523="9933" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="HR:VAT" country="HR" schemename="Croatia VAT number" iso6523="9934" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="IE:VAT" country="IE" schemename="Ireland VAT number" iso6523="9935" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="LI:VAT" country="LI" schemename="Liechtenstein VAT number" iso6523="9936" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="LT:VAT" country="LT" schemename="Lithuania VAT number" iso6523="9937" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="LU:VAT" country="LU" schemename="Luxemburg VAT number" iso6523="9938" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="LV:VAT" country="LV" schemename="Latvia VAT number" iso6523="9939" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="MC:VAT" country="MC" schemename="Monaco VAT number" iso6523="9940" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="ME:VAT" country="ME" schemename="Montenegro VAT number" iso6523="9941" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="MK:VAT" country="MK" schemename="Macedonia, the former Yugoslav Republic of VAT number" iso6523="9942" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="MT:VAT" country="MT" schemename="Malta VAT number" iso6523="9943" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="NL:VAT" country="NL" schemename="Netherlands VAT number" iso6523="9944" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="PL:VAT" country="PL" schemename="Poland VAT number" iso6523="9945" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="PT:VAT" country="PT" schemename="Portugal VAT number" iso6523="9946" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="RO:VAT" country="RO" schemename="Romania VAT number" iso6523="9947" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="RS:VAT" country="RS" schemename="Serbia VAT number" iso6523="9948" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="SI:VAT" country="SI" schemename="Slovenia VAT number" iso6523="9949" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="SK:VAT" country="SK" schemename="Slovakia VAT number" iso6523="9950" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="SM:VAT" country="SM" schemename="San Marino VAT number" iso6523="9951" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="TR:VAT" country="TR" schemename="Turkey VAT number" iso6523="9952" since="1.1.0" deprecated="false" />
+  <identifier-scheme schemeid="VA:VAT" country="VA" schemename="Holy See (Vatican City State) VAT number" iso6523="9953" since="1.1.0" deprecated="false" />
   <identifier-scheme schemeid="NL:OIN" country="NL" schemename="Dutch Originator's Identification Number" iso6523="9954" since="1.1.3" deprecated="true" deprecated-since="2">
     <usage>Deprecated by 0190</usage>
   </identifier-scheme>
-  <identifier-scheme schemeid="SE:VAT" country="SE" schemename="Swedish VAT number" iso6523="9955" since="1.2.0" deprecated="true" deprecated-since="7" />
+  <identifier-scheme schemeid="SE:VAT" country="SE" schemename="Swedish VAT number" iso6523="9955" since="1.2.0" deprecated="false" />
   <identifier-scheme schemeid="BE:CBE" country="BE" schemename="Belgian Crossroad Bank of Enterprise number" agencyname="Belgian Crossroad Bank of Enterprises" iso6523="9956" since="1.2.1" deprecated="false">
     <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
     <examples>0899965307</examples>
@@ -465,7 +477,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</struc
 Check digit: mod97
 See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py</validation-rules>
   </identifier-scheme>
-  <identifier-scheme schemeid="FR:VAT" country="FR" schemename="French VAT number" iso6523="9957" since="1.2.1" deprecated="true" deprecated-since="7" />
+  <identifier-scheme schemeid="FR:VAT" country="FR" schemename="French VAT number" iso6523="9957" since="1.2.1" deprecated="false" />
   <identifier-scheme schemeid="DE:LID" country="DE" schemename="German Leitweg ID" iso6523="9958" since="3" deprecated="true" deprecated-since="6">
     <usage>Replaced by 0204</usage>
   </identifier-scheme>

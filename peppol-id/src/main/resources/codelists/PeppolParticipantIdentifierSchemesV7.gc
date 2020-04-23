@@ -71,7 +71,7 @@
           <Data Type="string" />
     </Column>
       <Column Id="examples" Use="optional">
-      <ShortName>Example Values</ShortName>
+      <ShortName>Peppol Examples</ShortName>
           <Data Type="string" />
     </Column>
       <Column Id="validation-rules" Use="optional">
@@ -871,7 +871,7 @@ Maximum 46 characters for the identifier itself</SimpleValue>
         <SimpleValue>0195</SimpleValue>
       </Value>
           <Value ColumnRef="country">
-        <SimpleValue>international</SimpleValue>
+        <SimpleValue>SG</SimpleValue>
       </Value>
           <Value ColumnRef="schemename">
         <SimpleValue>Singapore Nationwide E-Invoice Framework</SimpleValue>
@@ -1156,6 +1156,44 @@ Format: “Up to 12 numeric characters – up to 30 alphanumeric characters – 
     </Row>
       <Row>
       <Value ColumnRef="schemeid">
+        <SimpleValue>BE:EN</SimpleValue>
+      </Value>
+          <Value ColumnRef="iso6523">
+        <SimpleValue>0208</SimpleValue>
+      </Value>
+          <Value ColumnRef="country">
+        <SimpleValue>BE</SimpleValue>
+      </Value>
+          <Value ColumnRef="schemename">
+        <SimpleValue>Numero d'entreprise / ondernemingsnummer / Unternehmensnummer</SimpleValue>
+      </Value>
+          <Value ColumnRef="issuingagency">
+        <SimpleValue>Banque-Carrefour des Entreprises (BCE) / Kruispuntbank van Ondernemingen (KBO) / Zentrale Datenbank der Unternehmen (ZOU)
+Service public fédéral Economie, P.M.E. Classes moyennes et Energie</SimpleValue>
+      </Value>
+          <Value ColumnRef="since">
+        <SimpleValue>7</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated">
+        <SimpleValue>false</SimpleValue>
+      </Value>
+          <Value ColumnRef="structure">
+        <SimpleValue>10 numeric characters.
+1. Enterprise identification number: the first digit has to be "0" or "1"
+2. Establishment unit identification number: the first digit has to be "2".
+The two last characters are check digits. They are the result of the following computation: 97 - ((8 first digits) modulo 97).</SimpleValue>
+      </Value>
+          <Value ColumnRef="display">
+        <SimpleValue>The identification number can be displayed in the following ways:
+For enterprise numbers:
+- a group of four digits, then two groups of three digits, each group separated by a dot. Example: 1234.456.789
+- one digit, then three groups of three digits, each separated by a dot. Example: 1.234.456.789
+For establishment unit numbers:
+- one digit, then three groups of three digits, each separated by a dot. Example: 2.123.456.789</SimpleValue>
+      </Value>
+    </Row>
+      <Row>
+      <Value ColumnRef="schemeid">
         <SimpleValue>DK:CPR</SimpleValue>
       </Value>
           <Value ColumnRef="iso6523">
@@ -1292,10 +1330,7 @@ Taks: validate Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>IT06363391001</SimpleValue>
@@ -1319,7 +1354,7 @@ Check digit: Luhn</SimpleValue>
         <SimpleValue>IT</SimpleValue>
       </Value>
           <Value ColumnRef="schemename">
-        <SimpleValue>Codice Fiscale</SimpleValue>
+        <SimpleValue>TAX Authority</SimpleValue>
       </Value>
           <Value ColumnRef="issuingagency">
         <SimpleValue>TAX Authority</SimpleValue>
@@ -1435,10 +1470,7 @@ Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="validation-rules">
         <SimpleValue>RegEx: HU[0-9]{8}
@@ -1462,7 +1494,10 @@ Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>false</SimpleValue>
+        <SimpleValue>true</SimpleValue>
+      </Value>
+          <Value ColumnRef="deprecated-since">
+        <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="structure">
         <SimpleValue>Must start with the country code</SimpleValue>
@@ -1472,7 +1507,7 @@ Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu
       </Value>
           <Value ColumnRef="usage">
         <SimpleValue>Proposed to undeprecate; longest known is 18 chars (incl. country code)
-Deprecated in 1.1.0; undeprecated in v6</SimpleValue>
+Deprecated in 1.1.0</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1518,10 +1553,7 @@ Deprecated in 1.1.0; undeprecated in v6</SimpleValue>
         <SimpleValue>1.0.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
           <Value ColumnRef="examples">
         <SimpleValue>ATU12345678</SimpleValue>
@@ -1693,10 +1725,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.0.2</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1710,7 +1739,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>IT</SimpleValue>
       </Value>
           <Value ColumnRef="schemename">
-        <SimpleValue>Codice Destinatario</SimpleValue>
+        <SimpleValue>Indice delle Pubbliche Amministrazioni</SimpleValue>
       </Value>
           <Value ColumnRef="issuingagency">
         <SimpleValue>Indice delle Pubbliche Amministrazioni</SimpleValue>
@@ -1745,10 +1774,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1768,10 +1794,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1791,10 +1814,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1814,10 +1834,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1837,10 +1854,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1860,10 +1874,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1883,10 +1894,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1906,10 +1914,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1929,10 +1934,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1952,10 +1954,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1975,10 +1974,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -1998,10 +1994,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2021,10 +2014,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2044,10 +2034,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2067,10 +2054,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2090,10 +2074,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2113,10 +2094,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2136,10 +2114,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2159,10 +2134,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2182,10 +2154,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2205,10 +2174,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2228,10 +2194,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2251,10 +2214,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2274,10 +2234,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2297,10 +2254,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2320,10 +2274,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2343,10 +2294,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2366,10 +2314,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2389,10 +2334,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2412,10 +2354,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2435,10 +2374,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2458,10 +2394,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.1.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2507,10 +2440,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</Simpl
         <SimpleValue>1.2.0</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
@@ -2564,10 +2494,7 @@ See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py</
         <SimpleValue>1.2.1</SimpleValue>
       </Value>
           <Value ColumnRef="deprecated">
-        <SimpleValue>true</SimpleValue>
-      </Value>
-          <Value ColumnRef="deprecated-since">
-        <SimpleValue>7</SimpleValue>
+        <SimpleValue>false</SimpleValue>
       </Value>
     </Row>
       <Row>
