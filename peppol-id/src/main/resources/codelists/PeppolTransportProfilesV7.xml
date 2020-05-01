@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This is an OpenPeppol EDEC Code List.
+Official source: https://docs.peppol.eu/edelivery/codelists/
+
+This file was automatically generated.
+Do NOT edit!-->
+<transport-profiles version="7" entry-count="5">
+  <transport-profile protocol="START" profile-version="1.0.1" profile-id="busdox-transport-start" since="1.0.0" deprecated="true" deprecated-since="1.0.0" />
+  <transport-profile protocol="AS2" profile-version="1.0" profile-id="busdox-transport-as2-ver1p0" since="1.0.0" deprecated="true" deprecated-since="7" />
+  <transport-profile protocol="AS4" profile-version="1.0" profile-id="peppol-transport-as4-v1_0" since="2" deprecated="true" deprecated-since="3" />
+  <transport-profile protocol="AS4" profile-version="2.0" profile-id="peppol-transport-as4-v2_0" since="3" deprecated="false" />
+  <transport-profile protocol="AS2" profile-version="2.0" profile-id="busdox-transport-as2-ver2p0" since="5" deprecated="false" />
+</transport-profiles>

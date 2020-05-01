@@ -48,4 +48,9 @@
     </bindings>
     --> 
   </bindings>
+  <bindings schemaLocation="../resources/schemas/peppol-codelists-v1.xsd">
+    <schemaBindings>
+      <package name="com.helger.peppolid.codelists" />
+    </schemaBindings>
+  </bindings>  
 </bindings>
