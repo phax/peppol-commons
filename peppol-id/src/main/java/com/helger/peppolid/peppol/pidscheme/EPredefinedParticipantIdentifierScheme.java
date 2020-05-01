@@ -1,19 +1,3 @@
-/**
- * Copyright (C) 2015-2020 Philip Helger
- * philip[at]helger[dot]com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.helger.peppolid.peppol.pidscheme;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -412,6 +396,23 @@ public enum EPredefinedParticipantIdentifierScheme
     DE_LWID("DE:LWID", "0204", "DE", "Leitweg-ID", "Koordinierungsstelle f\u00fcr IT-Standards (KoSIT)", Version.parse("6"), false),
 
     /**
+     * Prefix <code>0208</code>, scheme ID <code>BE:EN</code><br>
+     * Structure of the code: 10 numeric characters.
+     *  1. Enterprise identification number: the first digit has to be &quot;0&quot; or &quot;1&quot;
+     *  2. Establishment unit identification number: the first digit has to be &quot;2&quot;.
+     * The two last characters are check digits. They are the result of the following computation: 97 - ((8 first digits) modulo 97).<br>
+     * Display requirements: The identification number can be displayed in the following ways:
+     * For enterprise numbers:
+     * - a group of four digits, then two groups of three digits, each group separated by a dot. Example: 1234.456.789
+     * - one digit, then three groups of three digits, each separated by a dot. Example: 1.234.456.789
+     * For establishment unit numbers:
+     * - one digit, then three groups of three digits, each separated by a dot. Example: 2.123.456.789<br>
+     * 
+     * @since code list 7
+     */
+    BE_EN("BE:EN", "0208", "BE", "Numero d'entreprise / ondernemingsnummer / Unternehmensnummer", "Banque-Carrefour des Entreprises (BCE) / Kruispuntbank van Ondernemingen (KBO) / Zentrale Datenbank der Unternehmen (ZOU)\nService public f\u00e9d\u00e9ral Economie, P.M.E. Classes moyennes et Energie", Version.parse("7"), false),
+
+    /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
      * Structure of the code: 1) First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
@@ -497,7 +498,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
      * Structure of the code: Must start with the country code<br>
      * Usage information: Proposed to undeprecate; longest known is 18 chars (incl. country code)
-     * Deprecated in 1.1.0; undeprecated in v6<br>
+     * Deprecated in 1.1.0<br>
      * 
      * @since code list 1.0.0
      */

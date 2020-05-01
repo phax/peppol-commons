@@ -265,6 +265,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.0.6 - work in progress
+   * Updated to official Peppol Codelist v7
 * v8.0.5 - 2020-04-22
     * Extracted `BDXR1NamespaceContext` and `BDXR2NamespaceContext`
     * Made XML Schema validation for SMP clients customizable

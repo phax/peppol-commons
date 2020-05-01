@@ -36,9 +36,14 @@ public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, 
 
   /**
    * @return The ID of the corresponding PEPPOL BIS.
+   * @deprecated Since v8.0.6. No longer supported
    */
+  @Deprecated
   @Nonnull
-  String getBISID ();
+  default String getBISID ()
+  {
+    return "";
+  }
 
   /**
    * @return The {@link PeppolProcessIdentifier} version of this predefined
@@ -50,14 +55,24 @@ public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, 
   /**
    * @return The internal code list version in which the identifier was added.
    *         Never <code>null</code>.
+   * @deprecated Since v8.0.6. No longer supported
    */
+  @Deprecated
   @Nonnull
-  Version getSince ();
+  default Version getSince ()
+  {
+    return new Version (0);
+  }
 
   /**
    * @return <code>true</code> if this identifier is deprecated and should no
    *         longer be used, <code>false</code> if not.
    * @since 7.0.0
+   * @deprecated Since v8.0.6. No longer supported
    */
-  boolean isDeprecated ();
+  @Deprecated
+  default boolean isDeprecated ()
+  {
+    return false;
+  }
 }

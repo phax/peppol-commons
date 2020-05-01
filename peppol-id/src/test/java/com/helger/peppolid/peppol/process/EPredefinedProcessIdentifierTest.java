@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
-import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 
 /**
@@ -40,14 +39,10 @@ public final class EPredefinedProcessIdentifierTest
     {
       assertTrue (StringHelper.hasText (e.getScheme ()));
       assertTrue (StringHelper.hasText (e.getValue ()));
-      if (false)
-        if (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (e.getScheme ()))
-          assertTrue (StringHelper.hasText (e.getBISID ()));
       assertSame (e, EPredefinedProcessIdentifier.valueOf (e.name ()));
       assertSame (e, EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (e));
     }
     assertNull (EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (null));
-    assertNull (EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (new SimpleProcessIdentifier ("bla",
-                                                                                                          "foo")));
+    assertNull (EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (new SimpleProcessIdentifier ("bla", "foo")));
   }
 }

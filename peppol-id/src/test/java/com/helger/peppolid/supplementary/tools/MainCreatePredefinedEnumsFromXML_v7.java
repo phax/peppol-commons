@@ -17,7 +17,6 @@
 package com.helger.peppolid.supplementary.tools;
 
 import java.io.File;
-import java.net.URISyntaxException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -529,7 +528,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
     }
   }
 
-  private static void _handleTransportProfileIdentifiers (final Document aTPSheet) 
+  private static void _handleTransportProfileIdentifiers (final Document aTPSheet)
   {
     final TransportProfilesType aList = new GenericJAXBMarshaller <> (TransportProfilesType.class, new QName ("dummy")).read (aTPSheet);
 
@@ -655,7 +654,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
 
     public CodeListFile (@Nonnull final String sFilenamePart, @Nonnull final IThrowingConsumer <? super Document, Exception> aHandler)
     {
-      m_aFile = new File ("src/test/resources/codelists/Peppol" +
+      m_aFile = new File ("src/main/resources/codelists/Peppol" +
                           sFilenamePart +
                           "V" +
                           CODELIST_VERSION.getAsString (false) +
