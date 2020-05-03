@@ -44,12 +44,11 @@ public final class MainSMPClientExampleNoDNSLookup
     // Create the main SMP client using the production SML
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu"));
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
-                                                                   EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
-                                                                   EPredefinedProcessIdentifier.BIS4A_V2,
-                                                                   ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
+                                                                   EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
+                                                                   EPredefinedProcessIdentifier.BIS3_BILLING,
+                                                                   ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
 
-    // Endpoint address should be "https://test.erechnung.gv.at/as2"
-    LOGGER.info ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
-                    sEndpointAddress);
+    // Endpoint address should be "https://testap.erechnung.gv.at/as4"
+    LOGGER.info ("The Austrian government test AS4 AP that handles invoices according to Billing BIS 3 is located at: " + sEndpointAddress);
   }
 }

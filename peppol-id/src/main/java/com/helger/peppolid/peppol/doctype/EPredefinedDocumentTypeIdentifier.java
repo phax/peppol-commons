@@ -19,6 +19,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1</code><br>
+     * Same as {@link #VIRTUALCOMPANYDOSSIER_T991_BIS991A}
      * 
      * @since code list 1.0.0
      */
@@ -27,6 +28,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:www.peppol.eu:schema:xsd:VirtualCompanyDossierPackage-1::VirtualCompanyDossierPackage##urn:www.cenbii.eu:transaction:biicoretrdm992:ver0.1:#urn:www.peppol.eu:bis:peppol992a:ver1.0::0.1</code><br>
+     * Same as {@link #VIRTUALCOMPANYDOSSIERPACKAGE_T992_BIS992A}
      * 
      * @since code list 1.0.0
      */
@@ -35,6 +37,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:www.peppol.eu:schema:xsd:CatalogueTemplate-1::CatalogueTemplate##urn:www.cenbii.eu:transaction:biicoretrdm993:ver0.1:#urn:www.peppol.eu:bis:peppol993a:ver1.0::0.1</code><br>
+     * Same as {@link #CATALOGUETEMPLATE_T993_BIS993A}
      * 
      * @since code list 1.0.0
      */
@@ -43,6 +46,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biicoretrdm019:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0</code><br>
+     * Same as {@link #CATALOGUE_T019_BIS1A}
      * 
      * @since code list 1.0.0
      */
@@ -51,6 +55,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm057:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0</code><br>
+     * Same as {@link #APPLICATIONRESPONSE_T057_BIS1A}
      * 
      * @since code list 1.0.0
      */
@@ -59,6 +64,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biicoretrdm058:ver1.0:#urn:www.peppol.eu:bis:peppol1a:ver1.0::2.0</code><br>
+     * Same as {@link #APPLICATIONRESPONSE_T058_BIS1A}
      * 
      * @since code list 1.0.0
      */
@@ -67,6 +73,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:www.cenbii.eu:transaction:biitrns019:ver2.0:extended:urn:www.peppol.eu:bis:peppol1a:ver4.0::2.1</code><br>
+     * Same as {@link #CATALOGUE_T019_BIS1A_V40}
      * 
      * @since code list 1.2.0
      */
@@ -75,6 +82,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0</code><br>
+     * Same as {@link #ORDER_T001_BIS3A}
      * 
      * @since code list 1.0.0
      */
@@ -83,6 +91,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 3 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol03a:ver2.0::2.1</code><br>
+     * Same as {@link #ORDER_T001_BIS03A_V20}
      * 
      * @since code list 1.2.0
      */
@@ -91,6 +100,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0::2.1</code><br>
+     * Same as {@link #ORDER_T001_BIS3A_V20}
      * 
      * @since code list 3
      */
@@ -99,6 +109,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0::2.0</code><br>
+     * Same as {@link #INVOICE_T010_BIS4A}
      * 
      * @since code list 1.0.0
      */
@@ -107,6 +118,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1</code><br>
+     * Same as {@link #INVOICE_T010_BIS4A_V20}
      * 
      * @since code list 1.2.0
      */
@@ -115,6 +127,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0</code><br>
+     * Same as {@link #INVOICE_T010_BIS5A}
      * 
      * @since code list 1.1.0
      */
@@ -123,6 +136,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0</code><br>
+     * Same as {@link #CREDITNOTE_T014_BIS5A}
      * 
      * @since code list 1.1.0
      */
@@ -131,6 +145,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm015:ver1.0:#urn:www.peppol.eu:bis:peppol5a:ver1.0::2.0</code><br>
+     * Same as {@link #INVOICE_T015_BIS5A}
      * 
      * @since code list 1.1.0
      */
@@ -139,6 +154,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1</code><br>
+     * Same as {@link #INVOICE_T010_BIS5A_V20}
      * 
      * @since code list 1.2.0
      */
@@ -147,6 +163,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biitrns014:ver2.0:extended:urn:www.peppol.eu:bis:peppol5a:ver2.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_T014_BIS5A_V20}
      * 
      * @since code list 1.2.0
      */
@@ -155,6 +172,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</code><br>
+     * Same as {@link #ORDER_T001_BIS6A}
      * 
      * @since code list 1.0.0
      */
@@ -163,6 +181,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponseSimple-2::OrderResponseSimple##urn:www.cenbii.eu:transaction:biicoretrdm002:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</code><br>
+     * Same as {@link #ORDERRESPONSESIMPLE_T002_BIS6A}
      * 
      * @since code list 1.0.0
      */
@@ -171,6 +190,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponseSimple-2::OrderResponseSimple##urn:www.cenbii.eu:transaction:biicoretrdm003:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</code><br>
+     * Same as {@link #ORDERRESPONSESIMPLE_T003_BIS6A}
      * 
      * @since code list 1.0.0
      */
@@ -179,6 +199,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</code><br>
+     * Same as {@link #INVOICE_T010_BIS6A}
      * 
      * @since code list 1.0.0
      */
@@ -187,6 +208,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</code><br>
+     * Same as {@link #CREDITNOTE_T014_BIS6A}
      * 
      * @since code list 1.0.0
      */
@@ -195,6 +217,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm015:ver1.0:#urn:www.peppol.eu:bis:peppol6a:ver1.0::2.0</code><br>
+     * Same as {@link #INVOICE_T015_BIS6A}
      * 
      * @since code list 1.0.0
      */
@@ -203,6 +226,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0#urn:www.difi.no:ehf:faktura:ver1::2.0</code><br>
+     * Same as {@link #INVOICE_T010_BIS4A_WWW_DIFI_NO_EHF_FAKTURA_VER1}
      * 
      * @since code list 1.1.1
      */
@@ -211,6 +235,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:www.cenbii.eu:transaction:biicoretrdm014:ver1.0:#urn:www.cenbii.eu:profile:biixx:ver1.0#urn:www.difi.no:ehf:kreditnota:ver1::2.0</code><br>
+     * Same as {@link #CREDITNOTE_T014_WWW_CENBII_EU_PROFILE_BIIXX_VER1_0_WWW_DIFI_NO_EHF_KREDITNOTA_VER1}
      * 
      * @since code list 1.1.1
      */
@@ -218,6 +243,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1</code><br>
+     * Same as {@link #ORDER_T001_BIS28A}
      * 
      * @since code list 1.2.0
      */
@@ -226,6 +252,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 3 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::Order##urn:www.cenbii.eu:transaction:biitrns076:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1</code><br>
+     * Same as {@link #ORDER_T076_BIS28A}
      * 
      * @since code list 1.2.0
      */
@@ -234,6 +261,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:www.cenbii.eu:transaction:biitrns076:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1</code><br>
+     * Same as {@link #ORDER_T076_BIS28A2}
      * 
      * @since code list 3
      */
@@ -242,6 +270,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:www.cenbii.eu:transaction:biitrns016:ver1.0:extended:urn:www.peppol.eu:bis:peppol30a:ver1.0::2.1</code><br>
+     * Same as {@link #DESPATCHADVICE_T016_BIS30A}
      * 
      * @since code list 1.2.0
      */
@@ -250,6 +279,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.cenbii.eu:transaction:biitrns071:ver2.0:extended:urn:www.peppol.eu:bis:peppol36a:ver1.0::2.1</code><br>
+     * Same as {@link #APPLICATIONRESPONSE_T071_BIS36A}
      * 
      * @since code list 1.2.0
      */
@@ -258,6 +288,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</code><br>
+     * Same as {@link #INVOICE_EN16931_PEPPOL_V30}
      * 
      * @since code list 2
      */
@@ -265,6 +296,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_EN16931_PEPPOL_V30}
      * 
      * @since code list 2
      */
@@ -272,6 +304,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0:extended:urn:fdc:peppol-authority.co.uk:spec:ordering:ver1.0::2.1</code><br>
+     * Same as {@link #DHSC_CUSTOMIZED_ORDERING_PROFILE_V1_ORDER}
      * 
      * @since code list 3
      */
@@ -279,6 +312,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::Order##urn:www.cenbii.eu:transaction:biitrns076:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0:extended:urn:fdc:peppol-authority.co.uk:spec:ordering:ver1.0::2.1</code><br>
+     * Same as {@link #DHSC_CUSTOMIZED_ORDERING_PROFILE_V1_ORDER_RESPONSE}
      * 
      * @since code list 3
      */
@@ -286,6 +320,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::D16B</code><br>
+     * Same as {@link #INVOICE_CII_EN16931_PEPPOL_V30}
      * 
      * @since code list 3
      */
@@ -293,6 +328,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2::ExpressionOfInterestRequest##urn:www.cenbii.eu:transaction:biitrdm081:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t001:ver1.0::2.2</code><br>
+     * Same as {@link #EXPRESSION_OF_INTEREST_REQUEST_V1}
      * 
      * @since code list 3
      */
@@ -300,6 +336,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestResponse-2::ExpressionOfInterestResponse##urn:www.cenbii.eu:transaction:biitrdm082:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t002:ver1.0::2.2</code><br>
+     * Same as {@link #EXPRESSION_OF_INTEREST_RESPONSE_V1}
      * 
      * @since code list 3
      */
@@ -307,6 +344,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:TenderStatusRequest-2::TenderStatusRequest##urn:www.cenbii.eu:transaction:biitrdm097:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t003:ver1.0::2.2</code><br>
+     * Same as {@link #TENDER_STATUS_REQUEST_V1}
      * 
      * @since code list 3
      */
@@ -314,6 +352,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CallForTenders-2::CallForTenders##urn:www.cenbii.eu:transaction:biitrdm083:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t004:ver1.0::2.2</code><br>
+     * Same as {@link #CALL_FOR_TENDERS_V1}
      * 
      * @since code list 3
      */
@@ -321,6 +360,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:TenderReceipt-2::TenderReceipt##urn:www.cenbii.eu:transaction:biitrdm045:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t006:ver1.0::2.2</code><br>
+     * Same as {@link #TENDER_RECEIPT_V1}
      * 
      * @since code list 3
      */
@@ -328,6 +368,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Tender-2::Tender##urn:www.cenbii.eu:transaction:biitrdm090:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t005:ver1.0::2.2</code><br>
+     * Same as {@link #TENDER_V1}
      * 
      * @since code list 3
      */
@@ -335,6 +376,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 5 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1</code><br>
+     * Same as {@link #XRECHNUNG_INVOICE_UBL_V11}
      * 
      * @since code list 3
      */
@@ -343,6 +385,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 5 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1</code><br>
+     * Same as {@link #XRECHNUNG_CREDIT_NOTE_UBL_V11}
      * 
      * @since code list 3
      */
@@ -351,6 +394,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 5 and should not be used to issue new identifiers!</b><br><code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::D16B</code><br>
+     * Same as {@link #XRECHNUNG_INVOICE_CII_V11}
      * 
      * @since code list 3
      */
@@ -359,6 +403,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2::UtilityStatement##OIOUBL-2.02::2.0</code><br>
+     * Same as {@link #OIOUBL_UTILITY_STATEMENT_202}
      * 
      * @since code list 3
      */
@@ -366,6 +411,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Reminder-2::Reminder##OIOUBL-2.02::2.0</code><br>
+     * Same as {@link #OIOUBL_REMINDER_202}
      * 
      * @since code list 3
      */
@@ -373,6 +419,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:UBL.BE:1.0.0.20180214::2.1</code><br>
+     * Same as {@link #UBL_BE_INVOICE_UBL_V11}
      * 
      * @since code list 3
      */
@@ -380,6 +427,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:UBL.BE:1.0.0.20180214::2.1</code><br>
+     * Same as {@link #UBL_BE_CREDIT_NOTE_UBL_V11}
      * 
      * @since code list 3
      */
@@ -387,6 +435,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:www.peppol.eu:transaction:biitrns111:ver1.0::2.1</code><br>
+     * Same as {@link #APPLICATIONRESPONSE_WWW_PEPPOL_EU_TRANSACTION_BIITRNS111_VER1_0}
      * 
      * @since code list 4
      */
@@ -395,6 +444,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:fdc:peppol.eu:poacc:trns:catalogue:3::2.1</code><br>
+     * Same as {@link #CATALOGUE_FDC_PEPPOL_EU_POACC_TRNS_CATALOGUE_3}
      * 
      * @since code list 4
      */
@@ -402,6 +452,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:poacc:trns:catalogue_response:3::2.1</code><br>
+     * Same as {@link #APPLICATIONRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_CATALOGUE_RESPONSE_3}
      * 
      * @since code list 4
      */
@@ -409,6 +460,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3::2.1</code><br>
+     * Same as {@link #ORDER_FDC_PEPPOL_EU_POACC_TRNS_ORDER_3}
      * 
      * @since code list 4
      */
@@ -416,6 +468,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:poacc:trns:invoice_response:3::2.1</code><br>
+     * Same as {@link #APPLICATIONRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_INVOICE_RESPONSE_3}
      * 
      * @since code list 4
      */
@@ -423,6 +476,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Catalogue-2::Catalogue##urn:fdc:peppol.eu:poacc:trns:punch_out:3::2.1</code><br>
+     * Same as {@link #CATALOGUE_FDC_PEPPOL_EU_POACC_TRNS_PUNCH_OUT_3}
      * 
      * @since code list 4
      */
@@ -430,6 +484,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response:3::2.1</code><br>
+     * Same as {@link #ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_RESPONSE_3}
      * 
      * @since code list 4
      */
@@ -437,6 +492,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:fdc:peppol.eu:poacc:trns:despatch_advice:3::2.1</code><br>
+     * Same as {@link #DESPATCHADVICE_FDC_PEPPOL_EU_POACC_TRNS_DESPATCH_ADVICE_3}
      * 
      * @since code list 4
      */
@@ -444,6 +500,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_agreement:3::2.1</code><br>
+     * Same as {@link #ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_AGREEMENT_3}
      * 
      * @since code list 4
      */
@@ -451,6 +508,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:poacc:trns:mlr:3::2.1</code><br>
+     * Same as {@link #APPLICATIONRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_MLR_3}
      * 
      * @since code list 4
      */
@@ -458,6 +516,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:nen.nl:nlcius:v1.0::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_FDC_NEN_NL_NLCIUS_V1_0}
      * 
      * @since code list 4
      */
@@ -465,6 +524,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:nen.nl:nlcius:v1.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_FDC_NEN_NL_NLCIUS_V1_0}
      * 
      * @since code list 4
      */
@@ -472,6 +532,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_SG_3_0}
      * 
      * @since code list 4
      */
@@ -479,6 +540,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br><code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_SG_3_0}
      * 
      * @since code list 4
      */
@@ -487,6 +549,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:sg:3.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_SG_3_02}
      * 
      * @since code list 6
      */
@@ -494,6 +557,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_2}
      * 
      * @since code list 5
      */
@@ -501,6 +565,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_2}
      * 
      * @since code list 5
      */
@@ -508,6 +573,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::D16B</code><br>
+     * Same as {@link #CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_2}
      * 
      * @since code list 5
      */
@@ -515,6 +581,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:fdc:www.efaktura.gov.pl:ver1.0:trns:account_corr:ver1.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_FDC_WWW_EFAKTURA_GOV_PL_VER1_0_TRNS_ACCOUNT_CORR_VER1_0}
      * 
      * @since code list 6
      */
@@ -522,6 +589,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0#extended#urn:fdc:www.efaktura.gov.pl:ver1.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_FDC_PEPPOL_EU_2017_POACC_BILLING_3_0_EXTENDED_FDC_WWW_EFAKTURA_GOV_PL_VER1_0}
      * 
      * @since code list 6
      */
@@ -529,6 +597,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2::ReceiptAdvice##urn:fdc:www.efaktura.gov.pl:ver1.0:trns:receipt_advice:ver1.0::2.1</code><br>
+     * Same as {@link #RECEIPTADVICE_FDC_WWW_EFAKTURA_GOV_PL_VER1_0_TRNS_RECEIPT_ADVICE_VER1_0}
      * 
      * @since code list 6
      */
@@ -536,6 +605,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_AUNZ_3_0}
      * 
      * @since code list 6
      */
@@ -543,6 +613,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_BILLING_INTERNATIONAL_AUNZ_3_0}
      * 
      * @since code list 6
      */
@@ -550,6 +621,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_SELFBILLING_INTERNATIONAL_AUNZ_3_0}
      * 
      * @since code list 6
      */
@@ -557,6 +629,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_CONFORMANT_FDC_PEPPOL_EU_2017_POACC_SELFBILLING_INTERNATIONAL_AUNZ_3_0}
      * 
      * @since code list 6
      */
@@ -564,6 +637,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1</code><br>
+     * Same as {@link #INVOICE_WWW_CENBII_EU_TRANSACTION_BIITRNS010_VER2_0_EXTENDED_WWW_PEPPOL_EU_BIS_PEPPOL4A_VER2_0_EXTENDED_WWW_SIMPLERINVOICING_ORG_SI_SI_UBL_VER1_2}
      * 
      * @since code list 6
      */
@@ -571,6 +645,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1</code><br>
+     * Same as {@link #ORDER_WWW_CENBII_EU_TRANSACTION_BIITRNS001_VER2_0_EXTENDED_WWW_PEPPOL_EU_BIS_PEPPOL3A_VER2_0_EXTENDED_WWW_SIMPLERINVOICING_ORG_SI_SI_UBL_VER1_2}
      * 
      * @since code list 6
      */
@@ -578,6 +653,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_3}
      * 
      * @since code list 7
      */
@@ -585,6 +661,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_3}
      * 
      * @since code list 7
      */
@@ -592,6 +669,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::16B</code><br>
+     * Same as {@link #CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_3}
      * 
      * @since code list 7
      */
@@ -599,6 +677,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_0}
      * 
      * @since code list 7
      */
@@ -606,6 +685,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_0}
      * 
      * @since code list 7
      */
@@ -613,6 +693,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::16B</code><br>
+     * Same as {@link #CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_0}
      * 
      * @since code list 7
      */
@@ -620,6 +701,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_3_CONFORMANT_XOEV_DE_KOSIT_EXTENSION_XRECHNUNG_1_3}
      * 
      * @since code list 7
      */
@@ -627,6 +709,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_3_CONFORMANT_XOEV_DE_KOSIT_EXTENSION_XRECHNUNG_1_3}
      * 
      * @since code list 7
      */
@@ -634,6 +717,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::16B</code><br>
+     * Same as {@link #CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_1_3_CONFORMANT_XOEV_DE_KOSIT_EXTENSION_XRECHNUNG_1_3}
      * 
      * @since code list 7
      */
@@ -641,6 +725,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:nen.nl:nlcius:v1.0#conformant#urn:fdc:nen.nl:gaccount:v1.0::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_FDC_NEN_NL_NLCIUS_V1_0_CONFORMANT_FDC_NEN_NL_GACCOUNT_V1_0}
      * 
      * @since code list 7
      */
@@ -648,6 +733,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0::2.1</code><br>
+     * Same as {@link #ORDER_FDC_PEPPOL_EU_POACC_TRNS_ORDER_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_0}
      * 
      * @since code list 7
      */
@@ -655,6 +741,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2::OrderChange##urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-change:3.0::2.1</code><br>
+     * Same as {@link #ORDERCHANGE_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CHANGE_3_0}
      * 
      * @since code list 7
      */
@@ -662,6 +749,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderCancellation-2::OrderCancellation##urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-cancellation:3.0::2.1</code><br>
+     * Same as {@link #ORDERCANCELLATION_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CANCELLATION_3_0}
      * 
      * @since code list 7
      */
@@ -669,6 +757,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0::2.1</code><br>
+     * Same as {@link #ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_RESPONSE_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_0}
      * 
      * @since code list 7
      */
@@ -676,6 +765,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017}
      * 
      * @since code list 7
      */
@@ -683,6 +773,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017}
      * 
      * @since code list 7
      */
@@ -690,6 +781,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017::D16B</code><br>
+     * Same as {@link #CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017}
      * 
      * @since code list 7
      */

@@ -54,8 +54,7 @@ public final class SMPClientWithDNSFuncTest
 
   private static final String SMP_USERNAME = MockSMPClientConfig.getSMPUserName ();
   private static final String SMP_PASSWORD = MockSMPClientConfig.getSMPPassword ();
-  private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME,
-                                                                                                    SMP_PASSWORD);
+  private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME, SMP_PASSWORD);
   private static final URI SMP_URI = URLHelper.getAsURI ("http://localhost/");
   private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
@@ -102,6 +101,7 @@ public final class SMPClientWithDNSFuncTest
     // ServiceGroup = participant identifier; GLN = 0088
     final IParticipantIdentifier aServiceGroupID = EPredefinedParticipantIdentifierScheme.GLN.createParticipantIdentifier ("5798000000001");
     // Document type identifier from enumeration
+    @SuppressWarnings ("deprecation")
     final IDocumentTypeIdentifier aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20.getAsDocumentTypeIdentifier ();
     // Main call to the SMP client with the correct SML to use
     final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (URL_PROVIDER,

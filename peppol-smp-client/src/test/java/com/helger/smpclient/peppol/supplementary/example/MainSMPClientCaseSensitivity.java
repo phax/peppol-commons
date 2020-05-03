@@ -40,9 +40,8 @@ public final class MainSMPClientCaseSensitivity
     LOGGER.info ("Participant ID case INsensitive: " +
                  PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierCaseInsensitive (participantId.getScheme ()));
 
-    final SMPClientReadOnly smpClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
-                                                               participantId,
-                                                               ESML.DIGIT_PRODUCTION);
+    final SMPClientReadOnly smpClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, participantId, ESML.DIGIT_PRODUCTION);
+    smpClient.setXMLSchemaValidation (false);
 
     final IDocumentTypeIdentifier doctypeId = PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifierWithDefaultScheme ("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol28a:ver1.0::2.1");
     LOGGER.info ("DocType: " + doctypeId.getURIEncoded ());
@@ -53,10 +52,7 @@ public final class MainSMPClientCaseSensitivity
     LOGGER.info ("Process ID case INsensitive: " +
                  PeppolIdentifierFactory.INSTANCE.isProcessIdentifierCaseInsensitive (processId.getScheme ()));
 
-    EndpointType endpoint = smpClient.getEndpoint (participantId,
-                                                   doctypeId,
-                                                   processId,
-                                                   ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
+    EndpointType endpoint = smpClient.getEndpoint (participantId, doctypeId, processId, ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
     LOGGER.info ("1 - " + endpoint);
 
     // Won't work, because process identifiers in PEPPOL are case sensitive!

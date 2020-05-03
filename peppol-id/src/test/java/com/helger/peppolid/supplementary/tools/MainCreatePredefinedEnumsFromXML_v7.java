@@ -156,6 +156,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
           if (bDeprecated)
             aShortcut.annotate (Deprecated.class);
           aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
+          jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
         }
       }
 
@@ -333,7 +334,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         final String sExamples = aRow.getExamples ();
         final String sUsage = aRow.getUsage ();
 
-        final JEnumConstant jEnumConst = jEnum.enumConstant (RegExHelper.getAsIdentifier (sSchemeID));
+        final String sEnumConstName = RegExHelper.getAsIdentifier (sSchemeID);
+        final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         jEnumConst.arg (JExpr.lit (sSchemeID));
         jEnumConst.arg (JExpr.lit (sISO6523));
         jEnumConst.arg (JExpr.lit (sCountryCode));
@@ -447,6 +449,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7
   {
     final ProcessesType aList = new GenericJAXBMarshaller <> (ProcessesType.class, new QName ("dummy")).read (aProcessSheet);
 
+    final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
+
     // Create Java source
     try
     {
@@ -463,12 +467,39 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         final String sValue = aRow.getValue ();
 
         // Prepend the scheme, if it is non-default
-        final String sIDPrefix = (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme) ? "" : sScheme + "-");
+        final String sIDPrefix = PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme) ? "" : sScheme + "-";
         final String sEnumConstName = RegExHelper.getAsIdentifier (sIDPrefix + sValue);
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         jEnumConst.arg (JExpr.lit (sScheme));
         jEnumConst.arg (JExpr.lit (sValue));
         jEnumConst.javadoc ().add ("<code>" + sValue + "</code><br>");
+
+        // Also create a shortcut for more readable names
+        final String sShortcutName = CodeGenerationHelper.createShortcutProcess (sScheme, sValue);
+        if (sShortcutName != null)
+        {
+          // Make unique name
+          int nNext = 2;
+          String sRealShortcutName = sShortcutName;
+          while (!aAllShortcutNames.add (sRealShortcutName))
+          {
+            sRealShortcutName = sShortcutName + nNext;
+            nNext++;
+          }
+
+          final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL, jEnum, sRealShortcutName, jEnumConst);
+          aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
+          jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
+        }
+      }
+
+      {
+        // Deprecated names
+        final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL,
+                                                 jEnum,
+                                                 "BIS5A_V3",
+                                                 jEnum.fields ().get ("BIS3_BILLING"));
+        aShortcut.annotate (Deprecated.class);
       }
 
       // fields
@@ -575,14 +606,16 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         final String sShortcutName = CodeGenerationHelper.createShortcutTransportProtocolName (sProtocol + "_" + sProfileVersion);
         if (sShortcutName != null)
         {
-          if (!aAllShortcutNames.add (sShortcutName))
+          final String sRealShortcutName = sShortcutName;
+          if (!aAllShortcutNames.add (sRealShortcutName))
             throw new IllegalStateException ("The Transport Profile shortcut '" +
-                                             sShortcutName +
+                                             sRealShortcutName +
                                              "' is already used - please review the algorithm!");
-          final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL, jEnum, sShortcutName, jEnumConst);
+          final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL, jEnum, sRealShortcutName, jEnumConst);
           if (bDeprecated)
             aShortcut.annotate (Deprecated.class);
           aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
+          jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
         }
       }
 

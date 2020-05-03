@@ -23,66 +23,79 @@ public enum EPredefinedProcessIdentifier
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii01:ver1.0</code><br>
+     * Same as {@link #BIS1A_V1}
      */
     urn_www_cenbii_eu_profile_bii01_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii01:ver1.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii01:ver2.0</code><br>
+     * Same as {@link #BIS1A_V2}
      */
     urn_www_cenbii_eu_profile_bii01_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii01:ver2.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii03:ver1.0</code><br>
+     * Same as {@link #BIS3A_V1}
      */
     urn_www_cenbii_eu_profile_bii03_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii03:ver1.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii03:ver2.0</code><br>
+     * Same as {@link #BIS3A_V2}
      */
     urn_www_cenbii_eu_profile_bii03_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii03:ver2.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii04:ver1.0</code><br>
+     * Same as {@link #BIS4A_V1}
      */
     urn_www_cenbii_eu_profile_bii04_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii04:ver1.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii04:ver2.0</code><br>
+     * Same as {@link #BIS4A_V2}
      */
     urn_www_cenbii_eu_profile_bii04_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii04:ver2.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii05:ver1.0</code><br>
+     * Same as {@link #BIS5A_V1}
      */
     urn_www_cenbii_eu_profile_bii05_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii05:ver1.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii05:ver2.0</code><br>
+     * Same as {@link #BIS5A_V2}
      */
     urn_www_cenbii_eu_profile_bii05_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii05:ver2.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii06:ver1.0</code><br>
+     * Same as {@link #BIS6A_V1}
      */
     urn_www_cenbii_eu_profile_bii06_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii06:ver1.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii28:ver2.0</code><br>
+     * Same as {@link #BIS28A_V2}
      */
     urn_www_cenbii_eu_profile_bii28_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii28:ver2.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii30:ver2.0</code><br>
+     * Same as {@link #BIS30A_V2}
      */
     urn_www_cenbii_eu_profile_bii30_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii30:ver2.0"),
 
     /**
      * <code>urn:www.cenbii.eu:profile:bii36:ver2.0</code><br>
+     * Same as {@link #BIS36A_V2}
      */
     urn_www_cenbii_eu_profile_bii36_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii36:ver2.0"),
 
     /**
      * <code>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</code><br>
+     * Same as {@link #BIS3_BILLING}
      */
     urn_fdc_peppol_eu_2017_poacc_billing_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0"),
 
@@ -118,46 +131,55 @@ public enum EPredefinedProcessIdentifier
 
     /**
      * <code>urn:fdc:peppol.eu:poacc:bis:catalogue_only:3</code><br>
+     * Same as {@link #BIS3_CATALOGUE}
      */
     urn_fdc_peppol_eu_poacc_bis_catalogue_only_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:catalogue_only:3"),
 
     /**
      * <code>urn:fdc:peppol.eu:poacc:bis:catalogue_wo_response:3</code><br>
+     * Same as {@link #BIS3_CATALOGUE_WO_RESPONSE}
      */
     urn_fdc_peppol_eu_poacc_bis_catalogue_wo_response_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:catalogue_wo_response:3"),
 
     /**
      * <code>urn:fdc:peppol.eu:poacc:bis:ordering:3</code><br>
+     * Same as {@link #BIS3_ORDERING}
      */
     urn_fdc_peppol_eu_poacc_bis_ordering_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:ordering:3"),
 
     /**
      * <code>urn:fdc:peppol.eu:poacc:bis:order_only:3</code><br>
+     * Same as {@link #BIS3_ORDER_ONLY}
      */
     urn_fdc_peppol_eu_poacc_bis_order_only_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:order_only:3"),
 
     /**
      * <code>urn:fdc:peppol.eu:poacc:bis:invoice_response:3</code><br>
+     * Same as {@link #BIS3_INVOICE_RESPONSE}
      */
     urn_fdc_peppol_eu_poacc_bis_invoice_response_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:invoice_response:3"),
 
     /**
      * <code>urn:fdc:peppol.eu:poacc:bis:punch_out:3</code><br>
+     * Same as {@link #BIS3_PUNCH_OUT}
      */
     urn_fdc_peppol_eu_poacc_bis_punch_out_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:punch_out:3"),
 
     /**
      * <code>urn:fdc:peppol.eu:poacc:bis:despatch_advice:3</code><br>
+     * Same as {@link #BIS3_DESPATCH_ADVICE}
      */
     urn_fdc_peppol_eu_poacc_bis_despatch_advice_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:despatch_advice:3"),
 
     /**
      * <code>urn:fdc:peppol.eu:poacc:bis:order_agreement:3</code><br>
+     * Same as {@link #BIS3_ORDER_AGREEMENT}
      */
     urn_fdc_peppol_eu_poacc_bis_order_agreement_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:order_agreement:3"),
 
     /**
      * <code>urn:fdc:peppol.eu:poacc:bis:mlr:3</code><br>
+     * Same as {@link #BIS3_MLR}
      */
     urn_fdc_peppol_eu_poacc_bis_mlr_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:mlr:3"),
 
@@ -185,6 +207,96 @@ public enum EPredefinedProcessIdentifier
      * <code>urn:fdc:peppol.eu:poacc:en16931:any</code><br>
      */
     urn_fdc_peppol_eu_poacc_en16931_any("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:en16931:any");
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS1A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver1_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver2_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS1A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver2_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver1_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS3A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver1_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver2_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS3A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver2_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver1_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS4A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver1_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver2_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS4A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver2_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver1_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS5A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver1_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver2_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS5A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver2_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii06_ver1_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS6A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii06_ver1_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii28_ver2_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS28A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii28_ver2_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii30_ver2_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS30A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii30_ver2_0;
+    /**
+     * Same as {@link #urn_www_cenbii_eu_profile_bii36_ver2_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS36A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii36_ver2_0;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_2017_poacc_billing_01_1_0}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_BILLING = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_2017_poacc_billing_01_1_0;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_catalogue_only_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_CATALOGUE = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_catalogue_only_3;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_catalogue_wo_response_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_CATALOGUE_WO_RESPONSE = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_catalogue_wo_response_3;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_ordering_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_ORDERING = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_ordering_3;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_order_only_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_ORDER_ONLY = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_order_only_3;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_invoice_response_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_INVOICE_RESPONSE = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_invoice_response_3;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_punch_out_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_PUNCH_OUT = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_punch_out_3;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_despatch_advice_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_DESPATCH_ADVICE = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_despatch_advice_3;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_order_agreement_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_ORDER_AGREEMENT = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_order_agreement_3;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_mlr_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_MLR = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_mlr_3;
+    @Deprecated
+    public static final EPredefinedProcessIdentifier BIS5A_V3 = BIS3_BILLING;
     private final String m_sScheme;
     private final String m_sValue;
 

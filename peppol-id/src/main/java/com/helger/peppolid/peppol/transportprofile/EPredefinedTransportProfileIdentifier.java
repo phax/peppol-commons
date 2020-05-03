@@ -17,6 +17,7 @@ public enum EPredefinedTransportProfileIdentifier
 
     /**
      * <b>This item is deprecated since version 1.0.0 and should not be used to issue new identifiers!</b><br><code>busdox-transport-start</code><br>
+     * Same as {@link #START_1_0_1}
      * 
      * @since code list 1.0.0
      */
@@ -25,6 +26,7 @@ public enum EPredefinedTransportProfileIdentifier
 
     /**
      * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>busdox-transport-as2-ver1p0</code><br>
+     * Same as {@link #AS2_1_0}
      * 
      * @since code list 1.0.0
      */
@@ -33,6 +35,7 @@ public enum EPredefinedTransportProfileIdentifier
 
     /**
      * <b>This item is deprecated since version 3 and should not be used to issue new identifiers!</b><br><code>peppol-transport-as4-v1_0</code><br>
+     * Same as {@link #AS4_1_0}
      * 
      * @since code list 2
      */
@@ -41,6 +44,7 @@ public enum EPredefinedTransportProfileIdentifier
 
     /**
      * <code>peppol-transport-as4-v2_0</code><br>
+     * Same as {@link #AS4_2_0}
      * 
      * @since code list 3
      */
@@ -48,6 +52,7 @@ public enum EPredefinedTransportProfileIdentifier
 
     /**
      * <code>busdox-transport-as2-ver2p0</code><br>
+     * Same as {@link #AS2_2_0}
      * 
      * @since code list 5
      */

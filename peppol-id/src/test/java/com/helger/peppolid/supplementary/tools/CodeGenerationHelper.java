@@ -23,7 +23,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 
 @Immutable
@@ -198,12 +200,47 @@ final class CodeGenerationHelper
 
   @Nullable
   @Nonempty
-  public static String createShortcutBISIDName (@Nonnull final String sBISID)
+  public static String createShortcutProcess (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
-    String ret = sBISID;
-    ret = StringHelper.removeAll (ret, ' ');
-    ret = StringHelper.replaceAll (ret, '.', '_');
-    return ret.toUpperCase (Locale.US);
+    if (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme))
+    {
+      String [] aGroups;
+
+      // BIS v1
+      aGroups = RegExHelper.getAllMatchingGroupValues ("urn:www.cenbii.eu:profile:bii([0-9]+):ver1.0", sValue);
+      if (aGroups != null && aGroups.length == 1)
+        return "BIS" + Integer.parseInt (aGroups[0]) + "A_V1";
+
+      // BIS v2
+      aGroups = RegExHelper.getAllMatchingGroupValues ("urn:www.cenbii.eu:profile:bii([0-9]+):ver2.0", sValue);
+      if (aGroups != null && aGroups.length == 1)
+        return "BIS" + Integer.parseInt (aGroups[0]) + "A_V2";
+
+      // BIS v3
+      if ("urn:fdc:peppol.eu:2017:poacc:billing:01:1.0".equals (sValue))
+        return "BIS3_BILLING";
+      if ("urn:fdc:peppol.eu:poacc:bis:catalogue_only:3".equals (sValue))
+        return "BIS3_CATALOGUE";
+      if ("urn:fdc:peppol.eu:poacc:bis:catalogue_wo_response:3".equals (sValue))
+        return "BIS3_CATALOGUE_WO_RESPONSE";
+      if ("urn:fdc:peppol.eu:poacc:bis:ordering:3".equals (sValue))
+        return "BIS3_ORDERING";
+      if ("urn:fdc:peppol.eu:poacc:bis:order_only:3".equals (sValue))
+        return "BIS3_ORDER_ONLY";
+      if ("urn:fdc:peppol.eu:poacc:bis:invoice_response:3".equals (sValue))
+        return "BIS3_INVOICE_RESPONSE";
+      if ("urn:fdc:peppol.eu:poacc:bis:punch_out:3".equals (sValue))
+        return "BIS3_PUNCH_OUT";
+      if ("urn:fdc:peppol.eu:poacc:bis:despatch_advice:3".equals (sValue))
+        return "BIS3_DESPATCH_ADVICE";
+      if ("urn:fdc:peppol.eu:poacc:bis:order_agreement:3".equals (sValue))
+        return "BIS3_ORDER_AGREEMENT";
+      if ("urn:fdc:peppol.eu:poacc:bis:mlr:3".equals (sValue))
+        return "BIS3_MLR";
+
+    }
+
+    return null;
   }
 
   @Nullable
