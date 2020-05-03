@@ -24,6 +24,7 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.peppolid.CIdentifier;
 import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xsds.xmldsig.CXMLDSig;
@@ -37,8 +38,6 @@ import com.helger.xsds.xmldsig.CXMLDSig;
  */
 public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  public static final ClassPathResource XSD1 = new ClassPathResource ("/schemas/Identifiers-1.0.xsd",
-                                                                      AbstractSMPMarshaller.class.getClassLoader ());
   public static final ClassPathResource XSD2 = new ClassPathResource ("/schemas/ws-addr.xsd",
                                                                       AbstractSMPMarshaller.class.getClassLoader ());
   public static final ClassPathResource XSD3 = new ClassPathResource ("/schemas/ServiceMetadataPublishingTypes-1.0.xsd",
@@ -50,7 +49,7 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarsha
   {
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
     aNSContext.addMapping ("smp", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());
-    aNSContext.addMapping ("id", "http://busdox.org/transport/identifiers/1.0/");
+    aNSContext.addMapping ("id", CIdentifier.NS_URI_PEPPOL_IDENTIFIERS);
     aNSContext.addMapping (CXMLDSig.DEFAULT_PREFIX, CXMLDSig.NAMESPACE_URI);
     aNSContext.addMapping ("wsa", "http://www.w3.org/2005/08/addressing");
     return aNSContext;
@@ -61,7 +60,7 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarsha
                                 @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     super (aType,
-           bValidationEnabled ? new CommonsArrayList <> (CXMLDSig.getXSDResource (), XSD1, XSD2, XSD3) : null,
+           bValidationEnabled ? new CommonsArrayList <> (CXMLDSig.getXSDResource (), CIdentifier.XSD_PEPPOL_IDENTIFIERS, XSD2, XSD3) : null,
            aWrapper);
 
     setNamespaceContext (createDefaultNamespaceContext ());

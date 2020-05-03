@@ -22,6 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
 
@@ -44,6 +45,11 @@ public final class CIdentifier
    * The delimiter used between the identifier scheme and the value ("::").
    */
   public static final String URL_SCHEME_VALUE_SEPARATOR = "::";
+
+  public static final ClassPathResource XSD_PEPPOL_IDENTIFIERS = new ClassPathResource ("/schemas/peppol-identifiers-v1.xsd",
+                                                                                        CIdentifier.class.getClassLoader ());
+
+  public static final String NS_URI_PEPPOL_IDENTIFIERS = "http://busdox.org/transport/identifiers/1.0/";
 
   @PresentForCodeCoverage
   private static final CIdentifier s_aInstance = new CIdentifier ();

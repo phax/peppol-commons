@@ -32,7 +32,7 @@
               parseMethod="com.helger.commons.datetime.PDTWebDateHelper.getLocalDateTimeFromXSD"
               printMethod="com.helger.commons.datetime.PDTWebDateHelper.getAsStringXSD" />
   </globalBindings>
-  <bindings schemaLocation="../resources/schemas/Identifiers-1.0.xsd">
+  <bindings schemaLocation="../resources/schemas/peppol-identifiers-v1.xsd">
     <schemaBindings>
       <package name="com.helger.peppolid" />
     </schemaBindings>
