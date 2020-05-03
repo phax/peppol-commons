@@ -127,6 +127,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
             <exclude>**/*.txt</exclude>
             <exclude>**/NOTICE</exclude>
             <exclude>**/LICENSE</exclude>
+            <exclude>src/main/resources/codelists/Peppol*</exclude>
             <exclude>src/main/resources/schemas/peppol-*</exclude>
           </excludes>
         </configuration>
