@@ -40,7 +40,7 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarsha
 {
   public static final ClassPathResource XSD2 = new ClassPathResource ("/schemas/ws-addr.xsd",
                                                                       AbstractSMPMarshaller.class.getClassLoader ());
-  public static final ClassPathResource XSD3 = new ClassPathResource ("/schemas/ServiceMetadataPublishingTypes-1.0.xsd",
+  public static final ClassPathResource XSD3 = new ClassPathResource ("/schemas/peppol-smp-types-v1-ext.xsd",
                                                                       AbstractSMPMarshaller.class.getClassLoader ());
 
   @Nonnull

@@ -54,14 +54,9 @@
       <class ref="javax.xml.ws.wsaddressing.W3CEndpointReference" />
     </bindings>
   </bindings>
-  <bindings schemaLocation="../resources/schemas/ServiceMetadataPublishingTypes-1.0.xsd">
+  <bindings schemaLocation="../resources/schemas/peppol-smp-types-v1-ext.xsd">
     <schemaBindings>
       <package name="com.helger.smpclient.peppol.jaxb" />
-    </schemaBindings>
-  </bindings>
-  <bindings schemaLocation="../resources/schemas/oasis-200401-wss-wssecurity-utility-1.0.xsd">
-    <schemaBindings>
-      <package name="com.helger.smpclient.peppol.wssec" />
     </schemaBindings>
   </bindings>
 </bindings>
