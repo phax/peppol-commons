@@ -18,7 +18,7 @@
   xmlns:ids="http://busdox.org/transport/identifiers/1.0/" 
   xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
-  <xs:import schemaLocation="Identifiers-1.0.xsd" namespace="http://busdox.org/transport/identifiers/1.0/" />
+  <xs:import schemaLocation="peppol-identifiers-v1.xsd" namespace="http://busdox.org/transport/identifiers/1.0/" />
   
   <xs:element name="ServiceMetadataPublisherID" type="xs:string" />
   <xs:element name="CreateParticipantIdentifier" type="ServiceMetadataPublisherServiceForParticipantType"/>
