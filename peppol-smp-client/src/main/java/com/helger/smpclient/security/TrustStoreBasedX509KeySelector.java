@@ -148,7 +148,9 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               {
                 // Load once only
                 m_aTrustStore = KeyStoreHelper.loadKeyStoreDirect (m_eTruststoreType, m_sTruststorePath, m_sTrustStorePassword);
-                LOGGER.info ("Loaded truststore '" + m_sTruststorePath + "' of type " + m_eTruststoreType);
+
+                if (LOGGER.isDebugEnabled ())
+                  LOGGER.debug ("Loaded truststore '" + m_sTruststorePath + "' of type " + m_eTruststoreType);
               }
 
               // The PKIXParameters constructor may fail because:
