@@ -80,8 +80,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   {
     if (sAlgName.equalsIgnoreCase ("DSA"))
     {
-      if (sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1) ||
-          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2009/xmldsig11#dsa-sha256"))
+      if (sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1) || sAlgURI.equalsIgnoreCase ("http://www.w3.org/2009/xmldsig11#dsa-sha256"))
         return true;
     }
     else
@@ -148,9 +147,8 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               if (m_aTrustStore == null)
               {
                 // Load once only
-                m_aTrustStore = KeyStoreHelper.loadKeyStoreDirect (m_eTruststoreType,
-                                                                   m_sTruststorePath,
-                                                                   m_sTrustStorePassword);
+                m_aTrustStore = KeyStoreHelper.loadKeyStoreDirect (m_eTruststoreType, m_sTruststorePath, m_sTrustStorePassword);
+                LOGGER.info ("Loaded truststore '" + m_sTruststorePath + "' of type " + m_eTruststoreType);
               }
 
               // The PKIXParameters constructor may fail because:
