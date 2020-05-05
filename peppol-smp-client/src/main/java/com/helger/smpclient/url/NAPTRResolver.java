@@ -171,7 +171,18 @@ public final class NAPTRResolver
     for (final Record record : aRecords)
     {
       final NAPTRRecord naptrRecord = (NAPTRRecord) record;
-      if ("U".equalsIgnoreCase (naptrRecord.getFlags ()) && sServiceName.equals (naptrRecord.getService ()))
+      /**
+       * RFC 2915: Flags are single characters from the set [A-Z0-9]. The case
+       * of the alphabetic characters is not significant. <br>
+       * The labels for service requests shall be formed from the set of
+       * characters [A-Z0-9]. The case of the alphabetic characters is not
+       * significant.<br>
+       * RFC 3404: allows "+" in service names.<br>
+       * RFC 4848: allow many chars: service-parms = [ [app-service] *(":"
+       * app-protocol)]<br>
+       * ; The service-parms are considered case-insensitive.
+       */
+      if ("U".equalsIgnoreCase (naptrRecord.getFlags ()) && sServiceName.equalsIgnoreCase (naptrRecord.getService ()))
         aMatchingRecords.add (naptrRecord);
     }
 

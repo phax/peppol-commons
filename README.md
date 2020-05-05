@@ -268,6 +268,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * v8.0.6 - work in progress
    * Updated to official Peppol Codelist v7
    * Updated to the official Peppol XSD files
+   * Made NAPTR record "Service name" comparison case insensitive to honor RFCs
 * v8.0.5 - 2020-04-22
     * Extracted `BDXR1NamespaceContext` and `BDXR2NamespaceContext`
     * Made XML Schema validation for SMP clients customizable
