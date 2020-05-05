@@ -265,9 +265,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.0.6 - work in progress
+* v8.0.6 - 2020-05-05
    * Updated to official Peppol Codelist v7
-   * Updated to the official Peppol XSD files
+   * Updated to the official Peppol Codelist XSD files
    * Made NAPTR record "Service name" comparison case insensitive to honor RFCs
 * v8.0.5 - 2020-04-22
     * Extracted `BDXR1NamespaceContext` and `BDXR2NamespaceContext`
