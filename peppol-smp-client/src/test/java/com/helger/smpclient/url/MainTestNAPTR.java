@@ -89,7 +89,7 @@ public class MainTestNAPTR
     for (final Record record : aRecords)
     {
       final NAPTRRecord naptrRecord = (NAPTRRecord) record;
-      if ("U".equalsIgnoreCase (naptrRecord.getFlags ()) && "Meta:SMP".equals (naptrRecord.getService ()))
+      if ("U".equalsIgnoreCase (naptrRecord.getFlags ()) && "Meta:SMP".equalsIgnoreCase (naptrRecord.getService ()))
         aMatchingRecords.add (naptrRecord);
     }
 
@@ -125,9 +125,9 @@ public class MainTestNAPTR
 
     // Weird - no regexp present
     LOGGER.warn ("None of the matching DNS NAPTR records for '" +
-                    sDNSName +
-                    "' has a valid regular expression. Details: " +
-                    aMatchingRecords);
+                 sDNSName +
+                 "' has a valid regular expression. Details: " +
+                 aMatchingRecords);
     return null;
   }
 
