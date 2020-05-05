@@ -29,6 +29,7 @@ import org.w3c.dom.Document;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
@@ -47,20 +48,24 @@ import com.helger.jcodemodel.JExpr;
 import com.helger.jcodemodel.JFieldVar;
 import com.helger.jcodemodel.JForEach;
 import com.helger.jcodemodel.JInvocation;
+import com.helger.jcodemodel.JLambdaMethodRef;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.writer.JCMWriter;
+import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.peppolid.codelists.DocumentTypeType;
-import com.helger.peppolid.codelists.DocumentTypesType;
-import com.helger.peppolid.codelists.ParticipantIdentifierSchemeType;
-import com.helger.peppolid.codelists.ParticipantIdentifierSchemesType;
-import com.helger.peppolid.codelists.ProcessType;
-import com.helger.peppolid.codelists.ProcessesType;
-import com.helger.peppolid.codelists.TransportProfileType;
-import com.helger.peppolid.codelists.TransportProfilesType;
+import com.helger.peppolid.codelists.PCLDocumentTypeType;
+import com.helger.peppolid.codelists.PCLDocumentTypesType;
+import com.helger.peppolid.codelists.PCLParticipantIdentifierSchemeType;
+import com.helger.peppolid.codelists.PCLParticipantIdentifierSchemesType;
+import com.helger.peppolid.codelists.PCLProcessIDType;
+import com.helger.peppolid.codelists.PCLProcessType;
+import com.helger.peppolid.codelists.PCLProcessesType;
+import com.helger.peppolid.codelists.PCLTransportProfileType;
+import com.helger.peppolid.codelists.PCLTransportProfilesType;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
@@ -88,7 +93,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7
 
   private static void _handleDocumentTypes (final Document aDocumentSheet)
   {
-    final DocumentTypesType aDTList = new GenericJAXBMarshaller <> (DocumentTypesType.class, new QName ("dummy")).read (aDocumentSheet);
+    final PCLDocumentTypesType aDTList = new GenericJAXBMarshaller <> (PCLDocumentTypesType.class,
+                                                                       new QName ("dummy")).read (aDocumentSheet);
 
     // Create Java source
     try
@@ -102,7 +108,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
 
       // Add all enum constants
-      for (final DocumentTypeType aRow : aDTList.getDocumentType ())
+      for (final PCLDocumentTypeType aRow : aDTList.getDocumentType ())
       {
         final String sProfileCode = aRow.getName ();
         final String sScheme = aRow.getScheme ();
@@ -126,16 +132,23 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         }
 
         jEnumConst.arg (JExpr.lit (sScheme));
-        final JInvocation aNew = JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifierParts.class))
-                                      .arg (aDocIDParts.getRootNS ())
-                                      .arg (aDocIDParts.getLocalName ())
-                                      .arg (aDocIDParts.getCustomizationID ())
-                                      .arg (aDocIDParts.getVersion ());
-        jEnumConst.arg (aNew);
-
+        {
+          final JInvocation aNew = JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifierParts.class))
+                                        .arg (aDocIDParts.getRootNS ())
+                                        .arg (aDocIDParts.getLocalName ())
+                                        .arg (aDocIDParts.getCustomizationID ())
+                                        .arg (aDocIDParts.getVersion ());
+          jEnumConst.arg (aNew);
+        }
         jEnumConst.arg (JExpr.lit (sProfileCode));
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.arg (JExpr.lit (bDeprecated));
+        {
+          final JInvocation aNew = JExpr._new (s_aCodeModel.ref (CommonsArrayList.class).narrowEmpty ());
+          for (final PCLProcessIDType aProcID : aRow.getProcessId ())
+            aNew.arg (CIdentifier.getURIEncoded (aProcID.getScheme (), aProcID.getValue ()));
+          jEnumConst.arg (aNew);
+        }
         jEnumConst.javadoc ().add ("<code>" + sValue + "</code><br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
@@ -167,6 +180,9 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       final JFieldVar fProfileCode = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileCode");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
+      final JFieldVar fProcessIDs = jEnum.field (JMod.PRIVATE | JMod.FINAL,
+                                                 s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class),
+                                                 "m_aProcessIDs");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -181,13 +197,21 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
       final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
+      final JVar jProcessIDs = jCtor.param (JMod.FINAL, s_aCodeModel.ref (ICommonsList.class).narrow (String.class), "aProcessIDs");
       jCtor.body ()
            .assign (fScheme, jScheme)
            .assign (fParts, jParts)
            .assign (fProfileCode, jProfileCode)
            .assign (fID, fParts.invoke ("getAsDocumentTypeIdentifierValue"))
            .assign (fSince, jSince)
-           .assign (fDeprecated, jDeprecated);
+           .assign (fDeprecated, jDeprecated)
+           .assign (fProcessIDs,
+                    s_aCodeModel.ref (CommonsArrayList.class)
+                                .narrowEmpty ()
+                                ._new ()
+                                .arg (jProcessIDs)
+                                .arg (new JLambdaMethodRef (s_aCodeModel.ref (PeppolIdentifierFactory.class).staticRef ("INSTANCE"),
+                                                            "parseProcessIdentifier")));
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
@@ -277,6 +301,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       m = jEnum.method (JMod.PUBLIC, s_aCodeModel.BOOLEAN, "isDeprecated");
       m.body ()._return (fDeprecated);
 
+      // public ICommonsList<IProcessIdentifier> getAllProcessIDs()
+      m = jEnum.method (JMod.PUBLIC, s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class), "getAllProcessIDs");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.annotate (ReturnsMutableCopy.class);
+      m.body ()._return (fProcessIDs.invoke ("getClone"));
+
       // @Nullable
       // public static EPredefinedDocumentTypeIdentifier
       // getFromDocumentTypeIdentifierOrNull(@Nullable final
@@ -306,8 +337,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7
 
   private static void _handleParticipantIdentifierSchemes (final Document aParticipantSheet)
   {
-    final ParticipantIdentifierSchemesType aList = new GenericJAXBMarshaller <> (ParticipantIdentifierSchemesType.class,
-                                                                                 new QName ("dummy")).read (aParticipantSheet);
+    final PCLParticipantIdentifierSchemesType aList = new GenericJAXBMarshaller <> (PCLParticipantIdentifierSchemesType.class,
+                                                                                    new QName ("dummy")).read (aParticipantSheet);
 
     // Create Java source
     try
@@ -319,7 +350,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
       // enum constants
-      for (final ParticipantIdentifierSchemeType aRow : aList.getParticipantIdentifierScheme ())
+      for (final PCLParticipantIdentifierSchemeType aRow : aList.getParticipantIdentifierScheme ())
       {
         final String sSchemeID = aRow.getSchemeid ();
         final String sISO6523 = aRow.getIso6523 ();
@@ -447,7 +478,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
 
   private static void _handleProcessIdentifiers (final Document aProcessSheet)
   {
-    final ProcessesType aList = new GenericJAXBMarshaller <> (ProcessesType.class, new QName ("dummy")).read (aProcessSheet);
+    final PCLProcessesType aList = new GenericJAXBMarshaller <> (PCLProcessesType.class, new QName ("dummy")).read (aProcessSheet);
 
     final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
 
@@ -461,7 +492,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
       // enum constants
-      for (final ProcessType aRow : aList.getProcess ())
+      for (final PCLProcessType aRow : aList.getProcess ())
       {
         final String sScheme = aRow.getScheme ();
         final String sValue = aRow.getValue ();
@@ -561,7 +592,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7
 
   private static void _handleTransportProfileIdentifiers (final Document aTPSheet)
   {
-    final TransportProfilesType aList = new GenericJAXBMarshaller <> (TransportProfilesType.class, new QName ("dummy")).read (aTPSheet);
+    final PCLTransportProfilesType aList = new GenericJAXBMarshaller <> (PCLTransportProfilesType.class,
+                                                                         new QName ("dummy")).read (aTPSheet);
 
     // Create Java source
     try
@@ -574,7 +606,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
 
       // enum constants
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
-      for (final TransportProfileType aRow : aList.getTransportProfile ())
+      for (final PCLTransportProfileType aRow : aList.getTransportProfile ())
       {
         final String sProtocol = aRow.getProtocol ();
         final String sProfileVersion = aRow.getProfileVersion ();
