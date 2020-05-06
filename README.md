@@ -265,8 +265,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.0.7 - work in progress
-    * Extended predefined document type ID
+* v8.0.7 - 2020-05-06
+    * Extended predefined document type ID API
+    * Updated Peppol codelists to contain deprecation status on process identifiers
 * v8.0.6 - 2020-05-05
     * Updated to official Peppol Codelist v7
     * Updated to the official Peppol Codelist XSD files
