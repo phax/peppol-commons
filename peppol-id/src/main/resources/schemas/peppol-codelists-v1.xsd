@@ -28,7 +28,7 @@
       
       Schema version: 1
       Author: Philip Helger, OpenPeppol OO
-      Last update: 2020-04-27
+      Last update: 2020-05-06
     </xs:documentation>
   </xs:annotation>
   
@@ -296,6 +296,11 @@
     <xs:attribute name="value" type="xs:string" use="required">
       <xs:annotation>
         <xs:documentation>The process identifier value.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="deprecated" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>Is this entry deprecated? If so, NO new objects with this code list entry may be created.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
