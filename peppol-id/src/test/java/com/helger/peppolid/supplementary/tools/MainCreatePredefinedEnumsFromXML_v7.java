@@ -18,6 +18,7 @@ package com.helger.peppolid.supplementary.tools;
 
 import java.io.File;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
@@ -36,6 +37,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.functional.IThrowingConsumer;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.StringParser;
 import com.helger.commons.version.Version;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jcodemodel.JBlock;
@@ -143,6 +145,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         jEnumConst.arg (JExpr.lit (sProfileCode));
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.arg (JExpr.lit (bDeprecated));
+        jEnumConst.arg (bDeprecated ? s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sDeprecatedSince) : JExpr._null ());
+        jEnumConst.arg (JExpr.lit (aRow.isIssuedByOpenpeppol ()));
+        jEnumConst.arg (JExpr.lit (StringParser.parseInt (aRow.getBisVersion (), -1)));
+        jEnumConst.arg (JExpr.lit (aRow.getDomainCommunity ()));
         {
           final JInvocation aNew = JExpr._new (s_aCodeModel.ref (CommonsArrayList.class).narrowEmpty ());
           for (final PCLProcessIDType aProcID : aRow.getProcessId ())
@@ -166,9 +172,15 @@ public final class MainCreatePredefinedEnumsFromXML_v7
           }
 
           final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL, jEnum, sRealShortcutName, jEnumConst);
-          if (bDeprecated)
-            aShortcut.annotate (Deprecated.class);
           aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
+          if (bDeprecated)
+          {
+            aShortcut.annotate (Deprecated.class);
+            aShortcut.javadoc ()
+                     .add ("\n<b>This item is deprecated since version " +
+                           sDeprecatedSince +
+                           " and should not be used to issue new identifiers!</b><br>");
+          }
           jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
         }
       }
@@ -180,12 +192,16 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       final JFieldVar fProfileCode = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileCode");
       final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
+      final JFieldVar fDeprecatedSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aDeprecatedSince");
+      final JFieldVar fIssuedByOpenPEPPOL = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bIssuedByOpenPEPPOL");
+      final JFieldVar fBISVersion = jEnum.field (JMod.PRIVATE | JMod.FINAL, int.class, "m_nBISVersion");
+      final JFieldVar fDomainCommunity = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sDomainCommunity");
       final JFieldVar fProcessIDs = jEnum.field (JMod.PRIVATE | JMod.FINAL,
                                                  s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class),
                                                  "m_aProcessIDs");
 
       // Constructor
-      final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
+      final JMethod jCtor = jEnum.constructor (0);
       final JVar jScheme = jCtor.param (JMod.FINAL, String.class, "sScheme");
       jScheme.annotate (Nonnull.class);
       jScheme.annotate (Nonempty.class);
@@ -197,6 +213,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
       jSince.annotate (Nonnull.class);
       final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
+      final JVar jDeprecatedSince = jCtor.param (JMod.FINAL, Version.class, "aDeprecatedSince");
+      jDeprecatedSince.annotate (Nullable.class);
+      final JVar jIssuedByOpenPEPPOL = jCtor.param (JMod.FINAL, boolean.class, "bIssuedByOpenPEPPOL");
+      final JVar jBISVersion = jCtor.param (JMod.FINAL, int.class, "nBISVersion");
+      final JVar jDomainCommunity = jCtor.param (JMod.FINAL, String.class, "sDomainCommunity");
+      jDomainCommunity.annotate (Nonnull.class);
+      jDomainCommunity.annotate (Nonempty.class);
       final JVar jProcessIDs = jCtor.param (JMod.FINAL, s_aCodeModel.ref (ICommonsList.class).narrow (String.class), "aProcessIDs");
       jCtor.body ()
            .assign (fScheme, jScheme)
@@ -205,6 +228,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7
            .assign (fID, fParts.invoke ("getAsDocumentTypeIdentifierValue"))
            .assign (fSince, jSince)
            .assign (fDeprecated, jDeprecated)
+           .assign (fDeprecatedSince, jDeprecatedSince)
+           .assign (fIssuedByOpenPEPPOL, jIssuedByOpenPEPPOL)
+           .assign (fBISVersion, jBISVersion)
+           .assign (fDomainCommunity, jDomainCommunity)
            .assign (fProcessIDs,
                     s_aCodeModel.ref (CommonsArrayList.class)
                                 .narrowEmpty ()
@@ -298,8 +325,28 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       m.body ()._return (fSince);
 
       // public boolean isDeprecated ()
-      m = jEnum.method (JMod.PUBLIC, s_aCodeModel.BOOLEAN, "isDeprecated");
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
       m.body ()._return (fDeprecated);
+
+      // public Version getSince ()
+      m = jEnum.method (JMod.PUBLIC, Version.class, "getDeprecatedSince");
+      m.annotate (Nullable.class);
+      m.body ()._return (fDeprecatedSince);
+
+      // public boolean isIssuedByOpenPEPPOL ()
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "isIssuedByOpenPEPPOL");
+      m.body ()._return (fIssuedByOpenPEPPOL);
+
+      // public int getBISVersion ()
+      m = jEnum.method (JMod.PUBLIC, int.class, "getBISVersion");
+      m.annotate (CheckForSigned.class);
+      m.body ()._return (fBISVersion);
+
+      // public String getDomainCommunity ()
+      m = jEnum.method (JMod.PUBLIC, String.class, "getDomainCommunity");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.body ()._return (fDomainCommunity);
 
       // public ICommonsList<IProcessIdentifier> getAllProcessIDs()
       m = jEnum.method (JMod.PUBLIC, s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class), "getAllProcessIDs");

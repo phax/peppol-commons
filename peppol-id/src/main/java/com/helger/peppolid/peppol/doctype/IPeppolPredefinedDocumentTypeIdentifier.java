@@ -16,11 +16,16 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
+import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 
 /**
@@ -65,4 +70,50 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    * @since 7.0.0
    */
   boolean isDeprecated ();
+
+  /**
+   * Get the version since when this item is deprecated.
+   *
+   * @return <code>null</code> if this item is not deprecated.
+   * @see #isDeprecated()
+   * @since 8.0.7
+   */
+  @Nullable
+  Version getDeprecatedSince ();
+
+  /**
+   * @return <code>true</code> if this item was officially issued by OpenPEPPOL,
+   *         <code>false</code> if it is contained upon a request of a certain
+   *         PA.
+   * @since 8.0.7
+   */
+  boolean isIssuedByOpenPEPPOL ();
+
+  /**
+   * @return The Peppol BIS major version this belongs to, or -1 if the item is
+   *         not issued by OpenPeppol.
+   * @see #isIssuedByOpenPEPPOL()
+   * @since 8.0.7
+   */
+  @CheckForSigned
+  int getBISVersion ();
+
+  /**
+   * @return The abbreviation of the Peppol domain community this item belongs
+   *         to. Neither <code>null</code> nor empty.
+   * @since 8.0.7
+   */
+  @Nonnull
+  @Nonempty
+  String getDomainCommunity ();
+
+  /**
+   * @return A non-<code>null</code>, non-empty list of process identifiers to
+   *         be used with this item.
+   * @since 8.0.7
+   */
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableCopy
+  ICommonsList <IProcessIdentifier> getAllProcessIDs ();
 }
