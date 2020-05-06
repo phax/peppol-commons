@@ -493,11 +493,11 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9909</code>, scheme ID <code>NO:VAT</code><br>
-     * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
      * Example value: 990399123MVA<br>
      * Usage information: Numerical part is the OrgNumber<br>
      * 
      * @since code list 1.0.0
+     * @deprecated since 1.1.0 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     NO_VAT("NO:VAT", "9909", "NO", "Norwegian VAT number", "Enhetsregisteret ved Bronnoysundregisterne", Version.parse("1.0.0"), true),
@@ -511,12 +511,12 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9912</code>, scheme ID <code>EU:VAT</code><br>
-     * <b>This item is deprecated since version 1.1.0 and should not be used to issue new identifiers!</b><br>
      * Structure of the code: Must start with the country code<br>
      * Usage information: Proposed to undeprecate; longest known is 18 chars (incl. country code)
      * Deprecated in 1.1.0<br>
      * 
      * @since code list 1.0.0
+     * @deprecated since 1.1.0 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     EU_VAT("EU:VAT", "9912", "international", "National ministries of Economy", null, Version.parse("1.0.0"), true),
@@ -548,16 +548,15 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9916</code>, scheme ID <code>AT:CID</code><br>
-     * <b>This item is deprecated since version 1.0.2 and should not be used to issue new identifiers!</b><br>
      * 
      * @since code list 1.0.0
+     * @deprecated since 1.0.2 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     AT_CID("AT:CID", "9916", "AT", "Firmenidentifikationsnummer der Statistik Austria", null, Version.parse("1.0.0"), true),
 
     /**
      * Prefix <code>9917</code>, scheme ID <code>IS:KT</code><br>
-     * <b>This item is deprecated since version 4 and should not be used to issue new identifiers!</b><br>
      * Structure of the code: 10 digit string using numerical characters from 0 to 9
      * Based on individuals birthdate or legal entities registration date D1D2M1M2Y1Y2R1R2CM D = day, M = month, Y = year, R = random. C = checksum, M = century.
      * Ninth character &quot;C&quot;:
@@ -567,6 +566,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * Usage information: In favour of 0196<br>
      * 
      * @since code list 1.0.0
+     * @deprecated since 4 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     IS_KT("IS:KT", "9917", "IS", "Icelandic National Registry", null, Version.parse("1.0.0"), true),
@@ -599,10 +599,10 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9921</code>, scheme ID <code>IT:IPA</code><br>
-     * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br>
      * Usage information: Propose to deprecate; not used in BIS 3<br>
      * 
      * @since code list 1.1.0
+     * @deprecated since 6 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     IT_IPA("IT:IPA", "9921", "IT", "Indice delle Pubbliche Amministrazioni", "Indice delle Pubbliche Amministrazioni", Version.parse("1.1.0"), true),
@@ -833,10 +833,10 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9954</code>, scheme ID <code>NL:OIN</code><br>
-     * <b>This item is deprecated since version 2 and should not be used to issue new identifiers!</b><br>
      * Usage information: Deprecated by 0190<br>
      * 
      * @since code list 1.1.3
+     * @deprecated since 2 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     NL_OIN("NL:OIN", "9954", "NL", "Dutch Originator's Identification Number", null, Version.parse("1.1.3"), true),
@@ -866,10 +866,10 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9958</code>, scheme ID <code>DE:LID</code><br>
-     * <b>This item is deprecated since version 6 and should not be used to issue new identifiers!</b><br>
      * Usage information: Replaced by 0204<br>
      * 
      * @since code list 3
+     * @deprecated since 6 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     DE_LID("DE:LID", "9958", "DE", "German Leitweg ID", null, Version.parse("3"), true);

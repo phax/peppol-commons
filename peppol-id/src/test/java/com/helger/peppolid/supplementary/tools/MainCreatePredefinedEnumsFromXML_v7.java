@@ -128,9 +128,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         {
           jEnumConst.annotate (Deprecated.class);
           jEnumConst.javadoc ()
-                    .add ("<b>This item is deprecated since version " +
-                          sDeprecatedSince +
-                          " and should not be used to issue new identifiers!</b><br>");
+                    .addDeprecated ()
+                    .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
         }
 
         jEnumConst.arg (JExpr.lit (sScheme));
@@ -177,9 +176,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7
           {
             aShortcut.annotate (Deprecated.class);
             aShortcut.javadoc ()
-                     .add ("\n<b>This item is deprecated since version " +
-                           sDeprecatedSince +
-                           " and should not be used to issue new identifiers!</b><br>");
+                     .addDeprecated ()
+                     .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
           }
           jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
         }
@@ -423,14 +421,6 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         jEnumConst.arg (JExpr.lit (bDeprecated));
 
         jEnumConst.javadoc ().add ("Prefix <code>" + sISO6523 + "</code>, scheme ID <code>" + sSchemeID + "</code><br>");
-        if (bDeprecated)
-        {
-          jEnumConst.annotate (Deprecated.class);
-          jEnumConst.javadoc ()
-                    .add ("\n<b>This item is deprecated since version " +
-                          sDeprecatedSince +
-                          " and should not be used to issue new identifiers!</b><br>");
-        }
         if (StringHelper.hasText (sStructure))
           jEnumConst.javadoc ().add ("\nStructure of the code: " + CodeGenerationHelper.maskHtml (sStructure) + "<br>");
         if (StringHelper.hasText (sDisplay))
@@ -440,6 +430,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         if (StringHelper.hasText (sUsage))
           jEnumConst.javadoc ().add ("\nUsage information: " + CodeGenerationHelper.maskHtml (sUsage) + "<br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
+        if (bDeprecated)
+        {
+          jEnumConst.annotate (Deprecated.class);
+          jEnumConst.javadoc ()
+                    .addDeprecated ()
+                    .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
+        }
       }
 
       // fields
@@ -543,6 +540,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       {
         final String sScheme = aRow.getScheme ();
         final String sValue = aRow.getValue ();
+        final boolean bDeprecated = aRow.isDeprecated ();
 
         // Prepend the scheme, if it is non-default
         final String sIDPrefix = PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme) ? "" : sScheme + "-";
@@ -550,7 +548,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         jEnumConst.arg (JExpr.lit (sScheme));
         jEnumConst.arg (JExpr.lit (sValue));
-        jEnumConst.javadoc ().add ("<code>" + sValue + "</code><br>");
+        jEnumConst.arg (JExpr.lit (bDeprecated));
+        jEnumConst.javadoc ().add ("ID: <code>" + sScheme + "::" + sValue + "</code><br>");
+        if (bDeprecated)
+        {
+          jEnumConst.annotate (Deprecated.class);
+          jEnumConst.javadoc ().addDeprecated ().add ("This item should not be used to issue new identifiers!");
+        }
 
         // Also create a shortcut for more readable names
         final String sShortcutName = CodeGenerationHelper.createShortcutProcess (sScheme, sValue);
@@ -567,6 +571,11 @@ public final class MainCreatePredefinedEnumsFromXML_v7
 
           final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL, jEnum, sRealShortcutName, jEnumConst);
           aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
+          if (bDeprecated)
+          {
+            aShortcut.annotate (Deprecated.class);
+            aShortcut.javadoc ().addDeprecated ().add ("This item should not be used to issue new identifiers!");
+          }
           jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
         }
       }
@@ -578,11 +587,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7
                                                  "BIS5A_V3",
                                                  jEnum.fields ().get ("BIS3_BILLING"));
         aShortcut.annotate (Deprecated.class);
+        aShortcut.javadoc ().addDeprecated ().add ("Use BIS3_BILLING instead!");
       }
 
       // fields
       final JFieldVar fScheme = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sScheme");
       final JFieldVar fValue = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sValue");
+      final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
       final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
@@ -592,7 +603,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       final JVar jValue = jCtor.param (JMod.FINAL, String.class, "sValue");
       jValue.annotate (Nonnull.class);
       jValue.annotate (Nonempty.class);
-      jCtor.body ().assign (fScheme, jScheme).assign (fValue, jValue);
+      final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
+      jCtor.body ().assign (fScheme, jScheme).assign (fValue, jValue).assign (fDeprecated, jDeprecated);
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
@@ -605,6 +617,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fValue);
+
+      // public boolean isDeprecated ()
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
+      m.body ()._return (fDeprecated);
 
       // public PeppolProcessIdentifier getAsProcessIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolProcessIdentifier.class, "getAsProcessIdentifier");
@@ -670,16 +686,15 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         jEnumConst.arg (JExpr.lit (sProfileID));
         jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.arg (JExpr.lit (bDeprecated));
+        jEnumConst.javadoc ().add ("ID: <code>" + sProfileID + "</code><br>");
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
           jEnumConst.javadoc ()
-                    .add ("<b>This item is deprecated since version " +
-                          sDeprecatedSince +
-                          " and should not be used to issue new identifiers!</b><br>");
+                    .addDeprecated ()
+                    .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
         }
-        jEnumConst.javadoc ().add ("<code>" + sProfileID + "</code><br>");
-        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
 
         // Emit shortcut name for better readability
         final String sShortcutName = CodeGenerationHelper.createShortcutTransportProtocolName (sProtocol + "_" + sProfileVersion);
@@ -691,10 +706,15 @@ public final class MainCreatePredefinedEnumsFromXML_v7
                                              sRealShortcutName +
                                              "' is already used - please review the algorithm!");
           final JFieldVar aShortcut = jEnum.field (JMod.PUBLIC | JMod.STATIC | JMod.FINAL, jEnum, sRealShortcutName, jEnumConst);
-          if (bDeprecated)
-            aShortcut.annotate (Deprecated.class);
           aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
           jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
+          if (bDeprecated)
+          {
+            aShortcut.annotate (Deprecated.class);
+            aShortcut.javadoc ()
+                     .addDeprecated ()
+                     .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
+          }
         }
       }
 

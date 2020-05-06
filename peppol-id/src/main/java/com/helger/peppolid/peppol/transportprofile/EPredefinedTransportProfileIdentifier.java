@@ -32,34 +32,37 @@ public enum EPredefinedTransportProfileIdentifier
 {
 
     /**
-     * <b>This item is deprecated since version 1.0.0 and should not be used to issue new identifiers!</b><br><code>busdox-transport-start</code><br>
+     * ID: <code>busdox-transport-start</code><br>
      * Same as {@link #START_1_0_1}
      * 
      * @since code list 1.0.0
+     * @deprecated since 1.0.0 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     busdox_transport_start("START", "1.0.1", "busdox-transport-start", Version.parse("1.0.0"), true),
 
     /**
-     * <b>This item is deprecated since version 7 and should not be used to issue new identifiers!</b><br><code>busdox-transport-as2-ver1p0</code><br>
+     * ID: <code>busdox-transport-as2-ver1p0</code><br>
      * Same as {@link #AS2_1_0}
      * 
      * @since code list 1.0.0
+     * @deprecated since 7 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     busdox_transport_as2_ver1p0("AS2", "1.0", "busdox-transport-as2-ver1p0", Version.parse("1.0.0"), true),
 
     /**
-     * <b>This item is deprecated since version 3 and should not be used to issue new identifiers!</b><br><code>peppol-transport-as4-v1_0</code><br>
+     * ID: <code>peppol-transport-as4-v1_0</code><br>
      * Same as {@link #AS4_1_0}
      * 
      * @since code list 2
+     * @deprecated since 3 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     peppol_transport_as4_v1_0("AS4", "1.0", "peppol-transport-as4-v1_0", Version.parse("2"), true),
 
     /**
-     * <code>peppol-transport-as4-v2_0</code><br>
+     * ID: <code>peppol-transport-as4-v2_0</code><br>
      * Same as {@link #AS4_2_0}
      * 
      * @since code list 3
@@ -67,7 +70,7 @@ public enum EPredefinedTransportProfileIdentifier
     peppol_transport_as4_v2_0("AS4", "2.0", "peppol-transport-as4-v2_0", Version.parse("3"), false),
 
     /**
-     * <code>busdox-transport-as2-ver2p0</code><br>
+     * ID: <code>busdox-transport-as2-ver2p0</code><br>
      * Same as {@link #AS2_2_0}
      * 
      * @since code list 5
@@ -75,16 +78,22 @@ public enum EPredefinedTransportProfileIdentifier
     busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), false);
     /**
      * Same as {@link #busdox_transport_start}
+     * 
+     * @deprecated since 1.0.0 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     public static final EPredefinedTransportProfileIdentifier START_1_0_1 = EPredefinedTransportProfileIdentifier.busdox_transport_start;
     /**
      * Same as {@link #busdox_transport_as2_ver1p0}
+     * 
+     * @deprecated since 7 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     public static final EPredefinedTransportProfileIdentifier AS2_1_0 = EPredefinedTransportProfileIdentifier.busdox_transport_as2_ver1p0;
     /**
      * Same as {@link #peppol_transport_as4_v1_0}
+     * 
+     * @deprecated since 3 - this item should not be used to issue new identifiers!
      */
     @Deprecated
     public static final EPredefinedTransportProfileIdentifier AS4_1_0 = EPredefinedTransportProfileIdentifier.peppol_transport_as4_v1_0;
