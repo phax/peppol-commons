@@ -34,6 +34,7 @@
   </globalBindings>
   <!-- Copied from com.sun.tools.ws.processor.modeler.wsdl.PseudoSchemaBuilder from jaxws-tools-2.2.3 -->
   <!-- See http://jaxb.java.net/nonav/2.2.3u1/docs/vendorCustomizations.html for details -->
+  <!-- See https://github.com/eclipse-ee4j/metro-jax-ws/blob/2.3.3/jaxws-ri/tools/wscompile/src/main/java/com/sun/tools/ws/processor/modeler/wsdl/PseudoSchemaBuilder.java -->
   <bindings scd="x-schema::wsa" if-exists="true">
     <schemaBindings map="false" />
     <!-- this binding applies to an element -->
