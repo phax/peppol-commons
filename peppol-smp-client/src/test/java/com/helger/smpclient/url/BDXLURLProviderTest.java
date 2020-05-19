@@ -55,13 +55,19 @@ public final class BDXLURLProviderTest
 
     // Check case insensitivity
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis",
-                                                                                         "0088:123abc"),
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "0088:123abc"),
                                                         "toop.acc.edelivery.tech.ec.europa.eu.",
                                                         false));
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis",
-                                                                                         "0088:123ABC"),
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "0088:123ABC"),
+                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
+                                                        false));
+    assertEquals ("BA6JO7LWBY53J47UM53XPFZ6FZRTK7LHJJTB32DV5A74IFCOEGWQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "9915:tooptest"),
+                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
+                                                        false));
+    assertEquals ("BA6JO7LWBY53J47UM53XPFZ6FZRTK7LHJJTB32DV5A74IFCOEGWQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "9915:ToopTest"),
                                                         "toop.acc.edelivery.tech.ec.europa.eu.",
                                                         false));
   }
