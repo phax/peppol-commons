@@ -72,8 +72,7 @@ public final class BDXR1ExtensionConverter
 
   private static final Logger LOGGER = LoggerFactory.getLogger (BDXR1ExtensionConverter.class);
   private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE);
-  private static final JsonWriterSettings s_aJWS = new JsonWriterSettings ().setIndentEnabled (false)
-                                                                            .setWriteNewlineAtEnd (false);
+  private static final JsonWriterSettings s_aJWS = new JsonWriterSettings ().setIndentEnabled (false).setWriteNewlineAtEnd (false);
 
   @PresentForCodeCoverage
   private static final BDXR1ExtensionConverter s_aInstance = new BDXR1ExtensionConverter ();
@@ -142,7 +141,7 @@ public final class BDXR1ExtensionConverter
     // If there is no extension present, nothing to convert
     if (CollectionHelper.isNotEmpty (aExtensions))
     {
-      final JsonArray aArray = new JsonArray ();
+      final IJsonArray aArray = new JsonArray ();
       for (final ExtensionType aExtension : aExtensions)
       {
         final IJsonObject aObj = convertToJson (aExtension);
