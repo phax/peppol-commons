@@ -41,8 +41,8 @@ import com.helger.commons.string.StringParser;
 import com.helger.commons.version.Version;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jcodemodel.JBlock;
-import com.helger.jcodemodel.JClassAlreadyExistsException;
 import com.helger.jcodemodel.JCodeModel;
+import com.helger.jcodemodel.JCodeModelException;
 import com.helger.jcodemodel.JDefinedClass;
 import com.helger.jcodemodel.JDocComment;
 import com.helger.jcodemodel.JEnumConstant;
@@ -374,7 +374,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         m.body ()._return (JExpr._null ());
       }
     }
-    catch (final JClassAlreadyExistsException ex)
+    catch (final JCodeModelException ex)
     {
       LOGGER.error ("Failed to create source", ex);
     }
@@ -647,7 +647,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
         m.body ()._return (JExpr._null ());
       }
     }
-    catch (final JClassAlreadyExistsException ex)
+    catch (final JCodeModelException ex)
     {
       LOGGER.warn ("Failed to create source", ex);
     }
@@ -773,7 +773,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
       m.body ()._return (fDeprecated);
     }
-    catch (final JClassAlreadyExistsException ex)
+    catch (final JCodeModelException ex)
     {
       LOGGER.warn ("Failed to create source", ex);
     }

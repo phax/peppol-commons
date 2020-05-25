@@ -41,8 +41,8 @@ import com.helger.genericode.v10.CodeListDocument;
 import com.helger.genericode.v10.Column;
 import com.helger.genericode.v10.Row;
 import com.helger.genericode.v10.SimpleCodeList;
-import com.helger.jcodemodel.JClassAlreadyExistsException;
 import com.helger.jcodemodel.JCodeModel;
+import com.helger.jcodemodel.JCodeModelException;
 import com.helger.jcodemodel.JDefinedClass;
 import com.helger.jcodemodel.JEnumConstant;
 import com.helger.jcodemodel.JExpr;
@@ -65,8 +65,7 @@ public class MainCreateEnumsFromUBLGenericode
   private static final String COLID_CODE = "code";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
 
-  private static void _createGenericode10 (final File aFile,
-                                           final CodeListDocument aCodeList10) throws JClassAlreadyExistsException
+  private static void _createGenericode10 (final File aFile, final CodeListDocument aCodeList10) throws JCodeModelException
   {
     final SimpleCodeList aSimpleCodeList = aCodeList10.getSimpleCodeList ();
     if (aSimpleCodeList == null)
@@ -142,11 +141,7 @@ public class MainCreateEnumsFromUBLGenericode
     m.annotate (Nullable.class);
     jID = m.param (JMod.FINAL, String.class, "sID");
     jID.annotate (Nullable.class);
-    m.body ()
-     ._return (s_aCodeModel.ref (EnumHelper.class)
-                           .staticInvoke ("getFromIDOrNull")
-                           .arg (JExpr.dotClass (jEnum))
-                           .arg (jID));
+    m.body ()._return (s_aCodeModel.ref (EnumHelper.class).staticInvoke ("getFromIDOrNull").arg (JExpr.dotClass (jEnum)).arg (jID));
 
     // public static String getDisplayNameFromIDOrNull (@Nullable String sID)
     m = jEnum.method (JMod.PUBLIC | JMod.STATIC, String.class, "getDisplayNameFromIDOrNull");
@@ -157,7 +152,7 @@ public class MainCreateEnumsFromUBLGenericode
     m.body ()._return (JOp.cond (JOp.eq (jValue, JExpr._null ()), JExpr._null (), jValue.invoke ("getDisplayName")));
   }
 
-  public static void main (final String [] args) throws JClassAlreadyExistsException, IOException
+  public static void main (final String [] args) throws JCodeModelException, IOException
   {
     for (final File aFile : new FileSystemRecursiveIterator ("src/main/resources/codelists/ubl").withFilter (IFileFilter.filenameEndsWith (".gc")))
     {
