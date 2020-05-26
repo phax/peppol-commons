@@ -200,37 +200,37 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
 
 ```xml
 <dependency>
-  <groupId>com.helger</groupId>
+  <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-id</artifactId>
   <version>x.y.z</version>
 </dependency>
 
 <dependency>
-  <groupId>com.helger</groupId>
+  <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-commons</artifactId>
   <version>x.y.z</version>
 </dependency>
 
 <dependency>
-  <groupId>com.helger</groupId>
+  <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-testfiles</artifactId>
   <version>x.y.z</version>
 </dependency>
 
 <dependency>
-  <groupId>com.helger</groupId>
+  <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-sbdh</artifactId>
   <version>x.y.z</version>
 </dependency>
 
 <dependency>
-  <groupId>com.helger</groupId>
+  <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-sml-client</artifactId>
   <version>x.y.z</version>
 </dependency>
 
 <dependency>
-  <groupId>com.helger</groupId>
+  <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-smp-client</artifactId>
   <version>x.y.z</version>
 </dependency>
@@ -240,13 +240,15 @@ Alternatively use the following code in your `dependencyManagement` section to u
 
 ```xml
 <dependency>
-  <groupId>com.helger</groupId>
+  <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
   <version>x.y.z</version>
   <type>pom</type>
   <scope>import</scope>
 </dependency>
 ```
+
+Note: prior to v8.1.0 the Maven groupId was `com.helger`.
 
 The binary version of this library can be found on https://repo1.maven.org/maven2/com/helger/ 
 They depend on several other libraries so I suggest you are going for the Maven source integration.
@@ -264,6 +266,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 * v8.1.0 - work in progress
+    * Changed the Maven groupId to `com.helger.peppol`
     * Updated to ph-web 9.3.0 (using ph-dns) (new Maven groupId)
     * Updated to ph-xsds 2.3.0 (new Maven groupId)
     * Deprecated class `NAPTRResolver` in favour of the new `NaptrResolver`

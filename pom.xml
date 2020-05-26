@@ -24,6 +24,7 @@
     <artifactId>parent-pom</artifactId>
     <version>1.11.1</version>
   </parent>
+  <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
   <version>8.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -128,32 +129,32 @@
       </dependency>
 
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-id</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-testfiles</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-sbdh</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-sml-client</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-smp-client</artifactId>
         <version>${project.version}</version>
       </dependency>
