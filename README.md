@@ -248,8 +248,6 @@ Alternatively use the following code in your `dependencyManagement` section to u
 </dependency>
 ```
 
-Note: `peppol-bdxr` was integrated in `peppol-commons` as of version 4.3.0.
-
 The binary version of this library can be found on https://repo1.maven.org/maven2/com/helger/ 
 They depend on several other libraries so I suggest you are going for the Maven source integration.
 
@@ -266,9 +264,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 * v8.1.0 - work in progress
-    * Updated to ph-web 9.2.1 (using ph-dns)
+    * Updated to ph-web 9.3.0 (using ph-dns) (new Maven groupId)
+    * Updated to ph-xsds 2.3.0 (new Maven groupId)
     * Deprecated class `NAPTRResolver` in favour of the new `NaptrResolver`
-    * `IBDXLURLProvider` takes custom DNS server names now as `InetAddress` instead of as String
+    * `IBDXLURLProvider` takes custom DNS server now as `InetAddress` instead of as `String`
 * v8.0.7 - 2020-05-06
     * Extended predefined document type ID API
     * Updated Peppol codelists to contain deprecation status on process identifiers
