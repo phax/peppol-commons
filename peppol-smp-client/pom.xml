@@ -190,7 +190,7 @@
           </plugins>
           <episodes>
             <episode>
-              <groupId>com.helger</groupId>
+              <groupId>com.helger.xsd</groupId>
               <artifactId>ph-xsds-xmldsig</artifactId>
             </episode>
             <episode>
