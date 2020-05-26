@@ -141,7 +141,7 @@ public interface IPeppolURLProvider extends Serializable
     }
     catch (final URISyntaxException ex)
     {
-      throw new IllegalArgumentException ("Error building SMP URI from string '" + sURIString + "'", ex);
+      throw new PeppolDNSResolutionException ("Error building SMP URI from string '" + sURIString + "'", ex);
     }
   }
 

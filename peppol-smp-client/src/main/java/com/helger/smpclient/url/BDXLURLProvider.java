@@ -16,8 +16,10 @@
  */
 package com.helger.smpclient.url;
 
+import java.net.InetAddress;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -34,6 +36,7 @@ import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.StringHelper;
+import com.helger.dns.naptr.NaptrResolver;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
@@ -49,6 +52,9 @@ import com.helger.security.messagedigest.MessageDigestValue;
 @ThreadSafe
 public class BDXLURLProvider implements IBDXLURLProvider
 {
+  /** U NAPTR service name for e-SENS/PEPPOL */
+  public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
+
   public static final BDXLURLProvider MUTABLE_INSTANCE = new BDXLURLProvider ();
   public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
@@ -131,8 +137,7 @@ public class BDXLURLProvider implements IBDXLURLProvider
   @Nonnull
   public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
   {
-    final byte [] aMessageDigest = MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET),
-                                                              EMessageDigestAlgorithm.SHA_256)
+    final byte [] aMessageDigest = MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET), EMessageDigestAlgorithm.SHA_256)
                                                      .bytes ();
     return new Base32Codec ().setAddPaddding (false).getEncodedAsString (aMessageDigest, StandardCharsets.ISO_8859_1);
   }
@@ -141,14 +146,13 @@ public class BDXLURLProvider implements IBDXLURLProvider
   public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName,
                                          final boolean bDoNAPTRResolving,
-                                         @Nullable final String sPrimaryDNSServer) throws PeppolDNSResolutionException
+                                         @Nullable final List <InetAddress> aCustomDNSServers) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new PeppolDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
-                                              sSMLZoneName);
+      throw new PeppolDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
 
     final StringBuilder ret = new StringBuilder ();
 
@@ -194,9 +198,7 @@ public class BDXLURLProvider implements IBDXLURLProvider
       if (sResolvedNAPTR == null)
       {
         // Now do the NAPTR resolving
-        sResolvedNAPTR = NAPTRResolver.resolveFromNAPTR (sBuildName,
-                                                         sPrimaryDNSServer,
-                                                         NAPTRResolver.DNS_UNAPTR_SERVICE_NAME_META_SMP);
+        sResolvedNAPTR = NaptrResolver.resolveFromUNAPTR (sBuildName, aCustomDNSServers, DNS_UNAPTR_SERVICE_NAME_META_SMP);
         if (sResolvedNAPTR == null)
         {
           // Since 6.2.0 this a checked exception

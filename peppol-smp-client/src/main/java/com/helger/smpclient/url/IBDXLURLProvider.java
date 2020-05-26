@@ -16,6 +16,9 @@
  */
 package com.helger.smpclient.url;
 
+import java.net.InetAddress;
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -71,5 +74,5 @@ public interface IBDXLURLProvider extends IPeppolURLProvider
   String getDNSNameOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier,
                                   @Nullable String sSMLZoneName,
                                   boolean bDoNAPTRResolving,
-                                  @Nullable String sPrimaryDNSServer) throws PeppolDNSResolutionException;
+                                  @Nullable List <InetAddress> aCustomDNSServers) throws PeppolDNSResolutionException;
 }

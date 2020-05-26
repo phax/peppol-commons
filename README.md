@@ -265,6 +265,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.1.0 - work in progress
+    * Updated to ph-web 9.2.1 (using ph-dns)
+    * Deprecated class `NAPTRResolver` in favour of the new `NaptrResolver`
+    * `IBDXLURLProvider` takes custom DNS server names now as `InetAddress` instead of as String
 * v8.0.7 - 2020-05-06
     * Extended predefined document type ID API
     * Updated Peppol codelists to contain deprecation status on process identifiers

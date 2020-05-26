@@ -58,6 +58,8 @@ public final class SMPClientReadOnlyTest
     // This instance has a BOM inside
     aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
     aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
+    assertEquals ("http://B-2f67a0710cbc13c11ac8c0d64186ac5e.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
+                  aSMPClient.getSMPHostURI ());
     assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
   }
 

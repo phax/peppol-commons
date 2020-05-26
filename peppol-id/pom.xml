@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>8.0.8-SNAPSHOT</version>
+    <version>8.1.0-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-id</artifactId>
   <packaging>bundle</packaging>
@@ -62,15 +62,15 @@
       <artifactId>ph-xml</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger</groupId>
+      <groupId>com.helger.xsd</groupId>
       <artifactId>ph-xsds-xmldsig</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger</groupId>
+      <groupId>com.helger.xsd</groupId>
       <artifactId>ph-xsds-bdxr-smp1</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger</groupId>
+      <groupId>com.helger.xsd</groupId>
       <artifactId>ph-xsds-bdxr-smp2</artifactId>
     </dependency>
 
@@ -176,7 +176,7 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
           </plugins>
           <episodes>
             <episode>
-              <groupId>com.helger</groupId>
+              <groupId>com.helger.xsd</groupId>
               <artifactId>ph-xsds-xmldsig</artifactId>
             </episode>
           </episodes>
