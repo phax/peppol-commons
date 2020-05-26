@@ -194,7 +194,7 @@
               <artifactId>ph-xsds-xmldsig</artifactId>
             </episode>
             <episode>
-              <groupId>com.helger</groupId>
+              <groupId>com.helger.peppol</groupId>
               <artifactId>peppol-id</artifactId>
             </episode>
           </episodes>
