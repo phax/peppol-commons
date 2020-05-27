@@ -1,21 +1,20 @@
 # Introduction
 
-This project contains different libraries that are commonly used in the PEPPOL area:
+This project contains different libraries that are commonly used in the Peppol area:
   * [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
-  * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with PEPPOL and BDXR
+  * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with Peppol and BDXR
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
-  * [`peppol-sbdh`](#peppol-sbdh) - PEPPOL specific SBDH handling
-  * [`peppol-sml-client`](#peppol-sml-client) - the PEPPOL SML client
-  * [`peppol-smp-client`](#peppol-smp-client) - the PEPPOL SMP and BDXR SMP client
+  * [`peppol-sbdh`](#peppol-sbdh) - Peppol specific SBDH handling
+  * [`peppol-sml-client`](#peppol-sml-client) - the Peppol SML client
+  * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
   
 These project are used implicitly by the following projects:
-  * [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for PEPPOL and TOOP
+  * [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for Peppol and TOOP
   * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
-  * [as2-peppol-client](https://github.com/phax/as2-peppol-client/) - the AS2 AP client library
-  * [as2-peppol-server](https://github.com/phax/as2-peppol-server/) - the AS2 AP server stub
-  * [phase4](https://github.com/phax/phase4/) - an implementation of AS4
+  * [as2-peppol](https://github.com/phax/as2-peppol/) - an AS2 client and server for Peppol
+  * [phase4](https://github.com/phax/phase4/) - an AS4 implementation that also supports Peppol 
   
-And some legacy PEPPOL projects:
+And some legacy Peppol projects:
   * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
 
 This project is licensed under the Apache 2.0 license.
@@ -30,7 +29,7 @@ The additional code is created in `target/generated-sources/xjc`.
 
 ## peppol-commons
 
-Java library with shared PEPPOL components. It contains the basic algorithms. Since v7 this depends on the `peppol-id` submodule.
+Java library with shared Peppol components. It contains the basic algorithms. Since v7 this depends on the `peppol-id` submodule.
 
 Make sure to run `mvn generate-sources` before using it in the IDE.
 The additional code is created in `target/generated-sources/xjc`. 
@@ -51,7 +50,7 @@ New path names (starting from v6.0.1):
 
 ## peppol-sbdh
 
-Simple SBDH handler for the use with PEPPOL.
+Simple SBDH handler for the use with Peppol.
 It offers the possibility to extract all meta data from an SBDH document as well as 
 set all meta data to an SBDH document.
 
@@ -63,7 +62,7 @@ http://www.peppol.eu/ressource-library/technical-specifications/transport-infras
 The detail document this project refers to can be found at
 https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-100_2014-01-15.pdf
 
-An example on how to use this project can be found in my **[as2-peppol-servlet](https://github.com/phax/as2-peppol-servlet)** project which provides a servlet to receive incoming PEPPOL AS2 messages. Alternatively you may have a look at my **[as2-peppol-client](https://github.com/phax/as2-peppol-client)** project which is used to send PEPPOL AS2 messages.
+An example on how to use this project can be found in my **[as2-peppol-servlet](https://github.com/phax/as2-peppol)** project which provides a servlet to receive incoming Peppol AS2 messages. Alternatively you may have a look at my **[as2-peppol-client](https://github.com/phax/as2-peppol)** project which is used to send Peppol AS2 messages.
 
 ## peppol-testfiles
 
@@ -80,7 +79,7 @@ This library is usually only used within SMP servers, to communicate the changes
 Make sure to run `mvn generate-sources` before using it in the IDE.
 The additional code is created in `target/generated-sources/xjc`. 
 
-This project contains 2 main classes for talking to the PEPPOL SML:
+This project contains 2 main classes for talking to the Peppol SML:
   * `ManageServiceMetadataServiceCaller` which is used to change SMP assignments in the SML. This must be called for a new SMP to register it once at the SML.
   * `ManageParticipantIdentifierServiceCaller` which is used to manage the assignment of participants to SMPs. This must be invoked from the SMP server every time a new participant is registered (or an existing one is modified or deleted).
   
@@ -96,11 +95,11 @@ This project uses Apache HTTP client to perform the REST lookups on foreign SMPs
 I also provide an OSS [phoss SMP server](https://github.com/phax/peppol-smp-server) with a nice management GUI.
 
 ### Configuration
-The SMP client (both PEPPOL and BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the environment variable `SMP_CLIENT_CONFIG` (since v7.0.7), the system property `peppol.smp.client.properties.path` (since v4.3.5), the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to e.g. the trust store!
+The SMP client (both Peppol and BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the environment variable `SMP_CLIENT_CONFIG` (since v7.0.7), the system property `peppol.smp.client.properties.path` (since v4.3.5), the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to e.g. the trust store!
 
 It supports the following properties:
   * **`truststore.type`** (since v6.0.0): the type of key store to be used. Possible values are `JKS` and `PKCS12`. Defaults to `JKS` (which was the implicit default prior to v6).
-  * **`truststore.path`** (name before v6: **`truststore.location`**): the location of the PEPPOL trust store (of the specified type) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
+  * **`truststore.path`** (name before v6: **`truststore.location`**): the location of the Peppol trust store (of the specified type) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
     * `truststore/complete-truststore.jks` - contains the trust certificates for production and pilot (root, AP, SMP, STS)
     * `truststore/global-truststore.jks` - contains the trust certificates for production only (root, AP, SMP, STS)
     * `truststore/pilot-truststore.jks` - contains the trust certificates for pilot only (root, AP, SMP, STS)
@@ -153,7 +152,7 @@ Supported system properties are (based on Apache HTTPClient):
 
 Get the endpoint URL for a participant using a special document type and process:
 ```java
-    // The PEPPOL participant identifier
+    // The Peppol participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
 
     // Create the main SMP client using the production SML
@@ -171,7 +170,7 @@ Get the endpoint URL for a participant using a special document type and process
 
 If you don't need the DNS lookup you can use the URL of the SMP directly (equivalent to the previous example):
 ```java
-    // The PEPPOL participant identifier
+    // The Peppol participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
 
     // Create the main SMP client using the production SML
@@ -255,12 +254,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # References
 
-* [PEPPOL Policy for the use of identifiers 4.0](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf)
-* [PEPPOL Business Message Envelope (SBDH) 1.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.pdf)
+* [Peppol Policy for the use of identifiers 4.0](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf)
+* [Peppol Business Message Envelope (SBDH) 1.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.pdf)
 
 ## Obsoleted references
 
-* [PEPPOL Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
+* [Peppol Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
 
 
 # News and noteworthy
@@ -323,7 +322,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Added X509 certificates as constants in `PeppolKeyStoreHelper`
 * v7.0.2 - 2019-08-16
     * Using more base types in certain APIs for better interoperability (binary incompatible change)
-    * Updated to PEPPOL Code List v5
+    * Updated to Peppol Code List v5
 * v7.0.1 - 2019-06-25
     * Fixed a naming issues for predefined identifier 0195
 * v7.0.0 - 2019-06-10
@@ -341,18 +340,18 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * v6.2.4 - 2019-05-05
     * SMPClient got the possibility to configure "non-proxy hosts" using the configuration file setting `http.nonProxyHosts`
     * Update the Directory trust store to contain the new server certificates for `directory.peppol.eu` and `test-directory.peppol.eu`
-    * Added support for the new SMP transport profile `busdox-transport-as2-ver2p0` (PEPPOL AS2 profile v2)
-    * PEPPOL SBDH now supports reading UBL 2.2
-    * Added support for new SBDH text and binary payloads as specified in PEPPOL Business Message Envelope v1.2
+    * Added support for the new SMP transport profile `busdox-transport-as2-ver2p0` (Peppol AS2 profile v2)
+    * Peppol SBDH now supports reading UBL 2.2
+    * Added support for new SBDH text and binary payloads as specified in Peppol Business Message Envelope v1.2
 * v6.2.3 - 2019-01-18
-    * Updated to PEPPOL code lists version 4
+    * Updated to Peppol code lists version 4
 * v6.2.2 - 2018-11-30
     * Made process identifier scheme optional when using `SimpleIdentifierFactory`
 * v6.2.1 - 2018-11-22
     * Updated to ph-commons 9.2.0
     * Added a special truststore to access directory.peppol.eu and added this to the complete truststore as well
 * v6.2.0 - 2018-10-24
-    * Added SMP transport profile "PEPPOL AS4 v2"
+    * Added SMP transport profile "Peppol AS4 v2"
     * Removed all deprecated methods
     * Converted a runtime exception to a checked exception in `IPeppolURLProvider.getDNSNameOfParticipant`. The new exception class is called `PeppolDNSResolutionException`.
     * Added new class `SMPClientBadResponseException`
@@ -364,8 +363,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Automatically created `EPredefinedTransportProfileIdentifier` plus GC and XML for the transport profile list
 * v6.1.3 - 2018-09-26
     * Requires ph-commons 9.1.3
-    * Updated to PEPPOL codelists v3 snapshots
-    * Added support for PEPPOL Envelope (SBDH) specification v1.1 from https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-11_2018-08-31.pdf
+    * Updated to Peppol codelists v3 snapshots
+    * Added support for Peppol Envelope (SBDH) specification v1.1 from https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-11_2018-08-31.pdf
 * v6.1.2 - 2018-05-15
     * Really fixed OSGI ServiceProvider configuration
     * Added interface `IBDXLURLProvider`
@@ -374,8 +373,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Fixed OSGI ServiceProvider configuration
     * Updated to ph-commons 9.1.0
 * v6.1.0 - 2018-05-04 (#StarWarsDay release)
-    * Reworked internal PEPPOL document type identifier representation (API incompatibility; deleted `OpenPeppolDocumentTypeIdentifierParts`)
-    * The new official PEPPOL code lists were integrated. Therefore `EPredefinedIdentifierIssuingAgency` was replaced with `EPredefinedParticipantIdentifierScheme` and `IdentifierIssuingAgencyManager` was renamed to `ParticipantIdentifierSchemeManager`
+    * Reworked internal Peppol document type identifier representation (API incompatibility; deleted `OpenPeppolDocumentTypeIdentifierParts`)
+    * The new official Peppol code lists were integrated. Therefore `EPredefinedIdentifierIssuingAgency` was replaced with `EPredefinedParticipantIdentifierScheme` and `IdentifierIssuingAgencyManager` was renamed to `ParticipantIdentifierSchemeManager`
     * The document types were removed from the predefined process identifiers
     * The shortcut constants of the predefined process identifiers were slightly changed (the final "0" was removed, so `BIS1A_V20` is now `BIS1A_V2`) 
 * v6.0.4 - 2018-04-13
@@ -394,7 +393,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Updated to ph-commons 9.0.0
     * SMP client can now handle responses with BOM
     * Removed legacy project `peppol-sml-client-swing` again
-    * Added PEPPOL AS4 transport protocol ID
+    * Added Peppol AS4 transport protocol ID
     * All sub-projects previously licensed under EUPL 1.1 or MPL 1.1 (`peppol-commons`, `peppol-smp-client` and `peppol-sml-client`) are now licensed under MPL 2.0
 * v5.2.7 - 2017-07-21
     * Unified identifier handling concerning `""` and `null`
@@ -419,17 +418,17 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * v5.2.0 - 2016-10-25
     * Reworked identifier API to improve case sensitivity handling (based on identifier scheme). The rules per identifier factory:
     * BDXR: identifiers based on participant identifier scheme `iso6523-actorid-upis`, document type identifier scheme `bdx-docid-qns` or process identifier scheme `bdx-procid-transport` are treated case **in**sensitive
-    * PEPPOL: identifiers based on participant identifier scheme `iso6523-actorid-upis` are treated case **in**sensitive
+    * Peppol: identifiers based on participant identifier scheme `iso6523-actorid-upis` are treated case **in**sensitive
     * simple: all identifiers are handled case sensitive.
 * v5.1.5 - 2016-10-17
     * Improved BDXR extension API
 * v5.1.4 - 2016-10-12
     * Added missing U-NAPTR resolution in EsensURLProvider - thanks to @jerouris for pointing that out
 * v5.1.3 - 2016-09-15
-    * Changed PEPPOL identifier codelist to 1.2.1, because 1.2.2 was based on a misunderstanding
+    * Changed Peppol identifier codelist to 1.2.1, because 1.2.2 was based on a misunderstanding
 * v5.1.2 - 2016-09-09
     * Updated to ph-commons 8.5.x
-    * Updated PEPPOL identifier codelist to 1.2.2
+    * Updated Peppol identifier codelist to 1.2.2
 * v5.1.1 - 2016-08-21
     * Updated to ph-commons 8.4.x
     * Improved identifier handling for BDXR 
@@ -439,7 +438,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * JDK 8 is now required
     * Please check the separate [Update to version 5](UpdateV5.md) page.
 * v4.3.5 - 2016-02-26
-    * Made the SMP query API more flexible so that e.g. the PEPPOL Directory BusinessCards can easily be queried; made the SMP Client more configurable.
+    * Made the SMP query API more flexible so that e.g. the Peppol Directory BusinessCards can easily be queried; made the SMP Client more configurable.
 * v4.3.4 - 2016-01-26
     * Reduced the maximum migration key length from 100 to 24 (new SMK 3 requirement) and adopted the API to use String instead of UUID
 * v4.3.3 - 2015-12-11
