@@ -264,7 +264,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.1.0 - work in progress
+* v8.1.0 - 2020-05-26
     * Changed the Maven groupId to `com.helger.peppol`
     * Updated to ph-web 9.3.0 (using ph-dns) (new Maven groupId)
     * Updated to ph-xsds 2.3.0 (new Maven groupId)
