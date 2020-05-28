@@ -52,7 +52,7 @@ public final class BDXLURLProviderTest
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"),
                                                         ESML.DIGIT_PRODUCTION.getDNSZone (),
                                                         false));
-    assertEquals ("HSH3FMC5CYERDV5J6LN6MMQCN2PP2UCYVCZRWUEAHOSOBVIKB6KQ.edelivery.tech.ec.europa.eu",
+    assertEquals ("HSH3FMC5CYERDV5J6LN6MMQCN2PP2UCYVCZRWUEAHOSOBVIKB6KQ.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "9999:elonia"),
                                                         ESML.DIGIT_PRODUCTION.getDNSZone (),
                                                         false));
