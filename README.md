@@ -264,7 +264,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.1.1 - work in progress
+* v8.1.1 - 2020-06-04
     * Made SMP/BDXR client truststore configurable via the code - [issue #35](https://github.com/phax/peppol-commons/issues/35)
 * v8.1.0 - 2020-05-26
     * Changed the Maven groupId to `com.helger.peppol`

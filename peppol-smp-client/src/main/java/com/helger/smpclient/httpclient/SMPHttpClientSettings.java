@@ -29,7 +29,10 @@ import com.helger.smpclient.config.SMPClientConfiguration;
 public class SMPHttpClientSettings extends HttpClientSettings
 {
   /**
-   * Constructor. Initializes all settings from configuration file.
+   * Constructor. Initializes all settings from configuration file. Any changes
+   * made afterwards
+   *
+   * @see #resetToConfiguration()
    */
   public SMPHttpClientSettings ()
   {
