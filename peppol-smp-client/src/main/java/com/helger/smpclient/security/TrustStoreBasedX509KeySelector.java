@@ -16,6 +16,8 @@
  */
 package com.helger.smpclient.security;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.PublicKey;
 import java.security.cert.CertPath;
@@ -58,22 +60,51 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (TrustStoreBasedX509KeySelector.class);
 
-  private final EKeyStoreType m_eTruststoreType;
-  private final String m_sTruststorePath;
-  private final String m_sTrustStorePassword;
+  private KeyStore m_aTrustStore;
 
-  private transient KeyStore m_aTrustStore;
-
-  public TrustStoreBasedX509KeySelector (@Nonnull final EKeyStoreType eTruststoreType,
-                                         @Nonnull final String sTruststorePath,
-                                         @Nonnull final String sTruststorePassword)
+  /**
+   * Constructor that loads an external trust store
+   *
+   * @param eTrustStoreType
+   *        Trust store type
+   * @param sTrustStorePath
+   *        Trust store path
+   * @param sTrustStorePassword
+   *        Trust store password
+   * @deprecated Since v8.1.1
+   */
+  @Deprecated
+  public TrustStoreBasedX509KeySelector (@Nonnull final EKeyStoreType eTrustStoreType,
+                                         @Nonnull final String sTrustStorePath,
+                                         @Nonnull final String sTrustStorePassword)
   {
-    ValueEnforcer.notNull (eTruststoreType, "TruststoreType");
-    ValueEnforcer.notNull (sTruststorePath, "TruststorePath");
-    ValueEnforcer.notNull (sTruststorePassword, "TruststorePassword");
-    m_eTruststoreType = eTruststoreType;
-    m_sTruststorePath = sTruststorePath;
-    m_sTrustStorePassword = sTruststorePassword;
+    ValueEnforcer.notNull (eTrustStoreType, "TrustStoreType");
+    ValueEnforcer.notNull (sTrustStorePath, "TrustStorePath");
+    ValueEnforcer.notNull (sTrustStorePassword, "TrustStorePassword");
+    try
+    {
+      m_aTrustStore = KeyStoreHelper.loadKeyStoreDirect (eTrustStoreType, sTrustStorePath, sTrustStorePassword);
+    }
+    catch (final GeneralSecurityException | IOException ex)
+    {
+      throw new IllegalArgumentException ("Failed to load truststore '" + sTrustStorePath + "' of type " + eTrustStoreType);
+    }
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Loaded truststore '" + sTrustStorePath + "' of type " + eTrustStoreType);
+  }
+
+  /**
+   * Constructor
+   * 
+   * @param aTrustStore
+   *        The trust store to use. May not be <code>null</code>.
+   * @since 8.1.1
+   */
+  public TrustStoreBasedX509KeySelector (@Nonnull final KeyStore aTrustStore)
+  {
+    ValueEnforcer.notNull (aTrustStore, "TrustStore");
+    m_aTrustStore = aTrustStore;
   }
 
   public static boolean algorithmEquals (@Nonnull final String sAlgURI, @Nonnull final String sAlgName)
@@ -143,15 +174,6 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
 
               // Checks whether the certificate is in the trusted store.
               final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
-
-              if (m_aTrustStore == null)
-              {
-                // Load once only
-                m_aTrustStore = KeyStoreHelper.loadKeyStoreDirect (m_eTruststoreType, m_sTruststorePath, m_sTrustStorePassword);
-
-                if (LOGGER.isDebugEnabled ())
-                  LOGGER.debug ("Loaded truststore '" + m_sTruststorePath + "' of type " + m_eTruststoreType);
-              }
 
               // The PKIXParameters constructor may fail because:
               // - the trustAnchorsParameter is empty

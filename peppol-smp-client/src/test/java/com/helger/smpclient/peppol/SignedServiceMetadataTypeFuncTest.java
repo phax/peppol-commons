@@ -36,7 +36,6 @@ import org.w3c.dom.NodeList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
-import com.helger.security.keystore.EKeyStoreType;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerSignedServiceMetadataType;
@@ -72,12 +71,7 @@ public final class SignedServiceMetadataTypeFuncTest
     assertNotNull (aNodeList);
     assertTrue (aNodeList.getLength () > 0);
 
-    final EKeyStoreType eTruststoreType = SMPClientConfiguration.getTrustStoreType ();
-    final String sTruststorePath = SMPClientConfiguration.getTrustStorePath ();
-    final String sTrustStorePassword = SMPClientConfiguration.getTrustStorePassword ();
-    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (eTruststoreType,
-                                                                                            sTruststorePath,
-                                                                                            sTrustStorePassword);
+    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (SMPClientConfiguration.loadTrustStore ());
 
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.
@@ -131,12 +125,7 @@ public final class SignedServiceMetadataTypeFuncTest
     assertNotNull (aNodeList);
     assertTrue (aNodeList.getLength () > 0);
 
-    final EKeyStoreType eTruststoreType = SMPClientConfiguration.getTrustStoreType ();
-    final String sTruststorePath = SMPClientConfiguration.getTrustStorePath ();
-    final String sTrustStorePassword = SMPClientConfiguration.getTrustStorePassword ();
-    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (eTruststoreType,
-                                                                                            sTruststorePath,
-                                                                                            sTrustStorePassword);
+    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (SMPClientConfiguration.loadTrustStore ());
 
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.
@@ -173,12 +162,7 @@ public final class SignedServiceMetadataTypeFuncTest
     assertNotNull (aNodeList);
     assertTrue (aNodeList.getLength () > 0);
 
-    final EKeyStoreType eTruststoreType = SMPClientConfiguration.getTrustStoreType ();
-    final String sTruststorePath = SMPClientConfiguration.getTrustStorePath ();
-    final String sTrustStorePassword = SMPClientConfiguration.getTrustStorePassword ();
-    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (eTruststoreType,
-                                                                                            sTruststorePath,
-                                                                                            sTrustStorePassword);
+    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (SMPClientConfiguration.loadTrustStore ());
 
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.

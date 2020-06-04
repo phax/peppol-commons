@@ -17,6 +17,7 @@
 package com.helger.smpclient.bdxr2;
 
 import java.net.URI;
+import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
@@ -213,8 +214,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
         final IDType aID = aSMR.getID ();
         if (aID != null)
         {
-          final IDocumentTypeIdentifier aDocType = aIdentifierFactory.createDocumentTypeIdentifier (aID.getSchemeID (),
-                                                                                                    aID.getValue ());
+          final IDocumentTypeIdentifier aDocType = aIdentifierFactory.createDocumentTypeIdentifier (aID.getSchemeID (), aID.getValue ());
           if (aDocType != null)
           {
             // Found a document type
@@ -300,9 +300,11 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
 
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
+    final KeyStore aTrustStore = getTrustStore ();
     HttpGet aRequest = new HttpGet (sURI);
     ServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                           new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation)).setVerifySignature (bVerifySignature));
+                                                           new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation),
+                                                                                                aTrustStore).setVerifySignature (bVerifySignature));
     if (!SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()).equals (aDocumentTypeID))
     {
       // Inconsistency between request and response
@@ -326,7 +328,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
 
           aRequest = new HttpGet (aRedirect.getPublisherURIValue ());
           aMetadata = executeGenericRequest (aRequest,
-                                             new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation)).setVerifySignature (bVerifySignature));
+                                             new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation),
+                                                                                  aTrustStore).setVerifySignature (bVerifySignature));
 
           // Check that the certificateUID is correct.
           boolean bCertificateSubjectFound = false;
@@ -490,10 +493,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                          "' and transport profile '" +
                          aTransportProfile.getID () +
                          "'" +
-                         (aRelevantEndpoints.isEmpty () ? ""
-                                                        : ": " +
-                                                          aRelevantEndpoints.toString () +
-                                                          " - using the first one"));
+                         (aRelevantEndpoints.isEmpty () ? "" : ": " + aRelevantEndpoints.toString () + " - using the first one"));
         }
 
         // Use the first endpoint or null
@@ -617,7 +617,6 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
                                                                                                                          PeppolDNSResolutionException
   {
-    return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
-                                                                                                 aDocumentTypeID);
+    return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID, aDocumentTypeID);
   }
 }

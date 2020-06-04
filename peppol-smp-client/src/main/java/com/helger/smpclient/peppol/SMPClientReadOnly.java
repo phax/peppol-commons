@@ -17,6 +17,7 @@
 package com.helger.smpclient.peppol;
 
 import java.net.URI;
+import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Locale;
@@ -279,10 +280,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    return getCompleteServiceGroup (getSMPHostURI () +
-                                    URL_PART_COMPLETE +
-                                    "/" +
-                                    aServiceGroupID.getURIPercentEncoded ());
+    return getCompleteServiceGroup (getSMPHostURI () + URL_PART_COMPLETE + "/" + aServiceGroupID.getURIPercentEncoded ());
   }
 
   /**
@@ -404,13 +402,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     if (aSG != null && aSG.getParticipantIdentifier () != null && aSG.getServiceMetadataReferenceCollection () != null)
     {
-      final String sPathStart = "/" +
-                                CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) +
-                                "/" +
-                                URL_PART_SERVICES +
-                                "/";
-      for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
-                                                        .getServiceMetadataReference ())
+      final String sPathStart = "/" + CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) + "/" + URL_PART_SERVICES + "/";
+      for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ().getServiceMetadataReference ())
       {
         final String sOriginalHref = aSMR.getHref ();
         // Decoded href is important for unification
@@ -518,9 +511,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
+    final KeyStore aTrustStore = getTrustStore ();
     HttpGet aRequest = new HttpGet (sURI);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType (bXSDValidation)).setVerifySignature (bVerifySignature));
+                                                                 new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType (bXSDValidation),
+                                                                                                      aTrustStore).setVerifySignature (bVerifySignature));
 
     // If the Redirect element is present, then follow 1 redirect.
     if (isFollowSMPRedirects ())
@@ -533,7 +528,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
           LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         aRequest = new HttpGet (aRedirect.getHref ());
         aMetadata = executeGenericRequest (aRequest,
-                                           new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType (bXSDValidation)).setVerifySignature (bVerifySignature));
+                                           new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType (bXSDValidation),
+                                                                                aTrustStore).setVerifySignature (bVerifySignature));
 
         // Check that the certificateUID is correct.
         boolean bCertificateSubjectFound = false;
@@ -637,11 +633,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
   }
 
-  private static boolean _hasSameContent (@Nonnull final ProcessIdentifierType aPI1,
-                                          @Nonnull final IProcessIdentifier aPI2)
+  private static boolean _hasSameContent (@Nonnull final ProcessIdentifierType aPI1, @Nonnull final IProcessIdentifier aPI2)
   {
-    return EqualsHelper.equals (aPI1.getScheme (), aPI2.getScheme ()) &&
-           EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
+    return EqualsHelper.equals (aPI1.getScheme (), aPI2.getScheme ()) && EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
   }
 
   /**
@@ -678,8 +672,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
 
     // Iterate all processes
-    final ServiceInformationType aServiceInformation = aSignedServiceMetadata.getServiceMetadata ()
-                                                                             .getServiceInformation ();
+    final ServiceInformationType aServiceInformation = aSignedServiceMetadata.getServiceMetadata ().getServiceInformation ();
     if (aServiceInformation != null)
     {
       // Okay, it's not a redirect
@@ -703,10 +696,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                            aProcessID +
                            " and transport profile " +
                            aTransportProfile.getID () +
-                           (aRelevantEndpoints.isEmpty () ? ""
-                                                          : ": " +
-                                                            aRelevantEndpoints.toString () +
-                                                            " - using the first one"));
+                           (aRelevantEndpoints.isEmpty () ? "" : ": " + aRelevantEndpoints.toString () + " - using the first one"));
           }
 
           // Use the first endpoint or null
@@ -729,8 +719,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
     return aEndpoint == null ||
-           aEndpoint.getEndpointReference () == null ? null
-                                                     : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
+           aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
   }
 
   /**
@@ -860,7 +849,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
                                                                                                                                PeppolDNSResolutionException
   {
-    return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
-                                                                                               aDocumentTypeID);
+    return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID, aDocumentTypeID);
   }
 }

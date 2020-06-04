@@ -16,6 +16,10 @@
  */
 package com.helger.smpclient.config;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.security.KeyStore;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -28,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.httpclient.HttpClientSettings;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.security.keystore.EKeyStoreType;
+import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.settings.exchange.configfile.ConfigFile;
 import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 
@@ -125,6 +130,25 @@ public final class SMPClientConfiguration
   public static String getTrustStorePassword ()
   {
     return s_aConfigFile.getAsString ("truststore.password", PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
+  }
+
+  /**
+   * Try to load the configured trust store.
+   *
+   * @return <code>null</code> if it cannot be loaded.
+   * @since 8.1.1
+   */
+  @Nullable
+  public static KeyStore loadTrustStore ()
+  {
+    try
+    {
+      return KeyStoreHelper.loadKeyStoreDirect (getTrustStoreType (), getTrustStorePath (), getTrustStorePassword ());
+    }
+    catch (final GeneralSecurityException | IOException ex)
+    {
+      return null;
+    }
   }
 
   /**

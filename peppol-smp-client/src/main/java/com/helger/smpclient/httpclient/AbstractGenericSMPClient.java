@@ -21,6 +21,7 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyStore;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -43,6 +44,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.mime.CMimeType;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.httpclient.HttpClientManager;
@@ -73,10 +75,31 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public static final boolean DEFAULT_XML_SCHEMA_VALIDATION = true;
 
   // The default text/xml content type uses iso-8859-1!
-  public static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
-                                                                              StandardCharsets.UTF_8);
+  public static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (), StandardCharsets.UTF_8);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
+  private static final KeyStore DEFAULT_TRUST_STORE;
+  static
+  {
+    DEFAULT_TRUST_STORE = SMPClientConfiguration.loadTrustStore ();
+    if (DEFAULT_TRUST_STORE != null)
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Successfully loaded configured SMP client trust store");
+    }
+    else
+    {
+      if (StringHelper.hasNoText (SMPClientConfiguration.getTrustStorePath ()))
+      {
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("No SMP client trust store is configured");
+      }
+      else
+      {
+        LOGGER.warn ("Failed to load the configured SMP client trust store");
+      }
+    }
+  }
 
   /**
    * The string representation of the SMP host URL, always ending with a
@@ -84,6 +107,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    */
   private final String m_sSMPHost;
   private boolean m_bVerifySignature = SMPHttpResponseHandlerSigned.DEFAULT_VERIFY_SIGNATURE;
+  private KeyStore m_aTrustStore = DEFAULT_TRUST_STORE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private boolean m_bXMLSchemaValidation = DEFAULT_XML_SCHEMA_VALIDATION;
   private final SMPHttpClientSettings m_aHttpClientSettings = new SMPHttpClientSettings ();
@@ -423,6 +447,33 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public final IMPLTYPE setVerifySignature (final boolean bVerifySignature)
   {
     m_bVerifySignature = bVerifySignature;
+    return thisAsT ();
+  }
+
+  /**
+   * @return The trust store to be used for verifying the signature. May be
+   *         <code>null</code> if an invalid trust store is configured.
+   * @since 8.1.1
+   */
+  @Nullable
+  public final KeyStore getTrustStore ()
+  {
+    return m_aTrustStore;
+  }
+
+  /**
+   * Set the trust store to be used.
+   *
+   * @param aTrustStore
+   *        The trust store to be used. May not be <code>null</code>.
+   * @return this for chaining
+   * @since 8.1.1
+   */
+  @Nonnull
+  public final IMPLTYPE setTrustStore (@Nonnull final KeyStore aTrustStore)
+  {
+    ValueEnforcer.notNull (aTrustStore, "TrustStore");
+    m_aTrustStore = aTrustStore;
     return thisAsT ();
   }
 

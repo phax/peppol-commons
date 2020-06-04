@@ -18,9 +18,11 @@ package com.helger.smpclient.httpclient;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyStore;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.Reference;
@@ -41,7 +43,6 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.GenericJAXBMarshaller;
-import com.helger.security.keystore.EKeyStoreType;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
@@ -69,10 +70,57 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
   private final GenericJAXBMarshaller <T> m_aMarshaller;
   private boolean m_bVerifySignature = DEFAULT_VERIFY_SIGNATURE;
+  private KeyStore m_aTrustStore;
 
+  /**
+   * Constructor loading the trust store from the SMP Client configuration file.
+   *
+   * @param aMarshaller
+   *        The JAXB marshaller to be used. May not be <code>null</code>.
+   */
+  @Deprecated
   public SMPHttpResponseHandlerSigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller)
   {
+    this (aMarshaller, SMPClientConfiguration.loadTrustStore ());
+  }
+
+  /**
+   * Constructor
+   *
+   * @param aMarshaller
+   *        The JAXB marshaller to be used. May not be <code>null</code>.
+   * @param aTrustStore
+   *        The trust store to be used. May be <code>null</code>.
+   * @since 8.1.1
+   */
+  public SMPHttpResponseHandlerSigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller, @Nullable final KeyStore aTrustStore)
+  {
     m_aMarshaller = ValueEnforcer.notNull (aMarshaller, "Marshaller");
+    m_aTrustStore = aTrustStore;
+  }
+
+  /**
+   * @return <code>true</code> if SMP client response certificate checking is
+   *         enabled, <code>false</code> if it is disabled. By default this
+   *         check is enabled (see {@link #DEFAULT_VERIFY_SIGNATURE}).
+   * @since 5.2.1
+   * @deprecated since 8.0.3; Use {@link #isVerifySignature()} instead
+   */
+  @Deprecated
+  public final boolean isCheckCertificate ()
+  {
+    return isVerifySignature ();
+  }
+
+  /**
+   * @return <code>true</code> if SMP client response certificate checking is
+   *         enabled, <code>false</code> if it is disabled. By default this
+   *         check is enabled (see {@link #DEFAULT_VERIFY_SIGNATURE}).
+   * @since 8.0.3
+   */
+  public final boolean isVerifySignature ()
+  {
+    return m_bVerifySignature;
   }
 
   /**
@@ -113,31 +161,34 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
-   * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see {@link #DEFAULT_VERIFY_SIGNATURE}).
-   * @since 5.2.1
-   * @deprecated since 8.0.3; Use {@link #isVerifySignature()} instead
+   * @return The trust store to be used for verifying the signature. May be
+   *         <code>null</code> if an invalid trust store is configured.
+   * @since 8.1.1
    */
-  @Deprecated
-  public final boolean isCheckCertificate ()
+  @Nullable
+  public final KeyStore getTrustStore ()
   {
-    return isVerifySignature ();
+    return m_aTrustStore;
   }
 
   /**
-   * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see {@link #DEFAULT_VERIFY_SIGNATURE}).
-   * @since 8.0.3
+   * Set the trust store to be used.
+   *
+   * @param aTrustStore
+   *        The trust store to be used. May not be <code>null</code>.
+   * @return this for chaining
+   * @since 8.1.1
    */
-  public final boolean isVerifySignature ()
+  @Nonnull
+  public final SMPHttpResponseHandlerSigned <T> setTrustStore (@Nonnull final KeyStore aTrustStore)
   {
-    return m_bVerifySignature;
+    ValueEnforcer.notNull (aTrustStore, "TrustStore");
+    m_aTrustStore = aTrustStore;
+    return this;
   }
 
-  private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream) throws MarshalException,
-                                                                                                       XMLSignatureException
+  private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream,
+                                          @Nonnull final KeyStore aTrustStore) throws MarshalException, XMLSignatureException
   {
     // Get response from servlet
     final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);
@@ -150,12 +201,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     if (aNodeList == null || aNodeList.getLength () == 0)
       throw new IllegalArgumentException ("Element <Signature> not found in SMP XML response");
 
-    final EKeyStoreType eTruststoreType = SMPClientConfiguration.getTrustStoreType ();
-    final String sTruststorePath = SMPClientConfiguration.getTrustStorePath ();
-    final String sTrustStorePassword = SMPClientConfiguration.getTrustStorePassword ();
-    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (eTruststoreType,
-                                                                                            sTruststorePath,
-                                                                                            sTrustStorePassword);
+    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (aTrustStore);
 
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.
@@ -209,10 +255,13 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
     if (m_bVerifySignature)
     {
+      if (m_aTrustStore == null)
+        throw new SMPClientBadResponseException ("No trust store was configured - cannot verify signatures");
+
       try (final InputStream aIS = new NonBlockingByteArrayInputStream (aResponseBytes))
       {
         // Check the signature
-        if (!_checkSignature (aIS))
+        if (!_checkSignature (aIS, m_aTrustStore))
           throw new SMPClientBadResponseException ("Signature returned from SMP server was not valid");
       }
       catch (final Exception ex)
