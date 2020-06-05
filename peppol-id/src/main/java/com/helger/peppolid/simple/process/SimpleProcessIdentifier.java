@@ -17,6 +17,7 @@
 package com.helger.peppolid.simple.process;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.DevelopersNote;
@@ -48,7 +49,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public SimpleProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
+  public SimpleProcessIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
