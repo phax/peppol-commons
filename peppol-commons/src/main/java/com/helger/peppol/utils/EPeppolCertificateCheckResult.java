@@ -35,7 +35,7 @@ public enum EPeppolCertificateCheckResult implements IHasID <String>, IValidityI
   VALID ("valid", "certificate is valid"),
   NO_CERTIFICATE_PROVIDED ("nocert", "no certificate provided"),
   NOT_YET_VALID ("notyetvalid", "certificate is not yet valid"),
-  EXPIRED ("expired", "certificate is already expirted"),
+  EXPIRED ("expired", "certificate is already expired"),
   UNSUPPORTED_ISSUER ("unsupportedissuer", "unsupported certificate issuer"),
   REVOKED ("revoked", "certificate is revoked");
 
