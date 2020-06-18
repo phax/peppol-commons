@@ -560,6 +560,28 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
+   * Get the certificate bytes from the specified endpoint.
+   *
+   * @param aEndpoint
+   *        The endpoint to be used. May be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate or if the certificate is invalid.
+   * @since 8.1.2
+   */
+  @Nullable
+  public static X509Certificate getEndpointCertificateOrNull (@Nullable final EndpointType aEndpoint)
+  {
+    try
+    {
+      return getEndpointCertificate (aEndpoint);
+    }
+    catch (final CertificateException ex)
+    {
+      return null;
+    }
+  }
+
+  /**
    * Returns a service group. A service group references to the service
    * metadata.
    *
