@@ -17,7 +17,7 @@
 package com.helger.peppol.smlclient;
 
 import java.net.URL;
-import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.sml.ISMLInfo;
@@ -387,36 +388,47 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     return createWSPort ().list (aPageRequest);
   }
 
-  /**
-   * Ensure that the migration key used has at last 24 characters.
-   *
-   * @param sBaseKey
-   *        The base migration key. May not be <code>null</code>. E.g.
-   *        <code>UUID.toString()</code>
-   * @return The passed string with at last 24 chars
-   * @see CSMLDefault#MAX_MIGRATION_CODE_LENGTH
-   */
-  @Nonnull
-  @Nonempty
-  public static final String getSuitableMigrationKey (@Nonnull @Nonempty final String sBaseKey)
+  private static final char [] MK_LOWER = "abcdefghijklmnopqrstuvwxyz".toCharArray ();
+  private static final char [] MK_UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray ();
+  private static final char [] MK_DIGITS = "0123456789".toCharArray ();
+  private static final char [] MK_SPECIAL = "@#$%()[]{}*^-!~|+=".toCharArray ();
+  private static final char [] MK_ALL = ArrayHelper.getConcatenated (MK_LOWER,
+                                                                     ArrayHelper.getConcatenated (MK_UPPER,
+                                                                                                  ArrayHelper.getConcatenated (MK_DIGITS,
+                                                                                                                               MK_SPECIAL)));
+
+  private static char _random (@Nonnull final char [] aRange)
   {
-    ValueEnforcer.notEmpty (sBaseKey, "BaseKey");
-
-    // The SMK 3 imposes a new max length of 24 chars
-    if (sBaseKey.length () <= CSMLDefault.MAX_MIGRATION_CODE_LENGTH)
-      return sBaseKey;
-
-    return sBaseKey.substring (0, CSMLDefault.MAX_MIGRATION_CODE_LENGTH);
+    final int nIndex = ThreadLocalRandom.current ().nextInt (aRange.length);
+    return aRange[nIndex];
   }
 
   /**
-   * @return A new random migration key with at last 24 characters.
+   * Create a random migration key. Prior to version 8.1.2 this was a random
+   * UUID. In 8.1.2 the formula was changed to follow the rules of the BDMSL
+   * implementation.
+   *
+   * @return A new random migration key that matches the regex pattern of
+   *         {@link CSMLDefault#MIGRATION_CODE_PATTERN}.
    */
   @Nonnull
   @Nonempty
   public static final String createRandomMigrationKey ()
   {
-    return getSuitableMigrationKey (UUID.randomUUID ().toString ());
+    final StringBuilder aSB = new StringBuilder (CSMLDefault.MAX_MIGRATION_CODE_LENGTH);
+    // Fulfill the minimum requirements
+    aSB.append (_random (MK_LOWER));
+    aSB.append (_random (MK_UPPER));
+    aSB.append (_random (MK_DIGITS));
+    aSB.append (_random (MK_SPECIAL));
+    aSB.append (_random (MK_LOWER));
+    aSB.append (_random (MK_UPPER));
+    aSB.append (_random (MK_DIGITS));
+    aSB.append (_random (MK_SPECIAL));
+    // Fill up the rest
+    for (int i = 8; i < CSMLDefault.MAX_MIGRATION_CODE_LENGTH; ++i)
+      aSB.append (_random (MK_ALL));
+    return aSB.toString ();
   }
 
   /**
@@ -475,9 +487,9 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   public String prepareToMigrate (@Nonnull final IParticipantIdentifier aIdentifier,
                                   @Nonnull @Nonempty final String sMigrationKey,
                                   @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
-                                                                                 InternalErrorFault,
-                                                                                 NotFoundFault,
-                                                                                 UnauthorizedFault
+                                                                          InternalErrorFault,
+                                                                          NotFoundFault,
+                                                                          UnauthorizedFault
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");

@@ -264,6 +264,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+
+* v8.1.2 - work in progress
+    * The creation of the SMP Migration Key was adopted to the effective BDMSL implementation - [issue #37](https://github.com/phax/peppol-commons/issues/37)
 * v8.1.1 - 2020-06-04
     * Made SMP/BDXR client truststore configurable via the code - [issue #35](https://github.com/phax/peppol-commons/issues/35)
 * v8.1.0 - 2020-05-26
