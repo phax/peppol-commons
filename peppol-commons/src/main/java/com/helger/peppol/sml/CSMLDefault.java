@@ -54,6 +54,13 @@ public final class CSMLDefault
    */
   public static final int MAX_MIGRATION_CODE_LENGTH = 24;
 
+  /**
+   * The migration code pattern as defined by BDMSL since v1.01.
+   * 
+   * @since 8.1.2
+   */
+  public static final String MIGRATION_CODE_PATTERN = "^(?=.{8,24}$)(?=(.*[@#$%()\\[\\]{}*^_\\-!~|+=]){2,})(?=(.*[A-Z]){2})(?=(.*[a-z]){2})(?=(.*[0-9]){2})(?=\\S+$).*$";
+
   @PresentForCodeCoverage
   private static final CSMLDefault s_aInstance = new CSMLDefault ();
 
