@@ -249,7 +249,7 @@ Alternatively use the following code in your `dependencyManagement` section to u
 
 Note: prior to v8.1.0 the Maven groupId was `com.helger`.
 
-The binary version of this library can be found on https://repo1.maven.org/maven2/com/helger/ 
+The binary version of this library can be found on https://repo1.maven.org/maven2/com/helger/peppol/ 
 They depend on several other libraries so I suggest you are going for the Maven source integration.
 
 # References
