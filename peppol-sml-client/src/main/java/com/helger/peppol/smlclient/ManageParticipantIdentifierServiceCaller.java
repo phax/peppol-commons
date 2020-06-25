@@ -447,7 +447,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
     final String sMigrationKey = createRandomMigrationKey ();
-    return prepareToMigrate (aIdentifier, sSMPID, sMigrationKey);
+    return prepareToMigrate (aIdentifier, sMigrationKey, sSMPID);
   }
 
   /**
@@ -455,11 +455,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *
    * @param aIdentifier
    *        The participant identifier.
-   * @param sSMPID
-   *        SMP ID
    * @param sMigrationKey
    *        The migration key to be used. May neither be <code>null</code> nor
    *        empty.
+   * @param sSMPID
+   *        SMP ID
    * @return The migration key to transfer out-of-band to the other SMP.
    * @throws BadRequestFault
    *         Is thrown if the request sent to the service was not well-formed.
@@ -473,8 +473,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    */
   @Nonnull
   public String prepareToMigrate (@Nonnull final IParticipantIdentifier aIdentifier,
-                                  @Nonnull @Nonempty final String sSMPID,
-                                  @Nonnull @Nonempty final String sMigrationKey) throws BadRequestFault,
+                                  @Nonnull @Nonempty final String sMigrationKey,
+                                  @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
                                                                                  InternalErrorFault,
                                                                                  NotFoundFault,
                                                                                  UnauthorizedFault
