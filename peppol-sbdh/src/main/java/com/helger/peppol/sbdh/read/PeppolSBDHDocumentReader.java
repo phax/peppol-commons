@@ -119,8 +119,7 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority,
-                                             @Nullable final String sSenderIdentifier)
+  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority, @Nullable final String sSenderIdentifier)
   {
     return StringHelper.hasText (sSenderIdentifier);
   }
@@ -159,8 +158,7 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority,
-                                               @Nullable final String sReceiverIdentifier)
+  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority, @Nullable final String sReceiverIdentifier)
   {
     return StringHelper.hasText (sReceiverIdentifier);
   }
@@ -440,8 +438,7 @@ public class PeppolSBDHDocumentReader
 
     // Check that the header version is correct
     if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
-      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION,
-                                                 aSBDH.getHeaderVersion ());
+      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION, aSBDH.getHeaderVersion ());
 
     // Check sender
     {
@@ -457,8 +454,7 @@ public class PeppolSBDHDocumentReader
 
       // Check sender identifier value
       if (!isValidSenderIdentifier (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ()))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
-                                                   aSenderIdentification.getValue ());
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE, aSenderIdentification.getValue ());
 
       // Remember sender
       ret.setSender (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ());
@@ -504,8 +500,7 @@ public class PeppolSBDHDocumentReader
         if (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID.equals (sType))
         {
           if (!isValidDocumentTypeIdentifier (sInstanceIdentifier))
-            throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
-                                                       sInstanceIdentifier);
+            throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER, sInstanceIdentifier);
 
           // The scheme was added in Spec v1.1
           String sScheme = aScope.getIdentifier ();
@@ -519,8 +514,7 @@ public class PeppolSBDHDocumentReader
           if (CPeppolSBDH.SCOPE_PROCESS_ID.equals (sType))
           {
             if (!isValidProcessIdentifier (sInstanceIdentifier))
-              throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
-                                                         sInstanceIdentifier);
+              throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER, sInstanceIdentifier);
 
             // The scheme was added in Spec v1.1
             String sScheme = aScope.getIdentifier ();
@@ -585,9 +579,7 @@ public class PeppolSBDHDocumentReader
 
       final String sLocalName = aDI.getType ();
       if (!isValidType (sLocalName, aBusinessMessage))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE,
-                                                   sLocalName,
-                                                   aBusinessMessage.getLocalName ());
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE, sLocalName, aBusinessMessage.getLocalName ());
 
       // The unique message ID
       final String sSBDHID = aDI.getInstanceIdentifier ();

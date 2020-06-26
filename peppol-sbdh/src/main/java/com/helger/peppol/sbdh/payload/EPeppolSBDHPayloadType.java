@@ -44,8 +44,7 @@ public enum EPeppolSBDHPayloadType implements IJAXBDocumentType
 
   private final JAXBDocumentType m_aDocType;
 
-  private EPeppolSBDHPayloadType (@Nonnull final Class <?> aClass,
-                            @Nonnull final List <? extends ClassPathResource> aXSDPaths)
+  EPeppolSBDHPayloadType (@Nonnull final Class <?> aClass, @Nonnull final List <? extends ClassPathResource> aXSDPaths)
   {
     m_aDocType = new JAXBDocumentType (aClass, aXSDPaths, x -> StringHelper.trimEnd (x, "Type"));
   }

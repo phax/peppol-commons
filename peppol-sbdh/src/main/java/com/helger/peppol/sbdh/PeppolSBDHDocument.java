@@ -179,8 +179,7 @@ public class PeppolSBDHDocument
    * @return this
    */
   @Nonnull
-  public PeppolSBDHDocument setReceiver (@Nonnull @Nonempty final String sScheme,
-                                         @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setReceiver (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
   {
     m_sReceiverScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sReceiverValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -251,8 +250,7 @@ public class PeppolSBDHDocument
    * @return this
    */
   @Nonnull
-  public PeppolSBDHDocument setDocumentType (@Nonnull @Nonempty final String sScheme,
-                                             @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setDocumentType (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
   {
     m_sDocumentTypeScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sDocumentTypeValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -656,8 +654,7 @@ public class PeppolSBDHDocument
    * @since 6.2.4
    */
   @Nonnull
-  public PeppolSBDHDocument setBusinessMessageTextOnly (@Nonnull final String sTextPayload,
-                                                        @Nonnull final IMimeType aMimeType)
+  public PeppolSBDHDocument setBusinessMessageTextOnly (@Nonnull final String sTextPayload, @Nonnull final IMimeType aMimeType)
   {
     ValueEnforcer.notNull (sTextPayload, "TextPayload");
     ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -828,8 +825,7 @@ public class PeppolSBDHDocument
    * @since 5.2.6
    */
   @Nonnull
-  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage,
-                                           @Nonnull final IIdentifierFactory aIdentifierFactory)
+  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage, @Nonnull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 

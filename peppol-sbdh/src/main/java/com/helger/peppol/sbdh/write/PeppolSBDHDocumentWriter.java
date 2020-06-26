@@ -30,28 +30,46 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.StringHelper;
 import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 
+/**
+ * Convert a Peppol SBDH document to a regular SBDH document
+ * 
+ * @author Philip Helger
+ */
 @NotThreadSafe
 public class PeppolSBDHDocumentWriter
 {
+  private String m_sHeaderVersion = CPeppolSBDH.HEADER_VERSION;
+
   public PeppolSBDHDocumentWriter ()
   {}
 
   /**
-   * Override this method to customize the created header version
-   *
    * @return The SBDH header version to be used. May not be <code>null</code>.
    */
   @Nonnull
-  @OverrideOnDemand
-  protected String getHeaderVersion ()
+  public final String getHeaderVersion ()
   {
-    return CPeppolSBDH.HEADER_VERSION;
+    return m_sHeaderVersion;
+  }
+
+  /**
+   * Set the header version to be used.
+   *
+   * @param sHeaderVersion
+   *        The head version. May not be <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  public final PeppolSBDHDocumentWriter setHeaderVersion (@Nonnull final String sHeaderVersion)
+  {
+    ValueEnforcer.notNull (sHeaderVersion, "HeaderVersion");
+    m_sHeaderVersion = sHeaderVersion;
+    return this;
   }
 
   /**
@@ -75,7 +93,7 @@ public class PeppolSBDHDocumentWriter
     final StandardBusinessDocument aSBD = new StandardBusinessDocument ();
     {
       final StandardBusinessDocumentHeader aSBDH = new StandardBusinessDocumentHeader ();
-      aSBDH.setHeaderVersion (getHeaderVersion ());
+      aSBDH.setHeaderVersion (m_sHeaderVersion);
 
       // Sender data
       {

@@ -85,8 +85,8 @@ public interface IPeppolURLProvider extends Serializable
    *         In case one argument is invalid
    */
   @Nonnull
-  String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                  @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException;
+  String getDNSNameOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier,
+                                  @Nullable String sSMLZoneName) throws PeppolDNSResolutionException;
 
   /**
    * Get the SMP URI of the passed participant ID in the provided SML DNS zone

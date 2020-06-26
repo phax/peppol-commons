@@ -43,8 +43,7 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   INVALID_SENDER_COUNT ("invalid-sender-count", "Not exactly one \"Sender\" element is present"),
 
   /** The "Sender/Identifier/Authority" attribute has an invalid value */
-  INVALID_SENDER_AUTHORITY ("invalid-sender-authority",
-                            "The \"Sender/Identifier/Authority\" attribute has an invalid value"),
+  INVALID_SENDER_AUTHORITY ("invalid-sender-authority", "The \"Sender/Identifier/Authority\" attribute has an invalid value"),
 
   /** The "Sender/Identifier" has an invalid value */
   INVALID_SENDER_VALUE ("invalid-sender-value", "The \"Sender/Identifier\" has an invalid value"),
@@ -53,8 +52,7 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   INVALID_RECEIVER_COUNT ("invalid-receiver-count", "Not exactly one \"Receiver\" element is present"),
 
   /** The "Receiver/Identifier/Authority" attribute has an invalid value */
-  INVALID_RECEIVER_AUTHORITY ("invalid-receiver-authority",
-                              "The \"Receiver/Identifier/Authority\" attribute has an invalid value"),
+  INVALID_RECEIVER_AUTHORITY ("invalid-receiver-authority", "The \"Receiver/Identifier/Authority\" attribute has an invalid value"),
 
   /** The "Receiver/Identifier" has an invalid value */
   INVALID_RECEIVER_VALUE ("invalid-receiver-value", "The \"Receiver/Identifier\" has an invalid value"),
@@ -66,8 +64,7 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   INVALID_SCOPE_COUNT ("invalid-scope-count", "At least two \"BusinessScope/Scope\" elements must be present"),
 
   /** The provided document type identifier is invalid */
-  INVALID_DOCUMENT_TYPE_IDENTIFIER ("invalid-document-type-identifier",
-                                    "The provided document type identifier is invalid"),
+  INVALID_DOCUMENT_TYPE_IDENTIFIER ("invalid-document-type-identifier", "The provided document type identifier is invalid"),
 
   /** The provided process identifier is invalid */
   INVALID_PROCESS_IDENTIFIER ("invalid-process-identifier", "The provided process identifier is invalid"),
@@ -90,8 +87,7 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   /**
    * The value of the "DocumentIdentification/TypeVersion" element is invalid
    */
-  INVALID_TYPE_VERSION ("invalid-type-version",
-                        "The value of the \"DocumentIdentification/TypeVersion\" element is invalid"),
+  INVALID_TYPE_VERSION ("invalid-type-version", "The value of the \"DocumentIdentification/TypeVersion\" element is invalid"),
 
   /** The value of the "DocumentIdentification/Type" element is invalid */
   INVALID_TYPE ("invalid-type", "The value of the \"DocumentIdentification/Type\" element is invalid"),
@@ -113,7 +109,7 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   private final String m_sID;
   private final String m_sErrorMsg;
 
-  private EPeppolSBDHDocumentReadError (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sErrorMsg)
+  EPeppolSBDHDocumentReadError (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sErrorMsg)
   {
     m_sID = sID;
     m_sErrorMsg = sErrorMsg;
@@ -126,6 +122,9 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
     return m_sID;
   }
 
+  /**
+   * @return The English error message
+   */
   @Nonnull
   @Nonempty
   public String getErrorMessage ()

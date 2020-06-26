@@ -50,15 +50,7 @@ public class PeppolSBDHDocumentReadException extends Exception
                                           @Nonnull final String sValue1,
                                           @Nonnull final String sValue2)
   {
-    super ("[" +
-           eErrorCode.getID () +
-           "] " +
-           eErrorCode.getErrorMessage () +
-           ": '" +
-           sValue1 +
-           "' vs. '" +
-           sValue2 +
-           "'");
+    super ("[" + eErrorCode.getID () + "] " + eErrorCode.getErrorMessage () + ": '" + sValue1 + "' vs. '" + sValue2 + "'");
     m_eErrorCode = eErrorCode;
   }
 

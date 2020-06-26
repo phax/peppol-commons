@@ -33,8 +33,7 @@ import com.helger.peppol.sbdh.spec12.TextContentType;
 @NotThreadSafe
 public class PeppolSBDHPayloadReader <JAXBTYPE> extends JAXBReaderBuilder <JAXBTYPE, PeppolSBDHPayloadReader <JAXBTYPE>>
 {
-  public PeppolSBDHPayloadReader (@Nonnull final EPeppolSBDHPayloadType eDocType,
-                                  @Nonnull final Class <JAXBTYPE> aImplClass)
+  public PeppolSBDHPayloadReader (@Nonnull final EPeppolSBDHPayloadType eDocType, @Nonnull final Class <JAXBTYPE> aImplClass)
   {
     super (eDocType, aImplClass);
   }
