@@ -19,6 +19,7 @@ package com.helger.peppolid.factory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppolid.bdxr.smp2.BDXR2IdentifierHelper;
 import com.helger.peppolid.bdxr.smp2.CBDXR2Identifier;
 import com.helger.peppolid.bdxr.smp2.doctype.BDXR2DocumentTypeIdentifier;
@@ -66,12 +67,10 @@ public class BDXR2IdentifierFactory implements IIdentifierFactory
   }
 
   @Nullable
-  public BDXR2DocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
-                                                                   @Nullable final String sValue)
+  public BDXR2DocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealScheme = nullNotEmpty (sScheme);
-    final String sRealValue = nullNotEmpty (isDocumentTypeIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
-                                                                                                  : sValue);
+    final String sRealValue = nullNotEmpty (isDocumentTypeIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue) : sValue);
     if (isDocumentTypeIdentifierSchemeValid (sRealScheme) && isDocumentTypeIdentifierValueValid (sRealValue))
       return new BDXR2DocumentTypeIdentifier (sRealScheme, sRealValue);
     return null;
@@ -98,12 +97,10 @@ public class BDXR2IdentifierFactory implements IIdentifierFactory
   }
 
   @Nullable
-  public BDXR2ParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
-                                                                 @Nullable final String sValue)
+  public BDXR2ParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealScheme = nullNotEmpty (sScheme);
-    final String sRealValue = nullNotEmpty (isParticipantIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
-                                                                                                 : sValue);
+    final String sRealValue = nullNotEmpty (isParticipantIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue) : sValue);
     if (isParticipantIdentifierSchemeValid (sRealScheme) && isParticipantIdentifierValueValid (sRealValue))
       return new BDXR2ParticipantIdentifier (sRealScheme, sRealValue);
     return null;
@@ -132,11 +129,16 @@ public class BDXR2IdentifierFactory implements IIdentifierFactory
   public BDXR2ProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealScheme = nullNotEmpty (sScheme);
-    final String sRealValue = nullNotEmpty (isProcessIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
-                                                                                             : sValue);
+    final String sRealValue = nullNotEmpty (isProcessIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue) : sValue);
 
     if (isProcessIdentifierSchemeValid (sRealScheme) && isProcessIdentifierValueValid (sRealValue))
       return new BDXR2ProcessIdentifier (sRealScheme, sRealValue);
     return null;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).getToString ();
   }
 }

@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
@@ -74,8 +75,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
       return false;
 
     // Check if the value is ISO-8859-1 encoded
-    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
-           StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
+    return PeppolIdentifierHelper.areCharsetChecksDisabled () || StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
   }
 
   @Nullable
@@ -86,8 +86,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   }
 
   @Nullable
-  public PeppolDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
-                                                                    @Nullable final String sValue)
+  public PeppolDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return PeppolDocumentTypeIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
@@ -134,8 +133,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   {
     if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
       return false;
-    return RegExHelper.stringMatchesPattern (PeppolIdentifierHelper.PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
-                                             sScheme.toLowerCase (Locale.US));
+    return RegExHelper.stringMatchesPattern (PeppolIdentifierHelper.PARTICIPANT_IDENTIFIER_SCHEME_REGEX, sScheme.toLowerCase (Locale.US));
   }
 
   /**
@@ -169,8 +167,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
         return false;
 
     // Check if the value is US ASCII encoded
-    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
-           StandardCharsets.US_ASCII.newEncoder ().canEncode (sValue);
+    return PeppolIdentifierHelper.areCharsetChecksDisabled () || StandardCharsets.US_ASCII.newEncoder ().canEncode (sValue);
   }
 
   @Nullable
@@ -181,8 +178,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   }
 
   @Nullable
-  public PeppolParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
-                                                                  @Nullable final String sValue)
+  public PeppolParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return PeppolParticipantIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
@@ -210,8 +206,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
       return false;
 
     // Check if the value is ISO-8859-1 encoded
-    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
-           StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
+    return PeppolIdentifierHelper.areCharsetChecksDisabled () || StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
   }
 
   @Nullable
@@ -226,5 +221,11 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   {
     final String sRealValue = isProcessIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return PeppolProcessIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).getToString ();
   }
 }

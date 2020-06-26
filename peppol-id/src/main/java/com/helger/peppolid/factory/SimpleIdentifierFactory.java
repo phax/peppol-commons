@@ -18,6 +18,7 @@ package com.helger.peppolid.factory;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
@@ -43,16 +44,14 @@ public class SimpleIdentifierFactory implements IIdentifierFactory
   }
 
   @Nullable
-  public SimpleDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
-                                                                    @Nullable final String sValue)
+  public SimpleDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return new SimpleDocumentTypeIdentifier (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 
   @Nullable
-  public SimpleParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
-                                                                  @Nullable final String sValue)
+  public SimpleParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return new SimpleParticipantIdentifier (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
@@ -63,5 +62,11 @@ public class SimpleIdentifierFactory implements IIdentifierFactory
   {
     final String sRealValue = isProcessIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return new SimpleProcessIdentifier (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).getToString ();
   }
 }
