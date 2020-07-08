@@ -91,6 +91,40 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * @return The sender identifier scheme. May be <code>null</code> if not
+   *         initialized. This field is mapped to
+   *         <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code>
+   *         .
+   */
+  @Nullable
+  public String getSenderScheme ()
+  {
+    return m_sSenderScheme;
+  }
+
+  /**
+   * @return The sender identifier value. May be <code>null</code> if not
+   *         initialized. This field is mapped to
+   *         <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
+   */
+  @Nullable
+  public String getSenderValue ()
+  {
+    return m_sSenderValue;
+  }
+
+  /**
+   * @return The sender identifier as a participant identifier or
+   *         <code>null</code> if certain information are missing or are
+   *         invalid.
+   */
+  @Nullable
+  public IParticipantIdentifier getSenderAsIdentifier ()
+  {
+    return m_aIdentifierFactory.createParticipantIdentifier (m_sSenderScheme, m_sSenderValue);
+  }
+
+  /**
    * Set the sender identifier.
    *
    * @param sScheme
@@ -130,37 +164,37 @@ public class PeppolSBDHDocument
   }
 
   /**
-   * @return The sender identifier scheme. May be <code>null</code> if not
+   * @return The receiver identifier scheme. May be <code>null</code> if not
    *         initialized. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code>
+   *         <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code>
    *         .
    */
   @Nullable
-  public String getSenderScheme ()
+  public String getReceiverScheme ()
   {
-    return m_sSenderScheme;
+    return m_sReceiverScheme;
   }
 
   /**
-   * @return The sender identifier value. May be <code>null</code> if not
+   * @return The receiver identifier value. May be <code>null</code> if not
    *         initialized. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
+   *         <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
    */
   @Nullable
-  public String getSenderValue ()
+  public String getReceiverValue ()
   {
-    return m_sSenderValue;
+    return m_sReceiverValue;
   }
 
   /**
-   * @return The sender identifier as a participant identifier or
+   * @return The receiver identifier as a participant identifier or
    *         <code>null</code> if certain information are missing or are
    *         invalid.
    */
   @Nullable
-  public IParticipantIdentifier getSenderAsIdentifier ()
+  public IParticipantIdentifier getReceiverAsIdentifier ()
   {
-    return m_aIdentifierFactory.createParticipantIdentifier (m_sSenderScheme, m_sSenderValue);
+    return m_aIdentifierFactory.createParticipantIdentifier (m_sReceiverScheme, m_sReceiverValue);
   }
 
   /**
@@ -203,37 +237,35 @@ public class PeppolSBDHDocument
   }
 
   /**
-   * @return The receiver identifier scheme. May be <code>null</code> if not
-   *         initialized. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code>
+   * @return The document type identifier scheme. May be <code>null</code> if
+   *         not initialized yet. This field is currently not mapped.
+   */
+  @Nullable
+  public String getDocumentTypeScheme ()
+  {
+    return m_sDocumentTypeScheme;
+  }
+
+  /**
+   * @return The document type identifier value. May be <code>null</code> if not
+   *         initialized yet. This field is mapped to
+   *         <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
    *         .
    */
   @Nullable
-  public String getReceiverScheme ()
+  public String getDocumentTypeValue ()
   {
-    return m_sReceiverScheme;
+    return m_sDocumentTypeValue;
   }
 
   /**
-   * @return The receiver identifier value. May be <code>null</code> if not
-   *         initialized. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
+   * @return The document type identifier as an object or <code>null</code> if
+   *         certain information are missing or are invalid.
    */
   @Nullable
-  public String getReceiverValue ()
+  public IDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
   {
-    return m_sReceiverValue;
-  }
-
-  /**
-   * @return The receiver identifier as a participant identifier or
-   *         <code>null</code> if certain information are missing or are
-   *         invalid.
-   */
-  @Nullable
-  public IParticipantIdentifier getReceiverAsIdentifier ()
-  {
-    return m_aIdentifierFactory.createParticipantIdentifier (m_sReceiverScheme, m_sReceiverValue);
+    return m_aIdentifierFactory.createDocumentTypeIdentifier (m_sDocumentTypeScheme, m_sDocumentTypeValue);
   }
 
   /**
@@ -276,35 +308,35 @@ public class PeppolSBDHDocument
   }
 
   /**
-   * @return The document type identifier scheme. May be <code>null</code> if
-   *         not initialized yet. This field is currently not mapped.
+   * @return The process identifier scheme. May be <code>null</code> if not
+   *         initialized yet. This field is currently not mapped.
    */
   @Nullable
-  public String getDocumentTypeScheme ()
+  public String getProcessScheme ()
   {
-    return m_sDocumentTypeScheme;
+    return m_sProcessScheme;
   }
 
   /**
-   * @return The document type identifier value. May be <code>null</code> if not
+   * @return The process identifier value. May be <code>null</code> if not
    *         initialized yet. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
+   *         <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="PROCESSID"]/InstanceIdentifier</code>
    *         .
    */
   @Nullable
-  public String getDocumentTypeValue ()
+  public String getProcessValue ()
   {
-    return m_sDocumentTypeValue;
+    return m_sProcessValue;
   }
 
   /**
-   * @return The document type identifier as an object or <code>null</code> if
-   *         certain information are missing or are invalid.
+   * @return The process identifier as an object or <code>null</code> if certain
+   *         information are missing or are invalid.
    */
   @Nullable
-  public IDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
+  public IProcessIdentifier getProcessAsIdentifier ()
   {
-    return m_aIdentifierFactory.createDocumentTypeIdentifier (m_sDocumentTypeScheme, m_sDocumentTypeValue);
+    return m_aIdentifierFactory.createProcessIdentifier (m_sProcessScheme, m_sProcessValue);
   }
 
   /**
@@ -343,38 +375,6 @@ public class PeppolSBDHDocument
   public PeppolSBDHDocument setProcessWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
     return setProcess (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, sValue);
-  }
-
-  /**
-   * @return The process identifier scheme. May be <code>null</code> if not
-   *         initialized yet. This field is currently not mapped.
-   */
-  @Nullable
-  public String getProcessScheme ()
-  {
-    return m_sProcessScheme;
-  }
-
-  /**
-   * @return The process identifier value. May be <code>null</code> if not
-   *         initialized yet. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="PROCESSID"]/InstanceIdentifier</code>
-   *         .
-   */
-  @Nullable
-  public String getProcessValue ()
-  {
-    return m_sProcessValue;
-  }
-
-  /**
-   * @return The process identifier as an object or <code>null</code> if certain
-   *         information are missing or are invalid.
-   */
-  @Nullable
-  public IProcessIdentifier getProcessAsIdentifier ()
-  {
-    return m_aIdentifierFactory.createProcessIdentifier (m_sProcessScheme, m_sProcessValue);
   }
 
   /**
