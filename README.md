@@ -264,7 +264,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-
+* v8.1.3 - 2020-07-11
+    * Fixed a missing whitespace in soapAction for SML registration of participants - [issue](https://github.com/phax/phoss-smp/issues/137) - regression from 8.0.6
 * v8.1.2 - 2020-07-06
     * The creation of the SMP Migration Key was adopted to the effective BDMSL implementation - [issue #37](https://github.com/phax/peppol-commons/issues/37)
 * v8.1.1 - 2020-06-04
