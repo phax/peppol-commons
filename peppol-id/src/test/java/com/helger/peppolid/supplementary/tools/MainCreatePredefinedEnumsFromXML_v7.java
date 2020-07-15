@@ -88,7 +88,7 @@ import com.helger.xml.serialize.read.DOMReader;
 public final class MainCreatePredefinedEnumsFromXML_v7
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v7.class);
-  private static final Version CODELIST_VERSION = new Version (7);
+  private static final Version CODELIST_VERSION = new Version (7, 1);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";

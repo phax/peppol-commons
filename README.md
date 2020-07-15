@@ -264,6 +264,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.1.4 - 2020-7-15
+    * Updated to eDEC Code Lists 7.1
 * v8.1.3 - 2020-07-11
     * Fixed a missing whitespace in soapAction for SML registration of participants - [issue](https://github.com/phax/phoss-smp/issues/137) - regression from 8.0.6
 * v8.1.2 - 2020-07-06
