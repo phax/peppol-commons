@@ -23,58 +23,53 @@ import com.helger.commons.name.IHasDisplayName;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-
 /**
  * This file is generated from Genericode file DocumentTypeCode.gc. Do NOT edit!
  */
-public enum EDocumentTypeCode
-    implements IHasID<String> , IHasDisplayName
+public enum EDocumentTypeCode implements IHasID <String>, IHasDisplayName
 {
-    QUERY("21", "Query"),
-    RESPONSE_TO_QUERY("22", "Response to query"),
-    INQUIRY("251", "Inquiry"),
-    STATUS_INFORMATION("23", "Status information"),
-    ORDER("220", "Order"),
-    RESPONSE_TO_REGISTRATION("301", "Response to registration"),
-    COMMERCIAL_INVOICE("380", "Commercial invoice"),
-    RELATED_DOCUMENT("916", "Related document"),
-    CREDIT_NOTE_RELATED_TO_GOODS_OR_SERVICES("81", "Credit note related to goods or services");
-    private final String m_sID;
-    private final String m_sDisplayName;
+  QUERY ("21", "Query"),
+  RESPONSE_TO_QUERY ("22", "Response to query"),
+  INQUIRY ("251", "Inquiry"),
+  STATUS_INFORMATION ("23", "Status information"),
+  ORDER ("220", "Order"),
+  RESPONSE_TO_REGISTRATION ("301", "Response to registration"),
+  COMMERCIAL_INVOICE ("380", "Commercial invoice"),
+  RELATED_DOCUMENT ("916", "Related document"),
+  CREDIT_NOTE_RELATED_TO_GOODS_OR_SERVICES ("81", "Credit note related to goods or services");
 
-    private EDocumentTypeCode(
-        @Nonnull
-        @Nonempty
-        final String sID,
-        @Nonnull
-        final String sDisplayName) {
-        m_sID = sID;
-        m_sDisplayName = sDisplayName;
-    }
+  private final String m_sID;
+  private final String m_sDisplayName;
 
-    @Nonnull
-    @Nonempty
-    public String getID() {
-        return m_sID;
-    }
+  private EDocumentTypeCode (@Nonnull @Nonempty final String sID, @Nonnull final String sDisplayName)
+  {
+    m_sID = sID;
+    m_sDisplayName = sDisplayName;
+  }
 
-    @Nonnull
-    public String getDisplayName() {
-        return m_sDisplayName;
-    }
+  @Nonnull
+  @Nonempty
+  public String getID ()
+  {
+    return m_sID;
+  }
 
-    @Nullable
-    public static EDocumentTypeCode getFromIDOrNull(
-        @Nullable
-        final String sID) {
-        return EnumHelper.getFromIDOrNull(EDocumentTypeCode.class, sID);
-    }
+  @Nonnull
+  public String getDisplayName ()
+  {
+    return m_sDisplayName;
+  }
 
-    @Nullable
-    public static String getDisplayNameFromIDOrNull(
-        @Nullable
-        final String sID) {
-        final EDocumentTypeCode eValue = EDocumentTypeCode.getFromIDOrNull(sID);
-        return ((eValue == null)?null:eValue.getDisplayName());
-    }
+  @Nullable
+  public static EDocumentTypeCode getFromIDOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrNull (EDocumentTypeCode.class, sID);
+  }
+
+  @Nullable
+  public static String getDisplayNameFromIDOrNull (@Nullable final String sID)
+  {
+    final EDocumentTypeCode eValue = EDocumentTypeCode.getFromIDOrNull (sID);
+    return ((eValue == null) ? null : eValue.getDisplayName ());
+  }
 }

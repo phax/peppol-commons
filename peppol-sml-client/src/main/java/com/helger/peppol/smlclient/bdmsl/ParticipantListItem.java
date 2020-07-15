@@ -51,8 +51,7 @@ public class ParticipantListItem implements Serializable
    * @param aParticipantID
    *        The participant identifier. May not be <code>null</code>.
    */
-  public ParticipantListItem (@Nonnull @Nonempty final String sSMPID,
-                              @Nonnull final IParticipantIdentifier aParticipantID)
+  public ParticipantListItem (@Nonnull @Nonempty final String sSMPID, @Nonnull final IParticipantIdentifier aParticipantID)
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
@@ -102,8 +101,6 @@ public class ParticipantListItem implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("SMPID", m_sSMPID)
-                                       .append ("ParticipantID", m_aParticipantID)
-                                       .getToString ();
+    return new ToStringGenerator (null).append ("SMPID", m_sSMPID).append ("ParticipantID", m_aParticipantID).getToString ();
   }
 }

@@ -449,7 +449,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
-      final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
+      final JMethod jCtor = jEnum.constructor (0);
       final JVar jSchemeID = jCtor.param (JMod.FINAL, String.class, "sSchemeID");
       jSchemeID.annotate (Nonnull.class);
       jSchemeID.annotate (Nonempty.class);
@@ -596,7 +596,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
-      final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
+      final JMethod jCtor = jEnum.constructor (0);
       final JVar jScheme = jCtor.param (JMod.FINAL, String.class, "sScheme");
       jScheme.annotate (Nonnull.class);
       jScheme.annotate (Nonempty.class);
@@ -726,7 +726,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
-      final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
+      final JMethod jCtor = jEnum.constructor (0);
       final JVar jProtocol = jCtor.param (JMod.FINAL, String.class, "sProtocol");
       jProtocol.annotate (Nonnull.class);
       jProtocol.annotate (Nonempty.class);

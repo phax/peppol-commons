@@ -21,8 +21,7 @@ import javax.annotation.Nullable;
 
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
-public final class BDXR1ParticipantIdentifierMicroTypeConverter extends
-                                                               AbstractIdentifierMicroTypeConverter <BDXR1ParticipantIdentifier>
+public final class BDXR1ParticipantIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <BDXR1ParticipantIdentifier>
 {
   @Override
   @Nonnull

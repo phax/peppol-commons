@@ -38,8 +38,7 @@ public final class TestResource
   private final IReadableResource m_aRes;
   private final ICommonsSet <ErrorDefinition> m_aExpectedErrors = new CommonsHashSet <> ();
 
-  public TestResource (@Nonnull final IReadableResource aRes,
-                       @Nullable final ICommonsSet <ErrorDefinition> aExpectedErrors)
+  public TestResource (@Nonnull final IReadableResource aRes, @Nullable final ICommonsSet <ErrorDefinition> aExpectedErrors)
   {
     ValueEnforcer.notNull (aRes, "Resource");
 
@@ -92,9 +91,7 @@ public final class TestResource
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("resource", m_aRes)
-                                       .append ("expectedErrors", m_aExpectedErrors)
-                                       .getToString ();
+    return new ToStringGenerator (null).append ("resource", m_aRes).append ("expectedErrors", m_aExpectedErrors).getToString ();
   }
 
   @Nonnull

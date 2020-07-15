@@ -80,8 +80,6 @@ public final class TestDocument
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("filename", m_sFilename)
-                                       .append ("expectedErrors", m_aExpectedErrors)
-                                       .getToString ();
+    return new ToStringGenerator (null).append ("filename", m_sFilename).append ("expectedErrors", m_aExpectedErrors).getToString ();
   }
 }

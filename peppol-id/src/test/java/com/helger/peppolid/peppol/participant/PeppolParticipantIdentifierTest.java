@@ -48,8 +48,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class PeppolParticipantIdentifierTest
 {
-  private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a',
-                                                                           PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
+  private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
   private static final String VALUE_MAX_LENGTH_PLUS_1 = VALUE_MAX_LENGTH + 'a';
 
   @Test
@@ -176,8 +175,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME + VALUE_MAX_LENGTH_PLUS_1,
-                                       "abc");
+      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME + VALUE_MAX_LENGTH_PLUS_1, "abc");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -197,8 +195,7 @@ public final class PeppolParticipantIdentifierTest
   public void testHasDefaultScheme ()
   {
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    assertTrue (aIF.createParticipantIdentifierWithDefaultScheme ("abc")
-                   .hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME));
+    assertTrue (aIF.createParticipantIdentifierWithDefaultScheme ("abc").hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME));
     assertFalse (new PeppolParticipantIdentifier ("dummy-actorid-upis", "abc").hasDefaultScheme ());
   }
 

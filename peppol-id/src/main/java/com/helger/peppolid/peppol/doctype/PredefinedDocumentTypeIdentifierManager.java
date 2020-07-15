@@ -42,7 +42,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
 @Immutable
 public final class PredefinedDocumentTypeIdentifierManager
 {
-  private static final ICommonsMap <String, IPeppolPredefinedDocumentTypeIdentifier> s_aCodes = new CommonsHashMap<> ();
+  private static final ICommonsMap <String, IPeppolPredefinedDocumentTypeIdentifier> s_aCodes = new CommonsHashMap <> ();
 
   static
   {

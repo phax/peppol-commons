@@ -99,9 +99,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  protected PeppolParticipantIdentifier (final boolean bVerified,
-                                         @Nonnull final String sScheme,
-                                         @Nonnull final String sValue)
+  protected PeppolParticipantIdentifier (final boolean bVerified, @Nonnull final String sScheme, @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
@@ -210,8 +208,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    * @see PeppolIdentifierFactory#isParticipantIdentifierValueValid(String)
    */
   @Nullable
-  public static PeppolParticipantIdentifier createIfValid (@Nullable final String sScheme,
-                                                           @Nullable final String sValue)
+  public static PeppolParticipantIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
     if (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sScheme) &&
         PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sValue))

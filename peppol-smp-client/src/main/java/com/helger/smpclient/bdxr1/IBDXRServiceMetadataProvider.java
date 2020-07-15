@@ -101,12 +101,8 @@ public interface IBDXRServiceMetadataProvider
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
 
     // Get meta data for participant/documentType
-    final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
-                                                                                       aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null
-                                          : BDXRClientReadOnly.getEndpoint (aSignedServiceMetadata,
-                                                                            aProcessID,
-                                                                            aTransportProfile);
+    final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
+    return aSignedServiceMetadata == null ? null : BDXRClientReadOnly.getEndpoint (aSignedServiceMetadata, aProcessID, aTransportProfile);
   }
 
   /**
@@ -199,10 +195,7 @@ public interface IBDXRServiceMetadataProvider
                                                   @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                          CertificateException
   {
-    final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID,
-                                                            aDocumentTypeID,
-                                                            aProcessID,
-                                                            aTransportProfile);
+    final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
     return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 }

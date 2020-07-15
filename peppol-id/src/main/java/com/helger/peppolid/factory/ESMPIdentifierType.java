@@ -78,8 +78,7 @@ public enum ESMPIdentifierType implements IHasID <String>, IHasDisplayName
   }
 
   @Nullable
-  public static ESMPIdentifierType getFromIDOrDefault (@Nullable final String sID,
-                                                       @Nullable final ESMPIdentifierType eDefault)
+  public static ESMPIdentifierType getFromIDOrDefault (@Nullable final String sID, @Nullable final ESMPIdentifierType eDefault)
   {
     // Legacy ID
     if ("bdxr".equals (sID))

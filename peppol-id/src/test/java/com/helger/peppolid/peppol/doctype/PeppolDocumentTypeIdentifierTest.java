@@ -47,8 +47,7 @@ public final class PeppolDocumentTypeIdentifierTest
   public void testHasDefaultDocumentTypeIdentifierScheme ()
   {
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    assertTrue (aIF.createDocumentTypeIdentifierWithDefaultScheme ("abc")
-                   .hasScheme (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME));
+    assertTrue (aIF.createDocumentTypeIdentifierWithDefaultScheme ("abc").hasScheme (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME));
     assertFalse (new PeppolDocumentTypeIdentifier ("doctype", "abc").hasDefaultScheme ());
   }
 
@@ -98,8 +97,7 @@ public final class PeppolDocumentTypeIdentifierTest
     assertNull (aIF.parseDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
     assertNull (aIF.parseDocumentTypeIdentifier ("doctype::" +
                                                  StringHelper.getRepeated ('a',
-                                                                           PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
-                                                                                1)));
+                                                                           PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH + 1)));
     assertNull (aIF.parseDocumentTypeIdentifier ("doctype:order"));
     assertNull (aIF.parseDocumentTypeIdentifier ("doctypeorder"));
   }
@@ -175,9 +173,7 @@ public final class PeppolDocumentTypeIdentifierTest
     {
       // Scheme too long
       new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME +
-                                        StringHelper.getRepeated ('a',
-                                                                  PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH +
-                                                                       1),
+                                        StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                         "abc");
       fail ();
     }
@@ -188,9 +184,7 @@ public final class PeppolDocumentTypeIdentifierTest
     {
       // Value too long
       new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME,
-                                        StringHelper.getRepeated ('a',
-                                                                  PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
-                                                                       1));
+                                        StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH + 1));
       fail ();
     }
     catch (final IllegalArgumentException ex)

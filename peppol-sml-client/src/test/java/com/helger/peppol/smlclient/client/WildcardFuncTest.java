@@ -113,15 +113,12 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     {
       final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
       aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
-      aPIClient.create (UNAUTHRIZED_SML_ID,
-                        new PeppolParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
+      aPIClient.create (UNAUTHRIZED_SML_ID, new PeppolParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
       fail ("The user should not be authorized to insert PI when wildcard is on for scheme.");
     }
     catch (final UnauthorizedFault e)
     {
-      assertTrue (e.getMessage (),
-                  e.getMessage ()
-                   .contains ("The user is not allowed to register ParticipantIdentifiers for this scheme"));
+      assertTrue (e.getMessage (), e.getMessage ().contains ("The user is not allowed to register ParticipantIdentifiers for this scheme"));
     }
   }
 

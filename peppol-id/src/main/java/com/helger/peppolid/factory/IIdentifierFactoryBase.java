@@ -60,9 +60,7 @@ public interface IIdentifierFactoryBase extends Serializable
       return null;
 
     // This is quicker than splitting with RegEx!
-    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR,
-                                                                      sURIPart,
-                                                                      2);
+    final ICommonsList <String> aSplitted = StringHelper.getExploded (CIdentifier.URL_SCHEME_VALUE_SEPARATOR, sURIPart, 2);
     if (aSplitted.size () != 2)
       return null;
 

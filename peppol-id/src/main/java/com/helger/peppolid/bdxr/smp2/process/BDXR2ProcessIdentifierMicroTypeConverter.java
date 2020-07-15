@@ -21,8 +21,7 @@ import javax.annotation.Nullable;
 
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
-public final class BDXR2ProcessIdentifierMicroTypeConverter extends
-                                                           AbstractIdentifierMicroTypeConverter <BDXR2ProcessIdentifier>
+public final class BDXR2ProcessIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <BDXR2ProcessIdentifier>
 {
   @Override
   @Nonnull

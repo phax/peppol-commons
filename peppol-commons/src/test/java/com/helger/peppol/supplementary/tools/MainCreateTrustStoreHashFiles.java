@@ -46,16 +46,11 @@ public final class MainCreateTrustStoreHashFiles
   {
     final IReadableResource aTrustStore = new ClassPathResource (sTruststorePath);
 
-    final String sMD5 = MessageDigestValue.create (aTrustStore.getInputStream (), EMessageDigestAlgorithm.MD5)
-                                          .getHexEncodedDigestString ();
-    SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".md5"),
-                            sMD5,
-                            StandardCharsets.ISO_8859_1);
+    final String sMD5 = MessageDigestValue.create (aTrustStore.getInputStream (), EMessageDigestAlgorithm.MD5).getHexEncodedDigestString ();
+    SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".md5"), sMD5, StandardCharsets.ISO_8859_1);
     final String sSHA1 = MessageDigestValue.create (aTrustStore.getInputStream (), EMessageDigestAlgorithm.SHA_256)
                                            .getHexEncodedDigestString ();
-    SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".sha256"),
-                            sSHA1,
-                            StandardCharsets.ISO_8859_1);
+    SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".sha256"), sSHA1, StandardCharsets.ISO_8859_1);
 
     LOGGER.info ("Done creating hash values for " + sTruststorePath);
   }

@@ -25,8 +25,7 @@ import com.helger.xsds.bdxr.smp1.ServiceGroupReferenceListType;
  *
  * @author Philip Helger
  */
-public class BDXR1MarshallerServiceGroupReferenceListType extends
-                                                          AbstractBDXR1Marshaller <ServiceGroupReferenceListType>
+public class BDXR1MarshallerServiceGroupReferenceListType extends AbstractBDXR1Marshaller <ServiceGroupReferenceListType>
 {
   @Deprecated
   @DevelopersNote ("Since v8.0.5")
@@ -37,8 +36,6 @@ public class BDXR1MarshallerServiceGroupReferenceListType extends
 
   public BDXR1MarshallerServiceGroupReferenceListType (final boolean bValidationEnabled)
   {
-    super (ServiceGroupReferenceListType.class,
-           bValidationEnabled,
-           new ObjectFactory ()::createServiceGroupReferenceList);
+    super (ServiceGroupReferenceListType.class, bValidationEnabled, new ObjectFactory ()::createServiceGroupReferenceList);
   }
 }

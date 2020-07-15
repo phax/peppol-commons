@@ -45,8 +45,7 @@ public final class MainSetupSMLForSMPTests
     aSMClient.setSSLSocketFactory (AbstractSMLClientTestCase.createConfiguredSSLSocketFactory (SML_INFO, false));
 
     final ManageParticipantIdentifierServiceCaller aParticipantClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    aParticipantClient.setSSLSocketFactory (AbstractSMLClientTestCase.createConfiguredSSLSocketFactory (SML_INFO,
-                                                                                                        false));
+    aParticipantClient.setSSLSocketFactory (AbstractSMLClientTestCase.createConfiguredSSLSocketFactory (SML_INFO, false));
 
     try
     {

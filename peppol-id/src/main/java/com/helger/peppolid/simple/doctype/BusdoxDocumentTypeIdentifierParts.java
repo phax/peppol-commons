@@ -105,10 +105,7 @@ public final class BusdoxDocumentTypeIdentifierParts implements IBusdoxDocumentT
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sRootNS)
-                                       .append (m_sLocalName)
-                                       .append (m_sSubTypeIdentifier)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sRootNS).append (m_sLocalName).append (m_sSubTypeIdentifier).getHashCode ();
   }
 
   @Override

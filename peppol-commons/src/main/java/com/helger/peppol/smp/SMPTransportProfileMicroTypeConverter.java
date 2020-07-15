@@ -51,8 +51,7 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
   {
     final String sID = aElement.getAttributeValue (ATTR_ID);
     final String sName = aElement.getAttributeValue (ATTR_NAME);
-    final boolean bIsDeprecated = aElement.getAttributeValueAsBool (ATTR_DEPRECATED,
-                                                                    SMPTransportProfile.DEFAULT_DEPRECATED);
+    final boolean bIsDeprecated = aElement.getAttributeValueAsBool (ATTR_DEPRECATED, SMPTransportProfile.DEFAULT_DEPRECATED);
     return new SMPTransportProfile (sID, sName, bIsDeprecated);
   }
 }

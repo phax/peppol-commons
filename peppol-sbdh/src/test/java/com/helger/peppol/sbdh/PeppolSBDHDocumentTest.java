@@ -74,12 +74,9 @@ public final class PeppolSBDHDocumentTest
     dd.setSenderWithDefaultScheme ("abc");
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, dd.getSenderScheme ());
     assertEquals ("abc", dd.getSenderValue ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
-                                                                           new PeppolSBDHDocument (aIF).setSender ("scheme",
-                                                                                                                   "abc"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd, new PeppolSBDHDocument (aIF).setSender ("scheme", "abc"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd, new PeppolSBDHDocument (aIF));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (dd,
-                                                                       new PeppolSBDHDocument (aIF).setSenderWithDefaultScheme ("abc"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (dd, new PeppolSBDHDocument (aIF).setSenderWithDefaultScheme ("abc"));
 
     // Receiver
     dd.setReceiverWithDefaultScheme ("def");
@@ -89,8 +86,7 @@ public final class PeppolSBDHDocumentTest
                                                                            new PeppolSBDHDocument (aIF).setSenderWithDefaultScheme ("abc"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (dd,
                                                                            new PeppolSBDHDocument (aIF).setSenderWithDefaultScheme ("abc")
-                                                                                                       .setReceiver ("scheme",
-                                                                                                                     "def"));
+                                                                                                       .setReceiver ("scheme", "def"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (dd,
                                                                        new PeppolSBDHDocument (aIF).setSenderWithDefaultScheme ("abc")
                                                                                                    .setReceiverWithDefaultScheme ("def"));
@@ -130,9 +126,7 @@ public final class PeppolSBDHDocumentTest
     final IIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
     final PeppolSBDHDocument dd = new PeppolSBDHDocument (aIF);
 
-    dd.setBusinessMessageBinaryOnly ("abc".getBytes (StandardCharsets.UTF_8),
-                                     CMimeType.APPLICATION_OCTET_STREAM,
-                                     StandardCharsets.UTF_8);
+    dd.setBusinessMessageBinaryOnly ("abc".getBytes (StandardCharsets.UTF_8), CMimeType.APPLICATION_OCTET_STREAM, StandardCharsets.UTF_8);
     assertNotNull (dd.getBusinessMessage ());
     assertEquals ("<BinaryContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" encoding=\"UTF-8\" mimeType=\"application/octet-stream\">YWJj</BinaryContent>",
                   XMLWriter.getNodeAsString (dd.getBusinessMessage ()).trim ());

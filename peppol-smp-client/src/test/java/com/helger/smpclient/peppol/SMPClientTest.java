@@ -70,8 +70,7 @@ public final class SMPClientTest
   private static final Logger LOGGER = LoggerFactory.getLogger ("dummy");
   private static final String SMP_USERNAME = MockSMPClientConfig.getSMPUserName ();
   private static final String SMP_PASSWORD = MockSMPClientConfig.getSMPPassword ();
-  private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME,
-                                                                                                    SMP_PASSWORD);
+  private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME, SMP_PASSWORD);
   public static final URI SMP_URI = MockSMPClientConfig.getSMPURI ();
 
   @BeforeClass
@@ -128,8 +127,7 @@ public final class SMPClientTest
     final String sExtensionXML = "<" + sElement + ">" + sContent + "</" + sElement + ">";
 
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
-    final ServiceGroupType aServiceGroupCreate = aSMPClient.saveServiceGroup (MockSMPClientConfig.getParticipantID (),
-                                                                              SMP_CREDENTIALS);
+    final ServiceGroupType aServiceGroupCreate = aSMPClient.saveServiceGroup (MockSMPClientConfig.getParticipantID (), SMP_CREDENTIALS);
     aServiceGroupCreate.setExtension (SMPExtensionConverter.convert (sExtensionXML));
     aSMPClient.saveServiceGroup (aServiceGroupCreate, SMP_CREDENTIALS);
 
@@ -148,8 +146,7 @@ public final class SMPClientTest
   public void testUnauthorizedUser () throws SMPClientException
   {
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
-    final BasicAuthClientCredentials aCredentials = new BasicAuthClientCredentials (SMP_USERNAME + "wronguser",
-                                                                                    SMP_PASSWORD);
+    final BasicAuthClientCredentials aCredentials = new BasicAuthClientCredentials (SMP_USERNAME + "wronguser", SMP_PASSWORD);
     try
     {
       aSMPClient.saveServiceGroup (MockSMPClientConfig.getParticipantID (), aCredentials);
@@ -163,8 +160,7 @@ public final class SMPClientTest
   public void testUnauthorizedPassword () throws SMPClientException
   {
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
-    final BasicAuthClientCredentials aCredentials = new BasicAuthClientCredentials (SMP_USERNAME,
-                                                                                    SMP_PASSWORD + "wrongpass");
+    final BasicAuthClientCredentials aCredentials = new BasicAuthClientCredentials (SMP_USERNAME, SMP_PASSWORD + "wrongpass");
     try
     {
       aSMPClient.saveServiceGroup (MockSMPClientConfig.getParticipantID (), aCredentials);
@@ -222,13 +218,9 @@ public final class SMPClientTest
     }
     aSMPClient.saveServiceInformation (aServiceInformation, SMP_CREDENTIALS);
 
-    final SignedServiceMetadataType aSignedServiceMetadata = aSMPClient.getServiceMetadata (aServiceGroupID,
-                                                                                            aDocumentID);
+    final SignedServiceMetadataType aSignedServiceMetadata = aSMPClient.getServiceMetadata (aServiceGroupID, aDocumentID);
     LOGGER.info ("Service aMetadata ID:" +
-                 aSignedServiceMetadata.getServiceMetadata ()
-                                       .getServiceInformation ()
-                                       .getParticipantIdentifier ()
-                                       .getValue ());
+                 aSignedServiceMetadata.getServiceMetadata ().getServiceInformation ().getParticipantIdentifier ().getValue ());
 
     aSMPClient.deleteServiceRegistration (aServiceGroupID, aDocumentID, SMP_CREDENTIALS);
     aSMPClient.deleteServiceGroup (MockSMPClientConfig.getParticipantID (), SMP_CREDENTIALS);

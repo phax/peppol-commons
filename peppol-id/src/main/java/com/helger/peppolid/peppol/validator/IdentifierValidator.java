@@ -45,9 +45,7 @@ public final class IdentifierValidator
     s_aParticipantIDValidators = ServiceLoaderHelper.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
     if (s_aParticipantIDValidators.isNotEmpty ())
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Loaded " +
-                     s_aParticipantIDValidators.size () +
-                     " SPI implementations of IParticipantIdentifierValidatorSPI");
+        LOGGER.info ("Loaded " + s_aParticipantIDValidators.size () + " SPI implementations of IParticipantIdentifierValidatorSPI");
   }
 
   @PresentForCodeCoverage

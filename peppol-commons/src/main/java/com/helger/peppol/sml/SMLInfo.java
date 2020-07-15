@@ -91,11 +91,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
                   @Nonnull @Nonempty final String sManagementServiceURL,
                   final boolean bClientCertificateRequired)
   {
-    this (GlobalIDFactory.getNewPersistentStringID (),
-          sDisplayName,
-          sDNSZone,
-          sManagementServiceURL,
-          bClientCertificateRequired);
+    this (GlobalIDFactory.getNewPersistentStringID (), sDisplayName, sDNSZone, sManagementServiceURL, bClientCertificateRequired);
   }
 
   public SMLInfo (@Nonnull @Nonempty final String sID,
@@ -186,15 +182,12 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
 
     // Management service without the trailing slash
     m_sManagementServiceURL = sManagementServiceURL.endsWith ("/") ? sManagementServiceURL.substring (0,
-                                                                                                      sManagementServiceURL.length () -
-                                                                                                         1)
+                                                                                                      sManagementServiceURL.length () - 1)
                                                                    : sManagementServiceURL;
     try
     {
       // Create once
-      m_aManageServiceMetaDataEndpointAddress = new URL (m_sManagementServiceURL +
-                                                         '/' +
-                                                         CSMLDefault.MANAGEMENT_SERVICE_METADATA);
+      m_aManageServiceMetaDataEndpointAddress = new URL (m_sManagementServiceURL + '/' + CSMLDefault.MANAGEMENT_SERVICE_METADATA);
       m_aManageParticipantIdentifierEndpointAddress = new URL (m_sManagementServiceURL +
                                                                '/' +
                                                                CSMLDefault.MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER);
@@ -255,10 +248,8 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     return new ToStringGenerator (this).append ("DisplayName", m_sDisplayName)
                                        .append ("DNSZone", m_sDNSZone)
                                        .append ("ManagementServiceURL", m_sManagementServiceURL)
-                                       .append ("ManageServiceMetaDataEndpointAddress",
-                                                m_aManageServiceMetaDataEndpointAddress)
-                                       .append ("ManageParticipantIdentifierEndpointAddress",
-                                                m_aManageParticipantIdentifierEndpointAddress)
+                                       .append ("ManageServiceMetaDataEndpointAddress", m_aManageServiceMetaDataEndpointAddress)
+                                       .append ("ManageParticipantIdentifierEndpointAddress", m_aManageParticipantIdentifierEndpointAddress)
                                        .append ("ClientCertificateRequired", m_bClientCertificateRequired)
                                        .getToString ();
   }

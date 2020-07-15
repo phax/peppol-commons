@@ -79,9 +79,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
                                             @Nonnull @Nonempty final String sCustomizationID,
                                             @Nonnull @Nonempty final String sVersion)
   {
-    this (new BusdoxDocumentTypeIdentifierParts (sRootNS,
-                                                 sLocalName,
-                                                 _buildSubTypeIdentifier (sCustomizationID, sVersion)),
+    this (new BusdoxDocumentTypeIdentifierParts (sRootNS, sLocalName, _buildSubTypeIdentifier (sCustomizationID, sVersion)),
           sCustomizationID,
           sVersion);
   }
@@ -183,15 +181,11 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
 
     final String sCustomizationID = aSubTypeParts[0];
     if (StringHelper.hasNoText (sCustomizationID))
-      throw new IllegalArgumentException ("The sub type identifier '" +
-                                          sSubTypeIdentifier +
-                                          "' contains an empty customization ID!");
+      throw new IllegalArgumentException ("The sub type identifier '" + sSubTypeIdentifier + "' contains an empty customization ID!");
 
     final String sVersion = aSubTypeParts[1];
     if (StringHelper.hasNoText (sVersion))
-      throw new IllegalArgumentException ("The sub type identifier '" +
-                                          sSubTypeIdentifier +
-                                          "' contains an empty version!");
+      throw new IllegalArgumentException ("The sub type identifier '" + sSubTypeIdentifier + "' contains an empty version!");
 
     return new PeppolDocumentTypeIdentifierParts (aBusdoxParts, sCustomizationID, sVersion);
   }

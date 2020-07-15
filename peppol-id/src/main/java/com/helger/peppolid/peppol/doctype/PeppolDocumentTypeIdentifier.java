@@ -85,9 +85,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  protected PeppolDocumentTypeIdentifier (final boolean bVerified,
-                                          @Nonnull final String sScheme,
-                                          @Nonnull final String sValue)
+  protected PeppolDocumentTypeIdentifier (final boolean bVerified, @Nonnull final String sScheme, @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
@@ -158,8 +156,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @see PeppolIdentifierFactory#isDocumentTypeIdentifierValueValid(String)
    */
   @Nullable
-  public static PeppolDocumentTypeIdentifier createIfValid (@Nullable final String sScheme,
-                                                            @Nullable final String sValue)
+  public static PeppolDocumentTypeIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
     if (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierSchemeValid (sScheme) &&
         PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sValue))

@@ -98,19 +98,19 @@ I also provide an OSS [phoss SMP server](https://github.com/phax/peppol-smp-serv
 The SMP client (both Peppol and BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the environment variable `SMP_CLIENT_CONFIG` (since v7.0.7), the system property `peppol.smp.client.properties.path` (since v4.3.5), the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to e.g. the trust store!
 
 It supports the following properties:
-  * **`truststore.type`** (since v6.0.0): the type of key store to be used. Possible values are `JKS` and `PKCS12`. Defaults to `JKS` (which was the implicit default prior to v6).
-  * **`truststore.path`** (name before v6: **`truststore.location`**): the location of the Peppol trust store (of the specified type) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
+* **`truststore.type`** (since v6.0.0): the type of key store to be used. Possible values are `JKS` and `PKCS12`. Defaults to `JKS` (which was the implicit default prior to v6).
+* **`truststore.path`** (name before v6: **`truststore.location`**): the location of the Peppol trust store (of the specified type) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
     * `truststore/complete-truststore.jks` - contains the trust certificates for production and pilot (root, AP, SMP, STS)
     * `truststore/global-truststore.jks` - contains the trust certificates for production only (root, AP, SMP, STS)
     * `truststore/pilot-truststore.jks` - contains the trust certificates for pilot only (root, AP, SMP, STS)
-  * **`truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
-  * **`http.proxyHost`**: the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
-  * **`http.proxyPort`**: the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
-  * **`http.proxyUsername`** (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
-  * **`http.proxyPassword`** (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined. 
-  * **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`.
-  * **`http.connect.timeout.ms`** (since 7.0.4): set the connection timeout in milliseconds. The default value is `5000` meaning 5 seconds.
-  * **`http.request.timeout.ms`** (since 7.0.4): set the request timeout in milliseconds. The default value is `10000` meaning 10 seconds.
+* **`truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
+* **`http.proxyHost`**: the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
+* **`http.proxyPort`**: the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
+* **`http.proxyUsername`** (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
+* **`http.proxyPassword`** (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined. 
+* **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`.
+* **`http.connect.timeout.ms`** (since 7.0.4): set the connection timeout in milliseconds. The default value is `5000` meaning 5 seconds.
+* **`http.request.timeout.ms`** (since 7.0.4): set the request timeout in milliseconds. The default value is `10000` meaning 10 seconds.
   
 ### Specifying a proxy server
 
@@ -261,10 +261,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * [Peppol Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
 
-
 # News and noteworthy
 
-* v8.1.4 - 2020-7-15
+* v8.1.4 - 2020-07-15
     * Updated to eDEC Code Lists 7.1
 * v8.1.3 - 2020-07-11
     * Fixed a missing whitespace in soapAction for SML registration of participants - [issue](https://github.com/phax/phoss-smp/issues/137) - regression from 8.0.6

@@ -275,10 +275,8 @@ public class SMPClient extends SMPClientReadOnly
                                       @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
-    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
-                           "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
-    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (),
-                           "ServiceMetadata.ServiceInformation.DocumentIdentifier");
+    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (), "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
+    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (), "ServiceMetadata.ServiceInformation.DocumentIdentifier");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();

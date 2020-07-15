@@ -881,7 +881,7 @@ public enum EPredefinedParticipantIdentifierScheme
     private final Version m_aSince;
     private final boolean m_bDeprecated;
 
-    private EPredefinedParticipantIdentifierScheme(@Nonnull @Nonempty final String sSchemeID,
+    EPredefinedParticipantIdentifierScheme(@Nonnull @Nonempty final String sSchemeID,
         @Nonnull @Nonempty final String sISO6523,
         @Nonnull @Nonempty final String sCountryCode,
         @Nonnull @Nonempty final String sSchemeName,

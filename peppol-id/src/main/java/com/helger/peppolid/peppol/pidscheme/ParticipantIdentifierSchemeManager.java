@@ -204,8 +204,7 @@ public final class ParticipantIdentifierSchemeManager
   @Nullable
   public static IParticipantIdentifierScheme getSchemeOfIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
   {
-    if (aParticipantID != null &&
-        aParticipantID.hasScheme (PeppolIdentifierFactory.INSTANCE.getDefaultParticipantIdentifierScheme ()))
+    if (aParticipantID != null && aParticipantID.hasScheme (PeppolIdentifierFactory.INSTANCE.getDefaultParticipantIdentifierScheme ()))
     {
       final String sValue = aParticipantID.getValue ();
       // Value must be at least something like "1234:"

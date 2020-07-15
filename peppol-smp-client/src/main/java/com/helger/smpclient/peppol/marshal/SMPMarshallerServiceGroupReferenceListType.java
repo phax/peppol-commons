@@ -36,8 +36,6 @@ public class SMPMarshallerServiceGroupReferenceListType extends AbstractSMPMarsh
 
   public SMPMarshallerServiceGroupReferenceListType (final boolean bValidationEnabled)
   {
-    super (ServiceGroupReferenceListType.class,
-           bValidationEnabled,
-           new ObjectFactory ()::createServiceGroupReferenceList);
+    super (ServiceGroupReferenceListType.class, bValidationEnabled, new ObjectFactory ()::createServiceGroupReferenceList);
   }
 }

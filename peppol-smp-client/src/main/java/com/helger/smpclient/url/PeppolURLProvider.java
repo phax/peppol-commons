@@ -75,8 +75,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
   {
     // Create the MD5 hash
     // Convert to hex-encoded string
-    return MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET), EMessageDigestAlgorithm.MD5)
-                             .getHexEncodedDigestString ();
+    return MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET), EMessageDigestAlgorithm.MD5).getHexEncodedDigestString ();
   }
 
   @Nonnull
@@ -87,12 +86,10 @@ public class PeppolURLProvider implements IPeppolURLProvider
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new PeppolDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
-                                              sSMLZoneName);
+      throw new PeppolDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
 
     // Check identifier scheme (must be lowercase for the URL later on!)
-    final String sIdentifierScheme = StringHelper.getNotNull (aParticipantIdentifier.getScheme ())
-                                                 .toLowerCase (URL_LOCALE);
+    final String sIdentifierScheme = StringHelper.getNotNull (aParticipantIdentifier.getScheme ()).toLowerCase (URL_LOCALE);
 
     // Was previously an error, but to be more flexible just emit a warning
     if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sIdentifierScheme))

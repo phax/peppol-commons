@@ -46,8 +46,7 @@ public final class PeppolIdentifierFactoryTest
                                                                  "busdox-actorid",
                                                                  "any-domain_actorid_any-type",
                                                                  "any-nonactoid-anybutmuchtoooooooooooooooooooooooolong" };
-  private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a',
-                                                                           PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
+  private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
   private static final String VALUE_MAX_LENGTH_PLUS_1 = VALUE_MAX_LENGTH + 'a';
 
   @Test

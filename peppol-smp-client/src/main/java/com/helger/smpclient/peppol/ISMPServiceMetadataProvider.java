@@ -101,12 +101,8 @@ public interface ISMPServiceMetadataProvider
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
 
     // Get meta data for participant/documentType
-    final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
-                                                                                       aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null
-                                          : SMPClientReadOnly.getEndpoint (aSignedServiceMetadata,
-                                                                           aProcessID,
-                                                                           aTransportProfile);
+    final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
+    return aSignedServiceMetadata == null ? null : SMPClientReadOnly.getEndpoint (aSignedServiceMetadata, aProcessID, aTransportProfile);
   }
 
   /**
@@ -198,10 +194,7 @@ public interface ISMPServiceMetadataProvider
                                                   @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                          CertificateException
   {
-    final String sCertString = getEndpointCertificateString (aServiceGroupID,
-                                                             aDocumentTypeID,
-                                                             aProcessID,
-                                                             aTransportProfile);
+    final String sCertString = getEndpointCertificateString (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
     return CertificateHelper.convertStringToCertficate (sCertString);
   }
 }

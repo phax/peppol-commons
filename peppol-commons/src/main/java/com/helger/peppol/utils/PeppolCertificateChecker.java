@@ -100,8 +100,7 @@ public final class PeppolCertificateChecker
   private static final AtomicBoolean CACHE_OCSP_RESULTS = new AtomicBoolean (DEFAULT_CACHE_OSCP_RESULTS);
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked",
-                                                                                                  ex);
+  private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked", ex);
 
   /**
    * An revocation cache that checks the revocation status of each certificate
@@ -117,10 +116,7 @@ public final class PeppolCertificateChecker
 
     public PeppolRevocationCache (@Nonnull final IFunction <X509Certificate, Boolean> aValueProvider)
     {
-      m_aCache = ExpiringMap.builder ()
-                            .expirationPolicy (ExpirationPolicy.CREATED)
-                            .expiration (6, TimeUnit.HOURS)
-                            .build ();
+      m_aCache = ExpiringMap.builder ().expirationPolicy (ExpirationPolicy.CREATED).expiration (6, TimeUnit.HOURS).build ();
       m_aValueProvider = aValueProvider;
     }
 
@@ -294,8 +290,7 @@ public final class PeppolCertificateChecker
 
       // Specify a list of intermediate certificates ("Collection" is a key in
       // the "SUN" security provider)
-      final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection",
-                                                                      new CollectionCertStoreParameters (aValidCAs));
+      final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection", new CollectionCertStoreParameters (aValidCAs));
       aPKIXParams.addCertStore (aIntermediateCertStore);
 
       // Throws an exception in case of an error
@@ -456,12 +451,7 @@ public final class PeppolCertificateChecker
                                                                         @Nonnull final ETriState eCheckOSCP)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return _checkCertificate (aCert,
-                              aCheckDT,
-                              PEPPOL_AP_CA_ISSUERS,
-                              PEPPOL_AP_CA_CERTS,
-                              bCache ? REVOCATION_CACHE_AP : null,
-                              eCheckOSCP);
+    return _checkCertificate (aCert, aCheckDT, PEPPOL_AP_CA_ISSUERS, PEPPOL_AP_CA_CERTS, bCache ? REVOCATION_CACHE_AP : null, eCheckOSCP);
   }
 
   /**

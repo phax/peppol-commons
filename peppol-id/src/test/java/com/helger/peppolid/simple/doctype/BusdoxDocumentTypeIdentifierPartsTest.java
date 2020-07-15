@@ -52,17 +52,11 @@ public final class BusdoxDocumentTypeIdentifierPartsTest
 
     // Test equals/hashCode/toString
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aParts,
-                                                                       new BusdoxDocumentTypeIdentifierParts ("root",
-                                                                                                              "local",
-                                                                                                              null));
+                                                                       new BusdoxDocumentTypeIdentifierParts ("root", "local", null));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aParts,
-                                                                           new BusdoxDocumentTypeIdentifierParts ("root2",
-                                                                                                                  "local",
-                                                                                                                  null));
+                                                                           new BusdoxDocumentTypeIdentifierParts ("root2", "local", null));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aParts,
-                                                                           new BusdoxDocumentTypeIdentifierParts ("root",
-                                                                                                                  "local2",
-                                                                                                                  null));
+                                                                           new BusdoxDocumentTypeIdentifierParts ("root", "local2", null));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aParts,
                                                                            new BusdoxDocumentTypeIdentifierParts ("root",
                                                                                                                   "local",

@@ -50,7 +50,7 @@ public final class W3CEndpointReferenceHelperTest
   @Test
   public void testReferenceParameters ()
   {
-    final ICommonsList <Element> aParams = new CommonsArrayList<> ();
+    final ICommonsList <Element> aParams = new CommonsArrayList <> ();
     final Document aDummyDoc = XMLFactory.newDocument ();
     Element aElement = aDummyDoc.createElementNS ("urn:ns1", "element1");
     aElement.appendChild (aDummyDoc.createTextNode ("text1"));

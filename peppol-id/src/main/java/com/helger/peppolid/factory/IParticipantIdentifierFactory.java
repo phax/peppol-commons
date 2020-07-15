@@ -158,7 +158,6 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
   @Nullable
   default IParticipantIdentifier getClone (@Nullable final IParticipantIdentifier aParticipantID)
   {
-    return aParticipantID == null ? null : createParticipantIdentifier (aParticipantID.getScheme (),
-                                                                        aParticipantID.getValue ());
+    return aParticipantID == null ? null : createParticipantIdentifier (aParticipantID.getScheme (), aParticipantID.getValue ());
   }
 }

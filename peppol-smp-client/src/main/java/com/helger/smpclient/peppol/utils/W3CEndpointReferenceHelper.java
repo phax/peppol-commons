@@ -132,8 +132,7 @@ public final class W3CEndpointReferenceHelper
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
 
-    final Element eAddress = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference),
-                                                                   "Address");
+    final Element eAddress = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference), "Address");
     return eAddress == null ? null : eAddress.getTextContent ();
   }
 
@@ -151,8 +150,7 @@ public final class W3CEndpointReferenceHelper
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
 
-    final Element eRefParams = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference),
-                                                                     "ReferenceParameters");
+    final Element eRefParams = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference), "ReferenceParameters");
     if (eRefParams == null)
       return null;
 
@@ -171,8 +169,7 @@ public final class W3CEndpointReferenceHelper
    * @return <code>null</code> if the index is invalid
    */
   @Nullable
-  public static Element getReferenceParameter (@Nonnull final W3CEndpointReference aEndpointReference,
-                                               @Nonnegative final int nIndex)
+  public static Element getReferenceParameter (@Nonnull final W3CEndpointReference aEndpointReference, @Nonnegative final int nIndex)
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
     ValueEnforcer.isGE0 (nIndex, "Index");

@@ -374,7 +374,7 @@ public enum EPredefinedProcessIdentifier
     private final String m_sValue;
     private final boolean m_bDeprecated;
 
-    private EPredefinedProcessIdentifier(@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue, final boolean bDeprecated) {
+    EPredefinedProcessIdentifier(@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue, final boolean bDeprecated) {
         m_sScheme = sScheme;
         m_sValue = sValue;
         m_bDeprecated = bDeprecated;

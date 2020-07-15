@@ -65,8 +65,7 @@ public final class BDXRExtensionConverterTest
   {
     // Try converting an empty extension
     assertNull (BDXR1ExtensionConverter.convertToString (null));
-    assertEquals ("[]",
-                  BDXR1ExtensionConverter.convertToString (new CommonsArrayList <> (new ObjectFactory ().createExtensionType ())));
+    assertEquals ("[]", BDXR1ExtensionConverter.convertToString (new CommonsArrayList <> (new ObjectFactory ().createExtensionType ())));
   }
 
   @Test

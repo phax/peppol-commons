@@ -111,7 +111,7 @@ public enum EPredefinedTransportProfileIdentifier
     private final Version m_aSince;
     private final boolean m_bDeprecated;
 
-    private EPredefinedTransportProfileIdentifier(@Nonnull @Nonempty final String sProtocol,
+    EPredefinedTransportProfileIdentifier(@Nonnull @Nonempty final String sProtocol,
         @Nonnull @Nonempty final String sProfileVersion,
         @Nonnull @Nonempty final String sProfileID,
         @Nonnull final Version aSince,

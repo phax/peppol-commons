@@ -48,8 +48,7 @@ public final class PeppolSBDHPayloadReaderTest
     assertEquals ("Payload", aCT.getValue ());
 
     // Empty value
-    aCT = PeppolSBDHPayloadReader.textContent ()
-                                 .read ("<TextContent xmlns='http://peppol.eu/xsd/ticc/envelope/1.0' mimeType='bla/foo' />");
+    aCT = PeppolSBDHPayloadReader.textContent ().read ("<TextContent xmlns='http://peppol.eu/xsd/ticc/envelope/1.0' mimeType='bla/foo' />");
     assertNotNull (aCT);
     assertEquals ("bla/foo", aCT.getMimeType ());
     assertEquals ("", aCT.getValue ());

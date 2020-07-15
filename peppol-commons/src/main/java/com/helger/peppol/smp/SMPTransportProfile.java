@@ -51,9 +51,7 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
     this (sID, sName, DEFAULT_DEPRECATED);
   }
 
-  public SMPTransportProfile (@Nonnull @Nonempty final String sID,
-                              @Nonnull @Nonempty final String sName,
-                              final boolean bIsDeprecated)
+  public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName, final boolean bIsDeprecated)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     setName (sName);
@@ -131,9 +129,6 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ID", m_sID)
-                                       .append ("Name", m_sName)
-                                       .append ("Deprecated", m_bIsDeprecated)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("ID", m_sID).append ("Name", m_sName).append ("Deprecated", m_bIsDeprecated).getToString ();
   }
 }

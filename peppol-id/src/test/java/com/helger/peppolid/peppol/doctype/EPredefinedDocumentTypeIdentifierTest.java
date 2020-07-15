@@ -56,7 +56,6 @@ public final class EPredefinedDocumentTypeIdentifierTest
       assertTrue (StringHelper.hasText (p.getVersion ()));
     }
     assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (null));
-    assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (new SimpleDocumentTypeIdentifier ("bla",
-                                                                                                                         "foo")));
+    assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (new SimpleDocumentTypeIdentifier ("bla", "foo")));
   }
 }

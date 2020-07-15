@@ -41,7 +41,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
 @Immutable
 public final class PredefinedProcessIdentifierManager
 {
-  private static final ICommonsMap <String, IPeppolPredefinedProcessIdentifier> s_aCodes = new CommonsHashMap<> ();
+  private static final ICommonsMap <String, IPeppolPredefinedProcessIdentifier> s_aCodes = new CommonsHashMap <> ();
 
   static
   {

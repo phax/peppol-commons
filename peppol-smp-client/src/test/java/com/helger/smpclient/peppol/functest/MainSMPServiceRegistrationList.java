@@ -45,8 +45,7 @@ public final class MainSMPServiceRegistrationList
     final SMPClient aClient = new SMPClient (SMP_URI);
 
     // Get the service group reference list
-    final SignedServiceMetadataType aSignedServiceMetadata = aClient.getServiceMetadataOrNull (PARTICIPANT_ID,
-                                                                                               DOCUMENT_ID);
+    final SignedServiceMetadataType aSignedServiceMetadata = aClient.getServiceMetadataOrNull (PARTICIPANT_ID, DOCUMENT_ID);
 
     if (aSignedServiceMetadata == null)
       LOGGER.error ("Failed to get service registration for " + PARTICIPANT_ID + " and " + DOCUMENT_ID);

@@ -88,9 +88,7 @@ public final class PeppolProcessIdentifierTest
 
     assertNull (aIF.parseProcessIdentifier ("processany-actorid-dummythatiswaytoolongforwhatisexpected::proc2"));
     assertNull (aIF.parseProcessIdentifier ("process::" +
-                                            StringHelper.getRepeated ('a',
-                                                                      PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH +
-                                                                           1)));
+                                            StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH + 1)));
     assertNull (aIF.parseProcessIdentifier ("process:proc2"));
     assertNull (aIF.parseProcessIdentifier ("processproc2"));
   }
@@ -166,8 +164,7 @@ public final class PeppolProcessIdentifierTest
     {
       // Scheme too long
       new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME +
-                                   StringHelper.getRepeated ('a',
-                                                             PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+                                   StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                    "abc");
       fail ();
     }
@@ -189,8 +186,7 @@ public final class PeppolProcessIdentifierTest
   public void testHasDefaultProcessIdentifierScheme ()
   {
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    assertTrue (aIF.createProcessIdentifierWithDefaultScheme ("abc")
-                   .hasScheme (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME));
+    assertTrue (aIF.createProcessIdentifierWithDefaultScheme ("abc").hasScheme (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME));
     assertFalse (new PeppolProcessIdentifier ("proctype", "abc").hasDefaultScheme ());
   }
 }

@@ -20,8 +20,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
-public final class PeppolProcessIdentifierMicroTypeConverter extends
-                                                             AbstractIdentifierMicroTypeConverter <PeppolProcessIdentifier>
+public final class PeppolProcessIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <PeppolProcessIdentifier>
 {
   @Override
   @Nonnull

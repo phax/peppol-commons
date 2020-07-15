@@ -56,31 +56,19 @@ public final class MicroTypeConverterRegistrar_peppol_id implements IMicroTypeCo
 {
   public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
   {
-    aRegistry.registerMicroElementTypeConverter (SimpleDocumentTypeIdentifier.class,
-                                                 new SimpleDocumentTypeIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (PeppolDocumentTypeIdentifier.class,
-                                                 new PeppolDocumentTypeIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (BDXR1DocumentTypeIdentifier.class,
-                                                 new BDXR1DocumentTypeIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (BDXR2DocumentTypeIdentifier.class,
-                                                 new BDXR2DocumentTypeIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (SimpleDocumentTypeIdentifier.class, new SimpleDocumentTypeIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (PeppolDocumentTypeIdentifier.class, new PeppolDocumentTypeIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (BDXR1DocumentTypeIdentifier.class, new BDXR1DocumentTypeIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (BDXR2DocumentTypeIdentifier.class, new BDXR2DocumentTypeIdentifierMicroTypeConverter ());
 
-    aRegistry.registerMicroElementTypeConverter (SimpleParticipantIdentifier.class,
-                                                 new SimpleParticipantIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (PeppolParticipantIdentifier.class,
-                                                 new PeppolParticipantIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (BDXR1ParticipantIdentifier.class,
-                                                 new BDXR1ParticipantIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (BDXR2ParticipantIdentifier.class,
-                                                 new BDXR2ParticipantIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (SimpleParticipantIdentifier.class, new SimpleParticipantIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (PeppolParticipantIdentifier.class, new PeppolParticipantIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (BDXR1ParticipantIdentifier.class, new BDXR1ParticipantIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (BDXR2ParticipantIdentifier.class, new BDXR2ParticipantIdentifierMicroTypeConverter ());
 
-    aRegistry.registerMicroElementTypeConverter (SimpleProcessIdentifier.class,
-                                                 new SimpleProcessIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (PeppolProcessIdentifier.class,
-                                                 new PeppolProcessIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (BDXR1ProcessIdentifier.class,
-                                                 new BDXR1ProcessIdentifierMicroTypeConverter ());
-    aRegistry.registerMicroElementTypeConverter (BDXR2ProcessIdentifier.class,
-                                                 new BDXR2ProcessIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (SimpleProcessIdentifier.class, new SimpleProcessIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (PeppolProcessIdentifier.class, new PeppolProcessIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (BDXR1ProcessIdentifier.class, new BDXR1ProcessIdentifierMicroTypeConverter ());
+    aRegistry.registerMicroElementTypeConverter (BDXR2ProcessIdentifier.class, new BDXR2ProcessIdentifierMicroTypeConverter ());
   }
 }

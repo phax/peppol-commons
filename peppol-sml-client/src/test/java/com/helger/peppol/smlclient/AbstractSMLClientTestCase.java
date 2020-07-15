@@ -59,9 +59,7 @@ public abstract class AbstractSMLClientTestCase
 
     // Assign key manager and empty trust manager to SSL context
     final SSLContext aSSLCtx = SSLContext.getInstance ("TLS");
-    aSSLCtx.init (aKeyManagerFactory.getKeyManagers (),
-                  new TrustManager [] { new TrustManagerTrustAll (bDebug) },
-                  null);
+    aSSLCtx.init (aKeyManagerFactory.getKeyManagers (), new TrustManager [] { new TrustManagerTrustAll (bDebug) }, null);
     return aSSLCtx.getSocketFactory ();
   }
 }

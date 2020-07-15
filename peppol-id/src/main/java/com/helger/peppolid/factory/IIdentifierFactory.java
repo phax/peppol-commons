@@ -24,10 +24,7 @@ package com.helger.peppolid.factory;
  *
  * @author Philip Helger
  */
-public interface IIdentifierFactory extends
-                                    IDocumentTypeIdentifierFactory,
-                                    IParticipantIdentifierFactory,
-                                    IProcessIdentifierFactory
+public interface IIdentifierFactory extends IDocumentTypeIdentifierFactory, IParticipantIdentifierFactory, IProcessIdentifierFactory
 {
   /* empty */
 }

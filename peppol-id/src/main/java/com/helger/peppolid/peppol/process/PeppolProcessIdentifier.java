@@ -85,9 +85,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  protected PeppolProcessIdentifier (final boolean bVerified,
-                                     @Nonnull final String sScheme,
-                                     @Nonnull final String sValue)
+  protected PeppolProcessIdentifier (final boolean bVerified, @Nonnull final String sScheme, @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);

@@ -51,8 +51,7 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (),
-                                                                PeppolIdentifierFactory.INSTANCE)
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithDefaultScheme ("doctypeid")
@@ -107,8 +106,7 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (),
-                                                                PeppolIdentifierFactory.INSTANCE)
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithDefaultScheme ("doctypeid")
@@ -175,8 +173,7 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (),
-                                                                PeppolIdentifierFactory.INSTANCE)
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithDefaultScheme ("doctypeid")
