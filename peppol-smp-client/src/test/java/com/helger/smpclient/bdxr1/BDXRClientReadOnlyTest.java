@@ -86,7 +86,7 @@ public final class BDXRClientReadOnlyTest
     // PEPPOL URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, aSMLInfo);
     aBDXRClient.setVerifySignature (false);
-    assertEquals ("http://smp.toop.egov.uni-koblenz.de/", aBDXRClient.getSMPHostURI ());
+    assertEquals ("http://smp.toop.egov.iwvi.uni-koblenz.de/", aBDXRClient.getSMPHostURI ());
     if (false)
     {
       final SignedServiceMetadataType aMetadata = aBDXRClient.getServiceMetadata (aPI, aDocTypeID);

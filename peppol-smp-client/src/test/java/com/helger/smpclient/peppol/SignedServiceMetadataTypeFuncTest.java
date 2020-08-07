@@ -27,6 +27,7 @@ import javax.xml.crypto.dsig.XMLSignature;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -143,6 +144,7 @@ public final class SignedServiceMetadataTypeFuncTest
   }
 
   @Test
+  @Ignore ("Certificate expired on 2020-08-05")
   public void testReadC14NInclusive () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
