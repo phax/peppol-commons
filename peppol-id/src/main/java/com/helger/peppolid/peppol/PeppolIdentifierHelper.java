@@ -57,7 +57,7 @@ public final class PeppolIdentifierHelper
 
   /**
    * The default document identifier scheme.<br>
-   * See PEPPOL Common definitions chapter 3.5
+   * See Peppol Common definitions chapter 3.5
    */
   public static final String DEFAULT_DOCUMENT_TYPE_SCHEME = "busdox-docid-qns";
 
@@ -71,7 +71,7 @@ public final class PeppolIdentifierHelper
    * <br>
    * The matching values have the format "agency:id" whereas agency should be
    * within the code-list.<br>
-   * Please note that this is a change to the PEPPOL Common definitions chapter
+   * Please note that this is a change to the Peppol Common definitions chapter
    * 3.4! <br>
    * See also
    * com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
@@ -85,7 +85,7 @@ public final class PeppolIdentifierHelper
 
   /**
    * The default process identifier scheme.<br>
-   * Overrides PEPPOL Common definitions chapter 3.6!
+   * Overrides Peppol Common definitions chapter 3.6!
    */
   public static final String DEFAULT_PROCESS_SCHEME = "cenbii-procid-ubl";
 
