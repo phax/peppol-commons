@@ -263,6 +263,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.1.5 - 2020-08-20
+    * Updated to eDEC Code Lists 7.2
 * v8.1.4 - 2020-07-15
     * Updated to eDEC Code Lists 7.1
 * v8.1.3 - 2020-07-11
