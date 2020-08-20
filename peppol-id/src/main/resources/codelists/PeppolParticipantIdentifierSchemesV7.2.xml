@@ -21,7 +21,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<participant-identifier-schemes version="7.1" entry-count="83">
+<participant-identifier-schemes version="7.2" entry-count="83">
   <participant-identifier-scheme schemeid="FR:SIRENE" iso6523="0002" country="FR" scheme-name="System Information et Repertoire des Entreprise et des Etablissements: SIRENE" issuing-agency="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" since="1.0.0" deprecated="false">
     <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters.
 2) Check digits: 9th &amp; 14th character respectively</structure>

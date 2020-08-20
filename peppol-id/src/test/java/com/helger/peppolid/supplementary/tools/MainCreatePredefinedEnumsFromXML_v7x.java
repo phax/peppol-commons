@@ -85,10 +85,10 @@ import com.helger.xml.serialize.read.DOMReader;
  *
  * @author Philip Helger
  */
-public final class MainCreatePredefinedEnumsFromXML_v7
+public final class MainCreatePredefinedEnumsFromXML_v7x
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v7.class);
-  private static final Version CODELIST_VERSION = new Version (7, 1);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v7x.class);
+  private static final Version CODELIST_VERSION = new Version (7, 2);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
@@ -801,13 +801,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7
   public static void main (final String [] args) throws Exception
   {
     for (final CodeListFile aCLF : new CodeListFile [] { new CodeListFile ("DocumentTypes",
-                                                                           MainCreatePredefinedEnumsFromXML_v7::_handleDocumentTypes),
+                                                                           MainCreatePredefinedEnumsFromXML_v7x::_handleDocumentTypes),
                                                          new CodeListFile ("ParticipantIdentifierSchemes",
-                                                                           MainCreatePredefinedEnumsFromXML_v7::_handleParticipantIdentifierSchemes),
+                                                                           MainCreatePredefinedEnumsFromXML_v7x::_handleParticipantIdentifierSchemes),
                                                          new CodeListFile ("ProcessIdentifiers",
-                                                                           MainCreatePredefinedEnumsFromXML_v7::_handleProcessIdentifiers),
+                                                                           MainCreatePredefinedEnumsFromXML_v7x::_handleProcessIdentifiers),
                                                          new CodeListFile ("TransportProfiles",
-                                                                           MainCreatePredefinedEnumsFromXML_v7::_handleTransportProfileIdentifiers) })
+                                                                           MainCreatePredefinedEnumsFromXML_v7x::_handleTransportProfileIdentifiers) })
     {
       final Document aDoc = DOMReader.readXMLDOM (aCLF.m_aFile);
       if (aDoc == null)

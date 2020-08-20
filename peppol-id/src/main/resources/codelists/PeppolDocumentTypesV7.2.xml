@@ -21,7 +21,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="7.1" entry-count="97">
+<document-types version="7.2" entry-count="98">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" since="1.0.0" deprecated="true" deprecated-since="2" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -353,5 +353,9 @@ Do NOT edit!-->
   <document-type name="OrderResponse_IT" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response:3:restrictive:urn:www.agid.gov.it:trns:risposta_ordine:3.0::2.1" since="7.1" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-137</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:ordering:3" />
+  </document-type>
+  <document-type name="DespatchAdvice_IT" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:fdc:peppol.eu:poacc:trns:despatch_advice:3:extended:urn:www.agid.gov.it:trns:ddt:3.1::2.1" since="7.2" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-139</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:despatch_advice:3" />
   </document-type>
 </document-types>
