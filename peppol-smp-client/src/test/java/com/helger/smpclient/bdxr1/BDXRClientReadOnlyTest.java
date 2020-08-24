@@ -70,6 +70,7 @@ public final class BDXRClientReadOnlyTest
   }
 
   @Test
+  @Ignore ("Fails indeterministically with SERVFAIL and should be enabled manually")
   public void testRead () throws PeppolDNSResolutionException, SMPClientException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9930:167064991");
