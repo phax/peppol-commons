@@ -263,7 +263,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.1.6 - work in progress
+* v8.1.6 - 2020-08-25
     * Added re-usable SMP result to JSON conversion
 * v8.1.5 - 2020-08-20
     * Updated to eDEC Code Lists 7.2
