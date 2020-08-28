@@ -204,8 +204,11 @@
           </execution>
         </executions>
         <configuration>
-          <wsdlDirectory>src/main/resources/WEB-INF/wsdl</wsdlDirectory>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
+          <bindingFiles>
+            <bindingFile>peppol-sml-client.xjb</bindingFile>
+          </bindingFiles>
+          <wsdlDirectory>src/main/resources/WEB-INF/wsdl</wsdlDirectory>
           <!-- 
             We need to use the same output directory as the JAXB call, because 
             both wsimport and JAXB are creating code for the Identifiers-x.y.xsd file!

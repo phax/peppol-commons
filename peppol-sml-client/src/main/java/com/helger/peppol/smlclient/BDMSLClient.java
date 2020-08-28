@@ -35,7 +35,6 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.url.URLHelper;
-import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.bdmsl.BDMSLService;
 import com.helger.peppol.smlclient.bdmsl.BDMSLServiceSoap;
@@ -147,7 +146,7 @@ public class BDMSLClient extends WSClientConfig
 
     final PrepareChangeCertificateType aBody = new PrepareChangeCertificateType ();
     aBody.setNewCertificatePublicKey (sNewCertificatePublicKey);
-    aBody.setMigrationDate (PDTXMLConverter.getXMLCalendarDate (aMigrationDate));
+    aBody.setMigrationDate (aMigrationDate);
     createWSPort ().prepareChangeCertificate (aBody);
   }
 

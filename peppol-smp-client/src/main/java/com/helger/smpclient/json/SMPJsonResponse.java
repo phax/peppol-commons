@@ -33,7 +33,6 @@ import javax.security.auth.x500.X500Principal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
@@ -299,10 +298,8 @@ public final class SMPJsonResponse
                                                                .add (JSON_MINIMUM_AUTHENTICATION_LEVEL,
                                                                      aEndpoint.getMinimumAuthenticationLevel ());
 
-                  aJsonEP.addIfNotNull (JSON_SERVICE_ACTIVATION_DATE,
-                                        getLDT (PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceActivationDate ())));
-                  aJsonEP.addIfNotNull (JSON_SERVICE_EXPIRATION_DATE,
-                                        getLDT (PDTXMLConverter.getLocalDateTime (aEndpoint.getServiceExpirationDate ())));
+                  aJsonEP.addIfNotNull (JSON_SERVICE_ACTIVATION_DATE, getLDT (aEndpoint.getServiceActivationDate ()));
+                  aJsonEP.addIfNotNull (JSON_SERVICE_EXPIRATION_DATE, getLDT (aEndpoint.getServiceExpirationDate ()));
                   convertCertificate (aJsonEP, Base64.encodeBytes (aEndpoint.getCertificate ()));
                   aJsonEP.add (JSON_SERVICE_DESCRIPTION, aEndpoint.getServiceDescription ())
                          .add (JSON_TECHNICAL_CONTACT_URL, aEndpoint.getTechnicalContactUrl ())

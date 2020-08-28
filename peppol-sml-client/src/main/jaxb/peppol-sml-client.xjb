@@ -21,7 +21,6 @@
           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
           xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd"
           extensionBindingPrefixes="xjc"
           version="2.1">
@@ -31,28 +30,4 @@
     <xjc:javaType name="java.time.LocalTime" xmlType="xsd:time" adapter="com.helger.jaxb.adapter.AdapterLocalTime" />
     <xjc:javaType name="java.time.Duration" xmlType="xsd:duration" adapter="com.helger.jaxb.adapter.AdapterDuration" />
   </globalBindings>
-  <bindings schemaLocation="../resources/schemas/peppol-identifiers-v1.xsd">
-    <schemaBindings>
-      <package name="com.helger.peppolid" />
-    </schemaBindings>
-    <!--  
-    <bindings node="//xsd:complexType[@name='ParticipantIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.generic.participant.IMutableParticipantIdentifier</inheritance:implements>
-    </bindings> 
-    <bindings node="//xsd:complexType[@name='DocumentIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.generic.doctype.IMutableDocumentTypeIdentifier</inheritance:implements>
-    </bindings> 
-    <bindings node="//xsd:complexType[@name='ProcessIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.generic.process.IMutableProcessIdentifier</inheritance:implements>
-    </bindings>
-    --> 
-  </bindings>
-  <bindings schemaLocation="../resources/schemas/peppol-codelists-v1.xsd">
-    <schemaBindings>
-      <package name="com.helger.peppolid.codelists" />
-      <nameXmlTransform>
-        <typeName prefix="PCL"/>
-      </nameXmlTransform>
-    </schemaBindings>
-  </bindings>  
 </bindings>

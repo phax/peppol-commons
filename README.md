@@ -265,6 +265,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v8.1.7 - work in progress
     * Updated to ph-commons 9.4.7
+    * Using Java 8 date and time classes for JAXB created classes
 * v8.1.6 - 2020-08-25
     * Added re-usable SMP result to JSON conversion
 * v8.1.5 - 2020-08-20
