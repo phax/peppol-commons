@@ -32,6 +32,7 @@ import com.helger.peppolid.IParticipantIdentifier;
  * Base interface for a customizable SMP URL provider.
  *
  * @author Philip Helger
+ * @since 8.1.7
  */
 public interface ISMPURLProvider extends Serializable
 {
@@ -51,8 +52,8 @@ public interface ISMPURLProvider extends Serializable
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @Nonnull
-  URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                              @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException;
+  URI getSMPURIOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier,
+                              @Nullable String sSMLZoneName) throws PeppolDNSResolutionException;
 
   /**
    * Get the SMP URI of the passed participant ID in the provided SML DNS zone
