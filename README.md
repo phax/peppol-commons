@@ -267,6 +267,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Updated to ph-commons 9.4.7
     * Using Java 8 date and time classes for JAXB created classes
     * Updated to the latest BDMSL WSDL files
+    * Reworked the DNS URL provider class hierarchy for greater flexibility. New base class is now `ISMPURLProvider`.
 * v8.1.6 - 2020-08-25
     * Added re-usable SMP result to JSON conversion
 * v8.1.5 - 2020-08-20
