@@ -24,6 +24,7 @@ import javax.annotation.concurrent.ThreadSafe;
  * identifier scheme is part of the hashed value.
  *
  * @author Philip Helger
+ * @since 8.1.7
  */
 @ThreadSafe
 public class BPCURLProviderSMP2 extends AbstractBDXLURLProvider
