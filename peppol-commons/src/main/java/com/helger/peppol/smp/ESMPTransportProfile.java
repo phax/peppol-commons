@@ -85,7 +85,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   private final String m_sID;
   private final String m_sName;
 
-  private ESMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
+  ESMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
     m_sID = sID;
     m_sName = sName;
