@@ -31,23 +31,14 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.url.URLHelper;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.bdmsl.BDMSLService;
 import com.helger.peppol.smlclient.bdmsl.BDMSLServiceSoap;
 import com.helger.peppol.smlclient.bdmsl.BadRequestFault;
-import com.helger.peppol.smlclient.bdmsl.ChangeCertificateType;
-import com.helger.peppol.smlclient.bdmsl.ClearCacheType;
 import com.helger.peppol.smlclient.bdmsl.InternalErrorFault;
 import com.helger.peppol.smlclient.bdmsl.IsAliveType;
-import com.helger.peppol.smlclient.bdmsl.ListParticipantsInType;
-import com.helger.peppol.smlclient.bdmsl.ListParticipantsType;
 import com.helger.peppol.smlclient.bdmsl.NotFoundFault;
-import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
-import com.helger.peppol.smlclient.bdmsl.ParticipantsType;
 import com.helger.peppol.smlclient.bdmsl.PrepareChangeCertificateType;
 import com.helger.peppol.smlclient.bdmsl.SMPAdvancedServiceForParticipantType;
 import com.helger.peppol.smlclient.bdmsl.ServiceMetadataPublisherServiceForParticipantType;
@@ -150,39 +141,6 @@ public class BDMSLClient extends WSClientConfig
     createWSPort ().prepareChangeCertificate (aBody);
   }
 
-  /**
-   * Change a certificate
-   *
-   * @param sSMPID
-   *        The SMP identifier
-   * @param aNewCertificatePublicKey
-   *        The new public key contained in the certificate.
-   * @throws com.sun.xml.ws.client.ClientTransportException
-   *         if the WS client invocation failed
-   * @throws BadRequestFault
-   *         In case of error
-   * @throws InternalErrorFault
-   *         In case of error
-   * @throws UnauthorizedFault
-   *         In case of error
-   */
-  public void changeCertificate (@Nonnull final String sSMPID,
-                                 @Nonnull @Nonempty final byte [] aNewCertificatePublicKey) throws BadRequestFault,
-                                                                                            InternalErrorFault,
-                                                                                            UnauthorizedFault
-  {
-    ValueEnforcer.notEmpty (sSMPID, "SMPID");
-    ValueEnforcer.notEmpty (aNewCertificatePublicKey, "NewCertificatePublicKey");
-
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("changeCertificate (" + sSMPID + ", " + ArrayHelper.getSize (aNewCertificatePublicKey) + " bytes)");
-
-    final ChangeCertificateType aBody = new ChangeCertificateType ();
-    aBody.setServiceMetadataPublisherID (sSMPID);
-    aBody.setNewCertificatePublicKey (aNewCertificatePublicKey);
-    createWSPort ().changeCertificate (aBody);
-  }
-
   public void createParticipantIdentifier (@Nonnull @Nonempty final String sSMPID,
                                            @Nonnull final IParticipantIdentifier aParticipantID,
                                            @Nonnull @Nonempty final String sServiceName) throws BadRequestFault,
@@ -207,36 +165,6 @@ public class BDMSLClient extends WSClientConfig
     createWSPort ().createParticipantIdentifier (aBody);
   }
 
-  @Nullable
-  public ICommonsList <ParticipantListItem> listParticipants () throws InternalErrorFault
-  {
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("listParticipants ()");
-
-    ListParticipantsType aList;
-    try
-    {
-      final ListParticipantsInType aDummy = new ListParticipantsInType ();
-      aList = createWSPort ().listParticipants (aDummy);
-    }
-    catch (final UnauthorizedFault ex)
-    {
-      LOGGER.error ("Unauthorized to call listParticipants", ex);
-      return null;
-    }
-    catch (final WebServiceException ex)
-    {
-      LOGGER.error ("HTTP error invoking listParticipants", ex);
-      return null;
-    }
-    final ICommonsList <ParticipantListItem> ret = new CommonsArrayList <> ();
-    if (aList != null)
-      for (final ParticipantsType aParticipant : aList.getParticipant ())
-        ret.add (new ParticipantListItem (aParticipant.getServiceMetadataPublisherID (),
-                                          SimpleParticipantIdentifier.wrap (aParticipant.getParticipantIdentifier ())));
-    return ret;
-  }
-
   public boolean isAlive ()
   {
     if (LOGGER.isDebugEnabled ())
@@ -252,14 +180,5 @@ public class BDMSLClient extends WSClientConfig
     {
       return false;
     }
-  }
-
-  public void clearCache () throws InternalErrorFault
-  {
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("clearCache ()");
-
-    final ClearCacheType aDummy = new ClearCacheType ();
-    createWSPort ().clearCache (aDummy);
   }
 }

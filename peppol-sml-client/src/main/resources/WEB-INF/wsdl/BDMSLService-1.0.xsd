@@ -18,12 +18,8 @@ limitations under the License.
     <xs:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd"/>
     <xs:import namespace="http://busdox.org/transport/identifiers/1.0/" schemaLocation="peppol-identifiers-v1.xsd"/>
     <xs:element name="PrepareChangeCertificate" type="PrepareChangeCertificateType"/>
-    <xs:element name="ChangeCertificate" type="ChangeCertificateType"/>
     <xs:element name="SMPAdvancedServiceForParticipantService" type="SMPAdvancedServiceForParticipantType"/>
-    <xs:element name="ListParticipantsOut" type="ListParticipantsType"/>
-    <xs:element name="ClearCache" type="ClearCacheType"/>
     <xs:element name="IsAlive" type="IsAliveType"/>
-    <xs:element name="ListParticipantsIn" type="ListParticipantsInType"/>
     <xs:complexType name="PrepareChangeCertificateType">
         <xs:sequence>
             <xs:element name="newCertificatePublicKey" type="xs:string">
@@ -39,20 +35,7 @@ limitations under the License.
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="ChangeCertificateType">
-        <xs:sequence>
-            <xs:element ref="bd:ServiceMetadataPublisherID">
-                <xs:annotation>
-                    <xs:documentation>The SMP identifier</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-            <xs:element name="newCertificatePublicKey" type="xs:base64Binary">
-                <xs:annotation>
-                    <xs:documentation>The new public key contained in the certificate.</xs:documentation>
-                </xs:annotation>
-            </xs:element>
-        </xs:sequence>
-    </xs:complexType>
+
     <xs:complexType name="SMPAdvancedServiceForParticipantType">
         <xs:sequence>
             <xs:element name="CreateParticipantIdentifier" type="bd:ServiceMetadataPublisherServiceForParticipantType"/>
@@ -82,7 +65,6 @@ limitations under the License.
             </xs:element>
         </xs:sequence>
     </xs:complexType>
-    <xs:complexType name="ListParticipantsInType"/>
     <xs:complexType name="IsAliveType"/>
-    <xs:complexType name="ClearCacheType"/>
+
 </xs:schema>

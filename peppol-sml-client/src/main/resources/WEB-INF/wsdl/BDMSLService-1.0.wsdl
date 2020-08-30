@@ -21,21 +21,10 @@ limitations under the License.
                   xmlns:bd="http://busdox.org/serviceMetadata/locator/1.0/">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
     <wsdl:types>
-        <s:schema elementFormDefault="qualified" targetNamespace="ec:services:wsdl:BDMSL:1.0">
-            <s:import namespace="ec:services:wsdl:BDMSL:data:1.0" schemaLocation="BDMSLService-1.0.xsd"/>            
-        </s:schema>
-        <s:schema elementFormDefault="qualified"
-                  targetNamespace=
-                          "http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/Schema/">
-            <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/"
-                      schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd"/>
-        </s:schema>
-        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-        	<xsd:import
-        		namespace="http://busdox.org/serviceMetadata/locator/1.0/"
-        		schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd">
-        	</xsd:import>
-     	</xsd:schema>
+        <s:schema>
+            <s:import namespace="ec:services:wsdl:BDMSL:data:1.0" schemaLocation="BDMSLService-1.0.xsd"/>
+            <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd"/>
+     	</s:schema>
     </wsdl:types>
     <wsdl:message name="prepareChangeCertificateIn">
         <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
@@ -51,24 +40,12 @@ limitations under the License.
     <wsdl:message name="createParticipantIdentifierOut">
         <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
     </wsdl:message>
-    <wsdl:message name="listParticipantsIn">
-        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
-        <wsdl:part name="messagePart" element="lrs:ListParticipantsIn" />
-    </wsdl:message>
-    <wsdl:message name="listParticipantsOut">
-        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
-        <wsdl:part name="messagePart" element="lrs:ListParticipantsOut" />
-    </wsdl:message>
     <wsdl:message name="isAliveIn">
         <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
         <wsdl:part name="messagePart" element="lrs:IsAlive" />
     </wsdl:message>
     <wsdl:message name="isAliveOut"/>
-    <wsdl:message name="clearCacheIn">
-        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
-        <wsdl:part name="messagePart" element="lrs:ClearCache" />
-    </wsdl:message>
-    <wsdl:message name="clearCacheOut"/>
+
     <wsdl:message name="badRequestFault">
         <wsdl:part name="fault" element="bd:BadRequestFault"/>
     </wsdl:message>
@@ -81,23 +58,8 @@ limitations under the License.
     <wsdl:message name="unauthorizedFault">
         <wsdl:part name="fault" element="bd:UnauthorizedFault"/>
     </wsdl:message>
-    <wsdl:message name="changeCertificateIn">
-        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
-        <wsdl:part name="messagePart" element="lrs:ChangeCertificate"/>
-    </wsdl:message>
-    <wsdl:message name="changeCertificateOut">
-        <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
-    </wsdl:message>
-    <wsdl:message name="ChangeCertificateFault">
-    	<wsdl:part name="parameters" element="bd:UnauthorizedFault"></wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="ChangeCertificateFault1">
-    	<wsdl:part name="parameters" element="bd:BadRequestFault"></wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="ChangeCertificateFault2">
-    	<wsdl:part name="parameters" element="bd:InternalErrorFault"></wsdl:part>
-    </wsdl:message>
-    <wsdl:portType name="BDMSLServiceSoap">
+
+   <wsdl:portType name="BDMSLServiceSoap">
         <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
         <wsdl:operation name="PrepareChangeCertificate">
             <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
@@ -117,32 +79,11 @@ limitations under the License.
             <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
             <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
         </wsdl:operation>
-        <wsdl:operation name="ListParticipants">
-            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
-            <wsdl:input message="tns:listParticipantsIn"/>
-            <wsdl:output message="tns:listParticipantsOut"/>
-            <wsdl:fault message="tns:unauthorizedFault" name="UnauthorizedFault"/>
-            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
-        </wsdl:operation>
         <wsdl:operation name="IsAlive">
             <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
             <wsdl:input message="tns:isAliveIn"/>
             <wsdl:output message="tns:isAliveOut"/>
             <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
-        </wsdl:operation>
-        <wsdl:operation name="ClearCache">
-            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
-            <wsdl:input message="tns:clearCacheIn"/>
-            <wsdl:output message="tns:clearCacheOut"/>
-            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
-        </wsdl:operation>
-        <wsdl:operation name="ChangeCertificate">
-            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
-            <wsdl:input message="tns:changeCertificateIn"/>
-            <wsdl:output message="tns:changeCertificateOut"/>
-            <wsdl:fault message="tns:unauthorizedFault" name="UnauthorizedFault"/>
-            <wsdl:fault message="tns:internalErrorFault" name="InternalErrorFault"/>
-            <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="BDMSLServiceSoap" type="tns:BDMSLServiceSoap">
@@ -189,21 +130,6 @@ limitations under the License.
                 <soap:fault name="BadRequestFault" use="literal"/>
             </wsdl:fault>
         </wsdl:operation>
-        <wsdl:operation name="ListParticipants">
-            <soap:operation soapAction="ec:services:wsdl:BDMSL:1.0:listParticipantsIn" style="document"/>
-            <wsdl:input>
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output>
-                <soap:body use="literal"/>
-            </wsdl:output>
-            <wsdl:fault name="UnauthorizedFault">
-                <soap:fault name="UnauthorizedFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="InternalErrorFault">
-                <soap:fault name="InternalErrorFault" use="literal"/>
-            </wsdl:fault>
-        </wsdl:operation>
         <wsdl:operation name="IsAlive">
             <soap:operation soapAction="ec:services:wsdl:BDMSL:1.0:isAliveIn" style="document"/>
             <wsdl:input>
@@ -212,36 +138,6 @@ limitations under the License.
             <wsdl:output>
                 <soap:body use="literal"/>
             </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="ClearCache">
-            <soap:operation soapAction="ec:services:wsdl:BDMSL:1.0:clearCacheIn" style="document"/>
-            <wsdl:input>
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output>
-                <soap:body use="literal"/>
-            </wsdl:output>
-            <wsdl:fault name="InternalErrorFault">
-                <soap:fault name="InternalErrorFault" use="literal"/>
-            </wsdl:fault>
-        </wsdl:operation>
-        <wsdl:operation name="ChangeCertificate">
-            <soap:operation soapAction="ec:services:wsdl:BDMSL:1.0:changeCertificateIn" style="document"/>
-            <wsdl:input>
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output>
-                <soap:body use="literal"/>
-            </wsdl:output>
-            <wsdl:fault name="UnauthorizedFault">
-                <soap:fault name="UnauthorizedFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="InternalErrorFault">
-                <soap:fault name="InternalErrorFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="BadRequestFault">
-                <soap:fault name="BadRequestFault" use="literal"/>
-            </wsdl:fault>
         </wsdl:operation>
     </wsdl:binding>
     <wsdl:service name="BDMSLService">

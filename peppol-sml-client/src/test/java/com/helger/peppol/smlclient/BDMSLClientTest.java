@@ -16,21 +16,16 @@
  */
 package com.helger.peppol.smlclient;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-
-import java.nio.charset.StandardCharsets;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.peppol.sml.ESML;
-import com.helger.peppol.smlclient.bdmsl.ParticipantListItem;
 import com.helger.wsclient.WSHelper;
 import com.sun.xml.ws.client.ClientTransportException;
 
@@ -64,28 +59,10 @@ public final class BDMSLClientTest extends AbstractSMLClientTestCase
       final boolean bAlive = aClient.isAlive ();
       assertTrue (bAlive);
 
-      LOGGER.info ("CLEAR_CACHE");
-      aClient.clearCache ();
-
-      LOGGER.info ("LIST_PARTICIPANTS");
-      final ICommonsList <ParticipantListItem> aList = aClient.listParticipants ();
-      assertNull (aList);
-
       LOGGER.info ("PREPARE_CHANGE_CERTIFICATE");
       try
       {
         aClient.prepareChangeCertificate ("dummy", null);
-        fail ();
-      }
-      catch (final ClientTransportException ex)
-      {
-        // Expected HTTP 400
-      }
-
-      LOGGER.info ("CHANGE_CERTIFICATE");
-      try
-      {
-        aClient.changeCertificate ("fake-smp-id", "dummy".getBytes (StandardCharsets.ISO_8859_1));
         fail ();
       }
       catch (final ClientTransportException ex)
