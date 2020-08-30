@@ -70,7 +70,7 @@ import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupReferenceLis
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerSignedServiceMetadataType;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
-import com.helger.smpclient.url.IPeppolURLProvider;
+import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.xsds.xmldsig.X509DataType;
 
@@ -103,10 +103,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The SML to be used. Required to build the SMP access URI.
    * @throws PeppolDNSResolutionException
    *         if DNS resolution fails
-   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public SMPClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
+  public SMPClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                             @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
@@ -128,10 +128,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
    * @throws PeppolDNSResolutionException
    *         if DNS resolution fails
-   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
-   *      String)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
-  public SMPClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
+  public SMPClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                             @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
   {
@@ -778,7 +777,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The request was not well formed.
    */
   @Nonnull
-  public static CompleteServiceGroupType getCompleteServiceGroupByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
+  public static CompleteServiceGroupType getCompleteServiceGroupByDNS (@Nonnull final ISMPURLProvider aURLProvider,
                                                                        @Nonnull final ISMLInfo aSMLInfo,
                                                                        @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
                                                                                                                               PeppolDNSResolutionException
@@ -810,7 +809,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The request was not well formed.
    */
   @Nonnull
-  public static ServiceGroupType getServiceGroupByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
+  public static ServiceGroupType getServiceGroupByDNS (@Nonnull final ISMPURLProvider aURLProvider,
                                                        @Nonnull final ISMLInfo aSMLInfo,
                                                        @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
                                                                                                               PeppolDNSResolutionException
@@ -843,7 +842,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The request was not well formed.
    */
   @Nonnull
-  public static SignedServiceMetadataType getServiceRegistrationByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
+  public static SignedServiceMetadataType getServiceRegistrationByDNS (@Nonnull final ISMPURLProvider aURLProvider,
                                                                        @Nonnull final ISMLInfo aSMLInfo,
                                                                        @Nonnull final IParticipantIdentifier aServiceGroupID,
                                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,

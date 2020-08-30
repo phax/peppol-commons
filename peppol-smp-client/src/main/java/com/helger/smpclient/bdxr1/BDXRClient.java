@@ -42,7 +42,7 @@ import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerWriteOperations;
-import com.helger.smpclient.url.IPeppolURLProvider;
+import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.xsds.bdxr.smp1.DocumentIdentifierType;
 import com.helger.xsds.bdxr.smp1.ParticipantIdentifierType;
@@ -78,10 +78,10 @@ public class BDXRClient extends BDXRClientReadOnly
    *        The SML to be used. Required to build the SMP access URI.
    * @throws PeppolDNSResolutionException
    *         if DNS resolution fails
-   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public BDXRClient (@Nonnull final IPeppolURLProvider aURLProvider,
+  public BDXRClient (@Nonnull final ISMPURLProvider aURLProvider,
                      @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                      @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
@@ -103,10 +103,9 @@ public class BDXRClient extends BDXRClientReadOnly
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
    * @throws PeppolDNSResolutionException
    *         if DNS resolution fails
-   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
-   *      String)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
-  public BDXRClient (@Nonnull final IPeppolURLProvider aURLProvider,
+  public BDXRClient (@Nonnull final ISMPURLProvider aURLProvider,
                      @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                      @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
   {

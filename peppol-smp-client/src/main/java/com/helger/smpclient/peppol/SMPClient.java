@@ -47,7 +47,7 @@ import com.helger.smpclient.peppol.jaxb.ServiceInformationType;
 import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
-import com.helger.smpclient.url.IPeppolURLProvider;
+import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.PeppolDNSResolutionException;
 
 /**
@@ -73,10 +73,10 @@ public class SMPClient extends SMPClientReadOnly
    *        The SML to be used. Required to build the SMP access URI.
    * @throws PeppolDNSResolutionException
    *         if DNS resolution fails
-   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public SMPClient (@Nonnull final IPeppolURLProvider aURLProvider,
+  public SMPClient (@Nonnull final ISMPURLProvider aURLProvider,
                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                     @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
@@ -98,10 +98,9 @@ public class SMPClient extends SMPClientReadOnly
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
    * @throws PeppolDNSResolutionException
    *         if DNS resolution fails
-   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
-   *      String)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
-  public SMPClient (@Nonnull final IPeppolURLProvider aURLProvider,
+  public SMPClient (@Nonnull final ISMPURLProvider aURLProvider,
                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                     @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
   {

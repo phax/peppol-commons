@@ -19,31 +19,27 @@ package com.helger.smpclient.url;
 import javax.annotation.concurrent.ThreadSafe;
 
 /**
- * The default implementation of {@link IBDXLURLProvider} suitable for the
- * E-SENS network. See e.g.
- * http://wiki.ds.unipi.gr/display/ESENS/PR+-+BDXL+1.4.0<br>
- * Layout:
- * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
+ * An implementation of {@link IBDXLURLProvider} suitable for the BPC network.
+ * The main difference to the e-SENS approach is, that the participant
+ * identifier scheme is part of the hashed value.
  *
  * @author Philip Helger
  */
 @ThreadSafe
-public class BDXLURLProvider extends AbstractBDXLURLProvider
+public class BPCURLProviderSMP1 extends AbstractBDXLURLProvider
 {
-  /** U NAPTR service name for e-SENS/PEPPOL */
-  public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
-
-  public static final BDXLURLProvider MUTABLE_INSTANCE = new BDXLURLProvider ();
+  public static final String NAPTR_SERVICE_NAME = "Meta:SMP";
+  public static final BPCURLProviderSMP1 MUTABLE_INSTANCE = new BPCURLProviderSMP1 ();
   public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
 
   /**
    * Default constructor.
    */
-  public BDXLURLProvider ()
+  public BPCURLProviderSMP1 ()
   {
     setLowercaseValueBeforeHashing (true);
-    setAddIdentifierSchemeToZone (true);
-    setNAPTRServiceName (DNS_UNAPTR_SERVICE_NAME_META_SMP);
+    setAddIdentifierSchemeToZone (false);
+    setNAPTRServiceName (NAPTR_SERVICE_NAME);
     setUseDNSCache (true);
     customDNSServers ().clear ();
   }

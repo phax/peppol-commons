@@ -16,14 +16,11 @@
  */
 package com.helger.smpclient.url;
 
-import java.net.InetAddress;
-import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.ValueEnforcer;
+import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
 
 /**
@@ -31,48 +28,49 @@ import com.helger.peppolid.IParticipantIdentifier;
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
  * @author Philip Helger
- * @since 6.1.2
+ * @since 6.1.2, reworked in 8.1.7
  */
-public interface IBDXLURLProvider extends IPeppolURLProvider
+public interface IBDXLURLProvider extends ISMPURLProvider
 {
   /**
-   * @return <code>true</code> if value is lower cases before the value is
-   *         hashed.
+   * Get the name of the DNS NAPTR record.
+   *
+   * @param aParticipantIdentifier
+   *        Participant identifier. May not be <code>null</code>.
+   * @param sSMLZoneName
+   *        e.g. <code>sml.peppolcentral.org.</code>. May be empty. If it is not
+   *        empty, it must end with a dot!
+   * @return DNS record. It does not contain any prefix like
+   *         <code>http://</code> or any path suffix. It is the plain DNS host
+   *         name.
+   * @throws PeppolDNSResolutionException
+   *         If the URL resolution failed.
+   * @throws IllegalArgumentException
+   *         In case one argument is invalid
    */
-  boolean isLowercaseValueBeforeHashing ();
-
-  /**
-   * @return <code>true</code> if internal DNS caching is enabled,
-   *         <code>false</code> if not. By default it is enabled.
-   */
-  boolean isUseDNSCache ();
-
-  /**
-   * @return A copy of all entries currently in the cache. Never
-   *         <code>null</code> but maybe empty.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  ICommonsMap <String, String> getAllDNSCacheEntries ();
-
-  @Nonnull
-  default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                          @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
-  {
-    return getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName, true);
-  }
-
-  @Nonnull
-  default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                          @Nullable final String sSMLZoneName,
-                                          final boolean bDoNAPTRResolving) throws PeppolDNSResolutionException
-  {
-    return getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName, bDoNAPTRResolving, null);
-  }
-
   @Nonnull
   String getDNSNameOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier,
-                                  @Nullable String sSMLZoneName,
-                                  boolean bDoNAPTRResolving,
-                                  @Nullable List <InetAddress> aCustomDNSServers) throws PeppolDNSResolutionException;
+                                  @Nullable String sSMLZoneName) throws PeppolDNSResolutionException;
+
+  /**
+   * Get the name of the DNS NAPTR record.
+   *
+   * @param aParticipantIdentifier
+   *        Participant identifier. May not be <code>null</code>.
+   * @param aSMLInfo
+   *        The SML information object to be used. May not be <code>null</code>.
+   * @return DNS record. It does not contain any prefix like
+   *         <code>http://</code> or any path suffix. It is the plain DNS host
+   *         name.
+   * @throws PeppolDNSResolutionException
+   *         If the URL resolution failed.
+   */
+  @Nonnull
+  default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                          @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+  {
+    ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
+    ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
+    return getDNSNameOfParticipant (aParticipantIdentifier, aSMLInfo.getDNSZone ());
+  }
 }

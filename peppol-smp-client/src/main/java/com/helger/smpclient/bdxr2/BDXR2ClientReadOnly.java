@@ -52,7 +52,7 @@ import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerUnsigned;
-import com.helger.smpclient.url.IPeppolURLProvider;
+import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.xsds.bdxr.smp2.ServiceGroupType;
 import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
@@ -97,10 +97,10 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *        The SML to be used. Required to build the SMP access URI.
    * @throws PeppolDNSResolutionException
    *         If DNS resolution failed
-   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public BDXR2ClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
+  public BDXR2ClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
                               @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                               @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
@@ -122,10 +122,9 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
    * @throws PeppolDNSResolutionException
    *         if DNS resolution failed
-   * @see IPeppolURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
-   *      String)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
-  public BDXR2ClientReadOnly (@Nonnull final IPeppolURLProvider aURLProvider,
+  public BDXR2ClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
                               @Nonnull final IParticipantIdentifier aParticipantIdentifier,
                               @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
   {
@@ -578,7 +577,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         if DNS resolution fails
    */
   @Nonnull
-  public static ServiceGroupType getServiceGroupByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
+  public static ServiceGroupType getServiceGroupByDNS (@Nonnull final ISMPURLProvider aURLProvider,
                                                        @Nonnull final ISMLInfo aSMLInfo,
                                                        @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
                                                                                                               PeppolDNSResolutionException
@@ -611,7 +610,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         if DNS resolution fails
    */
   @Nonnull
-  public static ServiceMetadataType getServiceRegistrationByDNS (@Nonnull final IPeppolURLProvider aURLProvider,
+  public static ServiceMetadataType getServiceRegistrationByDNS (@Nonnull final ISMPURLProvider aURLProvider,
                                                                  @Nonnull final ISMLInfo aSMLInfo,
                                                                  @Nonnull final IParticipantIdentifier aServiceGroupID,
                                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,

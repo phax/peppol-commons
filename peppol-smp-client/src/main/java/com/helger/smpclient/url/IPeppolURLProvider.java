@@ -16,11 +16,8 @@
  */
 package com.helger.smpclient.url;
 
-import java.io.Serializable;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,33 +32,8 @@ import com.helger.peppolid.IParticipantIdentifier;
  *
  * @author Philip Helger
  */
-public interface IPeppolURLProvider extends Serializable
+public interface IPeppolURLProvider extends ISMPURLProvider
 {
-  /**
-   * Get DNS record from ParticipantIdentifier.<br>
-   * Example PEPPOL PI <code>iso6523-actorid-upis::0010:1234</code> using BDX
-   * scheme would result in
-   * <code>B-&lt;hash over PI-Value&gt;.&lt;PI-Scheme&gt;.&lt;sml-zone-name&gt;</code>
-   * . This method ensures that the hash value is created from the UTF-8 lower
-   * case value of the identifier. The result string never ends with a dot!
-   *
-   * @param aParticipantIdentifier
-   *        Participant identifier. May not be <code>null</code>.
-   * @param aSMLInfo
-   *        The SML information object to be used. May not be <code>null</code>.
-   * @return DNS record
-   * @throws PeppolDNSResolutionException
-   *         If the URL resolution failed.
-   */
-  @Nonnull
-  default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                          @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
-  {
-    ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
-    ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
-    return getDNSNameOfParticipant (aParticipantIdentifier, aSMLInfo.getDNSZone ());
-  }
-
   /**
    * Get DNS record from ParticipantIdentifier.<br>
    * Example PEPPOL PI <code>iso6523-actorid-upis::0010:1234</code> using BDX
@@ -89,50 +61,37 @@ public interface IPeppolURLProvider extends Serializable
                                   @Nullable String sSMLZoneName) throws PeppolDNSResolutionException;
 
   /**
-   * Get the SMP URI of the passed participant ID in the provided SML DNS zone
-   * name.
+   * Get DNS record from ParticipantIdentifier.<br>
+   * Example PEPPOL PI <code>iso6523-actorid-upis::0010:1234</code> using BDX
+   * scheme would result in
+   * <code>B-&lt;hash over PI-Value&gt;.&lt;PI-Scheme&gt;.&lt;sml-zone-name&gt;</code>
+   * . This method ensures that the hash value is created from the UTF-8 lower
+   * case value of the identifier. The result string never ends with a dot!
    *
    * @param aParticipantIdentifier
-   *        The participant ID. May not be <code>null</code>.
+   *        Participant identifier. May not be <code>null</code>.
    * @param aSMLInfo
-   *        The SML zone to use. May not be <code>null</code>.
-   * @return A new URI starting with "http://" and never ending with a slash.
+   *        The SML information object to be used. May not be <code>null</code>.
+   * @return DNS record
    * @throws PeppolDNSResolutionException
    *         If the URL resolution failed.
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @Nonnull
-  default URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+  default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                          @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
-    return getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo.getDNSZone ());
+    return getDNSNameOfParticipant (aParticipantIdentifier, aSMLInfo.getDNSZone ());
   }
 
-  /**
-   * Get the SMP URI of the passed participant ID in the provided SML DNS zone
-   * name.
-   *
-   * @param aParticipantIdentifier
-   *        The participant ID. May not be <code>null</code>.
-   * @param sSMLZoneName
-   *        The SML zone to use. May be <code>null</code>.
-   * @return A new URI starting with "http://" and never ending with a slash.
-   * @throws PeppolDNSResolutionException
-   *         If the URL resolution failed.
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
-   */
   @Nonnull
   default URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                       @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
+    // MUST always be http, port 80 and the root path
     final String sURIString = "http://" + getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
 
     try
@@ -142,63 +101,6 @@ public interface IPeppolURLProvider extends Serializable
     catch (final URISyntaxException ex)
     {
       throw new PeppolDNSResolutionException ("Error building SMP URI from string '" + sURIString + "'", ex);
-    }
-  }
-
-  /**
-   * Get the SMP URL of the passed participant ID in the provided SML DNS zone
-   * name.
-   *
-   * @param aParticipantIdentifier
-   *        The participant ID. May not be <code>null</code>.
-   * @param aSMLInfo
-   *        The SML zone to use. May not be <code>null</code>.
-   * @return A new URL with scheme "http:" and never ending with a slash.
-   * @throws PeppolDNSResolutionException
-   *         If the URL resolution failed.
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
-   */
-  @Nonnull
-  default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
-  {
-    ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
-    ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
-
-    return getSMPURLOfParticipant (aParticipantIdentifier, aSMLInfo.getDNSZone ());
-  }
-
-  /**
-   * Get the SMP URL of the passed participant ID in the provided SML DNS zone
-   * name.
-   *
-   * @param aParticipantIdentifier
-   *        The participant ID. May not be <code>null</code>.
-   * @param sSMLZoneName
-   *        The SML zone name to use. May be <code>null</code>.
-   * @return A new URL with scheme "http:" and never ending with a slash.
-   * @throws PeppolDNSResolutionException
-   *         If the URL resolution failed.
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
-   * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
-   * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
-   */
-  @Nonnull
-  default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
-  {
-    ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
-
-    final URI aURI = getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName);
-    try
-    {
-      return aURI.toURL ();
-    }
-    catch (final MalformedURLException ex)
-    {
-      throw new IllegalArgumentException ("Error building SMP URL from URI: " + aURI, ex);
     }
   }
 }

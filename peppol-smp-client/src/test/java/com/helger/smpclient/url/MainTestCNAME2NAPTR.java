@@ -31,11 +31,11 @@ public class MainTestCNAME2NAPTR
     String s = NaptrResolver.resolveFromUNAPTR ("AM7VC3VF63WABJQGQRHI36U2K6N6EJR7SHL6ELGLR7YRYQSFWOVQ.iso6523-actorid-upis.0151.test.participant.bdxl.services.",
                                                 null,
                                                 BDXLURLProvider.DNS_UNAPTR_SERVICE_NAME_META_SMP);
-    LOGGER.info ("='" + s + "'");
+    LOGGER.info ("Result: '" + s + "'");
 
     s = NaptrResolver.resolveFromUNAPTR ("CDEF123456789012345678901234567890123456789012345678.iso6523-actorid-upis.0151.test.participant.bdxl.services.",
                                          null,
                                          BDXLURLProvider.DNS_UNAPTR_SERVICE_NAME_META_SMP);
-    LOGGER.info ("='" + s + "'");
+    LOGGER.info ("Result: '" + s + "'");
   }
 }

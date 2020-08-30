@@ -19,11 +19,15 @@ package com.helger.smpclient.url;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.net.URL;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.network.port.NetworkOnlineStatusDeterminator;
 import com.helger.peppol.sml.ESML;
+import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 
@@ -41,39 +45,29 @@ public final class BDXLURLProviderTest
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null,
                                                                                          "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128"),
-                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                        false));
+                                                        ESML.DIGIT_PRODUCTION));
 
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "abc"),
-                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                        false));
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "abc"), ESML.DIGIT_PRODUCTION));
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"),
-                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                        false));
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"), ESML.DIGIT_PRODUCTION));
     assertEquals ("HSH3FMC5CYERDV5J6LN6MMQCN2PP2UCYVCZRWUEAHOSOBVIKB6KQ.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "9999:elonia"),
-                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                        false));
+                                                        ESML.DIGIT_PRODUCTION));
 
     // Check case insensitivity
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "0088:123abc"),
-                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
-                                                        false));
+                                                        "toop.acc.edelivery.tech.ec.europa.eu."));
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "0088:123ABC"),
-                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
-                                                        false));
+                                                        "toop.acc.edelivery.tech.ec.europa.eu."));
     assertEquals ("BA6JO7LWBY53J47UM53XPFZ6FZRTK7LHJJTB32DV5A74IFCOEGWQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "9915:tooptest"),
-                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
-                                                        false));
+                                                        "toop.acc.edelivery.tech.ec.europa.eu."));
     assertEquals ("BA6JO7LWBY53J47UM53XPFZ6FZRTK7LHJJTB32DV5A74IFCOEGWQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "9915:ToopTest"),
-                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
-                                                        false));
+                                                        "toop.acc.edelivery.tech.ec.europa.eu."));
   }
 
   @Test
@@ -84,37 +78,35 @@ public final class BDXLURLProviderTest
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null,
                                                                                          "urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128"),
-                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                        false));
+                                                        ESML.DIGIT_PRODUCTION));
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "abc"),
-                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                        false));
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "abc"), ESML.DIGIT_PRODUCTION));
     assertEquals ("WXKAIXB7IZX2SH7CZRVL46JDFINFPTPRAT32E3TRNYFB4J4J354A.edelivery.tech.ec.europa.eu",
-                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"),
-                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                        false));
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier (null, "ABC"), ESML.DIGIT_PRODUCTION));
     assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
-                                                        ESML.DIGIT_TEST.getDNSZone (),
-                                                        false));
+                                                        ESML.DIGIT_TEST));
   }
 
   @Test
   @DevelopersNote ("works only if DNS server is reachable")
+  @Ignore
   public void testResolve () throws PeppolDNSResolutionException
   {
     // Only if online
     if (NetworkOnlineStatusDeterminator.getNetworkStatus ().isOnline ())
     {
       final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
-      final String sURL = aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
-                                                                ESML.DIGIT_TEST);
-      assertNotNull (sURL);
+      final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
+      final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST);
+      assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu", sDomain);
+
+      final URL x = aURLProvider.getSMPURLOfParticipant (aPI, ESML.DIGIT_TEST);
+      assertNotNull (x);
       if (true)
-        assertEquals ("test-infra.peppol.at", sURL);
+        assertEquals ("test-infra.peppol.at", x.toString ());
       else
-        assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu", sURL);
+        assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu", x.toString ());
     }
   }
 
@@ -124,7 +116,6 @@ public final class BDXLURLProviderTest
     final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
-                                                        "toop.acc.edelivery.tech.ec.europa.eu.",
-                                                        false));
+                                                        "toop.acc.edelivery.tech.ec.europa.eu."));
   }
 }
