@@ -72,7 +72,6 @@ public final class BDXR1ExtensionConverter
 
   private static final Logger LOGGER = LoggerFactory.getLogger (BDXR1ExtensionConverter.class);
   private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE);
-  private static final JsonWriterSettings s_aJWS = new JsonWriterSettings ().setIndentEnabled (false).setWriteNewlineAtEnd (false);
 
   @PresentForCodeCoverage
   private static final BDXR1ExtensionConverter s_aInstance = new BDXR1ExtensionConverter ();
@@ -165,7 +164,7 @@ public final class BDXR1ExtensionConverter
   public static String convertToString (@Nullable final List <ExtensionType> aExtensions)
   {
     final IJsonArray aArray = convertToJson (aExtensions);
-    return aArray == null ? null : aArray.getAsJsonString (s_aJWS);
+    return aArray == null ? null : aArray.getAsJsonString (JsonWriterSettings.DEFAULT_SETTINGS);
   }
 
   /**
