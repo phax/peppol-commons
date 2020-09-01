@@ -24,12 +24,12 @@ import java.net.URL;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.network.port.NetworkOnlineStatusDeterminator;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
+import com.helger.smpclient.IgnoredNaptrTest;
 
 /**
  * Test class for class {@link BDXLURLProvider}.
@@ -89,8 +89,8 @@ public final class BDXLURLProviderTest
   }
 
   @Test
-  @DevelopersNote ("works only if DNS server is reachable")
   @Ignore
+  @IgnoredNaptrTest
   public void testResolve () throws PeppolDNSResolutionException
   {
     // Only if online

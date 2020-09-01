@@ -21,9 +21,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.dns.naptr.NaptrResolver;
 
-public class MainTestCNAME2NAPTR
+public final class MainTestCNAME2NAPTR
 {
-
   private static final Logger LOGGER = LoggerFactory.getLogger (MainTestCNAME2NAPTR.class);
 
   public static void main (final String [] args) throws Exception
