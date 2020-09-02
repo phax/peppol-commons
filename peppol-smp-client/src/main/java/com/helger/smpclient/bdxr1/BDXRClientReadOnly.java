@@ -140,7 +140,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    */
   public BDXRClientReadOnly (@Nonnull final URI aSMPHost)
   {
-    super (aSMPHost);
+    super (aSMPHost, false);
   }
 
   /**

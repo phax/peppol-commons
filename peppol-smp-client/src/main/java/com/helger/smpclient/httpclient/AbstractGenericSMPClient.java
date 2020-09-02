@@ -119,19 +119,25 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @param aSMPHost
    *        The address of the SMP service. Must be port 80 and basic http only
    *        (no https!). Example: http://smpcompany.company.org
+   * @param bPeppolLimitationsActive
+   *        <code>true</code> if the Peppol limitations (Port 80, http only, in
+   *        root context) should be complained about or not.
    */
-  public AbstractGenericSMPClient (@Nonnull final URI aSMPHost)
+  public AbstractGenericSMPClient (@Nonnull final URI aSMPHost, final boolean bPeppolLimitationsActive)
   {
     ValueEnforcer.notNull (aSMPHost, "SMPHost");
 
-    if (!"http".equals (aSMPHost.getScheme ()))
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme!");
+    if (bPeppolLimitationsActive)
+    {
+      if (!"http".equals (aSMPHost.getScheme ()))
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme!");
 
-    // getPort () returns -1 if none was explicitly specified
-    if (aSMPHost.getPort () != 80 && aSMPHost.getPort () != -1)
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("SMP URI " + aSMPHost + " is not running on port 80!");
+      // getPort () returns -1 if none was explicitly specified
+      if (aSMPHost.getPort () != 80 && aSMPHost.getPort () != -1)
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("SMP URI " + aSMPHost + " is not running on port 80!");
+    }
 
     // Build string and ensure it ends with a "/"
     final String sSMPHost = aSMPHost.toString ();

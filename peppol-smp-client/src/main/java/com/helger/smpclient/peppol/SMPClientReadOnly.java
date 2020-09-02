@@ -147,7 +147,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    */
   public SMPClientReadOnly (@Nonnull final URI aSMPHost)
   {
-    super (aSMPHost);
+    // Peppol limitations should be checked
+    super (aSMPHost, true);
   }
 
   /**
