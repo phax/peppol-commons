@@ -23,7 +23,6 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
-import com.helger.xsds.bdxr.smp2.CBDXRSMP2;
 
 /**
  * Abstract JAXB marshaller with namespace prefix mapping
@@ -35,13 +34,12 @@ import com.helger.xsds.bdxr.smp2.CBDXRSMP2;
  */
 public abstract class AbstractBDXR2Marshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDIncludes ();
-
   public AbstractBDXR2Marshaller (@Nonnull final Class <JAXBTYPE> aType,
                                   final boolean bValidationEnabled,
+                                  @Nonnull final ICommonsList <ClassPathResource> aXSDs,
                                   @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    super (aType, bValidationEnabled ? XSDS : null, aWrapper);
+    super (aType, bValidationEnabled ? aXSDs : null, aWrapper);
 
     setNamespaceContext (new BDXR2NamespaceContext ());
   }

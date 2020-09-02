@@ -16,6 +16,10 @@
  */
 package com.helger.smpclient.bdxr2.marshal;
 
+import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.xsds.bdxr.smp2.CBDXRSMP2;
 import com.helger.xsds.bdxr.smp2.ObjectFactory;
 import com.helger.xsds.bdxr.smp2.ServiceGroupType;
 
@@ -26,6 +30,10 @@ import com.helger.xsds.bdxr.smp2.ServiceGroupType;
  */
 public class BDXR2ServiceGroupMarshaller extends AbstractBDXR2Marshaller <ServiceGroupType>
 {
+  private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDResourceServiceGroup ();
+
+  @Deprecated
+  @DevelopersNote ("Since 8.1.8 - explicitly state it")
   public BDXR2ServiceGroupMarshaller ()
   {
     this (true);
@@ -33,6 +41,6 @@ public class BDXR2ServiceGroupMarshaller extends AbstractBDXR2Marshaller <Servic
 
   public BDXR2ServiceGroupMarshaller (final boolean bValidationEnabled)
   {
-    super (ServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createServiceGroup);
+    super (ServiceGroupType.class, bValidationEnabled, XSDS, new ObjectFactory ()::createServiceGroup);
   }
 }
