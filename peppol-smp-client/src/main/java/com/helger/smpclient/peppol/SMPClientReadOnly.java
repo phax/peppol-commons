@@ -343,8 +343,13 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       LOGGER.debug ("SMPClient getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupType (isXMLSchemaValidation ())));
+    final ServiceGroupType ret = executeGenericRequest (aRequest,
+                                                        new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupType (isXMLSchemaValidation ())));
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Received response: " + ret);
+
+    return ret;
   }
 
   @Nullable
@@ -356,6 +361,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
     catch (final SMPClientNotFoundException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Found no ServiceGroup");
       return null;
     }
   }
@@ -484,8 +491,12 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                                                  new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType (bXSDValidation),
                                                                                                       aTrustStore).setVerifySignature (bVerifySignature));
 
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Received response: " + aMetadata);
+
     // If the Redirect element is present, then follow 1 redirect.
     if (isFollowSMPRedirects ())
+    {
       if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
       {
         final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
@@ -531,6 +542,13 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         if (!bCertificateSubjectFound)
           throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
       }
+    }
+    else
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Following SMP redirects is disabled");
+    }
+
     return aMetadata;
   }
 
@@ -565,6 +583,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
     catch (final SMPClientNotFoundException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Found no ServiceMetadata");
       return null;
     }
   }
@@ -636,10 +656,17 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
           }
 
           // Use the first endpoint or null
-          return aRelevantEndpoints.getFirst ();
+          final EndpointType ret = aRelevantEndpoints.getFirst ();
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("Found matching endpoint: " + ret);
+          return ret;
         }
       }
     }
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Found no matching SMP endpoint");
+
     return null;
   }
 

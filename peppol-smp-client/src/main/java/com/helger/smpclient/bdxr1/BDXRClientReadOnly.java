@@ -189,6 +189,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     }
     catch (final SMPClientNotFoundException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Found no ServiceGroup");
       return null;
     }
   }
@@ -391,6 +393,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     }
     catch (final SMPClientNotFoundException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Found no ServiceMetadata");
       return null;
     }
   }

@@ -172,8 +172,13 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
       LOGGER.debug ("BDXR2Client getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new BDXR2ServiceGroupMarshaller (isXMLSchemaValidation ())));
+    final ServiceGroupType ret = executeGenericRequest (aRequest,
+                                                        new SMPHttpResponseHandlerUnsigned <> (new BDXR2ServiceGroupMarshaller (isXMLSchemaValidation ())));
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Received response: " + ret);
+
+    return ret;
   }
 
   @Nullable
@@ -185,6 +190,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     }
     catch (final SMPClientNotFoundException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Found no ServiceGroup");
       return null;
     }
   }
@@ -271,6 +278,10 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     ServiceMetadataType aMetadata = executeGenericRequest (aRequest,
                                                            new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation),
                                                                                                 aTrustStore).setVerifySignature (bVerifySignature));
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Received response: " + aMetadata);
+
     if (!SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()).equals (aDocumentTypeID))
     {
       // Inconsistency between request and response
@@ -283,6 +294,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
 
     // If the Redirect element is present, then follow 1 redirect.
     if (isFollowSMPRedirects ())
+    {
       for (final ProcessMetadataType aPM : aMetadata.getProcessMetadata ())
       {
         final RedirectType aRedirect = aPM.getRedirect ();
@@ -357,6 +369,12 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
             throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
         }
       }
+    }
+    else
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Following SMP redirects is disabled");
+    }
 
     return aMetadata;
   }
@@ -371,6 +389,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     }
     catch (final SMPClientNotFoundException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Found no ServiceMetadata");
       return null;
     }
   }
@@ -432,9 +452,16 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
         }
 
         // Use the first endpoint or null
-        return aRelevantEndpoints.getFirst ();
+        final EndpointType ret = aRelevantEndpoints.getFirst ();
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Found matching endpoint: " + ret);
+        return ret;
       }
     }
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Found no matching SMP endpoint");
+
     return null;
   }
 
