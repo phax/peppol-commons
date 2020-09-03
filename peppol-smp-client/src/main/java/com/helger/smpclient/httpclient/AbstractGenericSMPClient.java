@@ -323,6 +323,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   @Nonnull
   public static SMPClientException getConvertedException (@Nonnull final Exception ex)
   {
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Converting exception of class '" + ex.getClass ().getName () + "' to an SMP expception");
+
     if (ex instanceof SMPClientException)
       return (SMPClientException) ex;
 
@@ -386,6 +389,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     }
     catch (final Exception ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Exception executing HTTP request " + aRequest, ex);
       throw getConvertedException (ex);
     }
   }

@@ -204,6 +204,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     if (ArrayHelper.isEmpty (aResponseBytes))
       throw new SMPClientBadResponseException ("Could not read SMP server response content");
 
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Signed SMP response has " + aResponseBytes.length + " bytes");
+
     if (m_bVerifySignature)
     {
       if (m_aTrustStore == null)
@@ -214,6 +217,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
         // Check the signature
         if (!_checkSignature (aIS, m_aTrustStore))
           throw new SMPClientBadResponseException ("Signature returned from SMP server was not valid");
+
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Successfully verified signature of signed SMP response");
       }
       catch (final Exception ex)
       {
@@ -229,6 +235,10 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     final T ret = m_aMarshaller.read (aResponseBytes);
     if (ret == null)
       throw new SMPClientBadResponseException ("Malformed XML document returned from SMP server");
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Successfully parsed signed SMP HTTP response");
+
     return ret;
   }
 }

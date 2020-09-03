@@ -21,6 +21,8 @@ import java.io.IOException;
 import javax.annotation.Nonnull;
 
 import org.apache.http.HttpEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.jaxb.GenericJAXBMarshaller;
@@ -40,6 +42,8 @@ import com.helger.smpclient.exception.SMPClientBadResponseException;
  */
 public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandler <T>
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpResponseHandlerUnsigned.class);
+
   private final GenericJAXBMarshaller <T> m_aMarshaller;
 
   public SMPHttpResponseHandlerUnsigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller)
@@ -56,6 +60,9 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
     final T ret = m_aMarshaller.read (aEntity.getContent ());
     if (ret == null)
       throw new SMPClientBadResponseException ("Malformed XML document returned from SMP server");
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Successfully parsed unsigned SMP HTTP response");
     return ret;
   }
 }

@@ -171,8 +171,13 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       LOGGER.debug ("BDXRClient getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new BDXR1MarshallerServiceGroupType (isXMLSchemaValidation ())));
+    final ServiceGroupType ret = executeGenericRequest (aRequest,
+                                                        new SMPHttpResponseHandlerUnsigned <> (new BDXR1MarshallerServiceGroupType (isXMLSchemaValidation ())));
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Received response: " + ret);
+
+    return ret;
   }
 
   @Nullable
@@ -294,8 +299,12 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                                                                  new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation),
                                                                                                       aTrustStore).setVerifySignature (bVerifySignature));
 
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Received response: " + aMetadata);
+
     // If the Redirect element is present, then follow 1 redirect.
     if (isFollowSMPRedirects ())
+    {
       if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
       {
         final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
@@ -341,6 +350,13 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         if (!bCertificateSubjectFound)
           throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
       }
+    }
+    else
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Following SMP redirects is disabled");
+    }
+
     return aMetadata;
   }
 
@@ -441,10 +457,18 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
           }
 
           // Use the first endpoint or null
-          return aRelevantEndpoints.getFirst ();
+          final EndpointType ret = aRelevantEndpoints.getFirst ();
+
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("Found matching endpoint: " + ret);
+          return ret;
         }
       }
     }
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Found no matching SMP endpoint");
+
     return null;
   }
 
