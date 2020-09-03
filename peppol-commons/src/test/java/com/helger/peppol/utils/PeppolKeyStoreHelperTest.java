@@ -31,20 +31,11 @@ import com.helger.security.keystore.KeyStoreHelper;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("deprecation")
 public final class PeppolKeyStoreHelperTest
 {
   @Test
   public void testConstants ()
   {
-    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PRODUCTION_ROOT);
-    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PRODUCTION_AP);
-    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PRODUCTION_SMP);
-
-    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PILOT_ROOT);
-    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PILOT_AP);
-    assertNotNull (PeppolKeyStoreHelper.Config2010.CERTIFICATE_PILOT_SMP);
-
     assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
     assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
     assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
@@ -52,67 +43,6 @@ public final class PeppolKeyStoreHelperTest
     assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
     assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
     assertNotNull (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
-  }
-
-  @Test
-  public void testLoadTrustStore2010Production () throws Exception
-  {
-    // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
-                                                                    PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_CLASSPATH,
-                                                                    PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
-    assertNotNull (aTrustStore);
-
-    // Ensure all name entries are contained
-    assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_ROOT));
-    assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_AP));
-    assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_SMP));
-
-    {
-      final X509Certificate aCertAP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_AP);
-      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL Root CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
-      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL ACCESS POINT CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sSubjectName);
-    }
-    {
-      final X509Certificate aCertSMP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PRODUCTION_ALIAS_SMP);
-      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL Root CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
-      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER CA,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sSubjectName);
-    }
-  }
-
-  @Test
-  public void testLoadTrustStore2010Pilot () throws Exception
-  {
-    // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
-                                                                    PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_CLASSPATH,
-                                                                    PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
-    assertNotNull (aTrustStore);
-
-    // Ensure all name entries are contained
-    assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_ROOT));
-    assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_AP));
-    assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_SMP));
-
-    {
-      final X509Certificate aCertAP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_AP);
-      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
-      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sSubjectName);
-    }
-    {
-      final X509Certificate aCertSMP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2010.TRUSTSTORE_PILOT_ALIAS_SMP);
-      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
-      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
-                    sSubjectName);
-    }
   }
 
   @Test
