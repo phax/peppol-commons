@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
 
@@ -27,13 +26,13 @@ import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
  */
 public class SMPMarshallerServiceMetadataType extends AbstractSMPMarshaller <ServiceMetadataType>
 {
-  @Deprecated
-  @DevelopersNote ("Since v8.0.5")
-  public SMPMarshallerServiceMetadataType ()
-  {
-    this (true);
-  }
-
+  /**
+   * Constructor
+   *
+   * @param bValidationEnabled
+   *        <code>true</code> if XSD validation should be used,
+   *        <code>false</code> to not verify it.
+   */
   public SMPMarshallerServiceMetadataType (final boolean bValidationEnabled)
   {
     super (ServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createServiceMetadata);

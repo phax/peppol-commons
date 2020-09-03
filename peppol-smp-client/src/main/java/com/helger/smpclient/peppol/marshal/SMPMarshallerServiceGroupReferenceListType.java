@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 import com.helger.smpclient.peppol.jaxb.ServiceGroupReferenceListType;
 
@@ -27,13 +26,13 @@ import com.helger.smpclient.peppol.jaxb.ServiceGroupReferenceListType;
  */
 public class SMPMarshallerServiceGroupReferenceListType extends AbstractSMPMarshaller <ServiceGroupReferenceListType>
 {
-  @Deprecated
-  @DevelopersNote ("Since v8.0.5")
-  public SMPMarshallerServiceGroupReferenceListType ()
-  {
-    this (true);
-  }
-
+  /**
+   * Constructor
+   *
+   * @param bValidationEnabled
+   *        <code>true</code> if XSD validation should be used,
+   *        <code>false</code> to not verify it.
+   */
   public SMPMarshallerServiceGroupReferenceListType (final boolean bValidationEnabled)
   {
     super (ServiceGroupReferenceListType.class, bValidationEnabled, new ObjectFactory ()::createServiceGroupReferenceList);

@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.bdxr2.marshal;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.xsds.bdxr.smp2.CBDXRSMP2;
@@ -32,13 +31,13 @@ public class BDXR2ServiceMetadataMarshaller extends AbstractBDXR2Marshaller <Ser
 {
   private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDResourceServiceMetadata ();
 
-  @Deprecated
-  @DevelopersNote ("Since 8.1.8 - explicitly state it")
-  public BDXR2ServiceMetadataMarshaller ()
-  {
-    this (true);
-  }
-
+  /**
+   * Constructor
+   *
+   * @param bValidationEnabled
+   *        <code>true</code> if XSD validation should be used,
+   *        <code>false</code> to not verify it.
+   */
   public BDXR2ServiceMetadataMarshaller (final boolean bValidationEnabled)
   {
     super (ServiceMetadataType.class, bValidationEnabled, XSDS, new ObjectFactory ()::createServiceMetadata);

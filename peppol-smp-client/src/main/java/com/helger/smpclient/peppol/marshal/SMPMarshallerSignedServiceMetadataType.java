@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
 
@@ -27,15 +26,13 @@ import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
  */
 public class SMPMarshallerSignedServiceMetadataType extends AbstractSMPMarshaller <SignedServiceMetadataType>
 {
-  @Deprecated
-  @DevelopersNote ("Since v8.0.5")
-  public SMPMarshallerSignedServiceMetadataType ()
-  {
-    // Disable validation by default, because the mandatory signature element is
-    // applied afterwards
-    this (false);
-  }
-
+  /**
+   * Constructor
+   *
+   * @param bValidationEnabled
+   *        <code>true</code> if XSD validation should be used,
+   *        <code>false</code> to not verify it.
+   */
   public SMPMarshallerSignedServiceMetadataType (final boolean bValidationEnabled)
   {
     super (SignedServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createSignedServiceMetadata);

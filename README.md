@@ -265,6 +265,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v8.2.0 - work in progress
     * Removed deprecated class `PeppolKeyStoreHelper.Config2010`
+    * Removed all deprecated and replaced methods
 * v8.1.8 - 2020-09-02
     * Fixed XML Schema validation of BDXR SMP v2 client
 * v8.1.7 - 2020-08-30

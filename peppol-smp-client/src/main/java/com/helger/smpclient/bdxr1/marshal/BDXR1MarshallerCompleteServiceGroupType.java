@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.bdxr1.marshal;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.xsds.bdxr.smp1.CompleteServiceGroupType;
 import com.helger.xsds.bdxr.smp1.ObjectFactory;
 
@@ -27,13 +26,13 @@ import com.helger.xsds.bdxr.smp1.ObjectFactory;
  */
 public class BDXR1MarshallerCompleteServiceGroupType extends AbstractBDXR1Marshaller <CompleteServiceGroupType>
 {
-  @Deprecated
-  @DevelopersNote ("Since v8.0.5")
-  public BDXR1MarshallerCompleteServiceGroupType ()
-  {
-    this (true);
-  }
-
+  /**
+   * Constructor
+   *
+   * @param bValidationEnabled
+   *        <code>true</code> if XSD validation should be used,
+   *        <code>false</code> to not verify it.
+   */
   public BDXR1MarshallerCompleteServiceGroupType (final boolean bValidationEnabled)
   {
     super (CompleteServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createCompleteServiceGroup);

@@ -26,9 +26,7 @@ import java.security.KeyStore;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.apache.http.HttpHost;
 import org.apache.http.HttpStatus;
-import org.apache.http.auth.Credentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
@@ -42,7 +40,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -166,248 +163,6 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * @return The HTTP proxy to be used to access the SMP server. Is
-   *         <code>null</code> by default.
-   * @see #getProxyCredentials()
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Nullable
-  @Deprecated
-  public final HttpHost getProxy ()
-  {
-    return m_aHttpClientSettings.getProxyHost ();
-  }
-
-  /**
-   * Set the proxy to be used to access the SMP server. Note: proxy
-   * authentication must be set explicitly via
-   * {@link #setProxyCredentials(Credentials)}<br>
-   * Note: if {@link #setUseProxySystemProperties(boolean)} is enabled, any
-   * proxy that is set via this method is reset!
-   *
-   * @param aProxy
-   *        May be <code>null</code> to indicate no proxy.
-   * @return this for chaining
-   * @see #setProxyCredentials(Credentials)
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Nonnull
-  @Deprecated
-  public final IMPLTYPE setProxy (@Nullable final HttpHost aProxy)
-  {
-    m_aHttpClientSettings.setProxyHost (aProxy);
-    return thisAsT ();
-  }
-
-  /**
-   * @return The HTTP proxy credentials to be used to access the SMP server. Is
-   *         <code>null</code> by default. This is only used if a proxy is set.
-   * @see #getProxy()
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Nullable
-  @Deprecated
-  public final Credentials getProxyCredentials ()
-  {
-    return m_aHttpClientSettings.getProxyCredentials ();
-  }
-
-  /**
-   * Set the proxy credentials to be used to access the SMP server. Note: proxy
-   * authentication is of course only used if a proxy server is present!
-   *
-   * @param aProxyCredentials
-   *        May be <code>null</code> to indicate no proxy credentials (the
-   *        default). Usually they are of type
-   *        {@link org.apache.http.auth.UsernamePasswordCredentials}.
-   * @return this for chaining
-   * @see #setProxy(HttpHost)
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Nonnull
-  @Deprecated
-  public final IMPLTYPE setProxyCredentials (@Nullable final Credentials aProxyCredentials)
-  {
-    m_aHttpClientSettings.setProxyCredentials (aProxyCredentials);
-    return thisAsT ();
-  }
-
-  /**
-   * @return The hosts for which non HTTP proxy should be used. Never
-   *         <code>null</code> but maybe empty.
-   * @see #getProxy()
-   * @since 6.2.4
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Nonnull
-  @ReturnsMutableObject
-  @Deprecated
-  public final ICommonsOrderedSet <String> nonProxyHosts ()
-  {
-    return m_aHttpClientSettings.nonProxyHosts ();
-  }
-
-  /**
-   * @return <code>true</code> if the system properties for HTTP proxy handling
-   *         are enabled, <code>false</code> if they are disabled. By default
-   *         they are disabled.
-   * @since 5.2.2
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Deprecated
-  public final boolean isUseProxySystemProperties ()
-  {
-    return m_aHttpClientSettings.isUseSystemProperties ();
-  }
-
-  /**
-   * Set the usage of the HTTP proxy system properties. This must be enabled if
-   * e.g. non-proxy hosts should be supported (see issue #9). For backwards
-   * compatibility this is disabled by default. If the system properties are
-   * enabled, the proxy set via {@link #setProxy(HttpHost)} is automatically
-   * reset, because the manual proxy host has precedence over the system
-   * properties (internally in Apache HTTPClient) - use the 'http.proxyHost'
-   * system property instead!<br>
-   * Note: since v5.2.4 this property can be configured via an SMP client
-   * properties file (see
-   * {@link SMPClientConfiguration#isUseProxySystemProperties()}).<br>
-   * Supported properties are (source:
-   * http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/org/apache/http/impl/client/HttpClientBuilder.html):
-   * <ul>
-   * <li>ssl.TrustManagerFactory.algorithm</li>
-   * <li>javax.net.ssl.trustStoreType</li>
-   * <li>javax.net.ssl.trustStore</li>
-   * <li>javax.net.ssl.trustStoreProvider</li>
-   * <li>javax.net.ssl.trustStorePassword</li>
-   * <li>ssl.KeyManagerFactory.algorithm</li>
-   * <li>javax.net.ssl.keyStoreType</li>
-   * <li>javax.net.ssl.keyStore</li>
-   * <li>javax.net.ssl.keyStoreProvider</li>
-   * <li>javax.net.ssl.keyStorePassword</li>
-   * <li>https.protocols</li>
-   * <li>https.cipherSuites</li>
-   * <li>http.proxyHost</li>
-   * <li>http.proxyPort</li>
-   * <li>http.nonProxyHosts</li>
-   * <li>http.keepAlive</li>
-   * <li>http.maxConnections</li>
-   * <li>http.agent</li>
-   * </ul>
-   *
-   * @param bUseProxySystemProperties
-   *        <code>true</code> to use system properties, <code>false</code> to
-   *        not use them.
-   * @return this for chaining
-   * @since 5.2.2
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Nonnull
-  @Deprecated
-  public final IMPLTYPE setUseProxySystemProperties (final boolean bUseProxySystemProperties)
-  {
-    m_aHttpClientSettings.setUseSystemProperties (bUseProxySystemProperties);
-    return thisAsT ();
-  }
-
-  /**
-   * @return <code>true</code> if DNS client caching is enabled (default),
-   *         <code>false</code> if it is disabled.
-   * @since 5.2.5
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Deprecated
-  public final boolean isUseDNSClientCache ()
-  {
-    return m_aHttpClientSettings.isUseDNSClientCache ();
-  }
-
-  /**
-   * Enable or disable DNS client caching. By default caching is enabled.
-   *
-   * @param bUseDNSClientCache
-   *        <code>true</code> to use DNS caching, <code>false</code> to disable
-   *        it.
-   * @return this for chaining
-   * @since 5.2.5
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Nonnull
-  @Deprecated
-  public final IMPLTYPE setUseDNSClientCache (final boolean bUseDNSClientCache)
-  {
-    m_aHttpClientSettings.setUseDNSClientCache (bUseDNSClientCache);
-    return thisAsT ();
-  }
-
-  /**
-   * @return The connection timeout in milliseconds. Defaults to 5000 (5 secs).
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Deprecated
-  public final int getConnectionTimeoutMS ()
-  {
-    return m_aHttpClientSettings.getConnectionTimeoutMS ();
-  }
-
-  /**
-   * Set the connection timeout in milliseconds.
-   *
-   * @param nConnectionTimeoutMS
-   *        The connection timeout milliseconds to use. Only values &gt; 0 are
-   *        considered.
-   * @return this for chaining
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Nonnull
-  @Deprecated
-  public final IMPLTYPE setConnectionTimeoutMS (final int nConnectionTimeoutMS)
-  {
-    m_aHttpClientSettings.setConnectionTimeoutMS (nConnectionTimeoutMS);
-    return thisAsT ();
-  }
-
-  /**
-   * @return The request timeout in milliseconds. Defaults to 10000 (10 secs).
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Deprecated
-  public final int getRequestTimeoutMS ()
-  {
-    return m_aHttpClientSettings.getSocketTimeoutMS ();
-  }
-
-  /**
-   * Set the request timeout in milliseconds.
-   *
-   * @param nRequestTimeoutMS
-   *        The request timeout milliseconds to use. Only values &gt; 0 are
-   *        considered.
-   * @return this for chaining
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Nonnull
-  @Deprecated
-  public final IMPLTYPE setRequestTimeoutMS (final int nRequestTimeoutMS)
-  {
-    m_aHttpClientSettings.setSocketTimeoutMS (nRequestTimeoutMS);
-    return thisAsT ();
-  }
-
-  /**
-   * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see
-   *         {@link SMPHttpResponseHandlerSigned#DEFAULT_VERIFY_SIGNATURE}).
-   * @since 5.2.1
-   * @deprecated since 8.0.3; Use {@link #isVerifySignature()} instead
-   */
-  @Deprecated
-  public final boolean isCheckCertificate ()
-  {
-    return isVerifySignature ();
-  }
-
-  /**
    * @return <code>true</code> if SMP client response certificate checking is
    *         enabled, <code>false</code> if it is disabled. By default this
    *         check is enabled (see
@@ -417,25 +172,6 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public final boolean isVerifySignature ()
   {
     return m_bVerifySignature;
-  }
-
-  /**
-   * Check the certificate retrieved from a signed SMP response? This may be
-   * helpful for debugging and testing of SMP client connections!<br>
-   * Uses the trust store configured in the SMP client configuration.
-   *
-   * @param bVerifySignature
-   *        <code>true</code> to enable SMP response checking (on by default) or
-   *        <code>false</code> to disable it.
-   * @return this for chaining
-   * @since 5.2.1
-   * @deprecated since 8.0.3; Use {@link #setVerifySignature(boolean)} instead
-   */
-  @Deprecated
-  @Nonnull
-  public final IMPLTYPE setCheckCertificate (final boolean bVerifySignature)
-  {
-    return setVerifySignature (bVerifySignature);
   }
 
   /**
@@ -536,37 +272,6 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public final IMPLTYPE setXMLSchemaValidation (final boolean bXMLSchemaValidation)
   {
     m_bXMLSchemaValidation = bXMLSchemaValidation;
-    return thisAsT ();
-  }
-
-  /**
-   * @return The custom user agent HTTP header to be used. <code>null</code> by
-   *         default.
-   * @since 7.0.3
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Deprecated
-  @Nullable
-  public final String getUserAgent ()
-  {
-    return m_aHttpClientSettings.getUserAgent ();
-  }
-
-  /**
-   * Set a custom user agent HTTP header to be used. If none is set, the default
-   * from the underlying Apache HTTP Client library is used.
-   *
-   * @param sUserAgent
-   *        The custom user agent to be used. May be <code>null</code>.
-   * @return this for chaining
-   * @since 7.0.3
-   * @deprecated since v8.0.1; Use {@link #httpClientSettings()} instead
-   */
-  @Deprecated
-  @Nonnull
-  public final IMPLTYPE setUserAgent (@Nullable final String sUserAgent)
-  {
-    m_aHttpClientSettings.setUserAgent (sUserAgent);
     return thisAsT ();
   }
 

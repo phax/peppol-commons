@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.bdxr1.marshal;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.xsds.bdxr.smp1.ObjectFactory;
 import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
 
@@ -27,13 +26,13 @@ import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
  */
 public class BDXR1MarshallerServiceMetadataType extends AbstractBDXR1Marshaller <ServiceMetadataType>
 {
-  @Deprecated
-  @DevelopersNote ("Since v8.0.5")
-  public BDXR1MarshallerServiceMetadataType ()
-  {
-    this (true);
-  }
-
+  /**
+   * Constructor
+   *
+   * @param bValidationEnabled
+   *        <code>true</code> if XSD validation should be used,
+   *        <code>false</code> to not verify it.
+   */
   public BDXR1MarshallerServiceMetadataType (final boolean bValidationEnabled)
   {
     super (ServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createServiceMetadata);

@@ -38,12 +38,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.GenericJAXBMarshaller;
-import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
 import com.helger.xml.serialize.read.DOMReader;
@@ -63,26 +61,11 @@ import com.helger.xml.serialize.read.DOMReader;
 public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
 {
   public static final boolean DEFAULT_VERIFY_SIGNATURE = true;
-  @Deprecated
-  @DevelopersNote ("since 8.0.3")
-  public static final boolean DEFAULT_CHECK_CERTIFICATE = DEFAULT_VERIFY_SIGNATURE;
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
 
   private final GenericJAXBMarshaller <T> m_aMarshaller;
   private boolean m_bVerifySignature = DEFAULT_VERIFY_SIGNATURE;
   private KeyStore m_aTrustStore;
-
-  /**
-   * Constructor loading the trust store from the SMP Client configuration file.
-   *
-   * @param aMarshaller
-   *        The JAXB marshaller to be used. May not be <code>null</code>.
-   */
-  @Deprecated
-  public SMPHttpResponseHandlerSigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller)
-  {
-    this (aMarshaller, SMPClientConfiguration.loadTrustStore ());
-  }
 
   /**
    * Constructor
@@ -103,43 +86,11 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
    * @return <code>true</code> if SMP client response certificate checking is
    *         enabled, <code>false</code> if it is disabled. By default this
    *         check is enabled (see {@link #DEFAULT_VERIFY_SIGNATURE}).
-   * @since 5.2.1
-   * @deprecated since 8.0.3; Use {@link #isVerifySignature()} instead
-   */
-  @Deprecated
-  public final boolean isCheckCertificate ()
-  {
-    return isVerifySignature ();
-  }
-
-  /**
-   * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see {@link #DEFAULT_VERIFY_SIGNATURE}).
    * @since 8.0.3
    */
   public final boolean isVerifySignature ()
   {
     return m_bVerifySignature;
-  }
-
-  /**
-   * Check the certificate retrieved from a signed SMP response? This may be
-   * helpful for debugging and testing of SMP client connections!<br>
-   * Uses the trust store configured in the SMP client configuration.
-   *
-   * @param bVerifySignature
-   *        <code>true</code> to enable SMP response checking (on by default) or
-   *        <code>false</code> to disable it.
-   * @return this for chaining
-   * @since 5.2.1
-   * @deprecated since 8.0.3; Use {@link #setVerifySignature(boolean)} instead
-   */
-  @Deprecated
-  @Nonnull
-  public final SMPHttpResponseHandlerSigned <T> setCheckCertificate (final boolean bVerifySignature)
-  {
-    return setVerifySignature (bVerifySignature);
   }
 
   /**

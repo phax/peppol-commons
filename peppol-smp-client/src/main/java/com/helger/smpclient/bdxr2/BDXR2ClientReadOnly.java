@@ -246,39 +246,6 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         The request was not well formed.
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,
    *      IDocumentTypeIdentifier)
-   * @deprecated since v8.0.0; Use
-   *             {@link #getServiceMetadata(IParticipantIdentifier,IDocumentTypeIdentifier)}
-   *             instead
-   */
-  @Deprecated
-  @Nonnull
-  public ServiceMetadataType getServiceRegistration (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
-  {
-    return getServiceMetadata (aServiceGroupID, aDocumentTypeID);
-  }
-
-  /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type. This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @return A signed service metadata object. Never <code>null</code>.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientNotFoundException
-   *         The service group id or document type did not exist.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier)
    */
   @Nonnull
   public ServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -392,37 +359,6 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
       }
 
     return aMetadata;
-  }
-
-  /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type. This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @return A signed service metadata object or <code>null</code> if no such
-   *         registration is present.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
-   * @deprecated since v8.0.0; Use
-   *             {@link #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)}
-   *             instead
-   */
-  @Deprecated
-  @Nullable
-  public ServiceMetadataType getServiceRegistrationOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                           @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
-  {
-    return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
   }
 
   @Nullable

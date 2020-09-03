@@ -16,8 +16,6 @@
  */
 package com.helger.smpclient.security;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.PublicKey;
 import java.security.cert.CertPath;
@@ -45,8 +43,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.ConstantKeySelectorResult;
-import com.helger.security.keystore.EKeyStoreType;
-import com.helger.security.keystore.KeyStoreHelper;
 
 /**
  * Finds and returns a key using the data contained in a {@link KeyInfo} object
@@ -60,39 +56,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (TrustStoreBasedX509KeySelector.class);
 
-  private KeyStore m_aTrustStore;
-
-  /**
-   * Constructor that loads an external trust store
-   *
-   * @param eTrustStoreType
-   *        Trust store type
-   * @param sTrustStorePath
-   *        Trust store path
-   * @param sTrustStorePassword
-   *        Trust store password
-   * @deprecated Since v8.1.1
-   */
-  @Deprecated
-  public TrustStoreBasedX509KeySelector (@Nonnull final EKeyStoreType eTrustStoreType,
-                                         @Nonnull final String sTrustStorePath,
-                                         @Nonnull final String sTrustStorePassword)
-  {
-    ValueEnforcer.notNull (eTrustStoreType, "TrustStoreType");
-    ValueEnforcer.notNull (sTrustStorePath, "TrustStorePath");
-    ValueEnforcer.notNull (sTrustStorePassword, "TrustStorePassword");
-    try
-    {
-      m_aTrustStore = KeyStoreHelper.loadKeyStoreDirect (eTrustStoreType, sTrustStorePath, sTrustStorePassword);
-    }
-    catch (final GeneralSecurityException | IOException ex)
-    {
-      throw new IllegalArgumentException ("Failed to load truststore '" + sTrustStorePath + "' of type " + eTrustStoreType);
-    }
-
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Loaded truststore '" + sTrustStorePath + "' of type " + eTrustStoreType);
-  }
+  private final KeyStore m_aTrustStore;
 
   /**
    * Constructor

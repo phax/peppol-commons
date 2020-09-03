@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.bdxr1.marshal;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.xsds.bdxr.smp1.ObjectFactory;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
@@ -27,15 +26,13 @@ import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
  */
 public class BDXR1MarshallerSignedServiceMetadataType extends AbstractBDXR1Marshaller <SignedServiceMetadataType>
 {
-  @Deprecated
-  @DevelopersNote ("Since v8.0.5")
-  public BDXR1MarshallerSignedServiceMetadataType ()
-  {
-    // Disable validation by default, because the mandatory Signature element is
-    // created afterwards
-    this (false);
-  }
-
+  /**
+   * Constructor
+   *
+   * @param bValidationEnabled
+   *        <code>true</code> if XSD validation should be used,
+   *        <code>false</code> to not verify it.
+   */
   public BDXR1MarshallerSignedServiceMetadataType (final boolean bValidationEnabled)
   {
     super (SignedServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createSignedServiceMetadata);

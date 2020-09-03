@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 import com.helger.smpclient.peppol.jaxb.ServiceGroupType;
 
@@ -27,13 +26,13 @@ import com.helger.smpclient.peppol.jaxb.ServiceGroupType;
  */
 public class SMPMarshallerServiceGroupType extends AbstractSMPMarshaller <ServiceGroupType>
 {
-  @Deprecated
-  @DevelopersNote ("Since v8.0.5")
-  public SMPMarshallerServiceGroupType ()
-  {
-    this (true);
-  }
-
+  /**
+   * Constructor
+   *
+   * @param bValidationEnabled
+   *        <code>true</code> if XSD validation should be used,
+   *        <code>false</code> to not verify it.
+   */
   public SMPMarshallerServiceGroupType (final boolean bValidationEnabled)
   {
     super (ServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createServiceGroup);
