@@ -17,6 +17,7 @@
 package com.helger.smpclient.config;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 
@@ -29,12 +30,27 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.exception.InitializationException;
+import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
+import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
+import com.helger.commons.io.resourceprovider.ReadableResourceProviderChain;
+import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.SystemProperties;
+import com.helger.config.Config;
+import com.helger.config.ConfigFactory;
+import com.helger.config.IConfig;
+import com.helger.config.source.EConfigSourceType;
+import com.helger.config.source.MultiConfigurationValueProvider;
+import com.helger.config.source.res.ConfigurationSourceProperties;
+import com.helger.config.value.ConfiguredValue;
 import com.helger.httpclient.HttpClientSettings;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
-import com.helger.settings.exchange.configfile.ConfigFile;
-import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 
 /**
  * This class manages the configuration properties of the SMP client. The order
@@ -60,33 +76,118 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 public final class SMPClientConfiguration
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPClientConfiguration.class);
-  private static final ConfigFile s_aConfigFile;
 
   static
   {
-    final ConfigFileBuilder aCFB = new ConfigFileBuilder ().addPathFromSystemProperty ("peppol.smp.client.properties.path")
-                                                           .addPathFromSystemProperty ("smp.client.properties.path")
-                                                           .addPathFromEnvVar ("SMP_CLIENT_CONFIG")
-                                                           .addPath ("private-smp-client.properties")
-                                                           .addPath ("smp-client.properties");
-
-    s_aConfigFile = aCFB.build ();
-    if (s_aConfigFile.isRead ())
-      LOGGER.info ("Read SMP client properties from " + s_aConfigFile.getReadResource ().getPath ());
-    else
-      LOGGER.warn ("Failed to read SMP client properties from " + aCFB.getAllPaths ());
+    // Since 8.2.0
+    if (StringHelper.hasText (SystemProperties.getPropertyValueOrNull ("peppol.smp.client.properties.path")))
+      throw new InitializationException ("The system property 'peppol.smp.client.properties.path' is no longer supported." +
+                                         " See https://github.com/phax/ph-commons#ph-config for alternatives." +
+                                         " Consider using the system property 'config.file' instead.");
+    if (StringHelper.hasText (SystemProperties.getPropertyValueOrNull ("smp.client.properties.path")))
+      throw new InitializationException ("The system property 'smp.client.properties.path' is no longer supported." +
+                                         " See https://github.com/phax/ph-commons#ph-config for alternatives." +
+                                         " Consider using the system property 'config.file' instead.");
+    if (StringHelper.hasText (System.getenv ().get ("SMP_CLIENT_CONFIG")))
+      throw new InitializationException ("The environment variable 'SMP_CLIENT_CONFIG' is no longer supported." +
+                                         " See https://github.com/phax/ph-commons#ph-config for alternatives." +
+                                         " Consider using the environment variable 'CONFIG_FILE' instead.");
   }
+
+  /**
+   * @return The configuration value provider for phase4 that contains backward
+   *         compatibility support.
+   */
+  @Nonnull
+  public static MultiConfigurationValueProvider createSMPClientValueProvider ()
+  {
+    // Start with default setup
+    final MultiConfigurationValueProvider ret = ConfigFactory.createDefaultValueProvider ();
+
+    final int nResourceDefaultPrio = EConfigSourceType.RESOURCE.getDefaultPriority ();
+    final ReadableResourceProviderChain aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
+                                                                                               new ClassPathResourceProvider ());
+
+    IReadableResource aRes;
+
+    aRes = aResourceProvider.getReadableResourceIf ("private-smp-client.properties", IReadableResource::exists);
+    if (aRes != null)
+    {
+      LOGGER.warn ("The support for the properties file 'private-smp-client.properties' is deprecated. Place the properties in 'application.properties' instead.");
+      ret.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nResourceDefaultPrio + 2);
+    }
+
+    aRes = aResourceProvider.getReadableResourceIf ("smp-client.properties", IReadableResource::exists);
+    if (aRes != null)
+    {
+      LOGGER.warn ("The support for the properties file 'smp-client.properties' is deprecated. Place the properties in 'application.properties' instead.");
+      ret.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nResourceDefaultPrio + 1);
+    }
+
+    return ret;
+  }
+
+  private static final MultiConfigurationValueProvider VP = createSMPClientValueProvider ();
+  private static final IConfig DEFAULT_INSTANCE = Config.create (VP);
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  private static IConfig s_aConfig = DEFAULT_INSTANCE;
 
   private SMPClientConfiguration ()
   {}
 
   /**
-   * @return The global config file for the SMP client.
+   * @return The current global configuration. Never <code>null</code>.
    */
   @Nonnull
-  public static ConfigFile getConfigFile ()
+  public static IConfig getConfig ()
   {
-    return s_aConfigFile;
+    // Inline for performance
+    s_aRWLock.readLock ().lock ();
+    try
+    {
+      return s_aConfig;
+    }
+    finally
+    {
+      s_aRWLock.readLock ().unlock ();
+    }
+  }
+
+  /**
+   * Overwrite the global configuration. This is only needed for testing.
+   *
+   * @param aNewConfig
+   *        The configuration to use globally. May not be <code>null</code>.
+   * @return The old value of {@link IConfig}. Never <code>null</code>.
+   */
+  @Nonnull
+  public static IConfig setConfig (@Nonnull final IConfig aNewConfig)
+  {
+    ValueEnforcer.notNull (aNewConfig, "NewConfig");
+    final IConfig ret;
+    s_aRWLock.writeLock ().lock ();
+    try
+    {
+      ret = s_aConfig;
+      s_aConfig = aNewConfig;
+    }
+    finally
+    {
+      s_aRWLock.writeLock ().unlock ();
+    }
+
+    if (!EqualsHelper.identityEqual (ret, aNewConfig))
+      LOGGER.info ("The SMPClient configuration provider was changed to " + aNewConfig);
+    return ret;
+  }
+
+  private static void _logRenamedConfig (@Nonnull final String sOld, @Nonnull final String sNew)
+  {
+    LOGGER.warn ("Please rename the configuration property '" +
+                 sOld +
+                 "' to '" +
+                 sNew +
+                 "'. Support for the old property name will be removed in v9.0.");
   }
 
   /**
@@ -99,7 +200,7 @@ public final class SMPClientConfiguration
   @Nonnull
   public static EKeyStoreType getTrustStoreType ()
   {
-    final String sType = s_aConfigFile.getAsString ("truststore.type");
+    final String sType = getConfig ().getAsString ("truststore.type");
     return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (sType, PeppolKeyStoreHelper.TRUSTSTORE_TYPE);
   }
 
@@ -114,9 +215,18 @@ public final class SMPClientConfiguration
   @Nonnull
   public static String getTrustStorePath ()
   {
-    String ret = s_aConfigFile.getAsString ("truststore.path");
+    String ret = getConfig ().getAsString ("truststore.path");
     if (ret == null)
-      ret = s_aConfigFile.getAsString ("truststore.location", PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
+    {
+      ret = getConfig ().getAsString ("truststore.location");
+      if (StringHelper.hasText (ret))
+      {
+        _logRenamedConfig ("truststore.location", "truststore.path");
+        return ret;
+      }
+    }
+    if (StringHelper.hasNoText (ret))
+      ret = PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH;
     return ret;
   }
 
@@ -129,7 +239,7 @@ public final class SMPClientConfiguration
   @Nonnull
   public static String getTrustStorePassword ()
   {
-    return s_aConfigFile.getAsString ("truststore.password", PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
+    return getConfig ().getAsString ("truststore.password", PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
   }
 
   /**
@@ -159,8 +269,8 @@ public final class SMPClientConfiguration
   @Nullable
   public static HttpHost getHttpProxy ()
   {
-    final String sProxyHost = s_aConfigFile.getAsString ("http.proxyHost");
-    final int nProxyPort = s_aConfigFile.getAsInt ("http.proxyPort", 0);
+    final String sProxyHost = getConfig ().getAsString ("http.proxyHost");
+    final int nProxyPort = getConfig ().getAsInt ("http.proxyPort", 0);
     if (sProxyHost != null && nProxyPort > 0)
       return new HttpHost (sProxyHost, nProxyPort);
 
@@ -175,8 +285,8 @@ public final class SMPClientConfiguration
   @Nullable
   public static UsernamePasswordCredentials getHttpProxyCredentials ()
   {
-    final String sProxyUsername = s_aConfigFile.getAsString ("http.proxyUsername");
-    final String sProxyPassword = s_aConfigFile.getAsString ("http.proxyPassword");
+    final String sProxyUsername = getConfig ().getAsString ("http.proxyUsername");
+    final String sProxyPassword = getConfig ().getAsString ("http.proxyPassword");
     if (sProxyUsername != null && sProxyPassword != null)
       return new UsernamePasswordCredentials (sProxyUsername, sProxyPassword);
 
@@ -191,7 +301,7 @@ public final class SMPClientConfiguration
   @Nullable
   public static String getNonProxyHosts ()
   {
-    return s_aConfigFile.getAsString ("http.nonProxyHosts");
+    return getConfig ().getAsString ("http.nonProxyHosts");
   }
 
   /**
@@ -205,7 +315,7 @@ public final class SMPClientConfiguration
    */
   public static boolean isUseProxySystemProperties ()
   {
-    return s_aConfigFile.getAsBoolean ("http.useSystemProperties", HttpClientSettings.DEFAULT_USE_SYSTEM_PROPERTIES);
+    return getConfig ().getAsBoolean ("http.useSystemProperties", HttpClientSettings.DEFAULT_USE_SYSTEM_PROPERTIES);
   }
 
   /**
@@ -219,7 +329,7 @@ public final class SMPClientConfiguration
    */
   public static boolean isUseDNSClientCache ()
   {
-    return s_aConfigFile.getAsBoolean ("http.useDNSClientCache", HttpClientSettings.DEFAULT_USE_DNS_CACHE);
+    return getConfig ().getAsBoolean ("http.useDNSClientCache", HttpClientSettings.DEFAULT_USE_DNS_CACHE);
   }
 
   /**
@@ -232,7 +342,7 @@ public final class SMPClientConfiguration
    */
   public static int getConnectionTimeoutMS ()
   {
-    return s_aConfigFile.getAsInt ("http.connect.timeout.ms", HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT_MS);
+    return getConfig ().getAsInt ("http.connect.timeout.ms", HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT_MS);
   }
 
   /**
@@ -245,6 +355,43 @@ public final class SMPClientConfiguration
    */
   public static int getRequestTimeoutMS ()
   {
-    return s_aConfigFile.getAsInt ("http.request.timeout.ms", HttpClientSettings.DEFAULT_SOCKET_TIMEOUT_MS);
+    return getConfig ().getAsInt ("http.request.timeout.ms", HttpClientSettings.DEFAULT_SOCKET_TIMEOUT_MS);
+  }
+
+  /**
+   * This is a utility method, that takes the provided property names, checks if
+   * they are defined in the configuration and if so, applies applies them as
+   * System properties. It does it only when the configuration file was read
+   * correctly.
+   *
+   * @param aPropertyNames
+   *        The property names to consider.
+   */
+  public static void applyAsSystemProperties (@Nullable final String... aPropertyNames)
+  {
+    if (aPropertyNames != null)
+      for (final String sProperty : aPropertyNames)
+      {
+        final ConfiguredValue aValue = getConfig ().getConfiguredValue (sProperty);
+        if (aValue != null && aValue.getConfigurationSource ().getSourceType () == EConfigSourceType.RESOURCE && aValue.getValue () != null)
+        {
+          final String sConfigFileValue = aValue.getValue ();
+          SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
+          if (LOGGER.isInfoEnabled ())
+            LOGGER.info ("Set Java system property from configuration: " + sProperty + "=" + sConfigFileValue);
+        }
+      }
+  }
+
+  /**
+   * This is a utility method, that applies all Java network/proxy system
+   * properties which are present in this configuration file. It does it only
+   * when the configuration file was read correctly.
+   *
+   * @see SystemProperties#getAllJavaNetSystemProperties()
+   */
+  public static void applyAllNetworkSystemProperties ()
+  {
+    applyAsSystemProperties (SystemProperties.getAllJavaNetSystemProperties ());
   }
 }

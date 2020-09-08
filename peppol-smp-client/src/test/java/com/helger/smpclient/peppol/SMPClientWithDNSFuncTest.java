@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import java.net.URI;
 
 import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -48,6 +49,9 @@ import com.helger.smpclient.url.PeppolURLProvider;
 @Ignore
 public final class SMPClientWithDNSFuncTest
 {
+  @ClassRule
+  public static final SMPClientTestConfigRule s_aRule = new SMPClientTestConfigRule ();
+
   private static final ISMLInfo SML_INFO = ESML.DEVELOPMENT_LOCAL;
 
   private static final String TEST_BUSINESS_IDENTIFIER = "0088:5798000999988";
@@ -59,7 +63,7 @@ public final class SMPClientWithDNSFuncTest
   private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
   @BeforeClass
-  public static void init () throws Exception
+  public static void beforeClass () throws Exception
   {
     final SMPClient aClient = new SMPClient (SMP_URI);
 

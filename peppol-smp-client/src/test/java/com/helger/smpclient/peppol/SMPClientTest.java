@@ -27,6 +27,7 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 
 import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -67,6 +68,9 @@ import com.helger.smpclient.peppol.utils.SMPExtensionConverter;
 @Ignore
 public final class SMPClientTest
 {
+  @ClassRule
+  public static final SMPClientTestConfigRule s_aRule = new SMPClientTestConfigRule ();
+
   private static final Logger LOGGER = LoggerFactory.getLogger ("dummy");
   private static final String SMP_USERNAME = MockSMPClientConfig.getSMPUserName ();
   private static final String SMP_PASSWORD = MockSMPClientConfig.getSMPPassword ();

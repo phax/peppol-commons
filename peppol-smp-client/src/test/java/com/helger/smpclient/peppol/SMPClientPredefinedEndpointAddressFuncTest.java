@@ -23,6 +23,7 @@ import java.security.cert.X509Certificate;
 
 import javax.annotation.Nonnull;
 
+import org.junit.ClassRule;
 import org.junit.Test;
 
 import com.helger.peppol.sml.ESML;
@@ -32,7 +33,6 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
-import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.url.IPeppolURLProvider;
 import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.smpclient.url.PeppolURLProvider;
@@ -44,15 +44,12 @@ import com.helger.smpclient.url.PeppolURLProvider;
  */
 public final class SMPClientPredefinedEndpointAddressFuncTest
 {
+  @ClassRule
+  public static final SMPClientTestConfigRule s_aRule = new SMPClientTestConfigRule ();
+
   private static final IParticipantIdentifier PI_AT_Test = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
   private static final IParticipantIdentifier PI_AT_Prod = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");
   private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
-
-  static
-  {
-    // Ensure the network system properties are assigned
-    SMPClientConfiguration.getConfigFile ().applyAllNetworkSystemProperties ();
-  }
 
   @Nonnull
   private static SMPClient _createSMPClient (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
