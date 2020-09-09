@@ -76,10 +76,6 @@
       <artifactId>ph-wsclient</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-settings</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-commons</artifactId>
     </dependency>

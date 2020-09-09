@@ -19,8 +19,12 @@ package com.helger.peppol.smlclient;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.settings.exchange.configfile.ConfigFile;
-import com.helger.settings.exchange.configfile.ConfigFileBuilder;
+import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.config.Config;
+import com.helger.config.ConfigFactory;
+import com.helger.config.IConfig;
+import com.helger.config.source.MultiConfigurationValueProvider;
+import com.helger.config.source.res.ConfigurationSourceProperties;
 
 /**
  * This class manages the special test configuration file for this project. The
@@ -32,15 +36,12 @@ import com.helger.settings.exchange.configfile.ConfigFileBuilder;
 @Immutable
 public final class MockSMLClientConfig
 {
-  private static final ConfigFile s_aConfig = new ConfigFileBuilder ().addPath ("private-sml-client-test.properties")
-                                                                      .addPath ("sml-client-test.properties")
-                                                                      .build ();
-
-  // init
+  private static final IConfig TEST_CONFIG;
   static
   {
-    // Apply system properties
-    s_aConfig.applyAllNetworkSystemProperties ();
+    final MultiConfigurationValueProvider aCVP = ConfigFactory.createDefaultValueProvider ();
+    aCVP.addConfigurationSource (new ConfigurationSourceProperties (new ClassPathResource ("sml-client-test.properties")));
+    TEST_CONFIG = Config.create (aCVP);
   }
 
   private MockSMLClientConfig ()
@@ -49,12 +50,12 @@ public final class MockSMLClientConfig
   @Nullable
   public static String getKeyStorePath ()
   {
-    return s_aConfig.getAsString ("keystore.path");
+    return TEST_CONFIG.getAsString ("keystore.path");
   }
 
   @Nullable
   public static String getKeyStorePassword ()
   {
-    return s_aConfig.getAsString ("keystore.password");
+    return TEST_CONFIG.getAsString ("keystore.password");
   }
 }
