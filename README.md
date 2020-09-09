@@ -73,7 +73,6 @@ SimpleInvoicing test files are used from https://github.com/SimplerInvoicing/tes
 ## peppol-sml-client
 
 This project contains the SML client library used by the SMP's to interact with the SML.
-It is based on cipa-sml-client-library 2.2.3.
 This library is usually only used within SMP servers, to communicate the changes to the central SML.
 
 Make sure to run `mvn generate-sources` before using it in the IDE.
@@ -89,13 +88,26 @@ This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-s
 
 ## peppol-smp-client
 
-This project holds the SMP client library used by the access points to retrieve service metadata. It is based on cipa-smp-client-library 2.2.3. This project also contains the BDXR SMP client (since version 4.3.0). 
-This project uses Apache HTTP client to perform the REST lookups on foreign SMPs. The reason to not use the Jersey 1.x client is an incompatibility with Java 8. This means that this version is compliant with Java 1.6+.
+This project holds the SMP client library used by the Access Points to retrieve service metadata. 
+This project supports the Peppol SMP specification, the OASIS BDXR SMP v1 and OASIS BDXR SMP v2 specification. 
+This project uses Apache HTTP client to perform the REST lookups on foreign SMPs.
 
-I also provide an OSS [phoss SMP server](https://github.com/phax/peppol-smp-server) with a nice management GUI.
+I also provide an OSS [phoss SMP server](https://github.com/phax/phoss-smp) with a nice management GUI.
 
 ### Configuration
-The SMP client (both Peppol and BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the environment variable `SMP_CLIENT_CONFIG` (since v7.0.7), the system property `peppol.smp.client.properties.path` (since v4.3.5), the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to e.g. the trust store!
+
+**Configuration resolution**
+
+Note: this is new in v8.2.0.
+
+The SMP client (both Peppol and OASIS BDXR) uses the file `application.properties` for configuration.
+The file `smp-client.properties` is also evaluated for backwards-compatibility reasons.
+
+**Configuration resolution (pre v8.2.0)**
+
+The SMP client (both Peppol and OASIS BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the environment variable `SMP_CLIENT_CONFIG` (since v7.0.7), the system property `peppol.smp.client.properties.path` (since v4.3.5), the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to e.g. the trust store!
+
+**Configuration properties**
 
 It supports the following properties:
 * **`truststore.type`** (since v6.0.0): the type of key store to be used. Possible values are `JKS` and `PKCS12`. Defaults to `JKS` (which was the implicit default prior to v6).

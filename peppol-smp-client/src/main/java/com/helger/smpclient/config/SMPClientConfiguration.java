@@ -35,8 +35,6 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
-import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.commons.io.resourceprovider.ReadableResourceProviderChain;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemProperties;
@@ -104,24 +102,24 @@ public final class SMPClientConfiguration
     // Start with default setup
     final MultiConfigurationValueProvider ret = ConfigFactory.createDefaultValueProvider ();
 
-    final int nResourceDefaultPrio = EConfigSourceType.RESOURCE.getDefaultPriority ();
-    final ReadableResourceProviderChain aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
-                                                                                               new ClassPathResourceProvider ());
+    final ReadableResourceProviderChain aResourceProvider = ConfigFactory.createDefaultResourceProviderChain ();
 
     IReadableResource aRes;
+    final int nBasePrio = ConfigFactory.APPLICATION_PROPERTIES_PRIORITY;
 
+    // Lower priority than the standard files
     aRes = aResourceProvider.getReadableResourceIf ("private-smp-client.properties", IReadableResource::exists);
     if (aRes != null)
     {
       LOGGER.warn ("The support for the properties file 'private-smp-client.properties' is deprecated. Place the properties in 'application.properties' instead.");
-      ret.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nResourceDefaultPrio + 2);
+      ret.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nBasePrio - 1);
     }
 
     aRes = aResourceProvider.getReadableResourceIf ("smp-client.properties", IReadableResource::exists);
     if (aRes != null)
     {
       LOGGER.warn ("The support for the properties file 'smp-client.properties' is deprecated. Place the properties in 'application.properties' instead.");
-      ret.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nResourceDefaultPrio + 1);
+      ret.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nBasePrio - 2);
     }
 
     return ret;
