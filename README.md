@@ -101,7 +101,9 @@ I also provide an OSS [phoss SMP server](https://github.com/phax/phoss-smp) with
 Note: this is new in v8.2.0.
 
 The SMP client (both Peppol and OASIS BDXR) uses the file `application.properties` for configuration.
-The file `smp-client.properties` is also evaluated for backwards-compatibility reasons.
+The file `smp-client.properties` is also evaluated for backwards-compatibility reasons but with lower priority.
+
+See https://github.com/phax/ph-commons#ph-config for the new resolution logic.
 
 **Configuration resolution (pre v8.2.0)**
 
@@ -123,7 +125,7 @@ It supports the following properties:
 * **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`.
 * **`http.connect.timeout.ms`** (since 7.0.4): set the connection timeout in milliseconds. The default value is `5000` meaning 5 seconds.
 * **`http.request.timeout.ms`** (since 7.0.4): set the request timeout in milliseconds. The default value is `10000` meaning 10 seconds.
-  
+
 ### Specifying a proxy server
 
 A proxy server can be specified in two ways:
@@ -207,6 +209,7 @@ When integrating this in your IDE, ensure to run `mvn process-sources` first, so
 For the subprojects `peppol-id`, `peppol-commons`, `peppol-sbdh` and `peppol-sml-client` add `target/generated-sources/xjc` to your buildpath afterwards.
 
 # Maven usage
+
 Add the following to your pom.xml to use this artifact, replacing `x.y.z` with the latest version number (see below):
 
 ```xml
@@ -266,12 +269,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # References
 
-* [Peppol Policy for the use of identifiers 4.0](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf)
-* [Peppol Business Message Envelope (SBDH) 1.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.pdf)
+* [Peppol Policy for the use of identifiers 4.0](https://docs.peppol.eu/edelivery/policies/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf)
+* [Peppol Business Message Envelope (SBDH) 1.2](https://docs.peppol.eu/edelivery/envelope/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.pdf)
 
 ## Obsoleted references
 
-* [Peppol Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/documentation/blob/master/TransportInfrastructure/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
+* [Peppol Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/edec-specifications/blob/master/releases/policy-identifier/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
 
 # News and noteworthy
 
