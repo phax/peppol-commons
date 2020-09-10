@@ -247,20 +247,20 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
   @Nonnull
   public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                         @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
+                                         @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     return internalGetDNSName (aParticipantIdentifier, isLowercaseValueBeforeHashing (), isAddIdentifierSchemeToZone (), sSMLZoneName);
   }
 
   @Nonnull
   public URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                     @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
+                                     @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new PeppolDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
+      throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
 
     final String sBuildName = getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
 
@@ -277,11 +277,11 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
         if (sResolvedNAPTR == null)
         {
           // Since 6.2.0 this a checked exception
-          throw new PeppolDNSResolutionException ("Failed to resolve '" +
-                                                  sBuildName +
-                                                  "' and service '" +
-                                                  sServiceName +
-                                                  "' to a DNS U-NAPTR");
+          throw new SMPDNSResolutionException ("Failed to resolve '" +
+                                               sBuildName +
+                                               "' and service '" +
+                                               sServiceName +
+                                               "' to a DNS U-NAPTR");
         }
 
         if (bUseDNSCache)
@@ -296,12 +296,12 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
       }
       catch (final URISyntaxException ex)
       {
-        throw new PeppolDNSResolutionException ("Error building SMP URI from string '" + sResolvedNAPTR + "'", ex);
+        throw new SMPDNSResolutionException ("Error building SMP URI from string '" + sResolvedNAPTR + "'", ex);
       }
     }
     catch (final TextParseException ex)
     {
-      throw new PeppolDNSResolutionException ("Failed to parse '" + sBuildName + "'", ex);
+      throw new SMPDNSResolutionException ("Failed to parse '" + sBuildName + "'", ex);
     }
   }
 }

@@ -34,8 +34,8 @@ import com.helger.smpclient.IgnoredNaptrTest;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.url.BDXLURLProvider;
-import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
 /**
@@ -46,7 +46,7 @@ import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 public final class BDXRClientReadOnlyTest
 {
   @Test
-  public void testGetBDXRHostURI_Peppol () throws PeppolDNSResolutionException
+  public void testGetBDXRHostURI_Peppol () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
@@ -59,7 +59,7 @@ public final class BDXRClientReadOnlyTest
   @Test
   @Ignore
   @IgnoredNaptrTest
-  public void testGetBDXRHostURI_BDXR () throws PeppolDNSResolutionException
+  public void testGetBDXRHostURI_BDXR () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
@@ -72,7 +72,7 @@ public final class BDXRClientReadOnlyTest
   }
 
   @Test
-  public void testGetBDXRHostURI_Peppol_WithBOM () throws SMPClientException, PeppolDNSResolutionException
+  public void testGetBDXRHostURI_Peppol_WithBOM () throws SMPClientException, SMPDNSResolutionException
   {
     // This instance has a BOM inside
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
@@ -96,7 +96,7 @@ public final class BDXRClientReadOnlyTest
   @Test
   @Ignore
   @IgnoredNaptrTest
-  public void testRead () throws PeppolDNSResolutionException, SMPClientException
+  public void testRead () throws SMPDNSResolutionException, SMPClientException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9930:167064991");
     final IDocumentTypeIdentifier aDocTypeID = SimpleIdentifierFactory.INSTANCE.createDocumentTypeIdentifier ("toop-doctypeid-qns",

@@ -43,14 +43,14 @@ public interface IBDXLURLProvider extends ISMPURLProvider
    * @return DNS record. It does not contain any prefix like
    *         <code>http://</code> or any path suffix. It is the plain DNS host
    *         name.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @throws IllegalArgumentException
    *         In case one argument is invalid
    */
   @Nonnull
   String getDNSNameOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier,
-                                  @Nullable String sSMLZoneName) throws PeppolDNSResolutionException;
+                                  @Nullable String sSMLZoneName) throws SMPDNSResolutionException;
 
   /**
    * Get the name of the DNS NAPTR record.
@@ -62,12 +62,12 @@ public interface IBDXLURLProvider extends ISMPURLProvider
    * @return DNS record. It does not contain any prefix like
    *         <code>http://</code> or any path suffix. It is the plain DNS host
    *         name.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    */
   @Nonnull
   default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                          @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+                                          @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");

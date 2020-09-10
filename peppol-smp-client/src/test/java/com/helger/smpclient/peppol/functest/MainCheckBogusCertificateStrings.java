@@ -29,8 +29,8 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
 import com.helger.smpclient.url.IPeppolURLProvider;
-import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
  * @author Philip Helger
@@ -40,7 +40,7 @@ public final class MainCheckBogusCertificateStrings
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCheckBogusCertificateStrings.class);
   private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
-  public static void main (final String [] args) throws CertificateException, SMPClientException, PeppolDNSResolutionException
+  public static void main (final String [] args) throws CertificateException, SMPClientException, SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9906:testconsip");
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aPI, ESML.DIGIT_TEST);

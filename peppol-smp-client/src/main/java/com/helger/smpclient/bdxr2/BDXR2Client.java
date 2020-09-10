@@ -44,7 +44,7 @@ import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.smpclient.url.ISMPURLProvider;
-import com.helger.smpclient.url.PeppolDNSResolutionException;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.bdxr.smp2.ServiceGroupType;
 import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
 import com.helger.xsds.bdxr.smp2.ac.EndpointType;
@@ -78,14 +78,14 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    *        access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
   public BDXR2Client (@Nonnull final ISMPURLProvider aURLProvider,
                       @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                      @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+                      @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }
@@ -103,13 +103,13 @@ public class BDXR2Client extends BDXR2ClientReadOnly
    *        URI. Must end with a trailing dot (".") and may neither be
    *        <code>null</code> nor empty to build a correct URL. May not start
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
   public BDXR2Client (@Nonnull final ISMPURLProvider aURLProvider,
                       @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                      @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
+                      @Nonnull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, sSMLZoneName);
   }

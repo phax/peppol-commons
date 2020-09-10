@@ -53,7 +53,7 @@ import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerUnsigned;
 import com.helger.smpclient.url.ISMPURLProvider;
-import com.helger.smpclient.url.PeppolDNSResolutionException;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.bdxr.smp2.ServiceGroupType;
 import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
 import com.helger.xsds.bdxr.smp2.ac.CertificateType;
@@ -95,14 +95,14 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *        access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         If DNS resolution failed
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
   public BDXR2ClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
                               @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                              @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+                              @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo));
   }
@@ -120,13 +120,13 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *        URI. Must end with a trailing dot (".") and may neither be
    *        <code>null</code> nor empty to build a correct URL. May not start
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         if DNS resolution failed
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
   public BDXR2ClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
                               @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                              @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
+                              @Nonnull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName));
   }
@@ -536,14 +536,14 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         The service group id did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    */
   @Nonnull
   public static ServiceGroupType getServiceGroupByDNS (@Nonnull final ISMPURLProvider aURLProvider,
                                                        @Nonnull final ISMLInfo aSMLInfo,
                                                        @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
-                                                                                                              PeppolDNSResolutionException
+                                                                                                              SMPDNSResolutionException
   {
     return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
   }
@@ -569,7 +569,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
    *         The service group id or document type did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    */
   @Nonnull
@@ -577,7 +577,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                                                                  @Nonnull final ISMLInfo aSMLInfo,
                                                                  @Nonnull final IParticipantIdentifier aServiceGroupID,
                                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
-                                                                                                                         PeppolDNSResolutionException
+                                                                                                                         SMPDNSResolutionException
   {
     return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID, aDocumentTypeID);
   }

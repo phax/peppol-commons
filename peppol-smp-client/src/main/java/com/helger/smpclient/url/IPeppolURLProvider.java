@@ -51,14 +51,14 @@ public interface IPeppolURLProvider extends ISMPURLProvider
    *         <code>http://</code> or any path suffix. It is the plain DNS host
    *         name. Since version 1.1.4 this method returns the DNS name without
    *         the trailing dot!
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @throws IllegalArgumentException
    *         In case one argument is invalid
    */
   @Nonnull
   String getDNSNameOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier,
-                                  @Nullable String sSMLZoneName) throws PeppolDNSResolutionException;
+                                  @Nullable String sSMLZoneName) throws SMPDNSResolutionException;
 
   /**
    * Get DNS record from ParticipantIdentifier.<br>
@@ -73,12 +73,12 @@ public interface IPeppolURLProvider extends ISMPURLProvider
    * @param aSMLInfo
    *        The SML information object to be used. May not be <code>null</code>.
    * @return DNS record
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    */
   @Nonnull
   default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                          @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+                                          @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -87,7 +87,7 @@ public interface IPeppolURLProvider extends ISMPURLProvider
 
   @Nonnull
   default URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
+                                      @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
@@ -100,7 +100,7 @@ public interface IPeppolURLProvider extends ISMPURLProvider
     }
     catch (final URISyntaxException ex)
     {
-      throw new PeppolDNSResolutionException ("Error building SMP URI from string '" + sURIString + "'", ex);
+      throw new SMPDNSResolutionException ("Error building SMP URI from string '" + sURIString + "'", ex);
     }
   }
 }

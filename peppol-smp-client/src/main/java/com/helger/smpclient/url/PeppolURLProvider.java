@@ -80,13 +80,13 @@ public class PeppolURLProvider implements IPeppolURLProvider
 
   @Nonnull
   public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                         @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
+                                         @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new PeppolDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
+      throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
 
     // Check identifier scheme (must be lowercase for the URL later on!)
     final String sIdentifierScheme = StringHelper.getNotNull (aParticipantIdentifier.getScheme ()).toLowerCase (URL_LOCALE);

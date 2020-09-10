@@ -34,8 +34,8 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.smpclient.url.IPeppolURLProvider;
-import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
  * Test class for class {@link SMPClient}.
@@ -53,7 +53,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
 
   @Nonnull
   private static SMPClient _createSMPClient (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                             @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+                                             @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     return new SMPClient (URL_PROVIDER, aParticipantIdentifier, aSMLInfo);
   }

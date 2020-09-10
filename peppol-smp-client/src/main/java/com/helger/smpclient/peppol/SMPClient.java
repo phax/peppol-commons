@@ -48,7 +48,7 @@ import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
 import com.helger.smpclient.url.ISMPURLProvider;
-import com.helger.smpclient.url.PeppolDNSResolutionException;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
  * This class is used for calling the SMP REST interface. This particular class
@@ -71,14 +71,14 @@ public class SMPClient extends SMPClientReadOnly
    *        access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
   public SMPClient (@Nonnull final ISMPURLProvider aURLProvider,
                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                    @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+                    @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }
@@ -96,13 +96,13 @@ public class SMPClient extends SMPClientReadOnly
    *        URI. Must end with a trailing dot (".") and may neither be
    *        <code>null</code> nor empty to build a correct URL. May not start
    *        with "http://". Example: <code>sml.peppolcentral.org.</code>
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
   public SMPClient (@Nonnull final ISMPURLProvider aURLProvider,
                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                    @Nonnull @Nonempty final String sSMLZoneName) throws PeppolDNSResolutionException
+                    @Nonnull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, sSMLZoneName);
   }

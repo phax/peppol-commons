@@ -280,6 +280,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Removed all deprecated and replaced methods
     * Improved debug logging in the SMP client
     * SMP client configuration is now read from global configuration and is not necessarily constraint to `smp-client.properties` file. The use of the system properties `peppol.smp.client.properties.path`, `smp.client.properties.path` and `SMP_CLIENT_CONFIG` will no longer work. Use the system property `config.file` or the environment variable `CONFIG_FILE` instead (backwards incompatible change)
+    * Class `PeppolDNSResolutionException` was replaced with `SMPDNSResolutionException`
 * v8.1.8 - 2020-09-02
     * Fixed XML Schema validation of BDXR SMP v2 client
 * v8.1.7 - 2020-08-30

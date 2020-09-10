@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.url;
 
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -34,7 +33,7 @@ import com.helger.peppolid.IParticipantIdentifier;
  * @author Philip Helger
  * @since 8.1.7
  */
-public interface ISMPURLProvider extends Serializable
+public interface ISMPURLProvider
 {
   /**
    * Get the SMP URI of the passed participant ID in the provided SML DNS zone
@@ -45,7 +44,7 @@ public interface ISMPURLProvider extends Serializable
    * @param sSMLZoneName
    *        The SML zone to use. May be <code>null</code>.
    * @return A new URI starting with "http://" and never ending with a slash.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
@@ -53,7 +52,7 @@ public interface ISMPURLProvider extends Serializable
    */
   @Nonnull
   URI getSMPURIOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier,
-                              @Nullable String sSMLZoneName) throws PeppolDNSResolutionException;
+                              @Nullable String sSMLZoneName) throws SMPDNSResolutionException;
 
   /**
    * Get the SMP URI of the passed participant ID in the provided SML DNS zone
@@ -64,7 +63,7 @@ public interface ISMPURLProvider extends Serializable
    * @param aSMLInfo
    *        The SML zone to use. May not be <code>null</code>.
    * @return A new URI starting with "http://" and never ending with a slash.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
@@ -72,7 +71,7 @@ public interface ISMPURLProvider extends Serializable
    */
   @Nonnull
   default URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+                                      @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -88,7 +87,7 @@ public interface ISMPURLProvider extends Serializable
    * @param aSMLInfo
    *        The SML zone to use. May not be <code>null</code>.
    * @return A new URL with scheme "http:" and never ending with a slash.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
@@ -96,7 +95,7 @@ public interface ISMPURLProvider extends Serializable
    */
   @Nonnull
   default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nonnull final ISMLInfo aSMLInfo) throws PeppolDNSResolutionException
+                                      @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -113,7 +112,7 @@ public interface ISMPURLProvider extends Serializable
    * @param sSMLZoneName
    *        The SML zone name to use. May be <code>null</code>.
    * @return A new URL with scheme "http:" and never ending with a slash.
-   * @throws PeppolDNSResolutionException
+   * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
@@ -121,7 +120,7 @@ public interface ISMPURLProvider extends Serializable
    */
   @Nonnull
   default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nullable final String sSMLZoneName) throws PeppolDNSResolutionException
+                                      @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 

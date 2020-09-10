@@ -34,7 +34,7 @@ import com.helger.smpclient.IgnoredNaptrTest;
 public final class BPCURLProviderSMP2Test
 {
   @Test
-  public void testGetDNSNameOfParticipant () throws PeppolDNSResolutionException
+  public void testGetDNSNameOfParticipant () throws SMPDNSResolutionException
   {
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060",
                                                                              "123456789");
@@ -46,7 +46,7 @@ public final class BPCURLProviderSMP2Test
   @Test
   @Ignore
   @IgnoredNaptrTest
-  public void testGetSMPURIOfParticipant () throws PeppolDNSResolutionException
+  public void testGetSMPURIOfParticipant () throws SMPDNSResolutionException
   {
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060",
                                                                              "123456789");

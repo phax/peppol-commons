@@ -20,21 +20,19 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * New checked exception to be thrown if DNS resolution fails.
+ * Checked exception to be thrown if DNS resolution fails.
  *
  * @author Philip Helger
- * @since 6.2.0
- * @deprecated since 8.2.0; Use {@link SMPDNSResolutionException} instead
+ * @since 8.2.0
  */
-@Deprecated
-public class PeppolDNSResolutionException extends SMPDNSResolutionException
+public class SMPDNSResolutionException extends Exception
 {
-  public PeppolDNSResolutionException (@Nonnull final String sMessage)
+  public SMPDNSResolutionException (@Nonnull final String sMessage)
   {
     super (sMessage);
   }
 
-  public PeppolDNSResolutionException (@Nonnull final String sMessage, @Nullable final Throwable aCause)
+  public SMPDNSResolutionException (@Nonnull final String sMessage, @Nullable final Throwable aCause)
   {
     super (sMessage, aCause);
   }

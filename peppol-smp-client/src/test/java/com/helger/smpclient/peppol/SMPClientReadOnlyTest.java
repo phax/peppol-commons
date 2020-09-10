@@ -41,8 +41,8 @@ import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
 import com.helger.smpclient.url.BDXLURLProvider;
-import com.helger.smpclient.url.PeppolDNSResolutionException;
 import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
  * Test class for class {@link SMPClientReadOnly}
@@ -52,7 +52,7 @@ import com.helger.smpclient.url.PeppolURLProvider;
 public final class SMPClientReadOnlyTest
 {
   @Test
-  public void testGetSMPHostURI_Peppol () throws SMPClientException, PeppolDNSResolutionException
+  public void testGetSMPHostURI_Peppol () throws SMPClientException, SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
@@ -66,7 +66,7 @@ public final class SMPClientReadOnlyTest
   @Test
   @Ignore
   @IgnoredNaptrTest
-  public void testGetSMPHostURI_BDXR () throws SMPClientException, PeppolDNSResolutionException
+  public void testGetSMPHostURI_BDXR () throws SMPClientException, SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
@@ -77,7 +77,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testGetSMPHostURI_Peppol_WithBOM () throws SMPClientException, PeppolDNSResolutionException
+  public void testGetSMPHostURI_Peppol_WithBOM () throws SMPClientException, SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
 
@@ -89,7 +89,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testInvalidTrustStore () throws PeppolDNSResolutionException, SMPClientException, GeneralSecurityException, IOException
+  public void testInvalidTrustStore () throws SMPDNSResolutionException, SMPClientException, GeneralSecurityException, IOException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
