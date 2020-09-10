@@ -29,8 +29,12 @@ import javax.annotation.concurrent.ThreadSafe;
 @ThreadSafe
 public class BPCURLProviderSMP2 extends AbstractBDXLURLProvider
 {
+  /** The U-NAPTR record service name */
   public static final String NAPTR_SERVICE_NAME = "oasis-bdxr-smp-2";
+
+  /** The writable API of the default instance */
   public static final BPCURLProviderSMP2 MUTABLE_INSTANCE = new BPCURLProviderSMP2 ();
+  /** The default instance that should be used */
   public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
 
   /**
@@ -41,7 +45,7 @@ public class BPCURLProviderSMP2 extends AbstractBDXLURLProvider
     setLowercaseValueBeforeHashing (true);
     setAddIdentifierSchemeToZone (false);
     setNAPTRServiceName (NAPTR_SERVICE_NAME);
-    setUseDNSCache (true);
+    setUseDNSCache (false);
     customDNSServers ().clear ();
   }
 }

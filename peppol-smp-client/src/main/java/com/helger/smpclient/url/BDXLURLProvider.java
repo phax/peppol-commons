@@ -33,7 +33,9 @@ public class BDXLURLProvider extends AbstractBDXLURLProvider
   /** U NAPTR service name for e-SENS/PEPPOL */
   public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
 
+  /** The writable API of the default instance */
   public static final BDXLURLProvider MUTABLE_INSTANCE = new BDXLURLProvider ();
+  /** The default instance that should be used */
   public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
 
   /**
@@ -44,7 +46,7 @@ public class BDXLURLProvider extends AbstractBDXLURLProvider
     setLowercaseValueBeforeHashing (true);
     setAddIdentifierSchemeToZone (true);
     setNAPTRServiceName (DNS_UNAPTR_SERVICE_NAME_META_SMP);
-    setUseDNSCache (true);
+    setUseDNSCache (false);
     customDNSServers ().clear ();
   }
 }
