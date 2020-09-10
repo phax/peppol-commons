@@ -42,6 +42,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.dns.naptr.NaptrResolver;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
@@ -57,7 +58,7 @@ import com.helger.security.messagedigest.MessageDigestValue;
 @ThreadSafe
 public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 {
-  public static final boolean DEFAULT_USE_DNS_CACHE = true;
+  public static final boolean DEFAULT_USE_DNS_CACHE = false;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
 
@@ -303,5 +304,17 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     {
       throw new SMPDNSResolutionException ("Failed to parse '" + sBuildName + "'", ex);
     }
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("LowercaseValueBeforeHashing", m_bLowercaseValueBeforeHashing)
+                                       .append ("AddIdentifierSchemeToZone", m_bAddIdentifierSchemeToZone)
+                                       .append ("NAPTRServiceName", m_sNAPTRServiceName)
+                                       .append ("UseDNSCache", m_bUseDNSCache)
+                                       .append ("DNSCache", m_aDNSCache)
+                                       .append ("CustomDNSServers", m_aCustomDNSServers)
+                                       .getToString ();
   }
 }
