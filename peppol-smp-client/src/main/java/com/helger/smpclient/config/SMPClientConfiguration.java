@@ -125,8 +125,7 @@ public final class SMPClientConfiguration
     return ret;
   }
 
-  private static final MultiConfigurationValueProvider VP = createSMPClientValueProvider ();
-  private static final IConfig DEFAULT_INSTANCE = Config.create (VP);
+  private static final IConfig DEFAULT_INSTANCE = Config.create (createSMPClientValueProvider ());
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   private static IConfig s_aConfig = DEFAULT_INSTANCE;
 
