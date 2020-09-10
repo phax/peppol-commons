@@ -25,7 +25,8 @@ import javax.annotation.Nullable;
  * @author Philip Helger
  * @since 8.2.0
  */
-public class SMPDNSResolutionException extends Exception
+@SuppressWarnings ("deprecation")
+public class SMPDNSResolutionException extends PeppolDNSResolutionException
 {
   public SMPDNSResolutionException (@Nonnull final String sMessage)
   {

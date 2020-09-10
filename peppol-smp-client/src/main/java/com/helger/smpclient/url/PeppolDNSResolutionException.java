@@ -24,10 +24,11 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  * @since 6.2.0
- * @deprecated since 8.2.0; Use {@link SMPDNSResolutionException} instead
+ * @deprecated since 8.2.0; Use {@link SMPDNSResolutionException} instead. This
+ *             intermediate class will be dropped for the next major release.
  */
 @Deprecated
-public class PeppolDNSResolutionException extends SMPDNSResolutionException
+public class PeppolDNSResolutionException extends Exception
 {
   public PeppolDNSResolutionException (@Nonnull final String sMessage)
   {
