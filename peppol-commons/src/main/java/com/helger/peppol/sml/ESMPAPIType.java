@@ -39,11 +39,11 @@ public enum ESMPAPIType implements IHasID <String>, IHasDisplayName
   /**
    * An SMP using the OASIS BDXR SMP v1 specification.
    */
-  OASIS_BDXR_V1 ("bdxr1", "OASIS BDXR v1"),
+  OASIS_BDXR_V1 ("bdxr1", "OASIS BDXR SMP v1"),
   /**
    * An SMP using the OASIS BDXR SMP v2 specification.
    */
-  OASIS_BDXR_V2 ("bdxr2", "OASIS BDXR v2");
+  OASIS_BDXR_V2 ("bdxr2", "OASIS BDXR SMP v2");
 
   private final String m_sID;
   private final String m_sDisplayName;
