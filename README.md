@@ -278,6 +278,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.2.1 - 2020-09-14
+    * 8.2.0 whysoever didn't make it to Maven Central
 * v8.2.0 - 2020-09-10
     * Removed deprecated class `PeppolKeyStoreHelper.Config2010`
     * Removed all deprecated and replaced methods
