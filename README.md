@@ -42,8 +42,6 @@ Old path names (up to and including v6.0.0):
 * truststore/complete-truststore.jks (production + pilot PKI v2)
 
 New path names (starting from v6.0.1):
-* truststore/2010/prod-truststore.jks (production only PKI v2)
-* truststore/2010/pilot-truststore.jks (pilot only PKI v2)
 * truststore/2018/prod-truststore.jks (production only PKI v3)
 * truststore/2018/pilot-truststore.jks (pilot only PKI v3)
 * truststore/complete-truststore.jks (production + pilot PKI v2 + v3)
@@ -278,6 +276,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.2.2 - 2020-09-17
+    * Updated to Jakarta JAXB 2.3.3
+    * Updated to Jakarta JAXWS 2.3.3
+    * Updated to ph-sbdh 4.1.1
+    * Removed deprecated class `PeppolDNSResolutionException`
 * v8.2.1 - 2020-09-14
     * 8.2.0 whysoever didn't make it to Maven Central
 * v8.2.0 - 2020-09-10
