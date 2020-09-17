@@ -31,13 +31,12 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
-import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 
 /**
  * Convert a Peppol SBDH document to a regular SBDH document
- * 
+ *
  * @author Philip Helger
  */
 @NotThreadSafe
@@ -122,7 +121,7 @@ public class PeppolSBDHDocumentWriter
         aDI.setTypeVersion (aData.getTypeVersion ());
         aDI.setType (aData.getType ());
         aDI.setInstanceIdentifier (aData.getInstanceIdentifier ());
-        aDI.setCreationDateAndTime (PDTXMLConverter.getXMLCalendar (aData.getCreationDateAndTime ()));
+        aDI.setCreationDateAndTime (aData.getCreationDateAndTime ());
         aSBDH.setDocumentIdentification (aDI);
       }
 

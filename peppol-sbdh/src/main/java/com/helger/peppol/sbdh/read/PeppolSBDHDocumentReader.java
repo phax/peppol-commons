@@ -39,7 +39,6 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.datetime.util.PDTXMLConverter;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHAdditionalAttributes;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
@@ -257,7 +256,8 @@ public class PeppolSBDHDocumentReader
   {
     return CPeppolSBDH.TYPE_VERSION_20.equals (sTypeVersion) ||
            CPeppolSBDH.TYPE_VERSION_21.equals (sTypeVersion) ||
-           CPeppolSBDH.TYPE_VERSION_22.equals (sTypeVersion);
+           CPeppolSBDH.TYPE_VERSION_22.equals (sTypeVersion) ||
+           CPeppolSBDH.TYPE_VERSION_23.equals (sTypeVersion);
   }
 
   /**
@@ -587,7 +587,7 @@ public class PeppolSBDHDocumentReader
         throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_INSTANCE_IDENTIFIER, sSBDHID);
 
       // Mandatory date and time (cannot be null)
-      final LocalDateTime aCreationDateAndTime = PDTXMLConverter.getLocalDateTime (aDI.getCreationDateAndTime ());
+      final LocalDateTime aCreationDateAndTime = aDI.getCreationDateAndTime ();
       if (!isValidCreationDateTime (aCreationDateAndTime))
         throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_CREATION_DATE_TIME,
                                                    String.valueOf (aCreationDateAndTime));

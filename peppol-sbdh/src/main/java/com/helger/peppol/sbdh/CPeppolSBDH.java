@@ -52,6 +52,9 @@ public final class CPeppolSBDH
   /** UBL 2.2 constant */
   public static final String TYPE_VERSION_22 = "2.2";
 
+  /** UBL 2.23 constant */
+  public static final String TYPE_VERSION_23 = "2.3";
+
   @Nonnull
   private static ClassLoader _getCL ()
   {
