@@ -58,7 +58,8 @@ public final class PeppolKeyStoreHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolKeyStoreHelper.class);
 
   @Nullable
-  private static X509Certificate _resolveCert (@Nonnull final KeyStore aKeyStore, @Nonnull @Nonempty final String sAlias)
+  private static X509Certificate _resolveCert (@Nonnull final KeyStore aKeyStore,
+                                               @Nonnull @Nonempty final String sAlias)
   {
     try
     {
@@ -88,12 +89,13 @@ public final class PeppolKeyStoreHelper
      */
     public static final String TRUSTSTORE_PRODUCTION_CLASSPATH = "truststore/2018/prod-truststore.jks";
 
-    private static final KeyStore TRUSTSTORE_PRODUCTION;
-    static
-    {
-      TRUSTSTORE_PRODUCTION = KeyStoreHelper.loadKeyStore (TRUSTSTORE_TYPE, TRUSTSTORE_PRODUCTION_CLASSPATH, TRUSTSTORE_PASSWORD)
-                                            .getKeyStore ();
-    }
+    /**
+     * The full production truststore. Never modify.
+     */
+    public static final KeyStore TRUSTSTORE_PRODUCTION = KeyStoreHelper.loadKeyStore (TRUSTSTORE_TYPE,
+                                                                                      TRUSTSTORE_PRODUCTION_CLASSPATH,
+                                                                                      TRUSTSTORE_PASSWORD)
+                                                                       .getKeyStore ();
 
     /** The truststore alias for the OpenPEPPOL production root certificate */
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "peppol root ca - g2";
@@ -106,13 +108,15 @@ public final class PeppolKeyStoreHelper
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_AP = "peppol access point ca - g2 (peppol root ca - g2)";
 
     /** The OpenPEPPOL production AP certificate */
-    public static final X509Certificate CERTIFICATE_PRODUCTION_AP = _resolveCert (TRUSTSTORE_PRODUCTION, TRUSTSTORE_PRODUCTION_ALIAS_AP);
+    public static final X509Certificate CERTIFICATE_PRODUCTION_AP = _resolveCert (TRUSTSTORE_PRODUCTION,
+                                                                                  TRUSTSTORE_PRODUCTION_ALIAS_AP);
 
     /** The truststore alias for the OpenPEPPOL production SMP certificate */
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_SMP = "peppol service metadata publisher ca - g2 (peppol root ca - g2)";
 
     /** The OpenPEPPOL production SMP certificate */
-    public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = _resolveCert (TRUSTSTORE_PRODUCTION, TRUSTSTORE_PRODUCTION_ALIAS_SMP);
+    public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = _resolveCert (TRUSTSTORE_PRODUCTION,
+                                                                                   TRUSTSTORE_PRODUCTION_ALIAS_SMP);
 
     /**
      * The classpath entry referencing the global truststore with all OpenPEPPOL
@@ -120,29 +124,34 @@ public final class PeppolKeyStoreHelper
      */
     public static final String TRUSTSTORE_PILOT_CLASSPATH = "truststore/2018/pilot-truststore.jks";
 
-    private static final KeyStore TRUSTSTORE_PILOT;
-    static
-    {
-      TRUSTSTORE_PILOT = KeyStoreHelper.loadKeyStore (TRUSTSTORE_TYPE, TRUSTSTORE_PILOT_CLASSPATH, TRUSTSTORE_PASSWORD).getKeyStore ();
-    }
+    /**
+     * The full pilot truststore. Never modify.
+     */
+    public static final KeyStore TRUSTSTORE_PILOT = KeyStoreHelper.loadKeyStore (TRUSTSTORE_TYPE,
+                                                                                 TRUSTSTORE_PILOT_CLASSPATH,
+                                                                                 TRUSTSTORE_PASSWORD)
+                                                                  .getKeyStore ();
 
     /** The truststore alias for the OpenPEPPOL pilot root certificate */
     public static final String TRUSTSTORE_PILOT_ALIAS_ROOT = "peppol root test ca - g2";
 
     /** The OpenPEPPOL pilot root certificate */
-    public static final X509Certificate CERTIFICATE_PILOT_ROOT = _resolveCert (TRUSTSTORE_PILOT, TRUSTSTORE_PILOT_ALIAS_ROOT);
+    public static final X509Certificate CERTIFICATE_PILOT_ROOT = _resolveCert (TRUSTSTORE_PILOT,
+                                                                               TRUSTSTORE_PILOT_ALIAS_ROOT);
 
     /** The truststore alias for the OpenPEPPOL pilot AP certificate */
     public static final String TRUSTSTORE_PILOT_ALIAS_AP = "peppol access point test ca - g2 (peppol root test ca - g2)";
 
     /** The OpenPEPPOL pilot AP certificate */
-    public static final X509Certificate CERTIFICATE_PILOT_AP = _resolveCert (TRUSTSTORE_PILOT, TRUSTSTORE_PILOT_ALIAS_AP);
+    public static final X509Certificate CERTIFICATE_PILOT_AP = _resolveCert (TRUSTSTORE_PILOT,
+                                                                             TRUSTSTORE_PILOT_ALIAS_AP);
 
     /** The truststore alias for the OpenPEPPOL pilot SMP certificate */
     public static final String TRUSTSTORE_PILOT_ALIAS_SMP = "peppol service metadata publisher test ca - g2 (peppol root test ca - g2)";
 
     /** The OpenPEPPOL pilot SMP certificate */
-    public static final X509Certificate CERTIFICATE_PILOT_SMP = _resolveCert (TRUSTSTORE_PILOT, TRUSTSTORE_PILOT_ALIAS_SMP);
+    public static final X509Certificate CERTIFICATE_PILOT_SMP = _resolveCert (TRUSTSTORE_PILOT,
+                                                                              TRUSTSTORE_PILOT_ALIAS_SMP);
   }
 
   @PresentForCodeCoverage
