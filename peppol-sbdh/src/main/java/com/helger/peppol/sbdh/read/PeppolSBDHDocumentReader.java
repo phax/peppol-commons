@@ -56,8 +56,12 @@ import com.helger.sbdh.SBDMarshaller;
 @NotThreadSafe
 public class PeppolSBDHDocumentReader
 {
-  private final IIdentifierFactory m_aIdentifierFactory;
+  public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;
 
+  private final IIdentifierFactory m_aIdentifierFactory;
+  private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
+
+  @Deprecated
   public PeppolSBDHDocumentReader ()
   {
     this (SimpleIdentifierFactory.INSTANCE);
@@ -66,6 +70,44 @@ public class PeppolSBDHDocumentReader
   public PeppolSBDHDocumentReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
   {
     m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
+  }
+
+  /**
+   * @return The identifier provided in the constructor. Never
+   *         <code>null</code>.
+   * @since 8.2.3
+   */
+  @Nonnull
+  public final IIdentifierFactory getIdentifierFactory ()
+  {
+    return m_aIdentifierFactory;
+  }
+
+  /**
+   * @return <code>true</code> if value checks are enabled, <code>false</code>
+   *         if not. By default checks are enabled - see
+   *         {@link #DEFAULT_PERFORM_VALUE_CHECKS}.
+   * @since 8.2.3
+   */
+  public final boolean isPerformValueChecks ()
+  {
+    return m_bPerformValueChecks;
+  }
+
+  /**
+   * Enable or disable the performing of value checks.
+   *
+   * @param bPerformValueChecks
+   *        <code>true</code> to enable checks, <code>false</code> to disable
+   *        them.
+   * @return this for chaining
+   * @since 8.2.3
+   */
+  @Nonnull
+  public final PeppolSBDHDocumentReader setPerformValueChecks (final boolean bPerformValueChecks)
+  {
+    m_bPerformValueChecks = bPerformValueChecks;
+    return this;
   }
 
   /**
@@ -118,7 +160,8 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority, @Nullable final String sSenderIdentifier)
+  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority,
+                                             @Nullable final String sSenderIdentifier)
   {
     return StringHelper.hasText (sSenderIdentifier);
   }
@@ -157,7 +200,8 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority, @Nullable final String sReceiverIdentifier)
+  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority,
+                                               @Nullable final String sReceiverIdentifier)
   {
     return StringHelper.hasText (sReceiverIdentifier);
   }
@@ -437,8 +481,10 @@ public class PeppolSBDHDocumentReader
       throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_SBDH);
 
     // Check that the header version is correct
-    if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
-      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION, aSBDH.getHeaderVersion ());
+    if (m_bPerformValueChecks)
+      if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION,
+                                                   aSBDH.getHeaderVersion ());
 
     // Check sender
     {
@@ -448,13 +494,16 @@ public class PeppolSBDHDocumentReader
 
       // Identifier is mandatory
       final PartnerIdentification aSenderIdentification = aSBDH.getSenderAtIndex (0).getIdentifier ();
-      if (!isValidSenderAuthority (aSenderIdentification.getAuthority ()))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_AUTHORITY,
-                                                   aSenderIdentification.getAuthority ());
+      if (m_bPerformValueChecks)
+        if (!isValidSenderAuthority (aSenderIdentification.getAuthority ()))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_AUTHORITY,
+                                                     aSenderIdentification.getAuthority ());
 
       // Check sender identifier value
-      if (!isValidSenderIdentifier (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ()))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE, aSenderIdentification.getValue ());
+      if (m_bPerformValueChecks)
+        if (!isValidSenderIdentifier (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ()))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
+                                                     aSenderIdentification.getValue ());
 
       // Remember sender
       ret.setSender (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ());
@@ -468,14 +517,16 @@ public class PeppolSBDHDocumentReader
 
       // Identifier is mandatory
       final PartnerIdentification aReceiverIdentification = aSBDH.getReceiverAtIndex (0).getIdentifier ();
-      if (!isValidReceiverAuthority (aReceiverIdentification.getAuthority ()))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_RECEIVER_AUTHORITY,
-                                                   aReceiverIdentification.getAuthority ());
+      if (m_bPerformValueChecks)
+        if (!isValidReceiverAuthority (aReceiverIdentification.getAuthority ()))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_RECEIVER_AUTHORITY,
+                                                     aReceiverIdentification.getAuthority ());
 
       // Check receiver identifier value
-      if (!isValidReceiverIdentifier (aReceiverIdentification.getAuthority (), aReceiverIdentification.getValue ()))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_RECEIVER_VALUE,
-                                                   aReceiverIdentification.getValue ());
+      if (m_bPerformValueChecks)
+        if (!isValidReceiverIdentifier (aReceiverIdentification.getAuthority (), aReceiverIdentification.getValue ()))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_RECEIVER_VALUE,
+                                                     aReceiverIdentification.getValue ());
 
       ret.setReceiver (aReceiverIdentification.getAuthority (), aReceiverIdentification.getValue ());
     }
@@ -499,8 +550,10 @@ public class PeppolSBDHDocumentReader
         final String sInstanceIdentifier = aScope.getInstanceIdentifier ();
         if (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID.equals (sType))
         {
-          if (!isValidDocumentTypeIdentifier (sInstanceIdentifier))
-            throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER, sInstanceIdentifier);
+          if (m_bPerformValueChecks)
+            if (!isValidDocumentTypeIdentifier (sInstanceIdentifier))
+              throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
+                                                         sInstanceIdentifier);
 
           // The scheme was added in Spec v1.1
           String sScheme = aScope.getIdentifier ();
@@ -513,8 +566,10 @@ public class PeppolSBDHDocumentReader
         else
           if (CPeppolSBDH.SCOPE_PROCESS_ID.equals (sType))
           {
-            if (!isValidProcessIdentifier (sInstanceIdentifier))
-              throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER, sInstanceIdentifier);
+            if (m_bPerformValueChecks)
+              if (!isValidProcessIdentifier (sInstanceIdentifier))
+                throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
+                                                           sInstanceIdentifier);
 
             // The scheme was added in Spec v1.1
             String sScheme = aScope.getIdentifier ();
@@ -558,8 +613,9 @@ public class PeppolSBDHDocumentReader
       // Extract the main business message first - cannot be null and must be an
       // Element!
       final Element aBusinessMessage = (Element) aStandardBusinessDocument.getAny ();
-      if (!isValidBusinessMessage (aBusinessMessage))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_BUSINESS_MESSAGE);
+      if (m_bPerformValueChecks)
+        if (!isValidBusinessMessage (aBusinessMessage))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_BUSINESS_MESSAGE);
 
       // Set the main business message to the return data
       ret.setBusinessMessage (aBusinessMessage);
@@ -568,29 +624,36 @@ public class PeppolSBDHDocumentReader
       final DocumentIdentification aDI = aSBDH.getDocumentIdentification ();
 
       final String sNamespaceURI = aDI.getStandard ();
-      if (!isValidStandard (sNamespaceURI, aBusinessMessage))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_STANDARD,
-                                                   sNamespaceURI,
-                                                   aBusinessMessage.getNamespaceURI ());
+      if (m_bPerformValueChecks)
+        if (!isValidStandard (sNamespaceURI, aBusinessMessage))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_STANDARD,
+                                                     sNamespaceURI,
+                                                     aBusinessMessage.getNamespaceURI ());
 
       final String sUBLVersion = aDI.getTypeVersion ();
-      if (!isValidTypeVersion (sUBLVersion, aBusinessMessage))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE_VERSION, sUBLVersion);
+      if (m_bPerformValueChecks)
+        if (!isValidTypeVersion (sUBLVersion, aBusinessMessage))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE_VERSION, sUBLVersion);
 
       final String sLocalName = aDI.getType ();
-      if (!isValidType (sLocalName, aBusinessMessage))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE, sLocalName, aBusinessMessage.getLocalName ());
+      if (m_bPerformValueChecks)
+        if (!isValidType (sLocalName, aBusinessMessage))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE,
+                                                     sLocalName,
+                                                     aBusinessMessage.getLocalName ());
 
       // The unique message ID
       final String sSBDHID = aDI.getInstanceIdentifier ();
-      if (!isValidInstanceIdentifier (sSBDHID))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_INSTANCE_IDENTIFIER, sSBDHID);
+      if (m_bPerformValueChecks)
+        if (!isValidInstanceIdentifier (sSBDHID))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_INSTANCE_IDENTIFIER, sSBDHID);
 
       // Mandatory date and time (cannot be null)
       final LocalDateTime aCreationDateAndTime = aDI.getCreationDateAndTime ();
-      if (!isValidCreationDateTime (aCreationDateAndTime))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_CREATION_DATE_TIME,
-                                                   String.valueOf (aCreationDateAndTime));
+      if (m_bPerformValueChecks)
+        if (!isValidCreationDateTime (aCreationDateAndTime))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_CREATION_DATE_TIME,
+                                                     String.valueOf (aCreationDateAndTime));
       ret.setDocumentIdentification (sNamespaceURI, sUBLVersion, sLocalName, sSBDHID, aCreationDateAndTime);
     }
 
