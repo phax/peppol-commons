@@ -276,7 +276,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.2.3 - work in progress
+* v8.2.3 - 2020-09-25
     * Allow to disable the value checks when reading Peppol SBDH documents
 * v8.2.2 - 2020-09-17
     * Updated to Jakarta JAXB 2.3.3
