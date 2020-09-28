@@ -75,7 +75,7 @@ public final class PeppolSBDHDocumentWriterTest
       LOGGER.info (sXML);
 
     // Read again and compare values
-    final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);
+    final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
     assertNotNull (aDataRead);
 
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getSenderScheme ());
@@ -134,7 +134,7 @@ public final class PeppolSBDHDocumentWriterTest
       LOGGER.info (sXML);
 
     // Read again and compare values
-    final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader ().extractData (aSBD);
+    final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
     assertNotNull (aDataRead);
 
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getSenderScheme ());

@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.sbdh;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -28,6 +29,8 @@ import org.junit.Test;
 
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.peppol.sbdh.spec12.BinaryContentType;
+import com.helger.peppol.sbdh.spec12.TextContentType;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
@@ -126,15 +129,30 @@ public final class PeppolSBDHDocumentTest
     final IIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
     final PeppolSBDHDocument dd = new PeppolSBDHDocument (aIF);
 
-    dd.setBusinessMessageBinaryOnly ("abc".getBytes (StandardCharsets.UTF_8), CMimeType.APPLICATION_OCTET_STREAM, StandardCharsets.UTF_8);
+    final byte [] aBinaryPayload = "abc".getBytes (StandardCharsets.UTF_8);
+    dd.setBusinessMessageBinaryOnly (aBinaryPayload, CMimeType.APPLICATION_OCTET_STREAM, StandardCharsets.UTF_8);
     assertNotNull (dd.getBusinessMessage ());
     assertEquals ("<BinaryContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" encoding=\"UTF-8\" mimeType=\"application/octet-stream\">YWJj</BinaryContent>",
                   XMLWriter.getNodeAsString (dd.getBusinessMessage ()).trim ());
 
-    dd.setBusinessMessageBinaryOnly ("abc".getBytes (StandardCharsets.UTF_8), CMimeType.APPLICATION_XML, null);
+    BinaryContentType aBC = dd.getBusinessMessageAsBinaryContent ();
+    assertNotNull (aBC);
+    assertArrayEquals (aBinaryPayload, aBC.getValue ());
+    assertEquals (CMimeType.APPLICATION_OCTET_STREAM.getAsString (), aBC.getMimeType ());
+    assertEquals (StandardCharsets.UTF_8.name (), aBC.getEncoding ());
+    assertNull (dd.getBusinessMessageAsTextContent ());
+
+    dd.setBusinessMessageBinaryOnly (aBinaryPayload, CMimeType.APPLICATION_XML, null);
     assertNotNull (dd.getBusinessMessage ());
     assertEquals ("<BinaryContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" mimeType=\"application/xml\">YWJj</BinaryContent>",
                   XMLWriter.getNodeAsString (dd.getBusinessMessage ()).trim ());
+
+    aBC = dd.getBusinessMessageAsBinaryContent ();
+    assertNotNull (aBC);
+    assertArrayEquals (aBinaryPayload, aBC.getValue ());
+    assertEquals (CMimeType.APPLICATION_XML.getAsString (), aBC.getMimeType ());
+    assertNull (aBC.getEncoding ());
+    assertNull (dd.getBusinessMessageAsTextContent ());
   }
 
   @Test
@@ -147,5 +165,11 @@ public final class PeppolSBDHDocumentTest
     assertNotNull (dd.getBusinessMessage ());
     assertEquals ("<TextContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" mimeType=\"application/octet-stream\">abc</TextContent>",
                   XMLWriter.getNodeAsString (dd.getBusinessMessage ()).trim ());
+
+    final TextContentType aTC = dd.getBusinessMessageAsTextContent ();
+    assertNotNull (aTC);
+    assertEquals ("abc", aTC.getValue ());
+    assertEquals (CMimeType.APPLICATION_OCTET_STREAM.getAsString (), aTC.getMimeType ());
+    assertNull (dd.getBusinessMessageAsBinaryContent ());
   }
 }

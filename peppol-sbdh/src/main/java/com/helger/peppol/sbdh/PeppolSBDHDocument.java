@@ -38,6 +38,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadReader;
 import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadWriter;
 import com.helger.peppol.sbdh.spec12.BinaryContentType;
 import com.helger.peppol.sbdh.spec12.TextContentType;
@@ -46,6 +47,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.xml.XMLHelper;
 
 /**
  * This class contains all the PEPPOL data per SBDH document in a syntax neutral
@@ -582,6 +584,74 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * Get the contained business message.
+   *
+   * @return <code>null</code> if no business message is present. A clone (deep
+   *         copy) of the business message otherwise.
+   */
+  @Nullable
+  @ReturnsMutableCopy
+  public Element getBusinessMessage ()
+  {
+    return m_aBusinessMessage == null ? null : (Element) m_aBusinessMessage.cloneNode (true);
+  }
+
+  /**
+   * Check if a business message is present without having the need to
+   * explicitly call {@link #getBusinessMessage()} which returns a cloned node
+   * and is therefore an expensive operation.
+   *
+   * @return <code>true</code> if a business message is present,
+   *         <code>false</code> otherwise.
+   */
+  public boolean hasBusinessMessage ()
+  {
+    return m_aBusinessMessage != null;
+  }
+
+  /**
+   * Parse the existing business message as a special Peppol "BinaryContent"
+   * element.
+   *
+   * @return The parsed payload as a Peppol "BinaryContent" or <code>null</code>
+   *         if the existing Business Message is not a valid binary content.
+   * @see #setBusinessMessageBinaryOnly(byte[], IMimeType, Charset)
+   * @since 8.2.4
+   */
+  @Nullable
+  public BinaryContentType getBusinessMessageAsBinaryContent ()
+  {
+    if (m_aBusinessMessage == null)
+      return null;
+
+    if (!"BinaryContent".equals (XMLHelper.getLocalNameOrTagName (m_aBusinessMessage)))
+      return null;
+
+    return PeppolSBDHPayloadReader.binaryContent ().read (m_aBusinessMessage);
+  }
+
+  /**
+   * Parse the existing business message as a special Peppol "TextContent"
+   * element.
+   *
+   * @return The parsed payload as a Peppol "TextContent" or <code>null</code>
+   *         if the existing Business Message is not a valid text content.
+   * @see #setBusinessMessageTextOnly(String, IMimeType)
+   * @since 8.2.4
+   */
+  @Nullable
+  public TextContentType getBusinessMessageAsTextContent ()
+  {
+    if (m_aBusinessMessage == null)
+      return null;
+
+    if (!"TextContent".equals (XMLHelper.getLocalNameOrTagName (m_aBusinessMessage)))
+      return null;
+
+    return PeppolSBDHPayloadReader.textContent ().read (m_aBusinessMessage);
+  }
+
+  /**
    * Set the main business message that should be transmitted together with the
    * SBDH.
    *
@@ -616,6 +686,7 @@ public class PeppolSBDHDocument
    * @return this for chaining
    * @see #setBusinessMessage(Element)
    * @see #setBusinessMessageTextOnly(String, IMimeType)
+   * @see #getBusinessMessageAsBinaryContent()
    * @since 6.2.4
    */
   @Nonnull
@@ -651,6 +722,7 @@ public class PeppolSBDHDocument
    * @return this for chaining
    * @see #setBusinessMessage(Element)
    * @see #setBusinessMessageBinaryOnly(byte[], IMimeType, Charset)
+   * @see #getBusinessMessageAsTextContent()
    * @since 6.2.4
    */
   @Nonnull
@@ -667,32 +739,6 @@ public class PeppolSBDHDocument
       throw new IllegalStateException ("Failed to create 'TextContent' element.");
     m_aBusinessMessage = aDoc.getDocumentElement ();
     return this;
-  }
-
-  /**
-   * Check if a business message is present without having the need to
-   * explicitly call {@link #getBusinessMessage()} which returns a cloned node
-   * and is therefore an expensive operation.
-   *
-   * @return <code>true</code> if a business message is present,
-   *         <code>false</code> otherwise.
-   */
-  public boolean hasBusinessMessage ()
-  {
-    return m_aBusinessMessage != null;
-  }
-
-  /**
-   * Get the contained business message.
-   *
-   * @return <code>null</code> if no business message is present. A clone (deep
-   *         copy) of the business message otherwise.
-   */
-  @Nullable
-  @ReturnsMutableCopy
-  public Element getBusinessMessage ()
-  {
-    return m_aBusinessMessage == null ? null : (Element) m_aBusinessMessage.cloneNode (true);
   }
 
   /**
