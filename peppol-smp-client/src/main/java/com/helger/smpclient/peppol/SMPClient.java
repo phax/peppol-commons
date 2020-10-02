@@ -44,6 +44,7 @@ import com.helger.smpclient.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.smpclient.peppol.jaxb.RedirectType;
 import com.helger.smpclient.peppol.jaxb.ServiceGroupType;
 import com.helger.smpclient.peppol.jaxb.ServiceInformationType;
+import com.helger.smpclient.peppol.jaxb.ServiceMetadataReferenceCollectionType;
 import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
@@ -189,6 +190,8 @@ public class SMPClient extends SMPClientReadOnly
     final ServiceGroupType aServiceGroup = new ServiceGroupType ();
     // Explicit constructor call is needed here!
     aServiceGroup.setParticipantIdentifier (new SimpleParticipantIdentifier (aParticipantID));
+    // Mandatory element, but can be empty
+    aServiceGroup.setServiceMetadataReferenceCollection (new ServiceMetadataReferenceCollectionType ());
     saveServiceGroup (aServiceGroup, aCredentials);
     return aServiceGroup;
   }

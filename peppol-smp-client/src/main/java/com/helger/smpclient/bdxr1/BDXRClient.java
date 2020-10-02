@@ -49,6 +49,7 @@ import com.helger.xsds.bdxr.smp1.ParticipantIdentifierType;
 import com.helger.xsds.bdxr.smp1.RedirectType;
 import com.helger.xsds.bdxr.smp1.ServiceGroupType;
 import com.helger.xsds.bdxr.smp1.ServiceInformationType;
+import com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceCollectionType;
 import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
 
 /**
@@ -191,7 +192,10 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceGroupType aServiceGroup = new ServiceGroupType ();
+    // Explicit constructor call is needed here!
     aServiceGroup.setParticipantIdentifier (new BDXR1ParticipantIdentifier (aParticipantID));
+    // Mandatory element, but can be empty
+    aServiceGroup.setServiceMetadataReferenceCollection (new ServiceMetadataReferenceCollectionType ());
     saveServiceGroup (aServiceGroup, aCredentials);
     return aServiceGroup;
   }
