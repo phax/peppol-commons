@@ -276,6 +276,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.2.6 - work in progress
+    * Extended `SMPClientReadOnly` and `BDXRClientReadOnly` with further static methods
 * v8.2.5 - 2020-10-02
     * Fixed the data model created by `SMPClient.saveServiceGroup` and `BDXRClient.saveServiceGroup` in the overload with only the participant identifier
 * v8.2.4 - 2020-09-28

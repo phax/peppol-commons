@@ -62,6 +62,7 @@ import com.helger.xsds.bdxr.smp1.RedirectType;
 import com.helger.xsds.bdxr.smp1.ServiceGroupType;
 import com.helger.xsds.bdxr.smp1.ServiceInformationType;
 import com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType;
+import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 import com.helger.xsds.xmldsig.X509DataType;
 
@@ -421,52 +422,70 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                                           @Nonnull final ISMPTransportProfile aTransportProfile)
   {
     ValueEnforcer.notNull (aSignedServiceMetadata, "SignedServiceMetadata");
-    ValueEnforcer.notNull (aSignedServiceMetadata.getServiceMetadata (), "SignedServiceMetadata.ServiceMetadata");
-    if (aSignedServiceMetadata.getServiceMetadata ().getServiceInformation () == null)
+    return getEndpoint (aSignedServiceMetadata.getServiceMetadata (), aProcessID, aTransportProfile);
+  }
+
+  /**
+   * Extract the Endpoint from the ServiceMetadata that matches the passed
+   * process ID and the optional required transport profile.
+   *
+   * @param aServiceMetadata
+   *        The unsigned service meta data object. May not be <code>null</code>.
+   * @param aProcessID
+   *        The process identifier to be looked up. May not be <code>null</code>
+   *        .
+   * @param aTransportProfile
+   *        The required transport profile to be used. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if no matching endpoint was found
+   * @since 8.2.6
+   */
+  @Nullable
+  public static EndpointType getEndpoint (@Nonnull final ServiceMetadataType aServiceMetadata,
+                                          @Nonnull final IProcessIdentifier aProcessID,
+                                          @Nonnull final ISMPTransportProfile aTransportProfile)
+  {
+    ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
+    final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
+    if (aServiceInformation == null)
     {
       // It seems to be a redirect and not service information
       return null;
     }
-    ValueEnforcer.notNull (aSignedServiceMetadata.getServiceMetadata ().getServiceInformation ().getProcessList (),
-                           "SignedServiceMetadata.ServiceMetadata.ServiceInformation.ProcessList");
+    ValueEnforcer.notNull (aServiceInformation.getProcessList (), "ServiceMetadata.ServiceInformation.ProcessList");
     ValueEnforcer.notNull (aProcessID, "ProcessID");
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
 
     // Iterate all processes
-    final ServiceInformationType aServiceInformation = aSignedServiceMetadata.getServiceMetadata ().getServiceInformation ();
-    if (aServiceInformation != null)
+    for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
     {
-      // Okay, it's not a redirect
-      for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
+      // Matches the requested one?
+      if (SimpleProcessIdentifier.wrap (aProcessType.getProcessIdentifier ()).hasSameContent (aProcessID))
       {
-        // Matches the requested one?
-        if (SimpleProcessIdentifier.wrap (aProcessType.getProcessIdentifier ()).hasSameContent (aProcessID))
+        // Filter endpoints by required transport profile
+        final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
+        for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
+          if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
+            aRelevantEndpoints.add (aEndpoint);
+
+        if (aRelevantEndpoints.size () != 1)
         {
-          // Filter endpoints by required transport profile
-          final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
-          for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
-            if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
-              aRelevantEndpoints.add (aEndpoint);
-
-          if (aRelevantEndpoints.size () != 1)
-          {
-            if (LOGGER.isWarnEnabled ())
-              LOGGER.warn ("Found " +
-                           aRelevantEndpoints.size () +
-                           " endpoints for process " +
-                           aProcessID +
-                           " and transport profile " +
-                           aTransportProfile.getID () +
-                           (aRelevantEndpoints.isEmpty () ? "" : ": " + aRelevantEndpoints.toString () + " - using the first one"));
-          }
-
-          // Use the first endpoint or null
-          final EndpointType ret = aRelevantEndpoints.getFirst ();
-
-          if (LOGGER.isDebugEnabled ())
-            LOGGER.debug ("Found matching endpoint: " + ret);
-          return ret;
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Found " +
+                         aRelevantEndpoints.size () +
+                         " endpoints for process " +
+                         aProcessID +
+                         " and transport profile " +
+                         aTransportProfile.getID () +
+                         (aRelevantEndpoints.isEmpty () ? "" : ": " + aRelevantEndpoints.toString () + " - using the first one"));
         }
+
+        // Use the first endpoint or null
+        final EndpointType ret = aRelevantEndpoints.getFirst ();
+
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Found matching endpoint: " + ret);
+        return ret;
       }
     }
 

@@ -396,11 +396,11 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   }
 
   /**
-   * Extract the Endpoint from the signedServiceMetadata that matches the passed
+   * Extract the Endpoint from the ServiceMetadata that matches the passed
    * process ID and the optional required transport profile.
    *
    * @param aServiceMetadata
-   *        The signed service meta data object (e.g. from a call to
+   *        The service meta data object (e.g. from a call to
    *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
    *        . May not be <code>null</code>.
    * @param aProcessID
@@ -425,7 +425,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     {
       boolean bMatchesProcess = false;
       for (final ProcessType aP : aPM.getProcess ())
-        if (SimpleProcessIdentifier.wrap (aP.getID ()).equals (aProcessID))
+        if (SimpleProcessIdentifier.wrap (aP.getID ()).hasSameContent (aProcessID))
         {
           bMatchesProcess = true;
           break;
