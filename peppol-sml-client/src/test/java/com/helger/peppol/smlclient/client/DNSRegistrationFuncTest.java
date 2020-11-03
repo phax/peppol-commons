@@ -109,7 +109,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     final Record aRecord = aRecords[0];
     if (aRecord instanceof CNAMERecord)
-      return ((CNAMERecord) aRecord).getAlias ().toString ();
+      return ((CNAMERecord) aRecord).getName ().toString ();
 
     if (aRecord instanceof ARecord)
     {
