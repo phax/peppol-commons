@@ -88,7 +88,7 @@ import com.helger.xml.serialize.read.DOMReader;
 public final class MainCreatePredefinedEnumsFromXML_v7x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v7x.class);
-  private static final Version CODELIST_VERSION = new Version (7, 2);
+  private static final Version CODELIST_VERSION = new Version (7, 3);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
@@ -147,7 +147,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
         jEnumConst.arg (bDeprecated ? s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sDeprecatedSince) : JExpr._null ());
         jEnumConst.arg (JExpr.lit (aRow.isIssuedByOpenpeppol ()));
         jEnumConst.arg (JExpr.lit (StringParser.parseInt (aRow.getBisVersion (), -1)));
-        jEnumConst.arg (JExpr.lit (aRow.getDomainCommunity ()));
+        jEnumConst.arg (aRow.getDomainCommunity () == null ? JExpr._null () : JExpr.lit (aRow.getDomainCommunity ()));
         {
           final JInvocation aNew = JExpr._new (s_aCodeModel.ref (CommonsArrayList.class).narrowEmpty ());
           for (final PCLProcessIDType aProcID : aRow.getProcessId ())
@@ -216,8 +216,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       final JVar jIssuedByOpenPEPPOL = jCtor.param (JMod.FINAL, boolean.class, "bIssuedByOpenPEPPOL");
       final JVar jBISVersion = jCtor.param (JMod.FINAL, int.class, "nBISVersion");
       final JVar jDomainCommunity = jCtor.param (JMod.FINAL, String.class, "sDomainCommunity");
-      jDomainCommunity.annotate (Nonnull.class);
-      jDomainCommunity.annotate (Nonempty.class);
+      jDomainCommunity.annotate (Nullable.class);
       final JVar jProcessIDs = jCtor.param (JMod.FINAL, s_aCodeModel.ref (ICommonsList.class).narrow (String.class), "aProcessIDs");
       jCtor.body ()
            .assign (fScheme, jScheme)
@@ -340,10 +339,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       m.annotate (CheckForSigned.class);
       m.body ()._return (fBISVersion);
 
+      // since 7.3 this method is nullable
       // public String getDomainCommunity ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getDomainCommunity");
-      m.annotate (Nonnull.class);
-      m.annotate (Nonempty.class);
+      m.annotate (Nullable.class);
       m.body ()._return (fDomainCommunity);
 
       // public ICommonsList<IProcessIdentifier> getAllProcessIDs()
@@ -786,27 +785,26 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
 
     public CodeListFile (@Nonnull final String sFilenamePart, @Nonnull final IThrowingConsumer <? super Document, Exception> aHandler)
     {
-      m_aFile = new File ("src/main/resources/codelists/Peppol" +
+      m_aFile = new File ("src/main/resources/codelists/Peppol Code Lists - " +
                           sFilenamePart +
-                          "V" +
+                          " v" +
                           CODELIST_VERSION.getAsString (false) +
                           ".xml").getAbsoluteFile ();
       if (!m_aFile.exists ())
         throw new IllegalArgumentException ("File '" + m_aFile.getAbsolutePath () + "' does not exist!");
       m_aHandler = aHandler;
     }
-
   }
 
   public static void main (final String [] args) throws Exception
   {
-    for (final CodeListFile aCLF : new CodeListFile [] { new CodeListFile ("DocumentTypes",
+    for (final CodeListFile aCLF : new CodeListFile [] { new CodeListFile ("Document types",
                                                                            MainCreatePredefinedEnumsFromXML_v7x::_handleDocumentTypes),
-                                                         new CodeListFile ("ParticipantIdentifierSchemes",
+                                                         new CodeListFile ("Participant identifier schemes",
                                                                            MainCreatePredefinedEnumsFromXML_v7x::_handleParticipantIdentifierSchemes),
-                                                         new CodeListFile ("ProcessIdentifiers",
+                                                         new CodeListFile ("Processes",
                                                                            MainCreatePredefinedEnumsFromXML_v7x::_handleProcessIdentifiers),
-                                                         new CodeListFile ("TransportProfiles",
+                                                         new CodeListFile ("Transport profiles",
                                                                            MainCreatePredefinedEnumsFromXML_v7x::_handleTransportProfileIdentifiers) })
     {
       final Document aDoc = DOMReader.readXMLDOM (aCLF.m_aFile);

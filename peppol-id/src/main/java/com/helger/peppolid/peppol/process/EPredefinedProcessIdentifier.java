@@ -252,7 +252,12 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:en16931:any</code><br>
      */
-    urn_fdc_peppol_eu_poacc_en16931_any("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:en16931:any", false);
+    urn_fdc_peppol_eu_poacc_en16931_any("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:en16931:any", false),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:kosit:profile:reporting:1.0</code><br>
+     */
+    urn_kosit_profile_reporting_1_0("cenbii-procid-ubl", "urn:kosit:profile:reporting:1.0", false);
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

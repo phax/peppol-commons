@@ -803,33 +803,41 @@ public enum EPredefinedDocumentTypeIdentifier
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0::2.1</code><br>
      * Same as {@link #ORDER_FDC_PEPPOL_EU_POACC_TRNS_ORDER_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_0}
      * 
+     * @deprecated since 7.3 - this item should not be used to issue new identifiers!
      * @since code list 7
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Order-2", "Order", "urn:fdc:peppol.eu:poacc:trns:order:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.1"), "EHF Advanced Order Initiation 3.0", Version.parse("7"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
+    @Deprecated
+    urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Order-2", "Order", "urn:fdc:peppol.eu:poacc:trns:order:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.1"), "EHF Advanced Order Initiation 3.0 (invalid)", Version.parse("7"), true, Version.parse("7.3"), false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2::OrderChange##urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-change:3.0::2.1</code><br>
      * Same as {@link #ORDERCHANGE_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CHANGE_3_0}
      * 
+     * @deprecated since 7.3 - this item should not be used to issue new identifiers!
      * @since code list 7
      */
-    urn_oasis_names_specification_ubl_schema_xsd_OrderChange_2__OrderChange__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_change_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2", "OrderChange", "urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-change:3.0", "2.1"), "EHF Advanced Order Change 3.0", Version.parse("7"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
+    @Deprecated
+    urn_oasis_names_specification_ubl_schema_xsd_OrderChange_2__OrderChange__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_change_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2", "OrderChange", "urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-change:3.0", "2.1"), "EHF Advanced Order Change 3.0 (invalid)", Version.parse("7"), true, Version.parse("7.3"), false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderCancellation-2::OrderCancellation##urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-cancellation:3.0::2.1</code><br>
      * Same as {@link #ORDERCANCELLATION_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CANCELLATION_3_0}
      * 
+     * @deprecated since 7.3 - this item should not be used to issue new identifiers!
      * @since code list 7
      */
-    urn_oasis_names_specification_ubl_schema_xsd_OrderCancellation_2__OrderCancellation__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_cancellation_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderCancellation-2", "OrderCancellation", "urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-cancellation:3.0", "2.1"), "EHF Advanced Order Cancellation 3.0", Version.parse("7"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
+    @Deprecated
+    urn_oasis_names_specification_ubl_schema_xsd_OrderCancellation_2__OrderCancellation__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_cancellation_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderCancellation-2", "OrderCancellation", "urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-cancellation:3.0", "2.1"), "EHF Advanced Order Cancellation 3.0 (invalid)", Version.parse("7"), true, Version.parse("7.3"), false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0::2.1</code><br>
      * Same as {@link #ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_RESPONSE_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_0}
      * 
+     * @deprecated since 7.3 - this item should not be used to issue new identifiers!
      * @since code list 7
      */
-    urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2", "OrderResponse", "urn:fdc:peppol.eu:poacc:trns:order_response:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.1"), "EHF Advanced Order Response 3.0", Version.parse("7"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
+    @Deprecated
+    urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2", "OrderResponse", "urn:fdc:peppol.eu:poacc:trns:order_response:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.1"), "EHF Advanced Order Response 3.0 (invalid)", Version.parse("7"), true, Version.parse("7.3"), false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017::2.1</code><br>
@@ -901,7 +909,47 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 7.2
      */
-    urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_poacc_trns_despatch_advice_3_extended_urn_www_agid_gov_it_trns_ddt_3_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2", "DespatchAdvice", "urn:fdc:peppol.eu:poacc:trns:despatch_advice:3:extended:urn:www.agid.gov.it:trns:ddt:3.1", "2.1"), "DespatchAdvice_IT", Version.parse("7.2"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:bis:despatch_advice:3"));
+    urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_poacc_trns_despatch_advice_3_extended_urn_www_agid_gov_it_trns_ddt_3_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2", "DespatchAdvice", "urn:fdc:peppol.eu:poacc:trns:despatch_advice:3:extended:urn:www.agid.gov.it:trns:ddt:3.1", "2.1"), "DespatchAdvice_IT", Version.parse("7.2"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:bis:despatch_advice:3")),
+
+    /**
+     * <code>urn:kosit:names:spec:peppol-reporting:schema:xsd:Reporting-1::APData##Reporting::1.0</code><br>
+     * Same as {@link #APDATA_REPORTING}
+     * 
+     * @since code list 7.3
+     */
+    urn_kosit_names_spec_peppol_reporting_schema_xsd_Reporting_1__APData__Reporting__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:kosit:names:spec:peppol-reporting:schema:xsd:Reporting-1", "APData", "Reporting", "1.0"), "German Peppol Usage Evaluation AP", Version.parse("7.3"), false, null, false, -1, null, new CommonsArrayList<>("cenbii-procid-ubl::urn:kosit:profile:reporting:1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0::2.2</code><br>
+     * Same as {@link #ORDER_FDC_PEPPOL_EU_POACC_TRNS_ORDER_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_02}
+     * 
+     * @since code list 7.3
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Order-2", "Order", "urn:fdc:peppol.eu:poacc:trns:order:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.2"), "EHF Advanced Order Initiation 3.0", Version.parse("7.3"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2::OrderChange##urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-change:3.0::2.2</code><br>
+     * Same as {@link #ORDERCHANGE_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CHANGE_3_02}
+     * 
+     * @since code list 7.3
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_OrderChange_2__OrderChange__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_change_3_0__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2", "OrderChange", "urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-change:3.0", "2.2"), "EHF Advanced Order Change 3.0", Version.parse("7.3"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderCancellation-2::OrderCancellation##urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-cancellation:3.0::2.2</code><br>
+     * Same as {@link #ORDERCANCELLATION_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CANCELLATION_3_02}
+     * 
+     * @since code list 7.3
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_OrderCancellation_2__OrderCancellation__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_cancellation_3_0__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderCancellation-2", "OrderCancellation", "urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-cancellation:3.0", "2.2"), "EHF Advanced Order Cancellation 3.0", Version.parse("7.3"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0::2.2</code><br>
+     * Same as {@link #ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_RESPONSE_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_02}
+     * 
+     * @since code list 7.3
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2", "OrderResponse", "urn:fdc:peppol.eu:poacc:trns:order_response:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.2"), "EHF Advanced Order Response 3.0", Version.parse("7.3"), false, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0"));
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1}
      * 
@@ -1364,19 +1412,31 @@ public enum EPredefinedDocumentTypeIdentifier
     public static final EPredefinedDocumentTypeIdentifier INVOICE_CEN_EU_EN16931_2017_COMPLIANT_FDC_NEN_NL_NLCIUS_V1_0_CONFORMANT_FDC_NEN_NL_GACCOUNT_V1_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_nen_nl_nlcius_v1_0_conformant_urn_fdc_nen_nl_gaccount_v1_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_1}
+     * 
+     * @deprecated since 7.3 - this item should not be used to issue new identifiers!
      */
+    @Deprecated
     public static final EPredefinedDocumentTypeIdentifier ORDER_FDC_PEPPOL_EU_POACC_TRNS_ORDER_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderChange_2__OrderChange__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_change_3_0__2_1}
+     * 
+     * @deprecated since 7.3 - this item should not be used to issue new identifiers!
      */
+    @Deprecated
     public static final EPredefinedDocumentTypeIdentifier ORDERCHANGE_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CHANGE_3_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_OrderChange_2__OrderChange__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_change_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderCancellation_2__OrderCancellation__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_cancellation_3_0__2_1}
+     * 
+     * @deprecated since 7.3 - this item should not be used to issue new identifiers!
      */
+    @Deprecated
     public static final EPredefinedDocumentTypeIdentifier ORDERCANCELLATION_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CANCELLATION_3_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_OrderCancellation_2__OrderCancellation__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_cancellation_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_1}
+     * 
+     * @deprecated since 7.3 - this item should not be used to issue new identifiers!
      */
+    @Deprecated
     public static final EPredefinedDocumentTypeIdentifier ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_RESPONSE_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017__2_1}
@@ -1414,6 +1474,26 @@ public enum EPredefinedDocumentTypeIdentifier
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_poacc_trns_despatch_advice_3_extended_urn_www_agid_gov_it_trns_ddt_3_1__2_1}
      */
     public static final EPredefinedDocumentTypeIdentifier DESPATCHADVICE_FDC_PEPPOL_EU_POACC_TRNS_DESPATCH_ADVICE_3_EXTENDED_WWW_AGID_GOV_IT_TRNS_DDT_3_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_poacc_trns_despatch_advice_3_extended_urn_www_agid_gov_it_trns_ddt_3_1__2_1;
+    /**
+     * Same as {@link #urn_kosit_names_spec_peppol_reporting_schema_xsd_Reporting_1__APData__Reporting__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier APDATA_REPORTING = EPredefinedDocumentTypeIdentifier.urn_kosit_names_spec_peppol_reporting_schema_xsd_Reporting_1__APData__Reporting__1_0;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2}
+     */
+    public static final EPredefinedDocumentTypeIdentifier ORDER_FDC_PEPPOL_EU_POACC_TRNS_ORDER_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_02 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderChange_2__OrderChange__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_change_3_0__2_2}
+     */
+    public static final EPredefinedDocumentTypeIdentifier ORDERCHANGE_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CHANGE_3_02 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_OrderChange_2__OrderChange__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_change_3_0__2_2;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderCancellation_2__OrderCancellation__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_cancellation_3_0__2_2}
+     */
+    public static final EPredefinedDocumentTypeIdentifier ORDERCANCELLATION_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_ADV_ORDER_CANCELLATION_3_02 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_OrderCancellation_2__OrderCancellation__urn_fdc_anskaffelser_no_2019_ehf_spec_adv_order_cancellation_3_0__2_2;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2}
+     */
+    public static final EPredefinedDocumentTypeIdentifier ORDERRESPONSE_FDC_PEPPOL_EU_POACC_TRNS_ORDER_RESPONSE_3_EXTENDED_FDC_ANSKAFFELSER_NO_2019_EHF_SPEC_3_02 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2;
     private final String m_sScheme;
     private final IPeppolDocumentTypeIdentifierParts m_aParts;
     private final String m_sID;
@@ -1434,7 +1514,7 @@ public enum EPredefinedDocumentTypeIdentifier
         @Nullable final Version aDeprecatedSince,
         final boolean bIssuedByOpenPEPPOL,
         final int nBISVersion,
-        @Nonnull @Nonempty final String sDomainCommunity,
+        @Nullable final String sDomainCommunity,
         final ICommonsList<String> aProcessIDs) {
         m_sScheme = sScheme;
         m_aParts = aParts;
@@ -1536,8 +1616,7 @@ public enum EPredefinedDocumentTypeIdentifier
         return m_nBISVersion;
     }
 
-    @Nonnull
-    @Nonempty
+    @Nullable
     public String getDomainCommunity() {
         return m_sDomainCommunity;
     }
