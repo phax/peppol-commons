@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xbill.DNS.TextParseException;
 
 import com.helger.commons.timing.StopWatch;
 import com.helger.commons.url.URLHelper;
@@ -32,12 +31,16 @@ public class MainTestNAPTR
   private static final Logger LOGGER = LoggerFactory.getLogger (MainTestNAPTR.class);
 
   @Nullable
-  private static String _resolveFromNAPTR (@Nonnull final String sDNSName) throws TextParseException
+  private static String _resolveFromNAPTR (@Nonnull final String sDNSName)
   {
-    return NaptrResolver.resolveFromUNAPTR (sDNSName, null, "Meta:SMP");
+    return NaptrResolver.builder ()
+                        .domainName (sDNSName)
+                        .serviceName (BDXLURLProvider.DNS_UNAPTR_SERVICE_NAME_META_SMP)
+                        .build ()
+                        .resolveUNAPTR ();
   }
 
-  public static void main (final String [] args) throws TextParseException
+  public static void main (final String [] args)
   {
     // Warm up cache
     URLHelper.getAsURI ("http://www.example.org");

@@ -16,9 +16,12 @@
  */
 package com.helger.smpclient.url;
 
+import java.time.Duration;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.dns.naptr.NaptrLookup;
 import com.helger.dns.naptr.NaptrResolver;
 
 public final class MainTestCNAME2NAPTR
@@ -27,14 +30,24 @@ public final class MainTestCNAME2NAPTR
 
   public static void main (final String [] args) throws Exception
   {
-    String s = NaptrResolver.resolveFromUNAPTR ("AM7VC3VF63WABJQGQRHI36U2K6N6EJR7SHL6ELGLR7YRYQSFWOVQ.iso6523-actorid-upis.0151.test.participant.bdxl.services.",
-                                                null,
-                                                BDXLURLProvider.DNS_UNAPTR_SERVICE_NAME_META_SMP);
+    String s = NaptrResolver.builder ()
+                            .domainName ("AM7VC3VF63WABJQGQRHI36U2K6N6EJR7SHL6ELGLR7YRYQSFWOVQ.iso6523-actorid-upis.0151.test.participant.bdxl.services.")
+                            .serviceName (BDXLURLProvider.DNS_UNAPTR_SERVICE_NAME_META_SMP)
+                            .build ()
+                            .resolveUNAPTR ();
     LOGGER.info ("Result: '" + s + "'");
 
-    s = NaptrResolver.resolveFromUNAPTR ("CDEF123456789012345678901234567890123456789012345678.iso6523-actorid-upis.0151.test.participant.bdxl.services.",
-                                         null,
-                                         BDXLURLProvider.DNS_UNAPTR_SERVICE_NAME_META_SMP);
+    final String sDomain2 = "CDEF123456789012345678901234567890123456789012345678.iso6523-actorid-upis.0151.test.participant.bdxl.services.";
+    s = NaptrResolver.builder ()
+                     .domainName (sDomain2)
+                     .naptrRecords (NaptrLookup.builder ()
+                                               .domainName (sDomain2)
+                                               .timeout (Duration.ofSeconds (10))
+                                               .maxRetries (1)
+                                               .debugMode (true))
+                     .serviceName (BDXLURLProvider.DNS_UNAPTR_SERVICE_NAME_META_SMP)
+                     .build ()
+                     .resolveUNAPTR ();
     LOGGER.info ("Result: '" + s + "'");
   }
 }

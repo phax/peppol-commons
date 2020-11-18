@@ -94,8 +94,8 @@ public final class BDXRClientReadOnlyTest
   }
 
   @Test
-  @Ignore
-  @IgnoredNaptrTest
+  // @Ignore
+  // @IgnoredNaptrTest
   public void testRead () throws SMPDNSResolutionException, SMPClientException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9930:167064991");

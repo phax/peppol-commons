@@ -43,6 +43,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.dns.naptr.NaptrLookup;
 import com.helger.dns.naptr.NaptrResolver;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
@@ -263,46 +264,51 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
       throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
 
-    final String sBuildName = getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
+    final String sBuildDomainName = getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
 
     final boolean bUseDNSCache = isUseDNSCache ();
-    try
+    // Already in cache?
+    String sResolvedNAPTR = bUseDNSCache ? getDNSCacheEntry (sBuildDomainName) : null;
+    if (sResolvedNAPTR == null)
     {
-      // Already in cache?
-      String sResolvedNAPTR = bUseDNSCache ? getDNSCacheEntry (sBuildName) : null;
-      if (sResolvedNAPTR == null)
-      {
-        // Now do the NAPTR resolving
-        final String sServiceName = getNAPTRServiceName ();
-        sResolvedNAPTR = NaptrResolver.resolveFromUNAPTR (sBuildName, customDNSServers (), sServiceName);
-        if (sResolvedNAPTR == null)
-        {
-          // Since 6.2.0 this a checked exception
-          throw new SMPDNSResolutionException ("Failed to resolve '" +
-                                               sBuildName +
-                                               "' and service '" +
-                                               sServiceName +
-                                               "' to a DNS U-NAPTR");
-        }
-
-        if (bUseDNSCache)
-        {
-          // Put in cache
-          addDNSCacheEntry (sBuildName, sResolvedNAPTR);
-        }
-      }
+      // Now do the NAPTR resolving
+      final String sServiceName = getNAPTRServiceName ();
       try
       {
-        return new URI (sResolvedNAPTR);
+        sResolvedNAPTR = NaptrResolver.builder ()
+                                      .domainName (sBuildDomainName)
+                                      .naptrRecords (NaptrLookup.builder ()
+                                                                .domainName (sBuildDomainName)
+                                                                .customDNSServers (customDNSServers ())
+                                                                .maxRetries (1))
+                                      .serviceName (sServiceName)
+                                      .build ()
+                                      .resolveUNAPTR ();
       }
-      catch (final URISyntaxException ex)
+      catch (final TextParseException ex)
       {
-        throw new SMPDNSResolutionException ("Error building SMP URI from string '" + sResolvedNAPTR + "'", ex);
+        throw new SMPDNSResolutionException ("Failed to parse '" + sBuildDomainName + "'", ex);
+      }
+      if (sResolvedNAPTR == null)
+      {
+        // Since 6.2.0 this a checked exception
+        throw new SMPDNSResolutionException ("Failed to resolve '" + sBuildDomainName + "' and service '" + sServiceName + "' to a DNS U-NAPTR");
+      }
+
+      if (bUseDNSCache)
+      {
+        // Put in cache
+        addDNSCacheEntry (sBuildDomainName, sResolvedNAPTR);
       }
     }
-    catch (final TextParseException ex)
+
+    try
     {
-      throw new SMPDNSResolutionException ("Failed to parse '" + sBuildName + "'", ex);
+      return new URI (sResolvedNAPTR);
+    }
+    catch (final URISyntaxException ex)
+    {
+      throw new SMPDNSResolutionException ("Error building SMP URI from string '" + sResolvedNAPTR + "'", ex);
     }
   }
 

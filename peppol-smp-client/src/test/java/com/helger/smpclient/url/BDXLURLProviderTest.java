@@ -39,7 +39,7 @@ import com.helger.smpclient.IgnoredNaptrTest;
 public final class BDXLURLProviderTest
 {
   @Test
-  public void testDefault () throws SMPDNSResolutionException
+  public void testGetDNSNameOfParticipant () throws SMPDNSResolutionException
   {
     final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA.edelivery.tech.ec.europa.eu",
@@ -71,7 +71,7 @@ public final class BDXLURLProviderTest
   }
 
   @Test
-  public void testNoLowercase () throws SMPDNSResolutionException
+  public void testGetDNSNameOfParticipantNoLowercase () throws SMPDNSResolutionException
   {
     final BDXLURLProvider aURLProvider = new BDXLURLProvider ();
     aURLProvider.setLowercaseValueBeforeHashing (false);
@@ -91,7 +91,7 @@ public final class BDXLURLProviderTest
   @Test
   @Ignore
   @IgnoredNaptrTest
-  public void testResolve () throws SMPDNSResolutionException
+  public void testResolvePeppol () throws SMPDNSResolutionException
   {
     // Only if online
     if (NetworkOnlineStatusDeterminator.getNetworkStatus ().isOnline ())
@@ -104,14 +104,14 @@ public final class BDXLURLProviderTest
       final URL x = aURLProvider.getSMPURLOfParticipant (aPI, ESML.DIGIT_TEST);
       assertNotNull (x);
       if (true)
-        assertEquals ("test-infra.peppol.at", x.toString ());
+        assertEquals ("http://test-infra.peppol.at", x.toString ());
       else
         assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu", x.toString ());
     }
   }
 
   @Test
-  public void testToop () throws SMPDNSResolutionException
+  public void testResolveToop () throws SMPDNSResolutionException
   {
     final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
