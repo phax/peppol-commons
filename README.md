@@ -276,7 +276,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.2.6 - work in progress
+* v8.2.6 - 2020-11-18
     * Updated to ph-web 9.5.0
     * Extended `SMPClientReadOnly` and `BDXRClientReadOnly` with further static methods
     * Updated to eDEC code lists 7.3
