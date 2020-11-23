@@ -89,17 +89,21 @@ public final class PeppolCertificateChecker
   {
     // PKI v3 (recursive)
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
-    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
+
+    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
+
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
-    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
+
+    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
 
     // all issuers (1 level only)
     PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP.getSubjectX500Principal ());
     PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP.getSubjectX500Principal ());
+
     PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP.getSubjectX500Principal ());
     PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP.getSubjectX500Principal ());
   }
@@ -327,8 +331,8 @@ public final class PeppolCertificateChecker
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Performing certificate revocation check on certificate '" +
                     aCert.getSubjectX500Principal ().getName () +
-                    "'" +
-                    (aCheckDT != null ? " for datetime " + aCheckDT : ""));
+                    "' " +
+                    (aCheckDT != null ? "for datetime " + aCheckDT : "without a datetime"));
 
     // check OCSP and CLR
     final StopWatch aSW = StopWatch.createdStarted ();
@@ -364,6 +368,9 @@ public final class PeppolCertificateChecker
       // the "SUN" security provider)
       final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection", new CollectionCertStoreParameters (aValidCAs));
       aPKIXParams.addCertStore (aIntermediateCertStore);
+
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Checking certificate\n" + aCert + "\n\nagainst " + aValidCAs.size () + " valid CAs:\n" + aValidCAs);
 
       // Throws an exception in case of an error
       final CertPathBuilder aCPB = CertPathBuilder.getInstance ("PKIX");
@@ -465,6 +472,7 @@ public final class PeppolCertificateChecker
    *        Possibility to override the OSCP checking flag on a per query basis.
    *        Use {@link ETriState#UNDEFINED} to solely use the global flag.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
+   * @since 8.2.7
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert,
@@ -507,6 +515,10 @@ public final class PeppolCertificateChecker
         // Not a PEPPOL AP certificate
         return EPeppolCertificateCheckResult.UNSUPPORTED_ISSUER;
       }
+    }
+    else
+    {
+      LOGGER.debug ("Not testing against known certificate issuers");
     }
 
     // Check OCSP/CLR
