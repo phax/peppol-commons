@@ -89,16 +89,10 @@ public final class PeppolCertificateChecker
   {
     // PKI v3 (recursive)
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
-    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
-
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
-    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
 
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
-    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
-
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
-    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
 
     // all issuers (1 level only)
     PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP.getSubjectX500Principal ());
