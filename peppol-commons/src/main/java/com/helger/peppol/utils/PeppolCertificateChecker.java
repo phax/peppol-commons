@@ -464,10 +464,8 @@ public final class PeppolCertificateChecker
    *        <code>null</code> to not perform this check.
    * @param aValidCAs
    *        List of valid CAs to check against. May not be <code>null</code>.
-   * @param eCacheOSCResult
-   *        Possibility to override the usage of OSCP caching flag on a per
-   *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
-   *        global flag.
+   * @param aCache
+   *        The cache. May be <code>null</code> to disable caching.
    * @param eCheckOSCP
    *        Possibility to override the OSCP checking flag on a per query basis.
    *        Use {@link ETriState#UNDEFINED} to solely use the global flag.
