@@ -276,6 +276,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.2.7 - 2020-11-23
+    * Improved some debug logging
+    * Extended `PeppolCertificateChecker` API to be used more flexible
+    * Extended checks in `PeppolKeyStoreHelper`
 * v8.2.6 - 2020-11-18
     * Updated to ph-web 9.5.0
     * Extended `SMPClientReadOnly` and `BDXRClientReadOnly` with further static methods
