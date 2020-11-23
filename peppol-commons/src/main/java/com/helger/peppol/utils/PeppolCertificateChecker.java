@@ -37,6 +37,7 @@ import java.util.EnumSet;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -48,13 +49,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.timing.StopWatch;
 
@@ -77,23 +79,29 @@ public final class PeppolCertificateChecker
 
   /** Peppol Access Point (AP) stuff */
   private static final ICommonsList <X509Certificate> PEPPOL_AP_CA_CERTS = new CommonsArrayList <> ();
-  private static final ICommonsList <X500Principal> PEPPOL_AP_CA_ISSUERS;
+  private static final ICommonsList <X500Principal> PEPPOL_AP_CA_ISSUERS = new CommonsArrayList <> ();
 
   /** Peppol Service Metadata Publisher (SMP) stuff */
   private static final ICommonsList <X509Certificate> PEPPOL_SMP_CA_CERTS = new CommonsArrayList <> ();
-  private static final ICommonsList <X500Principal> PEPPOL_SMP_CA_ISSUERS;
+  private static final ICommonsList <X500Principal> PEPPOL_SMP_CA_ISSUERS = new CommonsArrayList <> ();
 
   static
   {
-    // PKI v3
+    // PKI v3 (recursive)
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
+    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
+    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
+    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
+    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
 
-    // all issuers
-    PEPPOL_AP_CA_ISSUERS = new CommonsArrayList <> (PEPPOL_AP_CA_CERTS, X509Certificate::getSubjectX500Principal);
-    PEPPOL_SMP_CA_ISSUERS = new CommonsArrayList <> (PEPPOL_SMP_CA_CERTS, X509Certificate::getSubjectX500Principal);
+    // all issuers (1 level only)
+    PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP.getSubjectX500Principal ());
+    PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP.getSubjectX500Principal ());
+    PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP.getSubjectX500Principal ());
+    PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP.getSubjectX500Principal ());
   }
 
   private static final AtomicBoolean OCSP_ENABLED = new AtomicBoolean (DEFAULT_OSCP_CHECK_ENABLED);
@@ -109,12 +117,12 @@ public final class PeppolCertificateChecker
    * @author Philip Helger
    */
   @ThreadSafe
-  private static final class PeppolRevocationCache
+  public static final class PeppolRevocationCache
   {
     private final ExpiringMap <String, Boolean> m_aCache;
-    private final IFunction <X509Certificate, Boolean> m_aValueProvider;
+    private final Function <X509Certificate, Boolean> m_aValueProvider;
 
-    public PeppolRevocationCache (@Nonnull final IFunction <X509Certificate, Boolean> aValueProvider)
+    public PeppolRevocationCache (@Nonnull final Function <X509Certificate, Boolean> aValueProvider)
     {
       m_aCache = ExpiringMap.builder ().expirationPolicy (ExpirationPolicy.CREATED).expiration (6, TimeUnit.HOURS).build ();
       m_aValueProvider = aValueProvider;
@@ -199,6 +207,70 @@ public final class PeppolCertificateChecker
   {
     REVOCATION_CACHE_AP.clearCache ();
     REVOCATION_CACHE_SMP.clearCache ();
+  }
+
+  @Nonnull
+  public static PeppolRevocationCache getRevocationCacheAP ()
+  {
+    return REVOCATION_CACHE_AP;
+  }
+
+  @Nonnull
+  public static PeppolRevocationCache getRevocationCacheSMP ()
+  {
+    return REVOCATION_CACHE_SMP;
+  }
+
+  /**
+   * @return All the Peppol AP CA certificates currently valid. Neither
+   *         <code>null</code> nor empty.
+   * @since 8.2.7
+   */
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableCopy
+  public static ICommonsList <X509Certificate> getAllPeppolAPCACertificates ()
+  {
+    return PEPPOL_AP_CA_CERTS.getClone ();
+  }
+
+  /**
+   * @return All the Peppol AP CA issuers currently valid. Neither
+   *         <code>null</code> nor empty.
+   * @since 8.2.7
+   */
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableCopy
+  public static ICommonsList <X500Principal> getAllPeppolAPCAIssuers ()
+  {
+    return PEPPOL_AP_CA_ISSUERS.getClone ();
+  }
+
+  /**
+   * @return All the Peppol SMP CA certificates currently valid. Neither
+   *         <code>null</code> nor empty.
+   * @since 8.2.7
+   */
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableCopy
+  public static ICommonsList <X509Certificate> getAllPeppolSMPCACertificates ()
+  {
+    return PEPPOL_SMP_CA_CERTS.getClone ();
+  }
+
+  /**
+   * @return All the Peppol SMP CA issuers currently valid. Neither
+   *         <code>null</code> nor empty.
+   * @since 8.2.7
+   */
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableCopy
+  public static ICommonsList <X500Principal> getAllPeppolSMPCAIssuers ()
+  {
+    return PEPPOL_SMP_CA_ISSUERS.getClone ();
   }
 
   /**
@@ -372,14 +444,38 @@ public final class PeppolCertificateChecker
     return isCertificateRevoked (aCert, PEPPOL_SMP_CA_CERTS, aCheckDT, eCheckOSCP, aExceptionHdl);
   }
 
+  /**
+   * Check if the provided certificate is a valid certificate.
+   *
+   * @param aCert
+   *        The certificate to be checked. May be <code>null</code>.
+   * @param aCheckDT
+   *        The check date and time to use. May be <code>null</code> which means
+   *        "now".
+   * @param aIssuers
+   *        The list of valid certificate issuers to check against. May be
+   *        <code>null</code> to not perform this check.
+   * @param aValidCAs
+   *        List of valid CAs to check against. May not be <code>null</code>.
+   * @param eCacheOSCResult
+   *        Possibility to override the usage of OSCP caching flag on a per
+   *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
+   *        global flag.
+   * @param eCheckOSCP
+   *        Possibility to override the OSCP checking flag on a per query basis.
+   *        Use {@link ETriState#UNDEFINED} to solely use the global flag.
+   * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
+   */
   @Nonnull
-  private static EPeppolCertificateCheckResult _checkCertificate (@Nullable final X509Certificate aCert,
-                                                                  @Nullable final LocalDateTime aCheckDT,
-                                                                  @Nonnull final ICommonsList <X500Principal> aIssuers,
-                                                                  @Nonnull final ICommonsList <X509Certificate> aValidCAs,
-                                                                  @Nullable final PeppolRevocationCache aCache,
-                                                                  @Nonnull final ETriState eCheckOSCP)
+  public static EPeppolCertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert,
+                                                                @Nullable final LocalDateTime aCheckDT,
+                                                                @Nullable final ICommonsList <X500Principal> aIssuers,
+                                                                @Nonnull final ICommonsList <X509Certificate> aValidCAs,
+                                                                @Nullable final PeppolRevocationCache aCache,
+                                                                @Nonnull final ETriState eCheckOSCP)
   {
+    ValueEnforcer.notNull (aValidCAs, "ValidCAs");
+
     if (aCert == null)
       return EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED;
 
@@ -402,12 +498,15 @@ public final class PeppolCertificateChecker
       return EPeppolCertificateCheckResult.EXPIRED;
     }
 
-    // Check if issuer is known
-    final X500Principal aIssuer = aCert.getIssuerX500Principal ();
-    if (!aIssuers.contains (aIssuer))
+    if (aIssuers != null)
     {
-      // Not a PEPPOL AP certificate
-      return EPeppolCertificateCheckResult.UNSUPPORTED_ISSUER;
+      // Check if issuer is known
+      final X500Principal aIssuer = aCert.getIssuerX500Principal ();
+      if (!aIssuers.contains (aIssuer))
+      {
+        // Not a PEPPOL AP certificate
+        return EPeppolCertificateCheckResult.UNSUPPORTED_ISSUER;
+      }
     }
 
     // Check OCSP/CLR
@@ -451,7 +550,7 @@ public final class PeppolCertificateChecker
                                                                         @Nonnull final ETriState eCheckOSCP)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return _checkCertificate (aCert, aCheckDT, PEPPOL_AP_CA_ISSUERS, PEPPOL_AP_CA_CERTS, bCache ? REVOCATION_CACHE_AP : null, eCheckOSCP);
+    return checkCertificate (aCert, aCheckDT, PEPPOL_AP_CA_ISSUERS, PEPPOL_AP_CA_CERTS, bCache ? REVOCATION_CACHE_AP : null, eCheckOSCP);
   }
 
   /**
@@ -478,11 +577,6 @@ public final class PeppolCertificateChecker
                                                                          @Nonnull final ETriState eCheckOSCP)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return _checkCertificate (aCert,
-                              aCheckDT,
-                              PEPPOL_SMP_CA_ISSUERS,
-                              PEPPOL_SMP_CA_CERTS,
-                              bCache ? REVOCATION_CACHE_SMP : null,
-                              eCheckOSCP);
+    return checkCertificate (aCert, aCheckDT, PEPPOL_SMP_CA_ISSUERS, PEPPOL_SMP_CA_CERTS, bCache ? REVOCATION_CACHE_SMP : null, eCheckOSCP);
   }
 }
