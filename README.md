@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/phax/peppol-commons.svg?branch=master)](https://travis-ci.com/phax/peppol-commons)
 [![javadoc](https://javadoc.io/badge2/com.helger.peppol/peppol-commons/javadoc.svg)](https://javadoc.io/doc/com.helger.peppol/peppol-commons)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons) 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom) 
 
 This project contains different libraries that are commonly used in the Peppol area:
   * [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
