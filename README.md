@@ -279,7 +279,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * [Peppol Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/edec-specifications/blob/master/releases/policy-identifier/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
 
 # News and noteworthy
-
+ 
+* v8.3.0 - 2020-11-25
+    * Reworked the revocation checking configuration for Peppol certificates. Now it is more flexible.
 * v8.2.7 - 2020-11-23
     * Improved some debug logging
     * Extended `PeppolCertificateChecker` API to be used more flexible

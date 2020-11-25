@@ -102,10 +102,10 @@ public final class PeppolCertificateChecker
     PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP.getSubjectX500Principal ());
   }
 
-  private static final AtomicBoolean OCSP_ENABLED = new AtomicBoolean (DEFAULT_OSCP_CHECK_ENABLED);
   private static final AtomicBoolean CACHE_OCSP_RESULTS = new AtomicBoolean (DEFAULT_CACHE_OSCP_RESULTS);
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-  @GuardedBy ("s_aRWLock")
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
+  private static ERevocationCheckMode s_eRevocationCheckMode = ERevocationCheckMode.OCSP;
+  @GuardedBy ("RW_LOCK")
   private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked", ex);
 
   /**
@@ -146,11 +146,11 @@ public final class PeppolCertificateChecker
 
   private static final PeppolRevocationCache REVOCATION_CACHE_AP = new PeppolRevocationCache (aCert -> Boolean.valueOf (isPeppolAPCertificateRevoked (aCert,
                                                                                                                                                       null,
-                                                                                                                                                      ETriState.UNDEFINED,
+                                                                                                                                                      (ERevocationCheckMode) null,
                                                                                                                                                       getExceptionHdl ())));
   private static final PeppolRevocationCache REVOCATION_CACHE_SMP = new PeppolRevocationCache (aCert -> Boolean.valueOf (isPeppolSMPCertificateRevoked (aCert,
                                                                                                                                                         null,
-                                                                                                                                                        ETriState.UNDEFINED,
+                                                                                                                                                        (ERevocationCheckMode) null,
                                                                                                                                                         getExceptionHdl ())));
 
   private PeppolCertificateChecker ()
@@ -159,10 +159,12 @@ public final class PeppolCertificateChecker
   /**
    * @return <code>true</code> if OSCP checks are enabled, <code>false</code> if
    *         not. The default is {@value #DEFAULT_OSCP_CHECK_ENABLED}.
+   * @deprecated Since 8.3.0. Use {@link #getRevocationCheckMode()} instead
    */
+  @Deprecated
   public static boolean isOCSPEnabled ()
   {
-    return OCSP_ENABLED.get ();
+    return getRevocationCheckMode ().isOCSP ();
   }
 
   /**
@@ -171,10 +173,40 @@ public final class PeppolCertificateChecker
    * @param bCheck
    *        <code>true</code> to enable them, <code>false</code> to disable
    *        them.
+   * @deprecated Since 8.3.0. Use
+   *             {@link #setRevocationCheckMode(ERevocationCheckMode)} instead
    */
+  @Deprecated
   public static void setOCSPEnabled (final boolean bCheck)
   {
-    OCSP_ENABLED.set (bCheck);
+    // Legacy behaviour
+    setRevocationCheckMode (bCheck ? ERevocationCheckMode.OCSP_BEFORE_CRL : ERevocationCheckMode.CRL);
+  }
+
+  /**
+   * @return The global revocation check mode. Never <code>null</code>. The
+   *         default is {@link ERevocationCheckMode#OCSP}.
+   * @since 8.3.0
+   */
+  @Nonnull
+  public static ERevocationCheckMode getRevocationCheckMode ()
+  {
+    return RW_LOCK.readLockedGet ( () -> s_eRevocationCheckMode);
+  }
+
+  /**
+   * Set the global revocation check mode to use, if no specific mode was
+   * provided.
+   *
+   * @param eRevocationCheckMode
+   *        The global revocation check mode to use. May not be
+   *        <code>null</code>.
+   * @since 8.3.0
+   */
+  public static void setRevocationCheckMode (@Nonnull final ERevocationCheckMode eRevocationCheckMode)
+  {
+    ValueEnforcer.notNull (eRevocationCheckMode, "RevocationCheckMode");
+    RW_LOCK.writeLockedGet ( () -> s_eRevocationCheckMode = eRevocationCheckMode);
   }
 
   /**
@@ -278,7 +310,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static Consumer <? super GeneralSecurityException> getExceptionHdl ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aExceptionHdl);
+    return RW_LOCK.readLockedGet ( () -> s_aExceptionHdl);
   }
 
   /**
@@ -291,7 +323,7 @@ public final class PeppolCertificateChecker
   public static void setExceptionHdl (@Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
     ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
-    s_aRWLock.writeLockedGet ( () -> s_aExceptionHdl = aExceptionHdl);
+    RW_LOCK.writeLockedGet ( () -> s_aExceptionHdl = aExceptionHdl);
   }
 
   /**
@@ -304,9 +336,10 @@ public final class PeppolCertificateChecker
    *        <code>null</code> nor empty.
    * @param aCheckDT
    *        The check date time. May be <code>null</code>.
-   * @param eCheckOSCP
-   *        Possibility to override the OSCP checking flag on a per query basis.
-   *        Use {@link ETriState#UNDEFINED} to only use the global flag.
+   * @param eCheckMode
+   *        Possibility to define the revocation checking mode. May be
+   *        <code>null</code> to indicate to use the global one from
+   *        {@link #getRevocationCheckMode()}.
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
    * @return <code>true</code> if it is revoked, <code>false</code> if not.
@@ -314,12 +347,11 @@ public final class PeppolCertificateChecker
   public static boolean isCertificateRevoked (@Nonnull final X509Certificate aCert,
                                               @Nonnull final ICommonsList <X509Certificate> aValidCAs,
                                               @Nullable final LocalDateTime aCheckDT,
-                                              @Nonnull final ETriState eCheckOSCP,
+                                              @Nullable final ERevocationCheckMode eCheckMode,
                                               @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
     ValueEnforcer.notNull (aCert, "Cert");
     ValueEnforcer.notEmpty (aValidCAs, "ValidCAs");
-    ValueEnforcer.notNull (eCheckOSCP, "CheckOSCP");
     ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
 
     if (LOGGER.isDebugEnabled ())
@@ -341,47 +373,59 @@ public final class PeppolCertificateChecker
       aPKIXParams.setRevocationEnabled (true);
 
       // Enable On-Line Certificate Status Protocol (OCSP) support
-      final boolean bEnableOCSP = eCheckOSCP.isUndefined () ? isOCSPEnabled () : eCheckOSCP.isTrue ();
-      try
+      final ERevocationCheckMode eRealCheckMode = eCheckMode == null ? getRevocationCheckMode () : eCheckMode;
+      if (eRealCheckMode.isNone ())
       {
-        Security.setProperty ("ocsp.enable", Boolean.toString (bEnableOCSP));
+        // No revocation check
       }
-      catch (final SecurityException ex)
+      else
       {
-        LOGGER.warn ("Failed to set Security property 'ocsp.enable' to '" + bEnableOCSP + "'");
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Certificate check is performed using revocation mode " + eRealCheckMode);
+
+        try
+        {
+          Security.setProperty ("ocsp.enable", Boolean.toString (eRealCheckMode.isOCSP ()));
+        }
+        catch (final SecurityException ex)
+        {
+          LOGGER.warn ("Failed to set Security property 'ocsp.enable' to '" + eRealCheckMode.isOCSP () + "'");
+        }
+
+        if (aCheckDT != null)
+        {
+          // Check at what date?
+          final Date aCheckDate = PDTFactory.createDate (aCheckDT);
+          aPKIXParams.setDate (aCheckDate);
+        }
+
+        // Specify a list of intermediate certificates ("Collection" is a key in
+        // the "SUN" security provider)
+        final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection", new CollectionCertStoreParameters (aValidCAs));
+        aPKIXParams.addCertStore (aIntermediateCertStore);
+
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Checking certificate\n" + aCert + "\n\nagainst " + aValidCAs.size () + " valid CAs:\n" + aValidCAs);
+
+        // Throws an exception in case of an error
+        final CertPathBuilder aCPB = CertPathBuilder.getInstance ("PKIX");
+        final PKIXRevocationChecker rc = (PKIXRevocationChecker) aCPB.getRevocationChecker ();
+        // OCSP over CLR is the default
+        // Allow fallback to CLR
+        final EnumSet <PKIXRevocationChecker.Option> aOptions = EnumSet.of (PKIXRevocationChecker.Option.ONLY_END_ENTITY);
+        eRealCheckMode.addAllOptionsTo (aOptions);
+        rc.setOptions (aOptions);
+
+        final PKIXCertPathBuilderResult aBuilderResult = (PKIXCertPathBuilderResult) aCPB.build (aPKIXParams);
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("OCSP/CLR builder result = " + aBuilderResult);
+
+        final CertPathValidator aCPV = CertPathValidator.getInstance ("PKIX");
+        final PKIXCertPathValidatorResult aValidateResult = (PKIXCertPathValidatorResult) aCPV.validate (aBuilderResult.getCertPath (),
+                                                                                                         aPKIXParams);
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("OCSP/CLR validation result = " + aValidateResult);
       }
-
-      if (aCheckDT != null)
-      {
-        // Check at what date?
-        final Date aCheckDate = PDTFactory.createDate (aCheckDT);
-        aPKIXParams.setDate (aCheckDate);
-      }
-
-      // Specify a list of intermediate certificates ("Collection" is a key in
-      // the "SUN" security provider)
-      final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection", new CollectionCertStoreParameters (aValidCAs));
-      aPKIXParams.addCertStore (aIntermediateCertStore);
-
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Checking certificate\n" + aCert + "\n\nagainst " + aValidCAs.size () + " valid CAs:\n" + aValidCAs);
-
-      // Throws an exception in case of an error
-      final CertPathBuilder aCPB = CertPathBuilder.getInstance ("PKIX");
-      final PKIXRevocationChecker rc = (PKIXRevocationChecker) aCPB.getRevocationChecker ();
-      // OCSP over CLR is the default
-      // Allow fallback to CLR
-      rc.setOptions (EnumSet.of (PKIXRevocationChecker.Option.ONLY_END_ENTITY));
-
-      final PKIXCertPathBuilderResult aBuilderResult = (PKIXCertPathBuilderResult) aCPB.build (aPKIXParams);
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("OCSP/CLR builder result = " + aBuilderResult);
-
-      final CertPathValidator aCPV = CertPathValidator.getInstance ("PKIX");
-      final PKIXCertPathValidatorResult aValidateResult = (PKIXCertPathValidatorResult) aCPV.validate (aBuilderResult.getCertPath (),
-                                                                                                       aPKIXParams);
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("OCSP/CLR validation result = " + aValidateResult);
 
       return false;
     }
@@ -408,19 +452,20 @@ public final class PeppolCertificateChecker
    *        The certificate to be check. May not be <code>null</code>.
    * @param aCheckDT
    *        The check date time. May be <code>null</code>.
-   * @param eCheckOSCP
+   * @param eCheckMode
    *        Possibility to override the OSCP checking flag on a per query basis.
-   *        Use {@link ETriState#UNDEFINED} to only use the global flag.
+   *        May be <code>null</code> to use the global flag from
+   *        {@link #getRevocationCheckMode()}.
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
    * @return <code>true</code> if it is revoked, <code>false</code> if not.
    */
   public static boolean isPeppolAPCertificateRevoked (@Nonnull final X509Certificate aCert,
                                                       @Nullable final LocalDateTime aCheckDT,
-                                                      @Nonnull final ETriState eCheckOSCP,
+                                                      @Nullable final ERevocationCheckMode eCheckMode,
                                                       @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
-    return isCertificateRevoked (aCert, PEPPOL_AP_CA_CERTS, aCheckDT, eCheckOSCP, aExceptionHdl);
+    return isCertificateRevoked (aCert, PEPPOL_AP_CA_CERTS, aCheckDT, eCheckMode, aExceptionHdl);
   }
 
   /**
@@ -430,19 +475,20 @@ public final class PeppolCertificateChecker
    *        The certificate to be check. May not be <code>null</code>.
    * @param aCheckDT
    *        The check date time. May be <code>null</code>.
-   * @param eCheckOSCP
+   * @param eCheckMode
    *        Possibility to override the OSCP checking flag on a per query basis.
-   *        Use {@link ETriState#UNDEFINED} to only use the global flag.
+   *        May be <code>null</code> to use the global flag from
+   *        {@link #getRevocationCheckMode()}.
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
    * @return <code>true</code> if it is revoked, <code>false</code> if not.
    */
   public static boolean isPeppolSMPCertificateRevoked (@Nonnull final X509Certificate aCert,
                                                        @Nullable final LocalDateTime aCheckDT,
-                                                       @Nonnull final ETriState eCheckOSCP,
+                                                       @Nullable final ERevocationCheckMode eCheckMode,
                                                        @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
-    return isCertificateRevoked (aCert, PEPPOL_SMP_CA_CERTS, aCheckDT, eCheckOSCP, aExceptionHdl);
+    return isCertificateRevoked (aCert, PEPPOL_SMP_CA_CERTS, aCheckDT, eCheckMode, aExceptionHdl);
   }
 
   /**
@@ -460,9 +506,10 @@ public final class PeppolCertificateChecker
    *        List of valid CAs to check against. May not be <code>null</code>.
    * @param aCache
    *        The cache. May be <code>null</code> to disable caching.
-   * @param eCheckOSCP
+   * @param eCheckMode
    *        Possibility to override the OSCP checking flag on a per query basis.
-   *        Use {@link ETriState#UNDEFINED} to solely use the global flag.
+   *        May be <code>null</code> to use the global flag from
+   *        {@link #getRevocationCheckMode()}.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
    * @since 8.2.7
    */
@@ -472,7 +519,7 @@ public final class PeppolCertificateChecker
                                                                 @Nullable final ICommonsList <X500Principal> aIssuers,
                                                                 @Nonnull final ICommonsList <X509Certificate> aValidCAs,
                                                                 @Nullable final PeppolRevocationCache aCache,
-                                                                @Nonnull final ETriState eCheckOSCP)
+                                                                @Nullable final ERevocationCheckMode eCheckMode)
   {
     ValueEnforcer.notNull (aValidCAs, "ValidCAs");
 
@@ -523,7 +570,7 @@ public final class PeppolCertificateChecker
     else
     {
       // No caching desired
-      if (isCertificateRevoked (aCert, aValidCAs, aCheckDT, eCheckOSCP, getExceptionHdl ()))
+      if (isCertificateRevoked (aCert, aValidCAs, aCheckDT, eCheckMode, getExceptionHdl ()))
         return EPeppolCertificateCheckResult.REVOKED;
     }
 
@@ -542,19 +589,20 @@ public final class PeppolCertificateChecker
    *        Possibility to override the usage of OSCP caching flag on a per
    *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
    *        global flag.
-   * @param eCheckOSCP
+   * @param eCheckMode
    *        Possibility to override the OSCP checking flag on a per query basis.
-   *        Use {@link ETriState#UNDEFINED} to solely use the global flag.
+   *        May be <code>null</code> to use the global flag from
+   *        {@link #getRevocationCheckMode()}.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkPeppolAPCertificate (@Nullable final X509Certificate aCert,
                                                                         @Nullable final LocalDateTime aCheckDT,
                                                                         @Nonnull final ETriState eCacheOSCResult,
-                                                                        @Nonnull final ETriState eCheckOSCP)
+                                                                        @Nullable final ERevocationCheckMode eCheckMode)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return checkCertificate (aCert, aCheckDT, PEPPOL_AP_CA_ISSUERS, PEPPOL_AP_CA_CERTS, bCache ? REVOCATION_CACHE_AP : null, eCheckOSCP);
+    return checkCertificate (aCert, aCheckDT, PEPPOL_AP_CA_ISSUERS, PEPPOL_AP_CA_CERTS, bCache ? REVOCATION_CACHE_AP : null, eCheckMode);
   }
 
   /**
@@ -569,18 +617,19 @@ public final class PeppolCertificateChecker
    *        Possibility to override the usage of OSCP caching flag on a per
    *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
    *        global flag.
-   * @param eCheckOSCP
+   * @param eCheckMode
    *        Possibility to override the OSCP checking flag on a per query basis.
-   *        Use {@link ETriState#UNDEFINED} to solely use the global flag.
+   *        May be <code>null</code> to use the global flag from
+   *        {@link #getRevocationCheckMode()}.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkPeppolSMPCertificate (@Nullable final X509Certificate aCert,
                                                                          @Nullable final LocalDateTime aCheckDT,
                                                                          @Nonnull final ETriState eCacheOSCResult,
-                                                                         @Nonnull final ETriState eCheckOSCP)
+                                                                         @Nullable final ERevocationCheckMode eCheckMode)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return checkCertificate (aCert, aCheckDT, PEPPOL_SMP_CA_ISSUERS, PEPPOL_SMP_CA_CERTS, bCache ? REVOCATION_CACHE_SMP : null, eCheckOSCP);
+    return checkCertificate (aCert, aCheckDT, PEPPOL_SMP_CA_ISSUERS, PEPPOL_SMP_CA_CERTS, bCache ? REVOCATION_CACHE_SMP : null, eCheckMode);
   }
 }
