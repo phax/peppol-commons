@@ -25,9 +25,12 @@ import java.security.cert.X509Certificate;
 import java.time.Month;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.state.ETriState;
+import com.helger.commons.system.SystemProperties;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 
@@ -38,6 +41,12 @@ import com.helger.security.keystore.KeyStoreHelper;
  */
 public class PeppolCertificateCheckerTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateCheckerTest.class);
+  static
+  {
+    SystemProperties.setPropertyValue ("java.security.debug", "certpath");
+  }
+
   @Test
   public void testBasic ()
   {
@@ -73,6 +82,8 @@ public class PeppolCertificateCheckerTest
     final File fAP = new File ("src/test/resources/test-ap.p12");
     if (fAP.exists ())
     {
+      LOGGER.info ("Checking the local AP test certificate");
+
       final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fAP.getAbsolutePath (), "peppol").getKeyStore ();
       assertNotNull (aKS);
 
@@ -91,6 +102,8 @@ public class PeppolCertificateCheckerTest
     final File fSMP = new File ("src/test/resources/test-smp.p12");
     if (fSMP.exists ())
     {
+      LOGGER.info ("Checking the local SMP test certificate");
+
       final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fSMP.getAbsolutePath (), "peppol").getKeyStore ();
       assertNotNull (aKS);
 
