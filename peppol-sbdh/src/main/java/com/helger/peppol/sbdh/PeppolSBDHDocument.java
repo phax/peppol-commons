@@ -302,7 +302,8 @@ public class PeppolSBDHDocument
    *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
    *        .
    * @return this
-   * @deprecated Use {@link #setDocumentTypeWithBusdoxDocidQns(String)} or
+   * @deprecated Since 8.3.1; Use
+   *             {@link #setDocumentTypeWithBusdoxDocidQns(String)} or
    *             {@link #setDocumentTypeWithPeppolDoctypeWildcard(String)}
    */
   @Deprecated
@@ -478,19 +479,24 @@ public class PeppolSBDHDocument
    *        <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code>
    *        .
    * @return this
+   * @see #setStandard(String)
+   * @see #setTypeVersion(String)
+   * @see #setType(String)
+   * @see #setInstanceIdentifier(String)
+   * @see #setCreationDateAndTime(LocalDateTime)
    */
   @Nonnull
-  public PeppolSBDHDocument setDocumentIdentification (@Nonnull final String sStandard,
-                                                       @Nonnull final String sTypeVersion,
-                                                       @Nonnull final String sType,
-                                                       @Nonnull final String sInstanceIdentifier,
-                                                       @Nonnull final LocalDateTime aCreationDateAndTime)
+  public final PeppolSBDHDocument setDocumentIdentification (@Nonnull final String sStandard,
+                                                             @Nonnull final String sTypeVersion,
+                                                             @Nonnull final String sType,
+                                                             @Nonnull final String sInstanceIdentifier,
+                                                             @Nonnull final LocalDateTime aCreationDateAndTime)
   {
-    m_sStandard = ValueEnforcer.notNull (sStandard, "Standard");
-    m_sTypeVersion = ValueEnforcer.notNull (sTypeVersion, "TypeVersion");
-    m_sType = ValueEnforcer.notNull (sType, "Type");
-    m_sInstanceIdentifier = ValueEnforcer.notNull (sInstanceIdentifier, "InstanceIdentifier");
-    m_aCreationDateAndTime = ValueEnforcer.notNull (aCreationDateAndTime, "CreationDateAndTime");
+    setStandard (sStandard);
+    setTypeVersion (sTypeVersion);
+    setType (sType);
+    setInstanceIdentifier (sInstanceIdentifier);
+    setCreationDateAndTime (aCreationDateAndTime);
     return this;
   }
 
@@ -521,6 +527,29 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * Set the content of the fields that are mapped to
+   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
+   *
+   * @param sStandard
+   *        The standard of the enveloped business message, normally described
+   *        by use of the XML namespace of the business message root element
+   *        (such as urn:oasis:names:specification: ubl:schema:xsd:Order-2). May
+   *        not be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code>
+   *        .
+   * @return this
+   * @see #setDocumentIdentification(String, String, String, String,
+   *      LocalDateTime)
+   * @since 8.3.1
+   */
+  @Nonnull
+  public final PeppolSBDHDocument setStandard (@Nonnull final String sStandard)
+  {
+    m_sStandard = ValueEnforcer.notNull (sStandard, "Standard");
+    return this;
+  }
+
+  /**
    * The version number of the enveloped business message (such as the value
    * "2.1" for OASIS UBL 2.1 or "2.0" for OASIS UBL 2.0). This field is mapped
    * to
@@ -546,6 +575,28 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * Set the content of the fields that are mapped to
+   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
+   *
+   * @param sTypeVersion
+   *        The version number of the enveloped business message (such as the
+   *        value "2.1" for OASIS UBL 2.1 or "2.0" for OASIS UBL 2.0). May not
+   *        be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code>
+   *        .
+   * @return this
+   * @see #setDocumentIdentification(String, String, String, String,
+   *      LocalDateTime)
+   * @since 8.3.1
+   */
+  @Nonnull
+  public final PeppolSBDHDocument setTypeVersion (@Nonnull final String sTypeVersion)
+  {
+    m_sTypeVersion = ValueEnforcer.notNull (sTypeVersion, "TypeVersion");
+    return this;
+  }
+
+  /**
    * Message type - mandatory in SBDH. XML local element name of the
    * root-element in the business message. This field is mapped to
    * <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code>.
@@ -565,6 +616,28 @@ public class PeppolSBDHDocument
   public boolean hasType ()
   {
     return StringHelper.hasText (m_sType);
+  }
+
+  /**
+   * Set the content of the fields that are mapped to
+   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
+   *
+   * @param sType
+   *        Message type - mandatory in SBDH. XML local element name of the
+   *        root-element in the business message. May not be <code>null</code>.
+   *        This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code>
+   *        .
+   * @return this
+   * @see #setDocumentIdentification(String, String, String, String,
+   *      LocalDateTime)
+   * @since 8.3.1
+   */
+  @Nonnull
+  public final PeppolSBDHDocument setType (@Nonnull final String sType)
+  {
+    m_sType = ValueEnforcer.notNull (sType, "Type");
+    return this;
   }
 
   /**
@@ -599,6 +672,34 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * Set the content of the fields that are mapped to
+   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
+   *
+   * @param sInstanceIdentifier
+   *        An informative unique ID created by the issuer of the envelope. The
+   *        InstanceIdentifier MUST be unique for each Business Message Envelope
+   *        being created. This ID is not the same as the ID of the business
+   *        message (such as the Invoice Number). It is not the same as a
+   *        transmission Message ID generated by the application sending the
+   *        message (as defined in AS2 or START).<br>
+   *        The InstanceIdentifier MUST be globally unique and it is RECOMMENDED
+   *        to use UUID (such as 118e3040-51d2-11e3-8f96-0800200c9a66). May not
+   *        be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code>
+   *        .
+   * @return this
+   * @see #setDocumentIdentification(String, String, String, String,
+   *      LocalDateTime)
+   * @since 8.3.1
+   */
+  @Nonnull
+  public final PeppolSBDHDocument setInstanceIdentifier (@Nonnull final String sInstanceIdentifier)
+  {
+    m_sInstanceIdentifier = ValueEnforcer.notNull (sInstanceIdentifier, "InstanceIdentifier");
+    return this;
+  }
+
+  /**
    * The date and time for when this envelope was created. It is NOT necessarily
    * the same as the issue date of the business document (such as the invoice)
    * being enveloped. It is NOT necessarily the date time for transmission.<br>
@@ -623,6 +724,31 @@ public class PeppolSBDHDocument
   public boolean hasCreationDateAndTime ()
   {
     return m_aCreationDateAndTime != null;
+  }
+
+  /**
+   * Set the content of the fields that are mapped to
+   * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
+   *
+   * @param aCreationDateAndTime
+   *        The date and time for when this envelope was created. It is NOT
+   *        necessarily the same as the issue date of the business document
+   *        (such as the invoice) being enveloped. It is NOT necessarily the
+   *        date time for transmission.<br>
+   *        The format of the value of this MUST include timezone information.
+   *        May not be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code>
+   *        .
+   * @return this
+   * @see #setDocumentIdentification(String, String, String, String,
+   *      LocalDateTime)
+   * @since 8.3.1
+   */
+  @Nonnull
+  public final PeppolSBDHDocument setCreationDateAndTime (@Nonnull final LocalDateTime aCreationDateAndTime)
+  {
+    m_aCreationDateAndTime = ValueEnforcer.notNull (aCreationDateAndTime, "CreationDateAndTime");
+    return this;
   }
 
   /**
@@ -891,8 +1017,9 @@ public class PeppolSBDHDocument
   }
 
   /**
-   * Create a new {@link PeppolSBDHDocument} object for a business message. The
-   * resulting object has all required fields set, except for:
+   * Create a new {@link PeppolSBDHDocument} object for a business message
+   * assuming it is UBL 2.1. The resulting object has all required fields set,
+   * except for:
    * <ul>
    * <li>sender ID</li>
    * <li>receiver ID</li>
@@ -911,9 +1038,41 @@ public class PeppolSBDHDocument
    * @see #setDocumentType(String, String)
    * @see #setProcess(String, String)
    * @since 5.2.6
+   * @deprecated Use {@link #createUBL21(Element,IIdentifierFactory)} instead
    */
+  @Deprecated
   @Nonnull
   public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage, @Nonnull final IIdentifierFactory aIdentifierFactory)
+  {
+    return createUBL21 (aBusinessMessage, aIdentifierFactory);
+  }
+
+  /**
+   * Create a new {@link PeppolSBDHDocument} object for a business message
+   * assuming it is UBL 2.1. The resulting object has all required fields set,
+   * except for:
+   * <ul>
+   * <li>sender ID</li>
+   * <li>receiver ID</li>
+   * <li>document type ID</li>
+   * <li>and process ID</li>
+   * </ul>
+   *
+   * @param aBusinessMessage
+   *        The XML business message. May not be <code>null</code>.
+   * @param aIdentifierFactory
+   *        Identifier factory to be used. May not be <code>null</code>.
+   * @return A pre-filled {@link PeppolSBDHDocument} object with some
+   *         information still missing.
+   * @see #setSender(String, String)
+   * @see #setReceiver(String, String)
+   * @see #setDocumentType(String, String)
+   * @see #setProcess(String, String)
+   * @since 8.3.1
+   */
+  @Nonnull
+  public static PeppolSBDHDocument createUBL21 (@Nonnull final Element aBusinessMessage,
+                                                @Nonnull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 

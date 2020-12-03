@@ -51,7 +51,7 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithBusdoxDocidQns ("doctypeid")
@@ -106,7 +106,7 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithPeppolDoctypeWildcard ("doctypeid")
@@ -173,7 +173,7 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithBusdoxDocidQns ("doctypeid")

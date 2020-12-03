@@ -27,7 +27,7 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.io.resource.ClassPathResource;
 
 /**
- * Constants for the usage of SBDH headers in PEPPOL.
+ * Constants for the usage of SBDH headers in Peppol.
  *
  * @author Philip Helger
  */
@@ -52,8 +52,11 @@ public final class CPeppolSBDH
   /** UBL 2.2 constant */
   public static final String TYPE_VERSION_22 = "2.2";
 
-  /** UBL 2.23 constant */
+  /** UBL 2.3 constant */
   public static final String TYPE_VERSION_23 = "2.3";
+
+  /** CII D16B constant */
+  public static final String TYPE_VERSION_CII_D16B = "D16B";
 
   @Nonnull
   private static ClassLoader _getCL ()
