@@ -54,12 +54,12 @@ public final class PeppolSBDHDocumentWriterTest
     final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
-                                                       .setDocumentTypeWithBusdoxDocidQns ("doctypeid")
+                                                       .setDocumentTypeWithBusdoxDocidQns ("urn:foobar::root#doctypeid:2.1")
                                                        .setProcessWithDefaultScheme ("procid");
     assertTrue (aData.areAllFieldsSet ());
     assertTrue (aData.areAllAdditionalAttributesValid ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aData.getDocumentTypeScheme ());
-    assertEquals ("doctypeid", aData.getDocumentTypeValue ());
+    assertEquals ("urn:foobar::root#doctypeid:2.1", aData.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
     assertEquals ("procid", aData.getProcessValue ());
     assertEquals (0, aData.additionalAttributes ().size ());
@@ -89,7 +89,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals (aData.getCreationDateAndTime (), aDataRead.getCreationDateAndTime ());
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aDataRead.getDocumentTypeScheme ());
-    assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
+    assertEquals ("urn:foobar::root#doctypeid:2.1", aDataRead.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
     assertTrue (aDataRead.hasBusinessMessage ());
@@ -109,12 +109,12 @@ public final class PeppolSBDHDocumentWriterTest
     final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
-                                                       .setDocumentTypeWithPeppolDoctypeWildcard ("doctypeid")
+                                                       .setDocumentTypeWithPeppolDoctypeWildcard ("urn:foobar::root#doctypeid:2.1")
                                                        .setProcessWithDefaultScheme ("procid");
     assertTrue (aData.areAllFieldsSet ());
     assertTrue (aData.areAllAdditionalAttributesValid ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, aData.getDocumentTypeScheme ());
-    assertEquals ("doctypeid", aData.getDocumentTypeValue ());
+    assertEquals ("urn:foobar::root#doctypeid:2.1", aData.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
     assertEquals ("procid", aData.getProcessValue ());
     assertEquals (0, aData.additionalAttributes ().size ());
@@ -147,7 +147,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, aDataRead.getDocumentTypeScheme ());
-    assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
+    assertEquals ("urn:foobar::root#doctypeid:2.1", aDataRead.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
     assertTrue (aDataRead.hasBusinessMessage ());

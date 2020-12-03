@@ -29,7 +29,7 @@
     </Receiver>
     <DocumentIdentification>
       <Standard>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2</Standard>
-      <TypeVersion>2.0</TypeVersion>
+      <TypeVersion>2.1</TypeVersion>
       <InstanceIdentifier>123123</InstanceIdentifier>
       <Type>Invoice</Type>
       <CreationDateAndTime>2013-02-19T05:10:10Z</CreationDateAndTime>

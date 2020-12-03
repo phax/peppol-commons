@@ -270,13 +270,20 @@ public class PeppolSBDHDocumentReader
    * @param aBusinessMessage
    *        The business message element to check against. Never
    *        <code>null</code>.
+   * @param sDocumentTypeIdentifierValue
+   *        The document type identifier value provided. Never
+   *        <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
    *         otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidStandard (@Nullable final String sStandard, @Nonnull final Element aBusinessMessage)
+  protected boolean isValidStandard (@Nullable final String sStandard,
+                                     @Nonnull final Element aBusinessMessage,
+                                     @Nonnull final String sDocumentTypeIdentifierValue)
   {
-    return EqualsHelper.equals (sStandard, aBusinessMessage.getNamespaceURI ());
+    if (StringHelper.hasNoText (sStandard))
+      return false;
+    return sStandard.equals (aBusinessMessage.getNamespaceURI ()) && sDocumentTypeIdentifierValue.startsWith (sStandard);
   }
 
   /**
@@ -290,16 +297,25 @@ public class PeppolSBDHDocumentReader
    * @param aBusinessMessage
    *        The business message element to check against. Never
    *        <code>null</code>.
+   * @param sDocumentTypeIdentifierValue
+   *        The document type identifier value provided. Never
+   *        <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
    *         otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidTypeVersion (@Nullable final String sTypeVersion, @Nonnull final Element aBusinessMessage)
+  protected boolean isValidTypeVersion (@Nullable final String sTypeVersion,
+                                        @Nonnull final Element aBusinessMessage,
+                                        @Nonnull final String sDocumentTypeIdentifierValue)
   {
-    return CPeppolSBDH.TYPE_VERSION_20.equals (sTypeVersion) ||
-           CPeppolSBDH.TYPE_VERSION_21.equals (sTypeVersion) ||
-           CPeppolSBDH.TYPE_VERSION_22.equals (sTypeVersion) ||
-           CPeppolSBDH.TYPE_VERSION_23.equals (sTypeVersion);
+    if (StringHelper.hasNoText (sTypeVersion))
+      return false;
+
+    if (sTypeVersion.indexOf (':') >= 0)
+      return false;
+
+    // This is the key thing
+    return sDocumentTypeIdentifierValue.endsWith (":" + sTypeVersion);
   }
 
   /**
@@ -620,15 +636,17 @@ public class PeppolSBDHDocumentReader
 
       final String sNamespaceURI = aDI.getStandard ();
       if (m_bPerformValueChecks)
-        if (!isValidStandard (sNamespaceURI, aBusinessMessage))
+        if (!isValidStandard (sNamespaceURI, aBusinessMessage, ret.getDocumentTypeValue ()))
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_STANDARD,
                                                      sNamespaceURI,
                                                      aBusinessMessage.getNamespaceURI ());
 
-      final String sUBLVersion = aDI.getTypeVersion ();
+      final String sTypeVersion = aDI.getTypeVersion ();
       if (m_bPerformValueChecks)
-        if (!isValidTypeVersion (sUBLVersion, aBusinessMessage))
-          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE_VERSION, sUBLVersion);
+        if (!isValidTypeVersion (sTypeVersion, aBusinessMessage, ret.getDocumentTypeValue ()))
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE_VERSION,
+                                                     sTypeVersion,
+                                                     ret.getDocumentTypeValue ());
 
       final String sLocalName = aDI.getType ();
       if (m_bPerformValueChecks)
@@ -649,7 +667,7 @@ public class PeppolSBDHDocumentReader
         if (!isValidCreationDateTime (aCreationDateAndTime))
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_CREATION_DATE_TIME,
                                                      String.valueOf (aCreationDateAndTime));
-      ret.setDocumentIdentification (sNamespaceURI, sUBLVersion, sLocalName, sSBDHID, aCreationDateAndTime);
+      ret.setDocumentIdentification (sNamespaceURI, sTypeVersion, sLocalName, sSBDHID, aCreationDateAndTime);
     }
 
     return ret;

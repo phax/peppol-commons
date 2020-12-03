@@ -23,7 +23,7 @@ import com.helger.commons.string.StringHelper;
 
 /**
  * Exception that can occur during the reading of SBDH documents.
- * 
+ *
  * @author Philip Helger
  */
 public class PeppolSBDHDocumentReadException extends Exception
@@ -55,7 +55,7 @@ public class PeppolSBDHDocumentReadException extends Exception
   }
 
   @Nonnull
-  public EPeppolSBDHDocumentReadError getErrorCode ()
+  public final EPeppolSBDHDocumentReadError getErrorCode ()
   {
     return m_eErrorCode;
   }

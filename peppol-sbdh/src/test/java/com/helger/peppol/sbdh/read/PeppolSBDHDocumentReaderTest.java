@@ -28,6 +28,8 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -81,6 +83,8 @@ public final class PeppolSBDHDocumentReaderTest
     BAD_CASES.put ("bad-invalid-instance-identifier.xml", EPeppolSBDHDocumentReadError.INVALID_INSTANCE_IDENTIFIER);
     BAD_CASES.put ("bad-invalid-creation-date-and-time.xml", EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
   }
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDocumentReaderTest.class);
 
   @Test
   public void testReadGoodV10AndCheckResults () throws PeppolSBDHDocumentReadException
@@ -158,6 +162,7 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
     {
+      LOGGER.info ("Good (Res): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
       final PeppolSBDHDocument aData = aReader.extractData (aRes);
       assertNotNull (aData);
@@ -171,6 +176,7 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
     {
+      LOGGER.info ("Good (IS): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
       final PeppolSBDHDocument aData = aReader.extractData (aRes.getInputStream ());
       assertNotNull (aData);
@@ -184,6 +190,7 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
     {
+      LOGGER.info ("Good (Node): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
       final PeppolSBDHDocument aData = aReader.extractData (DOMReader.readXMLDOM (aRes));
       assertNotNull (aData);
@@ -198,6 +205,7 @@ public final class PeppolSBDHDocumentReaderTest
     for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
+      LOGGER.info ("Bad (Res): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {
@@ -219,6 +227,7 @@ public final class PeppolSBDHDocumentReaderTest
     for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
+      LOGGER.info ("Bad (IS): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {
@@ -242,6 +251,7 @@ public final class PeppolSBDHDocumentReaderTest
     for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
+      LOGGER.info ("Bad (Node): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
 
       final Document aDoc = DOMReader.readXMLDOM (aRes, aSettings);
