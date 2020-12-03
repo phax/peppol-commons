@@ -302,11 +302,53 @@ public class PeppolSBDHDocument
    *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
    *        .
    * @return this
+   * @deprecated Use {@link #setDocumentTypeWithBusdoxDocidQns(String)} or
+   *             {@link #setDocumentTypeWithPeppolDoctypeWildcard(String)}
    */
+  @Deprecated
   @Nonnull
   public PeppolSBDHDocument setDocumentTypeWithDefaultScheme (@Nonnull @Nonempty final String sValue)
   {
-    return setDocumentType (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, sValue);
+    return setDocumentTypeWithBusdoxDocidQns (sValue);
+  }
+
+  /**
+   * Set the document type identifier using the default identifier
+   * scheme/authority
+   * {@link PeppolIdentifierHelper#DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS} .
+   *
+   * @param sValue
+   *        The document type identifier value. May neither be <code>null</code>
+   *        nor empty. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
+   *        .
+   * @return this
+   * @since 8.3.1
+   */
+  @Nonnull
+  public PeppolSBDHDocument setDocumentTypeWithBusdoxDocidQns (@Nonnull @Nonempty final String sValue)
+  {
+    return setDocumentType (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, sValue);
+  }
+
+  /**
+   * Set the document type identifier using the default identifier
+   * scheme/authority
+   * {@link PeppolIdentifierHelper#DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD}
+   * .
+   *
+   * @param sValue
+   *        The document type identifier value. May neither be <code>null</code>
+   *        nor empty. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
+   *        .
+   * @return this
+   * @since 8.3.1
+   */
+  @Nonnull
+  public PeppolSBDHDocument setDocumentTypeWithPeppolDoctypeWildcard (@Nonnull @Nonempty final String sValue)
+  {
+    return setDocumentType (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, sValue);
   }
 
   /**

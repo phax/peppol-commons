@@ -93,7 +93,8 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
 
   public boolean hasDefaultScheme ()
   {
-    return hasScheme (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME);
+    // Difficult if this should also contain "peppol-doctype-wildcard"
+    return hasScheme (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS);
   }
 
   public int compareTo (@Nonnull final PeppolDocumentTypeIdentifier aOther)

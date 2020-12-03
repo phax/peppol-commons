@@ -54,11 +54,11 @@ public final class PeppolSBDHDocumentWriterTest
     final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
-                                                       .setDocumentTypeWithDefaultScheme ("doctypeid")
+                                                       .setDocumentTypeWithBusdoxDocidQns ("doctypeid")
                                                        .setProcessWithDefaultScheme ("procid");
     assertTrue (aData.areAllFieldsSet ());
     assertTrue (aData.areAllAdditionalAttributesValid ());
-    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aData.getDocumentTypeScheme ());
+    assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aData.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aData.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
     assertEquals ("procid", aData.getProcessValue ());
@@ -88,7 +88,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
     assertEquals (aData.getCreationDateAndTime (), aDataRead.getCreationDateAndTime ());
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
-    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aDataRead.getDocumentTypeScheme ());
+    assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aDataRead.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
@@ -109,11 +109,11 @@ public final class PeppolSBDHDocumentWriterTest
     final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
-                                                       .setDocumentTypeWithDefaultScheme ("doctypeid")
+                                                       .setDocumentTypeWithPeppolDoctypeWildcard ("doctypeid")
                                                        .setProcessWithDefaultScheme ("procid");
     assertTrue (aData.areAllFieldsSet ());
     assertTrue (aData.areAllAdditionalAttributesValid ());
-    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aData.getDocumentTypeScheme ());
+    assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, aData.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aData.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
     assertEquals ("procid", aData.getProcessValue ());
@@ -146,7 +146,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
     assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
-    assertEquals (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, aDataRead.getDocumentTypeScheme ());
+    assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, aDataRead.getDocumentTypeScheme ());
     assertEquals ("doctypeid", aDataRead.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
@@ -176,7 +176,7 @@ public final class PeppolSBDHDocumentWriterTest
     final PeppolSBDHDocument aData = PeppolSBDHDocument.create (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
-                                                       .setDocumentTypeWithDefaultScheme ("doctypeid")
+                                                       .setDocumentTypeWithBusdoxDocidQns ("doctypeid")
                                                        .setProcessWithDefaultScheme ("procid");
     assertTrue (aData.areAllAdditionalAttributesValid ());
     aData.additionalAttributes ().clear ();

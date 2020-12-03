@@ -52,14 +52,34 @@ public final class PeppolIdentifierHelper
    */
   public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
 
-  private static final AtomicBoolean s_aCharsetChecksDisabled = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
-  private static final AtomicBoolean s_aSchemeMaxLengthChecksDisabled = new AtomicBoolean (DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED);
+  private static final AtomicBoolean CHARSET_CHECKS_DISABLED = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
+  private static final AtomicBoolean SCHEME_MAX_LENGTH_CHECKS_DISABLED = new AtomicBoolean (DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED);
 
   /**
    * The default document identifier scheme.<br>
    * See Peppol Common definitions chapter 3.5
+   *
+   * @since 8.3.1
    */
-  public static final String DEFAULT_DOCUMENT_TYPE_SCHEME = "busdox-docid-qns";
+  public static final String DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS = "busdox-docid-qns";
+
+  /**
+   * The new "Wildcard" document type identifier scheme, introduced in the
+   * Peppol Policy for use of Identifiers 4.2.0.
+   *
+   * @since 8.3.1
+   */
+  public static final String DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD = "peppol-doctype-wildcard";
+
+  /**
+   * The default document type scheme is still the busdox-docid-qns
+   *
+   * @deprecated See {@link #DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS} or
+   *             {@link #DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD} to be
+   *             precise
+   */
+  @Deprecated
+  public static final String DEFAULT_DOCUMENT_TYPE_SCHEME = DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS;
 
   /**
    * Document Type identifier value maximum length (excluding the scheme)
@@ -75,8 +95,15 @@ public final class PeppolIdentifierHelper
    * 3.4! <br>
    * See also
    * com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
+   *
+   * @since 8.3.1
    */
-  public static final String DEFAULT_PARTICIPANT_SCHEME = "iso6523-actorid-upis";
+  public static final String PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS = "iso6523-actorid-upis";
+
+  /**
+   * The default identifier scheme ID to be used for participants/businesses.
+   */
+  public static final String DEFAULT_PARTICIPANT_SCHEME = PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS;
 
   /**
    * Participant identifier value maximum length (excluding the scheme)
@@ -86,8 +113,16 @@ public final class PeppolIdentifierHelper
   /**
    * The default process identifier scheme.<br>
    * Overrides Peppol Common definitions chapter 3.6!
+   *
+   * @since 8.3.1
    */
-  public static final String DEFAULT_PROCESS_SCHEME = "cenbii-procid-ubl";
+  public static final String PROCESS_SCHEME_CENBII_PROCID_UBL = "cenbii-procid-ubl";
+
+  /**
+   * The default process identifier scheme.<br>
+   * Overrides Peppol Common definitions chapter 3.6!
+   */
+  public static final String DEFAULT_PROCESS_SCHEME = PROCESS_SCHEME_CENBII_PROCID_UBL;
 
   /**
    * Process identifier value maximum length (excluding the scheme)
@@ -106,7 +141,7 @@ public final class PeppolIdentifierHelper
    */
   public static boolean areCharsetChecksDisabled ()
   {
-    return s_aCharsetChecksDisabled.get ();
+    return CHARSET_CHECKS_DISABLED.get ();
   }
 
   /**
@@ -122,7 +157,7 @@ public final class PeppolIdentifierHelper
    */
   public static void disableCharsetChecks (final boolean bDisable)
   {
-    s_aCharsetChecksDisabled.set (bDisable);
+    CHARSET_CHECKS_DISABLED.set (bDisable);
   }
 
   /**
@@ -132,7 +167,7 @@ public final class PeppolIdentifierHelper
    */
   public static boolean areSchemeMaxLengthChecksDisabled ()
   {
-    return s_aSchemeMaxLengthChecksDisabled.get ();
+    return SCHEME_MAX_LENGTH_CHECKS_DISABLED.get ();
   }
 
   /**
@@ -144,7 +179,7 @@ public final class PeppolIdentifierHelper
    */
   public static void disableSchemeMaxLengthChecks (final boolean bDisable)
   {
-    s_aSchemeMaxLengthChecksDisabled.set (bDisable);
+    SCHEME_MAX_LENGTH_CHECKS_DISABLED.set (bDisable);
   }
 
   /**

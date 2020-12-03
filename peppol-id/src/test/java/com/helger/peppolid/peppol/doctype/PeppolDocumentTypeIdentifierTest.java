@@ -47,7 +47,8 @@ public final class PeppolDocumentTypeIdentifierTest
   public void testHasDefaultDocumentTypeIdentifierScheme ()
   {
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    assertTrue (aIF.createDocumentTypeIdentifierWithDefaultScheme ("abc").hasScheme (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME));
+    assertTrue (aIF.createDocumentTypeIdentifierWithDefaultScheme ("abc")
+                   .hasScheme (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS));
     assertFalse (new PeppolDocumentTypeIdentifier ("doctype", "abc").hasDefaultScheme ());
   }
 
@@ -136,7 +137,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // null value not allowed
-      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, null);
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -154,7 +155,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Empty is not allowed
-      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, "");
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -163,7 +164,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME, "Љ");
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -172,7 +173,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME +
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS +
                                         StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
                                         "abc");
       fail ();
@@ -183,7 +184,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // Value too long
-      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME,
+      new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
                                         StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH + 1));
       fail ();
     }

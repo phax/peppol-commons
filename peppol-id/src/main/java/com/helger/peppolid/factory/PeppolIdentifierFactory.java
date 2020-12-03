@@ -53,7 +53,8 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   @Override
   public String getDefaultDocumentTypeIdentifierScheme ()
   {
-    return PeppolIdentifierHelper.DEFAULT_DOCUMENT_TYPE_SCHEME;
+    // For backwards compatibility reason
+    return PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS;
   }
 
   @Override
