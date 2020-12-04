@@ -280,7 +280,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
  
-* v8.3.1 - work in progress
+* v8.3.1 - 2020-12-04
     * Started adding support for `peppol-doctype-wildcard`
     * Fixed the consistency check of the "TypeVersion" element in Peppol SBDH to also work for non-UBL documents
 * v8.3.0 - 2020-11-25
