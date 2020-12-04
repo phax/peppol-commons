@@ -26,7 +26,7 @@
   </parent>
   <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>8.3.1-SNAPSHOT</version>
+  <version>8.3.1</version>
   <packaging>pom</packaging>
   <name>peppol-commons-parent-pom</name>
   <description>Base POM to build the peppol-commons projects</description>
@@ -50,7 +50,7 @@
     <connection>scm:git:git@github.com:phax/peppol-commons.git</connection>
     <developerConnection>scm:git:git@github.com:phax/peppol-commons.git</developerConnection>
     <url>http://github.com/phax/peppol-commons</url>
-    <tag>HEAD</tag>
+    <tag>peppol-commons-parent-pom-8.3.1</tag>
   </scm>
 
   <organization>
