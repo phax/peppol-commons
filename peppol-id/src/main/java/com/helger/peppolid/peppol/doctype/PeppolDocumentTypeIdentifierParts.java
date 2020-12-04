@@ -17,7 +17,6 @@
 package com.helger.peppolid.peppol.doctype;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
@@ -203,7 +202,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
    *         If the passed document type identifier is not a PEPPOL document
    *         type identifier.
    */
-  @Nullable
+  @Nonnull
   public static IPeppolDocumentTypeIdentifierParts extractFromIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
