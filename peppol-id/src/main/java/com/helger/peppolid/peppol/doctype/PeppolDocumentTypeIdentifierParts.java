@@ -30,7 +30,7 @@ import com.helger.peppolid.simple.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**
  * A standalone wrapper class for the {@link IPeppolDocumentTypeIdentifierParts}
- * interface for PEPPOL BISs.
+ * interface for Peppol BISs.
  *
  * @author Philip Helger
  */
@@ -47,7 +47,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
   private final String m_sVersion;
 
   /**
-   * Build the BusDox sub type identifier from the PEPPOL specific components.
+   * Build the BusDox sub type identifier from the Peppol specific components.
    *
    * @param sCustomizationID
    *        Customization ID
@@ -98,7 +98,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
   }
 
   /**
-   * @return The whole sub-type identifier, incl. PEPPOL transaction ID,
+   * @return The whole sub-type identifier, incl. Peppol transaction ID,
    *         extensions and version ID.
    */
   @Nonnull
@@ -139,9 +139,9 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
   }
 
   /**
-   * Extract the PEPPOL document identifier elements from the passed document
-   * identifier value. The different of the PEPPOL document identifier parts to
-   * the BusDox document identifier parts is, that the PEPPOL subtype identifier
+   * Extract the Peppol document identifier elements from the passed document
+   * identifier value. The different of the Peppol document identifier parts to
+   * the BusDox document identifier parts is, that the Peppol subtype identifier
    * is further defined as
    * <code>&lt;customization id&gt;::&lt;version&gt;</code>. The customization
    * ID can be further detailed into
@@ -150,7 +150,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
    * @param sDocTypeID
    *        The document identifier value to be split. May neither be
    *        <code>null</code> nor empty.
-   * @return The non-<code>null</code> PEPPOL identifier parts
+   * @return The non-<code>null</code> Peppol identifier parts
    * @throws IllegalArgumentException
    *         if the passed document identifier value does not match the
    *         specifications
@@ -164,9 +164,9 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
     // Now start splitting the sub-type identifier
     final String sSubTypeIdentifier = aBusdoxParts.getSubTypeIdentifier ();
     if (StringHelper.hasNoText (sSubTypeIdentifier))
-      throw new IllegalArgumentException ("The passed document identifier has an empty sub type identifier which is not PEPPOL compliant!");
+      throw new IllegalArgumentException ("The passed document identifier has an empty sub type identifier which is not Peppol compliant!");
 
-    // PEPPOL sub-type identifier
+    // Peppol sub-type identifier
     // <customization id>::<version>
     // --> even more detailed:
     // <transactionId>:#<extensionId>[#<extensionId>]::<version>
@@ -191,7 +191,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
 
   /**
    * Convert the passed document type identifier into its parts. First the old
-   * PEPPOL scheme for identifiers is tried, and afterwards the OpenPEPPOL
+   * Peppol scheme for identifiers is tried, and afterwards the OpenPEPPOL
    * scheme for document type identifiers is used.
    *
    * @param aIdentifier
@@ -199,7 +199,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
    *        <code>null</code>.
    * @return Never <code>null</code>.
    * @throws IllegalArgumentException
-   *         If the passed document type identifier is not a PEPPOL document
+   *         If the passed document type identifier is not a Peppol document
    *         type identifier.
    */
   @Nonnull
