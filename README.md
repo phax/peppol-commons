@@ -282,7 +282,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
  
 * v8.3.1 - work in progress
     * Started adding support for `peppol-doctype-wildcard`
-    * Fixed the consistency check of the "TypeVersion" element in SBDH to also work for non-UBL documents
+    * Fixed the consistency check of the "TypeVersion" element in Peppol SBDH to also work for non-UBL documents
 * v8.3.0 - 2020-11-25
     * Reworked the revocation checking configuration for Peppol certificates. Now it is more flexible.
 * v8.2.7 - 2020-11-23
