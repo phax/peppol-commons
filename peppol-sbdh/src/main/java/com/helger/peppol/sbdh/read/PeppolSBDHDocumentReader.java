@@ -639,13 +639,15 @@ public class PeppolSBDHDocumentReader
         if (!isValidStandard (sNamespaceURI, aBusinessMessage, ret.getDocumentTypeValue ()))
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_STANDARD,
                                                      sNamespaceURI,
-                                                     aBusinessMessage.getNamespaceURI ());
+                                                     aBusinessMessage.getNamespaceURI (),
+                                                     ret.getDocumentTypeValue ());
 
       final String sTypeVersion = aDI.getTypeVersion ();
       if (m_bPerformValueChecks)
         if (!isValidTypeVersion (sTypeVersion, aBusinessMessage, ret.getDocumentTypeValue ()))
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE_VERSION,
                                                      sTypeVersion,
+                                                     ret.getDocumentTypeValue (),
                                                      ret.getDocumentTypeValue ());
 
       final String sLocalName = aDI.getType ();

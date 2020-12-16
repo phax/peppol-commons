@@ -54,6 +54,25 @@ public class PeppolSBDHDocumentReadException extends Exception
     m_eErrorCode = eErrorCode;
   }
 
+  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
+                                          @Nonnull final String sValue1,
+                                          @Nonnull final String sValue2,
+                                          @Nonnull final String sValue3)
+  {
+    super ("[" +
+           eErrorCode.getID () +
+           "] " +
+           eErrorCode.getErrorMessage () +
+           ": '" +
+           sValue1 +
+           "' vs. '" +
+           sValue2 +
+           "' vs. '" +
+           sValue3 +
+           "'");
+    m_eErrorCode = eErrorCode;
+  }
+
   @Nonnull
   public final EPeppolSBDHDocumentReadError getErrorCode ()
   {
