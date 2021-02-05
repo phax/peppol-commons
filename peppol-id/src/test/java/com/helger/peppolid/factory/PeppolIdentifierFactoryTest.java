@@ -106,9 +106,9 @@ public final class PeppolIdentifierFactoryTest
     assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("order "));
 
     assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (StringHelper.getRepeated ('a',
-                                                                                                               PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH)));
+                                                                                                               PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)));
     assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (StringHelper.getRepeated ('a',
-                                                                                                                PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH +
+                                                                                                                PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH +
                                                                                                                      1)));
   }
 }
