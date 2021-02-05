@@ -873,6 +873,8 @@ public enum EPredefinedParticipantIdentifierScheme
      */
     @Deprecated
     DE_LID("DE:LID", "9958", "DE", "German Leitweg ID", null, Version.parse("3"), true);
+    public static final String CODE_LIST_VERSION = "7.3";
+    public static final int CODE_LIST_ENTRY_COUNT = 83;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;
