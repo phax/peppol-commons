@@ -164,7 +164,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
     // Now start splitting the sub-type identifier
     final String sSubTypeIdentifier = aBusdoxParts.getSubTypeIdentifier ();
     if (StringHelper.hasNoText (sSubTypeIdentifier))
-      throw new IllegalArgumentException ("The passed document identifier has an empty sub type identifier which is not Peppol compliant!");
+      throw new IllegalArgumentException ("The passed document type identifier has an empty sub type identifier which is not Peppol compliant!");
 
     // Peppol sub-type identifier
     // <customization id>::<version>

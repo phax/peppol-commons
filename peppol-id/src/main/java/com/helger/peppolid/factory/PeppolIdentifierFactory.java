@@ -72,7 +72,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     final int nLength = sValue.length ();
 
     // > 0 and <= 500 chars
-    if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH)
+    if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)
       return false;
 
     // Check if the value is ISO-8859-1 encoded

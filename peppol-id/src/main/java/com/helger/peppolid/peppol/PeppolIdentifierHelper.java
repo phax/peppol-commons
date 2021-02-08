@@ -84,7 +84,16 @@ public final class PeppolIdentifierHelper
   /**
    * Document Type identifier value maximum length (excluding the scheme)
    */
-  public static final int MAX_DOCUEMNT_TYPE_VALUE_LENGTH = 500;
+  public static final int MAX_DOCUMENT_TYPE_VALUE_LENGTH = 500;
+
+  /**
+   * Document Type identifier value maximum length (excluding the scheme)
+   *
+   * @deprecated Since 8.3.2; Use {@link #MAX_DOCUMENT_TYPE_VALUE_LENGTH}
+   *             instead
+   */
+  @Deprecated
+  public static final int MAX_DOCUEMNT_TYPE_VALUE_LENGTH = MAX_DOCUMENT_TYPE_VALUE_LENGTH;
 
   /**
    * The default identifier scheme ID to be used for participants/businesses.

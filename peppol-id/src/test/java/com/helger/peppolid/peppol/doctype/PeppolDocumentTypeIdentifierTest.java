@@ -98,7 +98,7 @@ public final class PeppolDocumentTypeIdentifierTest
     assertNull (aIF.parseDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
     assertNull (aIF.parseDocumentTypeIdentifier ("doctype::" +
                                                  StringHelper.getRepeated ('a',
-                                                                           PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH + 1)));
+                                                                           PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH + 1)));
     assertNull (aIF.parseDocumentTypeIdentifier ("doctype:order"));
     assertNull (aIF.parseDocumentTypeIdentifier ("doctypeorder"));
   }
@@ -185,7 +185,7 @@ public final class PeppolDocumentTypeIdentifierTest
     {
       // Value too long
       new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                        StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_DOCUEMNT_TYPE_VALUE_LENGTH + 1));
+                                        StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH + 1));
       fail ();
     }
     catch (final IllegalArgumentException ex)

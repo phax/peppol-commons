@@ -95,8 +95,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
 
   private static void _handleDocumentTypes (final Document aDocumentSheet)
   {
-    final PCLDocumentTypesType aDTList = new GenericJAXBMarshaller <> (PCLDocumentTypesType.class,
-                                                                       new QName ("dummy")).read (aDocumentSheet);
+    final PCLDocumentTypesType aList = new GenericJAXBMarshaller <> (PCLDocumentTypesType.class, new QName ("dummy")).read (aDocumentSheet);
 
     // Create Java source
     try
@@ -107,10 +106,14 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
+      // Add metadata
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
+
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
 
       // Add all enum constants
-      for (final PCLDocumentTypeType aRow : aDTList.getDocumentType ())
+      for (final PCLDocumentTypeType aRow : aList.getDocumentType ())
       {
         final String sProfileCode = aRow.getName ();
         final String sScheme = aRow.getScheme ();
@@ -393,6 +396,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
+      // Add metadata
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
+
       // enum constants
       for (final PCLParticipantIdentifierSchemeType aRow : aList.getParticipantIdentifierScheme ())
       {
@@ -534,6 +541,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
+      // Add metadata
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
+
       // enum constants
       for (final PCLProcessType aRow : aList.getProcess ())
       {
@@ -665,6 +676,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       jEnum._implements (s_aCodeModel.ref (IPredefinedTransportProfileIdentifier.class));
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
+
+      // Add metadata
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
 
       // enum constants
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();

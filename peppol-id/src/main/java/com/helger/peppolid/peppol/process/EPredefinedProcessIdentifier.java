@@ -258,6 +258,8 @@ public enum EPredefinedProcessIdentifier
      * ID: <code>cenbii-procid-ubl::urn:kosit:profile:reporting:1.0</code><br>
      */
     urn_kosit_profile_reporting_1_0("cenbii-procid-ubl", "urn:kosit:profile:reporting:1.0", false);
+    public static final String CODE_LIST_VERSION = "7.3";
+    public static final int CODE_LIST_ENTRY_COUNT = 35;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 
