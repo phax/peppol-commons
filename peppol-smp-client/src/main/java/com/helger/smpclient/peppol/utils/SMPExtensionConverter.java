@@ -40,8 +40,8 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
 @Immutable
 public final class SMPExtensionConverter
 {
-  private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE)
-                                                                          .setIndent (EXMLSerializeIndent.NONE);
+  private static final XMLWriterSettings XWS = new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE)
+                                                                       .setIndent (EXMLSerializeIndent.NONE);
 
   @PresentForCodeCoverage
   private static final SMPExtensionConverter s_aInstance = new SMPExtensionConverter ();
@@ -66,7 +66,7 @@ public final class SMPExtensionConverter
     if (aExtension != null && aExtension.getAny () != null)
     {
       // Get the extension content
-      return XMLWriter.getNodeAsString (aExtension.getAny (), s_aXWS);
+      return XMLWriter.getNodeAsString (aExtension.getAny (), XWS);
     }
     return null;
   }
