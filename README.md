@@ -282,6 +282,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
  
 * v8.3.2 - work in progress
     * Added constants `CODE_LIST_VERSION` and `CODE_LIST_ENTRY_COUNT` to all the Peppol `EPredefined...Identifier` enums
+    * Extended public API of `SMPJsonResponse`
 * v8.3.1 - 2020-12-04
     * Started adding support for `peppol-doctype-wildcard`
     * Fixed the consistency check of the "TypeVersion" element in Peppol SBDH to also work for non-UBL documents
