@@ -113,6 +113,7 @@
             <exclude>src/main/resources/schemas/ws-addr.xsd</exclude>
             <exclude>**/*.csv</exclude>
             <exclude>**/*.jks</exclude>
+            <exclude>**/*.p12</exclude>
             <exclude>**/*.sha256</exclude>
             <exclude>**/*.txt</exclude>
             <exclude>**/NOTICE</exclude>
