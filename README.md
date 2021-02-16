@@ -5,38 +5,39 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom) 
 
 This project contains different libraries that are commonly used in the Peppol area:
+  * [`peppol-id-datatypes`](#peppol-id-datatypes) - the generated JAXB classes for ID handling (since v8.4.0)
   * [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
   * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with Peppol and BDXR
   * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
   * [`peppol-sbdh`](#peppol-sbdh) - Peppol specific SBDH handling
   * [`peppol-sml-client`](#peppol-sml-client) - the Peppol SML client
+  * [`peppol-smp-datatypes`](#peppol-smp-datatypes) - the Peppol SMP generated JAXB classes (since v8.4.0)
   * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
   
-These project are used implicitly by the following projects:
+These project are used implicitly by e.g. the following projects:
   * [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for Peppol and TOOP
   * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
   * [as2-peppol](https://github.com/phax/as2-peppol/) - an AS2 client and server for Peppol
   * [phase4](https://github.com/phax/phase4/) - an AS4 implementation that also supports Peppol 
-  
-And some legacy Peppol projects:
-  * [peppol-lime](https://github.com/phax/peppol-lime/) - the LIME server with AS2 support
 
 This project is licensed under the Apache 2.0 license.
 
+## peppol-id-datatypes
+
+Java library with the JAXB generated elements for Peppol ID and Peppol Code List handling.
+First created in version 8.4.0.
+
+Make sure to run `mvn process-sources` before using it in the IDE.
+The additional code is created in `target/generated-sources/xjc`. 
+
 ## peppol-id
 
-Java library with shared IDs.
+Java library with shared IDs and predefined IDs.
 First created in version 7.0.0.
-
-Make sure to run `mvn generate-sources` before using it in the IDE.
-The additional code is created in `target/generated-sources/xjc`. 
 
 ## peppol-commons
 
 Java library with shared Peppol components. It contains the basic algorithms. Since v7 this depends on the `peppol-id` submodule.
-
-Make sure to run `mvn generate-sources` before using it in the IDE.
-The additional code is created in `target/generated-sources/xjc`. 
 
 ### Truststore path change in v6.0.1
 
@@ -87,6 +88,14 @@ This project contains 2 main classes for talking to the Peppol SML:
 Both classes offer the possibility to set an optional custom `SSLSocketFactory` as well as a custom optional `HostnameVerifier`. The implementation of this is in the base class `AbstractSMLClientCaller`.
 
 This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-server/) the SMP server with a management GUI and flexible backends.
+
+## peppol-smp-datatypes
+
+Java library with the JAXB generated elements for Peppol SMP handling.
+First created in version 8.4.0.
+
+Make sure to run `mvn process-sources` before using it in the IDE.
+The additional code is created in `target/generated-sources/xjc`. 
 
 ## peppol-smp-client
 

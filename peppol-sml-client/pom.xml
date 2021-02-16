@@ -30,6 +30,7 @@
   <description>PEPPOL SML client</description>
   <url>https://github.com/phax/peppol-commons/peppol-sml-client</url>
   <inceptionYear>2015</inceptionYear>
+  
   <licenses>
     <license>
       <name>MPL 2.0</name>
@@ -37,6 +38,7 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
