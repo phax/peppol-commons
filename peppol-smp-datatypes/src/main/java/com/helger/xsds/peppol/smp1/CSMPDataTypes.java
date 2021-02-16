@@ -1,4 +1,4 @@
-package com.helger.peppol.smp.jaxb;
+package com.helger.xsds.peppol.smp1;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;

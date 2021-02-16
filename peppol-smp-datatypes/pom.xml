@@ -64,7 +64,7 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
     </dependency>
-    <!-- For the adapters -->
+    <!-- For the DateTime adapters -->
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-jaxb</artifactId>
@@ -99,7 +99,6 @@
             <exclude>**/NOTICE</exclude>
             <exclude>**/LICENSE</exclude>
             <exclude>**/*.txt</exclude>
-            <exclude>src/test/resources/smp/**</exclude>
           </excludes>
         </configuration>
       </plugin>
@@ -109,8 +108,8 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Automatic-Module-Name>com.helger.smpclient</Automatic-Module-Name>
-            <Export-Package>com.helger.smpclient.*</Export-Package>
+            <Automatic-Module-Name>com.helger.xsds.peppol.smp1</Automatic-Module-Name>
+            <Export-Package>com.helger.xsds.peppol.smp1.*</Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
