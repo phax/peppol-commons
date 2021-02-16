@@ -26,7 +26,7 @@ import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.ParticipantIdentifierType;
+import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
 /**
  * This is a sanity class around the {@link ParticipantIdentifierType} class
@@ -71,7 +71,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   @Nonnull
-  public static SimpleParticipantIdentifier wrap (@Nonnull final com.helger.peppolid.ParticipantIdentifierType aID)
+  public static SimpleParticipantIdentifier wrap (@Nonnull final com.helger.xsds.peppol.id1.ParticipantIdentifierType aID)
   {
     return new SimpleParticipantIdentifier (aID.getScheme (), aID.getValue ());
   }

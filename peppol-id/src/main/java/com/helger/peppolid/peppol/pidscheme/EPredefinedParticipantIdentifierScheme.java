@@ -16,11 +16,12 @@
  */
 package com.helger.peppolid.peppol.pidscheme;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 
 /**

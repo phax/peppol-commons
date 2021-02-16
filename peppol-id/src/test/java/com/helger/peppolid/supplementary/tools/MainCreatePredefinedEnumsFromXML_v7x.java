@@ -58,15 +58,6 @@ import com.helger.jcodemodel.writer.JCMWriter;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.peppolid.codelists.PCLDocumentTypeType;
-import com.helger.peppolid.codelists.PCLDocumentTypesType;
-import com.helger.peppolid.codelists.PCLParticipantIdentifierSchemeType;
-import com.helger.peppolid.codelists.PCLParticipantIdentifierSchemesType;
-import com.helger.peppolid.codelists.PCLProcessIDType;
-import com.helger.peppolid.codelists.PCLProcessType;
-import com.helger.peppolid.codelists.PCLProcessesType;
-import com.helger.peppolid.codelists.PCLTransportProfileType;
-import com.helger.peppolid.codelists.PCLTransportProfilesType;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
@@ -78,6 +69,15 @@ import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.serialize.read.DOMReader;
+import com.helger.xsds.peppol.codelists1.PCLDocumentTypeType;
+import com.helger.xsds.peppol.codelists1.PCLDocumentTypesType;
+import com.helger.xsds.peppol.codelists1.PCLParticipantIdentifierSchemeType;
+import com.helger.xsds.peppol.codelists1.PCLParticipantIdentifierSchemesType;
+import com.helger.xsds.peppol.codelists1.PCLProcessIDType;
+import com.helger.xsds.peppol.codelists1.PCLProcessType;
+import com.helger.xsds.peppol.codelists1.PCLProcessesType;
+import com.helger.xsds.peppol.codelists1.PCLTransportProfileType;
+import com.helger.xsds.peppol.codelists1.PCLTransportProfilesType;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also

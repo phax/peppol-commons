@@ -24,12 +24,12 @@ import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
-import com.helger.peppolid.DocumentIdentifierType;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.xsds.peppol.id1.DocumentIdentifierType;
 
 /**
  * A special document type identifier that handles the specialties of PEPPOL
@@ -45,7 +45,6 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
                                           Comparable <PeppolDocumentTypeIdentifier>,
                                           ICloneable <PeppolDocumentTypeIdentifier>
 {
-
   @Nonnull
   private static String _verifyScheme (@Nullable final String sScheme)
   {

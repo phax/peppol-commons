@@ -16,11 +16,12 @@
  */
 package com.helger.peppolid.peppol.process;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.peppolid.IProcessIdentifier;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 
 /**

@@ -16,6 +16,10 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
+import javax.annotation.CheckForSigned;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -25,9 +29,6 @@ import com.helger.commons.version.Version;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 
 /**

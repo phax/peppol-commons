@@ -18,7 +18,6 @@ package com.helger.peppolid;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -29,12 +28,6 @@ import org.junit.Test;
  */
 public final class CIdentifierTest
 {
-  @Test
-  public void testBasic ()
-  {
-    assertTrue (CIdentifier.XSD_PEPPOL_IDENTIFIERS.exists ());
-  }
-
   @Test
   public void testCreatePercentEncodedURL ()
   {

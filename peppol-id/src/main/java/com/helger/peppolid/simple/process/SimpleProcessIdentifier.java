@@ -26,7 +26,7 @@ import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.peppolid.ProcessIdentifierType;
+import com.helger.xsds.peppol.id1.ProcessIdentifierType;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -71,7 +71,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   }
 
   @Nonnull
-  public static SimpleProcessIdentifier wrap (@Nonnull final com.helger.peppolid.ProcessIdentifierType aID)
+  public static SimpleProcessIdentifier wrap (@Nonnull final com.helger.xsds.peppol.id1.ProcessIdentifierType aID)
   {
     return new SimpleProcessIdentifier (aID.getScheme (), aID.getValue ());
   }

@@ -29,11 +29,11 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.ParticipantIdentifierType;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.validator.IdentifierValidator;
+import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
 /**
  * A special PEPPOL participant identifier handling all the special constraints

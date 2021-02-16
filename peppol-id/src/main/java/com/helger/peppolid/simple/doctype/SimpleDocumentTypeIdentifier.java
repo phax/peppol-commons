@@ -24,9 +24,9 @@ import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
-import com.helger.peppolid.DocumentIdentifierType;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IMutableIdentifier;
+import com.helger.xsds.peppol.id1.DocumentIdentifierType;
 
 /**
  * This is a sanity class around the {@link DocumentIdentifierType} class with
@@ -71,7 +71,7 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   @Nonnull
-  public static SimpleDocumentTypeIdentifier wrap (@Nonnull final com.helger.peppolid.DocumentIdentifierType aID)
+  public static SimpleDocumentTypeIdentifier wrap (@Nonnull final com.helger.xsds.peppol.id1.DocumentIdentifierType aID)
   {
     return new SimpleDocumentTypeIdentifier (aID.getScheme (), aID.getValue ());
   }

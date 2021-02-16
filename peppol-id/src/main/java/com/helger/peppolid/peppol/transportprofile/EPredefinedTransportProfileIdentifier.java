@@ -16,10 +16,11 @@
  */
 package com.helger.peppolid.peppol.transportprofile;
 
+import javax.annotation.Nonnull;
+
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
-import javax.annotation.Nonnull;
 
 
 /**

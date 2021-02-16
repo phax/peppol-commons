@@ -73,6 +73,10 @@
       <groupId>com.helger.xsd</groupId>
       <artifactId>ph-xsds-bdxr-smp2</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger.peppol</groupId>
+      <artifactId>peppol-id-datatypes</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -128,85 +132,8 @@ osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTyp
             <exclude>**/NOTICE</exclude>
             <exclude>**/LICENSE</exclude>
             <exclude>src/main/resources/codelists/Peppol*</exclude>
-            <exclude>src/main/resources/schemas/peppol-*</exclude>
           </excludes>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.jvnet.jaxb2.maven2</groupId>
-        <artifactId>maven-jaxb2-plugin</artifactId>
-        <version>0.14.0</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <schemaDirectory>src/main/resources/schemas</schemaDirectory>
-          <bindingDirectory>src/main/jaxb</bindingDirectory>
-          <!-- Required for schema component designator in binding file -->
-          <extension>true</extension>
-          <strict>false</strict>
-          <catalog>${basedir}/src/main/jaxb/catalog.txt</catalog>
-          <args>
-            <arg>-no-header</arg>
-            <arg>-Xinheritance</arg>
-            <arg>-Xph-default-locale</arg>
-            <arg>en_US</arg>
-            <arg>-Xph-annotate</arg>
-            <arg>-Xph-fields-private</arg>
-            <arg>-Xph-code-quality</arg>
-            <arg>-Xph-implements</arg>
-            <arg>java.io.Serializable</arg>
-            <arg>-Xph-equalshashcode</arg>
-            <arg>-Xph-tostring</arg>
-            <arg>-Xph-list-extension</arg>
-            <arg>-Xph-csu</arg>
-            <arg>-Xph-cloneable2</arg>
-          </args>
-          <plugins>
-            <!-- Required for -Xinheritance -->
-            <plugin>
-              <groupId>org.jvnet.jaxb2_commons</groupId>
-              <artifactId>jaxb2-basics</artifactId>
-              <version>0.12.0</version>
-            </plugin>
-          </plugins>
-          <episodes>
-            <episode>
-              <groupId>com.helger.xsd</groupId>
-              <artifactId>ph-xsds-xmldsig</artifactId>
-            </episode>
-          </episodes>
-        </configuration>
-        <dependencies>
-          <dependency>
-            <groupId>com.helger</groupId>
-            <artifactId>ph-jaxb22-plugin</artifactId>
-            <version>2.3.3.1</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <!-- Delete the directory with only ObjectFactory 
-           Source: http://stackoverflow.com/questions/32635137
-      -->
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-          <execution>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target>
-                <delete dir="${basedir}/target/generated-sources/xjc/com/helger/xsds/" />
-              </target>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

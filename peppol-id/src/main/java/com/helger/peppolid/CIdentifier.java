@@ -22,7 +22,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.URLHelper;
 
@@ -45,11 +44,6 @@ public final class CIdentifier
    * The delimiter used between the identifier scheme and the value ("::").
    */
   public static final String URL_SCHEME_VALUE_SEPARATOR = "::";
-
-  public static final ClassPathResource XSD_PEPPOL_IDENTIFIERS = new ClassPathResource ("/schemas/peppol-identifiers-v1.xsd",
-                                                                                        CIdentifier.class.getClassLoader ());
-
-  public static final String NS_URI_PEPPOL_IDENTIFIERS = "http://busdox.org/transport/identifiers/1.0/";
 
   @PresentForCodeCoverage
   private static final CIdentifier s_aInstance = new CIdentifier ();
@@ -75,21 +69,21 @@ public final class CIdentifier
 
   @Nonnull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final ParticipantIdentifierType aID)
+  public static String getURIEncoded (@Nonnull final com.helger.xsds.peppol.id1.ParticipantIdentifierType aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
   @Nonnull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final DocumentIdentifierType aID)
+  public static String getURIEncoded (@Nonnull final com.helger.xsds.peppol.id1.DocumentIdentifierType aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
   @Nonnull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final ProcessIdentifierType aID)
+  public static String getURIEncoded (@Nonnull final com.helger.xsds.peppol.id1.ProcessIdentifierType aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
@@ -115,6 +109,7 @@ public final class CIdentifier
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
+  // This one handles SMP v2 as well
   @Nonnull
   @Nonempty
   public static String getURIEncoded (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)
@@ -189,19 +184,19 @@ public final class CIdentifier
   }
 
   @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final ParticipantIdentifierType aID)
+  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.peppol.id1.ParticipantIdentifierType aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
   @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final DocumentIdentifierType aID)
+  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.peppol.id1.DocumentIdentifierType aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
   @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final ProcessIdentifierType aID)
+  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.peppol.id1.ProcessIdentifierType aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
@@ -224,6 +219,7 @@ public final class CIdentifier
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
+  // This one handles SMP v2 as well
   @Nonnull
   @Nonempty
   public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)

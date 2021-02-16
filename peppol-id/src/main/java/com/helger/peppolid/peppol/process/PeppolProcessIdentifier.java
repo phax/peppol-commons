@@ -26,10 +26,10 @@ import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.peppolid.ProcessIdentifierType;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.xsds.peppol.id1.ProcessIdentifierType;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
