@@ -30,7 +30,7 @@ public final class CPeppolIDTest
   @Test
   public void testBasic ()
   {
-    assertTrue (CPeppolID.getXSDPeppolIdentifiers ().exists ());
+    assertTrue (CPeppolID.getXSDResourcePeppolIdentifiers ().exists ());
     assertTrue (CPeppolID.getXSDPeppolCodeLists ().exists ());
   }
 }

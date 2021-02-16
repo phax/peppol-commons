@@ -46,7 +46,7 @@ public final class CPeppolID
   {}
 
   @Nonnull
-  public static ClassPathResource getXSDPeppolIdentifiers ()
+  public static ClassPathResource getXSDResourcePeppolIdentifiers ()
   {
     return new ClassPathResource ("/schemas/peppol-identifiers-v1.xsd", CPeppolID.class.getClassLoader ());
   }
