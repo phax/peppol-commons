@@ -38,10 +38,10 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 import com.helger.smpclient.config.SMPClientConfiguration;
-import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerSignedServiceMetadataType;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
 import com.helger.xml.serialize.read.DOMReader;
+import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 /**
  * Test class for class {@link SignedServiceMetadataType}.

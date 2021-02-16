@@ -22,8 +22,8 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.smpclient.peppol.jaxb.ExtensionType;
-import com.helger.smpclient.peppol.jaxb.ObjectFactory;
+import com.helger.xsds.peppol.smp1.ExtensionType;
+import com.helger.xsds.peppol.smp1.ObjectFactory;
 
 /**
  * Test class for class {@link SMPExtensionConverter}.

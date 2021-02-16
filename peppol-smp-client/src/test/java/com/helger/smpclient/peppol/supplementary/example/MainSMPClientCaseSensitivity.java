@@ -26,8 +26,8 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
-import com.helger.smpclient.peppol.jaxb.EndpointType;
 import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.xsds.peppol.smp1.EndpointType;
 
 public final class MainSMPClientCaseSensitivity
 {

@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
+import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 
 /**
  * Test class for class {@link SMPMarshallerServiceMetadataType}

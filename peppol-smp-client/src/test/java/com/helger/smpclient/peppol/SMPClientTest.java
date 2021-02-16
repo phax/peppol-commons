@@ -39,7 +39,6 @@ import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.peppolid.ParticipantIdentifierType;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
@@ -47,17 +46,18 @@ import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
-import com.helger.smpclient.peppol.jaxb.CompleteServiceGroupType;
-import com.helger.smpclient.peppol.jaxb.EndpointType;
-import com.helger.smpclient.peppol.jaxb.ProcessListType;
-import com.helger.smpclient.peppol.jaxb.ProcessType;
-import com.helger.smpclient.peppol.jaxb.ServiceEndpointList;
-import com.helger.smpclient.peppol.jaxb.ServiceGroupReferenceListType;
-import com.helger.smpclient.peppol.jaxb.ServiceGroupReferenceType;
-import com.helger.smpclient.peppol.jaxb.ServiceGroupType;
-import com.helger.smpclient.peppol.jaxb.ServiceInformationType;
-import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
 import com.helger.smpclient.peppol.utils.SMPExtensionConverter;
+import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
+import com.helger.xsds.peppol.smp1.CompleteServiceGroupType;
+import com.helger.xsds.peppol.smp1.EndpointType;
+import com.helger.xsds.peppol.smp1.ProcessListType;
+import com.helger.xsds.peppol.smp1.ProcessType;
+import com.helger.xsds.peppol.smp1.ServiceEndpointList;
+import com.helger.xsds.peppol.smp1.ServiceGroupReferenceListType;
+import com.helger.xsds.peppol.smp1.ServiceGroupReferenceType;
+import com.helger.xsds.peppol.smp1.ServiceGroupType;
+import com.helger.xsds.peppol.smp1.ServiceInformationType;
+import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 /**
  * Expects an running SMP, depending on the configuration file. DNS is not

@@ -41,15 +41,15 @@ import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerWriteOperations;
-import com.helger.smpclient.peppol.jaxb.RedirectType;
-import com.helger.smpclient.peppol.jaxb.ServiceGroupType;
-import com.helger.smpclient.peppol.jaxb.ServiceInformationType;
-import com.helger.smpclient.peppol.jaxb.ServiceMetadataReferenceCollectionType;
-import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
 import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
+import com.helger.xsds.peppol.smp1.RedirectType;
+import com.helger.xsds.peppol.smp1.ServiceGroupType;
+import com.helger.xsds.peppol.smp1.ServiceInformationType;
+import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceCollectionType;
+import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 
 /**
  * This class is used for calling the SMP REST interface. This particular class

@@ -25,8 +25,8 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.smpclient.peppol.MockSMPClientConfig;
 import com.helger.smpclient.peppol.SMPClient;
-import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
 import com.helger.smpclient.peppol.utils.SMPDebugHelper;
+import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 /**
  * @author Philip Helger

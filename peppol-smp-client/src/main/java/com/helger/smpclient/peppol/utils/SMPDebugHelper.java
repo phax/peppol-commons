@@ -20,15 +20,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.peppolid.CIdentifier;
-import com.helger.smpclient.peppol.jaxb.EndpointType;
-import com.helger.smpclient.peppol.jaxb.ExtensionType;
-import com.helger.smpclient.peppol.jaxb.ProcessType;
-import com.helger.smpclient.peppol.jaxb.RedirectType;
-import com.helger.smpclient.peppol.jaxb.ServiceGroupType;
-import com.helger.smpclient.peppol.jaxb.ServiceInformationType;
-import com.helger.smpclient.peppol.jaxb.ServiceMetadataReferenceCollectionType;
-import com.helger.smpclient.peppol.jaxb.ServiceMetadataReferenceType;
-import com.helger.smpclient.peppol.jaxb.ServiceMetadataType;
+import com.helger.xsds.peppol.smp1.EndpointType;
+import com.helger.xsds.peppol.smp1.ExtensionType;
+import com.helger.xsds.peppol.smp1.ProcessType;
+import com.helger.xsds.peppol.smp1.RedirectType;
+import com.helger.xsds.peppol.smp1.ServiceGroupType;
+import com.helger.xsds.peppol.smp1.ServiceInformationType;
+import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceCollectionType;
+import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceType;
+import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 
 /**
  * SMP utilities for debugging purposes. It converts the complex types to

@@ -26,7 +26,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.smpclient.peppol.MockSMPClientConfig;
 import com.helger.smpclient.peppol.SMPClient;
-import com.helger.smpclient.peppol.jaxb.ServiceGroupType;
+import com.helger.xsds.peppol.smp1.ServiceGroupType;
 
 /**
  * Check if an SMP installation is working. Prior to executing this class, make

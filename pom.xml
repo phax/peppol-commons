@@ -84,7 +84,7 @@
       <dependency>
         <groupId>com.helger.xsd</groupId>
         <artifactId>ph-xsds-parent-pom</artifactId>
-        <version>2.4.1</version>
+        <version>2.4.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -124,6 +124,11 @@
 
       <dependency>
         <groupId>com.helger.peppol</groupId>
+        <artifactId>peppol-id-datatypes</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-id</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -144,12 +149,17 @@
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
-        <artifactId>peppol-sml-client</artifactId>
+        <artifactId>peppol-smp-datatypes</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-smp-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>peppol-sml-client</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
@@ -174,10 +184,12 @@
   </dependencies>
   
   <modules>
+    <module>peppol-id-datatypes</module>
     <module>peppol-id</module>
     <module>peppol-commons</module>
     <module>peppol-testfiles</module>
     <module>peppol-sbdh</module>
+    <module>peppol-smp-datatypes</module>
     <module>peppol-smp-client</module>
     <module>peppol-sml-client</module>
   </modules>

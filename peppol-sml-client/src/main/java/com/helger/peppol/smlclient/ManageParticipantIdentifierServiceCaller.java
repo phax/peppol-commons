@@ -45,9 +45,9 @@ import com.helger.peppol.smlclient.participant.ServiceMetadataPublisherServiceFo
 import com.helger.peppol.smlclient.participant.UnauthorizedFault;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.ParticipantIdentifierType;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
+import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
 /**
  * This class is used for calling the Manage Participant Identifier interface on

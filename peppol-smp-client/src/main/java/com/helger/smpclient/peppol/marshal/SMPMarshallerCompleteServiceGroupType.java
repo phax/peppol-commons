@@ -16,8 +16,8 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
-import com.helger.smpclient.peppol.jaxb.CompleteServiceGroupType;
-import com.helger.smpclient.peppol.jaxb.ObjectFactory;
+import com.helger.xsds.peppol.smp1.CompleteServiceGroupType;
+import com.helger.xsds.peppol.smp1.ObjectFactory;
 
 /**
  * A simple JAXB marshaller for the {@link CompleteServiceGroupType} type.

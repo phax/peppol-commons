@@ -24,8 +24,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.smpclient.peppol.MockSMPClientConfig;
 import com.helger.smpclient.peppol.SMPClient;
-import com.helger.smpclient.peppol.jaxb.ServiceGroupReferenceListType;
-import com.helger.smpclient.peppol.jaxb.ServiceGroupReferenceType;
+import com.helger.xsds.peppol.smp1.ServiceGroupReferenceListType;
+import com.helger.xsds.peppol.smp1.ServiceGroupReferenceType;
 
 /**
  * @author Philip Helger

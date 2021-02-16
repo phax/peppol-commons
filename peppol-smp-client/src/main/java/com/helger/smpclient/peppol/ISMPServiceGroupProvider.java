@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientException;
-import com.helger.smpclient.peppol.jaxb.ServiceGroupType;
+import com.helger.xsds.peppol.smp1.ServiceGroupType;
 
 /**
  * Abstract interface to retrieve a service group instance.

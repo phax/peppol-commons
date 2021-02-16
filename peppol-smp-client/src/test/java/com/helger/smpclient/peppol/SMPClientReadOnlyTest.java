@@ -39,10 +39,10 @@ import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.smpclient.IgnoredNaptrTest;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
-import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
 import com.helger.smpclient.url.BDXLURLProvider;
 import com.helger.smpclient.url.PeppolURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
+import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 /**
  * Test class for class {@link SMPClientReadOnly}

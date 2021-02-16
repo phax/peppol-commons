@@ -23,7 +23,7 @@ import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.smpclient.peppol.jaxb.SignedServiceMetadataType;
+import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 /**
  * Test class for class {@link SMPMarshallerSignedServiceMetadataType}

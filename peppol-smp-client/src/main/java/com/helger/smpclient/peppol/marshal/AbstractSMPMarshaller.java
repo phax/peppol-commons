@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.functional.IFunction;
-import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
-import com.helger.peppolid.CIdentifier;
-import com.helger.smpclient.peppol.jaxb.ObjectFactory;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xsds.peppol.id1.CPeppolID;
+import com.helger.xsds.peppol.smp1.CSMPDataTypes;
+import com.helger.xsds.peppol.smp1.ObjectFactory;
+import com.helger.xsds.wsaddr.CWSAddr;
 import com.helger.xsds.xmldsig.CXMLDSig;
 
 /**
@@ -38,20 +38,15 @@ import com.helger.xsds.xmldsig.CXMLDSig;
  */
 public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  public static final ClassPathResource XSD2 = new ClassPathResource ("/schemas/ws-addr.xsd",
-                                                                      AbstractSMPMarshaller.class.getClassLoader ());
-  public static final ClassPathResource XSD3 = new ClassPathResource ("/schemas/peppol-smp-types-v1-ext.xsd",
-                                                                      AbstractSMPMarshaller.class.getClassLoader ());
-
   @Nonnull
   @ReturnsMutableCopy
   public static MapBasedNamespaceContext createDefaultNamespaceContext ()
   {
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
     aNSContext.addMapping ("smp", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());
-    aNSContext.addMapping ("id", CIdentifier.NS_URI_PEPPOL_IDENTIFIERS);
+    aNSContext.addMapping ("id", CPeppolID.NS_URI_PEPPOL_IDENTIFIERS);
     aNSContext.addMapping (CXMLDSig.DEFAULT_PREFIX, CXMLDSig.NAMESPACE_URI);
-    aNSContext.addMapping ("wsa", "http://www.w3.org/2005/08/addressing");
+    aNSContext.addMapping (CWSAddr.DEFAULT_PREFIX, CWSAddr.NAMESPACE_URI);
     return aNSContext;
   }
 
@@ -59,9 +54,7 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarsha
                                 final boolean bValidationEnabled,
                                 @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    super (aType,
-           bValidationEnabled ? new CommonsArrayList <> (CXMLDSig.getXSDResource (), CIdentifier.XSD_PEPPOL_IDENTIFIERS, XSD2, XSD3) : null,
-           aWrapper);
+    super (aType, bValidationEnabled ? CSMPDataTypes.getAllXSDResources () : null, aWrapper);
 
     setNamespaceContext (createDefaultNamespaceContext ());
   }

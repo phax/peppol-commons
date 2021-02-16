@@ -280,9 +280,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
  
-* v8.3.2 - work in progress
+* v8.4.0 - work in progress
     * Added constants `CODE_LIST_VERSION` and `CODE_LIST_ENTRY_COUNT` to all the Peppol `EPredefined...Identifier` enums
     * Extended public API of `SMPJsonResponse`
+    * Extracted new sub-modules `peppol-id-datatypes` and `peppol-smp-datatypes` with just the generated JAXB classes
+    * Changed created package from `com.helger.peppolid` to `com.helger.xsds.peppol.id1`
+    * Changed created package from `com.helger.smpclient.peppol.jaxb` to `com.helger.xsds.peppol.smp1`
 * v8.3.1 - 2020-12-04
     * Started adding support for `peppol-doctype-wildcard`
     * Fixed the consistency check of the "TypeVersion" element in Peppol SBDH to also work for non-UBL documents

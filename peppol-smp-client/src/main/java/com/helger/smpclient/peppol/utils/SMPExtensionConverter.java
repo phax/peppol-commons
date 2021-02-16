@@ -23,12 +23,12 @@ import org.w3c.dom.Document;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
-import com.helger.smpclient.peppol.jaxb.ExtensionType;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.write.EXMLSerializeDocType;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+import com.helger.xsds.peppol.smp1.ExtensionType;
 
 /**
  * This class is used for converting between a String representation of the

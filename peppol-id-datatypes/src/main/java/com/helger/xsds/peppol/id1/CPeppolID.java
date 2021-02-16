@@ -30,11 +30,6 @@ import com.helger.commons.io.resource.ClassPathResource;
 @Immutable
 public final class CPeppolID
 {
-  /**
-   * The delimiter used between the identifier scheme and the value ("::").
-   */
-  public static final String URL_SCHEME_VALUE_SEPARATOR = "::";
-
   public static final String NS_URI_PEPPOL_IDENTIFIERS = "http://busdox.org/transport/identifiers/1.0/";
 
   public static final String NS_URI_PEPPOL_CODELISTS = "";

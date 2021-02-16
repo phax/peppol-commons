@@ -48,9 +48,9 @@ import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppol.smlclient.smp.PublisherEndpointType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.ParticipantIdentifierType;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
+import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
 /**
  * @author Ravnholt<br>

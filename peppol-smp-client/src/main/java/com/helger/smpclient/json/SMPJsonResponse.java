@@ -180,7 +180,7 @@ public final class SMPJsonResponse
   }
 
   @Nonnull
-  public static IJsonObject convertEndpoint (@Nonnull final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint)
+  public static IJsonObject convertEndpoint (@Nonnull final com.helger.xsds.peppol.smp1.EndpointType aEndpoint)
   {
     final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
                                                                           : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
@@ -202,7 +202,7 @@ public final class SMPJsonResponse
   @Nonnull
   public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,
                                      @Nonnull final IDocumentTypeIdentifier aDocTypeID,
-                                     @Nonnull final com.helger.smpclient.peppol.jaxb.ServiceMetadataType aSM)
+                                     @Nonnull final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM)
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
@@ -213,7 +213,7 @@ public final class SMPJsonResponse
     ret.add (JSON_PARTICIPANT_ID, aParticipantID.getURIEncoded ());
     ret.add (JSON_DOCUMENT_TYPE_ID, aDocTypeID.getURIEncoded ());
 
-    final com.helger.smpclient.peppol.jaxb.RedirectType aRedirect = aSM.getRedirect ();
+    final com.helger.xsds.peppol.smp1.RedirectType aRedirect = aSM.getRedirect ();
     if (aRedirect != null)
     {
       final IJsonObject aJsonRedirect = new JsonObject ().add (JSON_HREF, aRedirect.getHref ())
@@ -224,13 +224,13 @@ public final class SMPJsonResponse
     }
     else
     {
-      final com.helger.smpclient.peppol.jaxb.ServiceInformationType aSI = aSM.getServiceInformation ();
+      final com.helger.xsds.peppol.smp1.ServiceInformationType aSI = aSM.getServiceInformation ();
       final IJsonObject aJsonSI = new JsonObject ();
       {
         final IJsonArray aJsonProcs = new JsonArray ();
         // For all processes
         if (aSI.getProcessList () != null)
-          for (final com.helger.smpclient.peppol.jaxb.ProcessType aProcess : aSI.getProcessList ().getProcess ())
+          for (final com.helger.xsds.peppol.smp1.ProcessType aProcess : aSI.getProcessList ().getProcess ())
             if (aProcess.getProcessIdentifier () != null)
             {
               final IJsonObject aJsonProc = new JsonObject ().add (JSON_PROCESS_ID,
@@ -238,7 +238,7 @@ public final class SMPJsonResponse
               final IJsonArray aJsonEPs = new JsonArray ();
               // For all endpoints
               if (aProcess.getServiceEndpointList () != null)
-                for (final com.helger.smpclient.peppol.jaxb.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
+                for (final com.helger.xsds.peppol.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
                 {
                   aJsonEPs.add (convertEndpoint (aEndpoint));
                 }
