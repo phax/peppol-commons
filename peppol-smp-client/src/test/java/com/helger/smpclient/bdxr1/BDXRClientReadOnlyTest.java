@@ -65,14 +65,11 @@ public final class BDXRClientReadOnlyTest
 
     // BDXR URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
-    if (true)
-      assertEquals ("http://test-infra.peppol.at/", aBDXRClient.getSMPHostURI ());
-    else
-      assertEquals ("http://BRZ-TEST-BDXR.publisher.acc.edelivery.tech.ec.europa.eu/", aBDXRClient.getSMPHostURI ());
+    assertEquals ("http://test-infra.peppol.at/", aBDXRClient.getSMPHostURI ());
   }
 
   @Test
-  public void testGetBDXRHostURI_Peppol_WithBOM () throws SMPClientException, SMPDNSResolutionException
+  public void testGetBDXRHostURI_Peppol_WithBDXR () throws SMPClientException, SMPDNSResolutionException
   {
     // This instance has a BOM inside
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
@@ -96,7 +93,7 @@ public final class BDXRClientReadOnlyTest
   @Test
   // @Ignore
   // @IgnoredNaptrTest
-  public void testRead () throws SMPDNSResolutionException, SMPClientException
+  public void testReadTOOP () throws SMPDNSResolutionException, SMPClientException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9930:167064991");
     final IDocumentTypeIdentifier aDocTypeID = SimpleIdentifierFactory.INSTANCE.createDocumentTypeIdentifier ("toop-doctypeid-qns",
@@ -118,5 +115,31 @@ public final class BDXRClientReadOnlyTest
       final SignedServiceMetadataType aMetadata = aBDXRClient.getServiceMetadata (aPI, aDocTypeID);
       assertNotNull (aMetadata);
     }
+  }
+
+  @Test
+  @Ignore
+  @IgnoredNaptrTest
+  public void testReadConnectivityTest () throws SMPDNSResolutionException, SMPClientException
+  {
+    final IParticipantIdentifier aPI = SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier ("connectivity-partid-qns",
+                                                                                                     "dynceftest1party59gw");
+    final IDocumentTypeIdentifier aDocTypeID = SimpleIdentifierFactory.INSTANCE.createDocumentTypeIdentifier ("connectivity-docid-qns",
+                                                                                                              "doc_id1");
+
+    // TOOP SML
+    final ISMLInfo aSMLInfo = new SMLInfo ("cef-connectivity",
+                                           "CEF ConnectivityTest",
+                                           "connectivitytest.acc.edelivery.tech.ec.europa.eu.",
+                                           "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
+                                           true);
+
+    // PEPPOL URL provider
+    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, aSMLInfo);
+    aBDXRClient.setVerifySignature (false);
+    assertEquals ("https://gateway-edelivery.westeurope.cloudapp.azure.com:444/", aBDXRClient.getSMPHostURI ());
+
+    final SignedServiceMetadataType aMetadata = aBDXRClient.getServiceMetadata (aPI, aDocTypeID);
+    assertNotNull (aMetadata);
   }
 }
