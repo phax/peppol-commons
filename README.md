@@ -288,8 +288,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * [Peppol Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/edec-specifications/blob/master/releases/policy-identifier/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
 
 # News and noteworthy
- 
-* v8.4.0 - work in progress
+
+* v8.4.1 - 2021-02-19
+    * Updated the TrustStore to support the new Let's Encrypt root certificates for Peppol Directory
+* v8.4.0 - 2021-02-16
     * Added constants `CODE_LIST_VERSION` and `CODE_LIST_ENTRY_COUNT` to all the Peppol `EPredefined...Identifier` enums
     * Extended public API of `SMPJsonResponse`
     * Extracted new sub-modules `peppol-id-datatypes` and `peppol-smp-datatypes` with just the generated JAXB classes
