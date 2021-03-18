@@ -53,6 +53,7 @@ public final class SignedServiceMetadataTypeFuncTest
   private static final Logger LOGGER = LoggerFactory.getLogger (SignedServiceMetadataTypeFuncTest.class);
 
   @Test
+  @Ignore ("Certificate expired 2021-03-01")
   public void testReadInvalid () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
@@ -107,6 +108,7 @@ public final class SignedServiceMetadataTypeFuncTest
   }
 
   @Test
+  @Ignore ("Certificate expired 2021-03-01")
   public void testReadValid () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);

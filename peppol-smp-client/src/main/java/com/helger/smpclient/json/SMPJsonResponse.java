@@ -17,7 +17,7 @@
 package com.helger.smpclient.json;
 
 import java.security.cert.X509Certificate;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Map;
@@ -150,7 +150,7 @@ public final class SMPJsonResponse
   }
 
   @Nullable
-  public static String getLDT (@Nullable final LocalDateTime aLDT)
+  public static String getLDT (@Nullable final OffsetDateTime aLDT)
   {
     return aLDT == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (aLDT);
   }
@@ -171,8 +171,8 @@ public final class SMPJsonResponse
       aDetails.addJson ("issuer", getJsonPrincipal (aCert.getIssuerX500Principal ()));
       aDetails.add ("serial10", aCert.getSerialNumber ());
       aDetails.add ("serial16", aCert.getSerialNumber ().toString (16));
-      aDetails.addIfNotNull ("notBefore", getLDT (PDTFactory.createLocalDateTime (aCert.getNotBefore ())));
-      aDetails.addIfNotNull ("notAfter", getLDT (PDTFactory.createLocalDateTime (aCert.getNotAfter ())));
+      aDetails.addIfNotNull ("notBefore", getLDT (PDTFactory.createOffsetDateTime (aCert.getNotBefore ())));
+      aDetails.addIfNotNull ("notAfter", getLDT (PDTFactory.createOffsetDateTime (aCert.getNotAfter ())));
       aDetails.add ("validByDate", CertificateHelper.isCertificateValidPerNow (aCert));
       aDetails.add ("sigAlgName", aCert.getSigAlgName ());
     }
@@ -186,8 +186,10 @@ public final class SMPJsonResponse
                                                                           : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
     final IJsonObject aJsonEP = new JsonObject ().add (JSON_TRANSPORT_PROFILE, aEndpoint.getTransportProfile ())
                                                  .add (JSON_ENDPOINT_REFERENCE, sEndpointRef)
-                                                 .add (JSON_REQUIRE_BUSINESS_LEVEL_SIGNATURE, aEndpoint.isRequireBusinessLevelSignature ())
-                                                 .add (JSON_MINIMUM_AUTHENTICATION_LEVEL, aEndpoint.getMinimumAuthenticationLevel ());
+                                                 .add (JSON_REQUIRE_BUSINESS_LEVEL_SIGNATURE,
+                                                       aEndpoint.isRequireBusinessLevelSignature ())
+                                                 .add (JSON_MINIMUM_AUTHENTICATION_LEVEL,
+                                                       aEndpoint.getMinimumAuthenticationLevel ());
 
     aJsonEP.addIfNotNull (JSON_SERVICE_ACTIVATION_DATE, getLDT (aEndpoint.getServiceActivationDate ()));
     aJsonEP.addIfNotNull (JSON_SERVICE_EXPIRATION_DATE, getLDT (aEndpoint.getServiceExpirationDate ()));
@@ -238,7 +240,8 @@ public final class SMPJsonResponse
               final IJsonArray aJsonEPs = new JsonArray ();
               // For all endpoints
               if (aProcess.getServiceEndpointList () != null)
-                for (final com.helger.xsds.peppol.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
+                for (final com.helger.xsds.peppol.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
+                                                                                        .getEndpoint ())
                 {
                   aJsonEPs.add (convertEndpoint (aEndpoint));
                 }
@@ -246,7 +249,8 @@ public final class SMPJsonResponse
                        .add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aProcess.getExtension ()));
               aJsonProcs.add (aJsonProc);
             }
-        aJsonSI.addJson (JSON_PROCESSES, aJsonProcs).add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aSI.getExtension ()));
+        aJsonSI.addJson (JSON_PROCESSES, aJsonProcs)
+               .add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aSI.getExtension ()));
       }
       ret.addJson (JSON_SERVICEINFO, aJsonSI);
     }
@@ -258,8 +262,10 @@ public final class SMPJsonResponse
   {
     final IJsonObject aJsonEP = new JsonObject ().add (JSON_TRANSPORT_PROFILE, aEndpoint.getTransportProfile ())
                                                  .add (JSON_ENDPOINT_REFERENCE, aEndpoint.getEndpointURI ())
-                                                 .add (JSON_REQUIRE_BUSINESS_LEVEL_SIGNATURE, aEndpoint.isRequireBusinessLevelSignature ())
-                                                 .add (JSON_MINIMUM_AUTHENTICATION_LEVEL, aEndpoint.getMinimumAuthenticationLevel ());
+                                                 .add (JSON_REQUIRE_BUSINESS_LEVEL_SIGNATURE,
+                                                       aEndpoint.isRequireBusinessLevelSignature ())
+                                                 .add (JSON_MINIMUM_AUTHENTICATION_LEVEL,
+                                                       aEndpoint.getMinimumAuthenticationLevel ());
 
     aJsonEP.addIfNotNull (JSON_SERVICE_ACTIVATION_DATE, getLDT (aEndpoint.getServiceActivationDate ()));
     aJsonEP.addIfNotNull (JSON_SERVICE_EXPIRATION_DATE, getLDT (aEndpoint.getServiceExpirationDate ()));
@@ -310,7 +316,8 @@ public final class SMPJsonResponse
               final IJsonArray aJsonEPs = new JsonArray ();
               // For all endpoints
               if (aProcess.getServiceEndpointList () != null)
-                for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ().getEndpoint ())
+                for (final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint : aProcess.getServiceEndpointList ()
+                                                                                      .getEndpoint ())
                 {
                   aJsonEPs.add (convertEndpoint (aEndpoint));
                 }
