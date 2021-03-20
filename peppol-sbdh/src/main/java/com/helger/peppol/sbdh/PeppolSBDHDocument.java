@@ -17,7 +17,7 @@
 package com.helger.peppol.sbdh;
 
 import java.nio.charset.Charset;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
@@ -75,7 +75,7 @@ public class PeppolSBDHDocument
   private String m_sTypeVersion;
   private String m_sType;
   private String m_sInstanceIdentifier;
-  private LocalDateTime m_aCreationDateAndTime;
+  private OffsetDateTime m_aCreationDateAndTime;
   // BusinessMessage
   private Element m_aBusinessMessage;
   // Additional attributes
@@ -215,7 +215,8 @@ public class PeppolSBDHDocument
    * @return this
    */
   @Nonnull
-  public PeppolSBDHDocument setReceiver (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setReceiver (@Nonnull @Nonempty final String sScheme,
+                                         @Nonnull @Nonempty final String sValue)
   {
     m_sReceiverScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sReceiverValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -284,7 +285,8 @@ public class PeppolSBDHDocument
    * @return this
    */
   @Nonnull
-  public PeppolSBDHDocument setDocumentType (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setDocumentType (@Nonnull @Nonempty final String sScheme,
+                                             @Nonnull @Nonempty final String sValue)
   {
     m_sDocumentTypeScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sDocumentTypeValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -483,14 +485,14 @@ public class PeppolSBDHDocument
    * @see #setTypeVersion(String)
    * @see #setType(String)
    * @see #setInstanceIdentifier(String)
-   * @see #setCreationDateAndTime(LocalDateTime)
+   * @see #setCreationDateAndTime(OffsetDateTime)
    */
   @Nonnull
   public final PeppolSBDHDocument setDocumentIdentification (@Nonnull final String sStandard,
                                                              @Nonnull final String sTypeVersion,
                                                              @Nonnull final String sType,
                                                              @Nonnull final String sInstanceIdentifier,
-                                                             @Nonnull final LocalDateTime aCreationDateAndTime)
+                                                             @Nonnull final OffsetDateTime aCreationDateAndTime)
   {
     setStandard (sStandard);
     setTypeVersion (sTypeVersion);
@@ -539,7 +541,7 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      LocalDateTime)
+   *      OffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -586,7 +588,7 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      LocalDateTime)
+   *      OffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -630,7 +632,7 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      LocalDateTime)
+   *      OffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -689,7 +691,7 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      LocalDateTime)
+   *      OffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -711,7 +713,7 @@ public class PeppolSBDHDocument
    * @return The creation date time. May be <code>null</code>.
    */
   @Nullable
-  public LocalDateTime getCreationDateAndTime ()
+  public OffsetDateTime getCreationDateAndTime ()
   {
     return m_aCreationDateAndTime;
   }
@@ -741,11 +743,11 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      LocalDateTime)
+   *      OffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
-  public final PeppolSBDHDocument setCreationDateAndTime (@Nonnull final LocalDateTime aCreationDateAndTime)
+  public final PeppolSBDHDocument setCreationDateAndTime (@Nonnull final OffsetDateTime aCreationDateAndTime)
   {
     m_aCreationDateAndTime = ValueEnforcer.notNull (aCreationDateAndTime, "CreationDateAndTime");
     return this;
@@ -894,7 +896,8 @@ public class PeppolSBDHDocument
    * @since 6.2.4
    */
   @Nonnull
-  public PeppolSBDHDocument setBusinessMessageTextOnly (@Nonnull final String sTextPayload, @Nonnull final IMimeType aMimeType)
+  public PeppolSBDHDocument setBusinessMessageTextOnly (@Nonnull final String sTextPayload,
+                                                        @Nonnull final IMimeType aMimeType)
   {
     ValueEnforcer.notNull (sTextPayload, "TextPayload");
     ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -1042,7 +1045,8 @@ public class PeppolSBDHDocument
    */
   @Deprecated
   @Nonnull
-  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage, @Nonnull final IIdentifierFactory aIdentifierFactory)
+  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage,
+                                           @Nonnull final IIdentifierFactory aIdentifierFactory)
   {
     return createUBL21 (aBusinessMessage, aIdentifierFactory);
   }
@@ -1085,7 +1089,7 @@ public class PeppolSBDHDocument
                                    CPeppolSBDH.TYPE_VERSION_21,
                                    aBusinessMessage.getLocalName (),
                                    UUID.randomUUID ().toString (),
-                                   PDTFactory.getCurrentLocalDateTimeMillisOnly ());
+                                   PDTFactory.getCurrentOffsetDateTimeMillisOnly ());
     return ret;
   }
 }

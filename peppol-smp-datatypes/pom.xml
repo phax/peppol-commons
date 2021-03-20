@@ -61,13 +61,12 @@
       <type>pom</type>
     </dependency>
     <dependency>
-      <groupId>com.helger</groupId>
+      <groupId>com.helger.commons</groupId>
       <artifactId>ph-commons</artifactId>
     </dependency>
-    <!-- For the DateTime adapters -->
     <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-jaxb</artifactId>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-jaxb-adapter</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.xsd</groupId>
@@ -147,6 +146,8 @@
             <arg>-Xph-list-extension</arg>
             <arg>-Xph-csu</arg>
             <arg>-Xph-cloneable2</arg>
+            <arg>-Xph-value-extender</arg>
+            <arg>-Xph-offset-dt-extension</arg>
           </args>
           <plugins>
             <!-- Required for -Xinheritance -->
@@ -171,7 +172,7 @@
           <dependency>
             <groupId>com.helger</groupId>
             <artifactId>ph-jaxb22-plugin</artifactId>
-            <version>2.3.3.1</version>
+            <version>2.3.3.2-SNAPSHOT</version>
           </dependency>
         </dependencies>
       </plugin>

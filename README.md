@@ -289,8 +289,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.4.2 - 2021-03-18
-    * Updated to ph-commons 9.5.5
+* v8.4.2 - work in progress
+    * Updated to ph-commons 10
     * Changed the JAXB binding for `xs:dateTime` to `java.time.OffsetDateTime`
 * v8.4.1 - 2021-02-19
     * Updated the TrustStore to support the new Let's Encrypt root certificates for Peppol Directory

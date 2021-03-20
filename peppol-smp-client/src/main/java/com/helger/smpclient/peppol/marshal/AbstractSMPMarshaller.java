@@ -16,11 +16,12 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.functional.IFunction;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xsds.peppol.id1.CPeppolID;
@@ -52,7 +53,7 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarsha
 
   public AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 final boolean bValidationEnabled,
-                                @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     super (aType, bValidationEnabled ? CSMPDataTypes.getAllXSDResources () : null, aWrapper);
 

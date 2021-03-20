@@ -17,7 +17,7 @@
 package com.helger.peppol.sbdh.read;
 
 import java.io.InputStream;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -160,7 +160,8 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority, @Nullable final String sSenderIdentifier)
+  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority,
+                                             @Nullable final String sSenderIdentifier)
   {
     return StringHelper.hasText (sSenderIdentifier);
   }
@@ -199,7 +200,8 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority, @Nullable final String sReceiverIdentifier)
+  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority,
+                                               @Nullable final String sReceiverIdentifier)
   {
     return StringHelper.hasText (sReceiverIdentifier);
   }
@@ -283,7 +285,8 @@ public class PeppolSBDHDocumentReader
   {
     if (StringHelper.hasNoText (sStandard))
       return false;
-    return sStandard.equals (aBusinessMessage.getNamespaceURI ()) && sDocumentTypeIdentifierValue.startsWith (sStandard);
+    return sStandard.equals (aBusinessMessage.getNamespaceURI ()) &&
+           sDocumentTypeIdentifierValue.startsWith (sStandard);
   }
 
   /**
@@ -370,7 +373,7 @@ public class PeppolSBDHDocumentReader
    *         otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidCreationDateTime (@Nonnull final LocalDateTime aCreationDateTime)
+  protected boolean isValidCreationDateTime (@Nonnull final OffsetDateTime aCreationDateTime)
   {
     return true;
   }
@@ -497,7 +500,8 @@ public class PeppolSBDHDocumentReader
     // Check that the header version is correct
     if (m_bPerformValueChecks)
       if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION, aSBDH.getHeaderVersion ());
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION,
+                                                   aSBDH.getHeaderVersion ());
 
     // Check sender
     {
@@ -515,7 +519,8 @@ public class PeppolSBDHDocumentReader
       // Check sender identifier value
       if (m_bPerformValueChecks)
         if (!isValidSenderIdentifier (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ()))
-          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE, aSenderIdentification.getValue ());
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
+                                                     aSenderIdentification.getValue ());
 
       // Remember sender
       ret.setSender (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ());
@@ -580,7 +585,8 @@ public class PeppolSBDHDocumentReader
           {
             if (m_bPerformValueChecks)
               if (!isValidProcessIdentifier (sInstanceIdentifier))
-                throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER, sInstanceIdentifier);
+                throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
+                                                           sInstanceIdentifier);
 
             // The scheme was added in Spec v1.1
             String sScheme = aScope.getIdentifier ();
@@ -664,7 +670,7 @@ public class PeppolSBDHDocumentReader
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_INSTANCE_IDENTIFIER, sSBDHID);
 
       // Mandatory date and time (cannot be null)
-      final LocalDateTime aCreationDateAndTime = aDI.getCreationDateAndTime ();
+      final OffsetDateTime aCreationDateAndTime = aDI.getCreationDateAndTime ();
       if (m_bPerformValueChecks)
         if (!isValidCreationDateTime (aCreationDateAndTime))
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_CREATION_DATE_TIME,

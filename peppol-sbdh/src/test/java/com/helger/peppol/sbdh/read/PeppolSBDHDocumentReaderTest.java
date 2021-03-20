@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -71,9 +71,11 @@ public final class PeppolSBDHDocumentReaderTest
     BAD_CASES.put ("bad-invalid-receiver-value.xml", EPeppolSBDHDocumentReadError.INVALID_RECEIVER_VALUE);
     BAD_CASES.put ("bad-no-business-scope.xml", EPeppolSBDHDocumentReadError.BUSINESS_SCOPE_MISSING);
     BAD_CASES.put ("bad-too-few-scopes.xml", EPeppolSBDHDocumentReadError.INVALID_SCOPE_COUNT);
-    BAD_CASES.put ("bad-invalid-document-type-identifier.xml", EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER);
+    BAD_CASES.put ("bad-invalid-document-type-identifier.xml",
+                   EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER);
     BAD_CASES.put ("bad-invalid-process-identifier.xml", EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER);
-    BAD_CASES.put ("bad-no-document-type-identifier.xml", EPeppolSBDHDocumentReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER);
+    BAD_CASES.put ("bad-no-document-type-identifier.xml",
+                   EPeppolSBDHDocumentReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER);
     BAD_CASES.put ("bad-no-process-identifier.xml", EPeppolSBDHDocumentReadError.MISSING_PROCESS_IDENTIFIER);
     BAD_CASES.put ("bad-no-business-message.xml", EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
     BAD_CASES.put ("bad-invalid-business-message.xml", EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
@@ -308,10 +310,10 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE)
     {
       @Override
-      protected boolean isValidCreationDateTime (@Nonnull final LocalDateTime aCreationDateTime)
+      protected boolean isValidCreationDateTime (@Nonnull final OffsetDateTime aCreationDateTime)
       {
         // Should fail
-        return aCreationDateTime.isAfter (PDTFactory.getCurrentLocalDateTime ());
+        return aCreationDateTime.isAfter (PDTFactory.getCurrentOffsetDateTime ());
       }
     };
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())

@@ -16,11 +16,12 @@
  */
 package com.helger.smpclient.bdxr1.marshal;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xsds.bdxr.smp1.CBDXRSMP1;
@@ -38,7 +39,7 @@ public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMars
 
   public AbstractBDXR1Marshaller (@Nonnull final Class <JAXBTYPE> aType,
                                   final boolean bValidationEnabled,
-                                  @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                  @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     super (aType, bValidationEnabled ? XSDS : null, aWrapper);
 
