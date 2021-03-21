@@ -234,6 +234,7 @@
             <xjcArg>-Xph-equalshashcode</xjcArg>
             <xjcArg>-Xph-tostring</xjcArg>
             <xjcArg>-Xph-list-extension</xjcArg>
+            <xjcArg>-Xph-offset-dt-extension</xjcArg>
             <xjcArg>-extension</xjcArg>
             <xjcArg>-b</xjcArg>
             <xjcArg>src/main/jaxb/peppol-commons.episode</xjcArg>
@@ -247,7 +248,7 @@
           <dependency>
             <groupId>com.helger</groupId>
             <artifactId>ph-jaxb22-plugin</artifactId>
-            <version>2.3.3.1</version>
+            <version>2.3.3.2-SNAPSHOT</version>
           </dependency>
           <dependency>
             <groupId>com.helger</groupId>
