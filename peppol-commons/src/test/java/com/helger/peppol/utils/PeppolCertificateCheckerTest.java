@@ -45,17 +45,20 @@ public class PeppolCertificateCheckerTest
   @Test
   public void testBasic ()
   {
-    EPeppolCertificateCheckResult e = PeppolCertificateChecker.checkPeppolAPCertificate (null, null, ETriState.UNDEFINED, null);
+    EPeppolCertificateCheckResult e = PeppolCertificateChecker.checkPeppolAPCertificate (null,
+                                                                                         null,
+                                                                                         ETriState.UNDEFINED,
+                                                                                         null);
     assertEquals (EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);
 
     e = PeppolCertificateChecker.checkPeppolAPCertificate (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP,
-                                                           PDTFactory.createLocalDateTime (2000, Month.JANUARY, 1),
+                                                           PDTFactory.createOffsetDateTime (2000, Month.JANUARY, 1),
                                                            ETriState.UNDEFINED,
                                                            null);
     assertEquals (EPeppolCertificateCheckResult.NOT_YET_VALID, e);
 
     e = PeppolCertificateChecker.checkPeppolAPCertificate (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP,
-                                                           PDTFactory.createLocalDateTime (2099, Month.JANUARY, 1),
+                                                           PDTFactory.createOffsetDateTime (2099, Month.JANUARY, 1),
                                                            ETriState.UNDEFINED,
                                                            null);
     assertEquals (EPeppolCertificateCheckResult.EXPIRED, e);
@@ -76,7 +79,8 @@ public class PeppolCertificateCheckerTest
     {
       LOGGER.info ("Checking the local AP test certificate");
 
-      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fAP.getAbsolutePath (), "peppol").getKeyStore ();
+      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fAP.getAbsolutePath (), "peppol")
+                                         .getKeyStore ();
       assertNotNull (aKS);
 
       final X509Certificate aCert = (X509Certificate) aKS.getCertificate (aKS.aliases ().nextElement ());
@@ -93,7 +97,10 @@ public class PeppolCertificateCheckerTest
       assertEquals (EPeppolCertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL_BEFORE_OCSP");
-      e = PeppolCertificateChecker.checkPeppolAPCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL_BEFORE_OCSP);
+      e = PeppolCertificateChecker.checkPeppolAPCertificate (aCert,
+                                                             null,
+                                                             ETriState.FALSE,
+                                                             ERevocationCheckMode.CRL_BEFORE_OCSP);
       assertEquals (EPeppolCertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL");
@@ -114,7 +121,8 @@ public class PeppolCertificateCheckerTest
     {
       LOGGER.info ("Checking the local SMP test certificate");
 
-      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fSMP.getAbsolutePath (), "peppol").getKeyStore ();
+      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fSMP.getAbsolutePath (), "peppol")
+                                         .getKeyStore ();
       assertNotNull (aKS);
 
       final X509Certificate aCert = (X509Certificate) aKS.getCertificate (aKS.aliases ().nextElement ());
@@ -131,7 +139,10 @@ public class PeppolCertificateCheckerTest
       assertEquals (EPeppolCertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL_BEFORE_OCSP");
-      e = PeppolCertificateChecker.checkPeppolSMPCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL_BEFORE_OCSP);
+      e = PeppolCertificateChecker.checkPeppolSMPCertificate (aCert,
+                                                              null,
+                                                              ETriState.FALSE,
+                                                              ERevocationCheckMode.CRL_BEFORE_OCSP);
       assertEquals (EPeppolCertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL");

@@ -32,6 +32,7 @@ import java.security.cert.TrustAnchor;
 import java.security.cert.X509CertSelector;
 import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.concurrent.TimeUnit;
@@ -106,7 +107,8 @@ public final class PeppolCertificateChecker
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   private static ERevocationCheckMode s_eRevocationCheckMode = ERevocationCheckMode.OCSP;
   @GuardedBy ("RW_LOCK")
-  private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked", ex);
+  private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked",
+                                                                                                  ex);
 
   /**
    * An revocation cache that checks the revocation status of each certificate
@@ -122,7 +124,10 @@ public final class PeppolCertificateChecker
 
     public PeppolRevocationCache (@Nonnull final Function <X509Certificate, Boolean> aValueProvider)
     {
-      m_aCache = ExpiringMap.builder ().expirationPolicy (ExpirationPolicy.CREATED).expiration (6, TimeUnit.HOURS).build ();
+      m_aCache = ExpiringMap.builder ()
+                            .expirationPolicy (ExpirationPolicy.CREATED)
+                            .expiration (6, TimeUnit.HOURS)
+                            .build ();
       m_aValueProvider = aValueProvider;
     }
 
@@ -334,7 +339,7 @@ public final class PeppolCertificateChecker
    * @param aValidCAs
    *        The list of allowed CA certificates to be used. May neither be
    *        <code>null</code> nor empty.
-   * @param aCheckDT
+   * @param aCheckDate
    *        The check date time. May be <code>null</code>.
    * @param eCheckMode
    *        Possibility to define the revocation checking mode. May be
@@ -346,7 +351,7 @@ public final class PeppolCertificateChecker
    */
   public static boolean isCertificateRevoked (@Nonnull final X509Certificate aCert,
                                               @Nonnull final ICommonsList <X509Certificate> aValidCAs,
-                                              @Nullable final LocalDateTime aCheckDT,
+                                              @Nullable final Date aCheckDate,
                                               @Nullable final ERevocationCheckMode eCheckMode,
                                               @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
@@ -358,7 +363,7 @@ public final class PeppolCertificateChecker
       LOGGER.debug ("Performing certificate revocation check on certificate '" +
                     aCert.getSubjectX500Principal ().getName () +
                     "' " +
-                    (aCheckDT != null ? "for datetime " + aCheckDT : "without a datetime"));
+                    (aCheckDate != null ? "for datetime " + aCheckDate : "without a datetime"));
 
     // check OCSP and CLR
     final StopWatch aSW = StopWatch.createdStarted ();
@@ -392,20 +397,25 @@ public final class PeppolCertificateChecker
           LOGGER.warn ("Failed to set Security property 'ocsp.enable' to '" + eRealCheckMode.isOCSP () + "'");
         }
 
-        if (aCheckDT != null)
+        if (aCheckDate != null)
         {
-          // Check at what date?
-          final Date aCheckDate = PDTFactory.createDate (aCheckDT);
+          // Check at specific date
           aPKIXParams.setDate (aCheckDate);
         }
 
         // Specify a list of intermediate certificates ("Collection" is a key in
         // the "SUN" security provider)
-        final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection", new CollectionCertStoreParameters (aValidCAs));
+        final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection",
+                                                                        new CollectionCertStoreParameters (aValidCAs));
         aPKIXParams.addCertStore (aIntermediateCertStore);
 
         if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Checking certificate\n" + aCert + "\n\nagainst " + aValidCAs.size () + " valid CAs:\n" + aValidCAs);
+          LOGGER.debug ("Checking certificate\n" +
+                        aCert +
+                        "\n\nagainst " +
+                        aValidCAs.size () +
+                        " valid CAs:\n" +
+                        aValidCAs);
 
         // Throws an exception in case of an error
         final CertPathBuilder aCPB = CertPathBuilder.getInstance ("PKIX");
@@ -465,7 +475,11 @@ public final class PeppolCertificateChecker
                                                       @Nullable final ERevocationCheckMode eCheckMode,
                                                       @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
-    return isCertificateRevoked (aCert, PEPPOL_AP_CA_CERTS, aCheckDT, eCheckMode, aExceptionHdl);
+    return isCertificateRevoked (aCert,
+                                 PEPPOL_AP_CA_CERTS,
+                                 aCheckDT == null ? null : PDTFactory.createDate (aCheckDT),
+                                 eCheckMode,
+                                 aExceptionHdl);
   }
 
   /**
@@ -488,7 +502,11 @@ public final class PeppolCertificateChecker
                                                        @Nullable final ERevocationCheckMode eCheckMode,
                                                        @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
-    return isCertificateRevoked (aCert, PEPPOL_SMP_CA_CERTS, aCheckDT, eCheckMode, aExceptionHdl);
+    return isCertificateRevoked (aCert,
+                                 PEPPOL_SMP_CA_CERTS,
+                                 aCheckDT == null ? null : PDTFactory.createDate (aCheckDT),
+                                 eCheckMode,
+                                 aExceptionHdl);
   }
 
   /**
@@ -496,7 +514,7 @@ public final class PeppolCertificateChecker
    *
    * @param aCert
    *        The certificate to be checked. May be <code>null</code>.
-   * @param aCheckDT
+   * @param aCheckDate
    *        The check date and time to use. May be <code>null</code> which means
    *        "now".
    * @param aIssuers
@@ -515,7 +533,7 @@ public final class PeppolCertificateChecker
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert,
-                                                                @Nullable final LocalDateTime aCheckDT,
+                                                                @Nullable final Date aCheckDate,
                                                                 @Nullable final ICommonsList <X500Principal> aIssuers,
                                                                 @Nonnull final ICommonsList <X509Certificate> aValidCAs,
                                                                 @Nullable final PeppolRevocationCache aCache,
@@ -526,8 +544,6 @@ public final class PeppolCertificateChecker
     if (aCert == null)
       return EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED;
 
-    // Check date valid
-    final Date aCheckDate = PDTFactory.createDate (aCheckDT);
     try
     {
       // null means now
@@ -570,7 +586,7 @@ public final class PeppolCertificateChecker
     else
     {
       // No caching desired
-      if (isCertificateRevoked (aCert, aValidCAs, aCheckDT, eCheckMode, getExceptionHdl ()))
+      if (isCertificateRevoked (aCert, aValidCAs, aCheckDate, eCheckMode, getExceptionHdl ()))
         return EPeppolCertificateCheckResult.REVOKED;
     }
 
@@ -597,12 +613,17 @@ public final class PeppolCertificateChecker
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkPeppolAPCertificate (@Nullable final X509Certificate aCert,
-                                                                        @Nullable final LocalDateTime aCheckDT,
+                                                                        @Nullable final OffsetDateTime aCheckDT,
                                                                         @Nonnull final ETriState eCacheOSCResult,
                                                                         @Nullable final ERevocationCheckMode eCheckMode)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return checkCertificate (aCert, aCheckDT, PEPPOL_AP_CA_ISSUERS, PEPPOL_AP_CA_CERTS, bCache ? REVOCATION_CACHE_AP : null, eCheckMode);
+    return checkCertificate (aCert,
+                             aCheckDT == null ? null : PDTFactory.createDate (aCheckDT),
+                             PEPPOL_AP_CA_ISSUERS,
+                             PEPPOL_AP_CA_CERTS,
+                             bCache ? REVOCATION_CACHE_AP : null,
+                             eCheckMode);
   }
 
   /**
@@ -625,11 +646,16 @@ public final class PeppolCertificateChecker
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkPeppolSMPCertificate (@Nullable final X509Certificate aCert,
-                                                                         @Nullable final LocalDateTime aCheckDT,
+                                                                         @Nullable final OffsetDateTime aCheckDT,
                                                                          @Nonnull final ETriState eCacheOSCResult,
                                                                          @Nullable final ERevocationCheckMode eCheckMode)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return checkCertificate (aCert, aCheckDT, PEPPOL_SMP_CA_ISSUERS, PEPPOL_SMP_CA_CERTS, bCache ? REVOCATION_CACHE_SMP : null, eCheckMode);
+    return checkCertificate (aCert,
+                             aCheckDT == null ? null : PDTFactory.createDate (aCheckDT),
+                             PEPPOL_SMP_CA_ISSUERS,
+                             PEPPOL_SMP_CA_CERTS,
+                             bCache ? REVOCATION_CACHE_SMP : null,
+                             eCheckMode);
   }
 }
