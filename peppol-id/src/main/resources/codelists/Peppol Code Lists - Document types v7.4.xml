@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="7.3" entry-count="103">
+<document-types version="7.4" entry-count="105">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" since="1.0.0" deprecated="true" deprecated-since="2" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -269,8 +269,12 @@ Do NOT edit!-->
     <comment>TICC-118</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung CII Invoice V2.0" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::16B" since="7" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
+  <document-type name="XRechnung CII Invoice V2.0 (invalid)" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::16B" since="7" deprecated="true" deprecated-since="7.4" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-118</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type name="XRechnung CII Invoice V2.0" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::D16B" since="7.4" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-159</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="XRechnung UBL Invoice V1.3 Extension" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::2.1" since="7" deprecated="true" deprecated-since="7.1" issued-by-openpeppol="false" domain-community="POAC">
@@ -325,8 +329,12 @@ Do NOT edit!-->
     <comment>TICC-135</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung CII Invoice V2.0 Extension" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0#conformant#urn:xoev-de:kosit:extension:xrechnung_2.0::16B" since="7.1" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
+  <document-type name="XRechnung CII Invoice V2.0 Extension (invalid)" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0#conformant#urn:xoev-de:kosit:extension:xrechnung_2.0::16B" since="7.1" deprecated="true" deprecated-since="7.4" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-135</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type name="XRechnung CII Invoice V2.0 Extension" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0#conformant#urn:xoev-de:kosit:extension:xrechnung_2.0::D16B" since="7.4" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-159</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="SimpleOrder_IT" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3:restrictive:urn:www.agid.gov.it:trns:ordine:3.1::2.1" since="7.1" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">

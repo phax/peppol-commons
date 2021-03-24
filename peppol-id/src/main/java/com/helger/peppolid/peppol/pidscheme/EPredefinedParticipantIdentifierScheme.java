@@ -16,12 +16,11 @@
  */
 package com.helger.peppolid.peppol.pidscheme;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 
 /**
@@ -415,9 +414,7 @@ public enum EPredefinedParticipantIdentifierScheme
     /**
      * Prefix <code>0208</code>, scheme ID <code>BE:EN</code><br>
      * Structure of the code: 10 numeric characters.
-     *  1. Enterprise identification number: the first digit has to be &quot;0&quot; or &quot;1&quot;
-     *  2. Establishment unit identification number: the first digit has to be &quot;2&quot;.
-     * The two last characters are check digits. They are the result of the following computation: 97 - ((8 first digits) modulo 97).<br>
+     *  1. Enterprise identification number: the first digit has to be &quot;0&quot; or &quot;1&quot;<br>
      * Display requirements: The identification number can be displayed in the following ways:
      * For enterprise numbers:
      * - a group of four digits, then two groups of three digits, each group separated by a dot. Example: 1234.456.789
@@ -855,8 +852,10 @@ public enum EPredefinedParticipantIdentifierScheme
      * Example value: 0899965307<br>
      * 
      * @since code list 1.2.1
+     * @deprecated since 7.4 - this item should not be used to issue new identifiers!
      */
-    BE_CBE("BE:CBE", "9956", "BE", "Belgian Crossroad Bank of Enterprise number", "Belgian Crossroad Bank of Enterprises", Version.parse("1.2.1"), false),
+    @Deprecated
+    BE_CBE("BE:CBE", "9956", "BE", "Belgian Crossroad Bank of Enterprise number", "Belgian Crossroad Bank of Enterprises", Version.parse("1.2.1"), true),
 
     /**
      * Prefix <code>9957</code>, scheme ID <code>FR:VAT</code><br>
@@ -874,7 +873,7 @@ public enum EPredefinedParticipantIdentifierScheme
      */
     @Deprecated
     DE_LID("DE:LID", "9958", "DE", "German Leitweg ID", null, Version.parse("3"), true);
-    public static final String CODE_LIST_VERSION = "7.3";
+    public static final String CODE_LIST_VERSION = "7.4";
     public static final int CODE_LIST_ENTRY_COUNT = 83;
     private final String m_sSchemeID;
     private final String m_sISO6523;

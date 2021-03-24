@@ -81,14 +81,16 @@ import com.helger.xsds.peppol.codelists1.PCLTransportProfilesType;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also
- * creates Java source files with the predefined identifiers.
+ * creates Java source files with the predefined identifiers.<br>
+ * Requires the code list XMLs in folder
+ * <code>src/main/resources/codelists</code>
  *
  * @author Philip Helger
  */
 public final class MainCreatePredefinedEnumsFromXML_v7x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v7x.class);
-  private static final Version CODELIST_VERSION = new Version (7, 3);
+  private static final Version CODELIST_VERSION = new Version (7, 4);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel s_aCodeModel = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";

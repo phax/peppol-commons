@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<processes version="7.3" entry-count="35">
+<processes version="7.4" entry-count="35">
   <process scheme="cenbii-procid-ubl" value="none" deprecated="true" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver1.0" deprecated="true" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver2.0" deprecated="true" />

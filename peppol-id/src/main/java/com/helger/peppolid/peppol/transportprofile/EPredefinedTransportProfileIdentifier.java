@@ -16,11 +16,10 @@
  */
 package com.helger.peppolid.peppol.transportprofile;
 
-import javax.annotation.Nonnull;
-
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
+import javax.annotation.Nonnull;
 
 
 /**
@@ -77,7 +76,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @since code list 5
      */
     busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), false);
-    public static final String CODE_LIST_VERSION = "7.3";
+    public static final String CODE_LIST_VERSION = "7.4";
     public static final int CODE_LIST_ENTRY_COUNT = 5;
     /**
      * Same as {@link #busdox_transport_start}
