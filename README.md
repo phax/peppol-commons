@@ -289,7 +289,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.5.1 - 2021-03-24
+* v8.5.1 - 2021-03-26
     * Updated to OpenPeppol eDEC Code Lists v7.4
 * v8.5.0 - 2021-03-22
     * Updated to ph-commons 10
