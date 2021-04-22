@@ -187,6 +187,27 @@ public final class SMPClientConfiguration
                  "'. Support for the old property name will be removed in v9.0.");
   }
 
+  @Nullable
+  private static String _getAsStringOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
+  {
+    String ret = getConfig ().getAsString (sPrimary);
+    if (StringHelper.hasNoText (ret))
+    {
+      // Try the old names
+      for (final String sOld : aOldOnes)
+      {
+        ret = getConfig ().getAsString (sOld);
+        if (StringHelper.hasText (ret))
+        {
+          // Notify on old name usage
+          _logRenamedConfig (sOld, sPrimary);
+          break;
+        }
+      }
+    }
+    return ret;
+  }
+
   /**
    * @return The truststore type as specified in the configuration file by the
    *         key <code>truststore.type</code>. If none is present
@@ -197,8 +218,8 @@ public final class SMPClientConfiguration
   @Nonnull
   public static EKeyStoreType getTrustStoreType ()
   {
-    final String sType = getConfig ().getAsString ("truststore.type");
-    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (sType, PeppolKeyStoreHelper.TRUSTSTORE_TYPE);
+    final String ret = _getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");
+    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (ret, PeppolKeyStoreHelper.TRUSTSTORE_TYPE);
   }
 
   /**
@@ -212,16 +233,7 @@ public final class SMPClientConfiguration
   @Nonnull
   public static String getTrustStorePath ()
   {
-    String ret = getConfig ().getAsString ("truststore.path");
-    if (ret == null)
-    {
-      ret = getConfig ().getAsString ("truststore.location");
-      if (StringHelper.hasText (ret))
-      {
-        _logRenamedConfig ("truststore.location", "truststore.path");
-        return ret;
-      }
-    }
+    String ret = _getAsStringOrFallback ("smpclient.truststore.path", "truststore.path", "truststore.location");
     if (StringHelper.hasNoText (ret))
       ret = PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH;
     return ret;
@@ -236,7 +248,10 @@ public final class SMPClientConfiguration
   @Nonnull
   public static String getTrustStorePassword ()
   {
-    return getConfig ().getAsString ("truststore.password", PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
+    String ret = _getAsStringOrFallback ("smpclient.truststore.password", "truststore.password");
+    if (StringHelper.hasNoText (ret))
+      ret = PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD;
+    return ret;
   }
 
   /**

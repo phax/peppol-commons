@@ -291,6 +291,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v8.5.2 - work in progress
     * Updated the truststore by removing the old (expired) Let's Encrypt root certificates.
+    * Changed the name of the SMP client configuration properties as follows (leaving the old ones in place with a warning message):
+        * `truststore.type` was renamed to `smpclient.truststore.type`
+        * `truststore.path` was renamed to `smpclient.truststore.path`
+        * `truststore.password` was renamed to `smpclient.truststore.password`
 * v8.5.1 - 2021-03-26
     * Updated to OpenPeppol eDEC Code Lists v7.4
 * v8.5.0 - 2021-03-22
