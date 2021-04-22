@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.security.KeyStore;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -30,6 +32,8 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
+import com.helger.security.keystore.EKeyStoreType;
+import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.smpclient.IgnoredNaptrTest;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -136,10 +140,41 @@ public final class BDXRClientReadOnlyTest
 
     // PEPPOL URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, aSMLInfo);
+    // We don't have the truststore at hand - ignore it
     aBDXRClient.setVerifySignature (false);
     assertEquals ("https://gateway-edelivery.westeurope.cloudapp.azure.com:444/", aBDXRClient.getSMPHostURI ());
 
     final SignedServiceMetadataType aMetadata = aBDXRClient.getServiceMetadata (aPI, aDocTypeID);
     assertNotNull (aMetadata);
+  }
+
+  @Test
+  @Ignore
+  @IgnoredNaptrTest
+  public void testReadDE4A () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9999:at000000271");
+    final IDocumentTypeIdentifier aDocTypeID = SimpleIdentifierFactory.INSTANCE.createDocumentTypeIdentifier ("urn:de4a-eu:CanonicalEvidenceType",
+                                                                                                              "CompanyRegistration");
+
+    final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "truststores/de4a-truststore-test-smp-pw-de4a.jks", "de4a");
+    assertNotNull (aTS);
+
+    // TOOP SML
+    final ISMLInfo aSMLInfo = new SMLInfo ("dea4",
+                                           "SMK",
+                                           "de4a.acc.edelivery.tech.ec.europa.eu.",
+                                           "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
+                                           true);
+
+    // BDXL URL provider
+    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, aSMLInfo);
+    // Custom truststore is needed atm
+    aBDXRClient.setTrustStore (aTS);
+    assertEquals ("https://de4a-smp.egovlab.eu/", aBDXRClient.getSMPHostURI ());
+    {
+      final SignedServiceMetadataType aMetadata = aBDXRClient.getServiceMetadata (aPI, aDocTypeID);
+      assertNotNull (aMetadata);
+    }
   }
 }
