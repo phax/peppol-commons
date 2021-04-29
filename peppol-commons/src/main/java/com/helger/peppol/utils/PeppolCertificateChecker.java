@@ -20,6 +20,7 @@ import java.security.GeneralSecurityException;
 import java.security.Security;
 import java.security.cert.CertPathBuilder;
 import java.security.cert.CertPathValidator;
+import java.security.cert.CertPathValidatorException;
 import java.security.cert.CertStore;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
@@ -35,6 +36,7 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
@@ -73,8 +75,11 @@ import net.jodah.expiringmap.ExpiringMap;
 @ThreadSafe
 public final class PeppolCertificateChecker
 {
+  @Deprecated
   public static final boolean DEFAULT_OSCP_CHECK_ENABLED = true;
   public static final boolean DEFAULT_CACHE_OSCP_RESULTS = true;
+  public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.OCSP;
+  public static final boolean DEFAULT_ALLOW_SOFT_FAIL = false;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateChecker.class);
 
@@ -105,10 +110,13 @@ public final class PeppolCertificateChecker
 
   private static final AtomicBoolean CACHE_OCSP_RESULTS = new AtomicBoolean (DEFAULT_CACHE_OSCP_RESULTS);
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
-  private static ERevocationCheckMode s_eRevocationCheckMode = ERevocationCheckMode.OCSP;
+  private static ERevocationCheckMode s_eRevocationCheckMode = DEFAULT_REVOCATION_CHECK_MODE;
+  private static final AtomicBoolean ALLOW_SOFT_FAIL = new AtomicBoolean (DEFAULT_ALLOW_SOFT_FAIL);
   @GuardedBy ("RW_LOCK")
-  private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked",
-                                                                                                  ex);
+  private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked", ex);
+  @GuardedBy ("RW_LOCK")
+  private static Consumer <? super List <CertPathValidatorException>> s_aSoftFailExceptionHdl = exs -> LOGGER.warn ("Certificate revocation check succeeded but has messages: " +
+                                                                                                                    exs);
 
   /**
    * An revocation cache that checks the revocation status of each certificate
@@ -124,10 +132,8 @@ public final class PeppolCertificateChecker
 
     public PeppolRevocationCache (@Nonnull final Function <X509Certificate, Boolean> aValueProvider)
     {
-      m_aCache = ExpiringMap.builder ()
-                            .expirationPolicy (ExpirationPolicy.CREATED)
-                            .expiration (6, TimeUnit.HOURS)
-                            .build ();
+      ValueEnforcer.notNull (aValueProvider, "ValueProvider");
+      m_aCache = ExpiringMap.builder ().expirationPolicy (ExpirationPolicy.CREATED).expiration (6, TimeUnit.HOURS).build ();
       m_aValueProvider = aValueProvider;
     }
 
@@ -212,6 +218,42 @@ public final class PeppolCertificateChecker
   {
     ValueEnforcer.notNull (eRevocationCheckMode, "RevocationCheckMode");
     RW_LOCK.writeLockedGet ( () -> s_eRevocationCheckMode = eRevocationCheckMode);
+  }
+
+  /**
+   * Allow revocation check to succeed if the revocation status cannot be
+   * determined for one of the following reasons:
+   * <ul>
+   * <li>The CRL or OCSP response cannot be obtained because of a network
+   * error.</li>
+   * <li>The OCSP responder returns one of the following errors specified in
+   * section 2.3 of RFC 2560: internalError or tryLater.</li>
+   * </ul>
+   * Note that these conditions apply to both OCSP and CRLs, and unless the
+   * NO_FALLBACK option is set, the revocation check is allowed to succeed only
+   * if both mechanisms fail under one of the conditions as stated
+   * above.Exceptions that cause the network errors are ignored but can be later
+   * retrieved by calling the getSoftFailExceptions method.
+   *
+   * @return <code>true</code> if soft fail is enabled, <code>false</code> if
+   *         not. Default is defined by {@link #DEFAULT_ALLOW_SOFT_FAIL}.
+   * @since 8.5.2
+   */
+  public static boolean isAllowSoftFail ()
+  {
+    return ALLOW_SOFT_FAIL.get ();
+  }
+
+  /**
+   * Set enable "soft fail" mode.
+   *
+   * @param bAllow
+   *        <code>true</code> to allow it, <code>false</code> to disallow it.
+   * @since 8.5.2
+   */
+  public static void setAllowSoftFail (final boolean bAllow)
+  {
+    ALLOW_SOFT_FAIL.set (bAllow);
   }
 
   /**
@@ -332,6 +374,32 @@ public final class PeppolCertificateChecker
   }
 
   /**
+   * @return The handler to be invoked in case of failures in certificate
+   *         checking.
+   * @see #isAllowSoftFail()
+   * @since 8.5.2
+   */
+  @Nonnull
+  public static Consumer <? super List <CertPathValidatorException>> getSoftFailExceptionHdl ()
+  {
+    return RW_LOCK.readLockedGet ( () -> s_aSoftFailExceptionHdl);
+  }
+
+  /**
+   * Set the handler to be invoked, if certificate checking has soft failures.
+   *
+   * @param aSoftFailExceptionHdl
+   *        The handler to be used. May not be <code>null</code>.
+   * @see #isAllowSoftFail()
+   * @since 8.5.2
+   */
+  public static void setSoftFailExceptionHdl (@Nonnull final Consumer <? super List <CertPathValidatorException>> aSoftFailExceptionHdl)
+  {
+    ValueEnforcer.notNull (aSoftFailExceptionHdl, "SoftFailExceptionHdl");
+    RW_LOCK.writeLockedGet ( () -> s_aSoftFailExceptionHdl = aSoftFailExceptionHdl);
+  }
+
+  /**
    * Check if a certificate is revoked based on the available CA certificates.
    *
    * @param aCert
@@ -348,16 +416,54 @@ public final class PeppolCertificateChecker
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
    * @return <code>true</code> if it is revoked, <code>false</code> if not.
+   * @deprecated Since 8.5.2 Use
+   *             {@link #isCertificateRevoked(X509Certificate, ICommonsList, Date, ERevocationCheckMode, Consumer, Consumer)}
+   *             instead
    */
+  @Deprecated
   public static boolean isCertificateRevoked (@Nonnull final X509Certificate aCert,
                                               @Nonnull final ICommonsList <X509Certificate> aValidCAs,
                                               @Nullable final Date aCheckDate,
                                               @Nullable final ERevocationCheckMode eCheckMode,
                                               @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
+    return isCertificateRevoked (aCert, aValidCAs, aCheckDate, eCheckMode, aExceptionHdl, getSoftFailExceptionHdl ());
+  }
+
+  /**
+   * Check if a certificate is revoked based on the available CA certificates.
+   *
+   * @param aCert
+   *        The certificate to be check. May not be <code>null</code>.
+   * @param aValidCAs
+   *        The list of allowed CA certificates to be used. May neither be
+   *        <code>null</code> nor empty.
+   * @param aCheckDate
+   *        The check date time. May be <code>null</code>.
+   * @param eCheckMode
+   *        Possibility to define the revocation checking mode. May be
+   *        <code>null</code> to indicate to use the global one from
+   *        {@link #getRevocationCheckMode()}.
+   * @param aExceptionHdl
+   *        The exception handler to be used for a critical exception. May not
+   *        be <code>null</code>.
+   * @param aSoftFailExceptionHdl
+   *        The handler for "soft fail" exceptions. That means the certificate
+   *        is considered valid, but something went wrong. Only filled if
+   *        {@link #isAllowSoftFail()} is enabled.
+   * @return <code>true</code> if it is revoked, <code>false</code> if not.
+   */
+  public static boolean isCertificateRevoked (@Nonnull final X509Certificate aCert,
+                                              @Nonnull final ICommonsList <X509Certificate> aValidCAs,
+                                              @Nullable final Date aCheckDate,
+                                              @Nullable final ERevocationCheckMode eCheckMode,
+                                              @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl,
+                                              @Nonnull final Consumer <? super List <CertPathValidatorException>> aSoftFailExceptionHdl)
+  {
     ValueEnforcer.notNull (aCert, "Cert");
     ValueEnforcer.notEmpty (aValidCAs, "ValidCAs");
     ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
+    ValueEnforcer.notNull (aSoftFailExceptionHdl, "aSoftFailExceptionHdl");
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Performing certificate revocation check on certificate '" +
@@ -405,25 +511,26 @@ public final class PeppolCertificateChecker
 
         // Specify a list of intermediate certificates ("Collection" is a key in
         // the "SUN" security provider)
-        final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection",
-                                                                        new CollectionCertStoreParameters (aValidCAs));
+        final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection", new CollectionCertStoreParameters (aValidCAs));
         aPKIXParams.addCertStore (aIntermediateCertStore);
 
         if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Checking certificate\n" +
-                        aCert +
-                        "\n\nagainst " +
-                        aValidCAs.size () +
-                        " valid CAs:\n" +
-                        aValidCAs);
+          LOGGER.debug ("Checking certificate\n" + aCert + "\n\nagainst " + aValidCAs.size () + " valid CAs:\n" + aValidCAs);
 
         // Throws an exception in case of an error
         final CertPathBuilder aCPB = CertPathBuilder.getInstance ("PKIX");
         final PKIXRevocationChecker rc = (PKIXRevocationChecker) aCPB.getRevocationChecker ();
-        // OCSP over CLR is the default
-        // Allow fallback to CLR
+
+        // Call once, to avoid it is changed during the execution of the method
+        final boolean bAllowSoftFail = isAllowSoftFail ();
+
+        // Build checking options
         final EnumSet <PKIXRevocationChecker.Option> aOptions = EnumSet.of (PKIXRevocationChecker.Option.ONLY_END_ENTITY);
+        if (bAllowSoftFail)
+          aOptions.add (PKIXRevocationChecker.Option.SOFT_FAIL);
         eRealCheckMode.addAllOptionsTo (aOptions);
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("OCSP/CLR effective options = " + aOptions);
         rc.setOptions (aOptions);
 
         final PKIXCertPathBuilderResult aBuilderResult = (PKIXCertPathBuilderResult) aCPB.build (aPKIXParams);
@@ -435,6 +542,9 @@ public final class PeppolCertificateChecker
                                                                                                          aPKIXParams);
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("OCSP/CLR validation result = " + aValidateResult);
+
+        if (bAllowSoftFail)
+          aSoftFailExceptionHdl.accept (rc.getSoftFailExceptions ());
       }
 
       return false;
@@ -479,7 +589,8 @@ public final class PeppolCertificateChecker
                                  PEPPOL_AP_CA_CERTS,
                                  aCheckDT == null ? null : PDTFactory.createDate (aCheckDT),
                                  eCheckMode,
-                                 aExceptionHdl);
+                                 aExceptionHdl,
+                                 getSoftFailExceptionHdl ());
   }
 
   /**
@@ -506,7 +617,8 @@ public final class PeppolCertificateChecker
                                  PEPPOL_SMP_CA_CERTS,
                                  aCheckDT == null ? null : PDTFactory.createDate (aCheckDT),
                                  eCheckMode,
-                                 aExceptionHdl);
+                                 aExceptionHdl,
+                                 getSoftFailExceptionHdl ());
   }
 
   /**
@@ -539,7 +651,51 @@ public final class PeppolCertificateChecker
                                                                 @Nullable final PeppolRevocationCache aCache,
                                                                 @Nullable final ERevocationCheckMode eCheckMode)
   {
+    return checkCertificate (aCert, aCheckDate, aIssuers, aValidCAs, aCache, eCheckMode, getExceptionHdl (), getSoftFailExceptionHdl ());
+  }
+
+  /**
+   * Check if the provided certificate is a valid certificate.
+   *
+   * @param aCert
+   *        The certificate to be checked. May be <code>null</code>.
+   * @param aCheckDate
+   *        The check date and time to use. May be <code>null</code> which means
+   *        "now".
+   * @param aIssuers
+   *        The list of valid certificate issuers to check against. May be
+   *        <code>null</code> to not perform this check.
+   * @param aValidCAs
+   *        List of valid CAs to check against. May not be <code>null</code>.
+   * @param aCache
+   *        The cache. May be <code>null</code> to disable caching.
+   * @param eCheckMode
+   *        Possibility to override the OSCP checking flag on a per query basis.
+   *        May be <code>null</code> to use the global flag from
+   *        {@link #getRevocationCheckMode()}.
+   * @param aExceptionHdl
+   *        The exception handler to be used for a critical exception. May not
+   *        be <code>null</code>.
+   * @param aSoftFailExceptionHdl
+   *        The handler for "soft fail" exceptions. That means the certificate
+   *        is considered valid, but something went wrong. Only filled if
+   *        {@link #isAllowSoftFail()} is enabled.
+   * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
+   * @since 8.5.2
+   */
+  @Nonnull
+  public static EPeppolCertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert,
+                                                                @Nullable final Date aCheckDate,
+                                                                @Nullable final ICommonsList <X500Principal> aIssuers,
+                                                                @Nonnull final ICommonsList <X509Certificate> aValidCAs,
+                                                                @Nullable final PeppolRevocationCache aCache,
+                                                                @Nullable final ERevocationCheckMode eCheckMode,
+                                                                @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl,
+                                                                @Nonnull final Consumer <? super List <CertPathValidatorException>> aSoftFailExceptionHdl)
+  {
     ValueEnforcer.notNull (aValidCAs, "ValidCAs");
+    ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
+    ValueEnforcer.notNull (aSoftFailExceptionHdl, "SoftFailExceptionHdl");
 
     if (aCert == null)
       return EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED;
@@ -586,7 +742,7 @@ public final class PeppolCertificateChecker
     else
     {
       // No caching desired
-      if (isCertificateRevoked (aCert, aValidCAs, aCheckDate, eCheckMode, getExceptionHdl ()))
+      if (isCertificateRevoked (aCert, aValidCAs, aCheckDate, eCheckMode, aExceptionHdl, aSoftFailExceptionHdl))
         return EPeppolCertificateCheckResult.REVOKED;
     }
 
