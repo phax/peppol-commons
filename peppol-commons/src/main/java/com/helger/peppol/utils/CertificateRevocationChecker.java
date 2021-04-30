@@ -667,7 +667,11 @@ public final class CertificateRevocationChecker
               LOGGER.debug ("OCSP/CLR validation result = " + aValidateResult);
 
             if (bAllowSoftFail)
-              aRealSoftFailExceptionHdl.accept (rc.getSoftFailExceptions ());
+            {
+              final List <CertPathValidatorException> aList = rc.getSoftFailExceptions ();
+              if (!aList.isEmpty ())
+                aRealSoftFailExceptionHdl.accept (aList);
+            }
           };
 
           if (bExecuteSync)
