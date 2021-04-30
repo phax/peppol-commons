@@ -218,6 +218,7 @@ public final class PeppolCertificateChecker
   {
     ValueEnforcer.notNull (eRevocationCheckMode, "RevocationCheckMode");
     RW_LOCK.writeLockedGet ( () -> s_eRevocationCheckMode = eRevocationCheckMode);
+    LOGGER.info ("Global PeppolCertificateChecker revocation mode was set to: " + eRevocationCheckMode);
   }
 
   /**
@@ -254,6 +255,7 @@ public final class PeppolCertificateChecker
   public static void setAllowSoftFail (final boolean bAllow)
   {
     ALLOW_SOFT_FAIL.set (bAllow);
+    LOGGER.info ("Global PeppolCertificateChecker allows for soft fail: " + bAllow);
   }
 
   /**
@@ -275,6 +277,7 @@ public final class PeppolCertificateChecker
   public static void setCacheOCSPResults (final boolean bCache)
   {
     CACHE_OCSP_RESULTS.set (bCache);
+    LOGGER.info ("Global PeppolCertificateChecker OCSP cache enabled: " + bCache);
   }
 
   /**
@@ -284,6 +287,7 @@ public final class PeppolCertificateChecker
   {
     REVOCATION_CACHE_AP.clearCache ();
     REVOCATION_CACHE_SMP.clearCache ();
+    LOGGER.info ("The PeppolCertificateChecker OCSP cache was cleared");
   }
 
   @Nonnull
