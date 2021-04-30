@@ -296,6 +296,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
         * `truststore.path` was renamed to `smpclient.truststore.path`
         * `truststore.password` was renamed to `smpclient.truststore.password`
     * Extracted class `CertificateRevocationChecker` from `PeppolCertificateChecker` to check certificates
+    * Added support for validating with CRL as well
 * v8.5.1 - 2021-03-26
     * Updated to OpenPeppol eDEC Code Lists v7.4
 * v8.5.0 - 2021-03-22

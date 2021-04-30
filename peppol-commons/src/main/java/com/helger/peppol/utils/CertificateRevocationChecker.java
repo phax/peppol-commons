@@ -18,6 +18,7 @@ package com.helger.peppol.utils;
 
 import java.security.GeneralSecurityException;
 import java.security.Security;
+import java.security.cert.CRL;
 import java.security.cert.CertPathBuilder;
 import java.security.cert.CertPathValidator;
 import java.security.cert.CertPathValidatorException;
@@ -257,6 +258,15 @@ public final class CertificateRevocationChecker
     {}
 
     /**
+     * @return The certificate to be checked. May be <code>null</code>.
+     */
+    @Nullable
+    public final X509Certificate certificate ()
+    {
+      return m_aCert;
+    }
+
+    /**
      * Set the certificate to be checked.
      *
      * @param a
@@ -327,6 +337,28 @@ public final class CertificateRevocationChecker
     {
       m_aValidCAs.addAll (a);
       return thisAsT ();
+    }
+
+    /**
+     * @return The current check dates. May be <code>null</code> to indicate
+     *         "current date and time".
+     */
+    @Nullable
+    public final Date checkDate ()
+    {
+      return m_aCheckDate;
+    }
+
+    /**
+     * Set the date of check for the certificate to the "current date and time"
+     * (which is the default).
+     *
+     * @return this for chaining
+     */
+    @Nonnull
+    public final IMPLTYPE checkDateNow ()
+    {
+      return checkDate ((Date) null);
     }
 
     /**
@@ -405,7 +437,7 @@ public final class CertificateRevocationChecker
      * Set the the handler to be called if a certificate is indicated as
      * "revoked". If it is not set, the global exception handler is used.
      *
-     * @param e
+     * @param a
      *        The exception handler to be called. May be <code>null</code>.
      * @return this for chaining
      */
@@ -587,10 +619,25 @@ public final class CertificateRevocationChecker
             }
 
             // Specify a list of intermediate certificates ("Collection" is a
-            // key
-            // in the "SUN" security provider)
+            // key in the "SUN" security provider)
             final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection", new CollectionCertStoreParameters (m_aValidCAs));
             aPKIXParams.addCertStore (aIntermediateCertStore);
+
+            if (eRealCheckMode.isCRL ())
+            {
+              // Get all necessary CRLs
+              final ICommonsList <String> aCRLURLs = CRLHelper.getAllDistributionPoints (m_aCert);
+              final ICommonsList <CRL> aCRLs = new CommonsArrayList <> ();
+              for (final String sCRLURL : aCRLURLs)
+              {
+                // Get from cache or download
+                final CRL aCRL = CRLHelper.getCRLFromURL (sCRLURL);
+                if (aCRL != null)
+                  aCRLs.add (aCRL);
+              }
+              if (aCRLs.isNotEmpty ())
+                aPKIXParams.addCertStore (CertStore.getInstance ("Collection", new CollectionCertStoreParameters (aCRLs)));
+            }
 
             if (LOGGER.isDebugEnabled ())
               LOGGER.debug ("Checking certificate\n" + m_aCert + "\n\nagainst " + m_aValidCAs.size () + " valid CAs:\n" + m_aValidCAs);
@@ -612,6 +659,7 @@ public final class CertificateRevocationChecker
             if (LOGGER.isDebugEnabled ())
               LOGGER.debug ("OCSP/CLR builder result = " + aBuilderResult);
 
+            // Validate
             final CertPathValidator aCPV = CertPathValidator.getInstance ("PKIX");
             final PKIXCertPathValidatorResult aValidateResult = (PKIXCertPathValidatorResult) aCPV.validate (aBuilderResult.getCertPath (),
                                                                                                              aPKIXParams);

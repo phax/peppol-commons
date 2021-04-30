@@ -80,12 +80,12 @@ public class PeppolCertificateCheckerTest
       assertNotNull (aKS);
 
       final X509Certificate aCert = (X509Certificate) aKS.getCertificate (aKS.aliases ().nextElement ());
+      assertNotNull (aCert);
+
+      EPeppolCertificateCheckResult e;
 
       LOGGER.info ("Checking with OCSP_BEFORE_CRL");
-      EPeppolCertificateCheckResult e = PeppolCertificateChecker.checkPeppolAPCertificate (aCert,
-                                                                                           null,
-                                                                                           ETriState.FALSE,
-                                                                                           ERevocationCheckMode.OCSP_BEFORE_CRL);
+      e = PeppolCertificateChecker.checkPeppolAPCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP_BEFORE_CRL);
       assertEquals (EPeppolCertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with OCSP");
@@ -98,7 +98,12 @@ public class PeppolCertificateCheckerTest
 
       LOGGER.info ("Checking with CRL");
       e = PeppolCertificateChecker.checkPeppolAPCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
-      assertEquals (EPeppolCertificateCheckResult.REVOKED, e);
+      assertEquals (EPeppolCertificateCheckResult.VALID, e);
+
+      // Try again with CRL only to ensure it's not downloaded again
+      LOGGER.info ("Checking with CRL");
+      e = PeppolCertificateChecker.checkPeppolAPCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
+      assertEquals (EPeppolCertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with NONE");
       e = PeppolCertificateChecker.checkPeppolAPCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.NONE);
@@ -118,6 +123,8 @@ public class PeppolCertificateCheckerTest
       assertNotNull (aKS);
 
       final X509Certificate aCert = (X509Certificate) aKS.getCertificate (aKS.aliases ().nextElement ());
+      assertNotNull (aCert);
+
       EPeppolCertificateCheckResult e;
 
       LOGGER.info ("Checking with OCSP_BEFORE_CRL");
@@ -134,7 +141,12 @@ public class PeppolCertificateCheckerTest
 
       LOGGER.info ("Checking with CRL");
       e = PeppolCertificateChecker.checkPeppolSMPCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
-      assertEquals (EPeppolCertificateCheckResult.REVOKED, e);
+      assertEquals (EPeppolCertificateCheckResult.VALID, e);
+
+      // Try again with CRL only to ensure it's not downloaded again
+      LOGGER.info ("Checking with CRL");
+      e = PeppolCertificateChecker.checkPeppolSMPCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
+      assertEquals (EPeppolCertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with NONE");
       e = PeppolCertificateChecker.checkPeppolSMPCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.NONE);

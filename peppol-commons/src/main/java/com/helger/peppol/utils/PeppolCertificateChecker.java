@@ -17,18 +17,15 @@
 package com.helger.peppol.utils;
 
 import java.security.GeneralSecurityException;
-import java.security.cert.CertPathValidatorException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,7 +41,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.functional.IToBooleanFunction;
 import com.helger.commons.state.ETriState;
 import com.helger.peppol.utils.CertificateRevocationChecker.AbstractRevocationCheckBuilder;
 
@@ -126,9 +123,9 @@ public final class PeppolCertificateChecker
   public static final class PeppolRevocationCache
   {
     private final ExpiringMap <String, Boolean> m_aCache;
-    private final Function <X509Certificate, Boolean> m_aValueProvider;
+    private final IToBooleanFunction <X509Certificate> m_aValueProvider;
 
-    public PeppolRevocationCache (@Nonnull final Function <X509Certificate, Boolean> aValueProvider)
+    public PeppolRevocationCache (@Nonnull final IToBooleanFunction <X509Certificate> aValueProvider)
     {
       ValueEnforcer.notNull (aValueProvider, "ValueProvider");
       m_aCache = ExpiringMap.builder ().expirationPolicy (ExpirationPolicy.CREATED).expiration (6, TimeUnit.HOURS).build ();
@@ -144,7 +141,7 @@ public final class PeppolCertificateChecker
     public boolean isRevoked (@Nonnull final X509Certificate aCert)
     {
       final String sKey = _getKey (aCert);
-      return m_aCache.computeIfAbsent (sKey, k -> m_aValueProvider.apply (aCert)).booleanValue ();
+      return m_aCache.computeIfAbsent (sKey, k -> Boolean.valueOf (m_aValueProvider.applyAsBoolean (aCert))).booleanValue ();
     }
 
     public void clearCache ()
@@ -153,14 +150,14 @@ public final class PeppolCertificateChecker
     }
   }
 
-  private static final PeppolRevocationCache REVOCATION_CACHE_AP = new PeppolRevocationCache (aCert -> Boolean.valueOf (isPeppolAPCertificateRevoked (aCert,
-                                                                                                                                                      null,
-                                                                                                                                                      (ERevocationCheckMode) null,
-                                                                                                                                                      CertificateRevocationChecker.getExceptionHdl ())));
-  private static final PeppolRevocationCache REVOCATION_CACHE_SMP = new PeppolRevocationCache (aCert -> Boolean.valueOf (isPeppolSMPCertificateRevoked (aCert,
-                                                                                                                                                        null,
-                                                                                                                                                        (ERevocationCheckMode) null,
-                                                                                                                                                        CertificateRevocationChecker.getExceptionHdl ())));
+  private static final PeppolRevocationCache REVOCATION_CACHE_AP = new PeppolRevocationCache (aCert -> peppolRevocationCheck ().certificate (aCert)
+                                                                                                                               .validCAsPeppolAP ()
+                                                                                                                               .build ()
+                                                                                                                               .isRevoked ());
+  private static final PeppolRevocationCache REVOCATION_CACHE_SMP = new PeppolRevocationCache (aCert -> peppolRevocationCheck ().certificate (aCert)
+                                                                                                                                .validCAsPeppolSMP ()
+                                                                                                                                .build ()
+                                                                                                                                .isRevoked ());
 
   private PeppolCertificateChecker ()
   {}
@@ -409,7 +406,7 @@ public final class PeppolCertificateChecker
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
    * @return <code>true</code> if it is revoked, <code>false</code> if not.
-   * @deprecated Since 8.5.2. Use {@link #revocationCheck()} instead
+   * @deprecated Since 8.5.2. Use {@link #peppolRevocationCheck()} instead
    */
   @Deprecated
   public static boolean isCertificateRevoked (@Nonnull final X509Certificate aCert,
@@ -513,8 +510,12 @@ public final class PeppolCertificateChecker
    *        May be <code>null</code> to use the global flag from
    *        {@link #getRevocationCheckMode()}.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
+   * @deprecated Since 8.5.2. Use
+   *             {@link #checkCertificate(ICommonsList, PeppolRevocationCache, AbstractRevocationCheckBuilder)}
+   *             instead.
    * @since 8.2.7
    */
+  @Deprecated
   @Nonnull
   public static EPeppolCertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert,
                                                                 @Nullable final Date aCheckDate,
@@ -523,65 +524,44 @@ public final class PeppolCertificateChecker
                                                                 @Nullable final PeppolRevocationCache aCache,
                                                                 @Nullable final ERevocationCheckMode eCheckMode)
   {
-    return checkCertificate (aCert,
-                             aCheckDate,
-                             aIssuers,
-                             aValidCAs,
+    return checkCertificate (aIssuers,
                              aCache,
-                             eCheckMode,
-                             CertificateRevocationChecker.getExceptionHdl (),
-                             CertificateRevocationChecker.getSoftFailExceptionHdl ());
+                             CertificateRevocationChecker.revocationCheck ()
+                                                         .certificate (aCert)
+                                                         .checkDate (aCheckDate)
+                                                         .validCAs (aValidCAs)
+                                                         .checkMode (eCheckMode));
   }
 
   /**
    * Check if the provided certificate is a valid certificate.
    *
-   * @param aCert
-   *        The certificate to be checked. May be <code>null</code>.
-   * @param aCheckDate
-   *        The check date and time to use. May be <code>null</code> which means
-   *        "now".
    * @param aIssuers
    *        The list of valid certificate issuers to check against. May be
    *        <code>null</code> to not perform this check.
-   * @param aValidCAs
-   *        List of valid CAs to check against. May not be <code>null</code>.
    * @param aCache
    *        The cache. May be <code>null</code> to disable caching.
-   * @param eCheckMode
-   *        Possibility to override the OSCP checking flag on a per query basis.
-   *        May be <code>null</code> to use the global flag from
-   *        {@link #getRevocationCheckMode()}.
-   * @param aExceptionHdl
-   *        The exception handler to be used for a critical exception. May not
-   *        be <code>null</code>.
-   * @param aSoftFailExceptionHdl
-   *        The handler for "soft fail" exceptions. That means the certificate
-   *        is considered valid, but something went wrong. Only filled if
-   *        {@link #isAllowSoftFail()} is enabled.
+   * @param aRevocationChecker
+   *        The revocation checker builder with all necessary parameters already
+   *        set. May not be <code>null</code>.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
    * @since 8.5.2
    */
   @Nonnull
-  public static EPeppolCertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert,
-                                                                @Nullable final Date aCheckDate,
-                                                                @Nullable final ICommonsList <X500Principal> aIssuers,
-                                                                @Nonnull final ICommonsList <X509Certificate> aValidCAs,
+  public static EPeppolCertificateCheckResult checkCertificate (@Nullable final ICommonsList <X500Principal> aIssuers,
                                                                 @Nullable final PeppolRevocationCache aCache,
-                                                                @Nullable final ERevocationCheckMode eCheckMode,
-                                                                @Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl,
-                                                                @Nonnull final Consumer <? super List <CertPathValidatorException>> aSoftFailExceptionHdl)
+                                                                @Nonnull final AbstractRevocationCheckBuilder <?> aRevocationChecker)
   {
-    ValueEnforcer.notNull (aValidCAs, "ValidCAs");
-    ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
-    ValueEnforcer.notNull (aSoftFailExceptionHdl, "SoftFailExceptionHdl");
+    ValueEnforcer.notNull (aRevocationChecker, "RevocationChecker");
 
+    final X509Certificate aCert = aRevocationChecker.certificate ();
     if (aCert == null)
       return EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED;
 
     try
     {
       // null means now
+      final Date aCheckDate = aRevocationChecker.checkDate ();
       if (aCheckDate == null)
         aCert.checkValidity ();
       else
@@ -621,15 +601,7 @@ public final class PeppolCertificateChecker
     else
     {
       // No caching desired
-      if (CertificateRevocationChecker.revocationCheck ()
-                                      .certificate (aCert)
-                                      .validCAs (aValidCAs)
-                                      .checkDate (aCheckDate)
-                                      .checkMode (eCheckMode)
-                                      .exceptionHandler (aExceptionHdl)
-                                      .softFailExceptionHandler (aSoftFailExceptionHdl)
-                                      .build ()
-                                      .isRevoked ())
+      if (aRevocationChecker.build ().isRevoked ())
         return EPeppolCertificateCheckResult.REVOKED;
     }
 
@@ -661,12 +633,9 @@ public final class PeppolCertificateChecker
                                                                         @Nullable final ERevocationCheckMode eCheckMode)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return checkCertificate (aCert,
-                             aCheckDT == null ? null : PDTFactory.createDate (aCheckDT),
-                             PEPPOL_AP_CA_ISSUERS,
-                             PEPPOL_AP_CA_CERTS,
+    return checkCertificate (PEPPOL_AP_CA_ISSUERS,
                              bCache ? REVOCATION_CACHE_AP : null,
-                             eCheckMode);
+                             peppolRevocationCheck ().certificate (aCert).checkDate (aCheckDT).validCAsPeppolAP ().checkMode (eCheckMode));
   }
 
   /**
@@ -694,11 +663,8 @@ public final class PeppolCertificateChecker
                                                                          @Nullable final ERevocationCheckMode eCheckMode)
   {
     final boolean bCache = eCacheOSCResult.isUndefined () ? isCacheOCSPResults () : eCacheOSCResult.isTrue ();
-    return checkCertificate (aCert,
-                             aCheckDT == null ? null : PDTFactory.createDate (aCheckDT),
-                             PEPPOL_SMP_CA_ISSUERS,
-                             PEPPOL_SMP_CA_CERTS,
+    return checkCertificate (PEPPOL_SMP_CA_ISSUERS,
                              bCache ? REVOCATION_CACHE_SMP : null,
-                             eCheckMode);
+                             peppolRevocationCheck ().certificate (aCert).checkDate (aCheckDT).validCAsPeppolSMP ().checkMode (eCheckMode));
   }
 }
