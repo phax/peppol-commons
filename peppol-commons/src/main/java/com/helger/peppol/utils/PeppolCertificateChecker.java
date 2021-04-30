@@ -60,7 +60,8 @@ public final class PeppolCertificateChecker
   @Deprecated
   public static final boolean DEFAULT_OSCP_CHECK_ENABLED = true;
   public static final boolean DEFAULT_CACHE_OSCP_RESULTS = true;
-  public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.OCSP;
+  @Deprecated
+  public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = CertificateRevocationChecker.DEFAULT_REVOCATION_CHECK_MODE;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateChecker.class);
 
@@ -74,41 +75,19 @@ public final class PeppolCertificateChecker
 
   static
   {
-    final boolean bFull = false;
-
     // PKI v3 (recursive)
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
     PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
-    if (bFull)
-    {
-      PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
-      PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
-    }
 
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
     PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
-    if (bFull)
-    {
-      PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT);
-      PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT);
-    }
 
     // all issuers (1 level only)
     PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP.getSubjectX500Principal ());
     PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP.getSubjectX500Principal ());
-    if (bFull)
-    {
-      PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT.getSubjectX500Principal ());
-      PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT.getSubjectX500Principal ());
-    }
 
     PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP.getSubjectX500Principal ());
     PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP.getSubjectX500Principal ());
-    if (bFull)
-    {
-      PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT.getSubjectX500Principal ());
-      PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT.getSubjectX500Principal ());
-    }
   }
 
   private static final AtomicBoolean CACHE_OCSP_RESULTS = new AtomicBoolean (DEFAULT_CACHE_OSCP_RESULTS);

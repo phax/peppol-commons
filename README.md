@@ -289,7 +289,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.5.2 - work in progress
+* v8.5.2 - 2021-04-30
     * Updated the truststore by removing the old (expired) Let's Encrypt root certificates.
     * Changed the name of the SMP client configuration properties as follows (leaving the old ones in place with a warning message):
         * `truststore.type` was renamed to `smpclient.truststore.type`

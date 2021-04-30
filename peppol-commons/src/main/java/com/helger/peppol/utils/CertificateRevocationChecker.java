@@ -71,6 +71,7 @@ import com.helger.commons.traits.IGenericImplTrait;
 @ThreadSafe
 public final class CertificateRevocationChecker
 {
+  // By default only OCSP is used
   public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.OCSP;
   public static final boolean DEFAULT_ALLOW_SOFT_FAIL = false;
   public static final boolean DEFAULT_ALLOW_EXEC_SYNC = true;
@@ -80,13 +81,13 @@ public final class CertificateRevocationChecker
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK")
   private static ERevocationCheckMode s_eRevocationCheckMode = DEFAULT_REVOCATION_CHECK_MODE;
-  private static final AtomicBoolean ALLOW_SOFT_FAIL = new AtomicBoolean (DEFAULT_ALLOW_SOFT_FAIL);
-  private static final AtomicBoolean ALLOW_EXEC_SYNC = new AtomicBoolean (DEFAULT_ALLOW_EXEC_SYNC);
   @GuardedBy ("RW_LOCK")
   private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked", ex);
+  private static final AtomicBoolean ALLOW_SOFT_FAIL = new AtomicBoolean (DEFAULT_ALLOW_SOFT_FAIL);
   @GuardedBy ("RW_LOCK")
   private static Consumer <? super List <CertPathValidatorException>> s_aSoftFailExceptionHdl = exs -> LOGGER.warn ("Certificate revocation check succeeded but has messages: " +
                                                                                                                     exs);
+  private static final AtomicBoolean ALLOW_EXEC_SYNC = new AtomicBoolean (DEFAULT_ALLOW_EXEC_SYNC);
 
   private CertificateRevocationChecker ()
   {}
