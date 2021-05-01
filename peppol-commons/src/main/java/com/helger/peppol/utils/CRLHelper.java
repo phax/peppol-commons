@@ -76,6 +76,9 @@ public final class CRLHelper
    * @param aCRLBytes
    *        The CRL bytes received from an external source. May neither be
    *        <code>null</code> nor empty.
+   * @return The parsed CRL object.
+   * @throws IllegalArgumentException
+   *         In case of conversion errors
    */
   @Nonnull
   public static X509CRL convertToCRL (@Nonnull @Nonempty final byte [] aCRLBytes)
@@ -227,7 +230,9 @@ public final class CRLHelper
     @Nullable
     private static TimedCRL _loadCRL (@Nonnull final String sCRLURL)
     {
-      if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) || EURLProtocol.HTTPS.isUsedInURL (sCRLURL) || EURLProtocol.FTP.isUsedInURL (sCRLURL))
+      if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) ||
+          EURLProtocol.HTTPS.isUsedInURL (sCRLURL) ||
+          EURLProtocol.FTP.isUsedInURL (sCRLURL))
       {
         // Try to download from remote URL
         LOGGER.info ("Trying to download CRL from URL '" + sCRLURL + "'");
