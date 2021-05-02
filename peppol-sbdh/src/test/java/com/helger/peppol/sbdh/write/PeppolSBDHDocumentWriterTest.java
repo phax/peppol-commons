@@ -51,7 +51,8 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (),
+                                                                     PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithBusdoxDocidQns ("urn:foobar::root#doctypeid:2.1")
@@ -87,7 +88,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
     assertEquals (aData.getCreationDateAndTime (), aDataRead.getCreationDateAndTime ());
-    assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
+    assertEquals (aData.getCreationDateAndTime ().getAsString (), aDataRead.getCreationDateAndTime ().getAsString ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aDataRead.getDocumentTypeScheme ());
     assertEquals ("urn:foobar::root#doctypeid:2.1", aDataRead.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
@@ -106,7 +107,8 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (),
+                                                                     PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithPeppolDoctypeWildcard ("urn:foobar::root#doctypeid:2.1")
@@ -145,8 +147,9 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("2.1", aDataRead.getTypeVersion ());
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
-    assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
-    assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, aDataRead.getDocumentTypeScheme ());
+    assertEquals (aData.getCreationDateAndTime ().getAsString (), aDataRead.getCreationDateAndTime ().getAsString ());
+    assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                  aDataRead.getDocumentTypeScheme ());
     assertEquals ("urn:foobar::root#doctypeid:2.1", aDataRead.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
@@ -173,7 +176,8 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (), PeppolIdentifierFactory.INSTANCE)
+    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (),
+                                                                     PeppolIdentifierFactory.INSTANCE)
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithBusdoxDocidQns ("doctypeid")

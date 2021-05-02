@@ -203,9 +203,9 @@ public final class SMPClientTest
             aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ());
             // Certificate: Base64.encodeBytes (certificate.getEncoded ());
             aEndpoint.setCertificate ("1234567890");
-            aEndpoint.setServiceActivationDate (PDTFactory.getCurrentOffsetDateTime ());
+            aEndpoint.setServiceActivationDate (PDTFactory.getCurrentXMLOffsetDateTime ());
             aEndpoint.setServiceDescription ("TEST DESCRIPTION");
-            aEndpoint.setServiceExpirationDate (PDTFactory.getCurrentOffsetDateTime ().plusYears (1));
+            aEndpoint.setServiceExpirationDate (PDTFactory.getCurrentXMLOffsetDateTime ().plusYears (1));
             aEndpoint.setTechnicalContactUrl ("mailto:smpclient.unittest@helger.com");
             aEndpoint.setMinimumAuthenticationLevel ("2");
             aEndpoint.setRequireBusinessLevelSignature (false);

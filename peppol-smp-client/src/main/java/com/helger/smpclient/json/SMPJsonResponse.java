@@ -33,6 +33,7 @@ import javax.security.auth.x500.X500Principal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
@@ -151,6 +152,12 @@ public final class SMPJsonResponse
 
   @Nullable
   public static String getLDT (@Nullable final OffsetDateTime aLDT)
+  {
+    return aLDT == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (aLDT);
+  }
+
+  @Nullable
+  public static String getLDT (@Nullable final XMLOffsetDateTime aLDT)
   {
     return aLDT == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (aLDT);
   }

@@ -17,7 +17,6 @@
 package com.helger.peppol.sbdh;
 
 import java.nio.charset.Charset;
-import java.time.OffsetDateTime;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
@@ -33,6 +32,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.StringMap;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.mime.IMimeType;
@@ -75,7 +75,7 @@ public class PeppolSBDHDocument
   private String m_sTypeVersion;
   private String m_sType;
   private String m_sInstanceIdentifier;
-  private OffsetDateTime m_aCreationDateAndTime;
+  private XMLOffsetDateTime m_aCreationDateAndTime;
   // BusinessMessage
   private Element m_aBusinessMessage;
   // Additional attributes
@@ -485,14 +485,14 @@ public class PeppolSBDHDocument
    * @see #setTypeVersion(String)
    * @see #setType(String)
    * @see #setInstanceIdentifier(String)
-   * @see #setCreationDateAndTime(OffsetDateTime)
+   * @see #setCreationDateAndTime(XMLOffsetDateTime)
    */
   @Nonnull
   public final PeppolSBDHDocument setDocumentIdentification (@Nonnull final String sStandard,
                                                              @Nonnull final String sTypeVersion,
                                                              @Nonnull final String sType,
                                                              @Nonnull final String sInstanceIdentifier,
-                                                             @Nonnull final OffsetDateTime aCreationDateAndTime)
+                                                             @Nonnull final XMLOffsetDateTime aCreationDateAndTime)
   {
     setStandard (sStandard);
     setTypeVersion (sTypeVersion);
@@ -541,7 +541,7 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      OffsetDateTime)
+   *      XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -588,7 +588,7 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      OffsetDateTime)
+   *      XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -632,7 +632,7 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      OffsetDateTime)
+   *      XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -691,7 +691,7 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      OffsetDateTime)
+   *      XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -713,7 +713,7 @@ public class PeppolSBDHDocument
    * @return The creation date time. May be <code>null</code>.
    */
   @Nullable
-  public OffsetDateTime getCreationDateAndTime ()
+  public XMLOffsetDateTime getCreationDateAndTime ()
   {
     return m_aCreationDateAndTime;
   }
@@ -743,11 +743,11 @@ public class PeppolSBDHDocument
    *        .
    * @return this
    * @see #setDocumentIdentification(String, String, String, String,
-   *      OffsetDateTime)
+   *      XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
-  public final PeppolSBDHDocument setCreationDateAndTime (@Nonnull final OffsetDateTime aCreationDateAndTime)
+  public final PeppolSBDHDocument setCreationDateAndTime (@Nonnull final XMLOffsetDateTime aCreationDateAndTime)
   {
     m_aCreationDateAndTime = ValueEnforcer.notNull (aCreationDateAndTime, "CreationDateAndTime");
     return this;
@@ -1089,7 +1089,7 @@ public class PeppolSBDHDocument
                                    CPeppolSBDH.TYPE_VERSION_21,
                                    aBusinessMessage.getLocalName (),
                                    UUID.randomUUID ().toString (),
-                                   PDTFactory.getCurrentOffsetDateTimeMillisOnly ());
+                                   PDTFactory.getCurrentXMLOffsetDateTimeMillisOnly ());
     return ret;
   }
 }

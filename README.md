@@ -289,6 +289,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.6.0 - 2021-05-02
+    * Updated to ph-commons 10.1
+    * Changed the JAXB binding for XML Schema date time to `XMLOffset*`
 * v8.5.2 - 2021-04-30
     * Updated the truststore by removing the old (expired) Let's Encrypt root certificates.
     * Changed the name of the SMP client configuration properties as follows (leaving the old ones in place with a warning message):
@@ -301,7 +304,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Updated to OpenPeppol eDEC Code Lists v7.4
 * v8.5.0 - 2021-03-22
     * Updated to ph-commons 10
-    * Changed the JAXB binding for XML Schema data time to `Offset*`
+    * Changed the JAXB binding for XML Schema date time to `Offset*`
 * v8.4.1 - 2021-02-19
     * Updated the TrustStore to support the new Let's Encrypt root certificates for Peppol Directory
 * v8.4.0 - 2021-02-16

@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.time.OffsetDateTime;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -37,6 +36,7 @@ import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTWebDateHelper;
+import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -310,10 +310,10 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE)
     {
       @Override
-      protected boolean isValidCreationDateTime (@Nonnull final OffsetDateTime aCreationDateTime)
+      protected boolean isValidCreationDateTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
       {
         // Should fail
-        return aCreationDateTime.isAfter (PDTFactory.getCurrentOffsetDateTime ());
+        return aCreationDateTime.isAfter (PDTFactory.getCurrentXMLOffsetDateTime ());
       }
     };
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())

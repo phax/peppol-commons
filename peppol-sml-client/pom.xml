@@ -56,7 +56,7 @@
   <properties>
     <!--
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
-    <jaxws-plugin.version>2.3.2</jaxws-plugin.version>
+    <jaxws-plugin.version>2.3.3</jaxws-plugin.version>
     <jaxws-plugin.group>org.codehaus.mojo</jaxws-plugin.group>
     <jaxws-plugin.version>2.5</jaxws-plugin.version>
     -->
@@ -110,6 +110,11 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>jaxws-rt</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -248,7 +253,7 @@
           <dependency>
             <groupId>com.helger</groupId>
             <artifactId>ph-jaxb22-plugin</artifactId>
-            <version>2.3.3.2</version>
+            <version>2.3.3.3</version>
           </dependency>
           <dependency>
             <groupId>com.helger</groupId>

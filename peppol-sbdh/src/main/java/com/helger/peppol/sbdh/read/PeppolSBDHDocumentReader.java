@@ -17,7 +17,6 @@
 package com.helger.peppol.sbdh.read;
 
 import java.io.InputStream;
-import java.time.OffsetDateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,6 +34,7 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -373,7 +373,7 @@ public class PeppolSBDHDocumentReader
    *         otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidCreationDateTime (@Nonnull final OffsetDateTime aCreationDateTime)
+  protected boolean isValidCreationDateTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
   {
     return true;
   }
@@ -670,7 +670,7 @@ public class PeppolSBDHDocumentReader
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_INSTANCE_IDENTIFIER, sSBDHID);
 
       // Mandatory date and time (cannot be null)
-      final OffsetDateTime aCreationDateAndTime = aDI.getCreationDateAndTime ();
+      final XMLOffsetDateTime aCreationDateAndTime = aDI.getCreationDateAndTime ();
       if (m_bPerformValueChecks)
         if (!isValidCreationDateTime (aCreationDateAndTime))
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_CREATION_DATE_TIME,
