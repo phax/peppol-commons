@@ -821,6 +821,19 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * Get the contained business message without cloning it.
+   *
+   * @return <code>null</code> if no business message is present.
+   * @since 8.6.1
+   */
+  @Nullable
+  @ReturnsMutableObject
+  public Element getBusinessMessageNoClone ()
+  {
+    return m_aBusinessMessage;
+  }
+
+  /**
    * Check if a business message is present without having the need to
    * explicitly call {@link #getBusinessMessage()} which returns a cloned node
    * and is therefore an expensive operation.
