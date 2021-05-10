@@ -427,6 +427,71 @@ public enum EPredefinedParticipantIdentifierScheme
     BE_EN("BE:EN", "0208", "BE", "Numero d'entreprise / ondernemingsnummer / Unternehmensnummer", "Banque-Carrefour des Entreprises (BCE) / Kruispuntbank van Ondernemingen (KBO) / Zentrale Datenbank der Unternehmen (ZOU)\nService public f\u00e9d\u00e9ral Economie, P.M.E. Classes moyennes et Energie", Version.parse("7"), false),
 
     /**
+     * Prefix <code>0209</code>, scheme ID <code>GS1</code><br>
+     * Structure of the code: The code will include an application identifier indicating the type of GS1 identification key used for an object, followed by the value of the key. The string can be completed by other application identifiers indicating attributes related to the GS1 ID key and the value of these attributes related to the identified object.<br>
+     * Display requirements: None<br>
+     * Example value: 414541000099999325412345678901234567890<br>
+     * 
+     * @since code list 7.5
+     */
+    GS1("GS1", "0209", "international", "GS1 identification keys", "GS1", Version.parse("7.5"), false),
+
+    /**
+     * Prefix <code>0210</code>, scheme ID <code>IT:CFI</code><br>
+     * Structure of the code: The code is 16 alphanumeric digits for natural persons or 11 numeric digits for legal persons.
+     * The code is 16 alphanumeric digits for natural persons, with this structure:
+     *  3 digits - Surname according to specific rules
+     *  3 digits - Name according to specific rules
+     *  2 digits - Last two digits of year of birth
+     *  1 digit - Month of birth according to a specific conversion table
+     *  2 digits - Day of birth and gender
+     *  4 digits - Place of birth in a “Belfiore” code
+     *  1 digit - CIN – Control Internal Number
+     * The code is 11 numeric digits for legal persons, with this structure:
+     *  7 digits - Progressive number
+     *  3 digits - Revenue Office ID
+     *  1 digit - check
+     * Last digit for natural persons - CIN - Control Internal Number
+     * Last digit for legal persons - Check<br>
+     * 
+     * @since code list 7.5
+     */
+    IT_CFI("IT:CFI", "0210", "IT", "CODICE FISCALE", "Agenzia delle Entrate", Version.parse("7.5"), false),
+
+    /**
+     * Prefix <code>0211</code>, scheme ID <code>IT:IVA</code><br>
+     * Structure of the code: The code is 11 numeric digits
+     * First 7 digits is a progressive number
+     * The following 3 digits means the province of residence
+     * The last digit is a check number, calculated using Luhn's Algorithm<br>
+     * 
+     * @since code list 7.5
+     */
+    IT_IVA("IT:IVA", "0211", "IT", "PARTITA IVA", "Agenzia delle Entrate", Version.parse("7.5"), false),
+
+    /**
+     * Prefix <code>0212</code>, scheme ID <code>FI:ORG</code><br>
+     * Structure of the code: 9999999-9
+     * nine characters
+     * last digit after the hyphen is check character<br>
+     * Display requirements: Shall be presented as string so that leading zeros have to be present.
+     * Hyphen shall be present between last two digits.<br>
+     * 
+     * @since code list 7.5
+     */
+    FI_ORG("FI:ORG", "0212", "FI", "Finnish Organization Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), false),
+
+    /**
+     * Prefix <code>0213</code>, scheme ID <code>FI:VAT</code><br>
+     * Structure of the code: FI99999999
+     * ten characters<br>
+     * Display requirements: Shall be presented as string so that leading zeros have to be present. Two first characters have always fixed value FI.<br>
+     * 
+     * @since code list 7.5
+     */
+    FI_VAT("FI:VAT", "0213", "FI", "Finnish Organization Value Add Tax Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), false),
+
+    /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
      * Structure of the code: 1) First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
@@ -873,8 +938,8 @@ public enum EPredefinedParticipantIdentifierScheme
      */
     @Deprecated
     DE_LID("DE:LID", "9958", "DE", "German Leitweg ID", null, Version.parse("3"), true);
-    public static final String CODE_LIST_VERSION = "7.4";
-    public static final int CODE_LIST_ENTRY_COUNT = 83;
+    public static final String CODE_LIST_VERSION = "7.5";
+    public static final int CODE_LIST_ENTRY_COUNT = 88;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;

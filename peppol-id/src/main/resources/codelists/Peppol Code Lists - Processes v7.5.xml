@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<processes version="7.4" entry-count="35">
+<processes version="7.5" entry-count="36">
   <process scheme="cenbii-procid-ubl" value="none" deprecated="true" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver1.0" deprecated="true" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver2.0" deprecated="true" />
@@ -37,6 +37,7 @@ Do NOT edit!-->
   <process scheme="cenbii-procid-ubl" value="urn:fdc:www.efaktura.gov.pl:ver1.0:account_corr:ver1.0" deprecated="false" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:www.efaktura.gov.pl:ver1.0:corr_inv:ver1.0" deprecated="false" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:www.efaktura.gov.pl:ver1.0:receipt_advice:ver1.0" deprecated="false" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" deprecated="false" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0" deprecated="false" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:en16931:any" deprecated="false" />
   <process scheme="cenbii-procid-ubl" value="urn:kosit:profile:reporting:1.0" deprecated="false" />
