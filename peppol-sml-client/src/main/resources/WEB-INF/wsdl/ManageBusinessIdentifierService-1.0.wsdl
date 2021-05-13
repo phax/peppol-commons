@@ -15,7 +15,6 @@
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
   xmlns:lrs="http://busdox.org/serviceMetadata/locator/1.0/" 
   xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
   name="ManageBusinessIdentifierService" 
   targetNamespace="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/" 
   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
@@ -148,6 +147,9 @@
   <wsdl:binding name="ManageBusinessIdentifierServiceSoap" type="tns:ManageBusinessIdentifierServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="Create">
+<!--
+The 9 blanks in @soapAction are unfortunate but implemented like this in CEF SML!
+-->
       <soap:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/         :createIn" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
@@ -169,8 +171,10 @@
       </wsdl:fault>          
     </wsdl:operation>
     <wsdl:operation name="CreateList">
-      <soap:operation soapAction=
-        "http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/         :createListIn" style="document" />
+<!--
+The 9 blanks in @soapAction are unfortunate but implemented like this in CEF SML!
+-->
+      <soap:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/         :createListIn" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -191,6 +195,9 @@
       </wsdl:fault>          
     </wsdl:operation>
     <wsdl:operation name="Delete">
+<!--
+The 9 blanks in @soapAction are unfortunate but implemented like this in CEF SML!
+-->
       <soap:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/         :deleteIn" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
@@ -212,6 +219,9 @@
       </wsdl:fault>         
     </wsdl:operation>
     <wsdl:operation name="DeleteList">
+<!--
+The 9 blanks in @soapAction are unfortunate but implemented like this in CEF SML!
+-->
       <soap:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/         :deleteListIn" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
@@ -233,6 +243,9 @@
       </wsdl:fault>         
     </wsdl:operation>
     <wsdl:operation name="List">
+<!--
+The 9 blanks in @soapAction are unfortunate but implemented like this in CEF SML!
+-->
       <soap:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/         :listIn" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
@@ -254,6 +267,9 @@
       </wsdl:fault>          
     </wsdl:operation>
     <wsdl:operation name="PrepareToMigrate">
+<!--
+The 9 blanks in @soapAction are unfortunate but implemented like this in CEF SML!
+-->
       <soap:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/         :prepareMigrateIn" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
@@ -275,6 +291,9 @@
       </wsdl:fault>          
     </wsdl:operation>
     <wsdl:operation name="Migrate">
+<!--
+The 9 blanks in @soapAction are unfortunate but implemented like this in CEF SML!
+-->
       <soap:operation soapAction="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/         :migrateIn" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
