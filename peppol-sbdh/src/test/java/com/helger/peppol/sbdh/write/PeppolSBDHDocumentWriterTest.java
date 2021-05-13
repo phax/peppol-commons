@@ -88,7 +88,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
     assertEquals (aData.getCreationDateAndTime (), aDataRead.getCreationDateAndTime ());
-    assertEquals (aData.getCreationDateAndTime ().getAsString (), aDataRead.getCreationDateAndTime ().getAsString ());
+    assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aDataRead.getDocumentTypeScheme ());
     assertEquals ("urn:foobar::root#doctypeid:2.1", aDataRead.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
@@ -147,7 +147,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("2.1", aDataRead.getTypeVersion ());
     assertEquals ("root", aDataRead.getType ());
     assertEquals (aData.getInstanceIdentifier (), aDataRead.getInstanceIdentifier ());
-    assertEquals (aData.getCreationDateAndTime ().getAsString (), aDataRead.getCreationDateAndTime ().getAsString ());
+    assertEquals (aData.getCreationDateAndTime ().toString (), aDataRead.getCreationDateAndTime ().toString ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
                   aDataRead.getDocumentTypeScheme ());
     assertEquals ("urn:foobar::root#doctypeid:2.1", aDataRead.getDocumentTypeValue ());
