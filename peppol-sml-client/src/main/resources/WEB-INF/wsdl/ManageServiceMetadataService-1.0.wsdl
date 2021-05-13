@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Copyright (C) 2015-2018 Philip Helger (www.helger.com)
@@ -17,43 +18,38 @@
                   name="ManageServiceMetadataService" 
                   targetNamespace="http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/" 
                   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
-  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
+  
   <wsdl:types>
     <xs:schema elementFormDefault="qualified" targetNamespace="http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/Schema/">
       <xs:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="ManageServiceMetadataService-1.0.xsd"/>
     </xs:schema>
   </wsdl:types>
+
   <wsdl:message name="createIn">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
     <wsdl:part name="messagePart" element="lrs:CreateServiceMetadataPublisherService" />
   </wsdl:message>  
   <wsdl:message name="createOut">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
   </wsdl:message>
+
   <wsdl:message name="readIn">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
     <wsdl:part name="messagePart" element="lrs:ReadServiceMetadataPublisherService" />
   </wsdl:message>
   <wsdl:message name="readOut">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
-    <wsdl:part name="messagePart" 
-      element="lrs:ServiceMetadataPublisherService" />
+    <wsdl:part name="messagePart" element="lrs:ServiceMetadataPublisherService" />
   </wsdl:message>
+
   <wsdl:message name="updateIn">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
-    <wsdl:part name="messagePart" 
-      element="lrs:UpdateServiceMetadataPublisherService" />
+    <wsdl:part name="messagePart" element="lrs:UpdateServiceMetadataPublisherService" />
   </wsdl:message>
   <wsdl:message name="updateOut">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
   </wsdl:message>
+
   <wsdl:message name="deleteIn">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
     <wsdl:part name="messagePart" element="lrs:ServiceMetadataPublisherID" />
   </wsdl:message>
   <wsdl:message name="deleteOut">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
   </wsdl:message>
+
   <wsdl:message name="badRequestFault">
     <wsdl:part name="fault" element="lrs:BadRequestFault"/>
   </wsdl:message>
@@ -66,10 +62,9 @@
   <wsdl:message name="unauthorizedFault">
     <wsdl:part name="fault" element="lrs:UnauthorizedFault"/>
   </wsdl:message>  
+
   <wsdl:portType name="ManageServiceMetadataServiceSoap">
-    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
     <wsdl:operation name="Create">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
       <wsdl:input message="tns:createIn" />
       <wsdl:output message="tns:createOut" />
       <wsdl:fault message="tns:unauthorizedFault" name="UnauthorizedFault"/>
@@ -77,7 +72,6 @@
       <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
     </wsdl:operation>
     <wsdl:operation name="Read">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
       <wsdl:input message="tns:readIn" />
       <wsdl:output message="tns:readOut" />
       <wsdl:fault message="tns:notFoundFault" name="NotFoundFault"/>
@@ -86,7 +80,6 @@
       <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
     </wsdl:operation>
     <wsdl:operation name="Update">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
       <wsdl:input message="tns:updateIn" />
       <wsdl:output message="tns:updateOut" />
       <wsdl:fault message="tns:notFoundFault" name="NotFoundFault"/>
@@ -95,7 +88,6 @@
       <wsdl:fault message="tns:badRequestFault" name="BadRequestFault"/>
     </wsdl:operation>
     <wsdl:operation name="Delete">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
       <wsdl:input message="tns:deleteIn" />
       <wsdl:output message="tns:deleteOut" />
       <wsdl:fault message="tns:notFoundFault" name="NotFoundFault"/>
@@ -146,7 +138,7 @@
         <soap:fault name="BadRequestFault" use="literal"/>
       </wsdl:fault>           
     </wsdl:operation>
-  <wsdl:operation name="Update">
+    <wsdl:operation name="Update">
       <soap:operation soapAction="http://busdox.org/serviceMetadata/ManageServiceMetadataService/1.0/:updateIn" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
@@ -189,6 +181,7 @@
       </wsdl:fault>           
     </wsdl:operation>
   </wsdl:binding>
+  
   <wsdl:service name="ManageServiceMetadataService">
     <wsdl:port name="ManageServiceMetadataServicePort" binding="tns:ManageServiceMetadataServiceSoap">
       <soap:address location="unknown"/>

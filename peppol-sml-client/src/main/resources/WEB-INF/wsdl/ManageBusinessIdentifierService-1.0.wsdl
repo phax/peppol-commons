@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 
     Copyright (C) 2015-2018 Philip Helger (www.helger.com)
@@ -10,13 +11,12 @@
     file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 -->
-<wsdl:definitions 
-  xmlns:tns="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/" 
-  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-  xmlns:lrs="http://busdox.org/serviceMetadata/locator/1.0/" 
-  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-  name="ManageBusinessIdentifierService" 
-  targetNamespace="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/" 
+<wsdl:definitions xmlns:tns="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/" 
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+                  xmlns:lrs="http://busdox.org/serviceMetadata/locator/1.0/" 
+                  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+                  name="ManageBusinessIdentifierService" 
+                  targetNamespace="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/" 
   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
   <wsdl:types>
@@ -157,9 +157,6 @@ The 9 blanks in @soapAction are unfortunate but implemented like this in CEF SML
       <wsdl:output>
         <soap:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="NotFoundFault">
-        <soap:fault name="NotFoundFault" use="literal"/>
-      </wsdl:fault>
       <wsdl:fault name="UnauthorizedFault">
         <soap:fault name="UnauthorizedFault" use="literal"/>
       </wsdl:fault>
