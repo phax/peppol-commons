@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="7.4" entry-count="105">
+<document-types version="7.5" entry-count="105">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" since="1.0.0" deprecated="true" deprecated-since="2" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -234,12 +234,14 @@ Do NOT edit!-->
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="AU-NZ Self-Billing 3.0 Invoice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" since="6" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-102</comment>
-    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+    <comment>TICC-102
+TICC-173</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" />
   </document-type>
   <document-type name="AU-NZ Self-Billing 3.0 CreditNote" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" since="6" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-102</comment>
-    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+    <comment>TICC-102
+TICC-173</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" />
   </document-type>
   <document-type name="SI-UBL 1.2 Invoice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1" since="6" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-107</comment>
@@ -338,8 +340,10 @@ Do NOT edit!-->
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="SimpleOrder_IT" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3:restrictive:urn:www.agid.gov.it:trns:ordine:3.1::2.1" since="7.1" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-137</comment>
+    <comment>TICC-137
+TICC-177</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:order_only:3" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:ordering:3" />
   </document-type>
   <document-type name="OrderResponse_IT" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response:3:restrictive:urn:www.agid.gov.it:trns:risposta_ordine:3.0::2.1" since="7.1" deprecated="false" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-137</comment>

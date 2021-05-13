@@ -289,6 +289,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.6.1 - 2021-05-10
+    * Updated to OpenPeppol eDEC Code Lists v7.5
 * v8.6.0 - 2021-05-02
     * Updated to ph-commons 10.1
     * Changed the JAXB binding for XML Schema date time to `XMLOffset*`

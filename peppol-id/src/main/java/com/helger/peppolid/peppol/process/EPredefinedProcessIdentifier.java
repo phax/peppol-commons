@@ -245,6 +245,11 @@ public enum EPredefinedProcessIdentifier
     urn_fdc_www_efaktura_gov_pl_ver1_0_receipt_advice_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver1.0:receipt_advice:ver1.0", false),
 
     /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0</code><br>
+     */
+    urn_fdc_peppol_eu_2017_poacc_selfbilling_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0", false),
+
+    /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0</code><br>
      */
     urn_fdc_anskaffelser_no_2019_ehf_postaward_g3_09_1_0("cenbii-procid-ubl", "urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0", false),
@@ -258,8 +263,8 @@ public enum EPredefinedProcessIdentifier
      * ID: <code>cenbii-procid-ubl::urn:kosit:profile:reporting:1.0</code><br>
      */
     urn_kosit_profile_reporting_1_0("cenbii-procid-ubl", "urn:kosit:profile:reporting:1.0", false);
-    public static final String CODE_LIST_VERSION = "7.4";
-    public static final int CODE_LIST_ENTRY_COUNT = 35;
+    public static final String CODE_LIST_VERSION = "7.5";
+    public static final int CODE_LIST_ENTRY_COUNT = 36;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

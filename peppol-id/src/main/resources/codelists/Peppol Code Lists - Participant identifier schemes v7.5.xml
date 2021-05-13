@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<participant-identifier-schemes version="7.4" entry-count="83">
+<participant-identifier-schemes version="7.5" entry-count="88">
   <participant-identifier-scheme schemeid="FR:SIRENE" iso6523="0002" country="FR" scheme-name="System Information et Repertoire des Entreprise et des Etablissements: SIRENE" issuing-agency="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" since="1.0.0" deprecated="false">
     <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters.
 2) Check digits: 9th &amp; 14th character respectively</structure>
@@ -320,6 +320,51 @@ For establishment unit numbers:
     <validation-rules>RegEx: 0[0-9]{9}
 Check digit: mod97
 See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="GS1" iso6523="0209" country="international" scheme-name="GS1 identification keys" issuing-agency="GS1" since="7.5" deprecated="false">
+    <structure>The code will include an application identifier indicating the type of GS1 identification key used for an object, followed by the value of the key. The string can be completed by other application identifiers indicating attributes related to the GS1 ID key and the value of these attributes related to the identified object.</structure>
+    <display>None</display>
+    <examples>414541000099999325412345678901234567890</examples>
+    <validation-rules>See document "GS1 Application Standard for usage of ISO/IEC 6523 International Code Designator (ICD) 0209"</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:CFI" iso6523="0210" country="IT" scheme-name="CODICE FISCALE" issuing-agency="Agenzia delle Entrate" since="7.5" deprecated="false">
+    <structure>The code is 16 alphanumeric digits for natural persons or 11 numeric digits for legal persons.
+The code is 16 alphanumeric digits for natural persons, with this structure:
+3 digits - Surname according to specific rules
+3 digits - Name according to specific rules
+2 digits - Last two digits of year of birth
+1 digit - Month of birth according to a specific conversion table
+2 digits - Day of birth and gender
+4 digits - Place of birth in a “Belfiore” code
+1 digit - CIN – Control Internal Number
+The code is 11 numeric digits for legal persons, with this structure:
+7 digits - Progressive number
+3 digits - Revenue Office ID
+1 digit - check
+Last digit for natural persons - CIN - Control Internal Number
+Last digit for legal persons - Check</structure>
+    <validation-rules>Character Repertoire : A to Z (upper case) and 0 to 9</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:IVA" iso6523="0211" country="IT" scheme-name="PARTITA IVA" issuing-agency="Agenzia delle Entrate" since="7.5" deprecated="false">
+    <structure>The code is 11 numeric digits
+First 7 digits is a progressive number
+The following 3 digits means the province of residence
+The last digit is a check number, calculated using Luhn's Algorithm</structure>
+    <validation-rules>Character Repertoire: 0 to 9</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="FI:ORG" iso6523="0212" country="FI" scheme-name="Finnish Organization Identifier" issuing-agency="State Treasury of Finland / Valtiokonttori" since="7.5" deprecated="false">
+    <structure>9999999-9
+nine characters
+last digit after the hyphen is check character</structure>
+    <display>Shall be presented as string so that leading zeros have to be present.
+Hyphen shall be present between last two digits.</display>
+    <validation-rules>Character Repertoire: digits 0-9 and hyphen "-"</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="FI:VAT" iso6523="0213" country="FI" scheme-name="Finnish Organization Value Add Tax Identifier" issuing-agency="State Treasury of Finland / Valtiokonttori" since="7.5" deprecated="false">
+    <structure>FI99999999
+ten characters</structure>
+    <display>Shall be presented as string so that leading zeros have to be present. Two first characters have always fixed value FI.</display>
+    <validation-rules>Character Repertoire: digits 0-9 and FI</validation-rules>
   </participant-identifier-scheme>
   <participant-identifier-scheme schemeid="DK:CPR" iso6523="9901" country="DK" scheme-name="Danish Ministry of the Interior and Health" issuing-agency="Danish Ministry of the Interior and Health" since="1.0.0" deprecated="false">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
