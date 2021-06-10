@@ -143,6 +143,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   {
     // Get response from servlet
     final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);
+    if (aDocument == null)
+      throw new IllegalArgumentException ("The SMP response is not XML");
 
     // We make sure that the XML is a Signed. If not, we don't have to check
     // any certificates.
