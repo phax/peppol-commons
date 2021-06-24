@@ -60,18 +60,20 @@ public final class PeppolKeyStoreHelperTest
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_ALIAS_SMP));
 
     {
-      final X509Certificate aCertAP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_ALIAS_AP);
+      final X509Certificate aCertAP = PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP;
       final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
       assertEquals ("CN=PEPPOL Root CA - G2,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
       final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
       assertEquals ("CN=PEPPOL ACCESS POINT CA - G2,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertAP.verify (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT.getPublicKey ());
     }
     {
-      final X509Certificate aCertSMP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_ALIAS_SMP);
+      final X509Certificate aCertSMP = PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP;
       final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
       assertEquals ("CN=PEPPOL Root CA - G2,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
       final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
       assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER CA - G2,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertSMP.verify (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_ROOT.getPublicKey ());
     }
   }
 
@@ -90,18 +92,20 @@ public final class PeppolKeyStoreHelperTest
     assertNotNull (aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_ALIAS_SMP));
 
     {
-      final X509Certificate aCertAP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_ALIAS_AP);
+      final X509Certificate aCertAP = PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP;
       final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
       assertEquals ("CN=PEPPOL Root TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
       final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
       assertEquals ("CN=PEPPOL ACCESS POINT TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertAP.verify (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT.getPublicKey ());
     }
     {
-      final X509Certificate aCertSMP = (X509Certificate) aTrustStore.getCertificate (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_ALIAS_SMP);
+      final X509Certificate aCertSMP = PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP;
       final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
       assertEquals ("CN=PEPPOL Root TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
       final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
       assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertSMP.verify (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT.getPublicKey ());
     }
   }
 }
