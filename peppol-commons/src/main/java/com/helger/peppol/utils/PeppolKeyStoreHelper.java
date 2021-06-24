@@ -140,7 +140,7 @@ public final class PeppolKeyStoreHelper
 
     static
     {
-      if (TRUSTSTORE_PRODUCTION == null)
+      if (TRUSTSTORE_PILOT == null)
         throw new IllegalStateException ("Failed to load pre-configured pilot trust store");
     }
 
