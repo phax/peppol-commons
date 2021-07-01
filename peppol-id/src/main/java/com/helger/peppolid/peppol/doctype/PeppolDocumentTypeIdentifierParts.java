@@ -65,6 +65,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
                                              @Nonnull @Nonempty final String sCustomizationID,
                                              @Nonnull @Nonempty final String sVersion)
   {
+    ValueEnforcer.notNull (aBusdoxParts, "BusdoxParts");
     ValueEnforcer.notEmpty (sCustomizationID, "CustomizationID");
     ValueEnforcer.notEmpty (sVersion, "Version");
 
@@ -81,6 +82,12 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
     this (new BusdoxDocumentTypeIdentifierParts (sRootNS, sLocalName, _buildSubTypeIdentifier (sCustomizationID, sVersion)),
           sCustomizationID,
           sVersion);
+  }
+
+  @Nonnull
+  public IBusdoxDocumentTypeIdentifierParts getBusdoxParts ()
+  {
+    return m_aBusdoxParts;
   }
 
   @Nonnull
@@ -120,6 +127,24 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
   public String getVersion ()
   {
     return m_sVersion;
+  }
+
+  @Nonnull
+  public PeppolDocumentTypeIdentifierParts withCustomizationID (@Nonnull @Nonempty final String sCustomizationID)
+  {
+    return new PeppolDocumentTypeIdentifierParts (m_aBusdoxParts.getRootNS (),
+                                                  m_aBusdoxParts.getLocalName (),
+                                                  sCustomizationID,
+                                                  m_sVersion);
+  }
+
+  @Nonnull
+  public PeppolDocumentTypeIdentifierParts withVersion (@Nonnull @Nonempty final String sVersion)
+  {
+    return new PeppolDocumentTypeIdentifierParts (m_aBusdoxParts.getRootNS (),
+                                                  m_aBusdoxParts.getLocalName (),
+                                                  m_sCustomizationID,
+                                                  sVersion);
   }
 
   @Nonnull
