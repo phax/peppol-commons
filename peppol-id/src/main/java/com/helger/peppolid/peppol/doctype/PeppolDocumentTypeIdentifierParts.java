@@ -172,19 +172,19 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
    * ID can be further detailed into
    * <code>&lt;transactionId&gt;:#&lt;extensionId&gt;[#&lt;extensionId&gt;]</code>
    *
-   * @param sDocTypeID
-   *        The document identifier value to be split. May neither be
-   *        <code>null</code> nor empty.
+   * @param sDocTypeIDValue
+   *        The document identifier value (without the scheme) to be split. May
+   *        neither be <code>null</code> nor empty.
    * @return The non-<code>null</code> Peppol identifier parts
    * @throws IllegalArgumentException
    *         if the passed document identifier value does not match the
    *         specifications
    */
   @Nonnull
-  public static IPeppolDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeID)
+  public static IPeppolDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeIDValue)
   {
     // Extract the main 3 elements (root namespace, local name and sub-type)
-    final IBusdoxDocumentTypeIdentifierParts aBusdoxParts = BusdoxDocumentTypeIdentifierParts.extractFromString (sDocTypeID);
+    final IBusdoxDocumentTypeIdentifierParts aBusdoxParts = BusdoxDocumentTypeIdentifierParts.extractFromString (sDocTypeIDValue);
 
     // Now start splitting the sub-type identifier
     final String sSubTypeIdentifier = aBusdoxParts.getSubTypeIdentifier ();
