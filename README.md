@@ -292,6 +292,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * v8.6.2 - work in progress
     * Avoid NPE in `SMPClientReadOnly.getServiceMetadata` if the returned server response is not XML
     * Improved debug logging in `SMPHttpResponseHandlerSigned` in case of error
+    * Added possibility in `TrustStoreBasedX509KeySelector` to specify a date and time, for which the checks should be performed
 * v8.6.1 - 2021-05-10
     * Updated to OpenPeppol eDEC Code Lists v7.5
 * v8.6.0 - 2021-05-02

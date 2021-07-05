@@ -20,6 +20,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.time.Month;
 import java.util.Iterator;
 
 import javax.xml.crypto.dsig.Reference;
@@ -27,13 +28,13 @@ import javax.xml.crypto.dsig.XMLSignature;
 import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
@@ -53,7 +54,6 @@ public final class SignedServiceMetadataTypeFuncTest
   private static final Logger LOGGER = LoggerFactory.getLogger (SignedServiceMetadataTypeFuncTest.class);
 
   @Test
-  @Ignore ("Certificate expired 2021-03-01")
   public void testReadInvalid () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
@@ -75,10 +75,13 @@ public final class SignedServiceMetadataTypeFuncTest
 
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (SMPClientConfiguration.loadTrustStore ());
 
+    // Certificate expired 2021-03-01
+    aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2021, Month.JANUARY, 1));
+
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.
-    // TODO OASIS BDXR SMP v2 can have more than one signature
     final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
+
     final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
 
     // Unmarshal the XMLSignature.
@@ -91,8 +94,8 @@ public final class SignedServiceMetadataTypeFuncTest
 
     final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
     if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("  Signature value valid: " + bSignatureValueValid);
-    if (!bSignatureValueValid)
+      LOGGER.info ("  SignatureValue validity status: " + (bSignatureValueValid ? "valid" : "NOT valid!"));
+
     {
       // Check the validation status of each Reference.
       int nIndex = 0;
@@ -108,7 +111,6 @@ public final class SignedServiceMetadataTypeFuncTest
   }
 
   @Test
-  @Ignore ("Certificate expired 2021-03-01")
   public void testReadValid () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
@@ -130,9 +132,11 @@ public final class SignedServiceMetadataTypeFuncTest
 
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (SMPClientConfiguration.loadTrustStore ());
 
+    // Certificate expired 2021-03-01
+    aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2021, Month.JANUARY, 1));
+
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.
-    // TODO OASIS BDXR SMP v2 can have more than one signature
     final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
     final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
 
@@ -146,7 +150,6 @@ public final class SignedServiceMetadataTypeFuncTest
   }
 
   @Test
-  @Ignore ("Certificate expired on 2020-08-05")
   public void testReadC14NInclusive () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
@@ -168,9 +171,11 @@ public final class SignedServiceMetadataTypeFuncTest
 
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (SMPClientConfiguration.loadTrustStore ());
 
+    // Certificate expired 2020-08-05
+    aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2020, Month.AUGUST, 1));
+
     // Create a DOMValidateContext and specify a KeySelector
     // and document context.
-    // TODO OASIS BDXR SMP v2 can have more than one signature
     final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
     final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
 

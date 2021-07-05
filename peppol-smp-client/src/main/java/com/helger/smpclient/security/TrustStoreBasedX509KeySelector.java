@@ -23,9 +23,12 @@ import java.security.cert.CertPathValidator;
 import java.security.cert.CertificateFactory;
 import java.security.cert.PKIXParameters;
 import java.security.cert.X509Certificate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.xml.crypto.AlgorithmMethod;
 import javax.xml.crypto.KeySelector;
 import javax.xml.crypto.KeySelectorException;
@@ -41,6 +44,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.ConstantKeySelectorResult;
 
@@ -57,6 +61,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   private static final Logger LOGGER = LoggerFactory.getLogger (TrustStoreBasedX509KeySelector.class);
 
   private final KeyStore m_aTrustStore;
+  private LocalDateTime m_aValidationDateTime;
 
   /**
    * Constructor
@@ -69,6 +74,32 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   {
     ValueEnforcer.notNull (aTrustStore, "TrustStore");
     m_aTrustStore = aTrustStore;
+  }
+
+  /**
+   * @return The selected validation date and time to use. <code>null</code>
+   *         means current date time.
+   * @since 8.6.2
+   */
+  @Nullable
+  public final LocalDateTime getValidationDateTime ()
+  {
+    return m_aValidationDateTime;
+  }
+
+  /**
+   * Set the date and time when the trust store entry should be valid.
+   *
+   * @param aValidationDateTime
+   *        The date and time to use. May be <code>null</code>.
+   * @return this for chaining
+   * @since 8.6.2
+   */
+  @Nonnull
+  public final TrustStoreBasedX509KeySelector setValidationDateTime (@Nullable final LocalDateTime aValidationDateTime)
+  {
+    m_aValidationDateTime = aValidationDateTime;
+    return this;
   }
 
   public static boolean algorithmEquals (@Nonnull final String sAlgURI, @Nonnull final String sAlgName)
@@ -144,8 +175,13 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
             final X509Certificate aCertificate = (X509Certificate) aElement;
             try
             {
+              final Date aCheckDate = m_aValidationDateTime != null ? PDTFactory.createDate (m_aValidationDateTime) : null;
+
               // Check if the certificate is expired or active.
-              aCertificate.checkValidity ();
+              if (aCheckDate != null)
+                aCertificate.checkValidity (aCheckDate);
+              else
+                aCertificate.checkValidity ();
 
               // Checks whether the certificate is in the trusted store.
               final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
@@ -154,6 +190,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               // - the trustAnchorsParameter is empty
               final PKIXParameters aPKIXParams = new PKIXParameters (m_aTrustStore);
               aPKIXParams.setRevocationEnabled (false);
+              aPKIXParams.setDate (aCheckDate);
               final CertificateFactory aCertificateFactory = CertificateHelper.getX509CertificateFactory ();
               final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList <> (aCertArray));
               final CertPathValidator aPathValidator = CertPathValidator.getInstance ("PKIX");
