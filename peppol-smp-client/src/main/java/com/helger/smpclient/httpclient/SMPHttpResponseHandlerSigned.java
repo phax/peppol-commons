@@ -179,8 +179,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       LOGGER.info ("Signature failed core validation");
       final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("  Signature value valid: " + bSignatureValueValid);
-      if (!bSignatureValueValid)
+        LOGGER.info ("  SignatureValue validity status: " + (bSignatureValueValid ? "valid" : "NOT valid!"));
+
       {
         // Check the validation status of each Reference.
         int nIndex = 0;
