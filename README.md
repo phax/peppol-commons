@@ -289,7 +289,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.6.2 - work in progress
+* v8.6.2 - 2021-07-06
     * Avoid NPE in `SMPClientReadOnly.getServiceMetadata` if the returned server response is not XML
     * Improved debug logging in `SMPHttpResponseHandlerSigned` in case of error
     * Added possibility in `TrustStoreBasedX509KeySelector` to specify a date and time, for which the checks should be performed
