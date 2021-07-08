@@ -16,29 +16,21 @@
  */
 package com.helger.smpclient.peppol;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Month;
-import java.util.Iterator;
-
-import javax.xml.crypto.dsig.Reference;
-import javax.xml.crypto.dsig.XMLSignature;
-import javax.xml.crypto.dsig.XMLSignatureFactory;
-import javax.xml.crypto.dsig.dom.DOMValidateContext;
 
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
 
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.state.ESuccess;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 import com.helger.smpclient.config.SMPClientConfiguration;
+import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerSignedServiceMetadataType;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
 import com.helger.xml.serialize.read.DOMReader;
@@ -51,8 +43,6 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
  */
 public final class SignedServiceMetadataTypeFuncTest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (SignedServiceMetadataTypeFuncTest.class);
-
   @Test
   public void testReadInvalid () throws Exception
   {
@@ -68,46 +58,13 @@ public final class SignedServiceMetadataTypeFuncTest
     final Document aDocument = DOMReader.readXMLDOM (aBytes);
     assertNotNull (aDocument);
 
-    // Find Signature element.
-    final NodeList aNodeList = aDocument.getElementsByTagNameNS (XMLSignature.XMLNS, "Signature");
-    assertNotNull (aNodeList);
-    assertTrue (aNodeList.getLength () > 0);
-
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (SMPClientConfiguration.loadTrustStore ());
 
     // Certificate expired 2021-03-01
     aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2021, Month.JANUARY, 1));
 
-    // Create a DOMValidateContext and specify a KeySelector
-    // and document context.
-    final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
-
-    final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
-
-    // Unmarshal the XMLSignature.
-    final XMLSignature aSignature = aSignatureFactory.unmarshalXMLSignature (aValidateContext);
-    assertNotNull (aSignature);
-
-    // Validate the XMLSignature.
-    final boolean bCoreValid = aSignature.validate (aValidateContext);
-    assertFalse (bCoreValid);
-
-    final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("  SignatureValue validity status: " + (bSignatureValueValid ? "valid" : "NOT valid!"));
-
-    {
-      // Check the validation status of each Reference.
-      int nIndex = 0;
-      final Iterator <?> i = aSignature.getSignedInfo ().getReferences ().iterator ();
-      while (i.hasNext ())
-      {
-        final boolean bRefValid = ((Reference) i.next ()).validate (aValidateContext);
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("  Reference[" + nIndex + "] validity status: " + (bRefValid ? "valid" : "NOT valid!"));
-        ++nIndex;
-      }
-    }
+    final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector);
+    assertTrue (eSuccess.isFailure ());
   }
 
   @Test
@@ -125,28 +82,13 @@ public final class SignedServiceMetadataTypeFuncTest
     final Document aDocument = DOMReader.readXMLDOM (aBytes);
     assertNotNull (aDocument);
 
-    // Find Signature element.
-    final NodeList aNodeList = aDocument.getElementsByTagNameNS (XMLSignature.XMLNS, "Signature");
-    assertNotNull (aNodeList);
-    assertTrue (aNodeList.getLength () > 0);
-
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (SMPClientConfiguration.loadTrustStore ());
 
     // Certificate expired 2021-03-01
     aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2021, Month.JANUARY, 1));
 
-    // Create a DOMValidateContext and specify a KeySelector
-    // and document context.
-    final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
-    final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
-
-    // Unmarshal the XMLSignature.
-    final XMLSignature aSignature = aSignatureFactory.unmarshalXMLSignature (aValidateContext);
-    assertNotNull (aSignature);
-
-    // Validate the XMLSignature.
-    final boolean bCoreValid = aSignature.validate (aValidateContext);
-    assertTrue (bCoreValid);
+    final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector);
+    assertTrue (eSuccess.isSuccess ());
   }
 
   @Test
@@ -164,27 +106,12 @@ public final class SignedServiceMetadataTypeFuncTest
     final Document aDocument = DOMReader.readXMLDOM (aBytes);
     assertNotNull (aDocument);
 
-    // Find Signature element.
-    final NodeList aNodeList = aDocument.getElementsByTagNameNS (XMLSignature.XMLNS, "Signature");
-    assertNotNull (aNodeList);
-    assertTrue (aNodeList.getLength () > 0);
-
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (SMPClientConfiguration.loadTrustStore ());
 
     // Certificate expired 2020-08-05
     aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2020, Month.AUGUST, 1));
 
-    // Create a DOMValidateContext and specify a KeySelector
-    // and document context.
-    final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
-    final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
-
-    // Unmarshal the XMLSignature.
-    final XMLSignature aSignature = aSignatureFactory.unmarshalXMLSignature (aValidateContext);
-    assertNotNull (aSignature);
-
-    // Validate the XMLSignature.
-    final boolean bCoreValid = aSignature.validate (aValidateContext);
-    assertTrue (bCoreValid);
+    final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector);
+    assertTrue (eSuccess.isSuccess ());
   }
 }

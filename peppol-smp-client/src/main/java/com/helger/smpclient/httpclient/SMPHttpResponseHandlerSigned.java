@@ -20,10 +20,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
+import javax.xml.crypto.KeySelector;
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.Reference;
 import javax.xml.crypto.dsig.XMLSignature;
@@ -41,6 +43,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.state.ESuccess;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
@@ -138,71 +141,114 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     return this;
   }
 
-  private static boolean _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream,
-                                          @Nonnull final KeyStore aTrustStore) throws MarshalException, XMLSignatureException
+  @Nonnull
+  public static ESuccess checkSignature (@Nonnull final Document aDocument,
+                                         @Nonnull final KeySelector aKeySelector) throws MarshalException, XMLSignatureException
+  {
+    // We make sure that the XML is a Signed. If not, we don't have to check
+    // any certificates.
+
+    // Find all "Signature" elements
+    final NodeList aNodeList = aDocument.getElementsByTagNameNS (XMLSignature.XMLNS, "Signature");
+    if (aNodeList == null || aNodeList.getLength () == 0)
+      throw new IllegalArgumentException ("Element <Signature> not found in SMP XML response");
+
+    final int nSignatureCount = aNodeList.getLength ();
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Found " + nSignatureCount + " <Signature> elements to verify");
+
+    final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
+    ESuccess eSuccess = ESuccess.SUCCESS;
+
+    // OASIS BDXR SMP v2 can have more than one signature
+    for (int nSignatureIndex = 0; nSignatureIndex < nSignatureCount; ++nSignatureIndex)
+    {
+      // Create a DOMValidateContext and specify a KeySelector
+      final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (nSignatureIndex));
+      final String sSignatureDebug = (nSignatureIndex + 1) + "/" + nSignatureCount;
+
+      // Unmarshal the XMLSignature.
+      final XMLSignature aSignature = aSignatureFactory.unmarshalXMLSignature (aValidateContext);
+
+      // Validate the XMLSignature.
+      final boolean bCoreValid = aSignature.validate (aValidateContext);
+      if (bCoreValid)
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Signature[" + sSignatureDebug + "] validation was successful");
+      }
+      else
+      {
+        eSuccess = ESuccess.FAILURE;
+
+        // This code block is for debugging purposes only - it has no semantical
+        // influence
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Signature[" + sSignatureDebug + "] failed core validation");
+
+        final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
+        if (bSignatureValueValid)
+        {
+          if (LOGGER.isInfoEnabled ())
+            LOGGER.info ("  Signature[" + sSignatureDebug + "] SignatureValue validity status: valid");
+        }
+        else
+        {
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("  Signature[" + sSignatureDebug + "] SignatureValue validity status: NOT valid!");
+        }
+
+        {
+          // Check the validation status of each Reference.
+          final List <?> aRefs = aSignature.getSignedInfo ().getReferences ();
+          final int nRefCount = aRefs.size ();
+          int nRefIndex = 0;
+          final Iterator <?> i = aRefs.iterator ();
+          while (i.hasNext ())
+          {
+            final String sRefDebug = (nRefIndex + 1) + "/" + nRefCount;
+
+            final Reference aRef = (Reference) i.next ();
+            if (aRef.getTransforms ().size () != 1)
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn ("  Signature[" +
+                             sSignatureDebug +
+                             "] Reference[" +
+                             sRefDebug +
+                             "] has an invalid number of Transforms. Expected 1 but having " +
+                             aRef.getTransforms ().size ());
+
+            final boolean bRefValid = aRef.validate (aValidateContext);
+            if (bRefValid)
+            {
+              if (LOGGER.isInfoEnabled ())
+                LOGGER.info ("  Signature[" + sSignatureDebug + "] Reference[" + sRefDebug + "] validity status: valid");
+            }
+            else
+            {
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn ("  Signature[" + sSignatureDebug + "] Reference[" + sRefDebug + "] validity status: NOT valid!");
+            }
+            ++nRefIndex;
+          }
+        }
+      }
+    }
+    return eSuccess;
+  }
+
+  @Nonnull
+  private static ESuccess _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream,
+                                           @Nonnull final KeyStore aTrustStore) throws MarshalException, XMLSignatureException
   {
     // Get response from servlet
     final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);
     if (aDocument == null)
       throw new IllegalArgumentException ("The SMP response is not XML");
 
-    // We make sure that the XML is a Signed. If not, we don't have to check
-    // any certificates.
-
-    // Find Signature element.
-    final NodeList aNodeList = aDocument.getElementsByTagNameNS (XMLSignature.XMLNS, "Signature");
-    if (aNodeList == null || aNodeList.getLength () == 0)
-      throw new IllegalArgumentException ("Element <Signature> not found in SMP XML response");
-
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (aTrustStore);
 
-    // Create a DOMValidateContext and specify a KeySelector
-    // and document context.
-    // TODO OASIS BDXR SMP v2 can have more than one signature
-    final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (0));
-    final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
-
-    // Unmarshal the XMLSignature.
-    final XMLSignature aSignature = aSignatureFactory.unmarshalXMLSignature (aValidateContext);
-
-    // Validate the XMLSignature.
-    final boolean bCoreValid = aSignature.validate (aValidateContext);
-    if (bCoreValid)
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Signature validation was successful");
-    }
-    else
-    {
-      // This code block is for debugging purposes only - it has no semantical
-      // influence
-      LOGGER.info ("Signature failed core validation");
-      final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("  SignatureValue validity status: " + (bSignatureValueValid ? "valid" : "NOT valid!"));
-
-      {
-        // Check the validation status of each Reference.
-        int nIndex = 0;
-        final Iterator <?> i = aSignature.getSignedInfo ().getReferences ().iterator ();
-        while (i.hasNext ())
-        {
-          final Reference aRef = (Reference) i.next ();
-          if (aRef.getTransforms ().size () != 1)
-            if (LOGGER.isWarnEnabled ())
-              LOGGER.warn ("  Reference[" +
-                           nIndex +
-                           "] has an invalid number of Transforms. Expected 1 but having " +
-                           aRef.getTransforms ().size ());
-
-          final boolean bRefValid = aRef.validate (aValidateContext);
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("  Reference[" + nIndex + "] validity status: " + (bRefValid ? "valid" : "NOT valid!"));
-          ++nIndex;
-        }
-      }
-    }
-    return bCoreValid;
+    return checkSignature (aDocument, aKeySelector);
   }
 
   @Override
@@ -212,7 +258,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     // Get complete response as one big byte buffer
     final byte [] aResponseBytes = StreamHelper.getAllBytes (aEntity.getContent ());
     if (ArrayHelper.isEmpty (aResponseBytes))
-      throw new SMPClientBadResponseException ("Could not read SMP server response content");
+      throw new SMPClientBadResponseException ("SMP server response content is empty/could not be read");
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Signed SMP response has " + aResponseBytes.length + " bytes");
@@ -225,11 +271,16 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       try (final InputStream aIS = new NonBlockingByteArrayInputStream (aResponseBytes))
       {
         // Check the signature
-        if (!_checkSignature (aIS, m_aTrustStore))
+        if (_checkSignature (aIS, m_aTrustStore).isFailure ())
           throw new SMPClientBadResponseException ("Signature returned from SMP server was not valid");
 
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Successfully verified signature of signed SMP response");
+      }
+      catch (final SMPClientBadResponseException ex)
+      {
+        // Avoid double wrapping
+        throw ex;
       }
       catch (final Exception ex)
       {
