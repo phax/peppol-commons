@@ -187,7 +187,15 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
         final Iterator <?> i = aSignature.getSignedInfo ().getReferences ().iterator ();
         while (i.hasNext ())
         {
-          final boolean bRefValid = ((Reference) i.next ()).validate (aValidateContext);
+          final Reference aRef = (Reference) i.next ();
+          if (aRef.getTransforms ().size () != 1)
+            if (LOGGER.isWarnEnabled ())
+              LOGGER.warn ("  Reference[" +
+                           nIndex +
+                           "] has an invalid number of Transforms. Expected 1 but having " +
+                           aRef.getTransforms ().size ());
+
+          final boolean bRefValid = aRef.validate (aValidateContext);
           if (LOGGER.isInfoEnabled ())
             LOGGER.info ("  Reference[" + nIndex + "] validity status: " + (bRefValid ? "valid" : "NOT valid!"));
           ++nIndex;
