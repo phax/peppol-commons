@@ -23,6 +23,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
@@ -42,6 +43,8 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
                                      Comparable <SimpleProcessIdentifier>,
                                      ICloneable <SimpleProcessIdentifier>
 {
+  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public SimpleProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
   {
@@ -68,6 +71,16 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   public SimpleProcessIdentifier getClone ()
   {
     return new SimpleProcessIdentifier (this);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // Cash for performance reasons
+    int ret = m_nHashCode;
+    if (ret == IHashCodeGenerator.ILLEGAL_HASHCODE)
+      ret = m_nHashCode = super.hashCode ();
+    return ret;
   }
 
   @Nonnull
