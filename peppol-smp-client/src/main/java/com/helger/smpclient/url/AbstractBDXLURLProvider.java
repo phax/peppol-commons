@@ -112,7 +112,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   public final void setNAPTRServiceName (@Nonnull @Nonempty final String sNAPTRServiceName)
   {
     ValueEnforcer.notEmpty (sNAPTRServiceName, "NAPTRServiceName");
-    m_aRWLock.writeLockedGet ( () -> m_sNAPTRServiceName = sNAPTRServiceName);
+    m_aRWLock.writeLocked ( () -> m_sNAPTRServiceName = sNAPTRServiceName);
   }
 
   public final boolean isUseDNSCache ()
@@ -170,7 +170,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sNaptrValue, "Value");
-    m_aRWLock.writeLockedGet ( () -> m_aDNSCache.put (sName, sNaptrValue));
+    m_aRWLock.writeLocked ( () -> m_aDNSCache.put (sName, sNaptrValue));
   }
 
   /**
@@ -292,7 +292,11 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
       if (sResolvedNAPTR == null)
       {
         // Since 6.2.0 this a checked exception
-        throw new SMPDNSResolutionException ("Failed to resolve '" + sBuildDomainName + "' and service '" + sServiceName + "' to a DNS U-NAPTR");
+        throw new SMPDNSResolutionException ("Failed to resolve '" +
+                                             sBuildDomainName +
+                                             "' and service '" +
+                                             sServiceName +
+                                             "' to a DNS U-NAPTR");
       }
 
       if (bUseDNSCache)

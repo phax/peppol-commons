@@ -113,7 +113,7 @@ public final class CertificateRevocationChecker
   public static void setRevocationCheckMode (@Nonnull final ERevocationCheckMode eRevocationCheckMode)
   {
     ValueEnforcer.notNull (eRevocationCheckMode, "RevocationCheckMode");
-    RW_LOCK.writeLockedGet ( () -> s_eRevocationCheckMode = eRevocationCheckMode);
+    RW_LOCK.writeLocked ( () -> s_eRevocationCheckMode = eRevocationCheckMode);
     LOGGER.info ("Global CertificateRevocationChecker revocation mode was set to: " + eRevocationCheckMode);
   }
 
@@ -137,7 +137,7 @@ public final class CertificateRevocationChecker
   public static void setExceptionHdl (@Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
     ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
-    RW_LOCK.writeLockedGet ( () -> s_aExceptionHdl = aExceptionHdl);
+    RW_LOCK.writeLocked ( () -> s_aExceptionHdl = aExceptionHdl);
   }
 
   /**
@@ -196,7 +196,7 @@ public final class CertificateRevocationChecker
   public static void setSoftFailExceptionHdl (@Nonnull final Consumer <? super List <CertPathValidatorException>> aSoftFailExceptionHdl)
   {
     ValueEnforcer.notNull (aSoftFailExceptionHdl, "SoftFailExceptionHdl");
-    RW_LOCK.writeLockedGet ( () -> s_aSoftFailExceptionHdl = aSoftFailExceptionHdl);
+    RW_LOCK.writeLocked ( () -> s_aSoftFailExceptionHdl = aSoftFailExceptionHdl);
   }
 
   /**
