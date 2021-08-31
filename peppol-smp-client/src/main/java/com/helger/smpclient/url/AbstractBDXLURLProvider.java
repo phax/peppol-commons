@@ -1,18 +1,15 @@
 /**
- * Copyright (C) 2015-2021 Philip Helger
- * philip[at]helger[dot]com
+ * Copyright (C) 2015-2021 Philip Helger philip[at]helger[dot]com
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
  *
- *         http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.helger.smpclient.url;
 
@@ -29,6 +26,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xbill.DNS.TextParseException;
 
 import com.helger.commons.ValueEnforcer;
@@ -62,6 +61,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   public static final boolean DEFAULT_USE_DNS_CACHE = false;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractBDXLURLProvider.class);
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
@@ -289,6 +289,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
       {
         throw new SMPDNSResolutionException ("Failed to parse '" + sBuildDomainName + "'", ex);
       }
+
       if (sResolvedNAPTR == null)
       {
         // Since 6.2.0 this a checked exception
@@ -298,6 +299,9 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                              sServiceName +
                                              "' to a DNS U-NAPTR");
       }
+
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Resolved domain name '" + sBuildDomainName + "' and service '" + sServiceName + "' to URL '" + sResolvedNAPTR + "'");
 
       if (bUseDNSCache)
       {
