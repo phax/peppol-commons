@@ -517,6 +517,10 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     aMigrationRecord.setServiceMetadataPublisherID (sSMPID);
 
     createWSPort ().prepareToMigrate (aMigrationRecord);
+
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Successfully called 'prepareToMigrate'");
+
     return sMigrationKey;
   }
 
@@ -553,7 +557,6 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notEmpty (sMigrationKey, "MigrationKey");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
-    // Convert UUID to string
     if (LOGGER.isInfoEnabled ())
       LOGGER.info ("Finishing migration of participant " +
                    aIdentifier.getURIEncoded () +
@@ -570,5 +573,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     aMigrationRecord.setServiceMetadataPublisherID (sSMPID);
 
     createWSPort ().migrate (aMigrationRecord);
+
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Successfully called 'migrate'");
   }
 }
