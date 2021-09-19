@@ -46,7 +46,7 @@ public final class CIdentifier
   public static final String URL_SCHEME_VALUE_SEPARATOR = "::";
 
   @PresentForCodeCoverage
-  private static final CIdentifier s_aInstance = new CIdentifier ();
+  private static final CIdentifier INSTANCE = new CIdentifier ();
 
   private CIdentifier ()
   {}

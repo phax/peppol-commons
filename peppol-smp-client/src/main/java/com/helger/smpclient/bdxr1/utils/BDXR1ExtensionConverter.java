@@ -71,10 +71,10 @@ public final class BDXR1ExtensionConverter
   public static final String JSON_ANY = "Any";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (BDXR1ExtensionConverter.class);
-  private static final XMLWriterSettings s_aXWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE);
+  private static final XMLWriterSettings XWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE);
 
   @PresentForCodeCoverage
-  private static final BDXR1ExtensionConverter s_aInstance = new BDXR1ExtensionConverter ();
+  private static final BDXR1ExtensionConverter INSTANCE = new BDXR1ExtensionConverter ();
 
   private BDXR1ExtensionConverter ()
   {}
@@ -97,7 +97,7 @@ public final class BDXR1ExtensionConverter
       if (aAny instanceof Element)
       {
         // Convert XML to String
-        aAny = XMLWriter.getNodeAsString ((Element) aAny, s_aXWS);
+        aAny = XMLWriter.getNodeAsString ((Element) aAny, XWS);
       }
 
       final JsonObject ret = new JsonObject ();

@@ -45,7 +45,7 @@ import com.helger.smpclient.url.SMPDNSResolutionException;
 public final class SMPClientPredefinedEndpointAddressFuncTest
 {
   @ClassRule
-  public static final SMPClientTestConfigRule s_aRule = new SMPClientTestConfigRule ();
+  public static final SMPClientTestConfigRule RULE = new SMPClientTestConfigRule ();
 
   private static final IParticipantIdentifier PI_AT_TEST = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
   private static final IParticipantIdentifier PI_AT_PROD = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");

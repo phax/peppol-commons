@@ -42,17 +42,17 @@ import com.helger.commons.collection.impl.ICommonsSet;
 @Immutable
 public final class PredefinedDocumentTypeIdentifierManager
 {
-  private static final ICommonsMap <String, IPeppolPredefinedDocumentTypeIdentifier> s_aCodes = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, IPeppolPredefinedDocumentTypeIdentifier> CODES = new CommonsHashMap <> ();
 
   static
   {
     // Add all predefined document identifier
     for (final EPredefinedDocumentTypeIdentifier eDocID : EPredefinedDocumentTypeIdentifier.values ())
-      s_aCodes.put (eDocID.getValue (), eDocID);
+      CODES.put (eDocID.getValue (), eDocID);
   }
 
   @PresentForCodeCoverage
-  private static final PredefinedDocumentTypeIdentifierManager s_aInstance = new PredefinedDocumentTypeIdentifierManager ();
+  private static final PredefinedDocumentTypeIdentifierManager INSTANCE = new PredefinedDocumentTypeIdentifierManager ();
 
   private PredefinedDocumentTypeIdentifierManager ()
   {}
@@ -65,7 +65,7 @@ public final class PredefinedDocumentTypeIdentifierManager
   @ReturnsMutableCopy
   public static ICommonsCollection <IPeppolPredefinedDocumentTypeIdentifier> getAllDocumentTypeIdentifiers ()
   {
-    return s_aCodes.copyOfValues ();
+    return CODES.copyOfValues ();
   }
 
   /**
@@ -76,7 +76,7 @@ public final class PredefinedDocumentTypeIdentifierManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllDocumentTypeIdentifierIDs ()
   {
-    return s_aCodes.copyOfKeySet ();
+    return CODES.copyOfKeySet ();
   }
 
   /**
@@ -93,7 +93,7 @@ public final class PredefinedDocumentTypeIdentifierManager
   {
     if (sDocTypeIDValue != null)
     {
-      for (final Map.Entry <String, IPeppolPredefinedDocumentTypeIdentifier> aEntry : s_aCodes.entrySet ())
+      for (final Map.Entry <String, IPeppolPredefinedDocumentTypeIdentifier> aEntry : CODES.entrySet ())
       {
         // PEPPOL: case sensitive document types
         if (sDocTypeIDValue.equals (aEntry.getKey ()))

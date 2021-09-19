@@ -41,17 +41,17 @@ import com.helger.commons.collection.impl.ICommonsSet;
 @Immutable
 public final class PredefinedProcessIdentifierManager
 {
-  private static final ICommonsMap <String, IPeppolPredefinedProcessIdentifier> s_aCodes = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, IPeppolPredefinedProcessIdentifier> CODES = new CommonsHashMap <> ();
 
   static
   {
     // Add all predefined process identifiers
     for (final EPredefinedProcessIdentifier eProcID : EPredefinedProcessIdentifier.values ())
-      s_aCodes.put (eProcID.getValue (), eProcID);
+      CODES.put (eProcID.getValue (), eProcID);
   }
 
   @PresentForCodeCoverage
-  private static final PredefinedProcessIdentifierManager s_aInstance = new PredefinedProcessIdentifierManager ();
+  private static final PredefinedProcessIdentifierManager INSTANCE = new PredefinedProcessIdentifierManager ();
 
   private PredefinedProcessIdentifierManager ()
   {}
@@ -64,7 +64,7 @@ public final class PredefinedProcessIdentifierManager
   @ReturnsMutableCopy
   public static ICommonsCollection <IPeppolPredefinedProcessIdentifier> getAllProcessIdentifiers ()
   {
-    return s_aCodes.copyOfValues ();
+    return CODES.copyOfValues ();
   }
 
   /**
@@ -75,7 +75,7 @@ public final class PredefinedProcessIdentifierManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllProcessIdentifierIDs ()
   {
-    return s_aCodes.copyOfKeySet ();
+    return CODES.copyOfKeySet ();
   }
 
   /**
@@ -91,7 +91,7 @@ public final class PredefinedProcessIdentifierManager
   public static IPeppolPredefinedProcessIdentifier getProcessIdentifierOfID (@Nullable final String sProcIDValue)
   {
     if (sProcIDValue != null)
-      for (final Map.Entry <String, IPeppolPredefinedProcessIdentifier> aEntry : s_aCodes.entrySet ())
+      for (final Map.Entry <String, IPeppolPredefinedProcessIdentifier> aEntry : CODES.entrySet ())
       {
         // PEPPOL: Case sensitive comparison
         if (sProcIDValue.equals (aEntry.getKey ()))

@@ -35,7 +35,7 @@ public final class CPeppolID
   public static final String NS_URI_PEPPOL_CODELISTS = "";
 
   @PresentForCodeCoverage
-  private static final CPeppolID s_aInstance = new CPeppolID ();
+  private static final CPeppolID INSTANCE = new CPeppolID ();
 
   private CPeppolID ()
   {}

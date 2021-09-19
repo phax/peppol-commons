@@ -44,7 +44,7 @@ public final class SMPExtensionConverter
                                                                        .setIndent (EXMLSerializeIndent.NONE);
 
   @PresentForCodeCoverage
-  private static final SMPExtensionConverter s_aInstance = new SMPExtensionConverter ();
+  private static final SMPExtensionConverter INSTANCE = new SMPExtensionConverter ();
 
   private SMPExtensionConverter ()
   {}

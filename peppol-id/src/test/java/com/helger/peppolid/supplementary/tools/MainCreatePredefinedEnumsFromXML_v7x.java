@@ -92,7 +92,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v7x.class);
   private static final Version CODELIST_VERSION = new Version (7, 5);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
-  private static final JCodeModel s_aCodeModel = new JCodeModel ();
+  private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
 
   private static void _handleDocumentTypes (final Document aDocumentSheet)
@@ -102,15 +102,15 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
     // Create Java source
     try
     {
-      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "doctype")
-                                              ._enum ("EPredefinedDocumentTypeIdentifier")
-                                              ._implements (IPeppolPredefinedDocumentTypeIdentifier.class);
+      final JDefinedClass jEnum = CM._package (RESULT_PACKAGE_PREFIX + "doctype")
+                                    ._enum ("EPredefinedDocumentTypeIdentifier")
+                                    ._implements (IPeppolPredefinedDocumentTypeIdentifier.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
       // Add metadata
-      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
-      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, CM.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, CM.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
 
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
 
@@ -139,7 +139,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
 
         jEnumConst.arg (JExpr.lit (sScheme));
         {
-          final JInvocation aNew = JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifierParts.class))
+          final JInvocation aNew = JExpr._new (CM.ref (PeppolDocumentTypeIdentifierParts.class))
                                         .arg (aDocIDParts.getRootNS ())
                                         .arg (aDocIDParts.getLocalName ())
                                         .arg (aDocIDParts.getCustomizationID ())
@@ -147,14 +147,14 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
           jEnumConst.arg (aNew);
         }
         jEnumConst.arg (JExpr.lit (sProfileCode));
-        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.arg (JExpr.lit (bDeprecated));
-        jEnumConst.arg (bDeprecated ? s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sDeprecatedSince) : JExpr._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecatedSince) : JExpr._null ());
         jEnumConst.arg (JExpr.lit (aRow.isIssuedByOpenpeppol ()));
         jEnumConst.arg (JExpr.lit (StringParser.parseInt (aRow.getBisVersion (), -1)));
         jEnumConst.arg (aRow.getDomainCommunity () == null ? JExpr._null () : JExpr.lit (aRow.getDomainCommunity ()));
         {
-          final JInvocation aNew = JExpr._new (s_aCodeModel.ref (CommonsArrayList.class).narrowEmpty ());
+          final JInvocation aNew = JExpr._new (CM.ref (CommonsArrayList.class).narrowEmpty ());
           for (final PCLProcessIDType aProcID : aRow.getProcessId ())
             aNew.arg (CIdentifier.getURIEncoded (aProcID.getScheme (), aProcID.getValue ()));
           jEnumConst.arg (aNew);
@@ -200,7 +200,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       final JFieldVar fBISVersion = jEnum.field (JMod.PRIVATE | JMod.FINAL, int.class, "m_nBISVersion");
       final JFieldVar fDomainCommunity = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sDomainCommunity");
       final JFieldVar fProcessIDs = jEnum.field (JMod.PRIVATE | JMod.FINAL,
-                                                 s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class),
+                                                 CM.ref (ICommonsList.class).narrow (IProcessIdentifier.class),
                                                  "m_aProcessIDs");
 
       // Constructor
@@ -222,7 +222,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       final JVar jBISVersion = jCtor.param (JMod.FINAL, int.class, "nBISVersion");
       final JVar jDomainCommunity = jCtor.param (JMod.FINAL, String.class, "sDomainCommunity");
       jDomainCommunity.annotate (Nullable.class);
-      final JVar jProcessIDs = jCtor.param (JMod.FINAL, s_aCodeModel.ref (ICommonsList.class).narrow (String.class), "aProcessIDs");
+      final JVar jProcessIDs = jCtor.param (JMod.FINAL, CM.ref (ICommonsList.class).narrow (String.class), "aProcessIDs");
       jCtor.body ()
            .assign (fScheme, jScheme)
            .assign (fParts, jParts)
@@ -235,12 +235,12 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
            .assign (fBISVersion, jBISVersion)
            .assign (fDomainCommunity, jDomainCommunity)
            .assign (fProcessIDs,
-                    s_aCodeModel.ref (CommonsArrayList.class)
-                                .narrowEmpty ()
-                                ._new ()
-                                .arg (jProcessIDs)
-                                .arg (new JLambdaMethodRef (s_aCodeModel.ref (PeppolIdentifierFactory.class).staticRef ("INSTANCE"),
-                                                            "parseProcessIdentifier")));
+                    CM.ref (CommonsArrayList.class)
+                      .narrowEmpty ()
+                      ._new ()
+                      .arg (jProcessIDs)
+                      .arg (new JLambdaMethodRef (CM.ref (PeppolIdentifierFactory.class).staticRef ("INSTANCE"),
+                                                  "parseProcessIdentifier")));
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
@@ -281,7 +281,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
         m.body ()._return (fParts.invoke (m.name ()));
 
         // public List<String> getExtensionIDs ()
-        m = jEnum.method (JMod.PUBLIC, s_aCodeModel.ref (ICommonsList.class).narrow (String.class), "getExtensionIDs");
+        m = jEnum.method (JMod.PUBLIC, CM.ref (ICommonsList.class).narrow (String.class), "getExtensionIDs");
         m.annotate (Nonnull.class);
         m.annotate (ReturnsMutableCopy.class);
         m.body ()._return (fParts.invoke (m.name ()));
@@ -314,7 +314,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       // public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
       m.annotate (Nonnull.class);
-      m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolDocumentTypeIdentifier.class)).arg (JExpr._this ()));
+      m.body ()._return (JExpr._new (CM.ref (PeppolDocumentTypeIdentifier.class)).arg (JExpr._this ()));
 
       // public IPeppolDocumentTypeIdentifierParts getParts
       m = jEnum.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifierParts.class, "getParts");
@@ -351,7 +351,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       m.body ()._return (fDomainCommunity);
 
       // public ICommonsList<IProcessIdentifier> getAllProcessIDs()
-      m = jEnum.method (JMod.PUBLIC, s_aCodeModel.ref (ICommonsList.class).narrow (IProcessIdentifier.class), "getAllProcessIDs");
+      m = jEnum.method (JMod.PUBLIC, CM.ref (ICommonsList.class).narrow (IProcessIdentifier.class), "getAllProcessIDs");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
       m.annotate (ReturnsMutableCopy.class);
@@ -392,15 +392,15 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
     // Create Java source
     try
     {
-      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "pidscheme")
-                                              ._enum ("EPredefinedParticipantIdentifierScheme")
-                                              ._implements (IParticipantIdentifierScheme.class);
+      final JDefinedClass jEnum = CM._package (RESULT_PACKAGE_PREFIX + "pidscheme")
+                                    ._enum ("EPredefinedParticipantIdentifierScheme")
+                                    ._implements (IParticipantIdentifierScheme.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
       // Add metadata
-      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
-      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, CM.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, CM.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
 
       // enum constants
       for (final PCLParticipantIdentifierSchemeType aRow : aList.getParticipantIdentifierScheme ())
@@ -425,7 +425,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
         jEnumConst.arg (JExpr.lit (sCountryCode));
         jEnumConst.arg (JExpr.lit (sSchemeName));
         jEnumConst.arg (sIssuingAgency == null ? JExpr._null () : JExpr.lit (sIssuingAgency));
-        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.arg (JExpr.lit (bDeprecated));
 
         jEnumConst.javadoc ().add ("Prefix <code>" + sISO6523 + "</code>, scheme ID <code>" + sSchemeID + "</code><br>");
@@ -537,15 +537,15 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
     // Create Java source
     try
     {
-      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "process")
-                                              ._enum ("EPredefinedProcessIdentifier")
-                                              ._implements (IPeppolPredefinedProcessIdentifier.class);
+      final JDefinedClass jEnum = CM._package (RESULT_PACKAGE_PREFIX + "process")
+                                    ._enum ("EPredefinedProcessIdentifier")
+                                    ._implements (IPeppolPredefinedProcessIdentifier.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
       // Add metadata
-      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
-      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, CM.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, CM.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
 
       // enum constants
       for (final PCLProcessType aRow : aList.getProcess ())
@@ -637,7 +637,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       // public PeppolProcessIdentifier getAsProcessIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolProcessIdentifier.class, "getAsProcessIdentifier");
       m.annotate (Nonnull.class);
-      m.body ()._return (JExpr._new (s_aCodeModel.ref (PeppolProcessIdentifier.class)).arg (JExpr._this ()));
+      m.body ()._return (JExpr._new (CM.ref (PeppolProcessIdentifier.class)).arg (JExpr._this ()));
 
       // @Nullable public static EPredefinedProcessIdentifier
       // getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier
@@ -673,15 +673,14 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
     // Create Java source
     try
     {
-      final JDefinedClass jEnum = s_aCodeModel._package (RESULT_PACKAGE_PREFIX + "transportprofile")
-                                              ._enum ("EPredefinedTransportProfileIdentifier");
-      jEnum._implements (s_aCodeModel.ref (IPredefinedTransportProfileIdentifier.class));
+      final JDefinedClass jEnum = CM._package (RESULT_PACKAGE_PREFIX + "transportprofile")._enum ("EPredefinedTransportProfileIdentifier");
+      jEnum._implements (CM.ref (IPredefinedTransportProfileIdentifier.class));
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
       // Add metadata
-      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
-      jEnum.field (JMod.PUBLIC_STATIC_FINAL, s_aCodeModel.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, CM.ref (String.class), "CODE_LIST_VERSION", JExpr.lit (aList.getVersion ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL, CM.INT, "CODE_LIST_ENTRY_COUNT", JExpr.lit (aList.getEntryCount ().intValue ()));
 
       // enum constants
       final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
@@ -700,7 +699,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
         jEnumConst.arg (JExpr.lit (sProtocol));
         jEnumConst.arg (JExpr.lit (sProfileVersion));
         jEnumConst.arg (JExpr.lit (sProfileID));
-        jEnumConst.arg (s_aCodeModel.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sSince));
         jEnumConst.arg (JExpr.lit (bDeprecated));
         jEnumConst.javadoc ().add ("ID: <code>" + sProfileID + "</code><br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
@@ -832,7 +831,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
     }
 
     // Write all Java source files
-    new JCMWriter (s_aCodeModel).build (new File ("src/main/java"), LOGGER::info);
+    new JCMWriter (CM).build (new File ("src/main/java"), LOGGER::info);
 
     LOGGER.info ("Done creating code");
   }

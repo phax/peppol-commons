@@ -55,7 +55,7 @@ import com.helger.xml.XMLHelper;
 public final class W3CEndpointReferenceHelper
 {
   @PresentForCodeCoverage
-  private static final W3CEndpointReferenceHelper s_aInstance = new W3CEndpointReferenceHelper ();
+  private static final W3CEndpointReferenceHelper INSTANCE = new W3CEndpointReferenceHelper ();
 
   private W3CEndpointReferenceHelper ()
   {}

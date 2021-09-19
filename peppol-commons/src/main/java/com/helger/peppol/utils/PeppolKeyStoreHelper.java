@@ -164,7 +164,7 @@ public final class PeppolKeyStoreHelper
   }
 
   @PresentForCodeCoverage
-  private static final PeppolKeyStoreHelper s_aInstance = new PeppolKeyStoreHelper ();
+  private static final PeppolKeyStoreHelper INSTANCE = new PeppolKeyStoreHelper ();
 
   private PeppolKeyStoreHelper ()
   {}

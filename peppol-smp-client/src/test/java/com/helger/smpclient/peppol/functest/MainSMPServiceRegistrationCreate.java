@@ -36,7 +36,6 @@ import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.smpclient.peppol.MockSMPClientConfig;
 import com.helger.smpclient.peppol.SMPClient;
 import com.helger.xsds.peppol.smp1.EndpointType;
-import com.helger.xsds.peppol.smp1.ObjectFactory;
 import com.helger.xsds.peppol.smp1.ProcessListType;
 import com.helger.xsds.peppol.smp1.ProcessType;
 import com.helger.xsds.peppol.smp1.ServiceEndpointList;
@@ -48,9 +47,6 @@ import com.helger.xsds.peppol.smp1.ServiceInformationType;
 public final class MainSMPServiceRegistrationCreate
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceRegistrationCreate.class);
-
-  // SMP ObjectFactory
-  private static final ObjectFactory s_aOF = new ObjectFactory ();
 
   public static void main (final String [] args) throws Exception
   {
@@ -69,15 +65,15 @@ public final class MainSMPServiceRegistrationCreate
     final SMPClient aClient = new SMPClient (SMP_URI);
 
     // Create the service registration
-    final ServiceInformationType aServiceInformation = s_aOF.createServiceInformationType ();
+    final ServiceInformationType aServiceInformation = new ServiceInformationType ();
     {
-      final ProcessListType aProcessList = s_aOF.createProcessListType ();
+      final ProcessListType aProcessList = new ProcessListType ();
       {
-        final ProcessType aProcess = s_aOF.createProcessType ();
+        final ProcessType aProcess = new ProcessType ();
         {
-          final ServiceEndpointList aServiceEndpointList = s_aOF.createServiceEndpointList ();
+          final ServiceEndpointList aServiceEndpointList = new ServiceEndpointList ();
           {
-            final EndpointType aEndpoint = s_aOF.createEndpointType ();
+            final EndpointType aEndpoint = new EndpointType ();
             aEndpoint.setEndpointReference (START_AP_ENDPOINTREF);
             aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ());
             aEndpoint.setCertificate (AP_CERT_STRING);

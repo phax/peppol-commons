@@ -32,7 +32,7 @@ import com.helger.commons.url.URLHelper;
 public final class BDXR2IdentifierHelper
 {
   @PresentForCodeCoverage
-  private static final BDXR2IdentifierHelper s_aInstance = new BDXR2IdentifierHelper ();
+  private static final BDXR2IdentifierHelper INSTANCE = new BDXR2IdentifierHelper ();
 
   private BDXR2IdentifierHelper ()
   {}

@@ -62,7 +62,7 @@ public final class CSMLDefault
   public static final String MIGRATION_CODE_PATTERN = "^(?=.{8,24}$)(?=(.*[@#$%()\\[\\]{}*^_\\-!~|+=]){2,})(?=(.*[A-Z]){2})(?=(.*[a-z]){2})(?=(.*[0-9]){2})(?=\\S+$).*$";
 
   @PresentForCodeCoverage
-  private static final CSMLDefault s_aInstance = new CSMLDefault ();
+  private static final CSMLDefault INSTANCE = new CSMLDefault ();
 
   private CSMLDefault ()
   {}

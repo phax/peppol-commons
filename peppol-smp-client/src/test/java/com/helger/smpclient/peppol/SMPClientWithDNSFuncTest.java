@@ -50,7 +50,7 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 public final class SMPClientWithDNSFuncTest
 {
   @ClassRule
-  public static final SMPClientTestConfigRule s_aRule = new SMPClientTestConfigRule ();
+  public static final SMPClientTestConfigRule RULE = new SMPClientTestConfigRule ();
 
   private static final ISMLInfo SML_INFO = ESML.DEVELOPMENT_LOCAL;
 

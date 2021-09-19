@@ -70,7 +70,7 @@ public final class CPeppolSBDH
                                                                                                                               _getCL ())).getAsUnmodifiable ();
 
   @PresentForCodeCoverage
-  private static final CPeppolSBDH s_aInstance = new CPeppolSBDH ();
+  private static final CPeppolSBDH INSTANCE = new CPeppolSBDH ();
 
   private CPeppolSBDH ()
   {}

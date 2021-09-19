@@ -69,7 +69,7 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 public final class SMPClientTest
 {
   @ClassRule
-  public static final SMPClientTestConfigRule s_aRule = new SMPClientTestConfigRule ();
+  public static final SMPClientTestConfigRule RULE = new SMPClientTestConfigRule ();
 
   private static final Logger LOGGER = LoggerFactory.getLogger ("dummy");
   private static final String SMP_USERNAME = MockSMPClientConfig.getSMPUserName ();

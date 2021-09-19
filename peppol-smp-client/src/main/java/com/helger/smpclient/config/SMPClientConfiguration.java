@@ -126,7 +126,7 @@ public final class SMPClientConfiguration
   }
 
   private static final IConfig DEFAULT_INSTANCE = Config.create (createSMPClientValueProvider ());
-  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   private static IConfig s_aConfig = DEFAULT_INSTANCE;
 
   private SMPClientConfiguration ()
@@ -139,14 +139,14 @@ public final class SMPClientConfiguration
   public static IConfig getConfig ()
   {
     // Inline for performance
-    s_aRWLock.readLock ().lock ();
+    RW_LOCK.readLock ().lock ();
     try
     {
       return s_aConfig;
     }
     finally
     {
-      s_aRWLock.readLock ().unlock ();
+      RW_LOCK.readLock ().unlock ();
     }
   }
 
@@ -162,7 +162,7 @@ public final class SMPClientConfiguration
   {
     ValueEnforcer.notNull (aNewConfig, "NewConfig");
     final IConfig ret;
-    s_aRWLock.writeLock ().lock ();
+    RW_LOCK.writeLock ().lock ();
     try
     {
       ret = s_aConfig;
@@ -170,7 +170,7 @@ public final class SMPClientConfiguration
     }
     finally
     {
-      s_aRWLock.writeLock ().unlock ();
+      RW_LOCK.writeLock ().unlock ();
     }
 
     if (!EqualsHelper.identityEqual (ret, aNewConfig))

@@ -38,18 +38,18 @@ import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 public final class IdentifierValidator
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (IdentifierValidator.class);
-  private static final ICommonsList <IParticipantIdentifierValidatorSPI> s_aParticipantIDValidators;
+  private static final ICommonsList <IParticipantIdentifierValidatorSPI> PID_VALIDATOR;
 
   static
   {
-    s_aParticipantIDValidators = ServiceLoaderHelper.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
-    if (s_aParticipantIDValidators.isNotEmpty ())
+    PID_VALIDATOR = ServiceLoaderHelper.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
+    if (PID_VALIDATOR.isNotEmpty ())
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Loaded " + s_aParticipantIDValidators.size () + " SPI implementations of IParticipantIdentifierValidatorSPI");
+        LOGGER.info ("Loaded " + PID_VALIDATOR.size () + " SPI implementations of IParticipantIdentifierValidatorSPI");
   }
 
   @PresentForCodeCoverage
-  private static final IdentifierValidator s_aInstance = new IdentifierValidator ();
+  private static final IdentifierValidator INSTANCE = new IdentifierValidator ();
 
   private IdentifierValidator ()
   {}
@@ -82,7 +82,7 @@ public final class IdentifierValidator
     final String sLocal = aParticipantID.getLocalParticipantID ();
 
     // For all SPI instances
-    for (final IParticipantIdentifierValidatorSPI aValidator : s_aParticipantIDValidators)
+    for (final IParticipantIdentifierValidatorSPI aValidator : PID_VALIDATOR)
       if (aValidator.isSupportedIssuingAgency (sIssuingAgencyID))
       {
         if (aValidator.isValueValid (sLocal))

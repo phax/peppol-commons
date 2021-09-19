@@ -63,7 +63,7 @@ public class MainCreateEnumsFromUBLGenericode
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateEnumsFromUBLGenericode.class);
   private static final String COLID_NAME = "name";
   private static final String COLID_CODE = "code";
-  private static final JCodeModel s_aCodeModel = new JCodeModel ();
+  private static final JCodeModel CM = new JCodeModel ();
 
   private static void _createGenericode10 (final File aFile, final CodeListDocument aCodeList10) throws JCodeModelException
   {
@@ -91,13 +91,10 @@ public class MainCreateEnumsFromUBLGenericode
       return;
     }
 
-    final JDefinedClass jEnum = s_aCodeModel._package ("com.helger.peppol.codelist")
-                                            ._enum ("E" +
-                                                    RegExHelper.getAsIdentifier (aCodeList10.getIdentification ()
-                                                                                            .getShortName ()
-                                                                                            .getValue ()))
-                                            ._implements (s_aCodeModel.ref (IHasID.class).narrow (String.class))
-                                            ._implements (IHasDisplayName.class);
+    final JDefinedClass jEnum = CM._package ("com.helger.peppol.codelist")
+                                  ._enum ("E" + RegExHelper.getAsIdentifier (aCodeList10.getIdentification ().getShortName ().getValue ()))
+                                  ._implements (CM.ref (IHasID.class).narrow (String.class))
+                                  ._implements (IHasDisplayName.class);
     jEnum.javadoc ().add ("This file is generated from Genericode file " + aFile.getName () + ". Do NOT edit!");
 
     for (final Row aRow : aCodeList10.getSimpleCodeList ().getRow ())
@@ -141,7 +138,7 @@ public class MainCreateEnumsFromUBLGenericode
     m.annotate (Nullable.class);
     jID = m.param (JMod.FINAL, String.class, "sID");
     jID.annotate (Nullable.class);
-    m.body ()._return (s_aCodeModel.ref (EnumHelper.class).staticInvoke ("getFromIDOrNull").arg (JExpr.dotClass (jEnum)).arg (jID));
+    m.body ()._return (CM.ref (EnumHelper.class).staticInvoke ("getFromIDOrNull").arg (JExpr.dotClass (jEnum)).arg (jID));
 
     // public static String getDisplayNameFromIDOrNull (@Nullable String sID)
     m = jEnum.method (JMod.PUBLIC | JMod.STATIC, String.class, "getDisplayNameFromIDOrNull");
@@ -161,6 +158,6 @@ public class MainCreateEnumsFromUBLGenericode
       if (aCodeList10 != null)
         _createGenericode10 (aFile, aCodeList10);
     }
-    new JCMWriter (s_aCodeModel).build (new File ("src/main/java"));
+    new JCMWriter (CM).build (new File ("src/main/java"));
   }
 }

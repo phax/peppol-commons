@@ -37,17 +37,17 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
  */
 public final class ParticipantIdentifierSchemeManager
 {
-  private static final ICommonsList <IParticipantIdentifierScheme> s_aPISchemes = new CommonsArrayList <> ();
+  private static final ICommonsList <IParticipantIdentifierScheme> PI_SCHEMES = new CommonsArrayList <> ();
 
   static
   {
     // Add all predefined identifier issuing agencies
     for (final EPredefinedParticipantIdentifierScheme eIIA : EPredefinedParticipantIdentifierScheme.values ())
-      s_aPISchemes.add (eIIA);
+      PI_SCHEMES.add (eIIA);
   }
 
   @PresentForCodeCoverage
-  private static final ParticipantIdentifierSchemeManager s_aInstance = new ParticipantIdentifierSchemeManager ();
+  private static final ParticipantIdentifierSchemeManager INSTANCE = new ParticipantIdentifierSchemeManager ();
 
   private ParticipantIdentifierSchemeManager ()
   {}
@@ -60,7 +60,7 @@ public final class ParticipantIdentifierSchemeManager
   @ReturnsMutableCopy
   public static ICommonsList <? extends IParticipantIdentifierScheme> getAllSchemes ()
   {
-    return s_aPISchemes.getClone ();
+    return PI_SCHEMES.getClone ();
   }
 
   /**
@@ -74,7 +74,7 @@ public final class ParticipantIdentifierSchemeManager
   public static IParticipantIdentifierScheme getSchemeOfISO6523Code (@Nullable final String sISO6523Code)
   {
     if (StringHelper.hasText (sISO6523Code))
-      for (final IParticipantIdentifierScheme aAgency : s_aPISchemes)
+      for (final IParticipantIdentifierScheme aAgency : PI_SCHEMES)
         if (aAgency.getISO6523Code ().equalsIgnoreCase (sISO6523Code))
           return aAgency;
     return null;
@@ -120,7 +120,7 @@ public final class ParticipantIdentifierSchemeManager
   public static IParticipantIdentifierScheme getSchemeOfSchemeID (@Nullable final String sSchemeID)
   {
     if (StringHelper.hasText (sSchemeID))
-      for (final IParticipantIdentifierScheme aAgency : s_aPISchemes)
+      for (final IParticipantIdentifierScheme aAgency : PI_SCHEMES)
         if (aAgency.getSchemeID ().equalsIgnoreCase (sSchemeID))
           return aAgency;
     return null;

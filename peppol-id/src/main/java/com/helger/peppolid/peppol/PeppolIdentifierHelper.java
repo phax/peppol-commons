@@ -142,7 +142,7 @@ public final class PeppolIdentifierHelper
   {}
 
   @PresentForCodeCoverage
-  private static final PeppolIdentifierHelper s_aInstance = new PeppolIdentifierHelper ();
+  private static final PeppolIdentifierHelper INSTANCE = new PeppolIdentifierHelper ();
 
   /**
    * @return <code>true</code> if the charset checks for identifier values are
