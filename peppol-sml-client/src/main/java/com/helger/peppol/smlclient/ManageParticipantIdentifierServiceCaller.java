@@ -432,7 +432,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Prepares a migrate of the given participant identifier.
+   * Prepares a migrate of the given participant identifier from one SMP to
+   * another. This method must be called from the source SMP. This method
+   * creates a new random migration key via {@link #createRandomMigrationKey()}
+   * and than calls
+   * {@link #prepareToMigrate(IParticipantIdentifier, String, String)}
    *
    * @param aIdentifier
    *        The participant identifier.
@@ -447,6 +451,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *         If the business identifier was not found.
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
+   * @see #prepareToMigrate(IParticipantIdentifier, String, String)
    */
   @Nonnull
   public String prepareToMigrate (@Nonnull final IParticipantIdentifier aIdentifier,
@@ -463,7 +468,9 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Prepares a migrate of the given participant identifier.
+   * Prepares a migrate of the given participant identifier from one SMP to
+   * another. This method must be called from the source SMP. This overload
+   * takes a migration key that was created outside.
    *
    * @param aIdentifier
    *        The participant identifier.
@@ -514,8 +521,12 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Migrates a given participant identifier to an SMP given by the publisher
-   * id.
+   * Migrates an existing Service Group from another SMP to this SMP. The source
+   * SMP must have called the
+   * {@link #prepareToMigrate(IParticipantIdentifier, String, String)} method
+   * and pass the migration key to the receiving SMP. The receiving SMP must use
+   * this method to indicate to the SMK/SML that the new participant is now
+   * usable by the new SMP.
    *
    * @param aIdentifier
    *        The participant identifier to migrate. May not be <code>null</code>.
