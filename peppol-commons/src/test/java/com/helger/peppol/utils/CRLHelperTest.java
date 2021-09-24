@@ -40,7 +40,7 @@ public final class CRLHelperTest
   @Test
   public void testGetAllDistributionPoints () throws KeyStoreException
   {
-    final File fAP = new File ("src/test/resources/test-ap.p12");
+    final File fAP = new File ("src/test/resources/test-ap-2021.p12");
     if (fAP.exists ())
     {
       final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fAP.getAbsolutePath (), "peppol").getKeyStore ();

@@ -71,7 +71,7 @@ public class PeppolCertificateCheckerTest
   @Test
   public void testRealAPCert () throws Exception
   {
-    final File fAP = new File ("src/test/resources/test-ap.p12");
+    final File fAP = new File ("src/test/resources/test-ap-2021.p12");
     if (fAP.exists ())
     {
       LOGGER.info ("Checking the local AP test certificate");
@@ -114,7 +114,7 @@ public class PeppolCertificateCheckerTest
   @Test
   public void testRealSMPCert () throws Exception
   {
-    final File fSMP = new File ("src/test/resources/test-smp.p12");
+    final File fSMP = new File ("src/test/resources/test-smp-2021.p12");
     if (fSMP.exists ())
     {
       LOGGER.info ("Checking the local SMP test certificate");
