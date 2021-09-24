@@ -40,6 +40,8 @@ public final class CRLHelperTest
   @Test
   public void testGetAllDistributionPoints () throws KeyStoreException
   {
+    // As keystores are usually not in the repository, this test is no-op if the
+    // file is not present
     final File fAP = new File ("src/test/resources/test-ap-2021.p12");
     if (fAP.exists ())
     {
