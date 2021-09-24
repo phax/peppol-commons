@@ -172,8 +172,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       LOGGER.debug ("BDXRClient getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    final ServiceGroupType ret = executeGenericRequest (aRequest,
-                                                        new SMPHttpResponseHandlerUnsigned <> (new BDXR1MarshallerServiceGroupType (isXMLSchemaValidation ())));
+    final BDXR1MarshallerServiceGroupType aMarshaller = new BDXR1MarshallerServiceGroupType (isXMLSchemaValidation ());
+    customizeMarshaller (aMarshaller);
+    final ServiceGroupType ret = executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Received response: " + ret);
@@ -297,9 +298,12 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
     final KeyStore aTrustStore = getTrustStore ();
+
     HttpGet aRequest = new HttpGet (sURI);
+    BDXR1MarshallerSignedServiceMetadataType aMarshaller = new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation);
+    customizeMarshaller (aMarshaller);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation),
+                                                                 new SMPHttpResponseHandlerSigned <> (aMarshaller,
                                                                                                       aTrustStore).setVerifySignature (bVerifySignature));
 
     if (LOGGER.isDebugEnabled ())
@@ -316,8 +320,12 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         if (LOGGER.isInfoEnabled ())
           LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         aRequest = new HttpGet (aRedirect.getHref ());
+
+        // Create a new Marshaller to make sure customization is easy
+        aMarshaller = new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation);
+        customizeMarshaller (aMarshaller);
         aMetadata = executeGenericRequest (aRequest,
-                                           new SMPHttpResponseHandlerSigned <> (new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation),
+                                           new SMPHttpResponseHandlerSigned <> (aMarshaller,
                                                                                 aTrustStore).setVerifySignature (bVerifySignature));
 
         // Check that the certificateUID is correct.

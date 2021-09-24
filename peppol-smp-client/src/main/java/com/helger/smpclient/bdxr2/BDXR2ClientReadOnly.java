@@ -172,8 +172,9 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
       LOGGER.debug ("BDXR2Client getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    final ServiceGroupType ret = executeGenericRequest (aRequest,
-                                                        new SMPHttpResponseHandlerUnsigned <> (new BDXR2ServiceGroupMarshaller (isXMLSchemaValidation ())));
+    final BDXR2ServiceGroupMarshaller aMarshaller = new BDXR2ServiceGroupMarshaller (isXMLSchemaValidation ());
+    customizeMarshaller (aMarshaller);
+    final ServiceGroupType ret = executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Received response: " + ret);
@@ -274,9 +275,12 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
     final KeyStore aTrustStore = getTrustStore ();
+
     HttpGet aRequest = new HttpGet (sURI);
+    BDXR2ServiceMetadataMarshaller aMarshaller = new BDXR2ServiceMetadataMarshaller (bXSDValidation);
+    customizeMarshaller (aMarshaller);
     ServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                           new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation),
+                                                           new SMPHttpResponseHandlerSigned <> (aMarshaller,
                                                                                                 aTrustStore).setVerifySignature (bVerifySignature));
 
     if (LOGGER.isDebugEnabled ())
@@ -305,6 +309,10 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
             LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getPublisherURIValue () + "'");
 
           aRequest = new HttpGet (aRedirect.getPublisherURIValue ());
+
+          // Create a new Marshaller to make sure customization is easy
+          aMarshaller = new BDXR2ServiceMetadataMarshaller (bXSDValidation);
+          customizeMarshaller (aMarshaller);
           aMetadata = executeGenericRequest (aRequest,
                                              new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation),
                                                                                   aTrustStore).setVerifySignature (bVerifySignature));

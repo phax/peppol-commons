@@ -22,6 +22,7 @@ import java.net.URI;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,6 +47,7 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.HttpClientSettings;
+import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -108,6 +110,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private boolean m_bXMLSchemaValidation = DEFAULT_XML_SCHEMA_VALIDATION;
   private final SMPHttpClientSettings m_aHttpClientSettings = new SMPHttpClientSettings ();
+  private Consumer <? super GenericJAXBMarshaller <?>> m_aMarshallerConsumer;
 
   /**
    * Constructor with a direct SMP URL.<br>
@@ -128,12 +131,12 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     {
       if (!"http".equals (aSMPHost.getScheme ()))
         if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme!");
+          LOGGER.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme, which is required for Peppol!");
 
       // getPort () returns -1 if none was explicitly specified
       if (aSMPHost.getPort () != 80 && aSMPHost.getPort () != -1)
         if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("SMP URI " + aSMPHost + " is not running on port 80!");
+          LOGGER.warn ("SMP URI " + aSMPHost + " is not running on port 80, which is required for Peppol!");
     }
 
     // Build string and ensure it ends with a "/"
@@ -308,7 +311,43 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     final HttpContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
     {
+      LOGGER.info ("Performing SMP query at '" + aRequest.getURI ().toString () + "'");
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
+    }
+  }
+
+  /**
+   * Execute a generic request on the SMP. This is e.g. helpful for accessing
+   * the PEPPOL Directory BusinessCard API. This is equivalent to
+   * {@link #executeRequest(HttpUriRequest, ResponseHandler)} but includes the
+   * conversion of Exceptions to {@link SMPClientException} objects.
+   *
+   * @param aRequest
+   *        The request to be executed. The proxy + connection and request
+   *        timeout are set in this method.
+   * @param aResponseHandler
+   *        The response handler to be used. May not be <code>null</code>.
+   * @return The return value of the response handler.
+   * @throws SMPClientException
+   *         One of the converted exceptions
+   * @param <T>
+   *        Expected response type
+   * @see #executeRequest(HttpUriRequest, ResponseHandler)
+   * @see #getConvertedException(Exception)
+   */
+  @Nonnull
+  public <T> T executeGenericRequest (@Nonnull final HttpUriRequest aRequest,
+                                      @Nonnull final ResponseHandler <T> aResponseHandler) throws SMPClientException
+  {
+    try
+    {
+      return executeRequest (aRequest, aResponseHandler);
+    }
+    catch (final Exception ex)
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Exception executing HTTP request " + aRequest, ex);
+      throw getConvertedException (ex);
     }
   }
 
@@ -361,38 +400,43 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Execute a generic request on the SMP. This is e.g. helpful for accessing
-   * the PEPPOL Directory BusinessCard API. This is equivalent to
-   * {@link #executeRequest(HttpUriRequest, ResponseHandler)} but includes the
-   * conversion of Exceptions to {@link SMPClientException} objects.
+   * Customize the JAXB marshaller, e.g. to add error handler etc.
    *
-   * @param aRequest
-   *        The request to be executed. The proxy + connection and request
-   *        timeout are set in this method.
-   * @param aResponseHandler
-   *        The response handler to be used. May not be <code>null</code>.
-   * @return The return value of the response handler.
-   * @throws SMPClientException
-   *         One of the converted exceptions
-   * @param <T>
-   *        Expected response type
-   * @see #executeRequest(HttpUriRequest, ResponseHandler)
-   * @see #getConvertedException(Exception)
+   * @param aMarshaller
+   *        Never <code>null</code>.
+   * @since 8.6.3
+   * @see #getMarshallerCustomizer()
+   * @see #setMarshallerCustomizer(Consumer)
+   */
+  protected final void customizeMarshaller (@Nonnull final GenericJAXBMarshaller <?> aMarshaller)
+  {
+    if (m_aMarshallerConsumer != null)
+      m_aMarshallerConsumer.accept (aMarshaller);
+  }
+
+  /**
+   * @return The JAXB Marshaller Customizer. May be <code>null</code>.
+   * @since 8.6.3
+   */
+  @Nullable
+  public final Consumer <? super GenericJAXBMarshaller <?>> getMarshallerCustomizer ()
+  {
+    return m_aMarshallerConsumer;
+  }
+
+  /**
+   * Set the JAXB Marshaller Customizer
+   *
+   * @param a
+   *        The customizer to be used. May be <code>null</code>.
+   * @return this for chaining
+   * @since 8.6.3
    */
   @Nonnull
-  public <T> T executeGenericRequest (@Nonnull final HttpUriRequest aRequest,
-                                      @Nonnull final ResponseHandler <T> aResponseHandler) throws SMPClientException
+  public final IMPLTYPE setMarshallerCustomizer (@Nullable final Consumer <? super GenericJAXBMarshaller <?>> a)
   {
-    try
-    {
-      return executeRequest (aRequest, aResponseHandler);
-    }
-    catch (final Exception ex)
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Exception executing HTTP request " + aRequest, ex);
-      throw getConvertedException (ex);
-    }
+    m_aMarshallerConsumer = a;
+    return thisAsT ();
   }
 
   @Override
@@ -400,9 +444,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   {
     return new ToStringGenerator (this).append ("SMPHost", m_sSMPHost)
                                        .append ("VerifySignature", m_bVerifySignature)
+                                       .append ("TrustStore", m_aTrustStore)
                                        .append ("FollowSMPRedirects", m_bFollowSMPRedirects)
                                        .append ("XMLSchemaValidation", m_bXMLSchemaValidation)
                                        .append ("HttpClientSettings", m_aHttpClientSettings)
+                                       .appendIfNotNull ("MarshallerConsumer", m_aMarshallerConsumer)
                                        .getToString ();
   }
 }

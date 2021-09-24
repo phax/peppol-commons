@@ -291,6 +291,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v8.6.3 - work in progress
     * Verifying all contained `Signature` elements of an SMP response
+    * Made the JAXB Marshallers of the SMP clients customizable
 * v8.6.2 - 2021-07-06
     * Avoid NPE in `SMPClientReadOnly.getServiceMetadata` if the returned server response is not XML
     * Improved debug logging in `SMPHttpResponseHandlerSigned` in case of error

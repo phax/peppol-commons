@@ -186,8 +186,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final HttpGet aRequest = new HttpGet (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-    return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupReferenceListType (isXMLSchemaValidation ())));
+    final SMPMarshallerServiceGroupReferenceListType aMarshaller = new SMPMarshallerServiceGroupReferenceListType (isXMLSchemaValidation ());
+    customizeMarshaller (aMarshaller);
+    return executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
   }
 
   /**
@@ -251,8 +252,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       LOGGER.debug ("SMPClient getCompleteServiceGroup@" + sCompleteURI);
 
     final HttpGet aRequest = new HttpGet (sCompleteURI);
-    return executeGenericRequest (aRequest,
-                                  new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerCompleteServiceGroupType (isXMLSchemaValidation ())));
+    final SMPMarshallerCompleteServiceGroupType aMarshaller = new SMPMarshallerCompleteServiceGroupType (isXMLSchemaValidation ());
+    customizeMarshaller (aMarshaller);
+    return executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
   }
 
   /**
@@ -344,8 +346,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       LOGGER.debug ("SMPClient getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    final ServiceGroupType ret = executeGenericRequest (aRequest,
-                                                        new SMPHttpResponseHandlerUnsigned <> (new SMPMarshallerServiceGroupType (isXMLSchemaValidation ())));
+    final SMPMarshallerServiceGroupType aMarshaller = new SMPMarshallerServiceGroupType (isXMLSchemaValidation ());
+    customizeMarshaller (aMarshaller);
+    final ServiceGroupType ret = executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Received response: " + ret);
@@ -488,8 +491,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     final boolean bVerifySignature = isVerifySignature ();
     final KeyStore aTrustStore = getTrustStore ();
     HttpGet aRequest = new HttpGet (sURI);
+
+    SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (bXSDValidation);
+    customizeMarshaller (aMarshaller);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType (bXSDValidation),
+                                                                 new SMPHttpResponseHandlerSigned <> (aMarshaller,
                                                                                                       aTrustStore).setVerifySignature (bVerifySignature));
 
     if (LOGGER.isDebugEnabled ())
@@ -506,8 +512,12 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         if (LOGGER.isInfoEnabled ())
           LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         aRequest = new HttpGet (aRedirect.getHref ());
+
+        // Create a new Marshaller to ensure customization is simple
+        aMarshaller = new SMPMarshallerSignedServiceMetadataType (bXSDValidation);
+        customizeMarshaller (aMarshaller);
         aMetadata = executeGenericRequest (aRequest,
-                                           new SMPHttpResponseHandlerSigned <> (new SMPMarshallerSignedServiceMetadataType (bXSDValidation),
+                                           new SMPHttpResponseHandlerSigned <> (aMarshaller,
                                                                                 aTrustStore).setVerifySignature (bVerifySignature));
 
         // Check that the certificateUID is correct.
