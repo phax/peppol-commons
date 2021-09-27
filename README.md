@@ -289,7 +289,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.6.3 - work in progress
+* v8.6.3 - 2021-09-27
     * Verifying all contained `Signature` elements of an SMP response
     * Made the JAXB Marshallers of the SMP clients customizable
 * v8.6.2 - 2021-07-06
