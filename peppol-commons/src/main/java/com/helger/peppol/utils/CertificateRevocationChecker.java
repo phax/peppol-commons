@@ -85,8 +85,8 @@ public final class CertificateRevocationChecker
   private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked", ex);
   private static final AtomicBoolean ALLOW_SOFT_FAIL = new AtomicBoolean (DEFAULT_ALLOW_SOFT_FAIL);
   @GuardedBy ("RW_LOCK")
-  private static Consumer <? super List <CertPathValidatorException>> s_aSoftFailExceptionHdl = exs -> LOGGER.warn ("Certificate revocation check succeeded but has messages: " +
-                                                                                                                    exs);
+  private static Consumer <? super List <? extends CertPathValidatorException>> s_aSoftFailExceptionHdl = exs -> LOGGER.warn ("Certificate revocation check succeeded but has messages: " +
+                                                                                                                              exs);
   private static final AtomicBoolean ALLOW_EXEC_SYNC = new AtomicBoolean (DEFAULT_ALLOW_EXEC_SYNC);
 
   private CertificateRevocationChecker ()
@@ -193,7 +193,7 @@ public final class CertificateRevocationChecker
    *        The handler to be used. May not be <code>null</code>.
    * @see #isAllowSoftFail()
    */
-  public static void setSoftFailExceptionHdl (@Nonnull final Consumer <? super List <CertPathValidatorException>> aSoftFailExceptionHdl)
+  public static void setSoftFailExceptionHdl (@Nonnull final Consumer <? super List <? extends CertPathValidatorException>> aSoftFailExceptionHdl)
   {
     ValueEnforcer.notNull (aSoftFailExceptionHdl, "SoftFailExceptionHdl");
     RW_LOCK.writeLocked ( () -> s_aSoftFailExceptionHdl = aSoftFailExceptionHdl);
