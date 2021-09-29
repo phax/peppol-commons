@@ -48,6 +48,7 @@ public final class MainCreateTrustStoreHashFiles
 
     final String sMD5 = MessageDigestValue.create (aTrustStore.getInputStream (), EMessageDigestAlgorithm.MD5).getHexEncodedDigestString ();
     SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".md5"), sMD5, StandardCharsets.ISO_8859_1);
+
     final String sSHA1 = MessageDigestValue.create (aTrustStore.getInputStream (), EMessageDigestAlgorithm.SHA_256)
                                            .getHexEncodedDigestString ();
     SimpleFileIO.writeFile (new File ("src/main/resources/" + sTruststorePath + ".sha256"), sSHA1, StandardCharsets.ISO_8859_1);
@@ -64,5 +65,7 @@ public final class MainCreateTrustStoreHashFiles
     _create ("truststore/2010/pilot-truststore.jks");
     _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_CLASSPATH);
     _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_CLASSPATH);
+    _create ("truststore/2018/smp-prod-truststore.jks");
+    _create ("truststore/2018/smp-pilot-truststore.jks");
   }
 }
