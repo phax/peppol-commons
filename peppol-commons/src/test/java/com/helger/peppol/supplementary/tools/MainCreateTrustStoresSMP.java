@@ -14,9 +14,9 @@ import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.keystore.LoadedKeyStore;
 
-public class MainCreateSMPTrustStores
+public class MainCreateTrustStoresSMP
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateSMPTrustStores.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateTrustStoresSMP.class);
 
   public static void main (final String [] args) throws Exception
   {
