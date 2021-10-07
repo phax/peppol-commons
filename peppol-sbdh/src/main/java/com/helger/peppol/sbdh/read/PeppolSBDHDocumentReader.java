@@ -160,8 +160,7 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority,
-                                             @Nullable final String sSenderIdentifier)
+  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority, @Nullable final String sSenderIdentifier)
   {
     return StringHelper.hasText (sSenderIdentifier);
   }
@@ -200,8 +199,7 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority,
-                                               @Nullable final String sReceiverIdentifier)
+  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority, @Nullable final String sReceiverIdentifier)
   {
     return StringHelper.hasText (sReceiverIdentifier);
   }
@@ -285,8 +283,7 @@ public class PeppolSBDHDocumentReader
   {
     if (StringHelper.hasNoText (sStandard))
       return false;
-    return sStandard.equals (aBusinessMessage.getNamespaceURI ()) &&
-           sDocumentTypeIdentifierValue.startsWith (sStandard);
+    return sStandard.equals (aBusinessMessage.getNamespaceURI ()) && sDocumentTypeIdentifierValue.startsWith (sStandard);
   }
 
   /**
@@ -428,8 +425,8 @@ public class PeppolSBDHDocumentReader
   }
 
   /**
-   * Extract the document data from the Standard Bussiness Document represents
-   * by the passed parameter.
+   * Extract the document data from the Standard Business Document represents by
+   * the passed parameter.
    *
    * @param aStandardBusinessDocument
    *        The resource to read from. May not be <code>null</code>.
@@ -452,8 +449,8 @@ public class PeppolSBDHDocumentReader
   }
 
   /**
-   * Extract the document data from the Standard Bussiness Document represents
-   * by the passed parameter.
+   * Extract the document data from the Standard Business Document represents by
+   * the passed parameter.
    *
    * @param aStandardBusinessDocument
    *        The DOM node to read from. May not be <code>null</code>.
@@ -476,8 +473,8 @@ public class PeppolSBDHDocumentReader
   }
 
   /**
-   * Extract the document data from the Standard Bussiness Document represents
-   * by the passed parameter.
+   * Extract the document data from the Standard Business Document represents by
+   * the passed parameter.
    *
    * @param aStandardBusinessDocument
    *        The domain object to read from. May not be <code>null</code>.
@@ -500,8 +497,7 @@ public class PeppolSBDHDocumentReader
     // Check that the header version is correct
     if (m_bPerformValueChecks)
       if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION,
-                                                   aSBDH.getHeaderVersion ());
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION, aSBDH.getHeaderVersion ());
 
     // Check sender
     {
@@ -519,8 +515,7 @@ public class PeppolSBDHDocumentReader
       // Check sender identifier value
       if (m_bPerformValueChecks)
         if (!isValidSenderIdentifier (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ()))
-          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
-                                                     aSenderIdentification.getValue ());
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE, aSenderIdentification.getValue ());
 
       // Remember sender
       ret.setSender (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ());
@@ -585,8 +580,7 @@ public class PeppolSBDHDocumentReader
           {
             if (m_bPerformValueChecks)
               if (!isValidProcessIdentifier (sInstanceIdentifier))
-                throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
-                                                           sInstanceIdentifier);
+                throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER, sInstanceIdentifier);
 
             // The scheme was added in Spec v1.1
             String sScheme = aScope.getIdentifier ();
@@ -653,7 +647,6 @@ public class PeppolSBDHDocumentReader
         if (!isValidTypeVersion (sTypeVersion, aBusinessMessage, ret.getDocumentTypeValue ()))
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_TYPE_VERSION,
                                                      sTypeVersion,
-                                                     ret.getDocumentTypeValue (),
                                                      ret.getDocumentTypeValue ());
 
       final String sLocalName = aDI.getType ();
