@@ -216,6 +216,7 @@ public final class PeppolSBDHDocumentReaderTest
       {
         // check for expected error code
         assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
+        LOGGER.info (ex.toString ());
       }
     }
   }
@@ -238,6 +239,7 @@ public final class PeppolSBDHDocumentReaderTest
       {
         // check for expected error code
         assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
+        LOGGER.info (ex.toString ());
       }
     }
   }
@@ -270,6 +272,7 @@ public final class PeppolSBDHDocumentReaderTest
         {
           // check for expected error code
           assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
+          LOGGER.info (ex.toString ());
         }
     }
   }
@@ -297,6 +300,7 @@ public final class PeppolSBDHDocumentReaderTest
       catch (final PeppolSBDHDocumentReadException ex)
       {
         // check for expected error code
+        LOGGER.info (ex.toString ());
       }
     }
   }
@@ -325,6 +329,7 @@ public final class PeppolSBDHDocumentReaderTest
       catch (final PeppolSBDHDocumentReadException ex)
       {
         // check for expected error code
+        LOGGER.info (ex.toString ());
       }
     }
   }

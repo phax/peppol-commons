@@ -19,8 +19,6 @@ package com.helger.peppol.sbdh.read;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.string.StringHelper;
-
 /**
  * Exception that can occur during the reading of SBDH documents.
  *
@@ -32,44 +30,13 @@ public class PeppolSBDHDocumentReadException extends Exception
 
   public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode)
   {
-    this (eErrorCode, null);
-  }
-
-  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
-                                          @Nullable final String sAdditionalInformation)
-  {
-    super ("[" +
-           eErrorCode.getID () +
-           "] " +
-           eErrorCode.getErrorMessage () +
-           (StringHelper.hasText (sAdditionalInformation) ? ": " + sAdditionalInformation : ""));
+    super (eErrorCode.getErrorMessage ());
     m_eErrorCode = eErrorCode;
   }
 
-  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
-                                          @Nonnull final String sValue1,
-                                          @Nonnull final String sValue2)
+  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode, @Nullable final Object... aArgs)
   {
-    super ("[" + eErrorCode.getID () + "] " + eErrorCode.getErrorMessage () + ": '" + sValue1 + "' vs. '" + sValue2 + "'");
-    m_eErrorCode = eErrorCode;
-  }
-
-  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
-                                          @Nonnull final String sValue1,
-                                          @Nonnull final String sValue2,
-                                          @Nonnull final String sValue3)
-  {
-    super ("[" +
-           eErrorCode.getID () +
-           "] " +
-           eErrorCode.getErrorMessage () +
-           ": '" +
-           sValue1 +
-           "' vs. '" +
-           sValue2 +
-           "' vs. '" +
-           sValue3 +
-           "'");
+    super (eErrorCode.getErrorMessage (aArgs));
     m_eErrorCode = eErrorCode;
   }
 

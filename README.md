@@ -289,8 +289,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.6.4 - work in progress
+* v8.6.4 - 2021-10-18
     * Added new predefined truststores for SMPs: `truststore/2018/smp-pilot-truststore.jks` and `truststore/2018/smp-prod-truststore.jks`
+    * Improved the error messages when reading Peppol SBDH messages.
 * v8.6.3 - 2021-09-27
     * Verifying all contained `Signature` elements of an SMP response
     * Made the JAXB Marshallers of the SMP clients customizable
