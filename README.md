@@ -123,12 +123,13 @@ The SMP client (both Peppol and OASIS BDXR) uses the file `smp-client.properties
 **Configuration properties**
 
 It supports the following properties:
-* **`truststore.type`** (since v6.0.0): the type of key store to be used. Possible values are `JKS` and `PKCS12`. Defaults to `JKS` (which was the implicit default prior to v6).
-* **`truststore.path`** (name before v6: **`truststore.location`**): the location of the Peppol trust store (of the specified type) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
-    * `truststore/complete-truststore.jks` - contains the trust certificates for production and pilot (root, AP, SMP, STS)
-    * `truststore/global-truststore.jks` - contains the trust certificates for production only (root, AP, SMP, STS)
-    * `truststore/pilot-truststore.jks` - contains the trust certificates for pilot only (root, AP, SMP, STS)
-* **`truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
+* **`smpclient.truststore.type`**: the type of key store to be used. Possible values are `JKS`, `PKCS12` and `BCFKS`. Defaults to `JKS`.
+* **`smpclient.truststore.path`**: the location of the Peppol trust store (of the specified type) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
+    * `truststore/complete-truststore.jks` - contains the trust certificates for production and pilot (root, AP, SMP, Directory, SML)
+    * `truststore/2018/smp-prod-truststore.jks` - contains the trust certificates for production only (root, SMP, Directory, SML)
+    * `truststore/2018/smp-pilot-truststore.jks` - contains the trust certificates for pilot only (root, SMP, Directory, SML)
+* **`smpclient.truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
+
 * **`http.proxyHost`**: the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
 * **`http.proxyPort`**: the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
 * **`http.proxyUsername`** (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
