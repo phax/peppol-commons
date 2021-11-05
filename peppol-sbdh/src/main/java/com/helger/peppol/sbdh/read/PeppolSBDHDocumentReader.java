@@ -476,23 +476,24 @@ public class PeppolSBDHDocumentReader
    * Extract the document data from the Standard Business Document represents by
    * the passed parameter.
    *
-   * @param aStandardBusinessDocument
-   *        The domain object to read from. May not be <code>null</code>.
+   * @param aSBDH
+   *        The header object to read from. May not be <code>null</code>.
+   * @param aBusinessMessage
+   *        The main business message (XML payload) to extract data from. May
+   *        not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
    *         the PEPPOL rules.
    */
   @Nonnull
-  public PeppolSBDHDocument extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
+  public PeppolSBDHDocument extractData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
+                                         @Nonnull final Element aBusinessMessage) throws PeppolSBDHDocumentReadException
   {
-    ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
-    final PeppolSBDHDocument ret = new PeppolSBDHDocument (m_aIdentifierFactory);
+    ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
+    ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
-    // Grab the header
-    final StandardBusinessDocumentHeader aSBDH = aStandardBusinessDocument.getStandardBusinessDocumentHeader ();
-    if (aSBDH == null)
-      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_SBDH);
+    final PeppolSBDHDocument ret = new PeppolSBDHDocument (m_aIdentifierFactory);
 
     // Check that the header version is correct
     if (m_bPerformValueChecks)
@@ -623,7 +624,6 @@ public class PeppolSBDHDocumentReader
     {
       // Extract the main business message first - cannot be null and must be an
       // Element!
-      final Element aBusinessMessage = (Element) aStandardBusinessDocument.getAny ();
       if (m_bPerformValueChecks)
         if (!isValidBusinessMessage (aBusinessMessage))
           throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_BUSINESS_MESSAGE);
@@ -672,5 +672,30 @@ public class PeppolSBDHDocumentReader
     }
 
     return ret;
+  }
+
+  /**
+   * Extract the document data from the Standard Business Document represents by
+   * the passed parameter.
+   *
+   * @param aStandardBusinessDocument
+   *        The domain object to read from. May not be <code>null</code>.
+   * @return The document data and never <code>null</code>.
+   * @throws PeppolSBDHDocumentReadException
+   *         In case the passed Standard Business Document does not conform to
+   *         the PEPPOL rules.
+   */
+  @Nonnull
+  public PeppolSBDHDocument extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
+  {
+    ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
+
+    // Grab the header
+    final StandardBusinessDocumentHeader aSBDH = aStandardBusinessDocument.getStandardBusinessDocumentHeader ();
+    if (aSBDH == null)
+      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_SBDH);
+
+    final Element aBusinessMessage = (Element) aStandardBusinessDocument.getAny ();
+    return extractData (aSBDH, aBusinessMessage);
   }
 }
