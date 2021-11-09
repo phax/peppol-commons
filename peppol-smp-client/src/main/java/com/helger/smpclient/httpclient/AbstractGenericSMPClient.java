@@ -314,6 +314,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
       LOGGER.info ("Performing SMP query at '" + aRequest.getURI ().toString () + "'");
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
+    catch (final IOException ex)
+    {
+      LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
+      throw ex;
+    }
   }
 
   /**
