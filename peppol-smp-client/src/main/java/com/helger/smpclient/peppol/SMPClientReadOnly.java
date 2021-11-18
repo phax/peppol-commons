@@ -522,30 +522,16 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
         // Check that the certificateUID is correct.
         boolean bCertificateSubjectFound = false;
-        outer: for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
+        for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
         {
           final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
           if (aInfoValue instanceof X509DataType)
           {
             final X509DataType aX509Data = (X509DataType) aInfoValue;
-            for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+            if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))
             {
-              final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-              // Find the first subject (of type string)
-              if (aX509element.getValue () instanceof String)
-              {
-                final String sSubject = (String) aX509element.getValue ();
-                if (!aRedirect.getCertificateUID ().equals (sSubject))
-                {
-                  throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
-                                                sSubject +
-                                                "'. Required certificate UID is '" +
-                                                aRedirect.getCertificateUID () +
-                                                "'");
-                }
-                bCertificateSubjectFound = true;
-                break outer;
-              }
+              bCertificateSubjectFound = true;
+              break;
             }
           }
         }

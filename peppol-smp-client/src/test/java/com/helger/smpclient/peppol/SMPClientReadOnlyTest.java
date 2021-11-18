@@ -64,7 +64,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("Because it may take some time to resolve it")
   @IgnoredNaptrTest
   public void testGetSMPHostURI_BDXR () throws SMPClientException, SMPDNSResolutionException
   {

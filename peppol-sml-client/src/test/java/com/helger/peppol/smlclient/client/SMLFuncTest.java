@@ -105,7 +105,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   }
 
   @Test
-  @Ignore
+  @Ignore ("Requires a local SML for testing")
   public void testDnsCreation () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);

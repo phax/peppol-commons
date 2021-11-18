@@ -39,6 +39,7 @@ import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.Type;
 
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.concurrent.ThreadHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
@@ -95,7 +96,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   {
     // Wait to let dns propagate : DNS TTL = 60 secs
     LOGGER.info ("Waiting 10 seconds to lookup '" + sHost + "'");
-    Thread.sleep (10000);
+    ThreadHelper.sleepSeconds (10);
 
     final Lookup aDNSLookup = new Lookup (sHost, Type.ANY);
     aDNSLookup.setResolver (new SimpleResolver (INTERNAL_DNS_SERVER));

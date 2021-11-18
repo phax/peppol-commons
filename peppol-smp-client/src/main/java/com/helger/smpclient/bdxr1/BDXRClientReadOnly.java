@@ -256,30 +256,6 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     return ret;
   }
 
-  private static boolean _containsSubject (@Nonnull final X509DataType aX509Data,
-                                           @Nonnull final String sRedirectCertificateUID) throws SMPClientException
-  {
-    for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
-    {
-      final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-      // Find the first subject (of type string)
-      if (aX509element.getValue () instanceof String)
-      {
-        final String sSubject = (String) aX509element.getValue ();
-        if (!sRedirectCertificateUID.equals (sSubject))
-        {
-          throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
-                                        sSubject +
-                                        "'. Required certificate UID is '" +
-                                        sRedirectCertificateUID +
-                                        "'");
-        }
-        return true;
-      }
-    }
-    return false;
-  }
-
   /**
    * Gets a signed service metadata object given by its service group id and its
    * document type. This is a specification compliant method.
@@ -360,7 +336,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
           if (aInfoValue instanceof X509DataType)
           {
             final X509DataType aX509Data = (X509DataType) aInfoValue;
-            if (_containsSubject (aX509Data, aRedirect.getCertificateUID ()))
+            if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))
             {
               bCertificateSubjectFound = true;
               break;

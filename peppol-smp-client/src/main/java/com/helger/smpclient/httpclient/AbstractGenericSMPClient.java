@@ -26,6 +26,7 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.bind.JAXBElement;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -53,6 +54,7 @@ import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
+import com.helger.xsds.xmldsig.X509DataType;
 
 /**
  * Abstract base class for SMP clients - wraps all the HTTP stuff
@@ -455,5 +457,29 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                        .append ("HttpClientSettings", m_aHttpClientSettings)
                                        .appendIfNotNull ("MarshallerConsumer", m_aMarshallerConsumer)
                                        .getToString ();
+  }
+
+  protected static boolean containsRedirectSubject (@Nonnull final X509DataType aX509Data,
+                                                    @Nonnull final String sRedirectCertificateUID) throws SMPClientException
+  {
+    for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+    {
+      final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
+      // Find the first subject (of type string)
+      if (aX509element.getValue () instanceof String)
+      {
+        final String sSubject = (String) aX509element.getValue ();
+        if (!sRedirectCertificateUID.equals (sSubject))
+        {
+          throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
+                                        sSubject +
+                                        "'. Required certificate UID is '" +
+                                        sRedirectCertificateUID +
+                                        "'");
+        }
+        return true;
+      }
+    }
+    return false;
   }
 }
