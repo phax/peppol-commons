@@ -40,7 +40,7 @@ public enum ESMLCommand implements IHasName
 
   private final String m_sName;
 
-  private ESMLCommand (@Nonnull @Nonempty final String sName)
+  ESMLCommand (@Nonnull @Nonempty final String sName)
   {
     m_sName = sName;
   }

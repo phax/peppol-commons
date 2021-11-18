@@ -106,7 +106,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
 
   @Test
   @Ignore
-  public void dnsCreationTest () throws Exception
+  public void testDnsCreation () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
@@ -191,7 +191,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   }
 
   @Test
-  public void manageServiceMetadataUpdateTest () throws Exception
+  public void testManageServiceMetadataUpdate () throws Exception
   {
     final ServiceMetadataPublisherServiceType aServiceMetadataRead = m_aSMClient.read (m_aServiceMetadataPublisher.getServiceMetadataPublisherID ());
     assertNotNull (aServiceMetadataRead);
@@ -354,7 +354,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   }
 
   @Test
-  public void migrateTest () throws Exception
+  public void testMigrate () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClientOld = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClientOld.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
@@ -396,7 +396,7 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   }
 
   @Test (expected = BadRequestFault.class)
-  public void createExistingBusinessIdentifierUnauthorized () throws Exception
+  public void testCreateExistingBusinessIdentifierUnauthorized () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClientOld = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClientOld.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));

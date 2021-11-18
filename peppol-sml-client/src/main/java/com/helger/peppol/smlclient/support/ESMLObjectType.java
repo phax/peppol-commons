@@ -35,7 +35,7 @@ public enum ESMLObjectType implements IHasName
 
   private final String m_sName;
 
-  private ESMLObjectType (@Nonnull @Nonempty final String sName)
+  ESMLObjectType (@Nonnull @Nonempty final String sName)
   {
     m_sName = sName;
   }

@@ -52,9 +52,9 @@ public enum ETLSConfigurationMode_CEF_SML implements IHasID <String>, ITLSConfig
   private final String m_sID;
   private final TLSConfigurationMode m_aMode;
 
-  private ETLSConfigurationMode_CEF_SML (@Nonnull @Nonempty final String sID,
-                                         @Nonnull @Nonempty final ETLSVersion [] aTLSVersions,
-                                         @Nonnull @Nonempty final String [] aCipherSuites)
+  ETLSConfigurationMode_CEF_SML (@Nonnull @Nonempty final String sID,
+                                 @Nonnull @Nonempty final ETLSVersion [] aTLSVersions,
+                                 @Nonnull @Nonempty final String [] aCipherSuites)
   {
     m_sID = sID;
     m_aMode = new TLSConfigurationMode (aTLSVersions, aCipherSuites);

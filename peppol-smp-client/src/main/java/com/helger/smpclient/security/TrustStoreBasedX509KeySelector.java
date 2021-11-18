@@ -82,7 +82,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
    * @since 8.6.2
    */
   @Nullable
-  public final LocalDateTime getValidationDateTime ()
+  public LocalDateTime getValidationDateTime ()
   {
     return m_aValidationDateTime;
   }
@@ -96,7 +96,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
    * @since 8.6.2
    */
   @Nonnull
-  public final TrustStoreBasedX509KeySelector setValidationDateTime (@Nullable final LocalDateTime aValidationDateTime)
+  public TrustStoreBasedX509KeySelector setValidationDateTime (@Nullable final LocalDateTime aValidationDateTime)
   {
     m_aValidationDateTime = aValidationDateTime;
     return this;

@@ -61,7 +61,7 @@ public final class BDXRClientReadOnlyTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("Because it may take long to execute")
   @IgnoredNaptrTest
   public void testGetBDXRHostURI_BDXR () throws SMPDNSResolutionException
   {
@@ -95,7 +95,7 @@ public final class BDXRClientReadOnlyTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("Because it may take long to execute")
   @IgnoredNaptrTest
   public void testReadTOOP () throws SMPDNSResolutionException, SMPClientException
   {
@@ -122,7 +122,7 @@ public final class BDXRClientReadOnlyTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("Because it may take long to execute")
   @IgnoredNaptrTest
   public void testReadConnectivityTest () throws SMPDNSResolutionException, SMPClientException
   {
@@ -149,7 +149,7 @@ public final class BDXRClientReadOnlyTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("Because it may take long to execute")
   @IgnoredNaptrTest
   public void testReadDE4A () throws Exception
   {

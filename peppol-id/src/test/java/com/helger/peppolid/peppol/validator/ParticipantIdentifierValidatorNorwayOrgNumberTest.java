@@ -29,7 +29,7 @@ import org.junit.Test;
 public final class ParticipantIdentifierValidatorNorwayOrgNumberTest
 {
   @Test
-  public void test02 ()
+  public void testNorwayOrgNumber ()
   {
     assertTrue (ParticipantIdentifierValidatorNorwayOrgNumber.isValidOrganisationNumber ("123456785"));
     assertTrue (ParticipantIdentifierValidatorNorwayOrgNumber.isValidOrganisationNumber ("976098897"));

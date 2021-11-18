@@ -63,11 +63,11 @@ public enum ESML implements ISMLInfo
    *        <code>false</code> if not.
    * @throws MalformedURLException
    */
-  private ESML (@Nonnull @Nonempty final String sID,
-                @Nonnull @Nonempty final String sDisplayName,
-                @Nonnull @Nonempty final String sDNSZone,
-                @Nonnull @Nonempty final String sManagementServiceURL,
-                final boolean bRequiresClientCertificate)
+  ESML (@Nonnull @Nonempty final String sID,
+        @Nonnull @Nonempty final String sDisplayName,
+        @Nonnull @Nonempty final String sDNSZone,
+        @Nonnull @Nonempty final String sManagementServiceURL,
+        final boolean bRequiresClientCertificate)
   {
     m_aProxy = new SMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCertificate);
   }

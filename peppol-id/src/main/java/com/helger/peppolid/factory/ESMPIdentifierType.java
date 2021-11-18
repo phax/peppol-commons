@@ -42,9 +42,9 @@ public enum ESMPIdentifierType implements IHasID <String>, IHasDisplayName
   private final String m_sDisplayName;
   private final IIdentifierFactory m_aIF;
 
-  private ESMPIdentifierType (@Nonnull @Nonempty final String sID,
-                              @Nonnull @Nonempty final String sDisplayName,
-                              @Nonnull final IIdentifierFactory aIF)
+  ESMPIdentifierType (@Nonnull @Nonempty final String sID,
+                      @Nonnull @Nonempty final String sDisplayName,
+                      @Nonnull final IIdentifierFactory aIF)
   {
     m_sID = sID;
     m_sDisplayName = sDisplayName;

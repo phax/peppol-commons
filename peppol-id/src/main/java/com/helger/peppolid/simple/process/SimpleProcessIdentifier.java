@@ -74,6 +74,12 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   }
 
   @Override
+  public boolean equals (final Object o)
+  {
+    return super.equals (o);
+  }
+
+  @Override
   public int hashCode ()
   {
     // Cash for performance reasons

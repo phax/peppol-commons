@@ -42,7 +42,7 @@ public enum EPeppolCertificateCheckResult implements IHasID <String>, IValidityI
   private final String m_sID;
   private final String m_sReason;
 
-  private EPeppolCertificateCheckResult (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sReason)
+  EPeppolCertificateCheckResult (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sReason)
   {
     m_sID = sID;
     m_sReason = sReason;

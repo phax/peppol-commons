@@ -221,7 +221,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     if (aSG != null && aSG.getParticipantIdentifier () != null && aSG.getServiceMetadataReferenceCollection () != null)
     {
-      final String sPathStart = "/" + CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) + "/" + URL_PART_SERVICES + "/";
+      final String sPathStart = "/" + CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) + '/' + URL_PART_SERVICES + '/';
       for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ().getServiceMetadataReference ())
       {
         final String sOriginalHref = aSMR.getHref ();
@@ -254,6 +254,30 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     }
 
     return ret;
+  }
+
+  private static boolean _containsSubject (@Nonnull final X509DataType aX509Data,
+                                           @Nonnull final String sRedirectCertificateUID) throws SMPClientException
+  {
+    for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+    {
+      final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
+      // Find the first subject (of type string)
+      if (aX509element.getValue () instanceof String)
+      {
+        final String sSubject = (String) aX509element.getValue ();
+        if (!sRedirectCertificateUID.equals (sSubject))
+        {
+          throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
+                                        sSubject +
+                                        "'. Required certificate UID is '" +
+                                        sRedirectCertificateUID +
+                                        "'");
+        }
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -328,32 +352,18 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                                            new SMPHttpResponseHandlerSigned <> (aMarshaller,
                                                                                 aTrustStore).setVerifySignature (bVerifySignature));
 
-        // Check that the certificateUID is correct.
+        // Check that the certificateUID is correct
         boolean bCertificateSubjectFound = false;
-        outer: for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
+        for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
         {
           final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
           if (aInfoValue instanceof X509DataType)
           {
             final X509DataType aX509Data = (X509DataType) aInfoValue;
-            for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+            if (_containsSubject (aX509Data, aRedirect.getCertificateUID ()))
             {
-              final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-              // Find the first subject (of type string)
-              if (aX509element.getValue () instanceof String)
-              {
-                final String sSubject = (String) aX509element.getValue ();
-                if (!aRedirect.getCertificateUID ().equals (sSubject))
-                {
-                  throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
-                                                sSubject +
-                                                "'. Required certificate UID is '" +
-                                                aRedirect.getCertificateUID () +
-                                                "'");
-                }
-                bCertificateSubjectFound = true;
-                break outer;
-              }
+              bCertificateSubjectFound = true;
+              break;
             }
           }
         }
@@ -363,6 +373,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       }
     }
     else
+
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Following SMP redirects is disabled");

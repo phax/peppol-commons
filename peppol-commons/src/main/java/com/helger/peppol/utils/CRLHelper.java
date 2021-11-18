@@ -133,9 +133,11 @@ public final class CRLHelper
         {
           final DEROctetString crlDEROctetString = (DEROctetString) asn1In.readObject ();
           // Get Input stream in octets
-          final ASN1InputStream asn1InOctets = new ASN1InputStream (crlDEROctetString.getOctets ());
-          final ASN1Primitive crlDERObject = asn1InOctets.readObject ();
-          aDistPoint = CRLDistPoint.getInstance (crlDERObject);
+          try (final ASN1InputStream asn1InOctets = new ASN1InputStream (crlDEROctetString.getOctets ()))
+          {
+            final ASN1Primitive crlDERObject = asn1InOctets.readObject ();
+            aDistPoint = CRLDistPoint.getInstance (crlDERObject);
+          }
         }
         catch (final IOException e)
         {
@@ -230,9 +232,7 @@ public final class CRLHelper
     @Nullable
     private static TimedCRL _loadCRL (@Nonnull final String sCRLURL)
     {
-      if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) ||
-          EURLProtocol.HTTPS.isUsedInURL (sCRLURL) ||
-          EURLProtocol.FTP.isUsedInURL (sCRLURL))
+      if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) || EURLProtocol.HTTPS.isUsedInURL (sCRLURL) || EURLProtocol.FTP.isUsedInURL (sCRLURL))
       {
         // Try to download from remote URL
         LOGGER.info ("Trying to download CRL from URL '" + sCRLURL + "'");

@@ -44,7 +44,7 @@ public final class BPCURLProviderSMP2Test
   }
 
   @Test
-  @Ignore
+  @Ignore ("Because it may take long to execute")
   @IgnoredNaptrTest
   public void testGetSMPURIOfParticipant () throws SMPDNSResolutionException
   {

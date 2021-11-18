@@ -89,10 +89,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testInvalidTrustStore () throws SMPDNSResolutionException,
-                                       SMPClientException,
-                                       GeneralSecurityException,
-                                       IOException
+  public void testInvalidTrustStore () throws SMPDNSResolutionException, SMPClientException, GeneralSecurityException, IOException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
@@ -119,7 +116,7 @@ public final class SMPClientReadOnlyTest
 
   @Test
   @Ignore ("Failed with timeout on 2021-05-02")
-  public void test2303 () throws Exception
+  public void testIssue2303 () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0887290276");
 

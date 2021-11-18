@@ -74,6 +74,12 @@ public class SimpleDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   @Override
+  public boolean equals (final Object o)
+  {
+    return super.equals (o);
+  }
+
+  @Override
   public int hashCode ()
   {
     // Cash for performance reasons

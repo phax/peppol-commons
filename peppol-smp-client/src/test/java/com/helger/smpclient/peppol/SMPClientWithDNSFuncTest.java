@@ -80,7 +80,7 @@ public final class SMPClientWithDNSFuncTest
   }
 
   @Test
-  public void getByDNSTest () throws Exception
+  public void testGetByDNS () throws Exception
   {
     // Make sure that the dns exists.
     final String sParticipantID = "0088:5798000000001";
@@ -100,7 +100,7 @@ public final class SMPClientWithDNSFuncTest
   }
 
   @Test
-  public void getByDNSTestForDocs () throws Exception
+  public void testGetByDNSForDocs () throws Exception
   {
     // ServiceGroup = participant identifier; GLN = 0088
     final IParticipantIdentifier aServiceGroupID = EPredefinedParticipantIdentifierScheme.GLN.createParticipantIdentifier ("5798000000001");
@@ -116,7 +116,7 @@ public final class SMPClientWithDNSFuncTest
   }
 
   @Test
-  public void redirectTest () throws Exception
+  public void testRedirect () throws Exception
   {
     final String sParticipantID = "0088:5798000009997";
     final String sDocumentID = "urn:oasis:names:specification:ubl:schema:xsd:SubmitCatalogue-2::SubmitCatalogue##UBL-2.0";

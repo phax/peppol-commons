@@ -25,7 +25,6 @@ import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.security.certificate.CertificateHelper;
@@ -38,7 +37,7 @@ import com.helger.security.certificate.CertificateHelper;
 public final class PeppolCertificateHelperTest
 {
   @Test
-  @Ignore
+  // @Ignore ("Because it doesn't work")
   public void testEncoding () throws Exception
   {
     final X509Certificate aCert = CertificateHelper.convertStringToCertficate ("-----BEGIN CERTIFICATE-----\r\n" +
@@ -46,13 +45,16 @@ public final class PeppolCertificateHelperTest
                                                                                "-----END CERTIFICATE-----");
     assertNotNull (aCert);
 
+    // Does not work
     assertEquals ("CN=RIA,O=Riigi Infosüsteemi Amet,C=EE", aCert.getSubjectX500Principal ().getName (X500Principal.RFC2253));
 
-    String s = null;
-    for (final Rdn aRdn : new LdapName (aCert.getSubjectX500Principal ().getName ()).getRdns ())
-      if (aRdn.getType ().equalsIgnoreCase ("O"))
-        s = (String) aRdn.getValue ();
-
-    assertEquals ("Riigi Infosüsteemi Amet", s);
+    // Does also not work
+    {
+      String s = null;
+      for (final Rdn aRdn : new LdapName (aCert.getSubjectX500Principal ().getName ()).getRdns ())
+        if (aRdn.getType ().equalsIgnoreCase ("O"))
+          s = (String) aRdn.getValue ();
+      assertEquals ("Riigi Infosüsteemi Amet", s);
+    }
   }
 }

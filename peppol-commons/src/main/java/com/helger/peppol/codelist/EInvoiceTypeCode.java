@@ -16,12 +16,13 @@
  */
 package com.helger.peppol.codelist;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.name.IHasDisplayName;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * This file is generated from Genericode file InvoiceTypeCode.gc. Do NOT edit!
@@ -34,7 +35,7 @@ public enum EInvoiceTypeCode implements IHasID <String>, IHasDisplayName
   private final String m_sID;
   private final String m_sDisplayName;
 
-  private EInvoiceTypeCode (@Nonnull @Nonempty final String sID, @Nonnull final String sDisplayName)
+  EInvoiceTypeCode (@Nonnull @Nonempty final String sID, @Nonnull final String sDisplayName)
   {
     m_sID = sID;
     m_sDisplayName = sDisplayName;

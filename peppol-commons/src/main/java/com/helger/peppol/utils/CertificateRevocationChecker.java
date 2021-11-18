@@ -241,7 +241,7 @@ public final class CertificateRevocationChecker
    * @author Philip Helger
    */
   @NotThreadSafe
-  public static abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractRevocationCheckBuilder <IMPLTYPE>> implements
+  public abstract static class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractRevocationCheckBuilder <IMPLTYPE>> implements
                                                               IBuilder <ERevoked>,
                                                               IGenericImplTrait <IMPLTYPE>
   {

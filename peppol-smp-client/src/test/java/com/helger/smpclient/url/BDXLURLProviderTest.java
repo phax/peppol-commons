@@ -89,7 +89,7 @@ public final class BDXLURLProviderTest
   }
 
   @Test
-  @Ignore
+  @Ignore ("Because it may take long to execute")
   @IgnoredNaptrTest
   public void testResolvePeppol () throws SMPDNSResolutionException
   {

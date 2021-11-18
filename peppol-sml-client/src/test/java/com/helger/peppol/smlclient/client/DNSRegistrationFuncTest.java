@@ -164,7 +164,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   // SMP
 
   @Test
-  public void verifySMPInDNS () throws Exception
+  public void testVerifySMPInDNS () throws Exception
   {
     // @Before creates new SMP!
 
@@ -192,7 +192,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   // PI
 
   @Test
-  public void verifyParticipantIdentifierInDNS () throws Exception
+  public void testVerifyParticipantIdentifierInDNS () throws Exception
   {
     // @Before creates new SMP!
 
@@ -215,7 +215,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   // WildCard PI
 
   @Test
-  public void verifyWildcardInDNS () throws Exception
+  public void testVerifyWildcardInDNS () throws Exception
   {
     // @Before creates new SMP!
 

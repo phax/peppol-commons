@@ -91,7 +91,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
   }
 
   @Test
-  public void createWildcardUnauthorizedFault_WrongScheme () throws Exception
+  public void testCreateWildcardUnauthorizedFault_WrongScheme () throws Exception
   {
     try
     {
@@ -107,7 +107,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
   }
 
   @Test
-  public void createWildcardUnauthorizedFault_WrongUser () throws Exception
+  public void testCreateWildcardUnauthorizedFault_WrongUser () throws Exception
   {
     try
     {
@@ -123,7 +123,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
   }
 
   @Test
-  public void createWildcardBadRequestFault_MustBeWildcard () throws Exception
+  public void testCreateWildcardBadRequestFault_MustBeWildcard () throws Exception
   {
     try
     {
@@ -139,7 +139,7 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
   }
 
   @Test
-  public void createDeleteWildcard () throws Exception
+  public void testCreateDeleteWildcard () throws Exception
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));

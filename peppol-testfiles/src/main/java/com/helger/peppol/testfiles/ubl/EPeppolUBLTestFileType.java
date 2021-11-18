@@ -22,6 +22,11 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 
+/**
+ * UBL test file type.
+ *
+ * @author Philip Helger
+ */
 public enum EPeppolUBLTestFileType
 {
   CALLFORTENDERS ("test-callfortenders"),
@@ -35,7 +40,7 @@ public enum EPeppolUBLTestFileType
 
   private final String m_sDirName;
 
-  private EPeppolUBLTestFileType (@Nonnull @Nonempty final String sDirName)
+  EPeppolUBLTestFileType (@Nonnull @Nonempty final String sDirName)
   {
     m_sDirName = sDirName;
   }
