@@ -226,7 +226,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   /**
    * Returns a complete service group. A complete service group contains both
    * the service group and the service metadata. This is a non-specification
-   * compliant method.
+   * compliant method.<br>
+   * NOTE: this API is NOT supported by all SMP implementations. It is based on
+   * a proprietary API provided by the Peppol reference implementation and now
+   * supported by phoss SMP but not all other SMPs.
    *
    * @param sCompleteURI
    *        The complete URL for the full service group to query.
@@ -260,7 +263,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   /**
    * Returns a complete service group. A complete service group contains both
    * the service group and the service metadata. This is a non-specification
-   * compliant method.
+   * compliant method.<br>
+   * NOTE: this API is NOT supported by all SMP implementations. It is based on
+   * a proprietary API provided by the Peppol reference implementation and now
+   * supported by phoss SMP but not all other SMPs.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
@@ -289,7 +295,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   /**
    * Returns a complete service group. A complete service group contains both
    * the service group and the service metadata. This is a non-specification
-   * compliant method.
+   * compliant method.<br>
+   * NOTE: this API is NOT supported by all SMP implementations. It is based on
+   * a proprietary API provided by the Peppol reference implementation and now
+   * supported by phoss SMP but not all other SMPs.
    *
    * @param aServiceGroupID
    *        The service group id corresponding to the service group which one
@@ -733,7 +742,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
   /**
    * Returns a complete service group. A complete service group contains both
-   * the service group and the service metadata.
+   * the service group and the service metadata.<br>
+   * NOTE: this API is NOT supported by all SMP implementations. It is based on
+   * a proprietary API provided by the Peppol reference implementation and now
+   * supported by phoss SMP but not all other SMPs.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
