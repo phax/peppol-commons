@@ -1,6 +1,5 @@
 # Introduction
 
-[![Build Status](https://travis-ci.com/phax/peppol-commons.svg?branch=master)](https://travis-ci.com/phax/peppol-commons)
 [![javadoc](https://javadoc.io/badge2/com.helger.peppol/peppol-commons/javadoc.svg)](https://javadoc.io/doc/com.helger.peppol/peppol-commons)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom) 
 
