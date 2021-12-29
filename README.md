@@ -4,20 +4,20 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom) 
 
 This project contains different libraries that are commonly used in the Peppol area:
-  * [`peppol-id-datatypes`](#peppol-id-datatypes) - the generated JAXB classes for ID handling (since v8.4.0)
-  * [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
-  * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with Peppol and BDXR
-  * [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
-  * [`peppol-sbdh`](#peppol-sbdh) - Peppol specific SBDH handling
-  * [`peppol-sml-client`](#peppol-sml-client) - the Peppol SML client
-  * [`peppol-smp-datatypes`](#peppol-smp-datatypes) - the Peppol SMP generated JAXB classes (since v8.4.0)
-  * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
+* [`peppol-id-datatypes`](#peppol-id-datatypes) - the generated JAXB classes for ID handling (since v8.4.0)
+* [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
+* [`peppol-commons`](#peppol-commons) - the most basic data structures for use with Peppol and BDXR
+* [`peppol-testfiles`](#peppol-testfiles) - a set of UBL and SBDH test files
+* [`peppol-sbdh`](#peppol-sbdh) - Peppol specific SBDH handling
+* [`peppol-sml-client`](#peppol-sml-client) - the Peppol SML client
+* [`peppol-smp-datatypes`](#peppol-smp-datatypes) - the Peppol SMP generated JAXB classes (since v8.4.0)
+* [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
   
 These project are used implicitly by e.g. the following projects:
-  * [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for Peppol and TOOP
-  * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
-  * [as2-peppol](https://github.com/phax/as2-peppol/) - an AS2 client and server for Peppol
-  * [phase4](https://github.com/phax/phase4/) - an AS4 implementation that also supports Peppol 
+* [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for Peppol and TOOP
+* [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
+* [phase4](https://github.com/phax/phase4/) - an AS4 implementation that also supports Peppol 
+* [as2-peppol](https://github.com/phax/as2-peppol/) - an AS2 client and server for Peppol (deprecated)
 
 This project is licensed under the Apache 2.0 license.
 
