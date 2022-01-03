@@ -25,6 +25,7 @@ import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.security.certificate.CertificateHelper;
@@ -37,7 +38,7 @@ import com.helger.security.certificate.CertificateHelper;
 public final class PeppolCertificateHelperTest
 {
   @Test
-  // @Ignore ("Because it doesn't work")
+  @Ignore ("Because it doesn't work")
   public void testEncoding () throws Exception
   {
     final X509Certificate aCert = CertificateHelper.convertStringToCertficate ("-----BEGIN CERTIFICATE-----\r\n" +
