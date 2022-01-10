@@ -14,9 +14,9 @@ This project contains different libraries that are commonly used in the Peppol a
 * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
   
 These project are used implicitly by e.g. the following projects:
-* [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for Peppol and TOOP
 * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
 * [phase4](https://github.com/phax/phase4/) - an AS4 implementation that also supports Peppol 
+* [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for Peppol and TOOP
 * [as2-peppol](https://github.com/phax/as2-peppol/) - an AS2 client and server for Peppol (deprecated)
 
 This project is licensed under the Apache 2.0 license.
@@ -38,17 +38,7 @@ First created in version 7.0.0.
 
 Java library with shared Peppol components. It contains the basic algorithms. Since v7 this depends on the `peppol-id` submodule.
 
-### Truststore path change in v6.0.1
-
-Old path names (up to and including v6.0.0):
-* truststore/global-truststore.jks (production only PKI v2)
-* truststore/pilot-truststore.jks (pilot only PKI v2)
-* truststore/complete-truststore.jks (production + pilot PKI v2)
-
-New path names (starting from v6.0.1):
-* truststore/2018/prod-truststore.jks (production only PKI v3)
-* truststore/2018/pilot-truststore.jks (pilot only PKI v3)
-* truststore/complete-truststore.jks (production + pilot PKI v2 + v3)
+This project also contains the predefined Peppol Truststores. See https://github.com/phax/peppol-commons/tree/master/peppol-commons/src/main/resources/truststore for all details.
 
 ## peppol-sbdh
 
@@ -62,9 +52,7 @@ The additional code is created in `target/generated-sources/xjc`.
 This projects implements the "Envelope specification" as listed on
 http://www.peppol.eu/ressource-library/technical-specifications/transport-infrastructure/infrastructure-resources.
 The detail document this project refers to can be found at
-https://joinup.ec.europa.eu/svn/peppol/TransportInfrastructure/ICT-Transport-OpenPEPPOL-Envelope_Specification-100_2014-01-15.pdf
-
-An example on how to use this project can be found in my **[as2-peppol-servlet](https://github.com/phax/as2-peppol)** project which provides a servlet to receive incoming Peppol AS2 messages. Alternatively you may have a look at my **[as2-peppol-client](https://github.com/phax/as2-peppol)** project which is used to send Peppol AS2 messages.
+https://docs.peppol.eu/edelivery/envelope/PEPPOL-EDN-Business-Message-Envelope-1.2.1-2020-03-11.pdf
 
 ## peppol-testfiles
 
@@ -106,9 +94,7 @@ I also provide an OSS [phoss SMP server](https://github.com/phax/phoss-smp) with
 
 ### Configuration
 
-**Configuration resolution**
-
-Note: this is new in v8.2.0.
+**Configuration resolution (since v8.2.0)**
 
 The SMP client (both Peppol and OASIS BDXR) uses the file `application.properties` for configuration.
 The file `smp-client.properties` is also evaluated for backwards-compatibility reasons but with lower priority.
