@@ -37,13 +37,14 @@ public final class PeppolSBDHTestFiles
   {
     // good.xml must be the first file!
     for (final String sFilename : new String [] { "good.xml",
-                                                  "good-v11.xml",
                                                   "good-additional-scopes.xml",
                                                   "good-bis3.xml",
                                                   "good-gxs1.xml",
                                                   "good-order-with-qty-ph.xml",
                                                   "good-to-9915-test.xml",
-                                                  "good-type-version-20.xml" })
+                                                  "good-type-version-20.xml",
+                                                  "good-v11.xml",
+                                                  "good-with-timezone.xml" })
     {
       GOOD_CASES.add (new ClassPathResource ("/sbdh/good/" + sFilename));
     }
