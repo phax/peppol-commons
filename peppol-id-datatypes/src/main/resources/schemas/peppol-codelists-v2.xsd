@@ -26,13 +26,25 @@
       OpenPeppol Code list schemas.
       All information elements outside the Peppol identifier scheme and value are non-normative.
       
-      Schema version: 1
+      Schema version: 2
+        Suitable with code list version 8 onwards
       Author: Philip Helger, OpenPeppol OO
-      Last update: 2020-05-06
+      Last update: 2020-12-01
     </xs:documentation>
   </xs:annotation>
   
   <!-- Shared stuff -->
+  
+  <xs:simpleType name="StateType">
+    <xs:annotation>
+      <xs:documentation>Contains the different states of a code list entry</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="active" />
+      <xs:enumeration value="deprecated" />
+      <xs:enumeration value="removed" />
+    </xs:restriction>
+  </xs:simpleType>
   
   <xs:simpleType name="VersionType">
     <xs:annotation>
@@ -111,21 +123,29 @@
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="since" type="xs:string" use="required">
+    <xs:attribute name="initial-release" type="VersionType" use="required">
       <xs:annotation>
         <xs:documentation>The code list version when this item was officially introduced.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecated" type="xs:boolean" use="required">
+    <xs:attribute name="state" type="StateType" use="required">
       <xs:annotation>
-        <xs:documentation>Is this entry deprecated? If so, NO new objects with this code list entry may be created.</xs:documentation>
+        <xs:documentation>The state of this code list entry.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecated-since" type="VersionType" use="optional">
+    <xs:attribute name="deprecation-release" type="VersionType" use="optional">
       <xs:annotation>
         <xs:documentation>
           This attribute is only present, if the code list entry is deprecated.
           It contains the code list version in which the entry was initially deprecated.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="removal-date" type="xs:date" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          This attribute is only present, if the code list entry is scheduled for removal.
+          It contains the date, when the entry is/was marked as removed.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -245,21 +265,29 @@
         <xs:documentation>The agency that is issuing participants of that particular identifier scheme.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="since" type="xs:string" use="required">
+    <xs:attribute name="initial-release" type="VersionType" use="required">
       <xs:annotation>
         <xs:documentation>The code list version when this item was officially introduced.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecated" type="xs:boolean" use="required">
+    <xs:attribute name="state" type="StateType" use="required">
       <xs:annotation>
-        <xs:documentation>Is this entry deprecated? If so, no new objects with this code list entry may be created.</xs:documentation>
+        <xs:documentation>The state of this code list entry.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecated-since" type="VersionType" use="optional">
+    <xs:attribute name="deprecation-release" type="VersionType" use="optional">
       <xs:annotation>
         <xs:documentation>
           This attribute is only present, if the code list entry is deprecated.
           It contains the code list version in which the entry was initially deprecated.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="removal-date" type="xs:date" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          This attribute is only present, if the code list entry is scheduled for removal.
+          It contains the date, when the entry is/was marked as removed.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
@@ -298,9 +326,9 @@
         <xs:documentation>The process identifier value.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecated" type="xs:boolean" use="required">
+    <xs:attribute name="state" type="StateType" use="required">
       <xs:annotation>
-        <xs:documentation>Is this entry deprecated? If so, NO new objects with this code list entry may be created.</xs:documentation>
+        <xs:documentation>The state of this code list entry.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
@@ -346,21 +374,29 @@
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="since" type="xs:string" use="required">
+    <xs:attribute name="initial-release" type="VersionType" use="required">
       <xs:annotation>
         <xs:documentation>The code list version when this item was officially introduced.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecated" type="xs:boolean" use="required">
+    <xs:attribute name="state" type="StateType" use="required">
       <xs:annotation>
-        <xs:documentation>Is this entry deprecated? If so, no new objects with this code list entry may be created.</xs:documentation>
+        <xs:documentation>The state of this code list entry.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecated-since" type="VersionType" use="optional">
+    <xs:attribute name="deprecation-release" type="VersionType" use="optional">
       <xs:annotation>
         <xs:documentation>
           This attribute is only present, if the code list entry is deprecated.
           It contains the code list version in which the entry was initially deprecated.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="removal-date" type="xs:date" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          This attribute is only present, if the code list entry is scheduled for removal.
+          It contains the date, when the entry is/was marked as removed.
         </xs:documentation>
       </xs:annotation>
     </xs:attribute>

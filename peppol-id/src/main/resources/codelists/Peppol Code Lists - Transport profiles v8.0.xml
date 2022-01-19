@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2020-2022 OpenPeppol AISBL (www.peppol.eu)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!--This is an OpenPeppol EDEC Code List.
+Official source: https://docs.peppol.eu/edelivery/codelists/
+
+This file was automatically generated.
+Do NOT edit!-->
+<transport-profiles version="8" entry-count="5">
+  <transport-profile protocol="START" profile-version="1.0.1" profile-id="busdox-transport-start" initial-release="1.0.0" state="deprecated" deprecation-release="1.0.0" />
+  <transport-profile protocol="AS2" profile-version="1.0" profile-id="busdox-transport-as2-ver1p0" initial-release="1.0.0" state="deprecated" deprecation-release="7" />
+  <transport-profile protocol="AS4" profile-version="1.0" profile-id="peppol-transport-as4-v1_0" initial-release="2" state="deprecated" deprecation-release="3" />
+  <transport-profile protocol="AS4" profile-version="2.0" profile-id="peppol-transport-as4-v2_0" initial-release="3" state="active" />
+  <transport-profile protocol="AS2" profile-version="2.0" profile-id="busdox-transport-as2-ver2p0" initial-release="5" state="active" />
+</transport-profiles>

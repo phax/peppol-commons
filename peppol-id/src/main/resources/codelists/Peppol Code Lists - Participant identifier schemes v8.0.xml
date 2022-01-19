@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2020-2022 OpenPeppol AISBL (www.peppol.eu)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<!--This is an OpenPeppol EDEC Code List.
+Official source: https://docs.peppol.eu/edelivery/codelists/
+
+This file was automatically generated.
+Do NOT edit!-->
+<participant-identifier-schemes version="8" entry-count="88">
+  <participant-identifier-scheme schemeid="FR:SIRENE" iso6523="0002" country="FR" scheme-name="System Information et Repertoire des Entreprise et des Etablissements: SIRENE" issuing-agency="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" initial-release="1.0.0" state="active">
+    <structure>FR:SIRENE</structure>
+    <display>The 9 figure code number (SIREN) is written in groups of 3 characters. Example: 784 301 772
+The 14 figure code number is written in 3 groups of 3 characters and a single group of 5. Example: 784 301 772 00025</display>
+    <examples>784301772
+78430177200025</examples>
+    <validation-rules>RegEx: [0-9]{9}([0-9]{5})?
+Check digits: Luhn Algorithm</validation-rules>
+    <usage>1.1.1 - Changed from FR:SIRET to FR:SIRENE (see ISU Jira ISU-231)</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="SE:ORGNR" iso6523="0007" country="SE" scheme-name="Organisationsnummer" issuing-agency="The National Tax Board" initial-release="1.0.0" state="active">
+    <structure>SE:ORGNR</structure>
+    <display>Single group of 10 digits.</display>
+    <examples>2120000787</examples>
+    <validation-rules>RegEx: [0-9]{10}
+Check digits: Luhn Algorithm</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="FR:SIRET" iso6523="0009" country="FR" scheme-name="SIRET-CODE" issuing-agency="DU PONT DE NEMOURS" initial-release="1.1.1" state="active">
+    <structure>FR:SIRET</structure>
+    <display>In four groups, Groups 1 - 3 = three digits each, Group 4 = five digits</display>
+    <examples>78430177200025</examples>
+    <validation-rules>RegEx: [0-9]{14}</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="FI:OVT" iso6523="0037" country="FI" scheme-name="LY-tunnus" issuing-agency="National Board of Taxes, (Verohallitus)" initial-release="1.0.0" state="active">
+    <structure>FI:OVT</structure>
+    <display>None</display>
+    <examples>0037:00371234567800001
+0037:1234567800001</examples>
+    <validation-rules>RegEx: 0037[0-9]{8}[0-9A-Z]{0,5}
+Check Digit: mod11 of 8-digit OrgCode (weights 2, 4, 8, 5, 10, 9, 7 [right to left] or 7, 9, 10, 5, 8, 4, 2, 1 [left to right])</validation-rules>
+    <usage>OVT identifier conforming to standard ISO6523.   
+- Constant 0037 (Finnish tax administration organisation code)
+- Finnish local tax ID, 8 characters with initial zero and no hyphen
++K4:K5</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DUNS" iso6523="0060" country="international" scheme-name="Data Universal Numbering System (D-U-N-S Number)" issuing-agency="Dun and Bradstreet Ltd" initial-release="1.0.0" state="active">
+    <structure>DUNS</structure>
+    <display>IIIIIIIIC where all characters are the digits 0, to 9, I = an identification digit and C = the check digit. When the prefix (P) is added the display requirement will be eleven digits, PPIIIIIIIIC.</display>
+    <examples>812810734</examples>
+    <validation-rules>RegEx: [0-9]{9}</validation-rules>
+    <usage>Check digits were removed to get a bigger number area
+UPIK search to validate DUNS numbers
+"D&amp;B Direct 2.0" API available</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="GLN" iso6523="0088" country="international" scheme-name="Global Location Number" issuing-agency="GS1 GLN" initial-release="1.0.0" state="active">
+    <structure>GLN</structure>
+    <display>None</display>
+    <examples>1548079098355</examples>
+    <validation-rules>RegEx: [0-9]{13}
+Check Digit: mod10 (weights 1, 3)</validation-rules>
+    <usage>GLN-13 are the only supports supported atm</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DK:P" iso6523="0096" country="DK" scheme-name="DANISH CHAMBER OF COMMERCE Scheme" issuing-agency="Danish Chamber of Commerce" initial-release="1.0.0" state="active">
+    <structure>DK:P</structure>
+    <display>None</display>
+    <validation-rules>RegEx: [0-9]{17}
+Check Digits: mod97</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:FTI" iso6523="0097" country="IT" scheme-name="FTI - Ediforum Italia" issuing-agency="FTI - Ediforum Italia" initial-release="1.0.0" state="active">
+    <structure>IT:FTI</structure>
+    <display>None</display>
+    <validation-rules>RegEx: [0-9]{11,16}
+The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.</validation-rules>
+    <usage>We couldn't find the checksum algorithm in the scanned PDF of 1976
+Proposed to deprecate</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="NL:KVK" iso6523="0106" country="NL" scheme-name="Vereniging van Kamers van Koophandel en Fabrieken in Nederland (Association of&#xA;Chambers of Commerce and Industry in the Netherlands), Scheme" issuing-agency="Vereniging van Kamers van Koophandel en Fabrieken in Nederland" initial-release="1.1.2" state="active">
+    <structure>NL:KVK</structure>
+    <display>None</display>
+    <validation-rules>RegEx: [0-9]{17}
+Check Digits: mod97</validation-rules>
+    <usage>Real numbers seem to be 8 characters</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="EU:NAL" iso6523="0130" country="international" scheme-name="Directorates of the European Commission" issuing-agency="European Commission, Information Directorate, Data Transmission Service" initial-release="4" state="active">
+    <structure>EU:NAL</structure>
+    <display>None</display>
+    <usage>Requested by TICC-10 and TICC-11;
+in SML since 2019-08-23</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:SIA" iso6523="0135" country="IT" scheme-name="SIA Object Identifiers" issuing-agency="SIA-Società Interbancaria per l'Automazione S.p.A." initial-release="1.0.0" state="active">
+    <structure>IT:SIA</structure>
+    <display>None</display>
+    <usage>Propose to deprecate</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:SECETI" iso6523="0142" country="IT" scheme-name="SECETI Object Identifiers" issuing-agency="Servizi Centralizzati SECETI S.p.A." initial-release="1.0.0" state="active">
+    <structure>IT:SECETI</structure>
+    <display>None</display>
+    <usage>Propose to deprecate</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="AU:ABN" iso6523="0151" country="AU" scheme-name="Australian Business Number (ABN) Scheme" issuing-agency="Australian Taxation Office" initial-release="5" state="active">
+    <structure>AU:ABN</structure>
+    <display>It is displayed as follows: -, XX XXX XXX XXX</display>
+    <examples>51 824 753 556</examples>
+    <validation-rules>RegEx: [0-9]{11}
+Check number: mod 89 (weights)
+* Subtract 1 from the first (left-most) digit of the ABN to give a new 11 digit number
+* Multiply each of the digits in this new number by a "weighting factor" based on its position as shown in the table below
+*Sum the resulting 11 products
+* Divide the sum total by 89, noting the remainder
+* If the remainder is zero the number is a valid ABN
+Weight: 10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19</validation-rules>
+    <usage>https://abr.business.gov.au/Help/AbnFormat</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="CH:UIDB" iso6523="0183" country="CH" scheme-name="Swiss Unique Business Identification Number (UIDB)" issuing-agency="Swiss Federal Statistical Office (FSO)" initial-release="5" state="active">
+    <structure>CH:UIDB</structure>
+    <display>There is no requirements. As suggested in the standards eCH-0097 (http://www.ech.ch) the transmission of the UID is without any separator.
+For display reason is suggested to use this format CHE-XXX.XXX.XXP minus-character ('-') after 'CHE' and separator dot-character ('.') after 6th and 9th character</display>
+    <validation-rules>RegEx: CHE[0-9]{9}
+Check number: mod11 (weights: 5, 4, 3, 2, 7, 6, 5, 4)</validation-rules>
+    <usage>Also called "Numéro d'identification suisse des enterprises (IDE)"</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DK:DIGST" iso6523="0184" country="DK" scheme-name="DIGSTORG" issuing-agency="DIGSTORG" initial-release="1.2.1" state="active">
+    <structure>DK:DIGST</structure>
+    <display>Group of 10 digits</display>
+    <validation-rules>RegEx: [0-9]{8}([0-9]{2})?</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="NL:OINO" iso6523="0190" country="NL" scheme-name="Organisatie-identificatienummer (OIN)" issuing-agency="Logius" initial-release="2" state="active">
+    <structure>NL:OINO</structure>
+    <display>In one group of 20 digits</display>
+    <examples>00000001820029336000</examples>
+    <validation-rules>RegEx: [0-9]{20}</validation-rules>
+    <usage>Get all OINs from http://portaal.digikoppeling.nl/registers/</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="EE:CC" iso6523="0191" country="EE" scheme-name="Company code" issuing-agency="Centre of Registers and Information Systems of the Ministry of Justice" initial-release="2" state="active">
+    <structure>EE:CC</structure>
+    <display>None</display>
+    <examples>10137025</examples>
+    <validation-rules>RegEx: [1789][0-9]{7}
+CheckDigit as last char.
+Python code to check:
+def calc_check_digit(number):
+    """Calculate the check digit."""
+    check = sum(((i % 9) + 1) * int(n)
+                for i, n in enumerate(number[:-1])) % 11
+    if check == 10:
+        check = sum((((i + 2) % 9) + 1) * int(n)
+                    for i, n in enumerate(number[:-1])) % 11
+    return str(check % 10)</validation-rules>
+    <usage>See https://ariregister.rik.ee/index?lang=eng</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="NO:ORG" iso6523="0192" country="NO" scheme-name="Organisasjonsnummer" issuing-agency="The Brønnøysund Register Centre" initial-release="2" state="active">
+    <structure>NO:ORG</structure>
+    <display>None</display>
+    <examples>745707327</examples>
+    <validation-rules>RegEx: [0-9]{9}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="UBLBE" iso6523="0193" country="BE" scheme-name="UBL.BE Party Identifier" issuing-agency="UBL.BE" initial-release="3" state="active">
+    <structure>UBLBE</structure>
+    <display>None</display>
+    <validation-rules>RegEx: .{4,50}</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="SG:UEN" iso6523="0195" country="SG" scheme-name="Singapore Nationwide E-Invoice Framework" issuing-agency="lnfocomm Media Development Authority" initial-release="4" state="active">
+    <structure>SG:UEN</structure>
+    <display>None, except all fields are left justified</display>
+    <validation-rules>RegEx: [a-z]{2}[a-z]{3}([0-9]{8}|[0-9]{9}|[RST][0-9]{2}[a-z]{2}[0-9]{4})[0-9a-z]</validation-rules>
+    <usage>https://www.uen.gov.sg/ueninternet/faces/pages/admin/aboutUEN.jspx?_afrLoop=1018044967911865&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fdr4mq9l0_26</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IS:KTNR" iso6523="0196" country="IS" scheme-name="Icelandic identifier" issuing-agency="Icelandic National Registry" initial-release="4" state="active">
+    <structure>IS:KTNR</structure>
+    <display>Whole string: nnnnnnnnnn
+Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn</display>
+    <validation-rules>RegEx: [0-9]{10}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DK:ERST" iso6523="0198" country="DK" scheme-name="ERSTORG" issuing-agency="The Danish Business Authority" initial-release="5" state="active">
+    <structure>DK:ERST</structure>
+    <display>10 characters, no space or other separator</display>
+    <validation-rules>RegEx: DK[0-9]{8}
+Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="LEI" iso6523="0199" country="international" scheme-name="Legal Entity Identifier (LEI)" issuing-agency="As of December 2018, there are 33 LEI issuing organizations in the world." initial-release="5" state="active">
+    <structure>LEI</structure>
+    <display>The entire 20 character code (including the check digits)</display>
+    <validation-rules>RegEx: [A-Z0-9]{18}[0-9]{2}
+Check digit: mod97-10</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="LT:LEC" iso6523="0200" country="LT" scheme-name="Legal entity code" issuing-agency="State Enterprise Centre of Registers" initial-release="5" state="active">
+    <structure>LT:LEC</structure>
+    <display>None</display>
+    <examples>111963319</examples>
+    <validation-rules>RegEx: [0-9]{9}
+Check number: see text</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:CUUO" iso6523="0201" country="IT" scheme-name="Codice Univoco Unità Organizzativa iPA" issuing-agency="Agenzia per l’Italia digitale" initial-release="6" state="active">
+    <structure>IT:CUUO</structure>
+    <display>None</display>
+    <validation-rules>RegEx: [0-9a-zA-Z]{6}
+No checkdigit</validation-rules>
+    <usage>"Alphanumeric characters"</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DE:LWID" iso6523="0204" country="DE" scheme-name="Leitweg-ID" issuing-agency="Koordinierungsstelle für IT-Standards (KoSIT)" initial-release="6" state="active">
+    <structure>DE:LWID</structure>
+    <display>Whole string</display>
+    <validation-rules>RegEx: [0-9]{2,12}(\-[0-9A-Z]{0,30})?\-[0-9]{2}</validation-rules>
+    <usage>The fine grained part is optional</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="BE:EN" iso6523="0208" country="BE" scheme-name="Numero d'entreprise / ondernemingsnummer / Unternehmensnummer" issuing-agency="Banque-Carrefour des Entreprises (BCE) / Kruispuntbank van Ondernemingen (KBO) / Zentrale Datenbank der Unternehmen (ZOU)&#xA;Service public fédéral Economie, P.M.E. Classes moyennes et Energie" initial-release="7" state="active">
+    <structure>BE:EN</structure>
+    <display>The identification number can be displayed in the following ways:
+For enterprise numbers:
+- a group of four digits, then two groups of three digits, each group separated by a dot. Example: 1234.456.789
+- one digit, then three groups of three digits, each separated by a dot. Example: 1.234.456.789
+For establishment unit numbers:
+- one digit, then three groups of three digits, each separated by a dot. Example: 2.123.456.789</display>
+    <validation-rules>RegEx: 0[0-9]{9}
+Check digit: mod97
+See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="GS1" iso6523="0209" country="international" scheme-name="GS1 identification keys" issuing-agency="GS1" initial-release="7.5" state="active">
+    <structure>GS1</structure>
+    <display>None</display>
+    <examples>414541000099999325412345678901234567890</examples>
+    <validation-rules>See document "GS1 Application Standard for usage of ISO/IEC 6523 International Code Designator (ICD) 0209"</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:CFI" iso6523="0210" country="IT" scheme-name="CODICE FISCALE" issuing-agency="Agenzia delle Entrate" initial-release="7.5" state="active">
+    <structure>IT:CFI</structure>
+    <validation-rules>Character Repertoire : A to Z (upper case) and 0 to 9</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:IVA" iso6523="0211" country="IT" scheme-name="PARTITA IVA" issuing-agency="Agenzia delle Entrate" initial-release="7.5" state="active">
+    <structure>IT:IVA</structure>
+    <validation-rules>RegEx: IT[0-9]{11}
+first 7: company identifiers
+next 3: province of residence (between "001" and "100"; or "120", "121", "888" "999")
+Last: check digit
+Check digit: Luhn</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="FI:ORG" iso6523="0212" country="FI" scheme-name="Finnish Organization Identifier" issuing-agency="State Treasury of Finland / Valtiokonttori" initial-release="7.5" state="active">
+    <structure>FI:ORG</structure>
+    <display>Shall be presented as string so that leading zeros have to be present.
+Hyphen shall be present between last two digits.</display>
+    <validation-rules>Character Repertoire: digits 0-9 and hyphen "-"</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="FI:VAT" iso6523="0213" country="FI" scheme-name="Finnish Organization Value Add Tax Identifier" issuing-agency="State Treasury of Finland / Valtiokonttori" initial-release="7.5" state="active">
+    <structure>FI:VAT</structure>
+    <display>Shall be presented as string so that leading zeros have to be present. Two first characters have always fixed value FI.</display>
+    <validation-rules>Character Repertoire: digits 0-9 and FI</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DK:CPR" iso6523="9901" country="DK" scheme-name="Danish Ministry of the Interior and Health" issuing-agency="Danish Ministry of the Interior and Health" initial-release="1.0.0" state="active">
+    <structure>DK:CPR</structure>
+    <display>None</display>
+    <usage>Personal identifier</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DK:CVR" iso6523="9902" country="DK" scheme-name="The Danish Commerce and Companies Agency" issuing-agency="The Danish Commerce and Companies Agency" initial-release="1.0.0" state="active">
+    <structure>DK:CVR</structure>
+    <examples>13585628</examples>
+    <validation-rules>RegEx: [1-9][0-9]{7}
+Check digit: mod11 (weights, 2, 7, 6, 5, 4, 3, 2, 1)</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DK:SE" iso6523="9904" country="DK" scheme-name="Danish Ministry of Taxation, Central Customs and Tax Administration" issuing-agency="Danish Ministry of Taxation, Central Customs and Tax Administration" initial-release="1.0.0" state="active">
+    <structure>DK:SE</structure>
+    <examples>DK26769388</examples>
+    <validation-rules>RegEx: DK[0-9]{8}
+Taks: validate Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DK:VANS" iso6523="9905" country="DK" scheme-name="Danish VANS providers" issuing-agency="Danish VANS providers" initial-release="1.0.0" state="active">
+    <structure>DK:VANS</structure>
+    <examples>DK26769388</examples>
+    <usage>Propose to deprecate (only 7 identifiers, only IBM - all look like test)</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:VAT" iso6523="9906" country="IT" scheme-name="Ufficio responsabile gestione partite IVA" initial-release="1.0.0" state="active">
+    <structure>IT:VAT</structure>
+    <examples>IT06363391001</examples>
+    <validation-rules>RegEx: IT[0-9]{11}
+first 7: company identifiers
+next 3: province of residence (between "001" and "100"; or "120", "121", "888" "999")
+Last: check digit
+Check digit: Luhn</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:CF" iso6523="9907" country="IT" scheme-name="TAX Authority" issuing-agency="TAX Authority" initial-release="1.0.0" state="active">
+    <structure>IT:CF</structure>
+    <examples>RSSBBR69C48F839A</examples>
+    <validation-rules>RegEx: [0-9]{11} (company identification)
+first 7: company identifiers
+next 3: province of residence (between "001" and "100"; or "120", "121", "888" "999")
+Last: check digit
+Check digit: Luhn
+
+RegEx: [A-Z]{6}[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST][0-9LMNPQRSTUV]{2}[A-Z][0-9LMNPQRSTUV]{3}[A-Z] (personal identification)
+Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/it/codicefiscale.py</validation-rules>
+    <usage>NOTE: The "CF" is a Fiscal Code that can be "personal" or for a "legal entity".
+The CF for legal entities is like the Italian VAT code (IT:VAT)</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="NO:ORGNR" iso6523="9908" country="NO" scheme-name="Enhetsregisteret ved Bronnoysundregisterne" issuing-agency="The Brønnøysund Register Centre" initial-release="1.0.0" state="active">
+    <structure>NO:ORGNR</structure>
+    <validation-rules>RegEx: [0-9]{9}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</validation-rules>
+    <usage>Same as 0192</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="NO:VAT" iso6523="9909" country="NO" scheme-name="Norwegian VAT number" issuing-agency="Enhetsregisteret ved Bronnoysundregisterne" initial-release="1.0.0" state="deprecated" deprecation-release="1.1.0">
+    <structure>NO:VAT</structure>
+    <examples>990399123MVA</examples>
+    <validation-rules>RegEx: NO[0-9]{9}MVA
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</validation-rules>
+    <usage>Numerical part is the OrgNumber</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="HU:VAT" iso6523="9910" country="HU" scheme-name="Hungary VAT number" initial-release="1.0.0" state="active">
+    <structure>HU:VAT</structure>
+    <validation-rules>RegEx: HU[0-9]{8}
+Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/hu/anum.py</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="EU:VAT" iso6523="9912" country="international" scheme-name="National ministries of Economy" initial-release="1.0.0" state="deprecated" deprecation-release="1.1.0">
+    <structure>EU:VAT</structure>
+    <validation-rules>RegEx: [A-Z]{2}[A-Z0-9]{,20}</validation-rules>
+    <usage>Proposed to undeprecate; longest known is 18 chars (incl. country code)
+Deprecated in 1.1.0</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="EU:REID" iso6523="9913" country="international" scheme-name="Business Registers Network" issuing-agency="Business Registers Network" initial-release="1.0.0" state="active">
+    <structure>EU:REID</structure>
+    <usage>Proposed to deprecate</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="AT:VAT" iso6523="9914" country="AT" scheme-name="Österreichische Umsatzsteuer-Identifikationsnummer" initial-release="1.0.0" state="active">
+    <structure>AT:VAT</structure>
+    <examples>ATU12345678</examples>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="AT:GOV" iso6523="9915" country="AT" scheme-name="Österreichisches Verwaltungs bzw. Organisationskennzeichen" initial-release="1.0.0" state="active">
+    <structure>AT:GOV</structure>
+    <examples>b</examples>
+    <validation-rules>RegEx: [A-Z][A-Z0-9]*</validation-rules>
+    <usage>No entity behind id</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="AT:CID" iso6523="9916" country="AT" scheme-name="Firmenidentifikationsnummer der Statistik Austria" initial-release="1.0.0" state="deprecated" deprecation-release="1.0.2">
+    <structure>AT:CID</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IS:KT" iso6523="9917" country="IS" scheme-name="Icelandic National Registry" initial-release="1.0.0" state="deprecated" deprecation-release="4">
+    <structure>IS:KT</structure>
+    <display>Whole string: nnnnnnnnnn
+Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn</display>
+    <validation-rules>RegEx: [0-9]{10}
+Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3, 2)</validation-rules>
+    <usage>In favour of 0196</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IBAN" iso6523="9918" country="international" scheme-name="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" issuing-agency="SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T" initial-release="1.0.1" state="active">
+    <structure>IBAN</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="AT:KUR" iso6523="9919" country="AT" scheme-name="Kennziffer des Unternehmensregisters" initial-release="1.0.2" state="active">
+    <structure>AT:KUR</structure>
+    <usage>Propose to deprecated</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="ES:VAT" iso6523="9920" country="ES" scheme-name="Agencia Española de Administración Tributaria" issuing-agency="Agencia Española de Administración Tributaria" initial-release="1.0.2" state="active">
+    <structure>ES:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IT:IPA" iso6523="9921" country="IT" scheme-name="Indice delle Pubbliche Amministrazioni" issuing-agency="Indice delle Pubbliche Amministrazioni" initial-release="1.1.0" state="deprecated" deprecation-release="6">
+    <structure>IT:IPA</structure>
+    <usage>Propose to deprecate; not used in BIS 3</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="AD:VAT" iso6523="9922" country="AD" scheme-name="Andorra VAT number" initial-release="1.1.0" state="active">
+    <structure>AD:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="AL:VAT" iso6523="9923" country="AL" scheme-name="Albania VAT number" initial-release="1.1.0" state="active">
+    <structure>AL:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="BA:VAT" iso6523="9924" country="BA" scheme-name="Bosnia and Herzegovina VAT number" initial-release="1.1.0" state="active">
+    <structure>BA:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="BE:VAT" iso6523="9925" country="BE" scheme-name="Belgium VAT number" initial-release="1.1.0" state="active">
+    <structure>BE:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="BG:VAT" iso6523="9926" country="BG" scheme-name="Bulgaria VAT number" initial-release="1.1.0" state="active">
+    <structure>BG:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="CH:VAT" iso6523="9927" country="CH" scheme-name="Switzerland VAT number" initial-release="1.1.0" state="active">
+    <structure>CH:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="CY:VAT" iso6523="9928" country="CY" scheme-name="Cyprus VAT number" initial-release="1.1.0" state="active">
+    <structure>CY:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="CZ:VAT" iso6523="9929" country="CZ" scheme-name="Czech Republic VAT number" initial-release="1.1.0" state="active">
+    <structure>CZ:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DE:VAT" iso6523="9930" country="DE" scheme-name="Germany VAT number" initial-release="1.1.0" state="active">
+    <structure>DE:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="EE:VAT" iso6523="9931" country="EE" scheme-name="Estonia VAT number" initial-release="1.1.0" state="active">
+    <structure>EE:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="GB:VAT" iso6523="9932" country="GB" scheme-name="United Kingdom VAT number" initial-release="1.1.0" state="active">
+    <structure>GB:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="GR:VAT" iso6523="9933" country="GR" scheme-name="Greece VAT number" initial-release="1.1.0" state="active">
+    <structure>GR:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="HR:VAT" iso6523="9934" country="HR" scheme-name="Croatia VAT number" initial-release="1.1.0" state="active">
+    <structure>HR:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="IE:VAT" iso6523="9935" country="IE" scheme-name="Ireland VAT number" initial-release="1.1.0" state="active">
+    <structure>IE:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="LI:VAT" iso6523="9936" country="LI" scheme-name="Liechtenstein VAT number" initial-release="1.1.0" state="active">
+    <structure>LI:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="LT:VAT" iso6523="9937" country="LT" scheme-name="Lithuania VAT number" initial-release="1.1.0" state="active">
+    <structure>LT:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="LU:VAT" iso6523="9938" country="LU" scheme-name="Luxemburg VAT number" initial-release="1.1.0" state="active">
+    <structure>LU:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="LV:VAT" iso6523="9939" country="LV" scheme-name="Latvia VAT number" initial-release="1.1.0" state="active">
+    <structure>LV:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="MC:VAT" iso6523="9940" country="MC" scheme-name="Monaco VAT number" initial-release="1.1.0" state="active">
+    <structure>MC:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="ME:VAT" iso6523="9941" country="ME" scheme-name="Montenegro VAT number" initial-release="1.1.0" state="active">
+    <structure>ME:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="MK:VAT" iso6523="9942" country="MK" scheme-name="Macedonia, the former Yugoslav Republic of VAT number" initial-release="1.1.0" state="active">
+    <structure>MK:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="MT:VAT" iso6523="9943" country="MT" scheme-name="Malta VAT number" initial-release="1.1.0" state="active">
+    <structure>MT:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="NL:VAT" iso6523="9944" country="NL" scheme-name="Netherlands VAT number" initial-release="1.1.0" state="active">
+    <structure>NL:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="PL:VAT" iso6523="9945" country="PL" scheme-name="Poland VAT number" initial-release="1.1.0" state="active">
+    <structure>PL:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="PT:VAT" iso6523="9946" country="PT" scheme-name="Portugal VAT number" initial-release="1.1.0" state="active">
+    <structure>PT:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="RO:VAT" iso6523="9947" country="RO" scheme-name="Romania VAT number" initial-release="1.1.0" state="active">
+    <structure>RO:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="RS:VAT" iso6523="9948" country="RS" scheme-name="Serbia VAT number" initial-release="1.1.0" state="active">
+    <structure>RS:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="SI:VAT" iso6523="9949" country="SI" scheme-name="Slovenia VAT number" initial-release="1.1.0" state="active">
+    <structure>SI:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="SK:VAT" iso6523="9950" country="SK" scheme-name="Slovakia VAT number" initial-release="1.1.0" state="active">
+    <structure>SK:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="SM:VAT" iso6523="9951" country="SM" scheme-name="San Marino VAT number" initial-release="1.1.0" state="active">
+    <structure>SM:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="TR:VAT" iso6523="9952" country="TR" scheme-name="Turkey VAT number" initial-release="1.1.0" state="active">
+    <structure>TR:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="VA:VAT" iso6523="9953" country="VA" scheme-name="Holy See (Vatican City State) VAT number" initial-release="1.1.0" state="active">
+    <structure>VA:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="NL:OIN" iso6523="9954" country="NL" scheme-name="Dutch Originator's Identification Number" initial-release="1.1.3" state="deprecated" deprecation-release="2">
+    <structure>NL:OIN</structure>
+    <usage>Deprecated by 0190</usage>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="SE:VAT" iso6523="9955" country="SE" scheme-name="Swedish VAT number" initial-release="1.2.0" state="active">
+    <structure>SE:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="BE:CBE" iso6523="9956" country="BE" scheme-name="Belgian Crossroad Bank of Enterprise number" issuing-agency="Belgian Crossroad Bank of Enterprises" initial-release="1.2.1" state="deprecated" deprecation-release="7.4">
+    <structure>BE:CBE</structure>
+    <examples>0899965307</examples>
+    <validation-rules>RegEx: 0[0-9]{9}
+Check digit: mod97
+See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py</validation-rules>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="FR:VAT" iso6523="9957" country="FR" scheme-name="French VAT number" initial-release="1.2.1" state="active">
+    <structure>FR:VAT</structure>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DE:LID" iso6523="9958" country="DE" scheme-name="German Leitweg ID" initial-release="3" state="deprecated" deprecation-release="6">
+    <structure>DE:LID</structure>
+    <usage>Replaced by 0204</usage>
+  </participant-identifier-scheme>
+</participant-identifier-schemes>

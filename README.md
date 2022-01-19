@@ -289,8 +289,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.6.5 - work in progress
+* v8.7.0 - work in progress
     * Fixed some SonarCloud issues
+    * Updated to OpenPeppol eDEC Code Lists v8.0 with the new data format
 * v8.6.4 - 2021-10-18
     * Added new predefined truststores for SMPs: `truststore/2018/smp-pilot-truststore.jks` and `truststore/2018/smp-prod-truststore.jks`
     * Improved the error messages when reading Peppol SBDH messages.

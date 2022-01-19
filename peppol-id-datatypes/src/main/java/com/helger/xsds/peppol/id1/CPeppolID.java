@@ -49,6 +49,6 @@ public final class CPeppolID
   @Nonnull
   public static ClassPathResource getXSDPeppolCodeLists ()
   {
-    return new ClassPathResource ("/schemas/peppol-codelists-v1.xsd", CPeppolID.class.getClassLoader ());
+    return new ClassPathResource ("/schemas/peppol-codelists-v2.xsd", CPeppolID.class.getClassLoader ());
   }
 }

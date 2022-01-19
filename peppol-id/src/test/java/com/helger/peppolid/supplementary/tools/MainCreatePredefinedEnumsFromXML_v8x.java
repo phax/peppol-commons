@@ -59,6 +59,7 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
@@ -69,15 +70,16 @@ import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.serialize.read.DOMReader;
-import com.helger.xsds.peppol.codelists1.PCLDocumentTypeType;
-import com.helger.xsds.peppol.codelists1.PCLDocumentTypesType;
-import com.helger.xsds.peppol.codelists1.PCLParticipantIdentifierSchemeType;
-import com.helger.xsds.peppol.codelists1.PCLParticipantIdentifierSchemesType;
-import com.helger.xsds.peppol.codelists1.PCLProcessIDType;
-import com.helger.xsds.peppol.codelists1.PCLProcessType;
-import com.helger.xsds.peppol.codelists1.PCLProcessesType;
-import com.helger.xsds.peppol.codelists1.PCLTransportProfileType;
-import com.helger.xsds.peppol.codelists1.PCLTransportProfilesType;
+import com.helger.xsds.peppol.codelists2.PCLDocumentTypeType;
+import com.helger.xsds.peppol.codelists2.PCLDocumentTypesType;
+import com.helger.xsds.peppol.codelists2.PCLParticipantIdentifierSchemeType;
+import com.helger.xsds.peppol.codelists2.PCLParticipantIdentifierSchemesType;
+import com.helger.xsds.peppol.codelists2.PCLProcessIDType;
+import com.helger.xsds.peppol.codelists2.PCLProcessType;
+import com.helger.xsds.peppol.codelists2.PCLProcessesType;
+import com.helger.xsds.peppol.codelists2.PCLStateType;
+import com.helger.xsds.peppol.codelists2.PCLTransportProfileType;
+import com.helger.xsds.peppol.codelists2.PCLTransportProfilesType;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also
@@ -87,13 +89,28 @@ import com.helger.xsds.peppol.codelists1.PCLTransportProfilesType;
  *
  * @author Philip Helger
  */
-public final class MainCreatePredefinedEnumsFromXML_v7x
+public final class MainCreatePredefinedEnumsFromXML_v8x
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v7x.class);
-  private static final Version CODELIST_VERSION = new Version (7, 5);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v8x.class);
+  private static final Version CODELIST_VERSION = new Version (8, 0);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
+
+  @Nonnull
+  private static EPeppolCodeListItemState _getState (@Nonnull final PCLStateType eState)
+  {
+    switch (eState)
+    {
+      case ACTIVE:
+        return EPeppolCodeListItemState.ACTIVE;
+      case DEPRECATED:
+        return EPeppolCodeListItemState.DEPRECATED;
+      case REMOVED:
+        return EPeppolCodeListItemState.REMOVED;
+    }
+    throw new IllegalStateException ("Unsupported state " + eState);
+  }
 
   private static void _handleDocumentTypes (final Document aDocumentSheet)
   {
@@ -120,9 +137,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
         final String sProfileCode = aRow.getName ();
         final String sScheme = aRow.getScheme ();
         final String sValue = aRow.getValue ();
-        final String sSince = aRow.getSince ();
-        final boolean bDeprecated = aRow.isDeprecated ();
-        final String sDeprecatedSince = aRow.getDeprecatedSince ();
+        final String sInitialRelease = aRow.getInitialRelease ();
+        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final boolean bDeprecated = !eState.isActive ();
+        final String sDeprecationRelease = aRow.getDeprecationRelease ();
 
         // Split ID in it's pieces
         final IPeppolDocumentTypeIdentifierParts aDocIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sValue);
@@ -134,7 +152,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
           jEnumConst.annotate (Deprecated.class);
           jEnumConst.javadoc ()
                     .addDeprecated ()
-                    .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
+                    .add ("since " + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
         }
 
         jEnumConst.arg (JExpr.lit (sScheme));
@@ -147,9 +165,9 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
           jEnumConst.arg (aNew);
         }
         jEnumConst.arg (JExpr.lit (sProfileCode));
-        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (JExpr.lit (bDeprecated));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecatedSince) : JExpr._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr._null ());
         jEnumConst.arg (JExpr.lit (aRow.isIssuedByOpenpeppol ()));
         jEnumConst.arg (JExpr.lit (StringParser.parseInt (aRow.getBisVersion (), -1)));
         jEnumConst.arg (aRow.getDomainCommunity () == null ? JExpr._null () : JExpr.lit (aRow.getDomainCommunity ()));
@@ -160,7 +178,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
           jEnumConst.arg (aNew);
         }
         jEnumConst.javadoc ().add ("<code>" + sValue + "</code><br>");
-        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sInitialRelease);
 
         // Also create a shortcut for more readable names
         final String sShortcutName = CodeGenerationHelper.createShortcutDocumentTypeIDName (aDocIDParts);
@@ -182,7 +200,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
             aShortcut.annotate (Deprecated.class);
             aShortcut.javadoc ()
                      .addDeprecated ()
-                     .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
+                     .add ("since " + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
           }
           jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
         }
@@ -193,10 +211,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       final JFieldVar fParts = jEnum.field (JMod.PRIVATE | JMod.FINAL, IPeppolDocumentTypeIdentifierParts.class, "m_aParts");
       final JFieldVar fID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sID");
       final JFieldVar fProfileCode = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileCode");
-      final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
+      final JFieldVar fInitialRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aInitialRelease");
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
-      final JFieldVar fDeprecatedSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aDeprecatedSince");
-      final JFieldVar fIssuedByOpenPEPPOL = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bIssuedByOpenPEPPOL");
+      final JFieldVar fDeprecationRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aDeprecationRelease");
+      final JFieldVar fIssuedByOpenPeppol = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bIssuedByOpenPEPPOL");
       final JFieldVar fBISVersion = jEnum.field (JMod.PRIVATE | JMod.FINAL, int.class, "m_nBISVersion");
       final JFieldVar fDomainCommunity = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sDomainCommunity");
       final JFieldVar fProcessIDs = jEnum.field (JMod.PRIVATE | JMod.FINAL,
@@ -213,11 +231,11 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       final JVar jProfileCode = jCtor.param (JMod.FINAL, String.class, "sProfileCode");
       jProfileCode.annotate (Nonnull.class);
       jProfileCode.annotate (Nonempty.class);
-      final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
-      jSince.annotate (Nonnull.class);
+      final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
+      jInitialRelease.annotate (Nonnull.class);
       final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
-      final JVar jDeprecatedSince = jCtor.param (JMod.FINAL, Version.class, "aDeprecatedSince");
-      jDeprecatedSince.annotate (Nullable.class);
+      final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
+      jDeprecationRelease.annotate (Nullable.class);
       final JVar jIssuedByOpenPEPPOL = jCtor.param (JMod.FINAL, boolean.class, "bIssuedByOpenPEPPOL");
       final JVar jBISVersion = jCtor.param (JMod.FINAL, int.class, "nBISVersion");
       final JVar jDomainCommunity = jCtor.param (JMod.FINAL, String.class, "sDomainCommunity");
@@ -228,10 +246,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
            .assign (fParts, jParts)
            .assign (fProfileCode, jProfileCode)
            .assign (fID, fParts.invoke ("getAsDocumentTypeIdentifierValue"))
-           .assign (fSince, jSince)
+           .assign (fInitialRelease, jInitialRelease)
            .assign (fDeprecated, jDeprecated)
-           .assign (fDeprecatedSince, jDeprecatedSince)
-           .assign (fIssuedByOpenPEPPOL, jIssuedByOpenPEPPOL)
+           .assign (fDeprecationRelease, jDeprecationRelease)
+           .assign (fIssuedByOpenPeppol, jIssuedByOpenPEPPOL)
            .assign (fBISVersion, jBISVersion)
            .assign (fDomainCommunity, jDomainCommunity)
            .assign (fProcessIDs,
@@ -324,20 +342,37 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       // public Version getSince ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
       m.annotate (Nonnull.class);
-      m.body ()._return (fSince);
+      m.annotate (Deprecated.class);
+      m.body ()._return (fInitialRelease);
+
+      // public Version getInitialRelease ()
+      m = jEnum.method (JMod.PUBLIC, Version.class, "getInitialRelease");
+      m.annotate (Nonnull.class);
+      m.body ()._return (fInitialRelease);
 
       // public boolean isDeprecated ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
       m.body ()._return (fDeprecated);
 
-      // public Version getSince ()
+      // public Version getDeprecatedSince ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getDeprecatedSince");
       m.annotate (Nullable.class);
-      m.body ()._return (fDeprecatedSince);
+      m.annotate (Deprecated.class);
+      m.body ()._return (fDeprecationRelease);
+
+      // public Version getDeprecationRelease ()
+      m = jEnum.method (JMod.PUBLIC, Version.class, "getDeprecationRelease");
+      m.annotate (Nullable.class);
+      m.body ()._return (fDeprecationRelease);
 
       // public boolean isIssuedByOpenPEPPOL ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isIssuedByOpenPEPPOL");
-      m.body ()._return (fIssuedByOpenPEPPOL);
+      m.annotate (Deprecated.class);
+      m.body ()._return (fIssuedByOpenPeppol);
+
+      // public boolean isIssuedByOpenPeppol ()
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "isIssuedByOpenPeppol");
+      m.body ()._return (fIssuedByOpenPeppol);
 
       // public int getBISVersion ()
       m = jEnum.method (JMod.PUBLIC, int.class, "getBISVersion");
@@ -410,9 +445,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
         final String sCountryCode = aRow.getCountry ();
         final String sSchemeName = aRow.getSchemeName ();
         final String sIssuingAgency = aRow.getIssuingAgency ();
-        final String sSince = aRow.getSince ();
-        final boolean bDeprecated = aRow.isDeprecated ();
-        final String sDeprecatedSince = aRow.getDeprecatedSince ();
+        final String sInitialRelease = aRow.getInitialRelease ();
+        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final boolean bDeprecated = !eState.isActive ();
+        final String sDeprecationRelease = aRow.getDeprecationRelease ();
         final String sStructure = aRow.getStructure ();
         final String sDisplay = aRow.getDisplay ();
         final String sExamples = aRow.getExamples ();
@@ -425,7 +461,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
         jEnumConst.arg (JExpr.lit (sCountryCode));
         jEnumConst.arg (JExpr.lit (sSchemeName));
         jEnumConst.arg (sIssuingAgency == null ? JExpr._null () : JExpr.lit (sIssuingAgency));
-        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (JExpr.lit (bDeprecated));
 
         jEnumConst.javadoc ().add ("Prefix <code>" + sISO6523 + "</code>, scheme ID <code>" + sSchemeID + "</code><br>");
@@ -437,13 +473,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
           jEnumConst.javadoc ().add ("\nExample value: " + CodeGenerationHelper.maskHtml (sExamples) + "<br>");
         if (StringHelper.hasText (sUsage))
           jEnumConst.javadoc ().add ("\nUsage information: " + CodeGenerationHelper.maskHtml (sUsage) + "<br>");
-        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sInitialRelease);
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
           jEnumConst.javadoc ()
                     .addDeprecated ()
-                    .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
+                    .add ("since " + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
         }
       }
 
@@ -453,7 +489,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       final JFieldVar fCountryCode = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sCountryCode");
       final JFieldVar fSchemeName = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sSchemeName");
       final JFieldVar fIssuingAgency = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sIssuingAgency");
-      final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
+      final JFieldVar fInitialRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aInitialRelease");
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
@@ -472,8 +508,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       jSchemeName.annotate (Nonempty.class);
       final JVar jIssuingAgency = jCtor.param (JMod.FINAL, String.class, "sIssuingAgency");
       jIssuingAgency.annotate (Nullable.class);
-      final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
-      jSince.annotate (Nonnull.class);
+      final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
+      jInitialRelease.annotate (Nonnull.class);
       final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
       jCtor.body ()
            .assign (fSchemeID, jSchemeID)
@@ -481,7 +517,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
            .assign (fCountryCode, jCountryCode)
            .assign (fSchemeName, jSchemeName)
            .assign (fIssuingAgency, jIssuingAgency)
-           .assign (fSince, jSince)
+           .assign (fInitialRelease, jInitialRelease)
            .assign (fDeprecated, jDeprecated);
 
       // public String getSchemeID ()
@@ -516,7 +552,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       // public Version getSince ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
       m.annotate (Nonnull.class);
-      m.body ()._return (fSince);
+      m.annotate (Deprecated.class);
+      m.body ()._return (fInitialRelease);
+
+      // public Version getInitialRelease ()
+      m = jEnum.method (JMod.PUBLIC, Version.class, "getInitialRelease");
+      m.annotate (Nonnull.class);
+      m.body ()._return (fInitialRelease);
 
       // public boolean isDeprecated ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
@@ -552,7 +594,8 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       {
         final String sScheme = aRow.getScheme ();
         final String sValue = aRow.getValue ();
-        final boolean bDeprecated = aRow.isDeprecated ();
+        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final boolean bDeprecated = !eState.isActive ();
 
         // Prepend the scheme, if it is non-default
         final String sIDPrefix = PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme) ? "" : sScheme + "-";
@@ -689,9 +732,10 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
         final String sProtocol = aRow.getProtocol ();
         final String sProfileVersion = aRow.getProfileVersion ();
         final String sProfileID = aRow.getProfileId ();
-        final String sSince = aRow.getSince ();
-        final boolean bDeprecated = aRow.isDeprecated ();
-        final String sDeprecatedSince = aRow.getDeprecatedSince ();
+        final String sInitialRelease = aRow.getInitialRelease ();
+        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final boolean bDeprecated = !eState.isActive ();
+        final String sDeprecationRelease = aRow.getDeprecationRelease ();
 
         // Prepend the scheme, if it is non-default
         final String sEnumConstName = RegExHelper.getAsIdentifier (sProfileID);
@@ -699,16 +743,16 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
         jEnumConst.arg (JExpr.lit (sProtocol));
         jEnumConst.arg (JExpr.lit (sProfileVersion));
         jEnumConst.arg (JExpr.lit (sProfileID));
-        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sSince));
+        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (JExpr.lit (bDeprecated));
         jEnumConst.javadoc ().add ("ID: <code>" + sProfileID + "</code><br>");
-        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sSince);
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sInitialRelease);
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
           jEnumConst.javadoc ()
                     .addDeprecated ()
-                    .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
+                    .add ("since " + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
         }
 
         // Emit shortcut name for better readability
@@ -728,7 +772,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
             aShortcut.annotate (Deprecated.class);
             aShortcut.javadoc ()
                      .addDeprecated ()
-                     .add ("since " + sDeprecatedSince + " - this item should not be used to issue new identifiers!");
+                     .add ("since " + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
           }
         }
       }
@@ -737,7 +781,7 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       final JFieldVar fProtocol = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProtocol");
       final JFieldVar fProfileVersion = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileVersion");
       final JFieldVar fProfileID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sProfileID");
-      final JFieldVar fSince = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aSince");
+      final JFieldVar fInitialRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aInitialRelease");
       final JFieldVar fDeprecated = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bDeprecated");
 
       // Constructor
@@ -751,14 +795,14 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       final JVar jProfileID = jCtor.param (JMod.FINAL, String.class, "sProfileID");
       jProfileID.annotate (Nonnull.class);
       jProfileID.annotate (Nonempty.class);
-      final JVar jSince = jCtor.param (JMod.FINAL, Version.class, "aSince");
-      jSince.annotate (Nonnull.class);
+      final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
+      jInitialRelease.annotate (Nonnull.class);
       final JVar jDeprecated = jCtor.param (JMod.FINAL, boolean.class, "bDeprecated");
       jCtor.body ()
            .assign (fProtocol, jProtocol)
            .assign (fProfileVersion, jProfileVersion)
            .assign (fProfileID, jProfileID)
-           .assign (fSince, jSince)
+           .assign (fInitialRelease, jInitialRelease)
            .assign (fDeprecated, jDeprecated);
 
       // public String getProtocol()
@@ -782,7 +826,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
       // public Version getSince ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getSince");
       m.annotate (Nonnull.class);
-      m.body ()._return (fSince);
+      m.annotate (Deprecated.class);
+      m.body ()._return (fInitialRelease);
+
+      // public Version getInitialRelease ()
+      m = jEnum.method (JMod.PUBLIC, Version.class, "getInitialRelease");
+      m.annotate (Nonnull.class);
+      m.body ()._return (fInitialRelease);
 
       // public boolean isDeprecated ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isDeprecated");
@@ -815,13 +865,13 @@ public final class MainCreatePredefinedEnumsFromXML_v7x
   public static void main (final String [] args) throws Exception
   {
     for (final CodeListFile aCLF : new CodeListFile [] { new CodeListFile ("Document types",
-                                                                           MainCreatePredefinedEnumsFromXML_v7x::_handleDocumentTypes),
+                                                                           MainCreatePredefinedEnumsFromXML_v8x::_handleDocumentTypes),
                                                          new CodeListFile ("Participant identifier schemes",
-                                                                           MainCreatePredefinedEnumsFromXML_v7x::_handleParticipantIdentifierSchemes),
+                                                                           MainCreatePredefinedEnumsFromXML_v8x::_handleParticipantIdentifierSchemes),
                                                          new CodeListFile ("Processes",
-                                                                           MainCreatePredefinedEnumsFromXML_v7x::_handleProcessIdentifiers),
+                                                                           MainCreatePredefinedEnumsFromXML_v8x::_handleProcessIdentifiers),
                                                          new CodeListFile ("Transport profiles",
-                                                                           MainCreatePredefinedEnumsFromXML_v7x::_handleTransportProfileIdentifiers) })
+                                                                           MainCreatePredefinedEnumsFromXML_v8x::_handleTransportProfileIdentifiers) })
     {
       final Document aDoc = DOMReader.readXMLDOM (aCLF.m_aFile);
       if (aDoc == null)
