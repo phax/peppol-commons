@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2015-2022 Philip Helger
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.peppolid.peppol.doctype;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -1494,7 +1510,7 @@ public enum EPredefinedDocumentTypeIdentifier
      */
     urn_oasis_names_specification_ubl_schema_xsd_AwardedNotification_2__AwardedNotification__urn_fdc_peppol_eu_prac_trns_t017_1_4__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:AwardedNotification-2", "AwardedNotification", "urn:fdc:peppol.eu:prac:trns:t017:1.4", "2.2"), "Notify Awarding / Awarding Notification V1.1", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "PRAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p009:1.1"));
     public static final String CODE_LIST_VERSION = "8";
-    public static final int CODE_LIST_ENTRY_COUNT = 201;
+    public static final int CODE_LIST_ENTRY_COUNT = 172;
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1}
      * 

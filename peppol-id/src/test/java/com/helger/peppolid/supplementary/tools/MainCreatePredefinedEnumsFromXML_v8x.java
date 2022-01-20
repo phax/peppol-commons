@@ -147,15 +147,11 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
 
         final String sEnumConstName = RegExHelper.getAsIdentifier (sValue);
 
-        if (jEnum.getEnumConstantByName (sEnumConstName) != null)
+        if (jEnum.getEnumConstantOfName (sEnumConstName) != null)
         {
           // Avoid weird side effects
-          LOGGER.warn ("The enum constant '" + sEnumConstName + "' is already in use");
-          if (true)
-            continue;
           throw new IllegalStateException ("The enum constant '" + sEnumConstName + "' is already in use");
         }
-        LOGGER.info ("Creating enum constant '" + sEnumConstName + "'");
 
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         if (bDeprecated)

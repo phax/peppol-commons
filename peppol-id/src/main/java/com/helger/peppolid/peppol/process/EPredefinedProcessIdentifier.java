@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2015-2022 Philip Helger
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.peppolid.peppol.process;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -254,16 +270,6 @@ public enum EPredefinedProcessIdentifier
     urn_fdc_bits_no_2017_profile_02_1_0("cenbii-procid-ubl", "urn:fdc:bits.no:2017:profile:02:1.0", EPeppolCodeListItemState.ACTIVE),
 
     /**
-     * ID: <code>cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0</code><br>
-     */
-    urn_fdc_bits_no_2017_profile_03_1_0("cenbii-procid-ubl", "urn:fdc:bits.no:2017:profile:03:1.0", EPeppolCodeListItemState.ACTIVE),
-
-    /**
-     * ID: <code>cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0</code><br>
-     */
-    urn_fdc_bits_no_2017_profile_04_1_0("cenbii-procid-ubl", "urn:fdc:bits.no:2017:profile:04:1.0", EPeppolCodeListItemState.ACTIVE),
-
-    /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:09:1.0</code><br>
      */
     urn_fdc_bits_no_2017_profile_09_1_0("cenbii-procid-ubl", "urn:fdc:bits.no:2017:profile:09:1.0", EPeppolCodeListItemState.ACTIVE),
@@ -297,11 +303,6 @@ public enum EPredefinedProcessIdentifier
      * ID: <code>cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:01:1.0</code><br>
      */
     urn_fdc_anskaffelser_no_2019_ehf_postaward_g3_01_1_0("cenbii-procid-ubl", "urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:01:1.0", EPeppolCodeListItemState.ACTIVE),
-
-    /**
-     * ID: <code>cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0</code><br>
-     */
-    urn_fdc_anskaffelser_no_2019_ehf_postaward_g3_02_1_0("cenbii-procid-ubl", "urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0", EPeppolCodeListItemState.ACTIVE),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:03:1.0</code><br>
@@ -388,7 +389,7 @@ public enum EPredefinedProcessIdentifier
      */
     urn_fdc_peppol_eu_prac_bis_p009_1_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p009:1.1", EPeppolCodeListItemState.ACTIVE);
     public static final String CODE_LIST_VERSION = "8";
-    public static final int CODE_LIST_ENTRY_COUNT = 65;
+    public static final int CODE_LIST_ENTRY_COUNT = 62;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 
