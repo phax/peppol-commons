@@ -956,7 +956,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 7.3
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Order-2", "Order", "urn:fdc:peppol.eu:poacc:trns:order:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.2"), "EHF Advanced Order Initiation 3.0", Version.parse("7.3"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
+    urn_oasis_names_specification_ubl_schema_xsd_Order_2__Order__urn_fdc_peppol_eu_poacc_trns_order_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Order-2", "Order", "urn:fdc:peppol.eu:poacc:trns:order:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.2"), "EHF Advanced Order Initiation 3.0", Version.parse("7.3"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0", "cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2::OrderChange##urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-change:3.0::2.2</code><br>
@@ -980,7 +980,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 7.3
      */
-    urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2", "OrderResponse", "urn:fdc:peppol.eu:poacc:trns:order_response:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.2"), "EHF Advanced Order Response 3.0", Version.parse("7.3"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0")),
+    urn_oasis_names_specification_ubl_schema_xsd_OrderResponse_2__OrderResponse__urn_fdc_peppol_eu_poacc_trns_order_response_3_extended_urn_fdc_anskaffelser_no_2019_ehf_spec_3_0__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2", "OrderResponse", "urn:fdc:peppol.eu:poacc:trns:order_response:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0", "2.2"), "EHF Advanced Order Response 3.0", Version.parse("7.3"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0", "cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0")),
 
     /**
      * <code>urn:iso:std:iso:20022:tech:xsd:pain.001.001.03::Document##urn:fdc:bits.no:2017:iso20022:1.5::03</code><br>
@@ -988,7 +988,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_iso_std_iso_20022_tech_xsd_pain_001_001_03__Document__urn_fdc_bits_no_2017_iso20022_1_5__03("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:pain.001.001.03", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "03"), "EHF Payment initiation (Profile 01) (Pain.001 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0")),
+    urn_iso_std_iso_20022_tech_xsd_pain_001_001_03__Document__urn_fdc_bits_no_2017_iso20022_1_5__03("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:pain.001.001.03", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "03"), "EHF Payment initiation (Profile 01) (Pain.001 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.002.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -996,7 +996,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_pain_002_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.002.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Pain.002 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_pain_002_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.002.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Pain.002 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.002.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -1004,7 +1004,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_pain_002_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.002.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Pain.002 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_pain_002_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.002.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Pain.002 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -1012,7 +1012,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_054_001_02_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Camt.054 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_054_001_02_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Camt.054 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -1020,7 +1020,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_054_001_02_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Camt.054 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_054_001_02_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Camt.054 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:09:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.001.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -1028,7 +1028,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_pain_001_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.001.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Pain.001 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_pain_001_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.001.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Pain.001 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.001.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -1036,7 +1036,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_pain_001_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.001.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Pain.001 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_pain_001_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.001.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Payment initiation (Profile 01) (Pain.001 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0")),
 
     /**
      * <code>urn:iso:std:iso:20022:tech:xsd:pain.002.001.03::Document##urn:fdc:bits.no:2017:iso20022:1.5::03</code><br>
@@ -1044,7 +1044,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_iso_std_iso_20022_tech_xsd_pain_002_001_03__Document__urn_fdc_bits_no_2017_iso20022_1_5__03("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:pain.002.001.03", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "03"), "EHF Payment initiation (Profile 01) (Pain.002 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0")),
+    urn_iso_std_iso_20022_tech_xsd_pain_002_001_03__Document__urn_fdc_bits_no_2017_iso20022_1_5__03("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:pain.002.001.03", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "03"), "EHF Payment initiation (Profile 01) (Pain.002 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0")),
 
     /**
      * <code>urn:iso:std:iso:20022:tech:xsd:camt.054.001.02::Document##urn:fdc:bits.no:2017:iso20022:1.5::02</code><br>
@@ -1052,7 +1052,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_iso_std_iso_20022_tech_xsd_camt_054_001_02__Document__urn_fdc_bits_no_2017_iso20022_1_5__02("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:camt.054.001.02", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "02"), "EHF Payment initiation (Profile 01) (Camt.054 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0")),
+    urn_iso_std_iso_20022_tech_xsd_camt_054_001_02__Document__urn_fdc_bits_no_2017_iso20022_1_5__02("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:camt.054.001.02", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "02"), "EHF Payment initiation (Profile 01) (Camt.054 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:09:1.0")),
 
     /**
      * <code>urn:iso:std:iso:20022:tech:xsd:camt.055.001.01::Document##urn:fdc:bits.no:2017:iso20022:1.5::01</code><br>
@@ -1060,7 +1060,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_iso_std_iso_20022_tech_xsd_camt_055_001_01__Document__urn_fdc_bits_no_2017_iso20022_1_5__01("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:camt.055.001.01", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "01"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.055 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0")),
+    urn_iso_std_iso_20022_tech_xsd_camt_055_001_01__Document__urn_fdc_bits_no_2017_iso20022_1_5__01("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:camt.055.001.01", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "01"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.055 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.029.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -1068,7 +1068,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_029_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.029.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_029_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.029.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.029.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -1076,7 +1076,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_029_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.029.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_029_001_03_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.029.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.055.001.01:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -1084,7 +1084,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_055_001_01_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.055.001.01:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.055 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__ReceptionAcknowledgement__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_055_001_01_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "ReceptionAcknowledgement", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.055.001.01:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.055 Reception Acknowledgement)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.055.001.01:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>
@@ -1092,7 +1092,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_055_001_01_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.055.001.01:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.055 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0")),
+    urn_fdc_difi_no_2017_payment_extras_1__HandlingException__urn_fdc_difi_no_2017_payment_handling_1_0_for_urn_iso_std_iso_20022_tech_xsd_camt_055_001_01_restricted_urn_fdc_bits_no_2017_iso20022_1_5__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:difi.no:2017:payment:extras-1", "HandlingException", "urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.055.001.01:restricted:urn:fdc:bits.no:2017:iso20022:1.5", "1.0"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.055 Handling Exception)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0")),
 
     /**
      * <code>urn:iso:std:iso:20022:tech:xsd:camt.029.001.03::Document##urn:fdc:bits.no:2017:iso20022:1.5::03</code><br>
@@ -1100,7 +1100,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_iso_std_iso_20022_tech_xsd_camt_029_001_03__Document__urn_fdc_bits_no_2017_iso20022_1_5__03("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:camt.029.001.03", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "03"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0")),
+    urn_iso_std_iso_20022_tech_xsd_camt_029_001_03__Document__urn_fdc_bits_no_2017_iso20022_1_5__03("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:iso:std:iso:20022:tech:xsd:camt.029.001.03", "Document", "urn:fdc:bits.no:2017:iso20022:1.5", "03"), "EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Message)", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, false, -1, "Norwegian Payment", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0", "cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0")),
 
     /**
      * <code>urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0</code><br>

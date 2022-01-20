@@ -260,14 +260,29 @@ public enum EPredefinedProcessIdentifier
     urn_kosit_profile_reporting_1_0("cenbii-procid-ubl", "urn:kosit:profile:reporting:1.0", EPeppolCodeListItemState.ACTIVE),
 
     /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0</code><br>
+     */
+    urn_fdc_anskaffelser_no_2019_ehf_postaward_g3_02_1_0("cenbii-procid-ubl", "urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:01:1.0</code><br>
      */
     urn_fdc_bits_no_2017_profile_01_1_0("cenbii-procid-ubl", "urn:fdc:bits.no:2017:profile:01:1.0", EPeppolCodeListItemState.ACTIVE),
 
     /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:03:1.0</code><br>
+     */
+    urn_fdc_bits_no_2017_profile_03_1_0("cenbii-procid-ubl", "urn:fdc:bits.no:2017:profile:03:1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:02:1.0</code><br>
      */
     urn_fdc_bits_no_2017_profile_02_1_0("cenbii-procid-ubl", "urn:fdc:bits.no:2017:profile:02:1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:04:1.0</code><br>
+     */
+    urn_fdc_bits_no_2017_profile_04_1_0("cenbii-procid-ubl", "urn:fdc:bits.no:2017:profile:04:1.0", EPeppolCodeListItemState.ACTIVE),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:bits.no:2017:profile:09:1.0</code><br>
@@ -389,7 +404,7 @@ public enum EPredefinedProcessIdentifier
      */
     urn_fdc_peppol_eu_prac_bis_p009_1_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p009:1.1", EPeppolCodeListItemState.ACTIVE);
     public static final String CODE_LIST_VERSION = "8";
-    public static final int CODE_LIST_ENTRY_COUNT = 62;
+    public static final int CODE_LIST_ENTRY_COUNT = 65;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 
