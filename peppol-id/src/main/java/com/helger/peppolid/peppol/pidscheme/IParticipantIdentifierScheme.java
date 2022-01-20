@@ -17,6 +17,7 @@
 package com.helger.peppolid.peppol.pidscheme;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,6 +25,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 
 /**
@@ -104,13 +106,67 @@ public interface IParticipantIdentifierScheme extends Serializable
   /**
    * @return The internal code list version in which the identifier was added.
    *         Never <code>null</code>.
+   * @deprecated Use {@link #getInitialRelease()} instead
    */
   @Nonnull
-  Version getSince ();
+  @Deprecated
+  default Version getSince ()
+  {
+    return getInitialRelease ();
+  }
+
+  /**
+   * @return The internal code list version in which the identifier was added.
+   *         Never <code>null</code>.
+   * @since 8.7.1
+   */
+  @Nonnull
+  Version getInitialRelease ();
 
   /**
    * @return <code>true</code> if the agency is deprecated and should not be
    *         used any longer, <code>false</code> otherwise.
    */
-  boolean isDeprecated ();
+  default boolean isDeprecated ()
+  {
+    return getState ().isDeprecated ();
+  }
+
+  /**
+   * @return The state of the item. Never <code>null</code>.
+   * @since 8.7.1
+   */
+  @Nonnull
+  EPeppolCodeListItemState getState ();
+
+  /**
+   * Get the version since when this item is deprecated.
+   *
+   * @return <code>null</code> if this item is not deprecated.
+   * @see #getState()
+   * @see #isDeprecated()
+   * @since 8.7.1
+   */
+  @Nullable
+  Version getDeprecationRelease ();
+
+  /**
+   * @return <code>true</code> if this item has a removal date,
+   *         <code>false</code> if not.
+   * @since 8.7.1
+   */
+  default boolean hasRemovalDate ()
+  {
+    return getRemovalDate () != null;
+  }
+
+  /**
+   * Get the date, when this particular entry will be removed. This may be set,
+   * even if the state is not "removed". This date may be in the future.
+   *
+   * @return <code>null</code> if no removal date is scheduled yet.
+   * @since 8.7.1
+   */
+  @Nullable
+  LocalDate getRemovalDate ();
 }

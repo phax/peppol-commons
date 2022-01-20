@@ -16,6 +16,8 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
+import java.time.LocalDate;
+
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,6 +28,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.version.Version;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 
 /**
@@ -60,16 +63,39 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
   /**
    * @return The internal code list version in which the identifier was added.
    *         Never <code>null</code>.
+   * @deprecated Use {@link #getInitialRelease()} instead
    */
   @Nonnull
-  Version getSince ();
+  @Deprecated
+  default Version getSince ()
+  {
+    return getInitialRelease ();
+  }
+
+  /**
+   * @return The internal code list version in which the identifier was added.
+   *         Never <code>null</code>.
+   * @since 8.7.1
+   */
+  @Nonnull
+  Version getInitialRelease ();
 
   /**
    * @return <code>true</code> if this identifier is deprecated,
    *         <code>false</code> if not.
    * @since 7.0.0
    */
-  boolean isDeprecated ();
+  default boolean isDeprecated ()
+  {
+    return getState ().isDeprecated ();
+  }
+
+  /**
+   * @return The state of the item. Never <code>null</code>.
+   * @since 8.7.1
+   */
+  @Nonnull
+  EPeppolCodeListItemState getState ();
 
   /**
    * Get the version since when this item is deprecated.
@@ -79,20 +105,68 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    * @since 8.0.7
    */
   @Nullable
-  Version getDeprecatedSince ();
+  @Deprecated
+  default Version getDeprecatedSince ()
+  {
+    return getDeprecationRelease ();
+  }
+
+  /**
+   * Get the version since when this item is deprecated.
+   *
+   * @return <code>null</code> if this item is not deprecated.
+   * @see #getState()
+   * @see #isDeprecated()
+   * @since 8.7.1
+   */
+  @Nullable
+  Version getDeprecationRelease ();
+
+  /**
+   * @return <code>true</code> if this item has a removal date,
+   *         <code>false</code> if not.
+   * @since 8.7.1
+   */
+  default boolean hasRemovalDate ()
+  {
+    return getRemovalDate () != null;
+  }
+
+  /**
+   * Get the date, when this particular entry will be removed. This may be set,
+   * even if the state is not "removed". This date may be in the future.
+   *
+   * @return <code>null</code> if no removal date is scheduled yet.
+   * @since 8.7.1
+   */
+  @Nullable
+  LocalDate getRemovalDate ();
 
   /**
    * @return <code>true</code> if this item was officially issued by OpenPEPPOL,
    *         <code>false</code> if it is contained upon a request of a certain
    *         PA.
    * @since 8.0.7
+   * @deprecated Use {@link #isIssuedByOpenPeppol()} instead
    */
-  boolean isIssuedByOpenPEPPOL ();
+  @Deprecated
+  default boolean isIssuedByOpenPEPPOL ()
+  {
+    return isIssuedByOpenPeppol ();
+  }
+
+  /**
+   * @return <code>true</code> if this item was officially issued by OpenPEPPOL,
+   *         <code>false</code> if it is contained upon a request of a certain
+   *         PA.
+   * @since 8.7.1
+   */
+  boolean isIssuedByOpenPeppol ();
 
   /**
    * @return The Peppol BIS major version this belongs to, or -1 if the item is
    *         not issued by OpenPeppol.
-   * @see #isIssuedByOpenPEPPOL()
+   * @see #isIssuedByOpenPeppol()
    * @since 8.0.7
    */
   @CheckForSigned

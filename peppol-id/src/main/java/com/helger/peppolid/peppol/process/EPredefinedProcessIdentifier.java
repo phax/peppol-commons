@@ -538,10 +538,6 @@ public enum EPredefinedProcessIdentifier
         return m_sValue;
     }
 
-    public boolean isDeprecated() {
-        return m_eState.isDeprecated();
-    }
-
     @Nonnull
     public EPeppolCodeListItemState getState() {
         return m_eState;

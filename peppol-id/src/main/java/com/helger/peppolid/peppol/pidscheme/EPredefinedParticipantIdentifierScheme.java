@@ -16,6 +16,7 @@
  */
 package com.helger.peppolid.peppol.pidscheme;
 
+import java.time.LocalDate;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
@@ -44,7 +45,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    FR_SIRENE("FR:SIRENE", "0002", "FR", "System Information et Repertoire des Entreprise et des Etablissements: SIRENE", "Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    FR_SIRENE("FR:SIRENE", "0002", "FR", "System Information et Repertoire des Entreprise et des Etablissements: SIRENE", "Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0007</code>, scheme ID <code>SE:ORGNR</code><br>
@@ -54,7 +55,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    SE_ORGNR("SE:ORGNR", "0007", "SE", "Organisationsnummer", "The National Tax Board", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    SE_ORGNR("SE:ORGNR", "0007", "SE", "Organisationsnummer", "The National Tax Board", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0009</code>, scheme ID <code>FR:SIRET</code><br>
@@ -64,7 +65,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.1
      */
-    FR_SIRET("FR:SIRET", "0009", "FR", "SIRET-CODE", "DU PONT DE NEMOURS", Version.parse("1.1.1"), EPeppolCodeListItemState.ACTIVE),
+    FR_SIRET("FR:SIRET", "0009", "FR", "SIRET-CODE", "DU PONT DE NEMOURS", Version.parse("1.1.1"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0037</code>, scheme ID <code>FI:OVT</code><br>
@@ -79,7 +80,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    FI_OVT("FI:OVT", "0037", "FI", "LY-tunnus", "National Board of Taxes, (Verohallitus)", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    FI_OVT("FI:OVT", "0037", "FI", "LY-tunnus", "National Board of Taxes, (Verohallitus)", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0060</code>, scheme ID <code>DUNS</code><br>
@@ -92,7 +93,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    DUNS("DUNS", "0060", "international", "Data Universal Numbering System (D-U-N-S Number)", "Dun and Bradstreet Ltd", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    DUNS("DUNS", "0060", "international", "Data Universal Numbering System (D-U-N-S Number)", "Dun and Bradstreet Ltd", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0088</code>, scheme ID <code>GLN</code><br>
@@ -103,7 +104,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    GLN("GLN", "0088", "international", "Global Location Number", "GS1 GLN", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    GLN("GLN", "0088", "international", "Global Location Number", "GS1 GLN", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0096</code>, scheme ID <code>DK:P</code><br>
@@ -112,7 +113,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    DK_P("DK:P", "0096", "DK", "DANISH CHAMBER OF COMMERCE Scheme", "Danish Chamber of Commerce", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    DK_P("DK:P", "0096", "DK", "DANISH CHAMBER OF COMMERCE Scheme", "Danish Chamber of Commerce", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0097</code>, scheme ID <code>IT:FTI</code><br>
@@ -123,7 +124,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    IT_FTI("IT:FTI", "0097", "IT", "FTI - Ediforum Italia", "FTI - Ediforum Italia", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    IT_FTI("IT:FTI", "0097", "IT", "FTI - Ediforum Italia", "FTI - Ediforum Italia", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0106</code>, scheme ID <code>NL:KVK</code><br>
@@ -133,7 +134,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.2
      */
-    NL_KVK("NL:KVK", "0106", "NL", "Vereniging van Kamers van Koophandel en Fabrieken in Nederland (Association of\nChambers of Commerce and Industry in the Netherlands), Scheme", "Vereniging van Kamers van Koophandel en Fabrieken in Nederland", Version.parse("1.1.2"), EPeppolCodeListItemState.ACTIVE),
+    NL_KVK("NL:KVK", "0106", "NL", "Vereniging van Kamers van Koophandel en Fabrieken in Nederland (Association of\nChambers of Commerce and Industry in the Netherlands), Scheme", "Vereniging van Kamers van Koophandel en Fabrieken in Nederland", Version.parse("1.1.2"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0130</code>, scheme ID <code>EU:NAL</code><br>
@@ -144,7 +145,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 4
      */
-    EU_NAL("EU:NAL", "0130", "international", "Directorates of the European Commission", "European Commission, Information Directorate, Data Transmission Service", Version.parse("4"), EPeppolCodeListItemState.ACTIVE),
+    EU_NAL("EU:NAL", "0130", "international", "Directorates of the European Commission", "European Commission, Information Directorate, Data Transmission Service", Version.parse("4"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0135</code>, scheme ID <code>IT:SIA</code><br>
@@ -154,7 +155,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    IT_SIA("IT:SIA", "0135", "IT", "SIA Object Identifiers", "SIA-Societ\u00e0 Interbancaria per l'Automazione S.p.A.", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    IT_SIA("IT:SIA", "0135", "IT", "SIA Object Identifiers", "SIA-Societ\u00e0 Interbancaria per l'Automazione S.p.A.", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0142</code>, scheme ID <code>IT:SECETI</code><br>
@@ -164,7 +165,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    IT_SECETI("IT:SECETI", "0142", "IT", "SECETI Object Identifiers", "Servizi Centralizzati SECETI S.p.A.", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    IT_SECETI("IT:SECETI", "0142", "IT", "SECETI Object Identifiers", "Servizi Centralizzati SECETI S.p.A.", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0151</code>, scheme ID <code>AU:ABN</code><br>
@@ -175,7 +176,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 5
      */
-    AU_ABN("AU:ABN", "0151", "AU", "Australian Business Number (ABN) Scheme", "Australian Taxation Office", Version.parse("5"), EPeppolCodeListItemState.ACTIVE),
+    AU_ABN("AU:ABN", "0151", "AU", "Australian Business Number (ABN) Scheme", "Australian Taxation Office", Version.parse("5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0183</code>, scheme ID <code>CH:UIDB</code><br>
@@ -186,7 +187,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 5
      */
-    CH_UIDB("CH:UIDB", "0183", "CH", "Swiss Unique Business Identification Number (UIDB)", "Swiss Federal Statistical Office (FSO)", Version.parse("5"), EPeppolCodeListItemState.ACTIVE),
+    CH_UIDB("CH:UIDB", "0183", "CH", "Swiss Unique Business Identification Number (UIDB)", "Swiss Federal Statistical Office (FSO)", Version.parse("5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0184</code>, scheme ID <code>DK:DIGST</code><br>
@@ -195,7 +196,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.2.1
      */
-    DK_DIGST("DK:DIGST", "0184", "DK", "DIGSTORG", "DIGSTORG", Version.parse("1.2.1"), EPeppolCodeListItemState.ACTIVE),
+    DK_DIGST("DK:DIGST", "0184", "DK", "DIGSTORG", "DIGSTORG", Version.parse("1.2.1"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0190</code>, scheme ID <code>NL:OINO</code><br>
@@ -206,7 +207,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 2
      */
-    NL_OINO("NL:OINO", "0190", "NL", "Organisatie-identificatienummer (OIN)", "Logius", Version.parse("2"), EPeppolCodeListItemState.ACTIVE),
+    NL_OINO("NL:OINO", "0190", "NL", "Organisatie-identificatienummer (OIN)", "Logius", Version.parse("2"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0191</code>, scheme ID <code>EE:CC</code><br>
@@ -217,7 +218,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 2
      */
-    EE_CC("EE:CC", "0191", "EE", "Company code", "Centre of Registers and Information Systems of the Ministry of Justice", Version.parse("2"), EPeppolCodeListItemState.ACTIVE),
+    EE_CC("EE:CC", "0191", "EE", "Company code", "Centre of Registers and Information Systems of the Ministry of Justice", Version.parse("2"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0192</code>, scheme ID <code>NO:ORG</code><br>
@@ -227,7 +228,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 2
      */
-    NO_ORG("NO:ORG", "0192", "NO", "Organisasjonsnummer", "The Br\u00f8nn\u00f8ysund Register Centre", Version.parse("2"), EPeppolCodeListItemState.ACTIVE),
+    NO_ORG("NO:ORG", "0192", "NO", "Organisasjonsnummer", "The Br\u00f8nn\u00f8ysund Register Centre", Version.parse("2"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0193</code>, scheme ID <code>UBLBE</code><br>
@@ -236,7 +237,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 3
      */
-    UBLBE("UBLBE", "0193", "BE", "UBL.BE Party Identifier", "UBL.BE", Version.parse("3"), EPeppolCodeListItemState.ACTIVE),
+    UBLBE("UBLBE", "0193", "BE", "UBL.BE Party Identifier", "UBL.BE", Version.parse("3"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0195</code>, scheme ID <code>SG:UEN</code><br>
@@ -246,7 +247,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 4
      */
-    SG_UEN("SG:UEN", "0195", "SG", "Singapore Nationwide E-Invoice Framework", "lnfocomm Media Development Authority", Version.parse("4"), EPeppolCodeListItemState.ACTIVE),
+    SG_UEN("SG:UEN", "0195", "SG", "Singapore Nationwide E-Invoice Framework", "lnfocomm Media Development Authority", Version.parse("4"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0196</code>, scheme ID <code>IS:KTNR</code><br>
@@ -256,7 +257,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 4
      */
-    IS_KTNR("IS:KTNR", "0196", "IS", "Icelandic identifier", "Icelandic National Registry", Version.parse("4"), EPeppolCodeListItemState.ACTIVE),
+    IS_KTNR("IS:KTNR", "0196", "IS", "Icelandic identifier", "Icelandic National Registry", Version.parse("4"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0198</code>, scheme ID <code>DK:ERST</code><br>
@@ -265,7 +266,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 5
      */
-    DK_ERST("DK:ERST", "0198", "DK", "ERSTORG", "The Danish Business Authority", Version.parse("5"), EPeppolCodeListItemState.ACTIVE),
+    DK_ERST("DK:ERST", "0198", "DK", "ERSTORG", "The Danish Business Authority", Version.parse("5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0199</code>, scheme ID <code>LEI</code><br>
@@ -274,7 +275,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 5
      */
-    LEI("LEI", "0199", "international", "Legal Entity Identifier (LEI)", "As of December 2018, there are 33 LEI issuing organizations in the world.", Version.parse("5"), EPeppolCodeListItemState.ACTIVE),
+    LEI("LEI", "0199", "international", "Legal Entity Identifier (LEI)", "As of December 2018, there are 33 LEI issuing organizations in the world.", Version.parse("5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0200</code>, scheme ID <code>LT:LEC</code><br>
@@ -284,7 +285,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 5
      */
-    LT_LEC("LT:LEC", "0200", "LT", "Legal entity code", "State Enterprise Centre of Registers", Version.parse("5"), EPeppolCodeListItemState.ACTIVE),
+    LT_LEC("LT:LEC", "0200", "LT", "Legal entity code", "State Enterprise Centre of Registers", Version.parse("5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0201</code>, scheme ID <code>IT:CUUO</code><br>
@@ -294,7 +295,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 6
      */
-    IT_CUUO("IT:CUUO", "0201", "IT", "Codice Univoco Unit\u00e0 Organizzativa iPA", "Agenzia per l\u2019Italia digitale", Version.parse("6"), EPeppolCodeListItemState.ACTIVE),
+    IT_CUUO("IT:CUUO", "0201", "IT", "Codice Univoco Unit\u00e0 Organizzativa iPA", "Agenzia per l\u2019Italia digitale", Version.parse("6"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0204</code>, scheme ID <code>DE:LWID</code><br>
@@ -304,7 +305,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 6
      */
-    DE_LWID("DE:LWID", "0204", "DE", "Leitweg-ID", "Koordinierungsstelle f\u00fcr IT-Standards (KoSIT)", Version.parse("6"), EPeppolCodeListItemState.ACTIVE),
+    DE_LWID("DE:LWID", "0204", "DE", "Leitweg-ID", "Koordinierungsstelle f\u00fcr IT-Standards (KoSIT)", Version.parse("6"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0208</code>, scheme ID <code>BE:EN</code><br>
@@ -318,7 +319,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 7
      */
-    BE_EN("BE:EN", "0208", "BE", "Numero d'entreprise / ondernemingsnummer / Unternehmensnummer", "Banque-Carrefour des Entreprises (BCE) / Kruispuntbank van Ondernemingen (KBO) / Zentrale Datenbank der Unternehmen (ZOU)\nService public f\u00e9d\u00e9ral Economie, P.M.E. Classes moyennes et Energie", Version.parse("7"), EPeppolCodeListItemState.ACTIVE),
+    BE_EN("BE:EN", "0208", "BE", "Numero d'entreprise / ondernemingsnummer / Unternehmensnummer", "Banque-Carrefour des Entreprises (BCE) / Kruispuntbank van Ondernemingen (KBO) / Zentrale Datenbank der Unternehmen (ZOU)\nService public f\u00e9d\u00e9ral Economie, P.M.E. Classes moyennes et Energie", Version.parse("7"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0209</code>, scheme ID <code>GS1</code><br>
@@ -328,7 +329,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 7.5
      */
-    GS1("GS1", "0209", "international", "GS1 identification keys", "GS1", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE),
+    GS1("GS1", "0209", "international", "GS1 identification keys", "GS1", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0210</code>, scheme ID <code>IT:CFI</code><br>
@@ -336,7 +337,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 7.5
      */
-    IT_CFI("IT:CFI", "0210", "IT", "CODICE FISCALE", "Agenzia delle Entrate", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE),
+    IT_CFI("IT:CFI", "0210", "IT", "CODICE FISCALE", "Agenzia delle Entrate", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0211</code>, scheme ID <code>IT:IVA</code><br>
@@ -344,7 +345,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 7.5
      */
-    IT_IVA("IT:IVA", "0211", "IT", "PARTITA IVA", "Agenzia delle Entrate", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE),
+    IT_IVA("IT:IVA", "0211", "IT", "PARTITA IVA", "Agenzia delle Entrate", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0212</code>, scheme ID <code>FI:ORG</code><br>
@@ -354,7 +355,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 7.5
      */
-    FI_ORG("FI:ORG", "0212", "FI", "Finnish Organization Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE),
+    FI_ORG("FI:ORG", "0212", "FI", "Finnish Organization Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0213</code>, scheme ID <code>FI:VAT</code><br>
@@ -363,7 +364,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 7.5
      */
-    FI_VAT("FI:VAT", "0213", "FI", "Finnish Organization Value Add Tax Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE),
+    FI_VAT("FI:VAT", "0213", "FI", "Finnish Organization Value Add Tax Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
@@ -373,7 +374,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    DK_CPR("DK:CPR", "9901", "DK", "Danish Ministry of the Interior and Health", "Danish Ministry of the Interior and Health", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    DK_CPR("DK:CPR", "9901", "DK", "Danish Ministry of the Interior and Health", "Danish Ministry of the Interior and Health", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9902</code>, scheme ID <code>DK:CVR</code><br>
@@ -382,7 +383,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    DK_CVR("DK:CVR", "9902", "DK", "The Danish Commerce and Companies Agency", "The Danish Commerce and Companies Agency", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    DK_CVR("DK:CVR", "9902", "DK", "The Danish Commerce and Companies Agency", "The Danish Commerce and Companies Agency", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9904</code>, scheme ID <code>DK:SE</code><br>
@@ -391,7 +392,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    DK_SE("DK:SE", "9904", "DK", "Danish Ministry of Taxation, Central Customs and Tax Administration", "Danish Ministry of Taxation, Central Customs and Tax Administration", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    DK_SE("DK:SE", "9904", "DK", "Danish Ministry of Taxation, Central Customs and Tax Administration", "Danish Ministry of Taxation, Central Customs and Tax Administration", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9905</code>, scheme ID <code>DK:VANS</code><br>
@@ -401,7 +402,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    DK_VANS("DK:VANS", "9905", "DK", "Danish VANS providers", "Danish VANS providers", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    DK_VANS("DK:VANS", "9905", "DK", "Danish VANS providers", "Danish VANS providers", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9906</code>, scheme ID <code>IT:VAT</code><br>
@@ -410,7 +411,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    IT_VAT("IT:VAT", "9906", "IT", "Ufficio responsabile gestione partite IVA", null, Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    IT_VAT("IT:VAT", "9906", "IT", "Ufficio responsabile gestione partite IVA", null, Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9907</code>, scheme ID <code>IT:CF</code><br>
@@ -421,7 +422,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    IT_CF("IT:CF", "9907", "IT", "TAX Authority", "TAX Authority", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    IT_CF("IT:CF", "9907", "IT", "TAX Authority", "TAX Authority", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9908</code>, scheme ID <code>NO:ORGNR</code><br>
@@ -430,7 +431,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    NO_ORGNR("NO:ORGNR", "9908", "NO", "Enhetsregisteret ved Bronnoysundregisterne", "The Br\u00f8nn\u00f8ysund Register Centre", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    NO_ORGNR("NO:ORGNR", "9908", "NO", "Enhetsregisteret ved Bronnoysundregisterne", "The Br\u00f8nn\u00f8ysund Register Centre", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9909</code>, scheme ID <code>NO:VAT</code><br>
@@ -442,7 +443,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 1.1.0 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    NO_VAT("NO:VAT", "9909", "NO", "Norwegian VAT number", "Enhetsregisteret ved Bronnoysundregisterne", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED),
+    NO_VAT("NO:VAT", "9909", "NO", "Norwegian VAT number", "Enhetsregisteret ved Bronnoysundregisterne", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("1.1.0"), null),
 
     /**
      * Prefix <code>9910</code>, scheme ID <code>HU:VAT</code><br>
@@ -450,7 +451,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    HU_VAT("HU:VAT", "9910", "HU", "Hungary VAT number", null, Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    HU_VAT("HU:VAT", "9910", "HU", "Hungary VAT number", null, Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9912</code>, scheme ID <code>EU:VAT</code><br>
@@ -462,7 +463,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 1.1.0 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    EU_VAT("EU:VAT", "9912", "international", "National ministries of Economy", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED),
+    EU_VAT("EU:VAT", "9912", "international", "National ministries of Economy", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("1.1.0"), null),
 
     /**
      * Prefix <code>9913</code>, scheme ID <code>EU:REID</code><br>
@@ -471,7 +472,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    EU_REID("EU:REID", "9913", "international", "Business Registers Network", "Business Registers Network", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    EU_REID("EU:REID", "9913", "international", "Business Registers Network", "Business Registers Network", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9914</code>, scheme ID <code>AT:VAT</code><br>
@@ -480,7 +481,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    AT_VAT("AT:VAT", "9914", "AT", "\u00d6sterreichische Umsatzsteuer-Identifikationsnummer", null, Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    AT_VAT("AT:VAT", "9914", "AT", "\u00d6sterreichische Umsatzsteuer-Identifikationsnummer", null, Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9915</code>, scheme ID <code>AT:GOV</code><br>
@@ -490,7 +491,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.0
      */
-    AT_GOV("AT:GOV", "9915", "AT", "\u00d6sterreichisches Verwaltungs bzw. Organisationskennzeichen", null, Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE),
+    AT_GOV("AT:GOV", "9915", "AT", "\u00d6sterreichisches Verwaltungs bzw. Organisationskennzeichen", null, Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9916</code>, scheme ID <code>AT:CID</code><br>
@@ -500,7 +501,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 1.0.2 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    AT_CID("AT:CID", "9916", "AT", "Firmenidentifikationsnummer der Statistik Austria", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED),
+    AT_CID("AT:CID", "9916", "AT", "Firmenidentifikationsnummer der Statistik Austria", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("1.0.2"), null),
 
     /**
      * Prefix <code>9917</code>, scheme ID <code>IS:KT</code><br>
@@ -513,7 +514,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 4 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    IS_KT("IS:KT", "9917", "IS", "Icelandic National Registry", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED),
+    IS_KT("IS:KT", "9917", "IS", "Icelandic National Registry", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("4"), null),
 
     /**
      * Prefix <code>9918</code>, scheme ID <code>IBAN</code><br>
@@ -521,7 +522,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.1
      */
-    IBAN("IBAN", "9918", "international", "SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T", "SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T", Version.parse("1.0.1"), EPeppolCodeListItemState.ACTIVE),
+    IBAN("IBAN", "9918", "international", "SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T", "SOCIETY FOR WORLDWIDE INTERBANK FINANCIAL, TELECOMMUNICATION S.W.I.F.T", Version.parse("1.0.1"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9919</code>, scheme ID <code>AT:KUR</code><br>
@@ -530,7 +531,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.2
      */
-    AT_KUR("AT:KUR", "9919", "AT", "Kennziffer des Unternehmensregisters", null, Version.parse("1.0.2"), EPeppolCodeListItemState.ACTIVE),
+    AT_KUR("AT:KUR", "9919", "AT", "Kennziffer des Unternehmensregisters", null, Version.parse("1.0.2"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9920</code>, scheme ID <code>ES:VAT</code><br>
@@ -538,7 +539,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.0.2
      */
-    ES_VAT("ES:VAT", "9920", "ES", "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria", "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria", Version.parse("1.0.2"), EPeppolCodeListItemState.ACTIVE),
+    ES_VAT("ES:VAT", "9920", "ES", "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria", "Agencia Espa\u00f1ola de Administraci\u00f3n Tributaria", Version.parse("1.0.2"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9921</code>, scheme ID <code>IT:IPA</code><br>
@@ -549,7 +550,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 6 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    IT_IPA("IT:IPA", "9921", "IT", "Indice delle Pubbliche Amministrazioni", "Indice delle Pubbliche Amministrazioni", Version.parse("1.1.0"), EPeppolCodeListItemState.DEPRECATED),
+    IT_IPA("IT:IPA", "9921", "IT", "Indice delle Pubbliche Amministrazioni", "Indice delle Pubbliche Amministrazioni", Version.parse("1.1.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("6"), null),
 
     /**
      * Prefix <code>9922</code>, scheme ID <code>AD:VAT</code><br>
@@ -557,7 +558,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    AD_VAT("AD:VAT", "9922", "AD", "Andorra VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    AD_VAT("AD:VAT", "9922", "AD", "Andorra VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9923</code>, scheme ID <code>AL:VAT</code><br>
@@ -565,7 +566,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    AL_VAT("AL:VAT", "9923", "AL", "Albania VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    AL_VAT("AL:VAT", "9923", "AL", "Albania VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9924</code>, scheme ID <code>BA:VAT</code><br>
@@ -573,7 +574,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    BA_VAT("BA:VAT", "9924", "BA", "Bosnia and Herzegovina VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    BA_VAT("BA:VAT", "9924", "BA", "Bosnia and Herzegovina VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9925</code>, scheme ID <code>BE:VAT</code><br>
@@ -581,7 +582,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    BE_VAT("BE:VAT", "9925", "BE", "Belgium VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    BE_VAT("BE:VAT", "9925", "BE", "Belgium VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9926</code>, scheme ID <code>BG:VAT</code><br>
@@ -589,7 +590,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    BG_VAT("BG:VAT", "9926", "BG", "Bulgaria VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    BG_VAT("BG:VAT", "9926", "BG", "Bulgaria VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9927</code>, scheme ID <code>CH:VAT</code><br>
@@ -597,7 +598,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    CH_VAT("CH:VAT", "9927", "CH", "Switzerland VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    CH_VAT("CH:VAT", "9927", "CH", "Switzerland VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9928</code>, scheme ID <code>CY:VAT</code><br>
@@ -605,7 +606,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    CY_VAT("CY:VAT", "9928", "CY", "Cyprus VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    CY_VAT("CY:VAT", "9928", "CY", "Cyprus VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9929</code>, scheme ID <code>CZ:VAT</code><br>
@@ -613,7 +614,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    CZ_VAT("CZ:VAT", "9929", "CZ", "Czech Republic VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    CZ_VAT("CZ:VAT", "9929", "CZ", "Czech Republic VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9930</code>, scheme ID <code>DE:VAT</code><br>
@@ -621,7 +622,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    DE_VAT("DE:VAT", "9930", "DE", "Germany VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    DE_VAT("DE:VAT", "9930", "DE", "Germany VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9931</code>, scheme ID <code>EE:VAT</code><br>
@@ -629,7 +630,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    EE_VAT("EE:VAT", "9931", "EE", "Estonia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    EE_VAT("EE:VAT", "9931", "EE", "Estonia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9932</code>, scheme ID <code>GB:VAT</code><br>
@@ -637,7 +638,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    GB_VAT("GB:VAT", "9932", "GB", "United Kingdom VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    GB_VAT("GB:VAT", "9932", "GB", "United Kingdom VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9933</code>, scheme ID <code>GR:VAT</code><br>
@@ -645,7 +646,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    GR_VAT("GR:VAT", "9933", "GR", "Greece VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    GR_VAT("GR:VAT", "9933", "GR", "Greece VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9934</code>, scheme ID <code>HR:VAT</code><br>
@@ -653,7 +654,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    HR_VAT("HR:VAT", "9934", "HR", "Croatia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    HR_VAT("HR:VAT", "9934", "HR", "Croatia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9935</code>, scheme ID <code>IE:VAT</code><br>
@@ -661,7 +662,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    IE_VAT("IE:VAT", "9935", "IE", "Ireland VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    IE_VAT("IE:VAT", "9935", "IE", "Ireland VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9936</code>, scheme ID <code>LI:VAT</code><br>
@@ -669,7 +670,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    LI_VAT("LI:VAT", "9936", "LI", "Liechtenstein VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    LI_VAT("LI:VAT", "9936", "LI", "Liechtenstein VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9937</code>, scheme ID <code>LT:VAT</code><br>
@@ -677,7 +678,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    LT_VAT("LT:VAT", "9937", "LT", "Lithuania VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    LT_VAT("LT:VAT", "9937", "LT", "Lithuania VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9938</code>, scheme ID <code>LU:VAT</code><br>
@@ -685,7 +686,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    LU_VAT("LU:VAT", "9938", "LU", "Luxemburg VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    LU_VAT("LU:VAT", "9938", "LU", "Luxemburg VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9939</code>, scheme ID <code>LV:VAT</code><br>
@@ -693,7 +694,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    LV_VAT("LV:VAT", "9939", "LV", "Latvia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    LV_VAT("LV:VAT", "9939", "LV", "Latvia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9940</code>, scheme ID <code>MC:VAT</code><br>
@@ -701,7 +702,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    MC_VAT("MC:VAT", "9940", "MC", "Monaco VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    MC_VAT("MC:VAT", "9940", "MC", "Monaco VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9941</code>, scheme ID <code>ME:VAT</code><br>
@@ -709,7 +710,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    ME_VAT("ME:VAT", "9941", "ME", "Montenegro VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    ME_VAT("ME:VAT", "9941", "ME", "Montenegro VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9942</code>, scheme ID <code>MK:VAT</code><br>
@@ -717,7 +718,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    MK_VAT("MK:VAT", "9942", "MK", "Macedonia, the former Yugoslav Republic of VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    MK_VAT("MK:VAT", "9942", "MK", "Macedonia, the former Yugoslav Republic of VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9943</code>, scheme ID <code>MT:VAT</code><br>
@@ -725,7 +726,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    MT_VAT("MT:VAT", "9943", "MT", "Malta VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    MT_VAT("MT:VAT", "9943", "MT", "Malta VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9944</code>, scheme ID <code>NL:VAT</code><br>
@@ -733,7 +734,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    NL_VAT("NL:VAT", "9944", "NL", "Netherlands VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    NL_VAT("NL:VAT", "9944", "NL", "Netherlands VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9945</code>, scheme ID <code>PL:VAT</code><br>
@@ -741,7 +742,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    PL_VAT("PL:VAT", "9945", "PL", "Poland VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    PL_VAT("PL:VAT", "9945", "PL", "Poland VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9946</code>, scheme ID <code>PT:VAT</code><br>
@@ -749,7 +750,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    PT_VAT("PT:VAT", "9946", "PT", "Portugal VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    PT_VAT("PT:VAT", "9946", "PT", "Portugal VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9947</code>, scheme ID <code>RO:VAT</code><br>
@@ -757,7 +758,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    RO_VAT("RO:VAT", "9947", "RO", "Romania VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    RO_VAT("RO:VAT", "9947", "RO", "Romania VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9948</code>, scheme ID <code>RS:VAT</code><br>
@@ -765,7 +766,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    RS_VAT("RS:VAT", "9948", "RS", "Serbia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    RS_VAT("RS:VAT", "9948", "RS", "Serbia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9949</code>, scheme ID <code>SI:VAT</code><br>
@@ -773,7 +774,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    SI_VAT("SI:VAT", "9949", "SI", "Slovenia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    SI_VAT("SI:VAT", "9949", "SI", "Slovenia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9950</code>, scheme ID <code>SK:VAT</code><br>
@@ -781,7 +782,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    SK_VAT("SK:VAT", "9950", "SK", "Slovakia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    SK_VAT("SK:VAT", "9950", "SK", "Slovakia VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9951</code>, scheme ID <code>SM:VAT</code><br>
@@ -789,7 +790,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    SM_VAT("SM:VAT", "9951", "SM", "San Marino VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    SM_VAT("SM:VAT", "9951", "SM", "San Marino VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9952</code>, scheme ID <code>TR:VAT</code><br>
@@ -797,7 +798,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    TR_VAT("TR:VAT", "9952", "TR", "Turkey VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    TR_VAT("TR:VAT", "9952", "TR", "Turkey VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9953</code>, scheme ID <code>VA:VAT</code><br>
@@ -805,7 +806,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.1.0
      */
-    VA_VAT("VA:VAT", "9953", "VA", "Holy See (Vatican City State) VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE),
+    VA_VAT("VA:VAT", "9953", "VA", "Holy See (Vatican City State) VAT number", null, Version.parse("1.1.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9954</code>, scheme ID <code>NL:OIN</code><br>
@@ -816,7 +817,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 2 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    NL_OIN("NL:OIN", "9954", "NL", "Dutch Originator's Identification Number", null, Version.parse("1.1.3"), EPeppolCodeListItemState.DEPRECATED),
+    NL_OIN("NL:OIN", "9954", "NL", "Dutch Originator's Identification Number", null, Version.parse("1.1.3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("2"), null),
 
     /**
      * Prefix <code>9955</code>, scheme ID <code>SE:VAT</code><br>
@@ -824,7 +825,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.2.0
      */
-    SE_VAT("SE:VAT", "9955", "SE", "Swedish VAT number", null, Version.parse("1.2.0"), EPeppolCodeListItemState.ACTIVE),
+    SE_VAT("SE:VAT", "9955", "SE", "Swedish VAT number", null, Version.parse("1.2.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9956</code>, scheme ID <code>BE:CBE</code><br>
@@ -835,7 +836,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 7.4 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    BE_CBE("BE:CBE", "9956", "BE", "Belgian Crossroad Bank of Enterprise number", "Belgian Crossroad Bank of Enterprises", Version.parse("1.2.1"), EPeppolCodeListItemState.DEPRECATED),
+    BE_CBE("BE:CBE", "9956", "BE", "Belgian Crossroad Bank of Enterprise number", "Belgian Crossroad Bank of Enterprises", Version.parse("1.2.1"), EPeppolCodeListItemState.DEPRECATED, Version.parse("7.4"), null),
 
     /**
      * Prefix <code>9957</code>, scheme ID <code>FR:VAT</code><br>
@@ -843,7 +844,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 1.2.1
      */
-    FR_VAT("FR:VAT", "9957", "FR", "French VAT number", null, Version.parse("1.2.1"), EPeppolCodeListItemState.ACTIVE),
+    FR_VAT("FR:VAT", "9957", "FR", "French VAT number", null, Version.parse("1.2.1"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9958</code>, scheme ID <code>DE:LID</code><br>
@@ -854,7 +855,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 6 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    DE_LID("DE:LID", "9958", "DE", "German Leitweg ID", null, Version.parse("3"), EPeppolCodeListItemState.DEPRECATED);
+    DE_LID("DE:LID", "9958", "DE", "German Leitweg ID", null, Version.parse("3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("6"), null);
     public static final String CODE_LIST_VERSION = "8";
     public static final int CODE_LIST_ENTRY_COUNT = 88;
     private final String m_sSchemeID;
@@ -864,6 +865,8 @@ public enum EPredefinedParticipantIdentifierScheme
     private final String m_sIssuingAgency;
     private final Version m_aInitialRelease;
     private final EPeppolCodeListItemState m_eState;
+    private final Version m_aDeprecationRelease;
+    private final LocalDate m_aRemovalDate;
 
     EPredefinedParticipantIdentifierScheme(@Nonnull @Nonempty final String sSchemeID,
         @Nonnull @Nonempty final String sISO6523,
@@ -871,7 +874,9 @@ public enum EPredefinedParticipantIdentifierScheme
         @Nonnull @Nonempty final String sSchemeName,
         @Nullable final String sIssuingAgency,
         @Nonnull final Version aInitialRelease,
-        @Nonnull final EPeppolCodeListItemState eState) {
+        @Nonnull final EPeppolCodeListItemState eState,
+        @Nullable final Version aDeprecationRelease,
+        @Nullable final LocalDate aRemovalDate) {
         m_sSchemeID = sSchemeID;
         m_sISO6523 = sISO6523;
         m_sCountryCode = sCountryCode;
@@ -879,6 +884,8 @@ public enum EPredefinedParticipantIdentifierScheme
         m_sIssuingAgency = sIssuingAgency;
         m_aInitialRelease = aInitialRelease;
         m_eState = eState;
+        m_aDeprecationRelease = aDeprecationRelease;
+        m_aRemovalDate = aRemovalDate;
     }
 
     @Nonnull
@@ -911,22 +918,22 @@ public enum EPredefinedParticipantIdentifierScheme
     }
 
     @Nonnull
-    @Deprecated
-    public Version getSince() {
-        return m_aInitialRelease;
-    }
-
-    @Nonnull
     public Version getInitialRelease() {
         return m_aInitialRelease;
-    }
-
-    public boolean isDeprecated() {
-        return m_eState.isDeprecated();
     }
 
     @Nonnull
     public EPeppolCodeListItemState getState() {
         return m_eState;
+    }
+
+    @Nullable
+    public Version getDeprecationRelease() {
+        return m_aDeprecationRelease;
+    }
+
+    @Nullable
+    public LocalDate getRemovalDate() {
+        return m_aRemovalDate;
     }
 }

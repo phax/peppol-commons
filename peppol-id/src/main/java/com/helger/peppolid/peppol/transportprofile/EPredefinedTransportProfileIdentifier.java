@@ -16,11 +16,13 @@
  */
 package com.helger.peppolid.peppol.transportprofile;
 
+import java.time.LocalDate;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 
 /**
@@ -40,7 +42,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @deprecated since 1.0.0 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    busdox_transport_start("START", "1.0.1", "busdox-transport-start", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED),
+    busdox_transport_start("START", "1.0.1", "busdox-transport-start", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("1.0.0"), null),
 
     /**
      * ID: <code>busdox-transport-as2-ver1p0</code><br>
@@ -50,7 +52,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @deprecated since 7 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    busdox_transport_as2_ver1p0("AS2", "1.0", "busdox-transport-as2-ver1p0", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED),
+    busdox_transport_as2_ver1p0("AS2", "1.0", "busdox-transport-as2-ver1p0", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("7"), null),
 
     /**
      * ID: <code>peppol-transport-as4-v1_0</code><br>
@@ -60,7 +62,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @deprecated since 3 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    peppol_transport_as4_v1_0("AS4", "1.0", "peppol-transport-as4-v1_0", Version.parse("2"), EPeppolCodeListItemState.DEPRECATED),
+    peppol_transport_as4_v1_0("AS4", "1.0", "peppol-transport-as4-v1_0", Version.parse("2"), EPeppolCodeListItemState.DEPRECATED, Version.parse("3"), null),
 
     /**
      * ID: <code>peppol-transport-as4-v2_0</code><br>
@@ -68,7 +70,7 @@ public enum EPredefinedTransportProfileIdentifier
      * 
      * @since code list 3
      */
-    peppol_transport_as4_v2_0("AS4", "2.0", "peppol-transport-as4-v2_0", Version.parse("3"), EPeppolCodeListItemState.ACTIVE),
+    peppol_transport_as4_v2_0("AS4", "2.0", "peppol-transport-as4-v2_0", Version.parse("3"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * ID: <code>busdox-transport-as2-ver2p0</code><br>
@@ -76,7 +78,7 @@ public enum EPredefinedTransportProfileIdentifier
      * 
      * @since code list 5
      */
-    busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), EPeppolCodeListItemState.ACTIVE);
+    busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), EPeppolCodeListItemState.ACTIVE, null, null);
     public static final String CODE_LIST_VERSION = "8";
     public static final int CODE_LIST_ENTRY_COUNT = 5;
     /**
@@ -113,17 +115,23 @@ public enum EPredefinedTransportProfileIdentifier
     private final String m_sProfileID;
     private final Version m_aInitialRelease;
     private final EPeppolCodeListItemState m_eState;
+    private final Version m_aDeprecationRelease;
+    private final LocalDate m_aRemovalDate;
 
     EPredefinedTransportProfileIdentifier(@Nonnull @Nonempty final String sProtocol,
         @Nonnull @Nonempty final String sProfileVersion,
         @Nonnull @Nonempty final String sProfileID,
         @Nonnull final Version aInitialRelease,
-        @Nonnull final EPeppolCodeListItemState eState) {
+        @Nonnull final EPeppolCodeListItemState eState,
+        @Nullable final Version aDeprecationRelease,
+        @Nullable final LocalDate aRemovalDate) {
         m_sProtocol = sProtocol;
         m_sProfileVersion = sProfileVersion;
         m_sProfileID = sProfileID;
         m_aInitialRelease = aInitialRelease;
         m_eState = eState;
+        m_aDeprecationRelease = aDeprecationRelease;
+        m_aRemovalDate = aRemovalDate;
     }
 
     @Nonnull
@@ -145,22 +153,22 @@ public enum EPredefinedTransportProfileIdentifier
     }
 
     @Nonnull
-    @Deprecated
-    public Version getSince() {
-        return m_aInitialRelease;
-    }
-
-    @Nonnull
     public Version getInitialRelease() {
         return m_aInitialRelease;
-    }
-
-    public boolean isDeprecated() {
-        return m_eState.isDeprecated();
     }
 
     @Nonnull
     public EPeppolCodeListItemState getState() {
         return m_eState;
+    }
+
+    @Nullable
+    public Version getDeprecationRelease() {
+        return m_aDeprecationRelease;
+    }
+
+    @Nullable
+    public LocalDate getRemovalDate() {
+        return m_aRemovalDate;
     }
 }

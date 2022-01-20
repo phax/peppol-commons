@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.version.Version;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 
 /**
@@ -69,5 +70,15 @@ public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, 
    *         longer be used, <code>false</code> if not.
    * @since 7.0.0
    */
-  boolean isDeprecated ();
+  default boolean isDeprecated ()
+  {
+    return getState ().isDeprecated ();
+  }
+
+  /**
+   * @return The state of the item. Never <code>null</code>.
+   * @since 8.7.1
+   */
+  @Nonnull
+  EPeppolCodeListItemState getState ();
 }
