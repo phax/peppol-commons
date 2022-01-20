@@ -21,7 +21,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<processes version="8" entry-count="62">
+<processes version="8" entry-count="65">
   <process scheme="cenbii-procid-ubl" value="none" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver2.0" state="active" />
@@ -58,8 +58,11 @@ Do NOT edit!-->
   <process scheme="cenbii-procid-ubl" value="urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:en16931:any" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:kosit:profile:reporting:1.0" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:09:1.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:10:1.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:11:1.0" state="active" />

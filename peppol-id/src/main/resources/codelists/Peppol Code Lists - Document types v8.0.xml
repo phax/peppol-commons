@@ -393,6 +393,7 @@ TICC-177</comment>
   <document-type name="EHF Advanced Order Initiation 3.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0::2.2" initial-release="7.3" state="active" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-156</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0" />
   </document-type>
   <document-type name="EHF Advanced Order Change 3.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2::OrderChange##urn:fdc:anskaffelser.no:2019:ehf:spec:adv-order-change:3.0::2.2" initial-release="7.3" state="active" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-156</comment>
@@ -405,66 +406,90 @@ TICC-177</comment>
   <document-type name="EHF Advanced Order Response 3.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response:3:extended:urn:fdc:anskaffelser.no:2019:ehf:spec:3.0::2.2" initial-release="7.3" state="active" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-156</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:09:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0" />
   </document-type>
   <document-type name="EHF Payment initiation (Profile 01) (Pain.001 Message)" scheme="busdox-docid-qns" value="urn:iso:std:iso:20022:tech:xsd:pain.001.001.03::Document##urn:fdc:bits.no:2017:iso20022:1.5::03" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" />
   </document-type>
   <document-type name="EHF Payment initiation (Profile 01) (Pain.002 Reception Acknowledgement)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.002.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
   </document-type>
   <document-type name="EHF Payment initiation (Profile 01) (Pain.002 Handling Exception)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.002.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
   </document-type>
   <document-type name="EHF Payment initiation (Profile 01) (Camt.054 Reception Acknowledgement)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" />
   </document-type>
   <document-type name="EHF Payment initiation (Profile 01) (Camt.054 Handling Exception)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:09:1.0" />
   </document-type>
   <document-type name="EHF Payment initiation (Profile 01) (Pain.001 Reception Acknowledgement)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.001.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" />
   </document-type>
   <document-type name="EHF Payment initiation (Profile 01) (Pain.001 Handling Exception)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:pain.001.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" />
   </document-type>
   <document-type name="EHF Payment initiation (Profile 01) (Pain.002 Message)" scheme="busdox-docid-qns" value="urn:iso:std:iso:20022:tech:xsd:pain.002.001.03::Document##urn:fdc:bits.no:2017:iso20022:1.5::03" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
   </document-type>
   <document-type name="EHF Payment initiation (Profile 01) (Camt.054 Message)" scheme="busdox-docid-qns" value="urn:iso:std:iso:20022:tech:xsd:camt.054.001.02::Document##urn:fdc:bits.no:2017:iso20022:1.5::02" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:01:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:03:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:09:1.0" />
   </document-type>
   <document-type name="EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.055 Message)" scheme="busdox-docid-qns" value="urn:iso:std:iso:20022:tech:xsd:camt.055.001.01::Document##urn:fdc:bits.no:2017:iso20022:1.5::01" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
   </document-type>
   <document-type name="EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Reception Acknowledgement)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.029.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
   </document-type>
   <document-type name="EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Handling Exception)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.029.001.03:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
   </document-type>
   <document-type name="EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.055 Reception Acknowledgement)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.055.001.01:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
   </document-type>
   <document-type name="EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.055 Handling Exception)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::HandlingException##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:iso:std:iso:20022:tech:xsd:camt.055.001.01:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
   </document-type>
   <document-type name="EHF Cancellation of General Credit transfer Initiation (Profile 02) (Camt.029 Message)" scheme="busdox-docid-qns" value="urn:iso:std:iso:20022:tech:xsd:camt.029.001.03::Document##urn:fdc:bits.no:2017:iso20022:1.5::03" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:02:1.0" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:04:1.0" />
   </document-type>
   <document-type name="EHF Accounting/General Ledger/cash management (Profile 09) (Camt.054 Reception Acknowledgement)" scheme="busdox-docid-qns" value="urn:fdc:difi.no:2017:payment:extras-1::ReceptionAcknowledgement##urn:fdc:difi.no:2017:payment:handling:1.0:for:urn:urn:iso:std:iso:20022:tech:xsd:camt.054.001.02:restricted:urn:fdc:bits.no:2017:iso20022:1.5::1.0" initial-release="8.0" state="active" issued-by-openpeppol="false" domain-community="Norwegian Payment">
     <comment>TICC-180</comment>
