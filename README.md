@@ -275,6 +275,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.7.2 - work in progress
+    * Updated to BouncyCastle 1.70
 * v8.7.1 - 2022-01-20
     * Extended base interfaces of predefined identifiers to reflect the new layout.
 * v8.7.0 - 2022-01-20

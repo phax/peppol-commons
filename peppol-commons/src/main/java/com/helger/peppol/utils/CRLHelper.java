@@ -32,9 +32,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.bouncycastle.asn1.ASN1IA5String;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1Primitive;
-import org.bouncycastle.asn1.DERIA5String;
 import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.x509.CRLDistPoint;
 import org.bouncycastle.asn1.x509.DistributionPoint;
@@ -161,7 +161,7 @@ public final class CRLHelper
                 // DERIA5String contains an ascii string.
                 // A IA5String is a restricted character string type in the
                 // ASN.1 notation
-                final String sURL = DERIA5String.getInstance (aGenName.getName ()).getString ().trim ();
+                final String sURL = ASN1IA5String.getInstance (aGenName.getName ()).getString ().trim ();
                 ret.add (sURL);
               }
             }
