@@ -282,6 +282,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * v8.7.2 - 2022-03-06
     * Updated to BouncyCastle 1.70
     * Renamed SMP client proxy properties, to match a standard way. The old properties are still supported for backwards compatibility.
+        * `http.proxyHost` is now `http.proxy.host`
+        * `http.proxyPort` is now `http.proxy.port`
+        * `http.proxyUsername` is now `http.proxy.username`
+        * `http.proxyPassword` is now `http.proxy.password`
+        * `http.nonProxyHosts` is now `http.proxy.nonProxyHosts`
+        * `http.useSystemProperties` is now deprecated
 * v8.7.1 - 2022-01-20
     * Extended base interfaces of predefined identifiers to reflect the new layout.
 * v8.7.0 - 2022-01-20
