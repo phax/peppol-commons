@@ -23,6 +23,7 @@ import java.security.KeyStore;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.Immutable;
 
 import org.apache.http.HttpHost;
@@ -125,9 +126,10 @@ public final class SMPClientConfiguration
     return ret;
   }
 
-  private static final IConfig DEFAULT_INSTANCE = Config.create (createSMPClientValueProvider ());
+  private static final IConfig DEFAULT_CONFIG = Config.create (createSMPClientValueProvider ());
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
-  private static IConfig s_aConfig = DEFAULT_INSTANCE;
+  @GuardedBy ("RW_LOCK")
+  private static IConfig s_aConfig = DEFAULT_CONFIG;
 
   private SMPClientConfiguration ()
   {}
@@ -208,6 +210,29 @@ public final class SMPClientConfiguration
     return ret;
   }
 
+  private static int _getAsIntOrFallback (@Nonnull final String sPrimary,
+                                          final int nBogus,
+                                          final int nDefault,
+                                          @Nonnull final String... aOldOnes)
+  {
+    int ret = getConfig ().getAsInt (sPrimary, nBogus);
+    if (ret == nBogus)
+    {
+      // Try the old names
+      for (final String sOld : aOldOnes)
+      {
+        ret = getConfig ().getAsInt (sOld, nBogus);
+        if (ret != nBogus)
+        {
+          // Notify on old name usage
+          _logRenamedConfig (sOld, sPrimary);
+          break;
+        }
+      }
+    }
+    return ret == nBogus ? nDefault : ret;
+  }
+
   /**
    * @return The truststore type as specified in the configuration file by the
    *         key <code>truststore.type</code>. If none is present
@@ -281,8 +306,8 @@ public final class SMPClientConfiguration
   @Nullable
   public static HttpHost getHttpProxy ()
   {
-    final String sProxyHost = getConfig ().getAsString ("http.proxyHost");
-    final int nProxyPort = getConfig ().getAsInt ("http.proxyPort", 0);
+    final String sProxyHost = _getAsStringOrFallback ("http.proxy.host", "http.proxyHost");
+    final int nProxyPort = _getAsIntOrFallback ("http.proxy.port", -1, 0, "http.proxyPort");
     if (sProxyHost != null && nProxyPort > 0)
       return new HttpHost (sProxyHost, nProxyPort);
 
@@ -297,8 +322,8 @@ public final class SMPClientConfiguration
   @Nullable
   public static UsernamePasswordCredentials getHttpProxyCredentials ()
   {
-    final String sProxyUsername = getConfig ().getAsString ("http.proxyUsername");
-    final String sProxyPassword = getConfig ().getAsString ("http.proxyPassword");
+    final String sProxyUsername = _getAsStringOrFallback ("http.proxy.username", "http.proxyUsername");
+    final String sProxyPassword = _getAsStringOrFallback ("http.proxy.password", "http.proxyPassword");
     if (sProxyUsername != null && sProxyPassword != null)
       return new UsernamePasswordCredentials (sProxyUsername, sProxyPassword);
 
@@ -313,7 +338,7 @@ public final class SMPClientConfiguration
   @Nullable
   public static String getNonProxyHosts ()
   {
-    return getConfig ().getAsString ("http.nonProxyHosts");
+    return _getAsStringOrFallback ("http.proxy.nonProxyHosts", "http.nonProxyHosts");
   }
 
   /**
@@ -324,7 +349,9 @@ public final class SMPClientConfiguration
    *         take from the system properties, or <code>false</code> if not. The
    *         default behavior is to return <code>false</code>.
    * @since 5.2.4
+   * @deprecated Since v8.7.2 To be removed in v9
    */
+  @Deprecated
   public static boolean isUseProxySystemProperties ()
   {
     return getConfig ().getAsBoolean ("http.useSystemProperties", HttpClientSettings.DEFAULT_USE_SYSTEM_PROPERTIES);
@@ -378,7 +405,9 @@ public final class SMPClientConfiguration
    *
    * @param aPropertyNames
    *        The property names to consider.
+   * @deprecated Since v8.7.2 To be removed in v9
    */
+  @Deprecated
   public static void applyAsSystemProperties (@Nullable final String... aPropertyNames)
   {
     if (aPropertyNames != null)
@@ -401,7 +430,9 @@ public final class SMPClientConfiguration
    * when the configuration file was read correctly.
    *
    * @see SystemProperties#getAllJavaNetSystemProperties()
+   * @deprecated Since v8.7.2 To be removed in v9
    */
+  @Deprecated
   public static void applyAllNetworkSystemProperties ()
   {
     applyAsSystemProperties (SystemProperties.getAllJavaNetSystemProperties ());

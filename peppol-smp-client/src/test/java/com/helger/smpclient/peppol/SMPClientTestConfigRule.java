@@ -36,7 +36,6 @@ public final class SMPClientTestConfigRule extends ExternalResource
     final MultiConfigurationValueProvider aVP = ConfigFactory.createDefaultValueProvider ();
     aVP.addConfigurationSource (new ConfigurationSourceProperties (new ClassPathResource ("smp-client-test.properties")));
     m_aOldConfig = SMPClientConfiguration.setConfig (new Config (aVP));
-    SMPClientConfiguration.applyAllNetworkSystemProperties ();
   }
 
   @Override

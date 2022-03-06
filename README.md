@@ -115,11 +115,12 @@ It supports the following properties:
     * `truststore/2018/smp-pilot-truststore.jks` - contains the trust certificates for pilot only (root, SMP, Directory, SML)
 * **`smpclient.truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
 
-* **`http.proxyHost`**: the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
-* **`http.proxyPort`**: the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
-* **`http.proxyUsername`** (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
-* **`http.proxyPassword`** (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined. 
-* **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`.
+* **`http.proxy.host`** (old: **`http.proxyHost`**): the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
+* **`http.proxy.port`** (old: **`http.proxyPort`**): the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
+* **`http.proxy.username`** (old: **`http.proxyUsername`**) (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
+* **`http.proxy.password`** (old: **`http.proxyPassword`**) (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined.
+* **`http.proxy.nonProxyHosts`** (old: **`http.nonProxyHosts`**) (since v6.2.4): A pipe separated list of non-proxy hosts. E.g. `localhost|127.0.0.1`.
+* [deprecated] **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`. Deprecated since v8.7.2
 * **`http.connect.timeout.ms`** (since 7.0.4): set the connection timeout in milliseconds. The default value is `5000` meaning 5 seconds.
 * **`http.request.timeout.ms`** (since 7.0.4): set the request timeout in milliseconds. The default value is `10000` meaning 10 seconds.
 
@@ -135,9 +136,12 @@ The SMP client supports a proxy server. By default the proxy specified in the co
 Alternatively call the method `setProxy (org.apache.http.HttpHost)` on an `SMPClient` or `SMPClientReadOnly`. This means you can specify the proxy on a per-call basis.
 Proxy authentication is available since v5.2.5 by invoking `setProxyCredentials (org.apache.http.auth.Credentials)` on the SMP or BDXR client.
 
-**Using the JVM system properties**
+**Using the JVM system properties (deprecated)**
+
 Since v5.2.2 the method `SMPClient.setUseProxySystemProperties (true)` can be used to enable the usage of the default system properties for HTTP connections (see the section on the configuration file for details). Since v5.2.4 the configuration file property `http.useSystemProperties` can be used to achieve the same without code changes. By enabling the usage of the system properties, the manually set proxy is ignored; if a proxy is manually set after this setting, it disables the usage of the system properties again.
 Note: this of course works for both SMP and BDXR client.
+
+This property is deprecated as version 8.7.2 and will be removed in v9.
 
 Supported system properties are (based on Apache HTTPClient):
   * `ssl.TrustManagerFactory.algorithm`
@@ -275,8 +279,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.7.2 - work in progress
+* v8.7.2 - 2022-03-06
     * Updated to BouncyCastle 1.70
+    * Renamed SMP client proxy properties, to match a standard way. The old properties are still supported for backwards compatibility.
 * v8.7.1 - 2022-01-20
     * Extended base interfaces of predefined identifiers to reflect the new layout.
 * v8.7.0 - 2022-01-20

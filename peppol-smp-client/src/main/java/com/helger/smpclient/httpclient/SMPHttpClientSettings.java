@@ -42,6 +42,7 @@ public class SMPHttpClientSettings extends HttpClientSettings
   /**
    * Overwrite all settings that can appear in the configuration file.
    */
+  @SuppressWarnings ("deprecation")
   public final void resetToConfiguration ()
   {
     setUseSystemProperties (SMPClientConfiguration.isUseProxySystemProperties ());
