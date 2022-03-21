@@ -92,7 +92,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
   public final void setLowercaseValueBeforeHashing (final boolean bLowercaseValueBeforeHashing)
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing);
+    m_aRWLock.writeLocked ( () -> m_bLowercaseValueBeforeHashing = bLowercaseValueBeforeHashing);
   }
 
   public final boolean isAddIdentifierSchemeToZone ()
@@ -102,7 +102,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
   public final void setAddIdentifierSchemeToZone (final boolean bAddIdentifierSchemeToZone)
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_bAddIdentifierSchemeToZone = bAddIdentifierSchemeToZone);
+    m_aRWLock.writeLocked ( () -> m_bAddIdentifierSchemeToZone = bAddIdentifierSchemeToZone);
   }
 
   @Nonnull
@@ -132,7 +132,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
    */
   public final void setUseDNSCache (final boolean bUseDNSCache)
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_bUseDNSCache = bUseDNSCache);
+    m_aRWLock.writeLocked ( () -> m_bUseDNSCache = bUseDNSCache);
   }
 
   /**
