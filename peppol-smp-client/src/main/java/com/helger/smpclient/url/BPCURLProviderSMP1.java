@@ -46,6 +46,5 @@ public class BPCURLProviderSMP1 extends AbstractBDXLURLProvider
     setAddIdentifierSchemeToZone (false);
     setNAPTRServiceName (NAPTR_SERVICE_NAME);
     setUseDNSCache (false);
-    customDNSServers ().clear ();
   }
 }

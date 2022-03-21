@@ -47,6 +47,5 @@ public class BDXLURLProvider extends AbstractBDXLURLProvider
     setAddIdentifierSchemeToZone (true);
     setNAPTRServiceName (DNS_UNAPTR_SERVICE_NAME_META_SMP);
     setUseDNSCache (false);
-    customDNSServers ().clear ();
   }
 }
