@@ -44,6 +44,16 @@ public final class BPCURLProviderSMP1Test
   }
 
   @Test
+  public void testGetDNSNameOfParticipant2 () throws SMPDNSResolutionException
+  {
+    final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("urn:oasis:names:tc:ebcore:partyid-type:unregistered:disney",
+                                                                             "goofy");
+
+    final String s = BPCURLProviderSMP1.INSTANCE.getDNSNameOfParticipant (aPI, "bpc02.b2bei.us.");
+    assertEquals ("F64Y2CXXVX4VJF4E45OQVE6RUZML7AWG4SN4NKTYXLJSZEVUQKCQ.bpc02.b2bei.us", s);
+  }
+
+  @Test
   @Ignore ("Because it may take long to execute")
   @IgnoredNaptrTest
   public void testGetSMPURIOfParticipant () throws SMPDNSResolutionException
