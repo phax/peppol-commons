@@ -43,6 +43,6 @@ public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMars
   {
     super (aType, bValidationEnabled ? XSDS : null, aWrapper);
 
-    setNamespaceContext (new BDXR1NamespaceContext ());
+    setNamespaceContext (BDXR1NamespaceContext.getInstance ());
   }
 }

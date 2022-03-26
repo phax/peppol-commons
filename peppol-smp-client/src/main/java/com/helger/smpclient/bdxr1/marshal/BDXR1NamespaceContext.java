@@ -16,6 +16,9 @@
  */
 package com.helger.smpclient.bdxr1.marshal;
 
+import javax.annotation.Nonnull;
+
+import com.helger.commons.annotation.Singleton;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xsds.bdxr.smp1.CBDXRSMP1;
 import com.helger.xsds.xmldsig.CXMLDSig;
@@ -26,11 +29,30 @@ import com.helger.xsds.xmldsig.CXMLDSig;
  * @author Philip Helger
  * @since 8.0.5
  */
+@Singleton
 public class BDXR1NamespaceContext extends MapBasedNamespaceContext
 {
+  private static final class SingletonHolder
+  {
+    static final BDXR1NamespaceContext INSTANCE = new BDXR1NamespaceContext ();
+  }
+
+  /**
+   * Deprecated constructor.
+   *
+   * @deprecated Since 8.7.3. Use {@link BDXR1NamespaceContext#getInstance()}
+   *             instead.
+   */
+  @Deprecated
   public BDXR1NamespaceContext ()
   {
     addMapping (CXMLDSig.DEFAULT_PREFIX, CXMLDSig.NAMESPACE_URI);
     addMapping (CBDXRSMP1.DEFAULT_PREFIX, CBDXRSMP1.NAMESPACE_URI);
+  }
+
+  @Nonnull
+  public static BDXR1NamespaceContext getInstance ()
+  {
+    return SingletonHolder.INSTANCE;
   }
 }
