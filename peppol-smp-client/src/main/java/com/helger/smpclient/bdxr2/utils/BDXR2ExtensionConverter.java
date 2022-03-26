@@ -42,17 +42,6 @@ import com.helger.xsds.bdxr.smp2.ec.SMPExtensionsType;
 @Immutable
 public final class BDXR2ExtensionConverter
 {
-  public static final String JSON_ID = "ID";
-  public static final String JSON_NAME = "Name";
-  public static final String JSON_AGENCY_ID = "AgencyID";
-  public static final String JSON_AGENCY_NAME = "AgencyName";
-  public static final String JSON_AGENCY_URI = "AgencyURI";
-  public static final String JSON_VERSION_ID = "VersionID";
-  public static final String JSON_URI = "URI";
-  public static final String JSON_REASON_CODE = "ReasonCode";
-  public static final String JSON_REASON = "Reason";
-  public static final String JSON_ANY = "Any";
-
   private static final Logger LOGGER = LoggerFactory.getLogger (BDXR2ExtensionConverter.class);
   private static final XMLWriterSettings XWS = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE);
 
