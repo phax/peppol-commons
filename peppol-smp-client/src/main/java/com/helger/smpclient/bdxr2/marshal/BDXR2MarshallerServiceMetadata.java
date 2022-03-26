@@ -16,32 +16,30 @@
  */
 package com.helger.smpclient.bdxr2.marshal;
 
-import java.util.function.Function;
-
-import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBElement;
-
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.xsds.bdxr.smp2.CBDXRSMP2;
+import com.helger.xsds.bdxr.smp2.ObjectFactory;
+import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
 
 /**
- * Abstract JAXB marshaller with namespace prefix mapping
+ * OASIS BDXR SMP v2 ServiceMetadata marshaller
  *
  * @author Philip Helger
- * @param <JAXBTYPE>
- *        JAXB type to use
- * @since 8.0.5
  */
-public abstract class AbstractBDXR2Marshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
+public class BDXR2MarshallerServiceMetadata extends AbstractBDXR2Marshaller <ServiceMetadataType>
 {
-  public AbstractBDXR2Marshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                  final boolean bValidationEnabled,
-                                  @Nonnull final ICommonsList <ClassPathResource> aXSDs,
-                                  @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
-  {
-    super (aType, bValidationEnabled ? aXSDs : null, aWrapper);
+  private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDResourceServiceMetadata ();
 
-    setNamespaceContext (BDXR2NamespaceContext.getInstance ());
+  /**
+   * Constructor
+   *
+   * @param bValidationEnabled
+   *        <code>true</code> if XSD validation should be used,
+   *        <code>false</code> to not verify it.
+   */
+  public BDXR2MarshallerServiceMetadata (final boolean bValidationEnabled)
+  {
+    super (ServiceMetadataType.class, bValidationEnabled, XSDS, new ObjectFactory ()::createServiceMetadata);
   }
 }

@@ -16,21 +16,15 @@
  */
 package com.helger.smpclient.bdxr2.marshal;
 
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.xsds.bdxr.smp2.CBDXRSMP2;
-import com.helger.xsds.bdxr.smp2.ObjectFactory;
-import com.helger.xsds.bdxr.smp2.ServiceGroupType;
-
 /**
  * OASIS BDXR SMP v2 ServiceGroup marshaller
  *
  * @author Philip Helger
+ * @deprecated Since 8.7.3. Renamed to {@link BDXR2MarshallerServiceGroup}.
  */
-public class BDXR2ServiceGroupMarshaller extends AbstractBDXR2Marshaller <ServiceGroupType>
+@Deprecated
+public class BDXR2ServiceGroupMarshaller extends BDXR2MarshallerServiceGroup
 {
-  private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDResourceServiceGroup ();
-
   /**
    * Constructor
    *
@@ -40,6 +34,6 @@ public class BDXR2ServiceGroupMarshaller extends AbstractBDXR2Marshaller <Servic
    */
   public BDXR2ServiceGroupMarshaller (final boolean bValidationEnabled)
   {
-    super (ServiceGroupType.class, bValidationEnabled, XSDS, new ObjectFactory ()::createServiceGroup);
+    super (bValidationEnabled);
   }
 }

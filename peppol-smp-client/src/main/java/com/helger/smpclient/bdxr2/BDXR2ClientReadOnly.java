@@ -43,8 +43,8 @@ import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.security.certificate.CertificateHelper;
-import com.helger.smpclient.bdxr2.marshal.BDXR2ServiceGroupMarshaller;
-import com.helger.smpclient.bdxr2.marshal.BDXR2ServiceMetadataMarshaller;
+import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceGroup;
+import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceMetadata;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
@@ -172,7 +172,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
       LOGGER.debug ("BDXR2Client getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    final BDXR2ServiceGroupMarshaller aMarshaller = new BDXR2ServiceGroupMarshaller (isXMLSchemaValidation ());
+    final BDXR2MarshallerServiceGroup aMarshaller = new BDXR2MarshallerServiceGroup (isXMLSchemaValidation ());
     customizeMarshaller (aMarshaller);
     final ServiceGroupType ret = executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
 
@@ -277,7 +277,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     final KeyStore aTrustStore = getTrustStore ();
 
     HttpGet aRequest = new HttpGet (sURI);
-    BDXR2ServiceMetadataMarshaller aMarshaller = new BDXR2ServiceMetadataMarshaller (bXSDValidation);
+    BDXR2MarshallerServiceMetadata aMarshaller = new BDXR2MarshallerServiceMetadata (bXSDValidation);
     customizeMarshaller (aMarshaller);
     ServiceMetadataType aMetadata = executeGenericRequest (aRequest,
                                                            new SMPHttpResponseHandlerSigned <> (aMarshaller,
@@ -311,10 +311,10 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
           aRequest = new HttpGet (aRedirect.getPublisherURIValue ());
 
           // Create a new Marshaller to make sure customization is easy
-          aMarshaller = new BDXR2ServiceMetadataMarshaller (bXSDValidation);
+          aMarshaller = new BDXR2MarshallerServiceMetadata (bXSDValidation);
           customizeMarshaller (aMarshaller);
           aMetadata = executeGenericRequest (aRequest,
-                                             new SMPHttpResponseHandlerSigned <> (new BDXR2ServiceMetadataMarshaller (bXSDValidation),
+                                             new SMPHttpResponseHandlerSigned <> (new BDXR2MarshallerServiceMetadata (bXSDValidation),
                                                                                   aTrustStore).setVerifySignature (bVerifySignature));
 
           // Check that the certificateUID is correct.

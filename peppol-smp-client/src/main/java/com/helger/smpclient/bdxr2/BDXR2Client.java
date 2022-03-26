@@ -36,8 +36,8 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.bdxr.smp2.participant.BDXR2ParticipantIdentifier;
-import com.helger.smpclient.bdxr2.marshal.BDXR2ServiceGroupMarshaller;
-import com.helger.smpclient.bdxr2.marshal.BDXR2ServiceMetadataMarshaller;
+import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceGroup;
+import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceMetadata;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
@@ -152,7 +152,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sBody = new BDXR2ServiceGroupMarshaller (isXMLSchemaValidation ()).getAsString (aServiceGroup);
+    final String sBody = new BDXR2MarshallerServiceGroup (isXMLSchemaValidation ()).getAsString (aServiceGroup);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
@@ -233,7 +233,7 @@ public class BDXR2Client extends BDXR2ClientReadOnly
   private void _saveServiceInformation (@Nonnull final ServiceMetadataType aServiceMetadata,
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
-    final String sBody = new BDXR2ServiceMetadataMarshaller (isXMLSchemaValidation ()).getAsString (aServiceMetadata);
+    final String sBody = new BDXR2MarshallerServiceMetadata (isXMLSchemaValidation ()).getAsString (aServiceMetadata);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 
