@@ -42,30 +42,31 @@ public final class BDXRExtensionConverterTest
     // Use elements
     final String sJson = "[{\"ID\":\"a\",\"Name\":\"b\",\"AgencyID\":\"c\",\"AgencyName\":\"d\",\"AgencyURI\":\"e\",\"VersionID\":\"f\",\"URI\":\"g\",\"ReasonCode\":\"h\",\"Reason\":\"i\"," +
                          "\"Any\":\"<any xmlns=\\\"urn:foo\\\"><child>text1</child><child2 /></any>\"}]";
-    final ICommonsList <ExtensionType> aExtensions = BDXR1ExtensionConverter.convert (sJson);
+    final ICommonsList <ExtensionType> aExtensions = BDXR1ExtensionConverter.convertJsonToDomainObject (sJson);
     assertNotNull (aExtensions);
     assertEquals (1, aExtensions.size ());
     final ExtensionType aExtension = aExtensions.get (0);
     assertNotNull (aExtension.getAny ());
     assertTrue (aExtension.getAny () instanceof Node);
 
-    assertNull (BDXR1ExtensionConverter.convert ((String) null));
-    assertNull (BDXR1ExtensionConverter.convert (""));
+    assertNull (BDXR1ExtensionConverter.convertJsonToDomainObject ((String) null));
+    assertNull (BDXR1ExtensionConverter.convertJsonToDomainObject (""));
 
     // Convert back to String
-    final String sJson2 = BDXR1ExtensionConverter.convertToString (new CommonsArrayList <> (aExtension));
+    final String sJson2 = BDXR1ExtensionConverter.convertToJsonString (new CommonsArrayList <> (aExtension));
     assertEquals (sJson, sJson2);
 
     // Cannot convert non-element
-    assertNull (BDXR1ExtensionConverter.convert ("Plain text"));
+    assertNull (BDXR1ExtensionConverter.convertJsonToDomainObject ("Plain text"));
   }
 
   @Test
   public void testConvertFromExtensionType ()
   {
     // Try converting an empty extension
-    assertNull (BDXR1ExtensionConverter.convertToString (null));
-    assertEquals ("[]", BDXR1ExtensionConverter.convertToString (new CommonsArrayList <> (new ObjectFactory ().createExtensionType ())));
+    assertNull (BDXR1ExtensionConverter.convertToJsonString (null));
+    assertEquals ("[]",
+                  BDXR1ExtensionConverter.convertToJsonString (new CommonsArrayList <> (new ObjectFactory ().createExtensionType ())));
   }
 
   @Test
@@ -76,6 +77,6 @@ public final class BDXRExtensionConverterTest
     final ICommonsList <ExtensionType> aExts = BDXR1ExtensionConverter.convertXMLToSingleExtension ("<foobar />");
     assertNotNull (aExts);
     assertEquals (1, aExts.size ());
-    assertEquals ("[{\"Any\":\"<foobar />\"}]", BDXR1ExtensionConverter.convertToString (aExts));
+    assertEquals ("[{\"Any\":\"<foobar />\"}]", BDXR1ExtensionConverter.convertToJsonString (aExts));
   }
 }

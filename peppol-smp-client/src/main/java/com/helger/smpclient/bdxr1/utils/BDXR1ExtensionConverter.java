@@ -159,9 +159,25 @@ public final class BDXR1ExtensionConverter
    *        The extension to be converted. May be <code>null</code>.
    * @return <code>null</code> if no extension was passed - the String
    *         representation of the extensions otherwise.
+   * @deprecated Since 8.7.3. Use {@link #convertToJsonString(List)} instead.
    */
+  @Deprecated
   @Nullable
   public static String convertToString (@Nullable final List <ExtensionType> aExtensions)
+  {
+    return convertToJsonString (aExtensions);
+  }
+
+  /**
+   * Convert the passed extension types to a string representation.
+   *
+   * @param aExtensions
+   *        The extension to be converted. May be <code>null</code>.
+   * @return <code>null</code> if no extension was passed - the String
+   *         representation of the extensions otherwise.
+   */
+  @Nullable
+  public static String convertToJsonString (@Nullable final List <ExtensionType> aExtensions)
   {
     final IJsonArray aArray = convertToJson (aExtensions);
     return aArray == null ? null : aArray.getAsJsonString (JsonWriterSettings.DEFAULT_SETTINGS);
@@ -205,9 +221,26 @@ public final class BDXR1ExtensionConverter
    *        the Json representation to be converted.
    * @return <code>null</code> if the passed string is empty or cannot be
    *         interpreted as JSON.
+   * @deprecated Since 8.7.3. Use {@link #convertJsonToDomainObject(String)}
+   *             instead.
    */
+  @Deprecated
   @Nullable
   public static ICommonsList <ExtensionType> convert (@Nullable final String sJson)
+  {
+    return convertJsonToDomainObject (sJson);
+  }
+
+  /**
+   * Convert the passed Json string to a list of SMP extensions.
+   *
+   * @param sJson
+   *        the Json representation to be converted.
+   * @return <code>null</code> if the passed string is empty or cannot be
+   *         interpreted as JSON.
+   */
+  @Nullable
+  public static ICommonsList <ExtensionType> convertJsonToDomainObject (@Nullable final String sJson)
   {
     if (StringHelper.hasText (sJson))
     {
