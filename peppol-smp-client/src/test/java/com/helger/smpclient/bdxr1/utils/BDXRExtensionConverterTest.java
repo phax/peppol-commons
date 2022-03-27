@@ -34,6 +34,7 @@ import com.helger.xsds.bdxr.smp1.ObjectFactory;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class BDXRExtensionConverterTest
 {
   @Test

@@ -55,8 +55,10 @@ import com.helger.xsds.bdxr.smp2.ec.SMPExtensionType;
  * string solution to maintain DB schema compatibility.
  *
  * @author Philip Helger
+ * @deprecated In 8.7.3 because extension handling was rewritten in SMP
  */
 @Immutable
+@Deprecated
 public final class BDXR1ExtensionConverter
 {
   public static final String JSON_ID = "ID";
