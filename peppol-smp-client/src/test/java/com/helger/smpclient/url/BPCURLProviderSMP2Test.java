@@ -31,6 +31,7 @@ import com.helger.smpclient.IgnoredNaptrTest;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class BPCURLProviderSMP2Test
 {
   @Test

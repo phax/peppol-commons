@@ -27,12 +27,11 @@ import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.smpclient.IgnoredNaptrTest;
 
 /**
- * Test class for class {@link BPCURLProviderSMP1}.
+ * Test class for class {@link BPCURLProviderSMP}.
  *
  * @author Philip Helger
  */
-@Deprecated
-public final class BPCURLProviderSMP1Test
+public final class BPCURLProviderSMPTest
 {
   @Test
   public void testGetDNSNameOfParticipant () throws SMPDNSResolutionException
@@ -40,7 +39,7 @@ public final class BPCURLProviderSMP1Test
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060",
                                                                              "123456789");
 
-    final String s = BPCURLProviderSMP1.INSTANCE.getDNSNameOfParticipant (aPI, "bpc02.b2bei.us.");
+    final String s = BPCURLProviderSMP.INSTANCE.getDNSNameOfParticipant (aPI, "bpc02.b2bei.us.");
     assertEquals ("64YIBI3W4XKI6USPE6LXNMDAXTO3EEZHPD3UQWEB7SYBMYVFRNHA.bpc02.b2bei.us", s);
   }
 
@@ -50,18 +49,18 @@ public final class BPCURLProviderSMP1Test
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("urn:oasis:names:tc:ebcore:partyid-type:unregistered:disney",
                                                                              "goofy");
 
-    final String s = BPCURLProviderSMP1.INSTANCE.getDNSNameOfParticipant (aPI, "bpc02.b2bei.us.");
+    final String s = BPCURLProviderSMP.INSTANCE.getDNSNameOfParticipant (aPI, "bpc02.b2bei.us.");
     assertEquals ("F64Y2CXXVX4VJF4E45OQVE6RUZML7AWG4SN4NKTYXLJSZEVUQKCQ.bpc02.b2bei.us", s);
   }
 
   @Test
-  @Ignore ("Because it may take long to execute")
+  @Ignore ("Will not work, because no SML domain is available")
   @IgnoredNaptrTest
   public void testGetSMPURIOfParticipant () throws SMPDNSResolutionException
   {
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060",
                                                                              "123456789");
-    final URI x = BPCURLProviderSMP1.INSTANCE.getSMPURIOfParticipant (aPI, "bpc02.b2bei.us.");
+    final URI x = BPCURLProviderSMP.INSTANCE.getSMPURIOfParticipant (aPI, "bpc02.b2bei.us.");
     assertEquals ("https://bpc-smp.bdxhub.com/", x.toString ());
   }
 }
