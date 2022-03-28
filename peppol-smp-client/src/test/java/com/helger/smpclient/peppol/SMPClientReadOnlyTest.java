@@ -206,6 +206,7 @@ public final class SMPClientReadOnlyTest
 
     final LocalDateTime aCheckDT = PDTFactory.getCurrentLocalDateTime ();
 
+    // Replace the string variables
     final BiFunction <LocalDateTime, LocalDateTime, String> formatter = (a, e) -> {
       String ret = sTemplate;
       if (a == null)
@@ -225,6 +226,7 @@ public final class SMPClientReadOnlyTest
       return ret;
     };
 
+    // Replace the variables, parse and find the endpoint
     final BiFunction <LocalDateTime, LocalDateTime, EndpointType> findEndpoint = (a, e) -> {
       final ServiceMetadataType aSM = new SMPMarshallerServiceMetadataType (true).read (formatter.apply (a, e));
       assertNotNull (aSM);
