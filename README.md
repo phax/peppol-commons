@@ -284,6 +284,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Renamed the classes `BDXR2Service(Group|Metadata)Marshaller` to `BDXR2MarshallerService(Group|Metadata)` for consistency with BDXR 1
     * Added a missing namespace mapping to `BDXR2NamespaceContext`
     * Classes `BDXR1NamespaceContext` and `BDXR2NamespaceContext` now offer a static `getInstance` method
+    * Added support for handling `ServiceActivationDate` and `ServiceExpirationDate` in the Peppol SMP client. See [issue #38](https://github.com/phax/peppol-commons/issues/38) - thx @Florianisme
 * v8.7.2 - 2022-03-06
     * Updated to BouncyCastle 1.70
     * Renamed SMP client proxy properties, to match a standard way. The old properties are still supported for backwards compatibility.
