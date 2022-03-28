@@ -18,11 +18,13 @@ package com.helger.smpclient.peppol;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -64,7 +66,8 @@ public interface ISMPServiceMetadataProvider
   /**
    * Retrieve the service metadata from the provided service group ID and
    * document type ID. Than find the matching endpoint from the process ID and
-   * transport profile.<br>
+   * transport profile. This method checks the validity of the endpoint at the
+   * current point in time.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
@@ -95,18 +98,72 @@ public interface ISMPServiceMetadataProvider
                                     @Nonnull final IProcessIdentifier aProcessID,
                                     @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
+    return getEndpointAt (aServiceGroupID,
+                          aDocumentTypeID,
+                          aProcessID,
+                          aTransportProfile,
+                          PDTFactory.getCurrentLocalDateTime ());
+  }
+
+  /**
+   * Retrieve the service metadata from the provided service group ID and
+   * document type ID. Than find the matching endpoint from the process ID and
+   * transport profile.<br>
+   * This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aProcessID
+   *        The process ID of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aTransportProfile
+   *        The transport profile of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aCheckDT
+   *        The date and time for when the endpoint is meant to be valid if the
+   *        end point contains a ServiceActivationDate and/or a
+   *        ServiceExpirationDate. May not be <code>null</code>.
+   * @return The endpoint from the signed service metadata object or
+   *         <code>null</code> if no such registration is present.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
+   * @since 8.7.3
+   */
+  @Nullable
+  default EndpointType getEndpointAt (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                      @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                      @Nonnull final IProcessIdentifier aProcessID,
+                                      @Nonnull final ISMPTransportProfile aTransportProfile,
+                                      @Nonnull final LocalDateTime aCheckDT) throws SMPClientException
+  {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
     ValueEnforcer.notNull (aProcessID, "ProcessID");
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
+    ValueEnforcer.notNull (aCheckDT, "CheckDT");
 
     // Get meta data for participant/documentType
-    final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null : SMPClientReadOnly.getEndpoint (aSignedServiceMetadata, aProcessID, aTransportProfile);
+    final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
+                                                                                       aDocumentTypeID);
+    return aSignedServiceMetadata == null ? null
+                                          : SMPClientReadOnly.getEndpointAt (aSignedServiceMetadata,
+                                                                             aProcessID,
+                                                                             aTransportProfile,
+                                                                             aCheckDT);
   }
 
   /**
-   * Get the endpoint address URI from the specified endpoint.
+   * Get the endpoint address URI from the specified endpoint. This method
+   * checks the validity of the endpoint at the current point in time.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -136,7 +193,48 @@ public interface ISMPServiceMetadataProvider
   }
 
   /**
-   * Get the certificate string from the specified endpoint.
+   * Get the endpoint address URI from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @param aCheckDT
+   *        The date and time for when the endpoint is meant to be valid if the
+   *        end point contains a ServiceActivationDate and/or a
+   *        ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no endpoint address URI
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @since 8.7.3
+   */
+  @Nullable
+  default String getEndpointAddressAt (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                       @Nonnull final IProcessIdentifier aProcessID,
+                                       @Nonnull final ISMPTransportProfile aTransportProfile,
+                                       @Nonnull final LocalDateTime aCheckDT) throws SMPClientException
+  {
+    final EndpointType aEndpoint = getEndpointAt (aServiceGroupID,
+                                                  aDocumentTypeID,
+                                                  aProcessID,
+                                                  aTransportProfile,
+                                                  aCheckDT);
+    return SMPClientReadOnly.getEndpointAddress (aEndpoint);
+  }
+
+  /**
+   * Get the certificate string from the specified endpoint. This method checks
+   * the validity of the endpoint at the current point in time.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -166,7 +264,48 @@ public interface ISMPServiceMetadataProvider
   }
 
   /**
-   * Get the certificate from the specified endpoint.
+   * Get the certificate string from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @param aCheckDT
+   *        The date and time for when the endpoint is meant to be valid if the
+   *        end point contains a ServiceActivationDate and/or a
+   *        ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @since 8.7.3
+   */
+  @Nullable
+  default String getEndpointCertificateStringAt (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                 @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                 @Nonnull final IProcessIdentifier aProcessID,
+                                                 @Nonnull final ISMPTransportProfile aTransportProfile,
+                                                 @Nonnull final LocalDateTime aCheckDT) throws SMPClientException
+  {
+    final EndpointType aEndpoint = getEndpointAt (aServiceGroupID,
+                                                  aDocumentTypeID,
+                                                  aProcessID,
+                                                  aTransportProfile,
+                                                  aCheckDT);
+    return SMPClientReadOnly.getEndpointCertificateString (aEndpoint);
+  }
+
+  /**
+   * Get the certificate from the specified endpoint. This method checks the
+   * validity of the endpoint at the current point in time.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -194,7 +333,52 @@ public interface ISMPServiceMetadataProvider
                                                   @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                          CertificateException
   {
-    final String sCertString = getEndpointCertificateString (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
+    final String sCertString = getEndpointCertificateString (aServiceGroupID,
+                                                             aDocumentTypeID,
+                                                             aProcessID,
+                                                             aTransportProfile);
+    return CertificateHelper.convertStringToCertficate (sCertString);
+  }
+
+  /**
+   * Get the certificate from the specified endpoint.
+   *
+   * @param aServiceGroupID
+   *        Service group ID. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        Document type ID. May not be <code>null</code>.
+   * @param aProcessID
+   *        Process ID. May not be <code>null</code>.
+   * @param aTransportProfile
+   *        Transport profile. May not be <code>null</code>.
+   * @param aCheckDT
+   *        The date and time for when the endpoint is meant to be valid if the
+   *        end point contains a ServiceActivationDate and/or a
+   *        ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @throws CertificateException
+   *         In case the conversion from byte to X509 certificate failed
+   */
+  @Nullable
+  default X509Certificate getEndpointCertificateAt (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                    @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                    @Nonnull final IProcessIdentifier aProcessID,
+                                                    @Nonnull final ISMPTransportProfile aTransportProfile,
+                                                    @Nonnull final LocalDateTime aCheckDT) throws SMPClientException,
+                                                                                           CertificateException
+  {
+    final String sCertString = getEndpointCertificateStringAt (aServiceGroupID,
+                                                               aDocumentTypeID,
+                                                               aProcessID,
+                                                               aTransportProfile,
+                                                               aCheckDT);
     return CertificateHelper.convertStringToCertficate (sCertString);
   }
 }

@@ -20,6 +20,7 @@ import java.net.URI;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.function.Consumer;
 
@@ -35,6 +36,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.string.StringHelper;
@@ -289,7 +291,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
-    return getCompleteServiceGroup (getSMPHostURI () + URL_PART_COMPLETE + "/" + aServiceGroupID.getURIPercentEncoded ());
+    return getCompleteServiceGroup (getSMPHostURI () +
+                                    URL_PART_COMPLETE +
+                                    "/" +
+                                    aServiceGroupID.getURIPercentEncoded ());
   }
 
   /**
@@ -422,8 +427,13 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     if (aSG != null && aSG.getParticipantIdentifier () != null && aSG.getServiceMetadataReferenceCollection () != null)
     {
-      final String sPathStart = "/" + CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) + "/" + URL_PART_SERVICES + "/";
-      for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ().getServiceMetadataReference ())
+      final String sPathStart = "/" +
+                                CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) +
+                                "/" +
+                                URL_PART_SERVICES +
+                                "/";
+      for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                        .getServiceMetadataReference ())
       {
         final String sOriginalHref = aSMR.getHref ();
         // Decoded href is important for unification
@@ -448,6 +458,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         if (!bSuccess)
         {
           // Failed to parse as doc type
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("Failed to parse '" + sOriginalHref + "' as a document type identifier");
+
           if (aUnhandledHrefHandler != null)
             aUnhandledHrefHandler.accept (sOriginalHref);
         }
@@ -595,14 +608,17 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
   }
 
-  private static boolean _hasSameContent (@Nonnull final ProcessIdentifierType aPI1, @Nonnull final IProcessIdentifier aPI2)
+  private static boolean _hasSameContent (@Nonnull final ProcessIdentifierType aPI1,
+                                          @Nonnull final IProcessIdentifier aPI2)
   {
-    return EqualsHelper.equals (aPI1.getScheme (), aPI2.getScheme ()) && EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
+    return EqualsHelper.equals (aPI1.getScheme (), aPI2.getScheme ()) &&
+           EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
   }
 
   /**
    * Extract the Endpoint from the signedServiceMetadata that matches the passed
-   * process ID and the optional required transport profile.
+   * process ID and the optional required transport profile. This method checks
+   * the validity of the endpoint at the current point in time.
    *
    * @param aSignedServiceMetadata
    *        The signed service meta data object (e.g. from a call to
@@ -626,8 +642,40 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Extract the Endpoint from the ServiceMetadata that matches the passed
+   * Extract the Endpoint from the signedServiceMetadata that matches the passed
    * process ID and the optional required transport profile.
+   *
+   * @param aSignedServiceMetadata
+   *        The signed service meta data object (e.g. from a call to
+   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
+   *        . May not be <code>null</code>.
+   * @param aProcessID
+   *        The process identifier to be looked up. May not be <code>null</code>
+   *        .
+   * @param aTransportProfile
+   *        The required transport profile to be used. May not be
+   *        <code>null</code>.
+   * @param aCheckDT
+   *        The date and time for when the endpoint is meant to be valid if the
+   *        end point contains a ServiceActivationDate and/or a
+   *        ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no matching endpoint was found
+   * @since 8.7.3
+   */
+  @Nullable
+  public static EndpointType getEndpointAt (@Nonnull final SignedServiceMetadataType aSignedServiceMetadata,
+                                            @Nonnull final IProcessIdentifier aProcessID,
+                                            @Nonnull final ISMPTransportProfile aTransportProfile,
+                                            @Nonnull final LocalDateTime aCheckDT)
+  {
+    ValueEnforcer.notNull (aSignedServiceMetadata, "SignedServiceMetadata");
+    return getEndpointAt (aSignedServiceMetadata.getServiceMetadata (), aProcessID, aTransportProfile, aCheckDT);
+  }
+
+  /**
+   * Extract the Endpoint from the ServiceMetadata that matches the passed
+   * process ID and the optional required transport profile. This method checks
+   * the validity of the endpoint at the current point in time.
    *
    * @param aServiceMetadata
    *        The unsigned service meta data object. May not be <code>null</code>.
@@ -645,6 +693,81 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                           @Nonnull final IProcessIdentifier aProcessID,
                                           @Nonnull final ISMPTransportProfile aTransportProfile)
   {
+    return getEndpointAt (aServiceMetadata, aProcessID, aTransportProfile, PDTFactory.getCurrentLocalDateTime ());
+  }
+
+  /**
+   * Check if the provided SMP endpoint is valid at the provided date and time.
+   * This is to ensure the ServiceActionDate and ServiceExpirationDate values
+   * are honoured according to the changes in the Peppol SMP 1.2.0
+   * specification.
+   *
+   * @param aEndpoint
+   *        The SMP endpoint to check. May not be <code>null</code>.
+   * @param aCheckDT
+   *        The date and time at which the check is performed. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if the endpoint is valid, <code>false</code> if
+   *         not.
+   * @since 8.7.3
+   */
+  public static boolean isEndpointValidAt (@Nonnull final EndpointType aEndpoint, @Nonnull final LocalDateTime aCheckDT)
+  {
+    ValueEnforcer.notNull (aEndpoint, "Endpoint");
+    ValueEnforcer.notNull (aCheckDT, "CheckDT");
+
+    // Check not before time
+    final LocalDateTime aNotBefore = aEndpoint.getServiceActivationDateLocal ();
+    if (aNotBefore != null)
+    {
+      if (aCheckDT.isBefore (aNotBefore))
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("SMP endpoint activation date " + aNotBefore + " is after the check DT " + aCheckDT);
+        return false;
+      }
+    }
+
+    // Check not after time
+    final LocalDateTime aNotAfter = aEndpoint.getServiceExpirationDateLocal ();
+    if (aNotAfter != null)
+    {
+      if (aCheckDT.isAfter (aNotAfter))
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("SMP endpoint expiration date " + aNotAfter + " is before the check DT " + aCheckDT);
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Extract the Endpoint from the ServiceMetadata that matches the passed
+   * process ID and the optional required transport profile.
+   *
+   * @param aServiceMetadata
+   *        The unsigned service meta data object. May not be <code>null</code>.
+   * @param aProcessID
+   *        The process identifier to be looked up. May not be <code>null</code>
+   *        .
+   * @param aTransportProfile
+   *        The required transport profile to be used. May not be
+   *        <code>null</code>.
+   * @param aCheckDT
+   *        The date and time for when the endpoint is meant to be valid if the
+   *        end point contains a ServiceActivationDate and/or a
+   *        ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no matching endpoint was found
+   * @since 8.7.3
+   */
+  @Nullable
+  public static EndpointType getEndpointAt (@Nonnull final ServiceMetadataType aServiceMetadata,
+                                            @Nonnull final IProcessIdentifier aProcessID,
+                                            @Nonnull final ISMPTransportProfile aTransportProfile,
+                                            @Nonnull final LocalDateTime aCheckDT)
+  {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
     final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
     if (aServiceInformation == null)
@@ -655,6 +778,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (aServiceInformation.getProcessList (), "ServiceMetadata.ServiceInformation.ProcessList");
     ValueEnforcer.notNull (aProcessID, "ProcessID");
     ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
+    ValueEnforcer.notNull (aCheckDT, "CheckDT");
 
     // Iterate all processes
     for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
@@ -665,7 +789,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         // Filter all endpoints by required transport profile
         final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
         for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
-          if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()))
+          if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()) &&
+              isEndpointValidAt (aEndpoint, aCheckDT))
             aRelevantEndpoints.add (aEndpoint);
 
         if (aRelevantEndpoints.size () != 1)
@@ -675,15 +800,20 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                          aRelevantEndpoints.size () +
                          " endpoints for process " +
                          aProcessID +
-                         " and transport profile " +
+                         " and transport profile '" +
                          aTransportProfile.getID () +
-                         (aRelevantEndpoints.isEmpty () ? "" : ": " + aRelevantEndpoints.toString () + " - using the first one"));
+                         "' valid at " +
+                         aCheckDT +
+                         (aRelevantEndpoints.isEmpty () ? ""
+                                                        : ": " +
+                                                          aRelevantEndpoints.toString () +
+                                                          " - using the first one"));
         }
 
-        // Use the first endpoint or null
+        // Use the first endpoint
         final EndpointType ret = aRelevantEndpoints.getFirst ();
         if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Found matching endpoint: " + ret);
+          LOGGER.debug ("Found matching SMP endpoint: " + ret);
         return ret;
       }
     }
@@ -706,7 +836,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
     return aEndpoint == null ||
-           aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
+           aEndpoint.getEndpointReference () == null ? null
+                                                     : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
   }
 
   /**
@@ -839,6 +970,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
                                                                                                                                SMPDNSResolutionException
   {
-    return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID, aDocumentTypeID);
+    return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
+                                                                                               aDocumentTypeID);
   }
 }
