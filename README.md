@@ -24,7 +24,7 @@ This project is licensed under the Apache 2.0 license.
 ## peppol-id-datatypes
 
 Java library with the JAXB generated elements for Peppol ID and Peppol Code List handling.
-First created in version 8.4.0.
+First created in v8.4.0.
 
 Make sure to run `mvn process-sources` before using it in the IDE.
 The additional code is created in `target/generated-sources/xjc`. 
@@ -32,7 +32,7 @@ The additional code is created in `target/generated-sources/xjc`.
 ## peppol-id
 
 Java library with shared IDs and predefined IDs.
-First created in version 7.0.0.
+First created in v7.0.0.
 
 ## peppol-commons
 
@@ -79,7 +79,7 @@ This project is used by [peppol-smp-server](https://github.com/phax/peppol-smp-s
 ## peppol-smp-datatypes
 
 Java library with the JAXB generated elements for Peppol SMP handling.
-First created in version 8.4.0.
+First created in v8.4.0.
 
 Make sure to run `mvn process-sources` before using it in the IDE.
 The additional code is created in `target/generated-sources/xjc`. 
@@ -103,7 +103,7 @@ See https://github.com/phax/ph-commons#ph-config for the new resolution logic.
 
 **Configuration resolution (pre v8.2.0)**
 
-The SMP client (both Peppol and OASIS BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the environment variable `SMP_CLIENT_CONFIG` (since v7.0.7), the system property `peppol.smp.client.properties.path` (since v4.3.5), the system property `smp.client.properties.path` (available as of version 4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to e.g. the trust store!
+The SMP client (both Peppol and OASIS BDXR) uses the file `smp-client.properties` for configuration. The default file resides in the folder `src/main/resources` of this project. You can change the path of the properties file by setting the environment variable `SMP_CLIENT_CONFIG` (since v7.0.7), the system property `peppol.smp.client.properties.path` (since v4.3.5), the system property `smp.client.properties.path` (available as of v4.2.0) to the absolute path of the configuration file (e.g. by specifying `-Dsmp.client.properties.path=/var/www/smpclient.properties` on Java startup). The name of the file does not matter, but if you specify a different properties file please make sure that you also specify an absolute path to e.g. the trust store!
 
 **Configuration properties**
 
@@ -121,8 +121,8 @@ It supports the following properties:
 * **`http.proxy.password`** (before v8.7.2: **`http.proxyPassword`**) (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined.
 * **`http.proxy.nonProxyHosts`** (before v8.7.2: **`http.nonProxyHosts`**) (since v6.2.4): A pipe separated list of non-proxy hosts. E.g. `localhost|127.0.0.1`.
 * [deprecated since v8.7.2] **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`. Deprecated since v8.7.2
-* **`http.connect.timeout.ms`** (since 7.0.4): set the connection timeout in milliseconds. The default value is `5000` meaning 5 seconds.
-* **`http.request.timeout.ms`** (since 7.0.4): set the request timeout in milliseconds. The default value is `10000` meaning 10 seconds.
+* **`http.connect.timeout.ms`** (since v7.0.4): set the connection timeout in milliseconds. The default value is `5000` meaning 5 seconds.
+* **`http.request.timeout.ms`** (since v7.0.4): set the request timeout in milliseconds. The default value is `10000` meaning 10 seconds.
 
 ### Specifying a proxy server
 
@@ -131,7 +131,7 @@ A proxy server can be specified in two ways:
 * A more complex setup based on the JVM system properties (based on https://docs.oracle.com/javase/8/docs/api/java/net/doc-files/net-properties.html). This can also be specified in the configuration file to enable the usage for all `SMPClient` instances or on a per-instance basis.
 
 **Specify a global proxy server**
-The SMP client supports a proxy server. By default the proxy specified in the configuration file (see above) is used (since version 4.3.0).
+The SMP client supports a proxy server. By default the proxy specified in the configuration file (see above) is used (since v4.3.0).
 
 Alternatively call the method `setProxy (org.apache.http.HttpHost)` on an `SMPClient` or `SMPClientReadOnly`. This means you can specify the proxy on a per-call basis.
 Proxy authentication is available since v5.2.5 by invoking `setProxyCredentials (org.apache.http.auth.Credentials)` on the SMP or BDXR client.
@@ -272,12 +272,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # References
 
-* [Peppol Policy for the use of identifiers 4.0](https://docs.peppol.eu/edelivery/policies/PEPPOL-EDN-Policy-for-use-of-identifiers-4.0-2019-01-28.pdf)
-* [Peppol Business Message Envelope (SBDH) 1.2](https://docs.peppol.eu/edelivery/envelope/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.pdf)
+* [Peppol Policy for the use of identifiers v4.1.0](https://docs.peppol.eu/edelivery/policies/PEPPOL-EDN-Policy-for-use-of-identifiers-4.1.0-2020-03-11.pdf)
+* [Peppol Business Message Envelope (SBDH) v1.2.1](https://docs.peppol.eu/edelivery/envelope/PEPPOL-EDN-Business-Message-Envelope-1.2.1-2020-03-11.pdf)
 
-## Obsoleted references
-
-* [Peppol Policy for the use of identifiers 3.2](https://github.com/OpenPEPPOL/edec-specifications/blob/master/releases/policy-identifier/PEPPOL-EDN-Policy-for-use-of-identifiers-3.2-2019-02-01.pdf)
 
 # News and noteworthy
 
