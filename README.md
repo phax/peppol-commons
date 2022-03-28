@@ -115,12 +115,12 @@ It supports the following properties:
     * `truststore/2018/smp-pilot-truststore.jks` - contains the trust certificates for pilot only (root, SMP, Directory, SML)
 * **`smpclient.truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
 
-* **`http.proxy.host`** (old: **`http.proxyHost`**): the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
-* **`http.proxy.port`** (old: **`http.proxyPort`**): the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
-* **`http.proxy.username`** (old: **`http.proxyUsername`**) (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
-* **`http.proxy.password`** (old: **`http.proxyPassword`**) (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined.
-* **`http.proxy.nonProxyHosts`** (old: **`http.nonProxyHosts`**) (since v6.2.4): A pipe separated list of non-proxy hosts. E.g. `localhost|127.0.0.1`.
-* [deprecated] **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`. Deprecated since v8.7.2
+* **`http.proxy.host`** (before v8.7.2: **`http.proxyHost`**): the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
+* **`http.proxy.port`** (before v8.7.2: **`http.proxyPort`**): the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
+* **`http.proxy.username`** (before v8.7.2: **`http.proxyUsername`**) (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
+* **`http.proxy.password`** (before v8.7.2: **`http.proxyPassword`**) (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined.
+* **`http.proxy.nonProxyHosts`** (before v8.7.2: **`http.nonProxyHosts`**) (since v6.2.4): A pipe separated list of non-proxy hosts. E.g. `localhost|127.0.0.1`.
+* [deprecated since v8.7.2] **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`. Deprecated since v8.7.2
 * **`http.connect.timeout.ms`** (since 7.0.4): set the connection timeout in milliseconds. The default value is `5000` meaning 5 seconds.
 * **`http.request.timeout.ms`** (since 7.0.4): set the request timeout in milliseconds. The default value is `10000` meaning 10 seconds.
 
@@ -138,10 +138,10 @@ Proxy authentication is available since v5.2.5 by invoking `setProxyCredentials 
 
 **Using the JVM system properties (deprecated)**
 
+This property is deprecated as of v8.7.2 and will be removed in v9.
+
 Since v5.2.2 the method `SMPClient.setUseProxySystemProperties (true)` can be used to enable the usage of the default system properties for HTTP connections (see the section on the configuration file for details). Since v5.2.4 the configuration file property `http.useSystemProperties` can be used to achieve the same without code changes. By enabling the usage of the system properties, the manually set proxy is ignored; if a proxy is manually set after this setting, it disables the usage of the system properties again.
 Note: this of course works for both SMP and BDXR client.
-
-This property is deprecated as version 8.7.2 and will be removed in v9.
 
 Supported system properties are (based on Apache HTTPClient):
   * `ssl.TrustManagerFactory.algorithm`
@@ -166,6 +166,7 @@ Supported system properties are (based on Apache HTTPClient):
 ### Example usage
 
 Get the endpoint URL for a participant using a special document type and process:
+
 ```java
     // The Peppol participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
@@ -173,30 +174,31 @@ Get the endpoint URL for a participant using a special document type and process
     // Create the main SMP client using the production SML
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
                                                                 aPI_AT_Test,
-                                                                ESML.DIGIT_PRODUCTION);
+                                                                ESML.DIGIT_TEST);
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
-                                                                   EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
-                                                                   EPredefinedProcessIdentifier.BIS4A_V20,
-                                                                   ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
-    // Endpoint address should be "https://test.erechnung.gv.at/as2"
-    System.out.println ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
+                                                                   EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
+                                                                   EPredefinedProcessIdentifier.BIS3_BILLING,
+                                                                   ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
+    // Endpoint address should be "https://test.erechnung.gv.at/as4"
+    System.out.println ("The Austrian government test AS4 AP that handles invoices in Peppol BIS 3 is located at: " +
                         sEndpointAddress);
 ```
 
 If you don't need the DNS lookup you can use the URL of the SMP directly (equivalent to the previous example):
+
 ```java
     // The Peppol participant identifier
     final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
 
     // Create the main SMP client using the production SML
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"));
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu"));
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
-                                                                   EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20,
-                                                                   EPredefinedProcessIdentifier.BIS4A_V20,
-                                                                   ESMPTransportProfile.TRANSPORT_PROFILE_AS2);
+                                                                   EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
+                                                                   EPredefinedProcessIdentifier.BIS3_BILLING,
+                                                                   ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
 
-    // Endpoint address should be "https://test.erechnung.gv.at/as2"
-    System.out.println ("The Austrian government test AS2 AP that handles invoices in BIS4A V2.0 is located at: " +
+    // Endpoint address should be "https://test.erechnung.gv.at/as4"
+    System.out.println ("The Austrian government test AS4 AP that handles invoices in Peppol BIS 3 is located at: " +
                         sEndpointAddress);
 ```
 
@@ -279,6 +281,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.7.3 - 2022-03-28
+    * Added a new generic SMP extension data model that works with Peppol, OASIS BDXR SMP v1 and OASIS BDXR SMP v2.
+    * Added new class `BPCURLProviderSMP` that works for the BPC market pilot was added
+    * Renamed the classes `BDXR2Service(Group|Metadata)Marshaller` to `BDXR2MarshallerService(Group|Metadata)` for consistency with BDXR 1
+    * Added a missing namespace mapping to `BDXR2NamespaceContext`
+    * Classes `BDXR1NamespaceContext` and `BDXR2NamespaceContext` now offer a static `getInstance` method
 * v8.7.2 - 2022-03-06
     * Updated to BouncyCastle 1.70
     * Renamed SMP client proxy properties, to match a standard way. The old properties are still supported for backwards compatibility.
