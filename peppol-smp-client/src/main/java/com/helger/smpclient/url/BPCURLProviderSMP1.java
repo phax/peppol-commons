@@ -25,8 +25,10 @@ import javax.annotation.concurrent.ThreadSafe;
  *
  * @author Philip Helger
  * @since 8.1.7
+ * @deprecated Since 8.7.3. Use {@link BPCURLProviderSMP} for the market pilot.
  */
 @ThreadSafe
+@Deprecated
 public class BPCURLProviderSMP1 extends AbstractBDXLURLProvider
 {
   /** The U-NAPTR record service name */

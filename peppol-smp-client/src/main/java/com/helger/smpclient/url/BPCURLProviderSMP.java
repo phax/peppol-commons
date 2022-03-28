@@ -19,30 +19,27 @@ package com.helger.smpclient.url;
 import javax.annotation.concurrent.ThreadSafe;
 
 /**
- * An implementation of {@link IBDXLURLProvider} suitable for the BPC network.
- * The main difference to the e-SENS approach is, that the participant
- * identifier scheme is part of the hashed value.
+ * An implementation of {@link IBDXLURLProvider} suitable for the BPC network in
+ * the Market pilot.
  *
  * @author Philip Helger
- * @since 8.1.7
- * @deprecated Since 8.7.3. Use {@link BPCURLProviderSMP} for the market pilot.
+ * @since 8.7.3
  */
-@Deprecated
 @ThreadSafe
-public class BPCURLProviderSMP2 extends AbstractBDXLURLProvider
+public class BPCURLProviderSMP extends AbstractBDXLURLProvider
 {
   /** The U-NAPTR record service name */
-  public static final String NAPTR_SERVICE_NAME = "oasis-bdxr-smp-2";
+  public static final String NAPTR_SERVICE_NAME = "oasis-bdxr-smp-2#bpc1.0";
 
   /** The writable API of the default instance */
-  public static final BPCURLProviderSMP2 MUTABLE_INSTANCE = new BPCURLProviderSMP2 ();
+  public static final BPCURLProviderSMP MUTABLE_INSTANCE = new BPCURLProviderSMP ();
   /** The default instance that should be used */
   public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
 
   /**
    * Default constructor.
    */
-  public BPCURLProviderSMP2 ()
+  public BPCURLProviderSMP ()
   {
     setLowercaseValueBeforeHashing (true);
     setAddIdentifierSchemeToZone (false);
