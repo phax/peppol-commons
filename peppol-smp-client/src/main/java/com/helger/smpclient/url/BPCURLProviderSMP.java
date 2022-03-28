@@ -28,7 +28,9 @@ import javax.annotation.concurrent.ThreadSafe;
 @ThreadSafe
 public class BPCURLProviderSMP extends AbstractBDXLURLProvider
 {
-  /** The U-NAPTR record service name */
+  /**
+   * The U-NAPTR record service name. Based on BPC SMP Profile 1.0 chapter 7.
+   */
   public static final String NAPTR_SERVICE_NAME = "oasis-bdxr-smp-2#bpc1.0";
 
   /** The writable API of the default instance */
