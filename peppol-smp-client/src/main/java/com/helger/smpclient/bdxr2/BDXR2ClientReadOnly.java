@@ -221,7 +221,8 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
         final IDType aID = aSMR.getID ();
         if (aID != null)
         {
-          final IDocumentTypeIdentifier aDocType = aIdentifierFactory.createDocumentTypeIdentifier (aID.getSchemeID (), aID.getValue ());
+          final IDocumentTypeIdentifier aDocType = aIdentifierFactory.createDocumentTypeIdentifier (aID.getSchemeID (),
+                                                                                                    aID.getValue ());
           if (aDocType != null)
           {
             // Found a document type
@@ -286,7 +287,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Received response: " + aMetadata);
 
-    if (!SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()).equals (aDocumentTypeID))
+    if (!SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()).hasSameContent (aDocumentTypeID))
     {
       // Inconsistency between request and response
       throw new SMPClientException ("Requested document type '" +
@@ -456,7 +457,10 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                          "' and transport profile '" +
                          aTransportProfile.getID () +
                          "'" +
-                         (aRelevantEndpoints.isEmpty () ? "" : ": " + aRelevantEndpoints.toString () + " - using the first one"));
+                         (aRelevantEndpoints.isEmpty () ? ""
+                                                        : ": " +
+                                                          aRelevantEndpoints.toString () +
+                                                          " - using the first one"));
         }
 
         // Use the first endpoint or null
@@ -587,6 +591,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
                                                                                                                          SMPDNSResolutionException
   {
-    return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID, aDocumentTypeID);
+    return new BDXR2ClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
+                                                                                                 aDocumentTypeID);
   }
 }
