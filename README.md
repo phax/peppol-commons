@@ -90,6 +90,8 @@ This project holds the SMP client library used by the Access Points to retrieve 
 This project supports the Peppol SMP specification, the OASIS BDXR SMP v1 and OASIS BDXR SMP v2 specification. 
 This project uses Apache HTTP client to perform the REST lookups on foreign SMPs.
 
+The Peppol SMP specification 1.2.0, mandatory per 1.5.2022, is supported since v8.7.3.
+
 I also provide an OSS [phoss SMP server](https://github.com/phax/phoss-smp) with a nice management GUI.
 
 ### Configuration
@@ -110,9 +112,9 @@ The SMP client (both Peppol and OASIS BDXR) uses the file `smp-client.properties
 It supports the following properties:
 * **`smpclient.truststore.type`**: the type of key store to be used. Possible values are `JKS`, `PKCS12` and `BCFKS`. Defaults to `JKS`.
 * **`smpclient.truststore.path`**: the location of the Peppol trust store (of the specified type) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
-    * `truststore/complete-truststore.jks` - contains the trust certificates for production and pilot (root, AP, SMP, Directory, SML)
-    * `truststore/2018/smp-prod-truststore.jks` - contains the trust certificates for production only (root, SMP, Directory, SML)
-    * `truststore/2018/smp-pilot-truststore.jks` - contains the trust certificates for pilot only (root, SMP, Directory, SML)
+    * `truststore/complete-truststore.jks` - contains the trust certificates for Peppol production and pilot (root, AP, SMP, Directory, SML)
+    * `truststore/2018/smp-prod-truststore.jks` - contains the trust certificates for Peppol production only (root, SMP, Directory, SML)
+    * `truststore/2018/smp-pilot-truststore.jks` - contains the trust certificates for Peppol pilot only (root, SMP, Directory, SML)
 * **`smpclient.truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
 
 * **`http.proxy.host`** (before v8.7.2: **`http.proxyHost`**): the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
