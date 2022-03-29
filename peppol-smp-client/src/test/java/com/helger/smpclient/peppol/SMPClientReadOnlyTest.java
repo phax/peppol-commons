@@ -204,7 +204,8 @@ public final class SMPClientReadOnlyTest
                              "  </smp:ServiceInformation>\r\n" +
                              "</smp:ServiceMetadata>\r\n";
 
-    final LocalDateTime aCheckDT = PDTFactory.getCurrentLocalDateTime ();
+    // XSD is limited to milliseconds precision
+    final LocalDateTime aCheckDT = PDTFactory.getCurrentLocalDateTimeMillisOnly ();
 
     // Replace the string variables
     final BiFunction <LocalDateTime, LocalDateTime, String> formatter = (a, e) -> {
