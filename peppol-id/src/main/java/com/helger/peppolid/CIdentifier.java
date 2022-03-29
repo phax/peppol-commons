@@ -119,14 +119,16 @@ public final class CIdentifier
 
   /**
    * Get the identifier URI encoded (without percent encoding) as in
-   * <code>scheme::value</code>.
+   * <code>scheme::value</code>. If no scheme is present, the result is
+   * <code>::value</code>.
    *
    * @param sScheme
    *        The scheme part to be encoded. May be <code>null</code>.
    * @param sValue
    *        The value part to be encoded. May be <code>null</code>.
    * @return The URI encoded identifier value in the form
-   *         <code><i>scheme</i>::<i>value</i></code>
+   *         <code><i>scheme</i>::<i>value</i></code> or
+   *         <code>::<i>value</i></code>
    */
   @Nonnull
   @Nonempty
@@ -140,6 +142,38 @@ public final class CIdentifier
 
     // Combine scheme and value
     return sRealScheme + URL_SCHEME_VALUE_SEPARATOR + sRealValue;
+  }
+
+  /**
+   * Get the identifier URI encoded (without percent encoding) as in
+   * <code>scheme::value</code>. If no scheme is present, the result is
+   * <code>value</code> which is the difference compared to the default
+   * {@link #getURIEncoded(String, String)}.
+   *
+   * @param sScheme
+   *        The scheme part to be encoded. May be <code>null</code>.
+   * @param sValue
+   *        The value part to be encoded. May be <code>null</code>.
+   * @return The URI encoded identifier value in the form
+   *         <code><i>scheme</i>::<i>value</i></code> or
+   *         <code><i>value</i></code>
+   */
+  @Nonnull
+  @Nonempty
+  public static String getURIEncodedBDXR2 (@Nullable final String sScheme, @Nullable final String sValue)
+  {
+    // Empty scheme may be allowed, depending on the implementation
+    final String sRealScheme = StringHelper.getNotNull (sScheme);
+
+    // Empty value may be allowed, depending on the implementation
+    final String sRealValue = StringHelper.getNotNull (sValue);
+
+    // Combine scheme and value
+    if (StringHelper.hasText (sRealScheme))
+      return sRealScheme + CIdentifier.URL_SCHEME_VALUE_SEPARATOR + sRealValue;
+
+    // No double colon
+    return sRealValue;
   }
 
   /**
