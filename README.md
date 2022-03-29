@@ -278,6 +278,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.7.4 - 2022-03-29
+    * Fixed an error in `BDXR2ClientReadOnly.getServiceMetadata` when using specific identifier classes
 * v8.7.3 - 2022-03-28
     * Added a new generic SMP extension data model that works with Peppol, OASIS BDXR SMP v1 and OASIS BDXR SMP v2.
     * Added new class `BPCURLProviderSMP` that works for the BPC market pilot was added
