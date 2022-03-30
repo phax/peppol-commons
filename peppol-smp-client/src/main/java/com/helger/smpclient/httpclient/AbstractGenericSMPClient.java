@@ -49,6 +49,7 @@ import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.httpclient.HttpClientSettings;
 import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.security.keystore.EKeyStoreType;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -82,22 +83,24 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private static final KeyStore DEFAULT_TRUST_STORE;
   static
   {
+    final EKeyStoreType eType = SMPClientConfiguration.getTrustStoreType ();
+    final String sPath = SMPClientConfiguration.getTrustStorePath ();
+
     DEFAULT_TRUST_STORE = SMPClientConfiguration.loadTrustStore ();
     if (DEFAULT_TRUST_STORE != null)
     {
       if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Successfully loaded configured SMP client trust store");
+        LOGGER.debug ("Successfully loaded configured SMP client trust store '" + sPath + "' of type " + eType);
     }
     else
     {
-      if (StringHelper.hasNoText (SMPClientConfiguration.getTrustStorePath ()))
+      if (StringHelper.hasNoText (sPath))
       {
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("No SMP client trust store is configured");
+        LOGGER.warn ("No SMP client trust store is configured");
       }
       else
       {
-        LOGGER.warn ("Failed to load the configured SMP client trust store");
+        LOGGER.warn ("Failed to load the configured SMP client trust store '" + sPath + "' of type " + eType);
       }
     }
   }
