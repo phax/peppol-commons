@@ -23,14 +23,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.Test;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -48,7 +42,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class PeppolParticipantIdentifierTest
 {
-  private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
+  private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a',
+                                                                           PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
   private static final String VALUE_MAX_LENGTH_PLUS_1 = VALUE_MAX_LENGTH + 'a';
 
   @Test
@@ -175,7 +170,8 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME + VALUE_MAX_LENGTH_PLUS_1, "abc");
+      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME + VALUE_MAX_LENGTH_PLUS_1,
+                                       "abc");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -195,23 +191,8 @@ public final class PeppolParticipantIdentifierTest
   public void testHasDefaultScheme ()
   {
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    assertTrue (aIF.createParticipantIdentifierWithDefaultScheme ("abc").hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME));
+    assertTrue (aIF.createParticipantIdentifierWithDefaultScheme ("abc")
+                   .hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME));
     assertFalse (new PeppolParticipantIdentifier ("dummy-actorid-upis", "abc").hasDefaultScheme ());
-  }
-
-  @Test
-  public void testJacksonIssue34 () throws JsonProcessingException
-  {
-    final Map <String, Object> map = new HashMap <> ();
-    map.put ("participantId", new PeppolParticipantIdentifier ("iso6523-actorid-upis", "9915:test"));
-    try
-    {
-      new ObjectMapper ().writeValueAsString (map);
-      fail ("Should have thrown a JsonMappingException due to a backing StackOverflowError");
-    }
-    catch (final JsonMappingException ex)
-    {
-      assertTrue (ex.getCause () instanceof StackOverflowError);
-    }
   }
 }
