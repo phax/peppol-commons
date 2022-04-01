@@ -55,6 +55,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    * @return The DNS sub zone name that is used for SMP publishers. This is done
    *         by prepending {@link CSMLDefault#DNS_PUBLISHER_SUBZONE} to the DNS
    *         zone name - never starts with a dot! May not be <code>null</code>.
+   *         This is only needed when the Peppol way of registration is used.
    * @see #getDNSZone()
    */
   @Nonnull

@@ -32,7 +32,8 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 public final class CSMLDefault
 {
   /**
-   * The DNS zone name part used for SMP information in the SML.
+   * The DNS zone name part used for SMP information in the SML. This is only
+   * needed for Peppol based registration.
    */
   public static final String DNS_PUBLISHER_SUBZONE = "publisher.";
 
@@ -56,7 +57,7 @@ public final class CSMLDefault
 
   /**
    * The migration code pattern as defined by BDMSL since v1.01.
-   * 
+   *
    * @since 8.1.2
    */
   public static final String MIGRATION_CODE_PATTERN = "^(?=.{8,24}$)(?=(.*[@#$%()\\[\\]{}*^_\\-!~|+=]){2,})(?=(.*[A-Z]){2})(?=(.*[a-z]){2})(?=(.*[0-9]){2})(?=\\S+$).*$";
