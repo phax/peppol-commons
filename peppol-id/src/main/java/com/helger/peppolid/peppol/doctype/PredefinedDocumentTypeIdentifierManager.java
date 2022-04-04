@@ -16,8 +16,6 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -93,12 +91,8 @@ public final class PredefinedDocumentTypeIdentifierManager
   {
     if (sDocTypeIDValue != null)
     {
-      for (final Map.Entry <String, IPeppolPredefinedDocumentTypeIdentifier> aEntry : CODES.entrySet ())
-      {
-        // PEPPOL: case sensitive document types
-        if (sDocTypeIDValue.equals (aEntry.getKey ()))
-          return aEntry.getValue ();
-      }
+      // PEPPOL: case sensitive document types
+      return CODES.get (sDocTypeIDValue);
     }
     return null;
   }
