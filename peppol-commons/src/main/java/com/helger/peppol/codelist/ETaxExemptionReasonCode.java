@@ -19,6 +19,7 @@ package com.helger.peppol.codelist;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
@@ -28,6 +29,8 @@ import com.helger.commons.name.IHasDisplayName;
  * This file is generated from Genericode file TaxExemptionReasonCode.gc. Do NOT
  * edit!
  */
+@Deprecated
+@DevelopersNote ("Since 8.7.5 - build your own codelist")
 public enum ETaxExemptionReasonCode implements IHasID <String>, IHasDisplayName
 {
   EXEMPTION_OF_EXPORTS_FROM_THE_COMMUNITY_AND_LIKE_TRANSACTIONS_AND_INTERNATIONAL_TRANSPORT_ ("AAA Exempt",

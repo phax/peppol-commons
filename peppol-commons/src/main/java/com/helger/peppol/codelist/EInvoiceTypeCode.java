@@ -19,6 +19,7 @@ package com.helger.peppol.codelist;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
@@ -27,6 +28,8 @@ import com.helger.commons.name.IHasDisplayName;
 /**
  * This file is generated from Genericode file InvoiceTypeCode.gc. Do NOT edit!
  */
+@Deprecated
+@DevelopersNote ("Since 8.7.5 - build your own codelist")
 public enum EInvoiceTypeCode implements IHasID <String>, IHasDisplayName
 {
   COMMERCIAL_INVOICE ("380", "Commercial invoice"),
