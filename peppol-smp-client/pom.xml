@@ -27,7 +27,7 @@
   <artifactId>peppol-smp-client</artifactId>
   <packaging>bundle</packaging>
   <name>peppol-smp-client</name>
-  <description>PEPPOL SMP client</description>
+  <description>Peppol and OASIS BDXR SMP client</description>
   <url>https://github.com/phax/peppol-commons/peppol-smp-client</url>
   <inceptionYear>2015</inceptionYear>
 
