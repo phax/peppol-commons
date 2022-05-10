@@ -78,9 +78,9 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 import com.helger.xsds.xmldsig.X509DataType;
 
 /**
- * This class is used for calling the SMP REST interface. This particular class
- * only contains the read-only methods including the ones defined in the SMP
- * specification!
+ * This class is used for calling the Peppol SMP REST interface. This particular
+ * class only contains the read-only methods including the ones defined in the
+ * Peppol SMP specification!
  *
  * @author Philip Helger
  */

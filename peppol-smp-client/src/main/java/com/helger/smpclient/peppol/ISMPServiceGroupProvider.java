@@ -24,7 +24,7 @@ import com.helger.smpclient.exception.SMPClientException;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 
 /**
- * Abstract interface to retrieve a service group instance.
+ * Abstract interface to retrieve a Peppol Service Group instance.
  *
  * @author Philip Helger
  * @since 7.0.6

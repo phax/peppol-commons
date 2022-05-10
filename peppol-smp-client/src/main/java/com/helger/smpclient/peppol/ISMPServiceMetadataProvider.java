@@ -37,7 +37,7 @@ import com.helger.xsds.peppol.smp1.EndpointType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 /**
- * Abstract interface to retrieve a service metadata instance.
+ * Abstract interface to retrieve a Peppol Service Metadata instance.
  *
  * @author Philip Helger
  * @since 7.0.6

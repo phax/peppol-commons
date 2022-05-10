@@ -52,8 +52,8 @@ import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceCollectionType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 
 /**
- * This class is used for calling the SMP REST interface. This particular class
- * contains the writing methods. It inherits all reading methods from
+ * This class is used for calling the Peppol SMP REST interface. This particular
+ * class contains the writing methods. It inherits all reading methods from
  * {@link SMPClientReadOnly}.
  *
  * @author Philip Helger
@@ -277,8 +277,10 @@ public class SMPClient extends SMPClientReadOnly
                                       @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
-    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (), "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
-    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (), "ServiceMetadata.ServiceInformation.DocumentIdentifier");
+    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
+                           "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
+    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (),
+                           "ServiceMetadata.ServiceInformation.DocumentIdentifier");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();
