@@ -13,17 +13,20 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<wsdl:definitions xmlns:tns="ec:services:wsdl:BDMSL:1.0" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+<wsdl:definitions xmlns:tns="ec:services:wsdl:BDMSL:1.0" 
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
                   xmlns:lrs="ec:services:wsdl:BDMSL:data:1.0"
-                  xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
-                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="BDMSLService"
+                  xmlns:s="http://www.w3.org/2001/XMLSchema" 
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+                  name="BDMSLService"
                   targetNamespace="ec:services:wsdl:BDMSL:1.0"
                   xmlns:bd="http://busdox.org/serviceMetadata/locator/1.0/">
     <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"/>
     <wsdl:types>
         <s:schema>
             <s:import namespace="ec:services:wsdl:BDMSL:data:1.0" schemaLocation="BDMSLService-1.0.xsd"/>
-            <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd"/>
+            <s:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="peppol-sml-types-v1.xsd"/>
      	</s:schema>
     </wsdl:types>
     <wsdl:message name="prepareChangeCertificateIn">

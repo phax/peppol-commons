@@ -14,8 +14,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<xs:schema xmlns="ec:services:wsdl:BDMSL:data:1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bd="http://busdox.org/serviceMetadata/locator/1.0/" xmlns:id="http://busdox.org/transport/identifiers/1.0/" targetNamespace="ec:services:wsdl:BDMSL:data:1.0" elementFormDefault="qualified" id="BDMSLTypes">
-    <xs:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="ServiceMetadataLocatorTypes-1.0.xsd"/>
+<xs:schema xmlns="ec:services:wsdl:BDMSL:data:1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:bd="http://busdox.org/serviceMetadata/locator/1.0/"
+           xmlns:id="http://busdox.org/transport/identifiers/1.0/"
+           targetNamespace="ec:services:wsdl:BDMSL:data:1.0"
+           elementFormDefault="qualified"
+           id="BDMSLTypes">
+    <xs:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="peppol-sml-types-v1.xsd"/>
     <xs:import namespace="http://busdox.org/transport/identifiers/1.0/" schemaLocation="peppol-identifiers-v1.xsd"/>
     <xs:element name="PrepareChangeCertificate" type="PrepareChangeCertificateType"/>
     <xs:element name="SMPAdvancedServiceForParticipantService" type="SMPAdvancedServiceForParticipantType"/>

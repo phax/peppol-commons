@@ -21,7 +21,7 @@
   <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" />
   <wsdl:types>
     <xs:schema elementFormDefault="qualified" targetNamespace="http://busdox.org/serviceMetadata/ManageBusinessIdentifierService/1.0/Schema/">
-      <xs:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="ManageBusinessIdentifierService-1.0.xsd"/>
+      <xs:import namespace="http://busdox.org/serviceMetadata/locator/1.0/" schemaLocation="peppol-sml-types-v1.xsd"/>
     </xs:schema>
   </wsdl:types>
   <wsdl:message name="createIn">
