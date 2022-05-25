@@ -280,8 +280,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.7.5 - work in progress
+* v8.7.5 - 2022-05-25
     * Deprecated package `com.helger.peppol.codelist` in submodule `peppol-commons` because the code lists are out of date
+    * Updated to OpenPeppol eDEC Code Lists v8.1
 * v8.7.4 - 2022-03-29
     * Fixed an error in `BDXR2ClientReadOnly.getServiceMetadata` when using specific identifier classes
 * v8.7.3 - 2022-03-28
