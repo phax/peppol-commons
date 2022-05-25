@@ -21,7 +21,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<processes version="8" entry-count="65">
+<processes version="8.1" entry-count="69">
   <process scheme="cenbii-procid-ubl" value="none" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver2.0" state="active" />
@@ -87,4 +87,8 @@ Do NOT edit!-->
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:prac:bis:p007:1.1" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:prac:bis:p008:1.1" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:prac:bis:p009:1.1" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:oo:bis:reporting:1" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:weight_statement:1" state="active" />
 </processes>

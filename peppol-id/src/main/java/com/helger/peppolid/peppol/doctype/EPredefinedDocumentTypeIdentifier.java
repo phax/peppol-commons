@@ -1509,9 +1509,97 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.0
      */
-    urn_oasis_names_specification_ubl_schema_xsd_AwardedNotification_2__AwardedNotification__urn_fdc_peppol_eu_prac_trns_t017_1_4__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:AwardedNotification-2", "AwardedNotification", "urn:fdc:peppol.eu:prac:trns:t017:1.4", "2.2"), "Notify Awarding / Awarding Notification V1.1", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "PRAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p009:1.1"));
-    public static final String CODE_LIST_VERSION = "8";
-    public static final int CODE_LIST_ENTRY_COUNT = 172;
+    urn_oasis_names_specification_ubl_schema_xsd_AwardedNotification_2__AwardedNotification__urn_fdc_peppol_eu_prac_trns_t017_1_4__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:AwardedNotification-2", "AwardedNotification", "urn:fdc:peppol.eu:prac:trns:t017:1.4", "2.2"), "Notify Awarding / Awarding Notification V1.1", Version.parse("8.0"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "PRAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p009:1.1")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2}
+     * 
+     * @since code list 8.1
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2", "2.1"), "XRechnung UBL Invoice V2.2", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2}
+     * 
+     * @since code list 8.1
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2", "2.1"), "XRechnung UBL CreditNote V2.2", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+
+    /**
+     * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2::D16B</code><br>
+     * Same as {@link #CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2}
+     * 
+     * @since code list 8.1
+     */
+    urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2__D16B("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100", "CrossIndustryInvoice", "urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2", "D16B"), "XRechnung CII Invoice V2.2", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2#conformant#urn:xoev-de:kosit:extension:xrechnung_2.2::2.1</code><br>
+     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2_CONFORMANT_XOEV_DE_KOSIT_EXTENSION_XRECHNUNG_2_2}
+     * 
+     * @since code list 8.1
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2_conformant_urn_xoev_de_kosit_extension_xrechnung_2_2__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2#conformant#urn:xoev-de:kosit:extension:xrechnung_2.2", "2.1"), "XRechnung UBL Invoice V2.2 Extension", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2#conformant#urn:xoev-de:kosit:extension:xrechnung_2.2::2.1</code><br>
+     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2_CONFORMANT_XOEV_DE_KOSIT_EXTENSION_XRECHNUNG_2_2}
+     * 
+     * @since code list 8.1
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2_conformant_urn_xoev_de_kosit_extension_xrechnung_2_2__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2#conformant#urn:xoev-de:kosit:extension:xrechnung_2.2", "2.1"), "XRechnung UBL CreditNote V2.2 Extension", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+
+    /**
+     * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2#conformant#urn:xoev-de:kosit:extension:xrechnung_2.2::D16B</code><br>
+     * Same as {@link #CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2_CONFORMANT_XOEV_DE_KOSIT_EXTENSION_XRECHNUNG_2_2}
+     * 
+     * @since code list 8.1
+     */
+    urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2_conformant_urn_xoev_de_kosit_extension_xrechnung_2_2__D16B("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100", "CrossIndustryInvoice", "urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.2#conformant#urn:xoev-de:kosit:extension:xrechnung_2.2", "D16B"), "XRechnung CII Invoice V2.2 Extension", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+
+    /**
+     * <code>urn:fdc:peppol:end-user-reporting:1.0::EndUserReport##urn:fdc:peppol.eu:oo:trns:end-user-report:1::1.0</code><br>
+     * Same as {@link #ENDUSERREPORT_FDC_PEPPOL_EU_OO_TRNS_END_USER_REPORT_1}
+     * 
+     * @since code list 8.1
+     */
+    urn_fdc_peppol_end_user_reporting_1_0__EndUserReport__urn_fdc_peppol_eu_oo_trns_end_user_report_1__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:peppol:end-user-reporting:1.0", "EndUserReport", "urn:fdc:peppol.eu:oo:trns:end-user-report:1", "1.0"), "OpenPeppol End User Report", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, true, -1, "OO", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:oo:bis:reporting:1")),
+
+    /**
+     * <code>urn:fdc:peppol:transaction-statistics-reporting:1.0::TransactionStatisticsReport##urn:fdc:peppol.eu:oo:trns:transaction-statistics-reporting:1::1.0</code><br>
+     * Same as {@link #TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_OO_TRNS_TRANSACTION_STATISTICS_REPORTING_1}
+     * 
+     * @since code list 8.1
+     */
+    urn_fdc_peppol_transaction_statistics_reporting_1_0__TransactionStatisticsReport__urn_fdc_peppol_eu_oo_trns_transaction_statistics_reporting_1__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:peppol:transaction-statistics-reporting:1.0", "TransactionStatisticsReport", "urn:fdc:peppol.eu:oo:trns:transaction-statistics-reporting:1", "1.0"), "OpenPeppol Transaction Statistics Report", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, true, -1, "OO", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:oo:bis:reporting:1")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1::2.1</code><br>
+     * Same as {@link #DESPATCHADVICE_FDC_PEPPOL_EU_LOGISTICS_TRNS_ADVANCED_DESPATCH_ADVICE_1}
+     * 
+     * @since code list 8.1
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_logistics_trns_advanced_despatch_advice_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2", "DespatchAdvice", "urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1", "2.1"), "BEAst Advanced Despatch Advice", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1", "cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1::2.1</code><br>
+     * Same as {@link #APPLICATIONRESPONSE_FDC_PEPPOL_EU_LOGISTICS_TRNS_DESPATCH_ADVICE_RESPONSE_1}
+     * 
+     * @since code list 8.1
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_logistics_trns_despatch_advice_response_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2", "ApplicationResponse", "urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1", "2.1"), "BEAst Despatch Advice Response", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2::WeightStatement##urn:fdc:peppol.eu:logistics:trns:weight_statement:1::2.3</code><br>
+     * Same as {@link #WEIGHTSTATEMENT_FDC_PEPPOL_EU_LOGISTICS_TRNS_WEIGHT_STATEMENT_1}
+     * 
+     * @since code list 8.1
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_WeightStatement_2__WeightStatement__urn_fdc_peppol_eu_logistics_trns_weight_statement_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2", "WeightStatement", "urn:fdc:peppol.eu:logistics:trns:weight_statement:1", "2.3"), "BEAst Weight Statement", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, -1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:weight_statement:1"));
+    public static final String CODE_LIST_VERSION = "8.1";
+    public static final int CODE_LIST_ENTRY_COUNT = 183;
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1}
      * 
@@ -2341,6 +2429,50 @@ public enum EPredefinedDocumentTypeIdentifier
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_AwardedNotification_2__AwardedNotification__urn_fdc_peppol_eu_prac_trns_t017_1_4__2_2}
      */
     public static final EPredefinedDocumentTypeIdentifier AWARDEDNOTIFICATION_FDC_PEPPOL_EU_PRAC_TRNS_T017_1_4 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_AwardedNotification_2__AwardedNotification__urn_fdc_peppol_eu_prac_trns_t017_1_4__2_2;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2__2_1;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifier CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2__2_1;
+    /**
+     * Same as {@link #urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2__D16B}
+     */
+    public static final EPredefinedDocumentTypeIdentifier CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2 = EPredefinedDocumentTypeIdentifier.urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2__D16B;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2_conformant_urn_xoev_de_kosit_extension_xrechnung_2_2__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2_CONFORMANT_XOEV_DE_KOSIT_EXTENSION_XRECHNUNG_2_2 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2_conformant_urn_xoev_de_kosit_extension_xrechnung_2_2__2_1;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2_conformant_urn_xoev_de_kosit_extension_xrechnung_2_2__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifier CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2_CONFORMANT_XOEV_DE_KOSIT_EXTENSION_XRECHNUNG_2_2 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2_conformant_urn_xoev_de_kosit_extension_xrechnung_2_2__2_1;
+    /**
+     * Same as {@link #urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2_conformant_urn_xoev_de_kosit_extension_xrechnung_2_2__D16B}
+     */
+    public static final EPredefinedDocumentTypeIdentifier CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XOEV_DE_KOSIT_STANDARD_XRECHNUNG_2_2_CONFORMANT_XOEV_DE_KOSIT_EXTENSION_XRECHNUNG_2_2 = EPredefinedDocumentTypeIdentifier.urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_2_conformant_urn_xoev_de_kosit_extension_xrechnung_2_2__D16B;
+    /**
+     * Same as {@link #urn_fdc_peppol_end_user_reporting_1_0__EndUserReport__urn_fdc_peppol_eu_oo_trns_end_user_report_1__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier ENDUSERREPORT_FDC_PEPPOL_EU_OO_TRNS_END_USER_REPORT_1 = EPredefinedDocumentTypeIdentifier.urn_fdc_peppol_end_user_reporting_1_0__EndUserReport__urn_fdc_peppol_eu_oo_trns_end_user_report_1__1_0;
+    /**
+     * Same as {@link #urn_fdc_peppol_transaction_statistics_reporting_1_0__TransactionStatisticsReport__urn_fdc_peppol_eu_oo_trns_transaction_statistics_reporting_1__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_OO_TRNS_TRANSACTION_STATISTICS_REPORTING_1 = EPredefinedDocumentTypeIdentifier.urn_fdc_peppol_transaction_statistics_reporting_1_0__TransactionStatisticsReport__urn_fdc_peppol_eu_oo_trns_transaction_statistics_reporting_1__1_0;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_logistics_trns_advanced_despatch_advice_1__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifier DESPATCHADVICE_FDC_PEPPOL_EU_LOGISTICS_TRNS_ADVANCED_DESPATCH_ADVICE_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_logistics_trns_advanced_despatch_advice_1__2_1;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_logistics_trns_despatch_advice_response_1__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifier APPLICATIONRESPONSE_FDC_PEPPOL_EU_LOGISTICS_TRNS_DESPATCH_ADVICE_RESPONSE_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_logistics_trns_despatch_advice_response_1__2_1;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_WeightStatement_2__WeightStatement__urn_fdc_peppol_eu_logistics_trns_weight_statement_1__2_3}
+     */
+    public static final EPredefinedDocumentTypeIdentifier WEIGHTSTATEMENT_FDC_PEPPOL_EU_LOGISTICS_TRNS_WEIGHT_STATEMENT_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_WeightStatement_2__WeightStatement__urn_fdc_peppol_eu_logistics_trns_weight_statement_1__2_3;
     private final String m_sScheme;
     private final IPeppolDocumentTypeIdentifierParts m_aParts;
     private final String m_sID;

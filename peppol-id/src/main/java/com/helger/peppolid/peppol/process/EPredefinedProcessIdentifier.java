@@ -402,9 +402,29 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p009:1.1</code><br>
      */
-    urn_fdc_peppol_eu_prac_bis_p009_1_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p009:1.1", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "8";
-    public static final int CODE_LIST_ENTRY_COUNT = 65;
+    urn_fdc_peppol_eu_prac_bis_p009_1_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p009:1.1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:oo:bis:reporting:1</code><br>
+     */
+    urn_fdc_peppol_eu_oo_bis_reporting_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:oo:bis:reporting:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_despatch_advice_only_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_despatch_advice_w_response_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:weight_statement:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_weight_statement_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:weight_statement:1", EPeppolCodeListItemState.ACTIVE);
+    public static final String CODE_LIST_VERSION = "8.1";
+    public static final int CODE_LIST_ENTRY_COUNT = 69;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

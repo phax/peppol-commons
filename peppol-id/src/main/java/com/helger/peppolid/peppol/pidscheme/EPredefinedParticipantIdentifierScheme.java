@@ -36,7 +36,8 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0002</code>, scheme ID <code>FR:SIRENE</code><br>
-     * Structure of the code: FR:SIRENE<br>
+     * Structure of the code: 1) Number of characters: 9 characters (&quot;SIREN&quot;) 14 &quot; 9+5 (&quot;SIRET&quot;), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters.
+     *  2) Check digits: 9th &amp; 14th character respectively<br>
      * Display requirements: The 9 figure code number (SIREN) is written in groups of 3 characters. Example: 784 301 772
      * The 14 figure code number is written in 3 groups of 3 characters and a single group of 5. Example: 784 301 772 00025<br>
      * Example value: 784301772
@@ -49,7 +50,8 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0007</code>, scheme ID <code>SE:ORGNR</code><br>
-     * Structure of the code: SE:ORGNR<br>
+     * Structure of the code: 1) 10 digits. 1st digit = Group number, 2nd - 9th digit = Ordinalnumber; 1st digit, = Group number, 10th digit = Check digit
+     *  2) Last digit.<br>
      * Display requirements: Single group of 10 digits.<br>
      * Example value: 2120000787<br>
      * 
@@ -59,7 +61,8 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0009</code>, scheme ID <code>FR:SIRET</code><br>
-     * Structure of the code: FR:SIRET<br>
+     * Structure of the code: 1) 14 digits
+     *  2) None<br>
      * Display requirements: In four groups, Groups 1 - 3 = three digits each, Group 4 = five digits<br>
      * Example value: 78430177200025<br>
      * 
@@ -69,7 +72,11 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0037</code>, scheme ID <code>FI:OVT</code><br>
-     * Structure of the code: FI:OVT<br>
+     * Structure of the code: 1) ICD 4 Digits, Organization code (8 digits, 1st-7th digit = number, 8th digit = check number), optional specifier for organisational unit (5 digits)
+     * - Example: 00371234567800001
+     * - 0037 Country code for Finland (ISO 6523  International Code Designator (ICD) value)
+     * - 12345678 Business ID without hyphen 
+     * - 00001 Optional specifier for organisation unit (assigned by the organisation itself)<br>
      * Display requirements: None<br>
      * Example value: 0037:00371234567800001
      *  0037:1234567800001<br>
@@ -84,7 +91,8 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0060</code>, scheme ID <code>DUNS</code><br>
-     * Structure of the code: DUNS<br>
+     * Structure of the code: 1) Eight identification digits and a check digit. A two digit prefix will be added in the future but it will not be used to calculate the check digit.
+     *  2) The Organization name is not part of the D-U-N-S number.<br>
      * Display requirements: IIIIIIIIC where all characters are the digits 0, to 9, I = an identification digit and C = the check digit. When the prefix (P) is added the display requirement will be eleven digits, PPIIIIIIIIC.<br>
      * Example value: 812810734<br>
      * Usage information: Check digits were removed to get a bigger number area
@@ -97,7 +105,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0088</code>, scheme ID <code>GLN</code><br>
-     * Structure of the code: GLN<br>
+     * Structure of the code: 1) 13 digits including check digits, 2) None<br>
      * Display requirements: None<br>
      * Example value: 1548079098355<br>
      * Usage information: GLN-13 are the only supports supported atm<br>
@@ -108,7 +116,14 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0096</code>, scheme ID <code>DK:P</code><br>
-     * Structure of the code: DK:P<br>
+     * Structure of the code: Character repertoire: the EDI identifier consists of digits only.
+     * The identifier has a fixed length. No separators are required.
+     * Structure: [123] [123456] [123456] [12], 17, &lt; &gt;, A B C D
+     * A: numerical value allocated by the RA to the regional sub-authority, (3 digits)
+     * B: numerical value allocated by the sub-authority to the registered organization (mandatory part of the identifier; 6 digits)
+     * C: numerical value used by the registered organization (free part; 6 digits)
+     * D: numerical check digit calculated by the registered organization; (2 digits)
+     * Check digit computation: The check digit is modular 97 computed on ABC as one number.<br>
      * Display requirements: None<br>
      * 
      * @since code list 1.0.0
@@ -117,7 +132,15 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0097</code>, scheme ID <code>IT:FTI</code><br>
-     * Structure of the code: IT:FTI<br>
+     * Structure of the code: Character repertoire: The EDI identifier consists of digits only.
+     * The identifier has a fixed length.
+     * No separators are required.
+     * Structure: [1234567] [123] [1] [12345], min 11- max 16, &lt; &gt;, A B C D
+     * A: numerical value (7 digits) assigned by Uffico Provinciale IVA (local branch of Ministry of Finance)
+     * B: numerical value a (3 digits) identifying the County
+     * C: numerical check digit (1 digit);
+     * D: optional numerical value (up to 5 digits used by the registered organization (free part).
+     * Check digit computation: The check digit algorithm is the one published in the Gazzetta Ufficiale no 345 of December 29 1976.<br>
      * Display requirements: None<br>
      * Usage information: We couldn't find the checksum algorithm in the scanned PDF of 1976
      * Proposed to deprecate<br>
@@ -128,7 +151,15 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0106</code>, scheme ID <code>NL:KVK</code><br>
-     * Structure of the code: NL:KVK<br>
+     * Structure of the code: Character repertoire: The EDI identifier consists of digits only.
+     * The identifier has a fixed length.
+     * No separators are required.
+     * Structure: [123] [123456] [123456] [12], 17, &lt; &gt;, A B C D
+     * A: numerical value allocated by the RA to the regional subauthority, (3 digits)
+     * B: numerical value allocated by the sub-authority to the registered, organization (mandatory part of the identifier; 6 digits)
+     * C: numerical value used by the registered organization (free part; 6 digits)
+     * D: numerical check digit calculated by the registered organization; (2 digits)
+     * Check digit computation, The check digit is modular 97 computed on ABC as one number.<br>
      * Display requirements: None<br>
      * Usage information: Real numbers seem to be 8 characters<br>
      * 
@@ -138,7 +169,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0130</code>, scheme ID <code>EU:NAL</code><br>
-     * Structure of the code: EU:NAL<br>
+     * Structure of the code: 1) ICD 4 digits, 2) None<br>
      * Display requirements: None<br>
      * Usage information: Requested by TICC-10 and TICC-11;
      * in SML since 2019-08-23<br>
@@ -149,7 +180,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0135</code>, scheme ID <code>IT:SIA</code><br>
-     * Structure of the code: IT:SIA<br>
+     * Structure of the code: First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
      * Usage information: Propose to deprecate<br>
      * 
@@ -159,7 +190,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0142</code>, scheme ID <code>IT:SECETI</code><br>
-     * Structure of the code: IT:SECETI<br>
+     * Structure of the code: 1) First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
      * Usage information: Propose to deprecate<br>
      * 
@@ -169,7 +200,11 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0151</code>, scheme ID <code>AU:ABN</code><br>
-     * Structure of the code: AU:ABN<br>
+     * Structure of the code: The ABN is an 11 digit numeric identifier.
+     * The first two digits are check digits calculated using a modulus 89 of the weighted digits.
+     * The first digit of the number is guaranteed to be non-zero by adding 10 to the modulus (so the first two digits range from 10 through to 99).
+     * For companies the last 9 digits are identical to their existing Australian Company Number (CAN) which includes a single trailing check digit.
+     * For other entities the digits are randomly allocated but are guaranteed to fail the CAN check. This allows the Australian Securities and Investment Commission (ASIC) to continue allocating CAN during a transition period. The valid characters are numeric digits 0-9.<br>
      * Display requirements: It is displayed as follows: -, XX XXX XXX XXX<br>
      * Example value: 51 824 753 556<br>
      * Usage information: https://abr.business.gov.au/Help/AbnFormat<br>
@@ -180,7 +215,15 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0183</code>, scheme ID <code>CH:UIDB</code><br>
-     * Structure of the code: CH:UIDB<br>
+     * Structure of the code: CHEXXXXXXXXP
+     * UID number, is composed by 9 digits and is random generated and has no internal means.
+     *  1)
+     *  12 characters
+     * CHE: Swiss Country Code following ISO 3166-1.
+     * XXXXXXXX: 8 digits for the number itself
+     * P: check digit
+     *  2)
+     * CHEXXXXXXXXP, the last digit<br>
      * Display requirements: There is no requirements. As suggested in the standards eCH-0097 (http://www.ech.ch) the transmission of the UID is without any separator.
      * For display reason is suggested to use this format CHE-XXX.XXX.XXP minus-character ('-') after 'CHE' and separator dot-character ('.') after 6th and 9th character<br>
      * Usage information: Also called &quot;Numéro d'identification suisse des enterprises (IDE)&quot;<br>
@@ -191,7 +234,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0184</code>, scheme ID <code>DK:DIGST</code><br>
-     * Structure of the code: DK:DIGST<br>
+     * Structure of the code: 8 or 10 digits<br>
      * Display requirements: Group of 10 digits<br>
      * 
      * @since code list 1.2.1
@@ -199,8 +242,26 @@ public enum EPredefinedParticipantIdentifierScheme
     DK_DIGST("DK:DIGST", "0184", "DK", "DIGSTORG", "DIGSTORG", Version.parse("1.2.1"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
+     * Prefix <code>0188</code>, scheme ID <code>JP:SST</code><br>
+     * Structure of the code: 12-digit fundamental numbers, and a one-digit check numeral put ahead of them
+     *  1) Figure of 13 digits
+     *  2) Figures from 1 to 9 (Formula to calculate the test number) Formula 9-((n = 1 (Sigma)12( Pn * Qn )) remainder obtained by dividing the 9)
+     * Pn : the numeral of the n-th digit of a fundamental number, when counted from the bottom digit.
+     * Qn : one when the &quot;n&quot; is an odd number, two when the &quot;n&quot; is an even one<br>
+     * Display requirements: None<br>
+     * 
+     * @since code list 8.1
+     */
+    JP_SST("JP:SST", "0188", "JP", "Corporate Number of The Social Security and Tax Number System", "National Tax Agency Japan", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
      * Prefix <code>0190</code>, scheme ID <code>NL:OINO</code><br>
-     * Structure of the code: NL:OINO<br>
+     * Structure of the code: 20 digits
+     *  1) Structure: prefix(8)- identification number(8 or 9)- suffix(3 or 4)
+     * - The first 8 digits prefix designates the origin of the identification number
+     * - The following 8 or 9 digits designates a unique identification number
+     * - The last 3 or 4 (depending on the length of the identification number are filled with “0” digit [note: Up until 2017 numbers are issued where this position contains a serial number.]
+     *  2) No check digit<br>
      * Display requirements: In one group of 20 digits<br>
      * Example value: 00000001820029336000<br>
      * Usage information: Get all OINs from http://portaal.digikoppeling.nl/registers/<br>
@@ -211,7 +272,13 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0191</code>, scheme ID <code>EE:CC</code><br>
-     * Structure of the code: EE:CC<br>
+     * Structure of the code: Always 8-digit number
+     *  1) First number in code:
+     *  1 – Commercial organisations
+     *  7 -- State agencies and local government institutions
+     *  8 -- Non-profit associations
+     *  9 -- Foundations
+     *  2)<br>
      * Display requirements: None<br>
      * Example value: 10137025<br>
      * Usage information: See https://ariregister.rik.ee/index?lang=eng<br>
@@ -222,7 +289,8 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0192</code>, scheme ID <code>NO:ORG</code><br>
-     * Structure of the code: NO:ORG<br>
+     * Structure of the code: 9 digits
+     * The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.<br>
      * Display requirements: None<br>
      * Example value: 745707327<br>
      * 
@@ -232,7 +300,9 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0193</code>, scheme ID <code>UBLBE</code><br>
-     * Structure of the code: UBLBE<br>
+     * Structure of the code: Maximum 50 characters
+     *  4 Characters fixed length identifying the type 
+     * Maximum 46 characters for the identifier itself<br>
      * Display requirements: None<br>
      * 
      * @since code list 3
@@ -241,7 +311,10 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0195</code>, scheme ID <code>SG:UEN</code><br>
-     * Structure of the code: SG:UEN<br>
+     * Structure of the code: The code comprises of 3 fields
+     *  1st field = ICD
+     *  2nd field = Special identifier (e.g. country identifier, test identifier, etc)
+     *  3rd field = Organisation identifrer No check value<br>
      * Display requirements: None, except all fields are left justified<br>
      * Usage information: https://www.uen.gov.sg/ueninternet/faces/pages/admin/aboutUEN.jspx?_afrLoop=1018044967911865&amp;_afrWindowMode=0&amp;_adf.ctrl-state=fdr4mq9l0_26<br>
      * 
@@ -251,7 +324,10 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0196</code>, scheme ID <code>IS:KTNR</code><br>
-     * Structure of the code: IS:KTNR<br>
+     * Structure of the code: 10 digit string using numerical characters from 0 to 9
+     * Based on individuals birthdate or legal entities registration date D1D2M1M2Y1Y2R1R2CM D = day, M = month, Y = year, R = random. C = checksum, M = century.
+     * Ninth character &quot;C&quot;:
+     * C = 11 - ((3xD1 + 2xD2 + 7xM1 + 6xM2 + 5xY1 + 4xY2 + 3xR1 + 2xR2) mod 11)<br>
      * Display requirements: Whole string: nnnnnnnnnn
      * Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn<br>
      * 
@@ -261,7 +337,8 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0198</code>, scheme ID <code>DK:ERST</code><br>
-     * Structure of the code: DK:ERST<br>
+     * Structure of the code: DKXXXXXXXX
+     * Two characters (DK) followed by 8 digits eg. DK12345678<br>
      * Display requirements: 10 characters, no space or other separator<br>
      * 
      * @since code list 5
@@ -270,7 +347,46 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0199</code>, scheme ID <code>LEI</code><br>
-     * Structure of the code: LEI<br>
+     * Structure of the code: The ISO 17442 standard specifies the minimum reference data, which must the format of the organization identifiers, be Supplied for each LEI:
+     * * The official name of the legal entity as recorded in the official registers.
+     * * The registered address of that legal entity.
+     * * The country of formation.
+     * * The codes for the representation of names of countries and their subdivisions.
+     * * The date of the first LEI assignment; the date of last update of the
+     * * LEI information; and the date of expiry, if applicable.
+     * Additional information may be registered as agreed between the legal entity and its LEI issuing organization.
+     * The number allocation scheme was further specified in Annex 2 of the Financial Stability Board's third progress note on the Global LEI Initiative on 24 October 2012:
+     * • Characters 1 -4: A four character prefix allocated uniquely to each LEI issuer.
+     * • Characters 5-6: Two reserved characters set to zero.
+     * • Characters 7-18: Entity-specific part of the code generated and assigned by LOUs according to transparent, sound and robust allocation policies.
+     * • Characters 19-20: Two check digits as described in the ISO 17442 standards. The check digit scheme follows ISO/IEC 7064 (MOD 97-10) and contributes to avoiding typing errors.
+     * See http://www.fsb.org/wp-contenVuploads/r_121024.pdf?page_moved=1
+     *  1:)
+     *  1. a) Character representations:
+     * • n: digits (numeric characters 0 to 9 only);
+     * • a: uppercase letters (alpha character, A-Z only, without &quot;special&quot; characters such as blanks, separators or punctuation).
+     *  2. b) Length indications:
+     * • nn!: fixed length;
+     * • nn: maximum length.
+     * The format of the LEI shall be
+     * -18!an2!n.
+     * The LEI consists of 20 characters decomposed as follows: characters (18!an) without separators or &quot;special&quot; characters; the 19th and 20th characters (2!n) shall be the check digit or digits, as calculated from the scheme defined in this International Standard.
+     *  2:)
+     * The check digits shall be calculated based on the scheme defined in ISO/IEC 7064 (MOD 97-10). See Annex A. The check digits are used to verify the LEI.
+     *  1. Convert letters to digits in accordance with the following:
+     * A=10B=11 C=12D=13E=14
+     * F=15G=16H=17I=18J=19
+     * K=20 L = 21 M =22 N =23 0 =24
+     * P =25Q = 26 R = 27 S = 28 T = 29
+     * U = 30 V = 31 W = 32 X = 33 Y = 34 Z = 35
+     *  2. Apply the check character system, MOD 97-10, in accordance with ISO/IEC 7064.
+     *  3. If the remainder is 1 (one), the number is valid.
+     * 
+     * Generating the check digits
+     * 
+     *  4. Add &quot;00&quot; to the right-hand end of the LEI.
+     *  5. Convert alpha characters into numeric characters in accordance with letters in #1.
+     *  6. Apply the check character system, MOD 97-10, in accordance with ISO/IEC 7064.<br>
      * Display requirements: The entire 20 character code (including the check digits)<br>
      * 
      * @since code list 5
@@ -279,7 +395,9 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0200</code>, scheme ID <code>LT:LEC</code><br>
-     * Structure of the code: LT:LEC<br>
+     * Structure of the code: 9 (nine) digits
+     * Each legal entity's code number is multiplied by 1, 2, 3, 4, 5, 6, 7, 8
+     * (weighting) starting from the left-hand side of the code. Calculates the sum of the product, divided by 11. The remainder of the division, which must be less than 10, is the 9th, control, number of the legal entity's code.<br>
      * Display requirements: None<br>
      * Example value: 111963319<br>
      * 
@@ -289,7 +407,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0201</code>, scheme ID <code>IT:CUUO</code><br>
-     * Structure of the code: IT:CUUO<br>
+     * Structure of the code: String of 6 alphanumeric characters<br>
      * Display requirements: None<br>
      * Usage information: &quot;Alphanumeric characters&quot;<br>
      * 
@@ -299,7 +417,8 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0204</code>, scheme ID <code>DE:LWID</code><br>
-     * Structure of the code: DE:LWID<br>
+     * Structure of the code: Up to 46 alphanumeric characters
+     * Format: &lt;Up to 12 numeric characters&gt;&quot;-&quot;&lt;up to 30 alphanumeric characters&gt;&quot;–&quot;&lt;2 numeric characters&gt;<br>
      * Display requirements: Whole string<br>
      * Usage information: The fine grained part is optional<br>
      * 
@@ -309,7 +428,8 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0208</code>, scheme ID <code>BE:EN</code><br>
-     * Structure of the code: BE:EN<br>
+     * Structure of the code: 10 numeric characters.
+     *  1. Enterprise identification number: the first digit has to be &quot;0&quot; or &quot;1&quot;<br>
      * Display requirements: The identification number can be displayed in the following ways:
      * For enterprise numbers:
      * - a group of four digits, then two groups of three digits, each group separated by a dot. Example: 1234.456.789
@@ -323,7 +443,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0209</code>, scheme ID <code>GS1</code><br>
-     * Structure of the code: GS1<br>
+     * Structure of the code: The code will include an application identifier indicating the type of GS1 identification key used for an object, followed by the value of the key. The string can be completed by other application identifiers indicating attributes related to the GS1 ID key and the value of these attributes related to the identified object.<br>
      * Display requirements: None<br>
      * Example value: 414541000099999325412345678901234567890<br>
      * 
@@ -333,7 +453,21 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0210</code>, scheme ID <code>IT:CFI</code><br>
-     * Structure of the code: IT:CFI<br>
+     * Structure of the code: The code is 16 alphanumeric digits for natural persons or 11 numeric digits for legal persons.
+     * The code is 16 alphanumeric digits for natural persons, with this structure:
+     *  3 digits - Surname according to specific rules
+     *  3 digits - Name according to specific rules
+     *  2 digits - Last two digits of year of birth
+     *  1 digit - Month of birth according to a specific conversion table
+     *  2 digits - Day of birth and gender
+     *  4 digits - Place of birth in a “Belfiore” code
+     *  1 digit - CIN – Control Internal Number
+     * The code is 11 numeric digits for legal persons, with this structure:
+     *  7 digits - Progressive number
+     *  3 digits - Revenue Office ID
+     *  1 digit - check
+     * Last digit for natural persons - CIN - Control Internal Number
+     * Last digit for legal persons - Check<br>
      * 
      * @since code list 7.5
      */
@@ -341,7 +475,10 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0211</code>, scheme ID <code>IT:IVA</code><br>
-     * Structure of the code: IT:IVA<br>
+     * Structure of the code: The code is &quot;IT&quot; followed by 11 numeric digits
+     * First 7 digits is a progressive number
+     * The following 3 digits means the province of residence
+     * The last digit is a check number, calculated using Luhn's Algorithm<br>
      * 
      * @since code list 7.5
      */
@@ -349,7 +486,9 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0212</code>, scheme ID <code>FI:ORG</code><br>
-     * Structure of the code: FI:ORG<br>
+     * Structure of the code: 9999999-9
+     * nine characters
+     * last digit after the hyphen is check character<br>
      * Display requirements: Shall be presented as string so that leading zeros have to be present.
      * Hyphen shall be present between last two digits.<br>
      * 
@@ -359,7 +498,8 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0213</code>, scheme ID <code>FI:VAT</code><br>
-     * Structure of the code: FI:VAT<br>
+     * Structure of the code: FI99999999
+     * ten characters<br>
      * Display requirements: Shall be presented as string so that leading zeros have to be present. Two first characters have always fixed value FI.<br>
      * 
      * @since code list 7.5
@@ -367,8 +507,42 @@ public enum EPredefinedParticipantIdentifierScheme
     FI_VAT("FI:VAT", "0213", "FI", "Finnish Organization Value Add Tax Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
+     * Prefix <code>0215</code>, scheme ID <code>FI:NSI</code><br>
+     * Structure of the code: xxnnnnnnnnnnnnxxxxx
+     * xx = operator prefix (example TE)
+     * nnnnnnnnnnnnxxxxx = the organisation identification number of the
+     * undertaking, which may be a VAT code, or a national organisation
+     * number supplemented by the organisation number with an ICD code in front of the organisation number and may be followed by a
+     * company-specific specification.
+     * 
+     * max thirty-five (35) characters<br>
+     * Display requirements: None<br>
+     * Usage information: An example of Net Service ID: TE003701011385TEST<br>
+     * 
+     * @since code list 8.1
+     */
+    FI_NSI("FI:NSI", "0215", "FI", "Net service ID", "Tieto Finland Oy", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
+     * Prefix <code>0216</code>, scheme ID <code>FI:OVT2</code><br>
+     * Structure of the code: 0037NNNNNNNNXXXXX
+     * The code consists of three parts: Prefix 0037, the Business ID and an optional suffix.
+     * The 0037 in the beginning is a fixed value. The next eight characters are the organization's Finnish Business ID (Business Identity Code) without a hyphen. An optional suffix up to five characters in the end of OVT code can be used, for example, to refer to a department, profit center or location of an organization unit. The organization can choose the values of the suffix itself and the organization must take care of the uniqueness of each ID it uses.
+     * 
+     * The length of the code is thus 12…17 characters.
+     *  0037 = fixed prefix
+     * NNNNNNNN = Finnish Business ID (numbers only with possible leading zeros)
+     * XXXXX = optional suffix for organizational part ID [A…Z 0…9]<br>
+     * Display requirements: None<br>
+     * Usage information: An example of OVT code: 003704944842TST01<br>
+     * 
+     * @since code list 8.1
+     */
+    FI_OVT2("FI:OVT2", "0216", "FI", "OVTcode", "TIEKE- Tietoyhteiskunnan kehittamiskeskus ry", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
-     * Structure of the code: DK:CPR<br>
+     * Structure of the code: 1) First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
      * Usage information: Personal identifier<br>
      * 
@@ -378,7 +552,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9902</code>, scheme ID <code>DK:CVR</code><br>
-     * Structure of the code: DK:CVR<br>
      * Example value: 13585628<br>
      * 
      * @since code list 1.0.0
@@ -387,7 +560,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9904</code>, scheme ID <code>DK:SE</code><br>
-     * Structure of the code: DK:SE<br>
      * Example value: DK26769388<br>
      * 
      * @since code list 1.0.0
@@ -396,7 +568,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9905</code>, scheme ID <code>DK:VANS</code><br>
-     * Structure of the code: DK:VANS<br>
      * Example value: DK26769388<br>
      * Usage information: Propose to deprecate (only 7 identifiers, only IBM - all look like test)<br>
      * 
@@ -406,27 +577,34 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9906</code>, scheme ID <code>IT:VAT</code><br>
-     * Structure of the code: IT:VAT<br>
+     * Structure of the code: The code is &quot;IT&quot; followed by 11 numeric digits
+     * First 7 digits is a progressive number
+     * The following 3 digits means the province of residence
+     * The last digit is a check number, calculated using Luhn's Algorithm<br>
      * Example value: IT06363391001<br>
      * 
      * @since code list 1.0.0
+     * @deprecated since 8.1 - this item should not be used to issue new identifiers!
      */
-    IT_VAT("IT:VAT", "9906", "IT", "Ufficio responsabile gestione partite IVA", null, Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
+    @Deprecated
+    IT_VAT("IT:VAT", "9906", "IT", "Ufficio responsabile gestione partite IVA", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.1"), null),
 
     /**
      * Prefix <code>9907</code>, scheme ID <code>IT:CF</code><br>
-     * Structure of the code: IT:CF<br>
      * Example value: RSSBBR69C48F839A<br>
      * Usage information: NOTE: The &quot;CF&quot; is a Fiscal Code that can be &quot;personal&quot; or for a &quot;legal entity&quot;.
      * The CF for legal entities is like the Italian VAT code (IT:VAT)<br>
      * 
      * @since code list 1.0.0
+     * @deprecated since 8.1 - this item should not be used to issue new identifiers!
      */
-    IT_CF("IT:CF", "9907", "IT", "TAX Authority", "TAX Authority", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
+    @Deprecated
+    IT_CF("IT:CF", "9907", "IT", "TAX Authority", "TAX Authority", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.1"), null),
 
     /**
      * Prefix <code>9908</code>, scheme ID <code>NO:ORGNR</code><br>
-     * Structure of the code: NO:ORGNR<br>
+     * Structure of the code: 9 digits
+     * The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.<br>
      * Usage information: Same as 0192<br>
      * 
      * @since code list 1.0.0
@@ -435,7 +613,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9909</code>, scheme ID <code>NO:VAT</code><br>
-     * Structure of the code: NO:VAT<br>
      * Example value: 990399123MVA<br>
      * Usage information: Numerical part is the OrgNumber<br>
      * 
@@ -447,7 +624,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9910</code>, scheme ID <code>HU:VAT</code><br>
-     * Structure of the code: HU:VAT<br>
      * 
      * @since code list 1.0.0
      */
@@ -455,7 +631,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9912</code>, scheme ID <code>EU:VAT</code><br>
-     * Structure of the code: EU:VAT<br>
+     * Structure of the code: Must start with the country code<br>
      * Usage information: Proposed to undeprecate; longest known is 18 chars (incl. country code)
      * Deprecated in 1.1.0<br>
      * 
@@ -467,7 +643,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9913</code>, scheme ID <code>EU:REID</code><br>
-     * Structure of the code: EU:REID<br>
      * Usage information: Proposed to deprecate<br>
      * 
      * @since code list 1.0.0
@@ -476,7 +651,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9914</code>, scheme ID <code>AT:VAT</code><br>
-     * Structure of the code: AT:VAT<br>
      * Example value: ATU12345678<br>
      * 
      * @since code list 1.0.0
@@ -485,7 +659,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9915</code>, scheme ID <code>AT:GOV</code><br>
-     * Structure of the code: AT:GOV<br>
      * Example value: b<br>
      * Usage information: No entity behind id<br>
      * 
@@ -495,7 +668,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9916</code>, scheme ID <code>AT:CID</code><br>
-     * Structure of the code: AT:CID<br>
      * 
      * @since code list 1.0.0
      * @deprecated since 1.0.2 - this item should not be used to issue new identifiers!
@@ -505,7 +677,10 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9917</code>, scheme ID <code>IS:KT</code><br>
-     * Structure of the code: IS:KT<br>
+     * Structure of the code: 10 digit string using numerical characters from 0 to 9
+     * Based on individuals birthdate or legal entities registration date D1D2M1M2Y1Y2R1R2CM D = day, M = month, Y = year, R = random. C = checksum, M = century.
+     * Ninth character &quot;C&quot;:
+     * C = 11 - ((3xD1 + 2xD2 + 7xM1 + 6xM2 + 5xY1 + 4xY2 + 3xR1 + 2xR2) mod 11)<br>
      * Display requirements: Whole string: nnnnnnnnnn
      * Commonly displayed with hyphen between Y2 and R1, e.g. nnnnnn-nnnn<br>
      * Usage information: In favour of 0196<br>
@@ -518,7 +693,9 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9918</code>, scheme ID <code>IBAN</code><br>
-     * Structure of the code: IBAN<br>
+     * Structure of the code: RegEx: [A-Z]{2}[0-9]{2}[A-Z-0-9]{11,30}
+     * Checking: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.py
+     * https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat<br>
      * 
      * @since code list 1.0.1
      */
@@ -526,7 +703,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9919</code>, scheme ID <code>AT:KUR</code><br>
-     * Structure of the code: AT:KUR<br>
+     * Structure of the code: 9 characters in total; letter, number x3, letter, number x3, letter<br>
      * Usage information: Propose to deprecated<br>
      * 
      * @since code list 1.0.2
@@ -535,7 +712,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9920</code>, scheme ID <code>ES:VAT</code><br>
-     * Structure of the code: ES:VAT<br>
      * 
      * @since code list 1.0.2
      */
@@ -543,7 +719,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9921</code>, scheme ID <code>IT:IPA</code><br>
-     * Structure of the code: IT:IPA<br>
      * Usage information: Propose to deprecate; not used in BIS 3<br>
      * 
      * @since code list 1.1.0
@@ -554,7 +729,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9922</code>, scheme ID <code>AD:VAT</code><br>
-     * Structure of the code: AD:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -562,7 +736,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9923</code>, scheme ID <code>AL:VAT</code><br>
-     * Structure of the code: AL:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -570,7 +743,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9924</code>, scheme ID <code>BA:VAT</code><br>
-     * Structure of the code: BA:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -578,7 +750,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9925</code>, scheme ID <code>BE:VAT</code><br>
-     * Structure of the code: BE:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -586,7 +757,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9926</code>, scheme ID <code>BG:VAT</code><br>
-     * Structure of the code: BG:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -594,7 +764,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9927</code>, scheme ID <code>CH:VAT</code><br>
-     * Structure of the code: CH:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -602,7 +771,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9928</code>, scheme ID <code>CY:VAT</code><br>
-     * Structure of the code: CY:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -610,7 +778,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9929</code>, scheme ID <code>CZ:VAT</code><br>
-     * Structure of the code: CZ:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -618,7 +785,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9930</code>, scheme ID <code>DE:VAT</code><br>
-     * Structure of the code: DE:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -626,7 +792,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9931</code>, scheme ID <code>EE:VAT</code><br>
-     * Structure of the code: EE:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -634,7 +799,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9932</code>, scheme ID <code>GB:VAT</code><br>
-     * Structure of the code: GB:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -642,7 +806,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9933</code>, scheme ID <code>GR:VAT</code><br>
-     * Structure of the code: GR:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -650,7 +813,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9934</code>, scheme ID <code>HR:VAT</code><br>
-     * Structure of the code: HR:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -658,7 +820,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9935</code>, scheme ID <code>IE:VAT</code><br>
-     * Structure of the code: IE:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -666,7 +827,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9936</code>, scheme ID <code>LI:VAT</code><br>
-     * Structure of the code: LI:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -674,7 +834,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9937</code>, scheme ID <code>LT:VAT</code><br>
-     * Structure of the code: LT:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -682,7 +841,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9938</code>, scheme ID <code>LU:VAT</code><br>
-     * Structure of the code: LU:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -690,7 +848,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9939</code>, scheme ID <code>LV:VAT</code><br>
-     * Structure of the code: LV:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -698,7 +855,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9940</code>, scheme ID <code>MC:VAT</code><br>
-     * Structure of the code: MC:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -706,7 +862,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9941</code>, scheme ID <code>ME:VAT</code><br>
-     * Structure of the code: ME:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -714,7 +869,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9942</code>, scheme ID <code>MK:VAT</code><br>
-     * Structure of the code: MK:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -722,7 +876,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9943</code>, scheme ID <code>MT:VAT</code><br>
-     * Structure of the code: MT:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -730,7 +883,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9944</code>, scheme ID <code>NL:VAT</code><br>
-     * Structure of the code: NL:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -738,7 +890,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9945</code>, scheme ID <code>PL:VAT</code><br>
-     * Structure of the code: PL:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -746,7 +897,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9946</code>, scheme ID <code>PT:VAT</code><br>
-     * Structure of the code: PT:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -754,7 +904,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9947</code>, scheme ID <code>RO:VAT</code><br>
-     * Structure of the code: RO:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -762,7 +911,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9948</code>, scheme ID <code>RS:VAT</code><br>
-     * Structure of the code: RS:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -770,7 +918,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9949</code>, scheme ID <code>SI:VAT</code><br>
-     * Structure of the code: SI:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -778,7 +925,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9950</code>, scheme ID <code>SK:VAT</code><br>
-     * Structure of the code: SK:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -786,7 +932,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9951</code>, scheme ID <code>SM:VAT</code><br>
-     * Structure of the code: SM:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -794,7 +939,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9952</code>, scheme ID <code>TR:VAT</code><br>
-     * Structure of the code: TR:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -802,7 +946,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9953</code>, scheme ID <code>VA:VAT</code><br>
-     * Structure of the code: VA:VAT<br>
      * 
      * @since code list 1.1.0
      */
@@ -810,7 +953,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9954</code>, scheme ID <code>NL:OIN</code><br>
-     * Structure of the code: NL:OIN<br>
      * Usage information: Deprecated by 0190<br>
      * 
      * @since code list 1.1.3
@@ -821,7 +963,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9955</code>, scheme ID <code>SE:VAT</code><br>
-     * Structure of the code: SE:VAT<br>
      * 
      * @since code list 1.2.0
      */
@@ -829,7 +970,7 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9956</code>, scheme ID <code>BE:CBE</code><br>
-     * Structure of the code: BE:CBE<br>
+     * Structure of the code: Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)<br>
      * Example value: 0899965307<br>
      * 
      * @since code list 1.2.1
@@ -840,7 +981,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9957</code>, scheme ID <code>FR:VAT</code><br>
-     * Structure of the code: FR:VAT<br>
      * 
      * @since code list 1.2.1
      */
@@ -848,7 +988,6 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9958</code>, scheme ID <code>DE:LID</code><br>
-     * Structure of the code: DE:LID<br>
      * Usage information: Replaced by 0204<br>
      * 
      * @since code list 3
@@ -856,8 +995,8 @@ public enum EPredefinedParticipantIdentifierScheme
      */
     @Deprecated
     DE_LID("DE:LID", "9958", "DE", "German Leitweg ID", null, Version.parse("3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("6"), null);
-    public static final String CODE_LIST_VERSION = "8";
-    public static final int CODE_LIST_ENTRY_COUNT = 88;
+    public static final String CODE_LIST_VERSION = "8.1";
+    public static final int CODE_LIST_ENTRY_COUNT = 91;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;
