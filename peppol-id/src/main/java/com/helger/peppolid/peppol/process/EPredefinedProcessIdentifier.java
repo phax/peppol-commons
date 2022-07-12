@@ -422,9 +422,14 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:weight_statement:1</code><br>
      */
-    urn_fdc_peppol_eu_logistics_bis_weight_statement_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:weight_statement:1", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "8.1";
-    public static final int CODE_LIST_ENTRY_COUNT = 69;
+    urn_fdc_peppol_eu_logistics_bis_weight_statement_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:weight_statement:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:www.efaktura.gov.pl:ver2.0:us:ver1.0</code><br>
+     */
+    urn_fdc_www_efaktura_gov_pl_ver2_0_us_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver2.0:us:ver1.0", EPeppolCodeListItemState.ACTIVE);
+    public static final String CODE_LIST_VERSION = "8.2";
+    public static final int CODE_LIST_ENTRY_COUNT = 70;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

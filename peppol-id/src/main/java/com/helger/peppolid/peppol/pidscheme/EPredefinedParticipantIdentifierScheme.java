@@ -995,7 +995,7 @@ public enum EPredefinedParticipantIdentifierScheme
      */
     @Deprecated
     DE_LID("DE:LID", "9958", "DE", "German Leitweg ID", null, Version.parse("3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("6"), null);
-    public static final String CODE_LIST_VERSION = "8.1";
+    public static final String CODE_LIST_VERSION = "8.2";
     public static final int CODE_LIST_ENTRY_COUNT = 91;
     private final String m_sSchemeID;
     private final String m_sISO6523;
