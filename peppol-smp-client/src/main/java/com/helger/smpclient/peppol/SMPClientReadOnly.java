@@ -512,8 +512,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
     final KeyStore aTrustStore = getTrustStore ();
-    HttpGet aRequest = new HttpGet (sURI);
 
+    if (bVerifySignature && aTrustStore == null)
+      LOGGER.error ("Peppol SMP client Verify Signature is enabled, but no TrustStore is provided. This will not work.");
+
+    HttpGet aRequest = new HttpGet (sURI);
     SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (bXSDValidation);
     customizeMarshaller (aMarshaller);
     SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,

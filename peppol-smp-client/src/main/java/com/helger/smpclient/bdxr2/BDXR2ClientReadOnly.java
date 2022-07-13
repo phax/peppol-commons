@@ -277,6 +277,9 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
     final boolean bVerifySignature = isVerifySignature ();
     final KeyStore aTrustStore = getTrustStore ();
 
+    if (bVerifySignature && aTrustStore == null)
+      LOGGER.error ("BDXR2 SMP client Verify Signature is enabled, but no TrustStore is provided. This will not work.");
+
     HttpGet aRequest = new HttpGet (sURI);
     BDXR2MarshallerServiceMetadata aMarshaller = new BDXR2MarshallerServiceMetadata (bXSDValidation);
     customizeMarshaller (aMarshaller);

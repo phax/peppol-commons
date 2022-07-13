@@ -221,8 +221,13 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     if (aSG != null && aSG.getParticipantIdentifier () != null && aSG.getServiceMetadataReferenceCollection () != null)
     {
-      final String sPathStart = "/" + CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) + '/' + URL_PART_SERVICES + '/';
-      for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ().getServiceMetadataReference ())
+      final String sPathStart = "/" +
+                                CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) +
+                                '/' +
+                                URL_PART_SERVICES +
+                                '/';
+      for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
+                                                        .getServiceMetadataReference ())
       {
         final String sOriginalHref = aSMR.getHref ();
         // Decoded href is important for unification
@@ -298,6 +303,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
     final KeyStore aTrustStore = getTrustStore ();
+
+    if (bVerifySignature && aTrustStore == null)
+      LOGGER.error ("BDXR SMP client Verify Signature is enabled, but no TrustStore is provided. This will not work.");
 
     HttpGet aRequest = new HttpGet (sURI);
     BDXR1MarshallerSignedServiceMetadataType aMarshaller = new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation);
@@ -472,7 +480,10 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                          aProcessID +
                          " and transport profile " +
                          aTransportProfile.getID () +
-                         (aRelevantEndpoints.isEmpty () ? "" : ": " + aRelevantEndpoints.toString () + " - using the first one"));
+                         (aRelevantEndpoints.isEmpty () ? ""
+                                                        : ": " +
+                                                          aRelevantEndpoints.toString () +
+                                                          " - using the first one"));
         }
 
         // Use the first endpoint or null
@@ -621,6 +632,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
                                                                                                                                SMPDNSResolutionException
   {
-    return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID, aDocumentTypeID);
+    return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,
+                                                                                                aDocumentTypeID);
   }
 }
