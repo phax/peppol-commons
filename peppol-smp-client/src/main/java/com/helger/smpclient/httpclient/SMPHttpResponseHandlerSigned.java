@@ -79,7 +79,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
    *        The trust store to be used. May be <code>null</code>.
    * @since 8.1.1
    */
-  public SMPHttpResponseHandlerSigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller, @Nullable final KeyStore aTrustStore)
+  public SMPHttpResponseHandlerSigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller,
+                                       @Nullable final KeyStore aTrustStore)
   {
     m_aMarshaller = ValueEnforcer.notNull (aMarshaller, "Marshaller");
     m_aTrustStore = aTrustStore;
@@ -126,24 +127,25 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
-   * Set the trust store to be used.
+   * Set the trust store to be used. If signature verification is enabled, a
+   * trust store MUST be preset.
    *
    * @param aTrustStore
-   *        The trust store to be used. May not be <code>null</code>.
+   *        The trust store to be used. May be <code>null</code>.
    * @return this for chaining
    * @since 8.1.1
    */
   @Nonnull
-  public final SMPHttpResponseHandlerSigned <T> setTrustStore (@Nonnull final KeyStore aTrustStore)
+  public final SMPHttpResponseHandlerSigned <T> setTrustStore (@Nullable final KeyStore aTrustStore)
   {
-    ValueEnforcer.notNull (aTrustStore, "TrustStore");
     m_aTrustStore = aTrustStore;
     return this;
   }
 
   @Nonnull
   public static ESuccess checkSignature (@Nonnull final Document aDocument,
-                                         @Nonnull final KeySelector aKeySelector) throws MarshalException, XMLSignatureException
+                                         @Nonnull final KeySelector aKeySelector) throws MarshalException,
+                                                                                  XMLSignatureException
   {
     // We make sure that the XML is a Signed. If not, we don't have to check
     // any certificates.
@@ -164,7 +166,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     for (int nSignatureIndex = 0; nSignatureIndex < nSignatureCount; ++nSignatureIndex)
     {
       // Create a DOMValidateContext and specify a KeySelector
-      final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector, aNodeList.item (nSignatureIndex));
+      final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector,
+                                                                          aNodeList.item (nSignatureIndex));
+      aValidateContext.setProperty ("org.jcp.xml.dsig.secureValidation", Boolean.TRUE);
       final String sSignatureDebug = (nSignatureIndex + 1) + "/" + nSignatureCount;
 
       // Unmarshal the XMLSignature.
@@ -222,12 +226,20 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
             if (bRefValid)
             {
               if (LOGGER.isInfoEnabled ())
-                LOGGER.info ("  Signature[" + sSignatureDebug + "] Reference[" + sRefDebug + "] validity status: valid");
+                LOGGER.info ("  Signature[" +
+                             sSignatureDebug +
+                             "] Reference[" +
+                             sRefDebug +
+                             "] validity status: valid");
             }
             else
             {
               if (LOGGER.isWarnEnabled ())
-                LOGGER.warn ("  Signature[" + sSignatureDebug + "] Reference[" + sRefDebug + "] validity status: NOT valid!");
+                LOGGER.warn ("  Signature[" +
+                             sSignatureDebug +
+                             "] Reference[" +
+                             sRefDebug +
+                             "] validity status: NOT valid!");
             }
             ++nRefIndex;
           }
@@ -239,7 +251,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
   @Nonnull
   private static ESuccess _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream,
-                                           @Nonnull final KeyStore aTrustStore) throws MarshalException, XMLSignatureException
+                                           @Nonnull final KeyStore aTrustStore) throws MarshalException,
+                                                                                XMLSignatureException
   {
     // Get response from servlet
     final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);

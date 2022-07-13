@@ -77,7 +77,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public static final boolean DEFAULT_XML_SCHEMA_VALIDATION = true;
 
   // The default text/xml content type uses iso-8859-1!
-  public static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (), StandardCharsets.UTF_8);
+  public static final ContentType CONTENT_TYPE_TEXT_XML = ContentType.create (CMimeType.TEXT_XML.getAsString (),
+                                                                              StandardCharsets.UTF_8);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractGenericSMPClient.class);
   private static final KeyStore DEFAULT_TRUST_STORE;
@@ -100,7 +101,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
       }
       else
       {
-        LOGGER.warn ("Failed to load the configured SMP client trust store '" + sPath + "' of type " + eType);
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Failed to load the configured SMP client trust store '" + sPath + "' of type " + eType);
       }
     }
   }
@@ -128,7 +130,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        <code>true</code> if the Peppol limitations (Port 80, http only, in
    *        root context) should be complained about or not.
    */
-  public AbstractGenericSMPClient (@Nonnull final URI aSMPHost, final boolean bPeppolLimitationsActive)
+  protected AbstractGenericSMPClient (@Nonnull final URI aSMPHost, final boolean bPeppolLimitationsActive)
   {
     ValueEnforcer.notNull (aSMPHost, "SMPHost");
 
@@ -212,17 +214,17 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Set the trust store to be used.
+   * Set the trust store to be used. The trust store must be used, if signature
+   * verification is enabled.
    *
    * @param aTrustStore
-   *        The trust store to be used. May not be <code>null</code>.
+   *        The trust store to be used. May be <code>null</code>.
    * @return this for chaining
    * @since 8.1.1
    */
   @Nonnull
-  public final IMPLTYPE setTrustStore (@Nonnull final KeyStore aTrustStore)
+  public final IMPLTYPE setTrustStore (@Nullable final KeyStore aTrustStore)
   {
-    ValueEnforcer.notNull (aTrustStore, "TrustStore");
     m_aTrustStore = aTrustStore;
     return thisAsT ();
   }
@@ -316,12 +318,14 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     final HttpContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
     {
-      LOGGER.info ("Performing SMP query at '" + aRequest.getURI ().toString () + "'");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Performing SMP query at '" + aRequest.getURI ().toString () + "'");
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
     catch (final IOException ex)
     {
-      LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
       throw ex;
     }
   }

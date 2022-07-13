@@ -280,6 +280,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.7.7 - work in progress
+    * The setters for the trust store in the SMP clients now accept `null`
 * v8.7.6 - 2022-07-12
     * Updated to OpenPeppol eDEC Code Lists v8.2
 * v8.7.5 - 2022-05-25
