@@ -18,7 +18,7 @@
     * `r3 (isrg root x1)`
 
 `2018/pilot-truststore.jks`
-* Is the global trust store for OpenPeppol pilot and works as well for APs
+* Is the global trust store for OpenPeppol pilot and works for APs
 * It is valid from 2018-2028
 * The contained aliases are:
     * `peppol root test ca - g2`
@@ -26,7 +26,7 @@
     * `peppol service metadata publisher test ca - g2 (peppol root test ca - g2)`
 
 `2018/prod-truststore.jks`
-* Is the global trust store for OpenPeppol production and works as well for APs
+* Is the global trust store for OpenPeppol production and works for APs
 * It is valid from 2018-2028
 * The contained aliases are:
     * `peppol root ca - g2`
