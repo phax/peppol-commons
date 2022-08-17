@@ -28,14 +28,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.bind.JAXBElement;
 
-import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.entity.ContentType;
-import org.apache.http.protocol.HttpContext;
+import org.apache.hc.client5.http.ClientProtocolException;
+import org.apache.hc.client5.http.HttpResponseException;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequest;
+import org.apache.hc.client5.http.protocol.HttpClientContext;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.HttpStatus;
+import org.apache.hc.core5.http.io.HttpClientResponseHandler;
+import org.apache.hc.core5.http.protocol.HttpContext;
+import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,8 +72,8 @@ import com.helger.xsds.xmldsig.X509DataType;
 public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGenericSMPClient <IMPLTYPE>> implements
                                                IGenericImplTrait <IMPLTYPE>
 {
-  public static final int DEFAULT_CONNECTION_TIMEOUT_MS = HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT_MS;
-  public static final int DEFAULT_REQUEST_TIMEOUT_MS = HttpClientSettings.DEFAULT_SOCKET_TIMEOUT_MS;
+  public static final Timeout DEFAULT_CONNECTION_TIMEOUT = HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT;
+  public static final Timeout DEFAULT_REQUEST_TIMEOUT = HttpClientSettings.DEFAULT_SOCKET_TIMEOUT;
   public static final boolean DEFAULT_FOLLOW_REDIRECTS = true;
   public static final boolean DEFAULT_XML_SCHEMA_VALIDATION = true;
 
@@ -313,13 +314,13 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    */
   @Nonnull
   public <T> T executeRequest (@Nonnull final HttpUriRequest aRequest,
-                               @Nonnull final ResponseHandler <T> aResponseHandler) throws IOException
+                               @Nonnull final HttpClientResponseHandler <T> aResponseHandler) throws IOException
   {
     final HttpContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
     {
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Performing SMP query at '" + aRequest.getURI ().toString () + "'");
+        LOGGER.info ("Performing SMP query at '" + aRequest.getRequestUri () + "'");
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
     catch (final IOException ex)
@@ -351,7 +352,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    */
   @Nonnull
   public <T> T executeGenericRequest (@Nonnull final HttpUriRequest aRequest,
-                                      @Nonnull final ResponseHandler <T> aResponseHandler) throws SMPClientException
+                                      @Nonnull final HttpClientResponseHandler <T> aResponseHandler) throws SMPClientException
   {
     try
     {

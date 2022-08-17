@@ -26,8 +26,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.Immutable;
 
-import org.apache.http.HttpHost;
-import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
+import org.apache.hc.core5.http.HttpHost;
+import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -176,17 +177,19 @@ public final class SMPClientConfiguration
     }
 
     if (!EqualsHelper.identityEqual (ret, aNewConfig))
-      LOGGER.info ("The SMPClient configuration provider was changed to " + aNewConfig);
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("The SMPClient configuration provider was changed to " + aNewConfig);
     return ret;
   }
 
   private static void _logRenamedConfig (@Nonnull final String sOld, @Nonnull final String sNew)
   {
-    LOGGER.warn ("Please rename the configuration property '" +
-                 sOld +
-                 "' to '" +
-                 sNew +
-                 "'. Support for the old property name will be removed in v9.0.");
+    if (LOGGER.isWarnEnabled ())
+      LOGGER.warn ("Please rename the configuration property '" +
+                   sOld +
+                   "' to '" +
+                   sNew +
+                   "'. Support for the old property name will be removed in v9.0.");
   }
 
   @Nullable
@@ -325,7 +328,7 @@ public final class SMPClientConfiguration
     final String sProxyUsername = _getAsStringOrFallback ("http.proxy.username", "http.proxyUsername");
     final String sProxyPassword = _getAsStringOrFallback ("http.proxy.password", "http.proxyPassword");
     if (sProxyUsername != null && sProxyPassword != null)
-      return new UsernamePasswordCredentials (sProxyUsername, sProxyPassword);
+      return new UsernamePasswordCredentials (sProxyUsername, sProxyPassword.toCharArray ());
 
     return null;
   }
@@ -375,26 +378,32 @@ public final class SMPClientConfiguration
    * Get the content of the property "http.connect.timeout.ms" or the default
    * value.
    *
-   * @return The connection timeout of the SMP client in milliseconds. Defaults
-   *         to 5 seconds.
+   * @return The connection timeout of the SMP client. Defaults to 5 seconds.
    * @since 7.0.4
    */
-  public static int getConnectionTimeoutMS ()
+  @Nonnull
+  public static Timeout getConnectionTimeout ()
   {
-    return getConfig ().getAsInt ("http.connect.timeout.ms", HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT_MS);
+    final long nMS = getConfig ().getAsLong ("http.connect.timeout.ms", -1);
+    if (nMS >= 0)
+      return Timeout.ofMilliseconds (nMS);
+    return HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT;
   }
 
   /**
    * Get the content of the property "http.request.timeout.ms" or the default
    * value.
    *
-   * @return The request timeout of the SMP client in milliseconds. Defaults to
-   *         10 seconds.
+   * @return The request timeout of the SMP client. Defaults to 10 seconds.
    * @since 7.0.4
    */
-  public static int getRequestTimeoutMS ()
+  @Nonnull
+  public static Timeout getRequestTimeout ()
   {
-    return getConfig ().getAsInt ("http.request.timeout.ms", HttpClientSettings.DEFAULT_SOCKET_TIMEOUT_MS);
+    final long nMS = getConfig ().getAsLong ("http.request.timeout.ms", -1);
+    if (nMS >= 0)
+      return Timeout.ofMilliseconds (nMS);
+    return HttpClientSettings.DEFAULT_SOCKET_TIMEOUT;
   }
 
   /**
@@ -414,7 +423,7 @@ public final class SMPClientConfiguration
       for (final String sProperty : aPropertyNames)
       {
         final ConfiguredValue aValue = getConfig ().getConfiguredValue (sProperty);
-        if (aValue != null && aValue.getConfigurationSource ().getSourceType () == EConfigSourceType.RESOURCE && aValue.getValue () != null)
+        if (aValue != null && aValue.getConfigurationSource ().getSourceType () == EConfigSourceType.RESOURCE)
         {
           final String sConfigFileValue = aValue.getValue ();
           SystemProperties.setPropertyValue (sProperty, sConfigFileValue);

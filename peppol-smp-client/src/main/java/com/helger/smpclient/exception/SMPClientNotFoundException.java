@@ -21,7 +21,7 @@ import java.net.UnknownHostException;
 
 import javax.annotation.Nonnull;
 
-import org.apache.http.client.HttpResponseException;
+import org.apache.hc.client5.http.HttpResponseException;
 
 /**
  * This exception is thrown, if the HTTP response was 404.

@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
-import org.apache.http.HttpEntity;
+import org.apache.hc.core5.http.HttpEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

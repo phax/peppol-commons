@@ -17,19 +17,19 @@
 package com.helger.smpclient.httpclient;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpResponseException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.ClientProtocolException;
+import org.apache.hc.client5.http.HttpResponseException;
+import org.apache.hc.core5.http.ClassicHttpResponse;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 
 import com.helger.commons.debug.GlobalDebug;
+import com.helger.httpclient.HttpClientHelper;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 
 /**
@@ -44,7 +44,7 @@ import com.helger.smpclient.exception.SMPClientBadResponseException;
  * @param <T>
  *        Date type to be created
  */
-public abstract class AbstractSMPResponseHandler <T> implements ResponseHandler <T>
+public abstract class AbstractSMPResponseHandler <T> implements HttpClientResponseHandler <T>
 {
   /**
    * Handle the response entity and transform it into the actual response
@@ -68,18 +68,17 @@ public abstract class AbstractSMPResponseHandler <T> implements ResponseHandler 
    * status code), throws an {@link HttpResponseException}.
    */
   @Nullable
-  public T handleResponse (@Nonnull final HttpResponse aResponse) throws IOException
+  public T handleResponse (@Nonnull final ClassicHttpResponse aResponse) throws IOException
   {
-    final StatusLine aStatusLine = aResponse.getStatusLine ();
     final HttpEntity aEntity = aResponse.getEntity ();
-    if (aStatusLine.getStatusCode () >= 300)
+    if (aResponse.getCode () >= 300)
     {
       if (false && GlobalDebug.isDebugMode ())
       {
-        final String sEntity = EntityUtils.toString (aEntity);
-        throw new HttpResponseException (aStatusLine.getStatusCode (), aStatusLine.getReasonPhrase () + "\n" + sEntity);
+        final String sEntity = HttpClientHelper.entityToString (aEntity, StandardCharsets.UTF_8);
+        throw new HttpResponseException (aResponse.getCode (), aResponse.getReasonPhrase () + "\n" + sEntity);
       }
-      throw new HttpResponseException (aStatusLine.getStatusCode (), aStatusLine.getReasonPhrase ());
+      throw new HttpResponseException (aResponse.getCode (), aResponse.getReasonPhrase ());
     }
     try
     {
