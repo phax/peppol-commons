@@ -95,8 +95,8 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * @return The configuration value provider for phase4 that contains backward
-   *         compatibility support.
+   * @return The configuration value provider for SMP client that contains
+   *         backward compatibility support.
    */
   @Nonnull
   public static MultiConfigurationValueProvider createSMPClientValueProvider ()
