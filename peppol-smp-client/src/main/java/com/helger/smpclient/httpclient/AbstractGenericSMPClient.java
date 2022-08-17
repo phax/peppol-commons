@@ -36,7 +36,6 @@ import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.http.protocol.HttpContext;
-import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,7 +47,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.httpclient.HttpClientManager;
-import com.helger.httpclient.HttpClientSettings;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.smpclient.config.SMPClientConfiguration;
@@ -72,8 +70,6 @@ import com.helger.xsds.xmldsig.X509DataType;
 public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGenericSMPClient <IMPLTYPE>> implements
                                                IGenericImplTrait <IMPLTYPE>
 {
-  public static final Timeout DEFAULT_CONNECTION_TIMEOUT = HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT;
-  public static final Timeout DEFAULT_REQUEST_TIMEOUT = HttpClientSettings.DEFAULT_SOCKET_TIMEOUT;
   public static final boolean DEFAULT_FOLLOW_REDIRECTS = true;
   public static final boolean DEFAULT_XML_SCHEMA_VALIDATION = true;
 

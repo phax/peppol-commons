@@ -280,6 +280,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.8.1 - work in progress
+    * Updated to ph-web 9.7.1
 * v8.8.0 - 2022-08-17
     * Updated to ph-web 9.7.0
     * Updated to Apache HttpClient 5.x

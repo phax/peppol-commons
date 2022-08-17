@@ -410,7 +410,7 @@ public final class SMPClientConfiguration
     final long nMS = getConfig ().getAsLong ("http.connect.timeout.ms", -1);
     if (nMS >= 0)
       return Timeout.ofMilliseconds (nMS);
-    return HttpClientSettings.DEFAULT_CONNECTION_TIMEOUT;
+    return HttpClientSettings.DEFAULT_CONNECT_TIMEOUT;
   }
 
   /**
@@ -441,7 +441,7 @@ public final class SMPClientConfiguration
     final long nMS = _getAsLongOrFallback ("http.response.timeout.ms", -1, -1, "http.request.timeout.ms");
     if (nMS >= 0)
       return Timeout.ofMilliseconds (nMS);
-    return HttpClientSettings.DEFAULT_SOCKET_TIMEOUT;
+    return HttpClientSettings.DEFAULT_RESPONSE_TIMEOUT;
   }
 
   /**
