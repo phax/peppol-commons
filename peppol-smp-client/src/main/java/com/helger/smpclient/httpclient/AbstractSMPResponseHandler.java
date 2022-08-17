@@ -33,8 +33,8 @@ import com.helger.httpclient.HttpClientHelper;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 
 /**
- * Abstract {@link ResponseHandler} implementation that ensures a leak free
- * usage of the returned response.
+ * Abstract {@link HttpClientResponseHandler} implementation that ensures a leak
+ * free usage of the returned response.
  * <p>
  * Note: this class is also licensed under Apache 2 license, as it was not part
  * of the original implementation

@@ -296,9 +296,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   /**
    * Execute a generic request on the SMP. This is e.g. helpful for accessing
    * the PEPPOL Directory BusinessCard API. Compared to
-   * {@link #executeGenericRequest(HttpUriRequest, ResponseHandler)} this method
-   * does NOT convert the {@link IOException} from HTTP communication problems
-   * to {@link IOException}.
+   * {@link #executeGenericRequest(HttpUriRequest, HttpClientResponseHandler)}
+   * this method does NOT convert the {@link IOException} from HTTP
+   * communication problems to {@link IOException}.
    *
    * @param aRequest
    *        The request to be executed. The proxy + connection and request
@@ -308,7 +308,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The return value of the response handler.
    * @throws IOException
    *         On HTTP communication error
-   * @see #executeGenericRequest(HttpUriRequest, ResponseHandler)
+   * @see #executeGenericRequest(HttpUriRequest, HttpClientResponseHandler)
    * @param <T>
    *        Expected response type
    */
@@ -334,8 +334,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   /**
    * Execute a generic request on the SMP. This is e.g. helpful for accessing
    * the PEPPOL Directory BusinessCard API. This is equivalent to
-   * {@link #executeRequest(HttpUriRequest, ResponseHandler)} but includes the
-   * conversion of Exceptions to {@link SMPClientException} objects.
+   * {@link #executeRequest(HttpUriRequest, HttpClientResponseHandler)} but
+   * includes the conversion of Exceptions to {@link SMPClientException}
+   * objects.
    *
    * @param aRequest
    *        The request to be executed. The proxy + connection and request
@@ -347,7 +348,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         One of the converted exceptions
    * @param <T>
    *        Expected response type
-   * @see #executeRequest(HttpUriRequest, ResponseHandler)
+   * @see #executeRequest(HttpUriRequest, HttpClientResponseHandler)
    * @see #getConvertedException(Exception)
    */
   @Nonnull
