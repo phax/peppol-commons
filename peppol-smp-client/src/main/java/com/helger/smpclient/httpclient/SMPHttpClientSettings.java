@@ -51,7 +51,7 @@ public class SMPHttpClientSettings extends HttpClientSettings
     nonProxyHosts ().clear ();
     addNonProxyHostsFromPipeString (SMPClientConfiguration.getNonProxyHosts ());
     setUseDNSClientCache (SMPClientConfiguration.isUseDNSClientCache ());
-    setConnectionTimeout (SMPClientConfiguration.getConnectionTimeout ());
-    setResponseTimeout (SMPClientConfiguration.getRequestTimeout ());
+    setConnectionTimeout (SMPClientConfiguration.getConnectTimeout ());
+    setResponseTimeout (SMPClientConfiguration.getResponseTimeout ());
   }
 }

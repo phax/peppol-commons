@@ -236,6 +236,29 @@ public final class SMPClientConfiguration
     return ret == nBogus ? nDefault : ret;
   }
 
+  private static long _getAsLongOrFallback (@Nonnull final String sPrimary,
+                                            final long nBogus,
+                                            final long nDefault,
+                                            @Nonnull final String... aOldOnes)
+  {
+    long ret = getConfig ().getAsLong (sPrimary, nBogus);
+    if (ret == nBogus)
+    {
+      // Try the old names
+      for (final String sOld : aOldOnes)
+      {
+        ret = getConfig ().getAsLong (sOld, nBogus);
+        if (ret != nBogus)
+        {
+          // Notify on old name usage
+          _logRenamedConfig (sOld, sPrimary);
+          break;
+        }
+      }
+    }
+    return ret == nBogus ? nDefault : ret;
+  }
+
   /**
    * @return The truststore type as specified in the configuration file by the
    *         key <code>truststore.type</code>. If none is present
@@ -379,10 +402,10 @@ public final class SMPClientConfiguration
    * value.
    *
    * @return The connection timeout of the SMP client. Defaults to 5 seconds.
-   * @since 7.0.4
+   * @since 8.8.0
    */
   @Nonnull
-  public static Timeout getConnectionTimeout ()
+  public static Timeout getConnectTimeout ()
   {
     final long nMS = getConfig ().getAsLong ("http.connect.timeout.ms", -1);
     if (nMS >= 0)
@@ -391,19 +414,49 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * Get the content of the property "http.request.timeout.ms" or the default
+   * Get the content of the property "http.connect.timeout.ms" or the default
+   * value.
+   *
+   * @return The connection timeout of the SMP client. Defaults to 5 seconds.
+   * @since 7.0.4
+   * @deprecated Since 8.8.0. Use {@link #getConnectTimeout()} instead.
+   */
+  @Nonnull
+  @Deprecated
+  public static Timeout getConnectionTimeout ()
+  {
+    return getConnectTimeout ();
+  }
+
+  /**
+   * Get the content of the property "http.response.timeout.ms" or the default
+   * value. The fallback value is "http.request.timeout.ms".
+   *
+   * @return The response timeout of the SMP client. Defaults to 10 seconds.
+   * @since 8.8.0
+   */
+  @Nonnull
+  public static Timeout getResponseTimeout ()
+  {
+    final long nMS = _getAsLongOrFallback ("http.response.timeout.ms", -1, -1, "http.request.timeout.ms");
+    if (nMS >= 0)
+      return Timeout.ofMilliseconds (nMS);
+    return HttpClientSettings.DEFAULT_SOCKET_TIMEOUT;
+  }
+
+  /**
+   * Get the content of the property "http.response.timeout.ms" or the default
    * value.
    *
    * @return The request timeout of the SMP client. Defaults to 10 seconds.
    * @since 7.0.4
+   * @deprecated Since 8.8.0. Use {@link #getResponseTimeout()} instead.
    */
   @Nonnull
+  @Deprecated
   public static Timeout getRequestTimeout ()
   {
-    final long nMS = getConfig ().getAsLong ("http.request.timeout.ms", -1);
-    if (nMS >= 0)
-      return Timeout.ofMilliseconds (nMS);
-    return HttpClientSettings.DEFAULT_SOCKET_TIMEOUT;
+    return getResponseTimeout ();
   }
 
   /**
