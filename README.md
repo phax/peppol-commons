@@ -119,12 +119,12 @@ It supports the following properties:
 
 * **`http.proxy.host`** (before v8.7.2: **`http.proxyHost`**): the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
 * **`http.proxy.port`** (before v8.7.2: **`http.proxyPort`**): the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
-* **`http.proxy.username`** (before v8.7.2: **`http.proxyUsername`**) (since v5.2.5): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
-* **`http.proxy.password`** (before v8.7.2: **`http.proxyPassword`**) (since v5.2.5): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined.
+* **`http.proxy.username`** (before v8.7.2: **`http.proxyUsername`**): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
+* **`http.proxy.password`** (before v8.7.2: **`http.proxyPassword`**): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined.
 * **`http.proxy.nonProxyHosts`** (before v8.7.2: **`http.nonProxyHosts`**) (since v6.2.4): A pipe separated list of non-proxy hosts. E.g. `localhost|127.0.0.1`.
 * [deprecated since v8.7.2] **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`. Deprecated since v8.7.2
-* **`http.connect.timeout.ms`** (since v7.0.4): set the connection timeout in milliseconds. The default value is `5000` meaning 5 seconds.
-* **`http.request.timeout.ms`** (since v7.0.4): set the request timeout in milliseconds. The default value is `10000` meaning 10 seconds.
+* **`http.connect.timeout.ms`** (since v7.0.4): set the connect timeout in milliseconds. The default value is `5000` meaning 5 seconds.
+* **`http.response.timeout.ms`** (since v8.8.0; before **`http.request.timeout.ms`**): set the response timeout in milliseconds. The default value is `10000` meaning 10 seconds.
 
 ### Specifying a proxy server
 
@@ -280,10 +280,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v8.8.0 - work in progress
+* v8.8.0 - 2022-08-17
     * Updated to ph-web 9.7.0
     * Updated to Apache HttpClient 5.x
     * The setters for the trust store in the SMP clients now accept `null`
+    * Renamed the SMP client configuration property from `http.request.timeout.ms` to `http.response.timeout.ms`
 * v8.7.6 - 2022-07-12
     * Updated to OpenPeppol eDEC Code Lists v8.2
 * v8.7.5 - 2022-05-25
