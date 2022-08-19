@@ -51,6 +51,7 @@ import com.helger.smpclient.url.BDXLURLProvider;
 import com.helger.smpclient.url.PeppolURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.peppol.smp1.EndpointType;
+import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
@@ -66,11 +67,13 @@ public final class SMPClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    // PEPPOL URL provider
+    // Peppol URL provider
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
     assertEquals ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/",
                   aSMPClient.getSMPHostURI ());
-    assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
+
+    final ServiceGroupType aServiceGroup = aSMPClient.getServiceGroupOrNull (aPI);
+    assertNotNull (aServiceGroup);
   }
 
   @Test
