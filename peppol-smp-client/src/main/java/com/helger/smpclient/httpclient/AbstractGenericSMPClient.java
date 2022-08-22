@@ -35,7 +35,6 @@ import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
-import org.apache.hc.core5.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -284,7 +283,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   @Nonnull
   @OverrideOnDemand
-  protected HttpContext createHttpContext ()
+  protected HttpClientContext createHttpContext ()
   {
     return HttpClientContext.create ();
   }
@@ -312,7 +311,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public <T> T executeRequest (@Nonnull final HttpUriRequest aRequest,
                                @Nonnull final HttpClientResponseHandler <T> aResponseHandler) throws IOException
   {
-    final HttpContext aHttpContext = createHttpContext ();
+    final HttpClientContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
     {
       if (LOGGER.isInfoEnabled ())
