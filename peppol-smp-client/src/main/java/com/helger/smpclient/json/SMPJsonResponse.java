@@ -40,6 +40,7 @@ import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
+import com.helger.json.JsonValue;
 import com.helger.peppol.sml.ESMPAPIType;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -50,6 +51,9 @@ import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
 import com.helger.smpclient.extension.SMPExtensionList;
 import com.helger.smpclient.peppol.utils.SMPExtensionConverter;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
+import com.helger.xsds.bdxr.smp2.ac.CertificateType;
+import com.helger.xsds.bdxr.smp2.ac.ProcessMetadataType;
+import com.helger.xsds.bdxr.smp2.ac.ProcessType;
 
 /**
  * Utility class to convert SMP data structures to JSON
@@ -279,6 +283,8 @@ public final class SMPJsonResponse
     return ret;
   }
 
+  // BDXR1 stuff
+
   @Nonnull
   public static IJsonObject convertEndpoint (@Nonnull final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint)
   {
@@ -358,6 +364,133 @@ public final class SMPJsonResponse
           aJsonSI.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
       }
       ret.addJson (JSON_SERVICEINFO, aJsonSI);
+    }
+    return ret;
+  }
+
+  // BDXR2 stuff
+
+  @Nonnull
+  public static IJsonObject convertEndpoint (@Nonnull final com.helger.xsds.bdxr.smp2.ac.EndpointType aEndpoint)
+  {
+    final IJsonObject ret = new JsonObject ();
+
+    ret.addIfNotNull (JSON_TRANSPORT_PROFILE, aEndpoint.getTransportProfileIDValue ())
+       .addIfNotNull (JSON_SERVICE_DESCRIPTION, aEndpoint.getDescription ())
+       .addIfNotNull (JSON_TECHNICAL_CONTACT_URL, aEndpoint.getContactValue ())
+       .addIfNotNull (JSON_ENDPOINT_REFERENCE, aEndpoint.getAddressURIValue ())
+       .addIfNotNull (JSON_SERVICE_ACTIVATION_DATE, getLD (aEndpoint.getActivationDateValue ()))
+       .addIfNotNull (JSON_SERVICE_EXPIRATION_DATE, getLD (aEndpoint.getExpirationDateValue ()));
+
+    final IJsonArray aJsonCerts = new JsonArray ();
+    for (final CertificateType aCert : aEndpoint.getCertificate ())
+    {
+      final IJsonObject aJsonCert = new JsonObject ();
+      convertCertificate (aJsonCert, Base64.encodeBytes (aCert.getContentBinaryObjectValue ()));
+      aJsonCerts.add (aJsonCert);
+    }
+    ret.addJson ("certificates", aJsonCerts);
+
+    final SMPExtensionList aExts = SMPExtensionList.ofBDXR2 (aEndpoint.getSMPExtensions ());
+    if (aExts != null)
+    {
+      // It's okay to add as string
+      ret.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
+    }
+    return ret;
+  }
+
+  @Nonnull
+  public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,
+                                     @Nonnull final IDocumentTypeIdentifier aDocTypeID,
+                                     @Nonnull final com.helger.xsds.bdxr.smp2.ServiceMetadataType aSM)
+  {
+    ValueEnforcer.notNull (aParticipantID, "ParticipantID");
+    ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
+    ValueEnforcer.notNull (aSM, "SM");
+
+    final IJsonObject ret = new JsonObject ();
+    ret.add (JSON_SMPTYPE, ESMPAPIType.OASIS_BDXR_V2.getID ());
+    ret.add (JSON_PARTICIPANT_ID, aParticipantID.getURIEncoded ());
+    ret.add (JSON_DOCUMENT_TYPE_ID, aDocTypeID.getURIEncoded ());
+
+    for (final ProcessMetadataType aPM : aSM.getProcessMetadata ())
+    {
+      final IJsonObject aJsonProcessMetadata = new JsonObject ();
+
+      {
+        final SMPExtensionList aExts = SMPExtensionList.ofBDXR2 (aPM.getSMPExtensions ());
+        if (aExts != null)
+          aJsonProcessMetadata.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
+      }
+
+      {
+        // Convert all process IDs
+        final IJsonArray aJsonProcesses = new JsonArray ();
+        for (final ProcessType aProc : aPM.getProcess ())
+        {
+          final IJsonObject aJsonProc = new JsonObject ().add ("id",
+                                                               CIdentifier.getURIEncodedBDXR2 (aProc.getID ()
+                                                                                                    .getSchemeID (),
+                                                                                               aProc.getID ()
+                                                                                                    .getValue ()));
+          if (aProc.hasRoleIDEntries ())
+          {
+            aJsonProc.add ("roleids",
+                           new JsonArray ().addAllMapped (aProc.getRoleID (),
+                                                          x -> JsonValue.create (CIdentifier.getURIEncodedBDXR2 (x.getSchemeID (),
+                                                                                                                 x.getValue ()))));
+          }
+
+          final SMPExtensionList aExts = SMPExtensionList.ofBDXR2 (aProc.getSMPExtensions ());
+          if (aExts != null)
+            aJsonProc.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
+
+          aJsonProcesses.add (aJsonProc);
+        }
+        aJsonProcessMetadata.add ("processes", aJsonProcesses);
+      }
+
+      final com.helger.xsds.bdxr.smp2.ac.RedirectType aRedirect = aPM.getRedirect ();
+      if (aRedirect != null)
+      {
+        final IJsonObject aJsonRedirect = new JsonObject ().add (JSON_HREF, aRedirect.getPublisherURIValue ());
+
+        // Add all certificates
+        final IJsonArray aJsonCerts = new JsonArray ();
+        for (final CertificateType aCert : aRedirect.getCertificate ())
+        {
+          final IJsonObject aJsonCert = new JsonObject ();
+          convertCertificate (aJsonCert, Base64.encodeBytes (aCert.getContentBinaryObjectValue ()));
+          aJsonCerts.add (aJsonCert);
+        }
+        aJsonRedirect.addJson ("certificates", aJsonCerts);
+
+        final SMPExtensionList aExts = SMPExtensionList.ofBDXR2 (aRedirect.getSMPExtensions ());
+        if (aExts != null)
+        {
+          // It's okay to add as string
+          aJsonRedirect.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
+        }
+        aJsonProcessMetadata.addJson (JSON_REDIRECT, aJsonRedirect);
+      }
+      else
+      {
+        final IJsonArray aJsonEPs = new JsonArray ();
+        // For all endpoints
+        for (final com.helger.xsds.bdxr.smp2.ac.EndpointType aEndpoint : aPM.getEndpoint ())
+        {
+          aJsonEPs.add (convertEndpoint (aEndpoint));
+        }
+        aJsonProcessMetadata.addJson (JSON_ENDPOINTS, aJsonEPs);
+      }
+    }
+
+    final SMPExtensionList aExts = SMPExtensionList.ofBDXR2 (aSM.getSMPExtensions ());
+    if (aExts != null)
+    {
+      // It's okay to add as string
+      ret.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
     }
     return ret;
   }
