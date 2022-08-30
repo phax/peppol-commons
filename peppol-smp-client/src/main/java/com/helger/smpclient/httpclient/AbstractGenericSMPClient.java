@@ -463,13 +463,13 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                        .getToString ();
   }
 
-  protected static boolean containsRedirectSubject (@Nonnull final X509DataType aX509Data,
-                                                    @Nonnull final String sRedirectCertificateUID) throws SMPClientException
+  public static boolean containsRedirectSubject (@Nonnull final X509DataType aX509Data,
+                                                 @Nonnull final String sRedirectCertificateUID) throws SMPClientException
   {
     for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
     {
       final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-      // Find the first subject (of type string)
+      // Find the first subject (of type string) (element name X509SubjectName)
       if (aX509element.getValue () instanceof String)
       {
         final String sSubject = (String) aX509element.getValue ();
