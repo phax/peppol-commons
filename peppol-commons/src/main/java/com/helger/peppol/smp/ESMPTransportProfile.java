@@ -47,13 +47,29 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
    * The PEPPOL AS2 transport profile v1 (SHA-1). Updated with AS2 v2 on
    * 2020-02-01
    */
-  TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "Peppol AS2 v1"),
+  @Deprecated
+  TRANSPORT_PROFILE_AS2 ("busdox-transport-as2-ver1p0", "Peppol AS2 v1")
+  {
+    @Override
+    public boolean isDeprecated ()
+    {
+      return true;
+    }
+  },
 
   /**
    * The PEPPOL AS2 v2 transport profile v2 (SHA-256). Mandatory (when using
    * AS2) in Peppol since 2020-02-01.
    */
-  TRANSPORT_PROFILE_AS2_V2 ("busdox-transport-as2-ver2p0", "Peppol AS2 v2"),
+  @Deprecated
+  TRANSPORT_PROFILE_AS2_V2 ("busdox-transport-as2-ver2p0", "Peppol AS2 v2")
+  {
+    @Override
+    public boolean isDeprecated ()
+    {
+      return true;
+    }
+  },
 
   /** The AS4 transport profile - too unspecific. Don't use */
   @Deprecated
