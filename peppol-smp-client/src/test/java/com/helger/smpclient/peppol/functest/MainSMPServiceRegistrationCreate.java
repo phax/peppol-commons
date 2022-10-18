@@ -75,7 +75,7 @@ public final class MainSMPServiceRegistrationCreate
           {
             final EndpointType aEndpoint = new EndpointType ();
             aEndpoint.setEndpointReference (START_AP_ENDPOINTREF);
-            aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ());
+            aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2.getID ());
             aEndpoint.setCertificate (AP_CERT_STRING);
             aEndpoint.setServiceActivationDate (PDTFactory.createXMLOffsetDateTime (2011, Month.JANUARY, 1));
             aEndpoint.setServiceExpirationDate (PDTFactory.createXMLOffsetDateTime (2020, Month.DECEMBER, 31));

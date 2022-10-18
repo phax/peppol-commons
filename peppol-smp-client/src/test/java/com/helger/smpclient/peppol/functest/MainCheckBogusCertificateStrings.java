@@ -35,12 +35,15 @@ import com.helger.smpclient.url.SMPDNSResolutionException;
 /**
  * @author Philip Helger
  */
+@Deprecated
 public final class MainCheckBogusCertificateStrings
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCheckBogusCertificateStrings.class);
   private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
 
-  public static void main (final String [] args) throws CertificateException, SMPClientException, SMPDNSResolutionException
+  public static void main (final String [] args) throws CertificateException,
+                                                 SMPClientException,
+                                                 SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9906:testconsip");
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URL_PROVIDER, aPI, ESML.DIGIT_TEST);

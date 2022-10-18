@@ -200,7 +200,7 @@ public final class SMPClientTest
             final W3CEndpointReference aEndpointReferenceType = new W3CEndpointReferenceBuilder ().address ("http://peppol.eu/sampleService/")
                                                                                                   .build ();
             aEndpoint.setEndpointReference (aEndpointReferenceType);
-            aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_AS2.getID ());
+            aEndpoint.setTransportProfile (ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2.getID ());
             // Certificate: Base64.encodeBytes (certificate.getEncoded ());
             aEndpoint.setCertificate ("1234567890");
             aEndpoint.setServiceActivationDate (PDTFactory.getCurrentXMLOffsetDateTime ());
