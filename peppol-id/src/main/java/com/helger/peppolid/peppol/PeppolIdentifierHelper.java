@@ -138,6 +138,19 @@ public final class PeppolIdentifierHelper
    */
   public static final int MAX_PROCESS_VALUE_LENGTH = 200;
 
+  /**
+   * The Wildcard (DDTS) Customization separator
+   *
+   * @since 8.8.1
+   */
+  public static final char DOCUMENT_TYPE_WILDCARD_PART_SEPARATOR = '@';
+  /**
+   * The Wildcard (DDTS) separator
+   *
+   * @since 8.8.1
+   */
+  public static final char DOCUMENT_TYPE_WILDCARD_INDICATOR = '*';
+
   private PeppolIdentifierHelper ()
   {}
 
