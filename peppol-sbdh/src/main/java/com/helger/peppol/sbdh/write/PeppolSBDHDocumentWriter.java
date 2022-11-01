@@ -42,7 +42,10 @@ import com.helger.peppol.sbdh.PeppolSBDHDocument;
 @NotThreadSafe
 public class PeppolSBDHDocumentWriter
 {
+  public static final boolean DEFAULT_FAVOUR_SPEED = false;
+
   private String m_sHeaderVersion = CPeppolSBDH.HEADER_VERSION;
+  private boolean m_bFavourSpeed = DEFAULT_FAVOUR_SPEED;
 
   public PeppolSBDHDocumentWriter ()
   {}
@@ -72,6 +75,32 @@ public class PeppolSBDHDocumentWriter
   }
 
   /**
+   * @return <code>true</code> if speed is favoured, <code>false</code> if not.
+   *         Default is {@link #DEFAULT_FAVOUR_SPEED}.
+   * @since 8.8.1
+   */
+  public final boolean isFavourSpeed ()
+  {
+    return m_bFavourSpeed;
+  }
+
+  /**
+   * Enable or disable the "favour speed" option. This
+   *
+   * @param bFavourSpeed
+   *        <code>true</code> to favour speed, <code>false</code> to not favour
+   *        speed.
+   * @return this for chaining
+   * @since 8.8.1
+   */
+  @Nonnull
+  public final PeppolSBDHDocumentWriter setFavourSpeed (final boolean bFavourSpeed)
+  {
+    m_bFavourSpeed = bFavourSpeed;
+    return this;
+  }
+
+  /**
    * Create a new {@link StandardBusinessDocument} from the specified document
    * data.
    *
@@ -89,78 +118,85 @@ public class PeppolSBDHDocumentWriter
     if (!aData.areAllFieldsSet ())
       throw new IllegalArgumentException ("Not all data fields are set!");
 
-    final StandardBusinessDocument aSBD = new StandardBusinessDocument ();
+    final StandardBusinessDocumentHeader aSBDH = new StandardBusinessDocumentHeader ();
+    aSBDH.setHeaderVersion (m_sHeaderVersion);
+
+    // Sender data
     {
-      final StandardBusinessDocumentHeader aSBDH = new StandardBusinessDocumentHeader ();
-      aSBDH.setHeaderVersion (m_sHeaderVersion);
-
-      // Sender data
-      {
-        final Partner aSender = new Partner ();
-        final PartnerIdentification aSenderID = new PartnerIdentification ();
-        aSenderID.setAuthority (aData.getSenderScheme ());
-        aSenderID.setValue (aData.getSenderValue ());
-        aSender.setIdentifier (aSenderID);
-        aSBDH.addSender (aSender);
-      }
-
-      // Receiver data
-      {
-        final Partner aReceiver = new Partner ();
-        final PartnerIdentification aReceiverID = new PartnerIdentification ();
-        aReceiverID.setAuthority (aData.getReceiverScheme ());
-        aReceiverID.setValue (aData.getReceiverValue ());
-        aReceiver.setIdentifier (aReceiverID);
-        aSBDH.addReceiver (aReceiver);
-      }
-
-      // Document identification
-      {
-        final DocumentIdentification aDI = new DocumentIdentification ();
-        aDI.setStandard (aData.getStandard ());
-        aDI.setTypeVersion (aData.getTypeVersion ());
-        aDI.setType (aData.getType ());
-        aDI.setInstanceIdentifier (aData.getInstanceIdentifier ());
-        aDI.setCreationDateAndTime (aData.getCreationDateAndTime ());
-        aSBDH.setDocumentIdentification (aDI);
-      }
-
-      // Business scope
-      {
-        final BusinessScope aBusinessScope = new BusinessScope ();
-        {
-          final Scope aScope = new Scope ();
-          aScope.setType (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID);
-          aScope.setInstanceIdentifier (aData.getDocumentTypeValue ());
-          // The scheme was added in Spec v1.1
-          aScope.setIdentifier (aData.getDocumentTypeScheme ());
-          aBusinessScope.addScope (aScope);
-        }
-        {
-          final Scope aScope = new Scope ();
-          aScope.setType (CPeppolSBDH.SCOPE_PROCESS_ID);
-          aScope.setInstanceIdentifier (aData.getProcessValue ());
-          // The scheme was added in Spec v1.1
-          aScope.setIdentifier (aData.getProcessScheme ());
-          aBusinessScope.addScope (aScope);
-        }
-
-        // Add the additional attributes
-        for (final Map.Entry <String, String> aEntry : aData.additionalAttributes ().entrySet ())
-        {
-          final Scope aScope = new Scope ();
-          aScope.setType (aEntry.getKey ());
-          // XSD requires InstanceIdentifier
-          aScope.setInstanceIdentifier (StringHelper.getNotNull (aEntry.getValue ()));
-          aBusinessScope.addScope (aScope);
-        }
-
-        aSBDH.setBusinessScope (aBusinessScope);
-      }
-      aSBD.setStandardBusinessDocumentHeader (aSBDH);
+      final Partner aSender = new Partner ();
+      final PartnerIdentification aSenderID = new PartnerIdentification ();
+      aSenderID.setAuthority (aData.getSenderScheme ());
+      aSenderID.setValue (aData.getSenderValue ());
+      aSender.setIdentifier (aSenderID);
+      aSBDH.addSender (aSender);
     }
-    // getBusinessMessage already returns a cloned node!
-    aSBD.setAny (aData.getBusinessMessage ());
+
+    // Receiver data
+    {
+      final Partner aReceiver = new Partner ();
+      final PartnerIdentification aReceiverID = new PartnerIdentification ();
+      aReceiverID.setAuthority (aData.getReceiverScheme ());
+      aReceiverID.setValue (aData.getReceiverValue ());
+      aReceiver.setIdentifier (aReceiverID);
+      aSBDH.addReceiver (aReceiver);
+    }
+
+    // Document identification
+    {
+      final DocumentIdentification aDI = new DocumentIdentification ();
+      aDI.setStandard (aData.getStandard ());
+      aDI.setTypeVersion (aData.getTypeVersion ());
+      aDI.setType (aData.getType ());
+      aDI.setInstanceIdentifier (aData.getInstanceIdentifier ());
+      aDI.setCreationDateAndTime (aData.getCreationDateAndTime ());
+      aSBDH.setDocumentIdentification (aDI);
+    }
+
+    // Business scope
+    {
+      final BusinessScope aBusinessScope = new BusinessScope ();
+      {
+        final Scope aScope = new Scope ();
+        aScope.setType (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID);
+        aScope.setInstanceIdentifier (aData.getDocumentTypeValue ());
+        // The scheme was added in Spec v1.1
+        aScope.setIdentifier (aData.getDocumentTypeScheme ());
+        aBusinessScope.addScope (aScope);
+      }
+      {
+        final Scope aScope = new Scope ();
+        aScope.setType (CPeppolSBDH.SCOPE_PROCESS_ID);
+        aScope.setInstanceIdentifier (aData.getProcessValue ());
+        // The scheme was added in Spec v1.1
+        aScope.setIdentifier (aData.getProcessScheme ());
+        aBusinessScope.addScope (aScope);
+      }
+
+      // Add the additional attributes
+      for (final Map.Entry <String, String> aEntry : aData.additionalAttributes ().entrySet ())
+      {
+        final Scope aScope = new Scope ();
+        aScope.setType (aEntry.getKey ());
+        // XSD requires InstanceIdentifier
+        aScope.setInstanceIdentifier (StringHelper.getNotNull (aEntry.getValue ()));
+        aBusinessScope.addScope (aScope);
+      }
+
+      aSBDH.setBusinessScope (aBusinessScope);
+    }
+
+    final StandardBusinessDocument aSBD = new StandardBusinessDocument ();
+    aSBD.setStandardBusinessDocumentHeader (aSBDH);
+    if (m_bFavourSpeed)
+    {
+      // Avoid cloning the business message DOM element
+      aSBD.setAny (aData.getBusinessMessageNoClone ());
+    }
+    else
+    {
+      // getBusinessMessage already returns a cloned node!
+      aSBD.setAny (aData.getBusinessMessage ());
+    }
     return aSBD;
   }
 }

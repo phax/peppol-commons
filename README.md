@@ -284,6 +284,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Updated to ph-web 9.7.1
     * Extended `SMPJsonResponse` with the versions for BDXR2
     * Deprecated SMP transport profiles `busdox-transport-as2-ver1p0` (Peppol AS2 v1) and `busdox-transport-as2-ver2p0` (Peppol AS2 v2)
+    * Extended `PeppolSBDHDocument` API
+    * Extended `PeppolSBDHDocumentWriter` API with a "favour speed" option
 * v8.8.0 - 2022-08-17
     * Updated to ph-web 9.7.0
     * Updated to Apache HttpClient 5.x

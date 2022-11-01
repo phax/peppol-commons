@@ -259,7 +259,8 @@ public class PeppolSBDHDocument
    * @return this
    */
   @Nonnull
-  public PeppolSBDHDocument setReceiver (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setReceiver (@Nonnull @Nonempty final String sScheme,
+                                         @Nonnull @Nonempty final String sValue)
   {
     m_sReceiverScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sReceiverValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -326,7 +327,8 @@ public class PeppolSBDHDocument
    * @return this
    */
   @Nonnull
-  public PeppolSBDHDocument setDocumentType (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public PeppolSBDHDocument setDocumentType (@Nonnull @Nonempty final String sScheme,
+                                             @Nonnull @Nonempty final String sValue)
   {
     m_sDocumentTypeScheme = ValueEnforcer.notEmpty (sScheme, "Scheme");
     m_sDocumentTypeValue = ValueEnforcer.notEmpty (sValue, "Value");
@@ -812,6 +814,7 @@ public class PeppolSBDHDocument
    *
    * @return <code>null</code> if no business message is present. A clone (deep
    *         copy) of the business message otherwise.
+   * @see #getBusinessMessageNoClone()
    */
   @Nullable
   @ReturnsMutableCopy
@@ -824,6 +827,7 @@ public class PeppolSBDHDocument
    * Get the contained business message without cloning it.
    *
    * @return <code>null</code> if no business message is present.
+   * @see #getBusinessMessage()
    * @since 8.6.1
    */
   @Nullable
@@ -890,7 +894,7 @@ public class PeppolSBDHDocument
 
   /**
    * Set the main business message that should be transmitted together with the
-   * SBDH.
+   * SBDH. The DOM element is cloned internally to avoid outside modification
    *
    * @param aBusinessMessage
    *        The business message to be set. May not be <code>null</code>.
@@ -898,6 +902,7 @@ public class PeppolSBDHDocument
    *        modifications outside of this method have no impact on the business
    *        message inside this object.
    * @return this
+   * @see #setBusinessMessageNoClone(Element)
    */
   @Nonnull
   public PeppolSBDHDocument setBusinessMessage (@Nonnull final Element aBusinessMessage)
@@ -906,6 +911,28 @@ public class PeppolSBDHDocument
 
     // Create a deep copy of the element to avoid outside modifications
     m_aBusinessMessage = (Element) aBusinessMessage.cloneNode (true);
+    return this;
+  }
+
+  /**
+   * Set the main business message that should be transmitted together with the
+   * SBDH. The DOM element is not cloned / copied internally.
+   *
+   * @param aBusinessMessage
+   *        The business message to be set. May not be <code>null</code>.
+   *        Internally the passed element is cloned, so that further
+   *        modifications outside of this method have no impact on the business
+   *        message inside this object.
+   * @return this
+   * @see #setBusinessMessage(Element)
+   * @since 8.8.1
+   */
+  @Nonnull
+  public PeppolSBDHDocument setBusinessMessageNoClone (@Nonnull final Element aBusinessMessage)
+  {
+    ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
+
+    m_aBusinessMessage = aBusinessMessage;
     return this;
   }
 
@@ -963,7 +990,8 @@ public class PeppolSBDHDocument
    * @since 6.2.4
    */
   @Nonnull
-  public PeppolSBDHDocument setBusinessMessageTextOnly (@Nonnull final String sTextPayload, @Nonnull final IMimeType aMimeType)
+  public PeppolSBDHDocument setBusinessMessageTextOnly (@Nonnull final String sTextPayload,
+                                                        @Nonnull final IMimeType aMimeType)
   {
     ValueEnforcer.notNull (sTextPayload, "TextPayload");
     ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -1111,7 +1139,8 @@ public class PeppolSBDHDocument
    */
   @Deprecated
   @Nonnull
-  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage, @Nonnull final IIdentifierFactory aIdentifierFactory)
+  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage,
+                                           @Nonnull final IIdentifierFactory aIdentifierFactory)
   {
     return createUBL21 (aBusinessMessage, aIdentifierFactory);
   }
