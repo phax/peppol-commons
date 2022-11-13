@@ -105,7 +105,10 @@ public final class BusdoxDocumentTypeIdentifierParts implements IBusdoxDocumentT
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sRootNS).append (m_sLocalName).append (m_sSubTypeIdentifier).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sRootNS)
+                                       .append (m_sLocalName)
+                                       .append (m_sSubTypeIdentifier)
+                                       .getHashCode ();
   }
 
   @Override
@@ -147,7 +150,9 @@ public final class BusdoxDocumentTypeIdentifierParts implements IBusdoxDocumentT
    * different parts.<br>
    * A document identifier value has the following layout:<br>
    * <code>&lt;root NS&gt;::&lt;document element local name&gt;[##&lt;sub type
-   * identifier&gt;]</code>
+   * identifier&gt;]</code><br>
+   * Example value to be split:
+   * <code>busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</code>
    *
    * @param sDocTypeID
    *        The document identifier value to be split. May neither be
