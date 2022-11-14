@@ -315,7 +315,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
     {
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Performing SMP query at '" + aRequest.getRequestUri () + "'");
+        LOGGER.info ("Performing SMP query at '" + aRequest.toString () + "'");
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
     catch (final IOException ex)
