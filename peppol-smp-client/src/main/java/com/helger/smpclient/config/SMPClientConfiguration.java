@@ -40,9 +40,10 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceprovider.ReadableResourceProviderChain;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemProperties;
-import com.helger.config.Config;
 import com.helger.config.ConfigFactory;
 import com.helger.config.IConfig;
+import com.helger.config.fallback.ConfigWithFallback;
+import com.helger.config.fallback.IConfigWithFallback;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.res.ConfigurationSourceProperties;
@@ -127,10 +128,10 @@ public final class SMPClientConfiguration
     return ret;
   }
 
-  private static final IConfig DEFAULT_CONFIG = Config.create (createSMPClientValueProvider ());
+  private static final IConfigWithFallback DEFAULT_CONFIG = new ConfigWithFallback (createSMPClientValueProvider ());
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK")
-  private static IConfig s_aConfig = DEFAULT_CONFIG;
+  private static IConfigWithFallback s_aConfig = DEFAULT_CONFIG;
 
   private SMPClientConfiguration ()
   {}
@@ -139,7 +140,7 @@ public final class SMPClientConfiguration
    * @return The current global configuration. Never <code>null</code>.
    */
   @Nonnull
-  public static IConfig getConfig ()
+  public static IConfigWithFallback getConfig ()
   {
     // Inline for performance
     RW_LOCK.readLock ().lock ();
@@ -161,10 +162,10 @@ public final class SMPClientConfiguration
    * @return The old value of {@link IConfig}. Never <code>null</code>.
    */
   @Nonnull
-  public static IConfig setConfig (@Nonnull final IConfig aNewConfig)
+  public static IConfigWithFallback setConfig (@Nonnull final IConfigWithFallback aNewConfig)
   {
     ValueEnforcer.notNull (aNewConfig, "NewConfig");
-    final IConfig ret;
+    final IConfigWithFallback ret;
     RW_LOCK.writeLock ().lock ();
     try
     {
@@ -182,83 +183,6 @@ public final class SMPClientConfiguration
     return ret;
   }
 
-  private static void _logRenamedConfig (@Nonnull final String sOld, @Nonnull final String sNew)
-  {
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("Please rename the configuration property '" +
-                   sOld +
-                   "' to '" +
-                   sNew +
-                   "'. Support for the old property name will be removed in v9.0.");
-  }
-
-  @Nullable
-  private static String _getAsStringOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
-  {
-    String ret = getConfig ().getAsString (sPrimary);
-    if (StringHelper.hasNoText (ret))
-    {
-      // Try the old names
-      for (final String sOld : aOldOnes)
-      {
-        ret = getConfig ().getAsString (sOld);
-        if (StringHelper.hasText (ret))
-        {
-          // Notify on old name usage
-          _logRenamedConfig (sOld, sPrimary);
-          break;
-        }
-      }
-    }
-    return ret;
-  }
-
-  private static int _getAsIntOrFallback (@Nonnull final String sPrimary,
-                                          final int nBogus,
-                                          final int nDefault,
-                                          @Nonnull final String... aOldOnes)
-  {
-    int ret = getConfig ().getAsInt (sPrimary, nBogus);
-    if (ret == nBogus)
-    {
-      // Try the old names
-      for (final String sOld : aOldOnes)
-      {
-        ret = getConfig ().getAsInt (sOld, nBogus);
-        if (ret != nBogus)
-        {
-          // Notify on old name usage
-          _logRenamedConfig (sOld, sPrimary);
-          break;
-        }
-      }
-    }
-    return ret == nBogus ? nDefault : ret;
-  }
-
-  private static long _getAsLongOrFallback (@Nonnull final String sPrimary,
-                                            final long nBogus,
-                                            final long nDefault,
-                                            @Nonnull final String... aOldOnes)
-  {
-    long ret = getConfig ().getAsLong (sPrimary, nBogus);
-    if (ret == nBogus)
-    {
-      // Try the old names
-      for (final String sOld : aOldOnes)
-      {
-        ret = getConfig ().getAsLong (sOld, nBogus);
-        if (ret != nBogus)
-        {
-          // Notify on old name usage
-          _logRenamedConfig (sOld, sPrimary);
-          break;
-        }
-      }
-    }
-    return ret == nBogus ? nDefault : ret;
-  }
-
   /**
    * @return The truststore type as specified in the configuration file by the
    *         key <code>truststore.type</code>. If none is present
@@ -269,7 +193,7 @@ public final class SMPClientConfiguration
   @Nonnull
   public static EKeyStoreType getTrustStoreType ()
   {
-    final String ret = _getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");
+    final String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");
     return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (ret, PeppolKeyStoreHelper.TRUSTSTORE_TYPE);
   }
 
@@ -284,7 +208,7 @@ public final class SMPClientConfiguration
   @Nonnull
   public static String getTrustStorePath ()
   {
-    String ret = _getAsStringOrFallback ("smpclient.truststore.path", "truststore.path", "truststore.location");
+    String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.path", "truststore.path", "truststore.location");
     if (StringHelper.hasNoText (ret))
       ret = PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH;
     return ret;
@@ -299,7 +223,7 @@ public final class SMPClientConfiguration
   @Nonnull
   public static String getTrustStorePassword ()
   {
-    String ret = _getAsStringOrFallback ("smpclient.truststore.password", "truststore.password");
+    String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.password", "truststore.password");
     if (StringHelper.hasNoText (ret))
       ret = PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD;
     return ret;
@@ -332,8 +256,8 @@ public final class SMPClientConfiguration
   @Nullable
   public static HttpHost getHttpProxy ()
   {
-    final String sProxyHost = _getAsStringOrFallback ("http.proxy.host", "http.proxyHost");
-    final int nProxyPort = _getAsIntOrFallback ("http.proxy.port", -1, 0, "http.proxyPort");
+    final String sProxyHost = getConfig ().getAsStringOrFallback ("http.proxy.host", "http.proxyHost");
+    final int nProxyPort = getConfig ().getAsIntOrFallback ("http.proxy.port", -1, 0, "http.proxyPort");
     if (sProxyHost != null && nProxyPort > 0)
       return new HttpHost (sProxyHost, nProxyPort);
 
@@ -348,8 +272,8 @@ public final class SMPClientConfiguration
   @Nullable
   public static UsernamePasswordCredentials getHttpProxyCredentials ()
   {
-    final String sProxyUsername = _getAsStringOrFallback ("http.proxy.username", "http.proxyUsername");
-    final String sProxyPassword = _getAsStringOrFallback ("http.proxy.password", "http.proxyPassword");
+    final String sProxyUsername = getConfig ().getAsStringOrFallback ("http.proxy.username", "http.proxyUsername");
+    final String sProxyPassword = getConfig ().getAsStringOrFallback ("http.proxy.password", "http.proxyPassword");
     if (sProxyUsername != null && sProxyPassword != null)
       return new UsernamePasswordCredentials (sProxyUsername, sProxyPassword.toCharArray ());
 
@@ -364,7 +288,7 @@ public final class SMPClientConfiguration
   @Nullable
   public static String getNonProxyHosts ()
   {
-    return _getAsStringOrFallback ("http.proxy.nonProxyHosts", "http.nonProxyHosts");
+    return getConfig ().getAsStringOrFallback ("http.proxy.nonProxyHosts", "http.nonProxyHosts");
   }
 
   /**
@@ -438,7 +362,7 @@ public final class SMPClientConfiguration
   @Nonnull
   public static Timeout getResponseTimeout ()
   {
-    final long nMS = _getAsLongOrFallback ("http.response.timeout.ms", -1, -1, "http.request.timeout.ms");
+    final long nMS = getConfig ().getAsLongOrFallback ("http.response.timeout.ms", -1, -1, "http.request.timeout.ms");
     if (nMS >= 0)
       return Timeout.ofMilliseconds (nMS);
     return HttpClientSettings.DEFAULT_RESPONSE_TIMEOUT;
