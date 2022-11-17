@@ -319,9 +319,9 @@ public final class SMPClientReadOnlyTest
     // pint@japan
     aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aReceiverID,
                                                         aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
-                                                                                          "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-3.0@jp:peppol-1::2.1"));
+                                                                                          "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1::2.1"));
     assertNotNull (aSSM);
-    assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-3.0@jp:peppol-1*::2.1",
+    assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1*::2.1",
                   CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
                                                  .getServiceInformation ()
                                                  .getDocumentIdentifier ()));
@@ -329,9 +329,9 @@ public final class SMPClientReadOnlyTest
     // pint@japan@sub-japan
     aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aReceiverID,
                                                         aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
-                                                                                          "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-3.0@jp:peppol-1@sub-japan::2.1"));
+                                                                                          "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1@sub-japan::2.1"));
     assertNotNull (aSSM);
-    assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-3.0@jp:peppol-1*::2.1",
+    assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1*::2.1",
                   CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
                                                  .getServiceInformation ()
                                                  .getDocumentIdentifier ()));
@@ -339,9 +339,9 @@ public final class SMPClientReadOnlyTest
     // pint@us
     aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aReceiverID,
                                                         aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
-                                                                                          "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-3.0@us::2.1"));
+                                                                                          "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@us::2.1"));
     assertNotNull (aSSM);
-    assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-3.0*::2.1",
+    assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1*::2.1",
                   CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
                                                  .getServiceInformation ()
                                                  .getDocumentIdentifier ()));
@@ -349,9 +349,9 @@ public final class SMPClientReadOnlyTest
     // pint
     aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aReceiverID,
                                                         aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
-                                                                                          "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-3.0::2.1"));
+                                                                                          "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1::2.1"));
     assertNotNull (aSSM);
-    assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-3.0*::2.1",
+    assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1*::2.1",
                   CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
                                                  .getServiceInformation ()
                                                  .getDocumentIdentifier ()));
