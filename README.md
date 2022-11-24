@@ -280,6 +280,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.8.2 - 2022-11-24
+    * Improved error handling when loading an ill-configured SMP client truststore
 * v8.8.1 - 2022-11-01
     * Updated to ph-web 9.7.1
     * Extended `SMPJsonResponse` with the versions for BDXR2

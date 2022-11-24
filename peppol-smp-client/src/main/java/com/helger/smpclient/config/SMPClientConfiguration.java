@@ -16,9 +16,7 @@
  */
 package com.helger.smpclient.config;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 
 import javax.annotation.Nonnull;
@@ -243,8 +241,9 @@ public final class SMPClientConfiguration
     {
       return KeyStoreHelper.loadKeyStoreDirect (getTrustStoreType (), getTrustStorePath (), getTrustStorePassword ());
     }
-    catch (final GeneralSecurityException | IOException ex)
+    catch (final Exception ex)
     {
+      // May also be a runtime exception if the path is invalid
       LOGGER.warn ("Failed to load SMP client truststore: " + ex.getClass ().getName () + " - " + ex.getMessage ());
       return null;
     }
