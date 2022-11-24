@@ -135,7 +135,9 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    */
   public void create (@Nonnull @Nonempty final String sSMPID,
                       @Nonnull @Nonempty final String sSMPAddressPhysical,
-                      @Nonnull @Nonempty final String sSMPAddressLogical) throws BadRequestFault, InternalErrorFault, UnauthorizedFault
+                      @Nonnull @Nonempty final String sSMPAddressLogical) throws BadRequestFault,
+                                                                          InternalErrorFault,
+                                                                          UnauthorizedFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notEmpty (sSMPAddressPhysical, "SMPAddressPhysical");
@@ -171,21 +173,21 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
                                                                                            UnauthorizedFault
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
-    ValueEnforcer.notEmpty (aServiceMetadata.getServiceMetadataPublisherID (), "ServiceMetadata.ServiceMetadataPublisherID");
+    ValueEnforcer.notEmpty (aServiceMetadata.getServiceMetadataPublisherID (),
+                            "ServiceMetadata.ServiceMetadataPublisherID");
     ValueEnforcer.notNull (aServiceMetadata.getPublisherEndpoint (), "ServiceMetadata.PublisherEndpoint");
     ValueEnforcer.notEmpty (aServiceMetadata.getPublisherEndpoint ().getPhysicalAddress (),
                             "ServiceMetadata.PublisherEndpoint.PhysicalAddress");
     ValueEnforcer.notEmpty (aServiceMetadata.getPublisherEndpoint ().getLogicalAddress (),
                             "ServiceMetadata.PublisherEndpoint.LogicalAddress");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to create new SMP '" +
-                   aServiceMetadata.getServiceMetadataPublisherID () +
-                   "' with physical address '" +
-                   aServiceMetadata.getPublisherEndpoint ().getPhysicalAddress () +
-                   "' and logical address '" +
-                   aServiceMetadata.getPublisherEndpoint ().getLogicalAddress () +
-                   "'");
+    LOGGER.info ("Trying to create new SMP '" +
+                 aServiceMetadata.getServiceMetadataPublisherID () +
+                 "' with physical address '" +
+                 aServiceMetadata.getPublisherEndpoint ().getPhysicalAddress () +
+                 "' and logical address '" +
+                 aServiceMetadata.getPublisherEndpoint ().getLogicalAddress () +
+                 "'");
 
     createWSPort ().create (aServiceMetadata);
   }
@@ -255,21 +257,21 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
                                                                                            BadRequestFault
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
-    ValueEnforcer.notEmpty (aServiceMetadata.getServiceMetadataPublisherID (), "ServiceMetadata.ServiceMetadataPublisherID");
+    ValueEnforcer.notEmpty (aServiceMetadata.getServiceMetadataPublisherID (),
+                            "ServiceMetadata.ServiceMetadataPublisherID");
     ValueEnforcer.notNull (aServiceMetadata.getPublisherEndpoint (), "ServiceMetadata.PublisherEndpoint");
     ValueEnforcer.notEmpty (aServiceMetadata.getPublisherEndpoint ().getPhysicalAddress (),
                             "ServiceMetadata.PublisherEndpoint.PhysicalAddress");
     ValueEnforcer.notEmpty (aServiceMetadata.getPublisherEndpoint ().getLogicalAddress (),
                             "ServiceMetadata.PublisherEndpoint.LogicalAddress");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to update SMP '" +
-                   aServiceMetadata.getServiceMetadataPublisherID () +
-                   "' with physical address '" +
-                   aServiceMetadata.getPublisherEndpoint ().getPhysicalAddress () +
-                   "' and logical address '" +
-                   aServiceMetadata.getPublisherEndpoint ().getLogicalAddress () +
-                   "'");
+    LOGGER.info ("Trying to update SMP '" +
+                 aServiceMetadata.getServiceMetadataPublisherID () +
+                 "' with physical address '" +
+                 aServiceMetadata.getPublisherEndpoint ().getPhysicalAddress () +
+                 "' and logical address '" +
+                 aServiceMetadata.getPublisherEndpoint ().getLogicalAddress () +
+                 "'");
 
     createWSPort ().update (aServiceMetadata);
   }
@@ -289,12 +291,14 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws BadRequestFault
    *         The request was not well formed.
    */
-  public void delete (@Nonnull @Nonempty final String sSMPID) throws InternalErrorFault, NotFoundFault, UnauthorizedFault, BadRequestFault
+  public void delete (@Nonnull @Nonempty final String sSMPID) throws InternalErrorFault,
+                                                              NotFoundFault,
+                                                              UnauthorizedFault,
+                                                              BadRequestFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to delete SMP '" + sSMPID + "'");
+    LOGGER.info ("Trying to delete SMP '" + sSMPID + "'");
 
     createWSPort ().delete (sSMPID);
   }
@@ -352,8 +356,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
     ValueEnforcer.notNull (aSMPService, "SMPService");
     ValueEnforcer.notEmpty (aSMPService.getServiceMetadataPublisherID (), "SMPService.ServiceMetadataPublisherID");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to read SMP '" + aSMPService.getServiceMetadataPublisherID () + "'");
+    LOGGER.info ("Trying to read SMP '" + aSMPService.getServiceMetadataPublisherID () + "'");
 
     return createWSPort ().read (aSMPService);
   }

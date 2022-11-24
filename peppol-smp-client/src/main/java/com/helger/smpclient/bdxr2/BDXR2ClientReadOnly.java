@@ -309,8 +309,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
         if (aRedirect != null)
         {
           // Follow the redirect
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getPublisherURIValue () + "'");
+          LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getPublisherURIValue () + "'");
 
           aRequest = new HttpGet (aRedirect.getPublisherURIValue ());
 
@@ -452,18 +451,17 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
 
         if (aRelevantEndpoints.size () != 1)
         {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Found " +
-                         aRelevantEndpoints.size () +
-                         " endpoints for process '" +
-                         aProcessID.getURIEncoded () +
-                         "' and transport profile '" +
-                         aTransportProfile.getID () +
-                         "'" +
-                         (aRelevantEndpoints.isEmpty () ? ""
-                                                        : ": " +
-                                                          aRelevantEndpoints.toString () +
-                                                          " - using the first one"));
+          LOGGER.warn ("Found " +
+                       aRelevantEndpoints.size () +
+                       " endpoints for process '" +
+                       aProcessID.getURIEncoded () +
+                       "' and transport profile '" +
+                       aTransportProfile.getID () +
+                       "'" +
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint or null

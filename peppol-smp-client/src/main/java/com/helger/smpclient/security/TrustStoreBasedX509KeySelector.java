@@ -106,7 +106,8 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   {
     if (sAlgName.equalsIgnoreCase ("DSA"))
     {
-      if (sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1) || sAlgURI.equalsIgnoreCase ("http://www.w3.org/2009/xmldsig11#dsa-sha256"))
+      if (sAlgURI.equalsIgnoreCase (SignatureMethod.DSA_SHA1) ||
+          sAlgURI.equalsIgnoreCase ("http://www.w3.org/2009/xmldsig11#dsa-sha256"))
         return true;
     }
     else
@@ -141,12 +142,11 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
             return true;
         }
 
-    if (LOGGER.isWarnEnabled ())
-      LOGGER.warn ("Algorithm mismatch between JCA/JCE public key algorithm name ('" +
-                   sAlgName +
-                   "') and signature algorithm URI ('" +
-                   sAlgURI +
-                   "')");
+    LOGGER.warn ("Algorithm mismatch between JCA/JCE public key algorithm name ('" +
+                 sAlgName +
+                 "') and signature algorithm URI ('" +
+                 sAlgURI +
+                 "')");
     return false;
   }
 
@@ -175,7 +175,8 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
             final X509Certificate aCertificate = (X509Certificate) aElement;
             try
             {
-              final Date aCheckDate = m_aValidationDateTime != null ? PDTFactory.createDate (m_aValidationDateTime) : null;
+              final Date aCheckDate = m_aValidationDateTime != null ? PDTFactory.createDate (m_aValidationDateTime)
+                                                                    : null;
 
               // Check if the certificate is expired or active.
               if (aCheckDate != null)

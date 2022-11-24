@@ -92,14 +92,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     else
     {
       if (StringHelper.hasNoText (sPath))
-      {
         LOGGER.warn ("No SMP client trust store is configured");
-      }
       else
-      {
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Failed to load the configured SMP client trust store '" + sPath + "' of type " + eType);
-      }
+        LOGGER.warn ("Failed to load the configured SMP client trust store '" + sPath + "' of type " + eType);
     }
   }
 
@@ -133,13 +128,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     if (bPeppolLimitationsActive)
     {
       if (!"http".equals (aSMPHost.getScheme ()))
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme, which is required for Peppol!");
+        LOGGER.warn ("SMP URI " + aSMPHost + " does not use the expected http scheme, which is required for Peppol!");
 
       // getPort () returns -1 if none was explicitly specified
       if (aSMPHost.getPort () != 80 && aSMPHost.getPort () != -1)
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("SMP URI " + aSMPHost + " is not running on port 80, which is required for Peppol!");
+        LOGGER.warn ("SMP URI " + aSMPHost + " is not running on port 80, which is required for Peppol!");
     }
 
     // Build string and ensure it ends with a "/"
@@ -314,14 +307,12 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     final HttpClientContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
     {
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Performing SMP query at '" + aRequest.toString () + "'");
+      LOGGER.info ("Performing SMP query at '" + aRequest.toString () + "'");
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
     catch (final IOException ex)
     {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
+      LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
       throw ex;
     }
   }

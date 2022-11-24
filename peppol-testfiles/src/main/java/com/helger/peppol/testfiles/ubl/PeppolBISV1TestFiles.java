@@ -583,8 +583,7 @@ public final class PeppolBISV1TestFiles
         aFilenames = TENDERINGCATALOGUES_SUCCESS;
         break;
       default:
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("No success test files present for type " + eFileType);
+        LOGGER.warn ("No success test files present for type " + eFileType);
         break;
     }
 
@@ -604,7 +603,8 @@ public final class PeppolBISV1TestFiles
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType, @Nullable final Locale aCountry)
+  public static ICommonsList <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType,
+                                                           @Nullable final Locale aCountry)
   {
     ValueEnforcer.notNull (eFileType, "FileType");
 
@@ -627,15 +627,15 @@ public final class PeppolBISV1TestFiles
         aFilenames = ORDERS_ERROR;
         break;
       default:
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("No error test files present for type " + eFileType);
+        LOGGER.warn ("No error test files present for type " + eFileType);
         break;
     }
 
     // Build result list
     final ICommonsList <TestResource> ret = new CommonsArrayList <> ();
     for (final TestDocument aTestDoc : aFilenames)
-      ret.add (new TestResource (eFileType.getErrorResource (aTestDoc.getFilename ()), aTestDoc.getAllExpectedErrors ()));
+      ret.add (new TestResource (eFileType.getErrorResource (aTestDoc.getFilename ()),
+                                 aTestDoc.getAllExpectedErrors ()));
     return ret;
   }
 }

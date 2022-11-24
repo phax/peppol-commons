@@ -44,8 +44,7 @@ public final class IdentifierValidator
   {
     PID_VALIDATOR = ServiceLoaderHelper.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
     if (PID_VALIDATOR.isNotEmpty ())
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Loaded " + PID_VALIDATOR.size () + " SPI implementations of IParticipantIdentifierValidatorSPI");
+      LOGGER.info ("Loaded " + PID_VALIDATOR.size () + " SPI implementations of IParticipantIdentifierValidatorSPI");
   }
 
   @PresentForCodeCoverage

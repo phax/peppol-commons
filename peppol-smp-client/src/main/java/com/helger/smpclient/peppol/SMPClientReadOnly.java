@@ -541,8 +541,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
 
         // Follow the redirect
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+        LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         aRequest = new HttpGet (aRedirect.getHref ());
 
         // Create a new Marshaller to ensure customization is simple
@@ -805,19 +804,18 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
         if (aRelevantEndpoints.size () != 1)
         {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Found " +
-                         aRelevantEndpoints.size () +
-                         " endpoints for process " +
-                         aProcessID +
-                         " and transport profile '" +
-                         aTransportProfile.getID () +
-                         "' valid at " +
-                         aCheckDT +
-                         (aRelevantEndpoints.isEmpty () ? ""
-                                                        : ": " +
-                                                          aRelevantEndpoints.toString () +
-                                                          " - using the first one"));
+          LOGGER.warn ("Found " +
+                       aRelevantEndpoints.size () +
+                       " endpoints for process " +
+                       aProcessID +
+                       " and transport profile '" +
+                       aTransportProfile.getID () +
+                       "' valid at " +
+                       aCheckDT +
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint

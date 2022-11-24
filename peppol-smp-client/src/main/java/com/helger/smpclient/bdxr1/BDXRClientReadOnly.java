@@ -325,8 +325,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
 
         // Follow the redirect
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+        LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         aRequest = new HttpGet (aRedirect.getHref ());
 
         // Create a new Marshaller to make sure customization is easy
@@ -473,17 +472,16 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
         if (aRelevantEndpoints.size () != 1)
         {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Found " +
-                         aRelevantEndpoints.size () +
-                         " endpoints for process " +
-                         aProcessID +
-                         " and transport profile " +
-                         aTransportProfile.getID () +
-                         (aRelevantEndpoints.isEmpty () ? ""
-                                                        : ": " +
-                                                          aRelevantEndpoints.toString () +
-                                                          " - using the first one"));
+          LOGGER.warn ("Found " +
+                       aRelevantEndpoints.size () +
+                       " endpoints for process " +
+                       aProcessID +
+                       " and transport profile " +
+                       aTransportProfile.getID () +
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint or null

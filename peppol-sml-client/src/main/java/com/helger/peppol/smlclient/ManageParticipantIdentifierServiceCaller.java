@@ -122,10 +122,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws NotFoundFault
    *         Is thrown if the service meta data publisher was not found.
    */
-  public void create (@Nonnull @Nonempty final String sSMPID, @Nonnull final IParticipantIdentifier aIdentifier) throws BadRequestFault,
-                                                                                                                 InternalErrorFault,
-                                                                                                                 UnauthorizedFault,
-                                                                                                                 NotFoundFault
+  public void create (@Nonnull @Nonempty final String sSMPID,
+                      @Nonnull final IParticipantIdentifier aIdentifier) throws BadRequestFault,
+                                                                         InternalErrorFault,
+                                                                         UnauthorizedFault,
+                                                                         NotFoundFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notNull (aIdentifier, "Identifier");
@@ -158,15 +159,16 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
                                                                                                               NotFoundFault
   {
     ValueEnforcer.notNull (aSMPParticpantService, "SMPParticpantService");
-    ValueEnforcer.notNull (aSMPParticpantService.getParticipantIdentifier (), "SMPParticpantService.ParticipantIdentifier");
-    ValueEnforcer.notEmpty (aSMPParticpantService.getServiceMetadataPublisherID (), "SMPParticpantService.ServiceMetadataPublisherID");
+    ValueEnforcer.notNull (aSMPParticpantService.getParticipantIdentifier (),
+                           "SMPParticpantService.ParticipantIdentifier");
+    ValueEnforcer.notEmpty (aSMPParticpantService.getServiceMetadataPublisherID (),
+                            "SMPParticpantService.ServiceMetadataPublisherID");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to create new participant " +
-                   CIdentifier.getURIEncoded (aSMPParticpantService.getParticipantIdentifier ()) +
-                   " in SMP '" +
-                   aSMPParticpantService.getServiceMetadataPublisherID () +
-                   "'");
+    LOGGER.info ("Trying to create new participant " +
+                 CIdentifier.getURIEncoded (aSMPParticpantService.getParticipantIdentifier ()) +
+                 " in SMP '" +
+                 aSMPParticpantService.getServiceMetadataPublisherID () +
+                 "'");
     createWSPort ().create (aSMPParticpantService);
   }
 
@@ -210,8 +212,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to create multiple new participants " + _toString (aParticipantIdentifiers) + " in SMP '" + sSMPID + "'");
+    LOGGER.info ("Trying to create multiple new participants " +
+                 _toString (aParticipantIdentifiers) +
+                 " in SMP '" +
+                 sSMPID +
+                 "'");
     final ParticipantIdentifierPageType aParticipantList = new ParticipantIdentifierPageType ();
     for (final IParticipantIdentifier aPI : aParticipantIdentifiers)
     {
@@ -242,10 +247,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void delete (@Nonnull @Nonempty final String sSMPID, @Nonnull final IParticipantIdentifier aIdentifier) throws BadRequestFault,
-                                                                                                                 InternalErrorFault,
-                                                                                                                 NotFoundFault,
-                                                                                                                 UnauthorizedFault
+  public void delete (@Nonnull @Nonempty final String sSMPID,
+                      @Nonnull final IParticipantIdentifier aIdentifier) throws BadRequestFault,
+                                                                         InternalErrorFault,
+                                                                         NotFoundFault,
+                                                                         UnauthorizedFault
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 
@@ -278,10 +284,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
                                                                                                               UnauthorizedFault
   {
     ValueEnforcer.notNull (aSMPParticpantService, "SMPParticpantService");
-    ValueEnforcer.notNull (aSMPParticpantService.getParticipantIdentifier (), "SMPParticpantService.ParticipantIdentifier");
+    ValueEnforcer.notNull (aSMPParticpantService.getParticipantIdentifier (),
+                           "SMPParticpantService.ParticipantIdentifier");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to delete participant " + CIdentifier.getURIEncoded (aSMPParticpantService.getParticipantIdentifier ()));
+    LOGGER.info ("Trying to delete participant " +
+                 CIdentifier.getURIEncoded (aSMPParticpantService.getParticipantIdentifier ()));
 
     createWSPort ().delete (aSMPParticpantService);
   }
@@ -310,8 +317,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   {
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to delete multiple participants " + _toString2 (aParticipantIdentifiers));
+    LOGGER.info ("Trying to delete multiple participants " + _toString2 (aParticipantIdentifiers));
 
     final ParticipantIdentifierPageType deleteListIn = new ParticipantIdentifierPageType ();
     for (final ParticipantIdentifierType aPI : aParticipantIdentifiers)
@@ -343,10 +349,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public ParticipantIdentifierPageType list (@Nonnull final String sPageId, @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
-                                                                                                                    InternalErrorFault,
-                                                                                                                    NotFoundFault,
-                                                                                                                    UnauthorizedFault
+  public ParticipantIdentifierPageType list (@Nonnull final String sPageId,
+                                             @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
+                                                                                     InternalErrorFault,
+                                                                                     NotFoundFault,
+                                                                                     UnauthorizedFault
   {
     ValueEnforcer.notNull (sPageId, "PageId");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
@@ -382,8 +389,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notNull (aPageRequest, "PageRequest");
     ValueEnforcer.notEmpty (aPageRequest.getServiceMetadataPublisherID (), "PageRequest.ServiceMetadataPublisherID");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Trying to list participants in SMP '" + aPageRequest.getServiceMetadataPublisherID () + "'");
+    LOGGER.info ("Trying to list participants in SMP '" + aPageRequest.getServiceMetadataPublisherID () + "'");
 
     return createWSPort ().list (aPageRequest);
   }
@@ -501,14 +507,13 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     ValueEnforcer.notNull (aIdentifier, "Identifier");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Preparing to migrate participant " +
-                   aIdentifier.getURIEncoded () +
-                   " from SMP '" +
-                   sSMPID +
-                   "' using migration key '" +
-                   sMigrationKey +
-                   "'");
+    LOGGER.info ("Preparing to migrate participant " +
+                 aIdentifier.getURIEncoded () +
+                 " from SMP '" +
+                 sSMPID +
+                 "' using migration key '" +
+                 sMigrationKey +
+                 "'");
 
     final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
     // Constructor call needed for type conversion
@@ -518,8 +523,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     createWSPort ().prepareToMigrate (aMigrationRecord);
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Successfully called 'prepareToMigrate'");
+    LOGGER.info ("Successfully called 'prepareToMigrate'");
 
     return sMigrationKey;
   }
@@ -551,20 +555,22 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    */
   public void migrate (@Nonnull final IParticipantIdentifier aIdentifier,
                        @Nonnull @Nonempty final String sMigrationKey,
-                       @Nonnull @Nonempty final String sSMPID) throws BadRequestFault, InternalErrorFault, NotFoundFault, UnauthorizedFault
+                       @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
+                                                               InternalErrorFault,
+                                                               NotFoundFault,
+                                                               UnauthorizedFault
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
     ValueEnforcer.notEmpty (sMigrationKey, "MigrationKey");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Finishing migration of participant " +
-                   aIdentifier.getURIEncoded () +
-                   " to SMP '" +
-                   sSMPID +
-                   "' using migration key '" +
-                   sMigrationKey +
-                   "'");
+    LOGGER.info ("Finishing migration of participant " +
+                 aIdentifier.getURIEncoded () +
+                 " to SMP '" +
+                 sSMPID +
+                 "' using migration key '" +
+                 sMigrationKey +
+                 "'");
 
     final MigrationRecordType aMigrationRecord = new MigrationRecordType ();
     // Constructor call needed for type conversion
@@ -574,7 +580,6 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
     createWSPort ().migrate (aMigrationRecord);
 
-    if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Successfully called 'migrate'");
+    LOGGER.info ("Successfully called 'migrate'");
   }
 }

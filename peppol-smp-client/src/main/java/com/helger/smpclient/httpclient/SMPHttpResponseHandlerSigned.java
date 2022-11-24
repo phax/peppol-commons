@@ -187,19 +187,16 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
         // This code block is for debugging purposes only - it has no semantical
         // influence
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Signature[" + sSignatureDebug + "] failed core validation");
+        LOGGER.warn ("Signature[" + sSignatureDebug + "] failed core validation");
 
         final boolean bSignatureValueValid = aSignature.getSignatureValue ().validate (aValidateContext);
         if (bSignatureValueValid)
         {
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("  Signature[" + sSignatureDebug + "] SignatureValue validity status: valid");
+          LOGGER.info ("  Signature[" + sSignatureDebug + "] SignatureValue validity status: valid");
         }
         else
         {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("  Signature[" + sSignatureDebug + "] SignatureValue validity status: NOT valid!");
+          LOGGER.warn ("  Signature[" + sSignatureDebug + "] SignatureValue validity status: NOT valid!");
         }
 
         {
@@ -214,32 +211,25 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
             final Reference aRef = (Reference) i.next ();
             if (aRef.getTransforms ().size () != 1)
-              if (LOGGER.isWarnEnabled ())
-                LOGGER.warn ("  Signature[" +
-                             sSignatureDebug +
-                             "] Reference[" +
-                             sRefDebug +
-                             "] has an invalid number of Transforms. Expected 1 but having " +
-                             aRef.getTransforms ().size ());
+              LOGGER.warn ("  Signature[" +
+                           sSignatureDebug +
+                           "] Reference[" +
+                           sRefDebug +
+                           "] has an invalid number of Transforms. Expected 1 but having " +
+                           aRef.getTransforms ().size ());
 
             final boolean bRefValid = aRef.validate (aValidateContext);
             if (bRefValid)
             {
-              if (LOGGER.isInfoEnabled ())
-                LOGGER.info ("  Signature[" +
-                             sSignatureDebug +
-                             "] Reference[" +
-                             sRefDebug +
-                             "] validity status: valid");
+              LOGGER.info ("  Signature[" + sSignatureDebug + "] Reference[" + sRefDebug + "] validity status: valid");
             }
             else
             {
-              if (LOGGER.isWarnEnabled ())
-                LOGGER.warn ("  Signature[" +
-                             sSignatureDebug +
-                             "] Reference[" +
-                             sRefDebug +
-                             "] validity status: NOT valid!");
+              LOGGER.warn ("  Signature[" +
+                           sSignatureDebug +
+                           "] Reference[" +
+                           sRefDebug +
+                           "] validity status: NOT valid!");
             }
             ++nRefIndex;
           }

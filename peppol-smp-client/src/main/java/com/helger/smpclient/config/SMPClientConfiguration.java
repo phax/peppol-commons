@@ -178,8 +178,7 @@ public final class SMPClientConfiguration
     }
 
     if (!EqualsHelper.identityEqual (ret, aNewConfig))
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("The SMPClient configuration provider was changed to " + aNewConfig);
+      LOGGER.info ("The SMPClient configuration provider was changed to " + aNewConfig);
     return ret;
   }
 
@@ -208,7 +207,9 @@ public final class SMPClientConfiguration
   @Nonnull
   public static String getTrustStorePath ()
   {
-    String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.path", "truststore.path", "truststore.location");
+    String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.path",
+                                                     "truststore.path",
+                                                     "truststore.location");
     if (StringHelper.hasNoText (ret))
       ret = PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH;
     return ret;
@@ -244,6 +245,7 @@ public final class SMPClientConfiguration
     }
     catch (final GeneralSecurityException | IOException ex)
     {
+      LOGGER.warn ("Failed to load SMP client truststore: " + ex.getClass ().getName () + " - " + ex.getMessage ());
       return null;
     }
   }
@@ -404,8 +406,7 @@ public final class SMPClientConfiguration
         {
           final String sConfigFileValue = aValue.getValue ();
           SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("Set Java system property from configuration: " + sProperty + "=" + sConfigFileValue);
+          LOGGER.info ("Set Java system property from configuration: " + sProperty + "=" + sConfigFileValue);
         }
       }
   }

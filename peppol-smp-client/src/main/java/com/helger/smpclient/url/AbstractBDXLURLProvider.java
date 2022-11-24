@@ -324,14 +324,13 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                              "' to a DNS U-NAPTR");
       }
 
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Resolved domain name '" +
-                     sBuildDomainName +
-                     "' and service '" +
-                     sServiceName +
-                     "' to URL '" +
-                     sResolvedNAPTR +
-                     "'");
+      LOGGER.info ("Resolved domain name '" +
+                   sBuildDomainName +
+                   "' and service '" +
+                   sServiceName +
+                   "' to URL '" +
+                   sResolvedNAPTR +
+                   "'");
 
       if (bUseDNSCache)
       {
@@ -359,6 +358,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                        .append ("UseDNSCache", m_bUseDNSCache)
                                        .append ("DNSCache", m_aDNSCache)
                                        .append ("CustomDNSServers", m_aCustomDNSServers)
+                                       .append ("UseNaptrDebug", m_bUseNaptrDebug)
                                        .getToString ();
   }
 }
