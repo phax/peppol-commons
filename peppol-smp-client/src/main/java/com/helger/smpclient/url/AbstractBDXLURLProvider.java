@@ -62,6 +62,7 @@ import com.helger.security.messagedigest.MessageDigestValue;
 public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 {
   public static final boolean DEFAULT_USE_DNS_CACHE = false;
+  public static final boolean DEFAULT_NAPTR_DEBUG = false;
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
   public static final Locale URL_LOCALE = Locale.US;
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractBDXLURLProvider.class);
@@ -78,6 +79,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   @GuardedBy ("m_aRWLock")
   private final ICommonsMap <String, String> m_aDNSCache = new CommonsHashMap <> ();
   private final ICommonsList <InetAddress> m_aCustomDNSServers = new CommonsArrayList <> ();
+  @GuardedBy ("m_aRWLock")
+  private boolean m_bUseNaptrDebug = DEFAULT_NAPTR_DEBUG;
 
   /**
    * Default constructor.
@@ -187,6 +190,16 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     return m_aCustomDNSServers;
   }
 
+  public final boolean isUseNaptrDebug ()
+  {
+    return m_aRWLock.readLockedBoolean ( () -> m_bUseNaptrDebug);
+  }
+
+  public final void setUseNaptrDebug (final boolean b)
+  {
+    m_aRWLock.writeLocked ( () -> m_bUseNaptrDebug = b);
+  }
+
   /**
    * Get the Base32 encoded (without padding), SHA-256
    * hash-string-representation of the passed value using the
@@ -199,7 +212,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   @Nonnull
   public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
   {
-    final byte [] aMessageDigest = MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET), EMessageDigestAlgorithm.SHA_256)
+    final byte [] aMessageDigest = MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET),
+                                                              EMessageDigestAlgorithm.SHA_256)
                                                      .bytes ();
     return new Base32Codec ().setAddPaddding (false).getEncodedAsString (aMessageDigest, StandardCharsets.ISO_8859_1);
   }
@@ -214,13 +228,15 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName))
       ValueEnforcer.isTrue (StringHelper.endsWith (sSMLZoneName, '.'),
-                            () -> "if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
+                            () -> "if an SML zone name is specified, it must end with a dot (.). Value is: " +
+                                  sSMLZoneName);
 
     final StringBuilder ret = new StringBuilder ();
 
     // Append the hashed identifier part
     {
-      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue () : aParticipantIdentifier.getURIEncoded ();
+      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue ()
+                                                           : aParticipantIdentifier.getURIEncoded ();
       if (bLowercaseValueBeforeHashing)
         sIdentifierValue = sIdentifierValue.toLowerCase (URL_LOCALE);
       ret.append (getHashValueStringRepresentation (sIdentifierValue)).append ('.');
@@ -254,7 +270,10 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
-    return internalGetDNSName (aParticipantIdentifier, isLowercaseValueBeforeHashing (), isAddIdentifierSchemeToZone (), sSMLZoneName);
+    return internalGetDNSName (aParticipantIdentifier,
+                               isLowercaseValueBeforeHashing (),
+                               isAddIdentifierSchemeToZone (),
+                               sSMLZoneName);
   }
 
   @Nonnull
@@ -265,7 +284,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " + sSMLZoneName);
+      throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
+                                           sSMLZoneName);
 
     final String sBuildDomainName = getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
 
@@ -283,7 +303,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                       .naptrRecords (NaptrLookup.builder ()
                                                                 .domainName (sBuildDomainName)
                                                                 .customDNSServers (customDNSServers ())
-                                                                .maxRetries (1))
+                                                                .maxRetries (1)
+                                                                .debugMode (m_bUseNaptrDebug))
                                       .serviceName (sServiceName)
                                       .build ()
                                       .resolveUNAPTR ();
@@ -304,7 +325,13 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
       }
 
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Resolved domain name '" + sBuildDomainName + "' and service '" + sServiceName + "' to URL '" + sResolvedNAPTR + "'");
+        LOGGER.info ("Resolved domain name '" +
+                     sBuildDomainName +
+                     "' and service '" +
+                     sServiceName +
+                     "' to URL '" +
+                     sResolvedNAPTR +
+                     "'");
 
       if (bUseDNSCache)
       {
