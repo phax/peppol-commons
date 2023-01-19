@@ -19,8 +19,11 @@ package com.helger.peppol.smp;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ContainsSoftMigration;
 import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
+import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
 /**
@@ -30,9 +33,11 @@ import com.helger.xml.microdom.convert.IMicroTypeConverter;
  */
 public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverter <SMPTransportProfile>
 {
-  private static final String ATTR_ID = "id";
-  private static final String ATTR_NAME = "name";
-  private static final String ATTR_DEPRECATED = "deprecated";
+  private static final IMicroQName ATTR_ID = new MicroQName ("id");
+  private static final IMicroQName ATTR_NAME = new MicroQName ("name");
+  @Deprecated
+  private static final IMicroQName ATTR_DEPRECATED = new MicroQName ("deprecated");
+  private static final IMicroQName ATTR_STATE = new MicroQName ("state");
 
   @Nonnull
   public IMicroElement convertToMicroElement (@Nonnull final SMPTransportProfile aValue,
@@ -42,16 +47,26 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_ID, aValue.getID ());
     aElement.setAttribute (ATTR_NAME, aValue.getName ());
-    aElement.setAttribute (ATTR_DEPRECATED, aValue.isDeprecated ());
+    aElement.setAttribute (ATTR_STATE, aValue.getState ().getID ());
     return aElement;
   }
 
   @Nonnull
+  @ContainsSoftMigration
+  @SuppressWarnings ("deprecation")
   public SMPTransportProfile convertToNative (@Nonnull final IMicroElement aElement)
   {
     final String sID = aElement.getAttributeValue (ATTR_ID);
     final String sName = aElement.getAttributeValue (ATTR_NAME);
-    final boolean bIsDeprecated = aElement.getAttributeValueAsBool (ATTR_DEPRECATED, SMPTransportProfile.DEFAULT_DEPRECATED);
-    return new SMPTransportProfile (sID, sName, bIsDeprecated);
+    final String sStateID = aElement.getAttributeValue (ATTR_STATE);
+    ESMPTransportProfileState eState = ESMPTransportProfileState.getFromIDOrNull (sStateID);
+    if (eState == null)
+    {
+      // Fallback to old data
+      final boolean bIsDeprecated = aElement.getAttributeValueAsBool (ATTR_DEPRECATED,
+                                                                      SMPTransportProfile.DEFAULT_DEPRECATED);
+      eState = SMPTransportProfile.internalGetDeprecatedState (bIsDeprecated);
+    }
+    return new SMPTransportProfile (sID, sName, eState);
   }
 }

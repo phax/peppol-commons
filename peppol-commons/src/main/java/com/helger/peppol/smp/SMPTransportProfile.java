@@ -35,27 +35,45 @@ import com.helger.commons.type.ObjectType;
 public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SMPTransportProfile>
 {
   public static final ObjectType OT = new ObjectType ("smp.transport.profile");
+  @Deprecated
   public static final boolean DEFAULT_DEPRECATED = false;
+  public static final ESMPTransportProfileState DEFAULT_STATE = ESMPTransportProfileState.ACTIVE;
 
   private final String m_sID;
   private String m_sName;
-  private boolean m_bIsDeprecated;
+  private ESMPTransportProfileState m_eState;
+
+  @Nonnull
+  static ESMPTransportProfileState internalGetDeprecatedState (final boolean bIsDeprecated)
+  {
+    return bIsDeprecated ? ESMPTransportProfileState.DEPRECATED : ESMPTransportProfileState.ACTIVE;
+  }
 
   public SMPTransportProfile (@Nonnull final ISMPTransportProfile aOther)
   {
-    this (aOther.getID (), aOther.getName (), aOther.isDeprecated ());
+    this (aOther.getID (), aOther.getName (), aOther.getState ());
   }
 
   public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
-    this (sID, sName, DEFAULT_DEPRECATED);
+    this (sID, sName, DEFAULT_STATE);
   }
 
-  public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName, final boolean bIsDeprecated)
+  @Deprecated
+  public SMPTransportProfile (@Nonnull @Nonempty final String sID,
+                              @Nonnull @Nonempty final String sName,
+                              final boolean bIsDeprecated)
+  {
+    this (sID, sName, internalGetDeprecatedState (bIsDeprecated));
+  }
+
+  public SMPTransportProfile (@Nonnull @Nonempty final String sID,
+                              @Nonnull @Nonempty final String sName,
+                              @Nonnull final ESMPTransportProfileState eState)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     setName (sName);
-    setDeprecated (bIsDeprecated);
+    setState (eState);
   }
 
   @Nonnull
@@ -89,17 +107,32 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   }
 
   @Override
+  @Deprecated
   public boolean isDeprecated ()
   {
-    return m_bIsDeprecated;
+    return m_eState == ESMPTransportProfileState.DEPRECATED;
   }
 
   @Nonnull
+  @Deprecated
   public final EChange setDeprecated (final boolean bIsDeprecated)
   {
-    if (bIsDeprecated == m_bIsDeprecated)
+    return setState (internalGetDeprecatedState (bIsDeprecated));
+  }
+
+  @Nonnull
+  public ESMPTransportProfileState getState ()
+  {
+    return m_eState;
+  }
+
+  @Nonnull
+  public final EChange setState (@Nonnull final ESMPTransportProfileState eState)
+  {
+    ValueEnforcer.notNull (eState, "State");
+    if (eState.equals (m_eState))
       return EChange.UNCHANGED;
-    m_bIsDeprecated = bIsDeprecated;
+    m_eState = eState;
     return EChange.CHANGED;
   }
 
@@ -129,6 +162,9 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ID", m_sID).append ("Name", m_sName).append ("Deprecated", m_bIsDeprecated).getToString ();
+    return new ToStringGenerator (this).append ("ID", m_sID)
+                                       .append ("Name", m_sName)
+                                       .append ("State", m_eState)
+                                       .getToString ();
   }
 }
