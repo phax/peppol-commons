@@ -1,27 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2020-2022 OpenPeppol AISBL (www.peppol.eu)
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-            http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
 <!--This is an OpenPeppol EDEC Code List.
 Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<participant-identifier-schemes version="8.2" entry-count="91">
+<participant-identifier-schemes version="8.3" entry-count="92">
   <participant-identifier-scheme schemeid="FR:SIRENE" iso6523="0002" country="FR" scheme-name="System Information et Repertoire des Entreprise et des Etablissements: SIRENE" issuing-agency="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" initial-release="1.0.0" state="active">
     <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters.
 2) Check digits: 9th &amp; 14th character respectively</structure>
@@ -57,7 +40,7 @@ Check digits: Luhn Algorithm</validation-rules>
     <display>None</display>
     <examples>0037:00371234567800001
 0037:1234567800001</examples>
-    <validation-rules>RegEx: 0037[0-9]{8}[0-9A-Z]{0,5}
+    <validation-rules>RegEx: (0037)?[0-9]{7}-?[0-9][0-9A-Z]{0,5}
 Check Digit: mod11 of 8-digit OrgCode (weights 2, 4, 8, 5, 10, 9, 7 [right to left] or 7, 9, 10, 5, 8, 4, 2, 1 [left to right])</validation-rules>
     <usage>OVT identifier conforming to standard ISO6523.   
 - Constant 0037 (Finnish tax administration organisation code)
@@ -326,7 +309,7 @@ Check number: see text</validation-rules>
 No checkdigit</validation-rules>
     <usage>"Alphanumeric characters"</usage>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="DE:LWID" iso6523="0204" country="DE" scheme-name="Leitweg-ID" issuing-agency="Koordinierungsstelle für IT-Standards (KoSIT)" initial-release="6" state="active">
+  <participant-identifier-scheme schemeid="DE:LWID" iso6523="0204" country="DE" scheme-name="Peppol-Leitweg-ID" issuing-agency="Koordinierungsstelle für IT-Standards (KoSIT)" initial-release="6" state="active">
     <structure>Up to 46 alphanumeric characters
 Format: &lt;Up to 12 numeric characters&gt;"-"&lt;up to 30 alphanumeric characters&gt;"–"&lt;2 numeric characters&gt;</structure>
     <display>Whole string</display>
@@ -465,12 +448,12 @@ Check digit: https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/it
     <usage>NOTE: The "CF" is a Fiscal Code that can be "personal" or for a "legal entity".
 The CF for legal entities is like the Italian VAT code (IT:VAT)</usage>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="NO:ORGNR" iso6523="9908" country="NO" scheme-name="Enhetsregisteret ved Bronnoysundregisterne" issuing-agency="The Brønnøysund Register Centre" initial-release="1.0.0" state="active">
+  <participant-identifier-scheme schemeid="NO:ORGNR" iso6523="9908" country="NO" scheme-name="Enhetsregisteret ved Bronnoysundregisterne" issuing-agency="The Brønnøysund Register Centre" initial-release="1.0.0" state="deprecated" deprecation-release="8.3">
     <structure>9 digits
 The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.</structure>
     <validation-rules>RegEx: [0-9]{9}
 Check digit: mod11 (weights 3, 2, 7, 6, 5, 4, 3)</validation-rules>
-    <usage>Same as 0192</usage>
+    <usage>Use 0192 instead</usage>
   </participant-identifier-scheme>
   <participant-identifier-scheme schemeid="NO:VAT" iso6523="9909" country="NO" scheme-name="Norwegian VAT number" issuing-agency="Enhetsregisteret ved Bronnoysundregisterne" initial-release="1.0.0" state="deprecated" deprecation-release="1.1.0">
     <examples>990399123MVA</examples>
@@ -568,7 +551,8 @@ Check digit: mod97
 See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py</validation-rules>
   </participant-identifier-scheme>
   <participant-identifier-scheme schemeid="FR:VAT" iso6523="9957" country="FR" scheme-name="French VAT number" initial-release="1.2.1" state="active" />
-  <participant-identifier-scheme schemeid="DE:LID" iso6523="9958" country="DE" scheme-name="German Leitweg ID" initial-release="3" state="deprecated" deprecation-release="6">
+  <participant-identifier-scheme schemeid="DE:LID" iso6523="9958" country="DE" scheme-name="Peppol-Leitweg-ID" initial-release="3" state="deprecated" deprecation-release="6">
     <usage>Replaced by 0204</usage>
   </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="US:EIN" iso6523="9959" country="US" scheme-name="US Employer ID Number" initial-release="8.3" state="active" />
 </participant-identifier-schemes>

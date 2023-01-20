@@ -424,7 +424,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 6
      */
-    DE_LWID("DE:LWID", "0204", "DE", "Leitweg-ID", "Koordinierungsstelle f\u00fcr IT-Standards (KoSIT)", Version.parse("6"), EPeppolCodeListItemState.ACTIVE, null, null),
+    DE_LWID("DE:LWID", "0204", "DE", "Peppol-Leitweg-ID", "Koordinierungsstelle f\u00fcr IT-Standards (KoSIT)", Version.parse("6"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0208</code>, scheme ID <code>BE:EN</code><br>
@@ -605,11 +605,13 @@ public enum EPredefinedParticipantIdentifierScheme
      * Prefix <code>9908</code>, scheme ID <code>NO:ORGNR</code><br>
      * Structure of the code: 9 digits
      * The organization number consists of 9 digits where the last digit is a control digit calculated with standard weights, modulus 11. After this, weights 3, 2, 7, 6, 5, 4, 3 and 2 are calculated from the first digit.<br>
-     * Usage information: Same as 0192<br>
+     * Usage information: Use 0192 instead<br>
      * 
      * @since code list 1.0.0
+     * @deprecated since 8.3 - this item should not be used to issue new identifiers!
      */
-    NO_ORGNR("NO:ORGNR", "9908", "NO", "Enhetsregisteret ved Bronnoysundregisterne", "The Br\u00f8nn\u00f8ysund Register Centre", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
+    @Deprecated
+    NO_ORGNR("NO:ORGNR", "9908", "NO", "Enhetsregisteret ved Bronnoysundregisterne", "The Br\u00f8nn\u00f8ysund Register Centre", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.3"), null),
 
     /**
      * Prefix <code>9909</code>, scheme ID <code>NO:VAT</code><br>
@@ -994,9 +996,16 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 6 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    DE_LID("DE:LID", "9958", "DE", "German Leitweg ID", null, Version.parse("3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("6"), null);
-    public static final String CODE_LIST_VERSION = "8.2";
-    public static final int CODE_LIST_ENTRY_COUNT = 91;
+    DE_LID("DE:LID", "9958", "DE", "Peppol-Leitweg-ID", null, Version.parse("3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("6"), null),
+
+    /**
+     * Prefix <code>9959</code>, scheme ID <code>US:EIN</code><br>
+     * 
+     * @since code list 8.3
+     */
+    US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
+    public static final String CODE_LIST_VERSION = "8.3";
+    public static final int CODE_LIST_ENTRY_COUNT = 92;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;
