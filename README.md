@@ -280,6 +280,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v8.8.4 - 2023-01-23
+    * Updated to OpenPeppol eDEC Code Lists v8.3.1
 * v8.8.3 - 2023-01-20
     * Added the new enum `ESMPTransportProfileState`
     * Deprecated `ISMPTransportProfile.isDeprecated()` and added `ISMPTransportProfile.getState()` instead
