@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="8.3" entry-count="190">
+<document-types version="8.3.1" entry-count="189">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" initial-release="1.0.0" state="deprecated" deprecation-release="2" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -177,8 +177,10 @@ TICC-186</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:catalogue_only:3" />
   </document-type>
   <document-type name="Peppol Order transaction 3.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3::2.1" initial-release="4" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <comment>TICC-219</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:ordering:3" />
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:order_only:3" />
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:advanced_ordering:3" />
   </document-type>
   <document-type name="Peppol Invoice Response transaction 3.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:poacc:trns:invoice_response:3::2.1" initial-release="4" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:invoice_response:3" />
@@ -747,10 +749,6 @@ TICC-177</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:advanced_ordering:3" />
   </document-type>
   <document-type name="Peppol Order Response Advanced" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response_advanced:3::2.3" initial-release="8.3" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
-    <comment>TICC-219</comment>
-    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:advanced_ordering:3" />
-  </document-type>
-  <document-type name="Peppol Order Advanced" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:peppol.eu:poacc:trns:order:3::2.3" initial-release="8.3" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
     <comment>TICC-219</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:advanced_ordering:3" />
   </document-type>

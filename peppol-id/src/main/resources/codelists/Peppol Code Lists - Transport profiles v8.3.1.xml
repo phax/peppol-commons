@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<transport-profiles version="8.3" entry-count="5">
+<transport-profiles version="8.3.1" entry-count="5">
   <transport-profile protocol="START" profile-version="1.0.1" profile-id="busdox-transport-start" initial-release="1.0.0" state="deprecated" deprecation-release="1.0.0" />
   <transport-profile protocol="AS2" profile-version="1.0" profile-id="busdox-transport-as2-ver1p0" initial-release="1.0.0" state="deprecated" deprecation-release="7" />
   <transport-profile protocol="AS4" profile-version="1.0" profile-id="peppol-transport-as4-v1_0" initial-release="2" state="deprecated" deprecation-release="3" />
