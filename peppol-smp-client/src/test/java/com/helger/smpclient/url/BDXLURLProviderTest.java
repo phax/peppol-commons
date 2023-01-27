@@ -170,5 +170,9 @@ public final class BDXLURLProviderTest
                   aURLProvider.getDNSNameOfParticipant (SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier ("iso6523-actorid-upis",
                                                                                                                       "9991:si000000018-it1"),
                                                         "de4a.edelivery.tech.ec.europa.eu."));
+    assertEquals ("54VMPCQA26DNZS74VHQOKJ7U6IRBBI5KPMQ6AO3KVCQC3F6YR2YA.iso6523-actorid-upis.de4a.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier ("iso6523-actorid-upis",
+                                                                                                                      "9915:de4atest"),
+                                                        "de4a.edelivery.tech.ec.europa.eu."));
   }
 }
