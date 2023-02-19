@@ -32,7 +32,6 @@ import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierSche
  */
 public final class EPredefinedParticipantIdentifierSchemeTest
 {
-  @SuppressWarnings ("deprecation")
   @Test
   public void testAll ()
   {
@@ -47,7 +46,6 @@ public final class EPredefinedParticipantIdentifierSchemeTest
       assertSame (e, EPredefinedParticipantIdentifierScheme.valueOf (e.name ()));
       assertTrue (e.createIdentifierValue ("abc").endsWith (":abc"));
       assertTrue (e.createParticipantIdentifier ("def").getURIEncoded ().endsWith (":def"));
-      assertNotNull (e.getSince ());
       assertNotNull (e.getInitialRelease ());
     }
   }

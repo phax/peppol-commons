@@ -72,28 +72,9 @@ public final class PeppolIdentifierHelper
   public static final String DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD = "peppol-doctype-wildcard";
 
   /**
-   * The default document type scheme is still the busdox-docid-qns
-   *
-   * @deprecated See {@link #DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS} or
-   *             {@link #DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD} to be
-   *             precise
-   */
-  @Deprecated
-  public static final String DEFAULT_DOCUMENT_TYPE_SCHEME = DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS;
-
-  /**
    * Document Type identifier value maximum length (excluding the scheme)
    */
   public static final int MAX_DOCUMENT_TYPE_VALUE_LENGTH = 500;
-
-  /**
-   * Document Type identifier value maximum length (excluding the scheme)
-   *
-   * @deprecated Since 8.3.2; Use {@link #MAX_DOCUMENT_TYPE_VALUE_LENGTH}
-   *             instead
-   */
-  @Deprecated
-  public static final int MAX_DOCUEMNT_TYPE_VALUE_LENGTH = MAX_DOCUMENT_TYPE_VALUE_LENGTH;
 
   /**
    * The default identifier scheme ID to be used for participants/businesses.

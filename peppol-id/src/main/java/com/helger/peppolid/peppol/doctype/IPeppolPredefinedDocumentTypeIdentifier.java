@@ -63,18 +63,6 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
   /**
    * @return The internal code list version in which the identifier was added.
    *         Never <code>null</code>.
-   * @deprecated Use {@link #getInitialRelease()} instead
-   */
-  @Nonnull
-  @Deprecated
-  default Version getSince ()
-  {
-    return getInitialRelease ();
-  }
-
-  /**
-   * @return The internal code list version in which the identifier was added.
-   *         Never <code>null</code>.
    * @since 8.7.1
    */
   @Nonnull
@@ -96,20 +84,6 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    */
   @Nonnull
   EPeppolCodeListItemState getState ();
-
-  /**
-   * Get the version since when this item is deprecated.
-   *
-   * @return <code>null</code> if this item is not deprecated.
-   * @see #isDeprecated()
-   * @since 8.0.7
-   */
-  @Nullable
-  @Deprecated
-  default Version getDeprecatedSince ()
-  {
-    return getDeprecationRelease ();
-  }
 
   /**
    * Get the version since when this item is deprecated.
@@ -141,19 +115,6 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    */
   @Nullable
   LocalDate getRemovalDate ();
-
-  /**
-   * @return <code>true</code> if this item was officially issued by OpenPEPPOL,
-   *         <code>false</code> if it is contained upon a request of a certain
-   *         PA.
-   * @since 8.0.7
-   * @deprecated Use {@link #isIssuedByOpenPeppol()} instead
-   */
-  @Deprecated
-  default boolean isIssuedByOpenPEPPOL ()
-  {
-    return isIssuedByOpenPeppol ();
-  }
 
   /**
    * @return <code>true</code> if this item was officially issued by OpenPEPPOL,

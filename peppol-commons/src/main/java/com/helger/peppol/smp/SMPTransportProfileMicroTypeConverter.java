@@ -35,7 +35,7 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
 {
   private static final IMicroQName ATTR_ID = new MicroQName ("id");
   private static final IMicroQName ATTR_NAME = new MicroQName ("name");
-  @Deprecated
+  @Deprecated (forRemoval = false)
   private static final IMicroQName ATTR_DEPRECATED = new MicroQName ("deprecated");
   private static final IMicroQName ATTR_STATE = new MicroQName ("state");
 
@@ -53,7 +53,6 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
 
   @Nonnull
   @ContainsSoftMigration
-  @SuppressWarnings ("deprecation")
   public SMPTransportProfile convertToNative (@Nonnull final IMicroElement aElement)
   {
     final String sID = aElement.getAttributeValue (ATTR_ID);
@@ -63,8 +62,7 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
     if (eState == null)
     {
       // Fallback to old data
-      final boolean bIsDeprecated = aElement.getAttributeValueAsBool (ATTR_DEPRECATED,
-                                                                      SMPTransportProfile.DEFAULT_DEPRECATED);
+      final boolean bIsDeprecated = aElement.getAttributeValueAsBool (ATTR_DEPRECATED, false);
       eState = SMPTransportProfile.internalGetDeprecatedState (bIsDeprecated);
     }
     return new SMPTransportProfile (sID, sName, eState);

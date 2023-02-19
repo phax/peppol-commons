@@ -35,8 +35,6 @@ import com.helger.commons.type.ObjectType;
 public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SMPTransportProfile>
 {
   public static final ObjectType OT = new ObjectType ("smp.transport.profile");
-  @Deprecated
-  public static final boolean DEFAULT_DEPRECATED = false;
   public static final ESMPTransportProfileState DEFAULT_STATE = ESMPTransportProfileState.ACTIVE;
 
   private final String m_sID;
@@ -57,14 +55,6 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
   {
     this (sID, sName, DEFAULT_STATE);
-  }
-
-  @Deprecated
-  public SMPTransportProfile (@Nonnull @Nonempty final String sID,
-                              @Nonnull @Nonempty final String sName,
-                              final boolean bIsDeprecated)
-  {
-    this (sID, sName, internalGetDeprecatedState (bIsDeprecated));
   }
 
   public SMPTransportProfile (@Nonnull @Nonempty final String sID,

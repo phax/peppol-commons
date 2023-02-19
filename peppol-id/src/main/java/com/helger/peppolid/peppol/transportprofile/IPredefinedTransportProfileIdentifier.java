@@ -58,18 +58,6 @@ public interface IPredefinedTransportProfileIdentifier extends Serializable
   String getProfileID ();
 
   /**
-   * @return The codelist version in which it was introduced. Never
-   *         <code>null</code>.
-   * @deprecated Use {@link #getInitialRelease()} instead
-   */
-  @Nonnull
-  @Deprecated
-  default Version getSince ()
-  {
-    return getInitialRelease ();
-  }
-
-  /**
    * @return The internal code list version in which the identifier was added.
    *         Never <code>null</code>.
    * @since 8.7.1

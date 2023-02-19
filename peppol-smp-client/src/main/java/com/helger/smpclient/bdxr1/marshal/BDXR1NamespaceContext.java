@@ -43,7 +43,7 @@ public class BDXR1NamespaceContext extends MapBasedNamespaceContext
    * @deprecated Since 8.7.3. Use {@link BDXR1NamespaceContext#getInstance()}
    *             instead.
    */
-  @Deprecated
+  @Deprecated (forRemoval = false)
   public BDXR1NamespaceContext ()
   {
     addMapping (CXMLDSig.DEFAULT_PREFIX, CXMLDSig.NAMESPACE_URI);

@@ -18,7 +18,6 @@ package com.helger.peppolid.peppol.process;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.version.Version;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
@@ -36,34 +35,11 @@ public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, 
   }
 
   /**
-   * @return The ID of the corresponding PEPPOL BIS.
-   * @deprecated Since v8.0.6. No longer supported
-   */
-  @Deprecated
-  @Nonnull
-  default String getBISID ()
-  {
-    return "";
-  }
-
-  /**
    * @return The {@link PeppolProcessIdentifier} version of this predefined
    *         process identifier.
    */
   @Nonnull
   PeppolProcessIdentifier getAsProcessIdentifier ();
-
-  /**
-   * @return The internal code list version in which the identifier was added.
-   *         Never <code>null</code>.
-   * @deprecated Since v8.0.6. No longer supported
-   */
-  @Deprecated
-  @Nonnull
-  default Version getSince ()
-  {
-    return new Version (0);
-  }
 
   /**
    * @return <code>true</code> if this identifier is deprecated and should no

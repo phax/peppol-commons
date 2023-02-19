@@ -43,7 +43,6 @@ import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHAdditionalAttributes;
 import com.helger.peppol.sbdh.PeppolSBDHDocument;
 import com.helger.peppolid.factory.IIdentifierFactory;
-import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
 
@@ -60,12 +59,6 @@ public class PeppolSBDHDocumentReader
 
   private final IIdentifierFactory m_aIdentifierFactory;
   private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
-
-  @Deprecated
-  public PeppolSBDHDocumentReader ()
-  {
-    this (SimpleIdentifierFactory.INSTANCE);
-  }
 
   public PeppolSBDHDocumentReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
   {
@@ -160,7 +153,8 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority, @Nullable final String sSenderIdentifier)
+  protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority,
+                                             @Nullable final String sSenderIdentifier)
   {
     return StringHelper.hasText (sSenderIdentifier);
   }
@@ -199,7 +193,8 @@ public class PeppolSBDHDocumentReader
    *         <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority, @Nullable final String sReceiverIdentifier)
+  protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority,
+                                               @Nullable final String sReceiverIdentifier)
   {
     return StringHelper.hasText (sReceiverIdentifier);
   }
@@ -283,7 +278,8 @@ public class PeppolSBDHDocumentReader
   {
     if (StringHelper.hasNoText (sStandard))
       return false;
-    return sStandard.equals (aBusinessMessage.getNamespaceURI ()) && sDocumentTypeIdentifierValue.startsWith (sStandard);
+    return sStandard.equals (aBusinessMessage.getNamespaceURI ()) &&
+           sDocumentTypeIdentifierValue.startsWith (sStandard);
   }
 
   /**
@@ -388,7 +384,7 @@ public class PeppolSBDHDocumentReader
   {
     final SBDMarshaller ret = new SBDMarshaller ();
     // Simply swallow all error messages where possible
-    ret.setValidationEventHandlerFactory (x -> null);
+    ret.setValidationEventHandler (null);
     return ret;
   }
 
@@ -498,7 +494,8 @@ public class PeppolSBDHDocumentReader
     // Check that the header version is correct
     if (m_bPerformValueChecks)
       if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION, aSBDH.getHeaderVersion ());
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION,
+                                                   aSBDH.getHeaderVersion ());
 
     // Check sender
     {
@@ -516,7 +513,8 @@ public class PeppolSBDHDocumentReader
       // Check sender identifier value
       if (m_bPerformValueChecks)
         if (!isValidSenderIdentifier (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ()))
-          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE, aSenderIdentification.getValue ());
+          throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
+                                                     aSenderIdentification.getValue ());
 
       // Remember sender
       ret.setSender (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ());
@@ -581,7 +579,8 @@ public class PeppolSBDHDocumentReader
           {
             if (m_bPerformValueChecks)
               if (!isValidProcessIdentifier (sInstanceIdentifier))
-                throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER, sInstanceIdentifier);
+                throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
+                                                           sInstanceIdentifier);
 
             // The scheme was added in Spec v1.1
             String sScheme = aScope.getIdentifier ();

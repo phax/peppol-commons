@@ -47,7 +47,7 @@ public final class SignedServiceMetadataTypeFuncTest
   public void testReadInvalid () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
-    aMarshaller.setValidationEventHandlerFactory (x -> new LoggingValidationEventHandler ());
+    aMarshaller.setValidationEventHandler (new LoggingValidationEventHandler ());
 
     final byte [] aBytes = StreamHelper.getAllBytes (new ClassPathResource ("smp/signed-service-metadata1.xml"));
     assertNotNull (aBytes);
@@ -71,7 +71,7 @@ public final class SignedServiceMetadataTypeFuncTest
   public void testReadValid () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
-    aMarshaller.setValidationEventHandlerFactory (x -> new LoggingValidationEventHandler ());
+    aMarshaller.setValidationEventHandler (new LoggingValidationEventHandler ());
 
     final byte [] aBytes = StreamHelper.getAllBytes (new ClassPathResource ("smp/signed-service-metadata2.xml"));
     assertNotNull (aBytes);
@@ -95,7 +95,7 @@ public final class SignedServiceMetadataTypeFuncTest
   public void testReadC14NInclusive () throws Exception
   {
     final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (true);
-    aMarshaller.setValidationEventHandlerFactory (x -> new LoggingValidationEventHandler ());
+    aMarshaller.setValidationEventHandler (new LoggingValidationEventHandler ());
 
     final byte [] aBytes = StreamHelper.getAllBytes (new ClassPathResource ("smp/signed-service-metadata3-c14n-inclusive.xml"));
     assertNotNull (aBytes);

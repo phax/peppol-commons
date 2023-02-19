@@ -42,10 +42,8 @@ import com.helger.config.ConfigFactory;
 import com.helger.config.IConfig;
 import com.helger.config.fallback.ConfigWithFallback;
 import com.helger.config.fallback.IConfigWithFallback;
-import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.res.ConfigurationSourceProperties;
-import com.helger.config.value.ConfiguredValue;
 import com.helger.httpclient.HttpClientSettings;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.security.keystore.EKeyStoreType;
@@ -293,22 +291,6 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * Get the content of the property "http.useSystemProperties" or
-   * <code>false</code> if undefined.
-   *
-   * @return <code>true</code> if the SMP client proxy configuration should be
-   *         take from the system properties, or <code>false</code> if not. The
-   *         default behavior is to return <code>false</code>.
-   * @since 5.2.4
-   * @deprecated Since v8.7.2 To be removed in v9
-   */
-  @Deprecated
-  public static boolean isUseProxySystemProperties ()
-  {
-    return getConfig ().getAsBoolean ("http.useSystemProperties", HttpClientSettings.DEFAULT_USE_SYSTEM_PROPERTIES);
-  }
-
-  /**
    * Get the content of the property "http.useDNSClientCache" or
    * <code>true</code> if undefined.
    *
@@ -339,21 +321,6 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * Get the content of the property "http.connect.timeout.ms" or the default
-   * value.
-   *
-   * @return The connection timeout of the SMP client. Defaults to 5 seconds.
-   * @since 7.0.4
-   * @deprecated Since 8.8.0. Use {@link #getConnectTimeout()} instead.
-   */
-  @Nonnull
-  @Deprecated
-  public static Timeout getConnectionTimeout ()
-  {
-    return getConnectTimeout ();
-  }
-
-  /**
    * Get the content of the property "http.response.timeout.ms" or the default
    * value. The fallback value is "http.request.timeout.ms".
    *
@@ -367,60 +334,5 @@ public final class SMPClientConfiguration
     if (nMS >= 0)
       return Timeout.ofMilliseconds (nMS);
     return HttpClientSettings.DEFAULT_RESPONSE_TIMEOUT;
-  }
-
-  /**
-   * Get the content of the property "http.response.timeout.ms" or the default
-   * value.
-   *
-   * @return The request timeout of the SMP client. Defaults to 10 seconds.
-   * @since 7.0.4
-   * @deprecated Since 8.8.0. Use {@link #getResponseTimeout()} instead.
-   */
-  @Nonnull
-  @Deprecated
-  public static Timeout getRequestTimeout ()
-  {
-    return getResponseTimeout ();
-  }
-
-  /**
-   * This is a utility method, that takes the provided property names, checks if
-   * they are defined in the configuration and if so, applies applies them as
-   * System properties. It does it only when the configuration file was read
-   * correctly.
-   *
-   * @param aPropertyNames
-   *        The property names to consider.
-   * @deprecated Since v8.7.2 To be removed in v9
-   */
-  @Deprecated
-  public static void applyAsSystemProperties (@Nullable final String... aPropertyNames)
-  {
-    if (aPropertyNames != null)
-      for (final String sProperty : aPropertyNames)
-      {
-        final ConfiguredValue aValue = getConfig ().getConfiguredValue (sProperty);
-        if (aValue != null && aValue.getConfigurationSource ().getSourceType () == EConfigSourceType.RESOURCE)
-        {
-          final String sConfigFileValue = aValue.getValue ();
-          SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
-          LOGGER.info ("Set Java system property from configuration: " + sProperty + "=" + sConfigFileValue);
-        }
-      }
-  }
-
-  /**
-   * This is a utility method, that applies all Java network/proxy system
-   * properties which are present in this configuration file. It does it only
-   * when the configuration file was read correctly.
-   *
-   * @see SystemProperties#getAllJavaNetSystemProperties()
-   * @deprecated Since v8.7.2 To be removed in v9
-   */
-  @Deprecated
-  public static void applyAllNetworkSystemProperties ()
-  {
-    applyAsSystemProperties (SystemProperties.getAllJavaNetSystemProperties ());
   }
 }

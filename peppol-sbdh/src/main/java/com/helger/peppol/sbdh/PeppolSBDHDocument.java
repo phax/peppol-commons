@@ -338,28 +338,6 @@ public class PeppolSBDHDocument
   /**
    * Set the document type identifier using the default identifier
    * scheme/authority
-   * {@link PeppolIdentifierHelper#DEFAULT_DOCUMENT_TYPE_SCHEME} .
-   *
-   * @param sValue
-   *        The document type identifier value. May neither be <code>null</code>
-   *        nor empty. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
-   *        .
-   * @return this
-   * @deprecated Since 8.3.1; Use
-   *             {@link #setDocumentTypeWithBusdoxDocidQns(String)} or
-   *             {@link #setDocumentTypeWithPeppolDoctypeWildcard(String)}
-   */
-  @Deprecated
-  @Nonnull
-  public PeppolSBDHDocument setDocumentTypeWithDefaultScheme (@Nonnull @Nonempty final String sValue)
-  {
-    return setDocumentTypeWithBusdoxDocidQns (sValue);
-  }
-
-  /**
-   * Set the document type identifier using the default identifier
-   * scheme/authority
    * {@link PeppolIdentifierHelper#DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS} .
    *
    * @param sValue
@@ -1111,38 +1089,6 @@ public class PeppolSBDHDocument
                                        .append ("BusinessMessage", m_aBusinessMessage)
                                        .append ("AdditionalAttributes", m_aAdditionalAttrs)
                                        .getToString ();
-  }
-
-  /**
-   * Create a new {@link PeppolSBDHDocument} object for a business message
-   * assuming it is UBL 2.1. The resulting object has all required fields set,
-   * except for:
-   * <ul>
-   * <li>sender ID</li>
-   * <li>receiver ID</li>
-   * <li>document type ID</li>
-   * <li>and process ID</li>
-   * </ul>
-   *
-   * @param aBusinessMessage
-   *        The XML business message. May not be <code>null</code>.
-   * @param aIdentifierFactory
-   *        Identifier factory to be used. May not be <code>null</code>.
-   * @return A pre-filled {@link PeppolSBDHDocument} object with some
-   *         information still missing.
-   * @see #setSender(String, String)
-   * @see #setReceiver(String, String)
-   * @see #setDocumentType(String, String)
-   * @see #setProcess(String, String)
-   * @since 5.2.6
-   * @deprecated Use {@link #createUBL21(Element,IIdentifierFactory)} instead
-   */
-  @Deprecated
-  @Nonnull
-  public static PeppolSBDHDocument create (@Nonnull final Element aBusinessMessage,
-                                           @Nonnull final IIdentifierFactory aIdentifierFactory)
-  {
-    return createUBL21 (aBusinessMessage, aIdentifierFactory);
   }
 
   /**
