@@ -20,7 +20,6 @@ import java.net.URL;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.xml.ws.BindingProvider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +37,8 @@ import com.helger.peppol.smlclient.smp.PublisherEndpointType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 import com.helger.peppol.smlclient.smp.UnauthorizedFault;
 import com.helger.wsclient.WSClientConfig;
+
+import jakarta.xml.ws.BindingProvider;
 
 /**
  * This class is used for calling the service meta data interface of the SML. It

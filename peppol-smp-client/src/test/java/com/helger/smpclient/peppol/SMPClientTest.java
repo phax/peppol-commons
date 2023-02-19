@@ -23,9 +23,6 @@ import static org.junit.Assert.fail;
 
 import java.net.URI;
 
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
-
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Ignore;
@@ -58,6 +55,9 @@ import com.helger.xsds.peppol.smp1.ServiceGroupReferenceType;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.ServiceInformationType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
+
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 
 /**
  * Expects an running SMP, depending on the configuration file. DNS is not

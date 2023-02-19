@@ -17,13 +17,12 @@
     limitations under the License.
 
 -->
-<bindings version="2.1"
-          xmlns="http://java.sun.com/xml/ns/jaxb"
+<bindings version="3.0" 
+          xmlns="https://jakarta.ee/xml/ns/jaxb"
           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
-          xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb http://java.sun.com/xml/ns/jaxb/bindingschema_2_0.xsd">
+          xsi:schemaLocation="https://jakarta.ee/xml/ns/jaxb https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd">
   <globalBindings generateValueClass="true">
     <xjc:javaType name="com.helger.commons.datetime.XMLOffsetDateTime" xmlType="xsd:dateTime" adapter="com.helger.jaxb.adapter.AdapterXMLOffsetDateTime" />
     <xjc:javaType name="com.helger.commons.datetime.XMLOffsetDate"     xmlType="xsd:date"     adapter="com.helger.jaxb.adapter.AdapterXMLOffsetDate" />
@@ -33,17 +32,6 @@
     <schemaBindings>
       <package name="com.helger.xsds.peppol.id1" />
     </schemaBindings>
-    <!--  
-    <bindings node="//xsd:complexType[@name='ParticipantIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.generic.participant.IMutableParticipantIdentifier</inheritance:implements>
-    </bindings> 
-    <bindings node="//xsd:complexType[@name='DocumentIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.generic.doctype.IMutableDocumentTypeIdentifier</inheritance:implements>
-    </bindings> 
-    <bindings node="//xsd:complexType[@name='ProcessIdentifierType']">
-      <inheritance:implements>com.helger.peppol.identifier.generic.process.IMutableProcessIdentifier</inheritance:implements>
-    </bindings>
-    --> 
   </bindings>
   <bindings schemaLocation="../resources/schemas/peppol-codelists-v2.xsd">
     <schemaBindings>

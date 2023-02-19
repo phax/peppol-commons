@@ -23,7 +23,6 @@ import java.security.cert.X509Certificate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.bind.JAXBElement;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.slf4j.Logger;
@@ -64,6 +63,8 @@ import com.helger.xsds.bdxr.smp2.ac.RedirectType;
 import com.helger.xsds.bdxr.smp2.ac.ServiceReferenceType;
 import com.helger.xsds.bdxr.smp2.bc.IDType;
 import com.helger.xsds.xmldsig.X509DataType;
+
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * This class is used for calling the OASIS BDXR SMP v2 REST interface. This

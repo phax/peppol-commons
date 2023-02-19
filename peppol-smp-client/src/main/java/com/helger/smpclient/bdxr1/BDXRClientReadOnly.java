@@ -25,7 +25,6 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.bind.JAXBElement;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.slf4j.Logger;
@@ -65,6 +64,8 @@ import com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceType;
 import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 import com.helger.xsds.xmldsig.X509DataType;
+
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * This class is used for calling the OASIS BDXR SMP v1 REST interface. This

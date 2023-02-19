@@ -19,8 +19,6 @@ package com.helger.smpclient.peppol.utils;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -28,6 +26,8 @@ import org.w3c.dom.Element;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.xml.XMLFactory;
+
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 /**
  * Test class for class {@link W3CEndpointReferenceHelper}.

@@ -19,12 +19,13 @@ package com.helger.peppol.smlclient;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
-import javax.xml.ws.handler.MessageContext;
-import javax.xml.ws.handler.soap.SOAPHandler;
-import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.collection.impl.CommonsHashSet;
+
+import jakarta.xml.ws.handler.MessageContext;
+import jakarta.xml.ws.handler.soap.SOAPHandler;
+import jakarta.xml.ws.handler.soap.SOAPMessageContext;
 
 /**
  * A dummy SOAP handler that handles wsse:Security SOAP header elements as

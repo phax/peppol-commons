@@ -21,8 +21,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.transform.dom.DOMResult;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -34,6 +32,9 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.xml.ChildElementIterator;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.XMLHelper;
+
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
+import jakarta.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 
 /**
  * As the default WS-Addressing binding since JAXB 2.1 uses the
@@ -132,7 +133,8 @@ public final class W3CEndpointReferenceHelper
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
 
-    final Element eAddress = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference), "Address");
+    final Element eAddress = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference),
+                                                                   "Address");
     return eAddress == null ? null : eAddress.getTextContent ();
   }
 
@@ -150,7 +152,8 @@ public final class W3CEndpointReferenceHelper
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
 
-    final Element eRefParams = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference), "ReferenceParameters");
+    final Element eRefParams = XMLHelper.getFirstChildElementOfName (_convertReferenceToXML (aEndpointReference),
+                                                                     "ReferenceParameters");
     if (eRefParams == null)
       return null;
 
@@ -169,7 +172,8 @@ public final class W3CEndpointReferenceHelper
    * @return <code>null</code> if the index is invalid
    */
   @Nullable
-  public static Element getReferenceParameter (@Nonnull final W3CEndpointReference aEndpointReference, @Nonnegative final int nIndex)
+  public static Element getReferenceParameter (@Nonnull final W3CEndpointReference aEndpointReference,
+                                               @Nonnegative final int nIndex)
   {
     ValueEnforcer.notNull (aEndpointReference, "EndpointReference");
     ValueEnforcer.isGE0 (nIndex, "Index");

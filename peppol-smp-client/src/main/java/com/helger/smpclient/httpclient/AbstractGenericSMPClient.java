@@ -26,7 +26,6 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.bind.JAXBElement;
 
 import org.apache.hc.client5.http.ClientProtocolException;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -54,6 +53,8 @@ import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.xsds.xmldsig.X509DataType;
+
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * Abstract base class for SMP clients - wraps all the HTTP stuff

@@ -19,8 +19,6 @@ package com.helger.smpclient.peppol.functest;
 import java.net.URI;
 import java.time.Month;
 
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +38,8 @@ import com.helger.xsds.peppol.smp1.ProcessListType;
 import com.helger.xsds.peppol.smp1.ProcessType;
 import com.helger.xsds.peppol.smp1.ServiceEndpointList;
 import com.helger.xsds.peppol.smp1.ServiceInformationType;
+
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 /**
  * @author Philip Helger

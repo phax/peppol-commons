@@ -22,8 +22,6 @@ import java.time.LocalDate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +44,9 @@ import com.helger.peppol.smlclient.bdmsl.UnauthorizedFault;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
+
+import jakarta.xml.ws.BindingProvider;
+import jakarta.xml.ws.WebServiceException;
 
 /**
  * A client for the new BDMSL specific "BDMSL service"

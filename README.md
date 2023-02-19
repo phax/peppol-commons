@@ -280,6 +280,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.0.0 - 2023-02-19
+    * Using Java 11 as the baseline
+    * Updated to ph-commons 11
+    * Updated to JAXB 4.0 and JAX-WS 4.0
 * v8.8.4 - 2023-01-23
     * Updated to OpenPeppol eDEC Code Lists v8.3.1
 * v8.8.3 - 2023-01-20

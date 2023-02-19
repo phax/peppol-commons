@@ -19,12 +19,13 @@ package com.helger.smpclient.bdxr1.marshal;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xsds.bdxr.smp1.CBDXRSMP1;
+
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * Abstract JAXB marshaller with namespace prefix mapping

@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.peppol</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>8.8.5-SNAPSHOT</version>
+    <version>9.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-id-datatypes</artifactId>
   <packaging>bundle</packaging>
@@ -100,9 +100,9 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>com.evolvedbinary.maven.jvnet</groupId>
-        <artifactId>jaxb2-maven-plugin</artifactId>
-        <version>0.15.0</version>
+        <groupId>${jaxb-plugin.group}</groupId>
+        <artifactId>${jaxb-plugin.artifact}</artifactId>
+        <version>${jaxb-plugin.version}</version>
         <executions>
           <execution>
             <goals>
@@ -119,7 +119,6 @@
           <catalog>${basedir}/src/main/jaxb/catalog.txt</catalog>
           <args>
             <arg>-no-header</arg>
-            <arg>-Xinheritance</arg>
             <arg>-Xph-default-locale</arg>
             <arg>en_US</arg>
             <arg>-Xph-annotate</arg>
@@ -134,14 +133,6 @@
             <arg>-Xph-cloneable2</arg>
             <arg>-Xph-offset-dt-extension</arg>
           </args>
-          <plugins>
-            <!-- Required for -Xinheritance -->
-            <plugin>
-              <groupId>org.jvnet.jaxb2_commons</groupId>
-              <artifactId>jaxb2-basics</artifactId>
-              <version>0.13.1</version>
-            </plugin>
-          </plugins>
           <episodes>
             <episode>
               <groupId>com.helger.xsd</groupId>
@@ -152,8 +143,8 @@
         <dependencies>
           <dependency>
             <groupId>com.helger</groupId>
-            <artifactId>ph-jaxb22-plugin</artifactId>
-            <version>2.3.3.3</version>
+            <artifactId>ph-jaxb-plugin</artifactId>
+            <version>4.0.0</version>
           </dependency>
         </dependencies>
       </plugin>

@@ -19,7 +19,6 @@ package com.helger.smpclient.peppol.marshal;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
-import javax.xml.bind.JAXBElement;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.jaxb.GenericJAXBMarshaller;
@@ -29,6 +28,8 @@ import com.helger.xsds.peppol.smp1.CSMPDataTypes;
 import com.helger.xsds.peppol.smp1.ObjectFactory;
 import com.helger.xsds.wsaddr.CWSAddr;
 import com.helger.xsds.xmldsig.CXMLDSig;
+
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * Abstract JAXB marshaller with namespace prefix mapping

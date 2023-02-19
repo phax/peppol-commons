@@ -24,7 +24,6 @@ import java.security.cert.CertificateException;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +39,8 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
+
+import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 /**
  * This class manages the special test configuration file for this project. The

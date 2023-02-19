@@ -21,7 +21,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Nonnull;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
-import javax.xml.ws.BindingProvider;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +47,8 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
+
+import jakarta.xml.ws.BindingProvider;
 
 /**
  * This class is used for calling the Manage Participant Identifier interface on
