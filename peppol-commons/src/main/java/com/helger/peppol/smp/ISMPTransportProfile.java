@@ -73,4 +73,16 @@ public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, S
   {
     return ESMPTransportProfileState.ACTIVE;
   }
+
+  /**
+   * @return The state ID of the transport profile. May neither be
+   *         <code>null</code> nor empty.
+   * @since 9.0.1
+   */
+  @Nonnull
+  @Nonempty
+  default String getStateID ()
+  {
+    return getState ().getID ();
+  }
 }
