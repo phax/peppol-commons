@@ -17,8 +17,10 @@
 package com.helger.peppolid.peppol.pidscheme;
 
 import java.time.LocalDate;
+import java.time.Month;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import javax.annotation.Nonnull;
@@ -427,6 +429,15 @@ public enum EPredefinedParticipantIdentifierScheme
     DE_LWID("DE:LWID", "0204", "DE", "Peppol-Leitweg-ID", "Koordinierungsstelle f\u00fcr IT-Standards (KoSIT)", Version.parse("6"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
+     * Prefix <code>0205</code>, scheme ID <code>IT:COD</code><br>
+     * Structure of the code: The code is 7 alphanumeric characters<br>
+     * Usage information: Participants with this ID CAN NOT be registered in the SMP/SML!<br>
+     * 
+     * @since code list 8.4
+     */
+    IT_COD("IT:COD", "0205", "IT", "CODDEST", "Agenzia delle Entrate", Version.parse("8.4"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
      * Prefix <code>0208</code>, scheme ID <code>BE:EN</code><br>
      * Structure of the code: 10 numeric characters.
      *  1. Enterprise identification number: the first digit has to be &quot;0&quot; or &quot;1&quot;<br>
@@ -587,7 +598,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 8.1 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    IT_VAT("IT:VAT", "9906", "IT", "Ufficio responsabile gestione partite IVA", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.1"), null),
+    IT_VAT("IT:VAT", "9906", "IT", "Ufficio responsabile gestione partite IVA", null, Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.1"), PDTFactory.createLocalDate(2023, Month.of(5), 24)),
 
     /**
      * Prefix <code>9907</code>, scheme ID <code>IT:CF</code><br>
@@ -599,7 +610,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 8.1 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    IT_CF("IT:CF", "9907", "IT", "TAX Authority", "TAX Authority", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.1"), null),
+    IT_CF("IT:CF", "9907", "IT", "TAX Authority", "TAX Authority", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.1"), PDTFactory.createLocalDate(2023, Month.of(5), 24)),
 
     /**
      * Prefix <code>9908</code>, scheme ID <code>NO:ORGNR</code><br>
@@ -611,7 +622,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 8.3 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    NO_ORGNR("NO:ORGNR", "9908", "NO", "Enhetsregisteret ved Bronnoysundregisterne", "The Br\u00f8nn\u00f8ysund Register Centre", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.3"), null),
+    NO_ORGNR("NO:ORGNR", "9908", "NO", "Enhetsregisteret ved Bronnoysundregisterne", "The Br\u00f8nn\u00f8ysund Register Centre", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.3"), PDTFactory.createLocalDate(2023, Month.of(5), 24)),
 
     /**
      * Prefix <code>9909</code>, scheme ID <code>NO:VAT</code><br>
@@ -967,8 +978,10 @@ public enum EPredefinedParticipantIdentifierScheme
      * Prefix <code>9955</code>, scheme ID <code>SE:VAT</code><br>
      * 
      * @since code list 1.2.0
+     * @deprecated since 8.4 - this item should not be used to issue new identifiers!
      */
-    SE_VAT("SE:VAT", "9955", "SE", "Swedish VAT number", null, Version.parse("1.2.0"), EPeppolCodeListItemState.ACTIVE, null, null),
+    @Deprecated
+    SE_VAT("SE:VAT", "9955", "SE", "Swedish VAT number", null, Version.parse("1.2.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.4"), PDTFactory.createLocalDate(2023, Month.of(7), 31)),
 
     /**
      * Prefix <code>9956</code>, scheme ID <code>BE:CBE</code><br>
@@ -996,7 +1009,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since 6 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    DE_LID("DE:LID", "9958", "DE", "Peppol-Leitweg-ID", null, Version.parse("3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("6"), null),
+    DE_LID("DE:LID", "9958", "DE", "Peppol-Leitweg-ID", null, Version.parse("3"), EPeppolCodeListItemState.REMOVED, Version.parse("6"), PDTFactory.createLocalDate(2023, Month.of(7), 31)),
 
     /**
      * Prefix <code>9959</code>, scheme ID <code>US:EIN</code><br>
@@ -1004,8 +1017,8 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "8.3.1";
-    public static final int CODE_LIST_ENTRY_COUNT = 92;
+    public static final String CODE_LIST_VERSION = "8.4";
+    public static final int CODE_LIST_ENTRY_COUNT = 93;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;

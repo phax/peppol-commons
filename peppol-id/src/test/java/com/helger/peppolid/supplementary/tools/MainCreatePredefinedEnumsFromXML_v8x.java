@@ -74,16 +74,16 @@ import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.serialize.read.DOMReader;
-import com.helger.xsds.peppol.codelists2.PCLDocumentTypeType;
-import com.helger.xsds.peppol.codelists2.PCLDocumentTypesType;
-import com.helger.xsds.peppol.codelists2.PCLParticipantIdentifierSchemeType;
-import com.helger.xsds.peppol.codelists2.PCLParticipantIdentifierSchemesType;
-import com.helger.xsds.peppol.codelists2.PCLProcessIDType;
-import com.helger.xsds.peppol.codelists2.PCLProcessType;
-import com.helger.xsds.peppol.codelists2.PCLProcessesType;
-import com.helger.xsds.peppol.codelists2.PCLStateType;
-import com.helger.xsds.peppol.codelists2.PCLTransportProfileType;
-import com.helger.xsds.peppol.codelists2.PCLTransportProfilesType;
+import com.helger.xsds.peppol.codelists21.PCLDocumentTypeType;
+import com.helger.xsds.peppol.codelists21.PCLDocumentTypesType;
+import com.helger.xsds.peppol.codelists21.PCLParticipantIdentifierSchemeType;
+import com.helger.xsds.peppol.codelists21.PCLParticipantIdentifierSchemesType;
+import com.helger.xsds.peppol.codelists21.PCLProcessIDType;
+import com.helger.xsds.peppol.codelists21.PCLProcessType;
+import com.helger.xsds.peppol.codelists21.PCLProcessesType;
+import com.helger.xsds.peppol.codelists21.PCLStateType;
+import com.helger.xsds.peppol.codelists21.PCLTransportProfileType;
+import com.helger.xsds.peppol.codelists21.PCLTransportProfilesType;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also
@@ -96,7 +96,7 @@ import com.helger.xsds.peppol.codelists2.PCLTransportProfilesType;
 public final class MainCreatePredefinedEnumsFromXML_v8x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v8x.class);
-  private static final Version CODELIST_VERSION = new Version (8, 3, 1);
+  private static final Version CODELIST_VERSION = new Version (8, 4, 0);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";

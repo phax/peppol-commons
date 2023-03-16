@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="8.3.1" entry-count="189">
+<document-types version="8.4" entry-count="195">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" initial-release="1.0.0" state="deprecated" deprecation-release="2" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -138,16 +138,19 @@ TICC-186</comment>
   <document-type name="Peppol Tender Submission Tender V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Tender-2::Tender##urn:www.cenbii.eu:transaction:biitrdm090:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t005:ver1.0::2.2" initial-release="3" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:pracc:p003:01:1.0" />
   </document-type>
-  <document-type name="XRechnung UBL Invoice V1.1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1" initial-release="3" state="deprecated" deprecation-release="5" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-55</comment>
+  <document-type name="XRechnung UBL Invoice V1.1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1" initial-release="3" state="removed" deprecation-release="5" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-55
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung UBL CreditNote V1.1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1" initial-release="3" state="deprecated" deprecation-release="5" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-55</comment>
+  <document-type name="XRechnung UBL CreditNote V1.1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::2.1" initial-release="3" state="removed" deprecation-release="5" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-55
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung CII Invoice V1.1" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::D16B" initial-release="3" state="deprecated" deprecation-release="5" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-55</comment>
+  <document-type name="XRechnung CII Invoice V1.1" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1::D16B" initial-release="3" state="removed" deprecation-release="5" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-55
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="OIOUBL UtilityStatement V2.02" scheme="busdox-docid-qns" value="urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2::UtilityStatement##OIOUBL-2.02::2.0" initial-release="3" state="active" issued-by-openpeppol="false" domain-community="POAC">
@@ -218,19 +221,22 @@ Typo in name!</comment>
     <comment>PEPPOL-1859</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung UBL Invoice V1.2" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1" initial-release="5" state="deprecated" deprecation-release="8.3" issued-by-openpeppol="false" domain-community="POAC">
+  <document-type name="XRechnung UBL Invoice V1.2" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1" initial-release="5" state="removed" deprecation-release="8.3" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-117
-TICC-237</comment>
+TICC-237
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung UBL CreditNote V1.2" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1" initial-release="5" state="deprecated" deprecation-release="8.3" issued-by-openpeppol="false" domain-community="POAC">
+  <document-type name="XRechnung UBL CreditNote V1.2" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1" initial-release="5" state="removed" deprecation-release="8.3" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-117
-TICC-237</comment>
+TICC-237
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung CII Invoice V1.2" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::D16B" initial-release="5" state="deprecated" deprecation-release="8.3" issued-by-openpeppol="false" domain-community="POAC">
+  <document-type name="XRechnung CII Invoice V1.2" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::D16B" initial-release="5" state="removed" deprecation-release="8.3" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-117
-TICC-237</comment>
+TICC-237
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="PEF.PL Accounting Note v1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:fdc:www.efaktura.gov.pl:ver1.0:trns:account_corr:ver1.0::2.1" initial-release="6" state="active" issued-by-openpeppol="false" domain-community="POAC">
@@ -271,16 +277,22 @@ TICC-173</comment>
     <comment>TICC-107</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii03:ver2.0" />
   </document-type>
-  <document-type name="XRechnung UBL Invoice V1.3" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::2.1" initial-release="7" state="deprecated" deprecation-release="7.1" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-117; TICC-136</comment>
+  <document-type name="XRechnung UBL Invoice V1.3" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::2.1" initial-release="7" state="removed" deprecation-release="7.1" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-117
+TICC-136
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung UBL CreditNote V1.3" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::2.1" initial-release="7" state="deprecated" deprecation-release="7.1" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-117; TICC-136</comment>
+  <document-type name="XRechnung UBL CreditNote V1.3" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::2.1" initial-release="7" state="removed" deprecation-release="7.1" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-117
+TICC-136
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung CII Invoice V1.3" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::16B" initial-release="7" state="deprecated" deprecation-release="7.1" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-117; TICC-136</comment>
+  <document-type name="XRechnung CII Invoice V1.3" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3::16B" initial-release="7" state="removed" deprecation-release="7.1" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-117
+TICC-136
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="XRechnung UBL Invoice V2.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::2.1" initial-release="7" state="active" issued-by-openpeppol="false" domain-community="POAC">
@@ -291,24 +303,29 @@ TICC-173</comment>
     <comment>TICC-118</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung CII Invoice V2.0 (invalid)" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::16B" initial-release="7" state="deprecated" deprecation-release="7.4" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-118</comment>
+  <document-type name="XRechnung CII Invoice V2.0 (invalid)" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::16B" initial-release="7" state="removed" deprecation-release="7.4" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-118
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="XRechnung CII Invoice V2.0" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0::D16B" initial-release="7.4" state="active" issued-by-openpeppol="false" domain-community="POAC">
     <comment>TICC-159</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung UBL Invoice V1.3 Extension" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::2.1" initial-release="7" state="deprecated" deprecation-release="7.1" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-135</comment>
+  <document-type name="XRechnung UBL Invoice V1.3 Extension" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::2.1" initial-release="7" state="removed" deprecation-release="7.1" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>Typo in syntax version
+TICC-135
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung UBL CreditNote V1.3 Extension" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::2.1" initial-release="7" state="deprecated" deprecation-release="7.1" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-135</comment>
+  <document-type name="XRechnung UBL CreditNote V1.3 Extension" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::2.1" initial-release="7" state="removed" deprecation-release="7.1" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-135
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung CII Invoice V1.3 Extension" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::16B" initial-release="7" state="deprecated" deprecation-release="7.1" issued-by-openpeppol="false" domain-community="POAC">
-    <comment>TICC-135</comment>
+  <document-type name="XRechnung CII Invoice V1.3 Extension" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.3#conformant#urn:xoev-de:kosit:extension:xrechnung_1.3::16B" initial-release="7" state="removed" deprecation-release="7.1" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-135
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="SI-UBL 2.0 G-Account Extension" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:nen.nl:nlcius:v1.0#conformant#urn:fdc:nen.nl:gaccount:v1.0::2.1" initial-release="7" state="active" issued-by-openpeppol="false" domain-community="POAC">
@@ -351,9 +368,10 @@ TICC-173</comment>
     <comment>TICC-135</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="XRechnung CII Invoice V2.0 Extension (invalid)" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0#conformant#urn:xoev-de:kosit:extension:xrechnung_2.0::16B" initial-release="7.1" state="deprecated" deprecation-release="7.4" issued-by-openpeppol="false" domain-community="POAC">
+  <document-type name="XRechnung CII Invoice V2.0 Extension (invalid)" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0#conformant#urn:xoev-de:kosit:extension:xrechnung_2.0::16B" initial-release="7.1" state="removed" deprecation-release="7.4" removal-date="2023-05-24" issued-by-openpeppol="false" domain-community="POAC">
     <comment>Typo in syntax version
-TICC-135</comment>
+TICC-135
+TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="XRechnung CII Invoice V2.0 Extension" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.0#conformant#urn:xoev-de:kosit:extension:xrechnung_2.0::D16B" initial-release="7.4" state="active" issued-by-openpeppol="false" domain-community="POAC">
@@ -507,7 +525,7 @@ TICC-177</comment>
     <comment>TICC-180</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:bits.no:2017:profile:11:1.0" />
   </document-type>
-  <document-type name="Peppol Tendering Questions V1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Enquiry-2::Enquiry##urn:fdc:peppol.eu:prac:trns:t007:1.0::2.2 " initial-release="8.0" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
+  <document-type name="Peppol Tendering Questions V1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Enquiry-2::Enquiry##urn:fdc:peppol.eu:prac:trns:t007:1.0::2.2" initial-release="8.0" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <comment>TICC-183</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:prac:bis:p004:1.0" />
   </document-type>
@@ -515,7 +533,7 @@ TICC-177</comment>
     <comment>TICC-183</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:prac:bis:p004:1.0" />
   </document-type>
-  <document-type name="Peppol Tender Clarification Request V1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Enquiry-2::Enquiry##urn:fdc:peppol.eu:prac:trns:t009:1.0::2.2 " initial-release="8.0" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
+  <document-type name="Peppol Tender Clarification Request V1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Enquiry-2::Enquiry##urn:fdc:peppol.eu:prac:trns:t009:1.0::2.2" initial-release="8.0" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <comment>TICC-183</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:prac:bis:p005:1.0" />
   </document-type>
@@ -751,5 +769,29 @@ TICC-177</comment>
   <document-type name="Peppol Order Response Advanced" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:OrderResponse-2::OrderResponse##urn:fdc:peppol.eu:poacc:trns:order_response_advanced:3::2.3" initial-release="8.3" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
     <comment>TICC-219</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:advanced_ordering:3" />
+  </document-type>
+  <document-type name="XRechnung UBL Invoice V2.3" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3::2.1" initial-release="8.4" state="active" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-243</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type name="XRechnung UBL CreditNote V2.3" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3::2.1" initial-release="8.4" state="active" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-243</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type name="XRechnung CII Invoice V2.3" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3::D16B" initial-release="8.4" state="active" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-243</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type name="XRechnung UBL Invoice V2.3 Extension" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3#conformant#urn:xoev-de:kosit:extension:xrechnung_2.3::2.1" initial-release="8.4" state="active" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-244</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type name="XRechnung UBL CreditNote V2.3 Extension" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3#conformant#urn:xoev-de:kosit:extension:xrechnung_2.3::2.1" initial-release="8.4" state="active" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-244</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type name="XRechnung CII Invoice V2.3 Extension" scheme="busdox-docid-qns" value="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.3#conformant#urn:xoev-de:kosit:extension:xrechnung_2.3::D16B" initial-release="8.4" state="active" issued-by-openpeppol="false" domain-community="POAC">
+    <comment>TICC-244</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
 </document-types>
