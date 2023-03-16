@@ -26,10 +26,10 @@
       OpenPeppol Code list schemas.
       All information elements outside the Peppol identifier scheme and value are non-normative.
       
-      Schema version: 2
-        Suitable with code list version 8 onwards
+      Schema version: 2.1
+        Suitable with code list version 8.4 onwards
       Author: Philip Helger, OpenPeppol OO
-      Last update: 2020-12-01
+      Last update: 2023-03-16
     </xs:documentation>
   </xs:annotation>
   
@@ -231,6 +231,12 @@
       <xs:element name="usage" type="xs:string" minOccurs="0">
         <xs:annotation>
           <xs:documentation>Contains human readable usage notes.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <!-- Added in XSD v2.1 -->
+      <xs:element name="registrable" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>Defines, if participants using this scheme can be registered in the SMP/SML</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
