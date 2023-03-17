@@ -66,9 +66,25 @@ public enum ESMPTransportProfileState implements IHasID <String>, IHasDisplayTex
     return m_sID;
   }
 
+  @Nullable
   public String getDisplayText (@Nonnull final Locale aContentLocale)
   {
     return m_eText.getDisplayText (aContentLocale);
+  }
+
+  public boolean isActive ()
+  {
+    return this == ACTIVE;
+  }
+
+  public boolean isDeprecated ()
+  {
+    return this == DEPRECATED;
+  }
+
+  public boolean isDeleted ()
+  {
+    return this == DELETED;
   }
 
   /**
