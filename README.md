@@ -17,7 +17,6 @@ These project are used implicitly by e.g. the following projects:
 * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
 * [phase4](https://github.com/phax/phase4/) - an AS4 implementation that also supports Peppol 
 * [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for Peppol and TOOP
-* [as2-peppol](https://github.com/phax/as2-peppol/) - an AS2 client and server for Peppol (deprecated)
 
 This project is licensed under the Apache 2.0 license.
 
@@ -280,7 +279,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.0.1 - work in progress
+* v9.0.1 - 2023-03-27
     * Updated to OpenPeppol eDEC Code Lists v8.4 with XSD 2.1
 * v9.0.0 - 2023-02-19
     * Using Java 11 as the baseline
