@@ -77,7 +77,7 @@ public class SMPMarshallerSignedServiceMetadataTypeTest
                                                   "signed-service-metadata2.xml",
                                                   "signed-service-metadata3-c14n-inclusive.xml" })
     {
-      final IReadableResource aRes = new ClassPathResource ("smp/" + sFilename);
+      final IReadableResource aRes = new ClassPathResource ("external/" + sFilename);
       assertTrue (aRes.exists ());
       aObj = new SMPMarshallerSignedServiceMetadataType (true).read (aRes);
       assertNotNull ("Error in " + sFilename, aObj);
