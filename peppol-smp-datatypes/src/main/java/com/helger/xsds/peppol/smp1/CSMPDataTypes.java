@@ -40,7 +40,8 @@ public final class CSMPDataTypes
   @Nonnull
   public static ClassPathResource getXSDResourcePeppolSMP ()
   {
-    return new ClassPathResource ("/schemas/peppol-smp-types-v1-ext.xsd", CSMPDataTypes.class.getClassLoader ());
+    return new ClassPathResource ("/external/schemas/peppol-smp-types-v1-ext.xsd",
+                                  CSMPDataTypes.class.getClassLoader ());
   }
 
   @Nonnull
