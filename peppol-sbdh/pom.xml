@@ -122,7 +122,7 @@
           </execution>
         </executions>
         <configuration>
-          <schemaDirectory>src/main/resources/schemas/external</schemaDirectory>
+          <schemaDirectory>src/main/resources/external/schemas</schemaDirectory>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
           <extension>true</extension>
           <strict>false</strict>
