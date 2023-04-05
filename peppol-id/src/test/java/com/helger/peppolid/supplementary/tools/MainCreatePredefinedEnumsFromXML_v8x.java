@@ -965,7 +965,7 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
     public CodeListFile (@Nonnull final String sFilenamePart,
                          @Nonnull final IThrowingConsumer <? super Document, Exception> aHandler)
     {
-      m_aFile = new File ("src/main/resources/codelists/Peppol Code Lists - " +
+      m_aFile = new File ("src/main/resources/external/codelists/Peppol Code Lists - " +
                           sFilenamePart +
                           " v" +
                           CODELIST_VERSION.getAsString (false, true) +

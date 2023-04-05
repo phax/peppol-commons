@@ -38,7 +38,7 @@ public final class ParticipantIdentifierSchemeManagerTest
   public void testAll ()
   {
     assertNotNull (ParticipantIdentifierSchemeManager.getAllSchemes ());
-    assertEquals (93, ParticipantIdentifierSchemeManager.getAllSchemes ().size ());
+    assertEquals (95, ParticipantIdentifierSchemeManager.getAllSchemes ().size ());
 
     // test valid
     assertNotNull (ParticipantIdentifierSchemeManager.getSchemeOfISO6523Code ("0088"));
