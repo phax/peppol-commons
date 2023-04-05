@@ -99,7 +99,7 @@
           </execution>
         </executions>
         <configuration>
-          <schemaDirectory>src/main/resources/schemas/external</schemaDirectory>
+          <schemaDirectory>src/main/resources/external/schemas</schemaDirectory>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
           <!-- Required for schema component designator in binding file -->
           <extension>true</extension>
