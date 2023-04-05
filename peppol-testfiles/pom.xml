@@ -85,19 +85,6 @@
           </instructions>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>src/main/resources/peppol-official/**</exclude>
-            <exclude>src/main/resources/peppol-ubl/**</exclude>
-            <exclude>src/main/resources/simpler-invoicing/**</exclude>
-            <exclude>**/NOTICE</exclude>
-            <exclude>**/LICENSE</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 </project>
