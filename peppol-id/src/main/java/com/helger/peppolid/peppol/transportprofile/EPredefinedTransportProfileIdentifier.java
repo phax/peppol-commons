@@ -44,7 +44,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @deprecated since 1.0.0 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    busdox_transport_start("START", "1.0.1", "busdox-transport-start", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("1.0.0"), PDTFactory.createLocalDate(2023, Month.of(8), 24)),
+    busdox_transport_start("START", "1.0.1", "busdox-transport-start", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("1.0.0"), PDTFactory.createLocalDate(2023, Month.of(9), 6)),
 
     /**
      * ID: <code>busdox-transport-as2-ver1p0</code><br>
@@ -54,7 +54,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @deprecated since 7 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    busdox_transport_as2_ver1p0("AS2", "1.0", "busdox-transport-as2-ver1p0", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("7"), PDTFactory.createLocalDate(2023, Month.of(8), 24)),
+    busdox_transport_as2_ver1p0("AS2", "1.0", "busdox-transport-as2-ver1p0", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("7"), PDTFactory.createLocalDate(2023, Month.of(9), 6)),
 
     /**
      * ID: <code>peppol-transport-as4-v1_0</code><br>
@@ -64,7 +64,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @deprecated since 3 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    peppol_transport_as4_v1_0("AS4", "1.0", "peppol-transport-as4-v1_0", Version.parse("2"), EPeppolCodeListItemState.REMOVED, Version.parse("3"), PDTFactory.createLocalDate(2023, Month.of(8), 24)),
+    peppol_transport_as4_v1_0("AS4", "1.0", "peppol-transport-as4-v1_0", Version.parse("2"), EPeppolCodeListItemState.REMOVED, Version.parse("3"), PDTFactory.createLocalDate(2023, Month.of(9), 6)),
 
     /**
      * ID: <code>peppol-transport-as4-v2_0</code><br>
@@ -82,8 +82,8 @@ public enum EPredefinedTransportProfileIdentifier
      * @deprecated since 8.4 - this item should not be used to issue new identifiers!
      */
     @Deprecated
-    busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), EPeppolCodeListItemState.REMOVED, Version.parse("8.4"), PDTFactory.createLocalDate(2023, Month.of(8), 24));
-    public static final String CODE_LIST_VERSION = "8.4";
+    busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), EPeppolCodeListItemState.REMOVED, Version.parse("8.4"), PDTFactory.createLocalDate(2023, Month.of(9), 6));
+    public static final String CODE_LIST_VERSION = "8.5";
     public static final int CODE_LIST_ENTRY_COUNT = 5;
     /**
      * Same as {@link #busdox_transport_start}

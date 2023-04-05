@@ -54,6 +54,7 @@ final class CodeGenerationHelper
     // Create a shortcut constant with a more readable name!
     final String sLocalName = aDocIDParts.getLocalName ();
     final String sCustomizationID = aDocIDParts.getCustomizationID ();
+    String [] aGroups;
 
     // Invoice
     if ("urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0".equals (sCustomizationID))
@@ -169,15 +170,37 @@ final class CodeGenerationHelper
         return "OIOUBL_REMINDER_202";
     }
 
-    // XRechnung
-    if ("urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.1".equals (sCustomizationID))
+    // XRechnung Extension (before XR!)
     {
-      if ("Invoice".equals (sLocalName))
-        return "XRECHNUNG_INVOICE_UBL_V11";
-      if ("CreditNote".equals (sLocalName))
-        return "XRECHNUNG_CREDIT_NOTE_UBL_V11";
-      if ("CrossIndustryInvoice".equals (sLocalName))
-        return "XRECHNUNG_INVOICE_CII_V11";
+      aGroups = RegExHelper.getAllMatchingGroupValues ("\\Qurn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_\\E([0-9]+)\\.([0-9]+)" +
+                                                       "\\Q#conformant#urn:xoev-de:kosit:extension:xrechnung_\\E([0-9]+)\\.([0-9]+)",
+                                                       sCustomizationID);
+      if (aGroups != null && aGroups.length == 4)
+      {
+        final String sSuffix = aGroups[0] + aGroups[1];
+        if ("Invoice".equals (sLocalName))
+          return "XRECHNUNG_EXTENSION_INVOICE_UBL_V" + sSuffix;
+        if ("CreditNote".equals (sLocalName))
+          return "XRECHNUNG_EXTENSION_CREDIT_NOTE_UBL_V" + sSuffix;
+        if ("CrossIndustryInvoice".equals (sLocalName))
+          return "XRECHNUNG_EXTENSION_INVOICE_CII_V" + sSuffix;
+      }
+    }
+
+    // XRechnung
+    {
+      aGroups = RegExHelper.getAllMatchingGroupValues ("\\Qurn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_\\E([0-9]+)\\.([0-9]+)",
+                                                       sCustomizationID);
+      if (aGroups != null && aGroups.length == 2)
+      {
+        final String sSuffix = aGroups[0] + aGroups[1];
+        if ("Invoice".equals (sLocalName))
+          return "XRECHNUNG_INVOICE_UBL_V" + sSuffix;
+        if ("CreditNote".equals (sLocalName))
+          return "XRECHNUNG_CREDIT_NOTE_UBL_V" + sSuffix;
+        if ("CrossIndustryInvoice".equals (sLocalName))
+          return "XRECHNUNG_INVOICE_CII_V" + sSuffix;
+      }
     }
 
     if ("urn:cen.eu:en16931:2017#conformant#urn:UBL.BE:1.0.0.20180214".equals (sCustomizationID))
@@ -194,6 +217,7 @@ final class CodeGenerationHelper
     sExt = StringHelper.replaceAll (sExt, ':', '_');
     sExt = StringHelper.replaceAll (sExt, '#', '_');
     sExt = StringHelper.replaceAll (sExt, '-', '_');
+    sExt = StringHelper.replaceAll (sExt, '@', '_');
 
     return (aDocIDParts.getLocalName () + "_" + sExt).toUpperCase (Locale.US);
   }
@@ -219,25 +243,9 @@ final class CodeGenerationHelper
       // BIS v3
       if ("urn:fdc:peppol.eu:2017:poacc:billing:01:1.0".equals (sValue))
         return "BIS3_BILLING";
-      if ("urn:fdc:peppol.eu:poacc:bis:catalogue_only:3".equals (sValue))
-        return "BIS3_CATALOGUE";
-      if ("urn:fdc:peppol.eu:poacc:bis:catalogue_wo_response:3".equals (sValue))
-        return "BIS3_CATALOGUE_WO_RESPONSE";
-      if ("urn:fdc:peppol.eu:poacc:bis:ordering:3".equals (sValue))
-        return "BIS3_ORDERING";
-      if ("urn:fdc:peppol.eu:poacc:bis:order_only:3".equals (sValue))
-        return "BIS3_ORDER_ONLY";
-      if ("urn:fdc:peppol.eu:poacc:bis:invoice_response:3".equals (sValue))
-        return "BIS3_INVOICE_RESPONSE";
-      if ("urn:fdc:peppol.eu:poacc:bis:punch_out:3".equals (sValue))
-        return "BIS3_PUNCH_OUT";
-      if ("urn:fdc:peppol.eu:poacc:bis:despatch_advice:3".equals (sValue))
-        return "BIS3_DESPATCH_ADVICE";
-      if ("urn:fdc:peppol.eu:poacc:bis:order_agreement:3".equals (sValue))
-        return "BIS3_ORDER_AGREEMENT";
-      if ("urn:fdc:peppol.eu:poacc:bis:mlr:3".equals (sValue))
-        return "BIS3_MLR";
-
+      aGroups = RegExHelper.getAllMatchingGroupValues ("urn:fdc:peppol.eu:poacc:bis:([a-z0-9_]+):3", sValue);
+      if (aGroups != null && aGroups.length == 1)
+        return "BIS3_" + aGroups[0].toUpperCase (Locale.ROOT);
     }
 
     return null;

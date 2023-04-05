@@ -552,6 +552,38 @@ public enum EPredefinedParticipantIdentifierScheme
     FI_OVT2("FI:OVT2", "0216", "FI", "OVTcode", "TIEKE- Tietoyhteiskunnan kehittamiskeskus ry", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
+     * Prefix <code>0221</code>, scheme ID <code>JP:IIN</code><br>
+     * Structure of the code: T + 13-digit integer
+     * 
+     * Figure of 14 digits
+     * 
+     * Figures from 1 to 9
+     * (Formula to calculate the test number)
+     * Formula 9 - ((n = 1 (Sigma)12( Pn * Qn )) remainder obtained by dividing the 9)
+     * Pn: the numeral of the n-th digit of a fundamental number, when counted from the bottom digit.
+     * Qn: one when the &quot;n&quot; is an odd number, two when the &quot;n&quot; is an even one<br>
+     * Display requirements: None<br>
+     * Usage information: Business entities need to submit application to be registered to issue qualified invoices.<br>
+     * 
+     * @since code list 8.5
+     */
+    JP_IIN("JP:IIN", "0221", "JP", "The registered number of the qualified invoice issuer", "Name: National Tax Agency Japan", Version.parse("8.5"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
+     * Prefix <code>0230</code>, scheme ID <code>MY:EIF</code><br>
+     * Structure of the code: 1st field = ICD
+     *  2nd field = Special Identifier (e.g. country identifier, test identifier, etc)
+     *  3rd field = Organisation identifier
+     * 
+     * No check value<br>
+     * Display requirements: None<br>
+     * Usage information: For use in electronic messages in accordance to the National e-Invoicing framework on identification of organization<br>
+     * 
+     * @since code list 8.5
+     */
+    MY_EIF("MY:EIF", "0230", "MY", "National e-Invoicing Framework", "Malaysia Digital Economy Corporation Sdn Bhd (MDEC)", Version.parse("8.5"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
      * Structure of the code: 1) First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
@@ -1017,8 +1049,8 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "8.4";
-    public static final int CODE_LIST_ENTRY_COUNT = 93;
+    public static final String CODE_LIST_VERSION = "8.5";
+    public static final int CODE_LIST_ENTRY_COUNT = 95;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;

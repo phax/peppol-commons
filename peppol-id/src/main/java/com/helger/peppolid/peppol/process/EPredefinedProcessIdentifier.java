@@ -139,18 +139,27 @@ public enum EPredefinedProcessIdentifier
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:2017:pracc:p001:01:1.0</code><br>
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    urn_fdc_peppol_eu_2017_pracc_p001_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p001:01:1.0", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated
+    urn_fdc_peppol_eu_2017_pracc_p001_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p001:01:1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:2017:pracc:p002:01:1.0</code><br>
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    urn_fdc_peppol_eu_2017_pracc_p002_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p002:01:1.0", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated
+    urn_fdc_peppol_eu_2017_pracc_p002_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p002:01:1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:2017:pracc:p003:01:1.0</code><br>
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    urn_fdc_peppol_eu_2017_pracc_p003_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p003:01:1.0", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated
+    urn_fdc_peppol_eu_2017_pracc_p003_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p003:01:1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
      * ID: <code>oioubl-procid-ubl::Reference-Utility-1.0</code><br>
@@ -172,7 +181,7 @@ public enum EPredefinedProcessIdentifier
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:bis:catalogue_only:3</code><br>
-     * Same as {@link #BIS3_CATALOGUE}
+     * Same as {@link #BIS3_CATALOGUE_ONLY}
      */
     urn_fdc_peppol_eu_poacc_bis_catalogue_only_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:catalogue_only:3", EPeppolCodeListItemState.ACTIVE),
 
@@ -196,6 +205,7 @@ public enum EPredefinedProcessIdentifier
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:poacc:bis:advanced_ordering:3</code><br>
+     * Same as {@link #BIS3_ADVANCED_ORDERING}
      */
     urn_fdc_peppol_eu_poacc_bis_advanced_ordering_3("cenbii-procid-ubl", "urn:fdc:peppol.eu:poacc:bis:advanced_ordering:3", EPeppolCodeListItemState.ACTIVE),
 
@@ -432,9 +442,49 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:www.efaktura.gov.pl:ver2.0:us:ver1.0</code><br>
      */
-    urn_fdc_www_efaktura_gov_pl_ver2_0_us_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver2.0:us:ver1.0", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "8.4";
-    public static final int CODE_LIST_ENTRY_COUNT = 71;
+    urn_fdc_www_efaktura_gov_pl_ver2_0_us_ver1_0("cenbii-procid-ubl", "urn:fdc:www.efaktura.gov.pl:ver2.0:us:ver1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:bis:selfbilling</code><br>
+     */
+    urn_peppol_bis_selfbilling("cenbii-procid-ubl", "urn:peppol:bis:selfbilling", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p001:1.2</code><br>
+     */
+    urn_fdc_peppol_eu_prac_bis_p001_1_2("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p001:1.2", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p002:1.2</code><br>
+     */
+    urn_fdc_peppol_eu_prac_bis_p002_1_2("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p002:1.2", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p003:1.2</code><br>
+     */
+    urn_fdc_peppol_eu_prac_bis_p003_1_2("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p003:1.2", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p006:1.2</code><br>
+     */
+    urn_fdc_peppol_eu_prac_bis_p006_1_2("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p006:1.2", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p008:1.2</code><br>
+     */
+    urn_fdc_peppol_eu_prac_bis_p008_1_2("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p008:1.2", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p010:1.1</code><br>
+     */
+    urn_fdc_peppol_eu_prac_bis_p010_1_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p010:1.1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p011:1.1</code><br>
+     */
+    urn_fdc_peppol_eu_prac_bis_p011_1_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p011:1.1", EPeppolCodeListItemState.ACTIVE);
+    public static final String CODE_LIST_VERSION = "8.5";
+    public static final int CODE_LIST_ENTRY_COUNT = 79;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 
@@ -508,7 +558,7 @@ public enum EPredefinedProcessIdentifier
     /**
      * Same as {@link #urn_fdc_peppol_eu_poacc_bis_catalogue_only_3}
      */
-    public static final EPredefinedProcessIdentifier BIS3_CATALOGUE = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_catalogue_only_3;
+    public static final EPredefinedProcessIdentifier BIS3_CATALOGUE_ONLY = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_catalogue_only_3;
     /**
      * Same as {@link #urn_fdc_peppol_eu_poacc_bis_catalogue_wo_response_3}
      */
@@ -521,6 +571,10 @@ public enum EPredefinedProcessIdentifier
      * Same as {@link #urn_fdc_peppol_eu_poacc_bis_order_only_3}
      */
     public static final EPredefinedProcessIdentifier BIS3_ORDER_ONLY = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_order_only_3;
+    /**
+     * Same as {@link #urn_fdc_peppol_eu_poacc_bis_advanced_ordering_3}
+     */
+    public static final EPredefinedProcessIdentifier BIS3_ADVANCED_ORDERING = EPredefinedProcessIdentifier.urn_fdc_peppol_eu_poacc_bis_advanced_ordering_3;
     /**
      * Same as {@link #urn_fdc_peppol_eu_poacc_bis_invoice_response_3}
      */
