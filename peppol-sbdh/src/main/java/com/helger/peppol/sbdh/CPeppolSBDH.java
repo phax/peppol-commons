@@ -66,7 +66,7 @@ public final class CPeppolSBDH
 
   /** XML Schema resources for special payloads */
   @CodingStyleguideUnaware
-  public static final List <ClassPathResource> PEPPOL_SPECIAL_PAYLOADS_XSDS = new CommonsArrayList <> (new ClassPathResource ("/schemas/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.xsd",
+  public static final List <ClassPathResource> PEPPOL_SPECIAL_PAYLOADS_XSDS = new CommonsArrayList <> (new ClassPathResource ("/schemas/external/PEPPOL-EDN-Business-Message-Envelope-1.2-2019-02-01.xsd",
                                                                                                                               _getCL ())).getAsUnmodifiable ();
 
   @PresentForCodeCoverage
