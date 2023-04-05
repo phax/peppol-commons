@@ -108,23 +108,6 @@
           </instructions>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>src/main/resources/schemas/oasis-200401-wss-wssecurity-utility-1.0.xsd</exclude>
-            <exclude>src/main/resources/schemas/ws-addr.xsd</exclude>
-            <exclude>**/*.csv</exclude>
-            <exclude>**/*.jks</exclude>
-            <exclude>**/*.p12</exclude>
-            <exclude>**/*.sha256</exclude>
-            <exclude>**/*.txt</exclude>
-            <exclude>**/NOTICE</exclude>
-            <exclude>**/LICENSE</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
 </project>
