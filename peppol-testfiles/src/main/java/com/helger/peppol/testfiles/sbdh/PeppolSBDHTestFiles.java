@@ -33,8 +33,16 @@ public final class PeppolSBDHTestFiles
   private static final ICommonsList <ClassPathResource> GOOD_CASES = new CommonsArrayList <> ();
   private static final ICommonsList <ClassPathResource> BAD_CASES = new CommonsArrayList <> ();
 
+  @Nonnull
+  private static ClassLoader _getCL ()
+  {
+    return PeppolSBDHTestFiles.class.getClassLoader ();
+  }
+
   static
   {
+    final String sPrefix = "/external/sbdh";
+
     // good.xml must be the first file!
     for (final String sFilename : new String [] { "good.xml",
                                                   "good-additional-scopes.xml",
@@ -46,7 +54,7 @@ public final class PeppolSBDHTestFiles
                                                   "good-v11.xml",
                                                   "good-with-timezone.xml" })
     {
-      GOOD_CASES.add (new ClassPathResource ("/sbdh/good/" + sFilename));
+      GOOD_CASES.add (new ClassPathResource (sPrefix + "/good/" + sFilename, _getCL ()));
     }
 
     for (final String sFilename : new String [] { "bad-no-xml.txt",
@@ -74,7 +82,7 @@ public final class PeppolSBDHTestFiles
                                                   "bad-invalid-instance-identifier.xml",
                                                   "bad-invalid-creation-date-and-time.xml" })
     {
-      BAD_CASES.add (new ClassPathResource ("/sbdh/bad/" + sFilename));
+      BAD_CASES.add (new ClassPathResource (sPrefix + "/bad/" + sFilename, _getCL ()));
     }
   }
 

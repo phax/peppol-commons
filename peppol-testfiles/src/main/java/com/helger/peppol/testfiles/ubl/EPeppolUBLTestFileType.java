@@ -46,14 +46,20 @@ public enum EPeppolUBLTestFileType
   }
 
   @Nonnull
+  private static ClassLoader _getCL ()
+  {
+    return EPeppolUBLTestFileType.class.getClassLoader ();
+  }
+
+  @Nonnull
   public IReadableResource getSuccessResource (@Nonnull @Nonempty final String sFilename)
   {
-    return new ClassPathResource ("/peppol-ubl/" + m_sDirName + "/success/" + sFilename);
+    return new ClassPathResource ("/external/peppol-ubl/" + m_sDirName + "/success/" + sFilename, _getCL ());
   }
 
   @Nonnull
   public IReadableResource getErrorResource (@Nonnull @Nonempty final String sFilename)
   {
-    return new ClassPathResource ("/peppol-ubl/" + m_sDirName + "/error/" + sFilename);
+    return new ClassPathResource ("/external/peppol-ubl/" + m_sDirName + "/error/" + sFilename, _getCL ());
   }
 }
