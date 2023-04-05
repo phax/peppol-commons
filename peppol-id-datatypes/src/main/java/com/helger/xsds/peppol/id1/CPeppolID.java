@@ -41,14 +41,20 @@ public final class CPeppolID
   {}
 
   @Nonnull
+  private static ClassLoader _getCL ()
+  {
+    return CPeppolID.class.getClassLoader ();
+  }
+
+  @Nonnull
   public static ClassPathResource getXSDResourcePeppolIdentifiers ()
   {
-    return new ClassPathResource ("/schemas/peppol-identifiers-v1.xsd", CPeppolID.class.getClassLoader ());
+    return new ClassPathResource ("/schemas/external/peppol-identifiers-v1.xsd", _getCL ());
   }
 
   @Nonnull
   public static ClassPathResource getXSDPeppolCodeLists ()
   {
-    return new ClassPathResource ("/schemas/peppol-codelists-v2.1.xsd", CPeppolID.class.getClassLoader ());
+    return new ClassPathResource ("/schemas/external/peppol-codelists-v2.1.xsd", _getCL ());
   }
 }

@@ -28,12 +28,12 @@
     <xjc:javaType name="com.helger.commons.datetime.XMLOffsetDate"     xmlType="xsd:date"     adapter="com.helger.jaxb.adapter.AdapterXMLOffsetDate" />
     <xjc:javaType name="com.helger.commons.datetime.XMLOffsetTime"     xmlType="xsd:time"     adapter="com.helger.jaxb.adapter.AdapterXMLOffsetTime" />
   </globalBindings>
-  <bindings schemaLocation="../resources/schemas/peppol-identifiers-v1.xsd">
+  <bindings schemaLocation="../resources/schemas/external/peppol-identifiers-v1.xsd">
     <schemaBindings>
       <package name="com.helger.xsds.peppol.id1" />
     </schemaBindings>
   </bindings>
-  <bindings schemaLocation="../resources/schemas/peppol-codelists-v2.1.xsd">
+  <bindings schemaLocation="../resources/schemas/external/peppol-codelists-v2.1.xsd">
     <schemaBindings>
       <package name="com.helger.xsds.peppol.codelists21" />
       <nameXmlTransform>

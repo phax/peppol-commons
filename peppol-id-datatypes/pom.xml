@@ -88,18 +88,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>com.mycila</groupId>
-        <artifactId>license-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>**/*.txt</exclude>
-            <exclude>**/NOTICE</exclude>
-            <exclude>**/LICENSE</exclude>
-            <exclude>src/main/resources/schemas/*</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>${jaxb-plugin.group}</groupId>
         <artifactId>${jaxb-plugin.artifact}</artifactId>
         <version>${jaxb-plugin.version}</version>
@@ -111,7 +99,7 @@
           </execution>
         </executions>
         <configuration>
-          <schemaDirectory>src/main/resources/schemas</schemaDirectory>
+          <schemaDirectory>src/main/resources/schemas/external</schemaDirectory>
           <bindingDirectory>src/main/jaxb</bindingDirectory>
           <!-- Required for schema component designator in binding file -->
           <extension>true</extension>
