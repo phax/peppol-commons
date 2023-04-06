@@ -207,7 +207,7 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
     for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
     {
-      final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
+      final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
       LOGGER.info ("Bad (Res): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
       try
@@ -230,7 +230,7 @@ public final class PeppolSBDHDocumentReaderTest
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
     for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
     {
-      final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
+      final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
       LOGGER.info ("Bad (IS): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
       try
@@ -255,7 +255,7 @@ public final class PeppolSBDHDocumentReaderTest
     aSettings.exceptionCallbacks ().removeAll ();
     for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
     {
-      final IReadableResource aRes = new ClassPathResource ("sbdh/bad/" + aEntry.getKey ());
+      final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
       LOGGER.info ("Bad (Node): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
 
