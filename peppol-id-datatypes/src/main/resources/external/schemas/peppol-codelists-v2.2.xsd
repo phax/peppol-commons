@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 
-    Copyright (C) 2020 OpenPeppol AISBL (www.peppol.eu)
+    Copyright (C) 2015-2023 Philip Helger
+    philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,19 +18,18 @@
 
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns="" 
            id="Identifiers" 
-           elementFormDefault="qualified"
-           targetNamespace="">
+           elementFormDefault="qualified">
   <xs:annotation>
     <xs:documentation>
       OpenPeppol Code list schemas.
       All information elements outside the Peppol identifier scheme and value are non-normative.
       
-      Schema version: 2.1
+      Schema version: 2.2
         Suitable with code list version 8.4 onwards
+        Compared to v2.1: added the "comment" attribute to the "transport-profile" element
       Author: Philip Helger, OpenPeppol OO
-      Last update: 2023-03-16
+      Last update: 2023-04-07
     </xs:documentation>
   </xs:annotation>
   
@@ -404,6 +404,11 @@
           This attribute is only present, if the code list entry is scheduled for removal.
           It contains the date, when the entry is/was marked as removed.
         </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="comment" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Contains an optional comment to this code list entry. For human understanding only.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>

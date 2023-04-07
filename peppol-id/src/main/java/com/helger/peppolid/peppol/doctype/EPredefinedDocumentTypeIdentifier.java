@@ -1734,14 +1734,6 @@ public enum EPredefinedDocumentTypeIdentifier
     urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_jp_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:selfbilling-1@jp-1", "2.1"), "JP BIS Self-Billing Invoice", Version.parse("8.5"), EPeppolCodeListItemState.ACTIVE, null, null, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling")),
 
     /**
-     * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@jp-1::2.1</code><br>
-     * Same as {@link #CREDITNOTE_PEPPOL_PINT_SELFBILLING_1_JP_1}
-     * 
-     * @since code list 8.5
-     */
-    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_selfbilling_1_jp_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:peppol:pint:selfbilling-1@jp-1", "2.1"), "JP BIS Self-Billing Credit Note", Version.parse("8.5"), EPeppolCodeListItemState.ACTIVE, null, null, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling")),
-
-    /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2::ExpressionOfInterestRequest##urn:fdc:peppol.eu:prac:trns:t001:1.2::2.2</code><br>
      * Same as {@link #EXPRESSIONOFINTERESTREQUEST_FDC_PEPPOL_EU_PRAC_TRNS_T001_1_2}
      * 
@@ -1860,8 +1852,8 @@ public enum EPredefinedDocumentTypeIdentifier
      * @since code list 8.5
      */
     urn_oasis_names_specification_ubl_schema_xsd_TenderReceipt_2__TenderReceipt__urn_fdc_peppol_eu_prac_trns_t020_1_1__2_2("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TenderReceipt-2", "TenderReceipt", "urn:fdc:peppol.eu:prac:trns:t020:1.1", "2.2"), "Qualification / Qualification Reception Confirmation V1.1", Version.parse("8.5"), EPeppolCodeListItemState.ACTIVE, null, null, true, 1, "PRAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p011:1.1"));
-    public static final String CODE_LIST_VERSION = "8.5";
-    public static final int CODE_LIST_ENTRY_COUNT = 213;
+    public static final String CODE_LIST_VERSION = "8.5.1";
+    public static final int CODE_LIST_ENTRY_COUNT = 212;
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1}
      * 
@@ -2821,10 +2813,6 @@ public enum EPredefinedDocumentTypeIdentifier
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_jp_1__2_1}
      */
     public static final EPredefinedDocumentTypeIdentifier INVOICE_PEPPOL_PINT_SELFBILLING_1_JP_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_jp_1__2_1;
-    /**
-     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_selfbilling_1_jp_1__2_1}
-     */
-    public static final EPredefinedDocumentTypeIdentifier CREDITNOTE_PEPPOL_PINT_SELFBILLING_1_JP_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_selfbilling_1_jp_1__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ExpressionOfInterestRequest_2__ExpressionOfInterestRequest__urn_fdc_peppol_eu_prac_trns_t001_1_2__2_2}
      */

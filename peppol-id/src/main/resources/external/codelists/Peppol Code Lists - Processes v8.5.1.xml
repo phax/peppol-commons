@@ -22,7 +22,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<processes version="8.5" entry-count="79">
+<processes version="8.5.1" entry-count="79">
   <process scheme="cenbii-procid-ubl" value="none" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver2.0" state="active" />

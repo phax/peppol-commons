@@ -279,6 +279,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.0.3 - 2023-04-07
+    * Updated to OpenPeppol eDEC Code Lists v8.5.1
 * v9.0.2 - 2023-04-05
     * Updated to OpenPeppol eDEC Code Lists v8.5
     * Moved internal resources to different folders for overall unifications

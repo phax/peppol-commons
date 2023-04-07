@@ -83,7 +83,7 @@ public enum EPredefinedTransportProfileIdentifier
      */
     @Deprecated
     busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), EPeppolCodeListItemState.REMOVED, Version.parse("8.4"), PDTFactory.createLocalDate(2023, Month.of(9), 6));
-    public static final String CODE_LIST_VERSION = "8.5";
+    public static final String CODE_LIST_VERSION = "8.5.1";
     public static final int CODE_LIST_ENTRY_COUNT = 5;
     /**
      * Same as {@link #busdox_transport_start}

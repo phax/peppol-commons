@@ -22,7 +22,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="8.5" entry-count="213">
+<document-types version="8.5.1" entry-count="212">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" initial-release="1.0.0" state="deprecated" deprecation-release="2" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -829,10 +829,6 @@ TICC-255</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
   <document-type name="JP BIS Self-Billing Invoice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@jp-1::2.1" initial-release="8.5" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
-    <comment>TICC-254</comment>
-    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
-  </document-type>
-  <document-type name="JP BIS Self-Billing Credit Note" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@jp-1::2.1" initial-release="8.5" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
     <comment>TICC-254</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </document-type>

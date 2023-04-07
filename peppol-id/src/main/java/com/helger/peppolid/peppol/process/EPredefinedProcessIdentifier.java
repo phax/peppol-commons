@@ -483,7 +483,7 @@ public enum EPredefinedProcessIdentifier
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p011:1.1</code><br>
      */
     urn_fdc_peppol_eu_prac_bis_p011_1_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p011:1.1", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "8.5";
+    public static final String CODE_LIST_VERSION = "8.5.1";
     public static final int CODE_LIST_ENTRY_COUNT = 79;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
