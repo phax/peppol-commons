@@ -45,7 +45,11 @@ public final class PeppolSBDHAdditionalAttributes
   {
     if (sName == null)
       return false;
-    return sName.equals ("DOCUMENTID") ||
+
+    // COUNTRY_C1 and COUNTRY_C4 were added in v2.0
+    return sName.equals ("COUNTRY_C1") ||
+           sName.equals ("COUNTRY_C4") ||
+           sName.equals ("DOCUMENTID") ||
            sName.equals ("PROCESSID") ||
            sName.equals ("TECHNICAL_VALIDATION_URL") ||
            sName.equals ("TECHNICAL_VALIDATION_REQUIRED");
