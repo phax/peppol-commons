@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;
@@ -38,8 +37,8 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadReader;
-import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadWriter;
+import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadBinaryMarshaller;
+import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadTextMarshaller;
 import com.helger.peppol.sbdh.spec12.BinaryContentType;
 import com.helger.peppol.sbdh.spec12.TextContentType;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -846,7 +845,7 @@ public class PeppolSBDHDocument
     if (!"BinaryContent".equals (XMLHelper.getLocalNameOrTagName (m_aBusinessMessage)))
       return null;
 
-    return PeppolSBDHPayloadReader.binaryContent ().read (m_aBusinessMessage);
+    return new PeppolSBDHPayloadBinaryMarshaller ().read (m_aBusinessMessage);
   }
 
   /**
@@ -867,7 +866,7 @@ public class PeppolSBDHDocument
     if (!"TextContent".equals (XMLHelper.getLocalNameOrTagName (m_aBusinessMessage)))
       return null;
 
-    return PeppolSBDHPayloadReader.textContent ().read (m_aBusinessMessage);
+    return new PeppolSBDHPayloadTextMarshaller ().read (m_aBusinessMessage);
   }
 
   /**
@@ -943,10 +942,9 @@ public class PeppolSBDHDocument
     aBC.setValue (aBinaryPayload);
     aBC.setMimeType (aMimeType.getAsString ());
     aBC.setEncoding (aCharset == null ? null : aCharset.name ());
-    final Document aDoc = PeppolSBDHPayloadWriter.binaryContent ().getAsDocument (aBC);
-    if (aDoc == null)
+    m_aBusinessMessage = new PeppolSBDHPayloadBinaryMarshaller ().getAsElement (aBC);
+    if (m_aBusinessMessage == null)
       throw new IllegalStateException ("Failed to create 'BinaryContent' element.");
-    m_aBusinessMessage = aDoc.getDocumentElement ();
     return this;
   }
 
@@ -977,10 +975,9 @@ public class PeppolSBDHDocument
     final TextContentType aTC = new TextContentType ();
     aTC.setValue (sTextPayload);
     aTC.setMimeType (aMimeType.getAsString ());
-    final Document aDoc = PeppolSBDHPayloadWriter.textContent ().getAsDocument (aTC);
-    if (aDoc == null)
+    m_aBusinessMessage = new PeppolSBDHPayloadTextMarshaller ().getAsElement (aTC);
+    if (m_aBusinessMessage == null)
       throw new IllegalStateException ("Failed to create 'TextContent' element.");
-    m_aBusinessMessage = aDoc.getDocumentElement ();
     return this;
   }
 
