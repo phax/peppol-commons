@@ -37,6 +37,7 @@ import com.helger.peppol.sbdh.spec12.TextContentType;
  *
  * @author Philip Helger
  */
+@Deprecated (since = "9.0.4", forRemoval = true)
 public enum EPeppolSBDHPayloadType implements IJAXBDocumentType
 {
   BINARY (BinaryContentType.class, CPeppolSBDH.PEPPOL_SPECIAL_PAYLOADS_XSDS),

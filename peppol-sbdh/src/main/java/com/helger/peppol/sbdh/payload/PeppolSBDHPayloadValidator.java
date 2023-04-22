@@ -31,7 +31,9 @@ import com.helger.peppol.sbdh.spec12.TextContentType;
  *        The implementation class to be validated
  */
 @NotThreadSafe
-public class PeppolSBDHPayloadValidator <JAXBTYPE> extends JAXBValidationBuilder <JAXBTYPE, PeppolSBDHPayloadValidator <JAXBTYPE>>
+@Deprecated (since = "9.0.4", forRemoval = true)
+public class PeppolSBDHPayloadValidator <JAXBTYPE> extends
+                                        JAXBValidationBuilder <JAXBTYPE, PeppolSBDHPayloadValidator <JAXBTYPE>>
 {
   public PeppolSBDHPayloadValidator (@Nonnull final EPeppolSBDHPayloadType eDocType)
   {

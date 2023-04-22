@@ -31,9 +31,11 @@ import com.helger.peppol.sbdh.spec12.TextContentType;
  *        The implementation class to be read
  */
 @NotThreadSafe
+@Deprecated (since = "9.0.4", forRemoval = true)
 public class PeppolSBDHPayloadReader <JAXBTYPE> extends JAXBReaderBuilder <JAXBTYPE, PeppolSBDHPayloadReader <JAXBTYPE>>
 {
-  public PeppolSBDHPayloadReader (@Nonnull final EPeppolSBDHPayloadType eDocType, @Nonnull final Class <JAXBTYPE> aImplClass)
+  public PeppolSBDHPayloadReader (@Nonnull final EPeppolSBDHPayloadType eDocType,
+                                  @Nonnull final Class <JAXBTYPE> aImplClass)
   {
     super (eDocType, aImplClass);
   }

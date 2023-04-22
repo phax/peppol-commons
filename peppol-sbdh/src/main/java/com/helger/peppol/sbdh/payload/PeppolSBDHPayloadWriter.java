@@ -31,6 +31,7 @@ import com.helger.peppol.sbdh.spec12.TextContentType;
  *        The implementation class to be written
  */
 @NotThreadSafe
+@Deprecated (since = "9.0.4", forRemoval = true)
 public class PeppolSBDHPayloadWriter <JAXBTYPE> extends JAXBWriterBuilder <JAXBTYPE, PeppolSBDHPayloadWriter <JAXBTYPE>>
 {
   public PeppolSBDHPayloadWriter (@Nonnull final EPeppolSBDHPayloadType eDocType)
