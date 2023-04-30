@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.utils;
 
+import java.io.IOException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
@@ -30,6 +31,11 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.security.auth.x500.X500Principal;
 
+import org.bouncycastle.asn1.ASN1Encodable;
+import org.bouncycastle.asn1.ASN1Sequence;
+import org.bouncycastle.asn1.x509.BasicConstraints;
+import org.bouncycastle.asn1.x509.Extension;
+import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,37 +60,6 @@ import net.jodah.expiringmap.ExpiringMap;
 @ThreadSafe
 public final class PeppolCertificateChecker
 {
-  public static final boolean DEFAULT_CACHE_OSCP_RESULTS = true;
-
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateChecker.class);
-
-  /** Peppol Access Point (AP) stuff */
-  private static final ICommonsList <X509Certificate> PEPPOL_AP_CA_CERTS = new CommonsArrayList <> ();
-  private static final ICommonsList <X500Principal> PEPPOL_AP_CA_ISSUERS = new CommonsArrayList <> ();
-
-  /** Peppol Service Metadata Publisher (SMP) stuff */
-  private static final ICommonsList <X509Certificate> PEPPOL_SMP_CA_CERTS = new CommonsArrayList <> ();
-  private static final ICommonsList <X500Principal> PEPPOL_SMP_CA_ISSUERS = new CommonsArrayList <> ();
-
-  static
-  {
-    // PKI v3 (recursive)
-    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
-    PEPPOL_AP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
-
-    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
-    PEPPOL_SMP_CA_CERTS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
-
-    // all issuers (1 level only)
-    PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP.getSubjectX500Principal ());
-    PEPPOL_AP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP.getSubjectX500Principal ());
-
-    PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP.getSubjectX500Principal ());
-    PEPPOL_SMP_CA_ISSUERS.add (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP.getSubjectX500Principal ());
-  }
-
-  private static final AtomicBoolean CACHE_OCSP_RESULTS = new AtomicBoolean (DEFAULT_CACHE_OSCP_RESULTS);
-
   /**
    * An revocation cache that checks the revocation status of each certificate
    * and keeps the status for up to 6 hours.
@@ -126,6 +101,13 @@ public final class PeppolCertificateChecker
     }
   }
 
+  public static final boolean DEFAULT_CACHE_OSCP_RESULTS = true;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateChecker.class);
+
+  // Revocation checking stuff
+  private static final AtomicBoolean CACHE_OCSP_RESULTS = new AtomicBoolean (DEFAULT_CACHE_OSCP_RESULTS);
+
   private static final PeppolRevocationCache REVOCATION_CACHE_AP = new PeppolRevocationCache (aCert -> peppolRevocationCheck ().certificate (aCert)
                                                                                                                                .validCAsPeppolAP ()
                                                                                                                                .build ()
@@ -134,6 +116,24 @@ public final class PeppolCertificateChecker
                                                                                                                                 .validCAsPeppolSMP ()
                                                                                                                                 .build ()
                                                                                                                                 .isRevoked ());
+
+  /** Peppol Access Point (AP) stuff */
+  private static final ICommonsList <X509Certificate> PEPPOL_AP_CA_CERTS = new CommonsArrayList <> ();
+  private static final ICommonsList <X500Principal> PEPPOL_AP_CA_ISSUERS = new CommonsArrayList <> ();
+
+  /** Peppol Service Metadata Publisher (SMP) stuff */
+  private static final ICommonsList <X509Certificate> PEPPOL_SMP_CA_CERTS = new CommonsArrayList <> ();
+  private static final ICommonsList <X500Principal> PEPPOL_SMP_CA_ISSUERS = new CommonsArrayList <> ();
+
+  static
+  {
+    // PKI v3 (recursive)
+    addTrustedPeppolAPCACertificate (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
+    addTrustedPeppolAPCACertificate (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
+
+    addTrustedPeppolSMPCACertificate (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
+    addTrustedPeppolSMPCACertificate (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
+  }
 
   private PeppolCertificateChecker ()
   {}
@@ -180,6 +180,105 @@ public final class PeppolCertificateChecker
   public static PeppolRevocationCache getRevocationCacheSMP ()
   {
     return REVOCATION_CACHE_SMP;
+  }
+
+  private static boolean _isCA (@Nonnull final X509Certificate aCert)
+  {
+    final byte [] aBCBytes = aCert.getExtensionValue (Extension.basicConstraints.getId ());
+    if (aBCBytes != null)
+    {
+      try
+      {
+        final ASN1Encodable aBCDecoded = JcaX509ExtensionUtils.parseExtensionValue (aBCBytes);
+        if (aBCDecoded instanceof ASN1Sequence)
+        {
+          final ASN1Sequence aBCSequence = (ASN1Sequence) aBCDecoded;
+          final BasicConstraints aBasicConstraints = BasicConstraints.getInstance (aBCSequence);
+          return aBasicConstraints.isCA ();
+        }
+      }
+      catch (final IOException e)
+      {
+        // Fall through
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Register a trusted Peppol AP CA Certificate
+   *
+   * @param aCert
+   *        The CA certificate to be added. May not be <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the provided certificate is already trusted
+   * @since 9.0.4
+   */
+  public static void addTrustedPeppolAPCACertificate (@Nonnull final X509Certificate aCert)
+  {
+    ValueEnforcer.notNull (aCert, "Certificate");
+
+    if (!_isCA (aCert))
+      throw new IllegalArgumentException ("The provided AP certificate does not seem to be a CA: " + aCert);
+
+    if (PEPPOL_AP_CA_CERTS.contains (aCert))
+      throw new IllegalArgumentException ("AP certificate is already trusted as Peppol AP CA: " + aCert);
+
+    PEPPOL_AP_CA_CERTS.add (aCert);
+    PEPPOL_AP_CA_ISSUERS.add (aCert.getSubjectX500Principal ());
+  }
+
+  /**
+   * Explicitly remove all known trusted Peppol AP CA certificates so that
+   * different ones can be added. Handle this with care!
+   *
+   * @since 9.0.4
+   */
+  public static void clearTrustedPeppolAPCACertificates ()
+  {
+    LOGGER.warn ("Explicitly removing all " +
+                 PEPPOL_AP_CA_CERTS.size () +
+                 " entries from the list of trusted Peppol AP CA certificates");
+    PEPPOL_AP_CA_CERTS.clear ();
+    PEPPOL_AP_CA_ISSUERS.clear ();
+  }
+
+  /**
+   * Register a trusted Peppol SMP CA Certificate
+   *
+   * @param aCert
+   *        The CA certificate to be added. May not be <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the provided certificate is already trusted
+   * @since 9.0.4
+   */
+  public static void addTrustedPeppolSMPCACertificate (@Nonnull final X509Certificate aCert)
+  {
+    ValueEnforcer.notNull (aCert, "Certificate");
+
+    if (!_isCA (aCert))
+      throw new IllegalArgumentException ("The provided SMP certificate does not seem to be a CA: " + aCert);
+
+    if (PEPPOL_SMP_CA_CERTS.contains (aCert))
+      throw new IllegalArgumentException ("SMP certificate is already trusted as Peppol AP CA: " + aCert);
+
+    PEPPOL_SMP_CA_CERTS.add (aCert);
+    PEPPOL_SMP_CA_ISSUERS.add (aCert.getSubjectX500Principal ());
+  }
+
+  /**
+   * Explicitly remove all known trusted Peppol SMP CA certificates so that
+   * different ones can be added. Handle this with care!
+   *
+   * @since 9.0.4
+   */
+  public static void clearTrustedPeppolSMPCACertificates ()
+  {
+    LOGGER.warn ("Explicitly removing all " +
+                 PEPPOL_SMP_CA_CERTS.size () +
+                 " entries from the list of trusted Peppol SMP CA certificates");
+    PEPPOL_SMP_CA_CERTS.clear ();
+    PEPPOL_SMP_CA_ISSUERS.clear ();
   }
 
   /**
@@ -317,7 +416,6 @@ public final class PeppolCertificateChecker
     {
       return EPeppolCertificateCheckResult.EXPIRED;
     }
-
     if (aIssuers != null)
     {
       // Check if issuer is known
@@ -332,7 +430,6 @@ public final class PeppolCertificateChecker
     {
       LOGGER.debug ("Not testing against known certificate issuers");
     }
-
     // Check OCSP/CLR
     if (aCache != null)
     {
@@ -346,7 +443,6 @@ public final class PeppolCertificateChecker
       if (aRevocationChecker.build ().isRevoked ())
         return EPeppolCertificateCheckResult.REVOKED;
     }
-
     return EPeppolCertificateCheckResult.VALID;
   }
 

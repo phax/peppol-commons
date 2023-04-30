@@ -279,9 +279,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.0.4 - work in progress
+* v9.0.4 - 2023-04-30
     * Deprecated classes `PeppolSBDHPayload(Reader|Writer|Validator)` and `EPeppolSBDHPayloadType`
     * Added new classes `PeppolSBDHPayloadBinaryMarshaller` and `PeppolSBDHPayloadTextMarshaller` instead
+    * Extended the API of class `PeppolCertificateChecker` to be able to register custom trusted Peppol certificates, e.g. for the French PoC
 * v9.0.3 - 2023-04-07
     * Updated to OpenPeppol eDEC Code Lists v8.5.1
 * v9.0.2 - 2023-04-05
