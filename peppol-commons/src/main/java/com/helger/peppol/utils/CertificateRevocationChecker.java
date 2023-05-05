@@ -82,7 +82,8 @@ public final class CertificateRevocationChecker
   @GuardedBy ("RW_LOCK")
   private static ERevocationCheckMode s_eRevocationCheckMode = DEFAULT_REVOCATION_CHECK_MODE;
   @GuardedBy ("RW_LOCK")
-  private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked", ex);
+  private static Consumer <? super GeneralSecurityException> s_aExceptionHdl = ex -> LOGGER.warn ("Certificate is revoked",
+                                                                                                  ex);
   private static final AtomicBoolean ALLOW_SOFT_FAIL = new AtomicBoolean (DEFAULT_ALLOW_SOFT_FAIL);
   @GuardedBy ("RW_LOCK")
   private static Consumer <? super List <? extends CertPathValidatorException>> s_aSoftFailExceptionHdl = exs -> LOGGER.warn ("Certificate revocation check succeeded but has messages: " +
@@ -241,7 +242,8 @@ public final class CertificateRevocationChecker
    * @author Philip Helger
    */
   @NotThreadSafe
-  public abstract static class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractRevocationCheckBuilder <IMPLTYPE>> implements
+  public abstract static class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractRevocationCheckBuilder <IMPLTYPE>>
+                                                              implements
                                                               IBuilder <ERevoked>,
                                                               IGenericImplTrait <IMPLTYPE>
   {
@@ -556,10 +558,13 @@ public final class CertificateRevocationChecker
     {
       // Fallback to global settings where possible
       final ERevocationCheckMode eRealCheckMode = m_eCheckMode != null ? m_eCheckMode : getRevocationCheckMode ();
-      final Consumer <? super GeneralSecurityException> aRealExceptionHdl = m_aExceptionHdl != null ? m_aExceptionHdl : getExceptionHdl ();
-      final boolean bAllowSoftFail = m_eAllowSoftFail.isDefined () ? m_eAllowSoftFail.getAsBooleanValue () : isAllowSoftFail ();
-      final Consumer <? super List <CertPathValidatorException>> aRealSoftFailExceptionHdl = m_aSoftFailExceptionHdl != null ? m_aSoftFailExceptionHdl
-                                                                                                                             : getSoftFailExceptionHdl ();
+      final Consumer <? super GeneralSecurityException> aRealExceptionHdl = m_aExceptionHdl != null ? m_aExceptionHdl
+                                                                                                    : getExceptionHdl ();
+      final boolean bAllowSoftFail = m_eAllowSoftFail.isDefined () ? m_eAllowSoftFail.getAsBooleanValue ()
+                                                                   : isAllowSoftFail ();
+      final Consumer <? super List <CertPathValidatorException>> aRealSoftFailExceptionHdl = m_aSoftFailExceptionHdl !=
+                                                                                             null ? m_aSoftFailExceptionHdl
+                                                                                                  : getSoftFailExceptionHdl ();
       final boolean bExecuteSync = m_eExecuteInSynchronizedBlock.isDefined () ? m_eExecuteInSynchronizedBlock.getAsBooleanValue ()
                                                                               : isExecuteInSynchronizedBlock ();
 
@@ -599,7 +604,8 @@ public final class CertificateRevocationChecker
           aSelector.setCertificate (m_aCert);
 
           // Certificate -> trust anchors; name constraints MUST be null
-          final ICommonsSet <TrustAnchor> aTrustAnchors = new CommonsHashSet <> (m_aValidCAs, x -> new TrustAnchor (x, null));
+          final ICommonsSet <TrustAnchor> aTrustAnchors = new CommonsHashSet <> (m_aValidCAs,
+                                                                                 x -> new TrustAnchor (x, null));
           final PKIXBuilderParameters aPKIXParams = new PKIXBuilderParameters (aTrustAnchors, aSelector);
           aPKIXParams.setRevocationEnabled (true);
 
@@ -609,10 +615,13 @@ public final class CertificateRevocationChecker
             aPKIXParams.setDate (m_aCheckDate);
           }
 
-          final IThrowingRunnable <GeneralSecurityException> r = () -> {
+          final IThrowingRunnable <GeneralSecurityException> aPerformer = () -> {
             try
             {
-              Security.setProperty ("ocsp.enable", Boolean.toString (eRealCheckMode.isOCSP ()));
+              final boolean bEnable = eRealCheckMode.isOCSP ();
+              if (LOGGER.isDebugEnabled ())
+                LOGGER.debug ("Setting system property 'ocsp.enable' to " + bEnable);
+              Security.setProperty ("ocsp.enable", Boolean.toString (bEnable));
             }
             catch (final SecurityException ex)
             {
@@ -621,11 +630,15 @@ public final class CertificateRevocationChecker
 
             // Specify a list of intermediate certificates ("Collection" is a
             // key in the "SUN" security provider)
-            final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection", new CollectionCertStoreParameters (m_aValidCAs));
+            final CertStore aIntermediateCertStore = CertStore.getInstance ("Collection",
+                                                                            new CollectionCertStoreParameters (m_aValidCAs));
             aPKIXParams.addCertStore (aIntermediateCertStore);
 
             if (eRealCheckMode.isCRL ())
             {
+              if (LOGGER.isDebugEnabled ())
+                LOGGER.debug ("Setting up CRL check data");
+
               // Get all necessary CRLs
               final ICommonsList <String> aCRLURLs = CRLHelper.getAllDistributionPoints (m_aCert);
               final ICommonsList <CRL> aCRLs = new CommonsArrayList <> ();
@@ -637,11 +650,17 @@ public final class CertificateRevocationChecker
                   aCRLs.add (aCRL);
               }
               if (aCRLs.isNotEmpty ())
-                aPKIXParams.addCertStore (CertStore.getInstance ("Collection", new CollectionCertStoreParameters (aCRLs)));
+                aPKIXParams.addCertStore (CertStore.getInstance ("Collection",
+                                                                 new CollectionCertStoreParameters (aCRLs)));
             }
 
             if (LOGGER.isDebugEnabled ())
-              LOGGER.debug ("Checking certificate\n" + m_aCert + "\n\nagainst " + m_aValidCAs.size () + " valid CAs:\n" + m_aValidCAs);
+              LOGGER.debug ("Checking certificate\n" +
+                            m_aCert +
+                            "\n\nagainst " +
+                            m_aValidCAs.size () +
+                            " valid CAs:\n" +
+                            m_aValidCAs);
 
             // Throws an exception in case of an error
             final CertPathBuilder aCPB = CertPathBuilder.getInstance ("PKIX");
@@ -680,14 +699,14 @@ public final class CertificateRevocationChecker
             // Synchronize because the change of the Security.property is global
             synchronized (CertificateRevocationChecker.class)
             {
-              r.run ();
+              aPerformer.run ();
             }
           }
           else
           {
             // Run non-synchronized - quicker but more dangerous if multiple
             // checks run in parallel
-            r.run ();
+            aPerformer.run ();
           }
         }
 

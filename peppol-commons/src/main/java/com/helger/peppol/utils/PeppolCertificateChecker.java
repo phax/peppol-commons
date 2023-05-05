@@ -395,25 +395,45 @@ public final class PeppolCertificateChecker
   {
     ValueEnforcer.notNull (aRevocationChecker, "RevocationChecker");
 
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Running Peppol Certificate Check" +
+                    (aIssuers != null ? " against a list of " + aIssuers.size () + " certificate issuers" : "") +
+                    (aCache != null ? "; a cache is provided" : "; not using a cache"));
+
     final X509Certificate aCert = aRevocationChecker.certificate ();
     if (aCert == null)
+    {
+      LOGGER.warn ("No Peppol Certificate was provided to the certificate check");
       return EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED;
+    }
 
+    final Date aCheckDate = aRevocationChecker.checkDate ();
     try
     {
       // null means now
-      final Date aCheckDate = aRevocationChecker.checkDate ();
       if (aCheckDate == null)
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Checking the Peppol Certificate validity against the current date time");
         aCert.checkValidity ();
+      }
       else
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Checking the Peppol Certificate validity against the provided date time " + aCheckDate);
         aCert.checkValidity (aCheckDate);
+      }
     }
     catch (final CertificateNotYetValidException ex)
     {
+      LOGGER.warn ("The provided Peppol Certificate is not yet valid per " +
+                   (aCheckDate == null ? "now" : aCheckDate.toString ()));
       return EPeppolCertificateCheckResult.NOT_YET_VALID;
     }
     catch (final CertificateExpiredException ex)
     {
+      LOGGER.warn ("The provided Peppol Certificate is expired per " +
+                   (aCheckDate == null ? "now" : aCheckDate.toString ()));
       return EPeppolCertificateCheckResult.EXPIRED;
     }
     if (aIssuers != null)
@@ -422,28 +442,46 @@ public final class PeppolCertificateChecker
       final X500Principal aIssuer = aCert.getIssuerX500Principal ();
       if (!aIssuers.contains (aIssuer))
       {
-        // Not a PEPPOL AP certificate
+        // Not a valid Peppol certificate
+        LOGGER.warn ("The provided Peppol Certificate issuer '" + aIssuer + "' is not in the list of trusted issuers");
         return EPeppolCertificateCheckResult.UNSUPPORTED_ISSUER;
       }
     }
     else
     {
       if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Not testing against known certificate issuers");
+        LOGGER.debug ("Not testing against known Peppol Certificate issuers");
     }
+
     // Check OCSP/CLR
     if (aCache != null)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Testing if the Peppol Certificate is revoked, using a cache");
+
       final boolean bRevoked = aCache.isRevoked (aCert);
       if (bRevoked)
+      {
+        LOGGER.warn ("The Peppol Certificate is revoked [caching used]");
         return EPeppolCertificateCheckResult.REVOKED;
+      }
     }
     else
     {
       // No caching desired
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Testing if the Peppol Certificate is revoked, without a cache");
+
       if (aRevocationChecker.build ().isRevoked ())
+      {
+        LOGGER.warn ("The Peppol Certificate is revoked [no caching]");
         return EPeppolCertificateCheckResult.REVOKED;
+      }
     }
+
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("The Peppol Certificate seems to be valid");
+
     return EPeppolCertificateCheckResult.VALID;
   }
 
