@@ -428,7 +428,8 @@ public final class PeppolCertificateChecker
     }
     else
     {
-      LOGGER.debug ("Not testing against known certificate issuers");
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Not testing against known certificate issuers");
     }
     // Check OCSP/CLR
     if (aCache != null)
