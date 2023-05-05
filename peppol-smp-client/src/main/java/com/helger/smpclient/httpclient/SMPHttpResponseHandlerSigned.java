@@ -143,9 +143,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   @Nonnull
-  public static ESuccess checkSignature (@Nonnull final Document aDocument,
-                                         @Nonnull final KeySelector aKeySelector) throws MarshalException,
-                                                                                  XMLSignatureException
+  public static ESuccess checkSignature (@Nonnull final Document aDocument, @Nonnull final KeySelector aKeySelector)
+                                                                                                                     throws MarshalException,
+                                                                                                                     XMLSignatureException
   {
     // We make sure that the XML is a Signed. If not, we don't have to check
     // any certificates.
@@ -157,7 +157,11 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
     final int nSignatureCount = aNodeList.getLength ();
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Found " + nSignatureCount + " <Signature> elements to verify");
+      LOGGER.debug ("Found " +
+                    nSignatureCount +
+                    " <Signature> " +
+                    (nSignatureCount == 1 ? "element" : "elements") +
+                    " to verify");
 
     final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
     ESuccess eSuccess = ESuccess.SUCCESS;
