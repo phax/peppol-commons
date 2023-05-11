@@ -64,10 +64,12 @@ import com.helger.xml.serialize.read.DOMReader;
 public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler <T>
 {
   public static final boolean DEFAULT_VERIFY_SIGNATURE = true;
+  public static final boolean DEFAULT_SECURE_VALIDATION = true;
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
 
   private final GenericJAXBMarshaller <T> m_aMarshaller;
   private boolean m_bVerifySignature = DEFAULT_VERIFY_SIGNATURE;
+  private boolean m_bSecureValidation = DEFAULT_SECURE_VALIDATION;
   private KeyStore m_aTrustStore;
 
   /**
@@ -116,6 +118,38 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
+   * @return <code>true</code> if SMP client response certificate checking
+   *         should use secure validation, <code>false</code> if validation also
+   *         allows deprecated algorithms. By default this check is enabled (see
+   *         {@link #DEFAULT_SECURE_VALIDATION}).
+   * @since 9.0.5
+   */
+  public final boolean isSecureValidation ()
+  {
+    return m_bSecureValidation;
+  }
+
+  /**
+   * Enable or disable the usage of secure XMLDsig validation. By default secure
+   * validation is enabled. Java 17 disables the usage of SHA-1 in XMLDsig by
+   * default, as documented in https://bugs.openjdk.org/browse/JDK-8261246.
+   * Currently the Peppol SMP still uses SHA-1 so you might want to disable this
+   * for the sake of sanity.
+   *
+   * @param bVerifySignature
+   *        <code>true</code> to enable SMP response checking (on by default) or
+   *        <code>false</code> to disable it.
+   * @return this for chaining
+   * @since 9.0.5
+   */
+  @Nonnull
+  public final SMPHttpResponseHandlerSigned <T> setSecureValidation (final boolean bSecureValidation)
+  {
+    m_bSecureValidation = bSecureValidation;
+    return this;
+  }
+
+  /**
    * @return The trust store to be used for verifying the signature. May be
    *         <code>null</code> if an invalid trust store is configured.
    * @since 8.1.1
@@ -143,9 +177,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   @Nonnull
-  public static ESuccess checkSignature (@Nonnull final Document aDocument, @Nonnull final KeySelector aKeySelector)
-                                                                                                                     throws MarshalException,
-                                                                                                                     XMLSignatureException
+  public static ESuccess checkSignature (@Nonnull final Document aDocument,
+                                         @Nonnull final KeySelector aKeySelector,
+                                         final boolean bSecureValidation) throws MarshalException, XMLSignatureException
   {
     // We make sure that the XML is a Signed. If not, we don't have to check
     // any certificates.
@@ -161,7 +195,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
                     nSignatureCount +
                     " <Signature> " +
                     (nSignatureCount == 1 ? "element" : "elements") +
-                    " to verify");
+                    " to verify, using " +
+                    (bSecureValidation ? "secure" : "regular") +
+                    " validation");
 
     final XMLSignatureFactory aSignatureFactory = XMLSignatureFactory.getInstance ("DOM");
     ESuccess eSuccess = ESuccess.SUCCESS;
@@ -172,7 +208,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       // Create a DOMValidateContext and specify a KeySelector
       final DOMValidateContext aValidateContext = new DOMValidateContext (aKeySelector,
                                                                           aNodeList.item (nSignatureIndex));
-      aValidateContext.setProperty ("org.jcp.xml.dsig.secureValidation", Boolean.TRUE);
+      aValidateContext.setProperty ("org.jcp.xml.dsig.secureValidation", Boolean.valueOf (bSecureValidation));
+
       final String sSignatureDebug = (nSignatureIndex + 1) + "/" + nSignatureCount;
 
       // Unmarshal the XMLSignature.
@@ -245,8 +282,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
   @Nonnull
   private static ESuccess _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream,
-                                           @Nonnull final KeyStore aTrustStore) throws MarshalException,
-                                                                                XMLSignatureException
+                                           @Nonnull final KeyStore aTrustStore,
+                                           final boolean bSecureValidation) throws MarshalException,
+                                                                            XMLSignatureException
   {
     // Get response from servlet
     final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);
@@ -255,7 +293,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (aTrustStore);
 
-    return checkSignature (aDocument, aKeySelector);
+    return checkSignature (aDocument, aKeySelector, bSecureValidation);
   }
 
   @Override
@@ -278,8 +316,10 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       try (final InputStream aIS = new NonBlockingByteArrayInputStream (aResponseBytes))
       {
         // Check the signature
-        if (_checkSignature (aIS, m_aTrustStore).isFailure ())
-          throw new SMPClientBadResponseException ("Signature returned from SMP server was not valid");
+        if (_checkSignature (aIS, m_aTrustStore, m_bSecureValidation).isFailure ())
+          throw new SMPClientBadResponseException ("Signature returned from SMP server was not valid with " +
+                                                   (m_bSecureValidation ? "secure" : "regular") +
+                                                   " validation");
 
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Successfully verified signature of signed SMP response");

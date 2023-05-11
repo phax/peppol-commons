@@ -56,7 +56,8 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarsha
                                 final boolean bValidationEnabled,
                                 @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    super (aType, bValidationEnabled ? CSMPDataTypes.getAllXSDResources () : null, aWrapper);
+    super (aType, CSMPDataTypes.getAllXSDResources (), aWrapper);
+    setUseSchema (bValidationEnabled);
 
     setNamespaceContext (createDefaultNamespaceContext ());
   }
