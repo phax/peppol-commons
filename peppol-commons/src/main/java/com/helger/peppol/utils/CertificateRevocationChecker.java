@@ -507,6 +507,7 @@ public final class CertificateRevocationChecker
      * @param b
      *        <code>true</code> to enable it, <code>false</code> to disable it.
      * @return this for chaining
+     * @see CertificateRevocationChecker#isExecuteInSynchronizedBlock()
      */
     @Nonnull
     public final IMPLTYPE executeInSynchronizedBlock (final boolean b)
@@ -714,6 +715,10 @@ public final class CertificateRevocationChecker
       }
       catch (final GeneralSecurityException ex)
       {
+        LOGGER.error ("Error running certification revocation check: " +
+                      ex.getClass ().getName () +
+                      " - " +
+                      ex.getMessage ());
         aRealExceptionHdl.accept (ex);
         return ERevoked.REVOKED;
       }
