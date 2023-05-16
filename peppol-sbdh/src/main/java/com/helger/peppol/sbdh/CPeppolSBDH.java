@@ -47,6 +47,9 @@ public final class CPeppolSBDH
   /** Constant for the Scope of the process identifier */
   public static final String SCOPE_PROCESS_ID = "PROCESSID";
 
+  /** Constant for the Scope of the C1 country code */
+  public static final String SCOPE_COUNTRY_C1 = "COUNTRY_C1";
+
   /** UBL 2.0 constant */
   public static final String TYPE_VERSION_20 = "2.0";
 
