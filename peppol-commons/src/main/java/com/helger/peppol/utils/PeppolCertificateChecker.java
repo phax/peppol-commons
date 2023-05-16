@@ -194,7 +194,8 @@ public final class PeppolCertificateChecker
         {
           final ASN1Sequence aBCSequence = (ASN1Sequence) aBCDecoded;
           final BasicConstraints aBasicConstraints = BasicConstraints.getInstance (aBCSequence);
-          return aBasicConstraints.isCA ();
+          if (aBasicConstraints != null)
+            return aBasicConstraints.isCA ();
         }
       }
       catch (final IOException e)
@@ -202,6 +203,7 @@ public final class PeppolCertificateChecker
         // Fall through
       }
     }
+    // Defaults to "no"
     return false;
   }
 
