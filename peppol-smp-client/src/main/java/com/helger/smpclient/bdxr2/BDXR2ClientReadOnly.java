@@ -276,20 +276,30 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
 
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
+    final boolean bSecureValidation = isSecureValidation ();
     final KeyStore aTrustStore = getTrustStore ();
 
     if (bVerifySignature && aTrustStore == null)
       LOGGER.error ("BDXR2 SMP client Verify Signature is enabled, but no TrustStore is provided. This will not work.");
 
-    HttpGet aRequest = new HttpGet (sURI);
-    BDXR2MarshallerServiceMetadata aMarshaller = new BDXR2MarshallerServiceMetadata (bXSDValidation);
-    customizeMarshaller (aMarshaller);
-    ServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                           new SMPHttpResponseHandlerSigned <> (aMarshaller,
-                                                                                                aTrustStore).setVerifySignature (bVerifySignature));
+    ServiceMetadataType aMetadata;
+    {
+      final HttpGet aRequest = new HttpGet (sURI);
+      final BDXR2MarshallerServiceMetadata aMarshaller = new BDXR2MarshallerServiceMetadata (bXSDValidation);
+      customizeMarshaller (aMarshaller);
 
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Received response: " + aMetadata);
+      // Deal with signed responses
+      final SMPHttpResponseHandlerSigned <ServiceMetadataType> aResponseHandler = new SMPHttpResponseHandlerSigned <> (aMarshaller,
+                                                                                                                       aTrustStore);
+      aResponseHandler.setVerifySignature (bVerifySignature);
+      aResponseHandler.setSecureValidation (bSecureValidation);
+
+      // Main execution
+      aMetadata = executeGenericRequest (aRequest, aResponseHandler);
+
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Received response: " + aMetadata);
+    }
 
     if (!SimpleDocumentTypeIdentifier.wrap (aMetadata.getID ()).hasSameContent (aDocumentTypeID))
     {
@@ -312,70 +322,78 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
           // Follow the redirect
           LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getPublisherURIValue () + "'");
 
-          aRequest = new HttpGet (aRedirect.getPublisherURIValue ());
+          final HttpGet aRequest = new HttpGet (aRedirect.getPublisherURIValue ());
 
           // Create a new Marshaller to make sure customization is easy
-          aMarshaller = new BDXR2MarshallerServiceMetadata (bXSDValidation);
+          final BDXR2MarshallerServiceMetadata aMarshaller = new BDXR2MarshallerServiceMetadata (bXSDValidation);
           customizeMarshaller (aMarshaller);
-          aMetadata = executeGenericRequest (aRequest,
-                                             new SMPHttpResponseHandlerSigned <> (new BDXR2MarshallerServiceMetadata (bXSDValidation),
-                                                                                  aTrustStore).setVerifySignature (bVerifySignature));
+
+          // Deal with signed responses
+          final SMPHttpResponseHandlerSigned <ServiceMetadataType> aResponseHandler = new SMPHttpResponseHandlerSigned <> (aMarshaller,
+                                                                                                                           aTrustStore);
+          aResponseHandler.setVerifySignature (bVerifySignature);
+          aResponseHandler.setSecureValidation (bSecureValidation);
+
+          // Main execution
+          aMetadata = executeGenericRequest (aRequest, aResponseHandler);
 
           // Check that the certificateUID is correct.
           boolean bCertificateSubjectFound = false;
           if (aMetadata.hasSignatureEntries ())
             outer: for (final Object aObj : aMetadata.getSignatureAtIndex (0).getKeyInfo ().getContent ())
-            {
-              final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
-              if (aInfoValue instanceof X509DataType)
+              if (aObj instanceof JAXBElement <?>)
               {
-                final X509DataType aX509Data = (X509DataType) aInfoValue;
-                for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+                final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+                if (aInfoValue instanceof X509DataType)
                 {
-                  final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-                  // Find the first subject (of type string)
-                  if (aX509element.getValue () instanceof X509Certificate)
-                  {
-                    final X509Certificate aSecondCert = (X509Certificate) aX509element.getValue ();
-
-                    // Check all certs of the source redirect
-                    boolean bFound = false;
-                    final ICommonsList <X509Certificate> aAllRedirectCerts = new CommonsArrayList <> ();
-                    for (final CertificateType aCT : aRedirect.getCertificate ())
+                  final X509DataType aX509Data = (X509DataType) aInfoValue;
+                  for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
+                    if (aX509Obj instanceof JAXBElement <?>)
                     {
-                      try
+                      final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
+                      // Find the first subject (of type string)
+                      if (aX509element.getValue () instanceof X509Certificate)
                       {
-                        final X509Certificate aRedirectCert = CertificateHelper.convertByteArrayToCertficate (aCT.getContentBinaryObjectValue ());
-                        if (aRedirectCert != null)
+                        final X509Certificate aSecondCert = (X509Certificate) aX509element.getValue ();
+
+                        // Check all certs of the source redirect
+                        boolean bFound = false;
+                        final ICommonsList <X509Certificate> aAllRedirectCerts = new CommonsArrayList <> ();
+                        for (final CertificateType aCT : aRedirect.getCertificate ())
                         {
-                          aAllRedirectCerts.add (aRedirectCert);
-                          // Certificate match?
-                          if (aRedirectCert.equals (aSecondCert))
+                          try
                           {
-                            bFound = true;
-                            break;
+                            final X509Certificate aRedirectCert = CertificateHelper.convertByteArrayToCertficate (aCT.getContentBinaryObjectValue ());
+                            if (aRedirectCert != null)
+                            {
+                              aAllRedirectCerts.add (aRedirectCert);
+                              // Certificate match?
+                              if (aRedirectCert.equals (aSecondCert))
+                              {
+                                bFound = true;
+                                break;
+                              }
+                            }
+                          }
+                          catch (final CertificateException ex)
+                          {
+                            // Error in certificate in SMP response
+                            LOGGER.error ("SMP Redirect contains an invalid certificate", ex);
                           }
                         }
-                      }
-                      catch (final CertificateException ex)
-                      {
-                        // Error in certificate in SMP response
-                        LOGGER.error ("SMP Redirect contains an invalid certificate", ex);
+
+                        if (!bFound)
+                          throw new SMPClientException ("No certificate of the redirect matched the provided certificate. Retrieved certificate is '" +
+                                                        aSecondCert +
+                                                        "'. Allowed certificates according to the redirect are: " +
+                                                        aAllRedirectCerts);
+
+                        bCertificateSubjectFound = true;
+                        break outer;
                       }
                     }
-
-                    if (!bFound)
-                      throw new SMPClientException ("No certificate of the redirect matched the provided certificate. Retrieved certificate is '" +
-                                                    aSecondCert +
-                                                    "'. Allowed certificates according to the redirect are: " +
-                                                    aAllRedirectCerts);
-
-                    bCertificateSubjectFound = true;
-                    break outer;
-                  }
                 }
               }
-            }
 
           if (!bCertificateSubjectFound)
             throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
@@ -459,10 +477,9 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                        "' and transport profile '" +
                        aTransportProfile.getID () +
                        "'" +
-                       (aRelevantEndpoints.isEmpty () ? ""
-                                                      : ": " +
-                                                        aRelevantEndpoints.toString () +
-                                                        " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
+                                                             aRelevantEndpoints.toString () +
+                                                             " - using the first one"));
         }
 
         // Use the first endpoint or null

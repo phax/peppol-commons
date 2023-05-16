@@ -519,20 +519,30 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
+    final boolean bSecureValidation = isSecureValidation ();
     final KeyStore aTrustStore = getTrustStore ();
 
     if (bVerifySignature && aTrustStore == null)
       LOGGER.error ("Peppol SMP client Verify Signature is enabled, but no TrustStore is provided. This will not work.");
 
-    HttpGet aRequest = new HttpGet (sURI);
-    SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (bXSDValidation);
-    customizeMarshaller (aMarshaller);
-    SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned <> (aMarshaller,
-                                                                                                      aTrustStore).setVerifySignature (bVerifySignature));
+    SignedServiceMetadataType aMetadata;
+    {
+      final HttpGet aRequest = new HttpGet (sURI);
+      final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (bXSDValidation);
+      customizeMarshaller (aMarshaller);
 
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Received response: " + aMetadata);
+      // Deal with signed responses
+      final SMPHttpResponseHandlerSigned <SignedServiceMetadataType> aResponseHandler = new SMPHttpResponseHandlerSigned <> (aMarshaller,
+                                                                                                                             aTrustStore);
+      aResponseHandler.setVerifySignature (bVerifySignature);
+      aResponseHandler.setSecureValidation (bSecureValidation);
+
+      // Main execution
+      aMetadata = executeGenericRequest (aRequest, aResponseHandler);
+
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Received response: " + aMetadata);
+    }
 
     // If the Redirect element is present, then follow 1 redirect.
     if (isFollowSMPRedirects ())
@@ -543,30 +553,37 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
         // Follow the redirect
         LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
-        aRequest = new HttpGet (aRedirect.getHref ());
+        final HttpGet aRequest = new HttpGet (aRedirect.getHref ());
 
         // Create a new Marshaller to ensure customization is simple
-        aMarshaller = new SMPMarshallerSignedServiceMetadataType (bXSDValidation);
+        final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (bXSDValidation);
         customizeMarshaller (aMarshaller);
-        aMetadata = executeGenericRequest (aRequest,
-                                           new SMPHttpResponseHandlerSigned <> (aMarshaller,
-                                                                                aTrustStore).setVerifySignature (bVerifySignature));
+
+        // Deal with signed responses
+        final SMPHttpResponseHandlerSigned <SignedServiceMetadataType> aResponseHandler = new SMPHttpResponseHandlerSigned <> (aMarshaller,
+                                                                                                                               aTrustStore);
+        aResponseHandler.setVerifySignature (bVerifySignature);
+        aResponseHandler.setSecureValidation (bSecureValidation);
+
+        // Main execution
+        aMetadata = executeGenericRequest (aRequest, aResponseHandler);
 
         // Check that the certificateUID is correct.
         boolean bCertificateSubjectFound = false;
         for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
-        {
-          final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
-          if (aInfoValue instanceof X509DataType)
+          if (aObj instanceof JAXBElement <?>)
           {
-            final X509DataType aX509Data = (X509DataType) aInfoValue;
-            if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))
+            final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+            if (aInfoValue instanceof X509DataType)
             {
-              bCertificateSubjectFound = true;
-              break;
+              final X509DataType aX509Data = (X509DataType) aInfoValue;
+              if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))
+              {
+                bCertificateSubjectFound = true;
+                break;
+              }
             }
           }
-        }
 
         if (!bCertificateSubjectFound)
           throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
@@ -813,10 +830,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                        aTransportProfile.getID () +
                        "' valid at " +
                        aCheckDT +
-                       (aRelevantEndpoints.isEmpty () ? ""
-                                                      : ": " +
-                                                        aRelevantEndpoints.toString () +
-                                                        " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
+                                                             aRelevantEndpoints.toString () +
+                                                             " - using the first one"));
         }
 
         // Use the first endpoint
@@ -844,9 +860,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
-    return aEndpoint == null ||
-           aEndpoint.getEndpointReference () == null ? null
-                                                     : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
+    return aEndpoint == null || aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper
+                                                                                                             .getAddress (aEndpoint.getEndpointReference ());
   }
 
   /**

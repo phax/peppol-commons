@@ -105,6 +105,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    */
   private final String m_sSMPHost;
   private boolean m_bVerifySignature = SMPHttpResponseHandlerSigned.DEFAULT_VERIFY_SIGNATURE;
+  private boolean m_bSecureValidation = SMPHttpResponseHandlerSigned.DEFAULT_SECURE_VALIDATION;
   private KeyStore m_aTrustStore = DEFAULT_TRUST_STORE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private boolean m_bXMLSchemaValidation = DEFAULT_XML_SCHEMA_VALIDATION;
@@ -189,6 +190,38 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   public final IMPLTYPE setVerifySignature (final boolean bVerifySignature)
   {
     m_bVerifySignature = bVerifySignature;
+    return thisAsT ();
+  }
+
+  /**
+   * @return <code>true</code> if SMP client response certificate checking
+   *         should use secure validation, <code>false</code> if validation also
+   *         allows deprecated algorithms. By default this check is enabled (see
+   *         {@link SMPHttpResponseHandlerSigned#DEFAULT_SECURE_VALIDATION}).
+   * @since 9.0.5
+   */
+  public final boolean isSecureValidation ()
+  {
+    return m_bSecureValidation;
+  }
+
+  /**
+   * Enable or disable the usage of secure XMLDsig validation. By default secure
+   * validation is enabled. Java 17 disables the usage of SHA-1 in XMLDsig by
+   * default, as documented in https://bugs.openjdk.org/browse/JDK-8261246.
+   * Currently the Peppol SMP still uses SHA-1 so you might want to disable this
+   * for the sake of sanity.
+   *
+   * @param bSecureValidation
+   *        <code>true</code> to enable SMP secure certificate validation
+   *        (enabled by default) or <code>false</code> to disable it.
+   * @return this for chaining
+   * @since 9.0.5
+   */
+  @Nonnull
+  public final IMPLTYPE setSecureValidation (final boolean bSecureValidation)
+  {
+    m_bSecureValidation = bSecureValidation;
     return thisAsT ();
   }
 
@@ -459,23 +492,25 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                                  @Nonnull final String sRedirectCertificateUID) throws SMPClientException
   {
     for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
-    {
-      final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
-      // Find the first subject (of type string) (element name X509SubjectName)
-      if (aX509element.getValue () instanceof String)
+      if (aX509Obj instanceof JAXBElement <?>)
       {
-        final String sSubject = (String) aX509element.getValue ();
-        if (!sRedirectCertificateUID.equals (sSubject))
+        final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
+        // Find the first subject (of type string) (element name
+        // X509SubjectName)
+        if (aX509element.getValue () instanceof String)
         {
-          throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
-                                        sSubject +
-                                        "'. Required certificate UID is '" +
-                                        sRedirectCertificateUID +
-                                        "'");
+          final String sSubject = (String) aX509element.getValue ();
+          if (!sRedirectCertificateUID.equals (sSubject))
+          {
+            throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
+                                          sSubject +
+                                          "'. Required certificate UID is '" +
+                                          sRedirectCertificateUID +
+                                          "'");
+          }
+          return true;
         }
-        return true;
       }
-    }
     return false;
   }
 }

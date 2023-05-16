@@ -136,9 +136,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
    * Currently the Peppol SMP still uses SHA-1 so you might want to disable this
    * for the sake of sanity.
    *
-   * @param bVerifySignature
-   *        <code>true</code> to enable SMP response checking (on by default) or
-   *        <code>false</code> to disable it.
+   * @param bSecureValidation
+   *        <code>true</code> to enable SMP secure certificate validation
+   *        (enabled by default) or <code>false</code> to disable it.
    * @return this for chaining
    * @since 9.0.5
    */

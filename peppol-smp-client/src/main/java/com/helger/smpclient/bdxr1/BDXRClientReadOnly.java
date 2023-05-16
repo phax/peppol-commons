@@ -303,20 +303,30 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
+    final boolean bSecureValidation = isSecureValidation ();
     final KeyStore aTrustStore = getTrustStore ();
 
     if (bVerifySignature && aTrustStore == null)
       LOGGER.error ("BDXR SMP client Verify Signature is enabled, but no TrustStore is provided. This will not work.");
 
-    HttpGet aRequest = new HttpGet (sURI);
-    BDXR1MarshallerSignedServiceMetadataType aMarshaller = new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation);
-    customizeMarshaller (aMarshaller);
-    SignedServiceMetadataType aMetadata = executeGenericRequest (aRequest,
-                                                                 new SMPHttpResponseHandlerSigned <> (aMarshaller,
-                                                                                                      aTrustStore).setVerifySignature (bVerifySignature));
+    SignedServiceMetadataType aMetadata;
+    {
+      final HttpGet aRequest = new HttpGet (sURI);
+      final BDXR1MarshallerSignedServiceMetadataType aMarshaller = new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation);
+      customizeMarshaller (aMarshaller);
 
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Received response: " + aMetadata);
+      // Deal with signed responses
+      final SMPHttpResponseHandlerSigned <SignedServiceMetadataType> aResponseHandler = new SMPHttpResponseHandlerSigned <> (aMarshaller,
+                                                                                                                             aTrustStore);
+      aResponseHandler.setVerifySignature (bVerifySignature);
+      aResponseHandler.setSecureValidation (bSecureValidation);
+
+      // Main execution
+      aMetadata = executeGenericRequest (aRequest, aResponseHandler);
+
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Received response: " + aMetadata);
+    }
 
     // If the Redirect element is present, then follow 1 redirect.
     if (isFollowSMPRedirects ())
@@ -327,37 +337,43 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
         // Follow the redirect
         LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
-        aRequest = new HttpGet (aRedirect.getHref ());
+        final HttpGet aRequest = new HttpGet (aRedirect.getHref ());
 
         // Create a new Marshaller to make sure customization is easy
-        aMarshaller = new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation);
+        final BDXR1MarshallerSignedServiceMetadataType aMarshaller = new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation);
         customizeMarshaller (aMarshaller);
-        aMetadata = executeGenericRequest (aRequest,
-                                           new SMPHttpResponseHandlerSigned <> (aMarshaller,
-                                                                                aTrustStore).setVerifySignature (bVerifySignature));
+
+        // Deal with signed responses
+        final SMPHttpResponseHandlerSigned <SignedServiceMetadataType> aResponseHandler = new SMPHttpResponseHandlerSigned <> (aMarshaller,
+                                                                                                                               aTrustStore);
+        aResponseHandler.setVerifySignature (bVerifySignature);
+        aResponseHandler.setSecureValidation (bSecureValidation);
+
+        // Main execution
+        aMetadata = executeGenericRequest (aRequest, aResponseHandler);
 
         // Check that the certificateUID is correct
         boolean bCertificateSubjectFound = false;
         for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
-        {
-          final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
-          if (aInfoValue instanceof X509DataType)
+          if (aObj instanceof JAXBElement <?>)
           {
-            final X509DataType aX509Data = (X509DataType) aInfoValue;
-            if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))
+            final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+            if (aInfoValue instanceof X509DataType)
             {
-              bCertificateSubjectFound = true;
-              break;
+              final X509DataType aX509Data = (X509DataType) aInfoValue;
+              if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))
+              {
+                bCertificateSubjectFound = true;
+                break;
+              }
             }
           }
-        }
 
         if (!bCertificateSubjectFound)
           throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
       }
     }
     else
-
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Following SMP redirects is disabled");
@@ -479,10 +495,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                        aProcessID +
                        " and transport profile " +
                        aTransportProfile.getID () +
-                       (aRelevantEndpoints.isEmpty () ? ""
-                                                      : ": " +
-                                                        aRelevantEndpoints.toString () +
-                                                        " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
+                                                             aRelevantEndpoints.toString () +
+                                                             " - using the first one"));
         }
 
         // Use the first endpoint or null
