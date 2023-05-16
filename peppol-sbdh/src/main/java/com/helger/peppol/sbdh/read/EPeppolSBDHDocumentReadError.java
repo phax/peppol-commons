@@ -44,7 +44,8 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   INVALID_SENDER_COUNT ("invalid-sender-count", "Not exactly one ''Sender'' element is present but {0}."),
 
   /** The "Sender/Identifier/Authority" attribute has an invalid value */
-  INVALID_SENDER_AUTHORITY ("invalid-sender-authority", "The ''Sender/Identifier/Authority'' attribute has the invalid value ''{0}''."),
+  INVALID_SENDER_AUTHORITY ("invalid-sender-authority",
+                            "The ''Sender/Identifier/Authority'' attribute has the invalid value ''{0}''."),
 
   /** The "Sender/Identifier" has an invalid value */
   INVALID_SENDER_VALUE ("invalid-sender-value", "The ''Sender/Identifier'' has the invalid value ''{0}''."),
@@ -63,7 +64,8 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   BUSINESS_SCOPE_MISSING ("business-scope-missing", "The ''BusinessScope'' element is missing."),
 
   /** At least two "BusinessScope/Scope" elements must be present */
-  INVALID_SCOPE_COUNT ("invalid-scope-count", "At least two ''BusinessScope/Scope'' elements must be present but found {0}."),
+  INVALID_SCOPE_COUNT ("invalid-scope-count",
+                       "At least two ''BusinessScope/Scope'' elements must be present but found {0}."),
 
   /** The provided document type identifier is invalid */
   INVALID_DOCUMENT_TYPE_IDENTIFIER ("invalid-document-type-identifier",
@@ -71,7 +73,11 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
 
   /** The provided process identifier is invalid */
   INVALID_PROCESS_IDENTIFIER ("invalid-process-identifier",
-                              "The provided process identifier is invalid ''{0}'' is invalid according to the defined rules."),
+                              "The provided process identifier ''{0}'' is invalid according to the defined rules."),
+
+  /** The provided C1 country code is invalid */
+  INVALID_COUNTRY_C1 ("invalid-country-c1",
+                      "The provided C1 country code ''{0}'' is invalid according to the defined rules."),
 
   /** The document type identifier is missing */
   MISSING_DOCUMENT_TYPE_IDENTIFIER ("missing-document-type-identifier", "The document type identifier is missing."),
@@ -79,8 +85,12 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   /** The process identifier is missing */
   MISSING_PROCESS_IDENTIFIER ("missing-process-identifier", "The process identifier is missing."),
 
+  /** The C1 country code is missing */
+  MISSING_COUNTRY_C1 ("missing-country-c1", "The C1 country code is missing."),
+
   /** The main business message is invalid */
-  INVALID_BUSINESS_MESSAGE ("invalid-business-message", "The main business message is invalid according to the defined rules."),
+  INVALID_BUSINESS_MESSAGE ("invalid-business-message",
+                            "The main business message is invalid according to the defined rules."),
 
   /** The value of the "DocumentIdentification/Standard" element is invalid */
   INVALID_STANDARD ("invalid-standard",

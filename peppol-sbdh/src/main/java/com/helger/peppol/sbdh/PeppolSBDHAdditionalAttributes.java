@@ -29,6 +29,13 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public final class PeppolSBDHAdditionalAttributes
 {
+  public static final String COUNTRY_C1 = CPeppolSBDH.SCOPE_COUNTRY_C1;
+  public static final String COUNTRY_C4 = "COUNTRY_C4";
+  public static final String DOCUMENTID = CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID;
+  public static final String PROCESSID = CPeppolSBDH.SCOPE_PROCESS_ID;
+  public static final String TECHNICAL_VALIDATION_URL = "TECHNICAL_VALIDATION_URL";
+  public static final String TECHNICAL_VALIDATION_REQUIRED = "TECHNICAL_VALIDATION_REQUIRED";
+
   private PeppolSBDHAdditionalAttributes ()
   {}
 
@@ -45,9 +52,13 @@ public final class PeppolSBDHAdditionalAttributes
   {
     if (sName == null)
       return false;
-    return sName.equals ("DOCUMENTID") ||
-           sName.equals ("PROCESSID") ||
-           sName.equals ("TECHNICAL_VALIDATION_URL") ||
-           sName.equals ("TECHNICAL_VALIDATION_REQUIRED");
+
+    // COUNTRY_C1 and COUNTRY_C4 were added in v2.0
+    return sName.equals (COUNTRY_C1) ||
+           sName.equals (COUNTRY_C4) ||
+           sName.equals (DOCUMENTID) ||
+           sName.equals (PROCESSID) ||
+           sName.equals (TECHNICAL_VALIDATION_URL) ||
+           sName.equals (TECHNICAL_VALIDATION_REQUIRED);
   }
 }

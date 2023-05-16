@@ -17,9 +17,13 @@
 package com.helger.peppol.sbdh;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -74,4 +78,40 @@ public final class CPeppolSBDH
 
   private CPeppolSBDH ()
   {}
+
+  // TODO Change to true (and make public), once it is mandatory
+  private static final AtomicBoolean IS_COUNTRY_C1_MANDATORY = new AtomicBoolean (false);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CPeppolSBDH.class);
+
+  /**
+   * NOTE: this is a temporary API until this field is mandatory everywhere in
+   * Peppol. Afterwards this method will be replaced with a constant.
+   *
+   * @return <code>true</code> if the COUNTRY_C1 field is mandatory or not.
+   * @since 9.0.5
+   */
+  public static boolean isCountryC1Mandatory ()
+  {
+    return IS_COUNTRY_C1_MANDATORY.get ();
+  }
+
+  /**
+   * Use this method to make COUNTRY_C1 field mandatory. <br>
+   * NOTE: this is a temporary API until this field is mandatory everywhere in
+   * Peppol. Afterwards this method will be replaced with a constant.
+   *
+   * @param bIsMandatory
+   *        <code>true</code> to make it mandatory.
+   * @since 9.0.5
+   */
+  public static void setCountryC1Mandatory (final boolean bIsMandatory)
+  {
+    if (isCountryC1Mandatory () != bIsMandatory)
+    {
+      // Something changed
+      LOGGER.warn (bIsMandatory ? "The COUNTRY_C1 field is now a mandatory field in the Peppol SBDH"
+                                : "The COUNTRY_C1 field is NO LONGER a mandatory field in the Peppol SBDH");
+    }
+    IS_COUNTRY_C1_MANDATORY.set (bIsMandatory);
+  }
 }
