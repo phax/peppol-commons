@@ -299,7 +299,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Updated to ph-commons 11
     * Updated to JAXB 4.0 and JAX-WS 4.0
     * Removed deprecated classes and methods
-* v8.8.5 - work in progress
+* v8.8.5 - 2023-05-16 [backport]
     * Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
 * v8.8.4 - 2023-01-23
     * Updated to OpenPeppol eDEC Code Lists v8.3.1
