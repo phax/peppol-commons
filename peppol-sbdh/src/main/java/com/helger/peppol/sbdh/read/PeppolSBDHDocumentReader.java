@@ -23,6 +23,8 @@ import javax.annotation.Nullable;
 import javax.annotation.WillClose;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.BusinessScope;
 import org.unece.cefact.namespaces.sbdh.DocumentIdentification;
 import org.unece.cefact.namespaces.sbdh.PartnerIdentification;
@@ -38,6 +40,7 @@ import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHAdditionalAttributes;
@@ -47,7 +50,7 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
 
 /**
- * Main class to read standard business documents and extract the PEPPOL
+ * Main class to read standard business documents and extract the Peppol
  * required data out of it.
  *
  * @author Philip Helger
@@ -56,6 +59,9 @@ import com.helger.sbdh.SBDMarshaller;
 public class PeppolSBDHDocumentReader
 {
   public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;
+  public static final String DEFAULT_COUNTRY_CODE_REGEX = "[A-Z0-9][A-Z0-9]";
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDocumentReader.class);
 
   private final IIdentifierFactory m_aIdentifierFactory;
   private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
@@ -204,7 +210,7 @@ public class PeppolSBDHDocumentReader
    * must not be empty. Override this method to perform further checks.
    *
    * @param sDocumentTypeIdentifier
-   *        The value to be checked excluding the PEPPOL identifier scheme. This
+   *        The value to be checked excluding the Peppol identifier scheme. This
    *        conforms to the XML element value of
    *        <code>BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
    *        . May be <code>null</code>.
@@ -222,7 +228,7 @@ public class PeppolSBDHDocumentReader
    * not be empty. Override this method to perform further checks.
    *
    * @param sProcessIdentifier
-   *        The value to be checked excluding the PEPPOL identifier scheme. This
+   *        The value to be checked excluding the Peppol identifier scheme. This
    *        conforms to the XML element value of
    *        <code>BusinessScope/Scope[Type/text()="PROCESSID"]/InstanceIdentifier</code>
    *        . May be <code>null</code>.
@@ -233,6 +239,25 @@ public class PeppolSBDHDocumentReader
   protected boolean isValidProcessIdentifier (@Nullable final String sProcessIdentifier)
   {
     return StringHelper.hasText (sProcessIdentifier);
+  }
+
+  /**
+   * Check if the passed C1 country code is valid or not. By default is must
+   * follow the regular expression provided in the Peppol specification.
+   * Override this method to perform further checks.
+   *
+   * @param sCountryC1
+   *        The value to be checked excluding the Peppol identifier scheme. This
+   *        conforms to the XML element value of
+   *        <code>BusinessScope/Scope[Type/text()="COUNTRY_C1"]/InstanceIdentifier</code>
+   *        . May be <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code>
+   *         otherwise.
+   */
+  @OverrideOnDemand
+  protected boolean isValidCountryC1 (@Nullable final String sCountryC1)
+  {
+    return sCountryC1 != null && RegExHelper.stringMatchesPattern (DEFAULT_COUNTRY_CODE_REGEX, sCountryC1);
   }
 
   /**
@@ -398,7 +423,7 @@ public class PeppolSBDHDocumentReader
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
-   *         the PEPPOL rules.
+   *         the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHDocument extractData (@Nonnull @WillClose final InputStream aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
@@ -429,7 +454,7 @@ public class PeppolSBDHDocumentReader
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
-   *         the PEPPOL rules.
+   *         the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHDocument extractData (@Nonnull final IReadableResource aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
@@ -453,7 +478,7 @@ public class PeppolSBDHDocumentReader
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
-   *         the PEPPOL rules.
+   *         the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHDocument extractData (@Nonnull final Node aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
@@ -480,7 +505,7 @@ public class PeppolSBDHDocumentReader
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
-   *         the PEPPOL rules.
+   *         the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHDocument extractData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
@@ -555,6 +580,7 @@ public class PeppolSBDHDocumentReader
 
       boolean bFoundDocumentIDScope = false;
       boolean bFoundProcessIDScope = false;
+      boolean bFoundCountryC1 = false;
       for (final Scope aScope : aBusinessScope.getScope ())
       {
         final String sType = aScope.getType ();
@@ -591,32 +617,46 @@ public class PeppolSBDHDocumentReader
             bFoundProcessIDScope = true;
           }
           else
-            // read as additional attributes
-            if (!PeppolSBDHAdditionalAttributes.isReservedAttributeName (sType))
+            if (CPeppolSBDH.SCOPE_COUNTRY_C1.equals (sType))
             {
-              if (StringHelper.hasText (sInstanceIdentifier))
+              if (m_bPerformValueChecks)
+                if (!isValidCountryC1 (sInstanceIdentifier))
+                  throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_COUNTRY_C1,
+                                                             sInstanceIdentifier);
+
+              ret.setCountryC1 (sInstanceIdentifier);
+              bFoundCountryC1 = true;
+            }
+            else
+              // read as additional attributes
+              if (!PeppolSBDHAdditionalAttributes.isReservedAttributeName (sType))
               {
-                // Name and value
-                ret.additionalAttributes ().add (sType, sInstanceIdentifier);
+                if (StringHelper.hasText (sInstanceIdentifier))
+                {
+                  // Name and value
+                  ret.additionalAttributes ().add (sType, sInstanceIdentifier);
+                }
+                else
+                {
+                  // Name only
+                  // The problem is that InstanceIdentifier is a mandatory
+                  // element and therefore there is no way to differentiate
+                  // between empty string and not available
+                  ret.additionalAttributes ().add (sType, (String) null);
+                }
               }
               else
               {
-                // Name only
-                // The problem is that InstanceIdentifier is a mandatory element
-                // and therefore there is no way to differentiate between empty
-                // string and not available
-                ret.additionalAttributes ().add (sType, (String) null);
+                // Reserved for future use
+                LOGGER.info ("Found a reserved attribute name '" + sType + "' in the SBDH. Ignored.");
               }
-            }
-            else
-            {
-              // Reserved for future use
-            }
       }
       if (!bFoundDocumentIDScope)
         throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER);
       if (!bFoundProcessIDScope)
         throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_PROCESS_IDENTIFIER);
+      if (!bFoundCountryC1 && CPeppolSBDH.isCountryC1Mandatory ())
+        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_COUNTRY_C1);
     }
 
     // Check document and metadata
@@ -682,7 +722,7 @@ public class PeppolSBDHDocumentReader
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDocumentReadException
    *         In case the passed Standard Business Document does not conform to
-   *         the PEPPOL rules.
+   *         the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHDocument extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDocumentReadException

@@ -69,6 +69,7 @@ public class PeppolSBDHDocument
   private String m_sDocumentTypeValue;
   private String m_sProcessScheme;
   private String m_sProcessValue;
+  private String m_sCountryC1;
   // DocumentIdentification
   private String m_sStandard;
   private String m_sTypeVersion;
@@ -458,6 +459,53 @@ public class PeppolSBDHDocument
   }
 
   /**
+   * Get the country code of C1. This is a new mandatory field, introduced by
+   * the Peppol Business Message Envelope 2.0 specification. It is mapped inside
+   * the BusinessScope area.
+   *
+   * @return The country code of C1. May be <code>null</code>.
+   * @see #setCountryC1(String)
+   * @see #hasCountryC1()
+   * @since 9.0.5
+   */
+  @Nullable
+  public String getCountryC1 ()
+  {
+    return m_sCountryC1;
+  }
+
+  /**
+   * Check if the country code of C1 is present or not.
+   *
+   * @return <code>true</code> if the country code of C1 is present,
+   *         <code>false</code> if not.
+   * @see #getCountryC1()
+   * @see #setCountryC1(String)
+   * @since 9.0.5
+   */
+  public boolean hasCountryC1 ()
+  {
+    return StringHelper.hasText (m_sCountryC1);
+  }
+
+  /**
+   * Set the country code of C1 to be used.
+   *
+   * @param sCountryC1
+   *        The country code of C1 to be used. May be <code>null</code>.
+   * @return this for chaining
+   * @see #getCountryC1()
+   * @see #hasCountryC1()
+   * @since 9.0.5
+   */
+  @Nonnull
+  public PeppolSBDHDocument setCountryC1 (@Nullable final String sCountryC1)
+  {
+    m_sCountryC1 = sCountryC1;
+    return this;
+  }
+
+  /**
    * @return The mutable attribute map where all additional attributes according
    *         to Spec v1.1, chapter 1.6.1 were added.
    * @since 6.1.4
@@ -586,7 +634,7 @@ public class PeppolSBDHDocument
 
   /**
    * The version number of the enveloped business message (such as the value
-   * "2.1" for OASIS UBL 2.1 or "2.0" for OASIS UBL 2.0). This field is mapped
+   * "2.1" for OASIS UBL 2.1 or "2.2" for OASIS UBL 2.2). This field is mapped
    * to
    * <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code>
    * .
@@ -996,6 +1044,7 @@ public class PeppolSBDHDocument
            StringHelper.hasText (m_sDocumentTypeValue) &&
            StringHelper.hasText (m_sProcessScheme) &&
            StringHelper.hasText (m_sProcessValue) &&
+           (CPeppolSBDH.isCountryC1Mandatory () ? StringHelper.hasText (m_sCountryC1) : true) &&
            m_sStandard != null &&
            m_sTypeVersion != null &&
            m_sType != null &&
@@ -1037,6 +1086,7 @@ public class PeppolSBDHDocument
            EqualsHelper.equals (m_sDocumentTypeValue, rhs.m_sDocumentTypeValue) &&
            EqualsHelper.equals (m_sProcessScheme, rhs.m_sProcessScheme) &&
            EqualsHelper.equals (m_sProcessValue, rhs.m_sProcessValue) &&
+           EqualsHelper.equals (m_sCountryC1, rhs.m_sCountryC1) &&
            EqualsHelper.equals (m_sStandard, rhs.m_sStandard) &&
            EqualsHelper.equals (m_sTypeVersion, rhs.m_sTypeVersion) &&
            EqualsHelper.equals (m_sType, rhs.m_sType) &&
@@ -1057,6 +1107,7 @@ public class PeppolSBDHDocument
                                        .append (m_sDocumentTypeValue)
                                        .append (m_sProcessScheme)
                                        .append (m_sProcessValue)
+                                       .append (m_sCountryC1)
                                        .append (m_sStandard)
                                        .append (m_sTypeVersion)
                                        .append (m_sType)
@@ -1078,6 +1129,7 @@ public class PeppolSBDHDocument
                                        .append ("DocumentTypeValue", m_sDocumentTypeValue)
                                        .append ("ProcessScheme", m_sProcessScheme)
                                        .append ("ProcessValue", m_sProcessValue)
+                                       .append ("CountryC1", m_sCountryC1)
                                        .append ("Standard", m_sStandard)
                                        .append ("TypeVersion", m_sTypeVersion)
                                        .append ("Type", m_sType)

@@ -281,6 +281,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v9.0.5 - work in progress
     * Added possibility to customize secure validation in `SMPHttpResponseHandlerSigned` (for the Java 17 SHA-1 issue)
+    * Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
 * v9.0.4 - 2023-04-30
     * Deprecated classes `PeppolSBDHPayload(Reader|Writer|Validator)` and `EPeppolSBDHPayloadType`
     * Added new classes `PeppolSBDHPayloadBinaryMarshaller` and `PeppolSBDHPayloadTextMarshaller` instead
