@@ -44,7 +44,7 @@ public class BDXR2NamespaceContext extends MapBasedNamespaceContext
    * @deprecated Since 8.7.3. Use {@link BDXR2NamespaceContext#getInstance()}
    *             instead.
    */
-  @Deprecated
+  @Deprecated (forRemoval = false)
   public BDXR2NamespaceContext ()
   {
     addMapping (CCCTS.DEFAULT_PREFIX, CCCTS.NAMESPACE_URI);

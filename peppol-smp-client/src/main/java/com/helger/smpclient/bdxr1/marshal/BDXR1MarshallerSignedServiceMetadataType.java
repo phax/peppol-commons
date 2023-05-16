@@ -27,12 +27,24 @@ import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 public class BDXR1MarshallerSignedServiceMetadataType extends AbstractBDXR1Marshaller <SignedServiceMetadataType>
 {
   /**
+   * Constructor with validation enabled by default. Use
+   * {@link #setUseSchema(boolean)} to change this.
+   *
+   * @since 9.0.5
+   */
+  public BDXR1MarshallerSignedServiceMetadataType ()
+  {
+    super (SignedServiceMetadataType.class, new ObjectFactory ()::createSignedServiceMetadata);
+  }
+
+  /**
    * Constructor
    *
    * @param bValidationEnabled
    *        <code>true</code> if XSD validation should be used,
    *        <code>false</code> to not verify it.
    */
+  @Deprecated (since = "9.0.5", forRemoval = true)
   public BDXR1MarshallerSignedServiceMetadataType (final boolean bValidationEnabled)
   {
     super (SignedServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createSignedServiceMetadata);

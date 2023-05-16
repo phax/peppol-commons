@@ -38,12 +38,20 @@ public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMars
 {
   private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP1.getAllXSDResources ();
 
+  protected AbstractBDXR1Marshaller (@Nonnull final Class <JAXBTYPE> aType,
+                                     @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+  {
+    super (aType, XSDS, aWrapper);
+    setNamespaceContext (BDXR1NamespaceContext.getInstance ());
+  }
+
+  @Deprecated (since = "9.0.5", forRemoval = true)
   public AbstractBDXR1Marshaller (@Nonnull final Class <JAXBTYPE> aType,
                                   final boolean bValidationEnabled,
                                   @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    super (aType, bValidationEnabled ? XSDS : null, aWrapper);
-
-    setNamespaceContext (BDXR1NamespaceContext.getInstance ());
+    this (aType, aWrapper);
+    // Call this from the outside if needed
+    setUseSchema (bValidationEnabled);
   }
 }

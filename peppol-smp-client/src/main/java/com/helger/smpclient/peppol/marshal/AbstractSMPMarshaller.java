@@ -42,6 +42,7 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarsha
 {
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated (forRemoval = true, since = "9.0.5")
   public static MapBasedNamespaceContext createDefaultNamespaceContext ()
   {
     final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
@@ -52,13 +53,20 @@ public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarsha
     return aNSContext;
   }
 
+  protected AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
+                                   @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+  {
+    super (aType, CSMPDataTypes.getAllXSDResources (), aWrapper);
+    setNamespaceContext (PeppolSMPClientNamespaceContext.getInstance ());
+  }
+
+  @Deprecated (since = "9.0.5", forRemoval = true)
   public AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 final boolean bValidationEnabled,
                                 @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    super (aType, CSMPDataTypes.getAllXSDResources (), aWrapper);
+    this (aType, aWrapper);
+    // Call this from the outside if needed
     setUseSchema (bValidationEnabled);
-
-    setNamespaceContext (createDefaultNamespaceContext ());
   }
 }

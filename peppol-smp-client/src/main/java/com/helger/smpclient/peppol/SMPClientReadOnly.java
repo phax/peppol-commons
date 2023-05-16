@@ -196,8 +196,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final HttpGet aRequest = new HttpGet (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-    final SMPMarshallerServiceGroupReferenceListType aMarshaller = new SMPMarshallerServiceGroupReferenceListType (isXMLSchemaValidation ());
+
+    final SMPMarshallerServiceGroupReferenceListType aMarshaller = new SMPMarshallerServiceGroupReferenceListType ();
+    aMarshaller.setUseSchema (isXMLSchemaValidation ());
     customizeMarshaller (aMarshaller);
+
     return executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
   }
 
@@ -265,8 +268,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       LOGGER.debug ("SMPClient getCompleteServiceGroup@" + sCompleteURI);
 
     final HttpGet aRequest = new HttpGet (sCompleteURI);
-    final SMPMarshallerCompleteServiceGroupType aMarshaller = new SMPMarshallerCompleteServiceGroupType (isXMLSchemaValidation ());
+
+    final SMPMarshallerCompleteServiceGroupType aMarshaller = new SMPMarshallerCompleteServiceGroupType ();
+    aMarshaller.setUseSchema (isXMLSchemaValidation ());
     customizeMarshaller (aMarshaller);
+
     return executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
   }
 
@@ -368,8 +374,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       LOGGER.debug ("SMPClient getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    final SMPMarshallerServiceGroupType aMarshaller = new SMPMarshallerServiceGroupType (isXMLSchemaValidation ());
+
+    final SMPMarshallerServiceGroupType aMarshaller = new SMPMarshallerServiceGroupType ();
+    aMarshaller.setUseSchema (isXMLSchemaValidation ());
     customizeMarshaller (aMarshaller);
+
     final ServiceGroupType ret = executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
 
     if (LOGGER.isDebugEnabled ())
@@ -528,7 +537,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     SignedServiceMetadataType aMetadata;
     {
       final HttpGet aRequest = new HttpGet (sURI);
-      final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (bXSDValidation);
+
+      final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType ();
+      aMarshaller.setUseSchema (bXSDValidation);
       customizeMarshaller (aMarshaller);
 
       // Deal with signed responses
@@ -556,7 +567,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         final HttpGet aRequest = new HttpGet (aRedirect.getHref ());
 
         // Create a new Marshaller to ensure customization is simple
-        final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType (bXSDValidation);
+        final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType ();
+        aMarshaller.setUseSchema (bXSDValidation);
         customizeMarshaller (aMarshaller);
 
         // Deal with signed responses

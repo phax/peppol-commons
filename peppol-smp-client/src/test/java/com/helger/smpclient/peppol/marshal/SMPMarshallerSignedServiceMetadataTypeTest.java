@@ -70,7 +70,7 @@ public class SMPMarshallerSignedServiceMetadataTypeTest
                      // Parsing would fail in Signature
                      "  <ds:Signature/>\r\n" +
                      "</SignedServiceMetadata>";
-    SignedServiceMetadataType aObj = new SMPMarshallerSignedServiceMetadataType (false).read (s);
+    SignedServiceMetadataType aObj = new SMPMarshallerSignedServiceMetadataType ().setUseSchema (false).read (s);
     assertNotNull (aObj);
 
     for (final String sFilename : new String [] { "signed-service-metadata1.xml",
@@ -79,7 +79,7 @@ public class SMPMarshallerSignedServiceMetadataTypeTest
     {
       final IReadableResource aRes = new ClassPathResource ("external/" + sFilename);
       assertTrue (aRes.exists ());
-      aObj = new SMPMarshallerSignedServiceMetadataType (true).read (aRes);
+      aObj = new SMPMarshallerSignedServiceMetadataType ().read (aRes);
       assertNotNull ("Error in " + sFilename, aObj);
     }
   }

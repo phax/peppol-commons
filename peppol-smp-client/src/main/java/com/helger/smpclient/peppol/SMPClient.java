@@ -146,7 +146,8 @@ public class SMPClient extends SMPClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sBody = new SMPMarshallerServiceGroupType (isXMLSchemaValidation ()).getAsString (aServiceGroup);
+    final String sBody = new SMPMarshallerServiceGroupType ().setUseSchema (isXMLSchemaValidation ())
+                                                             .getAsString (aServiceGroup);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
@@ -233,7 +234,8 @@ public class SMPClient extends SMPClientReadOnly
                                         @Nonnull final ServiceMetadataType aServiceMetadata,
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
-    final String sBody = new SMPMarshallerServiceMetadataType (isXMLSchemaValidation ()).getAsString (aServiceMetadata);
+    final String sBody = new SMPMarshallerServiceMetadataType ().setUseSchema (isXMLSchemaValidation ())
+                                                                .getAsString (aServiceMetadata);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 

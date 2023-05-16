@@ -173,8 +173,11 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
       LOGGER.debug ("BDXRClient getServiceGroup@" + sURI);
 
     final HttpGet aRequest = new HttpGet (sURI);
-    final BDXR1MarshallerServiceGroupType aMarshaller = new BDXR1MarshallerServiceGroupType (isXMLSchemaValidation ());
+
+    final BDXR1MarshallerServiceGroupType aMarshaller = new BDXR1MarshallerServiceGroupType ();
+    aMarshaller.setUseSchema (isXMLSchemaValidation ());
     customizeMarshaller (aMarshaller);
+
     final ServiceGroupType ret = executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
 
     if (LOGGER.isDebugEnabled ())
@@ -312,7 +315,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     SignedServiceMetadataType aMetadata;
     {
       final HttpGet aRequest = new HttpGet (sURI);
-      final BDXR1MarshallerSignedServiceMetadataType aMarshaller = new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation);
+
+      final BDXR1MarshallerSignedServiceMetadataType aMarshaller = new BDXR1MarshallerSignedServiceMetadataType ();
+      aMarshaller.setUseSchema (bXSDValidation);
       customizeMarshaller (aMarshaller);
 
       // Deal with signed responses
@@ -340,7 +345,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         final HttpGet aRequest = new HttpGet (aRedirect.getHref ());
 
         // Create a new Marshaller to make sure customization is easy
-        final BDXR1MarshallerSignedServiceMetadataType aMarshaller = new BDXR1MarshallerSignedServiceMetadataType (bXSDValidation);
+        final BDXR1MarshallerSignedServiceMetadataType aMarshaller = new BDXR1MarshallerSignedServiceMetadataType ();
+        aMarshaller.setUseSchema (bXSDValidation);
         customizeMarshaller (aMarshaller);
 
         // Deal with signed responses

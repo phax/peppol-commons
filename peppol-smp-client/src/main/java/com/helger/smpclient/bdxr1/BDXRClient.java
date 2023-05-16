@@ -151,7 +151,8 @@ public class BDXRClient extends BDXRClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sBody = new BDXR1MarshallerServiceGroupType (isXMLSchemaValidation ()).getAsString (aServiceGroup);
+    final String sBody = new BDXR1MarshallerServiceGroupType ().setUseSchema (isXMLSchemaValidation ())
+                                                               .getAsString (aServiceGroup);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
@@ -237,7 +238,8 @@ public class BDXRClient extends BDXRClientReadOnly
                                         @Nonnull final ServiceMetadataType aServiceMetadata,
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
-    final String sBody = new BDXR1MarshallerServiceMetadataType (isXMLSchemaValidation ()).getAsString (aServiceMetadata);
+    final String sBody = new BDXR1MarshallerServiceMetadataType ().setUseSchema (isXMLSchemaValidation ())
+                                                                  .getAsString (aServiceMetadata);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 
@@ -281,8 +283,10 @@ public class BDXRClient extends BDXRClientReadOnly
                                       @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
-    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (), "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
-    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (), "ServiceMetadata.ServiceInformation.DocumentIdentifier");
+    ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
+                           "ServiceMetadata.ServiceInformation.ParticipantIdentifier");
+    ValueEnforcer.notNull (aServiceInformation.getDocumentIdentifier (),
+                           "ServiceMetadata.ServiceInformation.DocumentIdentifier");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceMetadataType aServiceMetadata = new ServiceMetadataType ();

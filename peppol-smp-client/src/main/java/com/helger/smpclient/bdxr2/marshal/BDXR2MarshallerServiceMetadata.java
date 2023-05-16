@@ -32,12 +32,24 @@ public class BDXR2MarshallerServiceMetadata extends AbstractBDXR2Marshaller <Ser
   private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDResourceServiceMetadata ();
 
   /**
+   * Constructor with validation enabled by default. Use
+   * {@link #setUseSchema(boolean)} to change this.
+   *
+   * @since 9.0.5
+   */
+  public BDXR2MarshallerServiceMetadata ()
+  {
+    super (ServiceMetadataType.class, XSDS, new ObjectFactory ()::createServiceMetadata);
+  }
+
+  /**
    * Constructor
    *
    * @param bValidationEnabled
    *        <code>true</code> if XSD validation should be used,
    *        <code>false</code> to not verify it.
    */
+  @Deprecated (since = "9.0.5", forRemoval = true)
   public BDXR2MarshallerServiceMetadata (final boolean bValidationEnabled)
   {
     super (ServiceMetadataType.class, bValidationEnabled, XSDS, new ObjectFactory ()::createServiceMetadata);

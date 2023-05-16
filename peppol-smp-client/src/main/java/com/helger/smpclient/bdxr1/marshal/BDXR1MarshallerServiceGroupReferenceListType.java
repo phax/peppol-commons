@@ -24,8 +24,20 @@ import com.helger.xsds.bdxr.smp1.ServiceGroupReferenceListType;
  *
  * @author Philip Helger
  */
-public class BDXR1MarshallerServiceGroupReferenceListType extends AbstractBDXR1Marshaller <ServiceGroupReferenceListType>
+public class BDXR1MarshallerServiceGroupReferenceListType extends
+                                                          AbstractBDXR1Marshaller <ServiceGroupReferenceListType>
 {
+  /**
+   * Constructor with validation enabled by default. Use
+   * {@link #setUseSchema(boolean)} to change this.
+   *
+   * @since 9.0.5
+   */
+  public BDXR1MarshallerServiceGroupReferenceListType ()
+  {
+    super (ServiceGroupReferenceListType.class, new ObjectFactory ()::createServiceGroupReferenceList);
+  }
+
   /**
    * Constructor
    *
@@ -33,8 +45,11 @@ public class BDXR1MarshallerServiceGroupReferenceListType extends AbstractBDXR1M
    *        <code>true</code> if XSD validation should be used,
    *        <code>false</code> to not verify it.
    */
+  @Deprecated (since = "9.0.5", forRemoval = true)
   public BDXR1MarshallerServiceGroupReferenceListType (final boolean bValidationEnabled)
   {
-    super (ServiceGroupReferenceListType.class, bValidationEnabled, new ObjectFactory ()::createServiceGroupReferenceList);
+    super (ServiceGroupReferenceListType.class,
+           bValidationEnabled,
+           new ObjectFactory ()::createServiceGroupReferenceList);
   }
 }

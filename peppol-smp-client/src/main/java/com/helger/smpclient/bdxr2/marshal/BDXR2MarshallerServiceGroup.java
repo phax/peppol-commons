@@ -32,12 +32,24 @@ public class BDXR2MarshallerServiceGroup extends AbstractBDXR2Marshaller <Servic
   private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP2.getAllXSDResourceServiceGroup ();
 
   /**
+   * Constructor with validation enabled by default. Use
+   * {@link #setUseSchema(boolean)} to change this.
+   *
+   * @since 9.0.5
+   */
+  public BDXR2MarshallerServiceGroup ()
+  {
+    super (ServiceGroupType.class, XSDS, new ObjectFactory ()::createServiceGroup);
+  }
+
+  /**
    * Constructor
    *
    * @param bValidationEnabled
    *        <code>true</code> if XSD validation should be used,
    *        <code>false</code> to not verify it.
    */
+  @Deprecated (since = "9.0.5", forRemoval = true)
   public BDXR2MarshallerServiceGroup (final boolean bValidationEnabled)
   {
     super (ServiceGroupType.class, bValidationEnabled, XSDS, new ObjectFactory ()::createServiceGroup);

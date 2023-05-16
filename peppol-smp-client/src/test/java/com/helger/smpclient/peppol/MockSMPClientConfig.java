@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.config.IConfig;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -76,20 +77,26 @@ public final class MockSMPClientConfig
   private MockSMPClientConfig ()
   {}
 
+  @Nonnull
+  private static IConfig _getConfig ()
+  {
+    return SMPClientConfiguration.getConfig ();
+  }
+
   @Nullable
   public static String getSMPUserName ()
   {
-    return SMPClientConfiguration.getConfig ().getAsString ("smp.username");
+    return _getConfig ().getAsString ("smp.username");
   }
 
   @Nullable
   public static String getSMPPassword ()
   {
-    return SMPClientConfiguration.getConfig ().getAsString ("smp.password");
+    return _getConfig ().getAsString ("smp.password");
   }
 
   @Nonnull
-  public static final BasicAuthClientCredentials getSMPCredentials ()
+  public static BasicAuthClientCredentials getSMPCredentials ()
   {
     return new BasicAuthClientCredentials (getSMPUserName (), getSMPPassword ());
   }
@@ -99,7 +106,7 @@ public final class MockSMPClientConfig
   {
     try
     {
-      return new URI (SMPClientConfiguration.getConfig ().getAsString ("smp.uri"));
+      return new URI (_getConfig ().getAsString ("smp.uri"));
     }
     catch (final URISyntaxException ex)
     {
@@ -108,53 +115,50 @@ public final class MockSMPClientConfig
   }
 
   @Nonnull
-  public static final IParticipantIdentifier getParticipantID ()
+  public static IParticipantIdentifier getParticipantID ()
   {
-    return PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (SMPClientConfiguration.getConfig ()
-                                                                                                                .getAsString ("participantid"));
+    return PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (_getConfig ().getAsString ("participantid"));
   }
 
   @Nonnull
-  public static final IDocumentTypeIdentifier getDocumentTypeID ()
+  public static IDocumentTypeIdentifier getDocumentTypeID ()
   {
-    return PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifierWithDefaultScheme (SMPClientConfiguration.getConfig ()
-                                                                                                                 .getAsString ("documenttypeid"));
+    return PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifierWithDefaultScheme (_getConfig ().getAsString ("documenttypeid"));
   }
 
   @Nonnull
-  public static final IProcessIdentifier getProcessTypeID ()
+  public static IProcessIdentifier getProcessTypeID ()
   {
-    return PeppolIdentifierFactory.INSTANCE.createProcessIdentifierWithDefaultScheme (SMPClientConfiguration.getConfig ()
-                                                                                                            .getAsString ("processtypeid"));
+    return PeppolIdentifierFactory.INSTANCE.createProcessIdentifierWithDefaultScheme (_getConfig ().getAsString ("processtypeid"));
   }
 
   @Nonnull
-  public static final W3CEndpointReference getAPEndpointRef ()
+  public static W3CEndpointReference getAPEndpointRef ()
   {
-    return W3CEndpointReferenceHelper.createEndpointReference (SMPClientConfiguration.getConfig ().getAsString ("ap.uri"));
+    return W3CEndpointReferenceHelper.createEndpointReference (_getConfig ().getAsString ("ap.uri"));
   }
 
   @Nullable
   public static String getAPCert ()
   {
-    return SMPClientConfiguration.getConfig ().getAsString ("ap.cert");
+    return _getConfig ().getAsString ("ap.cert");
   }
 
   @Nullable
   public static String getAPServiceDescription ()
   {
-    return SMPClientConfiguration.getConfig ().getAsString ("ap.servicedescription");
+    return _getConfig ().getAsString ("ap.servicedescription");
   }
 
   @Nullable
   public static String getAPContact ()
   {
-    return SMPClientConfiguration.getConfig ().getAsString ("ap.contact");
+    return _getConfig ().getAsString ("ap.contact");
   }
 
   @Nullable
   public static String getAPInfo ()
   {
-    return SMPClientConfiguration.getConfig ().getAsString ("ap.info");
+    return _getConfig ().getAsString ("ap.info");
   }
 }

@@ -27,12 +27,24 @@ import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 public class SMPMarshallerServiceMetadataType extends AbstractSMPMarshaller <ServiceMetadataType>
 {
   /**
+   * Constructor with validation enabled by default. Use
+   * {@link #setUseSchema(boolean)} to change this.
+   *
+   * @since 9.0.5
+   */
+  public SMPMarshallerServiceMetadataType ()
+  {
+    super (ServiceMetadataType.class, new ObjectFactory ()::createServiceMetadata);
+  }
+
+  /**
    * Constructor
    *
    * @param bValidationEnabled
    *        <code>true</code> if XSD validation should be used,
    *        <code>false</code> to not verify it.
    */
+  @Deprecated (since = "9.0.5", forRemoval = true)
   public SMPMarshallerServiceMetadataType (final boolean bValidationEnabled)
   {
     super (ServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createServiceMetadata);

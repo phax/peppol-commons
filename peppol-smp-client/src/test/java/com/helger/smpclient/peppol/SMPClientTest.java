@@ -228,7 +228,7 @@ public final class SMPClientTest
 
     final SignedServiceMetadataType aSignedServiceMetadata = aSMPClient.getServiceMetadata (aServiceGroupID,
                                                                                             aDocumentID);
-    LOGGER.info ("Service aMetadata ID:" +
+    LOGGER.info ("Service Metadata ID: " +
                  aSignedServiceMetadata.getServiceMetadata ()
                                        .getServiceInformation ()
                                        .getParticipantIdentifier ()

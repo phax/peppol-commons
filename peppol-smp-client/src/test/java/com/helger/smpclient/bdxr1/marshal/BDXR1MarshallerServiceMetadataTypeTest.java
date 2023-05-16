@@ -60,7 +60,7 @@ public class BDXR1MarshallerServiceMetadataTypeTest
                      "    </ProcessList>\r\n" +
                      "  </ServiceInformation>\r\n" +
                      "</ServiceMetadata>";
-    final ServiceMetadataType aObj = new BDXR1MarshallerServiceMetadataType (true).read (s);
+    final ServiceMetadataType aObj = new BDXR1MarshallerServiceMetadataType ().read (s);
     assertNotNull (aObj);
   }
 }

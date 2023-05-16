@@ -27,12 +27,24 @@ import com.helger.xsds.bdxr.smp1.ObjectFactory;
 public class BDXR1MarshallerCompleteServiceGroupType extends AbstractBDXR1Marshaller <CompleteServiceGroupType>
 {
   /**
+   * Constructor with validation enabled by default. Use
+   * {@link #setUseSchema(boolean)} to change this.
+   *
+   * @since 9.0.5
+   */
+  public BDXR1MarshallerCompleteServiceGroupType ()
+  {
+    super (CompleteServiceGroupType.class, new ObjectFactory ()::createCompleteServiceGroup);
+  }
+
+  /**
    * Constructor
    *
    * @param bValidationEnabled
    *        <code>true</code> if XSD validation should be used,
    *        <code>false</code> to not verify it.
    */
+  @Deprecated (since = "9.0.5", forRemoval = true)
   public BDXR1MarshallerCompleteServiceGroupType (final boolean bValidationEnabled)
   {
     super (CompleteServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createCompleteServiceGroup);

@@ -60,7 +60,7 @@ public class SMPMarshallerServiceMetadataTypeTest
                      "    </ProcessList>\r\n" +
                      "  </ServiceInformation>\r\n" +
                      "</ServiceMetadata>";
-    final ServiceMetadataType aObj = new SMPMarshallerServiceMetadataType (true).read (s);
+    final ServiceMetadataType aObj = new SMPMarshallerServiceMetadataType ().read (s);
     assertNotNull (aObj);
   }
 }

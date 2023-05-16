@@ -66,7 +66,8 @@ public class BDXR1MarshallerSignedServiceMetadataTypeTest
                      // Parsing would fail in Signature
                      "  <ds:Signature/>\r\n" +
                      "</SignedServiceMetadata>";
-    final SignedServiceMetadataType aObj = new BDXR1MarshallerSignedServiceMetadataType (false).read (s);
+    final SignedServiceMetadataType aObj = new BDXR1MarshallerSignedServiceMetadataType ().setUseSchema (false)
+                                                                                          .read (s);
     assertNotNull (aObj);
   }
 }

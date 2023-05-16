@@ -152,11 +152,14 @@ public class BDXR2Client extends BDXR2ClientReadOnly
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
-    final String sBody = new BDXR2MarshallerServiceGroup (isXMLSchemaValidation ()).getAsString (aServiceGroup);
+    final String sBody = new BDXR2MarshallerServiceGroup ().setUseSchema (isXMLSchemaValidation ())
+                                                           .getAsString (aServiceGroup);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceGroup: " + aServiceGroup);
 
-    final String sURI = getSMPHostURI () + PATH_OASIS_BDXR_SMP_2 + CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantID ());
+    final String sURI = getSMPHostURI () +
+                        PATH_OASIS_BDXR_SMP_2 +
+                        CIdentifier.getURIPercentEncoded (aServiceGroup.getParticipantID ());
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXR2Client saveServiceGroup@" + sURI);
 
@@ -193,7 +196,8 @@ public class BDXR2Client extends BDXR2ClientReadOnly
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
     final ServiceGroupType aServiceGroup = new ServiceGroupType ();
-    aServiceGroup.setParticipantID (new BDXR2ParticipantIdentifier (aParticipantID.getScheme (), aParticipantID.getValue ()));
+    aServiceGroup.setParticipantID (new BDXR2ParticipantIdentifier (aParticipantID.getScheme (),
+                                                                    aParticipantID.getValue ()));
     saveServiceGroup (aServiceGroup, aCredentials);
     return aServiceGroup;
   }
@@ -233,7 +237,8 @@ public class BDXR2Client extends BDXR2ClientReadOnly
   private void _saveServiceInformation (@Nonnull final ServiceMetadataType aServiceMetadata,
                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
-    final String sBody = new BDXR2MarshallerServiceMetadata (isXMLSchemaValidation ()).getAsString (aServiceMetadata);
+    final String sBody = new BDXR2MarshallerServiceMetadata ().setUseSchema (isXMLSchemaValidation ())
+                                                              .getAsString (aServiceMetadata);
     if (sBody == null)
       throw new IllegalArgumentException ("Failed to serialize ServiceMetadata: " + aServiceMetadata);
 

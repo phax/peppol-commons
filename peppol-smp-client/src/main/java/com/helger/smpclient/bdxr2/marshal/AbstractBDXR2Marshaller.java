@@ -36,13 +36,22 @@ import jakarta.xml.bind.JAXBElement;
  */
 public abstract class AbstractBDXR2Marshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
+  protected AbstractBDXR2Marshaller (@Nonnull final Class <JAXBTYPE> aType,
+                                     @Nonnull final ICommonsList <ClassPathResource> aXSDs,
+                                     @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+  {
+    super (aType, aXSDs, aWrapper);
+    setNamespaceContext (BDXR2NamespaceContext.getInstance ());
+  }
+
+  @Deprecated (since = "9.0.5", forRemoval = true)
   public AbstractBDXR2Marshaller (@Nonnull final Class <JAXBTYPE> aType,
                                   final boolean bValidationEnabled,
                                   @Nonnull final ICommonsList <ClassPathResource> aXSDs,
                                   @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
-    super (aType, bValidationEnabled ? aXSDs : null, aWrapper);
-
-    setNamespaceContext (BDXR2NamespaceContext.getInstance ());
+    this (aType, aXSDs, aWrapper);
+    // Call this from the outside if needed
+    setUseSchema (bValidationEnabled);
   }
 }

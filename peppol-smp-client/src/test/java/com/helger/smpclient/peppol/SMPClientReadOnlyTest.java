@@ -240,7 +240,7 @@ public final class SMPClientReadOnlyTest
 
     // Replace the variables, parse and find the endpoint
     final BiFunction <LocalDateTime, LocalDateTime, EndpointType> findEndpoint = (a, e) -> {
-      final ServiceMetadataType aSM = new SMPMarshallerServiceMetadataType (true).read (formatter.apply (a, e));
+      final ServiceMetadataType aSM = new SMPMarshallerServiceMetadataType ().read (formatter.apply (a, e));
       assertNotNull (aSM);
       return SMPClientReadOnly.getEndpointAt (aSM,
                                               EPredefinedProcessIdentifier.BIS3_BILLING,
