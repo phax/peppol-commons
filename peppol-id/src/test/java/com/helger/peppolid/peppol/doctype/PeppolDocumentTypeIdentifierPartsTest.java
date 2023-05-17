@@ -73,6 +73,21 @@ public final class PeppolDocumentTypeIdentifierPartsTest
   }
 
   @Test
+  public void testFrenchPoc ()
+  {
+    final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString ("urn:oasis:names:specification:ubl:schema:xsd:AttachedDocument-2" +
+                                                                                                           "::AttachedDocument" +
+                                                                                                           "##urn:AIFE.fr::2023#urn:fdc:peppol.eu:2017:poac:UBL:1.0" +
+                                                                                                           "::2.1");
+    assertNotNull (aParts);
+    assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:AttachedDocument-2", aParts.getRootNS ());
+    assertEquals ("AttachedDocument", aParts.getLocalName ());
+    assertEquals ("urn:AIFE.fr::2023#urn:fdc:peppol.eu:2017:poac:UBL:1.0::2.1", aParts.getSubTypeIdentifier ());
+    assertEquals ("urn:AIFE.fr::2023#urn:fdc:peppol.eu:2017:poac:UBL:1.0", aParts.getCustomizationID ());
+    assertEquals ("2.1", aParts.getVersion ());
+  }
+
+  @Test
   public void testPredefined ()
   {
     for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())

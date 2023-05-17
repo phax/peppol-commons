@@ -21,7 +21,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -79,7 +78,9 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
                                             @Nonnull @Nonempty final String sCustomizationID,
                                             @Nonnull @Nonempty final String sVersion)
   {
-    this (new BusdoxDocumentTypeIdentifierParts (sRootNS, sLocalName, _buildSubTypeIdentifier (sCustomizationID, sVersion)),
+    this (new BusdoxDocumentTypeIdentifierParts (sRootNS,
+                                                 sLocalName,
+                                                 _buildSubTypeIdentifier (sCustomizationID, sVersion)),
           sCustomizationID,
           sVersion);
   }
@@ -193,23 +194,26 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
 
     // Peppol sub-type identifier
     // <customization id>::<version>
-    // --> even more detailed:
-    // <transactionId>:#<extensionId>[#<extensionId>]::<version>
-    // or
-    // <transactionId>:extended:<extensionId>[:extended:<extensionId>]::<version>
-    final String [] aSubTypeParts = RegExHelper.getSplitToArray (sSubTypeIdentifier, VERSION_SEPARATOR, 2);
-    if (aSubTypeParts.length < 2)
+    // Problem: if Customization ID contains a "::"
+    final int nLastIndex = sSubTypeIdentifier.lastIndexOf (VERSION_SEPARATOR);
+    if (nLastIndex < 0)
       throw new IllegalArgumentException ("The sub type identifier '" +
                                           sSubTypeIdentifier +
                                           "' is missing the separation between customization ID and version!");
 
-    final String sCustomizationID = aSubTypeParts[0];
+    // Before last "::"
+    final String sCustomizationID = sSubTypeIdentifier.substring (0, nLastIndex);
     if (StringHelper.hasNoText (sCustomizationID))
-      throw new IllegalArgumentException ("The sub type identifier '" + sSubTypeIdentifier + "' contains an empty customization ID!");
+      throw new IllegalArgumentException ("The sub type identifier '" +
+                                          sSubTypeIdentifier +
+                                          "' contains an empty customization ID!");
 
-    final String sVersion = aSubTypeParts[1];
+    // After last "::"
+    final String sVersion = sSubTypeIdentifier.substring (nLastIndex + VERSION_SEPARATOR.length ());
     if (StringHelper.hasNoText (sVersion))
-      throw new IllegalArgumentException ("The sub type identifier '" + sSubTypeIdentifier + "' contains an empty version!");
+      throw new IllegalArgumentException ("The sub type identifier '" +
+                                          sSubTypeIdentifier +
+                                          "' contains an empty version!");
 
     return new PeppolDocumentTypeIdentifierParts (aBusdoxParts, sCustomizationID, sVersion);
   }

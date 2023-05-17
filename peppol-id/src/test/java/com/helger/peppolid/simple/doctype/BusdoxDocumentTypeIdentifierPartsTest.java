@@ -17,6 +17,7 @@
 package com.helger.peppolid.simple.doctype;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
@@ -35,9 +36,11 @@ public final class BusdoxDocumentTypeIdentifierPartsTest
   public void testExtract ()
   {
     IBusdoxDocumentTypeIdentifierParts aParts = BusdoxDocumentTypeIdentifierParts.extractFromString ("urn:www.peppol.eu:schema:xsd:CatalogueTemplate-1::CatalogueTemplate##urn:www.cenbii.eu:transaction:biicoretrdm993:ver0.1:#urn:www.peppol.eu:bis:peppol993a:ver1.0::0.1");
+    assertNotNull (aParts);
 
     // With sub-type
     aParts = BusdoxDocumentTypeIdentifierParts.extractFromString ("root::local##subtype");
+    assertNotNull (aParts);
     assertEquals ("root", aParts.getRootNS ());
     assertEquals ("local", aParts.getLocalName ());
     assertEquals ("subtype", aParts.getSubTypeIdentifier ());
@@ -45,6 +48,7 @@ public final class BusdoxDocumentTypeIdentifierPartsTest
 
     // Without sub-type
     aParts = BusdoxDocumentTypeIdentifierParts.extractFromString ("root::local");
+    assertNotNull (aParts);
     assertEquals ("root", aParts.getRootNS ());
     assertEquals ("local", aParts.getLocalName ());
     assertNull (aParts.getSubTypeIdentifier ());
@@ -52,15 +56,34 @@ public final class BusdoxDocumentTypeIdentifierPartsTest
 
     // Test equals/hashCode/toString
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aParts,
-                                                                       new BusdoxDocumentTypeIdentifierParts ("root", "local", null));
+                                                                       new BusdoxDocumentTypeIdentifierParts ("root",
+                                                                                                              "local",
+                                                                                                              null));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aParts,
-                                                                           new BusdoxDocumentTypeIdentifierParts ("root2", "local", null));
+                                                                           new BusdoxDocumentTypeIdentifierParts ("root2",
+                                                                                                                  "local",
+                                                                                                                  null));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aParts,
-                                                                           new BusdoxDocumentTypeIdentifierParts ("root", "local2", null));
+                                                                           new BusdoxDocumentTypeIdentifierParts ("root",
+                                                                                                                  "local2",
+                                                                                                                  null));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aParts,
                                                                            new BusdoxDocumentTypeIdentifierParts ("root",
                                                                                                                   "local",
                                                                                                                   "subtype"));
+  }
+
+  @Test
+  public void testFrenchPoc ()
+  {
+    final IBusdoxDocumentTypeIdentifierParts aParts = BusdoxDocumentTypeIdentifierParts.extractFromString ("urn:oasis:names:specification:ubl:schema:xsd:AttachedDocument-2" +
+                                                                                                           "::AttachedDocument" +
+                                                                                                           "##urn:AIFE.fr::2023#urn:fdc:peppol.eu:2017:poac:UBL:1.0" +
+                                                                                                           "::2.1");
+    assertNotNull (aParts);
+    assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:AttachedDocument-2", aParts.getRootNS ());
+    assertEquals ("AttachedDocument", aParts.getLocalName ());
+    assertEquals ("urn:AIFE.fr::2023#urn:fdc:peppol.eu:2017:poac:UBL:1.0::2.1", aParts.getSubTypeIdentifier ());
   }
 
   @Test
