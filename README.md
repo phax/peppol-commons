@@ -136,33 +136,6 @@ The SMP client supports a proxy server. By default the proxy specified in the co
 
 Alternatively call the method `setProxy (org.apache.http.HttpHost)` on an `SMPClient` or `SMPClientReadOnly`. This means you can specify the proxy on a per-call basis.
 Proxy authentication is available since v5.2.5 by invoking `setProxyCredentials (org.apache.http.auth.Credentials)` on the SMP or BDXR client.
-
-**Using the JVM system properties (deprecated)**
-
-This property is deprecated as of v8.7.2 and will be removed in v9.
-
-Since v5.2.2 the method `SMPClient.setUseProxySystemProperties (true)` can be used to enable the usage of the default system properties for HTTP connections (see the section on the configuration file for details). Since v5.2.4 the configuration file property `http.useSystemProperties` can be used to achieve the same without code changes. By enabling the usage of the system properties, the manually set proxy is ignored; if a proxy is manually set after this setting, it disables the usage of the system properties again.
-Note: this of course works for both SMP and BDXR client.
-
-Supported system properties are (based on Apache HTTPClient):
-  * `ssl.TrustManagerFactory.algorithm`
-  * `javax.net.ssl.trustStoreType`
-  * `javax.net.ssl.trustStore`
-  * `javax.net.ssl.trustStoreProvider`
-  * `javax.net.ssl.trustStorePassword`
-  * `ssl.KeyManagerFactory.algorithm`
-  * `javax.net.ssl.keyStoreType`
-  * `javax.net.ssl.keyStore`
-  * `javax.net.ssl.keyStoreProvider`
-  * `javax.net.ssl.keyStorePassword`
-  * `https.protocols`
-  * `https.cipherSuites`
-  * `http.proxyHost`
-  * `http.proxyPort`
-  * `http.nonProxyHosts`
-  * `http.keepAlive`
-  * `http.maxConnections`
-  * `http.agent`
   
 ### Example usage
 
