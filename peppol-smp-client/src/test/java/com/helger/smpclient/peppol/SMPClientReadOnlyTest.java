@@ -240,8 +240,11 @@ public final class SMPClientReadOnlyTest
 
     // Replace the variables, parse and find the endpoint
     final BiFunction <LocalDateTime, LocalDateTime, EndpointType> findEndpoint = (a, e) -> {
+      // Modify String and parse it
       final ServiceMetadataType aSM = new SMPMarshallerServiceMetadataType ().read (formatter.apply (a, e));
       assertNotNull (aSM);
+
+      // Extract endpoint for DT
       return SMPClientReadOnly.getEndpointAt (aSM,
                                               EPredefinedProcessIdentifier.BIS3_BILLING,
                                               ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2,
@@ -293,7 +296,9 @@ public final class SMPClientReadOnlyTest
                                                            aMatcher);
     assertEquals (3, aCount.intValue ());
 
+    // Reset
     aCount.set (0);
+
     // First match only
     SMPClientReadOnly.forEachMatchingWildcardDocumentType (aSupportedDocTypes,
                                                            "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-3.0@jp:peppol-1@sub-japan::2.1",
