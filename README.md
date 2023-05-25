@@ -252,6 +252,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.0.6 - 2023-05-25
+    * Improved support for the SBDH field `COUNTRY_C1`
 * v9.0.5 - 2023-05-17
     * Added possibility to customize secure validation in `SMPHttpResponseHandlerSigned` (for the Java 17 SHA-1 issue)
     * Added possibility to customize SMP Client to enabled or disable the secure validation via `setSecureValidation` (for the Java 17 SHA-1 issue)
@@ -273,6 +275,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Updated to ph-commons 11
     * Updated to JAXB 4.0 and JAX-WS 4.0
     * Removed deprecated classes and methods
+* v8.8.6 - 2023-05-25 [backport]
+    * Improved support for the SBDH field `COUNTRY_C1`
 * v8.8.5 - 2023-05-16 [backport]
     * Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
 * v8.8.4 - 2023-01-23
