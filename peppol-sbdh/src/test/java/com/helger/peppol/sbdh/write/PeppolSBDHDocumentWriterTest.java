@@ -56,13 +56,15 @@ public final class PeppolSBDHDocumentWriterTest
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithBusdoxDocidQns ("urn:foobar::root#doctypeid:2.1")
-                                                       .setProcessWithDefaultScheme ("procid");
+                                                       .setProcessWithDefaultScheme ("procid")
+                                                       .setCountryC1 ("DE");
     assertTrue (aData.areAllFieldsSet ());
     assertTrue (aData.areAllAdditionalAttributesValid ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aData.getDocumentTypeScheme ());
     assertEquals ("urn:foobar::root#doctypeid:2.1", aData.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
     assertEquals ("procid", aData.getProcessValue ());
+    assertEquals ("DE", aData.getCountryC1 ());
     assertEquals (0, aData.additionalAttributes ().size ());
 
     // Create the SBDH document
@@ -93,6 +95,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals ("urn:foobar::root#doctypeid:2.1", aDataRead.getDocumentTypeValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aDataRead.getProcessScheme ());
     assertEquals ("procid", aDataRead.getProcessValue ());
+    assertEquals ("DE", aData.getCountryC1 ());
     assertTrue (aDataRead.hasBusinessMessage ());
     assertEquals ("root", aDataRead.getBusinessMessage ().getLocalName ());
     assertEquals (0, aDataRead.additionalAttributes ().size ());

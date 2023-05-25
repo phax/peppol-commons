@@ -172,6 +172,15 @@ public class PeppolSBDHDocumentWriter
         aBusinessScope.addScope (aScope);
       }
 
+      if (aData.hasCountryC1 ())
+      {
+        // The Country C1 was added in Spec v2.0
+        final Scope aScope = new Scope ();
+        aScope.setType (CPeppolSBDH.SCOPE_COUNTRY_C1);
+        aScope.setInstanceIdentifier (aData.getCountryC1 ());
+        aBusinessScope.addScope (aScope);
+      }
+
       // Add the additional attributes
       for (final Map.Entry <String, String> aEntry : aData.additionalAttributes ().entrySet ())
       {
