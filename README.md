@@ -280,25 +280,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.0.5 - work in progress
-    * Added possibility to customize secure validation in `SMPHttpResponseHandlerSigned` (for the Java 17 SHA-1 issue)
-    * Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
-* v9.0.4 - 2023-04-30
-    * Deprecated classes `PeppolSBDHPayload(Reader|Writer|Validator)` and `EPeppolSBDHPayloadType`
-    * Added new classes `PeppolSBDHPayloadBinaryMarshaller` and `PeppolSBDHPayloadTextMarshaller` instead
-    * Extended the API of class `PeppolCertificateChecker` to be able to register custom trusted Peppol certificates, e.g. for the French PoC
-* v9.0.3 - 2023-04-07
-    * Updated to OpenPeppol eDEC Code Lists v8.5.1
-* v9.0.2 - 2023-04-05
-    * Updated to OpenPeppol eDEC Code Lists v8.5
-    * Moved internal resources to different folders for overall unifications
-* v9.0.1 - 2023-03-27
-    * Updated to OpenPeppol eDEC Code Lists v8.4 with XSD 2.1
-* v9.0.0 - 2023-02-19
-    * Using Java 11 as the baseline
-    * Updated to ph-commons 11
-    * Updated to JAXB 4.0 and JAX-WS 4.0
-    * Removed deprecated classes and methods
+* v8.8.6 - 2023-05-26 [backport]
+    * Improved support for the SBDH field `COUNTRY_C1`
 * v8.8.5 - 2023-05-16 [backport]
     * Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
 * v8.8.4 - 2023-01-23
