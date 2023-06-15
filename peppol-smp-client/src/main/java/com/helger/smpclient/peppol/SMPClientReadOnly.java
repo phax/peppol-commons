@@ -913,8 +913,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * ("peppol-doctype-wildcard").
    *
    * @param aBaseDocTypes
-   *        The list of document types to filter. May not be <code>null</code>,
-   *        but maybe empty.
+   *        The list of document types to filter. Usually this list was obtained
+   *        from an SMP query "get all receiving capabilities of participant".
+   *        May not be <code>null</code>, but maybe empty.
    * @param sDocTypeValue
    *        The document type identifier value (!) <b>without</b> the scheme to
    *        search. The schemes are added internally automatically.
