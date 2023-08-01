@@ -252,6 +252,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.0.7 - 2023-08-01
+    * Updated to ph-commons 11.1
 * v9.0.6 - 2023-05-25
     * Improved support for the SBDH field `COUNTRY_C1`
 * v9.0.5 - 2023-05-17

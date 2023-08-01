@@ -78,6 +78,13 @@
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-id</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs-annotations</artifactId>
+      <scope>compile</scope>
+      <optional>true</optional>
+    </dependency>
     
     <dependency>
       <groupId>com.helger.peppol</groupId>
