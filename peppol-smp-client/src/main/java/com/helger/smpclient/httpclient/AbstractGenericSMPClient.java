@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
 
 import org.apache.hc.client5.http.ClientProtocolException;
 import org.apache.hc.client5.http.HttpResponseException;
-import org.apache.hc.client5.http.classic.methods.HttpUriRequest;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpStatus;
@@ -318,7 +318,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   /**
    * Execute a generic request on the SMP. This is e.g. helpful for accessing
    * the PEPPOL Directory BusinessCard API. Compared to
-   * {@link #executeGenericRequest(HttpUriRequest, HttpClientResponseHandler)}
+   * {@link #executeGenericRequest(HttpUriRequestBase, HttpClientResponseHandler)}
    * this method does NOT convert the {@link IOException} from HTTP
    * communication problems to {@link IOException}.
    *
@@ -330,17 +330,18 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The return value of the response handler.
    * @throws IOException
    *         On HTTP communication error
-   * @see #executeGenericRequest(HttpUriRequest, HttpClientResponseHandler)
+   * @see #executeGenericRequest(HttpUriRequestBase, HttpClientResponseHandler)
    * @param <T>
    *        Expected response type
    */
   @Nonnull
-  public <T> T executeRequest (@Nonnull final HttpUriRequest aRequest,
+  public <T> T executeRequest (@Nonnull final HttpUriRequestBase aRequest,
                                @Nonnull final HttpClientResponseHandler <T> aResponseHandler) throws IOException
   {
     final HttpClientContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
     {
+      aRequest.setAbsoluteRequestUri (true);
       LOGGER.info ("Performing SMP query at '" + aRequest.toString () + "'");
       return aHttpClientMgr.execute (aRequest, aHttpContext, aResponseHandler);
     }
@@ -354,7 +355,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   /**
    * Execute a generic request on the SMP. This is e.g. helpful for accessing
    * the PEPPOL Directory BusinessCard API. This is equivalent to
-   * {@link #executeRequest(HttpUriRequest, HttpClientResponseHandler)} but
+   * {@link #executeRequest(HttpUriRequestBase, HttpClientResponseHandler)} but
    * includes the conversion of Exceptions to {@link SMPClientException}
    * objects.
    *
@@ -368,11 +369,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *         One of the converted exceptions
    * @param <T>
    *        Expected response type
-   * @see #executeRequest(HttpUriRequest, HttpClientResponseHandler)
+   * @see #executeRequest(HttpUriRequestBase, HttpClientResponseHandler)
    * @see #getConvertedException(Exception)
    */
   @Nonnull
-  public <T> T executeGenericRequest (@Nonnull final HttpUriRequest aRequest,
+  public <T> T executeGenericRequest (@Nonnull final HttpUriRequestBase aRequest,
                                       @Nonnull final HttpClientResponseHandler <T> aResponseHandler) throws SMPClientException
   {
     try
