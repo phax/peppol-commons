@@ -232,7 +232,9 @@ public final class CRLHelper
     @Nullable
     private static TimedCRL _loadCRL (@Nonnull final String sCRLURL)
     {
-      if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) || EURLProtocol.HTTPS.isUsedInURL (sCRLURL) || EURLProtocol.FTP.isUsedInURL (sCRLURL))
+      if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) ||
+          EURLProtocol.HTTPS.isUsedInURL (sCRLURL) ||
+          EURLProtocol.FTP.isUsedInURL (sCRLURL))
       {
         // Try to download from remote URL
         LOGGER.info ("Trying to download CRL from URL '" + sCRLURL + "'");
@@ -266,6 +268,13 @@ public final class CRLHelper
     {
       super (CRLCache::_loadCRL, 100, "CRL Cache");
     }
+
+    void manuallyPutInCache (@Nonnull final String sCRLURL, @Nonnull final TimedCRL aTimedCRL)
+    {
+      ValueEnforcer.notEmpty (sCRLURL, "CRLURL");
+      ValueEnforcer.notNull (aTimedCRL, "TimedCRL");
+      super.putInCache (sCRLURL, aTimedCRL);
+    }
   }
 
   /**
@@ -288,5 +297,23 @@ public final class CRLHelper
       }
     }
     return null;
+  }
+
+  /**
+   * Allow to manually add a downloaded CRL into the cache, for the provided
+   * URL.
+   *
+   * @param sCRLURL
+   *        The URL for which the cached URL should be used. May neither be
+   *        <code>null</code> nor empty.
+   * @param aCRL
+   *        The CRL to be used. May not be <code>null</code>.
+   * @since 9.0.8
+   */
+  public static void setCRLOfURL (@Nonnull @Nonempty final String sCRLURL, @Nonnull final CRL aCRL)
+  {
+    ValueEnforcer.notEmpty (sCRLURL, "CRLURL");
+    ValueEnforcer.notNull (aCRL, "CRL");
+    CRLCache.INSTANCE.manuallyPutInCache (sCRLURL, TimedCRL.ofNow (aCRL));
   }
 }
