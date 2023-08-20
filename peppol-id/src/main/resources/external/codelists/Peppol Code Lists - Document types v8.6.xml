@@ -1,28 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2023 Philip Helger
-    philip[at]helger[dot]com
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-            http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
 <!--This is an OpenPeppol EDEC Code List.
 Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="8.5.1" entry-count="212">
+<document-types version="8.6" entry-count="236">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" initial-release="1.0.0" state="deprecated" deprecation-release="2" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -756,26 +738,28 @@ TICC-252</comment>
     <comment>TICC-205</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="Peppol End User Report" scheme="busdox-docid-qns" value="urn:fdc:peppol:end-user-reporting:1.0::EndUserReport##urn:fdc:peppol.eu:oo:trns:end-user-report:1::1.0" initial-release="8.1" state="active" issued-by-openpeppol="true" domain-community="OO">
-    <comment>TICC-213</comment>
+  <document-type name="Peppol End User Report" scheme="busdox-docid-qns" value="urn:fdc:peppol:end-user-reporting:1.0::EndUserReport##urn:fdc:peppol.eu:oo:trns:end-user-report:1::1.0" initial-release="8.1" state="deprecated" deprecation-release="8.6" issued-by-openpeppol="true" domain-community="OO">
+    <comment>TICC-213
+TICC-261</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:oo:bis:reporting:1" />
   </document-type>
-  <document-type name="Peppol Transaction Statistics Report" scheme="busdox-docid-qns" value="urn:fdc:peppol:transaction-statistics-reporting:1.0::TransactionStatisticsReport##urn:fdc:peppol.eu:oo:trns:transaction-statistics-reporting:1::1.0" initial-release="8.1" state="active" issued-by-openpeppol="true" domain-community="OO">
-    <comment>TICC-213</comment>
+  <document-type name="Peppol Transaction Statistics Report" scheme="busdox-docid-qns" value="urn:fdc:peppol:transaction-statistics-reporting:1.0::TransactionStatisticsReport##urn:fdc:peppol.eu:oo:trns:transaction-statistics-reporting:1::1.0" initial-release="8.1" state="deprecated" deprecation-release="8.6" issued-by-openpeppol="true" domain-community="OO">
+    <comment>TICC-213
+TICC-261</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:oo:bis:reporting:1" />
   </document-type>
-  <document-type name="Advanced Despatch Advice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1::2.1" initial-release="8.1" state="active" issued-by-openpeppol="false" domain-community="Logistics Incubator">
+  <document-type name="Advanced Despatch Advice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1::2.1" initial-release="8.1" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator">
     <comment>TICC-215
 TICC-255</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1" />
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1" />
   </document-type>
-  <document-type name="Despatch Advice Response" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1::2.1" initial-release="8.1" state="active" issued-by-openpeppol="false" domain-community="Logistics Incubator">
+  <document-type name="Despatch Advice Response" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1::2.1" initial-release="8.1" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator">
     <comment>TICC-215
 TICC-255</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1" />
   </document-type>
-  <document-type name="Weight Statement" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2::WeightStatement##urn:fdc:peppol.eu:logistics:trns:weight_statement:1::2.3" initial-release="8.1" state="active" issued-by-openpeppol="false" domain-community="Logistics Incubator">
+  <document-type name="Weight Statement" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2::WeightStatement##urn:fdc:peppol.eu:logistics:trns:weight_statement:1::2.3" initial-release="8.1" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator">
     <comment>TICC-215
 TICC-255</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:weight_statement:1" />
@@ -891,5 +875,101 @@ TICC-255</comment>
   <document-type name="Qualification / Qualification Reception Confirmation V1.1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TenderReceipt-2::TenderReceipt##urn:fdc:peppol.eu:prac:trns:t020:1.1::2.2" initial-release="8.5" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC">
     <comment>TICC-252</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:prac:bis:p011:1.1" />
+  </document-type>
+  <document-type name="Peppol Transport Execution Plan Request" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2::TransportExecutionPlanRequest##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan_request:1::2.3" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator">
+    <comment>TICC-267</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_w_request:1" />
+  </document-type>
+  <document-type name="Peppol Transport Execution Plan" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2::TransportExecutionPlan##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan:1::2.3" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator">
+    <comment>TICC-267</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_only:1" />
+  </document-type>
+  <document-type name="Peppol Waybill" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Waybill-2::Waybill##urn:fdc:peppol.eu:logistics:trns:waybill:1::2.3" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator">
+    <comment>TICC-267</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:waybill:1" />
+  </document-type>
+  <document-type name="Peppol Transportation Status Request" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportationStatusRequest-2::TransportationStatusRequest##urn:fdc:peppol.eu:logistics:trns:transportation_status_request:1::2.3" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator">
+    <comment>TICC-267</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transportation_status_w_request:1" />
+  </document-type>
+  <document-type name="Peppol Transportation Status" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportationStatus-2::TransportationStatus##urn:fdc:peppol.eu:logistics:trns:transportation_status:1::2.3" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator">
+    <comment>TICC-267</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1" />
+  </document-type>
+  <document-type name="Peppol Receipt Advice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2::ReceiptAdvice##urn:fdc:peppol.eu:logistics:trns:receipt_advice:1::2.3" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator">
+    <comment>TICC-267</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1" />
+  </document-type>
+  <document-type name="SETU HR-XML Timecard v1.4.1" scheme="busdox-docid-qns" value="http://ns.hr-xml.org/2007-04-15::TimeCard##hr-xml@nl-1.4::2.5" initial-release="8.6" state="active" issued-by-openpeppol="false" domain-community="Extended use">
+    <comment>TICC-266</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:hr-xml:2007:timesheet:1.0" />
+  </document-type>
+  <document-type name="Peppol End User Statistics Report v1.1" scheme="busdox-docid-qns" value="urn:fdc:peppol:end-user-statistics-report:1.1::EndUserStatisticsReport##urn:fdc:peppol.eu:edec:trns:end-user-statistics-report:1.1::1.1" initial-release="8.6" state="active" issued-by-openpeppol="true" domain-community="OO">
+    <comment>TICC-261</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:edec:bis:reporting:1.0" />
+  </document-type>
+  <document-type name="Peppol Transaction Statistics Report v1.0" scheme="busdox-docid-qns" value="urn:fdc:peppol:transaction-statistics-report:1.0::TransactionStatisticsReport##urn:fdc:peppol.eu:edec:trns:transaction-statistics-reporting:1.0::1.0" initial-release="8.6" state="active" issued-by-openpeppol="true" domain-community="OO">
+    <comment>TICC-261</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:edec:bis:reporting:1.0" />
+  </document-type>
+  <document-type name="Peppol PINT Invoice v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <comment>TICC-270</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="Peppol PINT CreditNote v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <comment>TICC-270</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="JP PINT Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <comment>TICC-270</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="JP PINT Invoice v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <comment>TICC-270</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="JP BIS Self-Billing Invoice" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@jp-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="false" bis-version="3" domain-community="POAC">
+    <comment>TICC-270</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
+  </document-type>
+  <document-type name="JP BIS Invoice for Non-tax Registered Businesses" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:nontaxinvoice-1@jp-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="false" bis-version="3" domain-community="POAC">
+    <comment>TICC-270</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="JP BIS Invoice for Non-tax Registered Businesses" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:nontaxinvoice-1@jp-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="false" bis-version="3" domain-community="POAC">
+    <comment>TICC-270</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="A-NZ PINT Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@aunz-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <comment>TICC-279</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="A-NZ PINT Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@aunz-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <comment>TICC-279</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="A-NZ PINT Self-Billing Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@aunz-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="false" bis-version="3" domain-community="POAC">
+    <comment>TICC-279</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
+  </document-type>
+  <document-type name="A-NZ PINT Self-Billing Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@aunz-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="false" bis-version="3" domain-community="POAC">
+    <comment>TICC-279</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
+  </document-type>
+  <document-type name="A-NZ PINT Invoice v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@aunz-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <comment>TICC-279</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="A-NZ PINT Credit Note v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@aunz-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="true" bis-version="3" domain-community="POAC">
+    <comment>TICC-279</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="A-NZ PINT Self-Billing Invoice v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@aunz-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="false" bis-version="3" domain-community="POAC">
+    <comment>TICC-279</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
+  </document-type>
+  <document-type name="A-NZ PINT Self-Billing Credit Note v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@aunz-1::2.1" initial-release="8.6" state="active" issued-by-openpeppol="false" bis-version="3" domain-community="POAC">
+    <comment>TICC-279</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </document-type>
 </document-types>

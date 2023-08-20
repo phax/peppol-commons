@@ -40,7 +40,8 @@ public final class EPredefinedDocumentTypeIdentifierTest
   {
     for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
     {
-      assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, e.getScheme ());
+      assertTrue (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS.equals (e.getScheme ()) ||
+                  PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD.equals (e.getScheme ()));
       assertTrue (StringHelper.hasText (e.getValue ()));
       assertTrue (StringHelper.hasText (e.getRootNS ()));
       assertTrue (StringHelper.hasText (e.getLocalName ()));
@@ -56,6 +57,7 @@ public final class EPredefinedDocumentTypeIdentifierTest
       assertTrue (StringHelper.hasText (p.getVersion ()));
     }
     assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (null));
-    assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (new SimpleDocumentTypeIdentifier ("bla", "foo")));
+    assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (new SimpleDocumentTypeIdentifier ("bla",
+                                                                                                                         "foo")));
   }
 }

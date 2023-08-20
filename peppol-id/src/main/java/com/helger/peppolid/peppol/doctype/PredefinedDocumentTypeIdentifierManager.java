@@ -46,7 +46,7 @@ public final class PredefinedDocumentTypeIdentifierManager
   {
     // Add all predefined document identifier
     for (final EPredefinedDocumentTypeIdentifier eDocID : EPredefinedDocumentTypeIdentifier.values ())
-      CODES.put (eDocID.getValue (), eDocID);
+      CODES.put (eDocID.getURIEncoded (), eDocID);
   }
 
   @PresentForCodeCoverage
@@ -79,20 +79,21 @@ public final class PredefinedDocumentTypeIdentifierManager
 
   /**
    * Find the document identifier with the given ID. This search is done case
-   * sensitive.
+   * sensitive. Since v9.0.8 it must be Scheme::Value because some entries are
+   * registered for busdox-docid-qns and peppol-wildcard in parallel!
    *
-   * @param sDocTypeIDValue
+   * @param sDocTypeID
    *        The value to search. Without any identifier scheme! May be
    *        <code>null</code>.
    * @return <code>null</code> if no such document identifier exists.
    */
   @Nullable
-  public static IPeppolPredefinedDocumentTypeIdentifier getDocumentTypeIdentifierOfID (@Nullable final String sDocTypeIDValue)
+  public static IPeppolPredefinedDocumentTypeIdentifier getDocumentTypeIdentifierOfID (@Nullable final String sDocTypeID)
   {
-    if (sDocTypeIDValue != null)
+    if (sDocTypeID != null)
     {
-      // PEPPOL: case sensitive document types
-      return CODES.get (sDocTypeIDValue);
+      // Peppol: case sensitive document types
+      return CODES.get (sDocTypeID);
     }
     return null;
   }

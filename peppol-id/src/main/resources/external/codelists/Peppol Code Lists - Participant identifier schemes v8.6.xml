@@ -1,28 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2015-2023 Philip Helger
-    philip[at]helger[dot]com
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-            http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
 <!--This is an OpenPeppol EDEC Code List.
 Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<participant-identifier-schemes version="8.5.1" entry-count="95">
+<participant-identifier-schemes version="8.6" entry-count="95">
   <participant-identifier-scheme schemeid="FR:SIRENE" iso6523="0002" country="FR" scheme-name="System Information et Repertoire des Entreprise et des Etablissements: SIRENE" issuing-agency="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" initial-release="1.0.0" state="active">
     <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters.
 2) Check digits: 9th &amp; 14th character respectively</structure>
@@ -486,28 +468,28 @@ No check value</structure>
     <usage>For use in electronic messages in accordance to the National e-Invoicing framework on identification of organization</usage>
     <registrable>true</registrable>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="DK:CPR" iso6523="9901" country="DK" scheme-name="Danish Ministry of the Interior and Health" issuing-agency="Danish Ministry of the Interior and Health" initial-release="1.0.0" state="active">
+  <participant-identifier-scheme schemeid="DK:CPR" iso6523="9901" country="DK" scheme-name="Danish Ministry of the Interior and Health" issuing-agency="Danish Ministry of the Interior and Health" initial-release="1.0.0" state="removed" deprecation-release="8.6" removal-date="2023-11-30">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
     <display>None</display>
     <usage>Personal identifier</usage>
-    <registrable>true</registrable>
+    <registrable>false</registrable>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="DK:CVR" iso6523="9902" country="DK" scheme-name="The Danish Commerce and Companies Agency" issuing-agency="The Danish Commerce and Companies Agency" initial-release="1.0.0" state="active">
+  <participant-identifier-scheme schemeid="DK:CVR" iso6523="9902" country="DK" scheme-name="The Danish Commerce and Companies Agency" issuing-agency="The Danish Commerce and Companies Agency" initial-release="1.0.0" state="removed" deprecation-release="8.6" removal-date="2023-11-30">
     <examples>13585628</examples>
     <validation-rules>RegEx: [1-9][0-9]{7}
 Check digit: mod11 (weights, 2, 7, 6, 5, 4, 3, 2, 1)</validation-rules>
-    <registrable>true</registrable>
+    <registrable>false</registrable>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="DK:SE" iso6523="9904" country="DK" scheme-name="Danish Ministry of Taxation, Central Customs and Tax Administration" issuing-agency="Danish Ministry of Taxation, Central Customs and Tax Administration" initial-release="1.0.0" state="active">
+  <participant-identifier-scheme schemeid="DK:SE" iso6523="9904" country="DK" scheme-name="Danish Ministry of Taxation, Central Customs and Tax Administration" issuing-agency="Danish Ministry of Taxation, Central Customs and Tax Administration" initial-release="1.0.0" state="removed" deprecation-release="8.6" removal-date="2023-11-30">
     <examples>DK26769388</examples>
     <validation-rules>RegEx: DK[0-9]{8}
 Taks: validate Check digit: mod11 (weights 2, 7, 6, 5, 4, 3, 2, 1)</validation-rules>
-    <registrable>true</registrable>
+    <registrable>false</registrable>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="DK:VANS" iso6523="9905" country="DK" scheme-name="Danish VANS providers" issuing-agency="Danish VANS providers" initial-release="1.0.0" state="active">
+  <participant-identifier-scheme schemeid="DK:VANS" iso6523="9905" country="DK" scheme-name="Danish VANS providers" issuing-agency="Danish VANS providers" initial-release="1.0.0" state="removed" deprecation-release="8.6" removal-date="2023-11-30">
     <examples>DK26769388</examples>
     <usage>Propose to deprecate (only 7 identifiers, only IBM - all look like test)</usage>
-    <registrable>true</registrable>
+    <registrable>false</registrable>
   </participant-identifier-scheme>
   <participant-identifier-scheme schemeid="IT:VAT" iso6523="9906" country="IT" scheme-name="Ufficio responsabile gestione partite IVA" initial-release="1.0.0" state="removed" deprecation-release="8.1" removal-date="2023-05-24">
     <structure>The code is "IT" followed by 11 numeric digits
@@ -606,9 +588,9 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</struc
   <participant-identifier-scheme schemeid="ES:VAT" iso6523="9920" country="ES" scheme-name="Agencia Española de Administración Tributaria" issuing-agency="Agencia Española de Administración Tributaria" initial-release="1.0.2" state="active">
     <registrable>true</registrable>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="IT:IPA" iso6523="9921" country="IT" scheme-name="Indice delle Pubbliche Amministrazioni" issuing-agency="Indice delle Pubbliche Amministrazioni" initial-release="1.1.0" state="deprecated" deprecation-release="6">
+  <participant-identifier-scheme schemeid="IT:IPA" iso6523="9921" country="IT" scheme-name="Indice delle Pubbliche Amministrazioni" issuing-agency="Indice delle Pubbliche Amministrazioni" initial-release="1.1.0" state="removed" deprecation-release="6" removal-date="2023-11-30">
     <usage>Propose to deprecate; not used in BIS 3</usage>
-    <registrable>true</registrable>
+    <registrable>false</registrable>
   </participant-identifier-scheme>
   <participant-identifier-scheme schemeid="AD:VAT" iso6523="9922" country="AD" scheme-name="Andorra VAT number" initial-release="1.1.0" state="active">
     <registrable>true</registrable>
@@ -713,13 +695,13 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</struc
   <participant-identifier-scheme schemeid="SE:VAT" iso6523="9955" country="SE" scheme-name="Swedish VAT number" initial-release="1.2.0" state="removed" deprecation-release="8.4" removal-date="2023-07-31">
     <registrable>false</registrable>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="BE:CBE" iso6523="9956" country="BE" scheme-name="Belgian Crossroad Bank of Enterprise number" issuing-agency="Belgian Crossroad Bank of Enterprises" initial-release="1.2.1" state="deprecated" deprecation-release="7.4">
+  <participant-identifier-scheme schemeid="BE:CBE" iso6523="9956" country="BE" scheme-name="Belgian Crossroad Bank of Enterprise number" issuing-agency="Belgian Crossroad Bank of Enterprises" initial-release="1.2.1" state="removed" deprecation-release="7.4" removal-date="2023-10-31">
     <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
     <examples>0899965307</examples>
     <validation-rules>RegEx: 0[0-9]{9}
 Check digit: mod97
 See https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/be/vat.py</validation-rules>
-    <registrable>true</registrable>
+    <registrable>false</registrable>
   </participant-identifier-scheme>
   <participant-identifier-scheme schemeid="FR:VAT" iso6523="9957" country="FR" scheme-name="French VAT number" initial-release="1.2.1" state="active">
     <registrable>true</registrable>

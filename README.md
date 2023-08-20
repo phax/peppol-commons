@@ -253,7 +253,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 * v9.0.8 - work in progress
+    * Updated to OpenPeppol eDEC Code Lists v8.6
     * Added `CRLHelper.setCRLOfURL` to manually add an externally downloaded CRL
+    * Methods `PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID` and `PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID` now require the full identifier, incl. the scheme, to work around potentially new ambiguities
 * v9.0.7 - 2023-08-01
     * Updated to ph-commons 11.1
 * v9.0.6 - 2023-05-25

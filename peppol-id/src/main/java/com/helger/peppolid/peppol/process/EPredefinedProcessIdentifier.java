@@ -421,8 +421,11 @@ public enum EPredefinedProcessIdentifier
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:oo:bis:reporting:1</code><br>
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    urn_fdc_peppol_eu_oo_bis_reporting_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:oo:bis:reporting:1", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated
+    urn_fdc_peppol_eu_oo_bis_reporting_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:oo:bis:reporting:1", EPeppolCodeListItemState.DEPRECATED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1</code><br>
@@ -482,9 +485,54 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:prac:bis:p011:1.1</code><br>
      */
-    urn_fdc_peppol_eu_prac_bis_p011_1_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p011:1.1", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "8.5.1";
-    public static final int CODE_LIST_ENTRY_COUNT = 79;
+    urn_fdc_peppol_eu_prac_bis_p011_1_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:prac:bis:p011:1.1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_w_request:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_transport_execution_plan_w_request_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_w_request:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_only:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_transport_execution_plan_only_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_only:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:waybill:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_waybill_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:waybill:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transportation_status_w_request:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_transportation_status_w_request_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:transportation_status_w_request:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_transportation_status_only_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_despatch_advice_w_receipt_advice_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:hr-xml:2007:timesheet:1.0</code><br>
+     */
+    urn_fdc_hr_xml_2007_timesheet_1_0("cenbii-procid-ubl", "urn:fdc:hr-xml:2007:timesheet:1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:edec:bis:reporting:1.0</code><br>
+     */
+    urn_fdc_peppol_eu_edec_bis_reporting_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:edec:bis:reporting:1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:bis:billing</code><br>
+     */
+    urn_peppol_bis_billing("cenbii-procid-ubl", "urn:peppol:bis:billing", EPeppolCodeListItemState.ACTIVE);
+    public static final String CODE_LIST_VERSION = "8.6";
+    public static final int CODE_LIST_ENTRY_COUNT = 88;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

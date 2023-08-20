@@ -47,6 +47,7 @@ import com.helger.jcodemodel.IJExpression;
 import com.helger.jcodemodel.JBlock;
 import com.helger.jcodemodel.JCodeModel;
 import com.helger.jcodemodel.JCodeModelException;
+import com.helger.jcodemodel.JCommentPart;
 import com.helger.jcodemodel.JDefinedClass;
 import com.helger.jcodemodel.JDocComment;
 import com.helger.jcodemodel.JEnumConstant;
@@ -96,7 +97,7 @@ import com.helger.xsds.peppol.codelists21.PCLTransportProfilesType;
 public final class MainCreatePredefinedEnumsFromXML_v8x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v8x.class);
-  private static final Version CODELIST_VERSION = new Version (8, 5, 1);
+  private static final Version CODELIST_VERSION = new Version (8, 6);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
@@ -168,7 +169,9 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
         // Split ID in it's pieces
         final IPeppolDocumentTypeIdentifierParts aDocIDParts = PeppolDocumentTypeIdentifierParts.extractFromString (sValue);
 
-        final String sEnumConstName = RegExHelper.getAsIdentifier (sValue);
+        final String sEnumPrefix = PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD.equals (sScheme) ? "WILDCARD_"
+                                                                                                                        : "";
+        final String sEnumConstName = sEnumPrefix + RegExHelper.getAsIdentifier (sValue);
 
         if (jEnum.getEnumConstantOfName (sEnumConstName) != null)
         {
@@ -180,9 +183,10 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
-          jEnumConst.javadoc ()
-                    .addDeprecated ()
-                    .add ("since " + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
+          final JCommentPart aDepCP = jEnumConst.javadoc ().addDeprecated ();
+          aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
+          if (aRemovalDate != null)
+            aDepCP.add ("<br>Removed per " + aRemovalDate);
         }
 
         jEnumConst.arg (JExpr.lit (sScheme));
@@ -233,11 +237,10 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
           if (bDeprecated)
           {
             aShortcut.annotate (Deprecated.class);
-            aShortcut.javadoc ()
-                     .addDeprecated ()
-                     .add ("since " +
-                           sDeprecationRelease +
-                           " - this item should not be used to issue new identifiers!");
+            final JCommentPart aDepCP = aShortcut.javadoc ().addDeprecated ();
+            aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
+            if (aRemovalDate != null)
+              aDepCP.add ("<br>Removed per " + aRemovalDate);
           }
           jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
         }
@@ -527,9 +530,10 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
-          jEnumConst.javadoc ()
-                    .addDeprecated ()
-                    .add ("since " + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
+          final JCommentPart aDepCP = jEnumConst.javadoc ().addDeprecated ();
+          aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
+          if (aRemovalDate != null)
+            aDepCP.add ("<br>Removed per " + aRemovalDate);
         }
       }
 
@@ -681,7 +685,8 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
-          jEnumConst.javadoc ().addDeprecated ().add ("This item should not be used to issue new identifiers!");
+          final JCommentPart aDepCP = jEnumConst.javadoc ().addDeprecated ();
+          aDepCP.add ("This item should not be used to issue new identifiers!");
         }
 
         // Also create a shortcut for more readable names
@@ -718,7 +723,8 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
                                                  "BIS5A_V3",
                                                  jEnum.fields ().get ("BIS3_BILLING"));
         aShortcut.annotate (Deprecated.class);
-        aShortcut.javadoc ().addDeprecated ().add ("Use BIS3_BILLING instead!");
+        final JCommentPart aDepCP = aShortcut.javadoc ().addDeprecated ();
+        aDepCP.add ("Use BIS3_BILLING instead!");
       }
 
       // fields
@@ -840,9 +846,10 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
         if (bDeprecated)
         {
           jEnumConst.annotate (Deprecated.class);
-          jEnumConst.javadoc ()
-                    .addDeprecated ()
-                    .add ("since " + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
+          final JCommentPart aDepCP = jEnumConst.javadoc ().addDeprecated ();
+          aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
+          if (aRemovalDate != null)
+            aDepCP.add ("<br>Removed per " + aRemovalDate);
         }
 
         // Emit shortcut name for better readability
@@ -865,11 +872,10 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
           if (bDeprecated)
           {
             aShortcut.annotate (Deprecated.class);
-            aShortcut.javadoc ()
-                     .addDeprecated ()
-                     .add ("since " +
-                           sDeprecationRelease +
-                           " - this item should not be used to issue new identifiers!");
+            final JCommentPart aDepCP = aShortcut.javadoc ().addDeprecated ();
+            aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
+            if (aRemovalDate != null)
+              aDepCP.add ("<br>Removed per " + aRemovalDate);
           }
         }
       }

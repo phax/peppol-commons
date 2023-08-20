@@ -26,7 +26,7 @@ import org.junit.Test;
 
 /**
  * Test class for class {@link PredefinedDocumentTypeIdentifierManager}.
- * 
+ *
  * @author Philip Helger
  */
 public final class PredefinedDocumentTypeIdentifierManagerTest
@@ -37,17 +37,18 @@ public final class PredefinedDocumentTypeIdentifierManagerTest
     assertNotNull (PredefinedDocumentTypeIdentifierManager.getAllDocumentTypeIdentifiers ());
     assertNotNull (PredefinedDocumentTypeIdentifierManager.getAllDocumentTypeIdentifierIDs ());
 
-    assertNotNull (PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID ("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0"));
-    assertNull (PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID ("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0a"));
+    assertNotNull (PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID ("busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0"));
+    assertNull (PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID ("busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0a"));
 
-    assertTrue (PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID ("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0"));
-    assertFalse (PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID ("urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0a"));
+    assertTrue (PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID ("busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0"));
+    assertFalse (PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID ("busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biicoretrdm001:ver1.0:#urn:www.peppol.eu:bis:peppol3a:ver1.0::2.0a"));
 
     // all enum ones must be contained
     for (final EPredefinedDocumentTypeIdentifier eDocID : EPredefinedDocumentTypeIdentifier.values ())
     {
-      assertSame (eDocID, PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID (eDocID.getValue ()));
-      assertTrue (PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID (eDocID.getValue ()));
+      assertSame (eDocID,
+                  PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID (eDocID.getURIEncoded ()));
+      assertTrue (PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID (eDocID.getURIEncoded ()));
     }
   }
 }
