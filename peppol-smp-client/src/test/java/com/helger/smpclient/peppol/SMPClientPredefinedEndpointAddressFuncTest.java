@@ -55,7 +55,9 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
   private static SMPClient _createSMPClient (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                              @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
-    return new SMPClient (URL_PROVIDER, aParticipantIdentifier, aSMLInfo);
+    final SMPClient ret = new SMPClient (URL_PROVIDER, aParticipantIdentifier, aSMLInfo);
+    ret.setSecureValidation (false);
+    return ret;
   }
 
   @Test

@@ -63,9 +63,7 @@ public final class SignedServiceMetadataTypeFuncTest
     // Certificate expired 2021-03-01
     aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2021, Month.JANUARY, 1));
 
-    final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument,
-                                                                           aKeySelector,
-                                                                           SMPHttpResponseHandlerSigned.DEFAULT_SECURE_VALIDATION);
+    final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector, false);
     assertTrue (eSuccess.isFailure ());
   }
 
@@ -89,9 +87,7 @@ public final class SignedServiceMetadataTypeFuncTest
     // Certificate expired 2021-03-01
     aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2021, Month.JANUARY, 1));
 
-    final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument,
-                                                                           aKeySelector,
-                                                                           SMPHttpResponseHandlerSigned.DEFAULT_SECURE_VALIDATION);
+    final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector, false);
     assertTrue (eSuccess.isSuccess ());
   }
 
@@ -115,9 +111,7 @@ public final class SignedServiceMetadataTypeFuncTest
     // Certificate expired 2020-08-05
     aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2020, Month.AUGUST, 1));
 
-    final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument,
-                                                                           aKeySelector,
-                                                                           SMPHttpResponseHandlerSigned.DEFAULT_SECURE_VALIDATION);
+    final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector, false);
     assertTrue (eSuccess.isSuccess ());
   }
 }

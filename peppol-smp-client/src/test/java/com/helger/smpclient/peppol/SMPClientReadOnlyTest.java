@@ -117,7 +117,9 @@ public final class SMPClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_TEST).setSecureValidation (false);
     // Set old trust store
     {
       final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "truststore-outdated.jks", "peppol");
@@ -317,7 +319,7 @@ public final class SMPClientReadOnlyTest
 
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
                                                                 aReceiverID,
-                                                                ESML.DIGIT_TEST);
+                                                                ESML.DIGIT_TEST).setSecureValidation (false);
 
     SignedServiceMetadataType aSSM;
 
