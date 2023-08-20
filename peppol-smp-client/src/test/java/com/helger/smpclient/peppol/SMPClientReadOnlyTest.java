@@ -158,6 +158,24 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  public void testBrzProd () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");
+
+    // PEPPOL URL provider
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_PRODUCTION).setSecureValidation (false);
+    assertEquals ("http://B-4bbe13b091709af417e9ef61c2e59678.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
+                  aSMPClient.getSMPHostURI ());
+
+    aSMPClient.setXMLSchemaValidation (true);
+    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
+                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
+    assertNotNull (aSM);
+  }
+
+  @Test
   public void testActivatioDate ()
   {
     final String sTemplate = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" +
