@@ -252,7 +252,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.0.8 - work in progress
+* v9.0.8 - 2023-08-22
     * Updated to OpenPeppol eDEC Code Lists v8.6
     * Added `CRLHelper.setCRLOfURL` to manually add an externally downloaded CRL
     * Added `CRLHelper.getCRLFromURL` now considers a maximum caching duration (defaults to 1 day)
