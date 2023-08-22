@@ -255,7 +255,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * v9.0.8 - work in progress
     * Updated to OpenPeppol eDEC Code Lists v8.6
     * Added `CRLHelper.setCRLOfURL` to manually add an externally downloaded CRL
+    * Added `CRLHelper.getCRLFromURL` now considers a maximum caching duration (defaults to 1 day)
     * Methods `PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID` and `PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID` now require the full identifier, incl. the scheme, to work around potentially new ambiguities
+    * Extended `CertificateRevocationChecker` builder with `crlCachingDuration(Duration)`
+    * Added new enum `EPeppolCertificateCheckResult.NOT_CHECKED` for [phase4/#159](https://github.com/phax/phase4/issues/159)
 * v9.0.7 - 2023-08-01
     * Updated to ph-commons 11.1
 * v9.0.6 - 2023-05-25
