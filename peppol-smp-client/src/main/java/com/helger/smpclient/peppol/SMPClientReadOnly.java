@@ -36,7 +36,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.http.CHttpHeader;
@@ -820,17 +822,32 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (aCheckDT, "CheckDT");
 
     // Iterate all processes
+    final ICommonsSet <String> aUsedProcessIDs = new CommonsHashSet <> ();
     for (final ProcessType aProcessType : aServiceInformation.getProcessList ().getProcess ())
     {
+      final String sProcessID = CIdentifier.getURIEncoded (aProcessType.getProcessIdentifier ());
+      if (!aUsedProcessIDs.add (sProcessID))
+        LOGGER.warn ("The Process ID '" + sProcessID + "' is contained more then once within a ServiceMetadataType");
+
       // Matches the requested one?
       if (_hasSameContent (aProcessType.getProcessIdentifier (), aProcessID))
       {
         // Filter all endpoints by required transport profile
         final ICommonsList <EndpointType> aRelevantEndpoints = new CommonsArrayList <> ();
+        final ICommonsSet <String> aUsedTransportProfiles = new CommonsHashSet <> ();
         for (final EndpointType aEndpoint : aProcessType.getServiceEndpointList ().getEndpoint ())
-          if (aTransportProfile.getID ().equals (aEndpoint.getTransportProfile ()) &&
-              isEndpointValidAt (aEndpoint, aCheckDT))
+        {
+          final String sTransportProfile = aEndpoint.getTransportProfile ();
+          if (!aUsedTransportProfiles.add (sTransportProfile))
+            LOGGER.warn ("The Transport Profile '" +
+                         sTransportProfile +
+                         "' is contained more then once within the Process '" +
+                         sProcessID +
+                         "'");
+
+          if (aTransportProfile.getID ().equals (sTransportProfile) && isEndpointValidAt (aEndpoint, aCheckDT))
             aRelevantEndpoints.add (aEndpoint);
+        }
 
         if (aRelevantEndpoints.size () != 1)
         {
@@ -842,9 +859,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                        aTransportProfile.getID () +
                        "' valid at " +
                        aCheckDT +
-                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
-                                                             aRelevantEndpoints.toString () +
-                                                             " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint
@@ -872,8 +890,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
-    return aEndpoint == null || aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper
-                                                                                                             .getAddress (aEndpoint.getEndpointReference ());
+    return aEndpoint == null ||
+           aEndpoint.getEndpointReference () == null ? null
+                                                     : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
   }
 
   /**
