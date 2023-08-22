@@ -158,24 +158,6 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testBrzProd () throws Exception
-  {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");
-
-    // PEPPOL URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
-                                                                aPI,
-                                                                ESML.DIGIT_PRODUCTION).setSecureValidation (false);
-    assertEquals ("http://B-4bbe13b091709af417e9ef61c2e59678.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
-                  aSMPClient.getSMPHostURI ());
-
-    aSMPClient.setXMLSchemaValidation (true);
-    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
-                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
-    assertNotNull (aSM);
-  }
-
-  @Test
   public void testActivatioDate ()
   {
     final String sTemplate = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" +
@@ -386,5 +368,45 @@ public final class SMPClientReadOnlyTest
                                                         aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
                                                                                           "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pont:billing-3.0::2.1"));
     assertNull (aSSM);
+  }
+
+  @Test
+  public void testBrzProd () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");
+
+    // PEPPOL URL provider
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_PRODUCTION).setSecureValidation (false);
+    assertEquals ("http://B-4bbe13b091709af417e9ef61c2e59678.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
+                  aSMPClient.getSMPHostURI ());
+
+    aSMPClient.setXMLSchemaValidation (true);
+    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
+                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
+    assertNotNull (aSM);
+  }
+
+  @Test
+  public void testIssue43 () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0196:6610932699");
+
+    // PEPPOL URL provider
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_PRODUCTION).setSecureValidation (false);
+    assertEquals ("http://B-a0bce7088e2d349c92b03cf2b308df89.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
+                  aSMPClient.getSMPHostURI ());
+
+    aSMPClient.setXMLSchemaValidation (true);
+    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
+                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
+    assertNotNull (aSM);
+    final EndpointType aEndpoint = SMPClientReadOnly.getEndpoint (aSM,
+                                                                  EPredefinedProcessIdentifier.BIS3_BILLING,
+                                                                  ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
+    assertNotNull (aEndpoint);
   }
 }
