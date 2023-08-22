@@ -31,6 +31,7 @@ import java.security.cert.PKIXRevocationChecker;
 import java.security.cert.TrustAnchor;
 import java.security.cert.X509CertSelector;
 import java.security.cert.X509Certificate;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
@@ -247,6 +248,9 @@ public final class CertificateRevocationChecker
                                                               IBuilder <ERevoked>,
                                                               IGenericImplTrait <IMPLTYPE>
   {
+    public static final Duration DEFAULT_EXECUTION_WARN_DURATION = Duration.ofMillis (500);
+    public static final Duration DEFAULT_CACHING_DURATION = CRLHelper.DEFAULT_CACHING_DURATION;
+
     private X509Certificate m_aCert;
     private final ICommonsList <X509Certificate> m_aValidCAs = new CommonsArrayList <> ();
     private Date m_aCheckDate;
@@ -255,7 +259,8 @@ public final class CertificateRevocationChecker
     private ETriState m_eAllowSoftFail = ETriState.UNDEFINED;
     private Consumer <? super List <CertPathValidatorException>> m_aSoftFailExceptionHdl;
     private ETriState m_eExecuteInSynchronizedBlock = ETriState.UNDEFINED;
-    private long m_nExecutionDurationWarnMS = 500;
+    private Duration m_aExecutionDurationWarn = DEFAULT_EXECUTION_WARN_DURATION;
+    private Duration m_aCRLCachingDuration = DEFAULT_CACHING_DURATION;
 
     public AbstractRevocationCheckBuilder ()
     {}
@@ -528,7 +533,39 @@ public final class CertificateRevocationChecker
     @Nonnull
     public final IMPLTYPE executionDurationWarnMS (final long n)
     {
-      m_nExecutionDurationWarnMS = n;
+      return executionDurationWarn (Duration.ofMillis (n));
+    }
+
+    /**
+     * Set the duration that act as a barrier, if an execution took longer than
+     * that duration, that a warning message is emitted. By default it is 500
+     * milliseconds meaning half a second.
+     *
+     * @param a
+     *        the duration to use. May be <code>null</code>.
+     * @return this for chaining
+     * @since 9.0.8
+     */
+    @Nonnull
+    public final IMPLTYPE executionDurationWarn (@Nullable final Duration a)
+    {
+      m_aExecutionDurationWarn = a;
+      return thisAsT ();
+    }
+
+    /**
+     * Set the CRL caching duration. Default is 1 day.
+     *
+     * @param a
+     *        the duration to use. May not be <code>null</code>.
+     * @return this for chaining
+     * @since 9.0.8
+     */
+    @Nonnull
+    public final IMPLTYPE crlCachingDuration (@Nonnull final Duration a)
+    {
+      ValueEnforcer.notNull (a, "CRLCachingDuration");
+      m_aCRLCachingDuration = a;
       return thisAsT ();
     }
 
@@ -563,9 +600,8 @@ public final class CertificateRevocationChecker
                                                                                                     : getExceptionHdl ();
       final boolean bAllowSoftFail = m_eAllowSoftFail.isDefined () ? m_eAllowSoftFail.getAsBooleanValue ()
                                                                    : isAllowSoftFail ();
-      final Consumer <? super List <CertPathValidatorException>> aRealSoftFailExceptionHdl = m_aSoftFailExceptionHdl !=
-                                                                                             null ? m_aSoftFailExceptionHdl
-                                                                                                  : getSoftFailExceptionHdl ();
+      final Consumer <? super List <CertPathValidatorException>> aRealSoftFailExceptionHdl = m_aSoftFailExceptionHdl != null ? m_aSoftFailExceptionHdl
+                                                                                                                             : getSoftFailExceptionHdl ();
       final boolean bExecuteSync = m_eExecuteInSynchronizedBlock.isDefined () ? m_eExecuteInSynchronizedBlock.getAsBooleanValue ()
                                                                               : isExecuteInSynchronizedBlock ();
 
@@ -574,8 +610,8 @@ public final class CertificateRevocationChecker
         throw new IllegalStateException ("The certificate to be checked must be set");
       if (m_aValidCAs.isEmpty ())
         throw new IllegalStateException ("At least one valid CAs must be present");
-      if (m_nExecutionDurationWarnMS <= 0)
-        throw new IllegalStateException ("The number of milliseconds for warning on long execution must be greater than zero");
+      if (m_aExecutionDurationWarn != null && m_aExecutionDurationWarn.toMillis () <= 0)
+        throw new IllegalStateException ("The duration for warning on long execution must be positive");
       // Check date may be null
 
       // Run it
@@ -646,7 +682,7 @@ public final class CertificateRevocationChecker
               for (final String sCRLURL : aCRLURLs)
               {
                 // Get from cache or download
-                final CRL aCRL = CRLHelper.getCRLFromURL (sCRLURL);
+                final CRL aCRL = CRLHelper.getCRLFromURL (sCRLURL, m_aCRLCachingDuration);
                 if (aCRL != null)
                   aCRLs.add (aCRL);
               }
@@ -725,7 +761,7 @@ public final class CertificateRevocationChecker
       finally
       {
         final long nMillis = aSW.stopAndGetMillis ();
-        if (nMillis > m_nExecutionDurationWarnMS)
+        if (m_aExecutionDurationWarn != null && nMillis > m_aExecutionDurationWarn.toMillis ())
           LOGGER.warn ("OCSP/CLR revocation check took " + nMillis + " milliseconds which is too long");
         else
           if (LOGGER.isDebugEnabled ())
