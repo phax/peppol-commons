@@ -21,6 +21,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.Security;
 import java.security.cert.CRL;
+import java.security.cert.CertPath;
 import java.security.cert.CertPathBuilder;
 import java.security.cert.CertPathValidator;
 import java.security.cert.CertPathValidatorException;
@@ -684,7 +685,6 @@ public final class CertificateRevocationChecker
                                                                                  x -> new TrustAnchor (x, null));
           final PKIXBuilderParameters aPKIXParams = new PKIXBuilderParameters (aTrustAnchors, aSelector);
           aPKIXParams.setRevocationEnabled (true);
-
           if (m_aCheckDate != null)
           {
             // Check at specific date
@@ -726,8 +726,10 @@ public final class CertificateRevocationChecker
                   aCRLs.add (aCRL);
               }
               if (aCRLs.isNotEmpty ())
+              {
                 aPKIXParams.addCertStore (CertStore.getInstance ("Collection",
                                                                  new CollectionCertStoreParameters (aCRLs)));
+              }
             }
 
             if (LOGGER.isDebugEnabled ())
@@ -740,7 +742,7 @@ public final class CertificateRevocationChecker
 
             // Throws an exception in case of an error
             final CertPathBuilder aCPB = CertPathBuilder.getInstance ("PKIX");
-            final PKIXRevocationChecker rc = (PKIXRevocationChecker) aCPB.getRevocationChecker ();
+            final PKIXRevocationChecker aRevChecker = (PKIXRevocationChecker) aCPB.getRevocationChecker ();
 
             // Build checking options
             final EnumSet <PKIXRevocationChecker.Option> aOptions = EnumSet.of (PKIXRevocationChecker.Option.ONLY_END_ENTITY);
@@ -749,22 +751,23 @@ public final class CertificateRevocationChecker
             eRealCheckMode.addAllOptionsTo (aOptions);
             if (LOGGER.isDebugEnabled ())
               LOGGER.debug ("OCSP/CLR effective options = " + aOptions);
-            rc.setOptions (aOptions);
+            aRevChecker.setOptions (aOptions);
 
             final PKIXCertPathBuilderResult aBuilderResult = (PKIXCertPathBuilderResult) aCPB.build (aPKIXParams);
             if (LOGGER.isDebugEnabled ())
               LOGGER.debug ("OCSP/CLR builder result = " + aBuilderResult);
+            final CertPath aCertPath = aBuilderResult.getCertPath ();
 
             // Validate
             final CertPathValidator aCPV = CertPathValidator.getInstance ("PKIX");
-            final PKIXCertPathValidatorResult aValidateResult = (PKIXCertPathValidatorResult) aCPV.validate (aBuilderResult.getCertPath (),
+            final PKIXCertPathValidatorResult aValidateResult = (PKIXCertPathValidatorResult) aCPV.validate (aCertPath,
                                                                                                              aPKIXParams);
             if (LOGGER.isDebugEnabled ())
               LOGGER.debug ("OCSP/CLR validation result = " + aValidateResult);
 
             if (bAllowSoftFail)
             {
-              final List <CertPathValidatorException> aList = rc.getSoftFailExceptions ();
+              final List <CertPathValidatorException> aList = aRevChecker.getSoftFailExceptions ();
               if (!aList.isEmpty ())
                 aRealSoftFailExceptionHdl.accept (aList);
             }
