@@ -25,7 +25,6 @@ import java.security.cert.PKIXParameters;
 import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,6 +44,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.peppol.utils.EPeppolCertificateCheckResult;
+import com.helger.peppol.utils.ERevocationCheckMode;
+import com.helger.peppol.utils.PeppolCertificateChecker;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.ConstantKeySelectorResult;
 
@@ -157,45 +159,63 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
                                    final XMLCryptoContext aCryptoContext) throws KeySelectorException
   {
     // For all XMLStructure
-    final Iterator <?> aContentIter = aKeyInfo.getContent ().iterator ();
-    while (aContentIter.hasNext ())
+    for (final XMLStructure aStructure : aKeyInfo.getContent ())
     {
-      final XMLStructure aStructure = (XMLStructure) aContentIter.next ();
       if (aStructure instanceof X509Data)
       {
         final X509Data aX509Data = (X509Data) aStructure;
         // For all content - can be many different types
-        final Iterator <?> aX509Iter = aX509Data.getContent ().iterator ();
-        while (aX509Iter.hasNext ())
+        for (final Object aElement : aX509Data.getContent ())
         {
-          final Object aElement = aX509Iter.next ();
           if (aElement instanceof X509Certificate)
           {
             // We found a certificate
+            // Now at Signature/KeyInfo/X509Data/X509Certificate
             final X509Certificate aCertificate = (X509Certificate) aElement;
+
+            // Old version
             try
             {
-              final Date aCheckDate = m_aValidationDateTime != null ? PDTFactory.createDate (m_aValidationDateTime)
-                                                                    : null;
-
-              // Check if the certificate is expired or active.
-              if (aCheckDate != null)
-                aCertificate.checkValidity (aCheckDate);
+              if (false)
+              {
+                // The SMP response must be signed with an SMP certificate
+                final EPeppolCertificateCheckResult eCheckResult;
+                eCheckResult = PeppolCertificateChecker.checkCertificate (PeppolCertificateChecker.getAllPeppolSMPCAIssuers (),
+                                                                          PeppolCertificateChecker.getRevocationCacheSMP (),
+                                                                          PeppolCertificateChecker.peppolRevocationCheck ()
+                                                                                                  .certificate (aCertificate)
+                                                                                                  .checkDate (m_aValidationDateTime)
+                                                                                                  .validCAs (m_aTrustStore)
+                                                                                                  .checkMode (ERevocationCheckMode.OCSP_BEFORE_CRL));
+                LOGGER.info ("SMP Client AP certificate check result: " + eCheckResult);
+                if (eCheckResult.isInvalid ())
+                  throw new KeySelectorException ("Failed to verify the contained AP certificate with code " +
+                                                  eCheckResult);
+              }
               else
-                aCertificate.checkValidity ();
+              {
+                final Date aCheckDate = m_aValidationDateTime != null ? PDTFactory.createDate (m_aValidationDateTime)
+                                                                      : null;
 
-              // Checks whether the certificate is in the trusted store.
-              final X509Certificate [] aCertArray = new X509Certificate [] { aCertificate };
+                // Check if the certificate is expired or active.
+                if (aCheckDate != null)
+                  aCertificate.checkValidity (aCheckDate);
+                else
+                  aCertificate.checkValidity ();
 
-              // The PKIXParameters constructor may fail because:
-              // - the trustAnchorsParameter is empty
-              final PKIXParameters aPKIXParams = new PKIXParameters (m_aTrustStore);
-              aPKIXParams.setRevocationEnabled (false);
-              aPKIXParams.setDate (aCheckDate);
-              final CertificateFactory aCertificateFactory = CertificateHelper.getX509CertificateFactory ();
-              final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList <> (aCertArray));
-              final CertPathValidator aPathValidator = CertPathValidator.getInstance ("PKIX");
-              aPathValidator.validate (aCertPath, aPKIXParams);
+                // Checks whether the certificate is in the trusted store.
+
+                // The PKIXParameters constructor may fail because:
+                // - the trustAnchorsParameter is empty
+                final PKIXParameters aPKIXParams = new PKIXParameters (m_aTrustStore);
+                aPKIXParams.setRevocationEnabled (false);
+                aPKIXParams.setDate (aCheckDate);
+
+                final CertificateFactory aCertificateFactory = CertificateHelper.getX509CertificateFactory ();
+                final CertPath aCertPath = aCertificateFactory.generateCertPath (new CommonsArrayList <> (aCertificate));
+                final CertPathValidator aPathValidator = CertPathValidator.getInstance ("PKIX");
+                aPathValidator.validate (aCertPath, aPKIXParams);
+              }
 
               final PublicKey aPublicKey = aCertificate.getPublicKey ();
 
@@ -203,6 +223,10 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               if (algorithmEquals (aMethod.getAlgorithm (), aPublicKey.getAlgorithm ()))
                 return new ConstantKeySelectorResult (aPublicKey);
               // Else a warning was already emitted
+            }
+            catch (final KeySelectorException ex)
+            {
+              throw ex;
             }
             catch (final Exception ex)
             {
