@@ -445,7 +445,10 @@ public final class PeppolCertificateChecker
       if (!aIssuers.contains (aIssuer))
       {
         // Not a valid Peppol certificate
-        LOGGER.warn ("The provided Peppol Certificate issuer '" + aIssuer + "' is not in the list of trusted issuers");
+        LOGGER.warn ("The provided Peppol Certificate issuer '" +
+                     aIssuer +
+                     "' is not in the list of trusted issuers " +
+                     aIssuers);
         return EPeppolCertificateCheckResult.UNSUPPORTED_ISSUER;
       }
     }
