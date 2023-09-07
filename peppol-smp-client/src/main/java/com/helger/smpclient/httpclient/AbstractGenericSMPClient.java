@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -347,7 +348,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     }
     catch (final IOException ex)
     {
-      LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
+      if (GlobalDebug.isDebugMode ())
+        LOGGER.error ("Error performing SMP query", ex);
+      else
+        LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
       throw ex;
     }
   }
