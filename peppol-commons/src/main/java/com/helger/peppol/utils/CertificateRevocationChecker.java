@@ -17,12 +17,15 @@
 package com.helger.peppol.utils;
 
 import java.security.GeneralSecurityException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
 import java.security.Security;
 import java.security.cert.CRL;
 import java.security.cert.CertPathBuilder;
 import java.security.cert.CertPathValidator;
 import java.security.cert.CertPathValidatorException;
 import java.security.cert.CertStore;
+import java.security.cert.Certificate;
 import java.security.cert.CollectionCertStoreParameters;
 import java.security.cert.PKIXBuilderParameters;
 import java.security.cert.PKIXCertPathBuilderResult;
@@ -37,6 +40,7 @@ import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.EnumSet;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
@@ -316,6 +320,41 @@ public final class CertificateRevocationChecker
     {
       m_aValidCAs.setAll (a);
       return thisAsT ();
+    }
+
+    /**
+     * Set the valid CAs to be checked against from the provided trust store.
+     *
+     * @param aTrustStore
+     *        The trust store to be checked against. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public final IMPLTYPE validCAs (@Nullable final KeyStore aTrustStore)
+    {
+      final ICommonsSet <X509Certificate> aCerts = new CommonsHashSet <> ();
+      if (aTrustStore != null)
+      {
+        try
+        {
+          final Enumeration <String> aAliases = aTrustStore.aliases ();
+          while (aAliases.hasMoreElements ())
+          {
+            final String alias = aAliases.nextElement ();
+            if (aTrustStore.isCertificateEntry (alias))
+            {
+              final Certificate cert = aTrustStore.getCertificate (alias);
+              if (cert instanceof X509Certificate)
+                aCerts.add ((X509Certificate) cert);
+            }
+          }
+        }
+        catch (final KeyStoreException ex)
+        {
+          LOGGER.warn ("Failed to extract certificates from trust store", ex);
+        }
+      }
+      return validCAs (aCerts);
     }
 
     /**
