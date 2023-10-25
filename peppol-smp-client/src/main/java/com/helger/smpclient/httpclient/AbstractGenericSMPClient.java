@@ -165,6 +165,22 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
+   * Special version to modify the httpClientSettings but with a chainable API.
+   *
+   * @param aConsumer
+   *        The consumer that deals with the SMPHttpClientSettings
+   * @return this for chaining
+   * @since 9.0.9
+   */
+  @Nonnull
+  public final IMPLTYPE withHttpClientSettings (@Nonnull final Consumer <? super SMPHttpClientSettings> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    aConsumer.accept (m_aHttpClientSettings);
+    return thisAsT ();
+  }
+
+  /**
    * @return <code>true</code> if SMP client response certificate checking is
    *         enabled, <code>false</code> if it is disabled. By default this
    *         check is enabled (see
