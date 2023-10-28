@@ -12,6 +12,7 @@ This project contains different libraries that are commonly used in the Peppol a
 * [`peppol-sml-client`](#peppol-sml-client) - the Peppol SML client
 * [`peppol-smp-datatypes`](#peppol-smp-datatypes) - the Peppol SMP generated JAXB classes (since v8.4.0)
 * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
+* [`peppol-directory-businesscard`](#peppol-directory-businesscard) - the Peppol Directory Business Card data model (since v9.1.0)
   
 These project are used implicitly by e.g. the following projects:
 * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
@@ -92,6 +93,10 @@ This project uses Apache HTTP client to perform the REST lookups on foreign SMPs
 The Peppol SMP specification 1.2.0, mandatory per 1.5.2022, is supported since v8.7.3.
 
 I also provide an OSS [phoss SMP server](https://github.com/phax/phoss-smp) with a nice management GUI.
+
+## peppol-directory-businesscard
+
+This project holds the different versions of the Peppol Directory Business Card data model, as well as one generic model.
 
 ### Configuration
 
@@ -225,6 +230,12 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
   <artifactId>peppol-smp-client</artifactId>
   <version>x.y.z</version>
 </dependency>
+
+<dependency>
+  <groupId>com.helger.peppol</groupId>
+  <artifactId>peppol-directory-businesscard</artifactId>
+  <version>x.y.z</version>
+</dependency>
 ```
 
 Alternatively use the following code in your `dependencyManagement` section to use it as a BOM:
@@ -252,6 +263,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.1.0 - work in progress
+    * Added new submodule `peppol-directory-businesscard`
 * v9.0.8 - 2023-08-22
     * Updated to OpenPeppol eDEC Code Lists v8.6
     * Added `CRLHelper.setCRLOfURL` to manually add an externally downloaded CRL

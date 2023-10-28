@@ -199,6 +199,7 @@
     <module>peppol-smp-datatypes</module>
     <module>peppol-smp-client</module>
     <module>peppol-sml-client</module>
+    <module>peppol-directory-businesscard</module>
   </modules>
 
   <build>
