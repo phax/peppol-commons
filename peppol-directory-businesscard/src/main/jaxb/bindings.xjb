@@ -31,7 +31,7 @@
   </globalBindings>
   <bindings schemaLocation="../resources/schemas/peppol-directory-business-card-20160112.xsd">
     <schemaBindings>
-      <package name="com.helger.pd.businesscard.v1" />
+      <package name="com.helger.peppol.businesscard.v1" />
       <nameXmlTransform>
         <typeName prefix="PD1" />
       </nameXmlTransform>
@@ -39,7 +39,7 @@
   </bindings>
   <bindings schemaLocation="../resources/schemas/peppol-directory-business-card-20161123.xsd">
     <schemaBindings>
-      <package name="com.helger.pd.businesscard.v2" />
+      <package name="com.helger.peppol.businesscard.v2" />
       <nameXmlTransform>
         <typeName prefix="PD2" />
       </nameXmlTransform>
@@ -47,7 +47,7 @@
   </bindings>
   <bindings schemaLocation="../resources/schemas/peppol-directory-business-card-20180621.xsd">
     <schemaBindings>
-      <package name="com.helger.pd.businesscard.v3" />
+      <package name="com.helger.peppol.businesscard.v3" />
       <nameXmlTransform>
         <typeName prefix="PD3" />
       </nameXmlTransform>
