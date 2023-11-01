@@ -82,7 +82,9 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.xsds.peppol.id1</Automatic-Module-Name>
-            <Export-Package>com.helger.xsds.peppol.id1.*,com.helger.xsds.peppol.codelists2.*</Export-Package>
+            <Export-Package>
+              com.helger.xsds.peppol.id1
+            </Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
           </instructions>
         </configuration>

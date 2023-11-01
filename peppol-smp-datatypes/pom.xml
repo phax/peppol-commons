@@ -96,7 +96,9 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.xsds.peppol.smp1</Automatic-Module-Name>
-            <Export-Package>com.helger.xsds.peppol.smp1.*</Export-Package>
+            <Export-Package>
+              com.helger.xsds.peppol.smp1
+            </Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
