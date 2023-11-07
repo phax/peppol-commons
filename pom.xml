@@ -47,8 +47,8 @@
   </licenses>
   
   <scm>
-    <connection>scm:git:git@github.com:phax/peppol-commons.git</connection>
-    <developerConnection>scm:git:git@github.com:phax/peppol-commons.git</developerConnection>
+    <connection>scm:git:https://github.com/phax/peppol-commons.git</connection>
+    <developerConnection>scm:git:https://github.com/phax/peppol-commons.git</developerConnection>
     <url>http://github.com/phax/peppol-commons</url>
     <tag>HEAD</tag>
   </scm>
