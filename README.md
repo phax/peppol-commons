@@ -263,8 +263,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.1.0 - work in progress
-    * Added new submodule `peppol-directory-businesscard`
+* v9.1.0 - 2023-09-11
+    * Added new submodule `peppol-directory-businesscard`. It is meant to replace the `phoss-directory-businesscard` one.
 * v9.0.8 - 2023-08-22
     * Updated to OpenPeppol eDEC Code Lists v8.6
     * Added `CRLHelper.setCRLOfURL` to manually add an externally downloaded CRL
