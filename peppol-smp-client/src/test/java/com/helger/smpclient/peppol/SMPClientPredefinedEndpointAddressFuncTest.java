@@ -24,6 +24,7 @@ import java.security.cert.X509Certificate;
 import javax.annotation.Nonnull;
 
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.peppol.sml.ESML;
@@ -61,6 +62,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
   }
 
   @Test
+  @Ignore ("Currently down")
   public void testGetEndpointAddress () throws Exception
   {
     String sEndpointAddress;
@@ -89,6 +91,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
    *         on error
    */
   @Test
+  @Ignore ("Currently down")
   public void testGetEndpointCertificate () throws Exception
   {
     X509Certificate aEndpointCertificate;
