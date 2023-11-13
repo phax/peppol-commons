@@ -169,6 +169,11 @@
         <artifactId>peppol-sml-client</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>peppol-directory-businesscard</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
