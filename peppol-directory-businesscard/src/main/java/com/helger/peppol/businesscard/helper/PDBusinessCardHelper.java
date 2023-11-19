@@ -28,6 +28,9 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.EnumHelper;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jaxb.validation.DoNothingValidationEventHandler;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
@@ -49,13 +52,33 @@ import com.helger.peppol.businesscard.v3.PD3BusinessCardType;
 @Immutable
 public final class PDBusinessCardHelper
 {
-  public enum EBusinessCardVersion
+  public enum EBusinessCardVersion implements IHasID <String>
   {
-    V1,
-    V2,
-    V3;
+    V1 ("v1"),
+    V2 ("v2"),
+    V3 ("v3");
 
     static final EBusinessCardVersion LATEST = V3;
+
+    private final String m_sID;
+
+    EBusinessCardVersion (@Nonnull @Nonempty final String sID)
+    {
+      m_sID = sID;
+    }
+
+    @Nonnull
+    @Nonempty
+    public String getID ()
+    {
+      return m_sID;
+    }
+
+    @Nullable
+    public static EBusinessCardVersion getFromIDOrNull (@Nullable final String sID)
+    {
+      return EnumHelper.getFromIDOrNull (EBusinessCardVersion.class, sID);
+    }
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PDBusinessCardHelper.class);
