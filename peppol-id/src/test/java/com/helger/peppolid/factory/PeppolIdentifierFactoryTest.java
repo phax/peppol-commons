@@ -88,7 +88,8 @@ public final class PeppolIdentifierFactoryTest
     assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (""));
 
     assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid ("proc1"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid ("proc2 "));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid ("proc2"));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid ("proc2 "));
 
     assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (StringHelper.getRepeated ('a',
                                                                                                           PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH)));

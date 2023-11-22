@@ -178,6 +178,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   {
     if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
       return false;
+
     return RegExHelper.stringMatchesPattern (PeppolIdentifierHelper.PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
                                              sScheme.toLowerCase (Locale.US));
   }
@@ -202,19 +203,30 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
       return false;
 
     final int nLength = sValue.length ();
-    // > 0 and <= 50 characters
-    if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
+
+    // POLICY 1
+    // At least one characters
+    if (nLength == 0)
+      return false;
+
+    // <= 50 characters
+    if (nLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
       return false;
 
     // Check if the separator between identifier issuing agency and value is
     // present - can only be done if the default scheme is present
+    // Also does not work in certain representations when the numeric scheme is
+    // extracted into an attribute (see e.g. POLICY 14)
     if (false)
       if (sValue.indexOf (':') < 0)
         return false;
 
-    // Check if the value is US ASCII encoded
-    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
-           StandardCharsets.US_ASCII.newEncoder ().canEncode (sValue);
+    // Check if the value is ISO-8859-1 encoded
+    if (!PeppolIdentifierHelper.areCharsetChecksDisabled ())
+      if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
+        return false;
+
+    return true;
   }
 
   @Nullable
@@ -249,13 +261,27 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public boolean isProcessIdentifierValueValid (@Nullable final String sValue)
   {
     final int nLength = StringHelper.getLength (sValue);
-    // > 0 or <= 200 chars
-    if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH)
+
+    // POLICY 1
+    // At least one char
+    if (nLength == 0)
+      return false;
+
+    // <= 200 chars
+    if (nLength > PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH)
       return false;
 
     // Check if the value is ISO-8859-1 encoded
-    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
-           StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
+    if (!PeppolIdentifierHelper.areCharsetChecksDisabled ())
+      if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
+        return false;
+
+    // POLICY 25
+    for (final char c : sValue.toCharArray ())
+      if (Character.isWhitespace (c))
+        return false;
+
+    return true;
   }
 
   @Nullable
