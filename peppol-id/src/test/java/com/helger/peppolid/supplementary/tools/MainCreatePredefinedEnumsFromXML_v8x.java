@@ -97,7 +97,7 @@ import com.helger.xsds.peppol.codelists21.PCLTransportProfilesType;
 public final class MainCreatePredefinedEnumsFromXML_v8x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v8x.class);
-  private static final Version CODELIST_VERSION = new Version (8, 6);
+  private static final Version CODELIST_VERSION = new Version (8, 7);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";

@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2015-2023 Philip Helger
- * philip[at]helger[dot]com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.helger.peppolid.peppol.pidscheme;
 
 import java.time.LocalDate;
@@ -1029,10 +1013,10 @@ public enum EPredefinedParticipantIdentifierScheme
      * Example value: 0899965307<br>
      * 
      * @since code list 1.2.1
-     * @deprecated since v7.4 - this item should not be used to issue new identifiers!<br>Removed per 2023-10-31
+     * @deprecated since v7.4 - this item should not be used to issue new identifiers!<br>Removed per 2023-12-31
      */
     @Deprecated
-    BE_CBE("BE:CBE", "9956", "BE", "Belgian Crossroad Bank of Enterprise number", "Belgian Crossroad Bank of Enterprises", Version.parse("1.2.1"), EPeppolCodeListItemState.REMOVED, Version.parse("7.4"), PDTFactory.createLocalDate(2023, Month.of(10), 31)),
+    BE_CBE("BE:CBE", "9956", "BE", "Belgian Crossroad Bank of Enterprise number", "Belgian Crossroad Bank of Enterprises", Version.parse("1.2.1"), EPeppolCodeListItemState.REMOVED, Version.parse("7.4"), PDTFactory.createLocalDate(2023, Month.of(12), 31)),
 
     /**
      * Prefix <code>9957</code>, scheme ID <code>FR:VAT</code><br>
@@ -1057,7 +1041,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "8.6";
+    public static final String CODE_LIST_VERSION = "8.7";
     public static final int CODE_LIST_ENTRY_COUNT = 95;
     private final String m_sSchemeID;
     private final String m_sISO6523;

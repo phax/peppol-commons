@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--This is an OpenPeppol EDEC Code List.
+<!--This is an OpenPeppol eDEC Code List.
 Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<processes version="8.6" entry-count="88">
+<processes version="8.7" entry-count="88">
   <process scheme="cenbii-procid-ubl" value="none" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver2.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii03:ver1.0" state="deprecated" />
-  <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii03:ver2.0" state="active" />
-  <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii04:ver1.0" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii03:ver2.0" state="deprecated" />
+  <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii04:ver1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii04:ver2.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii05:ver1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii05:ver2.0" state="active" />

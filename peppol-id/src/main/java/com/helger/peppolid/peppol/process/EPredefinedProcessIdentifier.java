@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2015-2023 Philip Helger
- * philip[at]helger[dot]com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.helger.peppolid.peppol.process;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
@@ -68,14 +52,20 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii03:ver2.0</code><br>
      * Same as {@link #BIS3A_V2}
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    urn_www_cenbii_eu_profile_bii03_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii03:ver2.0", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated
+    urn_www_cenbii_eu_profile_bii03_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii03:ver2.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii04:ver1.0</code><br>
      * Same as {@link #BIS4A_V1}
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    urn_www_cenbii_eu_profile_bii04_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii04:ver1.0", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated
+    urn_www_cenbii_eu_profile_bii04_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii04:ver1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:www.cenbii.eu:profile:bii04:ver2.0</code><br>
@@ -531,7 +521,7 @@ public enum EPredefinedProcessIdentifier
      * ID: <code>cenbii-procid-ubl::urn:peppol:bis:billing</code><br>
      */
     urn_peppol_bis_billing("cenbii-procid-ubl", "urn:peppol:bis:billing", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "8.6";
+    public static final String CODE_LIST_VERSION = "8.7";
     public static final int CODE_LIST_ENTRY_COUNT = 88;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
@@ -553,11 +543,17 @@ public enum EPredefinedProcessIdentifier
     public static final EPredefinedProcessIdentifier BIS3A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver2_0}
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
+    @Deprecated
     public static final EPredefinedProcessIdentifier BIS3A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver1_0}
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
+    @Deprecated
     public static final EPredefinedProcessIdentifier BIS4A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver2_0}

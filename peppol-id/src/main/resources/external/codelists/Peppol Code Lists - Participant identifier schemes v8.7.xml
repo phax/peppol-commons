@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--This is an OpenPeppol EDEC Code List.
+<!--This is an OpenPeppol eDEC Code List.
 Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<participant-identifier-schemes version="8.6" entry-count="95">
+<participant-identifier-schemes version="8.7" entry-count="95">
   <participant-identifier-scheme schemeid="FR:SIRENE" iso6523="0002" country="FR" scheme-name="System Information et Repertoire des Entreprise et des Etablissements: SIRENE" issuing-agency="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" initial-release="1.0.0" state="active">
     <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters.
 2) Check digits: 9th &amp; 14th character respectively</structure>
@@ -695,7 +695,7 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</struc
   <participant-identifier-scheme schemeid="SE:VAT" iso6523="9955" country="SE" scheme-name="Swedish VAT number" initial-release="1.2.0" state="removed" deprecation-release="8.4" removal-date="2023-07-31">
     <registrable>false</registrable>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="BE:CBE" iso6523="9956" country="BE" scheme-name="Belgian Crossroad Bank of Enterprise number" issuing-agency="Belgian Crossroad Bank of Enterprises" initial-release="1.2.1" state="removed" deprecation-release="7.4" removal-date="2023-10-31">
+  <participant-identifier-scheme schemeid="BE:CBE" iso6523="9956" country="BE" scheme-name="Belgian Crossroad Bank of Enterprise number" issuing-agency="Belgian Crossroad Bank of Enterprises" initial-release="1.2.1" state="removed" deprecation-release="7.4" removal-date="2023-12-31">
     <structure>Format: 9.999.999.999 - Check: 99 = 97 - (9.999.999.9 modulo 97)</structure>
     <examples>0899965307</examples>
     <validation-rules>RegEx: 0[0-9]{9}
