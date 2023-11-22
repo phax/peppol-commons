@@ -54,10 +54,14 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   @Nonnull
-  private static String _verifyValue (@Nonnull final String sValue)
+  private static String _verifyValue (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sValue))
-      throw new IllegalArgumentException ("Peppol Document Type identifier value '" + sValue + "' is invalid!");
+    if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sScheme, sValue))
+      throw new IllegalArgumentException ("Peppol Document Type identifier value '" +
+                                          sValue +
+                                          "' is invalid for scheme '" +
+                                          sScheme +
+                                          "'!");
     return sValue;
   }
 
@@ -70,7 +74,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public PeppolDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    this (true, _verifyScheme (sScheme), _verifyValue (sValue));
+    this (true, _verifyScheme (sScheme), _verifyValue (sScheme, sValue));
   }
 
   /**
@@ -84,7 +88,9 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  protected PeppolDocumentTypeIdentifier (final boolean bVerified, @Nonnull final String sScheme, @Nonnull final String sValue)
+  protected PeppolDocumentTypeIdentifier (final boolean bVerified,
+                                          @Nonnull final String sScheme,
+                                          @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
@@ -153,13 +159,15 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @return The document type identifier or <code>null</code> if any of the
    *         parts is invalid.
    * @see PeppolIdentifierFactory#isDocumentTypeIdentifierSchemeValid(String)
-   * @see PeppolIdentifierFactory#isDocumentTypeIdentifierValueValid(String)
+   * @see PeppolIdentifierFactory#isDocumentTypeIdentifierValueValid(String,
+   *      String)
    */
   @Nullable
-  public static PeppolDocumentTypeIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
+  public static PeppolDocumentTypeIdentifier createIfValid (@Nullable final String sScheme,
+                                                            @Nullable final String sValue)
   {
     if (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierSchemeValid (sScheme) &&
-        PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sValue))
+        PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sScheme, sValue))
       return new PeppolDocumentTypeIdentifier (true, sScheme, sValue);
     return null;
   }

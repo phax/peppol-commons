@@ -78,12 +78,31 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
    * Check if the passed process identifier value is valid.
    *
    * @param sValue
-   *        The document type identifier value to be checked (without the
-   *        scheme). May be <code>null</code>.
-   * @return <code>true</code> if the document type identifier value is valid,
+   *        The process identifier value to be checked (without the scheme). May
+   *        be <code>null</code>.
+   * @return <code>true</code> if the process identifier value is valid,
    *         <code>false</code> otherwise
    */
+  @Deprecated (forRemoval = true, since = "9.1.1")
   default boolean isProcessIdentifierValueValid (@Nullable final String sValue)
+  {
+    return isProcessIdentifierValueValid (null, sValue);
+  }
+
+  /**
+   * Check if the passed process identifier value is valid.
+   *
+   * @param sScheme
+   *        The process identifier scheme of the value to be checked. May be
+   *        <code>null</code>.
+   * @param sValue
+   *        The process identifier value to be checked (without the scheme). May
+   *        be <code>null</code>.
+   * @return <code>true</code> if the process identifier value is valid,
+   *         <code>false</code> otherwise
+   * @since 9.1.1
+   */
+  default boolean isProcessIdentifierValueValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
     return true;
   }

@@ -65,34 +65,52 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     return PeppolIdentifierHelper.isValidIdentifierScheme (sScheme);
   }
 
-  private static boolean _isForbiddenCustomizationIDChar (final char c)
+  private static boolean _isForbiddenCustomizationIDCharBusdoxDocidQns (final char c)
   {
     return c == '*' || c == 9 || c == 10 || c == 11 || c == 12 || c == 13 || c == ' ' || c == 133 || c == 160;
   }
 
-  public static boolean isValidCustomizationID (@Nullable final String s)
+  public static boolean isValidCustomizationIDBusdoxDocidQns (@Nullable final String s)
   {
     if (StringHelper.hasNoText (s))
       return false;
 
-    // POLICY 17 (applies identical for busdox-docid-qns and
-    // peppol-doctype-wildcard)
+    // POLICY 17 (applies identical only to busdox-docid-qns)
     for (final char c : s.toCharArray ())
-      if (_isForbiddenCustomizationIDChar (c))
+      if (_isForbiddenCustomizationIDCharBusdoxDocidQns (c))
+        return false;
+
+    return true;
+  }
+
+  private static boolean _isForbiddenCustomizationIDCharPeppolDoctypeWildcard (final char c)
+  {
+    // "*" is allowed
+    return c == 9 || c == 10 || c == 11 || c == 12 || c == 13 || c == ' ' || c == 133 || c == 160;
+  }
+
+  public static boolean isValidCustomizationIDPeppolDoctypeWildcard (@Nullable final String s)
+  {
+    if (StringHelper.hasNoText (s))
+      return false;
+
+    // chapter 5.1.2
+    for (final char c : s.toCharArray ())
+      if (_isForbiddenCustomizationIDCharPeppolDoctypeWildcard (c))
         return false;
 
     return true;
   }
 
   @Override
-  public boolean isDocumentTypeIdentifierValueValid (@Nullable final String sValue)
+  public boolean isDocumentTypeIdentifierValueValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
     if (sValue == null)
       return false;
 
     final int nLength = sValue.length ();
 
-    // POLICY 1
+    // POLICY 1 - general rules
     // at least 1 char
     if (nLength == 0)
       return false;
@@ -107,11 +125,24 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     try
     {
       final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (sValue);
-      final String sCustomizationID = aParts.getCustomizationID ();
 
-      // POLICY 17
-      if (!isValidCustomizationID (sCustomizationID))
-        return false;
+      if (sScheme != null)
+        switch (sScheme)
+        {
+          case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS:
+            // POLICY 17
+            if (!isValidCustomizationIDBusdoxDocidQns (aParts.getCustomizationID ()))
+              return false;
+            break;
+          case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD:
+            // Chapter 5.1.2
+            if (!isValidCustomizationIDPeppolDoctypeWildcard (aParts.getCustomizationID ()))
+              return false;
+            break;
+          default:
+            // Ignore - no special Peppol rules
+        }
+
     }
     catch (final IllegalArgumentException ex)
     {
@@ -166,12 +197,6 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
    * note that the regular expression is applied case insensitive!<br>
    * This limitation is important, because the participant identifier scheme is
    * directly encoded into the SML DNS name record.
-   *
-   * @param sScheme
-   *        The scheme to check. May be <code>null</code>.
-   * @return <code>true</code> if the passed scheme is a valid participant
-   *         identifier scheme, <code>false</code> otherwise.
-   * @see PeppolIdentifierHelper#isValidIdentifierScheme(String)
    */
   @Override
   public boolean isParticipantIdentifierSchemeValid (@Nullable final String sScheme)
@@ -189,15 +214,9 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
    * {@link PeppolIdentifierHelper#MAX_PARTICIPANT_VALUE_LENGTH} characters.
    * Also it must be US ASCII encoded. This check method considers only the
    * value and not the identifier scheme!
-   *
-   * @param sValue
-   *        The participant identifier value to be checked (without the scheme).
-   *        May be <code>null</code>.
-   * @return <code>true</code> if the participant identifier value is valid,
-   *         <code>false</code> otherwise.
    */
   @Override
-  public boolean isParticipantIdentifierValueValid (@Nullable final String sValue)
+  public boolean isParticipantIdentifierValueValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
     if (sValue == null)
       return false;
@@ -213,17 +232,17 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     if (nLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
       return false;
 
+    // Check if the value is ISO-8859-1 encoded
+    if (!PeppolIdentifierHelper.areCharsetChecksDisabled ())
+      if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
+        return false;
+
     // Check if the separator between identifier issuing agency and value is
     // present - can only be done if the default scheme is present
     // Also does not work in certain representations when the numeric scheme is
     // extracted into an attribute (see e.g. POLICY 14)
     if (false)
       if (sValue.indexOf (':') < 0)
-        return false;
-
-    // Check if the value is ISO-8859-1 encoded
-    if (!PeppolIdentifierHelper.areCharsetChecksDisabled ())
-      if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
         return false;
 
     return true;
@@ -258,7 +277,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   }
 
   @Override
-  public boolean isProcessIdentifierValueValid (@Nullable final String sValue)
+  public boolean isProcessIdentifierValueValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final int nLength = StringHelper.getLength (sValue);
 

@@ -84,7 +84,26 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
    * @return <code>true</code> if the participant identifier value is valid,
    *         <code>false</code> otherwise.
    */
+  @Deprecated (forRemoval = true, since = "9.1.1")
   default boolean isParticipantIdentifierValueValid (@Nullable final String sValue)
+  {
+    return isParticipantIdentifierValueValid (null, sValue);
+  }
+
+  /**
+   * Check if the passed participant identifier value is valid.
+   *
+   * @param sScheme
+   *        The scheme of the participant identifier value to be checked. May be
+   *        <code>null</code>.
+   * @param sValue
+   *        The participant identifier value to be checked (without the scheme).
+   *        May be <code>null</code>.
+   * @return <code>true</code> if the participant identifier value is valid,
+   *         <code>false</code> otherwise.
+   * @since 9.1.1
+   */
+  default boolean isParticipantIdentifierValueValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
     return true;
   }
@@ -158,6 +177,7 @@ public interface IParticipantIdentifierFactory extends IIdentifierFactoryBase
   @Nullable
   default IParticipantIdentifier getClone (@Nullable final IParticipantIdentifier aParticipantID)
   {
-    return aParticipantID == null ? null : createParticipantIdentifier (aParticipantID.getScheme (), aParticipantID.getValue ());
+    return aParticipantID == null ? null : createParticipantIdentifier (aParticipantID.getScheme (),
+                                                                        aParticipantID.getValue ());
   }
 }

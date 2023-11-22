@@ -266,8 +266,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * v9.1.1 - 2023-11-22
     * Added the "peppol-directory-businesscard" to the known submodules in the BOM part of pom.xml
     * Updated to OpenPeppol eDEC Code Lists v8.7
-    * Improved the Peppol Document Type Identifier value syntax checks 
-    * Improved the Peppol Process Identifier value syntax checks 
+    * Improved the Peppol Document Type Identifier value syntax checks - for `busdox-docid-qns` and for `peppol-doctype-wildcard`
+    * Improved the Peppol Process Identifier value syntax checks
+    * Identifier value checks can now be different per identifier scheme
 * v9.1.0 - 2023-11-09
     * Added new submodule `peppol-directory-businesscard`. It is meant to replace the `phoss-directory-businesscard` one.
 * v9.0.8 - 2023-08-22

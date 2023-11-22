@@ -55,10 +55,14 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   }
 
   @Nonnull
-  private static String _verifyValue (@Nonnull final String sValue)
+  private static String _verifyValue (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    if (!PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sValue))
-      throw new IllegalArgumentException ("Peppol Process identifier value '" + sValue + "' is invalid!");
+    if (!PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sScheme, sValue))
+      throw new IllegalArgumentException ("Peppol Process identifier value '" +
+                                          sValue +
+                                          "' is invalid for scheme '" +
+                                          sScheme +
+                                          "!");
     return sValue;
   }
 
@@ -71,7 +75,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public PeppolProcessIdentifier (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
-    this (true, _verifyScheme (sScheme), _verifyValue (sValue));
+    this (true, _verifyScheme (sScheme), _verifyValue (sScheme, sValue));
   }
 
   /**
@@ -85,7 +89,9 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  protected PeppolProcessIdentifier (final boolean bVerified, @Nonnull final String sScheme, @Nonnull final String sValue)
+  protected PeppolProcessIdentifier (final boolean bVerified,
+                                     @Nonnull final String sScheme,
+                                     @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
@@ -140,13 +146,13 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    * @return The process identifier or <code>null</code> if any of the parts is
    *         invalid.
    * @see PeppolIdentifierFactory#isProcessIdentifierSchemeValid(String)
-   * @see PeppolIdentifierFactory#isProcessIdentifierValueValid(String)
+   * @see PeppolIdentifierFactory#isProcessIdentifierValueValid(String, String)
    */
   @Nullable
   public static PeppolProcessIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
     if (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierSchemeValid (sScheme) &&
-        PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sValue))
+        PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sScheme, sValue))
       return new PeppolProcessIdentifier (true, sScheme, sValue);
     return null;
   }

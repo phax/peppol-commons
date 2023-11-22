@@ -84,7 +84,26 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
    * @return <code>true</code> if the document type identifier value is valid,
    *         <code>false</code> otherwise
    */
+  @Deprecated (forRemoval = true, since = "9.1.1")
   default boolean isDocumentTypeIdentifierValueValid (@Nullable final String sValue)
+  {
+    return isDocumentTypeIdentifierValueValid (null, sValue);
+  }
+
+  /**
+   * Check if the passed document type identifier value is valid for the
+   * provided scheme.
+   *
+   * @param sScheme
+   *        The document type identifier scheme of the value to be checked.
+   * @param sValue
+   *        The document type identifier value to be checked (without the
+   *        scheme). May be <code>null</code>.
+   * @return <code>true</code> if the document type identifier value is valid
+   *         for the provided scheme, <code>false</code> otherwise
+   * @since 9.1.1
+   */
+  default boolean isDocumentTypeIdentifierValueValid (@Nullable final String sScheme, @Nullable final String sValue)
   {
     return true;
   }

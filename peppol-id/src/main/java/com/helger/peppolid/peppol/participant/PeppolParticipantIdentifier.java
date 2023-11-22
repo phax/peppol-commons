@@ -59,10 +59,14 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   @Nonnull
-  private static String _verifyValue (@Nonnull final String sValue)
+  private static String _verifyValue (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sValue))
-      throw new IllegalArgumentException ("Peppol Participant identifier value '" + sValue + "' is invalid!");
+    if (!PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sScheme, sValue))
+      throw new IllegalArgumentException ("Peppol Participant identifier value '" +
+                                          sValue +
+                                          "' is invalid for scheme '" +
+                                          sScheme +
+                                          "'!");
     return sValue;
   }
 
@@ -85,7 +89,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
   public PeppolParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    this (true, _verifyScheme (sScheme), _verifyValue (sValue));
+    this (true, _verifyScheme (sScheme), _verifyValue (sScheme, sValue));
   }
 
   /**
@@ -99,7 +103,9 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    * @param sValue
    *        Identifier value. May not be <code>null</code>.
    */
-  protected PeppolParticipantIdentifier (final boolean bVerified, @Nonnull final String sScheme, @Nonnull final String sValue)
+  protected PeppolParticipantIdentifier (final boolean bVerified,
+                                         @Nonnull final String sScheme,
+                                         @Nonnull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
@@ -208,10 +214,11 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    * @see PeppolIdentifierFactory#isParticipantIdentifierValueValid(String)
    */
   @Nullable
-  public static PeppolParticipantIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
+  public static PeppolParticipantIdentifier createIfValid (@Nullable final String sScheme,
+                                                           @Nullable final String sValue)
   {
     if (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sScheme) &&
-        PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sValue))
+        PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sScheme, sValue))
       return new PeppolParticipantIdentifier (true, sScheme, sValue);
     return null;
   }

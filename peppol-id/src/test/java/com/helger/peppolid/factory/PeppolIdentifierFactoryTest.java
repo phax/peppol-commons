@@ -65,35 +65,54 @@ public final class PeppolIdentifierFactoryTest
   @Test
   public void testIsValidParticipantIdentifierValue ()
   {
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (null));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (""));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                     null));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                     ""));
 
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid ("9908:976098897"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid ("9908:976098897 "));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid ("990:976098897"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid ("990976098897"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid ("9909:976098896"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid ("9908:976098896"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid ("9956:DE:EPROC:BMIEVG:BeschA"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid ("9906:02419170044_01"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                    "9908:976098897"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                    "9908:976098897 "));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                    "990:976098897"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                    "990976098897"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                    "9909:976098896"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                    "9908:976098896"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                    "9956:DE:EPROC:BMIEVG:BeschA"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                    "9906:02419170044_01"));
 
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (VALUE_MAX_LENGTH));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (VALUE_MAX_LENGTH_PLUS_1));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                    VALUE_MAX_LENGTH));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                     VALUE_MAX_LENGTH_PLUS_1));
   }
 
   @Test
   public void testIsValidProcessIdentifierValue ()
   {
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (null));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (""));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL,
+                                                                                 null));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL,
+                                                                                 ""));
 
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid ("proc1"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid ("proc2"));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid ("proc2 "));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL,
+                                                                                "proc1"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL,
+                                                                                "proc2"));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL,
+                                                                                 "proc2 "));
 
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (StringHelper.getRepeated ('a',
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL,
+                                                                                StringHelper.getRepeated ('a',
                                                                                                           PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH)));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (StringHelper.getRepeated ('a',
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL,
+                                                                                 StringHelper.getRepeated ('a',
                                                                                                            PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH +
                                                                                                                 1)));
   }
@@ -101,17 +120,34 @@ public final class PeppolIdentifierFactoryTest
   @Test
   public void testIsValidDocumentTypeIdentifierValue ()
   {
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (null));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (""));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                      null));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                      ""));
 
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("invoice"));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("order "));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                      "invoice"));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                      "invoice"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("bla", "invoice"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (null, "invoice"));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                      "order "));
 
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (StringHelper.getRepeated ('a',
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                      StringHelper.getRepeated ('a',
                                                                                                                 PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (StringHelper.getRepeated ('a',
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                      StringHelper.getRepeated ('a',
                                                                                                                 PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH +
                                                                                                                      1)));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("urn:rootnamespace::localelement##customizationid::version"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                     "urn:rootnamespace::localelement##customizationid::version"));
+
+    // * only valid for peppol-doctype-wildcard
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                      "urn:rootnamespace::localelement##customizationid*::version"));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                     "urn:rootnamespace::localelement##customizationid*::version"));
   }
 }
