@@ -129,8 +129,8 @@ public final class PeppolIdentifierFactoryTest
                                                                                       "invoice"));
     assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
                                                                                       "invoice"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("bla", "invoice"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (null, "invoice"));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("bla", "invoice"));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (null, "invoice"));
     assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
                                                                                       "order "));
 
