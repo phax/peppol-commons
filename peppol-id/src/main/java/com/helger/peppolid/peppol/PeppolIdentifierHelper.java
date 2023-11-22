@@ -44,6 +44,7 @@ public final class PeppolIdentifierHelper
   public static final String DNS_HASHED_IDENTIFIER_PREFIX = "B-";
 
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
+  @Deprecated (forRemoval = true, since = "9.1.1")
   public static final boolean DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED = false;
 
   /**
@@ -53,6 +54,7 @@ public final class PeppolIdentifierHelper
   public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
 
   private static final AtomicBoolean CHARSET_CHECKS_DISABLED = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
+  @Deprecated (forRemoval = true, since = "9.1.1")
   private static final AtomicBoolean SCHEME_MAX_LENGTH_CHECKS_DISABLED = new AtomicBoolean (DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED);
 
   /**
@@ -168,6 +170,7 @@ public final class PeppolIdentifierHelper
    *         schemes is disabled. This is required for BDSML but must be
    *         <code>false</code> for the old SML.
    */
+  @Deprecated (forRemoval = true, since = "9.1.1")
   public static boolean areSchemeMaxLengthChecksDisabled ()
   {
     return SCHEME_MAX_LENGTH_CHECKS_DISABLED.get ();
@@ -180,9 +183,16 @@ public final class PeppolIdentifierHelper
    *        <code>true</code> to disable the check (for BDSML) or
    *        <code>false</code> to enabled the check (for old SML).
    */
+  @Deprecated (forRemoval = true, since = "9.1.1")
   public static void disableSchemeMaxLengthChecks (final boolean bDisable)
   {
     SCHEME_MAX_LENGTH_CHECKS_DISABLED.set (bDisable);
+  }
+
+  private static boolean _isForbiddenSchemeIDChar (final char c)
+  {
+    // Disallow all whitespace chars
+    return c == 9 || c == 10 || c == 11 || c == 12 || c == 13 || c == ' ' || c == 133 || c == 160;
   }
 
   /**
@@ -211,8 +221,14 @@ public final class PeppolIdentifierHelper
     if (sScheme.indexOf (CIdentifier.URL_SCHEME_VALUE_SEPARATOR) >= 0)
       return false;
 
-    if (areSchemeMaxLengthChecksDisabled ())
-      return true;
-    return nLength <= MAX_IDENTIFIER_SCHEME_LENGTH;
+    for (final char c : sScheme.toCharArray ())
+      if (_isForbiddenSchemeIDChar (c))
+        return false;
+
+    if (!areSchemeMaxLengthChecksDisabled ())
+      if (nLength > MAX_IDENTIFIER_SCHEME_LENGTH)
+        return false;
+
+    return true;
   }
 }

@@ -26,7 +26,9 @@ import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier;
+import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 
@@ -63,6 +65,25 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     return PeppolIdentifierHelper.isValidIdentifierScheme (sScheme);
   }
 
+  private static boolean _isForbiddenCustomizationIDChar (final char c)
+  {
+    return c == '*' || c == 9 || c == 10 || c == 11 || c == 12 || c == 13 || c == ' ' || c == 133 || c == 160;
+  }
+
+  public static boolean isValidCustomizationID (@Nullable final String s)
+  {
+    if (StringHelper.hasNoText (s))
+      return false;
+
+    // POLICY 17 (applies identical for busdox-docid-qns and
+    // peppol-doctype-wildcard)
+    for (final char c : s.toCharArray ())
+      if (_isForbiddenCustomizationIDChar (c))
+        return false;
+
+    return true;
+  }
+
   @Override
   public boolean isDocumentTypeIdentifierValueValid (@Nullable final String sValue)
   {
@@ -71,12 +92,34 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
     final int nLength = sValue.length ();
 
-    // > 0 and <= 500 chars
-    if (nLength == 0 || nLength > PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)
+    // POLICY 1
+    // at least 1 char
+    if (nLength == 0)
       return false;
-
+    // <= 500 chars
+    if (nLength > PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)
+      return false;
     // Check if the value is ISO-8859-1 encoded
-    return PeppolIdentifierHelper.areCharsetChecksDisabled () || StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
+    if (!PeppolIdentifierHelper.areCharsetChecksDisabled ())
+      if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
+        return false;
+
+    try
+    {
+      final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (sValue);
+      final String sCustomizationID = aParts.getCustomizationID ();
+
+      // POLICY 17
+      if (!isValidCustomizationID (sCustomizationID))
+        return false;
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // Syntax error - not valid
+      return false;
+    }
+
+    return true;
   }
 
   @Nullable
@@ -87,7 +130,8 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   }
 
   @Nullable
-  public PeppolDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
+  public PeppolDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
+                                                                    @Nullable final String sValue)
   {
     final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return PeppolDocumentTypeIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
@@ -134,7 +178,8 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   {
     if (!PeppolIdentifierHelper.isValidIdentifierScheme (sScheme))
       return false;
-    return RegExHelper.stringMatchesPattern (PeppolIdentifierHelper.PARTICIPANT_IDENTIFIER_SCHEME_REGEX, sScheme.toLowerCase (Locale.US));
+    return RegExHelper.stringMatchesPattern (PeppolIdentifierHelper.PARTICIPANT_IDENTIFIER_SCHEME_REGEX,
+                                             sScheme.toLowerCase (Locale.US));
   }
 
   /**
@@ -168,7 +213,8 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
         return false;
 
     // Check if the value is US ASCII encoded
-    return PeppolIdentifierHelper.areCharsetChecksDisabled () || StandardCharsets.US_ASCII.newEncoder ().canEncode (sValue);
+    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
+           StandardCharsets.US_ASCII.newEncoder ().canEncode (sValue);
   }
 
   @Nullable
@@ -179,7 +225,8 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   }
 
   @Nullable
-  public PeppolParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
+  public PeppolParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
+                                                                  @Nullable final String sValue)
   {
     final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return PeppolParticipantIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
@@ -207,7 +254,8 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
       return false;
 
     // Check if the value is ISO-8859-1 encoded
-    return PeppolIdentifierHelper.areCharsetChecksDisabled () || StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
+    return PeppolIdentifierHelper.areCharsetChecksDisabled () ||
+           StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue);
   }
 
   @Nullable

@@ -46,7 +46,8 @@ public final class PeppolIdentifierFactoryTest
                                                                  "busdox-actorid",
                                                                  "any-domain_actorid_any-type",
                                                                  "any-nonactoid-anybutmuchtoooooooooooooooooooooooolong" };
-  private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
+  private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a',
+                                                                           PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
   private static final String VALUE_MAX_LENGTH_PLUS_1 = VALUE_MAX_LENGTH + 'a';
 
   @Test
@@ -102,13 +103,14 @@ public final class PeppolIdentifierFactoryTest
     assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (null));
     assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (""));
 
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("invoice"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("order "));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("invoice"));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("order "));
 
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (StringHelper.getRepeated ('a',
-                                                                                                               PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (StringHelper.getRepeated ('a',
+                                                                                                                PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)));
     assertFalse (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (StringHelper.getRepeated ('a',
                                                                                                                 PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH +
                                                                                                                      1)));
+    assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("urn:rootnamespace::localelement##customizationid::version"));
   }
 }

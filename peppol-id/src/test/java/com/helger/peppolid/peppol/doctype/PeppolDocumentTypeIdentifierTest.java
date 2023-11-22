@@ -47,21 +47,23 @@ public final class PeppolDocumentTypeIdentifierTest
   public void testHasDefaultDocumentTypeIdentifierScheme ()
   {
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    assertTrue (aIF.createDocumentTypeIdentifierWithDefaultScheme ("abc")
+    assertTrue (aIF.createDocumentTypeIdentifierWithDefaultScheme ("urn:rootnamespace::localelement##customizationid::version")
                    .hasScheme (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS));
-    assertFalse (new PeppolDocumentTypeIdentifier ("doctype", "abc").hasDefaultScheme ());
+    assertFalse (new PeppolDocumentTypeIdentifier ("doctype",
+                                                   "urn:rootnamespace::localelement##customizationid::version").hasDefaultScheme ());
   }
 
   @Test
   public void testCtor ()
   {
-    final PeppolDocumentTypeIdentifier aID = new PeppolDocumentTypeIdentifier ("scheme", "value");
+    final PeppolDocumentTypeIdentifier aID = new PeppolDocumentTypeIdentifier ("scheme",
+                                                                               "urn:rootnamespace::localelement##customizationid::version");
     assertEquals ("scheme", aID.getScheme ());
-    assertEquals ("value", aID.getValue ());
+    assertEquals ("urn:rootnamespace::localelement##customizationid::version", aID.getValue ());
 
     final PeppolDocumentTypeIdentifier aID2 = new PeppolDocumentTypeIdentifier (aID);
     assertEquals ("scheme", aID2.getScheme ());
-    assertEquals ("value", aID2.getValue ());
+    assertEquals ("urn:rootnamespace::localelement##customizationid::version", aID2.getValue ());
 
     assertTrue (aID.hasSameContent (aID2));
     XMLTestHelper.testMicroTypeConversion (aID2);
@@ -70,9 +72,12 @@ public final class PeppolDocumentTypeIdentifierTest
   @Test
   public void testBasicMethods ()
   {
-    final PeppolDocumentTypeIdentifier aID1 = new PeppolDocumentTypeIdentifier ("scheme", "value");
-    final PeppolDocumentTypeIdentifier aID2 = new PeppolDocumentTypeIdentifier ("scheme", "value");
-    final PeppolDocumentTypeIdentifier aID3 = new PeppolDocumentTypeIdentifier ("scheme2", "value");
+    final PeppolDocumentTypeIdentifier aID1 = new PeppolDocumentTypeIdentifier ("scheme",
+                                                                                "urn:rootnamespace::localelement##customizationid::version");
+    final PeppolDocumentTypeIdentifier aID2 = new PeppolDocumentTypeIdentifier ("scheme",
+                                                                                "urn:rootnamespace::localelement##customizationid::version");
+    final PeppolDocumentTypeIdentifier aID3 = new PeppolDocumentTypeIdentifier ("scheme2",
+                                                                                "urn:rootnamespace::localelement##customizationid::version");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
@@ -82,23 +87,26 @@ public final class PeppolDocumentTypeIdentifierTest
   public void testURIStuff ()
   {
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    final IDocumentTypeIdentifier aID1 = new PeppolDocumentTypeIdentifier ("scheme1", "value1");
-    assertEquals ("scheme1::value1", aID1.getURIEncoded ());
-    assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
-    final IDocumentTypeIdentifier aID2 = aIF.parseDocumentTypeIdentifier ("scheme1::value1");
+    final IDocumentTypeIdentifier aID1 = new PeppolDocumentTypeIdentifier ("scheme1",
+                                                                           "urn:rootnamespace::localelement##customizationid::version");
+    assertEquals ("scheme1::urn:rootnamespace::localelement##customizationid::version", aID1.getURIEncoded ());
+    assertEquals ("scheme1%3A%3Aurn%3Arootnamespace%3A%3Alocalelement%23%23customizationid%3A%3Aversion",
+                  aID1.getURIPercentEncoded ());
+    final IDocumentTypeIdentifier aID2 = aIF.parseDocumentTypeIdentifier ("scheme1::urn:rootnamespace::localelement##customizationid::version");
     assertEquals (aID1, aID2);
 
     assertNull (aIF.parseDocumentTypeIdentifier (null));
     assertNull (aIF.parseDocumentTypeIdentifier (""));
     assertNull (aIF.parseDocumentTypeIdentifier ("scheme1"));
 
-    assertNotNull (aIF.parseDocumentTypeIdentifier ("doctype::invoice"));
-    assertNotNull (aIF.parseDocumentTypeIdentifier ("doctype::order "));
+    assertNotNull (aIF.parseDocumentTypeIdentifier ("doctype::urn:rootnamespace::localelement##customizationid::version"));
+    assertNotNull (aIF.parseDocumentTypeIdentifier ("doctype::urn:rootnamespace::localelement##customizationid2::version "));
 
     assertNull (aIF.parseDocumentTypeIdentifier ("doctypethatiswaytoolongforwhatisexpected::order"));
     assertNull (aIF.parseDocumentTypeIdentifier ("doctype::" +
                                                  StringHelper.getRepeated ('a',
-                                                                           PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH + 1)));
+                                                                           PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH +
+                                                                                1)));
     assertNull (aIF.parseDocumentTypeIdentifier ("doctype:order"));
     assertNull (aIF.parseDocumentTypeIdentifier ("doctypeorder"));
   }
@@ -110,7 +118,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // null key not allowed
-      new PeppolDocumentTypeIdentifier (null, "value");
+      new PeppolDocumentTypeIdentifier (null, "urn:rootnamespace::localelement##customizationid::version");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -119,7 +127,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // invalid scheme
-      new PeppolDocumentTypeIdentifier ("", "value");
+      new PeppolDocumentTypeIdentifier ("", "urn:rootnamespace::localelement##customizationid::version");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -128,7 +136,7 @@ public final class PeppolDocumentTypeIdentifierTest
     try
     {
       // separator is forbidden
-      new PeppolDocumentTypeIdentifier ("abc::def", "value");
+      new PeppolDocumentTypeIdentifier ("abc::def", "urn:rootnamespace::localelement##customizationid::version");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -174,7 +182,9 @@ public final class PeppolDocumentTypeIdentifierTest
     {
       // Scheme too long
       new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS +
-                                        StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+                                        StringHelper.getRepeated ('a',
+                                                                  PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH +
+                                                                       1),
                                         "abc");
       fail ();
     }
@@ -185,7 +195,9 @@ public final class PeppolDocumentTypeIdentifierTest
     {
       // Value too long
       new PeppolDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                        StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH + 1));
+                                        StringHelper.getRepeated ('a',
+                                                                  PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH +
+                                                                       1));
       fail ();
     }
     catch (final IllegalArgumentException ex)
