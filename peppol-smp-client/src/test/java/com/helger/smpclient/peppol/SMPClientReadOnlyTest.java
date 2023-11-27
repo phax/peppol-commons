@@ -71,7 +71,6 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 public final class SMPClientReadOnlyTest
 {
   @Test
-  @Ignore ("Currently down")
   public void testGetSMPHostURI_Peppol () throws SMPClientException, SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
@@ -111,7 +110,6 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Currently down")
   public void testInvalidTrustStore () throws SMPDNSResolutionException,
                                        SMPClientException,
                                        GeneralSecurityException,

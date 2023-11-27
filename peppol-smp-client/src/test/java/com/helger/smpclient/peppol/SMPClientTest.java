@@ -65,7 +65,7 @@ import jakarta.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
  *
  * @author Philip Helger
  */
-@Ignore
+@Ignore ("because its the writing API test")
 public final class SMPClientTest
 {
   @ClassRule
