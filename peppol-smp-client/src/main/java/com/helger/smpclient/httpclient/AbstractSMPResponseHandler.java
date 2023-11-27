@@ -73,8 +73,9 @@ public abstract class AbstractSMPResponseHandler <T> implements HttpClientRespon
     final HttpEntity aEntity = aResponse.getEntity ();
     if (aResponse.getCode () >= 300)
     {
-      if (false && GlobalDebug.isDebugMode ())
+      if (GlobalDebug.isDebugMode ())
       {
+        // Contain response details in exception
         final String sEntity = HttpClientHelper.entityToString (aEntity, StandardCharsets.UTF_8);
         throw new HttpResponseException (aResponse.getCode (), aResponse.getReasonPhrase () + "\n" + sEntity);
       }
