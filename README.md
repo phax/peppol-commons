@@ -13,6 +13,7 @@ This project contains different libraries that are commonly used in the Peppol a
 * [`peppol-smp-datatypes`](#peppol-smp-datatypes) - the Peppol SMP generated JAXB classes (since v8.4.0)
 * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
 * [`peppol-directory-businesscard`](#peppol-directory-businesscard) - the Peppol Directory Business Card data model (since v9.1.0)
+* [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2)
   
 These project are used implicitly by e.g. the following projects:
 * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
@@ -96,7 +97,20 @@ I also provide an OSS [phoss SMP server](https://github.com/phax/phoss-smp) with
 
 ## peppol-directory-businesscard
 
+This was introduced in v9.1.0
+
 This project holds the different versions of the Peppol Directory Business Card data model, as well as one generic model.
+
+## peppol-mlr
+
+This was introduced in v9.1.2
+
+This project holds utility classes to read and write a Peppol Message Level Response (MLR) as defined in https://docs.peppol.eu/poacc/upgrade-3/profiles/36-mlr/
+
+* Class `PeppolMLRBuilder` can be used to build a Peppol MLR document - with or without line details. For each `LineResponse` the specialized builder class `PeppolMLRLineResponseBuilder` is available.
+* Class `PeppolMLRMarshaller` can be used to serialize MLR messages from and to XML. It is based on the [ph-ubl](https://github.com/phax/ph-ubl) marshaller.
+
+See https://github.com/phax/peppol-commons/blob/master/peppol-mlr/src/test/java/com/helger/peppol/mlr/PeppolMLRBuilderTest.java for an example how to use the classes.
 
 ### Configuration
 
@@ -236,6 +250,12 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
   <artifactId>peppol-directory-businesscard</artifactId>
   <version>x.y.z</version>
 </dependency>
+
+<dependency>
+  <groupId>com.helger.peppol</groupId>
+  <artifactId>peppol-mlr</artifactId>
+  <version>x.y.z</version>
+</dependency>
 ```
 
 Alternatively use the following code in your `dependencyManagement` section to use it as a BOM:
@@ -263,6 +283,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.1.2 - 2023-12-06
+    * Added new submodule `peppol-mlr`. It contains data structures to read and write Peppol Message Level Response messages.
 * v9.1.1 - 2023-11-22
     * Added the "peppol-directory-businesscard" to the known submodules in the BOM part of pom.xml
     * Updated to OpenPeppol eDEC Code Lists v8.7
