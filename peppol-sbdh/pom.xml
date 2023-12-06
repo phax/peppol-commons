@@ -112,7 +112,13 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.peppol.sbdh</Automatic-Module-Name>
-            <Export-Package>com.helger.peppol.sbdh.*</Export-Package>
+            <Export-Package>
+              com.helger.peppol.sbdh,
+              com.helger.peppol.sbdh.payload,
+              com.helger.peppol.sbdh.read,
+              com.helger.peppol.sbdh.write,
+              com.helger.peppol.sbdh.spec12
+            </Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
           </instructions>
         </configuration>

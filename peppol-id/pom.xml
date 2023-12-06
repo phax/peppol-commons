@@ -116,7 +116,29 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.peppolid</Automatic-Module-Name>
-            <Export-Package>com.helger.peppolid.*</Export-Package>
+            <Export-Package>
+              com.helger.peppolid,
+              com.helger.peppolid.bdxr.smp1,
+              com.helger.peppolid.bdxr.smp1.doctype,
+              com.helger.peppolid.bdxr.smp1.participant,
+              com.helger.peppolid.bdxr.smp1.process,
+              com.helger.peppolid.bdxr.smp2,
+              com.helger.peppolid.bdxr.smp2.doctype,
+              com.helger.peppolid.bdxr.smp2.participant,
+              com.helger.peppolid.bdxr.smp2.process,
+              com.helger.peppolid.config,
+              com.helger.peppolid.factory,
+              com.helger.peppolid.peppol,
+              com.helger.peppolid.peppol.doctype,
+              com.helger.peppolid.peppol.participant,
+              com.helger.peppolid.peppol.pidscheme,
+              com.helger.peppolid.peppol.process,
+              com.helger.peppolid.peppol.transportprofile,
+              com.helger.peppolid.peppol.validator,
+              com.helger.peppolid.simple.doctype,
+              com.helger.peppolid.simple.participant,
+              com.helger.peppolid.simple.process
+            </Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",

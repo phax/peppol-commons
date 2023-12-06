@@ -129,7 +129,22 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.smpclient</Automatic-Module-Name>
-            <Export-Package>com.helger.smpclient.*</Export-Package>
+            <Export-Package>
+              com.helger.smpclient.bdxr1,
+              com.helger.smpclient.bdxr1.marshal,
+              com.helger.smpclient.bdxr2,
+              com.helger.smpclient.bdxr2.marshal,
+              com.helger.smpclient.config,
+              com.helger.smpclient.exception,
+              com.helger.smpclient.extension,
+              com.helger.smpclient.httpclient,
+              com.helger.smpclient.json,
+              com.helger.smpclient.peppol,
+              com.helger.smpclient.peppol.marshal,
+              com.helger.smpclient.peppol.utils,
+              com.helger.smpclient.security,
+              com.helger.smpclient.url
+            </Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
           </instructions>
         </configuration>

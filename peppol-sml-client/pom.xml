@@ -128,7 +128,14 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.peppol.smlclient</Automatic-Module-Name>
-            <Export-Package>com.helger.peppol.smlclient.*</Export-Package>
+            <Export-Package>
+              com.helger.peppol.smlclient,
+              com.helger.peppol.smlclient.bdmsl,
+              com.helger.peppol.smlclient.participant,
+              com.helger.peppol.smlclient.smp,
+              com.helger.peppol.smlclient.support,
+              com.helger.peppol.smlclient.tls
+            </Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
           </instructions>
         </configuration>

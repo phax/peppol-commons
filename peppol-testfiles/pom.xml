@@ -87,7 +87,12 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.peppol.testfiles</Automatic-Module-Name>
-            <Export-Package>com.helger.peppol.testfiles.*</Export-Package>
+            <Export-Package>
+              com.helger.peppol.testfiles,
+              com.helger.peppol.testfiles.official,
+              com.helger.peppol.testfiles.sbdh,
+              com.helger.peppol.testfiles.ubl
+            </Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
