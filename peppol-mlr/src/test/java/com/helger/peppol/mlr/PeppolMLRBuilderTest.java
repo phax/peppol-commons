@@ -51,7 +51,8 @@ public final class PeppolMLRBuilderTest
 
     if (false)
       LOGGER.info (new PeppolMLRMarshaller ().setFormattedOutput (true).getAsString (aMLR));
-    new PeppolMLRMarshaller ().setFormattedOutput (true).write (aMLR, new File ("generated/mlr1.xml"));
+    if (false)
+      new PeppolMLRMarshaller ().setFormattedOutput (true).write (aMLR, new File ("generated/mlr1.xml"));
   }
 
   @Test
@@ -72,6 +73,7 @@ public final class PeppolMLRBuilderTest
 
     if (false)
       LOGGER.info (new PeppolMLRMarshaller ().setFormattedOutput (true).getAsString (aMLR));
-    new PeppolMLRMarshaller ().setFormattedOutput (true).write (aMLR, new File ("generated/mlr2.xml"));
+    if (false)
+      new PeppolMLRMarshaller ().setFormattedOutput (true).write (aMLR, new File ("generated/mlr2.xml"));
   }
 }

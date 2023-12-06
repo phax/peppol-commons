@@ -19,6 +19,7 @@ package com.helger.peppol.mlr;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Locale;
 import java.util.UUID;
 
 import javax.annotation.Nonnull;
@@ -34,6 +35,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.phive.api.result.ValidationResultList;
 
 import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.ApplicationResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.DocumentReferenceType;
@@ -360,5 +362,40 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     final PeppolMLRBuilder ret = new PeppolMLRBuilder (EPeppolMLRResponseCode.REJECTION);
     _init (ret);
     return ret;
+  }
+
+  /**
+   * Create a predefined Peppol MLR builder based on the validation result list.
+   * If the list contains no error, {@link #acceptance()} is returned else
+   * {@link #rejection()} with the pre-filled lines is returned. Sender,
+   * Receiver and Reference ID need to be set manually anyway.
+   *
+   * @param aVRL
+   *        The Validation result list to evaluate. May not be
+   *        <code>null</code>.
+   * @return A new {@link PeppolMLRBuilder} and never <code>null</code>.
+   */
+  @Nonnull
+  public static PeppolMLRBuilder createForValidationResultList (@Nonnull final ValidationResultList aVRL)
+  {
+    ValueEnforcer.notNull (aVRL, "ValidationResultList");
+
+    // Overall status
+    final PeppolMLRBuilder aMLRBuilder = aVRL.containsNoError () ? acceptance () : rejection ();
+
+    // Add each warning/error
+    final Locale aDisplayLocale = Locale.US;
+    aVRL.forEachFlattened (aError -> {
+      // Single error or warning?
+      final PeppolMLRLineResponseBuilder aLineBuilder = aError.isError () ? PeppolMLRLineResponseBuilder.rejection ()
+                                                                                                        .statusReasonCodeBusinessRuleViolationFatal ()
+                                                                          : PeppolMLRLineResponseBuilder.acknowledging ()
+                                                                                                        .statusReasonCodeBusinessRuleViolationWarning ();
+      aMLRBuilder.addLineResponse (aLineBuilder.errorField (aError.getErrorFieldName ())
+                                               .description (StringHelper.getConcatenatedOnDemand (aError.getErrorID (),
+                                                                                                   " - ",
+                                                                                                   aError.getErrorText (aDisplayLocale))));
+    });
+    return aMLRBuilder;
   }
 }
