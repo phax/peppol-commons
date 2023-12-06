@@ -44,7 +44,7 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
 
   private final EPeppolMLRResponseCode m_eResponseCode;
   private String m_sErrorField;
-  private String m_sResponseText;
+  private String m_sDescription;
   private EPeppolMLRStatusReasonCode m_eStatusReasonCode;
 
   public PeppolMLRLineResponseBuilder (@Nonnull final EPeppolMLRResponseCode eResponseCode)
@@ -54,7 +54,8 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
   }
 
   /**
-   * Set the XPath of the field that is under error.
+   * Set the name of the field that is under error. In case of a Schematron
+   * failure this should be the "test" of the failed Schematron assertion.
    *
    * @param s
    *        Reference to the field under error
@@ -69,7 +70,7 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
 
   /**
    * Set the response text for this particular line. This should be a human
-   * readable text line the error message refering to a specific field. In case
+   * readable text line the error message referring to a specific field. In case
    * of a Schematron failure, it might be the text of the failed assertion.
    *
    * @param s
@@ -77,9 +78,9 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
    * @return this for chaining
    */
   @Nonnull
-  public PeppolMLRLineResponseBuilder responseText (@Nullable final String s)
+  public PeppolMLRLineResponseBuilder description (@Nullable final String s)
   {
-    m_sResponseText = s;
+    m_sDescription = s;
     return this;
   }
 
@@ -110,10 +111,27 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
 
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
+    // Enforced by XSD
     if (StringHelper.hasNoText (m_sErrorField))
     {
       if (bLogDetails)
         LOGGER.warn ("The LineResponse Error Field is missing");
+      return false;
+    }
+
+    // Enforced by Schematron
+    if (StringHelper.hasNoText (m_sDescription))
+    {
+      if (bLogDetails)
+        LOGGER.warn ("The LineResponse Description is missing");
+      return false;
+    }
+
+    // Enforced by Schematron
+    if (m_eStatusReasonCode == null)
+    {
+      if (bLogDetails)
+        LOGGER.warn ("The LineResponse Status Reason Code is missing");
       return false;
     }
     return true;
@@ -136,14 +154,10 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
     {
       final ResponseType aResponse = new ResponseType ();
       aResponse.setResponseCode (m_eResponseCode.getID ());
-      if (StringHelper.hasText (m_sResponseText))
-        aResponse.addDescription (new DescriptionType (m_sResponseText));
-      if (m_eStatusReasonCode != null)
-      {
-        final StatusType aStatus = new StatusType ();
-        aStatus.setStatusReasonCode (m_eStatusReasonCode.getID ());
-        aResponse.addStatus (aStatus);
-      }
+      aResponse.addDescription (new DescriptionType (m_sDescription));
+      final StatusType aStatus = new StatusType ();
+      aStatus.setStatusReasonCode (m_eStatusReasonCode.getID ());
+      aResponse.addStatus (aStatus);
       ret.addResponse (aResponse);
     }
 

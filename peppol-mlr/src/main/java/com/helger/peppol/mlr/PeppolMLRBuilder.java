@@ -42,6 +42,7 @@ import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.Lin
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.PartyType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.DescriptionType;
+import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.EndpointIDType;
 
 /**
  * Builder for a Peppol MLR. Fill all the fields and call {@link #build()} at
@@ -270,14 +271,38 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
       ret.setIssueTime (m_aIssueTime);
 
     {
+      final String sValue = m_aSenderPID.getValue ();
+      final String [] aParts = StringHelper.getExplodedArray (':', sValue, 2);
       final PartyType aParty = new PartyType ();
-      aParty.setEndpointID (m_aSenderPID.getURIEncoded ());
+      final EndpointIDType aEndpointID = new EndpointIDType ();
+      if (aParts.length == 2)
+      {
+        aEndpointID.setSchemeID (aParts[0]);
+        aEndpointID.setValue (aParts[1]);
+      }
+      else
+      {
+        aEndpointID.setValue (aParts[0]);
+      }
+      aParty.setEndpointID (aEndpointID);
       ret.setSenderParty (aParty);
     }
 
     {
+      final String sValue = m_aReceiverPID.getValue ();
+      final String [] aParts = StringHelper.getExplodedArray (':', sValue, 2);
       final PartyType aParty = new PartyType ();
-      aParty.setEndpointID (m_aReceiverPID.getURIEncoded ());
+      final EndpointIDType aEndpointID = new EndpointIDType ();
+      if (aParts.length == 2)
+      {
+        aEndpointID.setSchemeID (aParts[0]);
+        aEndpointID.setValue (aParts[1]);
+      }
+      else
+      {
+        aEndpointID.setValue (aParts[0]);
+      }
+      aParty.setEndpointID (aEndpointID);
       ret.setReceiverParty (aParty);
     }
 

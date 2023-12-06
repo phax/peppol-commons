@@ -18,6 +18,8 @@ package com.helger.peppol.mlr;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.io.File;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +38,7 @@ public final class PeppolMLRBuilderTest
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLRBuilderTest.class);
 
   @Test
-  public void testTopLevelOnly ()
+  public void testMinimalNoLine ()
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     final ApplicationResponseType aMLR = PeppolMLRBuilder.acceptance ()
@@ -49,10 +51,11 @@ public final class PeppolMLRBuilderTest
 
     if (false)
       LOGGER.info (new PeppolMLRMarshaller ().setFormattedOutput (true).getAsString (aMLR));
+    new PeppolMLRMarshaller ().setFormattedOutput (true).write (aMLR, new File ("generated/mlr1.xml"));
   }
 
   @Test
-  public void testWithLineResponse ()
+  public void testMinimalWithOneLine ()
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     final ApplicationResponseType aMLR = PeppolMLRBuilder.rejection ()
@@ -62,11 +65,13 @@ public final class PeppolMLRBuilderTest
                                                          .addLineResponse (PeppolMLRLineResponseBuilder.rejection ()
                                                                                                        .errorField ("Invoice/ID")
                                                                                                        .statusReasonCodeBusinessRuleViolationFatal ()
-                                                                                                       .responseText ("The ID seems to be missing"))
+                                                                                                       .description ("The ID seems to be missing"))
                                                          .build ();
     assertNotNull (aMLR);
     assertNotNull (new PeppolMLRMarshaller ().getAsDocument (aMLR));
 
-    LOGGER.info (new PeppolMLRMarshaller ().setFormattedOutput (true).getAsString (aMLR));
+    if (false)
+      LOGGER.info (new PeppolMLRMarshaller ().setFormattedOutput (true).getAsString (aMLR));
+    new PeppolMLRMarshaller ().setFormattedOutput (true).write (aMLR, new File ("generated/mlr2.xml"));
   }
 }
