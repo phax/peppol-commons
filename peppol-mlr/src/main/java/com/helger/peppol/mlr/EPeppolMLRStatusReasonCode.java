@@ -22,17 +22,22 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.state.ISuccessIndicator;
 
-public enum EPeppolMLRState implements IHasID <String>, ISuccessIndicator
+/**
+ * MLR Line Response Status Reason Code. See
+ * https://docs.peppol.eu/poacc/upgrade-3/codelist/StatusReason/
+ *
+ * @author Philip Helger
+ */
+public enum EPeppolMLRStatusReasonCode implements IHasID <String>
 {
-  ACCEPTANCE ("AP"),
-  ACKNOWLEDGING ("AB"),
-  REJECTION ("RE");
+  BUSINESS_RULE_VIOLATION_FATAL ("BV"),
+  BUSINESS_RULE_VIOLATION_WARNING ("BW"),
+  SYNTAX_VIOLATION ("SV");
 
   private final String m_sID;
 
-  EPeppolMLRState (@Nonnull @Nonempty final String sID)
+  EPeppolMLRStatusReasonCode (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }
@@ -44,19 +49,14 @@ public enum EPeppolMLRState implements IHasID <String>, ISuccessIndicator
     return m_sID;
   }
 
-  public boolean isSuccess ()
+  public boolean isFatal ()
   {
-    return this == ACCEPTANCE || this == ACKNOWLEDGING;
-  }
-
-  public boolean isFailure ()
-  {
-    return this == REJECTION;
+    return this == BUSINESS_RULE_VIOLATION_FATAL || this == SYNTAX_VIOLATION;
   }
 
   @Nullable
-  public static EPeppolMLRState getFromIDOrNull (@Nullable final String sID)
+  public static EPeppolMLRStatusReasonCode getFromIDOrNull (@Nullable final String sID)
   {
-    return EnumHelper.getFromIDOrNull (EPeppolMLRState.class, sID);
+    return EnumHelper.getFromIDOrNull (EPeppolMLRStatusReasonCode.class, sID);
   }
 }

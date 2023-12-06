@@ -25,21 +25,21 @@ import org.junit.Test;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Test class for class {@link EPeppolMLRState}.
+ * Test class for class {@link EPeppolMLRResponseCode}.
  *
  * @author Philip Helger
  */
-public final class EPeppolMLRStateTest
+public final class EPeppolMLRResponseCodeTest
 {
   @Test
   public void testBasic ()
   {
-    for (final EPeppolMLRState e : EPeppolMLRState.values ())
+    for (final EPeppolMLRResponseCode e : EPeppolMLRResponseCode.values ())
     {
       assertTrue (StringHelper.hasText (e.getID ()));
       assertTrue (e.isSuccess () || e.isFailure ());
       assertFalse (e.isSuccess () && e.isFailure ());
-      assertSame (e, EPeppolMLRState.getFromIDOrNull (e.getID ()));
+      assertSame (e, EPeppolMLRResponseCode.getFromIDOrNull (e.getID ()));
     }
   }
 }

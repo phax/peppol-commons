@@ -36,16 +36,36 @@ public final class PeppolMLRBuilderTest
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLRBuilderTest.class);
 
   @Test
-  public void testBasic ()
+  public void testTopLevelOnly ()
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    final ApplicationResponseType aMLR = new PeppolMLRBuilder (EPeppolMLRState.ACCEPTANCE).randomID ()
-                                                                                          .issueDateNow ()
-                                                                                          .referenceId ("SBDH-12345")
-                                                                                          .senderParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mlr-sender"))
-                                                                                          .receiverParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mlr-receiver"))
-                                                                                          .build ();
+    final ApplicationResponseType aMLR = PeppolMLRBuilder.acceptance ()
+                                                         .referenceId ("SBDH-12345")
+                                                         .senderParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mlr-sender"))
+                                                         .receiverParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mlr-receiver"))
+                                                         .build ();
     assertNotNull (aMLR);
+    assertNotNull (new PeppolMLRMarshaller ().getAsDocument (aMLR));
+
+    if (false)
+      LOGGER.info (new PeppolMLRMarshaller ().setFormattedOutput (true).getAsString (aMLR));
+  }
+
+  @Test
+  public void testWithLineResponse ()
+  {
+    final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    final ApplicationResponseType aMLR = PeppolMLRBuilder.rejection ()
+                                                         .referenceId ("SBDH-12345")
+                                                         .senderParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mlr-sender"))
+                                                         .receiverParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mlr-receiver"))
+                                                         .addLineResponse (PeppolMLRLineResponseBuilder.rejection ()
+                                                                                                       .errorField ("Invoice/ID")
+                                                                                                       .statusReasonCodeBusinessRuleViolationFatal ()
+                                                                                                       .responseText ("The ID seems to be missing"))
+                                                         .build ();
+    assertNotNull (aMLR);
+    assertNotNull (new PeppolMLRMarshaller ().getAsDocument (aMLR));
 
     LOGGER.info (new PeppolMLRMarshaller ().setFormattedOutput (true).getAsString (aMLR));
   }

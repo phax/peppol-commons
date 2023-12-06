@@ -29,6 +29,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.builder.IBuilder;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -36,6 +38,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.ApplicationResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.DocumentReferenceType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.DocumentResponseType;
+import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.PartyType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.DescriptionType;
@@ -50,7 +53,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLRBuilder.class);
 
-  private final EPeppolMLRState m_eState;
+  private final EPeppolMLRResponseCode m_eResponseCode;
   private String m_sID;
   private LocalDate m_aIssueDate;
   private LocalTime m_aIssueTime;
@@ -59,11 +62,12 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
   private String m_sReferenceID;
   private String m_sReferenceTypeCode;
   private String m_sResponseText;
+  private final ICommonsList <LineResponseType> m_aLineResponses = new CommonsArrayList <> ();
 
-  public PeppolMLRBuilder (@Nonnull final EPeppolMLRState eState)
+  public PeppolMLRBuilder (@Nonnull final EPeppolMLRResponseCode eResponseCode)
   {
-    ValueEnforcer.notNull (eState, "State");
-    m_eState = eState;
+    ValueEnforcer.notNull (eResponseCode, "ResponseCode");
+    m_eResponseCode = eResponseCode;
   }
 
   /**
@@ -183,6 +187,34 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Nonnull
+  public PeppolMLRBuilder addLineResponse (@Nullable final PeppolMLRLineResponseBuilder a)
+  {
+    return addLineResponse (a == null ? null : a.build ());
+  }
+
+  @Nonnull
+  public PeppolMLRBuilder addLineResponse (@Nullable final LineResponseType a)
+  {
+    if (a != null)
+      m_aLineResponses.add (a);
+    return this;
+  }
+
+  @Nonnull
+  public PeppolMLRBuilder lineResponses (@Nullable final LineResponseType... a)
+  {
+    m_aLineResponses.setAll (a);
+    return this;
+  }
+
+  @Nonnull
+  public PeppolMLRBuilder lineResponses (@Nullable final Iterable <? extends LineResponseType> a)
+  {
+    m_aLineResponses.setAll (a);
+    return this;
+  }
+
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
     if (StringHelper.hasNoText (m_sID))
@@ -191,24 +223,29 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
         LOGGER.warn ("The MLR ID is missing");
       return false;
     }
+
+    // Date is mandatory, time is optional
     if (m_aIssueDate == null)
     {
       if (bLogDetails)
         LOGGER.warn ("The MLR Issue Date is missing");
       return false;
     }
+
     if (m_aSenderPID == null)
     {
       if (bLogDetails)
         LOGGER.warn ("The MLR Sender Participant ID is missing");
       return false;
     }
+
     if (m_aReceiverPID == null)
     {
       if (bLogDetails)
         LOGGER.warn ("The MLR Receiver Participant ID is missing");
       return false;
     }
+
     if (StringHelper.hasNoText (m_sReferenceID))
     {
       if (bLogDetails)
@@ -222,7 +259,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
   public ApplicationResponseType build ()
   {
     if (!areAllFieldsSet (true))
-      throw new IllegalStateException ("Not all mandatory fields are set");
+      throw new IllegalStateException ("Not all mandatory fields for MLR are set");
 
     final ApplicationResponseType ret = new ApplicationResponseType ();
     ret.setCustomizationID (CPeppolMLR.MLR_CUSTOMIZATION_ID);
@@ -248,11 +285,12 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
       final DocumentResponseType aDocResponse = new DocumentResponseType ();
       {
         final ResponseType aResponse = new ResponseType ();
-        aResponse.setResponseCode (m_eState.getID ());
+        aResponse.setResponseCode (m_eResponseCode.getID ());
         if (StringHelper.hasText (m_sResponseText))
           aResponse.addDescription (new DescriptionType (m_sResponseText));
         aDocResponse.setResponse (aResponse);
       }
+
       {
         final DocumentReferenceType aDocRef = new DocumentReferenceType ();
         aDocRef.setID (m_sReferenceID);
@@ -260,8 +298,42 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
           aDocRef.setDocumentTypeCode (m_sReferenceTypeCode);
         aDocResponse.addDocumentReference (aDocRef);
       }
+
+      if (m_aLineResponses.isNotEmpty ())
+        aDocResponse.setLineResponse (m_aLineResponses);
+
       ret.addDocumentResponse (aDocResponse);
     }
+
+    return ret;
+  }
+
+  private static void _init (@Nonnull final PeppolMLRBuilder aBuilder)
+  {
+    aBuilder.randomID ().issueDateTimeNow ();
+  }
+
+  @Nonnull
+  public static PeppolMLRBuilder acceptance ()
+  {
+    final PeppolMLRBuilder ret = new PeppolMLRBuilder (EPeppolMLRResponseCode.ACCEPTANCE);
+    _init (ret);
+    return ret;
+  }
+
+  @Nonnull
+  public static PeppolMLRBuilder acknowledging ()
+  {
+    final PeppolMLRBuilder ret = new PeppolMLRBuilder (EPeppolMLRResponseCode.ACKNOWLEDGING);
+    _init (ret);
+    return ret;
+  }
+
+  @Nonnull
+  public static PeppolMLRBuilder rejection ()
+  {
+    final PeppolMLRBuilder ret = new PeppolMLRBuilder (EPeppolMLRResponseCode.REJECTION);
+    _init (ret);
     return ret;
   }
 }
