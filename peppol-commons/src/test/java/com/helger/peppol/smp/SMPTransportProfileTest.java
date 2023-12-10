@@ -39,7 +39,8 @@ public final class SMPTransportProfileTest
     assertEquals ("id", aTP.getID ());
     assertEquals ("name", aTP.getName ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aTP, new SMPTransportProfile ("id", "name"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aTP, new SMPTransportProfile ("id2", "name"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aTP,
+                                                                           new SMPTransportProfile ("id2", "name"));
     CommonsTestHelper.testDefaultSerialization (aTP);
     XMLTestHelper.testMicroTypeConversion (aTP);
 

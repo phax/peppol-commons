@@ -36,14 +36,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
    * The Peppol START transport profile
    */
   @Deprecated (forRemoval = false)
-  TRANSPORT_PROFILE_START("busdox-transport-start", "START")
-  {
-    @Override
-    public boolean isDeprecated ()
-    {
-      return true;
-    }
-  },
+  TRANSPORT_PROFILE_START("busdox-transport-start", "START", ESMPTransportProfileState.DEPRECATED),
 
   /**
    * The Peppol AS2 transport profile v1 (SHA-1).<br>
@@ -51,14 +44,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
    * Removed from Peppol per 2023-02-24
    */
   @Deprecated (forRemoval = false)
-  TRANSPORT_PROFILE_AS2("busdox-transport-as2-ver1p0", "Peppol AS2 v1")
-  {
-    @Override
-    public boolean isDeprecated ()
-    {
-      return true;
-    }
-  },
+  TRANSPORT_PROFILE_AS2("busdox-transport-as2-ver1p0", "Peppol AS2 v1", ESMPTransportProfileState.DEPRECATED),
 
   /**
    * The Peppol AS2 v2 transport profile v2 (SHA-256).<br>
@@ -66,28 +52,14 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
    * Removed from Peppol per 2023-02-24
    */
   @Deprecated (forRemoval = false)
-  TRANSPORT_PROFILE_AS2_V2("busdox-transport-as2-ver2p0", "Peppol AS2 v2")
-  {
-    @Override
-    public boolean isDeprecated ()
-    {
-      return true;
-    }
-  },
+  TRANSPORT_PROFILE_AS2_V2("busdox-transport-as2-ver2p0", "Peppol AS2 v2", ESMPTransportProfileState.DEPRECATED),
 
   /** The AS4 transport profile - too unspecific. Don't use */
   @Deprecated (forRemoval = false)
-  TRANSPORT_PROFILE_AS4("busdox-transport-ebms3-as4", "AS4")
-  {
-    @Override
-    public boolean isDeprecated ()
-    {
-      return true;
-    }
-  },
+  TRANSPORT_PROFILE_AS4("busdox-transport-ebms3-as4", "AS4", ESMPTransportProfileState.DEPRECATED),
 
   /** The CEF AS4 transport profile */
-  TRANSPORT_PROFILE_BDXR_AS4 ("bdxr-transport-ebms3-as4-v1p0", "CEF AS4"),
+  TRANSPORT_PROFILE_BDXR_AS4 ("bdxr-transport-ebms3-as4-v1p0", "CEF AS4", ESMPTransportProfileState.ACTIVE),
 
   /**
    * The Peppol AS4 profile v1.
@@ -95,24 +67,22 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
    * @deprecated for {@link #TRANSPORT_PROFILE_PEPPOL_AS4_V2}
    */
   @Deprecated (forRemoval = false)
-  TRANSPORT_PROFILE_PEPPOL_AS4("peppol-transport-as4-v1_0", "Peppol AS4 v1")
-  {
-    @Override
-    public boolean isDeprecated ()
-    {
-      return true;
-    }
-  },
+  TRANSPORT_PROFILE_PEPPOL_AS4("peppol-transport-as4-v1_0", "Peppol AS4 v1", ESMPTransportProfileState.DEPRECATED),
+
   /** The Peppol AS4 profile v2 */
-  TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "Peppol AS4 v2");
+  TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "Peppol AS4 v2", ESMPTransportProfileState.ACTIVE);
 
   private final String m_sID;
   private final String m_sName;
+  private final ESMPTransportProfileState m_eState;
 
-  ESMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
+  ESMPTransportProfile (@Nonnull @Nonempty final String sID,
+                        @Nonnull @Nonempty final String sName,
+                        @Nonnull final ESMPTransportProfileState eState)
   {
     m_sID = sID;
     m_sName = sName;
+    m_eState = eState;
   }
 
   @Nonnull
@@ -133,6 +103,12 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   public String getName ()
   {
     return m_sName;
+  }
+
+  @Nonnull
+  public ESMPTransportProfileState getState ()
+  {
+    return m_eState;
   }
 
   /**
