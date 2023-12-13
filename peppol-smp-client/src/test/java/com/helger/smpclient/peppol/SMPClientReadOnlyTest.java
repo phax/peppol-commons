@@ -19,6 +19,7 @@ package com.helger.smpclient.peppol;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -40,8 +41,13 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTWebDateHelper;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EContinue;
+import com.helger.commons.state.ETriState;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
+import com.helger.peppol.utils.EPeppolCertificateCheckResult;
+import com.helger.peppol.utils.ERevocationCheckMode;
+import com.helger.peppol.utils.PeppolCertificateChecker;
+import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -158,7 +164,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testActivatioDate ()
+  public void testActivationDate ()
   {
     final String sTemplate = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" +
                              "<smp:ServiceMetadata xmlns:smp=\"http://busdox.org/serviceMetadata/publishing/1.0/\" xmlns:id=\"http://busdox.org/transport/identifiers/1.0/\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\">\r\n" +
@@ -386,6 +392,31 @@ public final class SMPClientReadOnlyTest
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
                                                                                EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
     assertNotNull (aSM);
+  }
+
+  @Test
+  public void testReceiverHasRevokedAPCert () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
+
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    aSMPClient.setTrustStore (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PILOT);
+    aSMPClient.setSecureValidation (false);
+
+    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
+                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
+    assertNotNull (aSM);
+
+    final EndpointType aEndpointType = SMPClientReadOnly.getEndpoint (aSM,
+                                                                      EPredefinedProcessIdentifier.BIS3_BILLING,
+                                                                      ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
+    assertNotNull (aEndpointType);
+
+    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.checkPeppolAPCertificate (SMPClientReadOnly.getEndpointCertificate (aEndpointType),
+                                                                                                              PDTFactory.getCurrentOffsetDateTime (),
+                                                                                                              ETriState.UNDEFINED,
+                                                                                                              ERevocationCheckMode.OCSP_BEFORE_CRL);
+    assertSame (EPeppolCertificateCheckResult.REVOKED, eCertCheckResult);
   }
 
   @Test

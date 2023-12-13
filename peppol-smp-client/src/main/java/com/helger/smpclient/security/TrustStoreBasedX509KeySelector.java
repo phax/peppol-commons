@@ -180,8 +180,11 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               {
                 // The SMP response must be signed with an SMP certificate
                 final EPeppolCertificateCheckResult eCheckResult;
+                // No cache because it uses the default issuer check and trust
+                // store
                 eCheckResult = PeppolCertificateChecker.checkCertificate (PeppolCertificateChecker.getAllPeppolSMPCAIssuers (),
-                                                                          PeppolCertificateChecker.getRevocationCacheSMP (),
+                                                                          true ? null
+                                                                               : PeppolCertificateChecker.getRevocationCacheSMP (),
                                                                           PeppolCertificateChecker.peppolRevocationCheck ()
                                                                                                   .certificate (aCertificate)
                                                                                                   .checkDate (m_aValidationDateTime)
