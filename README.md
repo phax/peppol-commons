@@ -92,8 +92,11 @@ This project supports the Peppol SMP specification, the OASIS BDXR SMP v1 and OA
 This project uses Apache HTTP client to perform the REST lookups on foreign SMPs.
 
 The Peppol SMP specification 1.2.0, mandatory per 1.5.2022, is supported since v8.7.3.
+The Peppol SMP specification 1.3.0 to be used per 1.12.2023 does not require any changes and is supported out of the box.
 
 I also provide an OSS [phoss SMP server](https://github.com/phax/phoss-smp) with a nice management GUI.
+
+If you are looking for a standalone query tool, https://github.com/phax/smp-query-webapp is what you may have a look at.
 
 ## peppol-directory-businesscard
 
