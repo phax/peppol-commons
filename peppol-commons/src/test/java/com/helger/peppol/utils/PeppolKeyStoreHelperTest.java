@@ -50,7 +50,7 @@ public final class PeppolKeyStoreHelperTest
   {
     // Load trust store
     final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
-                                                                    PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_CLASSPATH,
+                                                                    PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PRODUCTION_CLASSPATH,
                                                                     PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
     assertNotNull (aTrustStore);
 
@@ -114,7 +114,7 @@ public final class PeppolKeyStoreHelperTest
   {
     // Load trust store
     final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
-                                                                    PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_CLASSPATH,
+                                                                    PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH,
                                                                     PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
     assertNotNull (aTrustStore);
 

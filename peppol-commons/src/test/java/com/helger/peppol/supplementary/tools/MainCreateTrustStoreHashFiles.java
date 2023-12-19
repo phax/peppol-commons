@@ -63,8 +63,8 @@ public final class MainCreateTrustStoreHashFiles
     _create ("truststore/directory-truststore.jks");
     _create ("truststore/2010/prod-truststore.jks");
     _create ("truststore/2010/pilot-truststore.jks");
-    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PRODUCTION_CLASSPATH);
-    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_PILOT_CLASSPATH);
+    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PRODUCTION_CLASSPATH);
+    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH);
     _create ("truststore/2018/smp-prod-truststore.jks");
     _create ("truststore/2018/smp-pilot-truststore.jks");
   }
