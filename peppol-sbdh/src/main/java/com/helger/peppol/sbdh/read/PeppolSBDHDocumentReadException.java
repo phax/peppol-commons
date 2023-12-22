@@ -28,13 +28,21 @@ public class PeppolSBDHDocumentReadException extends Exception
 {
   private final EPeppolSBDHDocumentReadError m_eErrorCode;
 
+  PeppolSBDHDocumentReadException (@Nonnull final String sErrorMsg,
+                                   @Nonnull final EPeppolSBDHDocumentReadError eErrorCode)
+  {
+    super (sErrorMsg);
+    m_eErrorCode = eErrorCode;
+  }
+
   public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode)
   {
     super (eErrorCode.getErrorMessage ());
     m_eErrorCode = eErrorCode;
   }
 
-  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode, @Nullable final Object... aArgs)
+  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
+                                          @Nullable final Object... aArgs)
   {
     super (eErrorCode.getErrorMessage (aArgs));
     m_eErrorCode = eErrorCode;

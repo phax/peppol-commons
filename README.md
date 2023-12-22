@@ -286,6 +286,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.1.4 - work in progress
+    * Made `COUNTRY_C1` in SBDH mandatory
+    
 * v9.1.3 - 2023-12-10
     * Fixed the state in `ESMPTransportProfile`
 * v9.1.2 - 2023-12-06

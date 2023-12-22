@@ -46,6 +46,10 @@
         <Identifier>ptype</Identifier>
       </Scope>
       <Scope>
+        <Type>COUNTRY_C1</Type>
+        <InstanceIdentifier>AT</InstanceIdentifier>
+      </Scope>
+      <Scope>
         <Type>AddAttr1</Type>
         <InstanceIdentifier>Value1</InstanceIdentifier>
       </Scope>

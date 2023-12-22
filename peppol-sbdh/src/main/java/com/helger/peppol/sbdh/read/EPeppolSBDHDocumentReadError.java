@@ -65,7 +65,7 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
 
   /** At least two "BusinessScope/Scope" elements must be present */
   INVALID_SCOPE_COUNT ("invalid-scope-count",
-                       "At least two ''BusinessScope/Scope'' elements must be present but found {0}."),
+                       "At least three ''BusinessScope/Scope'' elements must be present but found {0}."),
 
   /** The provided document type identifier is invalid */
   INVALID_DOCUMENT_TYPE_IDENTIFIER ("invalid-document-type-identifier",
@@ -122,7 +122,14 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
    * invalid
    */
   INVALID_CREATION_DATE_TIME ("invalid-creation-date-time",
-                              "The ''DocumentIdentification/CreationDateAndTime'' element has the invalid value ''{0}'' according to the defined rules.");
+                              "The ''DocumentIdentification/CreationDateAndTime'' element has the invalid value ''{0}'' according to the defined rules."),
+  /**
+   * This is a fallback error code, in case the ID cannot be resolved to a
+   * proper other error code.
+   *
+   * @since 9.1.4
+   */
+  GENERIC_SBDH_ERROR ("generic-sbdh-error", "A generic error occurred.");
 
   private final String m_sID;
   private final String m_sErrorMsg;
@@ -167,5 +174,12 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   public static EPeppolSBDHDocumentReadError getFromIDOrNull (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrNull (EPeppolSBDHDocumentReadError.class, sID);
+  }
+
+  @Nullable
+  public static EPeppolSBDHDocumentReadError getFromIDOrDefault (@Nullable final String sID,
+                                                                 @Nullable final EPeppolSBDHDocumentReadError eDefault)
+  {
+    return EnumHelper.getFromIDOrDefault (EPeppolSBDHDocumentReadError.class, sID, eDefault);
   }
 }

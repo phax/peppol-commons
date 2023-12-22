@@ -85,8 +85,8 @@ public final class CPeppolSBDH
   private CPeppolSBDH ()
   {}
 
-  // TODO Change to true (and make public), once it is mandatory
-  private static final AtomicBoolean IS_COUNTRY_C1_MANDATORY = new AtomicBoolean (false);
+  // Mandatory since 2024-01-01
+  private static final AtomicBoolean IS_COUNTRY_C1_MANDATORY = new AtomicBoolean (true);
   private static final Logger LOGGER = LoggerFactory.getLogger (CPeppolSBDH.class);
 
   /**
@@ -96,6 +96,7 @@ public final class CPeppolSBDH
    * @return <code>true</code> if the COUNTRY_C1 field is mandatory or not.
    * @since 9.0.5
    */
+  @Deprecated (forRemoval = true, since = "9.1.4")
   public static boolean isCountryC1Mandatory ()
   {
     return IS_COUNTRY_C1_MANDATORY.get ();
@@ -110,6 +111,7 @@ public final class CPeppolSBDH
    *        <code>true</code> to make it mandatory.
    * @since 9.0.5
    */
+  @Deprecated (forRemoval = true, since = "9.1.4")
   public static void setCountryC1Mandatory (final boolean bIsMandatory)
   {
     if (isCountryC1Mandatory () != bIsMandatory)

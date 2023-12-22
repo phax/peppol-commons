@@ -43,6 +43,10 @@
         <Type>PROCESSID</Type>
         <InstanceIdentifier>urn:www.cenbii.eu:profile:bii04:ver1.0</InstanceIdentifier>
       </Scope>
+      <Scope>
+        <Type>COUNTRY_C1</Type>
+        <InstanceIdentifier>AT</InstanceIdentifier>
+      </Scope>
     </BusinessScope>
   </StandardBusinessDocumentHeader>
 </StandardBusinessDocument>

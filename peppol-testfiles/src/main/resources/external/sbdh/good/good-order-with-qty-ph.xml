@@ -42,6 +42,10 @@
                 <sbdh:Type>PROCESSID</sbdh:Type>
                 <sbdh:InstanceIdentifier>urn:www.cenbii.eu:profile:bii03:ver2.0</sbdh:InstanceIdentifier>
             </sbdh:Scope>
+            <sbdh:Scope>
+              <sbdh:Type>COUNTRY_C1</sbdh:Type>
+              <sbdh:InstanceIdentifier>AT</sbdh:InstanceIdentifier>
+            </sbdh:Scope>
         </sbdh:BusinessScope>
     </sbdh:StandardBusinessDocumentHeader>
     <Order:Order xmlns:Order="urn:oasis:names:specification:ubl:schema:xsd:Order-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Order-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:xs="http://www.w3.org/2001/XMLSchema">

@@ -75,6 +75,7 @@ public final class PeppolSBDHDocumentReaderTest
     BAD_CASES.put ("bad-invalid-document-type-identifier.xml",
                    EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER);
     BAD_CASES.put ("bad-invalid-process-identifier.xml", EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER);
+    BAD_CASES.put ("bad-no-country-c1.xml", EPeppolSBDHDocumentReadError.MISSING_COUNTRY_C1);
     BAD_CASES.put ("bad-no-document-type-identifier.xml",
                    EPeppolSBDHDocumentReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER);
     BAD_CASES.put ("bad-no-process-identifier.xml", EPeppolSBDHDocumentReadError.MISSING_PROCESS_IDENTIFIER);
@@ -105,7 +106,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertEquals ("0088:7315458756324", aData.getSenderValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aData.getReceiverScheme ());
     assertEquals ("0088:4562458856624", aData.getReceiverValue ());
-    assertNull (aData.getCountryC1 ());
+    assertEquals ("AT", aData.getCountryC1 ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", aData.getStandard ());
     assertEquals ("2.1", aData.getTypeVersion ());
     assertEquals ("Invoice", aData.getType ());
@@ -140,7 +141,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertEquals ("0088:7315458756324", aData.getSenderValue ());
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aData.getReceiverScheme ());
     assertEquals ("0088:4562458856624", aData.getReceiverValue ());
-    assertNull (aData.getCountryC1 ());
+    assertEquals ("AT", aData.getCountryC1 ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", aData.getStandard ());
     assertEquals ("2.1", aData.getTypeVersion ());
     assertEquals ("Invoice", aData.getType ());

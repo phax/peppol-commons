@@ -115,7 +115,8 @@ public final class PeppolSBDHDocumentWriterTest
                                                        .setSenderWithDefaultScheme ("0088:sender")
                                                        .setReceiverWithDefaultScheme ("0099:receiver")
                                                        .setDocumentTypeWithPeppolDoctypeWildcard ("urn:foobar::root#doctypeid:2.1")
-                                                       .setProcessWithDefaultScheme ("procid");
+                                                       .setProcessWithDefaultScheme ("procid")
+                                                       .setCountryC1 ("BE");
     assertTrue (aData.areAllFieldsSet ());
     assertTrue (aData.areAllAdditionalAttributesValid ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, aData.getDocumentTypeScheme ());

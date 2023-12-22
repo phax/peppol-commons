@@ -1044,7 +1044,7 @@ public class PeppolSBDHDocument
            StringHelper.hasText (m_sDocumentTypeValue) &&
            StringHelper.hasText (m_sProcessScheme) &&
            StringHelper.hasText (m_sProcessValue) &&
-           (CPeppolSBDH.isCountryC1Mandatory () ? StringHelper.hasText (m_sCountryC1) : true) &&
+           StringHelper.hasText (m_sCountryC1) &&
            m_sStandard != null &&
            m_sTypeVersion != null &&
            m_sType != null &&

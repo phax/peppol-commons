@@ -20,7 +20,7 @@
 <StandardBusinessDocument xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader">
   <StandardBusinessDocumentHeader>
-    <HeaderVersion>1.5</HeaderVersion>
+    <HeaderVersion>1.0</HeaderVersion>
     <Sender>
       <Identifier Authority="iso6523-actorid-upis">0088:7315458756324</Identifier>
     </Sender>
@@ -44,7 +44,7 @@
         <InstanceIdentifier>urn:www.cenbii.eu:profile:bii04:ver1.0</InstanceIdentifier>
       </Scope>
       <Scope>
-        <Type>COUNTRY_C1</Type>
+        <Type>other</Type>
         <InstanceIdentifier>AT</InstanceIdentifier>
       </Scope>
     </BusinessScope>

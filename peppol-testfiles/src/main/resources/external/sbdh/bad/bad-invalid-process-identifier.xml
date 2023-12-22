@@ -43,6 +43,10 @@
         <Type>PROCESSID</Type>
         <InstanceIdentifier></InstanceIdentifier>
       </Scope>
+      <Scope>
+        <Type>COUNTRY_C1</Type>
+        <InstanceIdentifier>AT</InstanceIdentifier>
+      </Scope>
     </BusinessScope>
   </StandardBusinessDocumentHeader>
   <ns4:Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ns2="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"

@@ -54,6 +54,10 @@
                     <ServiceTransaction IsNonRepudiationRequired="false" IsAuthenticationRequired="false" IsNonRepudiationOfReceiptRequired="false" IsIntelligibleCheckRequired="false" IsApplicationErrorResponseRequested="false"/>
                 </BusinessService>
             </Scope>
+            <Scope>
+              <Type>COUNTRY_C1</Type>
+              <InstanceIdentifier>AT</InstanceIdentifier>
+            </Scope>
         </BusinessScope>
     </StandardBusinessDocumentHeader>
 <ubl:Invoice xmlns:ubl="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
