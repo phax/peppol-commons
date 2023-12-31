@@ -288,9 +288,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v9.1.4 - work in progress
     * Made `COUNTRY_C1` in SBDH mandatory
-    
 * v9.1.3 - 2023-12-10
-    * Fixed the state in `ESMPTransportProfile`
+    * Fixed the "state" in `ESMPTransportProfile` predefined values
 * v9.1.2 - 2023-12-06
     * Added new submodule `peppol-mlr`. It contains data structures to read and write Peppol Message Level Response messages.
 * v9.1.1 - 2023-11-22
