@@ -3,11 +3,10 @@
 `sml-truststore.jks` (since v6.0.4)
 * It contains the SSL certificates to access the central Peppol SML
 * Updated 2019-12-03 for the new SMK certificate chain
+* Updated 2024-01-02 removed the old GlobalSign certificates
 * The contained aliases are:
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
-    * `globalsign root ca`
-    * `globalsign organization validation ca - sha256 - g2 (globalsign root ca)`
 
 `directory-truststore.jks` (since v6.2.1)
 * It contains the SSL certificates to access the central Peppol Directory
@@ -36,34 +35,33 @@
 `2018/smp-pilot-truststore.jks` (since 8.6.4)
 * Is the global trust store for OpenPeppol pilot and works as well for SML and SMPs
 * It is valid from 2018-2028
+* Updated 2024-01-02 removed the old GlobalSign certificates
 * The contained aliases are:
     * `peppol root test ca - g2`
     * `peppol access point test ca - g2 (peppol root test ca - g2)`
     * `peppol service metadata publisher test ca - g2 (peppol root test ca - g2)`
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
-    * `globalsign root ca`
-    * `globalsign organization validation ca - sha256 - g2 (globalsign root ca)`
     * `isrg root x1`
     * `r3 (isrg root x1)`
 
 `2018/smp-prod-truststore.jks` (since 8.6.4)
 * Is the global trust store for OpenPeppol production and works as well for APs
 * It is valid from 2018-2028
+* Updated 2024-01-02 removed the old GlobalSign certificates
 * The contained aliases are:
     * `peppol root ca - g2`
     * `peppol access point ca - g2 (peppol root ca - g2)`
     * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
-    * `globalsign root ca`
-    * `globalsign organization validation ca - sha256 - g2 (globalsign root ca)`
     * `isrg root x1`
     * `r3 (isrg root x1)`
 
 `complete-truststore.jks`
 * This is the combination of all available truststores with the same aliases!
 * Updated in v8.4.1 (add new) and v8.5.2 (remove old) to reflect the new Let's Encrypt issuing certificate
+* Updated 2024-01-02 removed the old GlobalSign certificates
     * `peppol root ca - g2`
     * `peppol access point ca - g2 (peppol root ca - g2)`
     * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
@@ -72,8 +70,6 @@
     * `peppol service metadata publisher test ca - g2 (peppol root test ca - g2)`
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
-    * `globalsign root ca`
-    * `globalsign organization validation ca - sha256 - g2 (globalsign root ca)`
     * `isrg root x1`
     * `r3 (isrg root x1)`
 
