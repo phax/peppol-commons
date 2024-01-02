@@ -22,7 +22,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.util.Locale;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -54,9 +53,6 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -65,6 +61,7 @@ import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerUnsigned;
+import com.helger.smpclient.peppol.PeppolWildcardSelector.EMode;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerCompleteServiceGroupType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupReferenceListType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
@@ -942,77 +939,17 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The consumer to be invoked for each match. May not be
    *        <code>null</code>.
    * @since 8.8.1
+   * @deprecated Use {@link PeppolWildcardSelector} instead
    */
+  @Deprecated (forRemoval = true, since = "9.2.0")
   public static void forEachMatchingWildcardDocumentType (@Nonnull final ICommonsList <? extends IDocumentTypeIdentifier> aBaseDocTypes,
                                                           @Nonnull @Nonempty final String sDocTypeValue,
                                                           @Nonnull final Function <? super IDocumentTypeIdentifier, EContinue> aMatchingDocTypeConsumer)
   {
-    ValueEnforcer.notNull (aBaseDocTypes, "BaseDocTypes");
-    ValueEnforcer.notEmpty (sDocTypeValue, "DocTypeValue");
-    ValueEnforcer.notNull (aMatchingDocTypeConsumer, "MatchingDocTypeConsumer");
-
-    final BiFunction <String, String, IDocumentTypeIdentifier> aFuncCheckExistance = (sScheme, sValue) -> {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Checking if document type ID '" +
-                      CIdentifier.getURIEncoded (sScheme, sValue) +
-                      "' is contained");
-      if (aBaseDocTypes.containsAny (x -> x.hasScheme (sScheme) && x.hasValue (sValue)))
-        return PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifier (sScheme, sValue);
-      return null;
-    };
-
-    // Try busdox-docid-qns first ("as is")
-    IDocumentTypeIdentifier aSelectedDocTypeID = aFuncCheckExistance.apply (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                                                            sDocTypeValue);
-    if (aSelectedDocTypeID != null)
-    {
-      // Old fashioned match
-      if (aMatchingDocTypeConsumer.apply (aSelectedDocTypeID).isBreak ())
-        return;
-    }
-
-    // No direct match found
-    try
-    {
-      // Split the document type identifier value into pieces (throws
-      // IllegalArgumentException)
-      final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeValue);
-
-      // Just change the customization ID of the parts
-      final Function <String, String> aFuncCustIDToDocTypeIDValue = sCustomizationID -> new PeppolDocumentTypeIdentifierParts (aParts.getRootNS (),
-                                                                                                                               aParts.getLocalName (),
-                                                                                                                               sCustomizationID,
-                                                                                                                               aParts.getVersion ()).getAsDocumentTypeIdentifierValue ();
-
-      // Iterate all the peppol-doctype-wildcard stuff
-      String sRemainingCustomizationID = aParts.getCustomizationID ();
-      aSelectedDocTypeID = aFuncCheckExistance.apply (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
-                                                      aFuncCustIDToDocTypeIDValue.apply (sRemainingCustomizationID +
-                                                                                         PeppolIdentifierHelper.DOCUMENT_TYPE_WILDCARD_INDICATOR));
-      if (aSelectedDocTypeID != null)
-        if (aMatchingDocTypeConsumer.apply (aSelectedDocTypeID).isBreak ())
-          return;
-
-      while (sRemainingCustomizationID.indexOf (PeppolIdentifierHelper.DOCUMENT_TYPE_WILDCARD_PART_SEPARATOR) >= 0)
-      {
-        // Remove last part (after last '@')
-        sRemainingCustomizationID = sRemainingCustomizationID.substring (0,
-                                                                         sRemainingCustomizationID.lastIndexOf (PeppolIdentifierHelper.DOCUMENT_TYPE_WILDCARD_PART_SEPARATOR));
-
-        // Try more corse-grain part
-        aSelectedDocTypeID = aFuncCheckExistance.apply (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
-                                                        aFuncCustIDToDocTypeIDValue.apply (sRemainingCustomizationID +
-                                                                                           PeppolIdentifierHelper.DOCUMENT_TYPE_WILDCARD_INDICATOR));
-
-        if (aSelectedDocTypeID != null)
-          if (aMatchingDocTypeConsumer.apply (aSelectedDocTypeID).isBreak ())
-            return;
-      }
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      LOGGER.error ("Failed to split document type ID into pieces: " + ex.getMessage ());
-    }
+    // For backwards compatibility
+    new PeppolWildcardSelector (EMode.BUSDOX_THEN_WILDCARD).forEachMatchingDocumentType (aBaseDocTypes,
+                                                                                         sDocTypeValue,
+                                                                                         aMatchingDocTypeConsumer);
   }
 
   /**
@@ -1031,13 +968,46 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @throws SMPClientException
    *         In case of error
    * @since 8.8.1
+   * @deprecated Because the wildcard selection mode is hard coded and may not
+   *             be ideal in all cases. Use
+   *             {@link #getWildcardServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier, EMode)}
+   *             instead.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "9.2.0")
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aReceiverID,
                                                                      @Nonnull final IDocumentTypeIdentifier aDocTypeID) throws SMPClientException
   {
+    return getWildcardServiceMetadataOrNull (aReceiverID, aDocTypeID, EMode.BUSDOX_THEN_WILDCARD);
+  }
+
+  /**
+   * Wildcard (DDTS) aware SMP lookup. It interprets the wildcard character
+   * (<code>*</code>) appropriately and tries all possibilities. Internally it
+   * works by first querying all the document types via
+   * {@link #getServiceGroupOrNull(IParticipantIdentifier)} and afterwards find
+   * the closest possible match using the provided selection algorithm (mode).
+   *
+   * @param aReceiverID
+   *        Receiver ID. May not be <code>null</code>.
+   * @param aDocTypeID
+   *        Source document type ID. May not be <code>null</code>. The document
+   *        type may use any document type identifier scheme.
+   * @param eSelectionMode
+   *        The Wildcard selection mode to use. Must not be <code>null</code>.
+   * @return <code>null</code> if no matching SMP entry was found
+   * @throws SMPClientException
+   *         In case of error
+   * @since 9.2.0
+   */
+  @Nullable
+  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aReceiverID,
+                                                                     @Nonnull final IDocumentTypeIdentifier aDocTypeID,
+                                                                     @Nonnull final PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException
+  {
     ValueEnforcer.notNull (aReceiverID, "ReceiverID");
     ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
+    ValueEnforcer.notNull (eSelectionMode, "SelectionMode");
 
     final SignedServiceMetadataType aSSM;
 
@@ -1046,7 +1016,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                  aReceiverID.getURIEncoded () +
                  "' on '" +
                  aDocTypeID.getURIEncoded () +
-                 "'");
+                 "' with selection mode " +
+                 eSelectionMode);
 
     // 1. query all document types from SMP
     final ServiceGroupType aSG = getServiceGroupOrNull (aReceiverID);
@@ -1068,10 +1039,12 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
       // Main matching
       final Wrapper <IDocumentTypeIdentifier> aMatchingDocType = new Wrapper <> ();
-      forEachMatchingWildcardDocumentType (aSupportedDocTypes, aDocTypeID.getValue (), dt -> {
-        aMatchingDocType.set (dt);
-        return EContinue.BREAK;
-      });
+      new PeppolWildcardSelector (eSelectionMode).forEachMatchingDocumentType (aSupportedDocTypes,
+                                                                               aDocTypeID.getValue (),
+                                                                               dt -> {
+                                                                                 aMatchingDocType.set (dt);
+                                                                                 return EContinue.BREAK;
+                                                                               });
 
       final IDocumentTypeIdentifier aSelectedDocTypeID = aMatchingDocType.get ();
       if (aSelectedDocTypeID != null)
@@ -1082,7 +1055,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       }
       else
       {
-        LOGGER.info ("Found no matching document type ID to be queried via ´Wildcard");
+        LOGGER.info ("Found no matching document type ID to be queried via Wildcard");
         aSSM = null;
       }
     }
