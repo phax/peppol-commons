@@ -44,6 +44,7 @@ public class PeppolSBDHDocumentReadException extends Exception
     m_eErrorCode = eErrorCode;
   }
 
+  @Deprecated (forRemoval = true, since = "9.2.0")
   public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
                                           @Nullable final Object... aArgs)
   {

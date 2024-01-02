@@ -290,6 +290,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Made `COUNTRY_C1` in SBDH mandatory
     * Updated the Peppol trust stores to remove the old, soon expiring GlobalSign certificates
     * Moved the logic of `PeppolSBDHDocument` to `PeppolSBDHData`. The old class became deprecated.
+    * Extracted the Peppol SBDH validation into a separate method `PeppolSBDHDocumentReader.validateData`
 * v9.1.3 - 2023-12-10
     * Fixed the "state" in `ESMPTransportProfile` predefined values
 * v9.1.2 - 2023-12-06

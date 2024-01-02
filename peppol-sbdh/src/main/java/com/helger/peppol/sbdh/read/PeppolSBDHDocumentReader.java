@@ -550,6 +550,18 @@ public class PeppolSBDHDocumentReader
                       .build ();
   }
 
+  /**
+   * Validate the provided SBDH and the Business Message according to the Peppol
+   * rules and store the results in an Error List.
+   *
+   * @param aSBDH
+   *        The SBDH to be validated. Must not be <code>null</code>.
+   * @param aBusinessMessage
+   *        The Business Message to be validated (this does NOT mean Schematron
+   *        validation). Must not be <code>null</code>.
+   * @param aErrorList
+   *        The error list to be filled. Must not be <code>null</code>.
+   */
   public void validateData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
                             @Nonnull final Element aBusinessMessage,
                             @Nonnull final ErrorList aErrorList)
@@ -804,7 +816,7 @@ public class PeppolSBDHDocumentReader
           if (x.isError ())
           {
             final String sMsg = x.getAsString (Locale.US);
-            LOGGER.error ("Peppol SBDH validation error: " + sMsg);
+            LOGGER.error ("Peppol SBDH validation " + sMsg);
             if (aErrorMsgSB.length () > 0)
               aErrorMsgSB.append ('\n');
             aErrorMsgSB.append (sMsg);
