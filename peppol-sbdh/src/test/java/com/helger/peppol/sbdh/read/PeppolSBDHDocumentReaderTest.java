@@ -41,7 +41,7 @@ import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.peppol.sbdh.PeppolSBDHDocument;
+import com.helger.peppol.sbdh.PeppolSBDHData;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
@@ -98,7 +98,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertTrue (aRes.getPath (), aRes.exists ());
 
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
-    final PeppolSBDHDocument aData = aReader.extractData (aRes);
+    final PeppolSBDHData aData = aReader.extractData (aRes);
     assertNotNull (aData);
 
     assertTrue (aData.areAllFieldsSet ());
@@ -133,7 +133,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertTrue (aRes.getPath (), aRes.exists ());
 
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
-    final PeppolSBDHDocument aData = aReader.extractData (aRes);
+    final PeppolSBDHData aData = aReader.extractData (aRes);
     assertNotNull (aData);
 
     assertTrue (aData.areAllFieldsSet ());
@@ -174,7 +174,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertTrue (aRes.getPath (), aRes.exists ());
 
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
-    final PeppolSBDHDocument aData = aReader.extractData (aRes);
+    final PeppolSBDHData aData = aReader.extractData (aRes);
     assertNotNull (aData);
 
     assertTrue (aData.areAllFieldsSet ());
@@ -209,7 +209,7 @@ public final class PeppolSBDHDocumentReaderTest
     {
       LOGGER.info ("Good (Res): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
-      final PeppolSBDHDocument aData = aReader.extractData (aRes);
+      final PeppolSBDHData aData = aReader.extractData (aRes);
       assertNotNull (aData);
       assertTrue (aData.areAllFieldsSet ());
     }
@@ -223,7 +223,7 @@ public final class PeppolSBDHDocumentReaderTest
     {
       LOGGER.info ("Good (IS): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
-      final PeppolSBDHDocument aData = aReader.extractData (aRes.getInputStream ());
+      final PeppolSBDHData aData = aReader.extractData (aRes.getInputStream ());
       assertNotNull (aData);
       assertTrue (aData.areAllFieldsSet ());
     }
@@ -237,7 +237,7 @@ public final class PeppolSBDHDocumentReaderTest
     {
       LOGGER.info ("Good (Node): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
-      final PeppolSBDHDocument aData = aReader.extractData (DOMReader.readXMLDOM (aRes));
+      final PeppolSBDHData aData = aReader.extractData (DOMReader.readXMLDOM (aRes));
       assertNotNull (aData);
       assertTrue (aData.areAllFieldsSet ());
     }
@@ -390,7 +390,7 @@ public final class PeppolSBDHDocumentReaderTest
     assertNotNull (doc);
 
     final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
-    final PeppolSBDHDocument aData = aReader.extractData (doc);
+    final PeppolSBDHData aData = aReader.extractData (doc);
     assertNotNull (aData);
     assertTrue (aData.areAllFieldsSet ());
   }

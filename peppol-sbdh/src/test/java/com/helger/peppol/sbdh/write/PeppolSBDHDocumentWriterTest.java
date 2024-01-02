@@ -30,7 +30,7 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.w3c.dom.Document;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.peppol.sbdh.PeppolSBDHDocument;
+import com.helger.peppol.sbdh.PeppolSBDHData;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
 import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.peppolid.factory.IIdentifierFactory;
@@ -51,13 +51,13 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (),
-                                                                     PeppolIdentifierFactory.INSTANCE)
-                                                       .setSenderWithDefaultScheme ("0088:sender")
-                                                       .setReceiverWithDefaultScheme ("0099:receiver")
-                                                       .setDocumentTypeWithBusdoxDocidQns ("urn:foobar::root#doctypeid:2.1")
-                                                       .setProcessWithDefaultScheme ("procid")
-                                                       .setCountryC1 ("DE");
+    final PeppolSBDHData aData = PeppolSBDHData.createUBL21 (aDoc.getDocumentElement (),
+                                                             PeppolIdentifierFactory.INSTANCE)
+                                               .setSenderWithDefaultScheme ("0088:sender")
+                                               .setReceiverWithDefaultScheme ("0099:receiver")
+                                               .setDocumentTypeWithBusdoxDocidQns ("urn:foobar::root#doctypeid:2.1")
+                                               .setProcessWithDefaultScheme ("procid")
+                                               .setCountryC1 ("DE");
     assertTrue (aData.areAllFieldsSet ());
     assertTrue (aData.areAllAdditionalAttributesValid ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aData.getDocumentTypeScheme ());
@@ -78,7 +78,7 @@ public final class PeppolSBDHDocumentWriterTest
       LOGGER.info (sXML);
 
     // Read again and compare values
-    final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
+    final PeppolSBDHData aDataRead = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
     assertNotNull (aDataRead);
 
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getSenderScheme ());
@@ -110,13 +110,13 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (),
-                                                                     PeppolIdentifierFactory.INSTANCE)
-                                                       .setSenderWithDefaultScheme ("0088:sender")
-                                                       .setReceiverWithDefaultScheme ("0099:receiver")
-                                                       .setDocumentTypeWithPeppolDoctypeWildcard ("urn:foobar::root#doctypeid:2.1")
-                                                       .setProcessWithDefaultScheme ("procid")
-                                                       .setCountryC1 ("BE");
+    final PeppolSBDHData aData = PeppolSBDHData.createUBL21 (aDoc.getDocumentElement (),
+                                                             PeppolIdentifierFactory.INSTANCE)
+                                               .setSenderWithDefaultScheme ("0088:sender")
+                                               .setReceiverWithDefaultScheme ("0099:receiver")
+                                               .setDocumentTypeWithPeppolDoctypeWildcard ("urn:foobar::root#doctypeid:2.1")
+                                               .setProcessWithDefaultScheme ("procid")
+                                               .setCountryC1 ("BE");
     assertTrue (aData.areAllFieldsSet ());
     assertTrue (aData.areAllAdditionalAttributesValid ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, aData.getDocumentTypeScheme ());
@@ -140,7 +140,7 @@ public final class PeppolSBDHDocumentWriterTest
       LOGGER.info (sXML);
 
     // Read again and compare values
-    final PeppolSBDHDocument aDataRead = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
+    final PeppolSBDHData aDataRead = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
     assertNotNull (aDataRead);
 
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getSenderScheme ());
@@ -180,12 +180,12 @@ public final class PeppolSBDHDocumentWriterTest
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
 
     // Create the document data
-    final PeppolSBDHDocument aData = PeppolSBDHDocument.createUBL21 (aDoc.getDocumentElement (),
-                                                                     PeppolIdentifierFactory.INSTANCE)
-                                                       .setSenderWithDefaultScheme ("0088:sender")
-                                                       .setReceiverWithDefaultScheme ("0099:receiver")
-                                                       .setDocumentTypeWithBusdoxDocidQns ("doctypeid")
-                                                       .setProcessWithDefaultScheme ("procid");
+    final PeppolSBDHData aData = PeppolSBDHData.createUBL21 (aDoc.getDocumentElement (),
+                                                             PeppolIdentifierFactory.INSTANCE)
+                                               .setSenderWithDefaultScheme ("0088:sender")
+                                               .setReceiverWithDefaultScheme ("0099:receiver")
+                                               .setDocumentTypeWithBusdoxDocidQns ("doctypeid")
+                                               .setProcessWithDefaultScheme ("procid");
     assertTrue (aData.areAllAdditionalAttributesValid ());
     aData.additionalAttributes ().clear ();
     aData.additionalAttributes ().add ("DOCUMENTID", "false");
@@ -207,7 +207,9 @@ public final class PeppolSBDHDocumentWriterTest
   public void testBadCase ()
   {
     final IIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
-    final PeppolSBDHDocument aData = new PeppolSBDHDocument (aIF);
+    // Empty data
+    final PeppolSBDHData aData = new PeppolSBDHData (aIF);
+
     try
     {
       // Not all fields are set

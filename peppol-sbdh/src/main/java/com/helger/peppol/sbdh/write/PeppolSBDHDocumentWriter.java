@@ -32,7 +32,7 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sbdh.CPeppolSBDH;
-import com.helger.peppol.sbdh.PeppolSBDHDocument;
+import com.helger.peppol.sbdh.PeppolSBDHData;
 
 /**
  * Convert a Peppol SBDH document to a regular SBDH document
@@ -106,13 +106,13 @@ public class PeppolSBDHDocumentWriter
    *
    * @param aData
    *        The document data to be used. May not be <code>null</code> and
-   *        {@link PeppolSBDHDocument#areAllFieldsSet()} must return true!
+   *        {@link PeppolSBDHData#areAllFieldsSet()} must return true!
    * @return Never <code>null</code>.
    * @throws IllegalArgumentException
    *         if not all document data fields are set!
    */
   @Nonnull
-  public StandardBusinessDocument createStandardBusinessDocument (@Nonnull final PeppolSBDHDocument aData)
+  public StandardBusinessDocument createStandardBusinessDocument (@Nonnull final PeppolSBDHData aData)
   {
     ValueEnforcer.notNull (aData, "Data");
     if (!aData.areAllFieldsSet ())
@@ -163,6 +163,7 @@ public class PeppolSBDHDocumentWriter
         aScope.setIdentifier (aData.getDocumentTypeScheme ());
         aBusinessScope.addScope (aScope);
       }
+
       {
         final Scope aScope = new Scope ();
         aScope.setType (CPeppolSBDH.SCOPE_PROCESS_ID);
@@ -172,7 +173,6 @@ public class PeppolSBDHDocumentWriter
         aBusinessScope.addScope (aScope);
       }
 
-      if (aData.hasCountryC1 ())
       {
         // The Country C1 was added in Spec v2.0
         final Scope aScope = new Scope ();
