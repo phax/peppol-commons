@@ -440,4 +440,23 @@ public final class SMPClientReadOnlyTest
                                                                   ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     assertNotNull (aEndpoint);
   }
+
+  @Test
+  public void testPeppolReportingEndpoints () throws SMPClientException, SMPDNSResolutionException
+  {
+    final IParticipantIdentifier aReceiverID = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0848934496");
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+                                                                aReceiverID,
+                                                                ESML.DIGIT_PRODUCTION);
+
+    // EUSR
+    SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aReceiverID,
+                                                                         EPredefinedDocumentTypeIdentifier.ENDUSERSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_END_USER_STATISTICS_REPORT_1_1);
+    assertNotNull (aSM);
+
+    // TSR
+    aSM = aSMPClient.getServiceMetadataOrNull (aReceiverID,
+                                               EPredefinedDocumentTypeIdentifier.TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_TRANSACTION_STATISTICS_REPORTING_1_0);
+    assertNotNull (aSM);
+  }
 }
