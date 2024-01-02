@@ -288,7 +288,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v9.2.0 - 2024-01-02
     * Made `COUNTRY_C1` in SBDH mandatory
-    * Updated the Peppol trust stores to remove the old, soon expiring GlobalSign certificates
+    * Updated the Peppol default trust stores to remove the old, soon expiring GlobalSign certificates. It was for a previous SML/SMK setup only.
     * Moved the logic of `PeppolSBDHDocument` to `PeppolSBDHData`. The old class became deprecated.
     * Extracted the Peppol SBDH validation into a separate method `PeppolSBDHDocumentReader.validateData`
     * Extracted class `PeppolWildcardSelector` in preparation to support wildcard matching with different algorithms

@@ -62,7 +62,7 @@ public class PeppolWildcardSelector
     BUSDOX_ONLY,
     /**
      * Select document types with scheme <code>peppol-doctype-wildcard</code>
-     * only.
+     * only. This is e.g. the correct mode for PINT JP.
      */
     WILDCARD_ONLY,
     /**
