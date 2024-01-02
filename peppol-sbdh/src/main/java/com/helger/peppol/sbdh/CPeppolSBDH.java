@@ -86,6 +86,7 @@ public final class CPeppolSBDH
   {}
 
   // Mandatory since 2024-01-01
+  @Deprecated (forRemoval = true, since = "9.1.4")
   private static final AtomicBoolean IS_COUNTRY_C1_MANDATORY = new AtomicBoolean (true);
   private static final Logger LOGGER = LoggerFactory.getLogger (CPeppolSBDH.class);
 
