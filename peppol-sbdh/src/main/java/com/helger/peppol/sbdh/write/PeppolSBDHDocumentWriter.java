@@ -33,6 +33,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppol.sbdh.CPeppolSBDH;
 import com.helger.peppol.sbdh.PeppolSBDHData;
+import com.helger.xsds.peppol.id1.ChangeV10;
 
 /**
  * Convert a Peppol SBDH document to a regular SBDH document
@@ -40,6 +41,7 @@ import com.helger.peppol.sbdh.PeppolSBDHData;
  * @author Philip Helger
  */
 @NotThreadSafe
+@ChangeV10 ("Move to package of PeppolSBDHData")
 public class PeppolSBDHDocumentWriter
 {
   public static final boolean DEFAULT_FAVOUR_SPEED = false;

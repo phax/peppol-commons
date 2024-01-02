@@ -25,6 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.w3c.dom.Element;
 
 import com.helger.commons.ValueEnforcer;
@@ -44,6 +45,7 @@ import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadBinaryMarshaller;
 import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadTextMarshaller;
 import com.helger.peppol.sbdh.spec12.BinaryContentType;
 import com.helger.peppol.sbdh.spec12.TextContentType;
+import com.helger.peppol.sbdh.write.PeppolSBDHDocumentWriter;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
@@ -868,7 +870,8 @@ public class PeppolSBDHData
   {
     ValueEnforcer.notNull (aCreationDateAndTime, "CreationDateAndTime");
 
-    m_aCreationDateAndTime = aCreationDateAndTime;
+    // Make sure to use only milliseconds for XML usage
+    m_aCreationDateAndTime = PDTFactory.getWithMillisOnly (aCreationDateAndTime);
     return this;
   }
 
@@ -1185,6 +1188,17 @@ public class PeppolSBDHData
           return false;
 
     return true;
+  }
+
+  /**
+   * @return A generic JAXB SBD document of this data. Never <code>null</code>.
+   * @since 9.2.0
+   * @see PeppolSBDHDocumentWriter for the main logic
+   */
+  @Nonnull
+  public StandardBusinessDocument getAsStandardBusinessDocument ()
+  {
+    return new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (this);
   }
 
   @Override

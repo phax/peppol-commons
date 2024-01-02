@@ -56,6 +56,7 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
+import com.helger.xsds.peppol.id1.ChangeV10;
 
 /**
  * Main class to read standard business documents and extract the Peppol
@@ -64,6 +65,7 @@ import com.helger.sbdh.SBDMarshaller;
  * @author Philip Helger
  */
 @NotThreadSafe
+@ChangeV10 ("Move to package of PeppolSBDHData")
 public class PeppolSBDHDocumentReader
 {
   public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;

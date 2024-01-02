@@ -160,7 +160,7 @@ public final class PeppolSBDHDataTest
          .setDocumentType (EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30)
          .setProcess (EPredefinedProcessIdentifier.BIS3_BILLING);
 
-    assertTrue (aData.areAllFieldsSet ());
+    assertTrue (aData.areAllFieldsSet (true));
     assertTrue (aData.areAllAdditionalAttributesValid ());
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aData.getDocumentTypeScheme ());
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
@@ -178,11 +178,14 @@ public final class PeppolSBDHDataTest
     final PeppolSBDHData aData = new PeppolSBDHData (aIF);
 
     final byte [] aBinaryPayload = "abc".getBytes (StandardCharsets.UTF_8);
+
+    // Set one with charset
     aData.setBusinessMessageBinaryOnly (aBinaryPayload, CMimeType.APPLICATION_OCTET_STREAM, StandardCharsets.UTF_8);
     assertNotNull (aData.getBusinessMessage ());
     assertEquals ("<BinaryContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" encoding=\"UTF-8\" mimeType=\"application/octet-stream\">YWJj</BinaryContent>",
                   XMLWriter.getNodeAsString (aData.getBusinessMessage ()).trim ());
 
+    // Read
     BinaryContentType aBC = aData.getBusinessMessageAsBinaryContent ();
     assertNotNull (aBC);
     assertArrayEquals (aBinaryPayload, aBC.getValue ());
@@ -190,11 +193,13 @@ public final class PeppolSBDHDataTest
     assertEquals (StandardCharsets.UTF_8.name (), aBC.getEncoding ());
     assertNull (aData.getBusinessMessageAsTextContent ());
 
+    // Set one without charset
     aData.setBusinessMessageBinaryOnly (aBinaryPayload, CMimeType.APPLICATION_XML, null);
     assertNotNull (aData.getBusinessMessage ());
     assertEquals ("<BinaryContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" mimeType=\"application/xml\">YWJj</BinaryContent>",
                   XMLWriter.getNodeAsString (aData.getBusinessMessage ()).trim ());
 
+    // Read
     aBC = aData.getBusinessMessageAsBinaryContent ();
     assertNotNull (aBC);
     assertArrayEquals (aBinaryPayload, aBC.getValue ());
@@ -209,14 +214,20 @@ public final class PeppolSBDHDataTest
     final IIdentifierFactory aIF = SimpleIdentifierFactory.INSTANCE;
     final PeppolSBDHData aData = new PeppolSBDHData (aIF);
 
-    aData.setBusinessMessageTextOnly ("abc", CMimeType.APPLICATION_OCTET_STREAM);
+    final String sTextPayload = "abc";
+
+    // Read
+    aData.setBusinessMessageTextOnly (sTextPayload, CMimeType.APPLICATION_OCTET_STREAM);
     assertNotNull (aData.getBusinessMessage ());
-    assertEquals ("<TextContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" mimeType=\"application/octet-stream\">abc</TextContent>",
+    assertEquals ("<TextContent xmlns=\"http://peppol.eu/xsd/ticc/envelope/1.0\" mimeType=\"application/octet-stream\">" +
+                  sTextPayload +
+                  "</TextContent>",
                   XMLWriter.getNodeAsString (aData.getBusinessMessage ()).trim ());
 
+    // Read
     final TextContentType aTC = aData.getBusinessMessageAsTextContent ();
     assertNotNull (aTC);
-    assertEquals ("abc", aTC.getValue ());
+    assertEquals (sTextPayload, aTC.getValue ());
     assertEquals (CMimeType.APPLICATION_OCTET_STREAM.getAsString (), aTC.getMimeType ());
     assertNull (aData.getBusinessMessageAsBinaryContent ());
   }

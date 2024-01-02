@@ -23,12 +23,14 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.text.util.TextHelper;
+import com.helger.xsds.peppol.id1.ChangeV10;
 
 /**
  * This enum contains all the errors that can occur during SBD reading
  *
  * @author Philip Helger
  */
+@ChangeV10 ("Move to package of PeppolSBDHData; rename to EPeppolSBDHDataError")
 public enum EPeppolSBDHDocumentReadError implements IHasID <String>
 {
   /** Failed to interpret StandardBusinessDocument as XML */

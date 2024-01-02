@@ -19,11 +19,14 @@ package com.helger.peppol.sbdh.read;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.xsds.peppol.id1.ChangeV10;
+
 /**
  * Exception that can occur during the reading of SBDH documents.
  *
  * @author Philip Helger
  */
+@ChangeV10 ("Move to package of PeppolSBDHData")
 public class PeppolSBDHDocumentReadException extends Exception
 {
   private final EPeppolSBDHDocumentReadError m_eErrorCode;
