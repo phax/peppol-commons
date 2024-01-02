@@ -286,6 +286,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.2.1 - work in progress
+    * Added interface method `ISMPServiceMetadataProvider.getWildcardServiceMetadataOrNull`
 * v9.2.0 - 2024-01-02
     * Made `COUNTRY_C1` in SBDH mandatory
     * Updated the Peppol default trust stores to remove the old, soon expiring GlobalSign certificates. It was for a previous SML/SMK setup only.

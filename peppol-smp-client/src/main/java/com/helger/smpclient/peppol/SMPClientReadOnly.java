@@ -981,25 +981,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return getWildcardServiceMetadataOrNull (aReceiverID, aDocTypeID, EMode.BUSDOX_THEN_WILDCARD);
   }
 
-  /**
-   * Wildcard (DDTS) aware SMP lookup. It interprets the wildcard character
-   * (<code>*</code>) appropriately and tries all possibilities. Internally it
-   * works by first querying all the document types via
-   * {@link #getServiceGroupOrNull(IParticipantIdentifier)} and afterwards find
-   * the closest possible match using the provided selection algorithm (mode).
-   *
-   * @param aReceiverID
-   *        Receiver ID. May not be <code>null</code>.
-   * @param aDocTypeID
-   *        Source document type ID. May not be <code>null</code>. The document
-   *        type may use any document type identifier scheme.
-   * @param eSelectionMode
-   *        The Wildcard selection mode to use. Must not be <code>null</code>.
-   * @return <code>null</code> if no matching SMP entry was found
-   * @throws SMPClientException
-   *         In case of error
-   * @since 9.2.0
-   */
   @Nullable
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aReceiverID,
                                                                      @Nonnull final IDocumentTypeIdentifier aDocTypeID,

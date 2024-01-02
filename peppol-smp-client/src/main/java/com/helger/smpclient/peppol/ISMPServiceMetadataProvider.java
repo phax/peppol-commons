@@ -64,6 +64,31 @@ public interface ISMPServiceMetadataProvider
                                                       @Nonnull IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
 
   /**
+   * Wildcard (DDTS) aware SMP lookup. It interprets the wildcard character
+   * (<code>*</code>) appropriately and tries all possibilities. Internally it
+   * works by first querying all the document types via
+   * {@link #getServiceGroupOrNull(IParticipantIdentifier)} and afterwards find
+   * the closest possible match using the provided selection algorithm (mode).
+   * So this method calls each SMP twice.
+   *
+   * @param aReceiverID
+   *        Receiver ID. May not be <code>null</code>.
+   * @param aDocTypeID
+   *        Source document type ID. May not be <code>null</code>. The document
+   *        type may use any document type identifier scheme.
+   * @param eSelectionMode
+   *        The Wildcard selection mode to use. Must not be <code>null</code>.
+   * @return <code>null</code> if no matching SMP entry was found
+   * @throws SMPClientException
+   *         In case of error
+   * @since 9.2.1
+   */
+  @Nullable
+  SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull IParticipantIdentifier aReceiverID,
+                                                              @Nonnull IDocumentTypeIdentifier aDocTypeID,
+                                                              @Nonnull PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException;
+
+  /**
    * Retrieve the service metadata from the provided service group ID and
    * document type ID. Than find the matching endpoint from the process ID and
    * transport profile. This method checks the validity of the endpoint at the
