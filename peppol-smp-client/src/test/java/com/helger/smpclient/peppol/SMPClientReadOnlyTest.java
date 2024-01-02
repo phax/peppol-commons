@@ -377,9 +377,9 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0196:6610932699");
 
     // PEPPOL URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
-                                                                aPI,
-                                                                ESML.DIGIT_PRODUCTION).setSecureValidation (false);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
+    aSMPClient.setSecureValidation (false);
+
     assertEquals ("http://B-a0bce7088e2d349c92b03cf2b308df89.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
                   aSMPClient.getSMPHostURI ());
 
@@ -400,6 +400,7 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
                                                                 aReceiverID,
                                                                 ESML.DIGIT_PRODUCTION);
+    aSMPClient.setSecureValidation (false);
 
     // EUSR
     SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aReceiverID,
