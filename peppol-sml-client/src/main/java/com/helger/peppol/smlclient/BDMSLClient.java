@@ -114,8 +114,6 @@ public class BDMSLClient extends WSClientConfig
    *        From" date is extracted from the certificate and is used as the
    *        migrationDate. In this case, the "Not Before" date of the
    *        certificate must be in the future.
-   * @throws com.sun.xml.ws.client.ClientTransportException
-   *         if the WS client invocation failed
    * @throws BadRequestFault
    *         In case of error
    * @throws InternalErrorFault
