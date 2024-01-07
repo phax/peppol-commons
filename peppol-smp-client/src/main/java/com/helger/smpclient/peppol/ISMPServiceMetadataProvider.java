@@ -67,9 +67,9 @@ public interface ISMPServiceMetadataProvider
    * Wildcard (DDTS) aware SMP lookup. It interprets the wildcard character
    * (<code>*</code>) appropriately and tries all possibilities. Internally it
    * works by first querying all the document types via
-   * {@link #getServiceGroupOrNull(IParticipantIdentifier)} and afterwards find
-   * the closest possible match using the provided selection algorithm (mode).
-   * So this method calls each SMP twice.
+   * {@link ISMPServiceGroupProvider#getServiceGroupOrNull(IParticipantIdentifier)}
+   * and afterwards find the closest possible match using the provided selection
+   * algorithm (mode). So this method calls each SMP twice.
    *
    * @param aReceiverID
    *        Receiver ID. May not be <code>null</code>.
