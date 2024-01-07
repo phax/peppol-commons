@@ -286,7 +286,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.2.1 - work in progress
+* v9.2.1 - 2024-01-07
+    * Updated to ph-web 10.1.7
     * Added interface method `ISMPServiceMetadataProvider.getWildcardServiceMetadataOrNull`
 * v9.2.0 - 2024-01-02
     * Made `COUNTRY_C1` in SBDH mandatory
