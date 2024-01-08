@@ -21,6 +21,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
@@ -29,6 +30,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppolid.CIdentifier;
@@ -54,27 +57,47 @@ public class PeppolWildcardSelector
    *
    * @author Philip Helger
    */
-  public enum EMode
+  public enum EMode implements IHasID <String>
   {
     /**
      * Select document types with scheme <code>busdox-docid-qns</code> only.
      */
-    BUSDOX_ONLY,
+    BUSDOX_ONLY ("busdox"),
     /**
      * Select document types with scheme <code>peppol-doctype-wildcard</code>
      * only. This is e.g. the correct mode for PINT JP.
      */
-    WILDCARD_ONLY,
+    WILDCARD_ONLY ("wildcard"),
     /**
      * Select document types with scheme <code>busdox-docid-qns</code> followed
      * by scheme <code>peppol-doctype-wildcard</code>.
      */
-    BUSDOX_THEN_WILDCARD,
+    BUSDOX_THEN_WILDCARD ("busdox-wildcard"),
     /**
      * Select document types with scheme <code>peppol-doctype-wildcard</code>
      * followed by scheme <code>busdox-docid-qns</code>.
      */
-    WILDCARD_THEN_BUSDOX
+    WILDCARD_THEN_BUSDOX ("wildcard-busdox");
+
+    private final String m_sID;
+
+    EMode (@Nonnull @Nonempty final String sID)
+    {
+      m_sID = sID;
+    }
+
+    @Nonnull
+    @Nonempty
+    public String getID ()
+    {
+      return m_sID;
+    }
+
+    @Nullable
+    public static EMode getFromIDOrNull (@Nullable final String sID)
+    {
+      return EnumHelper.getFromIDOrNull (EMode.class, sID);
+    }
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolWildcardSelector.class);
