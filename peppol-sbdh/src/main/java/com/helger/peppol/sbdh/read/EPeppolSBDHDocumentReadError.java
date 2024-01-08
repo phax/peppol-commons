@@ -67,7 +67,7 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
 
   /** At least two "BusinessScope/Scope" elements must be present */
   INVALID_SCOPE_COUNT ("invalid-scope-count",
-                       "At least three ''BusinessScope/Scope'' elements must be present but found {0}."),
+                       "At least {0} ''BusinessScope/Scope'' elements must be present but found {1}."),
 
   /** The provided document type identifier is invalid */
   INVALID_DOCUMENT_TYPE_IDENTIFIER ("invalid-document-type-identifier",

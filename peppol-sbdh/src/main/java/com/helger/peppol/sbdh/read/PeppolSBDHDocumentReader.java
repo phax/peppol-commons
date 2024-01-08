@@ -706,9 +706,11 @@ public class PeppolSBDHDocumentReader
     else
     {
       // Check that at least 3 "Scope" elements are present
-      if (aBusinessScope.getScopeCount () < 3)
+      final int nMinimumScopeCount = isCheckForCountryC1 () ? 3 : 2;
+      if (aBusinessScope.getScopeCount () < nMinimumScopeCount)
         aErrorList.add (_toError ("SBDH/BusinessScope",
                                   EPeppolSBDHDocumentReadError.INVALID_SCOPE_COUNT,
+                                  Integer.toString (nMinimumScopeCount),
                                   Integer.toString (aBusinessScope.getScopeCount ())));
 
       boolean bFoundDocumentIDScope = false;
