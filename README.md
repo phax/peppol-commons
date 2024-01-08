@@ -286,6 +286,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.2.2 - work in progress
+    * Extended `PeppolSBDHDocumentReader` API to allow to disable check for mandatory C1 Country Code via `.setCheckForCountryC1(boolean)`
 * v9.2.1 - 2024-01-07
     * Updated to ph-web 10.1.7
     * Added interface method `ISMPServiceMetadataProvider.getWildcardServiceMetadataOrNull`

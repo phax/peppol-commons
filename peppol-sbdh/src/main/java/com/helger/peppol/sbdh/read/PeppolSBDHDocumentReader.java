@@ -52,6 +52,7 @@ import com.helger.peppol.sbdh.PeppolSBDHAdditionalAttributes;
 import com.helger.peppol.sbdh.PeppolSBDHData;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
+import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
@@ -69,12 +70,14 @@ import com.helger.xsds.peppol.id1.ChangeV10;
 public class PeppolSBDHDocumentReader
 {
   public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;
+  public static final boolean DEFAULT_CHECK_FOR_COUNTRY_C1 = true;
   public static final String DEFAULT_COUNTRY_CODE_REGEX = "[A-Z0-9][A-Z0-9]";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDocumentReader.class);
 
   private final IIdentifierFactory m_aIdentifierFactory;
   private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
+  private boolean m_bCheckForCountryC1 = DEFAULT_CHECK_FOR_COUNTRY_C1;
 
   public PeppolSBDHDocumentReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
   {
@@ -95,8 +98,8 @@ public class PeppolSBDHDocumentReader
   }
 
   /**
-   * @return <code>true</code> if value checks are enabled, <code>false</code>
-   *         if not. By default checks are enabled - see
+   * @return <code>true</code> if value checks on data extraction are enabled,
+   *         <code>false</code> if not. By default checks are enabled - see
    *         {@link #DEFAULT_PERFORM_VALUE_CHECKS}.
    * @since 8.2.3
    */
@@ -106,18 +109,51 @@ public class PeppolSBDHDocumentReader
   }
 
   /**
-   * Enable or disable the performing of value checks.
+   * Enable or disable the performing of value checks on data extraction.
    *
-   * @param bPerformValueChecks
+   * @param b
    *        <code>true</code> to enable checks, <code>false</code> to disable
    *        them.
    * @return this for chaining
    * @since 8.2.3
    */
   @Nonnull
-  public final PeppolSBDHDocumentReader setPerformValueChecks (final boolean bPerformValueChecks)
+  public final PeppolSBDHDocumentReader setPerformValueChecks (final boolean b)
   {
-    m_bPerformValueChecks = bPerformValueChecks;
+    m_bPerformValueChecks = b;
+    return this;
+  }
+
+  /**
+   * In case of value checks, should the Country C1 also be checked?
+   *
+   * @return <code>true</code> to check for mandatory country C1,
+   *         <code>false</code> to not do it.
+   * @since 9.2.2
+   */
+  public final boolean isCheckForCountryC1 ()
+  {
+    return m_bCheckForCountryC1;
+  }
+
+  /**
+   * Enable or disable the checking for C1 country code. This needs to be called
+   * upon message reception, is messages without a C1 country code should be
+   * accepted.
+   *
+   * @param b
+   *        <code>true</code> to enable the check, <code>false</code> to disable
+   *        it.
+   * @return this for chaining
+   * @since 9.2.2
+   */
+  @Nonnull
+  public final PeppolSBDHDocumentReader setCheckForCountryC1 (final boolean b)
+  {
+    final boolean bChanged = b != m_bCheckForCountryC1;
+    m_bCheckForCountryC1 = b;
+    if (bChanged)
+      LOGGER.info ("Peppol SBDH C1 Country Code check is " + (b ? "enabled" : "disabled"));
     return this;
   }
 
@@ -590,16 +626,30 @@ public class PeppolSBDHDocumentReader
         final PartnerIdentification aSenderIdentification = aSBDH.getSenderAtIndex (0).getIdentifier ();
         if (aSenderIdentification != null)
         {
-          if (!isValidSenderAuthority (aSenderIdentification.getAuthority ()))
+          final String sScheme = aSenderIdentification.getAuthority ();
+          if (!isValidSenderAuthority (sScheme))
+          {
             aErrorList.add (_toError ("SBDH/Sender[1]/Identifier/Authority",
                                       EPeppolSBDHDocumentReadError.INVALID_SENDER_AUTHORITY,
-                                      aSenderIdentification.getAuthority ()));
+                                      sScheme));
+          }
 
           // Check sender identifier value
-          if (!isValidSenderIdentifier (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ()))
+          final String sValue = aSenderIdentification.getValue ();
+          if (!isValidSenderIdentifier (sScheme, sValue))
+          {
             aErrorList.add (_toError ("SBDH/Sender[1]/Identifier/Value",
                                       EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
-                                      aSenderIdentification.getValue ()));
+                                      sValue));
+          }
+          else
+          {
+            final IParticipantIdentifier aPID = m_aIdentifierFactory.createParticipantIdentifier (sScheme, sValue);
+            if (aPID == null)
+              aErrorList.add (_toError ("SBDH/Sender[1]/Identifier",
+                                        EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
+                                        CIdentifier.getURIEncoded (sScheme, sValue)));
+          }
         }
       }
     }
@@ -618,16 +668,30 @@ public class PeppolSBDHDocumentReader
         final PartnerIdentification aReceiverIdentification = aSBDH.getReceiverAtIndex (0).getIdentifier ();
         if (aReceiverIdentification != null)
         {
-          if (!isValidReceiverAuthority (aReceiverIdentification.getAuthority ()))
+          final String sScheme = aReceiverIdentification.getAuthority ();
+          if (!isValidReceiverAuthority (sScheme))
+          {
             aErrorList.add (_toError ("SBDH/Receiver[1]/Identifier/Authority",
                                       EPeppolSBDHDocumentReadError.INVALID_RECEIVER_AUTHORITY,
-                                      aReceiverIdentification.getAuthority ()));
+                                      sScheme));
+          }
 
           // Check receiver identifier value
-          if (!isValidReceiverIdentifier (aReceiverIdentification.getAuthority (), aReceiverIdentification.getValue ()))
+          final String sValue = aReceiverIdentification.getValue ();
+          if (!isValidReceiverIdentifier (sScheme, sValue))
+          {
             aErrorList.add (_toError ("SBDH/Receiver[1]/Identifier/Value",
                                       EPeppolSBDHDocumentReadError.INVALID_RECEIVER_VALUE,
-                                      aReceiverIdentification.getValue ()));
+                                      sValue));
+          }
+          else
+          {
+            final IParticipantIdentifier aPID = m_aIdentifierFactory.createParticipantIdentifier (sScheme, sValue);
+            if (aPID == null)
+              aErrorList.add (_toError ("SBDH/Receiver[1]/Identifier",
+                                        EPeppolSBDHDocumentReadError.INVALID_RECEIVER_VALUE,
+                                        CIdentifier.getURIEncoded (sScheme, sValue)));
+          }
         }
       }
     }
@@ -701,10 +765,13 @@ public class PeppolSBDHDocumentReader
           else
             if (CPeppolSBDH.SCOPE_COUNTRY_C1.equals (sType))
             {
-              if (!isValidCountryC1 (sInstanceIdentifier))
-                aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
-                                          EPeppolSBDHDocumentReadError.INVALID_COUNTRY_C1,
-                                          sInstanceIdentifier));
+              if (isCheckForCountryC1 ())
+              {
+                if (!isValidCountryC1 (sInstanceIdentifier))
+                  aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
+                                            EPeppolSBDHDocumentReadError.INVALID_COUNTRY_C1,
+                                            sInstanceIdentifier));
+              }
               bFoundCountryC1 = true;
             }
             else
@@ -726,8 +793,11 @@ public class PeppolSBDHDocumentReader
         aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDocumentReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER));
       if (!bFoundProcessIDScope)
         aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDocumentReadError.MISSING_PROCESS_IDENTIFIER));
-      if (!bFoundCountryC1)
-        aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDocumentReadError.MISSING_COUNTRY_C1));
+      if (isCheckForCountryC1 ())
+      {
+        if (!bFoundCountryC1)
+          aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDocumentReadError.MISSING_COUNTRY_C1));
+      }
     }
 
     // Check document and metadata
@@ -782,7 +852,8 @@ public class PeppolSBDHDocumentReader
 
   /**
    * Extract the document data from the Standard Business Document represents by
-   * the passed parameter.
+   * the passed parameter. Eventually value checks are performed if
+   * {@link #isPerformValueChecks()} is <code>true</code>.
    *
    * @param aSBDH
    *        The header object to read from. May not be <code>null</code>.
@@ -801,7 +872,7 @@ public class PeppolSBDHDocumentReader
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
-    if (m_bPerformValueChecks)
+    if (isPerformValueChecks ())
     {
       // Validate data
       final ErrorList aErrorList = new ErrorList ();
@@ -831,6 +902,28 @@ public class PeppolSBDHDocumentReader
       }
     }
 
+    return extractDataUnchecked (aSBDH, aBusinessMessage);
+  }
+
+  /**
+   * Extract the document data from the Standard Business Document represents by
+   * the passed parameter without any value checks. This might be handy, if
+   * value checks were executed separately.
+   *
+   * @param aSBDH
+   *        The header object to read from. May not be <code>null</code>.
+   * @param aBusinessMessage
+   *        The main business message (XML payload) to extract data from. May
+   *        not be <code>null</code>.
+   * @return The document data and never <code>null</code>.
+   * @since 9.2.2
+   */
+  @Nonnull
+  public PeppolSBDHData extractDataUnchecked (@Nonnull final StandardBusinessDocumentHeader aSBDH,
+                                              @Nonnull final Element aBusinessMessage)
+  {
+    ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
+    ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
     final PeppolSBDHData ret = new PeppolSBDHData (m_aIdentifierFactory);
 
     // Check sender
