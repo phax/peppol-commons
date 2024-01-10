@@ -77,8 +77,8 @@ import com.helger.commons.traits.IGenericImplTrait;
 @ThreadSafe
 public final class CertificateRevocationChecker
 {
-  // By default only OCSP is used
-  public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.OCSP;
+  // By default OCSP is preferred over CRL
+  public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.OCSP_BEFORE_CRL;
   public static final boolean DEFAULT_ALLOW_SOFT_FAIL = false;
   public static final boolean DEFAULT_ALLOW_EXEC_SYNC = true;
 
@@ -662,7 +662,7 @@ public final class CertificateRevocationChecker
                       (m_aCheckDate != null ? "for datetime " + m_aCheckDate : "without a datetime") +
                       (bExecuteSync ? " [synchronized]" : " [not synchronized]"));
 
-      // check OCSP and CLR
+      // check OCSP and CRL
       final StopWatch aSW = StopWatch.createdStarted ();
       try
       {
@@ -750,12 +750,12 @@ public final class CertificateRevocationChecker
               aOptions.add (PKIXRevocationChecker.Option.SOFT_FAIL);
             eRealCheckMode.addAllOptionsTo (aOptions);
             if (LOGGER.isDebugEnabled ())
-              LOGGER.debug ("OCSP/CLR effective options = " + aOptions);
+              LOGGER.debug ("OCSP/CRL effective options = " + aOptions);
             aRevChecker.setOptions (aOptions);
 
             final PKIXCertPathBuilderResult aBuilderResult = (PKIXCertPathBuilderResult) aCPB.build (aPKIXParams);
             if (LOGGER.isDebugEnabled ())
-              LOGGER.debug ("OCSP/CLR builder result = " + aBuilderResult);
+              LOGGER.debug ("OCSP/CRL builder result = " + aBuilderResult);
             final CertPath aCertPath = aBuilderResult.getCertPath ();
 
             // Validate
@@ -763,7 +763,7 @@ public final class CertificateRevocationChecker
             final PKIXCertPathValidatorResult aValidateResult = (PKIXCertPathValidatorResult) aCPV.validate (aCertPath,
                                                                                                              aPKIXParams);
             if (LOGGER.isDebugEnabled ())
-              LOGGER.debug ("OCSP/CLR validation result = " + aValidateResult);
+              LOGGER.debug ("OCSP/CRL validation result = " + aValidateResult);
 
             if (bAllowSoftFail)
             {
@@ -804,10 +804,10 @@ public final class CertificateRevocationChecker
       {
         final long nMillis = aSW.stopAndGetMillis ();
         if (m_aExecutionDurationWarn != null && nMillis > m_aExecutionDurationWarn.toMillis ())
-          LOGGER.warn ("OCSP/CLR revocation check took " + nMillis + " milliseconds which is too long");
+          LOGGER.warn ("OCSP/CRL revocation check took " + nMillis + " milliseconds which is too long");
         else
           if (LOGGER.isDebugEnabled ())
-            LOGGER.debug ("OCSP/CLR revocation check took " + nMillis + " milliseconds");
+            LOGGER.debug ("OCSP/CRL revocation check took " + nMillis + " milliseconds");
       }
     }
   }
