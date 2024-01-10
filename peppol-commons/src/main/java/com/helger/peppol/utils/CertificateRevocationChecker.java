@@ -77,8 +77,9 @@ import com.helger.commons.traits.IGenericImplTrait;
 @ThreadSafe
 public final class CertificateRevocationChecker
 {
-  // By default OCSP is preferred over CRL
-  public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.OCSP_BEFORE_CRL;
+  // By default CRL is preferred over OCSP because of
+  // https://github.com/phax/phase4/issues/124
+  public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.CRL_BEFORE_OCSP;
   public static final boolean DEFAULT_ALLOW_SOFT_FAIL = false;
   public static final boolean DEFAULT_ALLOW_EXEC_SYNC = true;
 

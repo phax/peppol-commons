@@ -286,6 +286,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.2.3 - 2024-01-10
+    * Changed the default checking mode in `CertificateRevocationChecker` from `OCSP` to `CRL_BEFORE_OCSP` due to https://github.com/phax/phase4/issues/124#issuecomment-1884398195
 * v9.2.2 - 2024-01-08
     * Extended `PeppolSBDHDocumentReader` API to allow to disable check for mandatory C1 Country Code via `.setCheckForCountryC1(boolean)`
 * v9.2.1 - 2024-01-07
