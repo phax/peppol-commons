@@ -286,6 +286,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.2.4 - work in progress
+    * Via `CRLCache.setDownloader` a custom downloader can be configured. The default solution uses the Java runtime HttpURLConnection.
 * v9.2.3 - 2024-01-10
     * Changed the default checking mode in `CertificateRevocationChecker` from `OCSP` to `CRL_BEFORE_OCSP` due to https://github.com/phax/phase4/issues/124#issuecomment-1884398195
 * v9.2.2 - 2024-01-08

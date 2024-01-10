@@ -128,29 +128,73 @@ public final class CRLHelper
   }
 
   /**
-   * A cache for CRLs read from remote locations.
+   * Callback interface to download CRL data. Use it globally with
+   * {@link CRLCache#setDownloader(ICRLDownloader)}.
+   *
+   * @author Philip Helger
+   * @since 9.2.4
+   */
+  @FunctionalInterface
+  public interface ICRLDownloader
+  {
+    /**
+     * Download the content of the provided URL
+     *
+     * @param sURL
+     *        The CRL URL to download. Neither <code>null</code> nor empty.
+     * @return <code>null</code> if no payload was returned
+     * @throws Exception
+     *         In case of error
+     */
+    @Nullable
+    byte [] downloadURL (@Nonnull @Nonempty String sURL) throws Exception;
+  }
+
+  /**
+   * A cache for CRLs read from remote locations. The remote reading can be
+   * customized by setting a specific CRL downloader via
+   * {@link #setDownloader(ICRLDownloader)}
    *
    * @author Philip Helger
    */
   public static final class CRLCache extends Cache <String, TimedCRL>
   {
     public static final CRLCache INSTANCE = new CRLCache ();
+    public static final ICRLDownloader DEFAULT_DOWNLOADER = sURL -> {
+      // Use the built in HTTP client here (global proxy, etc.)
+      try (final InputStream aIS = new URL (sURL).openStream ())
+      {
+        return StreamHelper.getAllBytes (aIS);
+      }
+    };
+
+    private static ICRLDownloader s_aDownloader = DEFAULT_DOWNLOADER;
+
+    @Nonnull
+    public static ICRLDownloader getDownloader ()
+    {
+      return s_aDownloader;
+    }
+
+    public static void setDownloader (@Nonnull final ICRLDownloader aDownloader)
+    {
+      ValueEnforcer.notNull (aDownloader, "Downloader");
+      s_aDownloader = aDownloader;
+      LOGGER.info ("Set the global CRL Downloader to be " + aDownloader);
+    }
 
     @Nullable
     private static TimedCRL _loadCRL (@Nonnull final String sCRLURL)
     {
-      if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) ||
-          EURLProtocol.HTTPS.isUsedInURL (sCRLURL) ||
-          EURLProtocol.FTP.isUsedInURL (sCRLURL))
+      if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) || EURLProtocol.HTTPS.isUsedInURL (sCRLURL))
       {
         // Try to download from remote URL
-        LOGGER.info ("Trying to download CRL from URL '" + sCRLURL + "'");
+        LOGGER.info ("Downloading CRL from URL '" + sCRLURL + "'");
         final StopWatch aSW = StopWatch.createdStarted ();
         int nByteCount = 0;
-        // Use the built in HTTP client here (global proxy, etc.)
-        try (final InputStream aIS = new URL (sCRLURL).openStream ())
+        try
         {
-          final byte [] aCRLBytes = StreamHelper.getAllBytes (aIS);
+          final byte [] aCRLBytes = s_aDownloader.downloadURL (sCRLURL);
           if (aCRLBytes != null)
           {
             nByteCount = aCRLBytes.length;
@@ -164,7 +208,8 @@ public final class CRLHelper
         finally
         {
           aSW.stop ();
-          LOGGER.info ("Downloading the CRL took " + aSW.getMillis () + " milliseconds for " + nByteCount + " bytes");
+          if (aSW.getMillis () > 1_000)
+            LOGGER.info ("Downloading the CRL took " + aSW.getMillis () + " milliseconds for " + nByteCount + " bytes");
         }
       }
 
