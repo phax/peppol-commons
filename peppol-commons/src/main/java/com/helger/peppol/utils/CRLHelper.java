@@ -69,6 +69,7 @@ import com.helger.commons.url.EURLProtocol;
 public final class CRLHelper
 {
   public static final Duration DEFAULT_CACHING_DURATION = Duration.ofDays (1);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CRLHelper.class);
 
   /**
    * The combination of a CRL and the date time it was read. May be used to
@@ -134,8 +135,6 @@ public final class CRLHelper
   public static final class CRLCache extends Cache <String, TimedCRL>
   {
     public static final CRLCache INSTANCE = new CRLCache ();
-
-    private static final Logger LOGGER = LoggerFactory.getLogger (CRLHelper.CRLCache.class);
 
     @Nullable
     private static TimedCRL _loadCRL (@Nonnull final String sCRLURL)
@@ -240,7 +239,7 @@ public final class CRLHelper
     if (aExtensionValue != null)
     {
       // crlDPExtensionValue is encoded in ASN.1 format.
-      try (final ASN1InputStream asn1In = new ASN1InputStream (aExtensionValue))
+      try (final ASN1InputStream aAsn1IS = new ASN1InputStream (aExtensionValue))
       {
         // DER (Distinguished Encoding Rules) is one of ASN.1 encoding rules
         // defined in ITU-T X.690, 2002, specification.
@@ -249,12 +248,12 @@ public final class CRLHelper
         final CRLDistPoint aDistPoint;
         try
         {
-          final DEROctetString crlDEROctetString = (DEROctetString) asn1In.readObject ();
+          final DEROctetString aCrlDEROctetString = (DEROctetString) aAsn1IS.readObject ();
           // Get Input stream in octets
-          try (final ASN1InputStream asn1InOctets = new ASN1InputStream (crlDEROctetString.getOctets ()))
+          try (final ASN1InputStream aAsn1InOctets = new ASN1InputStream (aCrlDEROctetString.getOctets ()))
           {
-            final ASN1Primitive crlDERObject = asn1InOctets.readObject ();
-            aDistPoint = CRLDistPoint.getInstance (crlDERObject);
+            final ASN1Primitive aCrlDERObject = aAsn1InOctets.readObject ();
+            aDistPoint = CRLDistPoint.getInstance (aCrlDERObject);
           }
         }
         catch (final IOException e)
@@ -263,14 +262,14 @@ public final class CRLHelper
         }
 
         // Loop through ASN1Encodable DistributionPoints
-        for (final DistributionPoint dp : aDistPoint.getDistributionPoints ())
+        for (final DistributionPoint aDP : aDistPoint.getDistributionPoints ())
         {
           // get ASN1Encodable DistributionPointName
-          final DistributionPointName dpn = dp.getDistributionPoint ();
-          if (dpn != null && dpn.getType () == DistributionPointName.FULL_NAME)
+          final DistributionPointName aDPName = aDP.getDistributionPoint ();
+          if (aDPName != null && aDPName.getType () == DistributionPointName.FULL_NAME)
           {
             // Create ASN1Encodable General Names
-            final GeneralName [] aGenNames = GeneralNames.getInstance (dpn.getName ()).getNames ();
+            final GeneralName [] aGenNames = GeneralNames.getInstance (aDPName.getName ()).getNames ();
             // Look for a URI
             for (final GeneralName aGenName : aGenNames)
             {
@@ -280,6 +279,7 @@ public final class CRLHelper
                 // A IA5String is a restricted character string type in the
                 // ASN.1 notation
                 final String sURL = ASN1IA5String.getInstance (aGenName.getName ()).getString ().trim ();
+                LOGGER.info ("Found CRL URL '" + sURL + "'");
                 ret.add (sURL);
               }
             }
