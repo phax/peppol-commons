@@ -56,7 +56,7 @@ public final class PredefinedDocumentTypeIdentifierManager
   {}
 
   /**
-   * @return A non-modifiable list of all PEPPOL document identifiers.
+   * @return A non-modifiable list of all Peppol document type identifiers.
    */
   @Nonnull
   @Nonempty
@@ -67,7 +67,8 @@ public final class PredefinedDocumentTypeIdentifierManager
   }
 
   /**
-   * @return A non-<code>null</code> list of all PEPPOL document identifier IDs.
+   * @return A non-<code>null</code> list of all Peppol document type identifier
+   *         IDs.
    */
   @Nonnull
   @Nonempty
@@ -83,8 +84,8 @@ public final class PredefinedDocumentTypeIdentifierManager
    * registered for busdox-docid-qns and peppol-wildcard in parallel!
    *
    * @param sDocTypeID
-   *        The value to search. Without any identifier scheme! May be
-   *        <code>null</code>.
+   *        The URI encoded document type ID include the identifier scheme. May
+   *        be <code>null</code>.
    * @return <code>null</code> if no such document identifier exists.
    */
   @Nullable
@@ -101,14 +102,14 @@ public final class PredefinedDocumentTypeIdentifierManager
   /**
    * Check if a document identifier with the given ID exists.
    *
-   * @param sDocTypeIDValue
-   *        The value to search. Without any identifier scheme! May be
-   *        <code>null</code>.
+   * @param sDocTypeID
+   *        The URI encoded document type ID include the identifier scheme. May
+   *        be <code>null</code>.
    * @return <code>true</code> if such a document identifier exists,
    *         <code>false</code> otherwise.
    */
-  public static boolean containsDocumentTypeIdentifierWithID (@Nullable final String sDocTypeIDValue)
+  public static boolean containsDocumentTypeIdentifierWithID (@Nullable final String sDocTypeID)
   {
-    return getDocumentTypeIdentifierOfID (sDocTypeIDValue) != null;
+    return getDocumentTypeIdentifierOfID (sDocTypeID) != null;
   }
 }
