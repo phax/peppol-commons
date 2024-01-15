@@ -17,9 +17,20 @@ import com.helger.peppolid.peppol.process.PredefinedProcessIdentifierManager;
 public class PredefinedProcessIdentifierManagerTest
 {
   @Test
-  public void testBasic ()
+  public void testBasicWithoutScheme ()
   {
     final String sValid = "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0";
+    assertTrue (PredefinedProcessIdentifierManager.containsProcessIdentifierWithID (sValid));
+    assertFalse (PredefinedProcessIdentifierManager.containsProcessIdentifierWithID (sValid + "0"));
+
+    assertNotNull (PredefinedProcessIdentifierManager.getProcessIdentifierOfID (sValid));
+    assertNull (PredefinedProcessIdentifierManager.getProcessIdentifierOfID (sValid + "0"));
+  }
+
+  @Test
+  public void testBasicWithScheme ()
+  {
+    final String sValid = "cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0";
     assertTrue (PredefinedProcessIdentifierManager.containsProcessIdentifierWithID (sValid));
     assertFalse (PredefinedProcessIdentifierManager.containsProcessIdentifierWithID (sValid + "0"));
 

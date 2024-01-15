@@ -29,9 +29,12 @@ import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsCollection;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.commons.string.StringHelper;
+import com.helger.peppolid.CIdentifier;
+import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 
 /**
- * This class manages the predefined PEPPOL process identifiers the
+ * This class manages the predefined Peppol process identifiers the
  * <b>cenbii-procid-ubl</b> scheme. This class provides sanity methods around
  * {@link EPredefinedProcessIdentifier} which would be to bogus to generate
  * them.
@@ -47,7 +50,7 @@ public final class PredefinedProcessIdentifierManager
   {
     // Add all predefined process identifiers
     for (final EPredefinedProcessIdentifier eProcID : EPredefinedProcessIdentifier.values ())
-      CODES.put (eProcID.getValue (), eProcID);
+      CODES.put (eProcID.getURIEncoded (), eProcID);
   }
 
   @PresentForCodeCoverage
@@ -57,7 +60,7 @@ public final class PredefinedProcessIdentifierManager
   {}
 
   /**
-   * @return A non-<code>null</code> list of all PEPPOL process identifiers.
+   * @return A non-<code>null</code> list of all Peppol process identifiers.
    */
   @Nonnull
   @Nonempty
@@ -68,7 +71,8 @@ public final class PredefinedProcessIdentifierManager
   }
 
   /**
-   * @return A non-<code>null</code> list of all PEPPOL process identifier IDs.
+   * @return A non-<code>null</code> list of all Peppol process identifier IDs.
+   *         Since v9.2.4 this include the identifier scheme.
    */
   @Nonnull
   @Nonempty
@@ -82,35 +86,42 @@ public final class PredefinedProcessIdentifierManager
    * Find the process identifier with the given ID. This search is done case
    * insensitive.
    *
-   * @param sProcIDValue
-   *        The value to search. Without any identifier scheme! May be
-   *        <code>null</code>.
+   * @param sProcID
+   *        The URI encoded process ID or the process value to search. May or
+   *        may not include the scheme ID. May be <code>null</code>.
    * @return <code>null</code> if no such process identifier exists.
    */
   @Nullable
-  public static IPeppolPredefinedProcessIdentifier getProcessIdentifierOfID (@Nullable final String sProcIDValue)
+  public static IPeppolPredefinedProcessIdentifier getProcessIdentifierOfID (@Nullable final String sProcID)
   {
-    if (sProcIDValue != null)
+    if (StringHelper.hasText (sProcID))
+    {
+      // make sure a scheme is present
+      final String sRealProcID = sProcID.contains ("::") ? sProcID
+                                                         : CIdentifier.getURIEncoded (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME,
+                                                                                      sProcID);
+
       for (final Map.Entry <String, IPeppolPredefinedProcessIdentifier> aEntry : CODES.entrySet ())
       {
-        // PEPPOL: Case sensitive comparison
-        if (sProcIDValue.equals (aEntry.getKey ()))
+        // Peppol: Case sensitive comparison
+        if (sRealProcID.equals (aEntry.getKey ()))
           return aEntry.getValue ();
       }
+    }
     return null;
   }
 
   /**
    * Check if a process identifier with the given ID exists.
    *
-   * @param sProcIDValue
-   *        The value to search. Without any identifier scheme! May be
-   *        <code>null</code>.
+   * @param sProcID
+   *        The URI encoded process ID or the process value to search. May or
+   *        may not include the scheme ID. May be <code>null</code>.
    * @return <code>true</code> if such a process identifier exists,
    *         <code>false</code> otherwise.
    */
-  public static boolean containsProcessIdentifierWithID (@Nullable final String sProcIDValue)
+  public static boolean containsProcessIdentifierWithID (@Nullable final String sProcID)
   {
-    return getProcessIdentifierOfID (sProcIDValue) != null;
+    return getProcessIdentifierOfID (sProcID) != null;
   }
 }
