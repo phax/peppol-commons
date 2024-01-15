@@ -29,7 +29,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
- * This class manages the predefined PEPPOL document identifiers the
+ * This class manages the predefined Peppol document identifiers the
  * <b>busdox-docid-qns</b> scheme.<br>
  * This class provides sanity methods around
  * {@link EPredefinedDocumentTypeIdentifier} which would be to bogus to generate
