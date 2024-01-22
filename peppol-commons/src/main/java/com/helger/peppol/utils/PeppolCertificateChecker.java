@@ -70,16 +70,17 @@ public final class PeppolCertificateChecker
   public static final class PeppolRevocationCache
   {
     private final ExpiringMap <String, Boolean> m_aCache;
-    private final IToBooleanFunction <X509Certificate> m_aValueProvider;
+    private final IToBooleanFunction <X509Certificate> m_aRevocationChecker;
 
-    public PeppolRevocationCache (@Nonnull final IToBooleanFunction <X509Certificate> aValueProvider)
+    public PeppolRevocationCache (@Nonnull final IToBooleanFunction <X509Certificate> aRevocationChecker)
     {
-      ValueEnforcer.notNull (aValueProvider, "ValueProvider");
+      ValueEnforcer.notNull (aRevocationChecker, "RevocationChecker");
       m_aCache = ExpiringMap.builder ()
                             .expirationPolicy (ExpirationPolicy.CREATED)
                             .expiration (6, TimeUnit.HOURS)
+                            .maxSize (1000)
                             .build ();
-      m_aValueProvider = aValueProvider;
+      m_aRevocationChecker = aRevocationChecker;
     }
 
     @Nonnull
@@ -91,7 +92,7 @@ public final class PeppolCertificateChecker
     public boolean isRevoked (@Nonnull final X509Certificate aCert)
     {
       final String sKey = _getKey (aCert);
-      return m_aCache.computeIfAbsent (sKey, k -> Boolean.valueOf (m_aValueProvider.applyAsBoolean (aCert)))
+      return m_aCache.computeIfAbsent (sKey, k -> Boolean.valueOf (m_aRevocationChecker.applyAsBoolean (aCert)))
                      .booleanValue ();
     }
 

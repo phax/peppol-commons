@@ -255,7 +255,12 @@ public final class CertificateRevocationChecker
                                                               IGenericImplTrait <IMPLTYPE>
   {
     public static final Duration DEFAULT_EXECUTION_WARN_DURATION = Duration.ofMillis (500);
-    public static final Duration DEFAULT_CACHING_DURATION = CRLHelper.DEFAULT_CACHING_DURATION;
+    public static final Duration DEFAULT_CRL_CACHING_DURATION = CRLHelper.DEFAULT_CACHING_DURATION;
+    /**
+     * @deprecated Use {@link #DEFAULT_CRL_CACHING_DURATION} instead
+     */
+    @Deprecated (forRemoval = true, since = "9.2.4")
+    public static final Duration DEFAULT_CACHING_DURATION = DEFAULT_CRL_CACHING_DURATION;
 
     private X509Certificate m_aCert;
     private final ICommonsList <X509Certificate> m_aValidCAs = new CommonsArrayList <> ();
@@ -266,7 +271,7 @@ public final class CertificateRevocationChecker
     private Consumer <? super List <CertPathValidatorException>> m_aSoftFailExceptionHdl;
     private ETriState m_eExecuteInSynchronizedBlock = ETriState.UNDEFINED;
     private Duration m_aExecutionDurationWarn = DEFAULT_EXECUTION_WARN_DURATION;
-    private Duration m_aCRLCachingDuration = DEFAULT_CACHING_DURATION;
+    private Duration m_aCRLCachingDuration = DEFAULT_CRL_CACHING_DURATION;
 
     public AbstractRevocationCheckBuilder ()
     {}

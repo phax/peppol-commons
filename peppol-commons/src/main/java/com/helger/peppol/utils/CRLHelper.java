@@ -84,6 +84,8 @@ public final class CRLHelper
 
     public TimedCRL (@Nonnull final LocalDateTime aReadDateTime, @Nonnull final CRL aCRL)
     {
+      ValueEnforcer.notNull (aReadDateTime, "ReadDateTime");
+      ValueEnforcer.notNull (aCRL, "CRL");
       m_aReadDateTime = aReadDateTime;
       m_aCRL = aCRL;
     }
@@ -108,7 +110,8 @@ public final class CRLHelper
      */
     public boolean isValid (@Nonnull final Duration aCachingDuration)
     {
-      return m_aReadDateTime.plus (aCachingDuration).isAfter (PDTFactory.getCurrentLocalDateTime ());
+      final LocalDateTime aMaxCachingDT = m_aReadDateTime.plus (aCachingDuration);
+      return aMaxCachingDT.isAfter (PDTFactory.getCurrentLocalDateTime ());
     }
 
     /**
@@ -125,29 +128,6 @@ public final class CRLHelper
     {
       return new TimedCRL (PDTFactory.getCurrentLocalDateTime (), aCRL);
     }
-  }
-
-  /**
-   * Callback interface to download CRL data. Use it globally with
-   * {@link CRLCache#setDownloader(ICRLDownloader)}.
-   *
-   * @author Philip Helger
-   * @since 9.2.4
-   */
-  @FunctionalInterface
-  public interface ICRLDownloader
-  {
-    /**
-     * Download the content of the provided URL
-     *
-     * @param sURL
-     *        The CRL URL to download. Neither <code>null</code> nor empty.
-     * @return <code>null</code> if no payload was returned
-     * @throws Exception
-     *         In case of error
-     */
-    @Nullable
-    byte [] downloadURL (@Nonnull @Nonempty String sURL) throws Exception;
   }
 
   /**
@@ -247,18 +227,18 @@ public final class CRLHelper
   {
     ValueEnforcer.notEmpty (aCRLBytes, "CRLBytes");
 
-    try (final NonBlockingByteArrayInputStream crlStream = new NonBlockingByteArrayInputStream (aCRLBytes))
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aCRLBytes))
     {
       final CertificateFactory cf = CertificateFactory.getInstance ("X.509");
-      return (X509CRL) cf.generateCRL (crlStream);
+      return (X509CRL) cf.generateCRL (aIS);
     }
-    catch (final CertificateException e)
+    catch (final CertificateException ex)
     {
-      throw new IllegalArgumentException (e);
+      throw new IllegalArgumentException (ex);
     }
-    catch (final CRLException e)
+    catch (final CRLException ex)
     {
-      throw new IllegalArgumentException ("Cannot generate X509CRL from the stream data", e);
+      throw new IllegalArgumentException ("Cannot generate X.509 CRL from the stream data", ex);
     }
   }
 
@@ -375,6 +355,9 @@ public final class CRLHelper
         // maximum life time check
         if (aObject.isValid (aCachingDuration))
           return aObject.getCRL ();
+
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("The cached entry for CRL URL '" + sCRLURL + "' is expired and needs to be re-fetched.");
 
         // Object expired - re-fetch
         CRLCache.INSTANCE.removeFromCache (sCRLURL);
