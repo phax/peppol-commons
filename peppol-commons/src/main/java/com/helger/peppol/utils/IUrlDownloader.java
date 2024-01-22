@@ -16,21 +16,23 @@
  */
 package com.helger.peppol.utils;
 
+import java.io.InputStream;
+import java.net.URL;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.peppol.utils.CRLHelper.CRLCache;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
- * Callback interface to download CRL data. Use it globally with
- * {@link CRLCache#setDownloader(ICRLDownloader)}.
+ * Callback interface to download data from web. Used e.g. for CRL downloads.
  *
  * @author Philip Helger
- * @since 9.2.4
+ * @since 9.3.0
  */
 @FunctionalInterface
-public interface ICRLDownloader
+public interface IUrlDownloader
 {
   /**
    * Download the content of the provided URL
@@ -43,4 +45,20 @@ public interface ICRLDownloader
    */
   @Nullable
   byte [] downloadURL (@Nonnull @Nonempty String sURL) throws Exception;
+
+  /**
+   * @return The default URL downloader using {@link URL#openStream()}. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  static IUrlDownloader createDefault ()
+  {
+    return sURL -> {
+      // Use the built in HTTP client here (global proxy, etc.)
+      try (final InputStream aIS = new URL (sURL).openStream ())
+      {
+        return StreamHelper.getAllBytes (aIS);
+      }
+    };
+  }
 }

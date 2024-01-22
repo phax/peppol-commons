@@ -17,20 +17,14 @@
 package com.helger.peppol.utils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.net.URL;
-import java.security.cert.CRL;
 import java.security.cert.CRLException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
-import java.time.Duration;
-import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.bouncycastle.asn1.ASN1IA5String;
@@ -48,15 +42,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.cache.Cache;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.timing.StopWatch;
-import com.helger.commons.url.EURLProtocol;
 
 /**
  * Helper class to deal with CRLs. This class requires BouncyCastle to be in the
@@ -68,146 +56,7 @@ import com.helger.commons.url.EURLProtocol;
 @Immutable
 public final class CRLHelper
 {
-  public static final Duration DEFAULT_CACHING_DURATION = Duration.ofDays (1);
   private static final Logger LOGGER = LoggerFactory.getLogger (CRLHelper.class);
-
-  /**
-   * The combination of a CRL and the date time it was read. May be used to
-   * expired the cache at a certain point in time.
-   *
-   * @author Philip Helger
-   */
-  public static class TimedCRL
-  {
-    private final LocalDateTime m_aReadDateTime;
-    private final CRL m_aCRL;
-
-    public TimedCRL (@Nonnull final LocalDateTime aReadDateTime, @Nonnull final CRL aCRL)
-    {
-      ValueEnforcer.notNull (aReadDateTime, "ReadDateTime");
-      ValueEnforcer.notNull (aCRL, "CRL");
-      m_aReadDateTime = aReadDateTime;
-      m_aCRL = aCRL;
-    }
-
-    /**
-     * @return The date and time when it was read. Never <code>null</code>.
-     */
-    @Nonnull
-    public final LocalDateTime getReadDateTime ()
-    {
-      return m_aReadDateTime;
-    }
-
-    /**
-     * Check this entry is still valid
-     *
-     * @param aCachingDuration
-     *        The caching duration that is allowed. May not be
-     *        <code>null</code>.
-     * @return <code>true</code> if the read date time plus the caching duration
-     *         is before now
-     */
-    public boolean isValid (@Nonnull final Duration aCachingDuration)
-    {
-      final LocalDateTime aMaxCachingDT = m_aReadDateTime.plus (aCachingDuration);
-      return aMaxCachingDT.isAfter (PDTFactory.getCurrentLocalDateTime ());
-    }
-
-    /**
-     * @return The CRL itself. Never <code>null</code>.
-     */
-    @Nonnull
-    public final CRL getCRL ()
-    {
-      return m_aCRL;
-    }
-
-    @Nonnull
-    public static TimedCRL ofNow (@Nonnull final CRL aCRL)
-    {
-      return new TimedCRL (PDTFactory.getCurrentLocalDateTime (), aCRL);
-    }
-  }
-
-  /**
-   * A cache for CRLs read from remote locations. The remote reading can be
-   * customized by setting a specific CRL downloader via
-   * {@link #setDownloader(ICRLDownloader)}
-   *
-   * @author Philip Helger
-   */
-  public static final class CRLCache extends Cache <String, TimedCRL>
-  {
-    public static final CRLCache INSTANCE = new CRLCache ();
-    public static final ICRLDownloader DEFAULT_DOWNLOADER = sURL -> {
-      // Use the built in HTTP client here (global proxy, etc.)
-      try (final InputStream aIS = new URL (sURL).openStream ())
-      {
-        return StreamHelper.getAllBytes (aIS);
-      }
-    };
-
-    private static ICRLDownloader s_aDownloader = DEFAULT_DOWNLOADER;
-
-    @Nonnull
-    public static ICRLDownloader getDownloader ()
-    {
-      return s_aDownloader;
-    }
-
-    public static void setDownloader (@Nonnull final ICRLDownloader aDownloader)
-    {
-      ValueEnforcer.notNull (aDownloader, "Downloader");
-      s_aDownloader = aDownloader;
-      LOGGER.info ("Set the global CRL Downloader to be " + aDownloader);
-    }
-
-    @Nullable
-    private static TimedCRL _loadCRL (@Nonnull final String sCRLURL)
-    {
-      if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) || EURLProtocol.HTTPS.isUsedInURL (sCRLURL))
-      {
-        // Try to download from remote URL
-        LOGGER.info ("Downloading CRL from URL '" + sCRLURL + "'");
-        final StopWatch aSW = StopWatch.createdStarted ();
-        int nByteCount = 0;
-        try
-        {
-          final byte [] aCRLBytes = s_aDownloader.downloadURL (sCRLURL);
-          if (aCRLBytes != null)
-          {
-            nByteCount = aCRLBytes.length;
-            return TimedCRL.ofNow (CRLHelper.convertToCRL (aCRLBytes));
-          }
-        }
-        catch (final Exception ex)
-        {
-          LOGGER.error ("Error downloading CRL from URL '" + sCRLURL + "'", ex);
-        }
-        finally
-        {
-          aSW.stop ();
-          if (aSW.getMillis () > 1_000)
-            LOGGER.info ("Downloading the CRL took " + aSW.getMillis () + " milliseconds for " + nByteCount + " bytes");
-        }
-      }
-
-      return null;
-    }
-
-    protected CRLCache ()
-    {
-      super (CRLCache::_loadCRL, 100, "CRL Cache");
-    }
-
-    void manuallyPutInCache (@Nonnull final String sCRLURL, @Nonnull final TimedCRL aTimedCRL)
-    {
-      ValueEnforcer.notEmpty (sCRLURL, "CRLURL");
-      ValueEnforcer.notNull (aTimedCRL, "TimedCRL");
-      super.putInCache (sCRLURL, aTimedCRL);
-    }
-  }
 
   private CRLHelper ()
   {}
@@ -304,7 +153,8 @@ public final class CRLHelper
                 // A IA5String is a restricted character string type in the
                 // ASN.1 notation
                 final String sURL = ASN1IA5String.getInstance (aGenName.getName ()).getString ().trim ();
-                LOGGER.info ("Found CRL URL '" + sURL + "'");
+                if (LOGGER.isDebugEnabled ())
+                  LOGGER.info ("Found CRL URL '" + sURL + "' in certificate");
                 ret.add (sURL);
               }
             }
@@ -317,73 +167,5 @@ public final class CRLHelper
       }
     }
     return ret;
-  }
-
-  /**
-   * Get the CRL object from the provided URL. Uses caching internally. Uses the
-   * default caching duration {@link #DEFAULT_CACHING_DURATION}.
-   *
-   * @param sCRLURL
-   *        The URL to read the CRL from.
-   * @return <code>null</code> if the CRL could not be read from that URL.
-   */
-  @Nullable
-  public static CRL getCRLFromURL (@Nullable final String sCRLURL)
-  {
-    return getCRLFromURL (sCRLURL, DEFAULT_CACHING_DURATION);
-  }
-
-  /**
-   * Get the CRL object from the provided URL. Uses caching internally.
-   *
-   * @param sCRLURL
-   *        The URL to read the CRL from.
-   * @param aCachingDuration
-   *        The maximum caching duration. May not be <code>null</code>.
-   * @return <code>null</code> if the CRL could not be read from that URL.
-   * @since 9.0.8
-   */
-  @Nullable
-  public static CRL getCRLFromURL (@Nullable final String sCRLURL, @Nonnull final Duration aCachingDuration)
-  {
-    ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
-    if (StringHelper.hasText (sCRLURL))
-    {
-      TimedCRL aObject = CRLCache.INSTANCE.getFromCache (sCRLURL);
-      if (aObject != null)
-      {
-        // maximum life time check
-        if (aObject.isValid (aCachingDuration))
-          return aObject.getCRL ();
-
-        if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("The cached entry for CRL URL '" + sCRLURL + "' is expired and needs to be re-fetched.");
-
-        // Object expired - re-fetch
-        CRLCache.INSTANCE.removeFromCache (sCRLURL);
-        aObject = CRLCache.INSTANCE.getFromCache (sCRLURL);
-        if (aObject != null)
-          return aObject.getCRL ();
-      }
-    }
-    return null;
-  }
-
-  /**
-   * Allow to manually add a downloaded CRL into the cache, for the provided
-   * URL.
-   *
-   * @param sCRLURL
-   *        The URL for which the cached URL should be used. May neither be
-   *        <code>null</code> nor empty.
-   * @param aCRL
-   *        The CRL to be used. May not be <code>null</code>.
-   * @since 9.0.8
-   */
-  public static void setCRLOfURL (@Nonnull @Nonempty final String sCRLURL, @Nonnull final CRL aCRL)
-  {
-    ValueEnforcer.notEmpty (sCRLURL, "CRLURL");
-    ValueEnforcer.notNull (aCRL, "CRL");
-    CRLCache.INSTANCE.manuallyPutInCache (sCRLURL, TimedCRL.ofNow (aCRL));
   }
 }

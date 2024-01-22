@@ -96,6 +96,8 @@ public final class CertificateRevocationChecker
   private static Consumer <? super List <? extends CertPathValidatorException>> s_aSoftFailExceptionHdl = exs -> LOGGER.warn ("Certificate revocation check succeeded but has messages: " +
                                                                                                                               exs);
   private static final AtomicBoolean ALLOW_EXEC_SYNC = new AtomicBoolean (DEFAULT_ALLOW_EXEC_SYNC);
+  @GuardedBy ("RW_LOCK")
+  private static CRLCache s_aDefaultCRLCache = CRLCache.createDefault ();
 
   private CertificateRevocationChecker ()
   {}
@@ -232,6 +234,28 @@ public final class CertificateRevocationChecker
   }
 
   /**
+   * @return The default CRL cache to be used. Never <code>null</code>.
+   */
+  @Nonnull
+  public static CRLCache getDefaultCRLCache ()
+  {
+    return RW_LOCK.readLockedGet ( () -> s_aDefaultCRLCache);
+  }
+
+  /**
+   * Set the default CRL cache to be used.
+   *
+   * @param aCRLCache
+   *        The cache to be used. Never <code>null</code>.
+   */
+  public static void setDefaultCRLCache (@Nonnull final CRLCache aCRLCache)
+  {
+    ValueEnforcer.notNull (aCRLCache, "CRLCache");
+    RW_LOCK.writeLocked ( () -> s_aDefaultCRLCache = aCRLCache);
+    LOGGER.info ("Global default CRL Cache is set to: " + aCRLCache);
+  }
+
+  /**
    * @return A new {@link RevocationCheckBuilder} instance.
    */
   public static RevocationCheckBuilder revocationCheck ()
@@ -255,12 +279,6 @@ public final class CertificateRevocationChecker
                                                               IGenericImplTrait <IMPLTYPE>
   {
     public static final Duration DEFAULT_EXECUTION_WARN_DURATION = Duration.ofMillis (500);
-    public static final Duration DEFAULT_CRL_CACHING_DURATION = CRLHelper.DEFAULT_CACHING_DURATION;
-    /**
-     * @deprecated Use {@link #DEFAULT_CRL_CACHING_DURATION} instead
-     */
-    @Deprecated (forRemoval = true, since = "9.2.4")
-    public static final Duration DEFAULT_CACHING_DURATION = DEFAULT_CRL_CACHING_DURATION;
 
     private X509Certificate m_aCert;
     private final ICommonsList <X509Certificate> m_aValidCAs = new CommonsArrayList <> ();
@@ -271,7 +289,7 @@ public final class CertificateRevocationChecker
     private Consumer <? super List <CertPathValidatorException>> m_aSoftFailExceptionHdl;
     private ETriState m_eExecuteInSynchronizedBlock = ETriState.UNDEFINED;
     private Duration m_aExecutionDurationWarn = DEFAULT_EXECUTION_WARN_DURATION;
-    private Duration m_aCRLCachingDuration = DEFAULT_CRL_CACHING_DURATION;
+    private CRLCache m_aCRLCache = getDefaultCRLCache ();
 
     public AbstractRevocationCheckBuilder ()
     {}
@@ -600,18 +618,18 @@ public final class CertificateRevocationChecker
     }
 
     /**
-     * Set the CRL caching duration. Default is 1 day.
+     * Set the CRL cache to be used.
      *
      * @param a
-     *        the duration to use. May not be <code>null</code>.
+     *        The cache to be used. Must not be <code>null</code>.
      * @return this for chaining
-     * @since 9.0.8
+     * @since 9.2.4
      */
     @Nonnull
-    public final IMPLTYPE crlCachingDuration (@Nonnull final Duration a)
+    public final IMPLTYPE crlCache (@Nonnull final CRLCache a)
     {
-      ValueEnforcer.notNull (a, "CRLCachingDuration");
-      m_aCRLCachingDuration = a;
+      ValueEnforcer.notNull (a, "CRLCache");
+      m_aCRLCache = a;
       return thisAsT ();
     }
 
@@ -727,7 +745,7 @@ public final class CertificateRevocationChecker
               for (final String sCRLURL : aCRLURLs)
               {
                 // Get from cache or download
-                final CRL aCRL = CRLHelper.getCRLFromURL (sCRLURL, m_aCRLCachingDuration);
+                final CRL aCRL = m_aCRLCache.getCRLFromURL (sCRLURL);
                 if (aCRL != null)
                   aCRLs.add (aCRL);
               }
@@ -735,6 +753,10 @@ public final class CertificateRevocationChecker
               {
                 aPKIXParams.addCertStore (CertStore.getInstance ("Collection",
                                                                  new CollectionCertStoreParameters (aCRLs)));
+              }
+              else
+              {
+                LOGGER.warn ("Failed to find any CRL objects for revocation checking");
               }
             }
 

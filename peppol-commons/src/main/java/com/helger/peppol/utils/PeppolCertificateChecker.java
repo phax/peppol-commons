@@ -20,10 +20,11 @@ import java.io.IOException;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
+import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -42,14 +43,11 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.cache.MappedCache;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.functional.IToBooleanFunction;
 import com.helger.commons.state.ETriState;
 import com.helger.peppol.utils.CertificateRevocationChecker.AbstractRevocationCheckBuilder;
-
-import net.jodah.expiringmap.ExpirationPolicy;
-import net.jodah.expiringmap.ExpiringMap;
 
 /**
  * The Peppol certificate checker
@@ -67,21 +65,13 @@ public final class PeppolCertificateChecker
    * @author Philip Helger
    */
   @ThreadSafe
-  public static final class PeppolRevocationCache
+  public static final class PeppolRevocationCache extends
+                                                  MappedCache <X509Certificate, String, ExpiringObject <ERevoked>>
   {
-    private final ExpiringMap <String, Boolean> m_aCache;
-    private final IToBooleanFunction <X509Certificate> m_aRevocationChecker;
+    public static final Duration DEFAULT_CACHING_DURATION = Duration.ofHours (6);
 
-    public PeppolRevocationCache (@Nonnull final IToBooleanFunction <X509Certificate> aRevocationChecker)
-    {
-      ValueEnforcer.notNull (aRevocationChecker, "RevocationChecker");
-      m_aCache = ExpiringMap.builder ()
-                            .expirationPolicy (ExpirationPolicy.CREATED)
-                            .expiration (6, TimeUnit.HOURS)
-                            .maxSize (1000)
-                            .build ();
-      m_aRevocationChecker = aRevocationChecker;
-    }
+    private final Function <X509Certificate, ERevoked> m_aRevocationChecker;
+    private final Duration m_aCachingDuration;
 
     @Nonnull
     private static String _getKey (@Nonnull final X509Certificate aCert)
@@ -89,16 +79,49 @@ public final class PeppolCertificateChecker
       return aCert.getSubjectX500Principal ().getName () + "-" + aCert.getSerialNumber ().toString ();
     }
 
-    public boolean isRevoked (@Nonnull final X509Certificate aCert)
+    public PeppolRevocationCache (@Nonnull final Function <X509Certificate, ERevoked> aRevocationChecker,
+                                  @Nonnull final Duration aCachingDuration)
     {
-      final String sKey = _getKey (aCert);
-      return m_aCache.computeIfAbsent (sKey, k -> Boolean.valueOf (m_aRevocationChecker.applyAsBoolean (aCert)))
-                     .booleanValue ();
+      super (PeppolRevocationCache::_getKey, cert -> {
+        final ERevoked eRevoked = aRevocationChecker.apply (cert);
+        return ExpiringObject.ofDuration (eRevoked, aCachingDuration);
+      }, 1_000, "CertificateRevocationCache", false);
+      ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
+      ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
+      m_aRevocationChecker = aRevocationChecker;
+      m_aCachingDuration = aCachingDuration;
     }
 
-    public void clearCache ()
+    @Nonnull
+    public Function <X509Certificate, ERevoked> getRevocationChecker ()
     {
-      m_aCache.clear ();
+      return m_aRevocationChecker;
+    }
+
+    @Nonnull
+    public Duration getCachingDuration ()
+    {
+      return m_aCachingDuration;
+    }
+
+    public boolean isRevoked (@Nonnull final X509Certificate aCert)
+    {
+      ValueEnforcer.notNull (aCert, "Cert");
+
+      // Cannot return null
+      ExpiringObject <ERevoked> aObject = getFromCache (aCert);
+      // maximum life time check
+      if (aObject.isExpiredNow ())
+      {
+        LOGGER.info ("The cached entry for certificate '" +
+                     _getKey (aCert) +
+                     "' is expired and needs to be re-fetched.");
+
+        // Object expired - re-fetch
+        removeFromCache (aCert);
+        aObject = getFromCache (aCert);
+      }
+      return aObject.getObject ().isRevoked ();
     }
   }
 
@@ -111,12 +134,12 @@ public final class PeppolCertificateChecker
 
   private static final PeppolRevocationCache REVOCATION_CACHE_AP = new PeppolRevocationCache (aCert -> peppolRevocationCheck ().certificate (aCert)
                                                                                                                                .validCAsPeppolAP ()
-                                                                                                                               .build ()
-                                                                                                                               .isRevoked ());
+                                                                                                                               .build (),
+                                                                                              PeppolRevocationCache.DEFAULT_CACHING_DURATION);
   private static final PeppolRevocationCache REVOCATION_CACHE_SMP = new PeppolRevocationCache (aCert -> peppolRevocationCheck ().certificate (aCert)
                                                                                                                                 .validCAsPeppolSMP ()
-                                                                                                                                .build ()
-                                                                                                                                .isRevoked ());
+                                                                                                                                .build (),
+                                                                                               PeppolRevocationCache.DEFAULT_CACHING_DURATION);
 
   /** Peppol Access Point (AP) stuff */
   private static final ICommonsList <X509Certificate> PEPPOL_AP_CA_CERTS = new CommonsArrayList <> ();

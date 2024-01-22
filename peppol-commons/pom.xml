@@ -69,10 +69,9 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-bc</artifactId>
     </dependency>
-
     <dependency>
-      <groupId>net.jodah</groupId>
-      <artifactId>expiringmap</artifactId>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-datetime</artifactId>
     </dependency>
 
     <dependency>
