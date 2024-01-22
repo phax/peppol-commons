@@ -623,7 +623,7 @@ public final class CertificateRevocationChecker
      * @param a
      *        The cache to be used. Must not be <code>null</code>.
      * @return this for chaining
-     * @since 9.2.4
+     * @since 9.3.0
      */
     @Nonnull
     public final IMPLTYPE crlCache (@Nonnull final CRLCache a)
