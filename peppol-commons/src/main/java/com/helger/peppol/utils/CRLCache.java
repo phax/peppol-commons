@@ -29,6 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.cache.Cache;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A cache for CRLs read from remote locations.
@@ -123,6 +124,15 @@ public class CRLCache extends Cache <String, ExpiringObject <CRL>>
     ValueEnforcer.notEmpty (sCRLURL, "CRLURL");
     ValueEnforcer.notNull (aCRL, "CRL");
     super.putInCache (sCRLURL, ExpiringObject.ofDuration (aCRL, m_aCachingDuration));
+  }
+
+  @Override
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("Downloader", m_aDownloader)
+                            .append ("CachingDuration", m_aCachingDuration)
+                            .getToString ();
   }
 
   @Nonnull
