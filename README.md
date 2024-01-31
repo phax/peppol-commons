@@ -138,8 +138,8 @@ It supports the following properties:
     * `truststore/2018/smp-pilot-truststore.jks` - contains the trust certificates for Peppol pilot only (root, SMP, Directory, SML)
 * **`smpclient.truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
 
-* **`http.proxy.host`** (before v8.7.2: **`http.proxyHost`**): the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
-* **`http.proxy.port`** (before v8.7.2: **`http.proxyPort`**): the port of the HTTP proxy. The port must be specified and has no default value! If you need proxy exemptions than the `http.useSystemProperties` is the configuration item of choice.
+* **`http.proxy.host`** (before v8.7.2: **`http.proxyHost`**): the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions use the `http.proxy.nonProxyHosts` configuration.
+* **`http.proxy.port`** (before v8.7.2: **`http.proxyPort`**): the port of the HTTP proxy. The port must be specified and has no default value. If you need proxy exemptions use the `http.proxy.nonProxyHosts` configuration.
 * **`http.proxy.username`** (before v8.7.2: **`http.proxyUsername`**): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
 * **`http.proxy.password`** (before v8.7.2: **`http.proxyPassword`**): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined.
 * **`http.proxy.nonProxyHosts`** (before v8.7.2: **`http.nonProxyHosts`**) (since v6.2.4): A pipe separated list of non-proxy hosts. E.g. `localhost|127.0.0.1`.
