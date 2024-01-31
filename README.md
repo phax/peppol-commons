@@ -286,6 +286,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.3.1 - work in progress
+    * Changed the default checking mode in `CertificateRevocationChecker` from `CRL_BEFORE_OCSP` to `CRL` to avoid any fallback to OCSP
+    * Improved logging of certificate revocation checks
 * v9.3.0 - 2024-01-22
     * `PredefinedProcessIdentifierManager` now internally works with the full URI encoded process ID and not just the value
     * Improved the CRL caching API and unified it with the Peppol certificate revocation checker cache.
