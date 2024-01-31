@@ -699,7 +699,10 @@ public final class CertificateRevocationChecker
         else
         {
           if (LOGGER.isDebugEnabled ())
-            LOGGER.debug ("Certificate revocation check is performed using mode " + eRealCheckMode);
+            LOGGER.debug ("Certificate revocation check is performed using mode " +
+                          eRealCheckMode +
+                          "; executeSync=" +
+                          bExecuteSync);
 
           final X509CertSelector aSelector = new X509CertSelector ();
           aSelector.setCertificate (m_aCert);
@@ -781,12 +784,16 @@ public final class CertificateRevocationChecker
               LOGGER.debug ("OCSP/CRL effective options = " + aOptions);
             aRevChecker.setOptions (aOptions);
 
+            // If this takes forever, then OCSP call is invoked that e.g. can't
+            // reach the server (default is 15 secs)
             final PKIXCertPathBuilderResult aBuilderResult = (PKIXCertPathBuilderResult) aCPB.build (aPKIXParams);
             if (LOGGER.isDebugEnabled ())
               LOGGER.debug ("OCSP/CRL builder result = " + aBuilderResult);
             final CertPath aCertPath = aBuilderResult.getCertPath ();
 
             // Validate
+            // If this takes forever, then OCSP call is invoked that e.g. can't
+            // reach the server (default is 15 secs)
             final CertPathValidator aCPV = CertPathValidator.getInstance ("PKIX");
             final PKIXCertPathValidatorResult aValidateResult = (PKIXCertPathValidatorResult) aCPV.validate (aCertPath,
                                                                                                              aPKIXParams);
