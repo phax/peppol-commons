@@ -90,6 +90,8 @@ public class CRLDownloader
 
           return CRLHelper.convertToCRL (aCRLBytes);
         }
+
+        LOGGER.error ("Failed to download CRL from URL '" + sCRLURL + "' - null array returned");
       }
       catch (final Exception ex)
       {
