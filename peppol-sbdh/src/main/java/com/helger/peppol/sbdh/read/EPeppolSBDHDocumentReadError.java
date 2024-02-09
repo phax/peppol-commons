@@ -105,7 +105,7 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
    */
   INVALID_TYPE_VERSION ("invalid-type-version",
                         "The ''DocumentIdentification/TypeVersion'' element has the invalid value ''{0}''." +
-                                                " It may not colon a colon character and it must be the end of the document type identifier value (''{1}'')."),
+                                                " It may not contain a colon character and it must be the end of the document type identifier value (''{1}'')."),
 
   /** The value of the "DocumentIdentification/Type" element is invalid */
   INVALID_TYPE ("invalid-type",
