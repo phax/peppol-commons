@@ -122,7 +122,18 @@ public final class BDXLURLProviderTest
   }
 
   @Test
-  public void testResolveToop () throws SMPDNSResolutionException
+  public void testResolveNamePeppol () throws SMPDNSResolutionException
+  {
+    // Only if online
+    final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:1234567890123");
+    final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST);
+    assertEquals ("SJSYVCCMQYJXK3WEUAPFFQ4X3UMCRF4QRYHERJ4VOVHMONH7GCCQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+                  sDomain);
+  }
+
+  @Test
+  public void testResolveNameToop () throws SMPDNSResolutionException
   {
     final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
@@ -131,7 +142,7 @@ public final class BDXLURLProviderTest
   }
 
   @Test
-  public void testResolveDe4a () throws SMPDNSResolutionException
+  public void testResolveNameDe4a () throws SMPDNSResolutionException
   {
     final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
     assertEquals ("M2V5CJBJVUYEUKPUEGC4F3DPEBBCJZI3PBXFEGRUQK3R3J42X5VQ.iso6523-actorid-upis.de4a.edelivery.tech.ec.europa.eu",
