@@ -26,7 +26,7 @@
   </parent>
   <artifactId>peppol-directory-businesscard</artifactId>
   <packaging>bundle</packaging>
-  <name>peppol-directory-business</name>
+  <name>peppol-directory-businesscard</name>
   <description>The Peppol Directory Business Card data model</description>
   <url>https://github.com/phax/peppol-commons/peppol-directory-businesscard</url>
   <inceptionYear>2015</inceptionYear>
@@ -127,7 +127,6 @@
           <bindingDirectory>${basedir}/src/main/jaxb</bindingDirectory>
           <schemaDirectory>${basedir}/src/main/resources/schemas</schemaDirectory>
           <extension>true</extension>
-          <specVersion>2.1</specVersion>
           <args>
             <arg>-no-header</arg>
             <arg>-Xph-default-locale</arg>
