@@ -53,17 +53,9 @@
     </developer>
   </developers>
   
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>com.helger.phive</groupId>
-        <artifactId>phive-parent-pom</artifactId>
-        <version>9.0.0</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+  <properties>
+    <phive.version>9.0.0</phive.version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -86,6 +78,7 @@
     <dependency>
       <groupId>com.helger.phive</groupId>
       <artifactId>phive-api</artifactId>
+      <version>${phive.version}</version>
     </dependency>
 
     <dependency>
