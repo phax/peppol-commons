@@ -175,6 +175,13 @@ final class CodeGenerationHelper
       aGroups = RegExHelper.getAllMatchingGroupValues ("\\Qurn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_\\E([0-9]+)\\.([0-9]+)" +
                                                        "\\Q#conformant#urn:xoev-de:kosit:extension:xrechnung_\\E([0-9]+)\\.([0-9]+)",
                                                        sCustomizationID);
+      if (aGroups == null)
+      {
+        // urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#conformant#urn:xeinkauf.de:kosit:extension:xrechnung_3.0
+        aGroups = RegExHelper.getAllMatchingGroupValues ("\\Qurn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_\\E([0-9]+)\\.([0-9]+)" +
+                                                         "\\Q#conformant#urn:xeinkauf.de:kosit:extension:xrechnung_\\E([0-9]+)\\.([0-9]+)",
+                                                         sCustomizationID);
+      }
       if (aGroups != null && aGroups.length == 4)
       {
         final String sSuffix = aGroups[0] + aGroups[1];
@@ -189,8 +196,15 @@ final class CodeGenerationHelper
 
     // XRechnung
     {
+      // urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_2.1
       aGroups = RegExHelper.getAllMatchingGroupValues ("\\Qurn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_\\E([0-9]+)\\.([0-9]+)",
                                                        sCustomizationID);
+      if (aGroups == null)
+      {
+        // urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0
+        aGroups = RegExHelper.getAllMatchingGroupValues ("\\Qurn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_\\E([0-9]+)\\.([0-9]+)",
+                                                         sCustomizationID);
+      }
       if (aGroups != null && aGroups.length == 2)
       {
         final String sSuffix = aGroups[0] + aGroups[1];

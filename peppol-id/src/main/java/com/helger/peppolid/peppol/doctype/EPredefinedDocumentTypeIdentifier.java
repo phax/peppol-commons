@@ -2055,7 +2055,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0::2.1</code><br>
-     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0}
+     * Same as {@link #XRECHNUNG_INVOICE_UBL_V30}
      * 
      * @since code list 8.7
      */
@@ -2063,7 +2063,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0::2.1</code><br>
-     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0}
+     * Same as {@link #XRECHNUNG_CREDIT_NOTE_UBL_V30}
      * 
      * @since code list 8.7
      */
@@ -2071,7 +2071,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0::D16B</code><br>
-     * Same as {@link #CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0}
+     * Same as {@link #XRECHNUNG_INVOICE_CII_V30}
      * 
      * @since code list 8.7
      */
@@ -2079,7 +2079,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#conformant#urn:xeinkauf.de:kosit:extension:xrechnung_3.0::2.1</code><br>
-     * Same as {@link #INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0_CONFORMANT_XEINKAUF_DE_KOSIT_EXTENSION_XRECHNUNG_3_0}
+     * Same as {@link #XRECHNUNG_EXTENSION_INVOICE_UBL_V30}
      * 
      * @since code list 8.7
      */
@@ -2087,7 +2087,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#conformant#urn:xeinkauf.de:kosit:extension:xrechnung_3.0::2.1</code><br>
-     * Same as {@link #CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0_CONFORMANT_XEINKAUF_DE_KOSIT_EXTENSION_XRECHNUNG_3_0}
+     * Same as {@link #XRECHNUNG_EXTENSION_CREDIT_NOTE_UBL_V30}
      * 
      * @since code list 8.7
      */
@@ -2095,7 +2095,7 @@ public enum EPredefinedDocumentTypeIdentifier
 
     /**
      * <code>urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100::CrossIndustryInvoice##urn:cen.eu:en16931:2017#compliant#urn:xeinkauf.de:kosit:xrechnung_3.0#conformant#urn:xeinkauf.de:kosit:extension:xrechnung_3.0::D16B</code><br>
-     * Same as {@link #CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0_CONFORMANT_XEINKAUF_DE_KOSIT_EXTENSION_XRECHNUNG_3_0}
+     * Same as {@link #XRECHNUNG_EXTENSION_INVOICE_CII_V30}
      * 
      * @since code list 8.7
      */
@@ -3248,27 +3248,27 @@ public enum EPredefinedDocumentTypeIdentifier
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifier INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifier XRECHNUNG_INVOICE_UBL_V30 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifier CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifier XRECHNUNG_CREDIT_NOTE_UBL_V30 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0__2_1;
     /**
      * Same as {@link #urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0__D16B}
      */
-    public static final EPredefinedDocumentTypeIdentifier CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0 = EPredefinedDocumentTypeIdentifier.urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0__D16B;
+    public static final EPredefinedDocumentTypeIdentifier XRECHNUNG_INVOICE_CII_V30 = EPredefinedDocumentTypeIdentifier.urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0__D16B;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0_conformant_urn_xeinkauf_de_kosit_extension_xrechnung_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifier INVOICE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0_CONFORMANT_XEINKAUF_DE_KOSIT_EXTENSION_XRECHNUNG_3_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0_conformant_urn_xeinkauf_de_kosit_extension_xrechnung_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifier XRECHNUNG_EXTENSION_INVOICE_UBL_V30 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0_conformant_urn_xeinkauf_de_kosit_extension_xrechnung_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0_conformant_urn_xeinkauf_de_kosit_extension_xrechnung_3_0__2_1}
      */
-    public static final EPredefinedDocumentTypeIdentifier CREDITNOTE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0_CONFORMANT_XEINKAUF_DE_KOSIT_EXTENSION_XRECHNUNG_3_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0_conformant_urn_xeinkauf_de_kosit_extension_xrechnung_3_0__2_1;
+    public static final EPredefinedDocumentTypeIdentifier XRECHNUNG_EXTENSION_CREDIT_NOTE_UBL_V30 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0_conformant_urn_xeinkauf_de_kosit_extension_xrechnung_3_0__2_1;
     /**
      * Same as {@link #urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0_conformant_urn_xeinkauf_de_kosit_extension_xrechnung_3_0__D16B}
      */
-    public static final EPredefinedDocumentTypeIdentifier CROSSINDUSTRYINVOICE_CEN_EU_EN16931_2017_COMPLIANT_XEINKAUF_DE_KOSIT_XRECHNUNG_3_0_CONFORMANT_XEINKAUF_DE_KOSIT_EXTENSION_XRECHNUNG_3_0 = EPredefinedDocumentTypeIdentifier.urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0_conformant_urn_xeinkauf_de_kosit_extension_xrechnung_3_0__D16B;
+    public static final EPredefinedDocumentTypeIdentifier XRECHNUNG_EXTENSION_INVOICE_CII_V30 = EPredefinedDocumentTypeIdentifier.urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xeinkauf_de_kosit_xrechnung_3_0_conformant_urn_xeinkauf_de_kosit_extension_xrechnung_3_0__D16B;
     /**
      * Same as {@link #WILDCARD_urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_billing_1_sg_1__2_1}
      */
