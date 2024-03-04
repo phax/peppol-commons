@@ -287,11 +287,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 * v9.3.1 - work in progress
+    * Updated to ph-ubl 9.0.0 (affects only `peppol-mlr`)
     * Changed the default checking mode in `CertificateRevocationChecker` from `CRL_BEFORE_OCSP` to `CRL` to avoid any fallback to OCSP
     * Improved logging of certificate revocation checks
 * v9.3.0 - 2024-01-22
     * `PredefinedProcessIdentifierManager` now internally works with the full URI encoded process ID and not just the value
-    * Improved the CRL caching API and unified it with the Peppol certificate revocation checker cache.
+    * Improved the CRL caching API and unified it with the Peppol certificate revocation checker cache
     * Via `CRLCache` constructor a custom `CRLDownloader` can be configured. The default solution uses the Java runtime `HttpURLConnection`.
 * v9.2.3 - 2024-01-10
     * Changed the default checking mode in `CertificateRevocationChecker` from `OCSP` to `CRL_BEFORE_OCSP` due to https://github.com/phax/phase4/issues/124#issuecomment-1884398195
