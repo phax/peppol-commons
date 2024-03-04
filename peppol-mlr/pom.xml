@@ -55,6 +55,7 @@
   
   <properties>
     <phive.version>9.0.0</phive.version>
+    <ph-ubl.version>9.0.0</ph-ubl.version>
   </properties>
 
   <dependencies>
@@ -69,6 +70,7 @@
     <dependency>
       <groupId>com.helger.ubl</groupId>
       <artifactId>ph-ubl21</artifactId>
+      <version>${ph-ubl.version}</version>
     </dependency>
     <dependency>
       <groupId>com.helger.peppol</groupId>

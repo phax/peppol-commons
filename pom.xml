@@ -117,13 +117,6 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>com.helger.ubl</groupId>
-        <artifactId>ph-ubl-parent-pom</artifactId>
-        <version>9.0.0</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
 
       <dependency>
         <groupId>dnsjava</groupId>
