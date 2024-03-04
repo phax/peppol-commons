@@ -286,7 +286,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.3.1 - work in progress
+* v9.3.1 - 2024-03-04
     * Updated to ph-ubl 9.0.0 (affects only `peppol-mlr`)
     * Changed the default checking mode in `CertificateRevocationChecker` from `CRL_BEFORE_OCSP` to `CRL` to avoid any fallback to OCSP
     * Improved logging of certificate revocation checks
