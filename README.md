@@ -286,6 +286,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.3.2 - work in progress
+    * Added the DBNA AS4 v1 profile to `ESMPTransportProfile`. See [#52](https://github.com/phax/peppol-commons/issues/52)
 * v9.3.1 - 2024-03-04
     * Updated to ph-ubl 9.0.0 (affects only `peppol-mlr`)
     * Changed the default checking mode in `CertificateRevocationChecker` from `CRL_BEFORE_OCSP` to `CRL` to avoid any fallback to OCSP

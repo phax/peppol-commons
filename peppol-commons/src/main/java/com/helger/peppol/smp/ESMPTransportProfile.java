@@ -70,7 +70,14 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   TRANSPORT_PROFILE_PEPPOL_AS4("peppol-transport-as4-v1_0", "Peppol AS4 v1", ESMPTransportProfileState.DEPRECATED),
 
   /** The Peppol AS4 profile v2 */
-  TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "Peppol AS4 v2", ESMPTransportProfileState.ACTIVE);
+  TRANSPORT_PROFILE_PEPPOL_AS4_V2 ("peppol-transport-as4-v2_0", "Peppol AS4 v2", ESMPTransportProfileState.ACTIVE),
+
+  /**
+   * DBNA AS4 profile v1
+   *
+   * @since 9.3.2
+   */
+  TRANSPORT_PROFILE_DBNA_AS4_v1 ("bdxr-as4-1.0#dbnalliance-1.0", "DBNA AS4 1.0", ESMPTransportProfileState.ACTIVE);
 
   private final String m_sID;
   private final String m_sName;
