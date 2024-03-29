@@ -480,13 +480,14 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                        "' and transport profile '" +
                        aTransportProfile.getID () +
                        "'" +
-                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
-                                                             aRelevantEndpoints.toString () +
-                                                             " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint or null
-        final EndpointType ret = aRelevantEndpoints.getFirst ();
+        final EndpointType ret = aRelevantEndpoints.getFirstOrNull ();
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Found matching endpoint: " + ret);
         return ret;

@@ -93,7 +93,7 @@ public class SMPExtensionList
     if (m_aExtensions.isEmpty ())
       return null;
 
-    final Element aFirst = m_aExtensions.getFirst ().getAny ();
+    final Element aFirst = m_aExtensions.getFirstOrNull ().getAny ();
     return XMLWriter.getNodeAsString (aFirst, SMPExtension.XWS);
   }
 
@@ -148,7 +148,7 @@ public class SMPExtensionList
 
     if (m_aExtensions.size () > 1)
       LOGGER.warn ("The Peppol data model only knows 1 extension. You have " + m_aExtensions.size () + " extension");
-    return m_aExtensions.getFirst ().getAsPeppolExtension ();
+    return m_aExtensions.getFirstOrNull ().getAsPeppolExtension ();
   }
 
   @Nullable

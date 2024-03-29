@@ -863,7 +863,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         }
 
         // Use the first endpoint
-        final EndpointType ret = aRelevantEndpoints.getFirst ();
+        final EndpointType ret = aRelevantEndpoints.getFirstOrNull ();
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Found matching SMP endpoint: " + ret);
         return ret;
