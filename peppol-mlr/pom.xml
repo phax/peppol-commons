@@ -52,11 +52,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-  
-  <properties>
-    <phive.version>9.1.0</phive.version>
-    <ph-ubl.version>9.0.0</ph-ubl.version>
-  </properties>
 
   <dependencies>
     <dependency>
