@@ -100,7 +100,7 @@ public final class PeppolSBDHTestFiles
   @Nonnull
   public static ClassPathResource getFirstGoodCase ()
   {
-    return GOOD_CASES.getFirst ();
+    return GOOD_CASES.getFirstOrNull ();
   }
 
   @Nonnull
@@ -125,6 +125,6 @@ public final class PeppolSBDHTestFiles
   @Nonnull
   public static ClassPathResource getFirstBadCase ()
   {
-    return BAD_CASES.getFirst ();
+    return BAD_CASES.getFirstOrNull ();
   }
 }
