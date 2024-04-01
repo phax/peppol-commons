@@ -19,31 +19,29 @@ package com.helger.smpclient.url;
 import javax.annotation.concurrent.ThreadSafe;
 
 /**
- * An implementation of {@link IBDXLURLProvider} suitable for the BPC network in
- * the Market pilot.
+ * An implementation of {@link IBDXLURLProvider} suitable for the DBNA network
+ * in the Market pilot.
  *
  * @author Philip Helger
- * @since 8.7.3
- * @deprecated Use {@link DBNAURLProviderSMP} instead
+ * @since 9.3.4
  */
 @ThreadSafe
-@Deprecated (forRemoval = true, since = "9.3.4")
-public class BPCURLProviderSMP extends AbstractBDXLURLProvider
+public class DBNAURLProviderSMP extends AbstractBDXLURLProvider
 {
   /**
-   * The U-NAPTR record service name. Based on BPC SMP Profile 1.0 chapter 7.
+   * The U-NAPTR record service name. Based on DBNA SML Profile 1.0 chapter 4.3.
    */
-  public static final String NAPTR_SERVICE_NAME = "oasis-bdxr-smp-2#bpc1.0";
+  public static final String NAPTR_SERVICE_NAME = "oasis-bdxr-smp-2#dbnalliance-1.1";
 
   /** The writable API of the default instance */
-  public static final BPCURLProviderSMP MUTABLE_INSTANCE = new BPCURLProviderSMP ();
+  public static final DBNAURLProviderSMP MUTABLE_INSTANCE = new DBNAURLProviderSMP ();
   /** The default instance that should be used */
   public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
 
   /**
    * Default constructor.
    */
-  public BPCURLProviderSMP ()
+  public DBNAURLProviderSMP ()
   {
     setLowercaseValueBeforeHashing (true);
     setAddIdentifierSchemeToZone (false);
