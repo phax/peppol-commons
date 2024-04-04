@@ -42,12 +42,14 @@ public interface IIdentifier extends Serializable
   String getScheme ();
 
   /**
-   * @return <code>true</code> if a non-<code>null</code> and non-empty scheme
-   *         is present.
+   * Since v9.3.4 non-null but empty identifier schemes are allowed (required
+   * for DBNA)
+   *
+   * @return <code>true</code> if a non-<code>null</code> is present.
    */
   default boolean hasScheme ()
   {
-    return StringHelper.hasText (getScheme ());
+    return getScheme () != null;
   }
 
   /**
