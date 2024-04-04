@@ -286,7 +286,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.3.4 - work in progress
+* v9.3.4 - 2024-04-04
     * Added new classes to support the DBNA network as well (`DBNAURLProviderSMP`, `EDBNASML`)
     * Allowing empty identifier schemes as being present (for DBNA). See `IIdentifier.hasScheme ()`
 * v9.3.3 - 2024-03-29
