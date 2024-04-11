@@ -7,3 +7,7 @@ All versions prior to 3.x were not converted.
 
 *Note:* 2.1.0 was the first 2.x version so I added it for comparison.
 Later versions (2.3.x or later) are too big (ZIPed SVN tag > 300MB) so I spared them.
+
+
+Sources:
+* BDMSL WSDL: https://ec.europa.eu/digital-building-blocks/code/projects/EDELIVERY/repos/bdmsl/browse/bdmsl-api/src/main/resources
