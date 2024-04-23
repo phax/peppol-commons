@@ -25,11 +25,12 @@
       OpenPeppol Code list schemas.
       All information elements outside the Peppol identifier scheme and value are non-normative.
       
-      Schema version: 2.2
-        Suitable with code list version 8.4 onwards
+      Schema version: 2.3
+        Suitable with code list version 8.9 onwards
+        Compared to v2.2: added the "abstract" attribute to the "document-type" element
         Compared to v2.1: added the "comment" attribute to the "transport-profile" element
       Author: Philip Helger, OpenPeppol OO
-      Last update: 2023-04-07
+      Last update: 2024-04-22
     </xs:documentation>
   </xs:annotation>
   
@@ -147,6 +148,11 @@
           This attribute is only present, if the code list entry is scheduled for removal.
           It contains the date, when the entry is/was marked as removed.
         </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="abstract" type="xs:boolean" use="required">
+      <xs:annotation>
+        <xs:documentation>true, if this code list entry is is abstract, meaning that no eInvoice of that document type may exist. It solely exists as the basis for other document types.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="issued-by-openpeppol" type="xs:boolean" use="required">

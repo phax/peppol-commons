@@ -75,16 +75,16 @@ import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.serialize.read.DOMReader;
-import com.helger.xsds.peppol.codelists21.PCLDocumentTypeType;
-import com.helger.xsds.peppol.codelists21.PCLDocumentTypesType;
-import com.helger.xsds.peppol.codelists21.PCLParticipantIdentifierSchemeType;
-import com.helger.xsds.peppol.codelists21.PCLParticipantIdentifierSchemesType;
-import com.helger.xsds.peppol.codelists21.PCLProcessIDType;
-import com.helger.xsds.peppol.codelists21.PCLProcessType;
-import com.helger.xsds.peppol.codelists21.PCLProcessesType;
-import com.helger.xsds.peppol.codelists21.PCLStateType;
-import com.helger.xsds.peppol.codelists21.PCLTransportProfileType;
-import com.helger.xsds.peppol.codelists21.PCLTransportProfilesType;
+import com.helger.xsds.peppol.codelists23.PCLDocumentTypeType;
+import com.helger.xsds.peppol.codelists23.PCLDocumentTypesType;
+import com.helger.xsds.peppol.codelists23.PCLParticipantIdentifierSchemeType;
+import com.helger.xsds.peppol.codelists23.PCLParticipantIdentifierSchemesType;
+import com.helger.xsds.peppol.codelists23.PCLProcessIDType;
+import com.helger.xsds.peppol.codelists23.PCLProcessType;
+import com.helger.xsds.peppol.codelists23.PCLProcessesType;
+import com.helger.xsds.peppol.codelists23.PCLStateType;
+import com.helger.xsds.peppol.codelists23.PCLTransportProfileType;
+import com.helger.xsds.peppol.codelists23.PCLTransportProfilesType;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also
@@ -97,7 +97,7 @@ import com.helger.xsds.peppol.codelists21.PCLTransportProfilesType;
 public final class MainCreatePredefinedEnumsFromXML_v8x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v8x.class);
-  private static final Version CODELIST_VERSION = new Version (8, 7);
+  private static final Version CODELIST_VERSION = new Version (8, 8);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
@@ -204,6 +204,7 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
         jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
                                     : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
+        jEnumConst.arg (JExpr.lit (aRow.isAbstract ()));
         jEnumConst.arg (JExpr.lit (aRow.isIssuedByOpenpeppol ()));
         jEnumConst.arg (JExpr.lit (StringParser.parseInt (aRow.getBisVersion (), -1)));
         jEnumConst.arg (aRow.getDomainCommunity () == null ? JExpr._null () : JExpr.lit (aRow.getDomainCommunity ()));
@@ -259,6 +260,7 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
                                                          Version.class,
                                                          "m_aDeprecationRelease");
       final JFieldVar fRemovalDate = jEnum.field (JMod.PRIVATE | JMod.FINAL, LocalDate.class, "m_aRemovalDate");
+      final JFieldVar fAbstract = jEnum.field (JMod.PRIVATE | JMod.FINAL, boolean.class, "m_bAbstract");
       final JFieldVar fIssuedByOpenPeppol = jEnum.field (JMod.PRIVATE | JMod.FINAL,
                                                          boolean.class,
                                                          "m_bIssuedByOpenPeppol");
@@ -286,6 +288,7 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
       jDeprecationRelease.annotate (Nullable.class);
       final JVar jRemovalDate = jCtor.param (JMod.FINAL, LocalDate.class, "aRemovalDate");
       jRemovalDate.annotate (Nullable.class);
+      final JVar jAbstract = jCtor.param (JMod.FINAL, boolean.class, "bAbstract");
       final JVar jIssuedByOpenPeppol = jCtor.param (JMod.FINAL, boolean.class, "bIssuedByOpenPeppol");
       final JVar jBISVersion = jCtor.param (JMod.FINAL, int.class, "nBISVersion");
       final JVar jDomainCommunity = jCtor.param (JMod.FINAL, String.class, "sDomainCommunity");
@@ -302,6 +305,7 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
            .assign (fState, jState)
            .assign (fDeprecationRelease, jDeprecationRelease)
            .assign (fRemovalDate, jRemovalDate)
+           .assign (fAbstract, jAbstract)
            .assign (fIssuedByOpenPeppol, jIssuedByOpenPeppol)
            .assign (fBISVersion, jBISVersion)
            .assign (fDomainCommunity, jDomainCommunity)
@@ -411,6 +415,10 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
       m = jEnum.method (JMod.PUBLIC, LocalDate.class, "getRemovalDate");
       m.annotate (Nullable.class);
       m.body ()._return (fRemovalDate);
+
+      // public boolean isAbstract ()
+      m = jEnum.method (JMod.PUBLIC, boolean.class, "isAbstract");
+      m.body ()._return (fAbstract);
 
       // public boolean isIssuedByOpenPeppol ()
       m = jEnum.method (JMod.PUBLIC, boolean.class, "isIssuedByOpenPeppol");

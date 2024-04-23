@@ -55,6 +55,6 @@ public final class CPeppolID
   @Nonnull
   public static ClassPathResource getXSDPeppolCodeLists ()
   {
-    return new ClassPathResource ("/external/schemas/peppol-codelists-v2.2.xsd", _getCL ());
+    return new ClassPathResource ("/external/schemas/peppol-codelists-v2.3.xsd", _getCL ());
   }
 }

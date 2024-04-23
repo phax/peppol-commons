@@ -118,19 +118,14 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0096</code>, scheme ID <code>DK:P</code><br>
-     * Structure of the code: Character repertoire: the EDI identifier consists of digits only.
-     * The identifier has a fixed length. No separators are required.
-     * Structure: [123] [123456] [123456] [12], 17, &lt; &gt;, A B C D
-     * A: numerical value allocated by the RA to the regional sub-authority, (3 digits)
-     * B: numerical value allocated by the sub-authority to the registered organization (mandatory part of the identifier; 6 digits)
-     * C: numerical value used by the registered organization (free part; 6 digits)
-     * D: numerical check digit calculated by the registered organization; (2 digits)
-     * Check digit computation: The check digit is modular 97 computed on ABC as one number.<br>
-     * Display requirements: None<br>
+     * Structure of the code: XXXXXXXXXX
+     *  10 digits eg. 1234567890<br>
+     * Display requirements: 10 characters, no space or other separator<br>
+     * Usage information: A P-number that represents a production unit.<br>
      * 
      * @since code list 1.0.0
      */
-    DK_P("DK:P", "0096", "DK", "DANISH CHAMBER OF COMMERCE Scheme", "Danish Chamber of Commerce", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
+    DK_P("DK:P", "0096", "DK", "The Danish Business Authority - P-number (DK:P)", "The Danish Business Authority", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0097</code>, scheme ID <code>IT:FTI</code><br>
@@ -236,12 +231,14 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0184</code>, scheme ID <code>DK:DIGST</code><br>
-     * Structure of the code: 8 or 10 digits<br>
-     * Display requirements: Group of 10 digits<br>
+     * Structure of the code: XXXXXXXX
+     *  8 digits eg. 12345678<br>
+     * Display requirements: 8 characters, no space or other separator<br>
+     * Usage information: A CVR number uniquely identifies a legal entity. CVR stands for “Central Business Register” and contains information about all registered companies in Denmark.<br>
      * 
      * @since code list 1.2.1
      */
-    DK_DIGST("DK:DIGST", "0184", "DK", "DIGSTORG", "DIGSTORG", Version.parse("1.2.1"), EPeppolCodeListItemState.ACTIVE, null, null),
+    DK_DIGST("DK:DIGST", "0184", "DK", "The Danish Business Authority - CVR-number (DK:CVR)", "The Danish Business Authority", Version.parse("1.2.1"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0188</code>, scheme ID <code>JP:SST</code><br>
@@ -345,7 +342,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * 
      * @since code list 5
      */
-    DK_ERST("DK:ERST", "0198", "DK", "ERSTORG", "The Danish Business Authority", Version.parse("5"), EPeppolCodeListItemState.ACTIVE, null, null),
+    DK_ERST("DK:ERST", "0198", "DK", "The Danish Business Authority - SE-number (DK:SE)", "The Danish Business Authority", Version.parse("5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0199</code>, scheme ID <code>LEI</code><br>
@@ -441,12 +438,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * Prefix <code>0208</code>, scheme ID <code>BE:EN</code><br>
      * Structure of the code: 10 numeric characters.
      *  1. Enterprise identification number: the first digit has to be &quot;0&quot; or &quot;1&quot;<br>
-     * Display requirements: The identification number can be displayed in the following ways:
-     * For enterprise numbers:
-     * - a group of four digits, then two groups of three digits, each group separated by a dot. Example: 1234.456.789
-     * - one digit, then three groups of three digits, each separated by a dot. Example: 1.234.456.789
-     * For establishment unit numbers:
-     * - one digit, then three groups of three digits, each separated by a dot. Example: 2.123.456.789<br>
+     * Display requirements: Group of 10 digits<br>
      * 
      * @since code list 7
      */
@@ -550,6 +542,18 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.1
      */
     FI_OVT2("FI:OVT2", "0216", "FI", "OVTcode", "TIEKE- Tietoyhteiskunnan kehittamiskeskus ry", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
+     * Prefix <code>0218</code>, scheme ID <code>LV:URN</code><br>
+     * Structure of the code: The unified registration number is an 11-digit code where first
+     * character can be 4 or 5 or 6 (with the exception of mass media and
+     * public-private partnerships whose unified registration number is
+     * nine digits long)<br>
+     * Display requirements: None<br>
+     * 
+     * @since code list 8.8
+     */
+    LV_URN("LV:URN", "0218", "LV", "Unified registration number", "The Register of Enterprises of the Republic of Latvia", Version.parse("8.8"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>0221</code>, scheme ID <code>JP:IIN</code><br>
@@ -1057,8 +1061,8 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "8.7";
-    public static final int CODE_LIST_ENTRY_COUNT = 95;
+    public static final String CODE_LIST_VERSION = "8.8";
+    public static final int CODE_LIST_ENTRY_COUNT = 96;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;

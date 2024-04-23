@@ -277,8 +277,11 @@ public enum EPredefinedProcessIdentifier
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:kosit:profile:reporting:1.0</code><br>
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    urn_kosit_profile_reporting_1_0("cenbii-procid-ubl", "urn:kosit:profile:reporting:1.0", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated
+    urn_kosit_profile_reporting_1_0("cenbii-procid-ubl", "urn:kosit:profile:reporting:1.0", EPeppolCodeListItemState.REMOVED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:anskaffelser.no:2019:ehf:postaward:g3:02:1.0</code><br>
@@ -537,7 +540,7 @@ public enum EPredefinedProcessIdentifier
      * ID: <code>cenbii-procid-ubl::urn:peppol:bis:billing</code><br>
      */
     urn_peppol_bis_billing("cenbii-procid-ubl", "urn:peppol:bis:billing", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "8.7";
+    public static final String CODE_LIST_VERSION = "8.8";
     public static final int CODE_LIST_ENTRY_COUNT = 88;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
