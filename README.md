@@ -286,6 +286,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.3.5 - 2024-04-23
+    * Updated to OpenPeppol eDEC Code Lists v8.8 
 * v9.3.4 - 2024-04-04
     * Added new classes to support the DBNA network as well (`DBNAURLProviderSMP`, `EDBNASML`)
     * Allowing empty identifier schemes as being present (for DBNA). See `IIdentifier.hasScheme ()`
