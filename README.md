@@ -286,6 +286,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.3.6 - 2024-04-24
+    * Added new class `PeppolLaxIdentifierFactory`
+    * Added new enum entry `ESMPIdentifierType.PEPPOL_LAX` for SMP handling. See [smp#275](https://github.com/phax/phoss-smp/issues/275).
 * v9.3.5 - 2024-04-23
     * Updated to OpenPeppol eDEC Code Lists v8.8 
 * v9.3.4 - 2024-04-04

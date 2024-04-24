@@ -35,6 +35,7 @@ public enum ESMPIdentifierType implements IHasID <String>, IHasDisplayName
 {
   SIMPLE ("simple", "Simple", SimpleIdentifierFactory.INSTANCE),
   PEPPOL ("peppol", "Peppol", PeppolIdentifierFactory.INSTANCE),
+  PEPPOL_LAX ("peppol-lax", "Peppol (lax)", PeppolLaxIdentifierFactory.INSTANCE),
   BDXR1 ("bdxr1", "OASIS BDXR v1", BDXR1IdentifierFactory.INSTANCE),
   BDXR2 ("bdxr2", "OASIS BDXR v2", BDXR2IdentifierFactory.INSTANCE);
 
@@ -78,7 +79,8 @@ public enum ESMPIdentifierType implements IHasID <String>, IHasDisplayName
   }
 
   @Nullable
-  public static ESMPIdentifierType getFromIDOrDefault (@Nullable final String sID, @Nullable final ESMPIdentifierType eDefault)
+  public static ESMPIdentifierType getFromIDOrDefault (@Nullable final String sID,
+                                                       @Nullable final ESMPIdentifierType eDefault)
   {
     // Legacy ID
     if ("bdxr".equals (sID))

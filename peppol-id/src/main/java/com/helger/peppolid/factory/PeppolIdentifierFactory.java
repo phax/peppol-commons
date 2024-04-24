@@ -42,8 +42,18 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   /** Global instance to be used. */
   public static final PeppolIdentifierFactory INSTANCE = new PeppolIdentifierFactory ();
 
+  private final boolean m_bStrict;
+
   public PeppolIdentifierFactory ()
-  {}
+  {
+    // Always strict
+    this (true);
+  }
+
+  protected PeppolIdentifierFactory (final boolean bStrict)
+  {
+    m_bStrict = bStrict;
+  }
 
   @Override
   public boolean isDocumentTypeIdentifierSchemeMandatory ()
@@ -114,41 +124,44 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     // at least 1 char
     if (nLength == 0)
       return false;
+
     // <= 500 chars
     if (nLength > PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)
       return false;
+
     // Check if the value is ISO-8859-1 encoded
     if (!PeppolIdentifierHelper.areCharsetChecksDisabled ())
       if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
         return false;
 
-    try
-    {
-      final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (sValue);
+    if (m_bStrict)
+      try
+      {
+        final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (sValue);
 
-      if (sScheme != null)
-        switch (sScheme)
-        {
-          case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS:
-            // POLICY 17
-            if (!isValidCustomizationIDBusdoxDocidQns (aParts.getCustomizationID ()))
-              return false;
-            break;
-          case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD:
-            // Chapter 5.1.2
-            if (!isValidCustomizationIDPeppolDoctypeWildcard (aParts.getCustomizationID ()))
-              return false;
-            break;
-          default:
-            // Ignore - no special Peppol rules
-        }
+        if (sScheme != null)
+          switch (sScheme)
+          {
+            case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS:
+              // POLICY 17
+              if (!isValidCustomizationIDBusdoxDocidQns (aParts.getCustomizationID ()))
+                return false;
+              break;
+            case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD:
+              // Chapter 5.1.2
+              if (!isValidCustomizationIDPeppolDoctypeWildcard (aParts.getCustomizationID ()))
+                return false;
+              break;
+            default:
+              // Ignore - no special Peppol rules
+          }
 
-    }
-    catch (final IllegalArgumentException ex)
-    {
-      // Syntax error - not valid
-      return false;
-    }
+      }
+      catch (final IllegalArgumentException ex)
+      {
+        // Syntax error - not valid
+        return false;
+      }
 
     return true;
   }
@@ -320,6 +333,6 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).getToString ();
+    return new ToStringGenerator (this).append ("Strict", m_bStrict).getToString ();
   }
 }

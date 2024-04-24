@@ -150,4 +150,44 @@ public final class PeppolIdentifierFactoryTest
     assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
                                                                                      "urn:rootnamespace::localelement##customizationid*::version"));
   }
+
+  @Test
+  public void testIsValidDocumentTypeIdentifierValueLax ()
+  {
+    assertFalse (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                         null));
+    assertFalse (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                         ""));
+
+    // Difference to the regular one
+    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                        "invoice"));
+    // Difference to the regular one
+    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                        "invoice"));
+    // Difference to the regular one
+    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("bla", "invoice"));
+    // Difference to the regular one
+    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (null, "invoice"));
+    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                        "order "));
+
+    // Difference to the regular one
+    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                        StringHelper.getRepeated ('a',
+                                                                                                                  PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)));
+    assertFalse (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                         StringHelper.getRepeated ('a',
+                                                                                                                   PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH +
+                                                                                                                        1)));
+    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                        "urn:rootnamespace::localelement##customizationid::version"));
+
+    // * only valid for peppol-doctype-wildcard
+    // Difference to the regular one
+    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                        "urn:rootnamespace::localelement##customizationid*::version"));
+    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                        "urn:rootnamespace::localelement##customizationid*::version"));
+  }
 }
