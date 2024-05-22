@@ -929,7 +929,7 @@ public class PeppolSBDHDocumentReader
     final PeppolSBDHData ret = new PeppolSBDHData (m_aIdentifierFactory);
 
     // Check sender
-    if (aSBDH.getSenderCount () > 0)
+    if (aSBDH.hasSenderEntries ())
     {
       // Identifier is mandatory
       final PartnerIdentification aSenderIdentification = aSBDH.getSenderAtIndex (0).getIdentifier ();
@@ -937,7 +937,7 @@ public class PeppolSBDHDocumentReader
     }
 
     // Check receiver
-    if (aSBDH.getReceiverCount () > 0)
+    if (aSBDH.hasReceiverEntries ())
     {
       // Identifier is mandatory
       final PartnerIdentification aReceiverIdentification = aSBDH.getReceiverAtIndex (0).getIdentifier ();
