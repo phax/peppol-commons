@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 
 public final class PeppolDocumentTypeIdentifierMicroTypeConverter extends
                                                                   AbstractIdentifierMicroTypeConverter <PeppolDocumentTypeIdentifier>
@@ -28,6 +29,6 @@ public final class PeppolDocumentTypeIdentifierMicroTypeConverter extends
   @Nonnull
   protected PeppolDocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    return new PeppolDocumentTypeIdentifier (sScheme, sValue);
+    return new PeppolDocumentTypeIdentifier (PeppolIdentifierFactory.INSTANCE, sScheme, sValue);
   }
 }

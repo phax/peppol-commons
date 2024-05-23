@@ -20,13 +20,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 
-public final class PeppolParticipantIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <PeppolParticipantIdentifier>
+public final class PeppolParticipantIdentifierMicroTypeConverter extends
+                                                                 AbstractIdentifierMicroTypeConverter <PeppolParticipantIdentifier>
 {
   @Override
   @Nonnull
   protected PeppolParticipantIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
   {
-    return new PeppolParticipantIdentifier (sScheme, sValue);
+    return new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE, sScheme, sValue);
   }
 }

@@ -42,15 +42,17 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class PeppolProcessIdentifierTest
 {
+  private static final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+
   @Test
   public void testCtor ()
   {
-    final PeppolProcessIdentifier aID = new PeppolProcessIdentifier ("scheme", "value");
+    final PeppolProcessIdentifier aID = new PeppolProcessIdentifier (aIF, "scheme", "value");
     assertEquals ("scheme", aID.getScheme ());
     assertEquals ("value", aID.getValue ());
 
     // Create a copy
-    final PeppolProcessIdentifier aID2 = new PeppolProcessIdentifier (aID);
+    final PeppolProcessIdentifier aID2 = new PeppolProcessIdentifier (aIF, aID);
     assertEquals ("scheme", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
 
@@ -61,9 +63,9 @@ public final class PeppolProcessIdentifierTest
   @Test
   public void testBasicMethods ()
   {
-    final PeppolProcessIdentifier aID1 = new PeppolProcessIdentifier ("scheme", "value");
-    final PeppolProcessIdentifier aID2 = new PeppolProcessIdentifier ("scheme", "value");
-    final PeppolProcessIdentifier aID3 = new PeppolProcessIdentifier ("scheme2", "value");
+    final PeppolProcessIdentifier aID1 = new PeppolProcessIdentifier (aIF, "scheme", "value");
+    final PeppolProcessIdentifier aID2 = new PeppolProcessIdentifier (aIF, "scheme", "value");
+    final PeppolProcessIdentifier aID3 = new PeppolProcessIdentifier (aIF, "scheme2", "value");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
@@ -72,8 +74,7 @@ public final class PeppolProcessIdentifierTest
   @Test
   public void testURIStuff ()
   {
-    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    final IProcessIdentifier aID1 = new PeppolProcessIdentifier ("scheme1", "value1");
+    final IProcessIdentifier aID1 = new PeppolProcessIdentifier (aIF, "scheme1", "value1");
     assertEquals ("scheme1::value1", aID1.getURIEncoded ());
     assertEquals ("scheme1%3A%3Avalue1", aID1.getURIPercentEncoded ());
     final IProcessIdentifier aID2 = aIF.parseProcessIdentifier ("scheme1::value1");
@@ -103,7 +104,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // null key not allowed
-      new PeppolProcessIdentifier (null, "value");
+      new PeppolProcessIdentifier (aIF, null, "value");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -112,7 +113,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // invalid scheme
-      new PeppolProcessIdentifier ("", "value");
+      new PeppolProcessIdentifier (aIF, "", "value");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -121,7 +122,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // separator is forbidden
-      new PeppolProcessIdentifier ("abc::def", "value");
+      new PeppolProcessIdentifier (aIF, "abc::def", "value");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -130,7 +131,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // null value not allowed
-      new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, null);
+      new PeppolProcessIdentifier (aIF, PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -139,7 +140,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // Both null not allowed
-      new PeppolProcessIdentifier (null, null);
+      new PeppolProcessIdentifier (aIF, null, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -148,7 +149,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // Empty is not allowed
-      new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, "");
+      new PeppolProcessIdentifier (aIF, PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -157,7 +158,7 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, "Љ");
+      new PeppolProcessIdentifier (aIF, PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -166,9 +167,11 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME +
-                                   StringHelper.getRepeated ('a',
-                                                             PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH + 1),
+      new PeppolProcessIdentifier (aIF,
+                                   PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME +
+                                        StringHelper.getRepeated ('a',
+                                                                  PeppolIdentifierHelper.MAX_IDENTIFIER_SCHEME_LENGTH +
+                                                                       1),
                                    "abc");
       fail ();
     }
@@ -178,7 +181,8 @@ public final class PeppolProcessIdentifierTest
     try
     {
       // Value too long
-      new PeppolProcessIdentifier (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME,
+      new PeppolProcessIdentifier (aIF,
+                                   PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME,
                                    StringHelper.getRepeated ('a', PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH + 1));
       fail ();
     }
@@ -189,9 +193,8 @@ public final class PeppolProcessIdentifierTest
   @Test
   public void testHasDefaultProcessIdentifierScheme ()
   {
-    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     assertTrue (aIF.createProcessIdentifierWithDefaultScheme ("abc")
                    .hasScheme (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME));
-    assertFalse (new PeppolProcessIdentifier ("proctype", "abc").hasDefaultScheme ());
+    assertFalse (new PeppolProcessIdentifier (aIF, "proctype", "abc").hasDefaultScheme ());
   }
 }

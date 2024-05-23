@@ -19,13 +19,15 @@ package com.helger.peppolid.peppol.process;
 import javax.annotation.Nonnull;
 
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 
-public final class PeppolProcessIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <PeppolProcessIdentifier>
+public final class PeppolProcessIdentifierMicroTypeConverter extends
+                                                             AbstractIdentifierMicroTypeConverter <PeppolProcessIdentifier>
 {
   @Override
   @Nonnull
   protected PeppolProcessIdentifier getAsNative (@Nonnull final String sScheme, @Nonnull final String sValue)
   {
-    return new PeppolProcessIdentifier (sScheme, sValue);
+    return new PeppolProcessIdentifier (PeppolIdentifierFactory.INSTANCE, sScheme, sValue);
   }
 }

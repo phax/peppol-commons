@@ -45,15 +45,16 @@ public final class PeppolParticipantIdentifierTest
   private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a',
                                                                            PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
   private static final String VALUE_MAX_LENGTH_PLUS_1 = VALUE_MAX_LENGTH + 'a';
+  private static final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
 
   @Test
   public void testCtor ()
   {
-    final PeppolParticipantIdentifier aID = new PeppolParticipantIdentifier ("scheme-actorid-test", "value");
+    final PeppolParticipantIdentifier aID = new PeppolParticipantIdentifier (aIF, "scheme-actorid-test", "value");
     assertEquals ("scheme-actorid-test", aID.getScheme ());
     assertEquals ("value", aID.getValue ());
 
-    final PeppolParticipantIdentifier aID2 = new PeppolParticipantIdentifier (aID);
+    final PeppolParticipantIdentifier aID2 = new PeppolParticipantIdentifier (aIF, aID);
     assertEquals ("scheme-actorid-test", aID2.getScheme ());
     assertEquals ("value", aID2.getValue ());
 
@@ -64,9 +65,9 @@ public final class PeppolParticipantIdentifierTest
   @Test
   public void testBasicMethods ()
   {
-    final PeppolParticipantIdentifier aID1 = new PeppolParticipantIdentifier ("scheme-actorid-test", "value");
-    final PeppolParticipantIdentifier aID2 = new PeppolParticipantIdentifier ("scheme-actorid-test", "value");
-    final PeppolParticipantIdentifier aID3 = new PeppolParticipantIdentifier ("scheme2-actorid-test", "value");
+    final PeppolParticipantIdentifier aID1 = new PeppolParticipantIdentifier (aIF, "scheme-actorid-test", "value");
+    final PeppolParticipantIdentifier aID2 = new PeppolParticipantIdentifier (aIF, "scheme-actorid-test", "value");
+    final PeppolParticipantIdentifier aID3 = new PeppolParticipantIdentifier (aIF, "scheme2-actorid-test", "value");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
@@ -75,8 +76,7 @@ public final class PeppolParticipantIdentifierTest
   @Test
   public void testURIStuff ()
   {
-    final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
-    final IParticipantIdentifier aID1 = new PeppolParticipantIdentifier ("scheme-actorid-test", "value1");
+    final IParticipantIdentifier aID1 = new PeppolParticipantIdentifier (aIF, "scheme-actorid-test", "value1");
     assertEquals ("scheme-actorid-test::value1", aID1.getURIEncoded ());
     assertEquals ("scheme-actorid-test%3A%3Avalue1", aID1.getURIPercentEncoded ());
     final IParticipantIdentifier aID2 = aIF.parseParticipantIdentifier ("scheme-actorid-test::value1");
@@ -107,7 +107,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // null key not allowed
-      new PeppolParticipantIdentifier (null, "value");
+      new PeppolParticipantIdentifier (aIF, null, "value");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -116,7 +116,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // invalid scheme
-      new PeppolParticipantIdentifier ("", "value");
+      new PeppolParticipantIdentifier (aIF, "", "value");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -125,7 +125,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // separator is forbidden
-      new PeppolParticipantIdentifier ("abc::def", "value");
+      new PeppolParticipantIdentifier (aIF, "abc::def", "value");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -134,7 +134,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // null value not allowed
-      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, null);
+      new PeppolParticipantIdentifier (aIF, PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -143,7 +143,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Both null not allowed
-      new PeppolParticipantIdentifier (null, null);
+      new PeppolParticipantIdentifier (aIF, null, null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -152,7 +152,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Empty is not allowed
-      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, "");
+      new PeppolParticipantIdentifier (aIF, PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, "");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -161,7 +161,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Cannot be mapped to ISO-8859-1:
-      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, "Љ");
+      new PeppolParticipantIdentifier (aIF, PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, "Љ");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -170,7 +170,8 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Scheme too long
-      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME + VALUE_MAX_LENGTH_PLUS_1,
+      new PeppolParticipantIdentifier (aIF,
+                                       PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME + VALUE_MAX_LENGTH_PLUS_1,
                                        "abc");
       fail ();
     }
@@ -180,7 +181,7 @@ public final class PeppolParticipantIdentifierTest
     try
     {
       // Value too long
-      new PeppolParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, VALUE_MAX_LENGTH_PLUS_1);
+      new PeppolParticipantIdentifier (aIF, PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, VALUE_MAX_LENGTH_PLUS_1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -193,6 +194,6 @@ public final class PeppolParticipantIdentifierTest
     final IIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     assertTrue (aIF.createParticipantIdentifierWithDefaultScheme ("abc")
                    .hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME));
-    assertFalse (new PeppolParticipantIdentifier ("dummy-actorid-upis", "abc").hasDefaultScheme ());
+    assertFalse (new PeppolParticipantIdentifier (aIF, "dummy-actorid-upis", "abc").hasDefaultScheme ());
   }
 }

@@ -46,6 +46,7 @@ import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.smpclient.url.PeppolURLProvider;
 
@@ -199,7 +200,9 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     // create PI
     final ManageParticipantIdentifierServiceCaller client = new ManageParticipantIdentifierServiceCaller (SML_INFO);
-    final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (PI_SCHEME, PI_VALUE);
+    final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
+                                                                             PI_SCHEME,
+                                                                             PI_VALUE);
     client.create (SMP_ID, aPI);
 
     // verify PI in DNS
@@ -222,11 +225,15 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     final ManageParticipantIdentifierServiceCaller client = new ManageParticipantIdentifierServiceCaller (SML_INFO);
 
-    final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (PI_WILDCARD_SCHEME, "*");
+    final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
+                                                                             PI_WILDCARD_SCHEME,
+                                                                             "*");
     client.create (SMP_ID, aPI);
 
     // verify that PI can be found in Wildcard domain.
-    final String piHost = _DNSLookupPI (new PeppolParticipantIdentifier (PI_WILDCARD_SCHEME, PI_VALUE));
+    final String piHost = _DNSLookupPI (new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
+                                                                         PI_WILDCARD_SCHEME,
+                                                                         PI_VALUE));
     assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), piHost);
 
     // verify that Wildcard can be found

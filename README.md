@@ -286,6 +286,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.4.0 - work in progress
+    * Renamed `IParticipantIdentifierScheme` to `IPeppolParticipantIdentifierScheme`
+    * Tried to make the usage of `IIdentifierFactory` more customizable
 * v9.3.6 - 2024-04-24
     * Added new class `PeppolLaxIdentifierFactory`
     * Added new enum entry `ESMPIdentifierType.PEPPOL_LAX` for SMP handling. See [smp#275](https://github.com/phax/phoss-smp/issues/275).

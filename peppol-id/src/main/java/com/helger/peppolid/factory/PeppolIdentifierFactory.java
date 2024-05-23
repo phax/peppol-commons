@@ -33,7 +33,7 @@ import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 
 /**
- * Default implementation of {@link IIdentifierFactory} for PEPPOL identifiers.
+ * Default implementation of {@link IIdentifierFactory} for Peppol identifiers.
  *
  * @author Philip Helger
  */
@@ -177,8 +177,13 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public PeppolDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
                                                                     @Nullable final String sValue)
   {
-    final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return PeppolDocumentTypeIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
+    final String sRealScheme = nullNotEmpty (sScheme);
+    final String sRealValue = nullNotEmpty (isDocumentTypeIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
+                                                                                                  : sValue);
+    if (isDocumentTypeIdentifierSchemeValid (sRealScheme) &&
+        isDocumentTypeIdentifierValueValid (sRealScheme, sRealValue))
+      return PeppolDocumentTypeIdentifier.internalCreatePreVerified (sRealScheme, sRealValue);
+    return null;
   }
 
   @Override
@@ -272,8 +277,12 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   public PeppolParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
                                                                   @Nullable final String sValue)
   {
-    final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return PeppolParticipantIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
+    final String sRealScheme = nullNotEmpty (sScheme);
+    final String sRealValue = nullNotEmpty (isParticipantIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
+                                                                                                 : sValue);
+    if (isParticipantIdentifierSchemeValid (sScheme) && isParticipantIdentifierValueValid (sScheme, sValue))
+      return PeppolParticipantIdentifier.internalCreatePreVerified (sRealScheme, sRealValue);
+    return null;
   }
 
   @Nonnull
@@ -326,8 +335,12 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   @Nullable
   public PeppolProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    final String sRealValue = isProcessIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
-    return PeppolProcessIdentifier.createIfValid (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
+    final String sRealScheme = nullNotEmpty (sScheme);
+    final String sRealValue = nullNotEmpty (isProcessIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
+                                                                                             : sValue);
+    if (isProcessIdentifierSchemeValid (sScheme) && isProcessIdentifierValueValid (sScheme, sValue))
+      return PeppolProcessIdentifier.internalCreatePreVerified (sRealScheme, sRealValue);
+    return null;
   }
 
   @Override

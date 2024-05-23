@@ -26,6 +26,7 @@ import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IMutableIdentifier;
+import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
@@ -46,17 +47,19 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
                                           ICloneable <PeppolDocumentTypeIdentifier>
 {
   @Nonnull
-  private static String _verifyScheme (@Nullable final String sScheme)
+  private static String _verifyScheme (@Nonnull final IIdentifierFactory aIF, @Nullable final String sScheme)
   {
-    if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierSchemeValid (sScheme))
+    if (!aIF.isDocumentTypeIdentifierSchemeValid (sScheme))
       throw new IllegalArgumentException ("Peppol Document Type identifier scheme '" + sScheme + "' is invalid!");
     return sScheme;
   }
 
   @Nonnull
-  private static String _verifyValue (@Nullable final String sScheme, @Nonnull final String sValue)
+  private static String _verifyValue (@Nonnull final IIdentifierFactory aIF,
+                                      @Nullable final String sScheme,
+                                      @Nonnull final String sValue)
   {
-    if (!PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sScheme, sValue))
+    if (!aIF.isDocumentTypeIdentifierValueValid (sScheme, sValue))
       throw new IllegalArgumentException ("Peppol Document Type identifier value '" +
                                           sValue +
                                           "' is invalid for scheme '" +
@@ -66,15 +69,18 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public PeppolDocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  public PeppolDocumentTypeIdentifier (@Nonnull final IIdentifierFactory aIF,
+                                       @Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
-    this (aIdentifier.getScheme (), aIdentifier.getValue ());
+    this (aIF, aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public PeppolDocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public PeppolDocumentTypeIdentifier (@Nonnull final IIdentifierFactory aIF,
+                                       @Nullable final String sScheme,
+                                       @Nonnull final String sValue)
   {
-    this (true, _verifyScheme (sScheme), _verifyValue (sScheme, sValue));
+    this (true, _verifyScheme (aIF, sScheme), _verifyValue (aIF, sScheme, sValue));
   }
 
   /**
@@ -128,7 +134,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   @ReturnsMutableCopy
   public PeppolDocumentTypeIdentifier getClone ()
   {
-    return new PeppolDocumentTypeIdentifier (this);
+    return new PeppolDocumentTypeIdentifier (true, getScheme (), getValue ());
   }
 
   @Override
@@ -163,12 +169,20 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *      String)
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "9.3.7")
   public static PeppolDocumentTypeIdentifier createIfValid (@Nullable final String sScheme,
                                                             @Nullable final String sValue)
   {
     if (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierSchemeValid (sScheme) &&
         PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sScheme, sValue))
-      return new PeppolDocumentTypeIdentifier (true, sScheme, sValue);
+      return internalCreatePreVerified (sScheme, sValue);
     return null;
+  }
+
+  @Nonnull
+  public static PeppolDocumentTypeIdentifier internalCreatePreVerified (@Nullable final String sScheme,
+                                                                        @Nullable final String sValue)
+  {
+    return new PeppolDocumentTypeIdentifier (true, sScheme, sValue);
   }
 }

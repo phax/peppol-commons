@@ -27,17 +27,18 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 
 /**
- * This class manages the PEPPOL Participant identifier schemes using the
- * <b>iso6523-actorid-upis</b> scheme.
+ * This class manages the Peppol Participant identifier schemes using the
+ * <b>iso6523-actorid-upis</b> scheme.<br>
+ * TODO rename to PeppolParticipantIdentifierSchemeManager
  *
  * @author Philip Helger
  */
 public final class ParticipantIdentifierSchemeManager
 {
-  private static final ICommonsList <IParticipantIdentifierScheme> PI_SCHEMES = new CommonsArrayList <> ();
+  private static final ICommonsList <IPeppolParticipantIdentifierScheme> PI_SCHEMES = new CommonsArrayList <> ();
 
   static
   {
@@ -53,12 +54,12 @@ public final class ParticipantIdentifierSchemeManager
   {}
 
   /**
-   * @return A non-modifiable list of all PEPPOL identifier issuing agencies.
+   * @return A non-modifiable list of all Peppol identifier issuing agencies.
    */
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public static ICommonsList <? extends IParticipantIdentifierScheme> getAllSchemes ()
+  public static ICommonsList <? extends IPeppolParticipantIdentifierScheme> getAllSchemes ()
   {
     return PI_SCHEMES.getClone ();
   }
@@ -71,12 +72,12 @@ public final class ParticipantIdentifierSchemeManager
    * @return <code>null</code> if no such agency exists.
    */
   @Nullable
-  public static IParticipantIdentifierScheme getSchemeOfISO6523Code (@Nullable final String sISO6523Code)
+  public static IPeppolParticipantIdentifierScheme getSchemeOfISO6523Code (@Nullable final String sISO6523Code)
   {
     if (StringHelper.hasText (sISO6523Code))
-      for (final IParticipantIdentifierScheme aAgency : PI_SCHEMES)
-        if (aAgency.getISO6523Code ().equalsIgnoreCase (sISO6523Code))
-          return aAgency;
+      for (final IPeppolParticipantIdentifierScheme aScheme : PI_SCHEMES)
+        if (aScheme.getISO6523Code ().equalsIgnoreCase (sISO6523Code))
+          return aScheme;
     return null;
   }
 
@@ -105,8 +106,8 @@ public final class ParticipantIdentifierSchemeManager
   @Nullable
   public static String getSchemeIDOfISO6523Code (@Nullable final String sISO6523Code)
   {
-    final IParticipantIdentifierScheme aAgency = getSchemeOfISO6523Code (sISO6523Code);
-    return aAgency == null ? null : aAgency.getSchemeID ();
+    final IPeppolParticipantIdentifierScheme aScheme = getSchemeOfISO6523Code (sISO6523Code);
+    return aScheme == null ? null : aScheme.getSchemeID ();
   }
 
   /**
@@ -117,12 +118,12 @@ public final class ParticipantIdentifierSchemeManager
    * @return <code>null</code> if no such agency exists.
    */
   @Nullable
-  public static IParticipantIdentifierScheme getSchemeOfSchemeID (@Nullable final String sSchemeID)
+  public static IPeppolParticipantIdentifierScheme getSchemeOfSchemeID (@Nullable final String sSchemeID)
   {
     if (StringHelper.hasText (sSchemeID))
-      for (final IParticipantIdentifierScheme aAgency : PI_SCHEMES)
-        if (aAgency.getSchemeID ().equalsIgnoreCase (sSchemeID))
-          return aAgency;
+      for (final IPeppolParticipantIdentifierScheme aScheme : PI_SCHEMES)
+        if (aScheme.getSchemeID ().equalsIgnoreCase (sSchemeID))
+          return aScheme;
     return null;
   }
 
@@ -151,7 +152,7 @@ public final class ParticipantIdentifierSchemeManager
   @Nullable
   public static String getISO6523CodeOfSchemeID (@Nullable final String sSchemeID)
   {
-    final IParticipantIdentifierScheme aScheme = getSchemeOfSchemeID (sSchemeID);
+    final IPeppolParticipantIdentifierScheme aScheme = getSchemeOfSchemeID (sSchemeID);
     return aScheme == null ? null : aScheme.getISO6523Code ();
   }
 
@@ -169,8 +170,8 @@ public final class ParticipantIdentifierSchemeManager
   @Nonnull
   public static ETriState isSchemeWithISO6523CodeDeprecated (@Nullable final String sISO6523Code)
   {
-    final IParticipantIdentifierScheme aAgency = getSchemeOfISO6523Code (sISO6523Code);
-    return aAgency == null ? ETriState.UNDEFINED : ETriState.valueOf (aAgency.isDeprecated ());
+    final IPeppolParticipantIdentifierScheme aScheme = getSchemeOfISO6523Code (sISO6523Code);
+    return aScheme == null ? ETriState.UNDEFINED : ETriState.valueOf (aScheme.isDeprecated ());
   }
 
   /**
@@ -186,13 +187,13 @@ public final class ParticipantIdentifierSchemeManager
   @Nonnull
   public static ETriState isSchemeWithSchemeIDDeprecated (@Nullable final String sSchemeID)
   {
-    final IParticipantIdentifierScheme aAgency = getSchemeOfSchemeID (sSchemeID);
-    return aAgency == null ? ETriState.UNDEFINED : ETriState.valueOf (aAgency.isDeprecated ());
+    final IPeppolParticipantIdentifierScheme aScheme = getSchemeOfSchemeID (sSchemeID);
+    return aScheme == null ? ETriState.UNDEFINED : ETriState.valueOf (aScheme.isDeprecated ());
   }
 
   /**
    * Find the identifier scheme that matches the provided participant ID. This
-   * method checks only participants that use the default PEPPOL identifier
+   * method checks only participants that use the default Peppol identifier
    * scheme `iso6523-actorid-upis`.
    *
    * @param aParticipantID
@@ -202,9 +203,10 @@ public final class ParticipantIdentifierSchemeManager
    * @since 5.2.5
    */
   @Nullable
-  public static IParticipantIdentifierScheme getSchemeOfIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
+  public static IPeppolParticipantIdentifierScheme getSchemeOfIdentifier (@Nullable final IParticipantIdentifier aParticipantID)
   {
-    if (aParticipantID != null && aParticipantID.hasScheme (PeppolIdentifierFactory.INSTANCE.getDefaultParticipantIdentifierScheme ()))
+    if (aParticipantID != null &&
+        aParticipantID.hasScheme (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS))
     {
       final String sValue = aParticipantID.getValue ();
       // Value must be at least something like "1234:"

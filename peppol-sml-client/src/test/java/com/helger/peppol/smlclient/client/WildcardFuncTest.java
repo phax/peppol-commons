@@ -32,6 +32,7 @@ import com.helger.peppol.smlclient.participant.UnauthorizedFault;
 import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppol.smlclient.smp.PublisherEndpointType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 
@@ -97,7 +98,10 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     {
       final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
       aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
-      aPIClient.create (SMP_ID, new PeppolParticipantIdentifier (BUSINESS_IDENTIFIER_SCHEME, "*"));
+      aPIClient.create (SMP_ID,
+                        new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
+                                                         BUSINESS_IDENTIFIER_SCHEME,
+                                                         "*"));
       fail ("User should not be allowed to register wild card for this scheme : " + BUSINESS_IDENTIFIER_SCHEME);
     }
     catch (final UnauthorizedFault e)
@@ -113,12 +117,17 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     {
       final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
       aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
-      aPIClient.create (UNAUTHRIZED_SML_ID, new PeppolParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
+      aPIClient.create (UNAUTHRIZED_SML_ID,
+                        new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
+                                                         WILDCARD_ACTORID_ALLOWED_SCHEME,
+                                                         WILDCARD_PI));
       fail ("The user should not be authorized to insert PI when wildcard is on for scheme.");
     }
     catch (final UnauthorizedFault e)
     {
-      assertTrue (e.getMessage (), e.getMessage ().contains ("The user is not allowed to register ParticipantIdentifiers for this scheme"));
+      assertTrue (e.getMessage (),
+                  e.getMessage ()
+                   .contains ("The user is not allowed to register ParticipantIdentifiers for this scheme"));
     }
   }
 
@@ -129,7 +138,10 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
     {
       final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
       aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
-      aPIClient.create (SMP_ID, new PeppolParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, WILDCARD_PI));
+      aPIClient.create (SMP_ID,
+                        new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
+                                                         WILDCARD_ACTORID_ALLOWED_SCHEME,
+                                                         WILDCARD_PI));
       fail ("User should not be allowed to register wild card for this scheme : " + BUSINESS_IDENTIFIER_SCHEME);
     }
     catch (final BadRequestFault e)
@@ -143,7 +155,9 @@ public final class WildcardFuncTest extends AbstractSMLClientTestCase
   {
     final ManageParticipantIdentifierServiceCaller aPIClient = new ManageParticipantIdentifierServiceCaller (SML_INFO);
     aPIClient.setSSLSocketFactory (createConfiguredSSLSocketFactory (SML_INFO, false));
-    final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (WILDCARD_ACTORID_ALLOWED_SCHEME, "*");
+    final PeppolParticipantIdentifier aPI = new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
+                                                                             WILDCARD_ACTORID_ALLOWED_SCHEME,
+                                                                             "*");
     aPIClient.create (SMP_ID, aPI);
 
     // try to delete with un-authorized user!

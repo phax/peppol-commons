@@ -70,7 +70,7 @@ import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.IPeppolPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
-import com.helger.peppolid.peppol.pidscheme.IParticipantIdentifierScheme;
+import com.helger.peppolid.peppol.pidscheme.IPeppolParticipantIdentifierScheme;
 import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
@@ -389,7 +389,10 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
       // public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
       m.annotate (Nonnull.class);
-      m.body ()._return (JExpr._new (CM.ref (PeppolDocumentTypeIdentifier.class)).arg (JExpr._this ()));
+      m.body ()
+       ._return (JExpr._new (CM.ref (PeppolDocumentTypeIdentifier.class))
+                      .arg (CM.ref (PeppolIdentifierFactory.class).staticRef ("INSTANCE"))
+                      .arg (JExpr._this ()));
 
       // public IPeppolDocumentTypeIdentifierParts getParts
       m = jEnum.method (JMod.PUBLIC, IPeppolDocumentTypeIdentifierParts.class, "getParts");
@@ -479,7 +482,7 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
     {
       final JDefinedClass jEnum = CM._package (RESULT_PACKAGE_PREFIX + "pidscheme")
                                     ._enum ("EPredefinedParticipantIdentifierScheme")
-                                    ._implements (IParticipantIdentifierScheme.class);
+                                    ._implements (IPeppolParticipantIdentifierScheme.class);
       jEnum.annotate (CodingStyleguideUnaware.class);
       jEnum.javadoc ().add (DO_NOT_EDIT);
 
@@ -772,7 +775,10 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
       // public PeppolProcessIdentifier getAsProcessIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolProcessIdentifier.class, "getAsProcessIdentifier");
       m.annotate (Nonnull.class);
-      m.body ()._return (JExpr._new (CM.ref (PeppolProcessIdentifier.class)).arg (JExpr._this ()));
+      m.body ()
+       ._return (JExpr._new (CM.ref (PeppolProcessIdentifier.class))
+                      .arg (CM.ref (PeppolIdentifierFactory.class).staticRef ("INSTANCE"))
+                      .arg (JExpr._this ()));
 
       // @Nullable public static EPredefinedProcessIdentifier
       // getFromProcessIdentifierOrNull(@Nullable final IProcessIdentifier

@@ -965,7 +965,7 @@ public class PeppolSBDHDocumentReader
           {
             // The scheme was added in Spec v1.1
             final String sScheme = StringHelper.getNotNull (aScope.getIdentifier (),
-                                                            PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME);
+                                                            PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL);
 
             ret.setProcess (sScheme, sInstanceIdentifier);
           }

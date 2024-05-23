@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
 /**
@@ -45,7 +46,9 @@ public final class EPredefinedParticipantIdentifierSchemeTest
       assertTrue (StringHelper.hasText (e.getISO6523Code ()));
       assertSame (e, EPredefinedParticipantIdentifierScheme.valueOf (e.name ()));
       assertTrue (e.createIdentifierValue ("abc").endsWith (":abc"));
-      assertTrue (e.createParticipantIdentifier ("def").getURIEncoded ().endsWith (":def"));
+      assertTrue (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (e.createIdentifierValue ("def"))
+                                                  .getURIEncoded ()
+                                                  .endsWith (":def"));
       assertNotNull (e.getInitialRelease ());
     }
   }

@@ -419,7 +419,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
   /**
    * Extract all parsable document types from the passed Service group. This
-   * method always uses {@link PeppolIdentifierFactory} to parse the document
+   * method uses the provided {@link IIdentifierFactory} to parse the document
    * type identifiers.
    *
    * @param aSG
