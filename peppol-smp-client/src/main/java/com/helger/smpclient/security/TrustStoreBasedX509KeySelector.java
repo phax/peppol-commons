@@ -44,8 +44,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.peppol.utils.CertificateRevocationChecker;
 import com.helger.peppol.utils.EPeppolCertificateCheckResult;
-import com.helger.peppol.utils.ERevocationCheckMode;
 import com.helger.peppol.utils.PeppolCertificateChecker;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.ConstantKeySelectorResult;
@@ -182,14 +182,15 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
                 final EPeppolCertificateCheckResult eCheckResult;
                 // No cache because it uses the default issuer check and trust
                 // store
-                eCheckResult = PeppolCertificateChecker.checkCertificate (PeppolCertificateChecker.getAllPeppolSMPCAIssuers (),
+                eCheckResult = PeppolCertificateChecker.checkCertificate (PeppolCertificateChecker.getTrustedCertificatesSMP ()
+                                                                                                  .getAllTrustedCAIssuers (),
                                                                           true ? null
                                                                                : PeppolCertificateChecker.getRevocationCacheSMP (),
                                                                           PeppolCertificateChecker.peppolRevocationCheck ()
                                                                                                   .certificate (aCertificate)
                                                                                                   .checkDate (m_aValidationDateTime)
                                                                                                   .validCAs (m_aTrustStore)
-                                                                                                  .checkMode (ERevocationCheckMode.OCSP_BEFORE_CRL));
+                                                                                                  .checkMode (CertificateRevocationChecker.getRevocationCheckMode ()));
                 LOGGER.info ("SMP Client AP certificate check result: " + eCheckResult);
                 if (eCheckResult.isInvalid ())
                   throw new KeySelectorException ("Failed to verify the contained AP certificate with code " +
