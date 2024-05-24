@@ -16,14 +16,26 @@
  */
 package com.helger.peppol.utils;
 
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
+import java.util.Enumeration;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * A specific Peppol certificate helper
@@ -34,6 +46,8 @@ import javax.security.auth.x500.X500Principal;
 @Immutable
 public final class PeppolCertificateHelper
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateHelper.class);
+
   private PeppolCertificateHelper ()
   {}
 
@@ -70,5 +84,34 @@ public final class PeppolCertificateHelper
         if (aRdn.getType ().equalsIgnoreCase ("CN"))
           return (String) aRdn.getValue ();
     return null;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ICommonsSet <X509Certificate> getAllTrustedCertificates (@Nullable final KeyStore aTrustStore)
+  {
+    final ICommonsSet <X509Certificate> aCerts = new CommonsHashSet <> ();
+    if (aTrustStore != null)
+    {
+      try
+      {
+        final Enumeration <String> aAliases = aTrustStore.aliases ();
+        while (aAliases.hasMoreElements ())
+        {
+          final String alias = aAliases.nextElement ();
+          if (aTrustStore.isCertificateEntry (alias))
+          {
+            final Certificate cert = aTrustStore.getCertificate (alias);
+            if (cert instanceof X509Certificate)
+              aCerts.add ((X509Certificate) cert);
+          }
+        }
+      }
+      catch (final KeyStoreException ex)
+      {
+        LOGGER.warn ("Failed to extract certificates from trust store", ex);
+      }
+    }
+    return aCerts;
   }
 }
