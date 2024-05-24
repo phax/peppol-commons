@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.function.BiFunction;
 
 import javax.xml.crypto.dsig.XMLSignatureException;
@@ -364,8 +365,11 @@ public final class SMPClientReadOnlyTest
                                                                       ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     assertNotNull (aEndpointType);
 
+    // Check at a specific date, as the certificate
     final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.checkPeppolAPCertificate (SMPClientReadOnly.getEndpointCertificate (aEndpointType),
-                                                                                                              PDTFactory.getCurrentOffsetDateTime (),
+                                                                                                              PDTFactory.createOffsetDateTime (2024,
+                                                                                                                                               Month.JANUARY,
+                                                                                                                                               1),
                                                                                                               ETriState.UNDEFINED,
                                                                                                               ERevocationCheckMode.OCSP_BEFORE_CRL);
     assertSame (EPeppolCertificateCheckResult.REVOKED, eCertCheckResult);
