@@ -23,6 +23,7 @@ import javax.annotation.concurrent.Immutable;
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
+import javax.security.auth.x500.X500Principal;
 
 /**
  * A specific Peppol certificate helper
@@ -39,7 +40,13 @@ public final class PeppolCertificateHelper
   @Nullable
   public static String getSubjectCN (@Nullable final X509Certificate aCert)
   {
-    return aCert != null ? getCNOrNull (aCert.getSubjectX500Principal ().getName ()) : null;
+    return aCert != null ? getCNOrNull (aCert.getSubjectX500Principal ()) : null;
+  }
+
+  @Nullable
+  public static String getCNOrNull (@Nullable final X500Principal aPrincipal)
+  {
+    return aPrincipal != null ? getCNOrNull (aPrincipal.getName ()) : null;
   }
 
   @Nullable
