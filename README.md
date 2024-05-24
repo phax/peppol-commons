@@ -286,11 +286,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.4.0 - work in progress
+* v9.4.0 - 2024-05-24
     * Renamed `IParticipantIdentifierScheme` to `IPeppolParticipantIdentifierScheme`
     * Tried to make the usage of `IIdentifierFactory` more customizable
     * Made `AbstractRevocationCheckBuilder` and `PeppolRevocationCache` top-level classes
     * Extracted class `TrustedCACertificates` to hold a list of certificates
+    * Deprecated a lot of methods in `PeppolCertificateChecker` in favour of new APIs. Main idea is to simplify multi-certificate handling.
 * v9.3.6 - 2024-04-24
     * Added new class `PeppolLaxIdentifierFactory`
     * Added new enum entry `ESMPIdentifierType.PEPPOL_LAX` for SMP handling. See [smp#275](https://github.com/phax/phoss-smp/issues/275).
