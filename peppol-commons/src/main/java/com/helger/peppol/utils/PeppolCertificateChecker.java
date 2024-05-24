@@ -335,8 +335,8 @@ public final class PeppolCertificateChecker
    * <ol>
    * <li>Validity at the provided date time (aRevocationChecker.checkDate) or
    * per now if none was provided</li>
-   * <li>If the certificate issuer is part of the provided list of issues.</li>
-   * <li>If the certificate is revoked,
+   * <li>If the certificate issuer is part of the provided list of issuers</li>
+   * <li>If the certificate is revoked</li>
    * </ol>
    *
    * @param aIssuers
