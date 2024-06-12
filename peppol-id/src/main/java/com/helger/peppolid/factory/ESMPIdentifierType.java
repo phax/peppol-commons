@@ -19,6 +19,9 @@ package com.helger.peppolid.factory;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
@@ -38,6 +41,8 @@ public enum ESMPIdentifierType implements IHasID <String>, IHasDisplayName
   PEPPOL_LAX ("peppol-lax", "Peppol (lax)", PeppolLaxIdentifierFactory.INSTANCE),
   BDXR1 ("bdxr1", "OASIS BDXR v1", BDXR1IdentifierFactory.INSTANCE),
   BDXR2 ("bdxr2", "OASIS BDXR v2", BDXR2IdentifierFactory.INSTANCE);
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (ESMPIdentifierType.class);
 
   private final String m_sID;
   private final String m_sDisplayName;
@@ -84,7 +89,15 @@ public enum ESMPIdentifierType implements IHasID <String>, IHasDisplayName
   {
     // Legacy ID
     if ("bdxr".equals (sID))
+    {
+      // TODO remove in next major release v10
+      LOGGER.error ("The SMP ID type '" +
+                    sID +
+                    "' is deprecated. Please use '" +
+                    BDXR1.getID () +
+                    "' instead. Support for the old ID will be removed in a future version.");
       return BDXR1;
+    }
 
     return EnumHelper.getFromIDOrDefault (ESMPIdentifierType.class, sID, eDefault);
   }
