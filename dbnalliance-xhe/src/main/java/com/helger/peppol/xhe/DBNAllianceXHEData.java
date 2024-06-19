@@ -29,7 +29,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 
 /**
  * This class contains all the DBNAlliance data per XHE document in a syntax 
