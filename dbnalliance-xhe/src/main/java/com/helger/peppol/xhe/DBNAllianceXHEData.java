@@ -22,8 +22,10 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.xhe.write.DBNAllianceXHEDocumentWriter;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.xhe.v10.XHE10XHEType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -432,5 +434,15 @@ public class DBNAllianceXHEData {
   public boolean areAllFieldsSet ()
   {
     return areAllFieldsSet (false);
+  }
+  
+  /**
+   * @return A generic JAXB XHE document of this data. Never <code>null</code>.
+   * @see DBNAllianceXHEDocumentWriter for the main logic
+   */
+  @Nonnull
+  public XHE10XHEType getAsStandardBusinessDocument ()
+  {
+    return new DBNAllianceXHEDocumentWriter ().createStandardBusinessDocument (this);
   }
 }
