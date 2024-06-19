@@ -267,7 +267,7 @@ public class DBNAllianceXHEData {
    *         <code>XHE/Header/ToParty/PartyIdentification/ID/</code>.
    */
   @Nullable
-  public String getReceiverValue ()
+  public String getToPartyValue ()
   {
     return m_sToPartyValue;
   }
