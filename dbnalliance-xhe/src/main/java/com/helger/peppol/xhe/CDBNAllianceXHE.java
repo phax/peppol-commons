@@ -28,7 +28,7 @@ import javax.annotation.concurrent.Immutable;
 public final class CDBNAllianceXHE
 {
   /** The expected XHE version */
-  public static final String XHE_VERSION = "1.0";
+  public static final String XHE_VERSION_ID = "1.0";
 
   /** Constant for the Data Model */
   public static final String CUSTOMIZATION_ID = "http://docs.oasisopen.org/bdxr/ns/XHE/1/ExchangeHeaderEnvelope::XHE##dbnalliance-envelope-1.0";
@@ -37,6 +37,6 @@ public final class CDBNAllianceXHE
   public static final String CUSTOMIZATION_SCHEMA_ID = "bdx-docid-qns";
 
   /** Constant for the reference to the DBNAlliance specification */
-  public static final String CUSTOMIZATION_PROFILE_ID = "dbnalliance-envelope-1.0";
+  public static final String PROFILE_ID = "dbnalliance-envelope-1.0";
   
 }
