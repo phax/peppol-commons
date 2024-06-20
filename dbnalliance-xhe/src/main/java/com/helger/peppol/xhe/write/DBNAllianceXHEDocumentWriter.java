@@ -54,7 +54,7 @@ public class DBNAllianceXHEDocumentWriter {
    *         if not all document data fields are set!
    */
   @Nonnull
-  public XHE10XHEType createStandardBusinessDocument (@Nonnull final DBNAllianceXHEData aData)
+  public XHE10XHEType createExchangeHeaderEnvelope (@Nonnull final DBNAllianceXHEData aData)
   {
     ValueEnforcer.notNull (aData, "Data");
     if (!aData.areAllFieldsSet ())
@@ -103,6 +103,8 @@ public class DBNAllianceXHEDocumentWriter {
         aToParty.addPartyIdentification (aPartyID);
         aHeader.addToParty (aToParty);
       }
+      
+      aXHE.setHeader(aHeader);
     }
     
     {

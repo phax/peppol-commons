@@ -318,7 +318,7 @@ public class DBNAllianceXHEData {
    * @return this
    */
   @Nonnull
-  public DBNAllianceXHEData setReceiver (@Nonnull final IParticipantIdentifier aToPartyID)
+  public DBNAllianceXHEData setToParty (@Nonnull final IParticipantIdentifier aToPartyID)
   {
     ValueEnforcer.notNull (aToPartyID, "ToPartyID");
 
@@ -443,6 +443,6 @@ public class DBNAllianceXHEData {
   @Nonnull
   public XHE10XHEType getAsStandardBusinessDocument ()
   {
-    return new DBNAllianceXHEDocumentWriter ().createStandardBusinessDocument (this);
+    return new DBNAllianceXHEDocumentWriter ().createExchangeHeaderEnvelope (this);
   }
 }
