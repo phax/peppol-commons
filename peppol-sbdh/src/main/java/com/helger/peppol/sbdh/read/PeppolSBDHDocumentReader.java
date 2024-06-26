@@ -17,7 +17,6 @@
 package com.helger.peppol.sbdh.read;
 
 import java.io.InputStream;
-import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -888,7 +887,7 @@ public class PeppolSBDHDocumentReader
         aErrorList.forEach (x -> {
           if (x.isError ())
           {
-            final String sMsg = x.getAsString (Locale.US);
+            final String sMsg = x.getAsStringLocaleIndepdent ();
             LOGGER.error ("Peppol SBDH validation " + sMsg);
             if (aErrorMsgSB.length () > 0)
               aErrorMsgSB.append ('\n');
