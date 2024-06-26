@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger
+ * Copyright (C) 2024 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,18 @@
  * limitations under the License.
  */
 package com.helger.peppol.xhe.read;
+
+import java.io.InputStream;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.WillClose;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
@@ -45,25 +57,15 @@ import com.helger.xhe.v10.cbc.XHE10IDType;
 import com.helger.xhe.v10.cbc.XHE10InstanceEncryptionIndicatorType;
 import com.helger.xhe.v10.cbc.XHE10InstanceEncryptionMethodType;
 import com.helger.xhe.v10.cbc.XHE10ProfileIDType;
-import java.io.InputStream;
-import java.util.List;
-import java.util.Locale;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
- * Main class to read exchange header envelope and extract the DBNAllance
+ * Main class to read exchange header envelope and extract the DBNAlliance
  * required data out of it.
  *
  * @author Robinson Garcia
  */
-public class DBNAllianceXHEDocumentReader {
-  
+public class DBNAllianceXHEDocumentReader
+{
   public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (DBNAllianceXHEDocumentReader.class);
@@ -114,9 +116,9 @@ public class DBNAllianceXHEDocumentReader {
   }
 
   /**
-   * Check if the passed XHE version is valid or not. By default is must
-   * match {@link CDBNAllianceXHE#XHE_VERSION_ID}. Override this method to 
-   * allow for other schemes as well.
+   * Check if the passed XHE version is valid or not. By default is must match
+   * {@link CDBNAllianceXHE#XHE_VERSION_ID}. Override this method to allow for
+   * other schemes as well.
    *
    * @param sXHEVersionID
    *        The value to be checked. This is the content of the XML element
@@ -131,13 +133,14 @@ public class DBNAllianceXHEDocumentReader {
   }
 
   /**
-   * Check if the passed customization id schema is valid or not. By default is must
-   * match {@link CDBNAllianceXHE#CUSTOMIZATION_SCHEMA_ID}. Override
-   * this method to allow for other schemes as well.
+   * Check if the passed customization id schema is valid or not. By default is
+   * must match {@link CDBNAllianceXHE#CUSTOMIZATION_SCHEMA_ID}. Override this
+   * method to allow for other schemes as well.
    *
    * @param sSchemaID
    *        The value to be checked. This is the content of the XML attribute
-   *        <code>XHE/CustomizationID/@schemeID</code>. May be <code>null</code>.
+   *        <code>XHE/CustomizationID/@schemeID</code>. May be
+   *        <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
    *         otherwise.
    */
@@ -146,11 +149,11 @@ public class DBNAllianceXHEDocumentReader {
   {
     return CDBNAllianceXHE.CUSTOMIZATION_SCHEMA_ID.equals (sSchemaID);
   }
-  
+
   /**
    * Check if the passed customization id is valid or not. By default is must
-   * match {@link CDBNAllianceXHE#CUSTOMIZATION_ID}. Override
-   * this method to allow for other schemes as well.
+   * match {@link CDBNAllianceXHE#CUSTOMIZATION_ID}. Override this method to
+   * allow for other schemes as well.
    *
    * @param sCustomizationID
    *        The value to be checked. This is the content of the XML attribute
@@ -165,9 +168,9 @@ public class DBNAllianceXHEDocumentReader {
   }
 
   /**
-   * Check if the passed profile id is valid or not. By default is must
-   * match {@link CDBNAllianceXHE#PROFILE_ID}. Override
-   * this method to allow for other schemes as well.
+   * Check if the passed profile id is valid or not. By default is must match
+   * {@link CDBNAllianceXHE#PROFILE_ID}. Override this method to allow for other
+   * schemes as well.
    *
    * @param sProfileID
    *        The value to be checked. This is the content of the XML attribute
@@ -182,21 +185,21 @@ public class DBNAllianceXHEDocumentReader {
   }
 
   /**
-   * Check if the passed header id is valid or not. By default is must
-   * not be empty. Override this method to perform further checks.
+   * Check if the passed header id is valid or not. By default is must not be
+   * empty. Override this method to perform further checks.
    *
    * @param sHeaderID
    *        The value to be checked. This conforms to the XML element value of
    *        <code>XHE/Header/ID</code>. May be <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code> 
-   *        otherwise.
+   * @return <code>true</code> if the value is valid, <code>false</code>
+   *         otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidHeaderID (@Nullable final String sHeaderID)
   {
     return StringHelper.hasText (sHeaderID);
   }
-  
+
   /**
    * Check if the passed document identification creation date time is valid or
    * not. By default all values are valid as they cannot be <code>null</code>.
@@ -204,8 +207,7 @@ public class DBNAllianceXHEDocumentReader {
    *
    * @param aCreationDateTime
    *        The value to be checked. This corresponds to the field
-   *        "XHE/Header/CreationDateTime". Is never
-   *        <code>null</code> .
+   *        "XHE/Header/CreationDateTime". Is never <code>null</code> .
    * @return <code>true</code> if the value is valid, <code>false</code>
    *         otherwise.
    */
@@ -214,14 +216,14 @@ public class DBNAllianceXHEDocumentReader {
   {
     return true;
   }
-  
+
   /**
-   * Check if the passed from party schema is is valid or not. By default is 
+   * Check if the passed from party schema is is valid or not. By default is
    * must not be empty.
    *
    * @param sFromPartySchemaID
    *        The value to be checked. This is the content of the XML attribute
-   *        <code>XHE/Header/FromParty/PartyIdentification/ID/@schemaID</code>. 
+   *        <code>XHE/Header/FromParty/PartyIdentification/ID/@schemaID</code>.
    *        May be <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
    *         otherwise.
@@ -238,29 +240,29 @@ public class DBNAllianceXHEDocumentReader {
    *
    * @param sFromPartySchemaID
    *        The value to be checked. This is the content of the XML attribute
-   *        <code>XHE/Header/FromParty/PartyIdentification/ID/@schemaID</code>. 
+   *        <code>XHE/Header/FromParty/PartyIdentification/ID/@schemaID</code>.
    *        May be <code>null</code>.
    * @param sFromPartyValue
    *        The value to be checked. This conforms to the XML element value of
-   *        <code>XHE/Header/FromParty/PartyIdentification/ID/</code>. 
-   *        May be <code>null</code>.
+   *        <code>XHE/Header/FromParty/PartyIdentification/ID/</code>. May be
+   *        <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
-   *        otherwise.
+   *         otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidFromPartyValue (@Nullable final String sFromPartySchemaID,
-                                             @Nullable final String sFromPartyValue)
+                                           @Nullable final String sFromPartyValue)
   {
     return StringHelper.hasText (sFromPartyValue);
   }
-  
+
   /**
-   * Check if the passed to party schema is valid or not. By default is 
-   * must not be empty.
+   * Check if the passed to party schema is valid or not. By default is must not
+   * be empty.
    *
    * @param sToPartySchemaID
    *        The value to be checked. This is the content of the XML attribute
-   *        <code>XHE/Header/ToParty/PartyIdentification/ID/@schemaID</code>. 
+   *        <code>XHE/Header/ToParty/PartyIdentification/ID/@schemaID</code>.
    *        May be <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
    *         otherwise.
@@ -272,88 +274,85 @@ public class DBNAllianceXHEDocumentReader {
   }
 
   /**
-   * Check if the passed to party value is valid or not. By default is must
-   * not be empty. Override this method to perform further checks.
+   * Check if the passed to party value is valid or not. By default is must not
+   * be empty. Override this method to perform further checks.
    *
    * @param sToPartySchemaID
    *        The value to be checked. This is the content of the XML attribute
-   *        <code>XHE/Header/ToParty/PartyIdentification/ID/@schemaID</code>. 
+   *        <code>XHE/Header/ToParty/PartyIdentification/ID/@schemaID</code>.
    *        May be <code>null</code>.
    * @param sToPartyValue
    *        The value to be checked. This conforms to the XML element value of
-   *        <code>XHE/Header/ToParty/PartyIdentification/ID/</code>. 
-   *        May be <code>null</code>.
+   *        <code>XHE/Header/ToParty/PartyIdentification/ID/</code>. May be
+   *        <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
-   *        otherwise.
+   *         otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidToPartyValue (@Nullable final String sToPartySchemaID,
-                                             @Nullable final String sToPartyValue)
+  protected boolean isValidToPartyValue (@Nullable final String sToPartySchemaID, @Nullable final String sToPartyValue)
   {
     return StringHelper.hasText (sToPartyValue);
   }
 
   // Payloads validations
-  
+
   /**
-   * Check if the passed payload id is valid or not. By default is 
-   * must not be empty.
+   * Check if the passed payload id is valid or not. By default is must not be
+   * empty.
    *
    * @param sPayloadID
    *        The value to be checked. This corresponds to the field
-   *        <code>XHE/Payloads/Payload/ID</code>. 
-   *        May be <code>null</code>.
+   *        <code>XHE/Payloads/Payload/ID</code>. May be <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
    *         otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidPayloadIDValue (@Nullable final String sPayloadID)
   {
-    return StringHelper.hasText(sPayloadID);
+    return StringHelper.hasText (sPayloadID);
   }
-  
+
   /**
    * Check if the passed list id is valid or not.
    *
    * @param sListID
    *        The value to be checked. This is the content of the XML attribute
-   *        <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code>. 
-   *        May be <code>null</code>.
+   *        <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code>. May be
+   *        <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
    *         otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidContentTypeCodeListID (@Nullable final String sListID)
   {
-    return "MIME".equals(sListID);
+    return "MIME".equals (sListID);
   }
-  
+
   /**
-   * Check if the passed content type code value is valid or not. By default is 
+   * Check if the passed content type code value is valid or not. By default is
    * must not be empty.
    *
    * @param sListID
    *        The value to be checked. This is the content of the XML attribute
-   *        <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code>. 
-   *        May be <code>null</code>.
+   *        <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code>. May be
+   *        <code>null</code>.
    * @param sValue
    *        The value to be checked. This corresponds to the field
-   *        <code>XHE/Payloads/Payload/ContentTypeCode</code>. 
-   *        May be <code>null</code>.
+   *        <code>XHE/Payloads/Payload/ContentTypeCode</code>. May be
+   *        <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code>
    *         otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidContentTypeCodeValue (@Nullable final String sListID, 
-                                                 @Nullable final String sValue)
+  protected boolean isValidContentTypeCodeValue (@Nullable final String sListID, @Nullable final String sValue)
   {
-    return "application/xml".equals(sValue);
+    return "application/xml".equals (sValue);
   }
-  
+
   /**
-   * Check if the passed instance encryption indicator value is valid or
-   * not. By default all values are valid as they cannot be <code>null</code>.
-   * Override this method to perform further or other checks.
+   * Check if the passed instance encryption indicator value is valid or not. By
+   * default all values are valid as they cannot be <code>null</code>. Override
+   * this method to perform further or other checks.
    *
    * @param bInstanceEncryptionIndicator
    *        The value to be checked. This corresponds to the field
@@ -367,11 +366,11 @@ public class DBNAllianceXHEDocumentReader {
   {
     return true;
   }
-  
+
   /**
-   * The Instance Hash Value MUST NOT be included in the envelope.
-   * By default all values are invalid as they cannot be present.
-   * Override this method to perform further or other checks.
+   * The Instance Hash Value MUST NOT be included in the envelope. By default
+   * all values are invalid as they cannot be present. Override this method to
+   * perform further or other checks.
    *
    * @param sInstanceHashValue
    *        The value to be checked. This corresponds to the field
@@ -385,7 +384,7 @@ public class DBNAllianceXHEDocumentReader {
   {
     return sInstanceHashValue == null;
   }
-  
+
   /**
    * Check if the passed business message is valid or not. By default this
    * method always returns <code>true</code> since the element is never
@@ -403,8 +402,7 @@ public class DBNAllianceXHEDocumentReader {
   {
     return true;
   }
-  
-  
+
   /**
    * Create a new XHE10 marshaller used for reading XHE documents. Override this
    * method to customize reading.
@@ -421,7 +419,7 @@ public class DBNAllianceXHEDocumentReader {
     ret.setValidationEventHandler (null);
     return ret;
   }
-  
+
   /**
    * Extract the document data from the Exchange Header Envelope represents by
    * the passed parameter.
@@ -431,8 +429,8 @@ public class DBNAllianceXHEDocumentReader {
    *        not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws DBNAllianceXHEDocumentReadException
-   *         In case the passed Exchange Header Envelope does not conform to
-   *         the DBNAlliance rules.
+   *         In case the passed Exchange Header Envelope does not conform to the
+   *         DBNAlliance rules.
    */
   @Nonnull
   public DBNAllianceXHEData extractData (@Nonnull @WillClose final InputStream aExchangeHeaderEnvelope) throws DBNAllianceXHEDocumentReadException
@@ -462,8 +460,8 @@ public class DBNAllianceXHEDocumentReader {
    *        The resource to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws DBNAllianceXHEDocumentReadException
-   *         In case the passed Exchange Header Envelope does not conform to
-   *         the DBNAlliance rules.
+   *         In case the passed Exchange Header Envelope does not conform to the
+   *         DBNAlliance rules.
    */
   @Nonnull
   public DBNAllianceXHEData extractData (@Nonnull final IReadableResource aExchangeHeaderEnvelope) throws DBNAllianceXHEDocumentReadException
@@ -486,8 +484,8 @@ public class DBNAllianceXHEDocumentReader {
    *        The DOM node to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws DBNAllianceXHEDocumentReadException
-   *         In case the passed Exchange Header Envelope does not conform to
-   *         the DBNAlliance rules.
+   *         In case the passed Exchange Header Envelope does not conform to the
+   *         DBNAlliance rules.
    */
   @Nonnull
   public DBNAllianceXHEData extractData (@Nonnull final Node aExchangeHeaderEnvelope) throws DBNAllianceXHEDocumentReadException
@@ -510,8 +508,8 @@ public class DBNAllianceXHEDocumentReader {
    *        The domain object to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws DBNAllianceXHEDocumentReadException
-   *         In case the passed Exchange Header Envelope does not conform to
-   *         the DBNAlliance rules.
+   *         In case the passed Exchange Header Envelope does not conform to the
+   *         DBNAlliance rules.
    */
   @Nonnull
   public DBNAllianceXHEData extractData (@Nonnull final XHE10XHEType aExchangeHeaderEnvelope) throws DBNAllianceXHEDocumentReadException
@@ -519,13 +517,13 @@ public class DBNAllianceXHEDocumentReader {
     ValueEnforcer.notNull (aExchangeHeaderEnvelope, "ExchangeHeaderEnvelope");
 
     // Grab the payloads
-    final XHE10PayloadsType aPayloads = aExchangeHeaderEnvelope.getPayloads();
+    final XHE10PayloadsType aPayloads = aExchangeHeaderEnvelope.getPayloads ();
     if (aPayloads == null || aPayloads.getPayload ().isEmpty ())
       throw new DBNAllianceXHEDocumentReadException (EDBNAllianceXHEDocumentReadError.MISSING_PAYLOADS_PAYLOAD);
 
     return extractData (aExchangeHeaderEnvelope, aPayloads);
   }
-  
+
   @Nonnull
   private static IError _toError (@Nullable final String sErrorField,
                                   @Nonnull final EDBNAllianceXHEDocumentReadError e,
@@ -563,22 +561,23 @@ public class DBNAllianceXHEDocumentReader {
       aErrorList.add (_toError ("XHE/XHEVersionID",
                                 EDBNAllianceXHEDocumentReadError.INVALID_XHE_VERSION_ID,
                                 aXHE.getXHEVersionIDValue ()));
-    
+
     // Check CustomizationID
     {
       final XHE10CustomizationIDType aCustomizationID = aXHE.getCustomizationID ();
-      if (aCustomizationID == null) {
-        aErrorList.add (_toError ("XHE/CustomizationID",
-                                  EDBNAllianceXHEDocumentReadError.CUSTOMIZATION_ID_MISSING));
+      if (aCustomizationID == null)
+      {
+        aErrorList.add (_toError ("XHE/CustomizationID", EDBNAllianceXHEDocumentReadError.CUSTOMIZATION_ID_MISSING));
       }
-      else {
+      else
+      {
         // schemaID is mandatory
         final String sCustomizationIDSchemaID = aCustomizationID.getSchemeID ();
         if (!isValidCustomizationIDSchemaID (sCustomizationIDSchemaID))
           aErrorList.add (_toError ("XHE/CustomizationID/SchemaID",
                                     EDBNAllianceXHEDocumentReadError.INVALID_CUSTOMIZATION_ID_SCHEMA_ID,
                                     sCustomizationIDSchemaID));
-        
+
         final String sCustomizationIDValue = aCustomizationID.getValue ();
         if (!isValidCustomizationID (sCustomizationIDValue))
           aErrorList.add (_toError ("XHE/CustomizationID/Value",
@@ -586,15 +585,16 @@ public class DBNAllianceXHEDocumentReader {
                                     sCustomizationIDValue));
       }
     }
-    
+
     // Check ProfileID
     {
       final XHE10ProfileIDType aProfileID = aXHE.getProfileID ();
-      if (aProfileID == null) {
-        aErrorList.add (_toError ("XHE/ProfileID",
-                                  EDBNAllianceXHEDocumentReadError.PROFILE_ID_MISSING));
+      if (aProfileID == null)
+      {
+        aErrorList.add (_toError ("XHE/ProfileID", EDBNAllianceXHEDocumentReadError.PROFILE_ID_MISSING));
       }
-      else {
+      else
+      {
         final String sProfileIDValue = aProfileID.getValue ();
         if (!isValidProfileID (sProfileIDValue))
           aErrorList.add (_toError ("XHE/ProfileID/Value",
@@ -602,14 +602,13 @@ public class DBNAllianceXHEDocumentReader {
                                     sProfileIDValue));
       }
     }
-    
+
     // Check Header
     {
-      final XHE10HeaderType aHeader = aXHE.getHeader();
+      final XHE10HeaderType aHeader = aXHE.getHeader ();
       if (aHeader == null)
       {
-        aErrorList.add (_toError ("XHE/Header",
-                                  EDBNAllianceXHEDocumentReadError.HEADER_MISSING));
+        aErrorList.add (_toError ("XHE/Header", EDBNAllianceXHEDocumentReadError.HEADER_MISSING));
       }
       else
       {
@@ -617,9 +616,7 @@ public class DBNAllianceXHEDocumentReader {
         final String sHeaderID = aHeader.getIDValue ();
         if (!isValidHeaderID (sHeaderID))
         {
-          aErrorList.add (_toError ("XHE/Header/ID",
-                                    EDBNAllianceXHEDocumentReadError.INVALID_HEADER_ID,
-                                    sHeaderID));
+          aErrorList.add (_toError ("XHE/Header/ID", EDBNAllianceXHEDocumentReadError.INVALID_HEADER_ID, sHeaderID));
         }
         // Header creation date time is mandatory
         final XMLOffsetDateTime aCreationDateTime = aHeader.getCreationDateTimeValue ();
@@ -629,17 +626,17 @@ public class DBNAllianceXHEDocumentReader {
                                     EDBNAllianceXHEDocumentReadError.INVALID_CREATION_DATE_TIME,
                                     sHeaderID));
         }
-        
+
         // Check from party
         final XHE10PartyType aFromParty = aHeader.getFromParty ();
         if (aFromParty != null)
         {
-          final int nFromPartyCount = aFromParty.getPartyIdentificationCount();
+          final int nFromPartyCount = aFromParty.getPartyIdentificationCount ();
           if (nFromPartyCount != 1)
             aErrorList.add (_toError ("XHE/Header/FromParty/PartyIdentification",
-                                       EDBNAllianceXHEDocumentReadError.INVALID_FROM_PARTY_COUNT,
-                                       Integer.toString (nFromPartyCount)));
-          
+                                      EDBNAllianceXHEDocumentReadError.INVALID_FROM_PARTY_COUNT,
+                                      Integer.toString (nFromPartyCount)));
+
           if (nFromPartyCount > 0)
           {
             final XHE10IDType aFromPartyID = aFromParty.getPartyIdentificationAtIndex (0).getID ();
@@ -669,26 +666,26 @@ public class DBNAllianceXHEDocumentReader {
             }
           }
         }
-        
+
         // Check to party
         final int nToPartyCount = aHeader.getToPartyCount ();
         if (nToPartyCount != 1)
           aErrorList.add (_toError ("XHE/Header/ToParty",
-                                     EDBNAllianceXHEDocumentReadError.INVALID_TO_PARTY_COUNT,
-                                     Integer.toString (nToPartyCount)));
-        
+                                    EDBNAllianceXHEDocumentReadError.INVALID_TO_PARTY_COUNT,
+                                    Integer.toString (nToPartyCount)));
+
         if (nToPartyCount > 0)
         {
-          XHE10PartyType nToParty = aHeader.getToPartyAtIndex (0);
-          int nFromPartyIdentificationCount = nToParty.getPartyIdentificationCount ();
+          final XHE10PartyType nToParty = aHeader.getToPartyAtIndex (0);
+          final int nFromPartyIdentificationCount = nToParty.getPartyIdentificationCount ();
           if (nFromPartyIdentificationCount != 1)
             aErrorList.add (_toError ("XHE/Header/ToParty/PartyIdentification",
-                                     EDBNAllianceXHEDocumentReadError.INVALID_TO_PARTY_IDENTIFICATION_COUNT,
-                                     Integer.toString (nFromPartyIdentificationCount)));
-          
+                                      EDBNAllianceXHEDocumentReadError.INVALID_TO_PARTY_IDENTIFICATION_COUNT,
+                                      Integer.toString (nFromPartyIdentificationCount)));
+
           if (nFromPartyIdentificationCount > 0)
           {
-            XHE10IDType aToPartyID = nToParty.getPartyIdentificationAtIndex (0).getID ();
+            final XHE10IDType aToPartyID = nToParty.getPartyIdentificationAtIndex (0).getID ();
             final String sScheme = aToPartyID.getSchemeID ();
             if (!isValidToPartySchemaID (sScheme))
             {
@@ -719,48 +716,49 @@ public class DBNAllianceXHEDocumentReader {
     }
 
     // Check Payloads
-    List<XHE10PayloadType> aPayloadList = aPayloads.getPayload ();
+    final List <XHE10PayloadType> aPayloadList = aPayloads.getPayload ();
     int nPayload = 1;
-    for (XHE10PayloadType aPayload : aPayloadList)
+    for (final XHE10PayloadType aPayload : aPayloadList)
     {
-      
+
       // ID is mandatory
       final String sPayloadID = aPayload.getIDValue ();
       if (!isValidPayloadIDValue (sPayloadID))
         aErrorList.add (_toError ("XHE/Payloads/Payload[" + nPayload + "]/ID",
-                                   EDBNAllianceXHEDocumentReadError.INVALID_PAYLOAD_ID_VALUE,
-                                   sPayloadID));
-      
+                                  EDBNAllianceXHEDocumentReadError.INVALID_PAYLOAD_ID_VALUE,
+                                  sPayloadID));
+
       // Check content type code
       {
         final XHE10ContentTypeCodeType aContentTypeCode = aPayload.getContentTypeCode ();
-        
+
         final String sContentTypeCodeListID = aContentTypeCode.getListID ();
         if (sContentTypeCodeListID != null && !isValidContentTypeCodeListID (sContentTypeCodeListID))
           aErrorList.add (_toError ("XHE/Payloads/Payload[" + nPayload + "]/ContentTypeCode/listID",
-                                     EDBNAllianceXHEDocumentReadError.INVALID_CONTENT_TYPE_CODE_LIST_ID,
-                                     sContentTypeCodeListID));
-        
+                                    EDBNAllianceXHEDocumentReadError.INVALID_CONTENT_TYPE_CODE_LIST_ID,
+                                    sContentTypeCodeListID));
+
         // Content type code values is mandatory
         final String sContentTypeCodeValue = aContentTypeCode.getValue ();
         if (!isValidContentTypeCodeValue (sContentTypeCodeListID, sContentTypeCodeValue))
           aErrorList.add (_toError ("XHE/Payloads/Payload[" + nPayload + "]/ContentTypeCode",
-                                     EDBNAllianceXHEDocumentReadError.INVALID_CONTENT_TYPE_CODE_VALUE,
-                                     sContentTypeCodeValue));
+                                    EDBNAllianceXHEDocumentReadError.INVALID_CONTENT_TYPE_CODE_VALUE,
+                                    sContentTypeCodeValue));
       }
-      
+
       // Check instance encription indicator
       final XHE10InstanceEncryptionIndicatorType aInstanceEncryptionIndicator = aPayload.getInstanceEncryptionIndicator ();
       if (aInstanceEncryptionIndicator == null)
         aErrorList.add (_toError ("XHE/Payloads/Payload[" + nPayload + "]/InstanceEncryptionIndicator",
                                   EDBNAllianceXHEDocumentReadError.INSTANCE_ENCRYPTION_INDICATOR_MISSING));
-      
-      // Extract the payload content (business message) - cannot be null and must be an
+
+      // Extract the payload content (business message) - cannot be null and
+      // must be an
       // Element!
       final Element aPayloadContent = (Element) aPayload.getPayloadContent ();
       if (!isValidBusinessMessage (aPayloadContent))
         aErrorList.add (_toError (null, EDBNAllianceXHEDocumentReadError.INVALID_BUSINESS_MESSAGE));
-      
+
       nPayload++;
     }
   }
@@ -773,16 +771,16 @@ public class DBNAllianceXHEDocumentReader {
    * @param aXHE
    *        The xhe object to read from. May not be <code>null</code>.
    * @param aPayloads
-   *        The list of DBNAlliance payload to extract data from. May
-   *        not be <code>null</code>.
+   *        The list of DBNAlliance payload to extract data from. May not be
+   *        <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws DBNAllianceXHEDocumentReadException
-   *         In case the passed Exchange Header Envelope does not conform to
-   *         the DBNAlliance rules.
+   *         In case the passed Exchange Header Envelope does not conform to the
+   *         DBNAlliance rules.
    */
   @Nonnull
   public DBNAllianceXHEData extractData (@Nonnull final XHE10XHEType aXHE,
-                                     @Nonnull final XHE10PayloadsType aPayloads) throws DBNAllianceXHEDocumentReadException
+                                         @Nonnull final XHE10PayloadsType aPayloads) throws DBNAllianceXHEDocumentReadException
   {
     ValueEnforcer.notNull (aXHE, "ExchangeHeaderEnvelope");
     ValueEnforcer.notNull (aPayloads, "Payloads");
@@ -801,7 +799,7 @@ public class DBNAllianceXHEDocumentReader {
         aErrorList.forEach (x -> {
           if (x.isError ())
           {
-            final String sMsg = x.getAsString (Locale.US);
+            final String sMsg = x.getAsStringLocaleIndepdent ();
             LOGGER.error ("DBNAlliance XHE validation " + sMsg);
             if (aErrorMsgSB.length () > 0)
               aErrorMsgSB.append ('\n');
@@ -812,7 +810,7 @@ public class DBNAllianceXHEDocumentReader {
         // Find an error code
         final IError aFirst = aErrorList.findFirst (IHasErrorLevel::isError);
         final EDBNAllianceXHEDocumentReadError eError = EDBNAllianceXHEDocumentReadError.getFromIDOrDefault (aFirst.getErrorID (),
-                                                                                                     EDBNAllianceXHEDocumentReadError.GENERIC_XHE_ERROR);
+                                                                                                             EDBNAllianceXHEDocumentReadError.GENERIC_XHE_ERROR);
         throw new DBNAllianceXHEDocumentReadException (aErrorMsgSB.toString (), eError);
       }
     }
@@ -828,18 +826,18 @@ public class DBNAllianceXHEDocumentReader {
    * @param aXHE
    *        The header object to read from. May not be <code>null</code>.
    * @param aPayloads
-   *        The list of DBNAlliance payload to extract data from. May
-   *        not be <code>null</code>.
+   *        The list of DBNAlliance payload to extract data from. May not be
+   *        <code>null</code>.
    * @return The document data and never <code>null</code>.
    */
   @Nonnull
   public DBNAllianceXHEData extractDataUnchecked (@Nonnull final XHE10XHEType aXHE,
-                                              @Nonnull final XHE10PayloadsType aPayloads)
+                                                  @Nonnull final XHE10PayloadsType aPayloads)
   {
     ValueEnforcer.notNull (aXHE, "ExchangeHeaderEnvelope");
     ValueEnforcer.notNull (aPayloads, "Payloads");
     final DBNAllianceXHEData ret = new DBNAllianceXHEData (m_aIdentifierFactory);
-    
+
     // Check Header
     {
       final XHE10HeaderType aHeader = aXHE.getHeader ();
@@ -847,7 +845,7 @@ public class DBNAllianceXHEDocumentReader {
       {
         ret.setInstanceIdentifier (aHeader.getIDValue ());
         ret.setCreationDateAndTime (aHeader.getCreationDateTimeValue ());
-        
+
         // From Party
         {
           final XHE10PartyType aFromParty = aHeader.getFromParty ();
@@ -857,7 +855,7 @@ public class DBNAllianceXHEDocumentReader {
             ret.setFromParty (aFromPartyID.getSchemeID (), aFromPartyID.getValue ());
           }
         }
-        
+
         // To Party
         {
           if (aHeader.hasToPartyEntries ())
@@ -872,45 +870,45 @@ public class DBNAllianceXHEDocumentReader {
         }
       }
     }
-    
+
     // Check Payloads
     {
-      final List<XHE10PayloadType> aXHEPayloads = aPayloads.getPayload();
-      for (XHE10PayloadType aXHEPayload : aXHEPayloads)
+      final List <XHE10PayloadType> aXHEPayloads = aPayloads.getPayload ();
+      for (final XHE10PayloadType aXHEPayload : aXHEPayloads)
       {
-        DBNAlliancePayload aPayload = new DBNAlliancePayload (m_aIdentifierFactory);
-        if (aXHEPayload.hasDescriptionEntries())
+        final DBNAlliancePayload aPayload = new DBNAlliancePayload (m_aIdentifierFactory);
+        if (aXHEPayload.hasDescriptionEntries ())
           aPayload.setDescription (aXHEPayload.getDescriptionAtIndex (0).getValue ());
-        
+
         // Check content type code
-        final XHE10ContentTypeCodeType aContentTypeCode = aXHEPayload.getContentTypeCode();
+        final XHE10ContentTypeCodeType aContentTypeCode = aXHEPayload.getContentTypeCode ();
         if (aContentTypeCode != null)
           aPayload.setContentTypeCode (aContentTypeCode.getListID (), aContentTypeCode.getValue ());
-        
+
         // Check customization id
-        final XHE10CustomizationIDType aCustomizationID = aXHEPayload.getCustomizationID();
+        final XHE10CustomizationIDType aCustomizationID = aXHEPayload.getCustomizationID ();
         if (aCustomizationID != null)
           aPayload.setCustomizationID (aCustomizationID.getSchemeID (), aCustomizationID.getValue ());
-        
+
         // Check profile id
-        final XHE10ProfileIDType aProfileID = aXHEPayload.getProfileID();
+        final XHE10ProfileIDType aProfileID = aXHEPayload.getProfileID ();
         if (aProfileID != null)
           aPayload.setProfileID (aProfileID.getSchemeID (), aProfileID.getValue ());
-        
+
         final XHE10InstanceEncryptionIndicatorType aInstanceEncryptionIndicator = aXHEPayload.getInstanceEncryptionIndicator ();
         if (aInstanceEncryptionIndicator != null)
           aPayload.setInstanceEncryptionIndicator (aInstanceEncryptionIndicator.isValue ());
-        
-        final XHE10InstanceEncryptionMethodType aInstanceEncryptionMethod = aXHEPayload.getInstanceEncryptionMethod();
+
+        final XHE10InstanceEncryptionMethodType aInstanceEncryptionMethod = aXHEPayload.getInstanceEncryptionMethod ();
         if (aInstanceEncryptionMethod != null)
-          aPayload.setInstanceEncryptionMethod (aInstanceEncryptionMethod.getValue());
-        
-        final XHE10PayloadContentType aPayloadContent = aXHEPayload.getPayloadContent();
+          aPayload.setInstanceEncryptionMethod (aInstanceEncryptionMethod.getValue ());
+
+        final XHE10PayloadContentType aPayloadContent = aXHEPayload.getPayloadContent ();
         if (aPayloadContent != null)
-            aPayload.setPayloadContent ((Element) aPayloadContent);
-        
-        ret.addPayload(aPayload);
-        
+          aPayload.setPayloadContent ((Element) aPayloadContent);
+
+        ret.addPayload (aPayload);
+
       }
     }
 

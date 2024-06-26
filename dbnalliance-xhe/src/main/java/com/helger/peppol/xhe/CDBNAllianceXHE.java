@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger
+ * Copyright (C) 2024 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,6 @@
 package com.helger.peppol.xhe;
 
 import javax.annotation.concurrent.Immutable;
-
 
 /**
  * Constants for the usage of XHE in DBNAlliance.
@@ -38,5 +37,7 @@ public final class CDBNAllianceXHE
 
   /** Constant for the reference to the DBNAlliance specification */
   public static final String PROFILE_ID = "dbnalliance-envelope-1.0";
-  
+
+  private CDBNAllianceXHE ()
+  {}
 }

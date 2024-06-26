@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger
+ * Copyright (C) 2024 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +16,12 @@
  */
 package com.helger.peppol.xhe;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
+
+import org.w3c.dom.Element;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -24,24 +30,21 @@ import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-import org.w3c.dom.Element;
 
 /**
- * This class contains all the DBNAlliance data per Payload instance, 
- * such as a single invoice in a syntax neutral way.
- * This class maps to the requirements of the Exchange Header 
- * Envelope (XHE) Version 1.0 specification.
+ * This class contains all the DBNAlliance data per Payload instance, such as a
+ * single invoice in a syntax neutral way. This class maps to the requirements
+ * of the Exchange Header Envelope (XHE) Version 1.0 specification.
  *
  * @author Robinson Garcia
  */
 @NotThreadSafe
-public class DBNAlliancePayload {
-  
+public class DBNAlliancePayload
+{
+  public static final boolean DEFAULT_INSTANCE_ENCRYPTION_INDICATOR = false;
+
   private final IIdentifierFactory m_aIdentifierFactory;
-  
+
   private String m_sDescription;
   private String m_sContentTypeCodeListID;
   private String m_sContentTypeCodeValue;
@@ -49,25 +52,25 @@ public class DBNAlliancePayload {
   private String m_sCustomizationIDValue;
   private String m_sProfileIDScheme;
   private String m_sProfileIDValue;
-  private boolean m_bInstanceEncryptionIndicator = false;
+  private boolean m_bInstanceEncryptionIndicator = DEFAULT_INSTANCE_ENCRYPTION_INDICATOR;
   private String m_sInstanceEncryptionMethod;
   // PayloadContent
   private Element m_aPayloadContent;
-  
+
   /**
    * Constructor
    *
    * @param aIdentifierFactory
    *        Identifier factory to be used. May not be <code>null</code>.
    */
-  public DBNAlliancePayload (@Nonnull final IIdentifierFactory aIdentifierFactory) {
+  public DBNAlliancePayload (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  {
     m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
   }
-  
+
   /**
-   * Description - An OPTIONAL human readable description of the payload.
-   * This field is mapped to
-   * <code>XHE/Payloads/Payload/Description</code>.
+   * Description - An OPTIONAL human readable description of the payload. This
+   * field is mapped to <code>XHE/Payloads/Payload/Description</code>.
    *
    * @return Description value. May be <code>null</code>.
    */
@@ -78,7 +81,8 @@ public class DBNAlliancePayload {
   }
 
   /**
-   * @return <code>true</code> if a description is present, <code>false</code> if not.
+   * @return <code>true</code> if a description is present, <code>false</code>
+   *         if not.
    */
   public boolean hasDescription ()
   {
@@ -92,8 +96,7 @@ public class DBNAlliancePayload {
    * @param sDescription
    *        Description - An OPTIONAL human readable description of the payload.
    *        This field is mapped to
-   *        <code>XHE/Payloads/Payload/Description</code>
-   *        .
+   *        <code>XHE/Payloads/Payload/Description</code> .
    * @return this
    */
   @Nonnull
@@ -104,12 +107,11 @@ public class DBNAlliancePayload {
     m_sDescription = sDescription;
     return this;
   }
-  
+
   /**
-   * @return The content type code list id. May be <code>null</code>
-   *         if not initialized. This field is mapped to
-   *         <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code>
-   *         .
+   * @return The content type code list id. May be <code>null</code> if not
+   *         initialized. This field is mapped to
+   *         <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code> .
    */
   @Nullable
   public String getContentTypeCodeListID ()
@@ -118,8 +120,8 @@ public class DBNAlliancePayload {
   }
 
   /**
-   * @return The content type code value. May be <code>null</code>
-   *         if not initialized. This field is mapped to
+   * @return The content type code value. May be <code>null</code> if not
+   *         initialized. This field is mapped to
    *         <code>XHE/Payloads/Payload/ContentTypeCode/</code>.
    */
   @Nullable
@@ -132,18 +134,17 @@ public class DBNAlliancePayload {
    * Set the content type code.
    *
    * @param slistID
-   *        The DBNAlliance identifier scheme. May neither be <code>null</code> 
+   *        The DBNAlliance identifier scheme. May neither be <code>null</code>
    *        nor empty. This field is mapped to
-   *        <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code>
-   *        .
+   *        <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code> .
    * @param sValue
-   *        The from party identifier value. May neither be <code>null</code> nor
-   *        empty. This field is mapped to
+   *        The from party identifier value. May neither be <code>null</code>
+   *        nor empty. This field is mapped to
    *        <code>XHE/Payloads/Payload/ContentTypeCode/</code>.
    * @return this
    */
   @Nonnull
-  public DBNAlliancePayload setContentTypeCode(@Nullable final String slistID, @Nonnull @Nonempty final String sValue)
+  public DBNAlliancePayload setContentTypeCode (@Nullable final String slistID, @Nonnull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sValue, "Value");
 
@@ -151,12 +152,11 @@ public class DBNAlliancePayload {
     m_sContentTypeCodeValue = sValue;
     return this;
   }
-  
+
   /**
-   * @return The customization id scheme that applies to the payload instance. 
-   *         May be <code>null</code> if not initialized.
-   *         This field is mapped to
-   *         <code>XHE/Payloads/Payload/CustomizationID/@schemeID</code>.
+   * @return The customization id scheme that applies to the payload instance.
+   *         May be <code>null</code> if not initialized. This field is mapped
+   *         to <code>XHE/Payloads/Payload/CustomizationID/@schemeID</code>.
    */
   @Nullable
   public String getCustomizationIDScheme ()
@@ -165,10 +165,9 @@ public class DBNAlliancePayload {
   }
 
   /**
-   * @return The customization id value that applies to the payload instance. 
-   *         May be <code>null</code> if not initialized. 
-   *         This field is mapped to
-   *         <code>XHE/Payloads/Payload/CustomizationID/</code>.
+   * @return The customization id value that applies to the payload instance.
+   *         May be <code>null</code> if not initialized. This field is mapped
+   *         to <code>XHE/Payloads/Payload/CustomizationID/</code>.
    */
   @Nullable
   public String getCustomizationIDValue ()
@@ -177,28 +176,26 @@ public class DBNAlliancePayload {
   }
 
   /**
-   * @return The from party participant identifier as a participant identifier or
-   *         <code>null</code> if certain information are missing or are
+   * @return The from party participant identifier as a participant identifier
+   *         or <code>null</code> if certain information are missing or are
    *         invalid.
    */
   @Nullable
   public IDocumentTypeIdentifier getCustomizationIDAsIdentifier ()
   {
-    return m_aIdentifierFactory.createDocumentTypeIdentifier(m_sCustomizationIDScheme, m_sCustomizationIDValue);
+    return m_aIdentifierFactory.createDocumentTypeIdentifier (m_sCustomizationIDScheme, m_sCustomizationIDValue);
   }
 
   /**
    * Set the customization identifier.
    *
    * @param sScheme
-   *        The customization id scheme that applies to the payload instance. 
-   *        May be <code>null</code> if not initialized.
-   *        This field is mapped to
+   *        The customization id scheme that applies to the payload instance.
+   *        May be <code>null</code> if not initialized. This field is mapped to
    *        <code>XHE/Payloads/Payload/CustomizationID/@schemeID</code>.
    * @param sValue
-   *        The customization id value that applies to the payload instance. 
-   *        May be <code>null</code> if not initialized. 
-   *        This field is mapped to
+   *        The customization id value that applies to the payload instance. May
+   *        be <code>null</code> if not initialized. This field is mapped to
    *        <code>XHE/Payloads/Payload/CustomizationID/</code>.
    * @return this
    */
@@ -211,7 +208,7 @@ public class DBNAlliancePayload {
     m_sCustomizationIDValue = sValue;
     return this;
   }
-  
+
   /**
    * Set the customization identifier.
    *
@@ -226,11 +223,10 @@ public class DBNAlliancePayload {
 
     return setCustomizationID (aCustomizationID.getScheme (), aCustomizationID.getValue ());
   }
-  
+
   /**
-   * @return The profile id scheme that the payload instance is part of. 
-   *         May be <code>null</code> if not initialized.
-   *         This field is mapped to
+   * @return The profile id scheme that the payload instance is part of. May be
+   *         <code>null</code> if not initialized. This field is mapped to
    *         <code>XHE/Payloads/Payload/ProfileID/@schemeID</code>.
    */
   @Nullable
@@ -240,9 +236,8 @@ public class DBNAlliancePayload {
   }
 
   /**
-   * @return The profile id value that the payload instance is part of. 
-   *         May be <code>null</code> if not initialized. 
-   *         This field is mapped to
+   * @return The profile id value that the payload instance is part of. May be
+   *         <code>null</code> if not initialized. This field is mapped to
    *         <code>XHE/Payloads/Payload/ProfileID/</code>.
    */
   @Nullable
@@ -252,28 +247,26 @@ public class DBNAlliancePayload {
   }
 
   /**
-   * @return The from party participant identifier as a participant identifier or
-   *         <code>null</code> if certain information are missing or are
+   * @return The from party participant identifier as a participant identifier
+   *         or <code>null</code> if certain information are missing or are
    *         invalid.
    */
   @Nullable
   public IProcessIdentifier getProfileIDAsIdentifier ()
   {
-    return m_aIdentifierFactory.createProcessIdentifier(m_sProfileIDScheme, m_sProfileIDValue);
+    return m_aIdentifierFactory.createProcessIdentifier (m_sProfileIDScheme, m_sProfileIDValue);
   }
 
   /**
    * Set the profile identifier.
    *
    * @param sScheme
-   *        The profile id scheme that the payload instance is part of. 
-   *        May be <code>null</code> if not initialized.
-   *        This field is mapped to
+   *        The profile id scheme that the payload instance is part of. May be
+   *        <code>null</code> if not initialized. This field is mapped to
    *        <code>XHE/Payloads/Payload/ProfileID/@schemeID</code>.
    * @param sValue
-   *        The profile id value that the payload instance is part of. 
-   *        May be <code>null</code> if not initialized. 
-   *        This field is mapped to
+   *        The profile id value that the payload instance is part of. May be
+   *        <code>null</code> if not initialized. This field is mapped to
    *        <code>XHE/Payloads/Payload/ProfileID/</code>.
    * @return this
    */
@@ -286,7 +279,7 @@ public class DBNAlliancePayload {
     m_sCustomizationIDValue = sValue;
     return this;
   }
-  
+
   /**
    * Set the profile identifier.
    *
@@ -301,16 +294,15 @@ public class DBNAlliancePayload {
 
     return setCustomizationID (aProfileID.getScheme (), aProfileID.getValue ());
   }
-  
+
   /**
-   * InstanceEncryptionIndicator - Indicator to state whether the payload instance is encrypted or not.
-   * This field is mapped to
+   * InstanceEncryptionIndicator - Indicator to state whether the payload
+   * instance is encrypted or not. This field is mapped to
    * <code>XHE/Payloads/Payload/InstanceEncryptionIndicator</code>.
    *
    * @return InstanceEncryptionIndicator value. Default value is false.
    */
-  @Nullable
-  public boolean getInstanceEncryptionIndicator ()
+  public boolean isInstanceEncryptionIndicator ()
   {
     return m_bInstanceEncryptionIndicator;
   }
@@ -322,19 +314,16 @@ public class DBNAlliancePayload {
    * @param bInstanceEncryptionIndicator
    *        Indicator to state whether the payload instance is encrypted or not.
    *        This field is mapped to
-   *        <code>XHE/Payloads/Payload/InstanceEncryptionIndicator</code>
-   *        .
+   *        <code>XHE/Payloads/Payload/InstanceEncryptionIndicator</code> .
    * @return this
    */
   @Nonnull
-  public DBNAlliancePayload setInstanceEncryptionIndicator (@Nonnull final boolean bInstanceEncryptionIndicator)
+  public DBNAlliancePayload setInstanceEncryptionIndicator (final boolean bInstanceEncryptionIndicator)
   {
-    ValueEnforcer.notNull(bInstanceEncryptionIndicator, "InstanceEncryptionIndicator");
-
     m_bInstanceEncryptionIndicator = bInstanceEncryptionIndicator;
     return this;
   }
-  
+
   /**
    * InstanceEncryptionMethod - Method used to encrypt the payload instance.
    * This field is mapped to
@@ -349,7 +338,8 @@ public class DBNAlliancePayload {
   }
 
   /**
-   * @return <code>true</code> if a InstanceEncryptionMethod is present, <code>false</code> if not.
+   * @return <code>true</code> if a InstanceEncryptionMethod is present,
+   *         <code>false</code> if not.
    */
   public boolean hasInstanceEncryptionMethod ()
   {
@@ -361,21 +351,19 @@ public class DBNAlliancePayload {
    * <code>XHE/Payloads/Payload/InstanceEncryptionMethod</code>.
    *
    * @param sInstanceEncryptionMethod
-   *        Method used to encrypt the payload instance.
-   *        This field is mapped to
-   *        <code>XHE/Payloads/Payload/InstanceEncryptionMethod</code>
-   *        .
+   *        Method used to encrypt the payload instance. This field is mapped to
+   *        <code>XHE/Payloads/Payload/InstanceEncryptionMethod</code> .
    * @return this
    */
   @Nonnull
   public DBNAlliancePayload setInstanceEncryptionMethod (@Nonnull @Nonempty final String sInstanceEncryptionMethod)
   {
-    ValueEnforcer.notNull(sInstanceEncryptionMethod, "InstanceEncryptionMethod");
+    ValueEnforcer.notEmpty (sInstanceEncryptionMethod, "InstanceEncryptionMethod");
 
     m_sInstanceEncryptionMethod = sInstanceEncryptionMethod;
     return this;
   }
-  
+
   /**
    * Get the contained payload content.
    *
@@ -389,7 +377,7 @@ public class DBNAlliancePayload {
   {
     return m_aPayloadContent == null ? null : (Element) m_aPayloadContent.cloneNode (true);
   }
-  
+
   /**
    * Get the contained payload content without cloning it.
    *
@@ -404,9 +392,9 @@ public class DBNAlliancePayload {
   }
 
   /**
-   * Check if a payload content is present without having the need to
-   * explicitly call {@link #getPayloadContent()} which returns a cloned node
-   * and is therefore an expensive operation.
+   * Check if a payload content is present without having the need to explicitly
+   * call {@link #getPayloadContent()} which returns a cloned node and is
+   * therefore an expensive operation.
    *
    * @return <code>true</code> if a payload content is present,
    *         <code>false</code> otherwise.

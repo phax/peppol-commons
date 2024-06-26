@@ -75,6 +75,7 @@
     <expiringmap.version>0.5.11</expiringmap.version>
     <phive.version>9.2.0</phive.version>
     <ph-ubl.version>9.0.1</ph-ubl.version>
+    <ph-xhe.version>4.0.1</ph-xhe.version>
   </properties>
   
   <dependencyManagement>
@@ -177,6 +178,11 @@
         <artifactId>peppol-mlr</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
+        <artifactId>dbnalliance-xhe</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -199,7 +205,6 @@
   </dependencies>
   
   <modules>
-    <module>dbnalliance-xhe</module>
     <module>peppol-id-datatypes</module>
     <module>peppol-id</module>
     <module>peppol-commons</module>
@@ -210,6 +215,7 @@
     <module>peppol-sml-client</module>
     <module>peppol-directory-businesscard</module>
     <module>peppol-mlr</module>
+    <module>dbnalliance-xhe</module>
   </modules>
 
   <build>

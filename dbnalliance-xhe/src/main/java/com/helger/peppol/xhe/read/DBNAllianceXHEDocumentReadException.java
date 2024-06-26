@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014-2024 Philip Helger
+ * Copyright (C) 2024 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,11 +23,12 @@ import javax.annotation.Nonnull;
  *
  * @author Robinson Garcia
  */
-public class DBNAllianceXHEDocumentReadException extends Exception {
+public class DBNAllianceXHEDocumentReadException extends Exception
+{
   private final EDBNAllianceXHEDocumentReadError m_eErrorCode;
 
   DBNAllianceXHEDocumentReadException (@Nonnull final String sErrorMsg,
-                                   @Nonnull final EDBNAllianceXHEDocumentReadError eErrorCode)
+                                       @Nonnull final EDBNAllianceXHEDocumentReadError eErrorCode)
   {
     super (sErrorMsg);
     m_eErrorCode = eErrorCode;
