@@ -199,6 +199,7 @@
   </dependencies>
   
   <modules>
+    <module>dbnalliance-xhe</module>
     <module>peppol-id-datatypes</module>
     <module>peppol-id</module>
     <module>peppol-commons</module>
