@@ -82,6 +82,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   /**
    * Create a new object.
    *
+   * @param aIF
+   *        The Identifier Factory to use. May not be <code>null</code>.
    * @param sScheme
    *        The scheme to use. May not be <code>null</code>.
    * @param sValue
