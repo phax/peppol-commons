@@ -57,6 +57,7 @@ import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
+import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
@@ -175,8 +176,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The username or password was not correct.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The userId did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceGroupReferenceListOrNull(String,
@@ -229,8 +232,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     {
       return getServiceGroupReferenceList (sUserID, aCredentials);
     }
-    catch (final SMPClientNotFoundException ex)
+    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Found no ServiceGroupReferenceList");
       return null;
     }
   }
@@ -251,8 +256,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service group id did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getCompleteServiceGroup(IParticipantIdentifier)
@@ -292,8 +299,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service group id did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getCompleteServiceGroup(String)
@@ -339,8 +348,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     {
       return getCompleteServiceGroup (aServiceGroupID);
     }
-    catch (final SMPClientNotFoundException ex)
+    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Found no CompleteServiceGroup");
       return null;
     }
   }
@@ -357,8 +368,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service group id did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceGroupOrNull(IParticipantIdentifier)
@@ -393,7 +406,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     {
       return getServiceGroup (aServiceGroupID);
     }
-    catch (final SMPClientNotFoundException ex)
+    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Found no ServiceGroup");
@@ -500,8 +513,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service group id or document type did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,
@@ -638,7 +653,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     {
       return getServiceMetadata (aServiceGroupID, aDocumentTypeID);
     }
-    catch (final SMPClientNotFoundException ex)
+    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Found no ServiceMetadata");
@@ -1065,8 +1080,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         if DNS resolution fails
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service group id did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
@@ -1097,8 +1114,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         If DNS resolution fails
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service group id did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
@@ -1130,8 +1149,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         if DNS resolution fails
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service group id or document type did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */

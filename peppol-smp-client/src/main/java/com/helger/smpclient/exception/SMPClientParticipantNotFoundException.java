@@ -21,33 +21,20 @@ import java.net.UnknownHostException;
 
 import javax.annotation.Nonnull;
 
-import org.apache.hc.client5.http.HttpResponseException;
-
-import com.helger.commons.annotation.DevelopersNote;
-
 /**
- * This exception is thrown, if the HTTP response was 404. See also
- * {@link SMPClientParticipantNotFoundException}.
+ * This exception is thrown if a participant was not found on the network
  *
  * @author Philip Helger
+ * @since 9.4.1
  */
-public class SMPClientNotFoundException extends SMPClientException
+public class SMPClientParticipantNotFoundException extends SMPClientException
 {
-  public SMPClientNotFoundException (@Nonnull final HttpResponseException ex)
+  public SMPClientParticipantNotFoundException (@Nonnull final UnknownHostException ex)
   {
     super (ex);
   }
 
-  @Deprecated (forRemoval = true, since = "9.4.1")
-  @DevelopersNote ("Use SMPClientParticipantNotFoundException instead")
-  public SMPClientNotFoundException (@Nonnull final UnknownHostException ex)
-  {
-    super (ex);
-  }
-
-  @Deprecated (forRemoval = true, since = "9.4.1")
-  @DevelopersNote ("Use SMPClientParticipantNotFoundException instead")
-  public SMPClientNotFoundException (@Nonnull final ConnectException ex)
+  public SMPClientParticipantNotFoundException (@Nonnull final ConnectException ex)
   {
     super (ex);
   }

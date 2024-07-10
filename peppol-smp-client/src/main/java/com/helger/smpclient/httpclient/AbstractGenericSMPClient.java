@@ -52,6 +52,7 @@ import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
+import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.xsds.xmldsig.X509DataType;
 
@@ -444,9 +445,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
     // Special case
     if (ex instanceof UnknownHostException)
-      return new SMPClientNotFoundException ((UnknownHostException) ex);
+      return new SMPClientParticipantNotFoundException ((UnknownHostException) ex);
     if (ex instanceof ConnectException)
-      return new SMPClientNotFoundException ((ConnectException) ex);
+      return new SMPClientParticipantNotFoundException ((ConnectException) ex);
 
     // For new SMPClientBadResponseException
     if (ex instanceof ClientProtocolException && ex.getCause () instanceof SMPClientException)

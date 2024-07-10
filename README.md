@@ -286,6 +286,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.4.1 - work in progress
+    * Added new submodule `dbnalliance-xhe`. See [#53](https://github.com/phax/peppol-commons/pull/53) - thx @robinsongarciax
+    * Added new SMP client exception `SMPClientParticipantNotFoundException` to indicate non-existing Service Groups
 * v9.4.0 - 2024-05-24
     * Renamed `IParticipantIdentifierScheme` to `IPeppolParticipantIdentifierScheme`
     * Tried to make the usage of `IIdentifierFactory` more customizable

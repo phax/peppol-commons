@@ -39,6 +39,7 @@ import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
+import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
@@ -208,8 +209,10 @@ public class SMPClient extends SMPClientReadOnly
    *        <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service group id did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
    * @throws SMPClientBadRequestException
@@ -267,9 +270,10 @@ public class SMPClient extends SMPClientReadOnly
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         A HTTP Not Found was received. This can happen if the service was
-   *         not found.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier,
@@ -309,9 +313,10 @@ public class SMPClient extends SMPClientReadOnly
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         A HTTP Not Found was received. This can happen if the service was
-   *         not found.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #saveServiceInformation(ServiceInformationType,
@@ -349,8 +354,10 @@ public class SMPClient extends SMPClientReadOnly
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service meta data object did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */

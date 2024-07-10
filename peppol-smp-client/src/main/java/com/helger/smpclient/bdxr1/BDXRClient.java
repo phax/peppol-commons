@@ -40,6 +40,7 @@ import com.helger.smpclient.bdxr1.marshal.BDXR1MarshallerServiceMetadataType;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
+import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerWriteOperations;
 import com.helger.smpclient.url.ISMPURLProvider;
@@ -212,8 +213,10 @@ public class BDXRClient extends BDXRClientReadOnly
    *        <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service group id did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
    * @throws SMPClientBadRequestException
@@ -271,9 +274,10 @@ public class BDXRClient extends BDXRClientReadOnly
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         A HTTP Not Found was received. This can happen if the service was
-   *         not found.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #saveServiceRedirect(ParticipantIdentifierType,
@@ -313,9 +317,10 @@ public class BDXRClient extends BDXRClientReadOnly
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         A HTTP Not Found was received. This can happen if the service was
-   *         not found.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #saveServiceInformation(ServiceInformationType,
@@ -353,8 +358,10 @@ public class BDXRClient extends BDXRClientReadOnly
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         The user name or password was not correct.
+   * @throws SMPClientParticipantNotFoundException
+   *         The service group id does not exist in the network.
    * @throws SMPClientNotFoundException
-   *         The service meta data object did not exist.
+   *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
