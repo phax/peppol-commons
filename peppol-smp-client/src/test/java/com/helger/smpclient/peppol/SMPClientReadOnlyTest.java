@@ -26,6 +26,7 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
+import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.function.BiFunction;
@@ -365,13 +366,16 @@ public final class SMPClientReadOnlyTest
                                                                       ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     assertNotNull (aEndpointType);
 
+    final X509Certificate aAPCert = SMPClientReadOnly.getEndpointCertificate (aEndpointType);
+    assertNotNull (aAPCert);
+
     // Check at a specific date, as the certificate
-    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.checkPeppolAPCertificate (SMPClientReadOnly.getEndpointCertificate (aEndpointType),
+    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.checkPeppolAPCertificate (aAPCert,
                                                                                                               PDTFactory.createOffsetDateTime (2024,
-                                                                                                                                               Month.JANUARY,
+                                                                                                                                               Month.JUNE,
                                                                                                                                                1),
                                                                                                               ETriState.UNDEFINED,
-                                                                                                              ERevocationCheckMode.OCSP_BEFORE_CRL);
+                                                                                                              ERevocationCheckMode.CRL_BEFORE_OCSP);
     assertSame (EPeppolCertificateCheckResult.REVOKED, eCertCheckResult);
   }
 
