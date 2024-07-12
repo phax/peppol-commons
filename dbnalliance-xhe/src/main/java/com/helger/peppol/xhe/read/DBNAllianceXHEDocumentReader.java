@@ -63,6 +63,7 @@ import com.helger.xhe.v10.cbc.XHE10ProfileIDType;
  * required data out of it.
  *
  * @author Robinson Garcia
+ * @author Philip Helger
  */
 public class DBNAllianceXHEDocumentReader
 {
@@ -843,7 +844,7 @@ public class DBNAllianceXHEDocumentReader
       final XHE10HeaderType aHeader = aXHE.getHeader ();
       if (aHeader != null)
       {
-        ret.setInstanceIdentifier (aHeader.getIDValue ());
+        ret.setID (aHeader.getIDValue ());
         ret.setCreationDateAndTime (aHeader.getCreationDateTimeValue ());
 
         // From Party

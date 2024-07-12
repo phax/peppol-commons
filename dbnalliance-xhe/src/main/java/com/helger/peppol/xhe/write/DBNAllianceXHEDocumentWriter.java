@@ -16,9 +16,8 @@
  */
 package com.helger.peppol.xhe.write;
 
-import java.util.List;
-
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.peppol.xhe.CDBNAllianceXHE;
@@ -41,9 +40,13 @@ import com.helger.xhe.v10.cbc.XHE10ProfileIDType;
  * Convert a DBNAlliance XHE document to a regular XHE document
  *
  * @author Robinson Garcia
+ * @author Philip Helger
  */
-public class DBNAllianceXHEDocumentWriter
+@ThreadSafe
+public final class DBNAllianceXHEDocumentWriter
 {
+  private DBNAllianceXHEDocumentWriter ()
+  {}
 
   /**
    * Create a new {@link XHE10XHEType} from the specified document data.
@@ -56,7 +59,7 @@ public class DBNAllianceXHEDocumentWriter
    *         if not all document data fields are set!
    */
   @Nonnull
-  public XHE10XHEType createExchangeHeaderEnvelope (@Nonnull final DBNAllianceXHEData aData)
+  public static XHE10XHEType createExchangeHeaderEnvelope (@Nonnull final DBNAllianceXHEData aData)
   {
     ValueEnforcer.notNull (aData, "Data");
     if (!aData.areAllFieldsSet ())
@@ -111,51 +114,55 @@ public class DBNAllianceXHEDocumentWriter
 
     {
       final XHE10PayloadsType aPayloads = new XHE10PayloadsType ();
-      final List <DBNAlliancePayload> aDataPayloads = aData.getPayloads ();
-      int nID = 1;
-      for (final DBNAlliancePayload aDataPayload : aDataPayloads)
+      int nPayloadID = 1;
+      for (final DBNAlliancePayload aDataPayload : aData.getPayloads ())
       {
         final XHE10PayloadType aPayload = new XHE10PayloadType ();
         // payload IDs MUST be numbered sequentially starting with the number 1.
-        aPayload.setID (Integer.toString (nID++));
+        aPayload.setID (Integer.toString (nPayloadID++));
         aPayload.setInstanceEncryptionIndicator (aDataPayload.isInstanceEncryptionIndicator ());
-        aPayload.setInstanceEncryptionMethod (aDataPayload.getInstanceEncryptionMethod ());
+        if (aDataPayload.hasInstanceEncryptionMethod ())
+          aPayload.setInstanceEncryptionMethod (aDataPayload.getInstanceEncryptionMethod ());
 
         // Description data
+        if (aDataPayload.hasDescription ())
         {
           final XHE10DescriptionType aDescription = new XHE10DescriptionType ();
           aDescription.setValue (aDataPayload.getDescription ());
           aPayload.addDescription (aDescription);
         }
 
-        // Content Type data
+        // Content Type (mandatory)
         {
           final XHE10ContentTypeCodeType aContentTypeCode = new XHE10ContentTypeCodeType ();
           aContentTypeCode.setListID (aDataPayload.getContentTypeCodeListID ());
-          aContentTypeCode.setValue (aDataPayload.getContentTypeCodeValue ());
+          aContentTypeCode.setValue (aDataPayload.getContentTypeCode ());
           aPayload.setContentTypeCode (aContentTypeCode);
         }
 
         // Customization ID data
+        if (aDataPayload.hasCustomizationID ())
         {
           final XHE10CustomizationIDType aCustomization = new XHE10CustomizationIDType ();
-          aCustomization.setSchemeID (aDataPayload.getCustomizationIDScheme ());
-          aCustomization.setValue (aDataPayload.getCustomizationIDValue ());
+          aCustomization.setSchemeID (aDataPayload.getCustomizationIDSchemeID ());
+          aCustomization.setValue (aDataPayload.getCustomizationID ());
           aPayload.setCustomizationID (aCustomization);
         }
 
         // Profile ID data
+        if (aDataPayload.hasProfileID ())
         {
           final XHE10ProfileIDType aProfile = new XHE10ProfileIDType ();
-          aProfile.setSchemeID (aDataPayload.getProfileIDScheme ());
-          aProfile.setValue (aDataPayload.getProfileIDValue ());
+          aProfile.setSchemeID (aDataPayload.getProfileIDSchemeID ());
+          aProfile.setValue (aDataPayload.getProfileID ());
           aPayload.setProfileID (aProfile);
         }
 
         // Payload content data
         {
           final XHE10PayloadContentType aContent = new XHE10PayloadContentType ();
-          aContent.addContent (aDataPayload.getPayloadContentNoClone ());
+          aContent.addContent (aDataPayload.getPayloadContent ());
+          aPayload.setPayloadContent (aContent);
         }
 
         aPayloads.addPayload (aPayload);
