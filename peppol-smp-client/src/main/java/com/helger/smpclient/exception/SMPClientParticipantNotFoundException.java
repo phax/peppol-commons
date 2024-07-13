@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
  * This exception is thrown if a participant was not found on the network
  *
  * @author Philip Helger
- * @since 9.4.1
+ * @since 9.5.0
  */
 public class SMPClientParticipantNotFoundException extends SMPClientException
 {

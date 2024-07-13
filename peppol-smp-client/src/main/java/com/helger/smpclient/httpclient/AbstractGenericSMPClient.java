@@ -366,7 +366,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     catch (final RuntimeException | IOException ex)
     {
       if (GlobalDebug.isDebugMode ())
-        LOGGER.error ("Error performing SMP query", ex);
+        LOGGER.error ("Error performing SMP query [debug full exception]", ex);
       else
         LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
       throw ex;
@@ -443,7 +443,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
       }
     }
 
-    // Special case
+    // Special case: participant does not exist
     if (ex instanceof UnknownHostException)
       return new SMPClientParticipantNotFoundException ((UnknownHostException) ex);
     if (ex instanceof ConnectException)
