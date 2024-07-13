@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2024 Philip Helger
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.peppol.xhe;
 
 import static org.junit.Assert.assertEquals;
@@ -61,11 +77,15 @@ public final class DBNAllianceXHEDataTest
       LOGGER.info (sXHE);
 
     // Read again
-    final XHE10XHEType aXHE2Doc = new XHE10Marshaller ().read (sXHE);
-    assertNotNull (aXHE2Doc);
+    final XHE10XHEType aXHEDoc2 = new XHE10Marshaller ().read (sXHE);
+    assertNotNull (aXHEDoc2);
 
-    // Fails because of different payload element
+    // Fails because of different payload content
     if (false)
-      assertEquals (aXHEDoc, aXHE2Doc);
+      assertEquals (aXHEDoc, aXHEDoc2);
+
+    aXHEDoc.getPayloads ().getPayloadAtIndex (0).getPayloadContent ().setContent (null);
+    aXHEDoc2.getPayloads ().getPayloadAtIndex (0).getPayloadContent ().setContent (null);
+    assertEquals (aXHEDoc, aXHEDoc2);
   }
 }
