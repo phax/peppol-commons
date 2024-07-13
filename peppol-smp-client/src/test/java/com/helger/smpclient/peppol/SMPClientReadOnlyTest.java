@@ -55,6 +55,7 @@ import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.smpclient.IgnoredNaptrTest;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
 import com.helger.smpclient.url.BDXLURLProvider;
 import com.helger.smpclient.url.PeppolURLProvider;
@@ -111,6 +112,27 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  public void testGetSMPHostURI_Peppol_NonExisting () throws SMPClientException, SMPDNSResolutionException
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:denbledsinngibtssichernicht");
+
+    // Peppol URL provider
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    assertEquals ("http://B-898acc4769bdc1fb7a6670103686edd6.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/",
+                  aSMPClient.getSMPHostURI ());
+
+    try
+    {
+      aSMPClient.getServiceGroup (aPI);
+      fail ();
+    }
+    catch (final SMPClientParticipantNotFoundException ex)
+    {
+      // No such participant
+    }
+  }
+
+  @Test
   public void testInvalidTrustStore () throws SMPDNSResolutionException,
                                        SMPClientException,
                                        GeneralSecurityException,
@@ -139,23 +161,6 @@ public final class SMPClientReadOnlyTest
       assertNotNull (ex.getCause ());
       assertTrue (ex.getCause () instanceof XMLSignatureException);
     }
-  }
-
-  @Test
-  @Ignore ("Failed with timeout on 2021-05-02")
-  public void testIssue2303 () throws Exception
-  {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0887290276");
-
-    // PEPPOL URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
-    assertEquals ("http://B-c9f280672264cdb82eac528c265ed029.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
-                  aSMPClient.getSMPHostURI ());
-
-    aSMPClient.setXMLSchemaValidation (true);
-    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
-                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
-    assertNotNull (aSM);
   }
 
   @Test
@@ -380,6 +385,26 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  public void testPeppolReportingProductionEndpoints () throws SMPClientException, SMPDNSResolutionException
+  {
+    final IParticipantIdentifier aReceiverID = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0848934496");
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+                                                                aReceiverID,
+                                                                ESML.DIGIT_PRODUCTION);
+    aSMPClient.setSecureValidation (false);
+
+    // EUSR
+    SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aReceiverID,
+                                                                         EPredefinedDocumentTypeIdentifier.ENDUSERSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_END_USER_STATISTICS_REPORT_1_1);
+    assertNotNull (aSM);
+
+    // TSR
+    aSM = aSMPClient.getServiceMetadataOrNull (aReceiverID,
+                                               EPredefinedDocumentTypeIdentifier.TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_TRANSACTION_STATISTICS_REPORTING_1_0);
+    assertNotNull (aSM);
+  }
+
+  @Test
   public void testIssue43 () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0196:6610932699");
@@ -402,22 +427,19 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testPeppolReportingEndpoints () throws SMPClientException, SMPDNSResolutionException
+  // @Ignore ("Failed with timeout on 2021-05-02")
+  public void testIssue2303 () throws Exception
   {
-    final IParticipantIdentifier aReceiverID = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0848934496");
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
-                                                                aReceiverID,
-                                                                ESML.DIGIT_PRODUCTION);
-    aSMPClient.setSecureValidation (false);
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0887290276");
 
-    // EUSR
-    SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aReceiverID,
-                                                                         EPredefinedDocumentTypeIdentifier.ENDUSERSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_END_USER_STATISTICS_REPORT_1_1);
-    assertNotNull (aSM);
+    // PEPPOL URL provider
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
+    assertEquals ("http://B-c9f280672264cdb82eac528c265ed029.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
+                  aSMPClient.getSMPHostURI ());
 
-    // TSR
-    aSM = aSMPClient.getServiceMetadataOrNull (aReceiverID,
-                                               EPredefinedDocumentTypeIdentifier.TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_TRANSACTION_STATISTICS_REPORTING_1_0);
+    aSMPClient.setXMLSchemaValidation (true);
+    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
+                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
     assertNotNull (aSM);
   }
 }
