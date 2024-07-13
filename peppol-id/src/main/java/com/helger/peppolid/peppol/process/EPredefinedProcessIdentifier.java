@@ -448,6 +448,11 @@ public enum EPredefinedProcessIdentifier
     urn_fdc_peppol_eu_logistics_bis_despatch_advice_w_response_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1", EPeppolCodeListItemState.ACTIVE),
 
     /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_despatch_advice_w_receipt_advice_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:weight_statement:1</code><br>
      */
     urn_fdc_peppol_eu_logistics_bis_weight_statement_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:weight_statement:1", EPeppolCodeListItemState.ACTIVE),
@@ -523,11 +528,6 @@ public enum EPredefinedProcessIdentifier
     urn_fdc_peppol_eu_logistics_bis_transportation_status_only_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1", EPeppolCodeListItemState.ACTIVE),
 
     /**
-     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1</code><br>
-     */
-    urn_fdc_peppol_eu_logistics_bis_despatch_advice_w_receipt_advice_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1", EPeppolCodeListItemState.ACTIVE),
-
-    /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:hr-xml:2007:timesheet:1.0</code><br>
      */
     urn_fdc_hr_xml_2007_timesheet_1_0("cenbii-procid-ubl", "urn:fdc:hr-xml:2007:timesheet:1.0", EPeppolCodeListItemState.ACTIVE),
@@ -540,9 +540,39 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:peppol:bis:billing</code><br>
      */
-    urn_peppol_bis_billing("cenbii-procid-ubl", "urn:peppol:bis:billing", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "8.8";
-    public static final int CODE_LIST_ENTRY_COUNT = 88;
+    urn_peppol_bis_billing("cenbii-procid-ubl", "urn:peppol:bis:billing", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:hr-xml:2007:staffingorder:1.0</code><br>
+     */
+    urn_fdc_hr_xml_2007_staffingorder_1_0("cenbii-procid-ubl", "urn:fdc:hr-xml:2007:staffingorder:1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:hr-xml:2007:humanresource:1.0</code><br>
+     */
+    urn_fdc_hr_xml_2007_humanresource_1_0("cenbii-procid-ubl", "urn:fdc:hr-xml:2007:humanresource:1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:hr-xml:2007:assignment:1.0</code><br>
+     */
+    urn_fdc_hr_xml_2007_assignment_1_0("cenbii-procid-ubl", "urn:fdc:hr-xml:2007:assignment:1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:digital:ver1.0</code><br>
+     */
+    urn_fdc_digdir_no_2020_profile_egovernment_innbyggerpost_digital_ver1_0("cenbii-procid-ubl", "urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:digital:ver1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:utskrift:ver1.0</code><br>
+     */
+    urn_fdc_digdir_no_2020_profile_egovernment_innbyggerpost_utskrift_ver1_0("cenbii-procid-ubl", "urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:utskrift:ver1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:flyttet:ver1.0</code><br>
+     */
+    urn_fdc_digdir_no_2020_profile_egovernment_innbyggerpost_flyttet_ver1_0("cenbii-procid-ubl", "urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:flyttet:ver1.0", EPeppolCodeListItemState.ACTIVE);
+    public static final String CODE_LIST_VERSION = "8.9";
+    public static final int CODE_LIST_ENTRY_COUNT = 94;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

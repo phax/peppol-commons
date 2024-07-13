@@ -1621,7 +1621,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.1
      */
-    urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_logistics_trns_advanced_despatch_advice_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2", "DespatchAdvice", "urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1", "2.1"), "Advanced Despatch Advice", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1", "cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1")),
+    urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_logistics_trns_advanced_despatch_advice_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2", "DespatchAdvice", "urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1", "2.1"), "Advanced Despatch Advice", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1", "cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1", "cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1::2.1</code><br>
@@ -1659,9 +1659,11 @@ public enum EPredefinedDocumentTypeIdentifier
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:fdc:peppol:jp:billing:3.0::2.1</code><br>
      * Same as {@link #INVOICE_FDC_PEPPOL_JP_BILLING_3_0}
      * 
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-09-30
      * @since code list 8.2
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_fdc_peppol_jp_billing_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:fdc:peppol:jp:billing:3.0", "2.1"), "JP PINT invoice", Version.parse("8.2"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
+    @Deprecated
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_fdc_peppol_jp_billing_3_0__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:fdc:peppol:jp:billing:3.0", "2.1"), "JP PINT invoice", Version.parse("8.2"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(9), 30), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:2017:poacc:billing:01:1.0")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:OrderChange-2::OrderChange##urn:fdc:peppol.eu:poacc:trns:order_change:3::2.3</code><br>
@@ -1739,9 +1741,11 @@ public enum EPredefinedDocumentTypeIdentifier
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@jp-1::2.1</code><br>
      * Same as {@link #INVOICE_PEPPOL_PINT_SELFBILLING_1_JP_1}
      * 
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-09-30
      * @since code list 8.5
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_jp_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:selfbilling-1@jp-1", "2.1"), "JP BIS Self-Billing Invoice", Version.parse("8.5"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling")),
+    @Deprecated
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_jp_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:selfbilling-1@jp-1", "2.1"), "JP BIS Self-Billing Invoice", Version.parse("8.5"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(9), 30), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2::ExpressionOfInterestRequest##urn:fdc:peppol.eu:prac:trns:t001:1.2::2.2</code><br>
@@ -1955,9 +1959,11 @@ public enum EPredefinedDocumentTypeIdentifier
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1::2.1</code><br>
      * Same as {@link #INVOICE_PEPPOL_PINT_BILLING_1_JP_1}
      * 
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-09-30
      * @since code list 8.6
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_billing_1_jp_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:billing-1@jp-1", "2.1"), "JP PINT Invoice v1.0", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing")),
+    @Deprecated
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_billing_1_jp_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:billing-1@jp-1", "2.1"), "JP PINT Invoice v1.0", Version.parse("8.6"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(9), 30), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1::2.1</code><br>
@@ -1979,9 +1985,11 @@ public enum EPredefinedDocumentTypeIdentifier
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:nontaxinvoice-1@jp-1::2.1</code><br>
      * Same as {@link #INVOICE_PEPPOL_PINT_NONTAXINVOICE_1_JP_1}
      * 
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-09-30
      * @since code list 8.6
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_nontaxinvoice_1_jp_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:nontaxinvoice-1@jp-1", "2.1"), "JP BIS Invoice for Non-tax Registered Businesses", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing")),
+    @Deprecated
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_nontaxinvoice_1_jp_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:nontaxinvoice-1@jp-1", "2.1"), "JP BIS Invoice for Non-tax Registered Businesses", Version.parse("8.6"), EPeppolCodeListItemState.DEPRECATED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(9), 30), false, false, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:nontaxinvoice-1@jp-1::2.1</code><br>
@@ -2181,9 +2189,129 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.8
      */
-    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_selfbilling_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:peppol:pint:selfbilling-1@my-1", "2.1"), "MY PINT Self-Billing Credit Note v1.0", Version.parse("8.8"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling"));
-    public static final String CODE_LIST_VERSION = "8.8";
-    public static final int CODE_LIST_ENTRY_COUNT = 252;
+    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_selfbilling_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:peppol:pint:selfbilling-1@my-1", "2.1"), "MY PINT Self-Billing Credit Note v1.0", Version.parse("8.8"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling")),
+
+    /**
+     * <code>http://ns.hr-xml.org/2007-04-15::StaffingOrder##hr-xml@nl-1.4::2.5</code><br>
+     * Same as {@link #STAFFINGORDER_HR_XML_NL_1_4}
+     * 
+     * @since code list 8.9
+     */
+    http___ns_hr_xml_org_2007_04_15__StaffingOrder__hr_xml_nl_1_4__2_5("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("http://ns.hr-xml.org/2007-04-15", "StaffingOrder", "hr-xml@nl-1.4", "2.5"), "SETU HR-XML StaffingOrder v1.4", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:hr-xml:2007:staffingorder:1.0")),
+
+    /**
+     * <code>http://ns.hr-xml.org/2007-04-15::StaffingOrder##hr-xml:status@nl-1.4::2.5</code><br>
+     * Same as {@link #STAFFINGORDER_HR_XML_STATUS_NL_1_4}
+     * 
+     * @since code list 8.9
+     */
+    http___ns_hr_xml_org_2007_04_15__StaffingOrder__hr_xml_status_nl_1_4__2_5("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("http://ns.hr-xml.org/2007-04-15", "StaffingOrder", "hr-xml:status@nl-1.4", "2.5"), "SETU HR-XML StaffingOrder Status v1.4", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:hr-xml:2007:staffingorder:1.0")),
+
+    /**
+     * <code>http://ns.hr-xml.org/2007-04-15::HumanResource##hr-xml@nl-1.4::2.5</code><br>
+     * Same as {@link #HUMANRESOURCE_HR_XML_NL_1_4}
+     * 
+     * @since code list 8.9
+     */
+    http___ns_hr_xml_org_2007_04_15__HumanResource__hr_xml_nl_1_4__2_5("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("http://ns.hr-xml.org/2007-04-15", "HumanResource", "hr-xml@nl-1.4", "2.5"), "SETU HR-XML HumanResource v1.4", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:hr-xml:2007:humanresource:1.0")),
+
+    /**
+     * <code>http://ns.hr-xml.org/2007-04-15::HumanResource##hr-xml:status@nl-1.4::2.5</code><br>
+     * Same as {@link #HUMANRESOURCE_HR_XML_STATUS_NL_1_4}
+     * 
+     * @since code list 8.9
+     */
+    http___ns_hr_xml_org_2007_04_15__HumanResource__hr_xml_status_nl_1_4__2_5("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("http://ns.hr-xml.org/2007-04-15", "HumanResource", "hr-xml:status@nl-1.4", "2.5"), "SETU HR-XML HumanResource Status v1.4", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:hr-xml:2007:humanresource:1.0")),
+
+    /**
+     * <code>http://ns.hr-xml.org/2007-04-15::Assignment##hr-xml@nl-1.4.1::2.5</code><br>
+     * Same as {@link #ASSIGNMENT_HR_XML_NL_1_4_1}
+     * 
+     * @since code list 8.9
+     */
+    http___ns_hr_xml_org_2007_04_15__Assignment__hr_xml_nl_1_4_1__2_5("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("http://ns.hr-xml.org/2007-04-15", "Assignment", "hr-xml@nl-1.4.1", "2.5"), "SETU HR-XML Assignment v1.4.1", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:hr-xml:2007:assignment:1.0")),
+
+    /**
+     * <code>http://ns.hr-xml.org/2007-04-15::Assignment##hr-xml:status@nl-1.4::2.5</code><br>
+     * Same as {@link #ASSIGNMENT_HR_XML_STATUS_NL_1_4}
+     * 
+     * @since code list 8.9
+     */
+    http___ns_hr_xml_org_2007_04_15__Assignment__hr_xml_status_nl_1_4__2_5("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("http://ns.hr-xml.org/2007-04-15", "Assignment", "hr-xml:status@nl-1.4", "2.5"), "SETU HR-XML Assignment Status v1.4", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:hr-xml:2007:assignment:1.0")),
+
+    /**
+     * <code>urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:digital::1.0</code><br>
+     * Same as {@link #INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_DIGITAL}
+     * 
+     * @since code list 8.9
+     */
+    urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_digital__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:digdir.no:2020:innbyggerpost:xsd", "innbyggerpost", "urn:fdc:digdir.no:2020:innbyggerpost:schema:digital", "1.0"), "INNBYGGERPOST_DPI_DIGITAL_1_0", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:digital:ver1.0")),
+
+    /**
+     * <code>urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:utskrift::1.0</code><br>
+     * Same as {@link #INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_UTSKRIFT}
+     * 
+     * @since code list 8.9
+     */
+    urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_utskrift__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:digdir.no:2020:innbyggerpost:xsd", "innbyggerpost", "urn:fdc:digdir.no:2020:innbyggerpost:schema:utskrift", "1.0"), "INNBYGGERPOST_DPI_UTSKRIFT_1_0", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:utskrift:ver1.0")),
+
+    /**
+     * <code>urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:flyttet::1.0</code><br>
+     * Same as {@link #INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_FLYTTET}
+     * 
+     * @since code list 8.9
+     */
+    urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_flyttet__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:digdir.no:2020:innbyggerpost:xsd", "innbyggerpost", "urn:fdc:digdir.no:2020:innbyggerpost:schema:flyttet", "1.0"), "INNBYGGERPOST_DPI_FLYTTET_1_0", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:flyttet:ver1.0")),
+
+    /**
+     * <code>urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:leveringskvittering::1.0</code><br>
+     * Same as {@link #INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_LEVERINGSKVITTERING}
+     * 
+     * @since code list 8.9
+     */
+    urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_leveringskvittering__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:digdir.no:2020:innbyggerpost:xsd", "innbyggerpost", "urn:fdc:digdir.no:2020:innbyggerpost:schema:leveringskvittering", "1.0"), "INNBYGGERPOST_DPI_LEVERINGSKVITTERING_1_0", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:digital:ver1.0", "cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:utskrift:ver1.0", "cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:flyttet:ver1.0")),
+
+    /**
+     * <code>urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:feil::1.0</code><br>
+     * Same as {@link #INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_FEIL}
+     * 
+     * @since code list 8.9
+     */
+    urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_feil__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:digdir.no:2020:innbyggerpost:xsd", "innbyggerpost", "urn:fdc:digdir.no:2020:innbyggerpost:schema:feil", "1.0"), "INNBYGGERPOST_DPI_FEILKVITTERING_1_0", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:digital:ver1.0", "cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:utskrift:ver1.0", "cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:flyttet:ver1.0")),
+
+    /**
+     * <code>urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:aapningskvittering::1.0</code><br>
+     * Same as {@link #INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_AAPNINGSKVITTERING}
+     * 
+     * @since code list 8.9
+     */
+    urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_aapningskvittering__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:digdir.no:2020:innbyggerpost:xsd", "innbyggerpost", "urn:fdc:digdir.no:2020:innbyggerpost:schema:aapningskvittering", "1.0"), "INNBYGGERPOST_DPI_AAPNINGSKVITTERING_1_0", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:digital:ver1.0")),
+
+    /**
+     * <code>urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:mottakskvittering::1.0</code><br>
+     * Same as {@link #INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_MOTTAKSKVITTERING}
+     * 
+     * @since code list 8.9
+     */
+    urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_mottakskvittering__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:digdir.no:2020:innbyggerpost:xsd", "innbyggerpost", "urn:fdc:digdir.no:2020:innbyggerpost:schema:mottakskvittering", "1.0"), "INNBYGGERPOST_DPI_MOTTAKSKVITTERING_1_0", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:utskrift:ver1.0")),
+
+    /**
+     * <code>urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:varslingfeiletkvittering::1.0</code><br>
+     * Same as {@link #INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_VARSLINGFEILETKVITTERING}
+     * 
+     * @since code list 8.9
+     */
+    urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_varslingfeiletkvittering__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:digdir.no:2020:innbyggerpost:xsd", "innbyggerpost", "urn:fdc:digdir.no:2020:innbyggerpost:schema:varslingfeiletkvittering", "1.0"), "INNBYGGERPOST_DPI_VARSLINGFEILETKVITTERING_1_0", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:digital:ver1.0")),
+
+    /**
+     * <code>urn:fdc:digdir.no:2020:innbyggerpost:xsd::innbyggerpost##urn:fdc:digdir.no:2020:innbyggerpost:schema:returpostkvittering::1.0</code><br>
+     * Same as {@link #INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_RETURPOSTKVITTERING}
+     * 
+     * @since code list 8.9
+     */
+    urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_returpostkvittering__1_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:fdc:digdir.no:2020:innbyggerpost:xsd", "innbyggerpost", "urn:fdc:digdir.no:2020:innbyggerpost:schema:returpostkvittering", "1.0"), "INNBYGGERPOST_DPI_RETURPOSTKVITTERING_1_0", Version.parse("8.9"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:utskrift:ver1.0"));
+    public static final String CODE_LIST_VERSION = "8.9";
+    public static final int CODE_LIST_ENTRY_COUNT = 267;
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1}
      * 
@@ -3116,7 +3244,10 @@ public enum EPredefinedDocumentTypeIdentifier
     public static final EPredefinedDocumentTypeIdentifier INVOICE_CEN_EU_EN16931_2017_COMPLIANT_FDC_NEN_NL_NLCIUS_V1_0_COMPLIANT_FDC_SETU_NL_INVOICE_V2_2 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_compliant_urn_fdc_nen_nl_nlcius_v1_0_compliant_urn_fdc_setu_nl_invoice_v2_2__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_fdc_peppol_jp_billing_3_0__2_1}
+     * 
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-09-30
      */
+    @Deprecated
     public static final EPredefinedDocumentTypeIdentifier INVOICE_FDC_PEPPOL_JP_BILLING_3_0 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_fdc_peppol_jp_billing_3_0__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_OrderChange_2__OrderChange__urn_fdc_peppol_eu_poacc_trns_order_change_3__2_3}
@@ -3156,7 +3287,10 @@ public enum EPredefinedDocumentTypeIdentifier
     public static final EPredefinedDocumentTypeIdentifier XRECHNUNG_EXTENSION_INVOICE_CII_V23 = EPredefinedDocumentTypeIdentifier.urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_2_3_conformant_urn_xoev_de_kosit_extension_xrechnung_2_3__D16B;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_jp_1__2_1}
+     * 
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-09-30
      */
+    @Deprecated
     public static final EPredefinedDocumentTypeIdentifier INVOICE_PEPPOL_PINT_SELFBILLING_1_JP_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_jp_1__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ExpressionOfInterestRequest_2__ExpressionOfInterestRequest__urn_fdc_peppol_eu_prac_trns_t001_1_2__2_2}
@@ -3264,7 +3398,10 @@ public enum EPredefinedDocumentTypeIdentifier
     public static final EPredefinedDocumentTypeIdentifier CREDITNOTE_PEPPOL_PINT_BILLING_1 = EPredefinedDocumentTypeIdentifier.WILDCARD_urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_billing_1__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_billing_1_jp_1__2_1}
+     * 
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-09-30
      */
+    @Deprecated
     public static final EPredefinedDocumentTypeIdentifier INVOICE_PEPPOL_PINT_BILLING_1_JP_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_billing_1_jp_1__2_1;
     /**
      * Same as {@link #WILDCARD_urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_billing_1_jp_1__2_1}
@@ -3276,7 +3413,10 @@ public enum EPredefinedDocumentTypeIdentifier
     public static final EPredefinedDocumentTypeIdentifier INVOICE_PEPPOL_PINT_SELFBILLING_1_JP_12 = EPredefinedDocumentTypeIdentifier.WILDCARD_urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_jp_1__2_1;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_nontaxinvoice_1_jp_1__2_1}
+     * 
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-09-30
      */
+    @Deprecated
     public static final EPredefinedDocumentTypeIdentifier INVOICE_PEPPOL_PINT_NONTAXINVOICE_1_JP_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_nontaxinvoice_1_jp_1__2_1;
     /**
      * Same as {@link #WILDCARD_urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_nontaxinvoice_1_jp_1__2_1}
@@ -3378,6 +3518,66 @@ public enum EPredefinedDocumentTypeIdentifier
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_selfbilling_1_my_1__2_1}
      */
     public static final EPredefinedDocumentTypeIdentifier CREDITNOTE_PEPPOL_PINT_SELFBILLING_1_MY_12 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_selfbilling_1_my_1__2_1;
+    /**
+     * Same as {@link #http___ns_hr_xml_org_2007_04_15__StaffingOrder__hr_xml_nl_1_4__2_5}
+     */
+    public static final EPredefinedDocumentTypeIdentifier STAFFINGORDER_HR_XML_NL_1_4 = EPredefinedDocumentTypeIdentifier.http___ns_hr_xml_org_2007_04_15__StaffingOrder__hr_xml_nl_1_4__2_5;
+    /**
+     * Same as {@link #http___ns_hr_xml_org_2007_04_15__StaffingOrder__hr_xml_status_nl_1_4__2_5}
+     */
+    public static final EPredefinedDocumentTypeIdentifier STAFFINGORDER_HR_XML_STATUS_NL_1_4 = EPredefinedDocumentTypeIdentifier.http___ns_hr_xml_org_2007_04_15__StaffingOrder__hr_xml_status_nl_1_4__2_5;
+    /**
+     * Same as {@link #http___ns_hr_xml_org_2007_04_15__HumanResource__hr_xml_nl_1_4__2_5}
+     */
+    public static final EPredefinedDocumentTypeIdentifier HUMANRESOURCE_HR_XML_NL_1_4 = EPredefinedDocumentTypeIdentifier.http___ns_hr_xml_org_2007_04_15__HumanResource__hr_xml_nl_1_4__2_5;
+    /**
+     * Same as {@link #http___ns_hr_xml_org_2007_04_15__HumanResource__hr_xml_status_nl_1_4__2_5}
+     */
+    public static final EPredefinedDocumentTypeIdentifier HUMANRESOURCE_HR_XML_STATUS_NL_1_4 = EPredefinedDocumentTypeIdentifier.http___ns_hr_xml_org_2007_04_15__HumanResource__hr_xml_status_nl_1_4__2_5;
+    /**
+     * Same as {@link #http___ns_hr_xml_org_2007_04_15__Assignment__hr_xml_nl_1_4_1__2_5}
+     */
+    public static final EPredefinedDocumentTypeIdentifier ASSIGNMENT_HR_XML_NL_1_4_1 = EPredefinedDocumentTypeIdentifier.http___ns_hr_xml_org_2007_04_15__Assignment__hr_xml_nl_1_4_1__2_5;
+    /**
+     * Same as {@link #http___ns_hr_xml_org_2007_04_15__Assignment__hr_xml_status_nl_1_4__2_5}
+     */
+    public static final EPredefinedDocumentTypeIdentifier ASSIGNMENT_HR_XML_STATUS_NL_1_4 = EPredefinedDocumentTypeIdentifier.http___ns_hr_xml_org_2007_04_15__Assignment__hr_xml_status_nl_1_4__2_5;
+    /**
+     * Same as {@link #urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_digital__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_DIGITAL = EPredefinedDocumentTypeIdentifier.urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_digital__1_0;
+    /**
+     * Same as {@link #urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_utskrift__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_UTSKRIFT = EPredefinedDocumentTypeIdentifier.urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_utskrift__1_0;
+    /**
+     * Same as {@link #urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_flyttet__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_FLYTTET = EPredefinedDocumentTypeIdentifier.urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_flyttet__1_0;
+    /**
+     * Same as {@link #urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_leveringskvittering__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_LEVERINGSKVITTERING = EPredefinedDocumentTypeIdentifier.urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_leveringskvittering__1_0;
+    /**
+     * Same as {@link #urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_feil__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_FEIL = EPredefinedDocumentTypeIdentifier.urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_feil__1_0;
+    /**
+     * Same as {@link #urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_aapningskvittering__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_AAPNINGSKVITTERING = EPredefinedDocumentTypeIdentifier.urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_aapningskvittering__1_0;
+    /**
+     * Same as {@link #urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_mottakskvittering__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_MOTTAKSKVITTERING = EPredefinedDocumentTypeIdentifier.urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_mottakskvittering__1_0;
+    /**
+     * Same as {@link #urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_varslingfeiletkvittering__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_VARSLINGFEILETKVITTERING = EPredefinedDocumentTypeIdentifier.urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_varslingfeiletkvittering__1_0;
+    /**
+     * Same as {@link #urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_returpostkvittering__1_0}
+     */
+    public static final EPredefinedDocumentTypeIdentifier INNBYGGERPOST_FDC_DIGDIR_NO_2020_INNBYGGERPOST_SCHEMA_RETURPOSTKVITTERING = EPredefinedDocumentTypeIdentifier.urn_fdc_digdir_no_2020_innbyggerpost_xsd__innbyggerpost__urn_fdc_digdir_no_2020_innbyggerpost_schema_returpostkvittering__1_0;
     private final String m_sScheme;
     private final IPeppolDocumentTypeIdentifierParts m_aParts;
     private final String m_sID;

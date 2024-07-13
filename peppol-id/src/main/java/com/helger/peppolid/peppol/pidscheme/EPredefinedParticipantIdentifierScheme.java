@@ -88,8 +88,10 @@ public enum EPredefinedParticipantIdentifierScheme
      * +K4:K5<br>
      * 
      * @since code list 1.0.0
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-12-31
      */
-    FI_OVT("FI:OVT", "0037", "FI", "LY-tunnus", "National Board of Taxes, (Verohallitus)", Version.parse("1.0.0"), EPeppolCodeListItemState.ACTIVE, null, null),
+    @Deprecated
+    FI_OVT("FI:OVT", "0037", "FI", "LY-tunnus", "National Board of Taxes, (Verohallitus)", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(12), 31)),
 
     /**
      * Prefix <code>0060</code>, scheme ID <code>DUNS</code><br>
@@ -496,8 +498,10 @@ public enum EPredefinedParticipantIdentifierScheme
      * Hyphen shall be present between last two digits.<br>
      * 
      * @since code list 7.5
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-12-31
      */
-    FI_ORG("FI:ORG", "0212", "FI", "Finnish Organization Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE, null, null),
+    @Deprecated
+    FI_ORG("FI:ORG", "0212", "FI", "Finnish Organization Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.REMOVED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(12), 31)),
 
     /**
      * Prefix <code>0213</code>, scheme ID <code>FI:VAT</code><br>
@@ -506,8 +510,10 @@ public enum EPredefinedParticipantIdentifierScheme
      * Display requirements: Shall be presented as string so that leading zeros have to be present. Two first characters have always fixed value FI.<br>
      * 
      * @since code list 7.5
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-12-31
      */
-    FI_VAT("FI:VAT", "0213", "FI", "Finnish Organization Value Add Tax Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.ACTIVE, null, null),
+    @Deprecated
+    FI_VAT("FI:VAT", "0213", "FI", "Finnish Organization Value Add Tax Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.REMOVED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(12), 31)),
 
     /**
      * Prefix <code>0215</code>, scheme ID <code>FI:NSI</code><br>
@@ -523,8 +529,10 @@ public enum EPredefinedParticipantIdentifierScheme
      * Usage information: An example of Net Service ID: TE003701011385TEST<br>
      * 
      * @since code list 8.1
+     * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-12-31
      */
-    FI_NSI("FI:NSI", "0215", "FI", "Net service ID", "Tieto Finland Oy", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null),
+    @Deprecated
+    FI_NSI("FI:NSI", "0215", "FI", "Net service ID", "Tieto Finland Oy", Version.parse("8.1"), EPeppolCodeListItemState.REMOVED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(12), 31)),
 
     /**
      * Prefix <code>0216</code>, scheme ID <code>FI:OVT2</code><br>
@@ -1061,7 +1069,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "8.8";
+    public static final String CODE_LIST_VERSION = "8.9";
     public static final int CODE_LIST_ENTRY_COUNT = 96;
     private final String m_sSchemeID;
     private final String m_sISO6523;

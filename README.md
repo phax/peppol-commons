@@ -14,6 +14,7 @@ This project contains different libraries that are commonly used in the Peppol a
 * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
 * [`peppol-directory-businesscard`](#peppol-directory-businesscard) - the Peppol Directory Business Card data model (since v9.1.0)
 * [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2)
+* [`dbnalliance-xhe`](#dbnalliance-xhe) - specific support for DBNAlliance XHE header (since v9.5.0)
   
 These project are used implicitly by e.g. the following projects:
 * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
@@ -114,6 +115,13 @@ This project holds utility classes to read and write a Peppol Message Level Resp
 * Class `PeppolMLRMarshaller` can be used to serialize MLR messages from and to XML. It is based on the [ph-ubl](https://github.com/phax/ph-ubl) marshaller.
 
 See https://github.com/phax/peppol-commons/blob/master/peppol-mlr/src/test/java/com/helger/peppol/mlr/PeppolMLRBuilderTest.java for an example how to use the classes.
+
+## dbnalliance-xhe
+
+This was introduced in v9.5.0
+
+This project holds support for reading and writing DBNAlliance XHE header.
+This is the DBNAlliance version of `peppol-sbdh` based on the [ph-xhe](https://github.com/phax/ph-xhe) library.
 
 ### Configuration
 
@@ -259,6 +267,12 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
   <artifactId>peppol-mlr</artifactId>
   <version>x.y.z</version>
 </dependency>
+
+<dependency>
+  <groupId>com.helger.peppol</groupId>
+  <artifactId>dbnalliance-xhe</artifactId>
+  <version>x.y.z</version>
+</dependency>
 ```
 
 Alternatively use the following code in your `dependencyManagement` section to use it as a BOM:
@@ -286,9 +300,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.4.1 - work in progress
+* v9.5.0 - work in progress
     * Added new submodule `dbnalliance-xhe`. See [#53](https://github.com/phax/peppol-commons/pull/53) - thx @robinsongarciax
+    * Marked certain `ESMPTransportProfile` entries as "deleted"
     * Added new SMP client exception `SMPClientParticipantNotFoundException` to indicate non-existing Service Groups
+    * Updated to OpenPeppol eDEC Code Lists v8.9
 * v9.4.0 - 2024-05-24
     * Renamed `IParticipantIdentifierScheme` to `IPeppolParticipantIdentifierScheme`
     * Tried to make the usage of `IIdentifierFactory` more customizable
@@ -299,7 +315,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Added new class `PeppolLaxIdentifierFactory`
     * Added new enum entry `ESMPIdentifierType.PEPPOL_LAX` for SMP handling. See [smp#275](https://github.com/phax/phoss-smp/issues/275).
 * v9.3.5 - 2024-04-23
-    * Updated to OpenPeppol eDEC Code Lists v8.8 
+    * Updated to OpenPeppol eDEC Code Lists v8.8
 * v9.3.4 - 2024-04-04
     * Added new classes to support the DBNA network as well (`DBNAURLProviderSMP`, `EDBNASML`)
     * Allowing empty identifier schemes as being present (for DBNA). See `IIdentifier.hasScheme ()`
