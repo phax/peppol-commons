@@ -38,14 +38,14 @@ public class SMPClientNotFoundException extends SMPClientException
     super (ex);
   }
 
-  @Deprecated (forRemoval = true, since = "9.4.1")
+  @Deprecated (forRemoval = true, since = "9.5.0")
   @DevelopersNote ("Use SMPClientParticipantNotFoundException instead")
   public SMPClientNotFoundException (@Nonnull final UnknownHostException ex)
   {
     super (ex);
   }
 
-  @Deprecated (forRemoval = true, since = "9.4.1")
+  @Deprecated (forRemoval = true, since = "9.5.0")
   @DevelopersNote ("Use SMPClientParticipantNotFoundException instead")
   public SMPClientNotFoundException (@Nonnull final ConnectException ex)
   {
