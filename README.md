@@ -294,8 +294,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # References
 
-* [Peppol Policy for the use of identifiers v4.1.0](https://docs.peppol.eu/edelivery/policies/PEPPOL-EDN-Policy-for-use-of-identifiers-4.1.0-2020-03-11.pdf)
-* [Peppol Business Message Envelope (SBDH) v1.2.1](https://docs.peppol.eu/edelivery/envelope/PEPPOL-EDN-Business-Message-Envelope-1.2.1-2020-03-11.pdf)
+* [Peppol Policy for the use of identifiers v4.2.0](https://docs.peppol.eu/edelivery/policies/PEPPOL-EDN-Policy-for-use-of-identifiers-4.2.0-2023-06-19.pdf)
+* [Peppol Business Message Envelope (SBDH) v2.0.1](https://docs.peppol.eu/edelivery/envelope/Peppol-EDN-Business-Message-Envelope-2.0.1-2023-08-17.pdf)
 
 
 # News and noteworthy
