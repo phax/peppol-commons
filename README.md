@@ -301,6 +301,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 * v9.5.0 - 2024-07-22
+    * Updated to dnsjava 3.6.0 fixing CVE-2024-25638
     * Added new submodule `dbnalliance-xhe`. See [#53](https://github.com/phax/peppol-commons/pull/53) - thx @robinsongarciax
     * Marked certain `ESMPTransportProfile` entries as "deleted"
     * Added new SMP client exception `SMPClientParticipantNotFoundException` to indicate non-existing Service Groups. This was previously covered in `SMPClientNotFoundException`.
