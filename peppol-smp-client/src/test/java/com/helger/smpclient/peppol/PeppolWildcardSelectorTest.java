@@ -129,6 +129,18 @@ public final class PeppolWildcardSelectorTest
     }
 
     {
+      final PeppolWildcardSelector aSelector = new PeppolWildcardSelector (EMode.WILDCARD_ONLY);
+      // Customization ID with * will never match
+      aSelector.forEachMatchingDocumentType (aSupportedDocTypes,
+                                             "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1*::2.1",
+                                             aMatcherCount);
+      assertEquals (0, aMatches.size ());
+
+      // Reset
+      aMatches.clear ();
+    }
+
+    {
       final PeppolWildcardSelector aSelector = new PeppolWildcardSelector (EMode.BUSDOX_THEN_WILDCARD);
       aSelector.forEachMatchingDocumentType (aSupportedDocTypes,
                                              "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1@jp-sub-1::2.1",

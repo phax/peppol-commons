@@ -183,6 +183,12 @@ public class PeppolWildcardSelector
 
         // Iterate all the peppol-doctype-wildcard stuff
         String sRemainingCustomizationID = aParts.getCustomizationID ();
+        if (sRemainingCustomizationID.indexOf (PeppolIdentifierHelper.DOCUMENT_TYPE_WILDCARD_INDICATOR) >= 0)
+        {
+          // If a Customization contains a "*" it is invalid - no match
+          return EContinue.BREAK;
+        }
+
         IDocumentTypeIdentifier aSelectedDocTypeID = aFuncCheckExistance.apply (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
                                                                                 aFuncCustIDToDocTypeIDValue.apply (sRemainingCustomizationID +
                                                                                                                    PeppolIdentifierHelper.DOCUMENT_TYPE_WILDCARD_INDICATOR));

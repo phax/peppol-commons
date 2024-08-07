@@ -300,6 +300,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.5.1 - work in progress
+    * Make sure that wildcard lookups including a "*" in the Customization ID will always fail
 * v9.5.0 - 2024-07-29
     * Updated to dnsjava 3.6 fixing CVE-2024-25638
     * Added new submodule `dbnalliance-xhe`. See [#53](https://github.com/phax/peppol-commons/pull/53) - thx @robinsongarciax
