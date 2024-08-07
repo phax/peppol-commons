@@ -121,7 +121,9 @@ public final class W3CEndpointReferenceHelper
   }
 
   /**
-   * Get the address contained in the passed endpoint reference.
+   * Get the address contained in the passed endpoint reference.<br>
+   * See https://github.com/jakartaee/jax-ws-api/issues/167 why this is done so
+   * stupidly
    *
    * @param aEndpointReference
    *        The endpoint reference to retrieve the address from. May not be

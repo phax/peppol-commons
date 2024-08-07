@@ -164,7 +164,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
   /**
    * Gets a list of references to the CompleteServiceGroup's owned by the
-   * specified userId. This is a non-specification compliant method.
+   * specified userId.<br>
+   * NOTE: this API is NOT supported by all SMP implementations. It is based on
+   * a proprietary API provided by the Peppol reference implementation and now
+   * supported by phoss SMP but not all other SMPs.
    *
    * @param sUserID
    *        The username for which to retrieve service groups.
@@ -208,7 +211,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
   /**
    * Gets a list of references to the CompleteServiceGroup's owned by the
-   * specified userId. This is a non-specification compliant method.
+   * specified userId.<br>
+   * NOTE: this API is NOT supported by all SMP implementations. It is based on
+   * a proprietary API provided by the Peppol reference implementation and now
+   * supported by phoss SMP but not all other SMPs.
    *
    * @param sUserID
    *        The username for which to retrieve service groups.
@@ -356,26 +362,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
   }
 
-  /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        The service group id corresponding to the service group which one
-   *        wants to get.
-   * @return The service group. Never <code>null</code>.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
-   * @throws SMPClientNotFoundException
-   *         The service group id or document types did not exist.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceGroupOrNull(IParticipantIdentifier)
-   */
   @Nonnull
   public ServiceGroupType getServiceGroup (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
@@ -422,6 +408,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @param aSG
    *        The service group to parse. May be <code>null</code>.
    * @return Never <code>null</code> but a maybe empty list.
+   * @see #getAllDocumentTypes(ServiceGroupType, IIdentifierFactory, Consumer)
    * @since 8.0.4
    */
   @Nonnull
@@ -500,7 +487,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
   /**
    * Gets a signed service metadata object given by its service group id and its
-   * document type. This is a specification compliant method.
+   * document type.<br>
+   * This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The service group id of the service metadata to get. May not be
@@ -626,7 +614,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
   /**
    * Gets a signed service metadata object given by its service group id and its
-   * document type. This is a specification compliant method.
+   * document type.<br>
+   * This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The service group id of the service metadata to get. May not be
@@ -684,6 +673,12 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The required transport profile to be used. May not be
    *        <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
+   * @see #getEndpoint(ServiceMetadataType, IProcessIdentifier,
+   *      ISMPTransportProfile)
+   * @see #getEndpointAt(SignedServiceMetadataType, IProcessIdentifier,
+   *      ISMPTransportProfile, LocalDateTime)
+   * @see #getEndpointAt(ServiceMetadataType, IProcessIdentifier,
+   *      ISMPTransportProfile, LocalDateTime)
    */
   @Nullable
   public static EndpointType getEndpoint (@Nonnull final SignedServiceMetadataType aSignedServiceMetadata,
