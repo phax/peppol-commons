@@ -997,6 +997,47 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   @Nullable
+  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final ServiceGroupType aServiceGroup,
+                                                                     @Nonnull final IParticipantIdentifier aReceiverID,
+                                                                     @Nonnull final IDocumentTypeIdentifier aDocTypeID,
+                                                                     @Nonnull final PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException
+  {
+    ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
+    ValueEnforcer.notNull (aReceiverID, "ReceiverID");
+    ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
+    ValueEnforcer.notNull (eSelectionMode, "SelectionMode");
+
+    // Extract all document types from SMP result
+    final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = SMPClientReadOnly.getAllDocumentTypes (aServiceGroup);
+
+    LOGGER.info ("Found " +
+                 aSupportedDocTypes.size () +
+                 " supported document types for '" +
+                 aReceiverID.getURIEncoded () +
+                 "'");
+
+    // Main matching
+    final Wrapper <IDocumentTypeIdentifier> aMatchingDocType = new Wrapper <> ();
+    new PeppolWildcardSelector (eSelectionMode).forEachMatchingDocumentType (aSupportedDocTypes,
+                                                                             aDocTypeID.getValue (),
+                                                                             dt -> {
+                                                                               aMatchingDocType.set (dt);
+                                                                               return EContinue.BREAK;
+                                                                             });
+
+    final IDocumentTypeIdentifier aSelectedDocTypeID = aMatchingDocType.get ();
+    if (aSelectedDocTypeID == null)
+    {
+      LOGGER.info ("Found no matching document type ID to be queried via Wildcard");
+      return null;
+    }
+
+    LOGGER.info ("Using '" + aSelectedDocTypeID.getURIEncoded () + "' for defacto querying the SMP");
+    // Do the main SMP lookup on the metadata
+    return getServiceMetadataOrNull (aReceiverID, aSelectedDocTypeID);
+  }
+
+  @Nullable
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aReceiverID,
                                                                      @Nonnull final IDocumentTypeIdentifier aDocTypeID,
                                                                      @Nonnull final PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException
@@ -1005,9 +1046,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
     ValueEnforcer.notNull (eSelectionMode, "SelectionMode");
 
-    final SignedServiceMetadataType aSSM;
-
-    // PINT/DDTS specific lookup
+    // Wildcard specific lookup
     LOGGER.info ("Using SMP wildcard lookup for '" +
                  aReceiverID.getURIEncoded () +
                  "' on '" +
@@ -1018,44 +1057,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     // 1. query all document types from SMP
     final ServiceGroupType aSG = getServiceGroupOrNull (aReceiverID);
     if (aSG == null)
-    {
-      // Invalid participant ID
-      aSSM = null;
-    }
-    else
-    {
-      // Extract all document types from SMP result
-      final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = SMPClientReadOnly.getAllDocumentTypes (aSG);
+      return null;
 
-      LOGGER.info ("Found " +
-                   aSupportedDocTypes.size () +
-                   " supported document types for '" +
-                   aReceiverID.getURIEncoded () +
-                   "'");
-
-      // Main matching
-      final Wrapper <IDocumentTypeIdentifier> aMatchingDocType = new Wrapper <> ();
-      new PeppolWildcardSelector (eSelectionMode).forEachMatchingDocumentType (aSupportedDocTypes,
-                                                                               aDocTypeID.getValue (),
-                                                                               dt -> {
-                                                                                 aMatchingDocType.set (dt);
-                                                                                 return EContinue.BREAK;
-                                                                               });
-
-      final IDocumentTypeIdentifier aSelectedDocTypeID = aMatchingDocType.get ();
-      if (aSelectedDocTypeID != null)
-      {
-        LOGGER.info ("Using '" + aSelectedDocTypeID.getURIEncoded () + "' for defacto querying the SMP");
-        // Do the main SMP lookup on the metadata
-        aSSM = getServiceMetadataOrNull (aReceiverID, aSelectedDocTypeID);
-      }
-      else
-      {
-        LOGGER.info ("Found no matching document type ID to be queried via Wildcard");
-        aSSM = null;
-      }
-    }
-    return aSSM;
+    // Select and query service metadata
+    return getWildcardServiceMetadataOrNull (aSG, aReceiverID, aDocTypeID, eSelectionMode);
   }
 
   /**
