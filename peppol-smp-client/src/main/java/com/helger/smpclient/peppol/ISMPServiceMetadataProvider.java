@@ -50,6 +50,27 @@ public interface ISMPServiceMetadataProvider
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @return A signed service metadata object. Never <code>null</code>.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
+   *      IDocumentTypeIdentifier)
+   */
+  @Nonnull
+  SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
+
+  /**
+   * Gets a signed service metadata object given by its service group id and its
+   * document type.<br>
+   * This is a specification compliant method.
+   *
+   * @param aServiceGroupID
    *        The ID of the service group to query. May not be <code>null</code>.
    * @param aDocumentTypeID
    *        The document type of the service metadata to retrieve. May not be
@@ -58,6 +79,7 @@ public interface ISMPServiceMetadataProvider
    *         registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
+   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
    */
   @Nullable
   SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull IParticipantIdentifier aServiceGroupID,

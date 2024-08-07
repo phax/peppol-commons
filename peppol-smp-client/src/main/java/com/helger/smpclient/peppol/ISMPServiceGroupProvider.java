@@ -41,6 +41,22 @@ public interface ISMPServiceGroupProvider
    * @return The service group. Maybe <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
+   * @see #getServiceGroupOrNull(IParticipantIdentifier)
+   */
+  @Nonnull
+  ServiceGroupType getServiceGroup (@Nonnull IParticipantIdentifier aServiceGroupID) throws SMPClientException;
+
+  /**
+   * Returns a service group. A service group references to the service
+   * metadata. This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The ID of the service group to retrieve. May not be
+   *        <code>null</code>.
+   * @return The service group. Maybe <code>null</code>.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @see #getServiceGroup(IParticipantIdentifier)
    */
   @Nullable
   ServiceGroupType getServiceGroupOrNull (@Nonnull IParticipantIdentifier aServiceGroupID) throws SMPClientException;
