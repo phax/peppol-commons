@@ -74,7 +74,7 @@
     <ph-jaxb-plugin.version>4.0.3</ph-jaxb-plugin.version>
     <expiringmap.version>0.5.11</expiringmap.version>
     <phive.version>9.2.2</phive.version>
-    <ph-ubl.version>9.0.1</ph-ubl.version>
+    <ph-ubl.version>9.0.2</ph-ubl.version>
     <ph-xhe.version>4.0.1</ph-xhe.version>
   </properties>
   
