@@ -42,6 +42,7 @@ public interface ISMPServiceGroupProvider
    * @throws SMPClientException
    *         in case something goes wrong
    * @see #getServiceGroupOrNull(IParticipantIdentifier)
+   * @since 9.5.1 in this interface
    */
   @Nonnull
   ServiceGroupType getServiceGroup (@Nonnull IParticipantIdentifier aServiceGroupID) throws SMPClientException;
