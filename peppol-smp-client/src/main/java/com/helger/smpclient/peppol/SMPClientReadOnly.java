@@ -963,7 +963,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Wildcard (DDTS) aware SMP lookup. It interprets the wildcard character
+   * Wildcard aware SMP lookup. It interprets the wildcard character
    * (<code>*</code>) appropriately and tries all possibilities. Internally it
    * works by first querying all the document types via
    * {@link #getServiceGroupOrNull(IParticipantIdentifier)} and afterwards find

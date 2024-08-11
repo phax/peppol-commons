@@ -34,6 +34,7 @@ import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.xsds.peppol.smp1.EndpointType;
+import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 /**
@@ -60,6 +61,7 @@ public interface ISMPServiceMetadataProvider
    *         in case something goes wrong
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,
    *      IDocumentTypeIdentifier)
+   * @since 9.5.1 in this interface
    */
   @Nonnull
   SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -86,7 +88,36 @@ public interface ISMPServiceMetadataProvider
                                                       @Nonnull IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
 
   /**
-   * Wildcard (DDTS) aware SMP lookup. It interprets the wildcard character
+   * Wildcard aware SMP lookup. It interprets the wildcard character
+   * (<code>*</code>) appropriately and tries all possibilities. Internally it
+   * searches the closest possible match using the provided selection algorithm
+   * (mode).
+   *
+   * @param aServiceGroup
+   *        The service group previously queried. May not be <code>null</code>.
+   * @param aReceiverID
+   *        Receiver ID. May not be <code>null</code>.
+   * @param aDocTypeID
+   *        Source document type ID. May not be <code>null</code>. The document
+   *        type may use any document type identifier scheme.
+   * @param eSelectionMode
+   *        The Wildcard selection mode to use. Must not be <code>null</code>.
+   * @return <code>null</code> if no matching SMP entry was found
+   * @throws SMPClientException
+   *         In case of error
+   * @see #getWildcardServiceMetadataOrNull(IParticipantIdentifier,
+   *      IDocumentTypeIdentifier,
+   *      com.helger.smpclient.peppol.PeppolWildcardSelector.EMode)
+   * @since 9.5.1 in this interface
+   */
+  @Nullable
+  SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull ServiceGroupType aServiceGroup,
+                                                              @Nonnull IParticipantIdentifier aReceiverID,
+                                                              @Nonnull IDocumentTypeIdentifier aDocTypeID,
+                                                              @Nonnull PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException;
+
+  /**
+   * Wildcard aware SMP lookup. It interprets the wildcard character
    * (<code>*</code>) appropriately and tries all possibilities. Internally it
    * works by first querying all the document types via
    * {@link ISMPServiceGroupProvider#getServiceGroupOrNull(IParticipantIdentifier)}
@@ -104,6 +135,9 @@ public interface ISMPServiceMetadataProvider
    * @throws SMPClientException
    *         In case of error
    * @since 9.2.1
+   * @see #getWildcardServiceMetadataOrNull(ServiceGroupType,
+   *      IParticipantIdentifier, IDocumentTypeIdentifier,
+   *      com.helger.smpclient.peppol.PeppolWildcardSelector.EMode)
    */
   @Nullable
   SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull IParticipantIdentifier aReceiverID,
@@ -138,6 +172,8 @@ public interface ISMPServiceMetadataProvider
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
+   * @see #getEndpointAt(IParticipantIdentifier, IDocumentTypeIdentifier,
+   *      IProcessIdentifier, ISMPTransportProfile, LocalDateTime)
    */
   @Nullable
   default EndpointType getEndpoint (@Nonnull final IParticipantIdentifier aServiceGroupID,
