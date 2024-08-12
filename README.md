@@ -3,7 +3,7 @@
 [![javadoc](https://javadoc.io/badge2/com.helger.peppol/peppol-commons/javadoc.svg)](https://javadoc.io/doc/com.helger.peppol/peppol-commons)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom) 
 
-This project contains different libraries that are commonly used in the Peppol area:
+This project contains different libraries that are commonly used in the Peppol/eDelivery area:
 * [`peppol-id-datatypes`](#peppol-id-datatypes) - the generated JAXB classes for ID handling (since v8.4.0)
 * [`peppol-id`](#peppol-id) - the ID data structures (since v7.0.0)
 * [`peppol-commons`](#peppol-commons) - the most basic data structures for use with Peppol and BDXR
@@ -16,6 +16,8 @@ This project contains different libraries that are commonly used in the Peppol a
 * [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2)
 * [`dbnalliance-xhe`](#dbnalliance-xhe) - specific support for DBNAlliance XHE header (since v9.5.0)
   
+This project is part of my Peppol solution stack. See https://github.com/phax/peppol for other components and libraries in that area.
+
 These project are used implicitly by e.g. the following projects:
 * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
 * [phase4](https://github.com/phax/phase4/) - an AS4 implementation that also supports Peppol 
