@@ -18,7 +18,11 @@
 
 -->
 <StandardBusinessDocument xmlns:xs="http://www.w3.org/2001/XMLSchema"
-  xmlns="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader">
+  xmlns="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader"
+  xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" 
+  xmlns:cec="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+  xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+  xmlns:ubl="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
   <StandardBusinessDocumentHeader>
     <HeaderVersion>1.0</HeaderVersion>
     <Sender>
@@ -49,8 +53,7 @@
       </Scope>
     </BusinessScope>
   </StandardBusinessDocumentHeader>
-  <ns4:Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ns2="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
-    xmlns:ns3="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:ns4="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+  <ubl:Invoice>
     <!-- etc. -->
-  </ns4:Invoice>
+  </ubl:Invoice>
 </StandardBusinessDocument>
