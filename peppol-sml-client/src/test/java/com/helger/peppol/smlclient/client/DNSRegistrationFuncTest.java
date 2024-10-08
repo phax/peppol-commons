@@ -80,20 +80,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   private static final String INTERNAL_DNS_SERVER = "blixdns0";
 
   @Nullable
-  private static String _DNSLookupPI (@Nonnull final IParticipantIdentifier aPI) throws Exception
-  {
-    final String sHost = PeppolURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, SML_INFO);
-    return _DNSLookup (sHost);
-  }
-
-  @Nullable
-  private static String _DNSLookupPublisher (@Nonnull final String sSMPID) throws Exception
-  {
-    return _DNSLookup (sSMPID + "." + SML_INFO.getPublisherDNSZone ());
-  }
-
-  @Nullable
-  private static String _DNSLookup (final String sHost) throws Exception
+  private static String _dnsLookup (final String sHost) throws Exception
   {
     // Wait to let dns propagate : DNS TTL = 60 secs
     LOGGER.info ("Waiting 10 seconds to lookup '" + sHost + "'");
@@ -111,7 +98,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     final Record aRecord = aRecords[0];
     if (aRecord instanceof CNAMERecord)
-      return ((CNAMERecord) aRecord).getName ().toString ();
+      return aRecord.getName ().toString ();
 
     if (aRecord instanceof ARecord)
     {
@@ -121,6 +108,19 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 
     LOGGER.info ("Unknown record type found: " + ClassHelper.getClassLocalName (aRecord));
     return aRecord.toString ();
+  }
+
+  @Nullable
+  private static String _dnsLookupPI (@Nonnull final IParticipantIdentifier aPI) throws Exception
+  {
+    final String sHost = PeppolURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, SML_INFO);
+    return _dnsLookup (sHost);
+  }
+
+  @Nullable
+  private static String _dnsLookupPublisher (@Nonnull final String sSMPID) throws Exception
+  {
+    return _dnsLookup (sSMPID + "." + SML_INFO.getPublisherDNSZone ());
   }
 
   @Before
@@ -171,7 +171,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     // @Before creates new SMP!
 
     // verify created
-    final String publisher = _DNSLookupPublisher (SMP_ID);
+    final String publisher = _dnsLookupPublisher (SMP_ID);
     assertEquals (SMP_1_LOGICAL_ADDRESS_VALIDATION, publisher);
 
     // Update SML address
@@ -180,14 +180,14 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     manageServiceMetaData.update (SMP_ID, SMP_2_PHYSICAL_ADDRESS, SMP_2_LOGICAL_ADDRESS);
 
     // verify update
-    final String updatedPublisher = _DNSLookupPublisher (SMP_ID);
+    final String updatedPublisher = _dnsLookupPublisher (SMP_ID);
     assertEquals (SMP_2_LOGICAL_ADDRESS_VALIDATION, updatedPublisher);
 
     // Delete SML
     manageServiceMetaData.delete (SMP_ID);
 
     // verify delete
-    final String deletedPublisher = _DNSLookupPublisher (SMP_ID);
+    final String deletedPublisher = _dnsLookupPublisher (SMP_ID);
     assertNull (deletedPublisher);
   }
 
@@ -206,13 +206,13 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     client.create (SMP_ID, aPI);
 
     // verify PI in DNS
-    final String host = _DNSLookupPI (aPI);
+    final String host = _dnsLookupPI (aPI);
     assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), host);
 
     // delete PI
     client.delete (SMP_ID, aPI);
 
-    final String deletedHost = _DNSLookupPI (aPI);
+    final String deletedHost = _dnsLookupPI (aPI);
     assertNull (deletedHost);
   }
 
@@ -231,20 +231,20 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
     client.create (SMP_ID, aPI);
 
     // verify that PI can be found in Wildcard domain.
-    final String piHost = _DNSLookupPI (new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
+    final String piHost = _dnsLookupPI (new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE,
                                                                          PI_WILDCARD_SCHEME,
                                                                          PI_VALUE));
     assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), piHost);
 
     // verify that Wildcard can be found
-    final String wildHost = _DNSLookupPI (aPI);
+    final String wildHost = _dnsLookupPI (aPI);
     assertEquals (SMP_ID + "." + SML_INFO.getPublisherDNSZone (), wildHost);
 
     // delete wildcard
     client.delete (SMP_ID, aPI);
 
     // verify deleted
-    final String deletedHost = _DNSLookupPI (aPI);
+    final String deletedHost = _dnsLookupPI (aPI);
     assertNull (deletedHost);
   }
 }
