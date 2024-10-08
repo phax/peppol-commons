@@ -147,8 +147,8 @@ public final class PeppolSBDHDocumentReaderTest
     assertEquals ("Invoice", aData.getType ());
     assertEquals ("123123", aData.getInstanceIdentifier ());
     assertEquals ("2013-02-19T05:10:10Z", PDTWebDateHelper.getAsStringXSD (aData.getCreationDateAndTime ()));
-    assertEquals ("dtype", aData.getDocumentTypeScheme ());
-    assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0::2.1",
+    assertEquals ("busdox-docid-qns", aData.getDocumentTypeScheme ());
+    assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1",
                   aData.getDocumentTypeValue ());
     assertEquals ("ptype", aData.getProcessScheme ());
     assertEquals ("urn:www.cenbii.eu:profile:bii04:ver1.0", aData.getProcessValue ());
