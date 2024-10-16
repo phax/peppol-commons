@@ -42,12 +42,14 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   /** Global instance to be used. */
   public static final PeppolIdentifierFactory INSTANCE = new PeppolIdentifierFactory ();
 
+  public static final boolean DEFAULT_STRICT = true;
+
   private final boolean m_bStrict;
 
   public PeppolIdentifierFactory ()
   {
     // Always strict
-    this (true);
+    this (DEFAULT_STRICT);
   }
 
   protected PeppolIdentifierFactory (final boolean bStrict)
