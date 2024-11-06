@@ -302,6 +302,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.5.2 - work in progress
+    * Updated the DBNAlliance Pilot domain name
 * v9.5.1 - 2024-08-11
     * Make sure that wildcard lookups including a "*" in the Customization ID will always fail
     * Added additional `SMPClientReadOnly.getWildcardServiceMetadataOrNull` overload

@@ -30,7 +30,7 @@ public enum EDBNASML
 {
   PRODUCTION ("sml.dbnalliance.net."),
   TEST ("sml.dbnalliance.com."),
-  PILOT ("sml.digitalbusinessnetworks.info.");
+  PILOT ("sml.dbnalliancepilot.net.");
 
   private final String m_sZoneName;
 
