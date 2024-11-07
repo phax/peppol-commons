@@ -65,4 +65,12 @@ public final class DBNAURLProviderSMPTest
     final URI x = DBNAURLProviderSMP.INSTANCE.getSMPURIOfParticipant (aPI, EDBNASML.TEST.getZoneName ());
     assertEquals ("https://einvoicing.qa.avalara.io/", x.toString ());
   }
+
+  @Test
+  public void testGetSMPURIOfPilotSMP () throws SMPDNSResolutionException
+  {
+    final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("DUNS", "556678558");
+    final URI x = DBNAURLProviderSMP.INSTANCE.getSMPURIOfParticipant (aPI, EDBNASML.PILOT.getZoneName ());
+    assertEquals ("https://smp.dbnalliancepilot.net/", x.toString ());
+  }
 }
