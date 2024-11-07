@@ -53,6 +53,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -94,7 +95,7 @@ import jakarta.xml.bind.JAXBElement;
  */
 public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOnly> implements
                                ISMPServiceGroupProvider,
-                               ISMPServiceMetadataProvider
+                               ISMPExtendedServiceMetadataProvider
 {
   public static final String URL_PART_COMPLETE = "complete";
   public static final String URL_PART_LIST = "list";
@@ -189,6 +190,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *      BasicAuthClientCredentials)
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "9.6.0")
   public ServiceGroupReferenceListType getServiceGroupReferenceList (@Nonnull final String sUserID,
                                                                      @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
@@ -202,6 +204,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     final HttpGet aRequest = new HttpGet (sURI);
     aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
 
+    // Build the result marshaller
     final SMPMarshallerServiceGroupReferenceListType aMarshaller = new SMPMarshallerServiceGroupReferenceListType ();
     aMarshaller.setUseSchema (isXMLSchemaValidation ());
     customizeMarshaller (aMarshaller);
@@ -231,6 +234,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @see #getServiceGroupReferenceList(String, BasicAuthClientCredentials)
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "9.6.0")
   public ServiceGroupReferenceListType getServiceGroupReferenceListOrNull (@Nonnull final String sUserID,
                                                                            @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
@@ -270,8 +274,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The request was not well formed.
    * @see #getCompleteServiceGroup(IParticipantIdentifier)
    * @see #getCompleteServiceGroupOrNull(IParticipantIdentifier)
+   * @deprecated Because this API is non-standard for the Peppol SMP
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "9.6.0")
   public CompleteServiceGroupType getCompleteServiceGroup (@Nonnull final String sCompleteURI) throws SMPClientException
   {
     ValueEnforcer.notEmpty (sCompleteURI, "CompleteURL");
@@ -313,8 +319,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The request was not well formed.
    * @see #getCompleteServiceGroup(String)
    * @see #getCompleteServiceGroupOrNull(IParticipantIdentifier)
+   * @deprecated Because this API is non-standard for the Peppol SMP
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "9.6.0")
   public CompleteServiceGroupType getCompleteServiceGroup (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
@@ -346,8 +354,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The request was not well formed.
    * @see #getCompleteServiceGroup(String)
    * @see #getCompleteServiceGroup(IParticipantIdentifier)
+   * @deprecated Because this API is non-standard for the Peppol SMP
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "9.6.0")
   public CompleteServiceGroupType getCompleteServiceGroupOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
     try
@@ -373,6 +383,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final HttpGet aRequest = new HttpGet (sURI);
 
+    // Build the response marshaller
     final SMPMarshallerServiceGroupType aMarshaller = new SMPMarshallerServiceGroupType ();
     aMarshaller.setUseSchema (isXMLSchemaValidation ());
     customizeMarshaller (aMarshaller);
@@ -487,7 +498,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
   /**
    * Gets a signed service metadata object given by its service group id and its
-   * document type.<br>
+   * document type. This method does not do anything specific with wildcards or
+   * so. It simply queries the SMP with the provided data.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
@@ -526,7 +538,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                         aDocumentTypeID.getURIPercentEncoded ();
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("SMPClient getServiceRegistration@" + sURI);
+      LOGGER.debug ("SMPClient getServiceMetadata@" + sURI);
 
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
@@ -540,6 +552,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     {
       final HttpGet aRequest = new HttpGet (sURI);
 
+      // Build the response marshaller
       final SMPMarshallerSignedServiceMetadataType aMarshaller = new SMPMarshallerSignedServiceMetadataType ();
       aMarshaller.setUseSchema (bXSDValidation);
       customizeMarshaller (aMarshaller);
@@ -557,15 +570,17 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         LOGGER.debug ("Received response: " + aMetadata);
     }
 
-    // If the Redirect element is present, then follow 1 redirect.
-    if (isFollowSMPRedirects ())
+    // Is a Redirect present?
+    if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
     {
-      if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
+      // Is it allowed to follow redirects
+      if (isFollowSMPRedirects ())
       {
+        // If the Redirect element is present, then follow 1 redirect.
         final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
 
         // Follow the redirect
-        LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
+        LOGGER.info ("Following an SMP Redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         final HttpGet aRequest = new HttpGet (aRedirect.getHref ());
 
         // Create a new Marshaller to ensure customization is simple
@@ -600,13 +615,12 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
           }
 
         if (!bCertificateSubjectFound)
-          throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
+          throw new SMPClientException ("The X509 certificate of the SMP Redirect did not contain the expected certificate subject.");
       }
-    }
-    else
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Following SMP redirects is disabled");
+      else
+      {
+        LOGGER.info ("An SMP Redirect was found, but following SMP redirects is disabled");
+      }
     }
 
     return aMetadata;
@@ -933,6 +947,140 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return CertificateHelper.convertStringToCertficate (sCertString);
   }
 
+  @Nullable
+  public SignedServiceMetadataType getSchemeSpecificServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
+    ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
+
+    // Resolve the actual document type ID based on scheme
+    final String sSearchScheme = aDocumentTypeID.getScheme ();
+    if (StringHelper.hasNoText (sSearchScheme))
+    {
+      LOGGER.error ("The provided Document Type ID has no scheme ID");
+      return null;
+    }
+
+    switch (sSearchScheme)
+    {
+      case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS:
+        // Busdox exact match
+        return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
+
+      case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD:
+        // Wildcard match (exact and best match)
+
+        // 1. query all document types from SMP
+        final ServiceGroupType aSMPServiceGroup = getServiceGroupOrNull (aServiceGroupID);
+        if (aSMPServiceGroup == null)
+          return null;
+
+        // 2. Extract all document types from SMP result
+        final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = getAllDocumentTypes (aSMPServiceGroup);
+
+        LOGGER.info ("Found " +
+                     aSupportedDocTypes.size () +
+                     " supported document types for '" +
+                     aServiceGroupID.getURIEncoded () +
+                     "'");
+
+        // 3. Resolve exact or best matching wildcard registration
+        final Wrapper <IDocumentTypeIdentifier> aMatchingDocType = new Wrapper <> ();
+        if (PeppolWildcardSelector.findPeppolDoctypeWildcardMatch (aSupportedDocTypes,
+                                                                   aDocumentTypeID,
+                                                                   aMatchingDocType::set)
+                                  .isSuccess ())
+        {
+          LOGGER.info ("Found matching document type ID '" +
+                       aMatchingDocType.get ().getURIEncoded () +
+                       "' for '" +
+                       aServiceGroupID.getURIEncoded () +
+                       "'");
+
+          // 4. Do the effective Service Metadata lookup
+          return getServiceMetadataOrNull (aServiceGroupID, aMatchingDocType.get ());
+        }
+
+        LOGGER.error ("Failed to resolve Wildcard Best Match of '" +
+                      aDocumentTypeID.getURIEncoded () +
+                      "' in " +
+                      aSupportedDocTypes.getAllMapped (IDocumentTypeIdentifier::getURIEncoded));
+        return null;
+
+      default:
+        LOGGER.error ("The provided Document Type ID uses the unsupported scheme ID '" + sSearchScheme + "'");
+        return null;
+    }
+  }
+
+  @Nullable
+  public SignedServiceMetadataType getSchemeSpecificServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                                           @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
+    ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
+
+    // Resolve the actual document type ID based on scheme
+    final String sSearchScheme = aDocumentTypeID.getScheme ();
+    if (StringHelper.hasNoText (sSearchScheme))
+    {
+      LOGGER.error ("The provided Document Type ID has no scheme ID");
+      return null;
+    }
+
+    switch (sSearchScheme)
+    {
+      case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS:
+        // Busdox exact match
+        return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
+
+      case PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD:
+        // Wildcard match (exact and best match)
+
+        // 1. query all document types from SMP
+        final ServiceGroupType aSMPServiceGroup = getServiceGroupOrNull (aServiceGroupID);
+        if (aSMPServiceGroup == null)
+          return null;
+
+        // 2. Extract all document types from SMP result
+        final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = getAllDocumentTypes (aSMPServiceGroup);
+
+        LOGGER.info ("Found " +
+                     aSupportedDocTypes.size () +
+                     " supported document types for '" +
+                     aServiceGroupID.getURIEncoded () +
+                     "'");
+
+        // 3. Resolve exact or best matching wildcard registration
+        final Wrapper <IDocumentTypeIdentifier> aMatchingDocType = new Wrapper <> ();
+        if (PeppolWildcardSelector.findPeppolDoctypeWildcardMatch (aSupportedDocTypes,
+                                                                   aDocumentTypeID,
+                                                                   aMatchingDocType::set)
+                                  .isSuccess ())
+        {
+          LOGGER.info ("Found matching document type ID '" +
+                       aMatchingDocType.get ().getURIEncoded () +
+                       "' for '" +
+                       aServiceGroupID.getURIEncoded () +
+                       "'");
+
+          // 4. Do the effective Service Metadata lookup
+          return getServiceMetadataOrNull (aServiceGroupID, aMatchingDocType.get ());
+        }
+
+        LOGGER.error ("Failed to resolve Wildcard Best Match of '" +
+                      aDocumentTypeID.getURIEncoded () +
+                      "' in " +
+                      aSupportedDocTypes.getAllMapped (IDocumentTypeIdentifier::getURIEncoded));
+        return null;
+
+      default:
+        LOGGER.error ("The provided Document Type ID uses the unsupported scheme ID '" + sSearchScheme + "'");
+        return null;
+    }
+  }
+
   /**
    * Helper method to iterate all matching document type identifiers. This
    * method prefers direct matches ("busdox-docid-qns") over wildcard matches
@@ -962,59 +1110,51 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                                                                                          aMatchingDocTypeConsumer);
   }
 
-  /**
-   * Wildcard aware SMP lookup. It interprets the wildcard character
-   * (<code>*</code>) appropriately and tries all possibilities. Internally it
-   * works by first querying all the document types via
-   * {@link #getServiceGroupOrNull(IParticipantIdentifier)} and afterwards find
-   * the closest possible match.
-   *
-   * @param aReceiverID
-   *        Receiver ID. May not be <code>null</code>.
-   * @param aDocTypeID
-   *        Source document type ID. May not be <code>null</code>. The document
-   *        type may use any document type identifier scheme.
-   * @return <code>null</code> if no matching SMP entry was found
-   * @throws SMPClientException
-   *         In case of error
-   * @since 8.8.1
-   * @deprecated Because the wildcard selection mode is hard coded and may not
-   *             be ideal in all cases. Use
-   *             {@link #getWildcardServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier, EMode)}
-   *             instead.
-   */
   @Nullable
   @Deprecated (forRemoval = true, since = "9.2.0")
-  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aReceiverID,
-                                                                     @Nonnull final IDocumentTypeIdentifier aDocTypeID) throws SMPClientException
+  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final ServiceGroupType aServiceGroup,
+                                                                     @Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
-    return getWildcardServiceMetadataOrNull (aReceiverID, aDocTypeID, EMode.BUSDOX_THEN_WILDCARD);
+    return getWildcardServiceMetadataOrNull (aServiceGroup,
+                                             aServiceGroupID,
+                                             aDocumentTypeID,
+                                             EMode.BUSDOX_THEN_WILDCARD);
   }
 
   @Nullable
+  @Deprecated (forRemoval = true, since = "9.2.0")
+  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    return getWildcardServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID, EMode.BUSDOX_THEN_WILDCARD);
+  }
+
+  @Nullable
+  @Deprecated (since = "9.6.0", forRemoval = true)
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final ServiceGroupType aServiceGroup,
-                                                                     @Nonnull final IParticipantIdentifier aReceiverID,
-                                                                     @Nonnull final IDocumentTypeIdentifier aDocTypeID,
+                                                                     @Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
                                                                      @Nonnull final PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
-    ValueEnforcer.notNull (aReceiverID, "ReceiverID");
-    ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
+    ValueEnforcer.notNull (aServiceGroupID, "ReceiverID");
+    ValueEnforcer.notNull (aDocumentTypeID, "DocTypeID");
     ValueEnforcer.notNull (eSelectionMode, "SelectionMode");
 
     // Extract all document types from SMP result
-    final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = SMPClientReadOnly.getAllDocumentTypes (aServiceGroup);
+    final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = getAllDocumentTypes (aServiceGroup);
 
     LOGGER.info ("Found " +
                  aSupportedDocTypes.size () +
                  " supported document types for '" +
-                 aReceiverID.getURIEncoded () +
+                 aServiceGroupID.getURIEncoded () +
                  "'");
 
     // Main matching
     final Wrapper <IDocumentTypeIdentifier> aMatchingDocType = new Wrapper <> ();
     new PeppolWildcardSelector (eSelectionMode).forEachMatchingDocumentType (aSupportedDocTypes,
-                                                                             aDocTypeID.getValue (),
+                                                                             aDocumentTypeID.getValue (),
                                                                              dt -> {
                                                                                aMatchingDocType.set (dt);
                                                                                return EContinue.BREAK;
@@ -1029,33 +1169,34 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     LOGGER.info ("Using '" + aSelectedDocTypeID.getURIEncoded () + "' for defacto querying the SMP");
     // Do the main SMP lookup on the metadata
-    return getServiceMetadataOrNull (aReceiverID, aSelectedDocTypeID);
+    return getServiceMetadataOrNull (aServiceGroupID, aSelectedDocTypeID);
   }
 
   @Nullable
-  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aReceiverID,
-                                                                     @Nonnull final IDocumentTypeIdentifier aDocTypeID,
+  @Deprecated (since = "9.6.0", forRemoval = true)
+  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
                                                                      @Nonnull final PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException
   {
-    ValueEnforcer.notNull (aReceiverID, "ReceiverID");
-    ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
+    ValueEnforcer.notNull (aServiceGroupID, "ReceiverID");
+    ValueEnforcer.notNull (aDocumentTypeID, "DocTypeID");
     ValueEnforcer.notNull (eSelectionMode, "SelectionMode");
 
     // Wildcard specific lookup
     LOGGER.info ("Using SMP wildcard lookup for '" +
-                 aReceiverID.getURIEncoded () +
+                 aServiceGroupID.getURIEncoded () +
                  "' on '" +
-                 aDocTypeID.getURIEncoded () +
+                 aDocumentTypeID.getURIEncoded () +
                  "' with selection mode " +
                  eSelectionMode);
 
     // 1. query all document types from SMP
-    final ServiceGroupType aSG = getServiceGroupOrNull (aReceiverID);
+    final ServiceGroupType aSG = getServiceGroupOrNull (aServiceGroupID);
     if (aSG == null)
       return null;
 
     // Select and query service metadata
-    return getWildcardServiceMetadataOrNull (aSG, aReceiverID, aDocTypeID, eSelectionMode);
+    return getWildcardServiceMetadataOrNull (aSG, aServiceGroupID, aDocumentTypeID, eSelectionMode);
   }
 
   /**
@@ -1088,6 +1229,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The request was not well formed.
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "9.6.0")
   public static CompleteServiceGroupType getCompleteServiceGroupByDNS (@Nonnull final ISMPURLProvider aURLProvider,
                                                                        @Nonnull final ISMLInfo aSMLInfo,
                                                                        @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,

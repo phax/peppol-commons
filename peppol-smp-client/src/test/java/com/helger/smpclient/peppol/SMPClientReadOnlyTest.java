@@ -48,6 +48,7 @@ import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.security.keystore.EKeyStoreType;
@@ -271,7 +272,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testGetWildcardServiceMetadataOrNull () throws Exception
+  public void testGetWildcardServiceMetadataOrNull_PFUOI420 () throws Exception
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     final IParticipantIdentifier aReceiverID = aIF.createParticipantIdentifierWithDefaultScheme ("9915:helger");
@@ -285,7 +286,7 @@ public final class SMPClientReadOnlyTest
 
     // pint@japan
     aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aReceiverID,
-                                                        aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
+                                                        aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
                                                                                           "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1::2.1"),
                                                         eSelectionMode);
     assertNotNull (aSSM);
@@ -296,7 +297,7 @@ public final class SMPClientReadOnlyTest
 
     // pint@japan@sub-japan
     aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aReceiverID,
-                                                        aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
+                                                        aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
                                                                                           "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1@sub-japan::2.1"),
                                                         eSelectionMode);
     assertNotNull (aSSM);
@@ -307,7 +308,7 @@ public final class SMPClientReadOnlyTest
 
     // pint@us
     aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aReceiverID,
-                                                        aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
+                                                        aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
                                                                                           "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@us::2.1"),
                                                         eSelectionMode);
     assertNotNull (aSSM);
@@ -318,7 +319,7 @@ public final class SMPClientReadOnlyTest
 
     // pint
     aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aReceiverID,
-                                                        aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
+                                                        aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
                                                                                           "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1::2.1"),
                                                         eSelectionMode);
     assertNotNull (aSSM);
@@ -329,10 +330,160 @@ public final class SMPClientReadOnlyTest
 
     // pont (typo for testing)
     aSSM = aSMPClient.getWildcardServiceMetadataOrNull (aReceiverID,
-                                                        aIF.createDocumentTypeIdentifier ("busdox-docid-qns",
+                                                        aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
                                                                                           "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pont:billing-3.0::2.1"),
                                                         eSelectionMode);
     assertNull (aSSM);
+  }
+
+  @Test
+  public void testGetWildcardServiceMetadataOrNull_PFUOI430 () throws Exception
+  {
+    final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    final IParticipantIdentifier aReceiverID = aIF.createParticipantIdentifierWithDefaultScheme ("9915:helger");
+
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+                                                                aReceiverID,
+                                                                ESML.DIGIT_TEST).setSecureValidation (false);
+
+    SignedServiceMetadataType aSSM;
+
+    // pint@japan
+    {
+      // busdox exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1::2.1"));
+      assertNull (aSSM);
+
+      // wildcard exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1::2.1"));
+      assertNotNull (aSSM);
+      assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1*::2.1",
+                    CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
+                                                   .getServiceInformation ()
+                                                   .getDocumentIdentifier ()));
+
+      // wildcard best match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1*::2.1"));
+      assertNotNull (aSSM);
+      assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1*::2.1",
+                    CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
+                                                   .getServiceInformation ()
+                                                   .getDocumentIdentifier ()));
+    }
+
+    // pint@japan@sub-1
+    {
+      // busdox exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1@sub-1::2.1"));
+
+      assertNull (aSSM);
+
+      // wildcard exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1@sub-1::2.1"));
+      assertNotNull (aSSM);
+      assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1@sub-1::2.1",
+                    CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
+                                                   .getServiceInformation ()
+                                                   .getDocumentIdentifier ()));
+
+      // wildcard best match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1@sub-1*::2.1"));
+      assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@jp-1@sub-1::2.1",
+                    CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
+                                                   .getServiceInformation ()
+                                                   .getDocumentIdentifier ()));
+    }
+
+    // pint@us
+    {
+      // busdox exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@us::2.1"));
+      assertNull (aSSM);
+
+      // wildcard exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@us::2.1"));
+      assertNotNull (aSSM);
+      assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1*::2.1",
+                    CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
+                                                   .getServiceInformation ()
+                                                   .getDocumentIdentifier ()));
+
+      // wildcard best match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@us*::2.1"));
+      assertNotNull (aSSM);
+      assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1*::2.1",
+                    CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
+                                                   .getServiceInformation ()
+                                                   .getDocumentIdentifier ()));
+    }
+
+    // pint
+    {
+      // busdox exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1::2.1"));
+      assertNull (aSSM);
+
+      // wildcard exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1::2.1"));
+      assertNotNull (aSSM);
+      assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1*::2.1",
+                    CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
+                                                   .getServiceInformation ()
+                                                   .getDocumentIdentifier ()));
+
+      // wildcard best match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1*::2.1"));
+      assertNotNull (aSSM);
+      assertEquals ("peppol-doctype-wildcard::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1*::2.1",
+                    CIdentifier.getURIEncoded (aSSM.getServiceMetadata ()
+                                                   .getServiceInformation ()
+                                                   .getDocumentIdentifier ()));
+    }
+
+    // pont (typo for testing)
+    {
+      // busdox exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pont:billing-3.0::2.1"));
+      assertNull (aSSM);
+
+      // wildcard exact match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pont:billing-3.0::2.1"));
+      assertNull (aSSM);
+
+      // wildcard best match
+      aSSM = aSMPClient.getSchemeSpecificServiceMetadataOrNull (aReceiverID,
+                                                                aIF.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                  "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pont:billing-3.0::2.1"));
+      assertNull (aSSM);
+    }
   }
 
   @Test

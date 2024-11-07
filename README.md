@@ -302,6 +302,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.6.0 - 2024-10-16
+    * Deprecated methods `SMPClientReadOnly.getCompleteServiceGroup(OrNull)` and `getServiceGroupReferenceList(OrNull)` because the underlying APIs are non-standard
+    * Extracted methods from `ISMPServiceMetadataProvider` into `ISMPExtendedServiceMetadataProvider`
 * v9.5.1 - 2024-08-11
     * Make sure that wildcard lookups including a "*" in the Customization ID will always fail
     * Added additional `SMPClientReadOnly.getWildcardServiceMetadataOrNull` overload
