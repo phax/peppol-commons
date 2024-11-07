@@ -302,7 +302,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.6.0 - 2024-10-16
+* v9.6.0 - work in progress
     * Deprecated methods `SMPClientReadOnly.getCompleteServiceGroup(OrNull)` and `getServiceGroupReferenceList(OrNull)` because the underlying APIs are non-standard
     * Extracted methods from `ISMPServiceMetadataProvider` into `ISMPExtendedServiceMetadataProvider`
     * Updated the DBNAlliance Pilot domain name
