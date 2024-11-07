@@ -44,7 +44,6 @@ public final class PeppolWildcardSelectorTest
   @Test
   public void testEmptyAll ()
   {
-
     final MutableInt aCount = new MutableInt (0);
     final Function <? super IDocumentTypeIdentifier, EContinue> aMatcherCount = x -> {
       aCount.inc ();
@@ -54,7 +53,7 @@ public final class PeppolWildcardSelectorTest
     // test with no document types
     final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = new CommonsArrayList <> ();
 
-    for (final EMode e : PeppolWildcardSelector.EMode.values ())
+    for (final PeppolWildcardSelector.EMode e : PeppolWildcardSelector.EMode.values ())
     {
       final PeppolWildcardSelector aSelector = new PeppolWildcardSelector (e);
       aSelector.forEachMatchingDocumentType (aSupportedDocTypes,
