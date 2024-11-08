@@ -63,11 +63,32 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     return true;
   }
 
+  /**
+   * This method is deprecated for this class. Always use
+   * {@link #getDefaultDocumentTypeIdentifierScheme(String)} instead.
+   */
   @Nonnull
   @Override
+  @Deprecated
   public String getDefaultDocumentTypeIdentifierScheme ()
   {
     // For backwards compatibility reason
+    return PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS;
+  }
+
+  @Nullable
+  public String getDefaultDocumentTypeIdentifierScheme (@Nullable final String sValue)
+  {
+    if (StringHelper.hasNoText (sValue))
+      return null;
+
+    // Current PINT determination - the best we have
+    if (sValue.contains ("##urn:peppol:pint:"))
+    {
+      // This scheme is only used for PINT atm
+      return PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD;
+    }
+    // This is the default
     return PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS;
   }
 
@@ -172,7 +193,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   @Override
   public PeppolDocumentTypeIdentifier createDocumentTypeIdentifierWithDefaultScheme (@Nullable final String sValue)
   {
-    return createDocumentTypeIdentifier (getDefaultDocumentTypeIdentifierScheme (), sValue);
+    return createDocumentTypeIdentifier (getDefaultDocumentTypeIdentifierScheme (sValue), sValue);
   }
 
   @Nullable

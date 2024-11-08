@@ -41,7 +41,7 @@ public abstract class AbstractSMLClientTestCase
   public static final ISMLInfo SML_INFO = ESML.DIGIT_TEST;
   protected static final EKeyStoreType KEYSTORE_TYPE = EKeyStoreType.JKS;
   protected static final String KEYSTORE_PATH = MockSMLClientConfig.getKeyStorePath ();
-  protected static final String KEYSTORE_PASSWORD = MockSMLClientConfig.getKeyStorePassword ();
+  protected static final char [] KEYSTORE_PASSWORD = MockSMLClientConfig.getKeyStorePassword ();
 
   @Nullable
   public static final SSLSocketFactory createConfiguredSSLSocketFactory (@Nonnull final ISMLInfo aSMLInfo,
@@ -55,11 +55,13 @@ public abstract class AbstractSMLClientTestCase
 
     // Key manager
     final KeyManagerFactory aKeyManagerFactory = KeyManagerFactory.getInstance ("SunX509");
-    aKeyManagerFactory.init (aKeyStore, KEYSTORE_PASSWORD.toCharArray ());
+    aKeyManagerFactory.init (aKeyStore, KEYSTORE_PASSWORD);
 
     // Assign key manager and empty trust manager to SSL context
     final SSLContext aSSLCtx = SSLContext.getInstance ("TLS");
-    aSSLCtx.init (aKeyManagerFactory.getKeyManagers (), new TrustManager [] { new TrustManagerTrustAll (bDebug) }, null);
+    aSSLCtx.init (aKeyManagerFactory.getKeyManagers (),
+                  new TrustManager [] { new TrustManagerTrustAll (bDebug) },
+                  null);
     return aSSLCtx.getSocketFactory ();
   }
 }

@@ -111,6 +111,7 @@ public final class SMPClientTest
   }
 
   @Test
+  @Deprecated
   public void testGetServiceGroupReferenceList () throws SMPClientException
   {
     final SMPClient aSMPClient = new SMPClient (SMP_URI);

@@ -24,8 +24,6 @@ import java.security.cert.X509Certificate;
 
 import org.junit.Test;
 
-import com.helger.security.keystore.KeyStoreHelper;
-
 /**
  * Test class for class {@link PeppolKeyStoreHelper}.
  *
@@ -49,9 +47,7 @@ public final class PeppolKeyStoreHelperTest
   public void testLoadTrustStore2018ProductionAP () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
-                                                                    PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PRODUCTION_CLASSPATH,
-                                                                    PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
+    final KeyStore aTrustStore = PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PRODUCTION;
     assertNotNull (aTrustStore);
 
     // Ensure all name entries are contained
@@ -81,9 +77,7 @@ public final class PeppolKeyStoreHelperTest
   public void testLoadTrustStore2018ProductionSMP () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
-                                                                    PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PRODUCTION_CLASSPATH,
-                                                                    PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
+    final KeyStore aTrustStore = PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PRODUCTION;
     assertNotNull (aTrustStore);
 
     // Ensure all name entries are contained
@@ -113,9 +107,7 @@ public final class PeppolKeyStoreHelperTest
   public void testLoadTrustStore2018PilotAP () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
-                                                                    PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH,
-                                                                    PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
+    final KeyStore aTrustStore = PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PILOT;
     assertNotNull (aTrustStore);
 
     // Ensure all name entries are contained
@@ -136,7 +128,8 @@ public final class PeppolKeyStoreHelperTest
       final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
       assertEquals ("CN=PEPPOL Root TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
       final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
+                    sSubjectName);
       aCertSMP.verify (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT.getPublicKey ());
     }
   }
@@ -145,9 +138,7 @@ public final class PeppolKeyStoreHelperTest
   public void testLoadTrustStore2018PilotSMP () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (PeppolKeyStoreHelper.TRUSTSTORE_TYPE,
-                                                                    PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PILOT_CLASSPATH,
-                                                                    PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
+    final KeyStore aTrustStore = PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PILOT;
     assertNotNull (aTrustStore);
 
     // Ensure all name entries are contained
@@ -168,7 +159,8 @@ public final class PeppolKeyStoreHelperTest
       final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
       assertEquals ("CN=PEPPOL Root TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
       final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
-      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
+                    sSubjectName);
       aCertSMP.verify (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_ROOT.getPublicKey ());
     }
   }

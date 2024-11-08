@@ -57,7 +57,9 @@ import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 public class PeppolWildcardSelector
 {
   /**
-   * Defines the different selection modes
+   * Defines the different selection modes.<br>
+   * This was valid for Policy for use of Identifiers 4.2.0. This is no longer
+   * valid with PFUOI 4.3.0 from May 15th 2025
    *
    * @author Philip Helger
    */

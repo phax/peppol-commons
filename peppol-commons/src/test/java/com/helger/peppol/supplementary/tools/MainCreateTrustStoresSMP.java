@@ -46,7 +46,7 @@ public class MainCreateTrustStoresSMP
       {
         final LoadedKeyStore aLKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS,
                                                                  "truststore/" + sTS + "-truststore.jks",
-                                                                 PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD);
+                                                                 PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD.toCharArray ());
         final Enumeration <String> aAliases = aLKS.getKeyStore ().aliases ();
         while (aAliases.hasMoreElements ())
         {

@@ -157,7 +157,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   @Nonnull
   public final IMPLTYPE validCAs (@Nullable final KeyStore aTrustStore)
   {
-    return validCAs (PeppolCertificateHelper.getAllTrustedCertificates (aTrustStore));
+    return validCAs (PeppolKeyStoreHelper.getAllTrustedCertificates (aTrustStore));
   }
 
   /**
@@ -203,7 +203,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   @Nonnull
   public final IMPLTYPE addValidCAs (@Nullable final KeyStore aTrustStore)
   {
-    return addValidCAs (PeppolCertificateHelper.getAllTrustedCertificates (aTrustStore));
+    return addValidCAs (PeppolKeyStoreHelper.getAllTrustedCertificates (aTrustStore));
   }
 
   /**

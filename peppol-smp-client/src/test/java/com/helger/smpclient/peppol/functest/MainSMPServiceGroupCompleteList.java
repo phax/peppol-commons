@@ -31,6 +31,7 @@ import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 /**
  * @author Philip Helger
  */
+@Deprecated
 public final class MainSMPServiceGroupCompleteList
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceGroupCompleteList.class);

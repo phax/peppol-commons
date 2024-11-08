@@ -57,7 +57,7 @@ public final class MainForArunFromBasware
     // Keystore path and password
     final EKeyStoreType eKeyStoreType = EKeyStoreType.JKS;
     final String sKeystorePath = "keystore/smp.pilot.jks";
-    final String sKeystorePassword = "peppol";
+    final char [] aKeystorePassword = "peppol".toCharArray ();
     // Participant to be created
     final String sServiceGroupID = "0088:5798000000001";
     // Create (true) or delete (false) participant?
@@ -83,15 +83,17 @@ public final class MainForArunFromBasware
     if (aSMLInfo.isClientCertificateRequired ())
     {
       // Main key storage
-      final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (eKeyStoreType, sKeystorePath, sKeystorePassword);
+      final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (eKeyStoreType, sKeystorePath, aKeystorePassword);
 
       // Key manager
       final KeyManagerFactory aKeyManagerFactory = KeyManagerFactory.getInstance ("SunX509");
-      aKeyManagerFactory.init (aKeyStore, sKeystorePassword.toCharArray ());
+      aKeyManagerFactory.init (aKeyStore, aKeystorePassword);
 
       // Assign key manager and empty trust manager to SSL context
       final SSLContext aSSLCtx = SSLContext.getInstance ("TLS");
-      aSSLCtx.init (aKeyManagerFactory.getKeyManagers (), new TrustManager [] { new TrustManagerTrustAll (false) }, null);
+      aSSLCtx.init (aKeyManagerFactory.getKeyManagers (),
+                    new TrustManager [] { new TrustManagerTrustAll (false) },
+                    null);
       aParticipantClient.setSSLSocketFactory (aSSLCtx.getSocketFactory ());
     }
 

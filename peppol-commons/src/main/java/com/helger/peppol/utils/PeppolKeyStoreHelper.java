@@ -18,6 +18,7 @@ package com.helger.peppol.utils;
 
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
 import javax.annotation.Nonnull;
@@ -29,11 +30,16 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.text.util.TextHelper;
 import com.helger.security.keystore.EKeyStoreType;
+import com.helger.security.keystore.ITrustStoreDescriptor;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.keystore.LoadedKey;
 import com.helger.security.keystore.LoadedKeyStore;
+import com.helger.security.keystore.TrustStoreDescriptor;
 
 /**
  * Helper methods to access Java key stores of type JKS (Java KeyStore).
@@ -86,6 +92,8 @@ public final class PeppolKeyStoreHelper
     private Config2018 ()
     {}
 
+    // AP Production
+
     /**
      * The classpath entry referencing the global truststore with all OpenPeppol
      * production entries. It works for Access Points.
@@ -99,13 +107,17 @@ public final class PeppolKeyStoreHelper
     @Deprecated (forRemoval = true, since = "9.1.4")
     public static final String TRUSTSTORE_PRODUCTION_CLASSPATH = TRUSTSTORE_AP_PRODUCTION_CLASSPATH;
 
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_AP_PRODUCTION = TrustStoreDescriptor.builder ()
+                                                                                                        .type (TRUSTSTORE_TYPE)
+                                                                                                        .path (TRUSTSTORE_AP_PRODUCTION_CLASSPATH)
+                                                                                                        .password (TRUSTSTORE_PASSWORD)
+                                                                                                        .build ();
+
     /**
      * The full AP production truststore. Never modify.
      */
-    public static final KeyStore TRUSTSTORE_AP_PRODUCTION = KeyStoreHelper.loadKeyStore (TRUSTSTORE_TYPE,
-                                                                                         TRUSTSTORE_AP_PRODUCTION_CLASSPATH,
-                                                                                         TRUSTSTORE_PASSWORD)
-                                                                          .getKeyStore ();
+    public static final KeyStore TRUSTSTORE_AP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_AP_PRODUCTION.loadTrustStore ()
+                                                                                               .getKeyStore ();
 
     /**
      * The full AP production truststore. Never modify.
@@ -118,6 +130,34 @@ public final class PeppolKeyStoreHelper
       if (TRUSTSTORE_AP_PRODUCTION == null)
         throw new IllegalStateException ("Failed to load pre-configured production trust store");
     }
+
+    // SMP Production
+
+    /**
+     * The classpath entry referencing the global truststore with all OpenPeppol
+     * production entries. It works for Access Points.
+     */
+    public static final String TRUSTSTORE_SMP_PRODUCTION_CLASSPATH = "truststore/2018/smp-prod-truststore.jks";
+
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_SMP_PRODUCTION = TrustStoreDescriptor.builder ()
+                                                                                                         .type (TRUSTSTORE_TYPE)
+                                                                                                         .path (TRUSTSTORE_SMP_PRODUCTION_CLASSPATH)
+                                                                                                         .password (TRUSTSTORE_PASSWORD)
+                                                                                                         .build ();
+
+    /**
+     * The full SMP production truststore. Never modify.
+     */
+    public static final KeyStore TRUSTSTORE_SMP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_SMP_PRODUCTION.loadTrustStore ()
+                                                                                                 .getKeyStore ();
+
+    static
+    {
+      if (TRUSTSTORE_SMP_PRODUCTION == null)
+        throw new IllegalStateException ("Failed to load pre-configured SMP production trust store");
+    }
+
+    // Production CA certificates
 
     /** The truststore alias for the OpenPeppol production root certificate */
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "peppol root ca - g2";
@@ -140,25 +180,7 @@ public final class PeppolKeyStoreHelper
     public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
                                                                                    TRUSTSTORE_PRODUCTION_ALIAS_SMP);
 
-    /**
-     * The classpath entry referencing the global truststore with all OpenPeppol
-     * production entries. It works for Access Points.
-     */
-    public static final String TRUSTSTORE_SMP_PRODUCTION_CLASSPATH = "truststore/2018/smp-prod-truststore.jks";
-
-    /**
-     * The full SMP production truststore. Never modify.
-     */
-    public static final KeyStore TRUSTSTORE_SMP_PRODUCTION = KeyStoreHelper.loadKeyStore (TRUSTSTORE_TYPE,
-                                                                                          TRUSTSTORE_SMP_PRODUCTION_CLASSPATH,
-                                                                                          TRUSTSTORE_PASSWORD)
-                                                                           .getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_SMP_PRODUCTION == null)
-        throw new IllegalStateException ("Failed to load pre-configured SMP production trust store");
-    }
+    // AP Test
 
     /**
      * The classpath entry referencing the global truststore with all OpenPeppol
@@ -173,13 +195,16 @@ public final class PeppolKeyStoreHelper
     @Deprecated (forRemoval = true, since = "9.1.4")
     public static final String TRUSTSTORE_PILOT_CLASSPATH = TRUSTSTORE_AP_PILOT_CLASSPATH;
 
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_AP_PILOT = TrustStoreDescriptor.builder ()
+                                                                                                   .type (TRUSTSTORE_TYPE)
+                                                                                                   .path (TRUSTSTORE_AP_PILOT_CLASSPATH)
+                                                                                                   .password (TRUSTSTORE_PASSWORD)
+                                                                                                   .build ();
+
     /**
      * The full AP pilot truststore. Never modify.
      */
-    public static final KeyStore TRUSTSTORE_AP_PILOT = KeyStoreHelper.loadKeyStore (TRUSTSTORE_TYPE,
-                                                                                    TRUSTSTORE_AP_PILOT_CLASSPATH,
-                                                                                    TRUSTSTORE_PASSWORD)
-                                                                     .getKeyStore ();
+    public static final KeyStore TRUSTSTORE_AP_PILOT = TRUSTSTORE_DESCRIPTOR_AP_PILOT.loadTrustStore ().getKeyStore ();
 
     /**
      * The full AP pilot truststore. Never modify.
@@ -192,6 +217,34 @@ public final class PeppolKeyStoreHelper
       if (TRUSTSTORE_AP_PILOT == null)
         throw new IllegalStateException ("Failed to load pre-configured pilot trust store");
     }
+
+    // SMP Test
+
+    /**
+     * The classpath entry referencing the global truststore with all OpenPeppol
+     * pilot entries for SMPs.
+     */
+    public static final String TRUSTSTORE_SMP_PILOT_CLASSPATH = "truststore/2018/smp-pilot-truststore.jks";
+
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_SMP_PILOT = TrustStoreDescriptor.builder ()
+                                                                                                    .type (TRUSTSTORE_TYPE)
+                                                                                                    .path (TRUSTSTORE_SMP_PILOT_CLASSPATH)
+                                                                                                    .password (TRUSTSTORE_PASSWORD)
+                                                                                                    .build ();
+
+    /**
+     * The full SMP pilot truststore. Never modify.
+     */
+    public static final KeyStore TRUSTSTORE_SMP_PILOT = TRUSTSTORE_DESCRIPTOR_SMP_PILOT.loadTrustStore ()
+                                                                                       .getKeyStore ();
+
+    static
+    {
+      if (TRUSTSTORE_SMP_PILOT == null)
+        throw new IllegalStateException ("Failed to load pre-configured SMP pilot trust store");
+    }
+
+    // Test CA certificates
 
     /** The truststore alias for the OpenPeppol pilot root certificate */
     public static final String TRUSTSTORE_PILOT_ALIAS_ROOT = "peppol root test ca - g2";
@@ -213,26 +266,6 @@ public final class PeppolKeyStoreHelper
     /** The OpenPeppol pilot SMP certificate */
     public static final X509Certificate CERTIFICATE_PILOT_SMP = _resolveCert (TRUSTSTORE_AP_PILOT,
                                                                               TRUSTSTORE_PILOT_ALIAS_SMP);
-
-    /**
-     * The classpath entry referencing the global truststore with all OpenPeppol
-     * pilot entries for SMPs.
-     */
-    public static final String TRUSTSTORE_SMP_PILOT_CLASSPATH = "truststore/2018/smp-pilot-truststore.jks";
-
-    /**
-     * The full SMP pilot truststore. Never modify.
-     */
-    public static final KeyStore TRUSTSTORE_SMP_PILOT = KeyStoreHelper.loadKeyStore (TRUSTSTORE_TYPE,
-                                                                                     TRUSTSTORE_SMP_PILOT_CLASSPATH,
-                                                                                     TRUSTSTORE_PASSWORD)
-                                                                      .getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_SMP_PILOT == null)
-        throw new IllegalStateException ("Failed to load pre-configured SMP pilot trust store");
-    }
   }
 
   @PresentForCodeCoverage
@@ -251,5 +284,30 @@ public final class PeppolKeyStoreHelper
   public static String getLoadError (@Nonnull final LoadedKey <?> aLK)
   {
     return aLK == null ? null : aLK.getErrorText (TextHelper.EN);
+  }
+
+  /**
+   * Get all trusted certificates
+   *
+   * @param aTrustStore
+   *        Trust store to iterate
+   * @return A non-<code>null</code> set of all trusted certificates. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ICommonsSet <X509Certificate> getAllTrustedCertificates (@Nullable final KeyStore aTrustStore)
+  {
+    final ICommonsSet <X509Certificate> aCerts = new CommonsHashSet <> ();
+    if (aTrustStore != null)
+      KeyStoreHelper.iterateKeyStore (aTrustStore, alias -> {
+        if (aTrustStore.isCertificateEntry (alias))
+        {
+          final Certificate aCert = aTrustStore.getCertificate (alias);
+          if (aCert instanceof X509Certificate)
+            aCerts.add ((X509Certificate) aCert);
+        }
+      });
+    return aCerts;
   }
 }

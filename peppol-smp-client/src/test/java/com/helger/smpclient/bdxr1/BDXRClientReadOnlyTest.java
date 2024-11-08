@@ -77,7 +77,9 @@ public final class BDXRClientReadOnlyTest
   {
     // This instance has a BOM inside
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
-    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
+    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolURLProvider.INSTANCE,
+                                                                   aPI,
+                                                                   ESML.DIGIT_PRODUCTION);
     assertEquals ("http://B-2f67a0710cbc13c11ac8c0d64186ac5e.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
                   aBDXRClient.getSMPHostURI ());
 
@@ -157,7 +159,9 @@ public final class BDXRClientReadOnlyTest
     final IDocumentTypeIdentifier aDocTypeID = SimpleIdentifierFactory.INSTANCE.createDocumentTypeIdentifier ("urn:de4a-eu:CanonicalEvidenceType",
                                                                                                               "CompanyRegistration");
 
-    final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "truststores/de4a-truststore-test-smp-pw-de4a.jks", "de4a");
+    final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
+                                                            "truststores/de4a-truststore-test-smp-pw-de4a.jks",
+                                                            "de4a".toCharArray ());
     assertNotNull (aTS);
 
     // TOOP SML

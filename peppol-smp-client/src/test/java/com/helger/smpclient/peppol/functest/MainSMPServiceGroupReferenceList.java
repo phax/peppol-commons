@@ -30,6 +30,7 @@ import com.helger.xsds.peppol.smp1.ServiceGroupReferenceType;
 /**
  * @author Philip Helger
  */
+@Deprecated
 public final class MainSMPServiceGroupReferenceList
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainSMPServiceGroupReferenceList.class);

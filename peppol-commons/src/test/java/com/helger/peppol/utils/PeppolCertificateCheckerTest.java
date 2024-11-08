@@ -81,7 +81,9 @@ public class PeppolCertificateCheckerTest
     {
       LOGGER.info ("Checking the local AP test certificate");
 
-      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fAP.getAbsolutePath (), "peppol")
+      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12,
+                                                        fAP.getAbsolutePath (),
+                                                        "peppol".toCharArray ())
                                          .getKeyStore ();
       assertNotNull (aKS);
 
@@ -135,7 +137,9 @@ public class PeppolCertificateCheckerTest
     {
       LOGGER.info ("Checking the local SMP test certificate");
 
-      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fSMP.getAbsolutePath (), "peppol")
+      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12,
+                                                        fSMP.getAbsolutePath (),
+                                                        "peppol".toCharArray ())
                                          .getKeyStore ();
       assertNotNull (aKS);
 

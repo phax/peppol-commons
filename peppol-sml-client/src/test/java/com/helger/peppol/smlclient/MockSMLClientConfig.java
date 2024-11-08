@@ -54,8 +54,8 @@ public final class MockSMLClientConfig
   }
 
   @Nullable
-  public static String getKeyStorePassword ()
+  public static char [] getKeyStorePassword ()
   {
-    return TEST_CONFIG.getAsString ("keystore.password");
+    return TEST_CONFIG.getAsCharArray ("keystore.password");
   }
 }

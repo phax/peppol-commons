@@ -56,10 +56,10 @@ public final class SSLConnectFuncTest extends AbstractSMLClientTestCase
     // Load the client certificate
     final KeyStore aKeyStore = KeyStoreHelper.loadKeyStoreDirect (KEYSTORE_TYPE, KEYSTORE_PATH, KEYSTORE_PASSWORD);
     final KeyManagerFactory aKMF = KeyManagerFactory.getInstance ("SunX509");
-    aKMF.init (aKeyStore, KEYSTORE_PASSWORD.toCharArray ());
+    aKMF.init (aKeyStore, KEYSTORE_PASSWORD);
 
     // Trust all
-    final TrustManager [] aTrustMgrs = new TrustManager [] { new TrustManagerTrustAll (false) };
+    final TrustManager [] aTrustMgrs = { new TrustManagerTrustAll (false) };
 
     // SSL context
     final SSLContext aSSLContext = SSLContext.getInstance ("TLS");

@@ -146,7 +146,9 @@ public final class SMPClientReadOnlyTest
                                                                 ESML.DIGIT_TEST).setSecureValidation (false);
     // Set old trust store
     {
-      final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "truststore-outdated.jks", "peppol");
+      final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
+                                                              "truststore-outdated.jks",
+                                                              "peppol".toCharArray ());
       assertNotNull (aTS);
       aSMPClient.setTrustStore (aTS);
     }
@@ -272,6 +274,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  @Deprecated
   public void testGetWildcardServiceMetadataOrNull_PFUOI420 () throws Exception
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;

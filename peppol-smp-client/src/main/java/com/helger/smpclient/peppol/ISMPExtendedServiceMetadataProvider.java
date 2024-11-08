@@ -451,7 +451,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @since 9.6.0
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,
    *      IDocumentTypeIdentifier)
-   * @see #getServiceGroupOrNull(IParticipantIdentifier)
+   * @see ISMPServiceGroupProvider#getServiceGroupOrNull(IParticipantIdentifier)
    */
   @Nullable
   SignedServiceMetadataType getSchemeSpecificServiceMetadataOrNull (@Nonnull IParticipantIdentifier aServiceGroupID,

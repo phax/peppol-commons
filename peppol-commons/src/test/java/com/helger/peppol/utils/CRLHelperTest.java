@@ -45,7 +45,10 @@ public final class CRLHelperTest
     final File fAP = new File ("src/test/resources/test-ap-2021.p12");
     if (fAP.exists ())
     {
-      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12, fAP.getAbsolutePath (), "peppol").getKeyStore ();
+      final KeyStore aKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.PKCS12,
+                                                        fAP.getAbsolutePath (),
+                                                        "peppol".toCharArray ())
+                                         .getKeyStore ();
       assertNotNull (aKS);
 
       final X509Certificate aCert = (X509Certificate) aKS.getCertificate (aKS.aliases ().nextElement ());

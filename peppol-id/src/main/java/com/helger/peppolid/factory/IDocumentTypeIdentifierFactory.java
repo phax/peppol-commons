@@ -40,10 +40,26 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
 
   /**
    * @return The default document type identifier scheme to be used for this
-   *         identifier type. May be <code>null</code>.
+   *         identifier type, independent of the value. May be
+   *         <code>null</code>.
    */
   @Nullable
   default String getDefaultDocumentTypeIdentifierScheme ()
+  {
+    return null;
+  }
+
+  /**
+   * @param sValue
+   *        The Document type identifier value for which a scheme should be
+   *        deduced.
+   * @return The default document type identifier scheme to be used for this
+   *         identifier type, but specific to the provided value. May be
+   *         <code>null</code>.
+   * @since 9.6.0
+   */
+  @Nullable
+  default String getDefaultDocumentTypeIdentifierScheme (@Nullable final String sValue)
   {
     return null;
   }
