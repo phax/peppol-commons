@@ -50,6 +50,13 @@ public class TrustedCACertificates
   public TrustedCACertificates ()
   {}
 
+  public TrustedCACertificates (@Nonnull final TrustedCACertificates aSrc)
+  {
+    ValueEnforcer.notNull (aSrc, "Src");
+    m_aCerts.addAll (aSrc.m_aCerts);
+    m_aIssuers.addAll (aSrc.m_aIssuers);
+  }
+
   /**
    * Register a trusted CA Certificate
    *

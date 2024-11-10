@@ -55,10 +55,17 @@ public final class PeppolRevocationCache extends MappedCache <X509Certificate, S
   public PeppolRevocationCache (@Nonnull final Function <X509Certificate, ERevoked> aRevocationChecker,
                                 @Nonnull final Duration aCachingDuration)
   {
+    this (aRevocationChecker, aCachingDuration, 1_000);
+  }
+
+  public PeppolRevocationCache (@Nonnull final Function <X509Certificate, ERevoked> aRevocationChecker,
+                                @Nonnull final Duration aCachingDuration,
+                                final int nMaxSize)
+  {
     super (PeppolRevocationCache::_getKey, cert -> {
       final ERevoked eRevoked = aRevocationChecker.apply (cert);
       return ExpiringObject.ofDuration (eRevoked, aCachingDuration);
-    }, 1_000, "CertificateRevocationCache", false);
+    }, nMaxSize, "CertificateRevocationCache", false);
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
     ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
     m_aRevocationChecker = aRevocationChecker;

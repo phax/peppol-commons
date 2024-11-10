@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ETriState;
@@ -58,6 +59,38 @@ public final class PeppolCAChecker
                                                                                           .checkMode (CertificateRevocationCheckerDefaults.getRevocationCheckMode ())
                                                                                           .build (),
                                                     CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_CACHING_DURATION);
+  }
+
+  /**
+   * @return A copy of the trusted CA certificates object used internally. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public TrustedCACertificates getAllTrustedAPCertificates ()
+  {
+    return new TrustedCACertificates (m_aTrustedCAs);
+  }
+
+  /**
+   * @return The internal revocation cache that is used. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public PeppolRevocationCache getRevocationCache ()
+  {
+    return m_aRevocationCache;
+  }
+
+  /**
+   * Remove all elements from the this revocation check result cache.
+   *
+   * @return {@link EChange#CHANGED} if at least one entry was removed
+   */
+  @Nonnull
+  public EChange clearRevocationCache ()
+  {
+    return m_aRevocationCache.clearCache ();
   }
 
   /**
@@ -126,11 +159,5 @@ public final class PeppolCAChecker
                                                                                    .checkDate (aCheckDT)
                                                                                    .validCAs (m_aTrustedCAs.getAllTrustedCACertificates ())
                                                                                    .checkMode (eCheckMode));
-  }
-
-  @Nonnull
-  public EChange clearRevocationCache ()
-  {
-    return m_aRevocationCache.clearCache ();
   }
 }
