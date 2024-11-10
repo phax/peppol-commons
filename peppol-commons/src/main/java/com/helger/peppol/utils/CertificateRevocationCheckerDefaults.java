@@ -35,7 +35,7 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**
  * A helper class with certificate revocation check defaults. Name prior to
- * v9.6.0 was <code>CertificateRevocationChecker<code>
+ * v9.6.0 was <code>CertificateRevocationChecker</code>
  *
  * @author Philip Helger
  * @since 8.5.2
