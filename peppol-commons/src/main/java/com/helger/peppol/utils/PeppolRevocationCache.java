@@ -31,14 +31,15 @@ import com.helger.commons.cache.MappedCache;
 
 /**
  * An revocation cache that checks the revocation status of each certificate and
- * keeps the status for up to 6 hours.
+ * keeps the status for a provided duration.
  *
  * @author Philip Helger
  */
 @ThreadSafe
 public final class PeppolRevocationCache extends MappedCache <X509Certificate, String, ExpiringObject <ERevoked>>
 {
-  public static final Duration DEFAULT_CACHING_DURATION = Duration.ofHours (6);
+  @Deprecated (forRemoval = true, since = "9.6.0")
+  public static final Duration DEFAULT_CACHING_DURATION = CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_CACHING_DURATION;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolRevocationCache.class);
 

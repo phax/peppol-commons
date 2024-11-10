@@ -16,17 +16,11 @@
  */
 package com.helger.peppol.utils;
 
-import java.io.IOException;
 import java.security.cert.X509Certificate;
 
 import javax.annotation.Nonnull;
 import javax.security.auth.x500.X500Principal;
 
-import org.bouncycastle.asn1.ASN1Encodable;
-import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.x509.BasicConstraints;
-import org.bouncycastle.asn1.x509.Extension;
-import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +28,11 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.security.certificate.CertificateHelper;
 
 /**
  * Manages a list of trusted CA certificates.
@@ -48,36 +45,10 @@ public class TrustedCACertificates
   private static final Logger LOGGER = LoggerFactory.getLogger (TrustedCACertificates.class);
 
   private final ICommonsList <X509Certificate> m_aCerts = new CommonsArrayList <> ();
-  private final ICommonsList <X500Principal> m_aIssuers = new CommonsArrayList <> ();
+  private final ICommonsSet <X500Principal> m_aIssuers = new CommonsHashSet <> ();
 
   public TrustedCACertificates ()
   {}
-
-  // TODO ph-commons > 11.1.6 - replace with CertificateHelper method
-  private static boolean _isCA (@Nonnull final X509Certificate aCert)
-  {
-    final byte [] aBCBytes = aCert.getExtensionValue (Extension.basicConstraints.getId ());
-    if (aBCBytes != null)
-    {
-      try
-      {
-        final ASN1Encodable aBCDecoded = JcaX509ExtensionUtils.parseExtensionValue (aBCBytes);
-        if (aBCDecoded instanceof ASN1Sequence)
-        {
-          final ASN1Sequence aBCSequence = (ASN1Sequence) aBCDecoded;
-          final BasicConstraints aBasicConstraints = BasicConstraints.getInstance (aBCSequence);
-          if (aBasicConstraints != null)
-            return aBasicConstraints.isCA ();
-        }
-      }
-      catch (final IOException e)
-      {
-        // Fall through
-      }
-    }
-    // Defaults to "no"
-    return false;
-  }
 
   /**
    * Register a trusted CA Certificate
@@ -91,7 +62,7 @@ public class TrustedCACertificates
   {
     ValueEnforcer.notNull (aCert, "Certificate");
 
-    if (!_isCA (aCert))
+    if (!CertificateHelper.isCA (aCert))
       throw new IllegalArgumentException ("The provided certificate does not seem to be a CA: " + aCert);
 
     if (m_aCerts.contains (aCert))
@@ -134,7 +105,7 @@ public class TrustedCACertificates
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public ICommonsList <X500Principal> getAllTrustedCAIssuers ()
+  public ICommonsSet <X500Principal> getAllTrustedCAIssuers ()
   {
     return m_aIssuers.getClone ();
   }

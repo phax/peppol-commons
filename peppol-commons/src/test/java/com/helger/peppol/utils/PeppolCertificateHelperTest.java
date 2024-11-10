@@ -35,7 +35,6 @@ import org.junit.Test;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ETriState;
 import com.helger.security.certificate.CertificateHelper;
 
 /**
@@ -75,12 +74,11 @@ public final class PeppolCertificateHelperTest
                                                                                                                  StandardCharsets.UTF_8));
     assertNotNull (aCert);
     // Check at a specific date, as the certificate
-    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.checkPeppolAPCertificate (aCert,
-                                                                                                              PDTFactory.createOffsetDateTime (2024,
-                                                                                                                                               Month.JANUARY,
-                                                                                                                                               1),
-                                                                                                              ETriState.UNDEFINED,
-                                                                                                              CertificateRevocationChecker.getRevocationCheckMode ());
+    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolPilotAP ()
+                                                                                   .checkCertificate (aCert,
+                                                                                                      PDTFactory.createOffsetDateTime (2024,
+                                                                                                                                       Month.JANUARY,
+                                                                                                                                       1));
     assertSame (EPeppolCertificateCheckResult.REVOKED, eCertCheckResult);
   }
 }

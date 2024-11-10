@@ -18,13 +18,13 @@ package com.helger.peppol.utils;
 
 import java.security.GeneralSecurityException;
 import java.security.cert.CertPathValidatorException;
+import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
@@ -34,21 +34,25 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**
- * A generic class to check certificates against OCSP and CRL servers.
+ * A helper class with certificate revocation check defaults. Name prior to
+ * v9.6.0 was <code>CertificateRevocationChecker<code>
  *
  * @author Philip Helger
  * @since 8.5.2
  */
 @ThreadSafe
-public final class CertificateRevocationChecker
+public final class CertificateRevocationCheckerDefaults
 {
   // By default only CRL is used
   // https://github.com/phax/phase4/issues/124
   public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.CRL;
   public static final boolean DEFAULT_ALLOW_SOFT_FAIL = false;
   public static final boolean DEFAULT_ALLOW_EXEC_SYNC = true;
+  public static final boolean DEFAULT_CACHE_REVOCATION_CHECK_RESULTS = true;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (CertificateRevocationChecker.class);
+  public static final Duration DEFAULT_REVOCATION_CHECK_CACHING_DURATION = Duration.ofHours (6);
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (CertificateRevocationCheckerDefaults.class);
 
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK")
@@ -63,8 +67,10 @@ public final class CertificateRevocationChecker
   private static final AtomicBoolean ALLOW_EXEC_SYNC = new AtomicBoolean (DEFAULT_ALLOW_EXEC_SYNC);
   @GuardedBy ("RW_LOCK")
   private static CRLCache s_aDefaultCRLCache = CRLCache.createDefault ();
+  // Revocation checking stuff
+  private static final AtomicBoolean CACHE_REVOCATION_RESULTS = new AtomicBoolean (DEFAULT_CACHE_REVOCATION_CHECK_RESULTS);
 
-  private CertificateRevocationChecker ()
+  private CertificateRevocationCheckerDefaults ()
   {}
 
   /**
@@ -221,19 +227,36 @@ public final class CertificateRevocationChecker
   }
 
   /**
+   * @return <code>true</code> if OSCP results may be cached, <code>false</code>
+   *         if not. The default is
+   *         {@value #DEFAULT_CACHE_REVOCATION_CHECK_RESULTS}.
+   * @since 9.6.0
+   */
+  public static boolean isCacheRevocationCheckResults ()
+  {
+    return CACHE_REVOCATION_RESULTS.get ();
+  }
+
+  /**
+   * Enable or disable caching of OSCP results.
+   *
+   * @param bCache
+   *        <code>true</code> to enable caching, <code>false</code> to disable
+   *        it.
+   * @since 9.6.0
+   */
+  public static void setCacheRevocationCheckResults (final boolean bCache)
+  {
+    CACHE_REVOCATION_RESULTS.set (bCache);
+    LOGGER.info ("Global cache revocation check results enabled: " + bCache);
+  }
+
+  /**
    * @return A new {@link RevocationCheckBuilder} instance.
    */
+  @Deprecated (forRemoval = true, since = "9.6.0")
   public static RevocationCheckBuilder revocationCheck ()
   {
     return new RevocationCheckBuilder ();
   }
-
-  /**
-   * A generic revocation check builder that works with arbitrary certificates.
-   *
-   * @author Philip Helger
-   */
-  @NotThreadSafe
-  public static class RevocationCheckBuilder extends AbstractRevocationCheckBuilder <RevocationCheckBuilder>
-  {}
 }

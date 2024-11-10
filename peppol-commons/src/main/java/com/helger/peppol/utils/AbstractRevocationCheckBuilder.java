@@ -88,7 +88,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   private Consumer <? super List <CertPathValidatorException>> m_aSoftFailExceptionHdl;
   private ETriState m_eExecuteInSynchronizedBlock = ETriState.UNDEFINED;
   private Duration m_aExecutionDurationWarn = DEFAULT_EXECUTION_WARN_DURATION;
-  private CRLCache m_aCRLCache = CertificateRevocationChecker.getDefaultCRLCache ();
+  private CRLCache m_aCRLCache = CertificateRevocationCheckerDefaults.getDefaultCRLCache ();
 
   public AbstractRevocationCheckBuilder ()
   {}
@@ -147,6 +147,22 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
+   * Set the valid CAs to be checked against. All previous trusted CAs are
+   * removed.
+   *
+   * @param a
+   *        The array of CA certificates to be checked against. May be
+   *        <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  public final IMPLTYPE validCAs (@Nullable final X509Certificate... a)
+  {
+    m_aValidCAs.setAll (a);
+    return thisAsT ();
+  }
+
+  /**
    * Set the valid CAs to be checked against from the provided trust store. All
    * previous trusted CAs are removed.
    *
@@ -186,6 +202,21 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    */
   @Nonnull
   public final IMPLTYPE addValidCAs (@Nullable final Iterable <? extends X509Certificate> a)
+  {
+    m_aValidCAs.addAll (a);
+    return thisAsT ();
+  }
+
+  /**
+   * Add valid CAs to be checked against. All previously contained valid CAs are
+   * kept.
+   *
+   * @param a
+   *        A CA certificates to be checked against. May be <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  public final IMPLTYPE addValidCAs (@Nullable final X509Certificate... a)
   {
     m_aValidCAs.addAll (a);
     return thisAsT ();
@@ -370,7 +401,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    * @param b
    *        <code>true</code> to enable it, <code>false</code> to disable it.
    * @return this for chaining
-   * @see CertificateRevocationChecker#isExecuteInSynchronizedBlock()
+   * @see CertificateRevocationCheckerDefaults#isExecuteInSynchronizedBlock()
    */
   @Nonnull
   public final IMPLTYPE executeInSynchronizedBlock (final boolean b)
@@ -438,15 +469,15 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    * performed:
    * <ul>
    * <li>checkMode -
-   * {@link CertificateRevocationChecker#getRevocationCheckMode()}</li>
+   * {@link CertificateRevocationCheckerDefaults#getRevocationCheckMode()}</li>
    * <li>exceptionHandler -
-   * {@link CertificateRevocationChecker#getExceptionHdl()}</li>
+   * {@link CertificateRevocationCheckerDefaults#getExceptionHdl()}</li>
    * <li>allowSoftFail -
-   * {@link CertificateRevocationChecker#isAllowSoftFail()}</li>
+   * {@link CertificateRevocationCheckerDefaults#isAllowSoftFail()}</li>
    * <li>softFailExceptionHandler -
-   * {@link CertificateRevocationChecker#getSoftFailExceptionHdl()}</li>
+   * {@link CertificateRevocationCheckerDefaults#getSoftFailExceptionHdl()}</li>
    * <li>executeInSynchronizedBlock -
-   * {@link CertificateRevocationChecker#isExecuteInSynchronizedBlock()}</li>
+   * {@link CertificateRevocationCheckerDefaults#isExecuteInSynchronizedBlock()}</li>
    * </ul>
    */
   @Nonnull
@@ -454,15 +485,15 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   {
     // Fallback to global settings where possible
     final ERevocationCheckMode eRealCheckMode = m_eCheckMode != null ? m_eCheckMode
-                                                                     : CertificateRevocationChecker.getRevocationCheckMode ();
+                                                                     : CertificateRevocationCheckerDefaults.getRevocationCheckMode ();
     final Consumer <? super GeneralSecurityException> aRealExceptionHdl = m_aExceptionHdl != null ? m_aExceptionHdl
-                                                                                                  : CertificateRevocationChecker.getExceptionHdl ();
+                                                                                                  : CertificateRevocationCheckerDefaults.getExceptionHdl ();
     final boolean bAllowSoftFail = m_eAllowSoftFail.isDefined () ? m_eAllowSoftFail.getAsBooleanValue ()
-                                                                 : CertificateRevocationChecker.isAllowSoftFail ();
+                                                                 : CertificateRevocationCheckerDefaults.isAllowSoftFail ();
     final Consumer <? super List <CertPathValidatorException>> aRealSoftFailExceptionHdl = m_aSoftFailExceptionHdl != null ? m_aSoftFailExceptionHdl
-                                                                                                                           : CertificateRevocationChecker.getSoftFailExceptionHdl ();
+                                                                                                                           : CertificateRevocationCheckerDefaults.getSoftFailExceptionHdl ();
     final boolean bExecuteSync = m_eExecuteInSynchronizedBlock.isDefined () ? m_eExecuteInSynchronizedBlock.getAsBooleanValue ()
-                                                                            : CertificateRevocationChecker.isExecuteInSynchronizedBlock ();
+                                                                            : CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock ();
 
     // Consistency checks
     if (m_aCert == null)
@@ -606,7 +637,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
         if (bExecuteSync)
         {
           // Synchronize because the change of the Security.property is global
-          synchronized (CertificateRevocationChecker.class)
+          synchronized (CertificateRevocationCheckerDefaults.class)
           {
             aPerformer.run ();
           }

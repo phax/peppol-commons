@@ -310,6 +310,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Moved method `PeppolCertificateHelper.getAllTrustedCertificates` to class `PeppolKeyStoreHelper`
     * Added new methods to support Peppol Policy for use of Identifiers 4.3.0
     * Added new annotations `@Pfuoi420` and `@Pfuoi430` to hint methods that are specification specific
+    * Added support for eB2B AP Pilot Trust Store as a predefined truststore
+    * Renamed class `CertificateRevocationChecker` to `CertificateRevocationCheckerDefaults`
+    * Made class `RevocationCheckBuilder` a top-level class
+    * Totally reworked class `PeppolCertificateChecker` to add flexibility and support multiple Peppol CAs
+    * Added new class `PeppolCAChecker` to support in the verification of Peppol certificates
 * v9.5.1 - 2024-08-11
     * Make sure that wildcard lookups including a "*" in the Customization ID will always fail
     * Added additional `SMPClientReadOnly.getWildcardServiceMetadataOrNull` overload
