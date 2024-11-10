@@ -315,6 +315,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Made class `RevocationCheckBuilder` a top-level class
     * Totally reworked class `PeppolCertificateChecker` to add flexibility and support multiple Peppol CAs
     * Added new class `PeppolCAChecker` to support in the verification of Peppol certificates
+    * Renamed class `PeppolRevocationCache` to `RevocationCheckResultCache`
+    * Added new enum `EPeppolServiceDomain` to be able to provide specific settings for specific service domains
+    * Added new enum `EPeppolNetwork` to be able to easily different the different Peppol Network stages
 * v9.5.1 - 2024-08-11
     * Make sure that wildcard lookups including a "*" in the Customization ID will always fail
     * Added additional `SMPClientReadOnly.getWildcardServiceMetadataOrNull` overload

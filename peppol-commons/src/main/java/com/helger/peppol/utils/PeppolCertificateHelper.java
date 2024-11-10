@@ -41,6 +41,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
 public final class PeppolCertificateHelper
 {
   public static final String PRINCIPAL_TYPE_CN = "CN";
+  public static final String PRINCIPAL_TYPE_O = "O";
 
   private PeppolCertificateHelper ()
   {}

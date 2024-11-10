@@ -24,14 +24,13 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ETriState;
 
 /**
  * This is a specific helper class to check the validity of Peppol certificates
- * for a specific PA. See {@link PeppolCertificateChecker} for predefined
- * instances of this class.
+ * for a specific CA. This class assumes the Peppol trust model. See
+ * {@link PeppolCertificateChecker} for predefined instances of this class.
  *
  * @author Philip Helger
  * @since 9.6.0
@@ -39,7 +38,7 @@ import com.helger.commons.state.ETriState;
 public final class PeppolCAChecker
 {
   private final TrustedCACertificates m_aTrustedCAs = new TrustedCACertificates ();
-  private final PeppolRevocationCache m_aRevocationCache;
+  private final RevocationCheckResultCache m_aRevocationCache;
 
   /**
    * Constructor
@@ -54,11 +53,11 @@ public final class PeppolCAChecker
     for (final X509Certificate aCACert : aCACerts)
       m_aTrustedCAs.addTrustedCACertificate (aCACert);
     // The cache always uses "now" as the checking date and time
-    m_aRevocationCache = new PeppolRevocationCache (aCert -> new RevocationCheckBuilder ().certificate (aCert)
-                                                                                          .validCAs (aCACerts)
-                                                                                          .checkMode (CertificateRevocationCheckerDefaults.getRevocationCheckMode ())
-                                                                                          .build (),
-                                                    CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_CACHING_DURATION);
+    m_aRevocationCache = new RevocationCheckResultCache (aCert -> new RevocationCheckBuilder ().certificate (aCert)
+                                                                                               .validCAs (aCACerts)
+                                                                                               .checkMode (CertificateRevocationCheckerDefaults.getRevocationCheckMode ())
+                                                                                               .build (),
+                                                         CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_CACHING_DURATION);
   }
 
   /**
@@ -77,7 +76,7 @@ public final class PeppolCAChecker
    *         <code>null</code>.
    */
   @Nonnull
-  public PeppolRevocationCache getRevocationCache ()
+  public RevocationCheckResultCache getRevocationCache ()
   {
     return m_aRevocationCache;
   }
@@ -104,7 +103,7 @@ public final class PeppolCAChecker
   @Nonnull
   public EPeppolCertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert)
   {
-    return checkCertificate (aCert, PDTFactory.getCurrentOffsetDateTime ());
+    return checkCertificate (aCert, null);
   }
 
   /**

@@ -36,12 +36,13 @@ import com.helger.commons.cache.MappedCache;
  * @author Philip Helger
  */
 @ThreadSafe
-public final class PeppolRevocationCache extends MappedCache <X509Certificate, String, ExpiringObject <ERevoked>>
+public final class RevocationCheckResultCache extends MappedCache <X509Certificate, String, ExpiringObject <ERevoked>>
 {
   @Deprecated (forRemoval = true, since = "9.6.0")
   public static final Duration DEFAULT_CACHING_DURATION = CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_CACHING_DURATION;
+  public static final int DEFAULT_MAX_SIZE = 1_000;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolRevocationCache.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (RevocationCheckResultCache.class);
 
   private final Function <X509Certificate, ERevoked> m_aRevocationChecker;
   private final Duration m_aCachingDuration;
@@ -52,17 +53,17 @@ public final class PeppolRevocationCache extends MappedCache <X509Certificate, S
     return aCert.getSubjectX500Principal ().getName () + "-" + aCert.getSerialNumber ().toString ();
   }
 
-  public PeppolRevocationCache (@Nonnull final Function <X509Certificate, ERevoked> aRevocationChecker,
-                                @Nonnull final Duration aCachingDuration)
+  public RevocationCheckResultCache (@Nonnull final Function <X509Certificate, ERevoked> aRevocationChecker,
+                                     @Nonnull final Duration aCachingDuration)
   {
-    this (aRevocationChecker, aCachingDuration, 1_000);
+    this (aRevocationChecker, aCachingDuration, DEFAULT_MAX_SIZE);
   }
 
-  public PeppolRevocationCache (@Nonnull final Function <X509Certificate, ERevoked> aRevocationChecker,
-                                @Nonnull final Duration aCachingDuration,
-                                final int nMaxSize)
+  public RevocationCheckResultCache (@Nonnull final Function <X509Certificate, ERevoked> aRevocationChecker,
+                                     @Nonnull final Duration aCachingDuration,
+                                     final int nMaxSize)
   {
-    super (PeppolRevocationCache::_getKey, cert -> {
+    super (RevocationCheckResultCache::_getKey, cert -> {
       final ERevoked eRevoked = aRevocationChecker.apply (cert);
       return ExpiringObject.ofDuration (eRevoked, aCachingDuration);
     }, nMaxSize, "CertificateRevocationCache", false);

@@ -74,7 +74,7 @@ public final class PeppolCertificateHelperTest
                                                                                                                  StandardCharsets.UTF_8));
     assertNotNull (aCert);
     // Check at a specific date, as the certificate
-    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolPilotAP ()
+    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolTestAP ()
                                                                                    .checkCertificate (aCert,
                                                                                                       PDTFactory.createOffsetDateTime (2024,
                                                                                                                                        Month.JANUARY,

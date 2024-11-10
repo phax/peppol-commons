@@ -53,17 +53,17 @@ public final class PeppolCertificateChecker
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateChecker.class);
 
-  private static final PeppolCAChecker PILOT_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
+  private static final PeppolCAChecker TEST_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
   private static final PeppolCAChecker PROD_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
   private static final PeppolCAChecker ALL_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP,
                                                                      PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
 
-  private static final PeppolCAChecker PILOT_SMP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
+  private static final PeppolCAChecker TEST_SMP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
   private static final PeppolCAChecker PROD_SMP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
   private static final PeppolCAChecker ALL_SMP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP,
                                                                       PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
 
-  private static final PeppolCAChecker PILOT_EB2B_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_EB2B_AP);
+  private static final PeppolCAChecker TEST_EB2B_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_EB2B_AP);
 
   private PeppolCertificateChecker ()
   {}
@@ -73,9 +73,9 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolPilotAP ()
+  public static PeppolCAChecker peppolTestAP ()
   {
-    return PILOT_AP;
+    return TEST_AP;
   }
 
   /**
@@ -103,9 +103,9 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolPilotSMP ()
+  public static PeppolCAChecker peppolTestSMP ()
   {
-    return PILOT_SMP;
+    return TEST_SMP;
   }
 
   /**
@@ -133,9 +133,9 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolPilotEb2bAP ()
+  public static PeppolCAChecker peppolTestEb2bAP ()
   {
-    return PILOT_EB2B_AP;
+    return TEST_EB2B_AP;
   }
 
   /**
@@ -184,15 +184,15 @@ public final class PeppolCertificateChecker
    */
   public static void clearRevocationCheckCache ()
   {
-    PILOT_AP.clearRevocationCache ();
+    TEST_AP.clearRevocationCache ();
     PROD_AP.clearRevocationCache ();
     ALL_AP.clearRevocationCache ();
 
-    PILOT_SMP.clearRevocationCache ();
+    TEST_SMP.clearRevocationCache ();
     PROD_SMP.clearRevocationCache ();
     ALL_SMP.clearRevocationCache ();
 
-    PILOT_EB2B_AP.clearRevocationCache ();
+    TEST_EB2B_AP.clearRevocationCache ();
 
     LOGGER.info ("The PeppolCertificateChecker revocation cache was cleared");
   }
@@ -231,7 +231,7 @@ public final class PeppolCertificateChecker
    */
   @Nonnull
   public static EPeppolCertificateCheckResult checkCertificate (@Nullable final ICommonsSet <X500Principal> aIssuers,
-                                                                @Nullable final PeppolRevocationCache aRevocationCache,
+                                                                @Nullable final RevocationCheckResultCache aRevocationCache,
                                                                 @Nonnull final AbstractRevocationCheckBuilder <?> aRevocationChecker)
   {
     ValueEnforcer.notNull (aRevocationChecker, "RevocationChecker");
@@ -351,7 +351,7 @@ public final class PeppolCertificateChecker
    *        May be <code>null</code> to use the global flag from
    *        {@link CertificateRevocationCheckerDefaults#getRevocationCheckMode()}.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
-   * @deprecated Use {@link #peppolAllAP()}, {@link #peppolPilotAP()} or
+   * @deprecated Use {@link #peppolAllAP()}, {@link #peppolTestAP()} or
    *             {@link #peppolProductionAP()} with
    *             {@link PeppolCAChecker#checkCertificate(X509Certificate, OffsetDateTime, ETriState, ERevocationCheckMode)}
    *             instead
@@ -383,7 +383,7 @@ public final class PeppolCertificateChecker
    *        May be <code>null</code> to use the global flag from
    *        {@link CertificateRevocationCheckerDefaults#getRevocationCheckMode()}.
    * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
-   * @deprecated Use {@link #peppolAllSMP()}, {@link #peppolPilotSMP()} or
+   * @deprecated Use {@link #peppolAllSMP()}, {@link #peppolTestSMP()} or
    *             {@link #peppolProductionSMP()} with
    *             {@link PeppolCAChecker#checkCertificate(X509Certificate, OffsetDateTime, ETriState, ERevocationCheckMode)}
    *             instead

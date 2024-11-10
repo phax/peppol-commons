@@ -530,7 +530,7 @@ public final class SMPClientReadOnlyTest
     assertNotNull (aAPCert);
 
     // Check at a specific date, as the certificate
-    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolPilotAP ()
+    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolTestAP ()
                                                                                    .checkCertificate (aAPCert,
                                                                                                       PDTFactory.createOffsetDateTime (2024,
                                                                                                                                        Month.JUNE,

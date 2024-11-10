@@ -38,43 +38,43 @@ public enum EPeppolServiceDomain implements IHasID <String>
    * Managed by PoAC
    */
   POST_AWARD ("post-award",
-              PeppolCertificateChecker.peppolPilotAP (),
+              PeppolCertificateChecker.peppolTestAP (),
               PeppolCertificateChecker.peppolProductionAP (),
-              PeppolCertificateChecker.peppolPilotSMP (),
+              PeppolCertificateChecker.peppolTestSMP (),
               PeppolCertificateChecker.peppolProductionSMP ()),
   /**
    * Managed by PrAC
    */
   PRE_AWARD ("pre-award",
-             PeppolCertificateChecker.peppolPilotAP (),
+             PeppolCertificateChecker.peppolTestAP (),
              PeppolCertificateChecker.peppolProductionAP (),
-             PeppolCertificateChecker.peppolPilotSMP (),
+             PeppolCertificateChecker.peppolTestSMP (),
              PeppolCertificateChecker.peppolProductionSMP ()),
   /**
    * Enhanced B2B for Peppol-GENA bridge
    */
   ENHANCED_B2B ("eb2b",
-                PeppolCertificateChecker.peppolPilotEb2bAP (),
+                PeppolCertificateChecker.peppolTestEb2bAP (),
                 null,
-                PeppolCertificateChecker.peppolPilotSMP (),
+                PeppolCertificateChecker.peppolTestSMP (),
                 null);
 
   private final String m_sID;
-  private final PeppolCAChecker m_aPilotAPChecker;
+  private final PeppolCAChecker m_aTestAPChecker;
   private final PeppolCAChecker m_aProdAPChecker;
-  private final PeppolCAChecker m_aPilotSMPChecker;
+  private final PeppolCAChecker m_aTestSMPChecker;
   private final PeppolCAChecker m_aProdSMPChecker;
 
   EPeppolServiceDomain (@Nonnull @Nonempty final String sID,
-                        @Nullable final PeppolCAChecker aPilotAPChecker,
+                        @Nullable final PeppolCAChecker aTestAPChecker,
                         @Nullable final PeppolCAChecker aProdAPChecker,
-                        @Nullable final PeppolCAChecker aPilotSMPChecker,
+                        @Nullable final PeppolCAChecker aTestSMPChecker,
                         @Nullable final PeppolCAChecker aProdSMPChecker)
   {
     m_sID = sID;
-    m_aPilotAPChecker = aPilotAPChecker;
+    m_aTestAPChecker = aTestAPChecker;
     m_aProdAPChecker = aProdAPChecker;
-    m_aPilotSMPChecker = aPilotSMPChecker;
+    m_aTestSMPChecker = aTestSMPChecker;
     m_aProdSMPChecker = aProdSMPChecker;
   }
 
@@ -86,27 +86,39 @@ public enum EPeppolServiceDomain implements IHasID <String>
   }
 
   @Nullable
-  public final PeppolCAChecker getPilotAPChecker ()
+  public PeppolCAChecker getTestAPChecker ()
   {
-    return m_aPilotAPChecker;
+    return m_aTestAPChecker;
   }
 
   @Nullable
-  public final PeppolCAChecker getProdAPChecker ()
+  public PeppolCAChecker getProdAPChecker ()
   {
     return m_aProdAPChecker;
   }
 
   @Nullable
-  public final PeppolCAChecker getPilotSMPChecker ()
+  public PeppolCAChecker getAPChecker (@Nonnull final EPeppolNetwork eNetwork)
   {
-    return m_aPilotSMPChecker;
+    return eNetwork.isTest () ? m_aTestAPChecker : m_aProdAPChecker;
   }
 
   @Nullable
-  public final PeppolCAChecker getProdSMPChecker ()
+  public PeppolCAChecker getTestSMPChecker ()
+  {
+    return m_aTestSMPChecker;
+  }
+
+  @Nullable
+  public PeppolCAChecker getProdSMPChecker ()
   {
     return m_aProdSMPChecker;
+  }
+
+  @Nullable
+  public PeppolCAChecker getSMPChecker (@Nonnull final EPeppolNetwork eNetwork)
+  {
+    return eNetwork.isTest () ? m_aTestSMPChecker : m_aProdSMPChecker;
   }
 
   @Nullable
