@@ -1130,8 +1130,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return getWildcardServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID, EMode.BUSDOX_THEN_WILDCARD);
   }
 
-  @Nullable
-  @Deprecated (since = "9.6.0", forRemoval = true)
+  @Pfuoi420
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final ServiceGroupType aServiceGroup,
                                                                      @Nonnull final IParticipantIdentifier aServiceGroupID,
                                                                      @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -1172,8 +1171,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return getServiceMetadataOrNull (aServiceGroupID, aSelectedDocTypeID);
   }
 
-  @Nullable
-  @Deprecated (since = "9.6.0", forRemoval = true)
+  @Pfuoi420
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                                      @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
                                                                      @Nonnull final PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException

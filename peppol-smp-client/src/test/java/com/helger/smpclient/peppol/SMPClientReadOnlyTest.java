@@ -274,7 +274,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  @Deprecated
+  @Pfuoi420
   public void testGetWildcardServiceMetadataOrNull_PFUOI420 () throws Exception
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
@@ -340,6 +340,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  @Pfuoi430
   public void testGetWildcardServiceMetadataOrNull_PFUOI430 () throws Exception
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;

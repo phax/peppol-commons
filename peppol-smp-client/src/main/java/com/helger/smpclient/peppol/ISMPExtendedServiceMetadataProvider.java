@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -70,8 +69,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @since 9.5.1 in this interface
    */
   @Nullable
-  @Deprecated (since = "9.6.0", forRemoval = true)
-  @DevelopersNote ("This was valid for Policy for use of Identifiers 4.2.0. This is no longer valid with PFUOI 4.3.0 from May 15th 2025")
+  @Pfuoi420
   SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull ServiceGroupType aServiceGroup,
                                                               @Nonnull IParticipantIdentifier aReceiverID,
                                                               @Nonnull IDocumentTypeIdentifier aDocTypeID,
@@ -101,8 +99,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *      com.helger.smpclient.peppol.PeppolWildcardSelector.EMode)
    */
   @Nullable
-  @Deprecated (since = "9.6.0", forRemoval = true)
-  @DevelopersNote ("This was valid for Policy for use of Identifiers 4.2.0. This is no longer valid with PFUOI 4.3.0 from May 15th 2025")
+  @Pfuoi420
   SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull IParticipantIdentifier aReceiverID,
                                                               @Nonnull IDocumentTypeIdentifier aDocTypeID,
                                                               @Nonnull PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException;
@@ -454,6 +451,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @see ISMPServiceGroupProvider#getServiceGroupOrNull(IParticipantIdentifier)
    */
   @Nullable
+  @Pfuoi430
   SignedServiceMetadataType getSchemeSpecificServiceMetadataOrNull (@Nonnull IParticipantIdentifier aServiceGroupID,
                                                                     @Nonnull IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
 }

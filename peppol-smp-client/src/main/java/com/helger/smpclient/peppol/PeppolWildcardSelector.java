@@ -29,7 +29,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.id.IHasID;
@@ -63,8 +62,7 @@ public class PeppolWildcardSelector
    *
    * @author Philip Helger
    */
-  @Deprecated
-  @DevelopersNote ("This was valid for Policy for use of Identifiers 4.2.0. This is no longer valid with PFUOI 4.3.0 from May 15th 2025")
+  @Pfuoi420
   public enum EMode implements IHasID <String>
   {
     /**
@@ -110,6 +108,7 @@ public class PeppolWildcardSelector
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolWildcardSelector.class);
 
+  @Pfuoi420
   private final EMode m_eMode;
 
   /**
@@ -118,8 +117,7 @@ public class PeppolWildcardSelector
    * @param eMode
    *        The selection mode to use. May not be <code>null</code>.
    */
-  @Deprecated
-  @DevelopersNote ("This was valid for Policy for use of Identifiers 4.2.0. This is no longer valid with PFUOI 4.3.0 from May 15th 2025")
+  @Pfuoi420
   public PeppolWildcardSelector (@Nonnull final EMode eMode)
   {
     ValueEnforcer.notNull (eMode, "Mode");
@@ -130,8 +128,7 @@ public class PeppolWildcardSelector
    * @return The selection mode as provided in the constructor.
    */
   @Nonnull
-  @Deprecated
-  @DevelopersNote ("This was valid for Policy for use of Identifiers 4.2.0. This is no longer valid with PFUOI 4.3.0 from May 15th 2025")
+  @Pfuoi420
   public final EMode getMode ()
   {
     return m_eMode;
@@ -152,8 +149,7 @@ public class PeppolWildcardSelector
    *        The consumer to be invoked for each match. May not be
    *        <code>null</code>.
    */
-  @Deprecated
-  @DevelopersNote ("This was valid for Policy for use of Identifiers 4.2.0. This is no longer valid with PFUOI 4.3.0 from May 15th 2025")
+  @Pfuoi420
   public void forEachMatchingDocumentType (@Nonnull final ICommonsList <? extends IDocumentTypeIdentifier> aBaseDocTypes,
                                            @Nonnull @Nonempty final String sDocTypeValue,
                                            @Nonnull final Function <? super IDocumentTypeIdentifier, EContinue> aMatchingDocTypeConsumer)
@@ -273,6 +269,7 @@ public class PeppolWildcardSelector
    * @return Non-<code>null</code>.
    */
   @Nonnull
+  @Pfuoi430
   public static ESuccess findPeppolDoctypeWildcardMatch (@Nonnull final ICommonsList <? extends IDocumentTypeIdentifier> aBaseDocTypes,
                                                          @Nonnull @Nonempty final IDocumentTypeIdentifier aSearchDocTypeValue,
                                                          @Nonnull final Consumer <? super IDocumentTypeIdentifier> aMatchingDocTypeConsumer)

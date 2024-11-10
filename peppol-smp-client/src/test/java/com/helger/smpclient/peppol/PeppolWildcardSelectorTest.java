@@ -42,7 +42,7 @@ import com.helger.smpclient.peppol.PeppolWildcardSelector.EMode;
 public final class PeppolWildcardSelectorTest
 {
   @Test
-  @Deprecated
+  @Pfuoi420
   public void testEmptyAll ()
   {
     final MutableInt aCount = new MutableInt (0);
@@ -65,7 +65,7 @@ public final class PeppolWildcardSelectorTest
   }
 
   @Test
-  @Deprecated
+  @Pfuoi420
   public void testMatchingModesAll ()
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
