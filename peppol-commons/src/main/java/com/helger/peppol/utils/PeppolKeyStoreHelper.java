@@ -128,7 +128,7 @@ public final class PeppolKeyStoreHelper
     static
     {
       if (TRUSTSTORE_AP_PRODUCTION == null)
-        throw new IllegalStateException ("Failed to load pre-configured production trust store");
+        throw new IllegalStateException ("Failed to load pre-configured production AP trust store");
     }
 
     // SMP Production
@@ -215,7 +215,7 @@ public final class PeppolKeyStoreHelper
     static
     {
       if (TRUSTSTORE_AP_PILOT == null)
-        throw new IllegalStateException ("Failed to load pre-configured pilot trust store");
+        throw new IllegalStateException ("Failed to load pre-configured AP pilot trust store");
     }
 
     // SMP Test
@@ -244,6 +244,34 @@ public final class PeppolKeyStoreHelper
         throw new IllegalStateException ("Failed to load pre-configured SMP pilot trust store");
     }
 
+    // AP eB2B Test
+
+    /**
+     * The classpath entry referencing the global truststore with all OpenPeppol
+     * pilot entries for an eB2B AP.
+     *
+     * @since 9.6.0
+     */
+    public static final String TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH = "truststore/2018/eb2b-ap-pilot-truststore.jks";
+
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_EB2B_AP_PILOT = TrustStoreDescriptor.builder ()
+                                                                                                        .type (TRUSTSTORE_TYPE)
+                                                                                                        .path (TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH)
+                                                                                                        .password (TRUSTSTORE_PASSWORD)
+                                                                                                        .build ();
+
+    /**
+     * The full eB2B AP pilot truststore. Never modify.
+     */
+    public static final KeyStore TRUSTSTORE_EB2B_AP_PILOT = TRUSTSTORE_DESCRIPTOR_EB2B_AP_PILOT.loadTrustStore ()
+                                                                                               .getKeyStore ();
+
+    static
+    {
+      if (TRUSTSTORE_EB2B_AP_PILOT == null)
+        throw new IllegalStateException ("Failed to load pre-configured pilot eB2B AP trust store");
+    }
+
     // Test CA certificates
 
     /** The truststore alias for the OpenPeppol pilot root certificate */
@@ -266,6 +294,13 @@ public final class PeppolKeyStoreHelper
     /** The OpenPeppol pilot SMP certificate */
     public static final X509Certificate CERTIFICATE_PILOT_SMP = _resolveCert (TRUSTSTORE_AP_PILOT,
                                                                               TRUSTSTORE_PILOT_ALIAS_SMP);
+
+    /** The truststore alias for the OpenPeppol pilot eB2B AP certificate */
+    public static final String TRUSTSTORE_PILOT_ALIAS_EB2B_AP = "peppol eb2b access point test ca - g2 (peppol root test ca - g2)";
+
+    /** The OpenPeppol pilot AP certificate */
+    public static final X509Certificate CERTIFICATE_PILOT_EB2B_AP = _resolveCert (TRUSTSTORE_EB2B_AP_PILOT,
+                                                                                  TRUSTSTORE_PILOT_ALIAS_EB2B_AP);
   }
 
   @PresentForCodeCoverage

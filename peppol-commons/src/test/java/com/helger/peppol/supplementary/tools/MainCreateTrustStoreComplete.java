@@ -20,11 +20,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.security.KeyStore;
-import java.util.Enumeration;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableEntryException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
@@ -40,18 +43,33 @@ public class MainCreateTrustStoreComplete
     // null stream means: create new key store
     aSMPTrustStore.load (null, null);
 
-    for (final String sTS : new String [] { "directory", "sml", "2018/pilot", "2018/prod" })
+    final ICommonsSet <String> aAdded = new CommonsHashSet <> ();
+    for (final String sTS : new String [] { "directory",
+                                            "sml",
+                                            "2018/eb2b-ap-pilot",
+                                            "2018/pilot",
+                                            "2018/prod",
+                                            "2018/smp-pilot",
+                                            "2018/smp-prod" })
     {
       final LoadedKeyStore aLKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS,
                                                                "truststore/" + sTS + "-truststore.jks",
                                                                PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD.toCharArray ());
-      final Enumeration <String> aAliases = aLKS.getKeyStore ().aliases ();
-      while (aAliases.hasMoreElements ())
-      {
-        final String sAlias = aAliases.nextElement ();
-        // No key password
-        aSMPTrustStore.setEntry (sAlias, aLKS.getKeyStore ().getEntry (sAlias, null), null);
-      }
+      KeyStoreHelper.iterateKeyStore (aLKS.getKeyStore (), sAlias -> {
+        if (aAdded.add (sAlias))
+        {
+          // No key password
+          try
+          {
+            LOGGER.info ("Adding '" + sAlias + "'");
+            aSMPTrustStore.setEntry (sAlias, aLKS.getKeyStore ().getEntry (sAlias, null), null);
+          }
+          catch (final NoSuchAlgorithmException | UnrecoverableEntryException ex)
+          {
+            throw new IllegalStateException (ex);
+          }
+        }
+      });
     }
 
     final File fDest = new File ("src/main/resources/truststore/complete-truststore.jks");

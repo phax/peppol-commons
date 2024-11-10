@@ -17,7 +17,7 @@
     * `r3 (isrg root x1)`
 
 `2018/pilot-truststore.jks`
-* Is the global trust store for OpenPeppol pilot and works for APs
+* Is the global trust store for OpenPeppol pilot APs
 * It is valid from 2018-2028
 * The contained aliases are:
     * `peppol root test ca - g2`
@@ -25,7 +25,7 @@
     * `peppol service metadata publisher test ca - g2 (peppol root test ca - g2)`
 
 `2018/prod-truststore.jks`
-* Is the global trust store for OpenPeppol production and works for APs
+* Is the global trust store for OpenPeppol production APs
 * It is valid from 2018-2028
 * The contained aliases are:
     * `peppol root ca - g2`
@@ -33,7 +33,7 @@
     * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
 
 `2018/smp-pilot-truststore.jks` (since 8.6.4)
-* Is the global trust store for OpenPeppol pilot and works as well for SML and SMPs
+* Is the global trust store for OpenPeppol pilot SMPs
 * It is valid from 2018-2028
 * Updated 2024-01-02 removed the old GlobalSign certificates
 * The contained aliases are:
@@ -46,7 +46,7 @@
     * `r3 (isrg root x1)`
 
 `2018/smp-prod-truststore.jks` (since 8.6.4)
-* Is the global trust store for OpenPeppol production and works as well for APs
+* Is the global trust store for OpenPeppol production SMPs
 * It is valid from 2018-2028
 * Updated 2024-01-02 removed the old GlobalSign certificates
 * The contained aliases are:
@@ -58,8 +58,17 @@
     * `isrg root x1`
     * `r3 (isrg root x1)`
 
+`2018/eb2b-ap-pilot-truststore.jks` (since 9.6.0)
+* Is the global trust store for OpenPeppol pilot eB2B APs
+* It is valid from 2018-2028
+* The contained aliases are:
+    * `peppol root ca - g2`
+    * `peppol eb2b access point test ca - g2 (peppol root test ca - g2)`
+    * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
+
 `complete-truststore.jks`
 * This is the combination of all available truststores with the same aliases!
+* Updated in v9.6.0 to include eB2B AP Test CA
 * Updated in v8.4.1 (add new) and v8.5.2 (remove old) to reflect the new Let's Encrypt issuing certificate
 * Updated 2024-01-02 removed the old GlobalSign certificates
     * `peppol root ca - g2`
@@ -67,6 +76,7 @@
     * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
     * `peppol root test ca - g2`
     * `peppol access point test ca - g2 (peppol root test ca - g2)`
+    * `peppol eb2b access point test ca - g2 (peppol root test ca - g2)`
     * `peppol service metadata publisher test ca - g2 (peppol root test ca - g2)`
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
