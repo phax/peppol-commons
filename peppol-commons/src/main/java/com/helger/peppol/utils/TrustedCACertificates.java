@@ -19,6 +19,7 @@ package com.helger.peppol.utils;
 import java.security.cert.X509Certificate;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.NotThreadSafe;
 import javax.security.auth.x500.X500Principal;
 
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ import com.helger.security.certificate.CertificateHelper;
  * @author Philip Helger
  * @since 9.4.0
  */
+@NotThreadSafe
 public class TrustedCACertificates
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (TrustedCACertificates.class);
@@ -47,9 +49,19 @@ public class TrustedCACertificates
   private final ICommonsList <X509Certificate> m_aCerts = new CommonsArrayList <> ();
   private final ICommonsSet <X500Principal> m_aIssuers = new CommonsHashSet <> ();
 
+  /**
+   * Empty default constructor.
+   */
   public TrustedCACertificates ()
   {}
 
+  /**
+   * Copy constructor
+   *
+   * @param aSrc
+   *        The object to copy from. May not be <code>null</code>.
+   * @since 9.6.0
+   */
   public TrustedCACertificates (@Nonnull final TrustedCACertificates aSrc)
   {
     ValueEnforcer.notNull (aSrc, "Src");
