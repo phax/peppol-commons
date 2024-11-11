@@ -58,6 +58,10 @@ public final class BDXLURLProviderTest
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis",
                                                                                          "9999:elonia"),
                                                         ESML.DIGIT_PRODUCTION));
+    assertEquals ("XUKHFQABQZIKI3YKVR2FHR4SNFA3PF5VPQ6K4TONV3LMVSY5ARVQ.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis",
+                                                                                         "0010:5798000000001"),
+                                                        ESML.DIGIT_PRODUCTION));
 
     // Check case insensitivity
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
