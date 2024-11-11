@@ -96,6 +96,8 @@ public final class SMPClientReadOnlyTest
 
     // CEF URL provider
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+                  BDXLURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST));
     assertEquals ("http://test-infra.peppol.at/", aSMPClient.getSMPHostURI ());
     assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
   }
@@ -341,7 +343,7 @@ public final class SMPClientReadOnlyTest
 
   @Test
   @Pfuoi430
-  public void testGetWildcardServiceMetadataOrNull_PFUOI430 () throws Exception
+  public void testGetSchemeSpecificServiceMetadataOrNull_PFUOI430 () throws Exception
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     final IParticipantIdentifier aReceiverID = aIF.createParticipantIdentifierWithDefaultScheme ("9915:helger");
