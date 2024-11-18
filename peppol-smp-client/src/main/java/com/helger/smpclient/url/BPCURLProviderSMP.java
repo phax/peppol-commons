@@ -28,7 +28,7 @@ import javax.annotation.concurrent.ThreadSafe;
  */
 @ThreadSafe
 @Deprecated (forRemoval = true, since = "9.3.4")
-public class BPCURLProviderSMP extends AbstractBDXLURLProvider
+public class BPCURLProviderSMP extends AbstractBDXLURLProvider implements IBDXLURLProvider
 {
   /**
    * The U-NAPTR record service name. Based on BPC SMP Profile 1.0 chapter 7.

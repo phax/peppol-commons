@@ -19,29 +19,29 @@ package com.helger.smpclient.url;
 import javax.annotation.concurrent.ThreadSafe;
 
 /**
- * The default implementation of {@link IBDXLURLProvider} suitable for the
- * E-SENS network. See e.g.
- * http://wiki.ds.unipi.gr/display/ESENS/PR+-+BDXL+1.4.0<br>
+ * The implementation of {@link IPeppolURLProvider} suitable for the Peppol
+ * Network to resolve CNAME records.<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
  * @author Philip Helger
+ * @since 9.6.1
  */
 @ThreadSafe
-public class BDXLURLProvider extends AbstractBDXLURLProvider implements IBDXLURLProvider
+public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements IPeppolURLProvider
 {
   /** U NAPTR service name for e-SENS/PEPPOL */
   public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
 
   /** The writable API of the default instance */
-  public static final BDXLURLProvider MUTABLE_INSTANCE = new BDXLURLProvider ();
+  public static final PeppolNaptrURLProvider MUTABLE_INSTANCE = new PeppolNaptrURLProvider ();
   /** The default instance that should be used */
-  public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
+  public static final IPeppolURLProvider INSTANCE = MUTABLE_INSTANCE;
 
   /**
    * Default constructor.
    */
-  public BDXLURLProvider ()
+  public PeppolNaptrURLProvider ()
   {
     setLowercaseValueBeforeHashing (true);
     setAddIdentifierSchemeToZone (true);

@@ -17,20 +17,13 @@
 package com.helger.smpclient.url;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
-import java.net.URL;
-
-import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.network.port.NetworkOnlineStatusDeterminator;
 import com.helger.peppol.sml.ESML;
-import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
-import com.helger.smpclient.IgnoredNaptrTest;
 
 /**
  * Test class for class {@link BDXLURLProvider}.
@@ -71,6 +64,12 @@ public final class BDXLURLProviderTest
                                                                                          "0088:123ABC"),
                                                         ESML.DIGIT_PRODUCTION));
 
+    final BDXLURLProvider x = new BDXLURLProvider ();
+    x.setAddIdentifierSchemeToZone (false);
+    assertEquals ("BEZA6WFI6XJII32O5YPQNOWXXYWEA6VFO2H3PNRFWRS5YIFSRSAA.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
+                  x.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "123ABC"),
+                                             ESML.DIGIT_PRODUCTION));
+
     // Check case insensitivity
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis",
@@ -108,40 +107,6 @@ public final class BDXLURLProviderTest
     assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test"),
                                                         ESML.DIGIT_TEST));
-  }
-
-  @Test
-  @Ignore ("Because it may take long to execute")
-  @IgnoredNaptrTest
-  public void testResolvePeppol () throws SMPDNSResolutionException
-  {
-    // Only if online
-    if (NetworkOnlineStatusDeterminator.getNetworkStatus ().isOnline ())
-    {
-      final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
-      final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
-      final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST);
-      assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
-                    sDomain);
-
-      final URL x = aURLProvider.getSMPURLOfParticipant (aPI, ESML.DIGIT_TEST);
-      assertNotNull (x);
-      if (true)
-        assertEquals ("http://test-infra.peppol.at", x.toString ());
-      else
-        assertEquals ("BRZ-TEST-SMP.publisher.acc.edelivery.tech.ec.europa.eu", x.toString ());
-    }
-  }
-
-  @Test
-  public void testResolveNamePeppol () throws SMPDNSResolutionException
-  {
-    // Only if online
-    final IBDXLURLProvider aURLProvider = BDXLURLProvider.INSTANCE;
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:1234567890123");
-    final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST);
-    assertEquals ("SJSYVCCMQYJXK3WEUAPFFQ4X3UMCRF4QRYHERJ4VOVHMONH7GCCQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
-                  sDomain);
   }
 
   @Test

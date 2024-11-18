@@ -26,7 +26,7 @@ import javax.annotation.concurrent.ThreadSafe;
  * @since 9.3.4
  */
 @ThreadSafe
-public class DBNAURLProviderSMP extends AbstractBDXLURLProvider
+public class DBNAURLProviderSMP extends AbstractBDXLURLProvider implements IBDXLURLProvider
 {
   /**
    * The U-NAPTR record service name. Based on DBNA SML Profile 1.0 chapter 4.3.

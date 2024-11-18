@@ -59,7 +59,7 @@ import com.helger.security.messagedigest.MessageDigestValue;
  * @since 8.1.7
  */
 @ThreadSafe
-public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
+public abstract class AbstractBDXLURLProvider
 {
   public static final boolean DEFAULT_USE_DNS_CACHE = false;
   public static final boolean DEFAULT_NAPTR_DEBUG = false;
@@ -266,6 +266,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     return ret.toString ();
   }
 
+  @SuppressWarnings ("unused")
   @Nonnull
   public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName) throws SMPDNSResolutionException

@@ -36,8 +36,8 @@ import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
- * The default implementation of {@link IPeppolURLProvider} suitable for the
- * Peppol network.<br>
+ * The implementation of {@link IPeppolURLProvider} suitable for the Peppol
+ * Network to resolve CNAME records.<br>
  * Layout:
  * <code>"B-"+hexstring(md5(lowercase(ID-VALUE)))+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
