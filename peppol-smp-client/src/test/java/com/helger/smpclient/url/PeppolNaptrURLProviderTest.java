@@ -59,11 +59,23 @@ public final class PeppolNaptrURLProviderTest
   @Test
   public void testResolveNamePeppol () throws SMPDNSResolutionException
   {
-    // Only if online
     final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:1234567890123");
     final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST);
     assertEquals ("SJSYVCCMQYJXK3WEUAPFFQ4X3UMCRF4QRYHERJ4VOVHMONH7GCCQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                   sDomain);
+
+    // Policy for use of Identifiers POLICY 7 example
+    assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
+                                                        ESML.DIGIT_TEST));
+    assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
+                                                        ESML.DIGIT_TEST));
+
+    // Peppol SML Spec example
+    assertEquals ("XUKHFQABQZIKI3YKVR2FHR4SNFA3PF5VPQ6K4TONV3LMVSY5ARVQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+                  aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0010:5798000000001"),
+                                                        ESML.DIGIT_TEST));
   }
 }
