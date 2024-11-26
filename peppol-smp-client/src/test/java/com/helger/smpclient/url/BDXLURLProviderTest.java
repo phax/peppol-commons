@@ -64,11 +64,13 @@ public final class BDXLURLProviderTest
                                                                                          "0088:123ABC"),
                                                         ESML.DIGIT_PRODUCTION));
 
-    final BDXLURLProvider x = new BDXLURLProvider ();
-    x.setAddIdentifierSchemeToZone (false);
-    assertEquals ("BEZA6WFI6XJII32O5YPQNOWXXYWEA6VFO2H3PNRFWRS5YIFSRSAA.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  x.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "123ABC"),
-                                             ESML.DIGIT_PRODUCTION));
+    {
+      final BDXLURLProvider x = new BDXLURLProvider ();
+      x.setAddIdentifierSchemeToZone (false);
+      assertEquals ("BEZA6WFI6XJII32O5YPQNOWXXYWEA6VFO2H3PNRFWRS5YIFSRSAA.edelivery.tech.ec.europa.eu",
+                    x.getDNSNameOfParticipant (new SimpleParticipantIdentifier ("iso6523-actorid-upis", "123ABC"),
+                                               ESML.DIGIT_PRODUCTION));
+    }
 
     // Check case insensitivity
     assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.toop.acc.edelivery.tech.ec.europa.eu",
