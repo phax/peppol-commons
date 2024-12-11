@@ -41,7 +41,7 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   /**
    * Peppol Production Network
    */
-  PRODUCTION ("prod", "Peppol Production Network", "https://test-directory.peppol.eu", ESML.DIGIT_PRODUCTION);
+  PRODUCTION ("prod", "Peppol Production Network", "https://directory.peppol.eu", ESML.DIGIT_PRODUCTION);
 
   private final String m_sID;
   private final String m_sDisplayName;
@@ -74,7 +74,8 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   }
 
   /**
-   * @return The URL of the Peppol Directory for this network stage. Never
+   * @return The URL of the Peppol Directory for this network stage. Ends with
+   *         the domain name and without a trailing slash. Never
    *         <code>null</code>.
    */
   @Nonnull
