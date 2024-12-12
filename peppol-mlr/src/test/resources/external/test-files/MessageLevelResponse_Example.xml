@@ -27,7 +27,7 @@
 	<cac:DocumentResponse>
 		<cac:Response>
 			<cbc:ResponseCode>RE</cbc:ResponseCode>
-			<cbc:Description>Rejected due to validation errore</cbc:Description>
+			<cbc:Description>Rejected due to validation errors</cbc:Description>
 		</cac:Response>
 		<cac:DocumentReference>
 			<cbc:ID>EnvelopeID-12456789</cbc:ID>
