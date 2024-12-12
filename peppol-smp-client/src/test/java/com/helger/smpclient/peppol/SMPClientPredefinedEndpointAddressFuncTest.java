@@ -99,8 +99,8 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                                                                       EPredefinedProcessIdentifier.BIS3_BILLING,
                                                                                       ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     assertNotNull (aEndpointCertificate);
-    // Updated January 2023
-    assertEquals ("152341228706602505025590793450797266431", aEndpointCertificate.getSerialNumber ().toString ());
+    // Updated December 2024
+    assertEquals ("38982941322949190188120289136764319632", aEndpointCertificate.getSerialNumber ().toString ());
 
     aEndpointCertificate = _createSMPClient (PI_AT_PROD,
                                              ESML.DIGIT_PRODUCTION).getEndpointCertificate (PI_AT_PROD,
@@ -108,7 +108,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                                                                             EPredefinedProcessIdentifier.BIS3_BILLING,
                                                                                             ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     assertNotNull (aEndpointCertificate);
-    // Updated January 2023
-    assertEquals ("77038032225135650189758879427977996263", aEndpointCertificate.getSerialNumber ().toString ());
+    // Updated December 2024
+    assertEquals ("17106555918040013827311785452115907772", aEndpointCertificate.getSerialNumber ().toString ());
   }
 }
