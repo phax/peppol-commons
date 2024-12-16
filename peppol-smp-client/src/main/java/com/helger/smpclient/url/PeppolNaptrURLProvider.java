@@ -20,7 +20,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 /**
  * The implementation of {@link IPeppolURLProvider} suitable for the Peppol
- * Network to resolve CNAME records.<br>
+ * Network to resolve NAPTR records.<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
