@@ -304,6 +304,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v9.6.1 - 2024-12-16
     * Added new class `PeppolNaptrURLProvider`
+    * Fixed the Peppol Directory URL of `EPeppolNetwork.PRODUCTION`    
     * Added new method `PeppolSBDHData.areAllFieldsSet (Consumer<String>)`
 * v9.6.0 - 2024-11-10
     * Requiring ph-commons 11.1.10
