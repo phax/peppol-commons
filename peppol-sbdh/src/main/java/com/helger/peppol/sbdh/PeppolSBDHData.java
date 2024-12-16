@@ -38,7 +38,6 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.log.ConditionalLogger;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -1086,8 +1085,7 @@ public class PeppolSBDHData
    */
   public boolean areAllFieldsSet (final boolean bLogMissing)
   {
-    final ConditionalLogger aCondLog = new ConditionalLogger (LOGGER, bLogMissing);
-    return areAllFieldsSet (aCondLog::info);
+    return areAllFieldsSet (bLogMissing ? LOGGER::info : x -> {});
   }
 
   /**
