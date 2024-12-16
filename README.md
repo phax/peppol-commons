@@ -304,6 +304,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v9.6.1 - work in progress
     * Added new class `PeppolNaptrURLProvider`
+    * Added new method `PeppolSBDHData.areAllFieldsSet (Consumer<String>)`
 * v9.6.0 - 2024-11-10
     * Requiring ph-commons 11.1.10
     * Deprecated methods `SMPClientReadOnly.getCompleteServiceGroup(OrNull)` and `getServiceGroupReferenceList(OrNull)` because the underlying APIs are non-standard

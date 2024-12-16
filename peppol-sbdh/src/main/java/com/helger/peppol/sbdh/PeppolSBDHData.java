@@ -18,6 +18,7 @@ package com.helger.peppol.sbdh;
 
 import java.nio.charset.Charset;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -920,8 +921,9 @@ public class PeppolSBDHData
    * Parse the existing business message as a special Peppol "BinaryContent"
    * element.
    *
-   * @return The parsed payload as a Peppol "BinaryContent" or <code>null</code>
-   *         if the existing Business Message is not a valid binary content.
+   * @return The parsed payload as a Peppol SBDH "BinaryContent" or
+   *         <code>null</code> if the existing Business Message is not a valid
+   *         binary content.
    * @see #setBusinessMessageBinaryOnly(byte[], IMimeType, Charset)
    * @since 8.2.4
    */
@@ -938,7 +940,7 @@ public class PeppolSBDHData
   }
 
   /**
-   * Parse the existing business message as a special Peppol "TextContent"
+   * Parse the existing business message as a special Peppol SBDH "TextContent"
    * element.
    *
    * @return The parsed payload as a Peppol "TextContent" or <code>null</code>
@@ -1004,7 +1006,8 @@ public class PeppolSBDHData
 
   /**
    * Set a business message with binary payload. Based on the Peppol SBDH v1.2
-   * binary payload specification.
+   * binary payload specification. This is wrapper for creating the Peppol SBDH
+   * "BinaryContent" element.
    *
    * @param aBinaryPayload
    *        The bytes to be wrapped. May not be <code>null</code>.
@@ -1042,7 +1045,8 @@ public class PeppolSBDHData
    * text payload specification. Note: the character set of the wrapped text
    * must be identical to the character set of the SBDH surrounding it. In case
    * the payload requires a specific character set, it is suggested to use the
-   * binary message.
+   * binary message. This is wrapper for creating the Peppol SBDH "TextContent"
+   * element.
    *
    * @param sTextPayload
    *        The text to be wrapped. May not be <code>null</code>.
@@ -1071,6 +1075,8 @@ public class PeppolSBDHData
   }
 
   /**
+   * Check if all mandatory fields are set in the SBDH data.
+   *
    * @param bLogMissing
    *        <code>true</code> if log messages should be emitted,
    *        <code>false</code> if not
@@ -1081,87 +1087,106 @@ public class PeppolSBDHData
   public boolean areAllFieldsSet (final boolean bLogMissing)
   {
     final ConditionalLogger aCondLog = new ConditionalLogger (LOGGER, bLogMissing);
+    return areAllFieldsSet (aCondLog::info);
+  }
+
+  /**
+   * Check if all mandatory fields are set in the SBDH data.
+   *
+   * @param aMissingFieldConsumer
+   *        The consumer to be invoked for each missing field. May not be
+   *        <code>null</code>
+   * @return <code>true</code> if all mandatory fields required for creating an
+   *         SBDH are present, <code>false</code> if at least one field is not
+   *         set.
+   * @since 9.6.1
+   */
+  public boolean areAllFieldsSet (@Nonnull final Consumer <String> aMissingFieldConsumer)
+  {
+    ValueEnforcer.notNull (aMissingFieldConsumer, "MissingFieldConsumer");
+
+    int nMissing = 0;
     if (StringHelper.hasNoText (m_sSenderScheme))
     {
-      aCondLog.info ("Peppol SBDH data - Sender Scheme is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Sender Scheme is missing");
+      nMissing++;
     }
     if (StringHelper.hasNoText (m_sSenderValue))
     {
-      aCondLog.info ("Peppol SBDH data - Sender Value is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Sender Value is missing");
+      nMissing++;
     }
 
     if (StringHelper.hasNoText (m_sReceiverScheme))
     {
-      aCondLog.info ("Peppol SBDH data - Receiver Scheme is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Receiver Scheme is missing");
+      nMissing++;
     }
     if (StringHelper.hasNoText (m_sReceiverValue))
     {
-      aCondLog.info ("Peppol SBDH data - Reeiver Value is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Reeiver Value is missing");
+      nMissing++;
     }
 
     if (StringHelper.hasNoText (m_sDocumentTypeScheme))
     {
-      aCondLog.info ("Peppol SBDH data - Document Type ID Scheme is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Document Type ID Scheme is missing");
+      nMissing++;
     }
     if (StringHelper.hasNoText (m_sDocumentTypeValue))
     {
-      aCondLog.info ("Peppol SBDH data - Document Type ID Value is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Document Type ID Value is missing");
+      nMissing++;
     }
 
     if (StringHelper.hasNoText (m_sProcessScheme))
     {
-      aCondLog.info ("Peppol SBDH data - Process ID Scheme is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Process ID Scheme is missing");
+      nMissing++;
     }
     if (StringHelper.hasNoText (m_sProcessValue))
     {
-      aCondLog.info ("Peppol SBDH data - Process ID Value is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Process ID Value is missing");
+      nMissing++;
     }
 
     if (StringHelper.hasNoText (m_sCountryC1))
     {
-      aCondLog.info ("Peppol SBDH data - Country C1 is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Country C1 is missing");
+      nMissing++;
     }
     if (StringHelper.hasNoText (m_sStandard))
     {
-      aCondLog.info ("Peppol SBDH data - Standard is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Standard is missing");
+      nMissing++;
     }
     if (StringHelper.hasNoText (m_sTypeVersion))
     {
-      aCondLog.info ("Peppol SBDH data - Type Version is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Type Version is missing");
+      nMissing++;
     }
     if (StringHelper.hasNoText (m_sType))
     {
-      aCondLog.info ("Peppol SBDH data - Type is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Type is missing");
+      nMissing++;
     }
     if (StringHelper.hasNoText (m_sInstanceIdentifier))
     {
-      aCondLog.info ("Peppol SBDH data - Instance Identifier is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Instance Identifier is missing");
+      nMissing++;
     }
     if (m_aCreationDateAndTime == null)
     {
-      aCondLog.info ("Peppol SBDH data - Creation Date and Time is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Creation Date and Time is missing");
+      nMissing++;
     }
     if (m_aBusinessMessage == null)
     {
-      aCondLog.info ("Peppol SBDH data - Business Message is missing");
-      return false;
+      aMissingFieldConsumer.accept ("Peppol SBDH data - Business Message is missing");
+      nMissing++;
     }
 
-    return true;
+    return nMissing == 0;
   }
 
   /**
