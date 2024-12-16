@@ -302,7 +302,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.6.1 - work in progress
+* v9.6.1 - 2024-12-16
     * Added new class `PeppolNaptrURLProvider`
     * Added new method `PeppolSBDHData.areAllFieldsSet (Consumer<String>)`
 * v9.6.0 - 2024-11-10
