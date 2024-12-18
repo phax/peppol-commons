@@ -600,4 +600,18 @@ public final class SMPClientReadOnlyTest
                                                                                EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
     assertNotNull (aSM);
   }
+
+  @Test
+  @Ignore ("Failing at Seeburger atm")
+  public void testIssue2412 () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0192:930030872");
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
+
+    // Currently throws SMPClientBadResponseException: Malformed XML document
+    // returned from SMP server
+    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
+                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
+    assertNull (aSM);
+  }
 }
