@@ -30,6 +30,7 @@ import com.helger.commons.annotation.Nonempty;
  *
  * @author Philip Helger
  */
+@Deprecated (forRemoval = true, since = "9.6.2")
 public interface IBusdoxDocumentTypeIdentifierParts extends Serializable
 {
   /**

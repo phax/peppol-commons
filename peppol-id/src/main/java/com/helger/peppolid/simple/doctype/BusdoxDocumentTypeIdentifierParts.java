@@ -35,6 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
+@Deprecated (forRemoval = true, since = "9.6.2")
 public final class BusdoxDocumentTypeIdentifierParts implements IBusdoxDocumentTypeIdentifierParts
 {
   private final String m_sRootNS;

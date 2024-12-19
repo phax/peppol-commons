@@ -46,7 +46,7 @@ public final class PeppolDocumentTypeIdentifierPartsTest
     assertNotNull (aParts);
     assertEquals ("root", aParts.getRootNS ());
     assertEquals ("local", aParts.getLocalName ());
-    assertEquals ("basic:extended:subtype:extended:ext1:extended:ext2::ver1", aParts.getSubTypeIdentifier ());
+    assertEquals ("root::local", aParts.getSyntaxSpecificID ());
     assertEquals ("basic:extended:subtype:extended:ext1:extended:ext2", aParts.getCustomizationID ());
     assertEquals ("ver1", aParts.getVersion ());
   }
@@ -58,8 +58,8 @@ public final class PeppolDocumentTypeIdentifierPartsTest
     assertNotNull (aParts);
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2", aParts.getRootNS ());
     assertEquals ("ExpressionOfInterestRequest", aParts.getLocalName ());
-    assertEquals ("urn:www.cenbii.eu:transaction:biitrdm081:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t001:ver1.0::2.2",
-                  aParts.getSubTypeIdentifier ());
+    assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:ExpressionOfInterestRequest-2::ExpressionOfInterestRequest",
+                  aParts.getSyntaxSpecificID ());
     assertEquals ("urn:www.cenbii.eu:transaction:biitrdm081:ver3.0:extended:urn:fdc:peppol.eu:2017:pracc:t001:ver1.0",
                   aParts.getCustomizationID ());
     assertEquals ("2.2", aParts.getVersion ());
@@ -67,7 +67,8 @@ public final class PeppolDocumentTypeIdentifierPartsTest
     aParts = PeppolDocumentTypeIdentifierParts.extractFromString ("urn:kosit:names:spec:peppol-reporting:schema:xsd:Reporting-1::APData##Reporting::1.0");
     assertEquals ("urn:kosit:names:spec:peppol-reporting:schema:xsd:Reporting-1", aParts.getRootNS ());
     assertEquals ("APData", aParts.getLocalName ());
-    assertEquals ("Reporting::1.0", aParts.getSubTypeIdentifier ());
+    assertEquals ("urn:kosit:names:spec:peppol-reporting:schema:xsd:Reporting-1::APData",
+                  aParts.getSyntaxSpecificID ());
     assertEquals ("Reporting", aParts.getCustomizationID ());
     assertEquals ("1.0", aParts.getVersion ());
   }
@@ -82,7 +83,8 @@ public final class PeppolDocumentTypeIdentifierPartsTest
     assertNotNull (aParts);
     assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:AttachedDocument-2", aParts.getRootNS ());
     assertEquals ("AttachedDocument", aParts.getLocalName ());
-    assertEquals ("urn:AIFE.fr::2023#urn:fdc:peppol.eu:2017:poac:UBL:1.0::2.1", aParts.getSubTypeIdentifier ());
+    assertEquals ("urn:oasis:names:specification:ubl:schema:xsd:AttachedDocument-2::AttachedDocument",
+                  aParts.getSyntaxSpecificID ());
     assertEquals ("urn:AIFE.fr::2023#urn:fdc:peppol.eu:2017:poac:UBL:1.0", aParts.getCustomizationID ());
     assertEquals ("2.1", aParts.getVersion ());
   }
@@ -98,7 +100,7 @@ public final class PeppolDocumentTypeIdentifierPartsTest
       // Check BusDox parts
       assertEquals (e.getRootNS (), aParts.getRootNS ());
       assertEquals (e.getLocalName (), aParts.getLocalName ());
-      assertEquals (e.getSubTypeIdentifier (), aParts.getSubTypeIdentifier ());
+      assertEquals (e.getSyntaxSpecificID (), aParts.getSyntaxSpecificID ());
 
       // Check PEPPOL parts
       final IPeppolDocumentTypeIdentifierParts p = e.getParts ();

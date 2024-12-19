@@ -21,56 +21,28 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppolid.IDocumentTypeIdentifier;
-import com.helger.peppolid.simple.doctype.BusdoxDocumentTypeIdentifierParts;
-import com.helger.peppolid.simple.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**
- * A standalone wrapper class for the {@link IPeppolDocumentTypeIdentifierParts}
- * interface for Peppol BISs.
+ * The implementation of {@link IPeppolDocumentTypeIdentifierParts} for Peppol
+ * Document Type Identifiers that are XML based.
  *
  * @author Philip Helger
  */
 @Immutable
-public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentTypeIdentifierParts
+public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentTypeIdentifierParts implements
+                                               IPeppolDocumentTypeIdentifierParts
 {
-  /**
-   * Separates the customization ID from the version
-   */
-  public static final String VERSION_SEPARATOR = "::";
+  private final String m_sRootNS;
+  private final String m_sLocalName;
 
-  private final IBusdoxDocumentTypeIdentifierParts m_aBusdoxParts;
-  private final String m_sCustomizationID;
-  private final String m_sVersion;
-
-  /**
-   * Build the BusDox sub type identifier from the Peppol specific components.
-   *
-   * @param sCustomizationID
-   *        Customization ID
-   * @param sVersion
-   *        Version number
-   * @return The sub type identifier.
-   */
-  @Nonnull
-  private static String _buildSubTypeIdentifier (@Nonnull final String sCustomizationID, @Nonnull final String sVersion)
+  public static String createSyntaxSpecificID (@Nonnull @Nonempty final String sRootNS,
+                                               @Nonnull @Nonempty final String sLocalName)
   {
-    return sCustomizationID + VERSION_SEPARATOR + sVersion;
-  }
-
-  private PeppolDocumentTypeIdentifierParts (@Nonnull final IBusdoxDocumentTypeIdentifierParts aBusdoxParts,
-                                             @Nonnull @Nonempty final String sCustomizationID,
-                                             @Nonnull @Nonempty final String sVersion)
-  {
-    ValueEnforcer.notNull (aBusdoxParts, "BusdoxParts");
-    ValueEnforcer.notEmpty (sCustomizationID, "CustomizationID");
-    ValueEnforcer.notEmpty (sVersion, "Version");
-
-    m_aBusdoxParts = aBusdoxParts;
-    m_sCustomizationID = sCustomizationID;
-    m_sVersion = sVersion;
+    return sRootNS + NAMESPACE_SEPARATOR + sLocalName;
   }
 
   public PeppolDocumentTypeIdentifierParts (@Nonnull @Nonempty final String sRootNS,
@@ -78,100 +50,53 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
                                             @Nonnull @Nonempty final String sCustomizationID,
                                             @Nonnull @Nonempty final String sVersion)
   {
-    this (new BusdoxDocumentTypeIdentifierParts (sRootNS,
-                                                 sLocalName,
-                                                 _buildSubTypeIdentifier (sCustomizationID, sVersion)),
-          sCustomizationID,
-          sVersion);
-  }
+    super (createSyntaxSpecificID (sRootNS, sLocalName), sCustomizationID, sVersion);
+    ValueEnforcer.notEmpty (sRootNS, "RootNS");
+    ValueEnforcer.notEmpty (sLocalName, "LocalName");
 
-  @Nonnull
-  public IBusdoxDocumentTypeIdentifierParts getBusdoxParts ()
-  {
-    return m_aBusdoxParts;
+    m_sRootNS = sRootNS;
+    m_sLocalName = sLocalName;
   }
 
   @Nonnull
   @Nonempty
   public String getRootNS ()
   {
-    return m_aBusdoxParts.getRootNS ();
+    return m_sRootNS;
   }
 
   @Nonnull
   @Nonempty
   public String getLocalName ()
   {
-    return m_aBusdoxParts.getLocalName ();
+    return m_sLocalName;
   }
 
-  /**
-   * @return The whole sub-type identifier, incl. Peppol transaction ID,
-   *         extensions and version ID.
-   */
-  @Nonnull
-  @Nonempty
-  public String getSubTypeIdentifier ()
-  {
-    return m_aBusdoxParts.getSubTypeIdentifier ();
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getCustomizationID ()
-  {
-    return m_sCustomizationID;
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getVersion ()
-  {
-    return m_sVersion;
-  }
-
+  @Override
   @Nonnull
   public PeppolDocumentTypeIdentifierParts withCustomizationID (@Nonnull @Nonempty final String sCustomizationID)
   {
-    return new PeppolDocumentTypeIdentifierParts (m_aBusdoxParts.getRootNS (),
-                                                  m_aBusdoxParts.getLocalName (),
-                                                  sCustomizationID,
-                                                  m_sVersion);
+    return new PeppolDocumentTypeIdentifierParts (m_sRootNS, m_sLocalName, sCustomizationID, getVersion ());
   }
 
+  @Override
   @Nonnull
   public PeppolDocumentTypeIdentifierParts withVersion (@Nonnull @Nonempty final String sVersion)
   {
-    return new PeppolDocumentTypeIdentifierParts (m_aBusdoxParts.getRootNS (),
-                                                  m_aBusdoxParts.getLocalName (),
-                                                  m_sCustomizationID,
-                                                  sVersion);
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getAsDocumentTypeIdentifierValue ()
-  {
-    return m_aBusdoxParts.getAsDocumentTypeIdentifierValue ();
+    return new PeppolDocumentTypeIdentifierParts (m_sRootNS, m_sLocalName, getCustomizationID (), sVersion);
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("BusdoxParts", m_aBusdoxParts)
-                                       .append ("CustomizationID", m_sCustomizationID)
-                                       .append ("Version", m_sVersion)
-                                       .getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("RootNS", m_sRootNS)
+                            .append ("LocalName", m_sLocalName)
+                            .getToString ();
   }
 
   /**
-   * Extract the Peppol document identifier elements from the passed document
-   * identifier value. The different of the Peppol document identifier parts to
-   * the BusDox document identifier parts is, that the Peppol subtype identifier
-   * is further defined as
-   * <code>&lt;customization id&gt;::&lt;version&gt;</code>. The customization
-   * ID can be further detailed into
-   * <code>&lt;transactionId&gt;:#&lt;extensionId&gt;[#&lt;extensionId&gt;]</code>
+   * Parse an OpenPeppol Document Type Identifier using the XML syntax.
    *
    * @param sDocTypeIDValue
    *        The document identifier value (without the scheme) to be split. May
@@ -182,40 +107,32 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
    *         specifications
    */
   @Nonnull
-  public static IPeppolDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeIDValue)
+  public static PeppolDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeIDValue)
   {
-    // Extract the main 3 elements (root namespace, local name and sub-type)
-    final IBusdoxDocumentTypeIdentifierParts aBusdoxParts = BusdoxDocumentTypeIdentifierParts.extractFromString (sDocTypeIDValue);
+    final PeppolGenericDocumentTypeIdentifierParts aGenericParts = PeppolGenericDocumentTypeIdentifierParts.extractFromString (sDocTypeIDValue);
+    final String sSyntaxSpecificID = aGenericParts.getSyntaxSpecificID ();
 
-    // Now start splitting the sub-type identifier
-    final String sSubTypeIdentifier = aBusdoxParts.getSubTypeIdentifier ();
-    if (StringHelper.hasNoText (sSubTypeIdentifier))
-      throw new IllegalArgumentException ("The passed document type identifier has an empty sub type identifier which is not Peppol compliant!");
+    final ICommonsList <String> aFirst = StringHelper.getExploded (NAMESPACE_SEPARATOR, sSyntaxSpecificID, 2);
+    if (aFirst.size () < 2)
+      throw new IllegalArgumentException ("The Syntax Specific ID '" +
+                                          sSyntaxSpecificID +
+                                          "' is missing the separation between the root namespace URI and the local name!");
 
-    // Peppol sub-type identifier
-    // <customization id>::<version>
-    // Problem: if Customization ID contains a "::"
-    final int nLastIndex = sSubTypeIdentifier.lastIndexOf (VERSION_SEPARATOR);
-    if (nLastIndex < 0)
-      throw new IllegalArgumentException ("The sub type identifier '" +
-                                          sSubTypeIdentifier +
-                                          "' is missing the separation between customization ID and version!");
+    final String sRootNS = aFirst.get (0);
+    if (StringHelper.hasNoText (sRootNS))
+      throw new IllegalArgumentException ("The Syntax Specific ID '" +
+                                          sSyntaxSpecificID +
+                                          "' contains an empty root namespace URI!");
+    final String sLocalName = aFirst.get (1);
+    if (StringHelper.hasNoText (sRootNS))
+      throw new IllegalArgumentException ("The Syntax Specific ID '" +
+                                          sSyntaxSpecificID +
+                                          "' contains an empty local name!");
 
-    // Before last "::"
-    final String sCustomizationID = sSubTypeIdentifier.substring (0, nLastIndex);
-    if (StringHelper.hasNoText (sCustomizationID))
-      throw new IllegalArgumentException ("The sub type identifier '" +
-                                          sSubTypeIdentifier +
-                                          "' contains an empty customization ID!");
-
-    // After last "::"
-    final String sVersion = sSubTypeIdentifier.substring (nLastIndex + VERSION_SEPARATOR.length ());
-    if (StringHelper.hasNoText (sVersion))
-      throw new IllegalArgumentException ("The sub type identifier '" +
-                                          sSubTypeIdentifier +
-                                          "' contains an empty version!");
-
-    return new PeppolDocumentTypeIdentifierParts (aBusdoxParts, sCustomizationID, sVersion);
+    return new PeppolDocumentTypeIdentifierParts (sRootNS,
+                                                  sLocalName,
+                                                  aGenericParts.getCustomizationID (),
+                                                  aGenericParts.getVersion ());
   }
 
   /**
@@ -232,7 +149,7 @@ public final class PeppolDocumentTypeIdentifierParts implements IPeppolDocumentT
    *         type identifier.
    */
   @Nonnull
-  public static IPeppolDocumentTypeIdentifierParts extractFromIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  public static PeppolDocumentTypeIdentifierParts extractFromIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 

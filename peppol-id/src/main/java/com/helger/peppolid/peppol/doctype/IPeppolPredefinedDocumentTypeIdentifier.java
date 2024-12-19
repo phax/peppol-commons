@@ -39,7 +39,7 @@ import com.helger.peppolid.peppol.IPeppolIdentifier;
 public interface IPeppolPredefinedDocumentTypeIdentifier extends
                                                          IDocumentTypeIdentifier,
                                                          IPeppolIdentifier,
-                                                         IPeppolDocumentTypeIdentifierParts
+                                                         IPeppolGenericDocumentTypeIdentifierParts
 {
   default boolean hasDefaultScheme ()
   {

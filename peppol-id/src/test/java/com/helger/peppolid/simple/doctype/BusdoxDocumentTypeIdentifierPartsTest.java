@@ -30,6 +30,7 @@ import com.helger.commons.mock.CommonsTestHelper;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class BusdoxDocumentTypeIdentifierPartsTest
 {
   @Test

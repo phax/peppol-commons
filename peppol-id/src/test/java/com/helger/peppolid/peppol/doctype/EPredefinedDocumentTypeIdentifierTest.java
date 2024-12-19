@@ -45,7 +45,7 @@ public final class EPredefinedDocumentTypeIdentifierTest
       assertTrue (StringHelper.hasText (e.getValue ()));
       assertTrue (StringHelper.hasText (e.getRootNS ()));
       assertTrue (StringHelper.hasText (e.getLocalName ()));
-      assertTrue (StringHelper.hasText (e.getSubTypeIdentifier ()));
+      assertTrue (StringHelper.hasText (e.getSyntaxSpecificID ()));
       assertTrue (StringHelper.hasText (e.getCommonName ()));
       assertEquals (e.getAsDocumentTypeIdentifierValue (), e.getValue ());
       assertSame (e, EPredefinedDocumentTypeIdentifier.valueOf (e.name ()));

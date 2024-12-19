@@ -341,8 +341,8 @@ public final class MainCreatePredefinedEnumsFromXML_v8x
       m.annotate (Nonempty.class);
       m.body ()._return (fParts.invoke (m.name ()));
 
-      // public String getSubTypeIdentifier ()
-      m = jEnum.method (JMod.PUBLIC, String.class, "getSubTypeIdentifier");
+      // public String getSyntaxSpecificID ()
+      m = jEnum.method (JMod.PUBLIC, String.class, "getSyntaxSpecificID");
       m.annotate (Nonnull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fParts.invoke (m.name ()));

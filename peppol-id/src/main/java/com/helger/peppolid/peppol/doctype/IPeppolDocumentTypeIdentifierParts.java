@@ -19,30 +19,33 @@ package com.helger.peppolid.peppol.doctype;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.peppolid.simple.doctype.IBusdoxDocumentTypeIdentifierParts;
 
 /**
- * Contains all the different fields of a document identifier for PEPPOL in BIS
- * V1 style. Note: the sub type identifier is specified in more detail than in
- * BusDox: <code>&lt;customization id&gt;::&lt;version&gt;</code> even more
- * detailed the customization ID can be split further:
- * <code>&lt;transactionId&gt;:#&lt;extensionId&gt;[#&lt;extensionId&gt;]::&lt;version&gt;</code>
+ * Contains the Peppol document type identifier parts for XML based document
+ * types.
  *
  * @author Philip Helger
  */
-public interface IPeppolDocumentTypeIdentifierParts extends IBusdoxDocumentTypeIdentifierParts
+public interface IPeppolDocumentTypeIdentifierParts extends IPeppolGenericDocumentTypeIdentifierParts
 {
   /**
-   * @return transaction ID + extension IDs (no version number)
+   * Separator between namespace URI and local name
    */
-  @Nonnull
-  @Nonempty
-  String getCustomizationID ();
+  String NAMESPACE_SEPARATOR = "::";
 
   /**
-   * @return The version number
+   * @return The XML namespace URI of the root element. Never <code>null</code>
+   *         nor empty.
    */
   @Nonnull
   @Nonempty
-  String getVersion ();
+  String getRootNS ();
+
+  /**
+   * @return The XML element local name of the root element. Never
+   *         <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  String getLocalName ();
 }
