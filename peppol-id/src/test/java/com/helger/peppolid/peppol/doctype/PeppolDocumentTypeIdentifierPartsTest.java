@@ -17,7 +17,9 @@
 package com.helger.peppolid.peppol.doctype;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -180,5 +182,15 @@ public final class PeppolDocumentTypeIdentifierPartsTest
         aCSV.writeNext (aResult);
       });
     }
+  }
+
+  @Test
+  public void testIsSyntaxSpecificIDLookingLikeXML ()
+  {
+    assertTrue (PeppolDocumentTypeIdentifierParts.isSyntaxSpecificIDLookingLikeXML ("a::b"));
+    assertTrue (PeppolDocumentTypeIdentifierParts.isSyntaxSpecificIDLookingLikeXML ("root::local"));
+    assertFalse (PeppolDocumentTypeIdentifierParts.isSyntaxSpecificIDLookingLikeXML ("root:local"));
+    assertFalse (PeppolDocumentTypeIdentifierParts.isSyntaxSpecificIDLookingLikeXML ("::local"));
+    assertFalse (PeppolDocumentTypeIdentifierParts.isSyntaxSpecificIDLookingLikeXML ("root::"));
   }
 }

@@ -16,7 +16,10 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
+import java.util.function.BiConsumer;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
@@ -24,6 +27,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.wrapper.Wrapper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 
 /**
@@ -39,6 +43,20 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
   private final String m_sRootNS;
   private final String m_sLocalName;
 
+  /**
+   * Convert the XML specific syntax elements back to a single syntax specific
+   * ID
+   *
+   * @param sRootNS
+   *        The XML root element namespace URI. May neither be <code>null</code>
+   *        nor empty.
+   * @param sLocalName
+   *        The XML root element local name. May neither be <code>null</code>
+   *        nor empty.
+   * @return The combination of <code>rootNS + :: + localName</code>
+   */
+  @Nonnull
+  @Nonempty
   public static String createSyntaxSpecificID (@Nonnull @Nonempty final String sRootNS,
                                                @Nonnull @Nonempty final String sLocalName)
   {
@@ -95,22 +113,37 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
                             .getToString ();
   }
 
-  /**
-   * Parse an OpenPeppol Document Type Identifier using the XML syntax.
-   *
-   * @param sDocTypeIDValue
-   *        The document identifier value (without the scheme) to be split. May
-   *        neither be <code>null</code> nor empty.
-   * @return The non-<code>null</code> Peppol identifier parts
-   * @throws IllegalArgumentException
-   *         if the passed document identifier value does not match the
-   *         specifications
-   */
-  @Nonnull
-  public static PeppolDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeIDValue)
+  public static boolean isSyntaxSpecificIDLookingLikeXML (@Nullable final String sSyntaxSpecificID)
   {
-    final PeppolGenericDocumentTypeIdentifierParts aGenericParts = PeppolGenericDocumentTypeIdentifierParts.extractFromString (sDocTypeIDValue);
-    final String sSyntaxSpecificID = aGenericParts.getSyntaxSpecificID ();
+    if (StringHelper.hasText (sSyntaxSpecificID))
+    {
+      final int nIndex = sSyntaxSpecificID.indexOf (NAMESPACE_SEPARATOR);
+      if (nIndex >= 0)
+      {
+        // It's contains the separator and it's not the start and not the end
+        return nIndex > 0 && nIndex < sSyntaxSpecificID.length () - NAMESPACE_SEPARATOR.length ();
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Split the provided syntax specific ID into the XML root element namespace
+   * URI and the XML root element local name.
+   *
+   * @param sSyntaxSpecificID
+   *        The syntax specific ID to parse. May neither be <code>null</code>
+   *        nor empty.
+   * @param aResultConsumer
+   *        The consumer that takes root namespace URI and local name as a
+   *        callback.
+   * @since 9.6.2
+   */
+  public static void extractXMLSyntaxSpecificID (@Nonnull @Nonempty final String sSyntaxSpecificID,
+                                                 @Nonnull final BiConsumer <String, String> aResultConsumer)
+  {
+    ValueEnforcer.notEmpty (sSyntaxSpecificID, "SyntaxSpecificID");
+    ValueEnforcer.notNull (aResultConsumer, "ResultConsumer");
 
     final ICommonsList <String> aFirst = StringHelper.getExploded (NAMESPACE_SEPARATOR, sSyntaxSpecificID, 2);
     if (aFirst.size () < 2)
@@ -129,8 +162,34 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
                                           sSyntaxSpecificID +
                                           "' contains an empty local name!");
 
-    return new PeppolDocumentTypeIdentifierParts (sRootNS,
-                                                  sLocalName,
+    aResultConsumer.accept (sRootNS, sLocalName);
+  }
+
+  /**
+   * Parse an OpenPeppol Document Type Identifier using the XML syntax.
+   *
+   * @param sDocTypeIDValue
+   *        The document identifier value (without the scheme) to be split. May
+   *        neither be <code>null</code> nor empty.
+   * @return The non-<code>null</code> Peppol identifier parts
+   * @throws IllegalArgumentException
+   *         if the passed document identifier value does not match the
+   *         specifications
+   */
+  @Nonnull
+  public static PeppolDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeIDValue)
+  {
+    final PeppolGenericDocumentTypeIdentifierParts aGenericParts = PeppolGenericDocumentTypeIdentifierParts.extractFromString (sDocTypeIDValue);
+
+    final Wrapper <String> aRootNS = new Wrapper <> ();
+    final Wrapper <String> aLocalName = new Wrapper <> ();
+    extractXMLSyntaxSpecificID (aGenericParts.getSyntaxSpecificID (), (ns, ln) -> {
+      aRootNS.set (ns);
+      aLocalName.set (ln);
+    });
+
+    return new PeppolDocumentTypeIdentifierParts (aRootNS.get (),
+                                                  aLocalName.get (),
                                                   aGenericParts.getCustomizationID (),
                                                   aGenericParts.getVersion ());
   }

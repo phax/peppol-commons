@@ -29,7 +29,7 @@ import com.helger.commons.annotation.Nonempty;
 public interface IPeppolDocumentTypeIdentifierParts extends IPeppolGenericDocumentTypeIdentifierParts
 {
   /**
-   * Separator between namespace URI and local name
+   * Separator between XML root element namespace URI and local name
    */
   String NAMESPACE_SEPARATOR = "::";
 
