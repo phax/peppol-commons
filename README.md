@@ -302,7 +302,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v9.6.2 - work in progress
+* v9.7.0 - 2024-12-20
     * Reworked the Peppol Document Type Identifier data model to handle non-XML syntax specific IDs as well
 * v9.6.1 - 2024-12-16
     * Added new class `PeppolNaptrURLProvider`
