@@ -304,6 +304,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v9.7.0 - 2024-12-20
     * Reworked the Peppol Document Type Identifier data model to handle non-XML syntax specific IDs as well
+    * Introduced new classes `(I)PeppolGenericDocumentTypeIdentifierParts` to handle the generic identifier parts
+    * Deprecated classes `(I)BusdoxDocumentTypeIdentifierParts` for removal
 * v9.6.1 - 2024-12-16
     * Added new class `PeppolNaptrURLProvider`
     * Fixed the Peppol Directory URL of `EPeppolNetwork.PRODUCTION`    
