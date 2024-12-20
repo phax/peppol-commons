@@ -96,18 +96,20 @@ public final class PeppolDocumentTypeIdentifierPartsTest
   {
     for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
     {
-      final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (e.getValue ());
+      final IPeppolGenericDocumentTypeIdentifierParts aParts = PeppolGenericDocumentTypeIdentifierParts.extractFromString (e.getValue ());
       assertNotNull (aParts);
 
-      // Check BusDox parts
-      assertEquals (e.getRootNS (), aParts.getRootNS ());
-      assertEquals (e.getLocalName (), aParts.getLocalName ());
+      // Check generic parts
       assertEquals (e.getSyntaxSpecificID (), aParts.getSyntaxSpecificID ());
+      assertEquals (e.getCustomizationID (), aParts.getCustomizationID ());
+      assertEquals (e.getVersion (), aParts.getVersion ());
 
-      // Check PEPPOL parts
-      final IPeppolDocumentTypeIdentifierParts p = e.getParts ();
-      assertEquals (p.getCustomizationID (), aParts.getCustomizationID ());
-      assertEquals (p.getVersion (), aParts.getVersion ());
+      // Check XML parts
+      if (PeppolDocumentTypeIdentifierParts.isSyntaxSpecificIDLookingLikeXML (aParts.getSyntaxSpecificID ()))
+      {
+        final IPeppolDocumentTypeIdentifierParts aXMLParts = PeppolDocumentTypeIdentifierParts.extractFromString (e.getValue ());
+        assertNotNull (aXMLParts);
+      }
     }
   }
 

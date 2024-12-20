@@ -214,4 +214,22 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
 
     return extractFromString (aIdentifier.getValue ());
   }
+
+  @Nonnull
+  public static PeppolDocumentTypeIdentifierParts extract (@Nonnull final IPeppolGenericDocumentTypeIdentifierParts aDocIDParts)
+  {
+    ValueEnforcer.notNull (aDocIDParts, "DocIDParts");
+
+    final Wrapper <String> aRootNS = new Wrapper <> ();
+    final Wrapper <String> aLocalName = new Wrapper <> ();
+    extractXMLSyntaxSpecificID (aDocIDParts.getSyntaxSpecificID (), (ns, ln) -> {
+      aRootNS.set (ns);
+      aLocalName.set (ln);
+    });
+
+    return new PeppolDocumentTypeIdentifierParts (aRootNS.get (),
+                                                  aLocalName.get (),
+                                                  aDocIDParts.getCustomizationID (),
+                                                  aDocIDParts.getVersion ());
+  }
 }

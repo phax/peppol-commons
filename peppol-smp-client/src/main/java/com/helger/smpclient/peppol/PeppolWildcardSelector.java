@@ -41,8 +41,8 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
-import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
+import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
+import com.helger.peppolid.peppol.doctype.PeppolGenericDocumentTypeIdentifierParts;
 
 /**
  * Helper class to support the different ways of dealing with
@@ -185,13 +185,12 @@ public class PeppolWildcardSelector
       {
         // Split the document type identifier value into pieces (throws
         // IllegalArgumentException)
-        final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (sDocTypeValue);
+        final IPeppolGenericDocumentTypeIdentifierParts aParts = PeppolGenericDocumentTypeIdentifierParts.extractFromString (sDocTypeValue);
 
         // Just change the customization ID of the parts
-        final Function <String, String> aFuncCustIDToDocTypeIDValue = sCustomizationID -> new PeppolDocumentTypeIdentifierParts (aParts.getRootNS (),
-                                                                                                                                 aParts.getLocalName (),
-                                                                                                                                 sCustomizationID,
-                                                                                                                                 aParts.getVersion ()).getAsDocumentTypeIdentifierValue ();
+        final Function <String, String> aFuncCustIDToDocTypeIDValue = sCustomizationID -> new PeppolGenericDocumentTypeIdentifierParts (aParts.getSyntaxSpecificID (),
+                                                                                                                                        sCustomizationID,
+                                                                                                                                        aParts.getVersion ()).getAsDocumentTypeIdentifierValue ();
 
         // Iterate all the peppol-doctype-wildcard stuff
         String sRemainingCustomizationID = aParts.getCustomizationID ();
@@ -291,13 +290,12 @@ public class PeppolWildcardSelector
 
     // Split the document type identifier value into pieces (throws
     // IllegalArgumentException)
-    final IPeppolDocumentTypeIdentifierParts aParts = PeppolDocumentTypeIdentifierParts.extractFromString (aSearchDocTypeValue.getValue ());
+    final IPeppolGenericDocumentTypeIdentifierParts aParts = PeppolGenericDocumentTypeIdentifierParts.extractFromString (aSearchDocTypeValue.getValue ());
 
     // Just change the customization ID of the parts
-    final Function <String, String> aFuncCustIDToDocTypeIDValue = sCustomizationID -> new PeppolDocumentTypeIdentifierParts (aParts.getRootNS (),
-                                                                                                                             aParts.getLocalName (),
-                                                                                                                             sCustomizationID,
-                                                                                                                             aParts.getVersion ()).getAsDocumentTypeIdentifierValue ();
+    final Function <String, String> aFuncCustIDToDocTypeIDValue = sCustomizationID -> new PeppolGenericDocumentTypeIdentifierParts (aParts.getSyntaxSpecificID (),
+                                                                                                                                    sCustomizationID,
+                                                                                                                                    aParts.getVersion ()).getAsDocumentTypeIdentifierValue ();
 
     // Find the Customization ID to start (without an optional trailing "*")
     String sRemainingCustomizationID = StringHelper.trimEnd (aParts.getCustomizationID (),

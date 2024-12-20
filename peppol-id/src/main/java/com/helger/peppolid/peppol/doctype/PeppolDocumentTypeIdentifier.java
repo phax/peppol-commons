@@ -124,9 +124,9 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *         parts.
    */
   @Nonnull
-  public IPeppolDocumentTypeIdentifierParts getParts ()
+  public IPeppolGenericDocumentTypeIdentifierParts getParts ()
   {
-    return PeppolDocumentTypeIdentifierParts.extractFromIdentifier (this);
+    return PeppolGenericDocumentTypeIdentifierParts.extractFromIdentifier (this);
   }
 
   @Override

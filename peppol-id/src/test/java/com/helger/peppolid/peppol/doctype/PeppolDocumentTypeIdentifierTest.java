@@ -240,7 +240,7 @@ public final class PeppolDocumentTypeIdentifierTest
     for (final EPredefinedDocumentTypeIdentifier e : EPredefinedDocumentTypeIdentifier.values ())
     {
       final PeppolDocumentTypeIdentifier aDocTypeID = new PeppolDocumentTypeIdentifier (IF, e);
-      final IPeppolDocumentTypeIdentifierParts aParts = aDocTypeID.getParts ();
+      final IPeppolGenericDocumentTypeIdentifierParts aParts = aDocTypeID.getParts ();
       assertNotNull (aParts);
       assertEquals (aDocTypeID.getValue (), aParts.getAsDocumentTypeIdentifierValue ());
     }

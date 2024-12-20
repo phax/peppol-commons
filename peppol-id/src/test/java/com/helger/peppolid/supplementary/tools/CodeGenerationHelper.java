@@ -27,6 +27,8 @@ import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
+import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
+import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
 
 @Immutable
 final class CodeGenerationHelper
@@ -49,10 +51,18 @@ final class CodeGenerationHelper
 
   @Nonnull
   @Nonempty
-  public static String createShortcutDocumentTypeIDName (@Nonnull final IPeppolDocumentTypeIdentifierParts aDocIDParts)
+  public static String createShortcutDocumentTypeIDName (@Nonnull final IPeppolGenericDocumentTypeIdentifierParts aDocIDParts)
   {
     // Create a shortcut constant with a more readable name!
-    final String sLocalName = aDocIDParts.getLocalName ();
+    final String sLocalName;
+    if (PeppolDocumentTypeIdentifierParts.isSyntaxSpecificIDLookingLikeXML (aDocIDParts.getSyntaxSpecificID ()))
+    {
+      final IPeppolDocumentTypeIdentifierParts aXMLParts = PeppolDocumentTypeIdentifierParts.extract (aDocIDParts);
+      sLocalName = aXMLParts.getLocalName ();
+    }
+    else
+      sLocalName = "";
+
     final String sCustomizationID = aDocIDParts.getCustomizationID ();
     String [] aGroups;
 
@@ -233,7 +243,7 @@ final class CodeGenerationHelper
     sExt = StringHelper.replaceAll (sExt, '-', '_');
     sExt = StringHelper.replaceAll (sExt, '@', '_');
 
-    return (aDocIDParts.getLocalName () + "_" + sExt).toUpperCase (Locale.US);
+    return (sLocalName + "_" + sExt).toUpperCase (Locale.US);
   }
 
   @Nullable

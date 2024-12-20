@@ -43,15 +43,13 @@ public final class EPredefinedDocumentTypeIdentifierTest
       assertTrue (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS.equals (e.getScheme ()) ||
                   PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD.equals (e.getScheme ()));
       assertTrue (StringHelper.hasText (e.getValue ()));
-      assertTrue (StringHelper.hasText (e.getRootNS ()));
-      assertTrue (StringHelper.hasText (e.getLocalName ()));
       assertTrue (StringHelper.hasText (e.getSyntaxSpecificID ()));
       assertTrue (StringHelper.hasText (e.getCommonName ()));
       assertEquals (e.getAsDocumentTypeIdentifierValue (), e.getValue ());
       assertSame (e, EPredefinedDocumentTypeIdentifier.valueOf (e.name ()));
       assertSame (e, EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (e));
 
-      final IPeppolDocumentTypeIdentifierParts p = e.getParts ();
+      final IPeppolGenericDocumentTypeIdentifierParts p = e.getParts ();
       assertNotNull (p);
       assertTrue (StringHelper.hasText (p.getCustomizationID ()));
       assertTrue (StringHelper.hasText (p.getVersion ()));
