@@ -302,6 +302,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v9.7.1 - 2024-12-20
+    * Re-release of 9.7.0
 * v9.7.0 - 2024-12-20
     * Reworked the Peppol Document Type Identifier data model to handle non-XML syntax specific IDs as well
     * Introduced new classes `(I)PeppolGenericDocumentTypeIdentifierParts` to handle the generic identifier parts
