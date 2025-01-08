@@ -1069,7 +1069,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "8.9";
+    public static final String CODE_LIST_VERSION = "9";
     public static final int CODE_LIST_ENTRY_COUNT = 96;
     private final String m_sSchemeID;
     private final String m_sISO6523;
