@@ -22,6 +22,8 @@ import static org.junit.Assert.assertNotNull;
 import java.net.URL;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.network.port.NetworkOnlineStatusDeterminator;
 import com.helger.peppol.sml.ESML;
@@ -36,6 +38,8 @@ import com.helger.smpclient.IgnoredNaptrTest;
  */
 public final class PeppolNaptrURLProviderTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolNaptrURLProviderTest.class);
+
   @Test
   // @Ignore ("Because it may take long to execute")
   @IgnoredNaptrTest
@@ -77,5 +81,20 @@ public final class PeppolNaptrURLProviderTest
     assertEquals ("XUKHFQABQZIKI3YKVR2FHR4SNFA3PF5VPQ6K4TONV3LMVSY5ARVQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0010:5798000000001"),
                                                         ESML.DIGIT_TEST));
+  }
+
+  @Test
+  public void testFindRegisteredSMPURL () throws SMPDNSResolutionException
+  {
+    // Only if online
+    if (NetworkOnlineStatusDeterminator.getNetworkStatus ().isOnline ())
+    {
+      final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
+      final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0007:123456");
+
+      final URL x = aURLProvider.getSMPURLOfParticipant (aPI, ESML.DIGIT_TEST);
+      assertNotNull (x);
+      LOGGER.info ("PID " + aPI.getValue () + " is registered at '" + x.toString () + "'");
+    }
   }
 }
