@@ -14,7 +14,7 @@ This project contains different libraries that are commonly used in the Peppol/e
 * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
 * [`peppol-directory-businesscard`](#peppol-directory-businesscard) - the Peppol Directory Business Card data model (since v9.1.0)
 * [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2)
-* [`peppol-ap-helper`](#peppol-ap-helper) - specific support for common Peppol Access Point (AP) functionality (since v9.7.3)
+* [`peppol-ap-helper`](#peppol-ap-helper) - specific support for common Peppol Access Point (AP) functionality (since v10.0.0)
 * [`dbnalliance-xhe`](#dbnalliance-xhe) - specific support for DBNAlliance XHE header (since v9.5.0)
   
 This project is part of my Peppol solution stack. See https://github.com/phax/peppol for other components and libraries in that area.
@@ -121,7 +121,7 @@ See https://github.com/phax/peppol-commons/blob/master/peppol-mlr/src/test/java/
 
 ## peppol-ap-helper
 
-This was introduced in v9.7.3
+This was introduced in v10.0.0
 
 This is a utility component for phase4 common Access Point implementation components. It will grow over time.
 
@@ -309,11 +309,15 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v10.0.0 - work in progress
+* v10.0.0 - 2025-02-03
     * Updated to ph-commons 11.2.0
     * Added new submodule `peppol-ap-helper`
-    * Removed all deprecated stuff
-    * Moved some generic class into ph-commons and deprecated the local classes
+    * Removed all deprecated classes, methods and fields
+    * Moved the following class and methods into ph-commons and removed the local classes and methods
+        * Moved `IURLDownloader` to ph-commons
+        * Moved `ExpiringObject` to ph-datetime
+        * Moved `TrustedCACertificates`, `CRLCache`, `CRLDownloader`, `CRLHelper`, `AbstractRevocationCheckBuilder`, `CertificateRevocationCheckerDefaults`, `ERevocationCheckMode`, `ERevoked`, `IRevokedIndicator` and `RevocationCheckResultCache` to ph-security
+        * Moved method `PeppolKeyStoreHelper.getAllTrustedCertificates` to `KeyStoreHelper`
 * v9.7.2 - 2025-01-08
     * Updated to OpenPeppol eDEC Code Lists v9.0
 * v9.7.1 - 2024-12-20
