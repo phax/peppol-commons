@@ -180,6 +180,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
+        <artifactId>peppol-ap-helper</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>dbnalliance-xhe</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -215,6 +220,7 @@
     <module>peppol-sml-client</module>
     <module>peppol-directory-businesscard</module>
     <module>peppol-mlr</module>
+    <module>peppol-ap-helper</module>
     <module>dbnalliance-xhe</module>
   </modules>
 
