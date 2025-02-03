@@ -36,17 +36,4 @@ public class BDXR1MarshallerServiceGroupType extends AbstractBDXR1Marshaller <Se
   {
     super (ServiceGroupType.class, new ObjectFactory ()::createServiceGroup);
   }
-
-  /**
-   * Constructor
-   *
-   * @param bValidationEnabled
-   *        <code>true</code> if XSD validation should be used,
-   *        <code>false</code> to not verify it.
-   */
-  @Deprecated (since = "9.0.5", forRemoval = true)
-  public BDXR1MarshallerServiceGroupType (final boolean bValidationEnabled)
-  {
-    super (ServiceGroupType.class, bValidationEnabled, new ObjectFactory ()::createServiceGroup);
-  }
 }

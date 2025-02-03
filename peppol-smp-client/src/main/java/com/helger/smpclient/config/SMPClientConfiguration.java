@@ -216,23 +216,6 @@ public final class SMPClientConfiguration
    *         the key <code>truststore.password</code>. If none is present
    *         {@link PeppolKeyStoreHelper#TRUSTSTORE_PASSWORD} is returned as a
    *         default.
-   * @deprecated Use {@link #getTrustStorePasswordCharArray()} instead
-   */
-  @Nonnull
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static String getTrustStorePassword ()
-  {
-    String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.password", "truststore.password");
-    if (StringHelper.hasNoText (ret))
-      ret = PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD;
-    return ret;
-  }
-
-  /**
-   * @return The truststore password as specified in the configuration file by
-   *         the key <code>truststore.password</code>. If none is present
-   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_PASSWORD} is returned as a
-   *         default.
    */
   @Nonnull
   public static char [] getTrustStorePasswordCharArray ()

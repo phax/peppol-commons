@@ -45,13 +45,10 @@ import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.peppol.utils.SMPExtensionConverter;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
-import com.helger.xsds.peppol.smp1.CompleteServiceGroupType;
 import com.helger.xsds.peppol.smp1.EndpointType;
 import com.helger.xsds.peppol.smp1.ProcessListType;
 import com.helger.xsds.peppol.smp1.ProcessType;
 import com.helger.xsds.peppol.smp1.ServiceEndpointList;
-import com.helger.xsds.peppol.smp1.ServiceGroupReferenceListType;
-import com.helger.xsds.peppol.smp1.ServiceGroupReferenceType;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.ServiceInformationType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
@@ -108,21 +105,6 @@ public final class SMPClientTest
 
     final SMPClient aSMPClient = new SMPClient (SMP_URI);
     assertNull (aSMPClient.getServiceMetadataOrNull (aServiceGroupID, MockSMPClientConfig.getDocumentTypeID ()));
-  }
-
-  @Test
-  @Deprecated
-  public void testGetServiceGroupReferenceList () throws SMPClientException
-  {
-    final SMPClient aSMPClient = new SMPClient (SMP_URI);
-    final ServiceGroupReferenceListType aServiceGroupReferenceList = aSMPClient.getServiceGroupReferenceList (SMP_USERNAME,
-                                                                                                              SMP_CREDENTIALS);
-    assertNotNull (aServiceGroupReferenceList);
-    for (final ServiceGroupReferenceType aServiceGroupReference : aServiceGroupReferenceList.getServiceGroupReference ())
-    {
-      final CompleteServiceGroupType aCSG = aSMPClient.getCompleteServiceGroup (aServiceGroupReference.getHref ());
-      assertNotNull (aCSG);
-    }
   }
 
   @Test

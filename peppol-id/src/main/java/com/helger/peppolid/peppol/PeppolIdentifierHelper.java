@@ -44,8 +44,6 @@ public final class PeppolIdentifierHelper
   public static final String DNS_HASHED_IDENTIFIER_PREFIX = "B-";
 
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
-  @Deprecated (forRemoval = true, since = "9.1.1")
-  public static final boolean DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED = false;
 
   /**
    * The regular expression to be used for validating participant identifier
@@ -54,8 +52,6 @@ public final class PeppolIdentifierHelper
   public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
 
   private static final AtomicBoolean CHARSET_CHECKS_DISABLED = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
-  @Deprecated (forRemoval = true, since = "9.1.1")
-  private static final AtomicBoolean SCHEME_MAX_LENGTH_CHECKS_DISABLED = new AtomicBoolean (DEFAULT_SCHEME_MAX_LENGTH_CHECKS_DISABLED);
 
   /**
    * The default document identifier scheme.<br>
@@ -165,30 +161,6 @@ public final class PeppolIdentifierHelper
     CHARSET_CHECKS_DISABLED.set (bDisable);
   }
 
-  /**
-   * @return <code>true</code> if the maximum length checks for identifier
-   *         schemes is disabled. This is required for BDSML but must be
-   *         <code>false</code> for the old SML.
-   */
-  @Deprecated (forRemoval = true, since = "9.1.1")
-  public static boolean areSchemeMaxLengthChecksDisabled ()
-  {
-    return SCHEME_MAX_LENGTH_CHECKS_DISABLED.get ();
-  }
-
-  /**
-   * Disable the maximum length check for identifier scheme values.
-   *
-   * @param bDisable
-   *        <code>true</code> to disable the check (for BDSML) or
-   *        <code>false</code> to enabled the check (for old SML).
-   */
-  @Deprecated (forRemoval = true, since = "9.1.1")
-  public static void disableSchemeMaxLengthChecks (final boolean bDisable)
-  {
-    SCHEME_MAX_LENGTH_CHECKS_DISABLED.set (bDisable);
-  }
-
   private static boolean _isForbiddenSchemeIDChar (final char c)
   {
     // Disallow all whitespace chars
@@ -206,7 +178,6 @@ public final class PeppolIdentifierHelper
    *        The scheme to check.
    * @return <code>true</code> if the passed scheme is a valid identifier
    *         scheme, <code>false</code> otherwise.
-   * @see #areSchemeMaxLengthChecksDisabled()
    */
   public static boolean isValidIdentifierScheme (@Nullable final String sScheme)
   {
@@ -225,9 +196,8 @@ public final class PeppolIdentifierHelper
       if (_isForbiddenSchemeIDChar (c))
         return false;
 
-    if (!areSchemeMaxLengthChecksDisabled ())
-      if (nLength > MAX_IDENTIFIER_SCHEME_LENGTH)
-        return false;
+    if (nLength > MAX_IDENTIFIER_SCHEME_LENGTH)
+      return false;
 
     return true;
   }

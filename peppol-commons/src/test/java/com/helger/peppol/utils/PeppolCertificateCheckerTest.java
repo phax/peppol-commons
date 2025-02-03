@@ -32,6 +32,7 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.state.ETriState;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
+import com.helger.security.revocation.ERevocationCheckMode;
 
 /**
  * Test class for class {@link PeppolCertificateChecker}

@@ -16,14 +16,9 @@
  */
 package com.helger.smpclient.exception;
 
-import java.net.ConnectException;
-import java.net.UnknownHostException;
-
 import javax.annotation.Nonnull;
 
 import org.apache.hc.client5.http.HttpResponseException;
-
-import com.helger.commons.annotation.DevelopersNote;
 
 /**
  * This exception is thrown, if the HTTP response was 404. See also
@@ -34,20 +29,6 @@ import com.helger.commons.annotation.DevelopersNote;
 public class SMPClientNotFoundException extends SMPClientException
 {
   public SMPClientNotFoundException (@Nonnull final HttpResponseException ex)
-  {
-    super (ex);
-  }
-
-  @Deprecated (forRemoval = true, since = "9.5.0")
-  @DevelopersNote ("Use SMPClientParticipantNotFoundException instead")
-  public SMPClientNotFoundException (@Nonnull final UnknownHostException ex)
-  {
-    super (ex);
-  }
-
-  @Deprecated (forRemoval = true, since = "9.5.0")
-  @DevelopersNote ("Use SMPClientParticipantNotFoundException instead")
-  public SMPClientNotFoundException (@Nonnull final ConnectException ex)
   {
     super (ex);
   }

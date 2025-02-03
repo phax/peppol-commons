@@ -18,6 +18,8 @@ package com.helger.peppol.utils;
 
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.security.revocation.AbstractRevocationCheckBuilder;
+
 /**
  * A generic revocation check builder that works with arbitrary certificates.
  * Contains no specific pre-configuration.

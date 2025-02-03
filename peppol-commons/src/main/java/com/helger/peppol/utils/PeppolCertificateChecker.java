@@ -19,7 +19,6 @@ package com.helger.peppol.utils;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
-import java.time.OffsetDateTime;
 import java.util.Date;
 
 import javax.annotation.Nonnull;
@@ -32,7 +31,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.state.ETriState;
+import com.helger.security.revocation.AbstractRevocationCheckBuilder;
+import com.helger.security.revocation.RevocationCheckResultCache;
 
 /**
  * The Peppol certificate checker
@@ -43,14 +43,6 @@ import com.helger.commons.state.ETriState;
 @ThreadSafe
 public final class PeppolCertificateChecker
 {
-  /**
-   * @deprecated Use
-   *             {@link CertificateRevocationCheckerDefaults#DEFAULT_CACHE_REVOCATION_CHECK_RESULTS}
-   *             instead
-   */
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static final boolean DEFAULT_CACHE_OSCP_RESULTS = CertificateRevocationCheckerDefaults.DEFAULT_CACHE_REVOCATION_CHECK_RESULTS;
-
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateChecker.class);
 
   private static final PeppolCAChecker TEST_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
@@ -139,47 +131,6 @@ public final class PeppolCertificateChecker
   }
 
   /**
-   * @return <code>true</code> if OSCP results may be cached, <code>false</code>
-   *         if not. The default is
-   *         {@value CertificateRevocationCheckerDefaults#DEFAULT_CACHE_REVOCATION_CHECK_RESULTS}.
-   * @deprecated Use
-   *             {@link CertificateRevocationCheckerDefaults#isCacheRevocationCheckResults()}
-   *             instead
-   */
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static boolean isCacheOCSPResults ()
-  {
-    return CertificateRevocationCheckerDefaults.isCacheRevocationCheckResults ();
-  }
-
-  /**
-   * Enable or disable caching of OSCP results.
-   *
-   * @param bCache
-   *        <code>true</code> to enable caching, <code>false</code> to disable
-   *        it.
-   * @deprecated Use
-   *             {@link CertificateRevocationCheckerDefaults#setCacheRevocationCheckResults(boolean)}
-   *             instead
-   */
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static void setCacheOCSPResults (final boolean bCache)
-  {
-    CertificateRevocationCheckerDefaults.setCacheRevocationCheckResults (bCache);
-  }
-
-  /**
-   * Remove all entries from the OSCP cache.
-   *
-   * @deprecated Use {@link #clearRevocationCheckCache()} instead
-   */
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static void clearOCSPCache ()
-  {
-    clearRevocationCheckCache ();
-  }
-
-  /**
    * Remove all entries from the OSCP cache.
    */
   public static void clearRevocationCheckCache ()
@@ -195,17 +146,6 @@ public final class PeppolCertificateChecker
     TEST_EB2B_AP.clearRevocationCache ();
 
     LOGGER.info ("The PeppolCertificateChecker revocation cache was cleared");
-  }
-
-  /**
-   * @return A new {@link RevocationCheckBuilder} instance.
-   * @since 8.5.2
-   * @deprecated Instantiate the class directly. No Peppol specifics remaining.
-   */
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static RevocationCheckBuilder peppolRevocationCheck ()
-  {
-    return new RevocationCheckBuilder ();
   }
 
   /**
@@ -332,69 +272,5 @@ public final class PeppolCertificateChecker
       LOGGER.debug ("The Peppol Certificate seems to be valid");
 
     return EPeppolCertificateCheckResult.VALID;
-  }
-
-  /**
-   * Check if the provided certificate is a valid Peppol AP certificate.
-   *
-   * @param aCert
-   *        The certificate to be checked. May be <code>null</code>.
-   * @param aCheckDT
-   *        The check date and time to use. May be <code>null</code> which means
-   *        "now".
-   * @param eCacheRevocationCheckResult
-   *        Possibility to override the usage of OSCP caching flag on a per
-   *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
-   *        global flag.
-   * @param eCheckMode
-   *        Possibility to override the OSCP checking flag on a per query basis.
-   *        May be <code>null</code> to use the global flag from
-   *        {@link CertificateRevocationCheckerDefaults#getRevocationCheckMode()}.
-   * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
-   * @deprecated Use {@link #peppolAllAP()}, {@link #peppolTestAP()} or
-   *             {@link #peppolProductionAP()} with
-   *             {@link PeppolCAChecker#checkCertificate(X509Certificate, OffsetDateTime, ETriState, ERevocationCheckMode)}
-   *             instead
-   */
-  @Nonnull
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static EPeppolCertificateCheckResult checkPeppolAPCertificate (@Nullable final X509Certificate aCert,
-                                                                        @Nullable final OffsetDateTime aCheckDT,
-                                                                        @Nonnull final ETriState eCacheRevocationCheckResult,
-                                                                        @Nullable final ERevocationCheckMode eCheckMode)
-  {
-    return peppolAllAP ().checkCertificate (aCert, aCheckDT, eCacheRevocationCheckResult, eCheckMode);
-  }
-
-  /**
-   * Check if the provided certificate is a valid Peppol SMP certificate.
-   *
-   * @param aCert
-   *        The certificate to be checked. May be <code>null</code>.
-   * @param aCheckDT
-   *        The check date and time to use. May be <code>null</code> which means
-   *        "now".
-   * @param eCacheRevocationCheckResult
-   *        Possibility to override the usage of OSCP caching flag on a per
-   *        query basis. Use {@link ETriState#UNDEFINED} to solely use the
-   *        global flag.
-   * @param eCheckMode
-   *        Possibility to override the OSCP checking flag on a per query basis.
-   *        May be <code>null</code> to use the global flag from
-   *        {@link CertificateRevocationCheckerDefaults#getRevocationCheckMode()}.
-   * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
-   * @deprecated Use {@link #peppolAllSMP()}, {@link #peppolTestSMP()} or
-   *             {@link #peppolProductionSMP()} with
-   *             {@link PeppolCAChecker#checkCertificate(X509Certificate, OffsetDateTime, ETriState, ERevocationCheckMode)}
-   *             instead
-   */
-  @Nonnull
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static EPeppolCertificateCheckResult checkPeppolSMPCertificate (@Nullable final X509Certificate aCert,
-                                                                         @Nullable final OffsetDateTime aCheckDT,
-                                                                         @Nonnull final ETriState eCacheRevocationCheckResult,
-                                                                         @Nullable final ERevocationCheckMode eCheckMode)
-  {
-    return peppolAllSMP ().checkCertificate (aCert, aCheckDT, eCacheRevocationCheckResult, eCheckMode);
   }
 }

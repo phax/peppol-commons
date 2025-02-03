@@ -20,14 +20,8 @@ import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.jaxb.GenericJAXBMarshaller;
-import com.helger.xml.namespace.MapBasedNamespaceContext;
-import com.helger.xsds.peppol.id1.CPeppolID;
 import com.helger.xsds.peppol.smp1.CSMPDataTypes;
-import com.helger.xsds.peppol.smp1.ObjectFactory;
-import com.helger.xsds.wsaddr.CWSAddr;
-import com.helger.xsds.xmldsig.CXMLDSig;
 
 import jakarta.xml.bind.JAXBElement;
 
@@ -40,33 +34,10 @@ import jakarta.xml.bind.JAXBElement;
  */
 public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  @Nonnull
-  @ReturnsMutableCopy
-  @Deprecated (forRemoval = true, since = "9.0.5")
-  public static MapBasedNamespaceContext createDefaultNamespaceContext ()
-  {
-    final MapBasedNamespaceContext aNSContext = new MapBasedNamespaceContext ();
-    aNSContext.addMapping ("smp", ObjectFactory._ServiceGroup_QNAME.getNamespaceURI ());
-    aNSContext.addMapping ("id", CPeppolID.NS_URI_PEPPOL_IDENTIFIERS);
-    aNSContext.addMapping (CXMLDSig.DEFAULT_PREFIX, CXMLDSig.NAMESPACE_URI);
-    aNSContext.addMapping (CWSAddr.DEFAULT_PREFIX, CWSAddr.NAMESPACE_URI);
-    return aNSContext;
-  }
-
   protected AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                    @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     super (aType, CSMPDataTypes.getAllXSDResources (), aWrapper);
     setNamespaceContext (PeppolSMPClientNamespaceContext.getInstance ());
-  }
-
-  @Deprecated (since = "9.0.5", forRemoval = true)
-  public AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                final boolean bValidationEnabled,
-                                @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
-  {
-    this (aType, aWrapper);
-    // Call this from the outside if needed
-    setUseSchema (bValidationEnabled);
   }
 }

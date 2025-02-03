@@ -27,7 +27,6 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
-import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.xsds.peppol.id1.ProcessIdentifierType;
@@ -138,9 +137,8 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
   }
 
   /**
-   * Take the passed identifier scheme and value try to convert it back to a
-   * process identifier. If the passed scheme is invalid or if the passed value
-   * is invalid, <code>null</code> is returned.
+   * Take the passed identifier scheme and value and create a new
+   * {@link PeppolProcessIdentifier}. This method is for internal use only.
    *
    * @param sScheme
    *        The identifier scheme. May be <code>null</code> in which case
@@ -150,19 +148,7 @@ public class PeppolProcessIdentifier extends ProcessIdentifierType implements
    *        <code>null</code> is returned.
    * @return The process identifier or <code>null</code> if any of the parts is
    *         invalid.
-   * @see PeppolIdentifierFactory#isProcessIdentifierSchemeValid(String)
-   * @see PeppolIdentifierFactory#isProcessIdentifierValueValid(String, String)
    */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "9.3.7")
-  public static PeppolProcessIdentifier createIfValid (@Nullable final String sScheme, @Nullable final String sValue)
-  {
-    if (PeppolIdentifierFactory.INSTANCE.isProcessIdentifierSchemeValid (sScheme) &&
-        PeppolIdentifierFactory.INSTANCE.isProcessIdentifierValueValid (sScheme, sValue))
-      return internalCreatePreVerified (sScheme, sValue);
-    return null;
-  }
-
   @Nonnull
   public static PeppolProcessIdentifier internalCreatePreVerified (@Nullable final String sScheme,
                                                                    @Nullable final String sValue)

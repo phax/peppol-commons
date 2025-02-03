@@ -36,17 +36,4 @@ public class SMPMarshallerSignedServiceMetadataType extends AbstractSMPMarshalle
   {
     super (SignedServiceMetadataType.class, new ObjectFactory ()::createSignedServiceMetadata);
   }
-
-  /**
-   * Constructor
-   *
-   * @param bValidationEnabled
-   *        <code>true</code> if XSD validation should be used,
-   *        <code>false</code> to not verify it.
-   */
-  @Deprecated (since = "9.0.5", forRemoval = true)
-  public SMPMarshallerSignedServiceMetadataType (final boolean bValidationEnabled)
-  {
-    super (SignedServiceMetadataType.class, bValidationEnabled, new ObjectFactory ()::createSignedServiceMetadata);
-  }
 }

@@ -41,9 +41,9 @@ public final class ESMPTransportProfileTest
       assertSame (e, ESMPTransportProfile.getFromIDOrNull (e.getID ()));
     }
     assertSame (ESMPTransportProfileState.ACTIVE, ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2.getState ());
-    assertFalse (ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2.isDeprecated ());
+    assertFalse (ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2.getState ().isDeprecated ());
 
     assertSame (ESMPTransportProfileState.DEPRECATED, ESMPTransportProfile.TRANSPORT_PROFILE_AS4.getState ());
-    assertTrue (ESMPTransportProfile.TRANSPORT_PROFILE_AS4.isDeprecated ());
+    assertTrue (ESMPTransportProfile.TRANSPORT_PROFILE_AS4.getState ().isDeprecated ());
   }
 }

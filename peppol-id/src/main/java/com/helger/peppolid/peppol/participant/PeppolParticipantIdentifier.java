@@ -30,7 +30,6 @@ import com.helger.commons.string.StringParser;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
-import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.validator.IdentifierValidator;
@@ -205,9 +204,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Take the passed identifier scheme and value try to convert it back to a
-   * participant identifier. If the passed scheme is invalid or if the passed
-   * value is invalid, <code>null</code> is returned.
+   * Take the passed identifier scheme and value create a new
+   * {@link PeppolParticipantIdentifier}. This is for internal usage only.
    *
    * @param sScheme
    *        The identifier scheme. May be <code>null</code> in which case
@@ -217,20 +215,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    *        <code>null</code> is returned.
    * @return The participant identifier or <code>null</code> if any of the parts
    *         is invalid.
-   * @see PeppolIdentifierFactory#isParticipantIdentifierSchemeValid(String)
-   * @see PeppolIdentifierFactory#isParticipantIdentifierValueValid(String,String)
    */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "9.3.7")
-  public static PeppolParticipantIdentifier createIfValid (@Nullable final String sScheme,
-                                                           @Nullable final String sValue)
-  {
-    if (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierSchemeValid (sScheme) &&
-        PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (sScheme, sValue))
-      return internalCreatePreVerified (sScheme, sValue);
-    return null;
-  }
-
   @Nonnull
   public static PeppolParticipantIdentifier internalCreatePreVerified (@Nullable final String sScheme,
                                                                        @Nullable final String sValue)

@@ -52,19 +52,6 @@ public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, S
   String getName ();
 
   /**
-   * Check if this transport profile is deprecated or not.<br>
-   * Since v8.8.3 this method is deprecated in favour of {@link #getState()}
-   *
-   * @return <code>true</code> if it is deprecated, <code>false</code> if not.
-   * @since 5.2.6
-   */
-  @Deprecated
-  default boolean isDeprecated ()
-  {
-    return getState () == ESMPTransportProfileState.DEPRECATED;
-  }
-
-  /**
    * @return The state of the transport profile. May not be <code>null</code>.
    * @since 8.8.3
    */

@@ -69,7 +69,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
    */
   @Nonnull
   @Override
-  @Deprecated
+  @Deprecated (forRemoval = false)
   public String getDefaultDocumentTypeIdentifierScheme ()
   {
     // For backwards compatibility reason

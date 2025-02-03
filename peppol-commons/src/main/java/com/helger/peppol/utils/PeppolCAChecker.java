@@ -26,6 +26,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ETriState;
+import com.helger.security.certificate.TrustedCACertificates;
+import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
+import com.helger.security.revocation.ERevocationCheckMode;
+import com.helger.security.revocation.RevocationCheckResultCache;
 
 /**
  * This is a specific helper class to check the validity of Peppol certificates

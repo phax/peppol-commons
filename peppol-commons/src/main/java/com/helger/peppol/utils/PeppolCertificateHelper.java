@@ -16,7 +16,6 @@
  */
 package com.helger.peppol.utils;
 
-import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 
 import javax.annotation.Nonnull;
@@ -28,8 +27,6 @@ import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * A specific Peppol certificate helper
@@ -87,22 +84,5 @@ public final class PeppolCertificateHelper
   public static String getCN (@Nullable final String sPrincipal) throws InvalidNameException
   {
     return getPrincipalTypeValue (sPrincipal, PRINCIPAL_TYPE_CN);
-  }
-
-  /**
-   * Get all trusted certificates
-   *
-   * @param aTrustStore
-   *        Trust store to iterate
-   * @return A non-<code>null</code> set of all trusted certificates. Never
-   *         <code>null</code>.
-   * @deprecated Use the method in {@link PeppolKeyStoreHelper} instead
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static ICommonsSet <X509Certificate> getAllTrustedCertificates (@Nullable final KeyStore aTrustStore)
-  {
-    return PeppolKeyStoreHelper.getAllTrustedCertificates (aTrustStore);
   }
 }

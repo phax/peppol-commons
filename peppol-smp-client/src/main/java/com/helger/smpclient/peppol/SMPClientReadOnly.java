@@ -23,7 +23,6 @@ import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,11 +39,9 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.wrapper.Wrapper;
-import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.CIdentifier;
@@ -63,20 +60,15 @@ import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerUnsigned;
-import com.helger.smpclient.peppol.PeppolWildcardSelector.EMode;
-import com.helger.smpclient.peppol.marshal.SMPMarshallerCompleteServiceGroupType;
-import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupReferenceListType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerSignedServiceMetadataType;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.peppol.id1.ProcessIdentifierType;
-import com.helger.xsds.peppol.smp1.CompleteServiceGroupType;
 import com.helger.xsds.peppol.smp1.EndpointType;
 import com.helger.xsds.peppol.smp1.ProcessType;
 import com.helger.xsds.peppol.smp1.RedirectType;
-import com.helger.xsds.peppol.smp1.ServiceGroupReferenceListType;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.ServiceInformationType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceType;
@@ -161,215 +153,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   {
     // Peppol limitations should be checked
     super (aSMPHost, true);
-  }
-
-  /**
-   * Gets a list of references to the CompleteServiceGroup's owned by the
-   * specified userId.<br>
-   * NOTE: this API is NOT supported by all SMP implementations. It is based on
-   * a proprietary API provided by the Peppol reference implementation and now
-   * supported by phoss SMP but not all other SMPs.
-   *
-   * @param sUserID
-   *        The username for which to retrieve service groups.
-   * @param aCredentials
-   *        The user name and password to use as credentials.
-   * @return A list of references to complete service groups and never
-   *         <code>null</code>.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         The username or password was not correct.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
-   * @throws SMPClientNotFoundException
-   *         The service group id or document types did not exist.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceGroupReferenceListOrNull(String,
-   *      BasicAuthClientCredentials)
-   */
-  @Nonnull
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public ServiceGroupReferenceListType getServiceGroupReferenceList (@Nonnull final String sUserID,
-                                                                     @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
-  {
-    ValueEnforcer.notNull (sUserID, "UserID");
-    ValueEnforcer.notNull (aCredentials, "Credentials");
-
-    final String sURI = getSMPHostURI () + URL_PART_LIST + "/" + CIdentifier.createPercentEncoded (sUserID);
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("SMPClient getServiceGroupReferenceList@" + sURI);
-
-    final HttpGet aRequest = new HttpGet (sURI);
-    aRequest.addHeader (CHttpHeader.AUTHORIZATION, aCredentials.getRequestValue ());
-
-    // Build the result marshaller
-    final SMPMarshallerServiceGroupReferenceListType aMarshaller = new SMPMarshallerServiceGroupReferenceListType ();
-    aMarshaller.setUseSchema (isXMLSchemaValidation ());
-    customizeMarshaller (aMarshaller);
-
-    return executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
-  }
-
-  /**
-   * Gets a list of references to the CompleteServiceGroup's owned by the
-   * specified userId.<br>
-   * NOTE: this API is NOT supported by all SMP implementations. It is based on
-   * a proprietary API provided by the Peppol reference implementation and now
-   * supported by phoss SMP but not all other SMPs.
-   *
-   * @param sUserID
-   *        The username for which to retrieve service groups.
-   * @param aCredentials
-   *        The user name and password to use as credentials.
-   * @return A list of references to complete service groups or
-   *         <code>null</code> if no such user exists.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         The username or password was not correct.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceGroupReferenceList(String, BasicAuthClientCredentials)
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public ServiceGroupReferenceListType getServiceGroupReferenceListOrNull (@Nonnull final String sUserID,
-                                                                           @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
-  {
-    try
-    {
-      return getServiceGroupReferenceList (sUserID, aCredentials);
-    }
-    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Found no ServiceGroupReferenceList");
-      return null;
-    }
-  }
-
-  /**
-   * Returns a complete service group. A complete service group contains both
-   * the service group and the service metadata. This is a non-specification
-   * compliant method.<br>
-   * NOTE: this API is NOT supported by all SMP implementations. It is based on
-   * a proprietary API provided by the Peppol reference implementation and now
-   * supported by phoss SMP but not all other SMPs.
-   *
-   * @param sCompleteURI
-   *        The complete URL for the full service group to query.
-   * @return The complete service group containing service group and service
-   *         metadata. Never <code>null</code>.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
-   * @throws SMPClientNotFoundException
-   *         The service group id or document types did not exist.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getCompleteServiceGroup(IParticipantIdentifier)
-   * @see #getCompleteServiceGroupOrNull(IParticipantIdentifier)
-   * @deprecated Because this API is non-standard for the Peppol SMP
-   */
-  @Nonnull
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public CompleteServiceGroupType getCompleteServiceGroup (@Nonnull final String sCompleteURI) throws SMPClientException
-  {
-    ValueEnforcer.notEmpty (sCompleteURI, "CompleteURL");
-
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("SMPClient getCompleteServiceGroup@" + sCompleteURI);
-
-    final HttpGet aRequest = new HttpGet (sCompleteURI);
-
-    final SMPMarshallerCompleteServiceGroupType aMarshaller = new SMPMarshallerCompleteServiceGroupType ();
-    aMarshaller.setUseSchema (isXMLSchemaValidation ());
-    customizeMarshaller (aMarshaller);
-
-    return executeGenericRequest (aRequest, new SMPHttpResponseHandlerUnsigned <> (aMarshaller));
-  }
-
-  /**
-   * Returns a complete service group. A complete service group contains both
-   * the service group and the service metadata. This is a non-specification
-   * compliant method.<br>
-   * NOTE: this API is NOT supported by all SMP implementations. It is based on
-   * a proprietary API provided by the Peppol reference implementation and now
-   * supported by phoss SMP but not all other SMPs.
-   *
-   * @param aServiceGroupID
-   *        The service group id corresponding to the service group which one
-   *        wants to get.
-   * @return The complete service group containing service group and service
-   *         metadata. Never <code>null</code>.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
-   * @throws SMPClientNotFoundException
-   *         The service group id or document types did not exist.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getCompleteServiceGroup(String)
-   * @see #getCompleteServiceGroupOrNull(IParticipantIdentifier)
-   * @deprecated Because this API is non-standard for the Peppol SMP
-   */
-  @Nonnull
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public CompleteServiceGroupType getCompleteServiceGroup (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
-  {
-    ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
-
-    return getCompleteServiceGroup (getSMPHostURI () +
-                                    URL_PART_COMPLETE +
-                                    "/" +
-                                    aServiceGroupID.getURIPercentEncoded ());
-  }
-
-  /**
-   * Returns a complete service group. A complete service group contains both
-   * the service group and the service metadata. This is a non-specification
-   * compliant method.<br>
-   * NOTE: this API is NOT supported by all SMP implementations. It is based on
-   * a proprietary API provided by the Peppol reference implementation and now
-   * supported by phoss SMP but not all other SMPs.
-   *
-   * @param aServiceGroupID
-   *        The service group id corresponding to the service group which one
-   *        wants to get.
-   * @return The complete service group containing service group and service
-   *         metadata or <code>null</code> if no such service group exists.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getCompleteServiceGroup(String)
-   * @see #getCompleteServiceGroup(IParticipantIdentifier)
-   * @deprecated Because this API is non-standard for the Peppol SMP
-   */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public CompleteServiceGroupType getCompleteServiceGroupOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
-  {
-    try
-    {
-      return getCompleteServiceGroup (aServiceGroupID);
-    }
-    catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Found no CompleteServiceGroup");
-      return null;
-    }
   }
 
   @Nonnull
@@ -1081,55 +864,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
   }
 
-  /**
-   * Helper method to iterate all matching document type identifiers. This
-   * method prefers direct matches ("busdox-docid-qns") over wildcard matches
-   * ("peppol-doctype-wildcard").
-   *
-   * @param aBaseDocTypes
-   *        The list of document types to filter. Usually this list was obtained
-   *        from an SMP query "get all receiving capabilities of participant".
-   *        May not be <code>null</code>, but maybe empty.
-   * @param sDocTypeValue
-   *        The document type identifier value (!) <b>without</b> the scheme to
-   *        search. The schemes are added internally automatically.
-   * @param aMatchingDocTypeConsumer
-   *        The consumer to be invoked for each match. May not be
-   *        <code>null</code>.
-   * @since 8.8.1
-   * @deprecated Use {@link PeppolWildcardSelector} instead
-   */
-  @Deprecated (forRemoval = true, since = "9.2.0")
-  public static void forEachMatchingWildcardDocumentType (@Nonnull final ICommonsList <? extends IDocumentTypeIdentifier> aBaseDocTypes,
-                                                          @Nonnull @Nonempty final String sDocTypeValue,
-                                                          @Nonnull final Function <? super IDocumentTypeIdentifier, EContinue> aMatchingDocTypeConsumer)
-  {
-    // For backwards compatibility
-    new PeppolWildcardSelector (EMode.BUSDOX_THEN_WILDCARD).forEachMatchingDocumentType (aBaseDocTypes,
-                                                                                         sDocTypeValue,
-                                                                                         aMatchingDocTypeConsumer);
-  }
-
-  @Nullable
-  @Deprecated (forRemoval = true, since = "9.2.0")
-  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final ServiceGroupType aServiceGroup,
-                                                                     @Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
-  {
-    return getWildcardServiceMetadataOrNull (aServiceGroup,
-                                             aServiceGroupID,
-                                             aDocumentTypeID,
-                                             EMode.BUSDOX_THEN_WILDCARD);
-  }
-
-  @Nullable
-  @Deprecated (forRemoval = true, since = "9.2.0")
-  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
-  {
-    return getWildcardServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID, EMode.BUSDOX_THEN_WILDCARD);
-  }
-
   @Pfuoi420
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final ServiceGroupType aServiceGroup,
                                                                      @Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -1195,45 +929,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     // Select and query service metadata
     return getWildcardServiceMetadataOrNull (aSG, aServiceGroupID, aDocumentTypeID, eSelectionMode);
-  }
-
-  /**
-   * Returns a complete service group. A complete service group contains both
-   * the service group and the service metadata.<br>
-   * NOTE: this API is NOT supported by all SMP implementations. It is based on
-   * a proprietary API provided by the Peppol reference implementation and now
-   * supported by phoss SMP but not all other SMPs.
-   *
-   * @param aURLProvider
-   *        The URL provider to be used. May not be <code>null</code>.
-   * @param aSMLInfo
-   *        The SML object to be used
-   * @param aServiceGroupID
-   *        The service group id corresponding to the service group which one
-   *        wants to get.
-   * @return The complete service group containing service group and service
-   *         metadata
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPDNSResolutionException
-   *         if DNS resolution fails
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientParticipantNotFoundException
-   *         The service group id does not exist in the network.
-   * @throws SMPClientNotFoundException
-   *         The service group id or document types did not exist.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   */
-  @Nonnull
-  @Deprecated (forRemoval = true, since = "9.6.0")
-  public static CompleteServiceGroupType getCompleteServiceGroupByDNS (@Nonnull final ISMPURLProvider aURLProvider,
-                                                                       @Nonnull final ISMLInfo aSMLInfo,
-                                                                       @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
-                                                                                                                              SMPDNSResolutionException
-  {
-    return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getCompleteServiceGroup (aServiceGroupID);
   }
 
   /**

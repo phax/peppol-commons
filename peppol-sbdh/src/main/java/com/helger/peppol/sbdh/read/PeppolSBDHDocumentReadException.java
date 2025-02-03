@@ -17,7 +17,6 @@
 package com.helger.peppol.sbdh.read;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.xsds.peppol.id1.ChangeV10;
 
@@ -41,14 +40,6 @@ public class PeppolSBDHDocumentReadException extends Exception
   public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode)
   {
     super (eErrorCode.getErrorMessage ());
-    m_eErrorCode = eErrorCode;
-  }
-
-  @Deprecated (forRemoval = true, since = "9.2.0")
-  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode,
-                                          @Nullable final Object... aArgs)
-  {
-    super (eErrorCode.getErrorMessage (aArgs));
     m_eErrorCode = eErrorCode;
   }
 

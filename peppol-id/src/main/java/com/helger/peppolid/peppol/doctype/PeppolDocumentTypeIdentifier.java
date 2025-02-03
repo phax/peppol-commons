@@ -27,7 +27,6 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
-import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.xsds.peppol.id1.DocumentIdentifierType;
@@ -152,9 +151,8 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   /**
-   * Take the passed identifier scheme and value try to convert it back to a
-   * document identifier. If the passed scheme is invalid or if the passed value
-   * is invalid, <code>null</code> is returned.
+   * Take the passed identifier scheme and value and create a new
+   * {@link PeppolDocumentTypeIdentifier}. Internal method.
    *
    * @param sScheme
    *        The identifier scheme. May be <code>null</code> in which case
@@ -164,21 +162,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *        <code>null</code> is returned.
    * @return The document type identifier or <code>null</code> if any of the
    *         parts is invalid.
-   * @see PeppolIdentifierFactory#isDocumentTypeIdentifierSchemeValid(String)
-   * @see PeppolIdentifierFactory#isDocumentTypeIdentifierValueValid(String,
-   *      String)
    */
-  @Nullable
-  @Deprecated (forRemoval = true, since = "9.3.7")
-  public static PeppolDocumentTypeIdentifier createIfValid (@Nullable final String sScheme,
-                                                            @Nullable final String sValue)
-  {
-    if (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierSchemeValid (sScheme) &&
-        PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (sScheme, sValue))
-      return internalCreatePreVerified (sScheme, sValue);
-    return null;
-  }
-
   @Nonnull
   public static PeppolDocumentTypeIdentifier internalCreatePreVerified (@Nullable final String sScheme,
                                                                         @Nullable final String sValue)

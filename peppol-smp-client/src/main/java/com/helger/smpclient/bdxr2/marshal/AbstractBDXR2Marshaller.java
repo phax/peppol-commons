@@ -43,15 +43,4 @@ public abstract class AbstractBDXR2Marshaller <JAXBTYPE> extends GenericJAXBMars
     super (aType, aXSDs, aWrapper);
     setNamespaceContext (BDXR2NamespaceContext.getInstance ());
   }
-
-  @Deprecated (since = "9.0.5", forRemoval = true)
-  public AbstractBDXR2Marshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                  final boolean bValidationEnabled,
-                                  @Nonnull final ICommonsList <ClassPathResource> aXSDs,
-                                  @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
-  {
-    this (aType, aXSDs, aWrapper);
-    // Call this from the outside if needed
-    setUseSchema (bValidationEnabled);
-  }
 }
