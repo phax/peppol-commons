@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.sbdh.read;
+package com.helger.peppol.sbdh;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,15 +23,13 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.text.util.TextHelper;
-import com.helger.xsds.peppol.id1.ChangeV10;
 
 /**
  * This enum contains all the errors that can occur during SBD reading
  *
  * @author Philip Helger
  */
-@ChangeV10 ("Move to package of PeppolSBDHData; rename to EPeppolSBDHDataError")
-public enum EPeppolSBDHDocumentReadError implements IHasID <String>
+public enum EPeppolSBDHDataError implements IHasID <String>
 {
   /** Failed to interpret StandardBusinessDocument as XML */
   INVALID_SBD_XML ("invalid-sbd-xml", "Failed to interpret StandardBusinessDocument as XML."),
@@ -136,7 +134,7 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   private final String m_sID;
   private final String m_sErrorMsg;
 
-  EPeppolSBDHDocumentReadError (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sErrorMsg)
+  EPeppolSBDHDataError (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sErrorMsg)
   {
     m_sID = sID;
     m_sErrorMsg = sErrorMsg;
@@ -173,15 +171,15 @@ public enum EPeppolSBDHDocumentReadError implements IHasID <String>
   }
 
   @Nullable
-  public static EPeppolSBDHDocumentReadError getFromIDOrNull (@Nullable final String sID)
+  public static EPeppolSBDHDataError getFromIDOrNull (@Nullable final String sID)
   {
-    return EnumHelper.getFromIDOrNull (EPeppolSBDHDocumentReadError.class, sID);
+    return EnumHelper.getFromIDOrNull (EPeppolSBDHDataError.class, sID);
   }
 
   @Nullable
-  public static EPeppolSBDHDocumentReadError getFromIDOrDefault (@Nullable final String sID,
-                                                                 @Nullable final EPeppolSBDHDocumentReadError eDefault)
+  public static EPeppolSBDHDataError getFromIDOrDefault (@Nullable final String sID,
+                                                         @Nullable final EPeppolSBDHDataError eDefault)
   {
-    return EnumHelper.getFromIDOrDefault (EPeppolSBDHDocumentReadError.class, sID, eDefault);
+    return EnumHelper.getFromIDOrDefault (EPeppolSBDHDataError.class, sID, eDefault);
   }
 }

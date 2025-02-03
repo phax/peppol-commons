@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.sbdh.read;
+package com.helger.peppol.sbdh;
 
 import java.io.InputStream;
 
@@ -46,9 +46,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.sbdh.CPeppolSBDH;
-import com.helger.peppol.sbdh.PeppolSBDHAdditionalAttributes;
-import com.helger.peppol.sbdh.PeppolSBDHData;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -56,7 +53,6 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
-import com.helger.xsds.peppol.id1.ChangeV10;
 
 /**
  * Main class to read standard business documents and extract the Peppol
@@ -65,20 +61,19 @@ import com.helger.xsds.peppol.id1.ChangeV10;
  * @author Philip Helger
  */
 @NotThreadSafe
-@ChangeV10 ("Move to package of PeppolSBDHData")
-public class PeppolSBDHDocumentReader
+public class PeppolSBDHDataReader
 {
   public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;
   public static final boolean DEFAULT_CHECK_FOR_COUNTRY_C1 = true;
   public static final String DEFAULT_COUNTRY_CODE_REGEX = "[A-Z0-9][A-Z0-9]";
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDocumentReader.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDataReader.class);
 
   private final IIdentifierFactory m_aIdentifierFactory;
   private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
   private boolean m_bCheckForCountryC1 = DEFAULT_CHECK_FOR_COUNTRY_C1;
 
-  public PeppolSBDHDocumentReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  public PeppolSBDHDataReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
 
@@ -117,7 +112,7 @@ public class PeppolSBDHDocumentReader
    * @since 8.2.3
    */
   @Nonnull
-  public final PeppolSBDHDocumentReader setPerformValueChecks (final boolean b)
+  public final PeppolSBDHDataReader setPerformValueChecks (final boolean b)
   {
     m_bPerformValueChecks = b;
     return this;
@@ -147,7 +142,7 @@ public class PeppolSBDHDocumentReader
    * @since 9.2.2
    */
   @Nonnull
-  public final PeppolSBDHDocumentReader setCheckForCountryC1 (final boolean b)
+  public final PeppolSBDHDataReader setCheckForCountryC1 (final boolean b)
   {
     final boolean bChanged = b != m_bCheckForCountryC1;
     m_bCheckForCountryC1 = b;
@@ -476,12 +471,12 @@ public class PeppolSBDHDocumentReader
    *        The input stream to read from. Will be closed by this method. May
    *        not be <code>null</code>.
    * @return The document data and never <code>null</code>.
-   * @throws PeppolSBDHDocumentReadException
+   * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to
    *         the Peppol rules.
    */
   @Nonnull
-  public PeppolSBDHData extractData (@Nonnull @WillClose final InputStream aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
+  public PeppolSBDHData extractData (@Nonnull @WillClose final InputStream aStandardBusinessDocument) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -490,7 +485,7 @@ public class PeppolSBDHDocumentReader
       // Convert to domain object
       final StandardBusinessDocument aSBD = createSBDMarshaller ().read (aStandardBusinessDocument);
       if (aSBD == null)
-        throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
+        throw new PeppolSBDHDataReadException (EPeppolSBDHDataError.INVALID_SBD_XML);
 
       return extractData (aSBD);
     }
@@ -507,19 +502,19 @@ public class PeppolSBDHDocumentReader
    * @param aStandardBusinessDocument
    *        The resource to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
-   * @throws PeppolSBDHDocumentReadException
+   * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to
    *         the Peppol rules.
    */
   @Nonnull
-  public PeppolSBDHData extractData (@Nonnull final IReadableResource aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
+  public PeppolSBDHData extractData (@Nonnull final IReadableResource aStandardBusinessDocument) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
     // Convert to domain object
     final StandardBusinessDocument aSBD = createSBDMarshaller ().read (aStandardBusinessDocument);
     if (aSBD == null)
-      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
+      throw new PeppolSBDHDataReadException (EPeppolSBDHDataError.INVALID_SBD_XML);
 
     return extractData (aSBD);
   }
@@ -531,19 +526,19 @@ public class PeppolSBDHDocumentReader
    * @param aStandardBusinessDocument
    *        The DOM node to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
-   * @throws PeppolSBDHDocumentReadException
+   * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to
    *         the Peppol rules.
    */
   @Nonnull
-  public PeppolSBDHData extractData (@Nonnull final Node aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
+  public PeppolSBDHData extractData (@Nonnull final Node aStandardBusinessDocument) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
     // Convert to domain object
     final StandardBusinessDocument aSBD = createSBDMarshaller ().read (aStandardBusinessDocument);
     if (aSBD == null)
-      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
+      throw new PeppolSBDHDataReadException (EPeppolSBDHDataError.INVALID_SBD_XML);
 
     return extractData (aSBD);
   }
@@ -555,19 +550,19 @@ public class PeppolSBDHDocumentReader
    * @param aStandardBusinessDocument
    *        The domain object to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
-   * @throws PeppolSBDHDocumentReadException
+   * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to
    *         the Peppol rules.
    */
   @Nonnull
-  public PeppolSBDHData extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDocumentReadException
+  public PeppolSBDHData extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
     // Grab the header
     final StandardBusinessDocumentHeader aSBDH = aStandardBusinessDocument.getStandardBusinessDocumentHeader ();
     if (aSBDH == null)
-      throw new PeppolSBDHDocumentReadException (EPeppolSBDHDocumentReadError.MISSING_SBDH);
+      throw new PeppolSBDHDataReadException (EPeppolSBDHDataError.MISSING_SBDH);
 
     final Element aBusinessMessage = (Element) aStandardBusinessDocument.getAny ();
     return extractData (aSBDH, aBusinessMessage);
@@ -575,7 +570,7 @@ public class PeppolSBDHDocumentReader
 
   @Nonnull
   private static IError _toError (@Nullable final String sErrorField,
-                                  @Nonnull final EPeppolSBDHDocumentReadError e,
+                                  @Nonnull final EPeppolSBDHDataError e,
                                   @Nullable final Object... aArgs)
   {
     return SingleError.builderError ()
@@ -608,16 +603,14 @@ public class PeppolSBDHDocumentReader
     // Check that the header version is correct
     if (!isValidHeaderVersion (aSBDH.getHeaderVersion ()))
       aErrorList.add (_toError ("SBDH/HeaderVersion",
-                                EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION,
+                                EPeppolSBDHDataError.INVALID_HEADER_VERSION,
                                 aSBDH.getHeaderVersion ()));
 
     // Check sender
     {
       final int nSenderCount = aSBDH.getSenderCount ();
       if (nSenderCount != 1)
-        aErrorList.add (_toError ("SBDH",
-                                  EPeppolSBDHDocumentReadError.INVALID_SENDER_COUNT,
-                                  Integer.toString (nSenderCount)));
+        aErrorList.add (_toError ("SBDH", EPeppolSBDHDataError.INVALID_SENDER_COUNT, Integer.toString (nSenderCount)));
 
       if (nSenderCount > 0)
       {
@@ -629,7 +622,7 @@ public class PeppolSBDHDocumentReader
           if (!isValidSenderAuthority (sScheme))
           {
             aErrorList.add (_toError ("SBDH/Sender[1]/Identifier/Authority",
-                                      EPeppolSBDHDocumentReadError.INVALID_SENDER_AUTHORITY,
+                                      EPeppolSBDHDataError.INVALID_SENDER_AUTHORITY,
                                       sScheme));
           }
 
@@ -638,7 +631,7 @@ public class PeppolSBDHDocumentReader
           if (!isValidSenderIdentifier (sScheme, sValue))
           {
             aErrorList.add (_toError ("SBDH/Sender[1]/Identifier/Value",
-                                      EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
+                                      EPeppolSBDHDataError.INVALID_SENDER_VALUE,
                                       sValue));
           }
           else
@@ -646,7 +639,7 @@ public class PeppolSBDHDocumentReader
             final IParticipantIdentifier aPID = m_aIdentifierFactory.createParticipantIdentifier (sScheme, sValue);
             if (aPID == null)
               aErrorList.add (_toError ("SBDH/Sender[1]/Identifier",
-                                        EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE,
+                                        EPeppolSBDHDataError.INVALID_SENDER_VALUE,
                                         CIdentifier.getURIEncoded (sScheme, sValue)));
           }
         }
@@ -658,7 +651,7 @@ public class PeppolSBDHDocumentReader
       final int nReceiverCount = aSBDH.getReceiverCount ();
       if (nReceiverCount != 1)
         aErrorList.add (_toError ("SBDH",
-                                  EPeppolSBDHDocumentReadError.INVALID_RECEIVER_COUNT,
+                                  EPeppolSBDHDataError.INVALID_RECEIVER_COUNT,
                                   Integer.toString (nReceiverCount)));
 
       if (nReceiverCount > 0)
@@ -671,7 +664,7 @@ public class PeppolSBDHDocumentReader
           if (!isValidReceiverAuthority (sScheme))
           {
             aErrorList.add (_toError ("SBDH/Receiver[1]/Identifier/Authority",
-                                      EPeppolSBDHDocumentReadError.INVALID_RECEIVER_AUTHORITY,
+                                      EPeppolSBDHDataError.INVALID_RECEIVER_AUTHORITY,
                                       sScheme));
           }
 
@@ -680,7 +673,7 @@ public class PeppolSBDHDocumentReader
           if (!isValidReceiverIdentifier (sScheme, sValue))
           {
             aErrorList.add (_toError ("SBDH/Receiver[1]/Identifier/Value",
-                                      EPeppolSBDHDocumentReadError.INVALID_RECEIVER_VALUE,
+                                      EPeppolSBDHDataError.INVALID_RECEIVER_VALUE,
                                       sValue));
           }
           else
@@ -688,7 +681,7 @@ public class PeppolSBDHDocumentReader
             final IParticipantIdentifier aPID = m_aIdentifierFactory.createParticipantIdentifier (sScheme, sValue);
             if (aPID == null)
               aErrorList.add (_toError ("SBDH/Receiver[1]/Identifier",
-                                        EPeppolSBDHDocumentReadError.INVALID_RECEIVER_VALUE,
+                                        EPeppolSBDHDataError.INVALID_RECEIVER_VALUE,
                                         CIdentifier.getURIEncoded (sScheme, sValue)));
           }
         }
@@ -701,14 +694,14 @@ public class PeppolSBDHDocumentReader
 
     final BusinessScope aBusinessScope = aSBDH.getBusinessScope ();
     if (aBusinessScope == null)
-      aErrorList.add (_toError ("SBDH", EPeppolSBDHDocumentReadError.BUSINESS_SCOPE_MISSING));
+      aErrorList.add (_toError ("SBDH", EPeppolSBDHDataError.BUSINESS_SCOPE_MISSING));
     else
     {
       // Check that at least 3 "Scope" elements are present
       final int nMinimumScopeCount = isCheckForCountryC1 () ? 3 : 2;
       if (aBusinessScope.getScopeCount () < nMinimumScopeCount)
         aErrorList.add (_toError ("SBDH/BusinessScope",
-                                  EPeppolSBDHDocumentReadError.INVALID_SCOPE_COUNT,
+                                  EPeppolSBDHDataError.INVALID_SCOPE_COUNT,
                                   Integer.toString (nMinimumScopeCount),
                                   Integer.toString (aBusinessScope.getScopeCount ())));
 
@@ -725,7 +718,7 @@ public class PeppolSBDHDocumentReader
           if (!isValidDocumentTypeIdentifier (sInstanceIdentifier))
           {
             aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
-                                      EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
+                                      EPeppolSBDHDataError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
                                       sInstanceIdentifier));
           }
           else
@@ -736,7 +729,7 @@ public class PeppolSBDHDocumentReader
             aDocTypeID = m_aIdentifierFactory.createDocumentTypeIdentifier (sScheme, sInstanceIdentifier);
             if (aDocTypeID == null)
               aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]",
-                                        EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
+                                        EPeppolSBDHDataError.INVALID_DOCUMENT_TYPE_IDENTIFIER,
                                         CIdentifier.getURIEncoded (sScheme, sInstanceIdentifier)));
           }
 
@@ -748,7 +741,7 @@ public class PeppolSBDHDocumentReader
             if (!isValidProcessIdentifier (sInstanceIdentifier))
             {
               aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
-                                        EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
+                                        EPeppolSBDHDataError.INVALID_PROCESS_IDENTIFIER,
                                         sInstanceIdentifier));
             }
             else
@@ -758,7 +751,7 @@ public class PeppolSBDHDocumentReader
               aProcessID = m_aIdentifierFactory.createProcessIdentifier (sScheme, sInstanceIdentifier);
               if (aProcessID == null)
                 aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]",
-                                          EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER,
+                                          EPeppolSBDHDataError.INVALID_PROCESS_IDENTIFIER,
                                           CIdentifier.getURIEncoded (sScheme, sInstanceIdentifier)));
             }
             bFoundProcessIDScope = true;
@@ -770,7 +763,7 @@ public class PeppolSBDHDocumentReader
               {
                 if (!isValidCountryC1 (sInstanceIdentifier))
                   aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
-                                            EPeppolSBDHDocumentReadError.INVALID_COUNTRY_C1,
+                                            EPeppolSBDHDataError.INVALID_COUNTRY_C1,
                                             sInstanceIdentifier));
               }
               bFoundCountryC1 = true;
@@ -791,13 +784,13 @@ public class PeppolSBDHDocumentReader
         nScopeIndex1Based++;
       }
       if (!bFoundDocumentIDScope)
-        aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDocumentReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER));
+        aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDataError.MISSING_DOCUMENT_TYPE_IDENTIFIER));
       if (!bFoundProcessIDScope)
-        aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDocumentReadError.MISSING_PROCESS_IDENTIFIER));
+        aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDataError.MISSING_PROCESS_IDENTIFIER));
       if (isCheckForCountryC1 ())
       {
         if (!bFoundCountryC1)
-          aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDocumentReadError.MISSING_COUNTRY_C1));
+          aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDataError.MISSING_COUNTRY_C1));
       }
     }
 
@@ -806,7 +799,7 @@ public class PeppolSBDHDocumentReader
       // Extract the main business message first - cannot be null and must be an
       // Element!
       if (!isValidBusinessMessage (aBusinessMessage))
-        aErrorList.add (_toError (null, EPeppolSBDHDocumentReadError.INVALID_BUSINESS_MESSAGE));
+        aErrorList.add (_toError (null, EPeppolSBDHDataError.INVALID_BUSINESS_MESSAGE));
 
       // This field is mandatory in XML
       final DocumentIdentification aDI = aSBDH.getDocumentIdentification ();
@@ -815,7 +808,7 @@ public class PeppolSBDHDocumentReader
         final String sNamespaceURI = aDI.getStandard ();
         if (!isValidStandard (sNamespaceURI, aBusinessMessage, aDocTypeID.getValue ()))
           aErrorList.add (_toError ("SBDH/DocumentIdentification/Standard",
-                                    EPeppolSBDHDocumentReadError.INVALID_STANDARD,
+                                    EPeppolSBDHDataError.INVALID_STANDARD,
                                     sNamespaceURI,
                                     aBusinessMessage.getNamespaceURI (),
                                     aDocTypeID.getValue ()));
@@ -823,7 +816,7 @@ public class PeppolSBDHDocumentReader
         final String sTypeVersion = aDI.getTypeVersion ();
         if (!isValidTypeVersion (sTypeVersion, aBusinessMessage, aDocTypeID.getValue ()))
           aErrorList.add (_toError ("SBDH/DocumentIdentification/TypeVersion",
-                                    EPeppolSBDHDocumentReadError.INVALID_TYPE_VERSION,
+                                    EPeppolSBDHDataError.INVALID_TYPE_VERSION,
                                     sTypeVersion,
                                     aDocTypeID.getValue ()));
       }
@@ -831,7 +824,7 @@ public class PeppolSBDHDocumentReader
       final String sLocalName = aDI.getType ();
       if (!isValidType (sLocalName, aBusinessMessage))
         aErrorList.add (_toError ("SBDH/DocumentIdentification/Type",
-                                  EPeppolSBDHDocumentReadError.INVALID_TYPE,
+                                  EPeppolSBDHDataError.INVALID_TYPE,
                                   sLocalName,
                                   aBusinessMessage.getLocalName ()));
 
@@ -839,14 +832,14 @@ public class PeppolSBDHDocumentReader
       final String sSBDHID = aDI.getInstanceIdentifier ();
       if (!isValidInstanceIdentifier (sSBDHID))
         aErrorList.add (_toError ("SBDH/DocumentIdentification/InstanceIdentifier",
-                                  EPeppolSBDHDocumentReadError.INVALID_INSTANCE_IDENTIFIER,
+                                  EPeppolSBDHDataError.INVALID_INSTANCE_IDENTIFIER,
                                   sSBDHID));
 
       // Mandatory date and time (cannot be null)
       final XMLOffsetDateTime aCreationDateAndTime = aDI.getCreationDateAndTime ();
       if (!isValidCreationDateTime (aCreationDateAndTime))
         aErrorList.add (_toError ("SBDH/DocumentIdentification/CreationDateAndTime",
-                                  EPeppolSBDHDocumentReadError.INVALID_CREATION_DATE_TIME,
+                                  EPeppolSBDHDataError.INVALID_CREATION_DATE_TIME,
                                   String.valueOf (aCreationDateAndTime)));
     }
   }
@@ -862,13 +855,13 @@ public class PeppolSBDHDocumentReader
    *        The main business message (XML payload) to extract data from. May
    *        not be <code>null</code>.
    * @return The document data and never <code>null</code>.
-   * @throws PeppolSBDHDocumentReadException
+   * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to
    *         the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHData extractData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
-                                     @Nonnull final Element aBusinessMessage) throws PeppolSBDHDocumentReadException
+                                     @Nonnull final Element aBusinessMessage) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
@@ -897,9 +890,9 @@ public class PeppolSBDHDocumentReader
 
         // Find an error code
         final IError aFirst = aErrorList.findFirst (IHasErrorLevel::isError);
-        final EPeppolSBDHDocumentReadError eError = EPeppolSBDHDocumentReadError.getFromIDOrDefault (aFirst.getErrorID (),
-                                                                                                     EPeppolSBDHDocumentReadError.GENERIC_SBDH_ERROR);
-        throw new PeppolSBDHDocumentReadException (aErrorMsgSB.toString (), eError);
+        final EPeppolSBDHDataError eError = EPeppolSBDHDataError.getFromIDOrDefault (aFirst.getErrorID (),
+                                                                                     EPeppolSBDHDataError.GENERIC_SBDH_ERROR);
+        throw new PeppolSBDHDataReadException (aErrorMsgSB.toString (), eError);
       }
     }
 

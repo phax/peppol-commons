@@ -318,6 +318,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
         * Moved `ExpiringObject` to ph-datetime
         * Moved `TrustedCACertificates`, `CRLCache`, `CRLDownloader`, `CRLHelper`, `AbstractRevocationCheckBuilder`, `CertificateRevocationCheckerDefaults`, `ERevocationCheckMode`, `ERevoked`, `IRevokedIndicator` and `RevocationCheckResultCache` to ph-security
         * Moved method `PeppolKeyStoreHelper.getAllTrustedCertificates` to `KeyStoreHelper`
+    * Renamed `EPeppolSBDHDocumentReadError` to `EPeppolSBDHDataError` and moved to `com.helger.peppol.sbdh`
+    * Renamed `PeppolSBDHDocumentReader` to `PeppolSBDHDataReader` and moved to `com.helger.peppol.sbdh`
+    * Renamed `PeppolSBDHDocumentReadException` to `PeppolSBDHDataReadException` and moved to `com.helger.peppol.sbdh`
+    * Renamed `PeppolSBDHDocumentWriter` to `PeppolSBDHDataWriter` and moved to `com.helger.peppol.sbdh`
+    * Removed interface `IParticipantIdentifierScheme`
+    * Renamed class `ParticipantIdentifierSchemeManager` to `PeppolParticipantIdentifierSchemeManager`
 * v9.7.2 - 2025-01-08
     * Updated to OpenPeppol eDEC Code Lists v9.0
 * v9.7.1 - 2024-12-20

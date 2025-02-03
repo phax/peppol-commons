@@ -16,6 +16,7 @@
  */
 package com.helger.peppolid.peppol.pidscheme;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.annotation.Nonnull;
@@ -26,12 +27,12 @@ import com.helger.commons.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 
 /**
- * The Peppol specific version of {@link IParticipantIdentifierScheme}.
+ * The Peppol specific version of a participant identifier scheme
  *
  * @author Philip Helger
  * @since 9.4.0
  */
-public interface IPeppolParticipantIdentifierScheme extends IParticipantIdentifierScheme
+public interface IPeppolParticipantIdentifierScheme extends Serializable
 {
   /**
    * Get the scheme ID of this issuing agency.<br>

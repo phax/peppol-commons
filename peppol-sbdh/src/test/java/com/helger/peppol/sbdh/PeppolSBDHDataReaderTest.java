@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.sbdh.read;
+package com.helger.peppol.sbdh;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -41,7 +41,6 @@ import com.helger.commons.datetime.XMLOffsetDateTime;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.peppol.sbdh.PeppolSBDHData;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
@@ -49,55 +48,55 @@ import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.DOMReaderSettings;
 
 /**
- * Test class for class {@link PeppolSBDHDocumentReader}.
+ * Test class for class {@link PeppolSBDHDataReader}.
  *
  * @author Philip Helger
  */
-public final class PeppolSBDHDocumentReaderTest
+public final class PeppolSBDHDataReaderTest
 {
-  private static final ICommonsMap <String, EPeppolSBDHDocumentReadError> BAD_CASES = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, EPeppolSBDHDataError> BAD_CASES = new CommonsHashMap <> ();
 
   static
   {
-    BAD_CASES.put ("bad-no-xml.txt", EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
-    BAD_CASES.put ("bad-no-sbdh.xml", EPeppolSBDHDocumentReadError.MISSING_SBDH);
-    BAD_CASES.put ("bad-invalid-header-version.xml", EPeppolSBDHDocumentReadError.INVALID_HEADER_VERSION);
-    BAD_CASES.put ("bad-too-few-senders.xml", EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
-    BAD_CASES.put ("bad-too-many-senders.xml", EPeppolSBDHDocumentReadError.INVALID_SENDER_COUNT);
-    BAD_CASES.put ("bad-invalid-sender-authority.xml", EPeppolSBDHDocumentReadError.INVALID_SENDER_AUTHORITY);
-    BAD_CASES.put ("bad-invalid-sender-value.xml", EPeppolSBDHDocumentReadError.INVALID_SENDER_VALUE);
-    BAD_CASES.put ("bad-too-few-receivers.xml", EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
-    BAD_CASES.put ("bad-too-many-receivers.xml", EPeppolSBDHDocumentReadError.INVALID_RECEIVER_COUNT);
-    BAD_CASES.put ("bad-invalid-receiver-authority.xml", EPeppolSBDHDocumentReadError.INVALID_RECEIVER_AUTHORITY);
-    BAD_CASES.put ("bad-invalid-receiver-value.xml", EPeppolSBDHDocumentReadError.INVALID_RECEIVER_VALUE);
-    BAD_CASES.put ("bad-no-business-scope.xml", EPeppolSBDHDocumentReadError.BUSINESS_SCOPE_MISSING);
-    BAD_CASES.put ("bad-too-few-scopes.xml", EPeppolSBDHDocumentReadError.INVALID_SCOPE_COUNT);
+    BAD_CASES.put ("bad-no-xml.txt", EPeppolSBDHDataError.INVALID_SBD_XML);
+    BAD_CASES.put ("bad-no-sbdh.xml", EPeppolSBDHDataError.MISSING_SBDH);
+    BAD_CASES.put ("bad-invalid-header-version.xml", EPeppolSBDHDataError.INVALID_HEADER_VERSION);
+    BAD_CASES.put ("bad-too-few-senders.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
+    BAD_CASES.put ("bad-too-many-senders.xml", EPeppolSBDHDataError.INVALID_SENDER_COUNT);
+    BAD_CASES.put ("bad-invalid-sender-authority.xml", EPeppolSBDHDataError.INVALID_SENDER_AUTHORITY);
+    BAD_CASES.put ("bad-invalid-sender-value.xml", EPeppolSBDHDataError.INVALID_SENDER_VALUE);
+    BAD_CASES.put ("bad-too-few-receivers.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
+    BAD_CASES.put ("bad-too-many-receivers.xml", EPeppolSBDHDataError.INVALID_RECEIVER_COUNT);
+    BAD_CASES.put ("bad-invalid-receiver-authority.xml", EPeppolSBDHDataError.INVALID_RECEIVER_AUTHORITY);
+    BAD_CASES.put ("bad-invalid-receiver-value.xml", EPeppolSBDHDataError.INVALID_RECEIVER_VALUE);
+    BAD_CASES.put ("bad-no-business-scope.xml", EPeppolSBDHDataError.BUSINESS_SCOPE_MISSING);
+    BAD_CASES.put ("bad-too-few-scopes.xml", EPeppolSBDHDataError.INVALID_SCOPE_COUNT);
     BAD_CASES.put ("bad-invalid-document-type-identifier.xml",
-                   EPeppolSBDHDocumentReadError.INVALID_DOCUMENT_TYPE_IDENTIFIER);
-    BAD_CASES.put ("bad-invalid-process-identifier.xml", EPeppolSBDHDocumentReadError.INVALID_PROCESS_IDENTIFIER);
-    BAD_CASES.put ("bad-no-country-c1.xml", EPeppolSBDHDocumentReadError.MISSING_COUNTRY_C1);
+                   EPeppolSBDHDataError.INVALID_DOCUMENT_TYPE_IDENTIFIER);
+    BAD_CASES.put ("bad-invalid-process-identifier.xml", EPeppolSBDHDataError.INVALID_PROCESS_IDENTIFIER);
+    BAD_CASES.put ("bad-no-country-c1.xml", EPeppolSBDHDataError.MISSING_COUNTRY_C1);
     BAD_CASES.put ("bad-no-document-type-identifier.xml",
-                   EPeppolSBDHDocumentReadError.MISSING_DOCUMENT_TYPE_IDENTIFIER);
-    BAD_CASES.put ("bad-no-process-identifier.xml", EPeppolSBDHDocumentReadError.MISSING_PROCESS_IDENTIFIER);
-    BAD_CASES.put ("bad-no-business-message.xml", EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
-    BAD_CASES.put ("bad-invalid-business-message.xml", EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
-    BAD_CASES.put ("bad-invalid-standard.xml", EPeppolSBDHDocumentReadError.INVALID_STANDARD);
-    BAD_CASES.put ("bad-invalid-type-version.xml", EPeppolSBDHDocumentReadError.INVALID_TYPE_VERSION);
-    BAD_CASES.put ("bad-invalid-type.xml", EPeppolSBDHDocumentReadError.INVALID_TYPE);
-    BAD_CASES.put ("bad-invalid-instance-identifier.xml", EPeppolSBDHDocumentReadError.INVALID_INSTANCE_IDENTIFIER);
-    BAD_CASES.put ("bad-invalid-creation-date-and-time.xml", EPeppolSBDHDocumentReadError.INVALID_SBD_XML);
+                   EPeppolSBDHDataError.MISSING_DOCUMENT_TYPE_IDENTIFIER);
+    BAD_CASES.put ("bad-no-process-identifier.xml", EPeppolSBDHDataError.MISSING_PROCESS_IDENTIFIER);
+    BAD_CASES.put ("bad-no-business-message.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
+    BAD_CASES.put ("bad-invalid-business-message.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
+    BAD_CASES.put ("bad-invalid-standard.xml", EPeppolSBDHDataError.INVALID_STANDARD);
+    BAD_CASES.put ("bad-invalid-type-version.xml", EPeppolSBDHDataError.INVALID_TYPE_VERSION);
+    BAD_CASES.put ("bad-invalid-type.xml", EPeppolSBDHDataError.INVALID_TYPE);
+    BAD_CASES.put ("bad-invalid-instance-identifier.xml", EPeppolSBDHDataError.INVALID_INSTANCE_IDENTIFIER);
+    BAD_CASES.put ("bad-invalid-creation-date-and-time.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
   }
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDocumentReaderTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDataReaderTest.class);
 
   @Test
-  public void testReadGoodV10AndCheckResults () throws PeppolSBDHDocumentReadException
+  public void testReadGoodV10AndCheckResults () throws PeppolSBDHDataReadException
   {
     // Read good.xml
     final IReadableResource aRes = PeppolSBDHTestFiles.getFirstGoodCase ();
     assertTrue (aRes.getPath (), aRes.exists ());
 
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
     final PeppolSBDHData aData = aReader.extractData (aRes);
     assertNotNull (aData);
 
@@ -126,13 +125,13 @@ public final class PeppolSBDHDocumentReaderTest
   }
 
   @Test
-  public void testReadGoodV11AndCheckResults () throws PeppolSBDHDocumentReadException
+  public void testReadGoodV11AndCheckResults () throws PeppolSBDHDataReadException
   {
     // Read good.xml
     final IReadableResource aRes = PeppolSBDHTestFiles.getFirstGoodCaseV11 ();
     assertTrue (aRes.getPath (), aRes.exists ());
 
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
     final PeppolSBDHData aData = aReader.extractData (aRes);
     assertNotNull (aData);
 
@@ -167,13 +166,13 @@ public final class PeppolSBDHDocumentReaderTest
   }
 
   @Test
-  public void testReadGoodV20AndCheckResults () throws PeppolSBDHDocumentReadException
+  public void testReadGoodV20AndCheckResults () throws PeppolSBDHDataReadException
   {
     // Read good.xml
     final IReadableResource aRes = PeppolSBDHTestFiles.getFirstGoodCaseV20 ();
     assertTrue (aRes.getPath (), aRes.exists ());
 
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
     final PeppolSBDHData aData = aReader.extractData (aRes);
     assertNotNull (aData);
 
@@ -202,9 +201,9 @@ public final class PeppolSBDHDocumentReaderTest
   }
 
   @Test
-  public void testReadGoodResource () throws PeppolSBDHDocumentReadException
+  public void testReadGoodResource () throws PeppolSBDHDataReadException
   {
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
     {
       LOGGER.info ("Good (Res): " + aRes.getPath ());
@@ -216,9 +215,9 @@ public final class PeppolSBDHDocumentReaderTest
   }
 
   @Test
-  public void testReadGoodInputStream () throws PeppolSBDHDocumentReadException
+  public void testReadGoodInputStream () throws PeppolSBDHDataReadException
   {
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
     {
       LOGGER.info ("Good (IS): " + aRes.getPath ());
@@ -230,9 +229,9 @@ public final class PeppolSBDHDocumentReaderTest
   }
 
   @Test
-  public void testReadGoodNode () throws PeppolSBDHDocumentReadException
+  public void testReadGoodNode () throws PeppolSBDHDataReadException
   {
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
     {
       LOGGER.info ("Good (Node): " + aRes.getPath ());
@@ -246,8 +245,8 @@ public final class PeppolSBDHDocumentReaderTest
   @Test
   public void testReadBadResource ()
   {
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
-    for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    for (final Map.Entry <String, EPeppolSBDHDataError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
       LOGGER.info ("Bad (Res): " + aRes.getPath ());
@@ -257,7 +256,7 @@ public final class PeppolSBDHDocumentReaderTest
         aReader.extractData (aRes);
         fail ();
       }
-      catch (final PeppolSBDHDocumentReadException ex)
+      catch (final PeppolSBDHDataReadException ex)
       {
         // check for expected error code
         assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
@@ -269,8 +268,8 @@ public final class PeppolSBDHDocumentReaderTest
   @Test
   public void testReadBadInputStream ()
   {
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
-    for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    for (final Map.Entry <String, EPeppolSBDHDataError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
       LOGGER.info ("Bad (IS): " + aRes.getPath ());
@@ -280,7 +279,7 @@ public final class PeppolSBDHDocumentReaderTest
         aReader.extractData (aRes.getInputStream ());
         fail ();
       }
-      catch (final PeppolSBDHDocumentReadException ex)
+      catch (final PeppolSBDHDataReadException ex)
       {
         // check for expected error code
         assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
@@ -292,10 +291,10 @@ public final class PeppolSBDHDocumentReaderTest
   @Test
   public void testReadBadNode ()
   {
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
     final DOMReaderSettings aSettings = new DOMReaderSettings ();
     aSettings.exceptionCallbacks ().removeAll ();
-    for (final Map.Entry <String, EPeppolSBDHDocumentReadError> aEntry : BAD_CASES.entrySet ())
+    for (final Map.Entry <String, EPeppolSBDHDataError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
       LOGGER.info ("Bad (Node): " + aRes.getPath ());
@@ -305,7 +304,7 @@ public final class PeppolSBDHDocumentReaderTest
       if (aDoc == null)
       {
         // May only occur if an "invalid-sbd-xml" error is expected
-        assertEquals (aRes.getPath (), EPeppolSBDHDocumentReadError.INVALID_SBD_XML, aEntry.getValue ());
+        assertEquals (aRes.getPath (), EPeppolSBDHDataError.INVALID_SBD_XML, aEntry.getValue ());
       }
       else
         try
@@ -313,7 +312,7 @@ public final class PeppolSBDHDocumentReaderTest
           aReader.extractData (aDoc);
           fail ();
         }
-        catch (final PeppolSBDHDocumentReadException ex)
+        catch (final PeppolSBDHDataReadException ex)
         {
           // check for expected error code
           assertEquals (aRes.getPath (), aEntry.getValue (), ex.getErrorCode ());
@@ -326,7 +325,7 @@ public final class PeppolSBDHDocumentReaderTest
   public void testReadGoodAsBad1 ()
   {
     // Always fails
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE)
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE)
     {
       @Override
       protected boolean isValidBusinessMessage (@Nonnull final Element aBusinessMessage)
@@ -342,7 +341,7 @@ public final class PeppolSBDHDocumentReaderTest
         aReader.extractData (DOMReader.readXMLDOM (aRes));
         fail ();
       }
-      catch (final PeppolSBDHDocumentReadException ex)
+      catch (final PeppolSBDHDataReadException ex)
       {
         // check for expected error code
         LOGGER.info (ex.toString ());
@@ -354,7 +353,7 @@ public final class PeppolSBDHDocumentReaderTest
   public void testReadGoodAsBad2 ()
   {
     // Always fails
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE)
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE)
     {
       @Override
       protected boolean isValidCreationDateTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
@@ -371,7 +370,7 @@ public final class PeppolSBDHDocumentReaderTest
         aReader.extractData (DOMReader.readXMLDOM (aRes));
         fail ();
       }
-      catch (final PeppolSBDHDocumentReadException ex)
+      catch (final PeppolSBDHDataReadException ex)
       {
         // check for expected error code
         LOGGER.info (ex.toString ());
@@ -381,7 +380,7 @@ public final class PeppolSBDHDocumentReaderTest
 
   @Test
   @Ignore
-  public void testReadSpontanuousXML () throws PeppolSBDHDocumentReadException
+  public void testReadSpontanuousXML () throws PeppolSBDHDataReadException
   {
     // TODO fill in XML here
     final String s = "";
@@ -389,7 +388,7 @@ public final class PeppolSBDHDocumentReaderTest
     final Document doc = DOMReader.readXMLDOM (s);
     assertNotNull (doc);
 
-    final PeppolSBDHDocumentReader aReader = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
     final PeppolSBDHData aData = aReader.extractData (doc);
     assertNotNull (aData);
     assertTrue (aData.areAllFieldsSet ());

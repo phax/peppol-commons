@@ -14,37 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.sbdh.read;
+package com.helger.peppol.sbdh;
 
 import javax.annotation.Nonnull;
-
-import com.helger.xsds.peppol.id1.ChangeV10;
 
 /**
  * Exception that can occur during the reading of SBDH documents.
  *
  * @author Philip Helger
  */
-@ChangeV10 ("Move to package of PeppolSBDHData")
-public class PeppolSBDHDocumentReadException extends Exception
+public class PeppolSBDHDataReadException extends Exception
 {
-  private final EPeppolSBDHDocumentReadError m_eErrorCode;
+  private final EPeppolSBDHDataError m_eErrorCode;
 
-  PeppolSBDHDocumentReadException (@Nonnull final String sErrorMsg,
-                                   @Nonnull final EPeppolSBDHDocumentReadError eErrorCode)
+  PeppolSBDHDataReadException (@Nonnull final String sErrorMsg, @Nonnull final EPeppolSBDHDataError eErrorCode)
   {
     super (sErrorMsg);
     m_eErrorCode = eErrorCode;
   }
 
-  public PeppolSBDHDocumentReadException (@Nonnull final EPeppolSBDHDocumentReadError eErrorCode)
+  public PeppolSBDHDataReadException (@Nonnull final EPeppolSBDHDataError eErrorCode)
   {
     super (eErrorCode.getErrorMessage ());
     m_eErrorCode = eErrorCode;
   }
 
   @Nonnull
-  public final EPeppolSBDHDocumentReadError getErrorCode ()
+  public final EPeppolSBDHDataError getErrorCode ()
   {
     return m_eErrorCode;
   }

@@ -31,12 +31,11 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 
 /**
  * This class manages the Peppol Participant identifier schemes using the
- * <b>iso6523-actorid-upis</b> scheme.<br>
- * TODO rename to PeppolParticipantIdentifierSchemeManager
+ * <b>iso6523-actorid-upis</b> scheme.
  *
  * @author Philip Helger
  */
-public final class ParticipantIdentifierSchemeManager
+public final class PeppolParticipantIdentifierSchemeManager
 {
   private static final ICommonsList <IPeppolParticipantIdentifierScheme> PI_SCHEMES = new CommonsArrayList <> ();
 
@@ -48,9 +47,9 @@ public final class ParticipantIdentifierSchemeManager
   }
 
   @PresentForCodeCoverage
-  private static final ParticipantIdentifierSchemeManager INSTANCE = new ParticipantIdentifierSchemeManager ();
+  private static final PeppolParticipantIdentifierSchemeManager INSTANCE = new PeppolParticipantIdentifierSchemeManager ();
 
-  private ParticipantIdentifierSchemeManager ()
+  private PeppolParticipantIdentifierSchemeManager ()
   {}
 
   /**

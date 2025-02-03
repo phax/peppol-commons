@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.sbdh.write;
+package com.helger.peppol.sbdh;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -30,9 +30,6 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.w3c.dom.Document;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.peppol.sbdh.PeppolSBDHData;
-import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReadException;
-import com.helger.peppol.sbdh.read.PeppolSBDHDocumentReader;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
@@ -40,12 +37,17 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
 import com.helger.xml.serialize.read.DOMReader;
 
-public final class PeppolSBDHDocumentWriterTest
+/**
+ * Test class for class {@link PeppolSBDHDataWriter}.
+ *
+ * @author Philip Helger
+ */
+public final class PeppolSBDHDataWriterTest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDocumentWriterTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolSBDHDataWriterTest.class);
 
   @Test
-  public void testCreateSBDH () throws PeppolSBDHDocumentReadException
+  public void testCreateSBDH () throws PeppolSBDHDataReadException
   {
     // This is our fake business message
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
@@ -68,7 +70,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertEquals (0, aData.additionalAttributes ().size ());
 
     // Create the SBDH document
-    final StandardBusinessDocument aSBD = new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (aData);
+    final StandardBusinessDocument aSBD = new PeppolSBDHDataWriter ().createStandardBusinessDocument (aData);
     assertNotNull (aSBD);
 
     final String sXML = new SBDMarshaller ().getAsString (aSBD);
@@ -78,7 +80,7 @@ public final class PeppolSBDHDocumentWriterTest
       LOGGER.info (sXML);
 
     // Read again and compare values
-    final PeppolSBDHData aDataRead = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
+    final PeppolSBDHData aDataRead = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
     assertNotNull (aDataRead);
 
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getSenderScheme ());
@@ -104,7 +106,7 @@ public final class PeppolSBDHDocumentWriterTest
   }
 
   @Test
-  public void testCreateSBDHWithAdditionalAttributes () throws PeppolSBDHDocumentReadException
+  public void testCreateSBDHWithAdditionalAttributes () throws PeppolSBDHDataReadException
   {
     // This is our fake business message
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='urn:foobar'><child>a</child></root>");
@@ -130,7 +132,7 @@ public final class PeppolSBDHDocumentWriterTest
     assertTrue (aData.areAllAdditionalAttributesValid ());
 
     // Create the SBDH document
-    final StandardBusinessDocument aSBD = new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (aData);
+    final StandardBusinessDocument aSBD = new PeppolSBDHDataWriter ().createStandardBusinessDocument (aData);
     assertNotNull (aSBD);
 
     final String sXML = new SBDMarshaller ().getAsString (aSBD);
@@ -140,7 +142,7 @@ public final class PeppolSBDHDocumentWriterTest
       LOGGER.info (sXML);
 
     // Read again and compare values
-    final PeppolSBDHData aDataRead = new PeppolSBDHDocumentReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
+    final PeppolSBDHData aDataRead = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE).extractData (aSBD);
     assertNotNull (aDataRead);
 
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aDataRead.getSenderScheme ());
@@ -213,7 +215,7 @@ public final class PeppolSBDHDocumentWriterTest
     try
     {
       // Not all fields are set
-      new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (aData);
+      new PeppolSBDHDataWriter ().createStandardBusinessDocument (aData);
       fail ();
     }
     catch (final IllegalArgumentException ex)

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.sbdh.read;
+package com.helger.peppol.sbdh;
 
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -24,21 +24,21 @@ import org.junit.Test;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Test class for class {@link EPeppolSBDHDocumentReadError}.
+ * Test class for class {@link EPeppolSBDHDataError}.
  * 
  * @author Philip Helger
  */
-public final class EPeppolSBDHDocumentReadErrorTest
+public final class EPeppolSBDHDataErrorTest
 {
   @Test
   public void testBasic ()
   {
-    for (final EPeppolSBDHDocumentReadError e : EPeppolSBDHDocumentReadError.values ())
+    for (final EPeppolSBDHDataError e : EPeppolSBDHDataError.values ())
     {
       assertTrue (StringHelper.hasText (e.getID ()));
       assertTrue (StringHelper.hasText (e.getErrorMessage ()));
-      assertSame (e, EPeppolSBDHDocumentReadError.getFromIDOrNull (e.getID ()));
-      assertSame (e, EPeppolSBDHDocumentReadError.valueOf (e.name ()));
+      assertSame (e, EPeppolSBDHDataError.getFromIDOrNull (e.getID ()));
+      assertSame (e, EPeppolSBDHDataError.valueOf (e.name ()));
     }
   }
 }

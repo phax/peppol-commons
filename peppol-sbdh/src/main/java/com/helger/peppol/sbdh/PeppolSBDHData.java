@@ -45,7 +45,6 @@ import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadBinaryMarshaller;
 import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadTextMarshaller;
 import com.helger.peppol.sbdh.spec12.BinaryContentType;
 import com.helger.peppol.sbdh.spec12.TextContentType;
-import com.helger.peppol.sbdh.write.PeppolSBDHDocumentWriter;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
@@ -1216,12 +1215,12 @@ public class PeppolSBDHData
   /**
    * @return A generic JAXB SBD document of this data. Never <code>null</code>.
    * @since 9.2.0
-   * @see PeppolSBDHDocumentWriter for the main logic
+   * @see PeppolSBDHDataWriter for the main logic
    */
   @Nonnull
   public StandardBusinessDocument getAsStandardBusinessDocument ()
   {
-    return new PeppolSBDHDocumentWriter ().createStandardBusinessDocument (this);
+    return new PeppolSBDHDataWriter ().createStandardBusinessDocument (this);
   }
 
   @Override

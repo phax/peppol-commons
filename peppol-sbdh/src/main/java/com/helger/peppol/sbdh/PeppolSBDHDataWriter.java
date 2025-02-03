@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.sbdh.write;
+package com.helger.peppol.sbdh;
 
 import java.util.Map;
 
@@ -31,9 +31,6 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.sbdh.CPeppolSBDH;
-import com.helger.peppol.sbdh.PeppolSBDHData;
-import com.helger.xsds.peppol.id1.ChangeV10;
 
 /**
  * Convert a Peppol SBDH document to a regular SBDH document
@@ -41,15 +38,14 @@ import com.helger.xsds.peppol.id1.ChangeV10;
  * @author Philip Helger
  */
 @NotThreadSafe
-@ChangeV10 ("Move to package of PeppolSBDHData")
-public class PeppolSBDHDocumentWriter
+public class PeppolSBDHDataWriter
 {
   public static final boolean DEFAULT_FAVOUR_SPEED = false;
 
   private String m_sHeaderVersion = CPeppolSBDH.HEADER_VERSION;
   private boolean m_bFavourSpeed = DEFAULT_FAVOUR_SPEED;
 
-  public PeppolSBDHDocumentWriter ()
+  public PeppolSBDHDataWriter ()
   {}
 
   /**
@@ -69,7 +65,7 @@ public class PeppolSBDHDocumentWriter
    * @return this for chaining
    */
   @Nonnull
-  public final PeppolSBDHDocumentWriter setHeaderVersion (@Nonnull final String sHeaderVersion)
+  public final PeppolSBDHDataWriter setHeaderVersion (@Nonnull final String sHeaderVersion)
   {
     ValueEnforcer.notNull (sHeaderVersion, "HeaderVersion");
     m_sHeaderVersion = sHeaderVersion;
@@ -96,7 +92,7 @@ public class PeppolSBDHDocumentWriter
    * @since 8.8.1
    */
   @Nonnull
-  public final PeppolSBDHDocumentWriter setFavourSpeed (final boolean bFavourSpeed)
+  public final PeppolSBDHDataWriter setFavourSpeed (final boolean bFavourSpeed)
   {
     m_bFavourSpeed = bFavourSpeed;
     return this;
