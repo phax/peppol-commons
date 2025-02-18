@@ -309,6 +309,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.0.1 - work in progress
+    * Fixed a stupid copy paste in class `DBNAlliancePayload`. See [#59](https://github.com/phax/peppol-commons/issues/59) - thx @taalexlistex
 * v10.0.0 - 2025-02-03
     * Updated to ph-commons 11.2.0
     * Added new submodule `peppol-ap-helper`
