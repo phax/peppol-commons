@@ -352,7 +352,7 @@ public class DBNAlliancePayload
   @Nonnull
   public DBNAlliancePayload setProfileIDSchemeID (@Nullable final String s)
   {
-    m_sCustomizationIDSchemeID = s;
+    m_sProfileIDSchemeID = s;
     return this;
   }
 
@@ -388,7 +388,7 @@ public class DBNAlliancePayload
   @Nonnull
   public DBNAlliancePayload setProfileID (@Nullable final String s)
   {
-    m_sCustomizationID = s;
+    m_sProfileID = s;
     return this;
   }
 
