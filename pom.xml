@@ -75,7 +75,7 @@
     <expiringmap.version>0.5.11</expiringmap.version>
     <phive.version>10.1.0</phive.version>
     <ph-ubl.version>9.0.3</ph-ubl.version>
-    <ph-xhe.version>4.0.1</ph-xhe.version>
+    <ph-xhe.version>4.0.2</ph-xhe.version>
   </properties>
   
   <dependencyManagement>
@@ -107,7 +107,7 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-sbdh</artifactId>
-        <version>5.0.1</version>
+        <version>5.0.2</version>
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
