@@ -30,7 +30,7 @@ public final class CDBNAllianceXHE
   public static final String XHE_VERSION_ID = "1.0";
 
   /** Constant for the Data Model */
-  public static final String CUSTOMIZATION_ID = "http://docs.oasisopen.org/bdxr/ns/XHE/1/ExchangeHeaderEnvelope::XHE##dbnalliance-envelope-1.0";
+  public static final String CUSTOMIZATION_ID = "http://docs.oasis-open.org/bdxr/ns/XHE/1/ExchangeHeaderEnvelope::XHE##dbnalliance-envelope-1.0";
 
   /** Constant for the identifier scheme */
   public static final String CUSTOMIZATION_SCHEMA_ID = "bdx-docid-qns";
