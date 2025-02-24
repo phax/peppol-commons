@@ -139,6 +139,34 @@ public final class PeppolKeyStoreHelper
         throw new IllegalStateException ("Failed to load pre-configured SMP production trust store");
     }
 
+    // AP eB2B Production
+
+    /**
+     * The classpath entry referencing the global truststore with all OpenPeppol
+     * production entries for an eB2B AP.
+     *
+     * @since 10.0.1
+     */
+    public static final String TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH = "truststore/2018/eb2b-ap-prod-truststore.jks";
+
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_EB2B_AP_PRODUCTION = TrustStoreDescriptor.builder ()
+                                                                                                             .type (TRUSTSTORE_TYPE)
+                                                                                                             .path (TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH)
+                                                                                                             .password (TRUSTSTORE_PASSWORD)
+                                                                                                             .build ();
+
+    /**
+     * The full eB2B AP production truststore. Never modify.
+     */
+    public static final KeyStore TRUSTSTORE_EB2B_AP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_EB2B_AP_PRODUCTION.loadTrustStore ()
+                                                                                                         .getKeyStore ();
+
+    static
+    {
+      if (TRUSTSTORE_EB2B_AP_PRODUCTION == null)
+        throw new IllegalStateException ("Failed to load pre-configured production eB2B AP trust store");
+    }
+
     // Production CA certificates
 
     /** The truststore alias for the OpenPeppol production root certificate */
@@ -161,6 +189,15 @@ public final class PeppolKeyStoreHelper
     /** The OpenPeppol production SMP certificate */
     public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
                                                                                    TRUSTSTORE_PRODUCTION_ALIAS_SMP);
+
+    /**
+     * The truststore alias for the OpenPeppol production eB2B AP certificate
+     */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_EB2B_AP = "peppol eb2b access point ca - g2 (peppol root ca - g2)";
+
+    /** The OpenPeppol production AP certificate */
+    public static final X509Certificate CERTIFICATE_PRODUCTION_EB2B_AP = _resolveCert (TRUSTSTORE_EB2B_AP_PRODUCTION,
+                                                                                       TRUSTSTORE_PRODUCTION_ALIAS_EB2B_AP);
 
     // AP Test
 

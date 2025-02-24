@@ -56,6 +56,7 @@ public final class PeppolCertificateChecker
                                                                       PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
 
   private static final PeppolCAChecker TEST_EB2B_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_EB2B_AP);
+  private static final PeppolCAChecker PROD_EB2B_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_EB2B_AP);
 
   private PeppolCertificateChecker ()
   {}
@@ -131,6 +132,16 @@ public final class PeppolCertificateChecker
   }
 
   /**
+   * @return The Peppol CA checker for production eB2B AP certificates.
+   * @since 10.0.1
+   */
+  @Nonnull
+  public static PeppolCAChecker peppolProductionEb2bAP ()
+  {
+    return PROD_EB2B_AP;
+  }
+
+  /**
    * Remove all entries from the OSCP cache.
    */
   public static void clearRevocationCheckCache ()
@@ -144,6 +155,7 @@ public final class PeppolCertificateChecker
     ALL_SMP.clearRevocationCache ();
 
     TEST_EB2B_AP.clearRevocationCache ();
+    PROD_EB2B_AP.clearRevocationCache ();
 
     LOGGER.info ("The PeppolCertificateChecker revocation cache was cleared");
   }

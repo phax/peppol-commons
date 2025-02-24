@@ -5,7 +5,7 @@ hs_err_pid*
 target/
 
 *.iml
-*.jks
+#*.jks
 *.p12
 private-*.properties
 

@@ -72,6 +72,7 @@ public final class MainCreateTrustStoreHashFiles
     _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH);
     _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PRODUCTION_CLASSPATH);
     _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PILOT_CLASSPATH);
+    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH);
     _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH);
   }
 }
