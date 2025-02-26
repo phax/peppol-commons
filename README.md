@@ -309,7 +309,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v10.0.1 - work in progress
+* v10.0.1 - 2025-02-26
     * Fixed a stupid copy paste in class `DBNAlliancePayload`. See [#59](https://github.com/phax/peppol-commons/issues/59) - thx @taalexlistex
     * Fixed predefined Customization ID for DBNAlliance. See [#60](https://github.com/phax/peppol-commons/issues/60) - thx @taalexlistex
     * Added support for eB2B AP Production Trust Store as a predefined truststore
