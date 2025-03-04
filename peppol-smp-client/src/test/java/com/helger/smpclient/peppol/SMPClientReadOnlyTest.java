@@ -143,9 +143,8 @@ public final class SMPClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
-                                                                aPI,
-                                                                ESML.DIGIT_TEST).setSecureValidation (false);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST)
+                                                                                                                 .setSecureValidation (false);
     // Set old trust store
     {
       final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
@@ -498,9 +497,8 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");
 
     // PEPPOL URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
-                                                                aPI,
-                                                                ESML.DIGIT_PRODUCTION).setSecureValidation (false);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION)
+                                                                                                                       .setSecureValidation (false);
     assertEquals ("http://B-4bbe13b091709af417e9ef61c2e59678.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
                   aSMPClient.getSMPHostURI ());
 
@@ -511,6 +509,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  @Ignore ("The SMP certificate is now expired")
   public void testReceiverHasRevokedAPCert () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
