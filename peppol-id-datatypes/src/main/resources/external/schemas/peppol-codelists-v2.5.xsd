@@ -25,12 +25,15 @@
       OpenPeppol Code list schemas.
       All information elements outside the Peppol identifier scheme and value are non-normative.
       
-      Schema version: 2.3
-        Suitable with code list version 8.9 onwards
+      Schema version: 2.5
+        Suitable with code list version 9.1 onwards
+        Compared to v2.4: added enumeration value "deprecation-scheduled" to "StateType" type
+                          added new type "VersionOrDateType" and using it for "deprecation-release" elements
+        Compared to v2.3: added the "category" element to the "document-type" element
         Compared to v2.2: added the "abstract" attribute to the "document-type" element
         Compared to v2.1: added the "comment" attribute to the "transport-profile" element
       Author: Philip Helger, OpenPeppol OO
-      Last update: 2024-04-22
+      Last update: 2025-03-03
     </xs:documentation>
   </xs:annotation>
   
@@ -42,6 +45,7 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:enumeration value="active" />
+      <xs:enumeration value="deprecation-scheduled" />
       <xs:enumeration value="deprecated" />
       <xs:enumeration value="removed" />
     </xs:restriction>
@@ -53,6 +57,15 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:pattern value="[0-9]+(\.[0-9]+)*(\-[0-9a-zA-Z]+)?" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="VersionOrDateType">
+    <xs:annotation>
+      <xs:documentation>Contains a simplistic version or date string (YYYY-MM-DD) RegEx as currently used</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9]+(\.[0-9]+)*(\-[0-9a-zA-Z]+)?|20[0-9]{2}-(0[1-9]|1[0-2])-([012][0-9]|3[0-1]))" />
     </xs:restriction>
   </xs:simpleType>
   
@@ -134,7 +147,7 @@
         <xs:documentation>The state of this code list entry.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecation-release" type="VersionType" use="optional">
+    <xs:attribute name="deprecation-release" type="VersionOrDateType" use="optional">
       <xs:annotation>
         <xs:documentation>
           This attribute is only present, if the code list entry is deprecated.
@@ -163,6 +176,11 @@
     <xs:attribute name="bis-version" type="xs:string" use="optional">
       <xs:annotation>
         <xs:documentation>If the code list entry is issued by OpenPeppol this attribute contains the BIS major version to which the identifier belongs.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="category" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The internal category to which the identifier belongs. This is not a binding value.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="domain-community" type="xs:string" use="optional">
@@ -287,7 +305,7 @@
         <xs:documentation>The state of this code list entry.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecation-release" type="VersionType" use="optional">
+    <xs:attribute name="deprecation-release" type="VersionOrDateType" use="optional">
       <xs:annotation>
         <xs:documentation>
           This attribute is only present, if the code list entry is deprecated.
@@ -396,7 +414,7 @@
         <xs:documentation>The state of this code list entry.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="deprecation-release" type="VersionType" use="optional">
+    <xs:attribute name="deprecation-release" type="VersionOrDateType" use="optional">
       <xs:annotation>
         <xs:documentation>
           This attribute is only present, if the code list entry is deprecated.

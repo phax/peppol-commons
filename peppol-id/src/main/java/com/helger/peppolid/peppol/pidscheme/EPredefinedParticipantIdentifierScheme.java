@@ -582,6 +582,16 @@ public enum EPredefinedParticipantIdentifierScheme
     JP_IIN("JP:IIN", "0221", "JP", "The registered number of the qualified invoice issuer", "Name: National Tax Agency Japan", Version.parse("8.5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
+     * Prefix <code>0225</code>, scheme ID <code>FR:CTC</code><br>
+     * Structure of the code: The identifier is alphanumeric with 130 characters maximum<br>
+     * Display requirements: The identification number is a concatenated string of the characters, without spaces and left justified<br>
+     * Usage information: The ICD registration will be updated, so that only the characters A-Z, a-z, 0-9 and special characters &quot;-&quot; and &quot;_&quot; will be allowed.<br>
+     * 
+     * @since code list 9.1
+     */
+    FR_CTC("FR:CTC", "0225", "FR", "FRCTC Electronic Address", "AIFE (Agence pour l\u2019Informatique Financi\u00e8re de l\u2019Etat)", Version.parse("9.1"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
      * Prefix <code>0230</code>, scheme ID <code>MY:EIF</code><br>
      * Structure of the code: 1st field = ICD
      *  2nd field = Special Identifier (e.g. country identifier, test identifier, etc)
@@ -594,6 +604,38 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.5
      */
     MY_EIF("MY:EIF", "0230", "MY", "National e-Invoicing Framework", "Malaysia Digital Economy Corporation Sdn Bhd (MDEC)", Version.parse("8.5"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
+     * Prefix <code>0235</code>, scheme ID <code>AE:TIN</code><br>
+     * Structure of the code: A TIN comprises of 10 numerical digits:
+     * - [1]: UAE country identifier in accordance with GCC agreement. This number must always be &quot;1&quot;
+     * - [23456789]: business identifier, generated automatically by the FTA's core tax administration system at the time a person presents themselves for registration
+     * - [X]: check digit (mathematically derived by adopting Luhn's
+     * algorithm). Luhn's algorithm is as follows:
+     *   a. Multiply each ODD-placed digit by 2
+     *   b. Multiplying each EVEN-placed digit by 1
+     *   b.1. If the product is less than 10, the number is retained as it is
+     *   b.2 If the product is 10 or more, the units place and tens place digits is added to get a single value
+     *   c. Take the sum of the digits from step b above
+     *   d. Mod 10 of the unit's place of the sum of the values in
+     * step c above<br>
+     * Display requirements: [1][23456789][X]: The first digit from the left must always be &quot;1&quot;<br>
+     * 
+     * @since code list 9.1
+     */
+    AE_TIN("AE:TIN", "0235", "AE", "UAE Tax Identification Number (TIN)", "UAE Federal Tax Authority", Version.parse("9.1"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
+     * Prefix <code>0240</code>, scheme ID <code>LU:MAT</code><br>
+     * Structure of the code: - 11 characters in total (Arabic numerals only)
+     * - 4 first digits = year
+     * - Digits 5-6 = legal form of the legal person
+     * Checksum: digit 11<br>
+     * Display requirements: None<br>
+     * 
+     * @since code list 9.1
+     */
+    LU_MAT("LU:MAT", "0240", "LU", "Register of legal persons", "Centre des technologies de l'information de l'Etat (CTIE)", Version.parse("9.1"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
@@ -1069,8 +1111,8 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "9";
-    public static final int CODE_LIST_ENTRY_COUNT = 96;
+    public static final String CODE_LIST_VERSION = "9.1";
+    public static final int CODE_LIST_ENTRY_COUNT = 99;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;

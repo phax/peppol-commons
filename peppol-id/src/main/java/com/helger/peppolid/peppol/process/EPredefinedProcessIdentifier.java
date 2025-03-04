@@ -445,7 +445,7 @@ public enum EPredefinedProcessIdentifier
      * @deprecated This item should not be used to issue new identifiers!
      */
     @Deprecated
-    urn_fdc_peppol_eu_oo_bis_reporting_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:oo:bis:reporting:1", EPeppolCodeListItemState.DEPRECATED),
+    urn_fdc_peppol_eu_oo_bis_reporting_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:oo:bis:reporting:1", EPeppolCodeListItemState.REMOVED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1</code><br>
@@ -585,9 +585,44 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:dico:2018:maintenance:1.0</code><br>
      */
-    urn_fdc_dico_2018_maintenance_1_0("cenbii-procid-ubl", "urn:fdc:dico:2018:maintenance:1.0", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "9";
-    public static final int CODE_LIST_ENTRY_COUNT = 97;
+    urn_fdc_dico_2018_maintenance_1_0("cenbii-procid-ubl", "urn:fdc:dico:2018:maintenance:1.0", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:bis:taxreporting</code><br>
+     */
+    urn_peppol_bis_taxreporting("cenbii-procid-ubl", "urn:peppol:bis:taxreporting", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:eb2b:billing</code><br>
+     */
+    urn_peppol_eb2b_billing("cenbii-procid-ubl", "urn:peppol:eb2b:billing", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:eb2b:order_desadv_billing</code><br>
+     */
+    urn_peppol_eb2b_order_desadv_billing("cenbii-procid-ubl", "urn:peppol:eb2b:order_desadv_billing", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:eb2b:ordering_desadv_billing</code><br>
+     */
+    urn_peppol_eb2b_ordering_desadv_billing("cenbii-procid-ubl", "urn:peppol:eb2b:ordering_desadv_billing", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:eb2b:order</code><br>
+     */
+    urn_peppol_eb2b_order("cenbii-procid-ubl", "urn:peppol:eb2b:order", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:eb2b:ordering</code><br>
+     */
+    urn_peppol_eb2b_ordering("cenbii-procid-ubl", "urn:peppol:eb2b:ordering", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:eb2b:oneway</code><br>
+     */
+    urn_peppol_eb2b_oneway("cenbii-procid-ubl", "urn:peppol:eb2b:oneway", EPeppolCodeListItemState.ACTIVE);
+    public static final String CODE_LIST_VERSION = "9.1";
+    public static final int CODE_LIST_ENTRY_COUNT = 104;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

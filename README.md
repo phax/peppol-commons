@@ -309,6 +309,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.0.2 - 2025-03-04
+    * Updated to Peppol eDEC Code Lists v9.1
 * v10.0.1 - 2025-02-26
     * Fixed a stupid copy paste in class `DBNAlliancePayload`. See [#59](https://github.com/phax/peppol-commons/issues/59) - thx @taalexlistex
     * Fixed predefined Customization ID for DBNAlliance. See [#60](https://github.com/phax/peppol-commons/issues/60) - thx @taalexlistex

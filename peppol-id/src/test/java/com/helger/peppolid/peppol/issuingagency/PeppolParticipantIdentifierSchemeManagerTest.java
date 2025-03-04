@@ -38,7 +38,7 @@ public final class PeppolParticipantIdentifierSchemeManagerTest
   public void testAll ()
   {
     assertNotNull (PeppolParticipantIdentifierSchemeManager.getAllSchemes ());
-    assertEquals (96, PeppolParticipantIdentifierSchemeManager.getAllSchemes ().size ());
+    assertEquals (99, PeppolParticipantIdentifierSchemeManager.getAllSchemes ().size ());
 
     // test valid
     assertNotNull (PeppolParticipantIdentifierSchemeManager.getSchemeOfISO6523Code ("0088"));
@@ -67,9 +67,11 @@ public final class PeppolParticipantIdentifierSchemeManagerTest
     assertEquals (ETriState.TRUE, PeppolParticipantIdentifierSchemeManager.isSchemeWithSchemeIDDeprecated ("AT:CID"));
     assertEquals (ETriState.FALSE, PeppolParticipantIdentifierSchemeManager.isSchemeWithISO6523CodeDeprecated ("9914"));
     assertEquals (ETriState.FALSE, PeppolParticipantIdentifierSchemeManager.isSchemeWithSchemeIDDeprecated ("AT:VAT"));
-    assertEquals (ETriState.UNDEFINED, PeppolParticipantIdentifierSchemeManager.isSchemeWithISO6523CodeDeprecated ("abcd"));
+    assertEquals (ETriState.UNDEFINED,
+                  PeppolParticipantIdentifierSchemeManager.isSchemeWithISO6523CodeDeprecated ("abcd"));
     assertEquals (ETriState.UNDEFINED, PeppolParticipantIdentifierSchemeManager.isSchemeWithSchemeIDDeprecated ("XYZ"));
-    assertEquals (ETriState.UNDEFINED, PeppolParticipantIdentifierSchemeManager.isSchemeWithISO6523CodeDeprecated (null));
+    assertEquals (ETriState.UNDEFINED,
+                  PeppolParticipantIdentifierSchemeManager.isSchemeWithISO6523CodeDeprecated (null));
     assertEquals (ETriState.UNDEFINED, PeppolParticipantIdentifierSchemeManager.isSchemeWithSchemeIDDeprecated (null));
   }
 }
