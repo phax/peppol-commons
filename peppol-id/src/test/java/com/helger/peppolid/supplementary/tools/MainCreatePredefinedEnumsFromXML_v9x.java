@@ -23,7 +23,6 @@ import java.time.Month;
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,16 +76,18 @@ import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.serialize.read.DOMReader;
-import com.helger.xsds.peppol.codelists23.PCLDocumentTypeType;
-import com.helger.xsds.peppol.codelists23.PCLDocumentTypesType;
-import com.helger.xsds.peppol.codelists23.PCLParticipantIdentifierSchemeType;
-import com.helger.xsds.peppol.codelists23.PCLParticipantIdentifierSchemesType;
-import com.helger.xsds.peppol.codelists23.PCLProcessIDType;
-import com.helger.xsds.peppol.codelists23.PCLProcessType;
-import com.helger.xsds.peppol.codelists23.PCLProcessesType;
-import com.helger.xsds.peppol.codelists23.PCLStateType;
-import com.helger.xsds.peppol.codelists23.PCLTransportProfileType;
-import com.helger.xsds.peppol.codelists23.PCLTransportProfilesType;
+import com.helger.xsds.peppol.codelists25.ObjectFactory;
+import com.helger.xsds.peppol.codelists25.PCLDocumentTypeType;
+import com.helger.xsds.peppol.codelists25.PCLDocumentTypesType;
+import com.helger.xsds.peppol.codelists25.PCLParticipantIdentifierSchemeType;
+import com.helger.xsds.peppol.codelists25.PCLParticipantIdentifierSchemesType;
+import com.helger.xsds.peppol.codelists25.PCLProcessIDType;
+import com.helger.xsds.peppol.codelists25.PCLProcessType;
+import com.helger.xsds.peppol.codelists25.PCLProcessesType;
+import com.helger.xsds.peppol.codelists25.PCLStateType;
+import com.helger.xsds.peppol.codelists25.PCLTransportProfileType;
+import com.helger.xsds.peppol.codelists25.PCLTransportProfilesType;
+import com.helger.xsds.peppol.id1.CPeppolID;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also creates Java source
@@ -133,8 +134,11 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
   private static void _handleDocumentTypes (final Document aDocumentSheet)
   {
-    final PCLDocumentTypesType aList = new GenericJAXBMarshaller <> (PCLDocumentTypesType.class, new QName ("dummy"))
-                                                                                                                     .read (aDocumentSheet);
+    final PCLDocumentTypesType aList = new GenericJAXBMarshaller <> (PCLDocumentTypesType.class,
+                                                                     new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                     new ObjectFactory ()::createDocumentTypes).read (aDocumentSheet);
+    if (aList == null)
+      throw new IllegalStateException ();
 
     // Create Java source
     try
@@ -475,7 +479,10 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   private static void _handleParticipantIdentifierSchemes (final Document aParticipantSheet)
   {
     final PCLParticipantIdentifierSchemesType aList = new GenericJAXBMarshaller <> (PCLParticipantIdentifierSchemesType.class,
-                                                                                    new QName ("dummy")).read (aParticipantSheet);
+                                                                                    new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                                    new ObjectFactory ()::createParticipantIdentifierSchemes).read (aParticipantSheet);
+    if (aList == null)
+      throw new IllegalStateException ();
 
     // Create Java source
     try
@@ -653,8 +660,11 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
   private static void _handleProcessIdentifiers (final Document aProcessSheet)
   {
-    final PCLProcessesType aList = new GenericJAXBMarshaller <> (PCLProcessesType.class, new QName ("dummy")).read (
-                                                                                                                    aProcessSheet);
+    final PCLProcessesType aList = new GenericJAXBMarshaller <> (PCLProcessesType.class,
+                                                                 new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                 new ObjectFactory ()::createProcesses).read (aProcessSheet);
+    if (aList == null)
+      throw new IllegalStateException ();
 
     final ICommonsSet <String> aAllShortcutNames = new CommonsHashSet <> ();
 
@@ -809,7 +819,10 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   private static void _handleTransportProfileIdentifiers (final Document aTPSheet)
   {
     final PCLTransportProfilesType aList = new GenericJAXBMarshaller <> (PCLTransportProfilesType.class,
-                                                                         new QName ("dummy")).read (aTPSheet);
+                                                                         new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                         new ObjectFactory ()::createTransportProfiles).read (aTPSheet);
+    if (aList == null)
+      throw new IllegalStateException ();
 
     // Create Java source
     try
