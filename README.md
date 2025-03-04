@@ -303,14 +303,14 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # References
 
-* [Peppol Policy for the use of identifiers v4.2.0](https://docs.peppol.eu/edelivery/policies/PEPPOL-EDN-Policy-for-use-of-identifiers-4.2.0-2023-06-19.pdf)
-* [Peppol Business Message Envelope (SBDH) v2.0.1](https://docs.peppol.eu/edelivery/envelope/Peppol-EDN-Business-Message-Envelope-2.0.1-2023-08-17.pdf)
-
+* [Peppol Policy for the use of identifiers v4.x](https://docs.peppol.eu/edelivery/)
+* [Peppol Business Message Envelope (SBDH) v2.x](https://docs.peppol.eu/edelivery/)
 
 # News and noteworthy
 
 * v10.0.2 - 2025-03-04
     * Updated to Peppol eDEC Code Lists v9.1
+    * Updated to Peppol eDEC Code Lists XSD v2.5
 * v10.0.1 - 2025-02-26
     * Fixed a stupid copy paste in class `DBNAlliancePayload`. See [#59](https://github.com/phax/peppol-commons/issues/59) - thx @taalexlistex
     * Fixed predefined Customization ID for DBNAlliance. See [#60](https://github.com/phax/peppol-commons/issues/60) - thx @taalexlistex
