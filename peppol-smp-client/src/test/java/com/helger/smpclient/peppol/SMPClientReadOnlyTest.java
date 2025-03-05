@@ -509,7 +509,6 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("The SMP certificate is now expired")
   public void testReceiverHasRevokedAPCert () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
