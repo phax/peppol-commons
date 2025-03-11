@@ -24,6 +24,11 @@ import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.state.ISuccessIndicator;
 
+/**
+ * Code list for the top-level MLR response codes.
+ *
+ * @author Philip Helger
+ */
 public enum EPeppolMLRResponseCode implements IHasID <String>, ISuccessIndicator
 {
   ACCEPTANCE ("AP"),

@@ -39,9 +39,9 @@ public final class PeppolMLRMarshallerTest
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLRMarshallerTest.class);
 
   @Test
-  public void testRead ()
+  public void testReadGood ()
   {
-    for (final File f : new FileSystemRecursiveIterator (new File ("src/test/resources/external/test-files")).withFilter (IFileFilter.filenameEndsWith (".xml")))
+    for (final File f : new FileSystemRecursiveIterator (new File ("src/test/resources/external/test-files/good")).withFilter (IFileFilter.filenameEndsWith (".xml")))
     {
       LOGGER.info ("Reading '" + f.getName () + "'");
       final ApplicationResponseType aMLR = new PeppolMLRMarshaller ().read (f);
