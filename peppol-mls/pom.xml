@@ -71,6 +71,11 @@
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-id</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger.schematron</groupId>
+      <artifactId>ph-schematron-xslt</artifactId>
+      <version>${ph-schematron.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>com.helger.phive</groupId>
