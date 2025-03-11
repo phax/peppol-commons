@@ -16,21 +16,28 @@
  */
 package com.helger.peppol.mls;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.collection.impl.CommonsTreeSet;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.io.file.FileSystemRecursiveIterator;
 import com.helger.commons.io.file.IFileFilter;
+import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.schematron.svrl.AbstractSVRLMessage;
 import com.helger.schematron.svrl.SVRLHelper;
+import com.helger.schematron.svrl.SVRLMarshaller;
 import com.helger.schematron.svrl.jaxb.SchematronOutputType;
 
 /**
@@ -55,5 +62,35 @@ public final class PeppolMLSValidatorTest
       final ICommonsList <AbstractSVRLMessage> aAllFailed = SVRLHelper.getAllFailedAssertionsAndSuccessfulReports (aSVRL);
       assertTrue (aAllFailed.toString (), aAllFailed.isEmpty ());
     }
+  }
+
+  @Nonnull
+  private static ICommonsSet <String> _getAllFailedIDs (@Nonnull final String sFilename) throws Exception
+  {
+    final ClassPathResource f = new ClassPathResource ("external/test-files/bad/" + sFilename,
+                                                       PeppolMLSValidatorTest.class.getClassLoader ());
+    assertNotNull ("The file is not XSD compliant", new PeppolMLSMarshaller ().read (f));
+
+    final SchematronOutputType aSVRL = PeppolMLSValidator.getSchematronMLS_100 ().applySchematronValidationToSVRL (f);
+    assertNotNull (aSVRL);
+
+    if (false)
+      LOGGER.info (new SVRLMarshaller ().getAsString (aSVRL));
+
+    final ICommonsList <AbstractSVRLMessage> aList = SVRLHelper.getAllFailedAssertionsAndSuccessfulReports (aSVRL);
+    assertFalse ("Found no errors in " + sFilename, aList.isEmpty ());
+
+    final ICommonsSet <String> ret = new CommonsTreeSet <> (aList, AbstractSVRLMessage::getID);
+    if (false)
+      LOGGER.info ("Failures found: " + ret);
+    return ret;
+  }
+
+  private static boolean _checkFailedID (@Nonnull final String sFilename, final String sExpected) throws Exception
+  {
+    final ICommonsSet <String> aFailed = _getAllFailedIDs (sFilename);
+    final boolean bRet = aFailed.contains (sExpected);
+    assertTrue ("Expected " + sExpected + " but got " + aFailed, bRet);
+    return bRet;
   }
 }

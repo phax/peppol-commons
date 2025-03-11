@@ -72,9 +72,9 @@
 
     <rule context="/ubl:ApplicationResponse/cac:DocumentResponse">
       <let name="rc" value="normalize-space(cac:Response/cbc:ResponseCode)" />
-      <let name="count_bv" value="count(cac:LineResponse[cac:Response[normalize-space(cac:Status/cbc:StatusReasonCode) = 'BV']])" />
-      <let name="count_fd" value="count(cac:LineResponse[cac:Response[normalize-space(cac:Status/cbc:StatusReasonCode) = 'FD']])" />
-      <let name="count_sv" value="count(cac:LineResponse[cac:Response[normalize-space(cac:Status/cbc:StatusReasonCode) = 'SV']])" />
+      <let name="has_bv" value="exists(cac:LineResponse[cac:Response[normalize-space(cac:Status/cbc:StatusReasonCode) = 'BV']])" />
+      <let name="has_fd" value="exists(cac:LineResponse[cac:Response[normalize-space(cac:Status/cbc:StatusReasonCode) = 'FD']])" />
+      <let name="has_sv" value="exists(cac:LineResponse[cac:Response[normalize-space(cac:Status/cbc:StatusReasonCode) = 'SV']])" />
 
       <!-- cac:Response is mandatory according to XSD -->
       <assert id="SCH-MLS-17" flag="fatal" test="exists(cac:Response/cbc:ResponseCode)"
@@ -96,20 +96,16 @@
       >[SCH-MLS-21] The Referenced Document ID MUST NOT be empty</assert>
       
       <assert id="SCH-MLS-22" flag="fatal" test="$rc != 'RE' or 
-                                                 count(cac:LineResponse) &gt; 0"
+                                                 exists(cac:LineResponse)"
       >[SCH-MLS-22] A negative MLS MUST contain at least one Issue</assert>
       
       <assert id="SCH-MLS-23" flag="fatal" test="$rc != 'RE' or 
-                                                 ( $count_bv &gt; 0 or
-                                                   $count_fd &gt; 0 or
-                                                   $count_sv &gt; 0 )"
+                                                 ( $has_bv or $has_fd or $has_sv )"
       >[SCH-MLS-23] A negative MLS MUST contain at least one Issue with a failure</assert>
 
       <!-- Note: positive MLS may contain BW only -->
       <assert id="SCH-MLS-24" flag="fatal" test="$rc = 'RE' or 
-                                                 ( $count_bv = 0 and
-                                                   $count_fd = 0 and
-                                                   $count_sv = 0 )"
+                                                 ( not($has_bv) and not($has_fd) and not($has_sv) )"
       >[SCH-MLS-24] A positive MLS MUST NOT contain Issues with failures</assert>
     </rule>
 
