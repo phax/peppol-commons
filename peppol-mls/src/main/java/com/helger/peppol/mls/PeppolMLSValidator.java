@@ -24,15 +24,14 @@ import com.helger.schematron.ISchematronResource;
 import com.helger.schematron.sch.SchematronResourceSCH;
 
 /**
- * This class can be used to trigger Schematron validation of Peppol MLS
- * documents.
+ * This class can be used to trigger Schematron validation of Peppol MLS documents.
  *
  * @author Philip Helger
  */
 @NotThreadSafe
 public final class PeppolMLSValidator
 {
-  public static final String SCH_MLS_100_PATH = "external/schematron/peppol-mls-1.0.0.sch";
+  public static final String SCH_MLS_100_PATH = "external/schematron/peppol-mls-1.0.0-rc1.sch";
 
   private static final ISchematronResource SCH_MLS_100 = SchematronResourceSCH.fromClassPath (SCH_MLS_100_PATH);
 
