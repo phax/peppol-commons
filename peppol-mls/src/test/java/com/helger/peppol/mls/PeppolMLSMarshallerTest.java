@@ -41,7 +41,7 @@ public final class PeppolMLSMarshallerTest
   @Test
   public void testReadGood ()
   {
-    for (final File f : new FileSystemRecursiveIterator (new File ("src/test/resources/external/test-files")).withFilter (IFileFilter.filenameEndsWith (".xml")))
+    for (final File f : new FileSystemRecursiveIterator (new File ("src/test/resources/external/test-files/good")).withFilter (IFileFilter.filenameEndsWith (".xml")))
     {
       LOGGER.info ("Reading '" + f.getName () + "'");
       final ApplicationResponseType aMLS = new PeppolMLSMarshaller ().read (f);

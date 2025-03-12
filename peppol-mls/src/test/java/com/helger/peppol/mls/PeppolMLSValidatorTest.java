@@ -52,7 +52,7 @@ public final class PeppolMLSValidatorTest
   @Test
   public void testReadGood () throws Exception
   {
-    for (final File f : new FileSystemRecursiveIterator (new File ("src/test/resources/external/test-files")).withFilter (IFileFilter.filenameEndsWith (".xml")))
+    for (final File f : new FileSystemRecursiveIterator (new File ("src/test/resources/external/test-files/good")).withFilter (IFileFilter.filenameEndsWith (".xml")))
     {
       LOGGER.info ("Reading '" + f.getName () + "'");
 
@@ -69,7 +69,7 @@ public final class PeppolMLSValidatorTest
   {
     final ClassPathResource f = new ClassPathResource ("external/test-files/bad/" + sFilename,
                                                        PeppolMLSValidatorTest.class.getClassLoader ());
-    assertNotNull ("The file is not XSD compliant", new PeppolMLSMarshaller ().read (f));
+    assertNotNull ("The file '" + f.getPath () + "' is not XSD compliant", new PeppolMLSMarshaller ().read (f));
 
     final SchematronOutputType aSVRL = PeppolMLSValidator.getSchematronMLS_100 ().applySchematronValidationToSVRL (f);
     assertNotNull (aSVRL);
@@ -92,5 +92,51 @@ public final class PeppolMLSValidatorTest
     final boolean bRet = aFailed.contains (sExpected);
     assertTrue ("Expected " + sExpected + " but got " + aFailed, bRet);
     return bRet;
+  }
+
+  @Test
+  public void testReadBad () throws Exception
+  {
+    _checkFailedID ("mls-01a.xml", "SCH-MLS-01");
+    _checkFailedID ("mls-01b.xml", "SCH-MLS-01");
+
+    _checkFailedID ("mls-02a.xml", "SCH-MLS-02");
+    _checkFailedID ("mls-02b.xml", "SCH-MLS-02");
+
+    _checkFailedID ("mls-03a.xml", "SCH-MLS-03");
+    _checkFailedID ("mls-03b.xml", "SCH-MLS-03");
+
+    _checkFailedID ("mls-04a.xml", "SCH-MLS-04");
+    _checkFailedID ("mls-04b.xml", "SCH-MLS-04");
+    _checkFailedID ("mls-04c.xml", "SCH-MLS-04");
+
+    _checkFailedID ("mls-05a.xml", "SCH-MLS-05");
+
+    _checkFailedID ("mls-06a.xml", "SCH-MLS-06");
+
+    _checkFailedID ("mls-07a.xml", "SCH-MLS-07");
+
+    _checkFailedID ("mls-08a.xml", "SCH-MLS-08");
+    _checkFailedID ("mls-08b.xml", "SCH-MLS-08");
+
+    _checkFailedID ("mls-09a.xml", "SCH-MLS-09");
+
+    _checkFailedID ("mls-10a.xml", "SCH-MLS-10");
+    _checkFailedID ("mls-10b.xml", "SCH-MLS-10");
+    _checkFailedID ("mls-10c.xml", "SCH-MLS-10");
+
+    _checkFailedID ("mls-11a.xml", "SCH-MLS-11");
+
+    _checkFailedID ("mls-12a.xml", "SCH-MLS-12");
+    _checkFailedID ("mls-12b.xml", "SCH-MLS-12");
+
+    _checkFailedID ("mls-13a.xml", "SCH-MLS-13");
+
+    _checkFailedID ("mls-14a.xml", "SCH-MLS-14");
+    _checkFailedID ("mls-14b.xml", "SCH-MLS-14");
+    _checkFailedID ("mls-14c.xml", "SCH-MLS-14");
+
+    _checkFailedID ("mls-15a.xml", "SCH-MLS-15");
+    _checkFailedID ("mls-15b.xml", "SCH-MLS-15");
   }
 }
