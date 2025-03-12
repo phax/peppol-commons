@@ -23,6 +23,7 @@
   <pattern id="default">
     <let name="cl_rc" value="' AP AB RE '"/>
     <let name="cl_src" value="' BV BW FD SV '"/>
+    <let name="regex_spis" value="'^[0-9]{6}(-[0-9A-Z_]{3,12}(\.[0-9A-Z\-._~]{3,24})?)?$'" />
 
     <rule context="/ubl:ApplicationResponse">
       <assert id="SCH-MLS-01" flag="fatal" test="normalize-space(cbc:CustomizationID) = 'urn:peppol:edec:mls:1.0'"
@@ -49,24 +50,28 @@
       >[SCH-MLS-07] The Sender Party Endpoint ID MUST be present</assert>
       <assert id="SCH-MLS-08" flag="fatal" test="normalize-space(cac:SenderParty/cbc:EndpointID) != ''"
       >[SCH-MLS-08] The Sender Party Endpoint ID MUST NOT be empty</assert>
-      <assert id="SCH-MLS-09" flag="fatal" test="exists(cac:SenderParty/cbc:EndpointID/@schemeID)"
-      >[SCH-MLS-09] The Sender Party Endpoint ID scheme ID MUST be present</assert>
+      <assert id="SCH-MLS-09" flag="fatal" test="matches(normalize-space(cac:SenderParty/cbc:EndpointID), $regex_spis)"
+      >[SCH-MLS-09] The Sender Party Endpoint ID (<value-of select="normalize-space(cac:SenderParty/cbc:EndpointID)" />) MUST be a valid Peppol Service Provider ID</assert>
+      <assert id="SCH-MLS-10" flag="fatal" test="exists(cac:SenderParty/cbc:EndpointID/@schemeID)"
+      >[SCH-MLS-10] The Sender Party Endpoint ID scheme ID MUST be present</assert>
       <!-- TODO change this to the real SPIS Scheme ID  when available -->
-      <assert id="SCH-MLS-10" flag="fatal" test="matches(normalize-space(cac:SenderParty/cbc:EndpointID/@schemeID), '^[0-9]{4}$')"
-      >[SCH-MLS-10] The Sender Party Endpoint ID scheme ID MUST be a valid Participant Identifier Scheme</assert>
+      <assert id="SCH-MLS-11" flag="fatal" test="matches(normalize-space(cac:SenderParty/cbc:EndpointID/@schemeID), '^[0-9]{4}$')"
+      >[SCH-MLS-11] The Sender Party Endpoint ID scheme ID MUST be a valid Participant Identifier Scheme</assert>
 
-      <assert id="SCH-MLS-11" flag="fatal" test="exists(cac:ReceiverParty/cbc:EndpointID)"
-      >[SCH-MLS-11] The Receiver Party Endpoint ID MUST be present</assert>
-      <assert id="SCH-MLS-12" flag="fatal" test="normalize-space(cac:ReceiverParty/cbc:EndpointID) != ''"
-      >[SCH-MLS-12] The Receiver Party Endpoint ID MUST NOT be empty</assert>
-      <assert id="SCH-MLS-13" flag="fatal" test="exists(cac:ReceiverParty/cbc:EndpointID/@schemeID)"
-      >[SCH-MLS-13] The Receiver Party Endpoint ID scheme ID MUST be present</assert>
+      <assert id="SCH-MLS-12" flag="fatal" test="exists(cac:ReceiverParty/cbc:EndpointID)"
+      >[SCH-MLS-12] The Receiver Party Endpoint ID MUST be present</assert>
+      <assert id="SCH-MLS-13" flag="fatal" test="normalize-space(cac:ReceiverParty/cbc:EndpointID) != ''"
+      >[SCH-MLS-13] The Receiver Party Endpoint ID MUST NOT be empty</assert>
+      <assert id="SCH-MLS-14" flag="fatal" test="matches(normalize-space(cac:ReceiverParty/cbc:EndpointID), $regex_spis)"
+      >[SCH-MLS-14] The Receiver Party Endpoint ID (<value-of select="normalize-space(cac:ReceiverParty/cbc:EndpointID)" />) MUST be a valid Peppol Service Provider ID</assert>
+      <assert id="SCH-MLS-15" flag="fatal" test="exists(cac:ReceiverParty/cbc:EndpointID/@schemeID)"
+      >[SCH-MLS-15] The Receiver Party Endpoint ID scheme ID MUST be present</assert>
       <!-- TODO change this to the real SPIS Scheme ID  when available -->
-      <assert id="SCH-MLS-14" flag="fatal" test="matches(normalize-space(cac:ReceiverParty/cbc:EndpointID/@schemeID), '^[0-9]{4}$')"
-      >[SCH-MLS-14] The Receiver Party Endpoint ID scheme ID MUST be a valid Participant Identifier Scheme</assert>
+      <assert id="SCH-MLS-16" flag="fatal" test="matches(normalize-space(cac:ReceiverParty/cbc:EndpointID/@schemeID), '^[0-9]{4}$')"
+      >[SCH-MLS-16] The Receiver Party Endpoint ID scheme ID MUST be a valid Participant Identifier Scheme</assert>
       
-      <assert id="SCH-MLS-15" flag="fatal" test="count(cac:DocumentResponse) = 1"
-      >[SCH-MLS-15] Exactly one Document Response MUST be present</assert>
+      <assert id="SCH-MLS-17" flag="fatal" test="count(cac:DocumentResponse) = 1"
+      >[SCH-MLS-17] Exactly one Document Response MUST be present</assert>
     </rule>
 
     <rule context="/ubl:ApplicationResponse/cac:DocumentResponse">
@@ -77,10 +82,10 @@
       <let name="has_failure" value="$has_bv or $has_fd or $has_sv" />
 
       <!-- cac:Response is mandatory according to XSD -->
-      <assert id="SCH-MLS-17" flag="fatal" test="exists(cac:Response/cbc:ResponseCode)"
-      >[SCH-MLS-17] The Overall Response Code MUST be present</assert>
-      <assert id="SCH-MLS-18" flag="fatal" test="contains($cl_rc, concat(' ', $rc, ' '))"
-      >[SCH-MLS-18] The Response Code (<value-of select="$rc"/>) MUST be coded according to the code list</assert>
+      <assert id="SCH-MLS-18" flag="fatal" test="exists(cac:Response/cbc:ResponseCode)"
+      >[SCH-MLS-18] The Overall Response Code MUST be present</assert>
+      <assert id="SCH-MLS-19" flag="fatal" test="contains($cl_rc, concat(' ', $rc, ' '))"
+      >[SCH-MLS-19] The Response Code (<value-of select="$rc"/>) MUST be coded according to the code list</assert>
 
       <assert id="SCH-MLS-19" flag="fatal" test="$rc != 'RE' or
                                                  ( exists(cac:Response/cbc:Description) and

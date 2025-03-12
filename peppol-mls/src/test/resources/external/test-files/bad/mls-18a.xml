@@ -8,14 +8,13 @@
   <cbc:IssueDate>2025-03-11</cbc:IssueDate>
   <cbc:IssueTime>12:00:00Z</cbc:IssueTime>
   <cac:SenderParty>
-    <cbc:EndpointID schemeID="9999a">7300010000001</cbc:EndpointID>
+    <cbc:EndpointID schemeID="0299">123456</cbc:EndpointID>
   </cac:SenderParty>
   <cac:ReceiverParty>
-    <cbc:EndpointID schemeID="0088">7315458756328</cbc:EndpointID>
+    <cbc:EndpointID schemeID="0299">234567</cbc:EndpointID>
   </cac:ReceiverParty>
   <cac:DocumentResponse>
     <cac:Response>
-      <cbc:ResponseCode>AB</cbc:ResponseCode>
     </cac:Response>
     <cac:DocumentReference>
       <cbc:ID>EnvelopeID-12456789</cbc:ID>

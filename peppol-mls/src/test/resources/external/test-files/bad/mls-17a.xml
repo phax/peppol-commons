@@ -6,7 +6,7 @@
   <cbc:ProfileID>urn:peppol:edec:mls</cbc:ProfileID>
   <cbc:ID>MLS-ID123</cbc:ID>
   <cbc:IssueDate>2025-03-11</cbc:IssueDate>
-  <cbc:IssueTime>12:00:00+01:00</cbc:IssueTime>
+  <cbc:IssueTime>12:00:00Z</cbc:IssueTime>
   <cac:SenderParty>
     <cbc:EndpointID schemeID="0299">123456</cbc:EndpointID>
   </cac:SenderParty>
@@ -19,6 +19,14 @@
     </cac:Response>
     <cac:DocumentReference>
       <cbc:ID>EnvelopeID-12456789</cbc:ID>
+    </cac:DocumentReference>
+  </cac:DocumentResponse>
+  <cac:DocumentResponse>
+    <cac:Response>
+      <cbc:ResponseCode>AB</cbc:ResponseCode>
+    </cac:Response>
+    <cac:DocumentReference>
+      <cbc:ID>Other-ID</cbc:ID>
     </cac:DocumentReference>
   </cac:DocumentResponse>
 </ApplicationResponse>
