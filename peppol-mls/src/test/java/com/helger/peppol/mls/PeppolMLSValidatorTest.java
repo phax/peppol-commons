@@ -91,7 +91,7 @@ public final class PeppolMLSValidatorTest
   {
     final ICommonsSet <String> aFailed = _getAllFailedIDs (sFilename);
     final boolean bRet = aFailed.contains (sExpected);
-    assertTrue ("Expected " + sExpected + " but got " + aFailed, bRet);
+    assertTrue ("[" + sFilename + "] Expected " + sExpected + " but got " + aFailed, bRet);
   }
 
   private static void _checkFailedIDs (final int nErrorCode, final int nCount) throws Exception
@@ -128,5 +128,20 @@ public final class PeppolMLSValidatorTest
     _checkFailedIDs (++nErrorCode, 3);
     _checkFailedIDs (++nErrorCode, 2);
     _checkFailedIDs (++nErrorCode, 1);
+    _checkFailedIDs (++nErrorCode, 4);
+    _checkFailedIDs (++nErrorCode, 1);
+    // 21
+    _checkFailedIDs (++nErrorCode, 2);
+    _checkFailedIDs (++nErrorCode, 1);
+    _checkFailedIDs (++nErrorCode, 1);
+    _checkFailedIDs (++nErrorCode, 2);
+    _checkFailedIDs (++nErrorCode, 2);
+    _checkFailedIDs (++nErrorCode, 2);
+    _checkFailedIDs (++nErrorCode, 4);
+    _checkFailedIDs (++nErrorCode, 2);
+    _checkFailedIDs (++nErrorCode, 4);
+    _checkFailedIDs (++nErrorCode, 1);
+    // 31
+    _checkFailedIDs (++nErrorCode, 4);
   }
 }

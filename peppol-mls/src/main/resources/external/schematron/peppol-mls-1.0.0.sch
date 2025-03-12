@@ -13,7 +13,7 @@
 
     History
       v1.0.0 RC1
-        2025-03-11, Philip Helger - initial version
+        2025-03-12, Philip Helger - initial version
   </p>
 
   <ns prefix="cac" uri="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"/>
@@ -84,59 +84,63 @@
       <!-- cac:Response is mandatory according to XSD -->
       <assert id="SCH-MLS-18" flag="fatal" test="exists(cac:Response/cbc:ResponseCode)"
       >[SCH-MLS-18] The Overall Response Code MUST be present</assert>
-      <assert id="SCH-MLS-19" flag="fatal" test="contains($cl_rc, concat(' ', $rc, ' '))"
+      <assert id="SCH-MLS-19" flag="fatal" test="not(contains($rc, ' ')) and contains($cl_rc, concat(' ', $rc, ' '))"
       >[SCH-MLS-19] The Response Code (<value-of select="$rc"/>) MUST be coded according to the code list</assert>
 
-      <assert id="SCH-MLS-19" flag="fatal" test="$rc != 'RE' or
-                                                 ( exists(cac:Response/cbc:Description) and
-                                                   normalize-space(cac:Response/cbc:Description) != '' )"
-      >[SCH-MLS-19] A negative MLS MUST contain a Description</assert>
+      <assert id="SCH-MLS-20" flag="fatal" test="$rc != 'RE' or
+                                                 exists(cac:Response/cbc:Description)"
+      >[SCH-MLS-20] A negative MLS MUST contain a Description</assert>
+      <assert id="SCH-MLS-21" flag="fatal" test="$rc != 'RE' or
+                                                 normalize-space(cac:Response/cbc:Description) != ''"
+      >[SCH-MLS-21] A negative MLS MUST contain a non-empty Description</assert>
       
       <!-- cac:DocumentReference is mandatory (1..n) according to XSD -->
-      <assert id="SCH-MLS-20" flag="fatal" test="count(cac:DocumentReference) = 1"
-      >[SCH-MLS-20] Exactly one Document Reference MUST be present</assert>
-
-      <!-- cac:DocumentReference/cbc:ID is mandatory according to XSD -->
-      <assert id="SCH-MLS-21" flag="fatal" test="normalize-space(cac:DocumentReference/cbc:ID) != ''"
-      >[SCH-MLS-21] The Referenced Document ID MUST NOT be empty</assert>
+      <assert id="SCH-MLS-22" flag="fatal" test="count(cac:DocumentReference) = 1"
+      >[SCH-MLS-22] Exactly one Document Reference MUST be present</assert>
       
-      <assert id="SCH-MLS-22" flag="fatal" test="$rc != 'RE' or 
+      <assert id="SCH-MLS-23" flag="fatal" test="$rc != 'RE' or 
                                                  exists(cac:LineResponse)"
-      >[SCH-MLS-22] A negative MLS MUST contain at least one Issue</assert>
+      >[SCH-MLS-23] A negative MLS MUST contain at least one Issue</assert>
       
-      <assert id="SCH-MLS-23" flag="fatal" test="$rc != 'RE' or $has_failure"
-      >[SCH-MLS-23] A negative MLS MUST contain at least one Issue with a failure</assert>
+      <assert id="SCH-MLS-24" flag="fatal" test="$rc != 'RE' or $has_failure"
+      >[SCH-MLS-24] A negative MLS MUST contain at least one Issue with a failure</assert>
 
       <!-- Note: positive MLS may contain BW only -->
-      <assert id="SCH-MLS-24" flag="fatal" test="$rc = 'RE' or not($has_failure)"
-      >[SCH-MLS-24] A positive MLS MUST NOT contain Issues with failures</assert>
+      <assert id="SCH-MLS-25" flag="fatal" test="$rc = 'RE' or not($has_failure)"
+      >[SCH-MLS-25] A positive MLS MUST NOT contain Issues with failures</assert>
+    </rule>
+
+    <rule context="/ubl:ApplicationResponse/cac:DocumentResponse/cac:DocumentReference">
+      <!-- cac:DocumentReference/cbc:ID is mandatory according to XSD -->
+      <assert id="SCH-MLS-26" flag="fatal" test="normalize-space(cbc:ID) != ''"
+      >[SCH-MLS-26] The Referenced Document ID MUST NOT be empty</assert>
     </rule>
 
     <rule context="/ubl:ApplicationResponse/cac:DocumentResponse/cac:LineResponse">
       <!-- cac:LineReference is mandatory according to XSD -->
       <!-- cac:LineReference/cbc:LineID is mandatory according to XSD -->
-      <assert id="SCH-MLS-25" flag="fatal" test="normalize-space(cac:LineReference/cbc:LineID) != ''"
-      >[SCH-MLS-25] The Issue Location MUST NOT be empty</assert>
+      <assert id="SCH-MLS-27" flag="fatal" test="normalize-space(cac:LineReference/cbc:LineID) != ''"
+      >[SCH-MLS-27] The Issue Location MUST NOT be empty</assert>
 
       <!-- cac:Response is mandatory (1..n) according to XSD -->
     </rule>
 
     <rule context="/ubl:ApplicationResponse/cac:DocumentResponse/cac:LineResponse/cac:Response">
-      <assert id="SCH-MLS-26" flag="fatal" test="exists(cbc:Description)"
-      >[SCH-MLS-26] The Issue Description MUST be present</assert>
+      <assert id="SCH-MLS-28" flag="fatal" test="exists(cbc:Description)"
+      >[SCH-MLS-28] The Issue Description MUST be present</assert>
 
-      <assert id="SCH-MLS-27" flag="fatal" test="normalize-space(cbc:Description) != ''"
-      >[SCH-MLS-27] The Issue Description MUST NOT be empty</assert>
+      <assert id="SCH-MLS-29" flag="fatal" test="normalize-space(cbc:Description) != ''"
+      >[SCH-MLS-29] The Issue Description MUST NOT be empty</assert>
 
-      <assert id="SCH-MLS-28" flag="fatal" test="exists(cac:Status)"
-      >[SCH-MLS-28] The Status element MUST be present</assert>
+      <assert id="SCH-MLS-30" flag="fatal" test="exists(cac:Status)"
+      >[SCH-MLS-30] The Status element MUST be present</assert>
     </rule>
 
     <rule context="/ubl:ApplicationResponse/cac:DocumentResponse/cac:LineResponse/cac:Response/cac:Status">
       <let name="src" value="normalize-space(cbc:StatusReasonCode)" />
       
-      <assert id="SCH-MLS-29" flag="fatal" test="contains($cl_src, concat(' ', $src, ' '))"
-      >[SCH-MLS-29] The Status Reason Code (<value-of select="$src"/>) MUST be coded according to the code list</assert>
+      <assert id="SCH-MLS-31" flag="fatal" test="not(contains($src, ' ')) and contains($cl_src, concat(' ', $src, ' '))"
+      >[SCH-MLS-31] The Status Reason Code (<value-of select="$src"/>) MUST be coded according to the code list</assert>
     </rule>
   </pattern>
 </schema>
