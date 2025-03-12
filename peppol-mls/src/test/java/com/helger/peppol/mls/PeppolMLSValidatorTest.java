@@ -40,6 +40,14 @@ import com.helger.schematron.svrl.AbstractSVRLMessage;
 import com.helger.schematron.svrl.SVRLHelper;
 import com.helger.schematron.svrl.SVRLMarshaller;
 import com.helger.schematron.svrl.jaxb.SchematronOutputType;
+import com.helger.ubl21.UBL21Marshaller;
+import com.helger.xml.microdom.IMicroDocument;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.MicroDocument;
+import com.helger.xml.microdom.serialize.MicroReader;
+import com.helger.xml.microdom.serialize.MicroWriter;
+import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for class {@link PeppolMLSValidator}.
@@ -68,8 +76,7 @@ public final class PeppolMLSValidatorTest
   @Nonnull
   private static ICommonsSet <String> _getAllFailedIDs (@Nonnull final String sFilename) throws Exception
   {
-    final ClassPathResource f = new ClassPathResource ("external/test-files/bad/" + sFilename,
-                                                       PeppolMLSValidatorTest.class.getClassLoader ());
+    final ClassPathResource f = new ClassPathResource (sFilename, PeppolMLSValidatorTest.class.getClassLoader ());
     assertNotNull ("The file '" + f.getPath () + "' is not XSD compliant", new PeppolMLSMarshaller ().read (f));
 
     final SchematronOutputType aSVRL = PeppolMLSValidator.getSchematronMLS_100 ().applySchematronValidationToSVRL (f);
@@ -87,20 +94,49 @@ public final class PeppolMLSValidatorTest
     return ret;
   }
 
-  private static void _checkFailedID (@Nonnull final String sFilename, final String sExpected) throws Exception
-  {
-    final ICommonsSet <String> aFailed = _getAllFailedIDs (sFilename);
-    final boolean bRet = aFailed.contains (sExpected);
-    assertTrue ("[" + sFilename + "] Expected " + sExpected + " but got " + aFailed, bRet);
-  }
+  // Enable this flag, to create the unit test cases for PDK
+  private static final boolean CREATE_PDK_FILES = false;
+  private static final String PDK_NS = "urn:fdc:schunit.com:2020:v1";
 
   private static void _checkFailedIDs (final int nErrorCode, final int nCount) throws Exception
   {
     final String sErrorCode = StringHelper.getLeadingZero (nErrorCode, 2);
+    final String sFullErrorCode = "SCH-MLS-" + sErrorCode;
+
+    final IMicroDocument aTestsDoc = new MicroDocument ();
+    final IMicroElement eTestsRoot = aTestsDoc.appendElement (PDK_NS, "Tests");
+    eTestsRoot.appendComment (" This file is generated - do not edit. ");
+    eTestsRoot.appendText ("\n  ");
+    eTestsRoot.appendElement (PDK_NS, "Description").appendText ("Negative MLS tests");
+    eTestsRoot.appendElement (PDK_NS, "Scope").appendText (sFullErrorCode);
+
     for (int i = 0; i < nCount; ++i)
     {
-      final String sFilename = "mls-" + sErrorCode + ((char) ('a' + i)) + ".xml";
-      _checkFailedID (sFilename, "SCH-MLS-" + sErrorCode);
+      final String sFilename = "external/test-files/bad/mls-" + sErrorCode + ((char) ('a' + i)) + ".xml";
+      final ICommonsSet <String> aFailed = _getAllFailedIDs (sFilename);
+      final boolean bRet = aFailed.contains (sFullErrorCode);
+      assertTrue ("[" + sFilename + "] Expected " + sFullErrorCode + " but got " + aFailed, bRet);
+
+      if (CREATE_PDK_FILES)
+      {
+        final IMicroDocument aDoc = MicroReader.readMicroXML (new ClassPathResource (sFilename,
+                                                                                     PeppolMLSValidator.class.getClassLoader ()));
+        final IMicroElement eTest = eTestsRoot.appendElement (PDK_NS, "Test");
+        eTest.appendElement (PDK_NS, "Trigger").appendText (sFullErrorCode);
+        eTest.appendChild (aDoc.getDocumentElement ().detachFromParent ());
+      }
+    }
+
+    if (CREATE_PDK_FILES)
+    {
+      // This one already sets the default namespace prefix
+      final MapBasedNamespaceContext aNSCtx = ((MapBasedNamespaceContext) UBL21Marshaller.applicationResponse ()
+                                                                                         .getNamespaceContext ()).getClone ();
+      aNSCtx.addMapping ("pdk", PDK_NS);
+      MicroWriter.writeToFile (aTestsDoc,
+                               new File ("generated/pdk-mls-bad-" + sErrorCode + ".xml"),
+                               new XMLWriterSettings ().setNamespaceContext (aNSCtx)
+                                                       .setPutNamespaceContextPrefixesInRoot (true));
     }
   }
 
