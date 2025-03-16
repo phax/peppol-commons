@@ -323,7 +323,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v10.1.0 - 2025-03-16
     * Added new submodule `peppol-mls` to support the member review version of Peppol MLS
-    * Removed submodule `peppol-ap-helper` as it is not a top-level project at https://github.com/phax/peppol-ap-helper
+    * Removed submodule `peppol-ap-helper` as it is not a top-level project at https://github.com/phax/peppol-ap-support
 * v10.0.2 - 2025-03-04
     * Updated to Peppol eDEC Code Lists v9.1
     * Updated to Peppol eDEC Code Lists XSD v2.5
