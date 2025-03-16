@@ -14,7 +14,7 @@ This project contains different libraries that are commonly used in the Peppol/e
 * [`peppol-smp-client`](#peppol-smp-client) - the Peppol SMP and BDXR SMP client
 * [`peppol-directory-businesscard`](#peppol-directory-businesscard) - the Peppol Directory Business Card data model (since v9.1.0)
 * [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2)
-* [`peppol-ap-helper`](#peppol-ap-helper) - specific support for common Peppol Access Point (AP) functionality (since v10.0.0)
+* [`peppol-mls`](#peppol-mls) - specific support for the Peppol Message Level Status (MLS) (since v10.1.0)
 * [`dbnalliance-xhe`](#dbnalliance-xhe) - specific support for DBNAlliance XHE header (since v9.5.0)
   
 This project is part of my Peppol solution stack. See https://github.com/phax/peppol for other components and libraries in that area.
@@ -119,11 +119,18 @@ This project holds utility classes to read and write a Peppol Message Level Resp
 
 See https://github.com/phax/peppol-commons/blob/master/peppol-mlr/src/test/java/com/helger/peppol/mlr/PeppolMLRBuilderTest.java for an example how to use the classes.
 
-## peppol-ap-helper
+## peppol-mls
 
-This was introduced in v10.0.0
+This was introduced in v10.0.3
 
-This is a utility component for phase4 common Access Point implementation components. It will grow over time.
+This project holds utility classes to read and write a Peppol Message Level Status (MLs) as defined in the member review of the MLS specification.
+This is not necessarily the final version of the Peppol MLS and subject to change when the final version is released.
+
+* Class `PeppolMLSBuilder` can be used to build a Peppol MLS document - with or without line details. For each `LineResponse` the specialized builder class `PeppolMLSLineResponseBuilder` is available.
+* Class `PeppolMLSMarshaller` can be used to serialize MLS messages from and to XML. It is based on the [ph-ubl](https://github.com/phax/ph-ubl) marshaller.
+* Class `PeppolMLSValidator` can be used to run Schematron validation on Peppol MLS messages.
+
+See https://github.com/phax/peppol-commons/blob/master/peppol-mls/src/test/java/com/helger/peppol/mls/PeppolMLSBuilderTest.java for an example how to use the classes.
 
 ## dbnalliance-xhe
 
@@ -308,6 +315,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.1.0 - 2025-03-16
+    * Added new submodule `peppol-mls` to support the member review version of Peppol MLS
+    * Removed submodule `peppol-ap-helper` as it is not a top-level project at https://github.com/phax/peppol-ap-helper
 * v10.0.2 - 2025-03-04
     * Updated to Peppol eDEC Code Lists v9.1
     * Updated to Peppol eDEC Code Lists XSD v2.5

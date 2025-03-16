@@ -26,7 +26,7 @@
   </parent>
   <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-commons-parent-pom</artifactId>
-  <version>10.0.3-SNAPSHOT</version>
+  <version>10.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>peppol-commons-parent-pom</name>
   <description>Base POM to build the peppol-commons projects</description>
@@ -186,11 +186,6 @@
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
-        <artifactId>peppol-ap-helper</artifactId>
-        <version>${project.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.helger.peppol</groupId>
         <artifactId>dbnalliance-xhe</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -227,7 +222,6 @@
     <module>peppol-directory-businesscard</module>
     <module>peppol-mlr</module>
     <module>peppol-mls</module>
-    <module>peppol-ap-helper</module>
     <module>dbnalliance-xhe</module>
   </modules>
 
