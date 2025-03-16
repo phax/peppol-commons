@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023-2025 Philip Helger
+ * Copyright (C) 2025 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,21 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.mlr;
+package com.helger.peppol.mls;
 
-import javax.annotation.concurrent.Immutable;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
+import com.helger.commons.string.StringHelper;
 
 /**
- * Constants for Peppol MLR (Message Level Response)
+ * Test class for class {@link EPeppolMLSStatusReasonCode}.
  *
  * @author Philip Helger
  */
-@Immutable
-public final class CPeppolMLR
+public final class EPeppolMLSStatusReasonCodeTest
 {
-  public static final String MLR_CUSTOMIZATION_ID = "urn:fdc:peppol.eu:poacc:trns:mlr:3";
-  public static final String MLR_PROFILE_ID = "urn:fdc:peppol.eu:poacc:bis:mlr:3";
-
-  private CPeppolMLR ()
-  {}
+  @Test
+  public void testBasic ()
+  {
+    for (final EPeppolMLSStatusReasonCode e : EPeppolMLSStatusReasonCode.values ())
+    {
+      assertTrue (StringHelper.hasText (e.getID ()));
+      assertSame (e, EPeppolMLSStatusReasonCode.getFromIDOrNull (e.getID ()));
+    }
+  }
 }

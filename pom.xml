@@ -73,7 +73,8 @@
     <jaxb-plugin.version>4.0.8</jaxb-plugin.version>
     <ph-jaxb-plugin.version>4.0.3</ph-jaxb-plugin.version>
     <expiringmap.version>0.5.11</expiringmap.version>
-    <phive.version>10.1.0</phive.version>
+    <phive.version>10.1.1</phive.version>
+    <ph-schematron.version>8.0.6</ph-schematron.version>
     <ph-ubl.version>9.0.3</ph-ubl.version>
     <ph-xhe.version>4.0.2</ph-xhe.version>
   </properties>
@@ -180,6 +181,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
+        <artifactId>peppol-mls</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-ap-helper</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -220,6 +226,7 @@
     <module>peppol-sml-client</module>
     <module>peppol-directory-businesscard</module>
     <module>peppol-mlr</module>
+    <module>peppol-mls</module>
     <module>peppol-ap-helper</module>
     <module>dbnalliance-xhe</module>
   </modules>

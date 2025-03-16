@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023-2025 Philip Helger
+ * Copyright (C) 2025 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,21 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.mlr;
+package com.helger.peppol.mls;
 
 import javax.annotation.concurrent.Immutable;
 
 /**
- * Constants for Peppol MLR (Message Level Response)
+ * Constants for Peppol MLS (Message Level Status)
  *
  * @author Philip Helger
  */
 @Immutable
-public final class CPeppolMLR
+public final class CPeppolMLS
 {
-  public static final String MLR_CUSTOMIZATION_ID = "urn:fdc:peppol.eu:poacc:trns:mlr:3";
-  public static final String MLR_PROFILE_ID = "urn:fdc:peppol.eu:poacc:bis:mlr:3";
+  public static final String MLS_CUSTOMIZATION_ID = "urn:peppol:edec:mls:1.0";
+  public static final String MLS_PROFILE_ID = "urn:peppol:edec:mls";
 
-  private CPeppolMLR ()
+  private CPeppolMLS ()
   {}
 }

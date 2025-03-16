@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023-2025 Philip Helger
+ * Copyright (C) 2025 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.mlr;
+package com.helger.peppol.mls;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -30,13 +30,13 @@ import com.helger.commons.io.file.IFileFilter;
 import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.ApplicationResponseType;
 
 /**
- * Test class for class {@link PeppolMLRMarshaller}.
+ * Test class for class {@link PeppolMLSMarshaller}.
  *
  * @author Philip Helger
  */
-public final class PeppolMLRMarshallerTest
+public final class PeppolMLSMarshallerTest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLRMarshallerTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSMarshallerTest.class);
 
   @Test
   public void testReadGood ()
@@ -44,8 +44,8 @@ public final class PeppolMLRMarshallerTest
     for (final File f : new FileSystemRecursiveIterator (new File ("src/test/resources/external/test-files/good")).withFilter (IFileFilter.filenameEndsWith (".xml")))
     {
       LOGGER.info ("Reading '" + f.getName () + "'");
-      final ApplicationResponseType aMLR = new PeppolMLRMarshaller ().read (f);
-      assertNotNull (aMLR);
+      final ApplicationResponseType aMLS = new PeppolMLSMarshaller ().read (f);
+      assertNotNull (aMLS);
     }
   }
 }

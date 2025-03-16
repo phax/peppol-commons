@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023-2025 Philip Helger
+ * Copyright (C) 2025 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.mlr;
+package com.helger.peppol.mls;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,19 +25,28 @@ import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.state.ISuccessIndicator;
 
 /**
- * Code list for the top-level MLR response codes.
+ * Code list for the top-level MLS response codes.
  *
  * @author Philip Helger
  */
-public enum EPeppolMLRResponseCode implements IHasID <String>, ISuccessIndicator
+public enum EPeppolMLSResponseCode implements IHasID <String>, ISuccessIndicator
 {
+  /**
+   * Message delivered towards C4 with confirmation
+   */
   ACCEPTANCE ("AP"),
+  /**
+   * Message delivered towards C4 without confirmation
+   */
   ACKNOWLEDGING ("AB"),
+  /**
+   * Message rejected or delivery towards C4 failed
+   */
   REJECTION ("RE");
 
   private final String m_sID;
 
-  EPeppolMLRResponseCode (@Nonnull @Nonempty final String sID)
+  EPeppolMLSResponseCode (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }
@@ -60,8 +69,8 @@ public enum EPeppolMLRResponseCode implements IHasID <String>, ISuccessIndicator
   }
 
   @Nullable
-  public static EPeppolMLRResponseCode getFromIDOrNull (@Nullable final String sID)
+  public static EPeppolMLSResponseCode getFromIDOrNull (@Nullable final String sID)
   {
-    return EnumHelper.getFromIDOrNull (EPeppolMLRResponseCode.class, sID);
+    return EnumHelper.getFromIDOrNull (EPeppolMLSResponseCode.class, sID);
   }
 }
