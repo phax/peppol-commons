@@ -20,8 +20,8 @@ This project contains different libraries that are commonly used in the Peppol/e
 This project is part of my Peppol solution stack. See https://github.com/phax/peppol for other components and libraries in that area.
 
 These project are used implicitly by e.g. the following projects:
+* [phase4](https://github.com/phax/phase4/) - an AS4 implementation that supports the Peppol Network
 * [phoss-smp](https://github.com/phax/phoss-smp/) - the phoss SMP server with a management GUI
-* [phase4](https://github.com/phax/phase4/) - an AS4 implementation that also supports Peppol 
 * [phoss-directory](https://github.com/phax/phoss-directory/) - the phoss Directory for Peppol and TOOP
 
 This project is licensed under the Apache 2.0 license.
@@ -281,6 +281,12 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
 <dependency>
   <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-mlr</artifactId>
+  <version>x.y.z</version>
+</dependency>
+
+<dependency>
+  <groupId>com.helger.peppol</groupId>
+  <artifactId>peppol-mls</artifactId>
   <version>x.y.z</version>
 </dependency>
 
