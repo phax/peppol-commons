@@ -34,7 +34,7 @@
     <DocumentIdentification>
       <Standard>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2</Standard>
       <TypeVersion>2.1</TypeVersion>
-      <InstanceIdentifier>123123</InstanceIdentifier>
+      <InstanceIdentifier>3739db04-7e4e-4c89-b170-c543dd252249</InstanceIdentifier>
       <Type>Invoice</Type>
       <CreationDateAndTime>2019-04-25T15:46:10Z</CreationDateAndTime>
     </DocumentIdentification>

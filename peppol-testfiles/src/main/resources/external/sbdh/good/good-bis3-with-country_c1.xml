@@ -30,7 +30,7 @@
     <DocumentIdentification>
       <Standard>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2</Standard>
       <TypeVersion>2.1</TypeVersion>
-      <InstanceIdentifier>123123</InstanceIdentifier>
+      <InstanceIdentifier>a593a0aa-6ff7-48b0-8906-5534fa5212e0</InstanceIdentifier>
       <Type>Invoice</Type>
       <CreationDateAndTime>2019-04-25T15:46:10Z</CreationDateAndTime>
     </DocumentIdentification>
