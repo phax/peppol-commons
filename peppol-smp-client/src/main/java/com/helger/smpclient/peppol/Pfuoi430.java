@@ -20,10 +20,14 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.time.LocalDate;
+import java.time.Month;
+
+import com.helger.commons.datetime.PDTFactory;
 
 /**
- * This element is specific to the Peppol Policy for use of Identifiers 4.3.0
- * and should only be used carefully before May 15th, 2025.
+ * This element is specific to the Peppol Policy for use of Identifiers 4.3.0 and should only be
+ * used carefully before May 15th, 2025.
  *
  * @author Philip Helger
  */
@@ -35,5 +39,8 @@ import java.lang.annotation.Target;
            ElementType.LOCAL_VARIABLE })
 public @interface Pfuoi430
 {
+  /** The first date (incl.) this specification is valid */
+  static LocalDate VALID_FROM = PDTFactory.createLocalDate (2025, Month.MAY, 15);
+
   String value() default "";
 }
