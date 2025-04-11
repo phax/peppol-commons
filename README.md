@@ -135,7 +135,7 @@ See https://github.com/phax/peppol-commons/blob/master/peppol-mls/src/test/java/
 
 ## dbnalliance-commons
 
-This was introduced in v10.1.2
+This was introduced in v10.2.0
 
 This project contains shared components for DBNAlliance usage.
 
@@ -294,6 +294,12 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
 <dependency>
   <groupId>com.helger.peppol</groupId>
   <artifactId>peppol-mls</artifactId>
+  <version>x.y.z</version>
+</dependency>
+
+<dependency>
+  <groupId>com.helger.peppol</groupId>
+  <artifactId>dbnalliance-commons</artifactId>
   <version>x.y.z</version>
 </dependency>
 
