@@ -24,9 +24,8 @@ import java.time.Month;
 import org.junit.Test;
 
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.peppol.utils.EPeppolCertificateCheckResult;
-import com.helger.peppol.utils.PeppolCAChecker;
-import com.helger.peppol.utils.PeppolCertificateChecker;
+import com.helger.security.certificate.ECertificateCheckResult;
+import com.helger.security.certificate.TrustedCAChecker;
 
 /**
  * Test class for class {@link DBNAllianceTrustStores}.
@@ -45,17 +44,17 @@ public final class DBNAllianceTrustStoresTest
   @Test
   public void testBasic ()
   {
-    final PeppolCAChecker aDemoCA = new PeppolCAChecker (DBNAllianceTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE);
+    final TrustedCAChecker aDemoCA = new TrustedCAChecker (DBNAllianceTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE);
 
-    EPeppolCertificateCheckResult e = PeppolCertificateChecker.peppolTestAP ().checkCertificate (null);
-    assertEquals (EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);
+    ECertificateCheckResult e = aDemoCA.checkCertificate (null);
+    assertEquals (ECertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);
 
     e = aDemoCA.checkCertificate (DBNAllianceTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE,
                                   PDTFactory.createOffsetDateTime (2000, Month.JANUARY, 1));
-    assertEquals (EPeppolCertificateCheckResult.NOT_YET_VALID, e);
+    assertEquals (ECertificateCheckResult.NOT_YET_VALID, e);
 
     e = aDemoCA.checkCertificate (DBNAllianceTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE,
                                   PDTFactory.createOffsetDateTime (2099, Month.JANUARY, 1));
-    assertEquals (EPeppolCertificateCheckResult.EXPIRED, e);
+    assertEquals (ECertificateCheckResult.EXPIRED, e);
   }
 }

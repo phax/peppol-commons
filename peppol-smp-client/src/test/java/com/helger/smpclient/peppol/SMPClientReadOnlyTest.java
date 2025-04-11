@@ -41,7 +41,6 @@ import com.helger.commons.datetime.PDTWebDateHelper;
 import com.helger.commons.state.ETriState;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.peppol.utils.EPeppolCertificateCheckResult;
 import com.helger.peppol.utils.PeppolCertificateChecker;
 import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.peppolid.CIdentifier;
@@ -50,6 +49,7 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
+import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.revocation.ERevocationCheckMode;
@@ -530,14 +530,14 @@ public final class SMPClientReadOnlyTest
     assertNotNull (aAPCert);
 
     // Check at a specific date, as the certificate
-    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolTestAP ()
-                                                                                   .checkCertificate (aAPCert,
-                                                                                                      PDTFactory.createOffsetDateTime (2024,
-                                                                                                                                       Month.JUNE,
-                                                                                                                                       1),
-                                                                                                      ETriState.UNDEFINED,
-                                                                                                      ERevocationCheckMode.CRL_BEFORE_OCSP);
-    assertSame (EPeppolCertificateCheckResult.REVOKED, eCertCheckResult);
+    final ECertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolTestAP ()
+                                                                             .checkCertificate (aAPCert,
+                                                                                                PDTFactory.createOffsetDateTime (2024,
+                                                                                                                                 Month.JUNE,
+                                                                                                                                 1),
+                                                                                                ETriState.UNDEFINED,
+                                                                                                ERevocationCheckMode.CRL_BEFORE_OCSP);
+    assertSame (ECertificateCheckResult.REVOKED, eCertCheckResult);
   }
 
   @Test

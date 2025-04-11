@@ -25,8 +25,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.Month;
 
-import javax.naming.ldap.LdapName;
-import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
 
 import org.junit.Ignore;
@@ -36,6 +34,7 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.ECertificateCheckResult;
 
 /**
  * Test class for class {@link PeppolCertificateHelper}.
@@ -58,13 +57,7 @@ public final class PeppolCertificateHelperTest
                   aCert.getSubjectX500Principal ().getName (X500Principal.RFC2253));
 
     // Does also not work
-    {
-      String s = null;
-      for (final Rdn aRdn : new LdapName (aCert.getSubjectX500Principal ().getName ()).getRdns ())
-        if (aRdn.getType ().equalsIgnoreCase ("O"))
-          s = (String) aRdn.getValue ();
-      assertEquals ("Riigi Infosüsteemi Amet", s);
-    }
+    assertEquals ("Riigi Infosüsteemi Amet", CertificateHelper.getSubjectO (aCert));
   }
 
   @Test
@@ -74,11 +67,11 @@ public final class PeppolCertificateHelperTest
                                                                                                                  StandardCharsets.UTF_8));
     assertNotNull (aCert);
     // Check at a specific date, as the certificate
-    final EPeppolCertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolTestAP ()
-                                                                                   .checkCertificate (aCert,
-                                                                                                      PDTFactory.createOffsetDateTime (2024,
-                                                                                                                                       Month.JANUARY,
-                                                                                                                                       1));
-    assertSame (EPeppolCertificateCheckResult.REVOKED, eCertCheckResult);
+    final ECertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolTestAP ()
+                                                                             .checkCertificate (aCert,
+                                                                                                PDTFactory.createOffsetDateTime (2024,
+                                                                                                                                 Month.JANUARY,
+                                                                                                                                 1));
+    assertSame (ECertificateCheckResult.REVOKED, eCertCheckResult);
   }
 }

@@ -21,12 +21,13 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
 
 /**
- * A generic revocation check builder that works with arbitrary certificates.
- * Contains no specific pre-configuration.
+ * A generic revocation check builder that works with arbitrary certificates. Contains no specific
+ * pre-configuration.
  *
  * @author Philip Helger
  * @since 9.6.0 a top-level class
  */
 @NotThreadSafe
+@Deprecated (forRemoval = true, since = "10.2.0")
 public class RevocationCheckBuilder extends AbstractRevocationCheckBuilder <RevocationCheckBuilder>
 {}

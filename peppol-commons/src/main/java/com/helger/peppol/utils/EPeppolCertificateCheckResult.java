@@ -24,13 +24,16 @@ import com.helger.commons.annotation.Since;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.state.IValidityIndicator;
+import com.helger.security.certificate.ECertificateCheckResult;
 
 /**
- * Enumeration for all Peppol certificate checks
+ * Enumeration for all potential certificate check outcomes.
  *
  * @author Philip Helger
  * @since 7.0.4
+ * @deprecated Use {@link ECertificateCheckResult} instead
  */
+@Deprecated (forRemoval = true, since = "10.2.0")
 public enum EPeppolCertificateCheckResult implements IHasID <String>, IValidityIndicator
 {
   VALID ("valid", "certificate is valid"),
@@ -89,8 +92,7 @@ public enum EPeppolCertificateCheckResult implements IHasID <String>, IValidityI
    * @param sID
    *        The ID to be searched. May be <code>null</code>.
    * @param eDefault
-   *        The default value to be returned if no such ID is contained. May be
-   *        <code>null</code>.
+   *        The default value to be returned if no such ID is contained. May be <code>null</code>.
    * @return <code>eDefault</code> if no such item was found.
    */
   @Nullable

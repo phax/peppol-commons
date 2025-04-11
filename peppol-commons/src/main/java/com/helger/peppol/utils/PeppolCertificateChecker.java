@@ -16,11 +16,6 @@
  */
 package com.helger.peppol.utils;
 
-import java.security.cert.CertificateExpiredException;
-import java.security.cert.CertificateNotYetValidException;
-import java.security.cert.X509Certificate;
-import java.util.Date;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
@@ -29,8 +24,10 @@ import javax.security.auth.x500.X500Principal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.ECertificateCheckResult;
+import com.helger.security.certificate.TrustedCAChecker;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
 
@@ -45,18 +42,18 @@ public final class PeppolCertificateChecker
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateChecker.class);
 
-  private static final PeppolCAChecker TEST_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
-  private static final PeppolCAChecker PROD_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
-  private static final PeppolCAChecker ALL_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP,
-                                                                     PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
+  private static final TrustedCAChecker TEST_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
+  private static final TrustedCAChecker PROD_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
+  private static final TrustedCAChecker ALL_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP,
+                                                                       PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
 
-  private static final PeppolCAChecker TEST_SMP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
-  private static final PeppolCAChecker PROD_SMP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
-  private static final PeppolCAChecker ALL_SMP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP,
-                                                                      PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
+  private static final TrustedCAChecker TEST_SMP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
+  private static final TrustedCAChecker PROD_SMP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
+  private static final TrustedCAChecker ALL_SMP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP,
+                                                                        PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
 
-  private static final PeppolCAChecker TEST_EB2B_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_EB2B_AP);
-  private static final PeppolCAChecker PROD_EB2B_AP = new PeppolCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_EB2B_AP);
+  private static final TrustedCAChecker TEST_EB2B_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_EB2B_AP);
+  private static final TrustedCAChecker PROD_EB2B_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_EB2B_AP);
 
   private PeppolCertificateChecker ()
   {}
@@ -66,7 +63,7 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolTestAP ()
+  public static TrustedCAChecker peppolTestAP ()
   {
     return TEST_AP;
   }
@@ -76,7 +73,7 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolProductionAP ()
+  public static TrustedCAChecker peppolProductionAP ()
   {
     return PROD_AP;
   }
@@ -86,7 +83,7 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolAllAP ()
+  public static TrustedCAChecker peppolAllAP ()
   {
     return ALL_AP;
   }
@@ -96,7 +93,7 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolTestSMP ()
+  public static TrustedCAChecker peppolTestSMP ()
   {
     return TEST_SMP;
   }
@@ -106,7 +103,7 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolProductionSMP ()
+  public static TrustedCAChecker peppolProductionSMP ()
   {
     return PROD_SMP;
   }
@@ -116,7 +113,7 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolAllSMP ()
+  public static TrustedCAChecker peppolAllSMP ()
   {
     return ALL_SMP;
   }
@@ -126,7 +123,7 @@ public final class PeppolCertificateChecker
    * @since 9.6.0
    */
   @Nonnull
-  public static PeppolCAChecker peppolTestEb2bAP ()
+  public static TrustedCAChecker peppolTestEb2bAP ()
   {
     return TEST_EB2B_AP;
   }
@@ -136,7 +133,7 @@ public final class PeppolCertificateChecker
    * @since 10.0.1
    */
   @Nonnull
-  public static PeppolCAChecker peppolProductionEb2bAP ()
+  public static TrustedCAChecker peppolProductionEb2bAP ()
   {
     return PROD_EB2B_AP;
   }
@@ -146,143 +143,50 @@ public final class PeppolCertificateChecker
    */
   public static void clearRevocationCheckCache ()
   {
-    TEST_AP.clearRevocationCache ();
-    PROD_AP.clearRevocationCache ();
-    ALL_AP.clearRevocationCache ();
+    TEST_AP.getRevocationCache ().clearCache ();
+    PROD_AP.getRevocationCache ().clearCache ();
+    ALL_AP.getRevocationCache ().clearCache ();
 
-    TEST_SMP.clearRevocationCache ();
-    PROD_SMP.clearRevocationCache ();
-    ALL_SMP.clearRevocationCache ();
+    TEST_SMP.getRevocationCache ().clearCache ();
+    PROD_SMP.getRevocationCache ().clearCache ();
+    ALL_SMP.getRevocationCache ().clearCache ();
 
-    TEST_EB2B_AP.clearRevocationCache ();
-    PROD_EB2B_AP.clearRevocationCache ();
+    TEST_EB2B_AP.getRevocationCache ().clearCache ();
+    PROD_EB2B_AP.getRevocationCache ().clearCache ();
 
     LOGGER.info ("The PeppolCertificateChecker revocation cache was cleared");
   }
 
   /**
-   * Check if the provided certificate (from the revocation checker) is a valid
-   * certificate. It checks:
+   * Check if the provided certificate (from the revocation checker) is a valid certificate. It
+   * checks:
    * <ol>
-   * <li>Validity at the provided date time (aRevocationChecker.checkDate) or
-   * per now if none was provided</li>
+   * <li>Validity at the provided date time (aRevocationChecker.checkDate) or per now if none was
+   * provided</li>
    * <li>If the certificate issuer is part of the provided list of issuers</li>
    * <li>If the certificate is revoked</li>
    * </ol>
    *
    * @param aIssuers
-   *        The list of valid certificate issuers to check against. May be
-   *        <code>null</code> to not perform this check.
+   *        The list of valid certificate issuers to check against. May be <code>null</code> to not
+   *        perform this check.
    * @param aRevocationCache
    *        The cache. May be <code>null</code> to disable caching.
    * @param aRevocationChecker
-   *        The revocation checker builder with all necessary parameters already
-   *        set. May not be <code>null</code>.
-   * @return {@link EPeppolCertificateCheckResult} and never <code>null</code>.
+   *        The revocation checker builder with all necessary parameters already set. May not be
+   *        <code>null</code>.
+   * @return {@link ECertificateCheckResult} and never <code>null</code>.
    * @since 8.5.2
+   * @deprecated Use
+   *             {@link CertificateHelper#checkCertificate(ICommonsSet, RevocationCheckResultCache, AbstractRevocationCheckBuilder)}
+   *             instead
    */
   @Nonnull
-  public static EPeppolCertificateCheckResult checkCertificate (@Nullable final ICommonsSet <X500Principal> aIssuers,
-                                                                @Nullable final RevocationCheckResultCache aRevocationCache,
-                                                                @Nonnull final AbstractRevocationCheckBuilder <?> aRevocationChecker)
+  @Deprecated (forRemoval = true, since = "10.2.0")
+  public static ECertificateCheckResult checkCertificate (@Nullable final ICommonsSet <X500Principal> aIssuers,
+                                                          @Nullable final RevocationCheckResultCache aRevocationCache,
+                                                          @Nonnull final AbstractRevocationCheckBuilder <?> aRevocationChecker)
   {
-    ValueEnforcer.notNull (aRevocationChecker, "RevocationChecker");
-
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Running Peppol Certificate Check" +
-                    (aIssuers != null ? " against a list of " + aIssuers.size () + " certificate issuers" : "") +
-                    (aRevocationCache != null ? "; a cache is provided" : "; not using a cache"));
-
-    // Get the certificate to be validated
-    final X509Certificate aCert = aRevocationChecker.certificate ();
-    if (aCert == null)
-    {
-      LOGGER.warn ("No Peppol Certificate was provided to the certificate check");
-      return EPeppolCertificateCheckResult.NO_CERTIFICATE_PROVIDED;
-    }
-
-    // Check validity date
-    final Date aCheckDate = aRevocationChecker.checkDate ();
-    try
-    {
-      // null means now
-      if (aCheckDate == null)
-      {
-        if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Checking the Peppol Certificate validity against the current date time");
-        aCert.checkValidity ();
-      }
-      else
-      {
-        if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Checking the Peppol Certificate validity against the provided date time " + aCheckDate);
-        aCert.checkValidity (aCheckDate);
-      }
-    }
-    catch (final CertificateNotYetValidException ex)
-    {
-      LOGGER.warn ("The provided Peppol Certificate is not yet valid per " +
-                   (aCheckDate == null ? "now" : aCheckDate.toString ()));
-      return EPeppolCertificateCheckResult.NOT_YET_VALID;
-    }
-    catch (final CertificateExpiredException ex)
-    {
-      LOGGER.warn ("The provided Peppol Certificate is expired per " +
-                   (aCheckDate == null ? "now" : aCheckDate.toString ()));
-      return EPeppolCertificateCheckResult.EXPIRED;
-    }
-
-    if (aIssuers != null)
-    {
-      // Check if issuer is known
-      final X500Principal aIssuer = aCert.getIssuerX500Principal ();
-      if (!aIssuers.contains (aIssuer))
-      {
-        // Not a valid Peppol certificate
-        LOGGER.warn ("The provided Peppol Certificate issuer '" +
-                     aIssuer +
-                     "' is not in the list of trusted issuers " +
-                     aIssuers);
-        return EPeppolCertificateCheckResult.UNSUPPORTED_ISSUER;
-      }
-    }
-    else
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Not testing against known Peppol Certificate issuers");
-    }
-
-    // Check revocation OCSP/CLR
-    if (aRevocationCache != null)
-    {
-      // Caching is enabled
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Testing if the Peppol Certificate is revoked, using a cache");
-
-      final boolean bRevoked = aRevocationCache.isRevoked (aCert);
-      if (bRevoked)
-      {
-        LOGGER.warn ("The Peppol Certificate is revoked [caching used]");
-        return EPeppolCertificateCheckResult.REVOKED;
-      }
-    }
-    else
-    {
-      // No caching desired
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Testing if the Peppol Certificate is revoked, without a cache");
-
-      if (aRevocationChecker.build ().isRevoked ())
-      {
-        LOGGER.warn ("The Peppol Certificate is revoked [no caching]");
-        return EPeppolCertificateCheckResult.REVOKED;
-      }
-    }
-
-    // Done
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("The Peppol Certificate seems to be valid");
-
-    return EPeppolCertificateCheckResult.VALID;
+    return CertificateHelper.checkCertificate (aIssuers, aRevocationCache, aRevocationChecker);
   }
 }

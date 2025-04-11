@@ -22,12 +22,12 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.peppol.utils.PeppolCAChecker;
 import com.helger.peppol.utils.PeppolCertificateChecker;
+import com.helger.security.certificate.TrustedCAChecker;
 
 /**
- * This enum lists all the Peppol Service Domains. The additional information
- * are primarily around the required certificates.
+ * This enum lists all the Peppol Service Domains. The additional information are primarily around
+ * the required certificates.
  *
  * @author Philip Helger
  * @since 9.6.0
@@ -60,16 +60,16 @@ public enum EPeppolServiceDomain implements IHasID <String>
                 null);
 
   private final String m_sID;
-  private final PeppolCAChecker m_aTestAPChecker;
-  private final PeppolCAChecker m_aProdAPChecker;
-  private final PeppolCAChecker m_aTestSMPChecker;
-  private final PeppolCAChecker m_aProdSMPChecker;
+  private final TrustedCAChecker m_aTestAPChecker;
+  private final TrustedCAChecker m_aProdAPChecker;
+  private final TrustedCAChecker m_aTestSMPChecker;
+  private final TrustedCAChecker m_aProdSMPChecker;
 
   EPeppolServiceDomain (@Nonnull @Nonempty final String sID,
-                        @Nullable final PeppolCAChecker aTestAPChecker,
-                        @Nullable final PeppolCAChecker aProdAPChecker,
-                        @Nullable final PeppolCAChecker aTestSMPChecker,
-                        @Nullable final PeppolCAChecker aProdSMPChecker)
+                        @Nullable final TrustedCAChecker aTestAPChecker,
+                        @Nullable final TrustedCAChecker aProdAPChecker,
+                        @Nullable final TrustedCAChecker aTestSMPChecker,
+                        @Nullable final TrustedCAChecker aProdSMPChecker)
   {
     m_sID = sID;
     m_aTestAPChecker = aTestAPChecker;
@@ -86,37 +86,37 @@ public enum EPeppolServiceDomain implements IHasID <String>
   }
 
   @Nullable
-  public PeppolCAChecker getTestAPChecker ()
+  public TrustedCAChecker getTestAPChecker ()
   {
     return m_aTestAPChecker;
   }
 
   @Nullable
-  public PeppolCAChecker getProdAPChecker ()
+  public TrustedCAChecker getProdAPChecker ()
   {
     return m_aProdAPChecker;
   }
 
   @Nullable
-  public PeppolCAChecker getAPChecker (@Nonnull final EPeppolNetwork eNetwork)
+  public TrustedCAChecker getAPChecker (@Nonnull final EPeppolNetwork eNetwork)
   {
     return eNetwork.isTest () ? m_aTestAPChecker : m_aProdAPChecker;
   }
 
   @Nullable
-  public PeppolCAChecker getTestSMPChecker ()
+  public TrustedCAChecker getTestSMPChecker ()
   {
     return m_aTestSMPChecker;
   }
 
   @Nullable
-  public PeppolCAChecker getProdSMPChecker ()
+  public TrustedCAChecker getProdSMPChecker ()
   {
     return m_aProdSMPChecker;
   }
 
   @Nullable
-  public PeppolCAChecker getSMPChecker (@Nonnull final EPeppolNetwork eNetwork)
+  public TrustedCAChecker getSMPChecker (@Nonnull final EPeppolNetwork eNetwork)
   {
     return eNetwork.isTest () ? m_aTestSMPChecker : m_aProdSMPChecker;
   }

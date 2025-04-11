@@ -44,20 +44,18 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.peppol.utils.EPeppolCertificateCheckResult;
-import com.helger.peppol.utils.PeppolCertificateChecker;
-import com.helger.peppol.utils.RevocationCheckBuilder;
 import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.keystore.ConstantKeySelectorResult;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
+import com.helger.security.revocation.RevocationCheckBuilder;
 
 /**
  * Finds and returns a key using the data contained in a {@link KeyInfo} object
  *
  * @author Philip Helger
- * @see <a href=
- *      "http://java.sun.com/developer/technicalArticles/xml/dig_signature_api/">
+ * @see <a href= "http://java.sun.com/developer/technicalArticles/xml/dig_signature_api/">
  *      Programming with the Java XML Digital Signature API</a>
  */
 public final class TrustStoreBasedX509KeySelector extends KeySelector
@@ -81,8 +79,8 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   }
 
   /**
-   * @return The selected validation date and time to use. <code>null</code>
-   *         means current date time.
+   * @return The selected validation date and time to use. <code>null</code> means current date
+   *         time.
    * @since 8.6.2
    */
   @Nullable
@@ -181,16 +179,16 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
               if (false)
               {
                 // The SMP response must be signed with an SMP certificate
-                final EPeppolCertificateCheckResult eCheckResult;
+                final ECertificateCheckResult eCheckResult;
                 // No cache because it uses the default issuer check and trust
                 // store
-                eCheckResult = PeppolCertificateChecker.checkCertificate (KeyStoreHelper.getAllTrustedCertificates (m_aTrustStore)
-                                                                                        .getAllMapped (X509Certificate::getSubjectX500Principal),
-                                                                          null,
-                                                                          new RevocationCheckBuilder ().certificate (aCertificate)
-                                                                                                       .checkDate (m_aValidationDateTime)
-                                                                                                       .validCAs (m_aTrustStore)
-                                                                                                       .checkMode (CertificateRevocationCheckerDefaults.getRevocationCheckMode ()));
+                eCheckResult = CertificateHelper.checkCertificate (KeyStoreHelper.getAllTrustedCertificates (m_aTrustStore)
+                                                                                 .getAllMapped (X509Certificate::getSubjectX500Principal),
+                                                                   null,
+                                                                   new RevocationCheckBuilder ().certificate (aCertificate)
+                                                                                                .checkDate (m_aValidationDateTime)
+                                                                                                .validCAs (m_aTrustStore)
+                                                                                                .checkMode (CertificateRevocationCheckerDefaults.getRevocationCheckMode ()));
                 LOGGER.info ("SMP Client AP certificate check result: " + eCheckResult);
                 if (eCheckResult.isInvalid ())
                   throw new KeySelectorException ("Failed to verify the contained AP certificate with code " +
