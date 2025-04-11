@@ -82,7 +82,7 @@ public final class DBNAllianceTrustStores
     {}
 
     // Pilot
-    public static final String TRUSTSTORE_PILOT_CLASSPATH = "truststore/2023/pilot-truststore.p12";
+    public static final String TRUSTSTORE_PILOT_CLASSPATH = "truststore-dbnalliance/2023/pilot-truststore.p12";
 
     public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_PILOT = TrustStoreDescriptor.builder ()
                                                                                                 .type (TRUSTSTORE_TYPE)
@@ -108,7 +108,7 @@ public final class DBNAllianceTrustStores
 
     /** The DBNAlliance Pilot certificate */
     public static final X509Certificate CERTIFICATE_PILOT_ROOT = _resolveCert (TRUSTSTORE_PILOT,
-                                                                                    TRUSTSTORE_PILOT_ALIAS_ROOT);
+                                                                               TRUSTSTORE_PILOT_ALIAS_ROOT);
 
     /** The truststore alias for the DBNAlliance Pilot Intermediate certificate */
     public static final String TRUSTSTORE_PILOT_ALIAS_INTERMEDIATE = "dbnalliance demo intermediate test (dbnalliance demo root ca)";
