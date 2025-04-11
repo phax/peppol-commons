@@ -328,7 +328,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v10.1.1 - work in progress
+* v10.2.0 - work in progress
+    * Requires at least ph-commons 11.2.1
     * Added new submodule `dbnalliance-commons` containing shared DBNAlliance stuff
 * v10.1.0 - 2025-03-16
     * Added new submodule `peppol-mls` to support the member review version of Peppol MLS
