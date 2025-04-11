@@ -14,13 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.utils;
+package com.helger.peppol.security;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.Month;
 
@@ -29,40 +32,43 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ETriState;
+import com.helger.peppol.security.PeppolTrustStores.Config2018;
+import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.revocation.ERevocationCheckMode;
 
 /**
- * Test class for class {@link PeppolCertificateChecker}
+ * Test class for class {@link PeppolTrustedCA}
  *
  * @author Philip Helger
  */
-public class PeppolCertificateCheckerTest
+public class PeppolTrustedCATest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateCheckerTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolTrustedCATest.class);
 
   @Test
   public void testBasic ()
   {
-    ECertificateCheckResult e = PeppolCertificateChecker.peppolTestAP ().checkCertificate (null);
+    ECertificateCheckResult e = PeppolTrustedCA.peppolTestAP ().checkCertificate (null);
     assertEquals (ECertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);
 
-    e = PeppolCertificateChecker.peppolTestAP ()
-                                .checkCertificate (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP,
-                                                   PDTFactory.createOffsetDateTime (2000, Month.JANUARY, 1));
+    e = PeppolTrustedCA.peppolTestAP ()
+                       .checkCertificate (Config2018.CERTIFICATE_PILOT_AP,
+                                          PDTFactory.createOffsetDateTime (2000, Month.JANUARY, 1));
     assertEquals (ECertificateCheckResult.NOT_YET_VALID, e);
 
-    e = PeppolCertificateChecker.peppolTestAP ()
-                                .checkCertificate (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP,
-                                                   PDTFactory.createOffsetDateTime (2099, Month.JANUARY, 1));
+    e = PeppolTrustedCA.peppolTestAP ()
+                       .checkCertificate (Config2018.CERTIFICATE_PILOT_AP,
+                                          PDTFactory.createOffsetDateTime (2099, Month.JANUARY, 1));
     assertEquals (ECertificateCheckResult.EXPIRED, e);
 
     // It's the same certificate, but we need one issued by the pilot AP
-    e = PeppolCertificateChecker.peppolTestAP ()
-                                .checkCertificate (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
+    e = PeppolTrustedCA.peppolTestAP ().checkCertificate (Config2018.CERTIFICATE_PILOT_AP);
     assertEquals (ECertificateCheckResult.UNSUPPORTED_ISSUER, e);
   }
 
@@ -87,40 +93,30 @@ public class PeppolCertificateCheckerTest
       ECertificateCheckResult e;
 
       LOGGER.info ("Checking with OCSP_BEFORE_CRL");
-      e = PeppolCertificateChecker.peppolTestAP ()
-                                  .checkCertificate (aCert,
-                                                     null,
-                                                     ETriState.FALSE,
-                                                     ERevocationCheckMode.OCSP_BEFORE_CRL);
+      e = PeppolTrustedCA.peppolTestAP ()
+                         .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP_BEFORE_CRL);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with OCSP");
-      e = PeppolCertificateChecker.peppolTestAP ()
-                                  .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP);
+      e = PeppolTrustedCA.peppolTestAP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL_BEFORE_OCSP");
-      e = PeppolCertificateChecker.peppolTestAP ()
-                                  .checkCertificate (aCert,
-                                                     null,
-                                                     ETriState.FALSE,
-                                                     ERevocationCheckMode.CRL_BEFORE_OCSP);
+      e = PeppolTrustedCA.peppolTestAP ()
+                         .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL_BEFORE_OCSP);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL");
-      e = PeppolCertificateChecker.peppolTestAP ()
-                                  .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
+      e = PeppolTrustedCA.peppolTestAP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       // Try again with CRL only to ensure it's not downloaded again
       LOGGER.info ("Checking with CRL");
-      e = PeppolCertificateChecker.peppolTestAP ()
-                                  .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
+      e = PeppolTrustedCA.peppolTestAP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with NONE");
-      e = PeppolCertificateChecker.peppolTestAP ()
-                                  .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.NONE);
+      e = PeppolTrustedCA.peppolTestAP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.NONE);
       assertEquals (ECertificateCheckResult.VALID, e);
     }
     else
@@ -148,43 +144,48 @@ public class PeppolCertificateCheckerTest
       ECertificateCheckResult e;
 
       LOGGER.info ("Checking with OCSP_BEFORE_CRL");
-      e = PeppolCertificateChecker.peppolTestSMP ()
-                                  .checkCertificate (aCert,
-                                                     null,
-                                                     ETriState.FALSE,
-                                                     ERevocationCheckMode.OCSP_BEFORE_CRL);
+      e = PeppolTrustedCA.peppolTestSMP ()
+                         .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP_BEFORE_CRL);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with OCSP");
-      e = PeppolCertificateChecker.peppolTestSMP ()
-                                  .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP);
+      e = PeppolTrustedCA.peppolTestSMP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL_BEFORE_OCSP");
-      e = PeppolCertificateChecker.peppolTestSMP ()
-                                  .checkCertificate (aCert,
-                                                     null,
-                                                     ETriState.FALSE,
-                                                     ERevocationCheckMode.CRL_BEFORE_OCSP);
+      e = PeppolTrustedCA.peppolTestSMP ()
+                         .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL_BEFORE_OCSP);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL");
-      e = PeppolCertificateChecker.peppolTestSMP ()
-                                  .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
+      e = PeppolTrustedCA.peppolTestSMP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       // Try again with CRL only to ensure it's not downloaded again
       LOGGER.info ("Checking with CRL");
-      e = PeppolCertificateChecker.peppolTestSMP ()
-                                  .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
+      e = PeppolTrustedCA.peppolTestSMP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
       assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with NONE");
-      e = PeppolCertificateChecker.peppolTestSMP ()
-                                  .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.NONE);
+      e = PeppolTrustedCA.peppolTestSMP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.NONE);
       assertEquals (ECertificateCheckResult.VALID, e);
     }
     else
       LOGGER.info ("Expected SMP keystore was not found");
+  }
+
+  @Test
+  public void testCheckRevoked () throws CertificateException
+  {
+    final X509Certificate aCert = CertificateHelper.convertStringToCertficate (StreamHelper.getAllBytesAsString (new ClassPathResource ("external/peppol-ap-cert-expired.pem"),
+                                                                                                                 StandardCharsets.UTF_8));
+    assertNotNull (aCert);
+    // Check at a specific date, as the certificate
+    final ECertificateCheckResult eCertCheckResult = PeppolTrustedCA.peppolTestAP ()
+                                                                    .checkCertificate (aCert,
+                                                                                       PDTFactory.createOffsetDateTime (2024,
+                                                                                                                        Month.JANUARY,
+                                                                                                                        1));
+    assertSame (ECertificateCheckResult.REVOKED, eCertCheckResult);
   }
 }

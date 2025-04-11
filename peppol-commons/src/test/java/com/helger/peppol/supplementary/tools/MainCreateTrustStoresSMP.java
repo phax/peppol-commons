@@ -25,7 +25,7 @@ import java.util.Enumeration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.peppol.utils.PeppolKeyStoreHelper;
+import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.keystore.LoadedKeyStore;
@@ -46,7 +46,7 @@ public class MainCreateTrustStoresSMP
       {
         final LoadedKeyStore aLKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS,
                                                                  "truststore/" + sTS + "-truststore.jks",
-                                                                 PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD.toCharArray ());
+                                                                 PeppolTrustStores.TRUSTSTORE_PASSWORD.toCharArray ());
         final Enumeration <String> aAliases = aLKS.getKeyStore ().aliases ();
         while (aAliases.hasMoreElements ())
         {
@@ -59,7 +59,7 @@ public class MainCreateTrustStoresSMP
       final File fDest = new File ("src/main/resources/truststore/2018/smp-" + sType + "-truststore.jks");
       try (final OutputStream aFOS = new FileOutputStream (fDest))
       {
-        aSMPTrustStore.store (aFOS, PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD.toCharArray ());
+        aSMPTrustStore.store (aFOS, PeppolTrustStores.TRUSTSTORE_PASSWORD.toCharArray ());
       }
       LOGGER.info ("Wrote " + fDest.getPath ());
     }

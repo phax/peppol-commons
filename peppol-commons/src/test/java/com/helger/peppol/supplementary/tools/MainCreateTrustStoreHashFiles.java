@@ -28,13 +28,12 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.peppol.utils.PeppolKeyStoreHelper;
+import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
- * Utility class to create hash codes of the global trust store to verify if it
- * is valid or not.
+ * Utility class to create hash codes of the global trust store to verify if it is valid or not.
  *
  * @author Philip Helger
  */
@@ -63,16 +62,16 @@ public final class MainCreateTrustStoreHashFiles
 
   public static void main (final String [] args) throws IOException
   {
-    _create (PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH);
+    _create (PeppolTrustStores.TRUSTSTORE_COMPLETE_CLASSPATH);
     _create ("truststore/sml-truststore.jks");
     _create ("truststore/directory-truststore.jks");
     _create ("truststore/2010/prod-truststore.jks");
     _create ("truststore/2010/pilot-truststore.jks");
-    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PRODUCTION_CLASSPATH);
-    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH);
-    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PRODUCTION_CLASSPATH);
-    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PILOT_CLASSPATH);
-    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH);
-    _create (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH);
+    _create (PeppolTrustStores.Config2018.TRUSTSTORE_AP_PRODUCTION_CLASSPATH);
+    _create (PeppolTrustStores.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH);
+    _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PRODUCTION_CLASSPATH);
+    _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PILOT_CLASSPATH);
+    _create (PeppolTrustStores.Config2018.TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH);
+    _create (PeppolTrustStores.Config2018.TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH);
   }
 }

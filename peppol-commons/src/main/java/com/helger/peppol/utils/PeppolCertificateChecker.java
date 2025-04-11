@@ -21,10 +21,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.security.auth.x500.X500Principal;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.certificate.TrustedCAChecker;
@@ -38,23 +36,9 @@ import com.helger.security.revocation.RevocationCheckResultCache;
  * @since 7.0.4
  */
 @ThreadSafe
+@Deprecated (forRemoval = true, since = "10.2.0")
 public final class PeppolCertificateChecker
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (PeppolCertificateChecker.class);
-
-  private static final TrustedCAChecker TEST_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP);
-  private static final TrustedCAChecker PROD_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
-  private static final TrustedCAChecker ALL_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_AP,
-                                                                       PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_AP);
-
-  private static final TrustedCAChecker TEST_SMP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP);
-  private static final TrustedCAChecker PROD_SMP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
-  private static final TrustedCAChecker ALL_SMP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_SMP,
-                                                                        PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_SMP);
-
-  private static final TrustedCAChecker TEST_EB2B_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PILOT_EB2B_AP);
-  private static final TrustedCAChecker PROD_EB2B_AP = new TrustedCAChecker (PeppolKeyStoreHelper.Config2018.CERTIFICATE_PRODUCTION_EB2B_AP);
-
   private PeppolCertificateChecker ()
   {}
 
@@ -65,7 +49,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static TrustedCAChecker peppolTestAP ()
   {
-    return TEST_AP;
+    return PeppolTrustedCA.peppolTestAP ();
   }
 
   /**
@@ -75,7 +59,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static TrustedCAChecker peppolProductionAP ()
   {
-    return PROD_AP;
+    return PeppolTrustedCA.peppolProductionAP ();
   }
 
   /**
@@ -85,7 +69,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static TrustedCAChecker peppolAllAP ()
   {
-    return ALL_AP;
+    return PeppolTrustedCA.peppolAllAP ();
   }
 
   /**
@@ -95,7 +79,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static TrustedCAChecker peppolTestSMP ()
   {
-    return TEST_SMP;
+    return PeppolTrustedCA.peppolTestSMP ();
   }
 
   /**
@@ -105,7 +89,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static TrustedCAChecker peppolProductionSMP ()
   {
-    return PROD_SMP;
+    return PeppolTrustedCA.peppolProductionSMP ();
   }
 
   /**
@@ -115,7 +99,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static TrustedCAChecker peppolAllSMP ()
   {
-    return ALL_SMP;
+    return PeppolTrustedCA.peppolAllSMP ();
   }
 
   /**
@@ -125,7 +109,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static TrustedCAChecker peppolTestEb2bAP ()
   {
-    return TEST_EB2B_AP;
+    return PeppolTrustedCA.peppolTestEb2bAP ();
   }
 
   /**
@@ -135,7 +119,7 @@ public final class PeppolCertificateChecker
   @Nonnull
   public static TrustedCAChecker peppolProductionEb2bAP ()
   {
-    return PROD_EB2B_AP;
+    return PeppolTrustedCA.peppolProductionEb2bAP ();
   }
 
   /**
@@ -143,18 +127,7 @@ public final class PeppolCertificateChecker
    */
   public static void clearRevocationCheckCache ()
   {
-    TEST_AP.getRevocationCache ().clearCache ();
-    PROD_AP.getRevocationCache ().clearCache ();
-    ALL_AP.getRevocationCache ().clearCache ();
-
-    TEST_SMP.getRevocationCache ().clearCache ();
-    PROD_SMP.getRevocationCache ().clearCache ();
-    ALL_SMP.getRevocationCache ().clearCache ();
-
-    TEST_EB2B_AP.getRevocationCache ().clearCache ();
-    PROD_EB2B_AP.getRevocationCache ().clearCache ();
-
-    LOGGER.info ("The PeppolCertificateChecker revocation cache was cleared");
+    PeppolTrustedCA.clearRevocationCheckCache ();
   }
 
   /**

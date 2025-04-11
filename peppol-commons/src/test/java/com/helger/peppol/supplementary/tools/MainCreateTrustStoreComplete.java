@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.peppol.utils.PeppolKeyStoreHelper;
+import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.keystore.LoadedKeyStore;
@@ -54,7 +54,7 @@ public class MainCreateTrustStoreComplete
     {
       final LoadedKeyStore aLKS = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS,
                                                                "truststore/" + sTS + "-truststore.jks",
-                                                               PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD.toCharArray ());
+                                                               PeppolTrustStores.TRUSTSTORE_PASSWORD.toCharArray ());
       KeyStoreHelper.iterateKeyStore (aLKS.getKeyStore (), sAlias -> {
         if (aAdded.add (sAlias))
         {
@@ -75,7 +75,7 @@ public class MainCreateTrustStoreComplete
     final File fDest = new File ("src/main/resources/truststore/complete-truststore.jks");
     try (final OutputStream aFOS = new FileOutputStream (fDest))
     {
-      aSMPTrustStore.store (aFOS, PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD.toCharArray ());
+      aSMPTrustStore.store (aFOS, PeppolTrustStores.TRUSTSTORE_PASSWORD.toCharArray ());
     }
     LOGGER.info ("Wrote " + fDest.getPath ());
   }

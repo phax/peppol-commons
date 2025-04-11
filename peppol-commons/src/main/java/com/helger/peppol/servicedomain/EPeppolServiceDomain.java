@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
-import com.helger.peppol.utils.PeppolCertificateChecker;
+import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.security.certificate.TrustedCAChecker;
 
 /**
@@ -38,26 +38,22 @@ public enum EPeppolServiceDomain implements IHasID <String>
    * Managed by PoAC
    */
   POST_AWARD ("post-award",
-              PeppolCertificateChecker.peppolTestAP (),
-              PeppolCertificateChecker.peppolProductionAP (),
-              PeppolCertificateChecker.peppolTestSMP (),
-              PeppolCertificateChecker.peppolProductionSMP ()),
+              PeppolTrustedCA.peppolTestAP (),
+              PeppolTrustedCA.peppolProductionAP (),
+              PeppolTrustedCA.peppolTestSMP (),
+              PeppolTrustedCA.peppolProductionSMP ()),
   /**
    * Managed by PrAC
    */
   PRE_AWARD ("pre-award",
-             PeppolCertificateChecker.peppolTestAP (),
-             PeppolCertificateChecker.peppolProductionAP (),
-             PeppolCertificateChecker.peppolTestSMP (),
-             PeppolCertificateChecker.peppolProductionSMP ()),
+             PeppolTrustedCA.peppolTestAP (),
+             PeppolTrustedCA.peppolProductionAP (),
+             PeppolTrustedCA.peppolTestSMP (),
+             PeppolTrustedCA.peppolProductionSMP ()),
   /**
    * Enhanced B2B for Peppol-GENA bridge
    */
-  ENHANCED_B2B ("eb2b",
-                PeppolCertificateChecker.peppolTestEb2bAP (),
-                null,
-                PeppolCertificateChecker.peppolTestSMP (),
-                null);
+  ENHANCED_B2B ("eb2b", PeppolTrustedCA.peppolTestEb2bAP (), null, PeppolTrustedCA.peppolTestSMP (), null);
 
   private final String m_sID;
   private final TrustedCAChecker m_aTestAPChecker;

@@ -14,34 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.utils;
+package com.helger.peppol.supplementary.tools;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
 
-import java.nio.charset.StandardCharsets;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.time.Month;
 
 import javax.security.auth.x500.X500Principal;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.security.certificate.CertificateHelper;
-import com.helger.security.certificate.ECertificateCheckResult;
 
 /**
- * Test class for class {@link PeppolCertificateHelper}.
+ * Certificate playground
  *
  * @author Philip Helger
  */
-public final class PeppolCertificateHelperTest
+public final class CertificateFuncTest
 {
   @Test
   @Ignore ("Because it doesn't work")
@@ -58,20 +50,5 @@ public final class PeppolCertificateHelperTest
 
     // Does also not work
     assertEquals ("Riigi Infosüsteemi Amet", CertificateHelper.getSubjectO (aCert));
-  }
-
-  @Test
-  public void testCheckRevoked () throws CertificateException
-  {
-    final X509Certificate aCert = CertificateHelper.convertStringToCertficate (StreamHelper.getAllBytesAsString (new ClassPathResource ("external/peppol-ap-cert-expired.pem"),
-                                                                                                                 StandardCharsets.UTF_8));
-    assertNotNull (aCert);
-    // Check at a specific date, as the certificate
-    final ECertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolTestAP ()
-                                                                             .checkCertificate (aCert,
-                                                                                                PDTFactory.createOffsetDateTime (2024,
-                                                                                                                                 Month.JANUARY,
-                                                                                                                                 1));
-    assertSame (ECertificateCheckResult.REVOKED, eCertCheckResult);
   }
 }
