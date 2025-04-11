@@ -118,6 +118,11 @@
       <artifactId>jaxws-rt</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.helger.peppol</groupId>
+      <artifactId>dbnalliance-commons</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>

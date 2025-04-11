@@ -146,6 +146,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.peppol</groupId>
+        <artifactId>dbnalliance-commons</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.peppol</groupId>
         <artifactId>peppol-testfiles</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -214,6 +219,7 @@
     <module>peppol-id-datatypes</module>
     <module>peppol-id</module>
     <module>peppol-commons</module>
+    <module>dbnalliance-commons</module>
     <module>peppol-testfiles</module>
     <module>peppol-sbdh</module>
     <module>peppol-smp-datatypes</module>

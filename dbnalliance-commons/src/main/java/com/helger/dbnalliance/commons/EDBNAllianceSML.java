@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2025 Philip Helger
+ * Copyright (C) 2025 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,21 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.dbna;
+package com.helger.dbnalliance.commons;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
 
 /**
- * The list of supported DBNA SML zones
+ * The list of supported DBNAlliance SML zones
  *
  * @author Philip Helger
- * @since 9.3.4
- * @deprecated Please use EDBNAllianceSML from dbnalliance-commons project instead
  */
-@Deprecated (forRemoval = true, since = "10.1.1")
-public enum EDBNASML
+public enum EDBNAllianceSML
 {
   PRODUCTION ("sml.dbnalliance.net."),
   TEST ("sml.dbnalliance.com."),
@@ -36,7 +33,7 @@ public enum EDBNASML
 
   private final String m_sZoneName;
 
-  EDBNASML (@Nonnull @Nonempty final String sZoneName)
+  EDBNAllianceSML (@Nonnull @Nonempty final String sZoneName)
   {
     m_sZoneName = sZoneName;
   }

@@ -15,6 +15,7 @@ This project contains different libraries that are commonly used in the Peppol/e
 * [`peppol-directory-businesscard`](#peppol-directory-businesscard) - the Peppol Directory Business Card data model (since v9.1.0)
 * [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2)
 * [`peppol-mls`](#peppol-mls) - specific support for the Peppol Message Level Status (MLS) (since v10.1.0)
+* [`dbnalliance-commons`](#dbnalliance-commons) - contains commons stuff for DBNAlliance support (since v10.1.1)
 * [`dbnalliance-xhe`](#dbnalliance-xhe) - specific support for DBNAlliance XHE header (since v9.5.0)
   
 This project is part of my Peppol solution stack. See https://github.com/phax/peppol for other components and libraries in that area.
@@ -131,6 +132,12 @@ This is not necessarily the final version of the Peppol MLS and subject to chang
 * Class `PeppolMLSValidator` can be used to run Schematron validation on Peppol MLS messages.
 
 See https://github.com/phax/peppol-commons/blob/master/peppol-mls/src/test/java/com/helger/peppol/mls/PeppolMLSBuilderTest.java for an example how to use the classes.
+
+## dbnalliance-commons
+
+This was introduced in v10.1.2
+
+This project contains shared components for DBNAlliance usage.
 
 ## dbnalliance-xhe
 
