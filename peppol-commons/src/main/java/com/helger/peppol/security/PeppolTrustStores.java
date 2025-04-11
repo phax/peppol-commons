@@ -25,9 +25,6 @@ import com.helger.security.keystore.TrustStoreDescriptor;
 @Immutable
 public final class PeppolTrustStores
 {
-  /** Truststore key store type - always JKS */
-  public static final EKeyStoreType TRUSTSTORE_TYPE = EKeyStoreType.JKS;
-
   /**
    * The classpath entry referencing the complete truststore with all OpenPeppol production AND
    * pilot entries
@@ -65,6 +62,9 @@ public final class PeppolTrustStores
   @Immutable
   public static class Config2018
   {
+    /** Truststore key store type - always JKS */
+    public static final EKeyStoreType TRUSTSTORE_TYPE = EKeyStoreType.JKS;
+
     protected Config2018 ()
     {}
 

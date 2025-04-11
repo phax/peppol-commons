@@ -178,14 +178,14 @@ public final class SMPClientConfiguration
   /**
    * @return The truststore type as specified in the configuration file by the key
    *         <code>truststore.type</code>. If none is present
-   *         {@link PeppolTrustStores#TRUSTSTORE_TYPE} is returned as a default.
+   *         {@link PeppolTrustStores.Config2018#TRUSTSTORE_TYPE} is returned as a default.
    * @since 6.0.0
    */
   @Nonnull
   public static EKeyStoreType getTrustStoreType ()
   {
     final String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");
-    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (ret, PeppolTrustStores.TRUSTSTORE_TYPE);
+    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (ret, PeppolTrustStores.Config2018.TRUSTSTORE_TYPE);
   }
 
   /**

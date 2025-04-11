@@ -36,7 +36,7 @@ import com.helger.security.keystore.LoadedKeyStore;
 public final class PeppolKeyStoreHelper
 {
   /** Truststore key store type - always JKS */
-  public static final EKeyStoreType TRUSTSTORE_TYPE = PeppolTrustStores.TRUSTSTORE_TYPE;
+  public static final EKeyStoreType TRUSTSTORE_TYPE = PeppolTrustStores.Config2018.TRUSTSTORE_TYPE;
 
   /**
    * The classpath entry referencing the complete truststore with all OpenPeppol production AND
