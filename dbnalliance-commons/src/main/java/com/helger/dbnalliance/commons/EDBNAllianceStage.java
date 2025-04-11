@@ -17,31 +17,48 @@
 package com.helger.dbnalliance.commons;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.EnumHelper;
 
 /**
- * The list of supported DBNAlliance SML zones
+ * The list of supported DBNAlliance stages
  *
  * @author Philip Helger
  */
-public enum EDBNAllianceSML
+public enum EDBNAllianceStage implements IHasID <String>
 {
-  PILOT ("sml.dbnalliancepilot.net."),
-  TEST ("sml.dbnalliance.com."),
-  PRODUCTION ("sml.dbnalliance.net.");
+  PILOT ("pilot", EDBNAllianceSML.PILOT),
+  TEST ("test", EDBNAllianceSML.TEST),
+  PRODUCTION ("prod", EDBNAllianceSML.PRODUCTION);
 
-  private final String m_sZoneName;
+  private final String m_sID;
+  private final EDBNAllianceSML m_eSML;
 
-  EDBNAllianceSML (@Nonnull @Nonempty final String sZoneName)
+  EDBNAllianceStage (@Nonnull @Nonempty final String sID, @Nonnull final EDBNAllianceSML eSML)
   {
-    m_sZoneName = sZoneName;
+    m_sID = sID;
+    m_eSML = eSML;
   }
 
   @Nonnull
   @Nonempty
-  public String getZoneName ()
+  public String getID ()
   {
-    return m_sZoneName;
+    return m_sID;
+  }
+
+  @Nonnull
+  public EDBNAllianceSML getSML ()
+  {
+    return m_eSML;
+  }
+
+  @Nullable
+  public static EDBNAllianceStage getFromIDOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrNull (EDBNAllianceStage.class, sID);
   }
 }
