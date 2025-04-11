@@ -29,12 +29,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.text.util.TextHelper;
 import com.helger.security.certificate.TrustedCAChecker;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.ITrustStoreDescriptor;
-import com.helger.security.keystore.LoadedKey;
-import com.helger.security.keystore.LoadedKeyStore;
 import com.helger.security.keystore.TrustStoreDescriptor;
 
 /**
@@ -45,7 +42,7 @@ import com.helger.security.keystore.TrustStoreDescriptor;
 @Immutable
 public final class DBNAllianceTrustStores
 {
-  /** Truststore key store type - always JKS */
+  /** Truststore key store type - always PKCS12 */
   public static final EKeyStoreType TRUSTSTORE_TYPE = EKeyStoreType.PKCS12;
 
   /** The password used to access the trust stores */
@@ -127,16 +124,4 @@ public final class DBNAllianceTrustStores
 
   private DBNAllianceTrustStores ()
   {}
-
-  @Nullable
-  public static String getLoadError (@Nonnull final LoadedKeyStore aLKS)
-  {
-    return aLKS == null ? null : aLKS.getErrorText (TextHelper.EN);
-  }
-
-  @Nullable
-  public static String getLoadError (@Nonnull final LoadedKey <?> aLK)
-  {
-    return aLK == null ? null : aLK.getErrorText (TextHelper.EN);
-  }
 }
