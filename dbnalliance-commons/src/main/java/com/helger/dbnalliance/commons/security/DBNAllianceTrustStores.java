@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.text.util.TextHelper;
+import com.helger.peppol.utils.PeppolCAChecker;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.ITrustStoreDescriptor;
 import com.helger.security.keystore.LoadedKey;
@@ -116,6 +117,9 @@ public final class DBNAllianceTrustStores
     /** The DBNAlliance Pilot Intermediate certificate */
     public static final X509Certificate CERTIFICATE_PILOT_INTERMEDIATE = _resolveCert (TRUSTSTORE_PILOT,
                                                                                        TRUSTSTORE_PILOT_ALIAS_INTERMEDIATE);
+
+    /** The Pilot CA checker */
+    public static final PeppolCAChecker PILOT_CA = new PeppolCAChecker (CERTIFICATE_PILOT_INTERMEDIATE);
   }
 
   @PresentForCodeCoverage

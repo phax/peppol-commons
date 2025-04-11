@@ -65,15 +65,14 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-bc</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger.peppol</groupId>
+      <artifactId>peppol-commons</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.helger.peppol</groupId>
-      <artifactId>peppol-commons</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
