@@ -39,10 +39,10 @@ import org.junit.Test;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTWebDateHelper;
 import com.helger.commons.state.ETriState;
+import com.helger.peppol.security.PeppolTrustStores;
+import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
-import com.helger.peppol.utils.PeppolCertificateChecker;
-import com.helger.peppol.utils.PeppolKeyStoreHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
@@ -514,7 +514,7 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
 
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
-    aSMPClient.setTrustStore (PeppolKeyStoreHelper.Config2018.TRUSTSTORE_SMP_PILOT);
+    aSMPClient.setTrustStore (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PILOT);
     aSMPClient.setSecureValidation (false);
 
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
@@ -530,13 +530,13 @@ public final class SMPClientReadOnlyTest
     assertNotNull (aAPCert);
 
     // Check at a specific date, as the certificate
-    final ECertificateCheckResult eCertCheckResult = PeppolCertificateChecker.peppolTestAP ()
-                                                                             .checkCertificate (aAPCert,
-                                                                                                PDTFactory.createOffsetDateTime (2024,
-                                                                                                                                 Month.JUNE,
-                                                                                                                                 1),
-                                                                                                ETriState.UNDEFINED,
-                                                                                                ERevocationCheckMode.CRL_BEFORE_OCSP);
+    final ECertificateCheckResult eCertCheckResult = PeppolTrustedCA.peppolTestAP ()
+                                                                    .checkCertificate (aAPCert,
+                                                                                       PDTFactory.createOffsetDateTime (2024,
+                                                                                                                        Month.JUNE,
+                                                                                                                        1),
+                                                                                       ETriState.UNDEFINED,
+                                                                                       ERevocationCheckMode.CRL_BEFORE_OCSP);
     assertSame (ECertificateCheckResult.REVOKED, eCertCheckResult);
   }
 

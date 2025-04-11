@@ -45,26 +45,23 @@ import com.helger.config.fallback.IConfigWithFallback;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.res.ConfigurationSourceProperties;
 import com.helger.httpclient.HttpClientSettings;
-import com.helger.peppol.utils.PeppolKeyStoreHelper;
+import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 
 /**
- * This class manages the configuration properties of the SMP client. The order
- * of the properties file resolving is as follows:
+ * This class manages the configuration properties of the SMP client. The order of the properties
+ * file resolving is as follows:
  * <ol>
  * <li>Check for the value of the system property
  * <code>peppol.smp.client.properties.path</code></li>
- * <li>Check for the value of the system property
- * <code>smp.client.properties.path</code></li>
- * <li>The filename <code>private-smp-client.properties</code> in the root of
- * the classpath</li>
- * <li>The filename <code>smp-client.properties</code> in the root of the
- * classpath</li>
+ * <li>Check for the value of the system property <code>smp.client.properties.path</code></li>
+ * <li>The filename <code>private-smp-client.properties</code> in the root of the classpath</li>
+ * <li>The filename <code>smp-client.properties</code> in the root of the classpath</li>
  * </ol>
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger
@@ -92,8 +89,8 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * @return The configuration value provider for SMP client that contains
-   *         backward compatibility support.
+   * @return The configuration value provider for SMP client that contains backward compatibility
+   *         support.
    */
   @Nonnull
   public static MultiConfigurationValueProvider createSMPClientValueProvider ()
@@ -179,25 +176,24 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * @return The truststore type as specified in the configuration file by the
-   *         key <code>truststore.type</code>. If none is present
-   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_TYPE} is returned as a
-   *         default.
+   * @return The truststore type as specified in the configuration file by the key
+   *         <code>truststore.type</code>. If none is present
+   *         {@link PeppolTrustStores#TRUSTSTORE_TYPE} is returned as a default.
    * @since 6.0.0
    */
   @Nonnull
   public static EKeyStoreType getTrustStoreType ()
   {
     final String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");
-    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (ret, PeppolKeyStoreHelper.TRUSTSTORE_TYPE);
+    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (ret, PeppolTrustStores.TRUSTSTORE_TYPE);
   }
 
   /**
-   * @return The truststore location as specified in the configuration file by
-   *         the key <code>truststore.path</code>. If none is present
-   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_COMPLETE_CLASSPATH} is
-   *         returned as a default. Note: for backwards compatibility, also the
-   *         key <code>truststore.location</code> is evaluated.
+   * @return The truststore location as specified in the configuration file by the key
+   *         <code>truststore.path</code>. If none is present
+   *         {@link PeppolTrustStores#TRUSTSTORE_COMPLETE_CLASSPATH} is returned as a default. Note:
+   *         for backwards compatibility, also the key <code>truststore.location</code> is
+   *         evaluated.
    * @since 6.0.0 - was getTruststoreLocation before
    */
   @Nonnull
@@ -207,22 +203,21 @@ public final class SMPClientConfiguration
                                                      "truststore.path",
                                                      "truststore.location");
     if (StringHelper.hasNoText (ret))
-      ret = PeppolKeyStoreHelper.TRUSTSTORE_COMPLETE_CLASSPATH;
+      ret = PeppolTrustStores.TRUSTSTORE_COMPLETE_CLASSPATH;
     return ret;
   }
 
   /**
-   * @return The truststore password as specified in the configuration file by
-   *         the key <code>truststore.password</code>. If none is present
-   *         {@link PeppolKeyStoreHelper#TRUSTSTORE_PASSWORD} is returned as a
-   *         default.
+   * @return The truststore password as specified in the configuration file by the key
+   *         <code>truststore.password</code>. If none is present
+   *         {@link PeppolTrustStores#TRUSTSTORE_PASSWORD} is returned as a default.
    */
   @Nonnull
   public static char [] getTrustStorePasswordCharArray ()
   {
     char [] ret = getConfig ().getAsCharArrayOrFallback ("smpclient.truststore.password", "truststore.password");
     if (ret == null)
-      ret = PeppolKeyStoreHelper.TRUSTSTORE_PASSWORD.toCharArray ();
+      ret = PeppolTrustStores.TRUSTSTORE_PASSWORD.toCharArray ();
     return ret;
   }
 
@@ -250,9 +245,9 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * @return The HttpProxy object to be used by SMP clients based on the Java
-   *         System properties "http.proxyHost" and "http.proxyPort". Note:
-   *         https is not needed, because SMPs must run on http only.
+   * @return The HttpProxy object to be used by SMP clients based on the Java System properties
+   *         "http.proxyHost" and "http.proxyPort". Note: https is not needed, because SMPs must run
+   *         on http only.
    */
   @Nullable
   public static HttpHost getHttpProxy ()
@@ -266,8 +261,8 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * @return The {@link UsernamePasswordCredentials} object to be used for proxy
-   *         server authentication.
+   * @return The {@link UsernamePasswordCredentials} object to be used for proxy server
+   *         authentication.
    * @since 5.2.5
    */
   @Nullable
@@ -282,8 +277,8 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * @return A pipe separated list of non-proxy hosts. E.g.
-   *         <code>localhost|127.0.0.1</code>. May be <code>null</code>.
+   * @return A pipe separated list of non-proxy hosts. E.g. <code>localhost|127.0.0.1</code>. May be
+   *         <code>null</code>.
    * @since 6.2.4
    */
   @Nullable
@@ -293,12 +288,11 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * Get the content of the property "http.useDNSClientCache" or
-   * <code>true</code> if undefined.
+   * Get the content of the property "http.useDNSClientCache" or <code>true</code> if undefined.
    *
-   * @return <code>true</code> if the SMP client should use DNS client caching
-   *         (default) or <code>false</code> if DNS caching should be disabled.
-   *         The default behavior is to return <code>true</code>.
+   * @return <code>true</code> if the SMP client should use DNS client caching (default) or
+   *         <code>false</code> if DNS caching should be disabled. The default behavior is to return
+   *         <code>true</code>.
    * @since 5.2.5
    */
   public static boolean isUseDNSClientCache ()
@@ -307,8 +301,7 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * Get the content of the property "http.connect.timeout.ms" or the default
-   * value.
+   * Get the content of the property "http.connect.timeout.ms" or the default value.
    *
    * @return The connection timeout of the SMP client. Defaults to 5 seconds.
    * @since 8.8.0
@@ -323,8 +316,8 @@ public final class SMPClientConfiguration
   }
 
   /**
-   * Get the content of the property "http.response.timeout.ms" or the default
-   * value. The fallback value is "http.request.timeout.ms".
+   * Get the content of the property "http.response.timeout.ms" or the default value. The fallback
+   * value is "http.request.timeout.ms".
    *
    * @return The response timeout of the SMP client. Defaults to 10 seconds.
    * @since 8.8.0

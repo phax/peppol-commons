@@ -27,7 +27,7 @@ import com.helger.commons.annotation.Nonempty;
  * @since 9.3.4
  * @deprecated Please use EDBNAllianceSML from dbnalliance-commons project instead
  */
-@Deprecated (forRemoval = true, since = "10.1.1")
+@Deprecated (forRemoval = true, since = "10.2.0")
 public enum EDBNASML
 {
   PRODUCTION ("sml.dbnalliance.net."),
