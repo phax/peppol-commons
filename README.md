@@ -15,7 +15,7 @@ This project contains different libraries that are commonly used in the Peppol/e
 * [`peppol-directory-businesscard`](#peppol-directory-businesscard) - the Peppol Directory Business Card data model (since v9.1.0)
 * [`peppol-mlr`](#peppol-mlr) - specific support for the Peppol Message Level Response (MLR) (since v9.1.2)
 * [`peppol-mls`](#peppol-mls) - specific support for the Peppol Message Level Status (MLS) (since v10.1.0)
-* [`dbnalliance-commons`](#dbnalliance-commons) - contains commons stuff for DBNAlliance support (since v10.1.1)
+* [`dbnalliance-commons`](#dbnalliance-commons) - contains commons stuff for DBNAlliance support (since v10.2.0)
 * [`dbnalliance-xhe`](#dbnalliance-xhe) - specific support for DBNAlliance XHE header (since v9.5.0)
   
 This project is part of my Peppol solution stack. See https://github.com/phax/peppol for other components and libraries in that area.
@@ -328,7 +328,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v10.2.0 - work in progress
+* v10.2.0 - 2025-04-11
     * Requires at least ph-commons 11.2.1
     * Added new submodule `dbnalliance-commons` containing shared DBNAlliance stuff
     * Removed enum `EPeppolCertificateCheckResult` in favour of `ECertificateCheckResult` from ph-security
