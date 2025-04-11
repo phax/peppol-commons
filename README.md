@@ -328,6 +328,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.1.1 - work in progress
+    * Added new submodule `dbnalliance-commons` containing shared DBNAlliance stuff
 * v10.1.0 - 2025-03-16
     * Added new submodule `peppol-mls` to support the member review version of Peppol MLS
     * Removed submodule `peppol-ap-helper` as it is not a top-level project at https://github.com/phax/peppol-ap-support
