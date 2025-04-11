@@ -42,12 +42,6 @@ import com.helger.security.keystore.TrustStoreDescriptor;
 @Immutable
 public final class DBNAllianceTrustStores
 {
-  /** Truststore key store type - always PKCS12 */
-  public static final EKeyStoreType TRUSTSTORE_TYPE = EKeyStoreType.PKCS12;
-
-  /** The password used to access the trust stores */
-  public static final String TRUSTSTORE_PASSWORD = "dbnalliance";
-
   private static final Logger LOGGER = LoggerFactory.getLogger (DBNAllianceTrustStores.class);
 
   @Nullable
@@ -76,8 +70,11 @@ public final class DBNAllianceTrustStores
   @Immutable
   public static final class Config2023
   {
-    private Config2023 ()
-    {}
+    /** Truststore key store type - always PKCS12 */
+    public static final EKeyStoreType TRUSTSTORE_TYPE = EKeyStoreType.PKCS12;
+
+    /** The password used to access the trust stores */
+    public static final String TRUSTSTORE_PASSWORD = "dbnalliance";
 
     // Pilot
     public static final String TRUSTSTORE_PILOT_CLASSPATH = "truststore-dbnalliance/2023/pilot-truststore.p12";
@@ -117,6 +114,9 @@ public final class DBNAllianceTrustStores
 
     /** The Pilot CA checker */
     public static final TrustedCAChecker PILOT_CA = new TrustedCAChecker (CERTIFICATE_PILOT_INTERMEDIATE);
+
+    private Config2023 ()
+    {}
   }
 
   @PresentForCodeCoverage
