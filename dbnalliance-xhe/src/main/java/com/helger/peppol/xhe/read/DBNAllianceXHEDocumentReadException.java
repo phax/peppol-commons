@@ -22,27 +22,19 @@ import javax.annotation.Nonnull;
  * Exception that can occur during the reading of XHE documents.
  *
  * @author Robinson Garcia
+ * @deprecated Use {@link DBNAllianceXHEDataReadException} instead
  */
-public class DBNAllianceXHEDocumentReadException extends Exception
+@Deprecated (forRemoval = true, since = "10.2.1")
+public class DBNAllianceXHEDocumentReadException extends DBNAllianceXHEDataReadException
 {
-  private final EDBNAllianceXHEDocumentReadError m_eErrorCode;
-
   DBNAllianceXHEDocumentReadException (@Nonnull final String sErrorMsg,
                                        @Nonnull final EDBNAllianceXHEDocumentReadError eErrorCode)
   {
-    super (sErrorMsg);
-    m_eErrorCode = eErrorCode;
+    super (sErrorMsg, EDBNAllianceXHEDataReadError.getFromIDOrNull (eErrorCode.getID ()));
   }
 
   public DBNAllianceXHEDocumentReadException (@Nonnull final EDBNAllianceXHEDocumentReadError eErrorCode)
   {
-    super (eErrorCode.getErrorMessage ());
-    m_eErrorCode = eErrorCode;
-  }
-
-  @Nonnull
-  public final EDBNAllianceXHEDocumentReadError getErrorCode ()
-  {
-    return m_eErrorCode;
+    super (EDBNAllianceXHEDataReadError.getFromIDOrNull (eErrorCode.getID ()));
   }
 }

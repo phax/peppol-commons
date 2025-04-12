@@ -18,20 +18,31 @@ package com.helger.peppol.xhe.read;
 
 import javax.annotation.Nonnull;
 
-import com.helger.peppolid.factory.IIdentifierFactory;
-
 /**
- * Main class to read exchange header envelope and extract the DBNAlliance required data out of it.
+ * Exception that can occur during the reading of XHE documents.
  *
  * @author Robinson Garcia
  * @author Philip Helger
- * @deprecated Use {@link DBNAllianceXHEDataReader} instead
  */
-@Deprecated (forRemoval = true, since = "10.2.1")
-public class DBNAllianceXHEDocumentReader extends DBNAllianceXHEDataReader
+public class DBNAllianceXHEDataReadException extends Exception
 {
-  public DBNAllianceXHEDocumentReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  private final EDBNAllianceXHEDataReadError m_eErrorCode;
+
+  public DBNAllianceXHEDataReadException (@Nonnull final EDBNAllianceXHEDataReadError eErrorCode)
   {
-    super (aIdentifierFactory);
+    this (eErrorCode.getErrorMessage (), eErrorCode);
+  }
+
+  DBNAllianceXHEDataReadException (@Nonnull final String sErrorMsg,
+                                   @Nonnull final EDBNAllianceXHEDataReadError eErrorCode)
+  {
+    super (sErrorMsg);
+    m_eErrorCode = eErrorCode;
+  }
+
+  @Nonnull
+  public final EDBNAllianceXHEDataReadError getErrorCode ()
+  {
+    return m_eErrorCode;
   }
 }

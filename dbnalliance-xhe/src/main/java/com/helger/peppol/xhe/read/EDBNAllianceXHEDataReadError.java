@@ -28,10 +28,8 @@ import com.helger.commons.text.util.TextHelper;
  * This enum contains all the errors that can occur during XHE reading
  *
  * @author Robinson Garcia
- * @deprecated Use {@link EDBNAllianceXHEDataReadError} instead
  */
-@Deprecated (forRemoval = true, since = "10.2.1")
-public enum EDBNAllianceXHEDocumentReadError implements IHasID <String>
+public enum EDBNAllianceXHEDataReadError implements IHasID <String>
 {
   /** Failed to interpret ExchangeHeaderEnvelope as XML */
   INVALID_XHE_XML ("invalid-xhe-xml", "Failed to interpret ExchangeHeaderEnvelope as XML."),
@@ -77,7 +75,8 @@ public enum EDBNAllianceXHEDocumentReadError implements IHasID <String>
   INVALID_FROM_PARTY_COUNT ("invalid-from-party-count", "Not exactly one ''FromParty'' element is present but {0}."),
 
   /**
-   * The "XHE/Header/FromParty/PartyIdentification/ID/schemaID" attribute has an invalid value
+   * The "XHE/Header/FromParty/PartyIdentification/ID/schemaID" attribute has an
+   * invalid value
    */
   INVALID_FROM_PARTY_SCHEMA_ID ("invalid-from-party-schema-id",
                                 "The ''XHE/Header/FromParty/PartyIdentification/ID/schemaID'' attribute has the invalid value ''{0}''."),
@@ -94,7 +93,8 @@ public enum EDBNAllianceXHEDocumentReadError implements IHasID <String>
                                          "Not exactly one ''ToParty/PartyIdentification'' element is present but {0}."),
 
   /**
-   * The "XHE/Header/ToParty/PartyIdentification/ID/schemaID" attribute has an invalid value
+   * The "XHE/Header/ToParty/PartyIdentification/ID/schemaID" attribute has an
+   * invalid value
    */
   INVALID_TO_PARTY_SCHEMA_ID ("invalid-to-party-schema-id",
                               "The ''XHE/Header/ToParty/PartyIdentification/ID/schemaID'' attribute has the invalid value ''{0}''."),
@@ -132,14 +132,15 @@ public enum EDBNAllianceXHEDocumentReadError implements IHasID <String>
                             "The main business message is invalid according to the defined rules."),
 
   /**
-   * This is a fallback error code, in case the ID cannot be resolved to a proper other error code.
+   * This is a fallback error code, in case the ID cannot be resolved to a
+   * proper other error code.
    */
   GENERIC_XHE_ERROR ("generic-xhe-error", "A generic error occurred.");
 
   private final String m_sID;
   private final String m_sErrorMsg;
 
-  EDBNAllianceXHEDocumentReadError (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sErrorMsg)
+  EDBNAllianceXHEDataReadError (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sErrorMsg)
   {
     m_sID = sID;
     m_sErrorMsg = sErrorMsg;
@@ -164,7 +165,8 @@ public enum EDBNAllianceXHEDocumentReadError implements IHasID <String>
 
   /**
    * @param aArgs
-   *        The arguments to format with. May neither be <code>null</code> nor empty.
+   *        The arguments to format with. May neither be <code>null</code> nor
+   *        empty.
    * @return The English error message, formatted with parameters.
    */
   @Nonnull
@@ -175,15 +177,15 @@ public enum EDBNAllianceXHEDocumentReadError implements IHasID <String>
   }
 
   @Nullable
-  public static EDBNAllianceXHEDocumentReadError getFromIDOrNull (@Nullable final String sID)
+  public static EDBNAllianceXHEDataReadError getFromIDOrNull (@Nullable final String sID)
   {
-    return EnumHelper.getFromIDOrNull (EDBNAllianceXHEDocumentReadError.class, sID);
+    return EnumHelper.getFromIDOrNull (EDBNAllianceXHEDataReadError.class, sID);
   }
 
   @Nullable
-  public static EDBNAllianceXHEDocumentReadError getFromIDOrDefault (@Nullable final String sID,
-                                                                     @Nullable final EDBNAllianceXHEDocumentReadError eDefault)
+  public static EDBNAllianceXHEDataReadError getFromIDOrDefault (@Nullable final String sID,
+                                                                     @Nullable final EDBNAllianceXHEDataReadError eDefault)
   {
-    return EnumHelper.getFromIDOrDefault (EDBNAllianceXHEDocumentReadError.class, sID, eDefault);
+    return EnumHelper.getFromIDOrDefault (EDBNAllianceXHEDataReadError.class, sID, eDefault);
   }
 }

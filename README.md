@@ -334,6 +334,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.2.1 - work in progress
+    * Renamed all classes `DBNAllianceXHEDocument*` to `DBNAllianceXHEData*`
 * v10.2.0 - 2025-04-11
     * Requires at least ph-commons 11.2.1
     * Added new submodule `dbnalliance-commons` containing shared DBNAlliance stuff
