@@ -178,7 +178,8 @@ public final class SMPClientConfiguration
   /**
    * @return The truststore type as specified in the configuration file by the key
    *         <code>truststore.type</code>. If none is present
-   *         {@link PeppolTrustStores.Config2018#TRUSTSTORE_TYPE} is returned as a default.
+   *         {@link com.helger.peppol.security.PeppolTrustStores.Config2018#TRUSTSTORE_TYPE} is
+   *         returned as a default.
    * @since 6.0.0
    */
   @Nonnull
