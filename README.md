@@ -336,6 +336,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v10.2.1 - work in progress
     * Renamed all classes `DBNAllianceXHEDocument*` to `DBNAllianceXHEData*`
+    * Fixed type case error in regards to XHE `PayloadContent`
 * v10.2.0 - 2025-04-11
     * Requires at least ph-commons 11.2.1
     * Added new submodule `dbnalliance-commons` containing shared DBNAlliance stuff

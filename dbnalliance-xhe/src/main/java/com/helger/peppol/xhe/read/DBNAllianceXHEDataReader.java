@@ -711,10 +711,13 @@ public class DBNAllianceXHEDataReader
       // Extract the payload content (business message) - cannot be null and
       // must be an
       // Element!
-      final Element aPayloadContent = (Element) aPayload.getPayloadContent ();
-      if (!isValidBusinessMessage (aPayloadContent))
-        aErrorList.add (_toError (null, EDBNAllianceXHEDataReadError.INVALID_BUSINESS_MESSAGE));
-
+      final XHE10PayloadContentType aPayloadContent = aPayload.getPayloadContent ();
+      if (aPayloadContent != null && aPayloadContent.hasContentEntries ())
+      {
+        final Element aPayloadElement = (Element) aPayloadContent.getContentAtIndex (0);
+        if (!isValidBusinessMessage (aPayloadElement))
+          aErrorList.add (_toError (null, EDBNAllianceXHEDataReadError.INVALID_BUSINESS_MESSAGE));
+      }
       nPayload++;
     }
   }
@@ -857,8 +860,8 @@ public class DBNAllianceXHEDataReader
           aPayload.setInstanceEncryptionMethod (aInstanceEncryptionMethod.getValue ());
 
         final XHE10PayloadContentType aPayloadContent = aXHEPayload.getPayloadContent ();
-        if (aPayloadContent != null)
-          aPayload.setPayloadContent ((Element) aPayloadContent);
+        if (aPayloadContent != null && aPayloadContent.hasContentEntries ())
+          aPayload.setPayloadContent ((Element) aPayloadContent.getContentAtIndex (0));
 
         ret.addPayload (aPayload);
       }
