@@ -334,7 +334,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v10.2.1 - work in progress
+* v10.2.1 - 2025-04-14
     * Renamed all classes `DBNAllianceXHEDocument*` to `DBNAllianceXHEData*`
     * Fixed type case error in regards to XHE `PayloadContent`
 * v10.2.0 - 2025-04-11
