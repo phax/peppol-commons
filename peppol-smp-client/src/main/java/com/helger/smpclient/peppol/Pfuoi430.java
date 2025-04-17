@@ -42,5 +42,8 @@ public @interface Pfuoi430
   /** The first date (incl.) this specification is valid */
   static LocalDate VALID_FROM = PDTFactory.createLocalDate (2025, Month.MAY, 15);
 
+  /** The last date (incl.) this specification is valid */
+  static LocalDate VALID_UNTIL = PDTFactory.createLocalDate (2025, Month.OCTOBER, 31);
+
   String value() default "";
 }

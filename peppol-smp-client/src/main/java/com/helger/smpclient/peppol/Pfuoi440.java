@@ -20,6 +20,10 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.time.LocalDate;
+import java.time.Month;
+
+import com.helger.commons.datetime.PDTFactory;
 
 /**
  * This element is specific to the Peppol Policy for use of Identifiers 4.4.0.
@@ -34,5 +38,8 @@ import java.lang.annotation.Target;
            ElementType.LOCAL_VARIABLE })
 public @interface Pfuoi440
 {
+  /** The first date (incl.) this specification is valid */
+  static LocalDate VALID_FROM = PDTFactory.createLocalDate (2025, Month.NOVEMBER, 1);
+
   String value() default "";
 }
