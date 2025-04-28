@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.peppol;
+package com.helger.peppolid.peppol;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -26,7 +26,8 @@ import java.time.Month;
 import com.helger.commons.datetime.PDTFactory;
 
 /**
- * This element is specific to the Peppol Policy for use of Identifiers 4.4.0.
+ * This element is specific to the Peppol Policy for use of Identifiers 4.3.0 and should only be
+ * used carefully before May 15th, 2025.
  *
  * @author Philip Helger
  */
@@ -36,10 +37,13 @@ import com.helger.commons.datetime.PDTFactory;
            ElementType.CONSTRUCTOR,
            ElementType.FIELD,
            ElementType.LOCAL_VARIABLE })
-public @interface Pfuoi440
+public @interface Pfuoi430
 {
   /** The first date (incl.) this specification is valid */
-  static LocalDate VALID_FROM = PDTFactory.createLocalDate (2025, Month.NOVEMBER, 1);
+  static LocalDate VALID_FROM = PDTFactory.createLocalDate (2025, Month.MAY, 15);
+
+  /** The last date (incl.) this specification is valid */
+  static LocalDate VALID_UNTIL = PDTFactory.createLocalDate (2025, Month.OCTOBER, 31);
 
   String value() default "";
 }

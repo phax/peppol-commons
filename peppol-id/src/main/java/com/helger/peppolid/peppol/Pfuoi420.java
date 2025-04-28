@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.peppol;
+package com.helger.peppolid.peppol;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -30,6 +30,7 @@ import com.helger.commons.datetime.PDTFactory;
  * used carefully after May 15th, 2025.
  *
  * @author Philip Helger
+ * @Deprecated since 10.3.0 for removal in 11.0.0
  */
 @Retention (RetentionPolicy.SOURCE)
 @Target ({ ElementType.TYPE,
@@ -37,6 +38,7 @@ import com.helger.commons.datetime.PDTFactory;
            ElementType.CONSTRUCTOR,
            ElementType.FIELD,
            ElementType.LOCAL_VARIABLE })
+@Deprecated (since = "10.3.0", forRemoval = true)
 public @interface Pfuoi420
 {
   /** The last date (incl.) this specification is valid */
