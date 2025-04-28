@@ -38,7 +38,7 @@ import com.helger.smpclient.IgnoredNaptrTest;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.url.BDXLURLProvider;
-import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.smpclient.url.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
@@ -54,10 +54,11 @@ public final class BDXRClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    // PEPPOL URL provider
-    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
-    assertEquals ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/",
-                  aBDXRClient.getSMPHostURI ());
+    // Peppol URL provider
+    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
+                                                                   aPI,
+                                                                   ESML.DIGIT_TEST);
+    assertEquals ("http://test-infra.peppol.at/", aBDXRClient.getSMPHostURI ());
   }
 
   @Test
@@ -77,13 +78,12 @@ public final class BDXRClientReadOnlyTest
   {
     // This instance has a BOM inside
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
-    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolURLProvider.INSTANCE,
+    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                    aPI,
                                                                    ESML.DIGIT_PRODUCTION);
-    assertEquals ("http://B-2f67a0710cbc13c11ac8c0d64186ac5e.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
-                  aBDXRClient.getSMPHostURI ());
+    assertEquals ("http://smp.unimaze.com/", aBDXRClient.getSMPHostURI ());
 
-    // This fails because the PEPPOL server is configured for PEPPOL layout and
+    // This fails because the Peppol server is configured for PEPPOL layout and
     // not OASIS!
     try
     {

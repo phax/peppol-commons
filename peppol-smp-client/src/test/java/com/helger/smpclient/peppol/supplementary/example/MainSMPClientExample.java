@@ -26,7 +26,7 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.smpclient.peppol.SMPClientReadOnly;
-import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.smpclient.url.PeppolNaptrURLProvider;
 
 /**
  * Example application that shows how to invoke the {@link SMPClientReadOnly}
@@ -43,12 +43,15 @@ public final class MainSMPClientExample
     final IParticipantIdentifier aPI_AT_Test = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
     // Create the main SMP client using the production SML
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI_AT_Test, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
+                                                                aPI_AT_Test,
+                                                                ESML.DIGIT_TEST);
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
                                                                    EPredefinedProcessIdentifier.BIS3_BILLING,
                                                                    ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     // Endpoint address should be "https://testap.erechnung.gv.at/as4"
-    LOGGER.info ("The Austrian government test AS4 AP that handles invoices according to Billing BIS 3 is located at: " + sEndpointAddress);
+    LOGGER.info ("The Austrian government test AS4 AP that handles invoices according to Billing BIS 3 is located at: " +
+                 sEndpointAddress);
   }
 }

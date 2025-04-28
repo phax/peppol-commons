@@ -18,9 +18,11 @@ package com.helger.smpclient.url;
 
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.peppolid.peppol.Pfuoi440;
+
 /**
- * The implementation of {@link IPeppolURLProvider} suitable for the Peppol
- * Network to resolve NAPTR records.<br>
+ * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve NAPTR
+ * records as defined in the Peppol Policy for use of Identifiers.<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
@@ -28,6 +30,7 @@ import javax.annotation.concurrent.ThreadSafe;
  * @since 9.6.1
  */
 @ThreadSafe
+@Pfuoi440
 public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements IPeppolURLProvider
 {
   /** U NAPTR service name for e-SENS/PEPPOL */

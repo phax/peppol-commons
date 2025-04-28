@@ -36,13 +36,13 @@ import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.url.IPeppolURLProvider;
-import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.smpclient.url.PeppolNaptrURLProvider;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 /**
- * Expects a local SMP up and running with DNS enabled at port 80 at the ROOT
- * context. See SMP_URI constant
+ * Expects a local SMP up and running with DNS enabled at port 80 at the ROOT context. See SMP_URI
+ * constant
  *
  * @author Philip Helger
  */
@@ -61,7 +61,7 @@ public final class SMPClientWithDNSFuncTest
   private static final BasicAuthClientCredentials SMP_CREDENTIALS = new BasicAuthClientCredentials (SMP_USERNAME,
                                                                                                     SMP_PASSWORD);
   private static final URI SMP_URI = URLHelper.getAsURI ("http://localhost/");
-  private static final IPeppolURLProvider URL_PROVIDER = PeppolURLProvider.INSTANCE;
+  private static final IPeppolURLProvider URL_PROVIDER = PeppolNaptrURLProvider.INSTANCE;
 
   @BeforeClass
   public static void beforeClass () throws Exception

@@ -36,14 +36,15 @@ import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
- * The implementation of {@link IPeppolURLProvider} suitable for the Peppol
- * Network to resolve CNAME records.<br>
- * Layout:
- * <code>"B-"+hexstring(md5(lowercase(ID-VALUE)))+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
+ * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve CNAME
+ * records.<br>
+ * Layout: <code>"B-"+hexstring(md5(lowercase(ID-VALUE)))+"."+ID-SCHEME+"."+SML-ZONE-NAME</code><br>
+ * This class was replaced by {@link PeppolNaptrURLProvider}.
  *
  * @author Philip Helger
  */
 @Immutable
+@Deprecated (since = "10.3.1", forRemoval = true)
 public class PeppolURLProvider implements IPeppolURLProvider
 {
   /** The writable API of the default instance */
@@ -63,11 +64,10 @@ public class PeppolURLProvider implements IPeppolURLProvider
   {}
 
   /**
-   * Get the MD5-hash-string-representation of the passed value using the
-   * {@link #URL_CHARSET} encoding. Each hash byte is represented as 2
-   * characters in the range [0-9a-f]. Note: the hash value creation is done
-   * case sensitive! The caller needs to ensure that the value to hash is lower
-   * case!
+   * Get the MD5-hash-string-representation of the passed value using the {@link #URL_CHARSET}
+   * encoding. Each hash byte is represented as 2 characters in the range [0-9a-f]. Note: the hash
+   * value creation is done case sensitive! The caller needs to ensure that the value to hash is
+   * lower case!
    *
    * @param sValueToHash
    *        The value to be hashed. May not be <code>null</code>.

@@ -58,10 +58,9 @@ import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.smpclient.IgnoredNaptrTest;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
-import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
 import com.helger.smpclient.url.BDXLURLProvider;
-import com.helger.smpclient.url.PeppolURLProvider;
+import com.helger.smpclient.url.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.peppol.smp1.EndpointType;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
@@ -81,9 +80,8 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
     // Peppol URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
-    assertEquals ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/",
-                  aSMPClient.getSMPHostURI ());
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    assertEquals ("http://test-infra.peppol.at/", aSMPClient.getSMPHostURI ());
 
     final ServiceGroupType aServiceGroup = aSMPClient.getServiceGroupOrNull (aPI);
     assertNotNull (aServiceGroup);
@@ -110,28 +108,24 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
 
     // This instance has a BOM inside
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
-    assertEquals ("http://B-2f67a0710cbc13c11ac8c0d64186ac5e.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
-                  aSMPClient.getSMPHostURI ());
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_PRODUCTION);
+    assertEquals ("http://smp.unimaze.com/", aSMPClient.getSMPHostURI ());
     assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
   }
 
   @Test
-  public void testGetSMPHostURI_Peppol_NonExisting () throws SMPClientException, SMPDNSResolutionException
+  public void testGetSMPHostURI_Peppol_NonExisting ()
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:denbledsinngibtssichernicht");
 
-    // Peppol URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
-    assertEquals ("http://B-898acc4769bdc1fb7a6670103686edd6.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu/",
-                  aSMPClient.getSMPHostURI ());
-
     try
     {
-      aSMPClient.getServiceGroup (aPI);
+      new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
       fail ();
     }
-    catch (final SMPClientParticipantNotFoundException ex)
+    catch (final SMPDNSResolutionException ex)
     {
       // No such participant
     }
@@ -145,8 +139,8 @@ public final class SMPClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST)
-                                                                                                                 .setSecureValidation (false);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST)
+                                                                                                                      .setSecureValidation (false);
     // Set old trust store
     {
       final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
@@ -284,7 +278,7 @@ public final class SMPClientReadOnlyTest
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     final IParticipantIdentifier aReceiverID = aIF.createParticipantIdentifierWithDefaultScheme ("9915:helger");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aReceiverID,
                                                                 ESML.DIGIT_TEST).setSecureValidation (false);
 
@@ -350,7 +344,7 @@ public final class SMPClientReadOnlyTest
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     final IParticipantIdentifier aReceiverID = aIF.createParticipantIdentifierWithDefaultScheme ("9915:helger");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aReceiverID,
                                                                 ESML.DIGIT_TEST).setSecureValidation (false);
 
@@ -500,10 +494,10 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");
 
     // PEPPOL URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION)
-                                                                                                                       .setSecureValidation (false);
-    assertEquals ("http://B-4bbe13b091709af417e9ef61c2e59678.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
-                  aSMPClient.getSMPHostURI ());
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_PRODUCTION).setSecureValidation (false);
+    assertEquals ("http://smp.peppol.at/", aSMPClient.getSMPHostURI ());
 
     aSMPClient.setXMLSchemaValidation (true);
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
@@ -516,7 +510,7 @@ public final class SMPClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
     aSMPClient.setTrustStore (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PILOT);
     aSMPClient.setSecureValidation (false);
 
@@ -547,7 +541,7 @@ public final class SMPClientReadOnlyTest
   public void testPeppolReportingProductionEndpoints () throws SMPClientException, SMPDNSResolutionException
   {
     final IParticipantIdentifier aReceiverID = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0848934496");
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aReceiverID,
                                                                 ESML.DIGIT_PRODUCTION);
     aSMPClient.setSecureValidation (false);
@@ -569,11 +563,12 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0196:6610932699");
 
     // PEPPOL URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_PRODUCTION);
     aSMPClient.setSecureValidation (false);
 
-    assertEquals ("http://B-a0bce7088e2d349c92b03cf2b308df89.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
-                  aSMPClient.getSMPHostURI ());
+    assertEquals ("http://smp.unimaze.com/", aSMPClient.getSMPHostURI ());
 
     aSMPClient.setXMLSchemaValidation (true);
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
@@ -592,9 +587,10 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0887290276");
 
     // PEPPOL URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
-    assertEquals ("http://B-c9f280672264cdb82eac528c265ed029.iso6523-actorid-upis.edelivery.tech.ec.europa.eu/",
-                  aSMPClient.getSMPHostURI ());
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_PRODUCTION);
+    assertEquals ("http://fe-smp.babelway.net/", aSMPClient.getSMPHostURI ());
 
     aSMPClient.setXMLSchemaValidation (true);
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
@@ -603,23 +599,12 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  public void testIssue2412 () throws Exception
-  {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0192:930030872");
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
-
-    // Currently throws SMPClientBadResponseException: Malformed XML document
-    // returned from SMP server
-    final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
-                                                                               EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
-    assertNull (aSM);
-  }
-
-  @Test
   public void testJCloud () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0192:994449486");
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE, aPI, ESML.DIGIT_PRODUCTION);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_PRODUCTION);
 
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
                                                                                EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
