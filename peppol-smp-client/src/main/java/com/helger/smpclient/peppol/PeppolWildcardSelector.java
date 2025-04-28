@@ -62,7 +62,7 @@ public class PeppolWildcardSelector
    * 4.3.0 from May 15th 2025
    *
    * @author Philip Helger
-   * @Deprecated since 10.3.0 for removal in 11.0.0
+   * @deprecated since 10.3.0 for removal in 11.0.0
    */
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
