@@ -38,10 +38,12 @@
       <Scope>
         <Type>DOCUMENTID</Type>
         <InstanceIdentifier>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:fdc:peppol.eu:2017:poacc:billing:3.0::2.1</InstanceIdentifier>
+        <Identifier>busdox-docid-qns</Identifier>
       </Scope>
       <Scope>
         <Type>PROCESSID</Type>
         <InstanceIdentifier>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</InstanceIdentifier>
+        <Identifier>cenbii-procid-ubl</Identifier>
       </Scope>
       <Scope>
         <Type>COUNTRY_C1</Type>
