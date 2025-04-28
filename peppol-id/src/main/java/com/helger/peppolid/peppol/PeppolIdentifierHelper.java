@@ -33,8 +33,8 @@ import com.helger.peppolid.CIdentifier;
 public final class PeppolIdentifierHelper
 {
   /**
-   * The maximum length of an identifier scheme. This applies to all identifier
-   * schemes (participant, document type and process).
+   * The maximum length of an identifier scheme. This applies to all identifier schemes
+   * (participant, document type and process).
    */
   public static final int MAX_IDENTIFIER_SCHEME_LENGTH = 25;
 
@@ -46,8 +46,8 @@ public final class PeppolIdentifierHelper
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
 
   /**
-   * The regular expression to be used for validating participant identifier
-   * schemes (not values!). See BusDox specification 1.0.1, chapter 2.3
+   * The regular expression to be used for validating participant identifier schemes (not values!).
+   * See BusDox specification 1.0.1, chapter 2.3
    */
   public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
 
@@ -62,8 +62,8 @@ public final class PeppolIdentifierHelper
   public static final String DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS = "busdox-docid-qns";
 
   /**
-   * The new "Wildcard" document type identifier scheme, introduced in the
-   * Peppol Policy for use of Identifiers 4.2.0.
+   * The new "Wildcard" document type identifier scheme, introduced in the Peppol Policy for use of
+   * Identifiers 4.2.0.
    *
    * @since 8.3.1
    */
@@ -75,14 +75,11 @@ public final class PeppolIdentifierHelper
   public static final int MAX_DOCUMENT_TYPE_VALUE_LENGTH = 500;
 
   /**
-   * The default identifier scheme ID to be used for participants/businesses.
-   * <br>
-   * The matching values have the format "agency:id" whereas agency should be
-   * within the code-list.<br>
-   * Please note that this is a change to the Peppol Common definitions chapter
-   * 3.4! <br>
-   * See also
-   * com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
+   * The default identifier scheme ID to be used for participants/businesses. <br>
+   * The matching values have the format "agency:id" whereas agency should be within the
+   * code-list.<br>
+   * Please note that this is a change to the Peppol Common definitions chapter 3.4! <br>
+   * See also com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
    *
    * @since 8.3.1
    */
@@ -94,9 +91,12 @@ public final class PeppolIdentifierHelper
   public static final String DEFAULT_PARTICIPANT_SCHEME = PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS;
 
   /**
-   * Participant identifier value maximum length (excluding the scheme)
+   * Participant identifier value maximum length (excluding the scheme).<br>
+   * PFUOI 4.3: 50 characters<br>
+   * PFUOI 4.4: 4 + ":" + 130 characters
    */
-  public static final int MAX_PARTICIPANT_VALUE_LENGTH = 50;
+  @Pfuoi440
+  public static final int MAX_PARTICIPANT_VALUE_LENGTH = 4 + 1 + 130;
 
   /**
    * The default process identifier scheme.<br>
@@ -137,8 +137,8 @@ public final class PeppolIdentifierHelper
   private static final PeppolIdentifierHelper INSTANCE = new PeppolIdentifierHelper ();
 
   /**
-   * @return <code>true</code> if the charset checks for identifier values are
-   *         disabled, <code>false</code> if they are enabled
+   * @return <code>true</code> if the charset checks for identifier values are disabled,
+   *         <code>false</code> if they are enabled
    */
   public static boolean areCharsetChecksDisabled ()
   {
@@ -146,15 +146,14 @@ public final class PeppolIdentifierHelper
   }
 
   /**
-   * Enable or disable the charset checks. You may disable charset checks, if
-   * you previously checked them for consistency. Charset checks are by default
-   * enabled and check if a participant, document type and process identifier
-   * value can be encoded in US-ASCII (participant) or ISO-8859-1 (document type
-   * and process).
+   * Enable or disable the charset checks. You may disable charset checks, if you previously checked
+   * them for consistency. Charset checks are by default enabled and check if a participant,
+   * document type and process identifier value can be encoded in US-ASCII (participant) or
+   * ISO-8859-1 (document type and process).
    *
    * @param bDisable
-   *        if <code>true</code> all charset checks are disabled. If
-   *        <code>false</code> charset checks are enabled
+   *        if <code>true</code> all charset checks are disabled. If <code>false</code> charset
+   *        checks are enabled
    */
   public static void disableCharsetChecks (final boolean bDisable)
   {
@@ -168,16 +167,15 @@ public final class PeppolIdentifierHelper
   }
 
   /**
-   * Check if the given identifier is valid. It is valid if it has at least 1
-   * character and at last 25 characters (see
-   * {@link #MAX_IDENTIFIER_SCHEME_LENGTH}). This method applies to all
-   * identifier schemes, but there is a special version for participant
-   * identifier schemes, as they are used in DNS names!
+   * Check if the given identifier is valid. It is valid if it has at least 1 character and at last
+   * 25 characters (see {@link #MAX_IDENTIFIER_SCHEME_LENGTH}). This method applies to all
+   * identifier schemes, but there is a special version for participant identifier schemes, as they
+   * are used in DNS names!
    *
    * @param sScheme
    *        The scheme to check.
-   * @return <code>true</code> if the passed scheme is a valid identifier
-   *         scheme, <code>false</code> otherwise.
+   * @return <code>true</code> if the passed scheme is a valid identifier scheme, <code>false</code>
+   *         otherwise.
    */
   public static boolean isValidIdentifierScheme (@Nullable final String sScheme)
   {

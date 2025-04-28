@@ -51,6 +51,8 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.peppolid.peppol.Pfuoi420;
+import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -831,6 +833,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final ServiceGroupType aServiceGroup,
                                                                      @Nonnull final IParticipantIdentifier aServiceGroupID,
                                                                      @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
@@ -872,6 +875,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
                                                                      @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
                                                                      @Nonnull final PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException

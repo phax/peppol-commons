@@ -334,6 +334,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.3.0 - 2025-04-28
+    * Extended Peppol participant identifier value length to 135 for Peppol Policy for use of Identifiers 4.4.0
+    * Moved annotations`@Pfuoi420`, `@Pfuoi430` and `@Pfuoi440` to the submodule `peppol-id` into package `com.helger.peppolid.peppol`
+    * This release deprecates all Policy for use of Identifiers 4.2.0 related classes and methods as they become obsolete on May 15th, 2025
 * v10.2.1 - 2025-04-14
     * Renamed all classes `DBNAllianceXHEDocument*` to `DBNAllianceXHEData*`
     * Fixed type case error in regards to XHE `PayloadContent`

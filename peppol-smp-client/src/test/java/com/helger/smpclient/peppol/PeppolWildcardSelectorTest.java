@@ -30,6 +30,7 @@ import com.helger.commons.state.EContinue;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.peppolid.peppol.Pfuoi420;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.smpclient.peppol.PeppolWildcardSelector.EMode;
 
@@ -43,6 +44,7 @@ public final class PeppolWildcardSelectorTest
 {
   @Test
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   public void testEmptyAll ()
   {
     final MutableInt aCount = new MutableInt (0);
@@ -66,6 +68,7 @@ public final class PeppolWildcardSelectorTest
 
   @Test
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   public void testMatchingModesAll ()
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;

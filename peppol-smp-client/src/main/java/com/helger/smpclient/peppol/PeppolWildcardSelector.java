@@ -41,13 +41,14 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.peppolid.peppol.Pfuoi420;
+import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.PeppolGenericDocumentTypeIdentifierParts;
 
 /**
- * Helper class to support the different ways of dealing with
- * peppol-doctype-wildcard scheme in combination with the busdox-docid-qns
- * scheme.
+ * Helper class to support the different ways of dealing with peppol-doctype-wildcard scheme in
+ * combination with the busdox-docid-qns scheme.
  *
  * @author Philip Helger
  * @since 9.2.0
@@ -57,12 +58,14 @@ public class PeppolWildcardSelector
 {
   /**
    * Defines the different selection modes.<br>
-   * This was valid for Policy for use of Identifiers 4.2.0. This is no longer
-   * valid with PFUOI 4.3.0 from May 15th 2025
+   * This was valid for Policy for use of Identifiers 4.2.0. This is no longer valid with PFUOI
+   * 4.3.0 from May 15th 2025
    *
    * @author Philip Helger
+   * @Deprecated since 10.3.0 for removal in 11.0.0
    */
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   public enum EMode implements IHasID <String>
   {
     /**
@@ -70,18 +73,18 @@ public class PeppolWildcardSelector
      */
     BUSDOX_ONLY ("busdox"),
     /**
-     * Select document types with scheme <code>peppol-doctype-wildcard</code>
-     * only. This is e.g. the correct mode for PINT JP.
+     * Select document types with scheme <code>peppol-doctype-wildcard</code> only. This is e.g. the
+     * correct mode for PINT JP.
      */
     WILDCARD_ONLY ("wildcard"),
     /**
-     * Select document types with scheme <code>busdox-docid-qns</code> followed
-     * by scheme <code>peppol-doctype-wildcard</code>.
+     * Select document types with scheme <code>busdox-docid-qns</code> followed by scheme
+     * <code>peppol-doctype-wildcard</code>.
      */
     BUSDOX_THEN_WILDCARD ("busdox-wildcard"),
     /**
-     * Select document types with scheme <code>peppol-doctype-wildcard</code>
-     * followed by scheme <code>busdox-docid-qns</code>.
+     * Select document types with scheme <code>peppol-doctype-wildcard</code> followed by scheme
+     * <code>busdox-docid-qns</code>.
      */
     WILDCARD_THEN_BUSDOX ("wildcard-busdox");
 
@@ -109,6 +112,7 @@ public class PeppolWildcardSelector
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolWildcardSelector.class);
 
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   private final EMode m_eMode;
 
   /**
@@ -118,6 +122,7 @@ public class PeppolWildcardSelector
    *        The selection mode to use. May not be <code>null</code>.
    */
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   public PeppolWildcardSelector (@Nonnull final EMode eMode)
   {
     ValueEnforcer.notNull (eMode, "Mode");
@@ -129,27 +134,28 @@ public class PeppolWildcardSelector
    */
   @Nonnull
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   public final EMode getMode ()
   {
     return m_eMode;
   }
 
   /**
-   * Helper method to iterate all matching document type identifiers for PFUOI
-   * 4.2.0. The preference of schemes is defined by the operational mode.
+   * Helper method to iterate all matching document type identifiers for PFUOI 4.2.0. The preference
+   * of schemes is defined by the operational mode.
    *
    * @param aBaseDocTypes
-   *        The list of document types to filter. Usually this list was obtained
-   *        from an SMP query "get all receiving capabilities of participant".
-   *        May not be <code>null</code>, but maybe empty.
+   *        The list of document types to filter. Usually this list was obtained from an SMP query
+   *        "get all receiving capabilities of participant". May not be <code>null</code>, but maybe
+   *        empty.
    * @param sDocTypeValue
-   *        The document type identifier value (!) <b>without</b> the scheme to
-   *        search. The schemes are added internally automatically.
+   *        The document type identifier value (!) <b>without</b> the scheme to search. The schemes
+   *        are added internally automatically.
    * @param aMatchingDocTypeConsumer
-   *        The consumer to be invoked for each match. May not be
-   *        <code>null</code>.
+   *        The consumer to be invoked for each match. May not be <code>null</code>.
    */
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   public void forEachMatchingDocumentType (@Nonnull final ICommonsList <? extends IDocumentTypeIdentifier> aBaseDocTypes,
                                            @Nonnull @Nonempty final String sDocTypeValue,
                                            @Nonnull final Function <? super IDocumentTypeIdentifier, EContinue> aMatchingDocTypeConsumer)
@@ -252,19 +258,18 @@ public class PeppolWildcardSelector
   }
 
   /**
-   * Helper method to find the best match wildcard document type identifier for
-   * PFUOI 4.3.0. This method only work for peppol-doctype-wildcard scheme.
+   * Helper method to find the best match wildcard document type identifier for PFUOI 4.3.0. This
+   * method only work for peppol-doctype-wildcard scheme.
    *
    * @param aBaseDocTypes
-   *        The list of document types to filter. Usually this list was obtained
-   *        from an SMP query "get all receiving capabilities of participant".
-   *        May not be <code>null</code>, but maybe empty.
+   *        The list of document types to filter. Usually this list was obtained from an SMP query
+   *        "get all receiving capabilities of participant". May not be <code>null</code>, but maybe
+   *        empty.
    * @param aSearchDocTypeValue
-   *        The document type identifier to search. It may or may not contain
-   *        the Wildcard indicator.
+   *        The document type identifier to search. It may or may not contain the Wildcard
+   *        indicator.
    * @param aMatchingDocTypeConsumer
-   *        The consumer to be invoked for the first match only. May not be
-   *        <code>null</code>.
+   *        The consumer to be invoked for the first match only. May not be <code>null</code>.
    * @return Non-<code>null</code>.
    */
   @Nonnull

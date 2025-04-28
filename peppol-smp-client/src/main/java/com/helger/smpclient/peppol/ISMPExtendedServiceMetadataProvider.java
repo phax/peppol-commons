@@ -29,6 +29,8 @@ import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+import com.helger.peppolid.peppol.Pfuoi420;
+import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -46,85 +48,85 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadataProvider
 {
   /**
-   * Wildcard aware SMP lookup for PFUOI 4.2. It interprets the wildcard
-   * character (<code>*</code>) appropriately and tries all possibilities.
-   * Internally it searches the closest possible match using the provided
-   * selection algorithm (mode).
+   * Wildcard aware SMP lookup for PFUOI 4.2. It interprets the wildcard character (<code>*</code>)
+   * appropriately and tries all possibilities. Internally it searches the closest possible match
+   * using the provided selection algorithm (mode).
    *
    * @param aServiceGroup
    *        The service group previously queried. May not be <code>null</code>.
    * @param aReceiverID
    *        Receiver ID. May not be <code>null</code>.
    * @param aDocTypeID
-   *        Source document type ID. May not be <code>null</code>. The document
-   *        type may use any document type identifier scheme.
+   *        Source document type ID. May not be <code>null</code>. The document type may use any
+   *        document type identifier scheme.
    * @param eSelectionMode
    *        The Wildcard selection mode to use. Must not be <code>null</code>.
    * @return <code>null</code> if no matching SMP entry was found
    * @throws SMPClientException
    *         In case of error
-   * @see #getWildcardServiceMetadataOrNull(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier,
+   * @see #getWildcardServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier,
    *      com.helger.smpclient.peppol.PeppolWildcardSelector.EMode)
    * @since 9.5.1 in this interface
+   * @deprecated since 10.3.0 for removal in 11.0.0. Use
+   *             {@link #getSchemeSpecificServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
+   *             instead.
    */
   @Nullable
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull ServiceGroupType aServiceGroup,
                                                               @Nonnull IParticipantIdentifier aReceiverID,
                                                               @Nonnull IDocumentTypeIdentifier aDocTypeID,
                                                               @Nonnull PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException;
 
   /**
-   * Wildcard aware SMP lookup for PFUOI 4.2. It interprets the wildcard
-   * character (<code>*</code>) appropriately and tries all possibilities.
-   * Internally it works by first querying all the document types via
-   * {@link ISMPServiceGroupProvider#getServiceGroupOrNull(IParticipantIdentifier)}
-   * and afterwards find the closest possible match using the provided selection
-   * algorithm (mode). So this method calls each SMP twice.
+   * Wildcard aware SMP lookup for PFUOI 4.2. It interprets the wildcard character (<code>*</code>)
+   * appropriately and tries all possibilities. Internally it works by first querying all the
+   * document types via
+   * {@link ISMPServiceGroupProvider#getServiceGroupOrNull(IParticipantIdentifier)} and afterwards
+   * find the closest possible match using the provided selection algorithm (mode). So this method
+   * calls each SMP twice.
    *
    * @param aReceiverID
    *        Receiver ID. May not be <code>null</code>.
    * @param aDocTypeID
-   *        Source document type ID. May not be <code>null</code>. The document
-   *        type may use any document type identifier scheme.
+   *        Source document type ID. May not be <code>null</code>. The document type may use any
+   *        document type identifier scheme.
    * @param eSelectionMode
    *        The Wildcard selection mode to use. Must not be <code>null</code>.
    * @return <code>null</code> if no matching SMP entry was found
    * @throws SMPClientException
    *         In case of error
    * @since 9.2.1
-   * @see #getWildcardServiceMetadataOrNull(ServiceGroupType,
-   *      IParticipantIdentifier, IDocumentTypeIdentifier,
-   *      com.helger.smpclient.peppol.PeppolWildcardSelector.EMode)
+   * @see #getWildcardServiceMetadataOrNull(ServiceGroupType, IParticipantIdentifier,
+   *      IDocumentTypeIdentifier, com.helger.smpclient.peppol.PeppolWildcardSelector.EMode)
+   * @deprecated since 10.3.0 for removal in 11.0.0. Use
+   *             {@link #getSchemeSpecificServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
+   *             instead.
    */
   @Nullable
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull IParticipantIdentifier aReceiverID,
                                                               @Nonnull IDocumentTypeIdentifier aDocTypeID,
                                                               @Nonnull PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException;
 
   /**
-   * Retrieve the service metadata from the provided service group ID and
-   * document type ID. Than find the matching endpoint from the process ID and
-   * transport profile. This method checks the validity of the endpoint at the
-   * current point in time.<br>
+   * Retrieve the service metadata from the provided service group ID and document type ID. Than
+   * find the matching endpoint from the process ID and transport profile. This method checks the
+   * validity of the endpoint at the current point in time.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The document type of the service metadata to get. May not be <code>null</code>.
    * @param aProcessID
-   *        The process ID of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The process ID of the service metadata to get. May not be <code>null</code>.
    * @param aTransportProfile
-   *        The transport profile of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @return The endpoint from the signed service metadata object or
-   *         <code>null</code> if no such registration is present.
+   *        The transport profile of the service metadata to get. May not be <code>null</code>.
+   * @return The endpoint from the signed service metadata object or <code>null</code> if no such
+   *         registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -132,8 +134,8 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
-   * @see #getEndpointAt(IParticipantIdentifier, IDocumentTypeIdentifier,
-   *      IProcessIdentifier, ISMPTransportProfile, LocalDateTime)
+   * @see #getEndpointAt(IParticipantIdentifier, IDocumentTypeIdentifier, IProcessIdentifier,
+   *      ISMPTransportProfile, LocalDateTime)
    */
   @Nullable
   default EndpointType getEndpoint (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -149,29 +151,23 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
   }
 
   /**
-   * Retrieve the service metadata from the provided service group ID and
-   * document type ID. Than find the matching endpoint from the process ID and
-   * transport profile.<br>
+   * Retrieve the service metadata from the provided service group ID and document type ID. Than
+   * find the matching endpoint from the process ID and transport profile.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The document type of the service metadata to get. May not be <code>null</code>.
    * @param aProcessID
-   *        The process ID of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The process ID of the service metadata to get. May not be <code>null</code>.
    * @param aTransportProfile
-   *        The transport profile of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The transport profile of the service metadata to get. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the
-   *        end point contains a ServiceActivationDate and/or a
-   *        ServiceExpirationDate. May not be <code>null</code>.
-   * @return The endpoint from the signed service metadata object or
-   *         <code>null</code> if no such registration is present.
+   *        The date and time for when the endpoint is meant to be valid if the end point contains a
+   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   * @return The endpoint from the signed service metadata object or <code>null</code> if no such
+   *         registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -197,16 +193,15 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
     // Get meta data for participant/documentType
     final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
                                                                                        aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null
-                                          : SMPClientReadOnly.getEndpointAt (aSignedServiceMetadata,
-                                                                             aProcessID,
-                                                                             aTransportProfile,
-                                                                             aCheckDT);
+    return aSignedServiceMetadata == null ? null : SMPClientReadOnly.getEndpointAt (aSignedServiceMetadata,
+                                                                                    aProcessID,
+                                                                                    aTransportProfile,
+                                                                                    aCheckDT);
   }
 
   /**
-   * Get the endpoint address URI from the specified endpoint. This method
-   * checks the validity of the endpoint at the current point in time.
+   * Get the endpoint address URI from the specified endpoint. This method checks the validity of
+   * the endpoint at the current point in time.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -216,8 +211,8 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *        Process ID. May not be <code>null</code>.
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no endpoint address URI
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no endpoint
+   *         address URI
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -247,11 +242,10 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the
-   *        end point contains a ServiceActivationDate and/or a
-   *        ServiceExpirationDate. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no endpoint address URI
+   *        The date and time for when the endpoint is meant to be valid if the end point contains a
+   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no endpoint
+   *         address URI
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -276,8 +270,8 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
   }
 
   /**
-   * Get the certificate string from the specified endpoint. This method checks
-   * the validity of the endpoint at the current point in time.
+   * Get the certificate string from the specified endpoint. This method checks the validity of the
+   * endpoint at the current point in time.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -287,8 +281,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *        Process ID. May not be <code>null</code>.
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -318,11 +311,9 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the
-   *        end point contains a ServiceActivationDate and/or a
-   *        ServiceExpirationDate. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   *        The date and time for when the endpoint is meant to be valid if the end point contains a
+   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -347,8 +338,8 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
   }
 
   /**
-   * Get the certificate from the specified endpoint. This method checks the
-   * validity of the endpoint at the current point in time.
+   * Get the certificate from the specified endpoint. This method checks the validity of the
+   * endpoint at the current point in time.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -358,8 +349,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *        Process ID. May not be <code>null</code>.
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -395,11 +385,9 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the
-   *        end point contains a ServiceActivationDate and/or a
-   *        ServiceExpirationDate. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   *        The date and time for when the endpoint is meant to be valid if the end point contains a
+   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -426,16 +414,15 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
   }
 
   /**
-   * This API is to resolve the Service Metadata based on the provided Document
-   * Type ID following the Peppol Policy for use of Identifiers 4.3.0.<br>
+   * This API is to resolve the Service Metadata based on the provided Document Type ID following
+   * the Peppol Policy for use of Identifiers 4.3.0.<br>
    * <ul>
-   * <li>For <code>busdox-docid-qns</code> only exact match is supported. Here
-   * it will directly query the Service Metadata. (1 SMP query in total)</li>
-   * <li>For <code>peppol-doctype</code> both exact match and best match are
-   * supported. The wildcard indicator may or may not be present. Here it will
-   * first query the SMP for list of all document types, find the best match
-   * document type and finally do the SMP query Service Metadata. (2 SMP queries
-   * in total)</li>
+   * <li>For <code>busdox-docid-qns</code> only exact match is supported. Here it will directly
+   * query the Service Metadata. (1 SMP query in total)</li>
+   * <li>For <code>peppol-doctype</code> both exact match and best match are supported. The wildcard
+   * indicator may or may not be present. Here it will first query the SMP for list of all document
+   * types, find the best match document type and finally do the SMP query Service Metadata. (2 SMP
+   * queries in total)</li>
    * </ul>
    *
    * @param aServiceGroupID
@@ -446,8 +433,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @throws SMPClientException
    *         In case of error
    * @since 9.6.0
-   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier)
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
    * @see ISMPServiceGroupProvider#getServiceGroupOrNull(IParticipantIdentifier)
    */
   @Nullable

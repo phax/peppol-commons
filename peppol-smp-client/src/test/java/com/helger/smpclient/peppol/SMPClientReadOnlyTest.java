@@ -47,6 +47,8 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.peppolid.peppol.Pfuoi420;
+import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.security.certificate.ECertificateCheckResult;
@@ -276,6 +278,7 @@ public final class SMPClientReadOnlyTest
 
   @Test
   @Pfuoi420
+  @Deprecated (since = "10.3.0", forRemoval = true)
   public void testGetWildcardServiceMetadataOrNull_PFUOI420 () throws Exception
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
