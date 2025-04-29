@@ -34,7 +34,7 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.smpclient.url.IPeppolURLProvider;
-import com.helger.smpclient.url.PeppolNaptrURLProvider;
+import com.helger.smpclient.url.PeppolConfigurableURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
@@ -49,7 +49,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
 
   private static final IParticipantIdentifier PI_AT_TEST = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
   private static final IParticipantIdentifier PI_AT_PROD = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");
-  private static final IPeppolURLProvider URL_PROVIDER = PeppolNaptrURLProvider.INSTANCE;
+  private static final IPeppolURLProvider URL_PROVIDER = PeppolConfigurableURLProvider.INSTANCE;
 
   @Nonnull
   private static SMPClient _createSMPClient (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
@@ -64,9 +64,9 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
   public void testGetEndpointAddress () throws Exception
   {
     String sEndpointAddress = _createSMPClient (PI_AT_TEST, ESML.DIGIT_TEST).getEndpointAddress (PI_AT_TEST,
-                                                                                              EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
-                                                                                              EPredefinedProcessIdentifier.BIS3_BILLING,
-                                                                                              ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
+                                                                                                 EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
+                                                                                                 EPredefinedProcessIdentifier.BIS3_BILLING,
+                                                                                                 ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     assertEquals ("https://test.erechnung.gv.at/as4", sEndpointAddress);
 
     sEndpointAddress = _createSMPClient (PI_AT_PROD, ESML.DIGIT_PRODUCTION).getEndpointAddress (PI_AT_PROD,
@@ -87,10 +87,11 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
   @Test
   public void testGetEndpointCertificate () throws Exception
   {
-    X509Certificate aEndpointCertificate = _createSMPClient (PI_AT_TEST, ESML.DIGIT_TEST).getEndpointCertificate (PI_AT_TEST,
-                                                                                                      EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
-                                                                                                      EPredefinedProcessIdentifier.BIS3_BILLING,
-                                                                                                      ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
+    X509Certificate aEndpointCertificate = _createSMPClient (PI_AT_TEST, ESML.DIGIT_TEST).getEndpointCertificate (
+                                                                                                                  PI_AT_TEST,
+                                                                                                                  EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
+                                                                                                                  EPredefinedProcessIdentifier.BIS3_BILLING,
+                                                                                                                  ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     assertNotNull (aEndpointCertificate);
     // Updated December 2024
     assertEquals ("38982941322949190188120289136764319632", aEndpointCertificate.getSerialNumber ().toString ());
