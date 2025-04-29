@@ -334,6 +334,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.3.2 - 2025-04-29
+    * Added new class `PeppolConfigurableURLProvider` that allows to switch between CNAME and NAPTR based lookups
 * v10.3.1 - 2025-04-29
     * Deprecated class `PeppolURLProvider`
     * Using class `PeppolNaptrURLProvider` instead of class `PeppolURLProvider` to comply to the Peppol Policy for use of Identifiers 4.4.0
