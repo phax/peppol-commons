@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.peppol</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>10.3.2</version>
+    <version>10.3.3-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-smp-client</artifactId>
   <packaging>bundle</packaging>
