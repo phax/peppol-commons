@@ -334,7 +334,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v10.3.1 - work in progress
+* v10.3.1 - 2025-04-29
     * Deprecated class `PeppolURLProvider`
     * Using class `PeppolNaptrURLProvider` instead of class `PeppolURLProvider` to comply to the Peppol Policy for use of Identifiers 4.4.0
 * v10.3.0 - 2025-04-28 (supports Peppol Policy for use of Identifiers up to 4.4.0)
