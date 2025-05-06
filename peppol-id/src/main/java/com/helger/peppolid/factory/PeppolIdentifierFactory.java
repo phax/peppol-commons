@@ -230,14 +230,13 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
   /**
    * Check if the given scheme is a valid participant identifier scheme (like
-   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}). It is valid if
-   * it has at least 1 character and at last 25 characters (see
-   * {@link PeppolIdentifierHelper#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a
-   * certain regular expression (see
-   * {@link PeppolIdentifierHelper#PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please
+   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}). It is valid if it has at least 1
+   * character and at last 25 characters (see
+   * {@link PeppolIdentifierHelper#MAX_IDENTIFIER_SCHEME_LENGTH}}) and matches a certain regular
+   * expression (see {@link PeppolIdentifierHelper#PARTICIPANT_IDENTIFIER_SCHEME_REGEX}). Please
    * note that the regular expression is applied case insensitive!<br>
-   * This limitation is important, because the participant identifier scheme is
-   * directly encoded into the SML DNS name record.
+   * This limitation is important, because the participant identifier scheme is directly encoded
+   * into the SML DNS name record.
    */
   @Override
   public boolean isParticipantIdentifierSchemeValid (@Nullable final String sScheme)
@@ -250,11 +249,10 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   }
 
   /**
-   * Check if the passed participant identifier value is valid. A valid
-   * identifier must have at least 1 character and at last
-   * {@link PeppolIdentifierHelper#MAX_PARTICIPANT_VALUE_LENGTH} characters.
-   * Also it must be US ASCII encoded. This check method considers only the
-   * value and not the identifier scheme!
+   * Check if the passed participant identifier value is valid. A valid identifier must have at
+   * least 1 character and at last {@link PeppolIdentifierHelper#MAX_PARTICIPANT_VALUE_LENGTH}
+   * characters. Also it must be US ASCII encoded. This check method considers only the value and
+   * not the identifier scheme!
    */
   @Override
   public boolean isParticipantIdentifierValueValid (@Nullable final String sScheme, @Nullable final String sValue)
@@ -269,7 +267,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     if (nLength == 0)
       return false;
 
-    // <= 50 characters
+    // <= 135 characters
     if (nLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
       return false;
 
