@@ -38,7 +38,7 @@ public final class DBNAURLProviderSMPTest
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("GLN", "1234567890123");
 
     final String s = DBNAURLProviderSMP.INSTANCE.getDNSNameOfParticipant (aPI, EDBNAllianceSML.TEST.getZoneName ());
-    assertEquals ("QCIE7F2NY3ZE5NMHQSE7Z5J6JERDS3GC437BFJL2K6VQ6MINB47A.sml.dbnalliance.com", s);
+    assertEquals ("qcie7f2ny3ze5nmhqse7z5j6jerds3gc437bfjl2k6vq6minb47a.sml.dbnalliance.com", s);
   }
 
   @Test
@@ -47,7 +47,7 @@ public final class DBNAURLProviderSMPTest
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("GLN", "1200109963131");
 
     final String s = DBNAURLProviderSMP.INSTANCE.getDNSNameOfParticipant (aPI, EDBNAllianceSML.TEST.getZoneName ());
-    assertEquals ("7TPLWXYHOFKMPVRL5KHYXHCE5AFZMHLTHDBVEE2EQ43ZMUNZKYXA.sml.dbnalliance.com", s);
+    assertEquals ("7tplwxyhofkmpvrl5khyxhce5afzmhlthdbvee2eq43zmunzkyxa.sml.dbnalliance.com", s);
   }
 
   @Test

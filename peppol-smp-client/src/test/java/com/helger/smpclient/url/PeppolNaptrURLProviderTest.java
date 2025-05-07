@@ -51,7 +51,7 @@ public final class PeppolNaptrURLProviderTest
       final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
       final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
       final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST);
-      assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+      assertEquals ("eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                     sDomain);
 
       final URL x = aURLProvider.getSMPURLOfParticipant (aPI, ESML.DIGIT_TEST);
@@ -66,19 +66,19 @@ public final class PeppolNaptrURLProviderTest
     final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:1234567890123");
     final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST);
-    assertEquals ("SJSYVCCMQYJXK3WEUAPFFQ4X3UMCRF4QRYHERJ4VOVHMONH7GCCQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+    assertEquals ("sjsyvccmqyjxk3weuapffq4x3umcrf4qryherj4vovhmonh7gccq.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                   sDomain);
 
     // Policy for use of Identifiers POLICY 7 example
-    assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+    assertEquals ("y7dzfxaf3d4cjz4kcgrxtec6twvcga4ky7zwa5boif6mswd4tdrq.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
                                                         ESML.DIGIT_TEST));
-    assertEquals ("Y7DZFXAF3D4CJZ4KCGRXTEC6TWVCGA4KY7ZWA5BOIF6MSWD4TDRQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+    assertEquals ("y7dzfxaf3d4cjz4kcgrxtec6twvcga4ky7zwa5boif6mswd4tdrq.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
                                                         ESML.DIGIT_TEST));
 
     // Peppol SML Spec example
-    assertEquals ("XUKHFQABQZIKI3YKVR2FHR4SNFA3PF5VPQ6K4TONV3LMVSY5ARVQ.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+    assertEquals ("xukhfqabqziki3ykvr2fhr4snfa3pf5vpq6k4tonv3lmvsy5arvq.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0010:5798000000001"),
                                                         ESML.DIGIT_TEST));
   }
