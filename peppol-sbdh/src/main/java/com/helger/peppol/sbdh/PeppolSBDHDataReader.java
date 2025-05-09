@@ -819,6 +819,8 @@ public class PeppolSBDHDataReader
         if (!bFoundCountryC1)
           aErrorList.add (_toError ("SBDH/BusinessScope", EPeppolSBDHDataError.MISSING_COUNTRY_C1));
       }
+      // MLS_TO is optional
+      // MLS_TYPE is optional
     }
 
     // Check document and metadata
