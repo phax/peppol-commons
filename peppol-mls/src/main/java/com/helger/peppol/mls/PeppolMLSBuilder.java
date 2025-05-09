@@ -33,8 +33,12 @@ import com.helger.commons.builder.IBuilder;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.datetime.XMLOffsetDate;
+import com.helger.commons.datetime.XMLOffsetTime;
 import com.helger.commons.string.StringHelper;
 import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.factory.IParticipantIdentifierFactory;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.phive.api.result.ValidationResultList;
 
 import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.ApplicationResponseType;
@@ -47,14 +51,14 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Descrip
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.EndpointIDType;
 
 /**
- * Builder for a Peppol MLS. Fill all the fields and call {@link #build()} at
- * the end.
+ * Builder for a Peppol MLS. Fill all the fields and call {@link #build()} at the end.
  *
  * @author Philip Helger
  */
 public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSBuilder.class);
+  private static final IParticipantIdentifierFactory IF = PeppolIdentifierFactory.INSTANCE;
 
   private final EPeppolMLSResponseCode m_eResponseCode;
   private String m_sID;
@@ -105,6 +109,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   @Nonnull
+  public PeppolMLSBuilder issueDate (@Nullable final XMLOffsetDate a)
+  {
+    return issueDate (a == null ? null : a.toLocalDate ());
+  }
+
+  @Nonnull
   public PeppolMLSBuilder issueDate (@Nullable final LocalDate a)
   {
     m_aIssueDate = a;
@@ -115,6 +125,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   public PeppolMLSBuilder issueTimeNow ()
   {
     return issueTime (PDTFactory.getCurrentLocalTimeMillisOnly ());
+  }
+
+  @Nonnull
+  public PeppolMLSBuilder issueTime (@Nullable final XMLOffsetTime a)
+  {
+    return issueTime (a == null ? null : a.toLocalTime ());
   }
 
   @Nonnull
@@ -132,10 +148,22 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   @Nonnull
+  public PeppolMLSBuilder senderParticipantID (@Nullable final String sValue)
+  {
+    return senderParticipantID (IF.createParticipantIdentifierWithDefaultScheme (sValue));
+  }
+
+  @Nonnull
   public PeppolMLSBuilder senderParticipantID (@Nullable final IParticipantIdentifier a)
   {
     m_aSenderPID = a;
     return this;
+  }
+
+  @Nonnull
+  public PeppolMLSBuilder receiverParticipantID (@Nullable final String sValue)
+  {
+    return receiverParticipantID (IF.createParticipantIdentifierWithDefaultScheme (sValue));
   }
 
   @Nonnull
@@ -146,8 +174,8 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
-   * Set the ID of the message we're referencing. This MUST be the Instance
-   * Identifier of the SBDH of the source message.
+   * Set the ID of the message we're referencing. This MUST be the Instance Identifier of the SBDH
+   * of the source message.
    *
    * @param s
    *        Instance Identifier of the source message SBDH
@@ -164,8 +192,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    * Set the type code of the message we're referencing. This is optional.
    *
    * @param s
-   *        Type code of the source message (like <code>380</code> for an
-   *        invoice)
+   *        Type code of the source message (like <code>380</code> for an invoice)
    * @return this for chaining
    */
   @Nonnull
@@ -176,8 +203,8 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
-   * Set the response text returned to the sender. This is e.g. the reason for
-   * rejection. This must be human readable text. The text may be multiline.
+   * Set the response text returned to the sender. This is e.g. the reason for rejection. This must
+   * be human readable text. The text may be multiline.
    *
    * @param s
    *        Response text.
@@ -365,14 +392,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
-   * Create a predefined Peppol MLS builder based on the validation result list.
-   * If the list contains no error, {@link #acceptance()} is returned else
-   * {@link #rejection()} with the pre-filled lines is returned. Sender,
-   * Receiver and Reference ID need to be set manually anyway.
+   * Create a predefined Peppol MLS builder based on the validation result list. If the list
+   * contains no error, {@link #acceptance()} is returned else {@link #rejection()} with the
+   * pre-filled lines is returned. Sender, Receiver and Reference ID need to be set manually anyway.
    *
    * @param aVRL
-   *        The Validation result list to evaluate. May not be
-   *        <code>null</code>.
+   *        The Validation result list to evaluate. May not be <code>null</code>.
    * @return A new {@link PeppolMLSBuilder} and never <code>null</code>.
    */
   @Nonnull
@@ -397,5 +422,66 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
                                                                                                    aError.getErrorText (aDisplayLocale))));
     });
     return aMLSBuilder;
+  }
+
+  @Nullable
+  private static String _combine (@Nullable final EndpointIDType aEndpoint)
+  {
+    if (aEndpoint == null)
+      return null;
+    return StringHelper.getConcatenatedOnDemand (aEndpoint.getSchemeID (), ':', aEndpoint.getValue ());
+  }
+
+  /**
+   * Fill the builder with the values from the given application response.
+   *
+   * @param aAR
+   *        The application response to load. May not be <code>null</code>.
+   * @return A new {@link PeppolMLSBuilder} and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the given application response is not a valid MLS.
+   * @since 10.3.3
+   */
+  @Nonnull
+  public static PeppolMLSBuilder createForApplicationResponse (@Nonnull final ApplicationResponseType aAR)
+  {
+    ValueEnforcer.notNull (aAR, "ApplicationResponse");
+
+    if (!CPeppolMLS.MLS_CUSTOMIZATION_ID.equals (aAR.getCustomizationIDValue ()))
+      throw new IllegalArgumentException ("The given application response is not a valid MLS - wrong customization ID");
+    if (!CPeppolMLS.MLS_PROFILE_ID.equals (aAR.getProfileIDValue ()))
+      throw new IllegalArgumentException ("The given application response is not a valid MLS - wrong profile ID");
+    if (aAR.getDocumentResponse ().size () != 1)
+      throw new IllegalArgumentException ("The given application response is not a valid MLS - exepcted exactly one document responses");
+
+    final PartyType aSenderParty = aAR.getSenderParty ();
+    final EndpointIDType aSenderEndpointID = aSenderParty.getEndpointID ();
+
+    final PartyType aReceiverParty = aAR.getReceiverParty ();
+    final EndpointIDType aReceiverEndpointID = aReceiverParty.getEndpointID ();
+
+    final DocumentResponseType aDocResponse = aAR.getDocumentResponse ().get (0);
+    final ResponseType aResponse = aDocResponse.getResponse ();
+    if (aDocResponse.hasNoDocumentReferenceEntries ())
+      throw new IllegalArgumentException ("The given application response is not a valid MLS - no document reference is contained");
+    final DocumentReferenceType aDocRef = aDocResponse.getDocumentReferenceAtIndex (0);
+
+    final EPeppolMLSResponseCode eResponseCode = EPeppolMLSResponseCode.getFromIDOrThrow (aResponse.getResponseCodeValue ());
+    final PeppolMLSBuilder ret = new PeppolMLSBuilder (eResponseCode).id (aAR.getIDValue ())
+                                                                     .issueDate (aAR.getIssueDateValue ())
+                                                                     .issueTime (aAR.getIssueTimeValue ())
+                                                                     .senderParticipantID (_combine (aSenderEndpointID))
+                                                                     .receiverParticipantID (_combine (aReceiverEndpointID))
+                                                                     .responseText (aResponse.hasDescriptionEntries () ? aResponse.getDescriptionAtIndex (0)
+                                                                                                                                  .getValue ()
+                                                                                                                       : null)
+                                                                     .referenceId (aDocRef.getIDValue ())
+                                                                     .referenceTypeCode (aDocRef.getDocumentTypeCodeValue ());
+    for (final LineResponseType aLineResponse : aDocResponse.getLineResponse ())
+    {
+      final PeppolMLSLineResponseBuilder aLineBuilder = PeppolMLSLineResponseBuilder.createForLineResponse (aLineResponse);
+      ret.addLineResponse (aLineBuilder);
+    }
+    return ret;
   }
 }

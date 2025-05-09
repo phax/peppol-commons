@@ -73,4 +73,10 @@ public enum EPeppolMLSResponseCode implements IHasID <String>, ISuccessIndicator
   {
     return EnumHelper.getFromIDOrNull (EPeppolMLSResponseCode.class, sID);
   }
+
+  @Nonnull
+  public static EPeppolMLSResponseCode getFromIDOrThrow (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrThrow (EPeppolMLSResponseCode.class, sID);
+  }
 }

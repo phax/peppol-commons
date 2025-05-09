@@ -71,4 +71,10 @@ public enum EPeppolMLSStatusReasonCode implements IHasID <String>
   {
     return EnumHelper.getFromIDOrNull (EPeppolMLSStatusReasonCode.class, sID);
   }
+
+  @Nonnull
+  public static EPeppolMLSStatusReasonCode getFromIDOrThrow (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrThrow (EPeppolMLSStatusReasonCode.class, sID);
+  }
 }

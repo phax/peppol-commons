@@ -16,6 +16,7 @@
  */
 package com.helger.peppol.mls;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
@@ -47,7 +48,13 @@ public final class PeppolMLSBuilderTest
                                                          .receiverParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mls-receiver"))
                                                          .build ();
     assertNotNull (aMLS);
-    assertNotNull (new PeppolMLSMarshaller ().getAsDocument (aMLS));
+    final String sMLS1 = new PeppolMLSMarshaller ().getAsString (aMLS);
+    assertNotNull (sMLS1);
+
+    // Check with reverse Builder
+    final ApplicationResponseType aMLS2 = PeppolMLSBuilder.createForApplicationResponse (aMLS).build ();
+    final String sMLS2 = new PeppolMLSMarshaller ().getAsString (aMLS2);
+    assertEquals (sMLS1, sMLS2);
 
     if (false)
       LOGGER.info (new PeppolMLSMarshaller ().setFormattedOutput (true).getAsString (aMLS));
@@ -69,7 +76,14 @@ public final class PeppolMLSBuilderTest
                                                                                                        .description ("The ID seems to be missing"))
                                                          .build ();
     assertNotNull (aMLS);
-    assertNotNull (new PeppolMLSMarshaller ().getAsDocument (aMLS));
+
+    final String sMLS1 = new PeppolMLSMarshaller ().getAsString (aMLS);
+    assertNotNull (sMLS1);
+
+    // Check with reverse Builder
+    final ApplicationResponseType aMLS2 = PeppolMLSBuilder.createForApplicationResponse (aMLS).build ();
+    final String sMLS2 = new PeppolMLSMarshaller ().getAsString (aMLS2);
+    assertEquals (sMLS1, sMLS2);
 
     if (false)
       LOGGER.info (new PeppolMLSMarshaller ().setFormattedOutput (true).getAsString (aMLS));
