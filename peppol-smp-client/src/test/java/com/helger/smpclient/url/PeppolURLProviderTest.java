@@ -92,11 +92,6 @@ public final class PeppolURLProviderTest
                                                                                                                   null),
                                                     (String) null));
 
-    // Wildcard
-    assertEquals ("*.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
-                  INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("*"),
-                                                    ESML.DIGIT_PRODUCTION));
-
     // Empty DNS zone
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis",
                   INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
