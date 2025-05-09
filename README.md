@@ -336,6 +336,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 * v10.3.3 - work in progress
     * All created NAPTR URLs are now created in lowercase only
+    * Improved the `PeppolMLSBuilder` so that it can also be filled from existing `ApplicationResponse` objects
 * v10.3.2 - 2025-04-29
     * Added new class `PeppolConfigurableURLProvider` that allows to switch between CNAME and NAPTR based lookups
 * v10.3.1 - 2025-04-29
