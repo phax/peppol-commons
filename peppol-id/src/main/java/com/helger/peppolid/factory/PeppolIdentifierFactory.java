@@ -260,15 +260,15 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     if (sValue == null)
       return false;
 
-    final int nLength = sValue.length ();
+    final int nValueLength = sValue.length ();
 
     // POLICY 1
     // At least one characters
-    if (nLength == 0)
+    if (nValueLength == 0)
       return false;
 
     // <= 135 characters
-    if (nLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
+    if (nValueLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
       return false;
 
     // Check if the value is ISO-8859-1 encoded
@@ -276,13 +276,26 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
       if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
         return false;
 
-    // Check if the separator between identifier issuing agency and value is
-    // present - can only be done if the default scheme is present
-    // Also does not work in certain representations when the numeric scheme is
-    // extracted into an attribute (see e.g. POLICY 14)
-    if (false)
-      if (sValue.indexOf (':') < 0)
+    // Check the iso6523-actorid-upis scheme layout
+    if (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS.equals (sScheme))
+    {
+      // Must be at least 0000:X
+      if (nValueLength < 6)
         return false;
+
+      // Must be after the first 4 characters
+      if (sValue.indexOf (':') != 4)
+        return false;
+
+      if (!Character.isDigit (sValue.charAt (0)))
+        return false;
+      if (!Character.isDigit (sValue.charAt (1)))
+        return false;
+      if (!Character.isDigit (sValue.charAt (2)))
+        return false;
+      if (!Character.isDigit (sValue.charAt (3)))
+        return false;
+    }
 
     return true;
   }

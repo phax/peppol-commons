@@ -191,7 +191,7 @@ public final class PeppolParticipantIdentifierTest
   @Test
   public void testHasDefaultScheme ()
   {
-    assertTrue (IF.createParticipantIdentifierWithDefaultScheme ("abc")
+    assertTrue (IF.createParticipantIdentifierWithDefaultScheme ("0000:abc")
                   .hasScheme (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME));
     assertFalse (new PeppolParticipantIdentifier (IF, "dummy-actorid-upis", "abc").hasDefaultScheme ());
   }

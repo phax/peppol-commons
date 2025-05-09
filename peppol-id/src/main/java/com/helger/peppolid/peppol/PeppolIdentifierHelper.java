@@ -39,8 +39,10 @@ public final class PeppolIdentifierHelper
   public static final int MAX_IDENTIFIER_SCHEME_LENGTH = 25;
 
   /**
-   * The identifier prefix for DNS name creation.
+   * The identifier prefix for DNS name creation. This was used only for CNAME DNS host names.
    */
+  @Pfuoi420
+  @Deprecated (forRemoval = true, since = "10.3.3")
   public static final String DNS_HASHED_IDENTIFIER_PREFIX = "B-";
 
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
@@ -76,10 +78,7 @@ public final class PeppolIdentifierHelper
 
   /**
    * The default identifier scheme ID to be used for participants/businesses. <br>
-   * The matching values have the format "agency:id" whereas agency should be within the
-   * code-list.<br>
-   * Please note that this is a change to the Peppol Common definitions chapter 3.4! <br>
-   * See also com.helger.peppol.identifier.issuingagency.IdentifierIssuingAgencyManager
+   * The matching values have the format "agency:id" whereas agency should be within the code-list.
    *
    * @since 8.3.1
    */
