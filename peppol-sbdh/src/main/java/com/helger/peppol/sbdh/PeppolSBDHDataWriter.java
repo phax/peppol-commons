@@ -73,8 +73,8 @@ public class PeppolSBDHDataWriter
   }
 
   /**
-   * @return <code>true</code> if speed is favoured, <code>false</code> if not.
-   *         Default is {@link #DEFAULT_FAVOUR_SPEED}.
+   * @return <code>true</code> if speed is favoured, <code>false</code> if not. Default is
+   *         {@link #DEFAULT_FAVOUR_SPEED}.
    * @since 8.8.1
    */
   public final boolean isFavourSpeed ()
@@ -86,8 +86,7 @@ public class PeppolSBDHDataWriter
    * Enable or disable the "favour speed" option. This
    *
    * @param bFavourSpeed
-   *        <code>true</code> to favour speed, <code>false</code> to not favour
-   *        speed.
+   *        <code>true</code> to favour speed, <code>false</code> to not favour speed.
    * @return this for chaining
    * @since 8.8.1
    */
@@ -99,8 +98,7 @@ public class PeppolSBDHDataWriter
   }
 
   /**
-   * Create a new {@link StandardBusinessDocument} from the specified document
-   * data.
+   * Create a new {@link StandardBusinessDocument} from the specified document data.
    *
    * @param aData
    *        The document data to be used. May not be <code>null</code> and
@@ -176,6 +174,25 @@ public class PeppolSBDHDataWriter
         final Scope aScope = new Scope ();
         aScope.setType (CPeppolSBDH.SCOPE_COUNTRY_C1);
         aScope.setInstanceIdentifier (aData.getCountryC1 ());
+        aBusinessScope.addScope (aScope);
+      }
+
+      if (aData.hasMLSToValue ())
+      {
+        // The MLS_TO was added in Peppol MLS spec
+        final Scope aScope = new Scope ();
+        aScope.setType (CPeppolSBDH.SCOPE_MLS_TO);
+        aScope.setInstanceIdentifier (aData.getMLSToValue ());
+        aScope.setIdentifier (aData.getMLSToScheme ());
+        aBusinessScope.addScope (aScope);
+      }
+
+      if (aData.hasMLSType ())
+      {
+        // The MLS_TYPE was added in Peppol MLS spec
+        final Scope aScope = new Scope ();
+        aScope.setType (CPeppolSBDH.SCOPE_MLS_TYPE);
+        aScope.setInstanceIdentifier (aData.getMLSType ().getID ());
         aBusinessScope.addScope (aScope);
       }
 

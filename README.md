@@ -334,9 +334,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v10.3.3 - work in progress
+* v10.4.0 - 2025-05-09
     * All created NAPTR URLs are now created in lowercase only
     * Improved the `PeppolMLSBuilder` so that it can also be filled from existing `ApplicationResponse` objects
+    * Made Peppol Participant Identifier Value checks more strict, so that they must start with 4 digits and a colon (as in `0000:id`)
+    * Added support for `MLS_TO` and `MLS_TYPE` SBDH entries
 * v10.3.2 - 2025-04-29
     * Added new class `PeppolConfigurableURLProvider` that allows to switch between CNAME and NAPTR based lookups
 * v10.3.1 - 2025-04-29

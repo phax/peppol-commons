@@ -20,8 +20,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 /**
- * Contains an ordered set of custom variables to be provided in PEPPOL SBDH 1.1
- * documents.
+ * Contains an ordered set of custom variables to be provided in PEPPOL SBDH 1.1 documents.
  *
  * @author Philip Helger
  * @since 6.1.4
@@ -33,6 +32,8 @@ public final class PeppolSBDHAdditionalAttributes
   public static final String COUNTRY_C4 = "COUNTRY_C4";
   public static final String DOCUMENTID = CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID;
   public static final String PROCESSID = CPeppolSBDH.SCOPE_PROCESS_ID;
+  public static final String MLS_TO = CPeppolSBDH.SCOPE_MLS_TO;
+  public static final String MLS_TYPE = CPeppolSBDH.SCOPE_MLS_TYPE;
   public static final String TECHNICAL_VALIDATION_URL = "TECHNICAL_VALIDATION_URL";
   public static final String TECHNICAL_VALIDATION_REQUIRED = "TECHNICAL_VALIDATION_REQUIRED";
 
@@ -40,13 +41,13 @@ public final class PeppolSBDHAdditionalAttributes
   {}
 
   /**
-   * Check if the passed attribute name is reserved according to the
-   * specification or not. Attribute names are case sensitive!
+   * Check if the passed attribute name is reserved according to the specification or not. Attribute
+   * names are case sensitive!
    *
    * @param sName
    *        Name of the attribute to check. May be <code>null</code>.
-   * @return <code>true</code> if the name is not <code>null</code> and inside
-   *         the list of reserved names.
+   * @return <code>true</code> if the name is not <code>null</code> and inside the list of reserved
+   *         names.
    */
   public static boolean isReservedAttributeName (@Nullable final String sName)
   {
@@ -58,6 +59,8 @@ public final class PeppolSBDHAdditionalAttributes
            sName.equals (COUNTRY_C4) ||
            sName.equals (DOCUMENTID) ||
            sName.equals (PROCESSID) ||
+           sName.equals (MLS_TO) ||
+           sName.equals (MLS_TYPE) ||
            sName.equals (TECHNICAL_VALIDATION_URL) ||
            sName.equals (TECHNICAL_VALIDATION_REQUIRED);
   }

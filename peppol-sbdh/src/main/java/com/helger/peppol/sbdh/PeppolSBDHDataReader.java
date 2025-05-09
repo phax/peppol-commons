@@ -55,8 +55,7 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
 
 /**
- * Main class to read standard business documents and extract the Peppol
- * required data out of it.
+ * Main class to read standard business documents and extract the Peppol required data out of it.
  *
  * @author Philip Helger
  */
@@ -81,8 +80,7 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * @return The identifier provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The identifier provided in the constructor. Never <code>null</code>.
    * @since 8.2.3
    */
   @Nonnull
@@ -92,9 +90,8 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * @return <code>true</code> if value checks on data extraction are enabled,
-   *         <code>false</code> if not. By default checks are enabled - see
-   *         {@link #DEFAULT_PERFORM_VALUE_CHECKS}.
+   * @return <code>true</code> if value checks on data extraction are enabled, <code>false</code> if
+   *         not. By default checks are enabled - see {@link #DEFAULT_PERFORM_VALUE_CHECKS}.
    * @since 8.2.3
    */
   public final boolean isPerformValueChecks ()
@@ -106,8 +103,7 @@ public class PeppolSBDHDataReader
    * Enable or disable the performing of value checks on data extraction.
    *
    * @param b
-   *        <code>true</code> to enable checks, <code>false</code> to disable
-   *        them.
+   *        <code>true</code> to enable checks, <code>false</code> to disable them.
    * @return this for chaining
    * @since 8.2.3
    */
@@ -121,8 +117,7 @@ public class PeppolSBDHDataReader
   /**
    * In case of value checks, should the Country C1 also be checked?
    *
-   * @return <code>true</code> to check for mandatory country C1,
-   *         <code>false</code> to not do it.
+   * @return <code>true</code> to check for mandatory country C1, <code>false</code> to not do it.
    * @since 9.2.2
    */
   public final boolean isCheckForCountryC1 ()
@@ -131,13 +126,11 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Enable or disable the checking for C1 country code. This needs to be called
-   * upon message reception, is messages without a C1 country code should be
-   * accepted.
+   * Enable or disable the checking for C1 country code. This needs to be called upon message
+   * reception, is messages without a C1 country code should be accepted.
    *
    * @param b
-   *        <code>true</code> to enable the check, <code>false</code> to disable
-   *        it.
+   *        <code>true</code> to enable the check, <code>false</code> to disable it.
    * @return this for chaining
    * @since 9.2.2
    */
@@ -152,15 +145,13 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed header version is valid or not. By default is must
-   * match {@link CPeppolSBDH#HEADER_VERSION}. Override this method to allow for
-   * other schemes as well.
+   * Check if the passed header version is valid or not. By default is must match
+   * {@link CPeppolSBDH#HEADER_VERSION}. Override this method to allow for other schemes as well.
    *
    * @param sHeaderVersion
    *        The value to be checked. This is the content of the XML element
    *        <code>HeaderVersion</code>. May be <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidHeaderVersion (@Nullable final String sHeaderVersion)
@@ -169,15 +160,14 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed sender authority is valid or not. By default is must
-   * match {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. Override
-   * this method to allow for other schemes as well.
+   * Check if the passed sender authority is valid or not. By default is must match
+   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. Override this method to allow for
+   * other schemes as well.
    *
    * @param sSenderAuthority
    *        The value to be checked. This is the content of the XML attribute
    *        <code>Sender/Identifier/@Authority</code>. May be <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidSenderAuthority (@Nullable final String sSenderAuthority)
@@ -186,19 +176,18 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed sender identifier is valid or not. By default is must
-   * not be empty. Override this method to perform further checks.
+   * Check if the passed sender identifier is valid or not. By default is must not be empty.
+   * Override this method to perform further checks.
    *
    * @param sSenderAuthority
    *        The authority of the sender that was already validated with
-   *        {@link #isValidSenderAuthority(String)}. This parameter is present
-   *        to allow for different identifier checks for different authorities.
-   *        May be <code>null</code>.
+   *        {@link #isValidSenderAuthority(String)}. This parameter is present to allow for
+   *        different identifier checks for different authorities. May be <code>null</code>.
    * @param sSenderIdentifier
    *        The value to be checked. This conforms to the XML element value of
    *        <code>Sender/Identifier</code>. May be <code>null</code>.
-   * @return <code>true</code> if the value is valid for the given authority,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the value is valid for the given authority, <code>false</code>
+   *         otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority,
@@ -208,16 +197,14 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed receiver authority is valid or not. By default is must
-   * match {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. Override
-   * this method to allow for other schemes as well.
+   * Check if the passed receiver authority is valid or not. By default is must match
+   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. Override this method to allow for
+   * other schemes as well.
    *
    * @param sReceiverAuthority
    *        The value to be checked. This is the content of the XML attribute
-   *        <code>Receiver/Identifier/@Authority</code>. May be
-   *        <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        <code>Receiver/Identifier/@Authority</code>. May be <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidReceiverAuthority (@Nullable final String sReceiverAuthority)
@@ -226,19 +213,18 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed receiver identifier is valid or not. By default is must
-   * not be empty. Override this method to perform further checks.
+   * Check if the passed receiver identifier is valid or not. By default is must not be empty.
+   * Override this method to perform further checks.
    *
    * @param sReceiverAuthority
    *        The authority of the receiver that was already validated with
-   *        {@link #isValidReceiverAuthority(String)}. This parameter is present
-   *        to allow for different identifier checks for different authorities.
-   *        May be <code>null</code>.
+   *        {@link #isValidReceiverAuthority(String)}. This parameter is present to allow for
+   *        different identifier checks for different authorities. May be <code>null</code>.
    * @param sReceiverIdentifier
    *        The value to be checked. This conforms to the XML element value of
    *        <code>Receiver/Identifier</code>. May be <code>null</code>.
-   * @return <code>true</code> if the value is valid for the given authority,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the value is valid for the given authority, <code>false</code>
+   *         otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority,
@@ -248,17 +234,15 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed document type identifier value is valid or not. By
-   * default it must not be empty. Override this method to perform further
-   * checks.
+   * Check if the passed document type identifier value is valid or not. By default it must not be
+   * empty. Override this method to perform further checks.
    *
    * @param sDocumentTypeIdentifier
-   *        The value to be checked excluding the Peppol identifier scheme. This
-   *        conforms to the XML element value of
-   *        <code>BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
-   *        . May be <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        The value to be checked excluding the Peppol identifier scheme. This conforms to the XML
+   *        element value of
+   *        <code>BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code> . May be
+   *        <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidDocumentTypeIdentifier (@Nullable final String sDocumentTypeIdentifier)
@@ -267,16 +251,15 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed process identifier value is valid or not. By default it
-   * must not be empty. Override this method to perform further checks.
+   * Check if the passed process identifier value is valid or not. By default it must not be empty.
+   * Override this method to perform further checks.
    *
    * @param sProcessIdentifier
-   *        The value to be checked excluding the Peppol identifier scheme. This
-   *        conforms to the XML element value of
-   *        <code>BusinessScope/Scope[Type/text()="PROCESSID"]/InstanceIdentifier</code>
-   *        . May be <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        The value to be checked excluding the Peppol identifier scheme. This conforms to the XML
+   *        element value of
+   *        <code>BusinessScope/Scope[Type/text()="PROCESSID"]/InstanceIdentifier</code> . May be
+   *        <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidProcessIdentifier (@Nullable final String sProcessIdentifier)
@@ -285,17 +268,16 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed C1 country code is valid or not. By default is must
-   * follow the regular expression provided in the Peppol specification.
-   * Override this method to perform further checks.
+   * Check if the passed C1 country code is valid or not. By default is must follow the regular
+   * expression provided in the Peppol specification. Override this method to perform further
+   * checks.
    *
    * @param sCountryC1
-   *        The value to be checked excluding the Peppol identifier scheme. This
-   *        conforms to the XML element value of
-   *        <code>BusinessScope/Scope[Type/text()="COUNTRY_C1"]/InstanceIdentifier</code>
-   *        . May be <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        The value to be checked excluding the Peppol identifier scheme. This conforms to the XML
+   *        element value of
+   *        <code>BusinessScope/Scope[Type/text()="COUNTRY_C1"]/InstanceIdentifier</code> . May be
+   *        <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidCountryC1 (@Nullable final String sCountryC1)
@@ -311,16 +293,59 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed business message is valid or not. By default this
-   * method always returns <code>true</code> since the element is never
-   * <code>null</code> and no UBL specific checks are performed. Override this
-   * method to perform further or other checks.
+   * Check if the provided MLS addressee (from MLS_TO field) is valid or not.
+   *
+   * @param sScheme
+   *        The participant identifier scheme. May be <code>null</code>.
+   * @param sValue
+   *        The participant identifier value. May be <code>null</code>.
+   * @return <code>true</code> if the MLS addressee is considered valid, <code>false</code> if not.
+   * @since 10.3.3
+   */
+  @OverrideOnDemand
+  protected boolean isValidMLSTo (@Nullable final String sScheme, @Nullable final String sValue)
+  {
+    if (StringHelper.hasNoText (sScheme))
+      return false;
+    if (StringHelper.hasNoText (sValue))
+      return false;
+
+    final IParticipantIdentifier aPI = m_aIdentifierFactory.createParticipantIdentifier (sScheme, sValue);
+    if (aPI == null)
+      return false;
+
+    // TODO add PI scheme checks
+
+    return true;
+  }
+
+  /**
+   * Check if the provided MLS type (from MLS_TYPE field) is valid or not.
+   *
+   * @param sType
+   *        The type to check. May be <code>null</code>.
+   * @return <code>true</code> if the MLS type is considered valid, <code>false</code> if not.
+   * @since 10.3.3
+   */
+  @OverrideOnDemand
+  protected boolean isValidMLSType (@Nullable final String sType)
+  {
+    if (StringHelper.hasNoText (sType))
+      return false;
+    if (EPeppolMLSType.getFromIDOrNull (sType) == null)
+      return false;
+
+    return true;
+  }
+
+  /**
+   * Check if the passed business message is valid or not. By default this method always returns
+   * <code>true</code> since the element is never <code>null</code> and no UBL specific checks are
+   * performed. Override this method to perform further or other checks.
    *
    * @param aBusinessMessage
-   *        The business message element to check against. Never
-   *        <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        The business message element to check against. Never <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidBusinessMessage (@Nonnull final Element aBusinessMessage)
@@ -329,22 +354,18 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed document identification standard is valid or not. By
-   * default this checks if the standard is the same as the namespace URI of the
-   * business message root element. Override this method to perform further or
-   * other checks.
+   * Check if the passed document identification standard is valid or not. By default this checks if
+   * the standard is the same as the namespace URI of the business message root element. Override
+   * this method to perform further or other checks.
    *
    * @param sStandard
    *        The value to be checked. This corresponds to the field
    *        "DocumentIdentification/Standard". May be <code>null</code>.
    * @param aBusinessMessage
-   *        The business message element to check against. Never
-   *        <code>null</code>.
+   *        The business message element to check against. Never <code>null</code>.
    * @param sDocumentTypeIdentifierValue
-   *        The document type identifier value provided. Never
-   *        <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        The document type identifier value provided. Never <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidStandard (@Nullable final String sStandard,
@@ -358,21 +379,18 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed document identification type version is valid or not.
-   * By default this refers to the UBL version and must either be "2.0" or
-   * "2.1". Override this method to perform further or other checks.
+   * Check if the passed document identification type version is valid or not. By default this
+   * refers to the UBL version and must either be "2.0" or "2.1". Override this method to perform
+   * further or other checks.
    *
    * @param sTypeVersion
    *        The value to be checked. This corresponds to the field
    *        "DocumentIdentification/TypeVersion". May be <code>null</code>.
    * @param aBusinessMessage
-   *        The business message element to check against. Never
-   *        <code>null</code>.
+   *        The business message element to check against. Never <code>null</code>.
    * @param sDocumentTypeIdentifierValue
-   *        The document type identifier value provided. Never
-   *        <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        The document type identifier value provided. Never <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidTypeVersion (@Nullable final String sTypeVersion,
@@ -390,19 +408,16 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed document identification type is valid or not. By
-   * default this checks if the type is the same as the local name of the
-   * business message root element. Override this method to perform further or
-   * other checks.
+   * Check if the passed document identification type is valid or not. By default this checks if the
+   * type is the same as the local name of the business message root element. Override this method
+   * to perform further or other checks.
    *
    * @param sType
-   *        The value to be checked. This corresponds to the field
-   *        "DocumentIdentification/Type". May be <code>null</code>.
+   *        The value to be checked. This corresponds to the field "DocumentIdentification/Type".
+   *        May be <code>null</code>.
    * @param aBusinessMessage
-   *        The business message element to check against. Never
-   *        <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        The business message element to check against. Never <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidType (@Nullable final String sType, @Nonnull final Element aBusinessMessage)
@@ -411,16 +426,13 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed document identification instance identifier is valid or
-   * not. By default all non-empty values are valid. Override this method to
-   * perform further or other checks.
+   * Check if the passed document identification instance identifier is valid or not. By default all
+   * non-empty values are valid. Override this method to perform further or other checks.
    *
    * @param sInstanceIdentifier
    *        The value to be checked. This corresponds to the field
-   *        "DocumentIdentification/InstanceIdentifier". May be
-   *        <code>null</code> .
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        "DocumentIdentification/InstanceIdentifier". May be <code>null</code> .
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidInstanceIdentifier (@Nullable final String sInstanceIdentifier)
@@ -429,16 +441,14 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Check if the passed document identification creation date time is valid or
-   * not. By default all values are valid as they cannot be <code>null</code>.
-   * Override this method to perform further or other checks.
+   * Check if the passed document identification creation date time is valid or not. By default all
+   * values are valid as they cannot be <code>null</code>. Override this method to perform further
+   * or other checks.
    *
    * @param aCreationDateTime
    *        The value to be checked. This corresponds to the field
-   *        "DocumentIdentification/CreationDateAndTime". Is never
-   *        <code>null</code> .
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   *        "DocumentIdentification/CreationDateAndTime". Is never <code>null</code> .
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
   protected boolean isValidCreationDateTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
@@ -447,11 +457,10 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Create a new SBD marshaller used for reading SBD documents. Override this
-   * method to customize reading.
+   * Create a new SBD marshaller used for reading SBD documents. Override this method to customize
+   * reading.
    *
-   * @return An instance of the {@link SBDMarshaller} and never
-   *         <code>null</code>.
+   * @return An instance of the {@link SBDMarshaller} and never <code>null</code>.
    */
   @Nonnull
   @OverrideOnDemand
@@ -464,16 +473,15 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Extract the document data from the Standard Business Document represents by
-   * the passed parameter.
+   * Extract the document data from the Standard Business Document represents by the passed
+   * parameter.
    *
    * @param aStandardBusinessDocument
-   *        The input stream to read from. Will be closed by this method. May
-   *        not be <code>null</code>.
+   *        The input stream to read from. Will be closed by this method. May not be
+   *        <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to
-   *         the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHData extractData (@Nonnull @WillClose final InputStream aStandardBusinessDocument) throws PeppolSBDHDataReadException
@@ -496,15 +504,14 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Extract the document data from the Standard Business Document represents by
-   * the passed parameter.
+   * Extract the document data from the Standard Business Document represents by the passed
+   * parameter.
    *
    * @param aStandardBusinessDocument
    *        The resource to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to
-   *         the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHData extractData (@Nonnull final IReadableResource aStandardBusinessDocument) throws PeppolSBDHDataReadException
@@ -520,15 +527,14 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Extract the document data from the Standard Business Document represents by
-   * the passed parameter.
+   * Extract the document data from the Standard Business Document represents by the passed
+   * parameter.
    *
    * @param aStandardBusinessDocument
    *        The DOM node to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to
-   *         the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHData extractData (@Nonnull final Node aStandardBusinessDocument) throws PeppolSBDHDataReadException
@@ -544,15 +550,14 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Extract the document data from the Standard Business Document represents by
-   * the passed parameter.
+   * Extract the document data from the Standard Business Document represents by the passed
+   * parameter.
    *
    * @param aStandardBusinessDocument
    *        The domain object to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to
-   *         the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHData extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDataReadException
@@ -581,14 +586,14 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Validate the provided SBDH and the Business Message according to the Peppol
-   * rules and store the results in an Error List.
+   * Validate the provided SBDH and the Business Message according to the Peppol rules and store the
+   * results in an Error List.
    *
    * @param aSBDH
    *        The SBDH to be validated. Must not be <code>null</code>.
    * @param aBusinessMessage
-   *        The Business Message to be validated (this does NOT mean Schematron
-   *        validation). Must not be <code>null</code>.
+   *        The Business Message to be validated (this does NOT mean Schematron validation). Must
+   *        not be <code>null</code>.
    * @param aErrorList
    *        The error list to be filled. Must not be <code>null</code>.
    */
@@ -698,6 +703,7 @@ public class PeppolSBDHDataReader
     else
     {
       // Check that at least 3 "Scope" elements are present
+      // Note: MLS_TO and MLS_TYPE are optional and therefore don't alter that number
       final int nMinimumScopeCount = isCheckForCountryC1 () ? 3 : 2;
       if (aBusinessScope.getScopeCount () < nMinimumScopeCount)
         aErrorList.add (_toError ("SBDH/BusinessScope",
@@ -713,6 +719,8 @@ public class PeppolSBDHDataReader
       {
         final String sType = aScope.getType ();
         final String sInstanceIdentifier = aScope.getInstanceIdentifier ();
+        final String sIdentifier = aScope.getIdentifier ();
+
         if (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID.equals (sType))
         {
           if (!isValidDocumentTypeIdentifier (sInstanceIdentifier))
@@ -724,7 +732,7 @@ public class PeppolSBDHDataReader
           else
           {
             // The scheme was added in Spec v1.1
-            final String sScheme = StringHelper.getNotNull (aScope.getIdentifier (),
+            final String sScheme = StringHelper.getNotNull (sIdentifier,
                                                             PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS);
             aDocTypeID = m_aIdentifierFactory.createDocumentTypeIdentifier (sScheme, sInstanceIdentifier);
             if (aDocTypeID == null)
@@ -746,7 +754,7 @@ public class PeppolSBDHDataReader
             }
             else
             {
-              final String sScheme = StringHelper.getNotNull (aScope.getIdentifier (),
+              final String sScheme = StringHelper.getNotNull (sIdentifier,
                                                               PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME);
               aProcessID = m_aIdentifierFactory.createProcessIdentifier (sScheme, sInstanceIdentifier);
               if (aProcessID == null)
@@ -769,17 +777,36 @@ public class PeppolSBDHDataReader
               bFoundCountryC1 = true;
             }
             else
-              // read as additional attributes
-              if (PeppolSBDHAdditionalAttributes.isReservedAttributeName (sType))
+              if (CPeppolSBDH.SCOPE_MLS_TO.equals (sType))
               {
-                // Reserved for future use
-                aErrorList.add (SingleError.builderWarn ()
-                                           .errorFieldName ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/Type")
-                                           .errorText ("Found a Peppol reserved attribute name '" +
-                                                       sType +
-                                                       "' in the SBDH - Ignoring it.")
-                                           .build ());
+                if (!isValidMLSTo (sIdentifier, sInstanceIdentifier))
+                  aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
+                                            EPeppolSBDHDataError.INVALID_MLS_TO,
+                                            sInstanceIdentifier,
+                                            sIdentifier));
               }
+              else
+                if (CPeppolSBDH.SCOPE_MLS_TYPE.equals (sType))
+                {
+                  if (!isValidMLSType (sInstanceIdentifier))
+                    aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
+                                              EPeppolSBDHDataError.INVALID_MLS_TYPE,
+                                              sInstanceIdentifier));
+                }
+                else
+                  // read as additional attributes
+                  if (PeppolSBDHAdditionalAttributes.isReservedAttributeName (sType))
+                  {
+                    // Reserved for future use
+                    aErrorList.add (SingleError.builderWarn ()
+                                               .errorFieldName ("SBDH/BusinessScope/Scope[" +
+                                                                nScopeIndex1Based +
+                                                                "]/Type")
+                                               .errorText ("Found a Peppol reserved attribute name '" +
+                                                           sType +
+                                                           "' in the SBDH - Ignoring it.")
+                                               .build ());
+                  }
 
         nScopeIndex1Based++;
       }
@@ -845,19 +872,18 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Extract the document data from the Standard Business Document represents by
-   * the passed parameter. Eventually value checks are performed if
-   * {@link #isPerformValueChecks()} is <code>true</code>.
+   * Extract the document data from the Standard Business Document represents by the passed
+   * parameter. Eventually value checks are performed if {@link #isPerformValueChecks()} is
+   * <code>true</code>.
    *
    * @param aSBDH
    *        The header object to read from. May not be <code>null</code>.
    * @param aBusinessMessage
-   *        The main business message (XML payload) to extract data from. May
-   *        not be <code>null</code>.
+   *        The main business message (XML payload) to extract data from. May not be
+   *        <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws PeppolSBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to
-   *         the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
   @Nonnull
   public PeppolSBDHData extractData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
@@ -900,15 +926,15 @@ public class PeppolSBDHDataReader
   }
 
   /**
-   * Extract the document data from the Standard Business Document represents by
-   * the passed parameter without any value checks. This might be handy, if
-   * value checks were executed separately.
+   * Extract the document data from the Standard Business Document represents by the passed
+   * parameter without any value checks. This might be handy, if value checks were executed
+   * separately.
    *
    * @param aSBDH
    *        The header object to read from. May not be <code>null</code>.
    * @param aBusinessMessage
-   *        The main business message (XML payload) to extract data from. May
-   *        not be <code>null</code>.
+   *        The main business message (XML payload) to extract data from. May not be
+   *        <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @since 9.2.2
    */
@@ -944,10 +970,12 @@ public class PeppolSBDHDataReader
       {
         final String sType = aScope.getType ();
         final String sInstanceIdentifier = aScope.getInstanceIdentifier ();
+        final String sIdentifier = aScope.getIdentifier ();
+
         if (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID.equals (sType))
         {
           // The scheme was added in Spec v1.1
-          final String sScheme = StringHelper.getNotNull (aScope.getIdentifier (),
+          final String sScheme = StringHelper.getNotNull (sIdentifier,
                                                           PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS);
 
           ret.setDocumentType (sScheme, sInstanceIdentifier);
@@ -956,7 +984,7 @@ public class PeppolSBDHDataReader
           if (CPeppolSBDH.SCOPE_PROCESS_ID.equals (sType))
           {
             // The scheme was added in Spec v1.1
-            final String sScheme = StringHelper.getNotNull (aScope.getIdentifier (),
+            final String sScheme = StringHelper.getNotNull (sIdentifier,
                                                             PeppolIdentifierHelper.PROCESS_SCHEME_CENBII_PROCID_UBL);
 
             ret.setProcess (sScheme, sInstanceIdentifier);
@@ -967,23 +995,36 @@ public class PeppolSBDHDataReader
               ret.setCountryC1 (sInstanceIdentifier);
             }
             else
-              // read as additional attributes
-              if (!PeppolSBDHAdditionalAttributes.isReservedAttributeName (sType))
+              if (CPeppolSBDH.SCOPE_MLS_TO.equals (sType))
               {
-                if (StringHelper.hasText (sInstanceIdentifier))
+                // Added in MLS specification
+                ret.setMLSToScheme (sIdentifier);
+                ret.setMLSToValue (sInstanceIdentifier);
+              }
+              else
+                if (CPeppolSBDH.SCOPE_MLS_TYPE.equals (sType))
                 {
-                  // Name and value
-                  ret.additionalAttributes ().add (sType, sInstanceIdentifier);
+                  // Added in MLS specification
+                  ret.setMLSType (EPeppolMLSType.getFromIDOrNull (sInstanceIdentifier));
                 }
                 else
-                {
-                  // Name only
-                  // The problem is that InstanceIdentifier is a mandatory
-                  // element and therefore there is no way to differentiate
-                  // between empty string and not available
-                  ret.additionalAttributes ().add (sType, (String) null);
-                }
-              }
+                  // read as additional attributes
+                  if (!PeppolSBDHAdditionalAttributes.isReservedAttributeName (sType))
+                  {
+                    if (StringHelper.hasText (sInstanceIdentifier))
+                    {
+                      // Name and value
+                      ret.additionalAttributes ().add (sType, sInstanceIdentifier);
+                    }
+                    else
+                    {
+                      // Name only
+                      // The problem is that InstanceIdentifier is a mandatory
+                      // element and therefore there is no way to differentiate
+                      // between empty string and not available
+                      ret.additionalAttributes ().add (sType, (String) null);
+                    }
+                  }
       }
     }
 
@@ -997,7 +1038,6 @@ public class PeppolSBDHDataReader
                                    aDI.getType (),
                                    aDI.getInstanceIdentifier (),
                                    aDI.getCreationDateAndTime ());
-
     return ret;
   }
 }

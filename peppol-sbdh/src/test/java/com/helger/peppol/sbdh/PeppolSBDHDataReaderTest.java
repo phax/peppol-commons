@@ -42,7 +42,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
-import com.helger.peppolid.factory.SimpleIdentifierFactory;
+import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.DOMReaderSettings;
@@ -69,6 +69,12 @@ public final class PeppolSBDHDataReaderTest
     BAD_CASES.put ("bad-too-many-receivers.xml", EPeppolSBDHDataError.INVALID_RECEIVER_COUNT);
     BAD_CASES.put ("bad-invalid-receiver-authority.xml", EPeppolSBDHDataError.INVALID_RECEIVER_AUTHORITY);
     BAD_CASES.put ("bad-invalid-receiver-value.xml", EPeppolSBDHDataError.INVALID_RECEIVER_VALUE);
+    BAD_CASES.put ("bad-mls-to-empty.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
+    BAD_CASES.put ("bad-mls-to-invalid-value.xml", EPeppolSBDHDataError.INVALID_MLS_TO);
+    BAD_CASES.put ("bad-mls-to-no-scheme.xml", EPeppolSBDHDataError.INVALID_MLS_TO);
+    BAD_CASES.put ("bad-mls-to-no-value.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
+    BAD_CASES.put ("bad-mls-type-empty.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
+    BAD_CASES.put ("bad-mls-type-invalid-value.xml", EPeppolSBDHDataError.INVALID_MLS_TYPE);
     BAD_CASES.put ("bad-no-business-scope.xml", EPeppolSBDHDataError.BUSINESS_SCOPE_MISSING);
     BAD_CASES.put ("bad-too-few-scopes.xml", EPeppolSBDHDataError.INVALID_SCOPE_COUNT);
     BAD_CASES.put ("bad-invalid-document-type-identifier.xml", EPeppolSBDHDataError.INVALID_DOCUMENT_TYPE_IDENTIFIER);
@@ -94,7 +100,7 @@ public final class PeppolSBDHDataReaderTest
     final IReadableResource aRes = PeppolSBDHTestFiles.getFirstGoodCase ();
     assertTrue (aRes.getPath (), aRes.exists ());
 
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     final PeppolSBDHData aData = aReader.extractData (aRes);
     assertNotNull (aData);
 
@@ -129,7 +135,7 @@ public final class PeppolSBDHDataReaderTest
     final IReadableResource aRes = PeppolSBDHTestFiles.getFirstGoodCaseV11 ();
     assertTrue (aRes.getPath (), aRes.exists ());
 
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     final PeppolSBDHData aData = aReader.extractData (aRes);
     assertNotNull (aData);
 
@@ -170,7 +176,7 @@ public final class PeppolSBDHDataReaderTest
     final IReadableResource aRes = PeppolSBDHTestFiles.getFirstGoodCaseV20 ();
     assertTrue (aRes.getPath (), aRes.exists ());
 
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     final PeppolSBDHData aData = aReader.extractData (aRes);
     assertNotNull (aData);
 
@@ -201,7 +207,7 @@ public final class PeppolSBDHDataReaderTest
   @Test
   public void testReadGoodResource () throws PeppolSBDHDataReadException
   {
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
     {
       LOGGER.info ("Good (Res): " + aRes.getPath ());
@@ -215,7 +221,7 @@ public final class PeppolSBDHDataReaderTest
   @Test
   public void testReadGoodInputStream () throws PeppolSBDHDataReadException
   {
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
     {
       LOGGER.info ("Good (IS): " + aRes.getPath ());
@@ -229,7 +235,7 @@ public final class PeppolSBDHDataReaderTest
   @Test
   public void testReadGoodNode () throws PeppolSBDHDataReadException
   {
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     for (final ClassPathResource aRes : PeppolSBDHTestFiles.getAllGoodCases ())
     {
       LOGGER.info ("Good (Node): " + aRes.getPath ());
@@ -243,7 +249,7 @@ public final class PeppolSBDHDataReaderTest
   @Test
   public void testReadBadResource ()
   {
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     for (final Map.Entry <String, EPeppolSBDHDataError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
@@ -266,11 +272,11 @@ public final class PeppolSBDHDataReaderTest
   @Test
   public void testReadBadInputStream ()
   {
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     for (final Map.Entry <String, EPeppolSBDHDataError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
-      LOGGER.info ("Bad (IS): " + aRes.getPath ());
+      LOGGER.info ("Reading bad (IS): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
       try
       {
@@ -289,13 +295,13 @@ public final class PeppolSBDHDataReaderTest
   @Test
   public void testReadBadNode ()
   {
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     final DOMReaderSettings aSettings = new DOMReaderSettings ();
     aSettings.exceptionCallbacks ().removeAll ();
     for (final Map.Entry <String, EPeppolSBDHDataError> aEntry : BAD_CASES.entrySet ())
     {
       final IReadableResource aRes = new ClassPathResource ("external/sbdh/bad/" + aEntry.getKey ());
-      LOGGER.info ("Bad (Node): " + aRes.getPath ());
+      LOGGER.info ("Reading bad (Node): " + aRes.getPath ());
       assertTrue (aRes.getPath (), aRes.exists ());
 
       final Document aDoc = DOMReader.readXMLDOM (aRes, aSettings);
@@ -323,7 +329,7 @@ public final class PeppolSBDHDataReaderTest
   public void testReadGoodAsBad1 ()
   {
     // Always fails
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE)
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE)
     {
       @Override
       protected boolean isValidBusinessMessage (@Nonnull final Element aBusinessMessage)
@@ -351,7 +357,7 @@ public final class PeppolSBDHDataReaderTest
   public void testReadGoodAsBad2 ()
   {
     // Always fails
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE)
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE)
     {
       @Override
       protected boolean isValidCreationDateTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
@@ -386,7 +392,7 @@ public final class PeppolSBDHDataReaderTest
     final Document doc = DOMReader.readXMLDOM (s);
     assertNotNull (doc);
 
-    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (SimpleIdentifierFactory.INSTANCE);
+    final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE);
     final PeppolSBDHData aData = aReader.extractData (doc);
     assertNotNull (aData);
     assertTrue (aData.areAllFieldsSet ());

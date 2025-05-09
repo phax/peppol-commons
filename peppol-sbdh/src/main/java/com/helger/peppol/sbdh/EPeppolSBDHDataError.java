@@ -79,6 +79,13 @@ public enum EPeppolSBDHDataError implements IHasID <String>
   INVALID_COUNTRY_C1 ("invalid-country-c1",
                       "The provided C1 country code ''{0}'' is invalid according to the defined rules."),
 
+  /** The provided MLS_TO value is invalid */
+  INVALID_MLS_TO ("invalid-mls-to",
+                  "The provided MLS addressee ''{0}::{1}'' is invalid according to the defined rules."),
+
+  /** The provided MLS_TYPE value is invalid */
+  INVALID_MLS_TYPE ("invalid-mls-type", "The provided MLS type ''{0}'' is invalid according to the defined rules."),
+
   /** The document type identifier is missing */
   MISSING_DOCUMENT_TYPE_IDENTIFIER ("missing-document-type-identifier", "The document type identifier is missing."),
 
@@ -111,21 +118,18 @@ public enum EPeppolSBDHDataError implements IHasID <String>
                                 " It must match the local name of the root element of the business message (''{1}'')."),
 
   /**
-   * The value of the "DocumentIdentification/InstanceIdentifier" element is
-   * invalid
+   * The value of the "DocumentIdentification/InstanceIdentifier" element is invalid
    */
   INVALID_INSTANCE_IDENTIFIER ("invalid-instance-identifier",
                                "The ''DocumentIdentification/InstanceIdentifier'' element has the invalid value ''{0}'' according to the defined rules."),
 
   /**
-   * The value of the "DocumentIdentification/CreationDateAndTime" element is
-   * invalid
+   * The value of the "DocumentIdentification/CreationDateAndTime" element is invalid
    */
   INVALID_CREATION_DATE_TIME ("invalid-creation-date-time",
                               "The ''DocumentIdentification/CreationDateAndTime'' element has the invalid value ''{0}'' according to the defined rules."),
   /**
-   * This is a fallback error code, in case the ID cannot be resolved to a
-   * proper other error code.
+   * This is a fallback error code, in case the ID cannot be resolved to a proper other error code.
    *
    * @since 9.1.4
    */
@@ -159,8 +163,7 @@ public enum EPeppolSBDHDataError implements IHasID <String>
 
   /**
    * @param aArgs
-   *        The arguments to format with. May neither be <code>null</code> nor
-   *        empty.
+   *        The arguments to format with. May neither be <code>null</code> nor empty.
    * @return The English error message, formatted with parameters.
    */
   @Nonnull

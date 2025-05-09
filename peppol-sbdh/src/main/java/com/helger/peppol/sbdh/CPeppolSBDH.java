@@ -46,6 +46,12 @@ public final class CPeppolSBDH
   /** Constant for the Scope of the C1 country code */
   public static final String SCOPE_COUNTRY_C1 = "COUNTRY_C1";
 
+  /** Constant for the Scope of the MLS addressee */
+  public static final String SCOPE_MLS_TO = "MLS_TO";
+
+  /** Constant for the Scope of the MLS type */
+  public static final String SCOPE_MLS_TYPE = "MLS_TYPE";
+
   /** UBL 2.0 constant */
   public static final String TYPE_VERSION_20 = "2.0";
 

@@ -53,9 +53,8 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.xml.XMLHelper;
 
 /**
- * This class contains all the Peppol data per SBDH document in a syntax neutral
- * way. This class maps to the requirements of the Peppol Business Message
- * Envelope 2.0 specification.
+ * This class contains all the Peppol data per SBDH document in a syntax neutral way. This class
+ * maps to the requirements of the Peppol Business Message Envelope 2.0 specification.
  *
  * @author Philip Helger
  * @since 9.2.0 - was previously called "PeppolSBDHDocument"
@@ -78,6 +77,9 @@ public class PeppolSBDHData
   private String m_sProcessScheme;
   private String m_sProcessValue;
   private String m_sCountryC1;
+  private String m_sMLSToScheme;
+  private String m_sMLSToValue;
+  private EPeppolMLSType m_eMLSType;
   // DocumentIdentification
   private String m_sStandard;
   private String m_sTypeVersion;
@@ -101,10 +103,9 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The sender participant identifier scheme. May be <code>null</code>
-   *         if not initialized. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code>
-   *         .
+   * @return The sender participant identifier scheme. May be <code>null</code> if not initialized.
+   *         This field is mapped to
+   *         <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code> .
    */
   @Nullable
   public String getSenderScheme ()
@@ -113,9 +114,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The sender participant identifier value. May be <code>null</code>
-   *         if not initialized. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
+   * @return The sender participant identifier value. May be <code>null</code> if not initialized.
+   *         This field is mapped to <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
    */
   @Nullable
   public String getSenderValue ()
@@ -124,9 +124,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The sender participant identifier as a participant identifier or
-   *         <code>null</code> if certain information are missing or are
-   *         invalid.
+   * @return The sender participant identifier as a participant identifier or <code>null</code> if
+   *         certain information are missing or are invalid.
    */
   @Nullable
   public IParticipantIdentifier getSenderAsIdentifier ()
@@ -139,14 +138,12 @@ public class PeppolSBDHData
    *
    * @param sScheme
    *        The Peppol identifier scheme. This is usually always
-   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. May
-   *        neither be <code>null</code> nor empty. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code>
-   *        .
+   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}. May neither be
+   *        <code>null</code> nor empty. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/Sender/Identifier/@Authority</code> .
    * @param sValue
-   *        The sender identifier value. May neither be <code>null</code> nor
-   *        empty. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
+   *        The sender identifier value. May neither be <code>null</code> nor empty. This field is
+   *        mapped to <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
    * @return this
    */
   @Nonnull
@@ -177,13 +174,12 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set the sender participant identifier value using the default identifier
-   * scheme/authority {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}.
+   * Set the sender participant identifier value using the default identifier scheme/authority
+   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}.
    *
    * @param sValue
-   *        The sender identifier value. May neither be <code>null</code> nor
-   *        empty. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
+   *        The sender identifier value. May neither be <code>null</code> nor empty. This field is
+   *        mapped to <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
    * @return this
    */
   @Nonnull
@@ -193,10 +189,9 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The receiver participant identifier scheme. May be
-   *         <code>null</code> if not initialized. This field is mapped to
-   *         <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code>
-   *         .
+   * @return The receiver participant identifier scheme. May be <code>null</code> if not
+   *         initialized. This field is mapped to
+   *         <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code> .
    */
   @Nullable
   public String getReceiverScheme ()
@@ -205,8 +200,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The receiver participant identifier value. May be <code>null</code>
-   *         if not initialized. This field is mapped to
+   * @return The receiver participant identifier value. May be <code>null</code> if not initialized.
+   *         This field is mapped to
    *         <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
    */
   @Nullable
@@ -216,9 +211,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The receiver participant identifier as a participant identifier or
-   *         <code>null</code> if certain information are missing or are
-   *         invalid.
+   * @return The receiver participant identifier as a participant identifier or <code>null</code> if
+   *         certain information are missing or are invalid.
    */
   @Nullable
   public IParticipantIdentifier getReceiverAsIdentifier ()
@@ -231,14 +225,12 @@ public class PeppolSBDHData
    *
    * @param sScheme
    *        The Peppol identifier scheme. This is usually always
-   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} . May
-   *        neither be <code>null</code> nor empty. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code>
-   *        .
+   *        {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME} . May neither be
+   *        <code>null</code> nor empty. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/@Authority</code> .
    * @param sValue
-   *        The receiver identifier value. May neither be <code>null</code> nor
-   *        empty. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
+   *        The receiver identifier value. May neither be <code>null</code> nor empty. This field is
+   *        mapped to <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
    * @return this
    */
   @Nonnull
@@ -269,13 +261,12 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set the receiver participant identifier value using the default identifier
-   * scheme/authority {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}.
+   * Set the receiver participant identifier value using the default identifier scheme/authority
+   * {@link PeppolIdentifierHelper#DEFAULT_PARTICIPANT_SCHEME}.
    *
    * @param sValue
-   *        The sender identifier value. May neither be <code>null</code> nor
-   *        empty. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
+   *        The sender identifier value. May neither be <code>null</code> nor empty. This field is
+   *        mapped to <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
    * @return this
    */
   @Nonnull
@@ -285,8 +276,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The document type identifier scheme. May be <code>null</code> if
-   *         not initialized yet. This field is currently not mapped.
+   * @return The document type identifier scheme. May be <code>null</code> if not initialized yet.
+   *         This field is currently not mapped.
    */
   @Nullable
   public String getDocumentTypeScheme ()
@@ -295,8 +286,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The document type identifier value. May be <code>null</code> if not
-   *         initialized yet. This field is mapped to
+   * @return The document type identifier value. May be <code>null</code> if not initialized yet.
+   *         This field is mapped to
    *         <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
    *         .
    */
@@ -307,8 +298,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The document type identifier as an object or <code>null</code> if
-   *         certain information are missing or are invalid.
+   * @return The document type identifier as an object or <code>null</code> if certain information
+   *         are missing or are invalid.
    */
   @Nullable
   public IDocumentTypeIdentifier getDocumentTypeAsIdentifier ()
@@ -320,11 +311,10 @@ public class PeppolSBDHData
    * Set the document type identifier.
    *
    * @param sScheme
-   *        The document type identifier scheme. May neither be
-   *        <code>null</code> nor empty.
+   *        The document type identifier scheme. May neither be <code>null</code> nor empty.
    * @param sValue
-   *        The document type identifier value. May neither be <code>null</code>
-   *        nor empty. This field is mapped to
+   *        The document type identifier value. May neither be <code>null</code> nor empty. This
+   *        field is mapped to
    *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
    *        .
    * @return this
@@ -358,13 +348,12 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set the document type identifier using the default identifier
-   * scheme/authority
+   * Set the document type identifier using the default identifier scheme/authority
    * {@link PeppolIdentifierHelper#DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS} .
    *
    * @param sValue
-   *        The document type identifier value. May neither be <code>null</code>
-   *        nor empty. This field is mapped to
+   *        The document type identifier value. May neither be <code>null</code> nor empty. This
+   *        field is mapped to
    *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
    *        .
    * @return this
@@ -377,14 +366,12 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set the document type identifier using the default identifier
-   * scheme/authority
-   * {@link PeppolIdentifierHelper#DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD}
-   * .
+   * Set the document type identifier using the default identifier scheme/authority
+   * {@link PeppolIdentifierHelper#DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD} .
    *
    * @param sValue
-   *        The document type identifier value. May neither be <code>null</code>
-   *        nor empty. This field is mapped to
+   *        The document type identifier value. May neither be <code>null</code> nor empty. This
+   *        field is mapped to
    *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="DOCUMENTID"]/InstanceIdentifier</code>
    *        .
    * @return this
@@ -397,8 +384,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The process identifier scheme. May be <code>null</code> if not
-   *         initialized yet. This field is currently not mapped.
+   * @return The process identifier scheme. May be <code>null</code> if not initialized yet. This
+   *         field is currently not mapped.
    */
   @Nullable
   public String getProcessScheme ()
@@ -407,8 +394,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The process identifier value. May be <code>null</code> if not
-   *         initialized yet. This field is mapped to
+   * @return The process identifier value. May be <code>null</code> if not initialized yet. This
+   *         field is mapped to
    *         <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="PROCESSID"]/InstanceIdentifier</code>
    *         .
    */
@@ -419,8 +406,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The process identifier as an object or <code>null</code> if certain
-   *         information are missing or are invalid.
+   * @return The process identifier as an object or <code>null</code> if certain information are
+   *         missing or are invalid.
    */
   @Nullable
   public IProcessIdentifier getProcessAsIdentifier ()
@@ -432,11 +419,10 @@ public class PeppolSBDHData
    * Set the process identifier.
    *
    * @param sScheme
-   *        The process identifier scheme. May neither be <code>null</code> nor
-   *        empty.
+   *        The process identifier scheme. May neither be <code>null</code> nor empty.
    * @param sValue
-   *        The process identifier. May neither be <code>null</code> nor empty.
-   *        This field is mapped to
+   *        The process identifier. May neither be <code>null</code> nor empty. This field is mapped
+   *        to
    *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="PROCESSID"]/InstanceIdentifier</code>
    *        .
    * @return this
@@ -469,12 +455,12 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set the document type identifier using the default identifier
-   * scheme/authority {@link PeppolIdentifierHelper#DEFAULT_PROCESS_SCHEME}.
+   * Set the document type identifier using the default identifier scheme/authority
+   * {@link PeppolIdentifierHelper#DEFAULT_PROCESS_SCHEME}.
    *
    * @param sValue
-   *        The process identifier. May neither be <code>null</code> nor empty.
-   *        This field is mapped to
+   *        The process identifier. May neither be <code>null</code> nor empty. This field is mapped
+   *        to
    *        <code>StandardBusinessDocumentHeader/BusinessScope/Scope[Type/text()="PROCESSID"]/InstanceIdentifier</code>
    *        .
    * @return this
@@ -486,9 +472,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * Get the country code of C1. This is a new mandatory field, introduced by
-   * the Peppol Business Message Envelope 2.0 specification. It is mapped inside
-   * the BusinessScope area.
+   * Get the country code of C1. This is a new mandatory field, introduced by the Peppol Business
+   * Message Envelope 2.0 specification. It is mapped inside the BusinessScope area.
    *
    * @return The country code of C1. May be <code>null</code>.
    * @see #setCountryC1(String)
@@ -504,8 +489,7 @@ public class PeppolSBDHData
   /**
    * Check if the country code of C1 is present or not.
    *
-   * @return <code>true</code> if the country code of C1 is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the country code of C1 is present, <code>false</code> if not.
    * @see #getCountryC1()
    * @see #setCountryC1(String)
    * @since 9.0.5
@@ -519,7 +503,7 @@ public class PeppolSBDHData
    * Set the country code of C1 to be used.
    *
    * @param sCountryC1
-   *        The country code of C1 to be used. May be <code>null</code>.
+   *        The country code of C1 to be used. May neither be <code>null</code> nor empty.
    * @return this for chaining
    * @see #getCountryC1()
    * @see #hasCountryC1()
@@ -535,8 +519,146 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return The mutable attribute map where all additional attributes according
-   *         to Spec v1.1, chapter 1.6.1 were added.
+   * Get the optional MLS addressee scheme (MLS_TO) as used in the Peppol MLS specification. It is
+   * mapped inside the BusinessScope area.
+   *
+   * @return The optional MLS addressee scheme (MLS_TO) to be used. May be <code>null</code>.
+   * @see #setMLSToScheme(String)
+   * @see #hasMLSToScheme()
+   * @since 10.3.3
+   */
+  @Nullable
+  public String getMLSToScheme ()
+  {
+    return m_sMLSToScheme;
+  }
+
+  /**
+   * Check if the optional MLS addressee scheme (MLS_TO) is present or not.
+   *
+   * @return <code>true</code> if the optional MLS addressee scheme (MLS_TO) is present,
+   *         <code>false</code> if not.
+   * @see #getMLSToScheme()
+   * @see #setMLSToScheme(String)
+   * @since 10.3.3
+   */
+  public boolean hasMLSToScheme ()
+  {
+    return StringHelper.hasText (m_sMLSToScheme);
+  }
+
+  /**
+   * Set the optional MLS addressee scheme (MLS_TO) to be used.
+   *
+   * @param sMLSToScheme
+   *        The optional MLS addressee scheme (MLS_TO) to be used. May be <code>null</code>.
+   * @return this for chaining
+   * @see #getMLSToScheme()
+   * @see #hasMLSToScheme()
+   * @since 10.3.3
+   */
+  @Nonnull
+  public PeppolSBDHData setMLSToScheme (@Nullable final String sMLSToScheme)
+  {
+    m_sMLSToScheme = sMLSToScheme;
+    return this;
+  }
+
+  /**
+   * Get the optional MLS addressee value (MLS_TO) as used in the Peppol MLS specification. It is
+   * mapped inside the BusinessScope area.
+   *
+   * @return The optional MLS addressee value (MLS_TO) to be used. May be <code>null</code>.
+   * @see #setMLSToValue(String)
+   * @see #hasMLSToValue()
+   * @since 10.3.3
+   */
+  @Nullable
+  public String getMLSToValue ()
+  {
+    return m_sMLSToValue;
+  }
+
+  /**
+   * Check if the optional MLS addressee value (MLS_TO) is present or not.
+   *
+   * @return <code>true</code> if the optional MLS addressee value (MLS_TO) is present,
+   *         <code>false</code> if not.
+   * @see #getMLSToValue()
+   * @see #setMLSToValue(String)
+   * @since 10.3.3
+   */
+  public boolean hasMLSToValue ()
+  {
+    return StringHelper.hasText (m_sMLSToValue);
+  }
+
+  /**
+   * Set the optional MLS addressee value (MLS_TO) to be used.
+   *
+   * @param sMLSToValue
+   *        The optional MLS addressee value (MLS_TO) to be used. May be <code>null</code>.
+   * @return this for chaining
+   * @see #getMLSToValue()
+   * @see #hasMLSToValue()
+   * @since 10.3.3
+   */
+  @Nonnull
+  public PeppolSBDHData setMLSToValue (@Nullable final String sMLSToValue)
+  {
+    m_sMLSToValue = sMLSToValue;
+    return this;
+  }
+
+  /**
+   * Get the optional MLS type (MLS_TYPE) as used in the Peppol MLS specification. It is mapped
+   * inside the BusinessScope area.
+   *
+   * @return The optional MLS addressee to be used. May be <code>null</code>.
+   * @see #setMLSType(EPeppolMLSType)
+   * @see #hasMLSType()
+   * @since 10.3.3
+   */
+  @Nullable
+  public EPeppolMLSType getMLSType ()
+  {
+    return m_eMLSType;
+  }
+
+  /**
+   * Check if the optional MLS type (MLS_TYPE) is present or not.
+   *
+   * @return <code>true</code> if the optional MLS type (MLS_TYPE) is present, <code>false</code> if
+   *         not.
+   * @see #getMLSType()
+   * @see #setMLSType(EPeppolMLSType)
+   * @since 10.3.3
+   */
+  public boolean hasMLSType ()
+  {
+    return m_eMLSType != null;
+  }
+
+  /**
+   * Set the optional MLS type (MLS_TYPE) to be used.
+   *
+   * @param eMLSType
+   *        The optional MLS type (MLS_TYPE) to be used. May be <code>null</code>.
+   * @return this for chaining
+   * @see #getMLSType()
+   * @see #hasMLSType()
+   * @since 10.3.3
+   */
+  @Nonnull
+  public PeppolSBDHData setMLSType (@Nullable final EPeppolMLSType eMLSType)
+  {
+    m_eMLSType = eMLSType;
+    return this;
+  }
+
+  /**
+   * @return The mutable attribute map where all additional attributes according to Spec v1.1,
+   *         chapter 1.6.1 were added.
    * @since 6.1.4
    */
   @Nonnull
@@ -551,45 +673,35 @@ public class PeppolSBDHData
    * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
    *
    * @param sStandard
-   *        The standard of the enveloped business message, normally described
-   *        by use of the XML namespace of the business message root element
-   *        (such as urn:oasis:names:specification: ubl:schema:xsd:Order-2). May
-   *        not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code>
-   *        .
+   *        The standard of the enveloped business message, normally described by use of the XML
+   *        namespace of the business message root element (such as urn:oasis:names:specification:
+   *        ubl:schema:xsd:Order-2). May not be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code> .
    * @param sTypeVersion
-   *        The version number of the enveloped business message (such as the
-   *        value "2.1" for OASIS UBL 2.1). May not be <code>null</code>. This
-   *        field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code>
-   *        .
+   *        The version number of the enveloped business message (such as the value "2.1" for OASIS
+   *        UBL 2.1). May not be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code> .
    * @param sType
-   *        Message type - mandatory in SBDH. XML local element name of the
-   *        root-element in the business message. May not be <code>null</code>.
-   *        This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code>
-   *        .
+   *        Message type - mandatory in SBDH. XML local element name of the root-element in the
+   *        business message. May not be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code> .
    * @param sInstanceIdentifier
-   *        An informative unique ID created by the issuer of the envelope. The
-   *        InstanceIdentifier MUST be unique for each Business Message Envelope
-   *        being created. This ID is not the same as the ID of the business
-   *        message (such as the Invoice Number). It is not the same as a
-   *        transmission Message ID generated by the application sending the
-   *        message (as defined in AS4).<br>
-   *        The InstanceIdentifier MUST be globally unique and it is RECOMMENDED
-   *        to use UUID (such as 118e3040-51d2-11e3-8f96-0800200c9a66). May not
-   *        be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code>
-   *        .
+   *        An informative unique ID created by the issuer of the envelope. The InstanceIdentifier
+   *        MUST be unique for each Business Message Envelope being created. This ID is not the same
+   *        as the ID of the business message (such as the Invoice Number). It is not the same as a
+   *        transmission Message ID generated by the application sending the message (as defined in
+   *        AS4).<br>
+   *        The InstanceIdentifier MUST be globally unique and it is RECOMMENDED to use UUID (such
+   *        as 118e3040-51d2-11e3-8f96-0800200c9a66). May not be <code>null</code>. This field is
+   *        mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code> .
    * @param aCreationDateAndTime
-   *        The date and time for when this envelope was created. It is NOT
-   *        necessarily the same as the issue date of the business document
-   *        (such as the invoice) being enveloped. It is NOT necessarily the
-   *        date time for transmission.<br>
-   *        The format of the value of this MUST include timezone information.
-   *        May not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code>
-   *        .
+   *        The date and time for when this envelope was created. It is NOT necessarily the same as
+   *        the issue date of the business document (such as the invoice) being enveloped. It is NOT
+   *        necessarily the date time for transmission.<br>
+   *        The format of the value of this MUST include timezone information. May not be
+   *        <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code> .
    * @return this
    * @see #setStandard(String)
    * @see #setTypeVersion(String)
@@ -613,12 +725,10 @@ public class PeppolSBDHData
   }
 
   /**
-   * The standard of the enveloped business message, normally described by use
-   * of the XML namespace of the business message root element (such as
-   * urn:oasis:names:specification:ubl:schema:xsd:Order-2). This field is mapped
-   * to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code>
-   * .
+   * The standard of the enveloped business message, normally described by use of the XML namespace
+   * of the business message root element (such as
+   * urn:oasis:names:specification:ubl:schema:xsd:Order-2). This field is mapped to
+   * <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code> .
    *
    * @return The standard value. May be <code>null</code>.
    */
@@ -629,8 +739,7 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return <code>true</code> if a standard is present, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if a standard is present, <code>false</code> if not.
    * @since 7.0.0
    */
   public boolean hasStandard ()
@@ -643,15 +752,12 @@ public class PeppolSBDHData
    * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
    *
    * @param sStandard
-   *        The standard of the enveloped business message, normally described
-   *        by use of the XML namespace of the business message root element
-   *        (such as urn:oasis:names:specification: ubl:schema:xsd:Order-2). May
-   *        not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code>
-   *        .
+   *        The standard of the enveloped business message, normally described by use of the XML
+   *        namespace of the business message root element (such as urn:oasis:names:specification:
+   *        ubl:schema:xsd:Order-2). May not be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Standard</code> .
    * @return this
-   * @see #setDocumentIdentification(String, String, String, String,
-   *      XMLOffsetDateTime)
+   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -664,11 +770,9 @@ public class PeppolSBDHData
   }
 
   /**
-   * The version number of the enveloped business message (such as the value
-   * "2.1" for OASIS UBL 2.1 or "2.2" for OASIS UBL 2.2). This field is mapped
-   * to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code>
-   * .
+   * The version number of the enveloped business message (such as the value "2.1" for OASIS UBL 2.1
+   * or "2.2" for OASIS UBL 2.2). This field is mapped to
+   * <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code> .
    *
    * @return The type version. May be <code>null</code>.
    */
@@ -679,8 +783,7 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return <code>true</code> if a type version is present, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if a type version is present, <code>false</code> if not.
    * @since 7.0.0
    */
   public boolean hasTypeVersion ()
@@ -693,14 +796,11 @@ public class PeppolSBDHData
    * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
    *
    * @param sTypeVersion
-   *        The version number of the enveloped business message (such as the
-   *        value "2.1" for OASIS UBL 2.1). May not be <code>null</code>. This
-   *        field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code>
-   *        .
+   *        The version number of the enveloped business message (such as the value "2.1" for OASIS
+   *        UBL 2.1). May not be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/TypeVersion</code> .
    * @return this
-   * @see #setDocumentIdentification(String, String, String, String,
-   *      XMLOffsetDateTime)
+   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -713,8 +813,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * Message type - mandatory in SBDH. XML local element name of the
-   * root-element in the business message. This field is mapped to
+   * Message type - mandatory in SBDH. XML local element name of the root-element in the business
+   * message. This field is mapped to
    * <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code>.
    *
    * @return Type value. May be <code>null</code>.
@@ -739,14 +839,11 @@ public class PeppolSBDHData
    * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
    *
    * @param sType
-   *        Message type - mandatory in SBDH. XML local element name of the
-   *        root-element in the business message. May not be <code>null</code>.
-   *        This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code>
-   *        .
+   *        Message type - mandatory in SBDH. XML local element name of the root-element in the
+   *        business message. May not be <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/Type</code> .
    * @return this
-   * @see #setDocumentIdentification(String, String, String, String,
-   *      XMLOffsetDateTime)
+   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -759,17 +856,13 @@ public class PeppolSBDHData
   }
 
   /**
-   * An informative unique ID created by the issuer of the envelope. The
-   * InstanceIdentifier MUST be unique for each Business Message Envelope being
-   * created. This ID is not the same as the ID of the business message (such as
-   * the Invoice Number). It is not the same as a transmission Message ID
-   * generated by the application sending the message (as defined in AS2 or
-   * START).<br>
-   * The InstanceIdentifier MUST be globally unique and it is RECOMMENDED to use
-   * UUID (such as 118e3040-51d2-11e3-8f96-0800200c9a66). This field is mapped
-   * to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code>
-   * .
+   * An informative unique ID created by the issuer of the envelope. The InstanceIdentifier MUST be
+   * unique for each Business Message Envelope being created. This ID is not the same as the ID of
+   * the business message (such as the Invoice Number). It is not the same as a transmission Message
+   * ID generated by the application sending the message (as defined in AS2 or START).<br>
+   * The InstanceIdentifier MUST be globally unique and it is RECOMMENDED to use UUID (such as
+   * 118e3040-51d2-11e3-8f96-0800200c9a66). This field is mapped to
+   * <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code> .
    *
    * @return The instance identifier. May be <code>null</code>.
    */
@@ -780,8 +873,7 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return <code>true</code> if an instance identifier is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if an instance identifier is present, <code>false</code> if not.
    * @since 7.0.0
    */
   public boolean hasInstanceIdentifier ()
@@ -794,20 +886,17 @@ public class PeppolSBDHData
    * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
    *
    * @param sInstanceIdentifier
-   *        An informative unique ID created by the issuer of the envelope. The
-   *        InstanceIdentifier MUST be unique for each Business Message Envelope
-   *        being created. This ID is not the same as the ID of the business
-   *        message (such as the Invoice Number). It is not the same as a
-   *        transmission Message ID generated by the application sending the
-   *        message (as defined in AS4).<br>
-   *        The InstanceIdentifier MUST be globally unique and it is RECOMMENDED
-   *        to use UUID (such as 118e3040-51d2-11e3-8f96-0800200c9a66). May not
-   *        be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code>
-   *        .
+   *        An informative unique ID created by the issuer of the envelope. The InstanceIdentifier
+   *        MUST be unique for each Business Message Envelope being created. This ID is not the same
+   *        as the ID of the business message (such as the Invoice Number). It is not the same as a
+   *        transmission Message ID generated by the application sending the message (as defined in
+   *        AS4).<br>
+   *        The InstanceIdentifier MUST be globally unique and it is RECOMMENDED to use UUID (such
+   *        as 118e3040-51d2-11e3-8f96-0800200c9a66). May not be <code>null</code>. This field is
+   *        mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/InstanceIdentifier</code> .
    * @return this
-   * @see #setDocumentIdentification(String, String, String, String,
-   *      XMLOffsetDateTime)
+   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -820,13 +909,11 @@ public class PeppolSBDHData
   }
 
   /**
-   * The date and time for when this envelope was created. It is NOT necessarily
-   * the same as the issue date of the business document (such as the invoice)
-   * being enveloped. It is NOT necessarily the date time for transmission.<br>
-   * The format of the value of this MUST include timezone information. This
-   * field is mapped to
-   * <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code>
-   * .
+   * The date and time for when this envelope was created. It is NOT necessarily the same as the
+   * issue date of the business document (such as the invoice) being enveloped. It is NOT
+   * necessarily the date time for transmission.<br>
+   * The format of the value of this MUST include timezone information. This field is mapped to
+   * <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code> .
    *
    * @return The creation date time. May be <code>null</code>.
    */
@@ -837,8 +924,7 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return <code>true</code> if creation date and time is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if creation date and time is present, <code>false</code> if not.
    * @since 7.0.0
    */
   public boolean hasCreationDateAndTime ()
@@ -851,17 +937,14 @@ public class PeppolSBDHData
    * <code>StandardBusinessDocumentHeader/DocumentIdentification</code>.
    *
    * @param aCreationDateAndTime
-   *        The date and time for when this envelope was created. It is NOT
-   *        necessarily the same as the issue date of the business document
-   *        (such as the invoice) being enveloped. It is NOT necessarily the
-   *        date time for transmission.<br>
-   *        The format of the value of this MUST include timezone information.
-   *        May not be <code>null</code>. This field is mapped to
-   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code>
-   *        .
+   *        The date and time for when this envelope was created. It is NOT necessarily the same as
+   *        the issue date of the business document (such as the invoice) being enveloped. It is NOT
+   *        necessarily the date time for transmission.<br>
+   *        The format of the value of this MUST include timezone information. May not be
+   *        <code>null</code>. This field is mapped to
+   *        <code>StandardBusinessDocumentHeader/DocumentIdentification/CreationDateAndTime</code> .
    * @return this
-   * @see #setDocumentIdentification(String, String, String, String,
-   *      XMLOffsetDateTime)
+   * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
   @Nonnull
@@ -877,8 +960,8 @@ public class PeppolSBDHData
   /**
    * Get the contained business message.
    *
-   * @return <code>null</code> if no business message is present. A clone (deep
-   *         copy) of the business message otherwise.
+   * @return <code>null</code> if no business message is present. A clone (deep copy) of the
+   *         business message otherwise.
    * @see #getBusinessMessageNoClone()
    */
   @Nullable
@@ -903,12 +986,11 @@ public class PeppolSBDHData
   }
 
   /**
-   * Check if a business message is present without having the need to
-   * explicitly call {@link #getBusinessMessage()} which returns a cloned node
-   * and is therefore an expensive operation.
+   * Check if a business message is present without having the need to explicitly call
+   * {@link #getBusinessMessage()} which returns a cloned node and is therefore an expensive
+   * operation.
    *
-   * @return <code>true</code> if a business message is present,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if a business message is present, <code>false</code> otherwise.
    */
   public boolean hasBusinessMessage ()
   {
@@ -916,12 +998,10 @@ public class PeppolSBDHData
   }
 
   /**
-   * Parse the existing business message as a special Peppol "BinaryContent"
-   * element.
+   * Parse the existing business message as a special Peppol "BinaryContent" element.
    *
-   * @return The parsed payload as a Peppol SBDH "BinaryContent" or
-   *         <code>null</code> if the existing Business Message is not a valid
-   *         binary content.
+   * @return The parsed payload as a Peppol SBDH "BinaryContent" or <code>null</code> if the
+   *         existing Business Message is not a valid binary content.
    * @see #setBusinessMessageBinaryOnly(byte[], IMimeType, Charset)
    * @since 8.2.4
    */
@@ -938,11 +1018,10 @@ public class PeppolSBDHData
   }
 
   /**
-   * Parse the existing business message as a special Peppol SBDH "TextContent"
-   * element.
+   * Parse the existing business message as a special Peppol SBDH "TextContent" element.
    *
-   * @return The parsed payload as a Peppol "TextContent" or <code>null</code>
-   *         if the existing Business Message is not a valid text content.
+   * @return The parsed payload as a Peppol "TextContent" or <code>null</code> if the existing
+   *         Business Message is not a valid text content.
    * @see #setBusinessMessageTextOnly(String, IMimeType)
    * @since 8.2.4
    */
@@ -959,14 +1038,13 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set the main business message that should be transmitted together with the
-   * SBDH. The DOM element is cloned internally to avoid outside modification
+   * Set the main business message that should be transmitted together with the SBDH. The DOM
+   * element is cloned internally to avoid outside modification
    *
    * @param aBusinessMessage
-   *        The business message to be set. May not be <code>null</code>.
-   *        Internally the passed element is cloned, so that further
-   *        modifications outside of this method have no impact on the business
-   *        message inside this object.
+   *        The business message to be set. May not be <code>null</code>. Internally the passed
+   *        element is cloned, so that further modifications outside of this method have no impact
+   *        on the business message inside this object.
    * @return this
    * @see #setBusinessMessageNoClone(Element)
    */
@@ -981,14 +1059,13 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set the main business message that should be transmitted together with the
-   * SBDH. The DOM element is not cloned / copied internally.
+   * Set the main business message that should be transmitted together with the SBDH. The DOM
+   * element is not cloned / copied internally.
    *
    * @param aBusinessMessage
-   *        The business message to be set. May not be <code>null</code>.
-   *        Internally the passed element is cloned, so that further
-   *        modifications outside of this method have no impact on the business
-   *        message inside this object.
+   *        The business message to be set. May not be <code>null</code>. Internally the passed
+   *        element is cloned, so that further modifications outside of this method have no impact
+   *        on the business message inside this object.
    * @return this
    * @see #setBusinessMessage(Element)
    * @since 8.8.1
@@ -1003,17 +1080,15 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set a business message with binary payload. Based on the Peppol SBDH v1.2
-   * binary payload specification. This is wrapper for creating the Peppol SBDH
-   * "BinaryContent" element.
+   * Set a business message with binary payload. Based on the Peppol SBDH v1.2 binary payload
+   * specification. This is wrapper for creating the Peppol SBDH "BinaryContent" element.
    *
    * @param aBinaryPayload
    *        The bytes to be wrapped. May not be <code>null</code>.
    * @param aMimeType
    *        The MIME type to use. May not be <code>null</code>.
    * @param aCharset
-   *        The character set to be used, if the MIME type is text based. May be
-   *        <code>null</code>.
+   *        The character set to be used, if the MIME type is text based. May be <code>null</code>.
    * @return this for chaining
    * @see #setBusinessMessage(Element)
    * @see #setBusinessMessageTextOnly(String, IMimeType)
@@ -1039,11 +1114,10 @@ public class PeppolSBDHData
   }
 
   /**
-   * Set a business message with text payload. Based on the Peppol SBDH v1.2
-   * text payload specification. Note: the character set of the wrapped text
-   * must be identical to the character set of the SBDH surrounding it. In case
-   * the payload requires a specific character set, it is suggested to use the
-   * binary message. This is wrapper for creating the Peppol SBDH "TextContent"
+   * Set a business message with text payload. Based on the Peppol SBDH v1.2 text payload
+   * specification. Note: the character set of the wrapped text must be identical to the character
+   * set of the SBDH surrounding it. In case the payload requires a specific character set, it is
+   * suggested to use the binary message. This is wrapper for creating the Peppol SBDH "TextContent"
    * element.
    *
    * @param sTextPayload
@@ -1076,11 +1150,9 @@ public class PeppolSBDHData
    * Check if all mandatory fields are set in the SBDH data.
    *
    * @param bLogMissing
-   *        <code>true</code> if log messages should be emitted,
-   *        <code>false</code> if not
-   * @return <code>true</code> if all mandatory fields required for creating an
-   *         SBDH are present, <code>false</code> if at least one field is not
-   *         set.
+   *        <code>true</code> if log messages should be emitted, <code>false</code> if not
+   * @return <code>true</code> if all mandatory fields required for creating an SBDH are present,
+   *         <code>false</code> if at least one field is not set.
    */
   public boolean areAllFieldsSet (final boolean bLogMissing)
   {
@@ -1091,11 +1163,9 @@ public class PeppolSBDHData
    * Check if all mandatory fields are set in the SBDH data.
    *
    * @param aMissingFieldConsumer
-   *        The consumer to be invoked for each missing field. May not be
-   *        <code>null</code>
-   * @return <code>true</code> if all mandatory fields required for creating an
-   *         SBDH are present, <code>false</code> if at least one field is not
-   *         set.
+   *        The consumer to be invoked for each missing field. May not be <code>null</code>
+   * @return <code>true</code> if all mandatory fields required for creating an SBDH are present,
+   *         <code>false</code> if at least one field is not set.
    * @since 9.6.1
    */
   public boolean areAllFieldsSet (@Nonnull final Consumer <String> aMissingFieldConsumer)
@@ -1187,9 +1257,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * @return <code>true</code> if all mandatory fields required for creating an
-   *         SBDH are present, <code>false</code> if at least one field is not
-   *         set.
+   * @return <code>true</code> if all mandatory fields required for creating an SBDH are present,
+   *         <code>false</code> if at least one field is not set.
    */
   public boolean areAllFieldsSet ()
   {
@@ -1199,8 +1268,8 @@ public class PeppolSBDHData
   /**
    * Check if all additional attributes contain non-reserved names.
    *
-   * @return <code>true</code> if no additional attributes are present or if all
-   *         additional attributes contain valid names.
+   * @return <code>true</code> if no additional attributes are present or if all additional
+   *         attributes contain valid names.
    */
   public boolean areAllAdditionalAttributesValid ()
   {
@@ -1241,6 +1310,9 @@ public class PeppolSBDHData
            EqualsHelper.equals (m_sProcessScheme, rhs.m_sProcessScheme) &&
            EqualsHelper.equals (m_sProcessValue, rhs.m_sProcessValue) &&
            EqualsHelper.equals (m_sCountryC1, rhs.m_sCountryC1) &&
+           EqualsHelper.equals (m_sMLSToScheme, rhs.m_sMLSToScheme) &&
+           EqualsHelper.equals (m_sMLSToValue, rhs.m_sMLSToValue) &&
+           EqualsHelper.equals (m_eMLSType, rhs.m_eMLSType) &&
            EqualsHelper.equals (m_sStandard, rhs.m_sStandard) &&
            EqualsHelper.equals (m_sTypeVersion, rhs.m_sTypeVersion) &&
            EqualsHelper.equals (m_sType, rhs.m_sType) &&
@@ -1262,6 +1334,9 @@ public class PeppolSBDHData
                                        .append (m_sProcessScheme)
                                        .append (m_sProcessValue)
                                        .append (m_sCountryC1)
+                                       .append (m_sMLSToScheme)
+                                       .append (m_sMLSToValue)
+                                       .append (m_eMLSType)
                                        .append (m_sStandard)
                                        .append (m_sTypeVersion)
                                        .append (m_sType)
@@ -1284,6 +1359,9 @@ public class PeppolSBDHData
                                        .append ("ProcessScheme", m_sProcessScheme)
                                        .append ("ProcessValue", m_sProcessValue)
                                        .append ("CountryC1", m_sCountryC1)
+                                       .append ("MLSToScheme", m_sMLSToScheme)
+                                       .append ("MLSToValue", m_sMLSToValue)
+                                       .append ("MLSType", m_eMLSType)
                                        .append ("Standard", m_sStandard)
                                        .append ("TypeVersion", m_sTypeVersion)
                                        .append ("Type", m_sType)
@@ -1295,9 +1373,8 @@ public class PeppolSBDHData
   }
 
   /**
-   * Create a new {@link PeppolSBDHData} object for a business message assuming
-   * it is UBL 2.1. The resulting object has all required fields set, except
-   * for:
+   * Create a new {@link PeppolSBDHData} object for a business message assuming it is UBL 2.1. The
+   * resulting object has all required fields set, except for:
    * <ul>
    * <li>sender ID</li>
    * <li>receiver ID</li>
@@ -1309,8 +1386,7 @@ public class PeppolSBDHData
    *        The XML business message. May not be <code>null</code>.
    * @param aIdentifierFactory
    *        Identifier factory to be used. May not be <code>null</code>.
-   * @return A pre-filled {@link PeppolSBDHData} object with some information
-   *         still missing.
+   * @return A pre-filled {@link PeppolSBDHData} object with some information still missing.
    * @see #setSender(String, String)
    * @see #setReceiver(String, String)
    * @see #setDocumentType(String, String)
