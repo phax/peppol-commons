@@ -271,6 +271,7 @@ public final class SMPClientReadOnlyTest
     assertNull (findEndpoint.apply (aCheckDT.plusSeconds (1), aCheckDT.minusSeconds (1)));
   }
 
+  @SuppressWarnings ("removal")
   @Test
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
@@ -609,6 +610,18 @@ public final class SMPClientReadOnlyTest
 
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
                                                                                EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
+    assertNotNull (aSM);
+  }
+
+  @Test
+  public void testPintMy () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0230:05202505072007");
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+
+    final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
+                                                                                       PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
+                                                                                                                                                      "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@my-1::2.1"));
     assertNotNull (aSM);
   }
 }
