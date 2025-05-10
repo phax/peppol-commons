@@ -42,6 +42,7 @@ import com.helger.smpclient.peppol.PeppolWildcardSelector.EMode;
  */
 public final class PeppolWildcardSelectorTest
 {
+  @SuppressWarnings ("removal")
   @Test
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
@@ -66,6 +67,7 @@ public final class PeppolWildcardSelectorTest
     }
   }
 
+  @SuppressWarnings ("removal")
   @Test
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
