@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillClose;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +46,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.peppol.sbdh.spec12.ObjectFactory;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -587,12 +585,6 @@ public class PeppolSBDHDataReader
                       .build ();
   }
 
-  private static boolean _hasQName (@Nonnull final QName aQName, @Nonnull final Element aBusinessMessage)
-  {
-    return aQName.getNamespaceURI ().equals (aBusinessMessage.getNamespaceURI ()) &&
-           aQName.getLocalPart ().equals (aBusinessMessage.getLocalName ());
-  }
-
   /**
    * Validate the provided SBDH and the Business Message according to the Peppol rules and store the
    * results in an Error List.
@@ -840,8 +832,7 @@ public class PeppolSBDHDataReader
 
       final DocumentIdentification aDI = aSBDH.getDocumentIdentification ();
 
-      final boolean bIsNonXMLPayload = _hasQName (ObjectFactory._BinaryContent_QNAME, aBusinessMessage) ||
-                                       _hasQName (ObjectFactory._TextContent_QNAME, aBusinessMessage);
+      final boolean bIsNonXMLPayload = PeppolSBDHData.isNonXMLSBDHPayload (aBusinessMessage);
 
       // Check the following rules only for XML payload
       if (!bIsNonXMLPayload)

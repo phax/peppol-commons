@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadBinaryMarshaller;
 import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadTextMarshaller;
 import com.helger.peppol.sbdh.spec12.BinaryContentType;
+import com.helger.peppol.sbdh.spec12.ObjectFactory;
 import com.helger.peppol.sbdh.spec12.TextContentType;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -986,6 +988,17 @@ public class PeppolSBDHData
   }
 
   /**
+   * @return <code>true</code> if the payload is to be considered non-XML, <code>false</code> if it
+   *         is not present or XML.
+   * @see #hasBusinessMessage()
+   * @since 10.4.1
+   */
+  public boolean isNonXMLPayload ()
+  {
+    return isNonXMLSBDHPayload (m_aBusinessMessage);
+  }
+
+  /**
    * Check if a business message is present without having the need to explicitly call
    * {@link #getBusinessMessage()} which returns a cloned node and is therefore an expensive
    * operation.
@@ -1370,6 +1383,29 @@ public class PeppolSBDHData
                                        .append ("BusinessMessage", m_aBusinessMessage)
                                        .append ("AdditionalAttributes", m_aAdditionalAttrs)
                                        .getToString ();
+  }
+
+  private static boolean _hasQName (@Nonnull final QName aQName, @Nonnull final Element aBusinessMessage)
+  {
+    return aQName.getNamespaceURI ().equals (aBusinessMessage.getNamespaceURI ()) &&
+           aQName.getLocalPart ().equals (aBusinessMessage.getLocalName ());
+  }
+
+  /**
+   * Check if the provided SBDH payload element is a non-XML payload (like PDF or EDIFACT or X12).
+   * The easiest way to check this, is to check for the specific predefined payload elements for
+   * <code>TextContent</code> as well as <code>BinaryContent</code>.
+   *
+   * @param aBusinessMessage
+   *        The SBDH payload element to check.
+   * @return <code>true</code> if the payload is considered to be non-XML, <code>false</code> if it
+   *         is XML.
+   * @since 10.4.1
+   */
+  public static boolean isNonXMLSBDHPayload (@Nullable final Element aBusinessMessage)
+  {
+    return aBusinessMessage != null && _hasQName (ObjectFactory._BinaryContent_QNAME, aBusinessMessage) ||
+           _hasQName (ObjectFactory._TextContent_QNAME, aBusinessMessage);
   }
 
   /**
