@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillClose;
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +47,7 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.string.StringHelper;
+import com.helger.peppol.sbdh.spec12.ObjectFactory;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -350,7 +352,7 @@ public class PeppolSBDHDataReader
   @OverrideOnDemand
   protected boolean isValidBusinessMessage (@Nonnull final Element aBusinessMessage)
   {
-    return true;
+    return aBusinessMessage != null;
   }
 
   /**
@@ -583,6 +585,12 @@ public class PeppolSBDHDataReader
                       .errorID (e.getID ())
                       .errorText (aArgs == null ? e.getErrorMessage () : e.getErrorMessage (aArgs))
                       .build ();
+  }
+
+  private static boolean _hasQName (@Nonnull final QName aQName, @Nonnull final Element aBusinessMessage)
+  {
+    return aQName.getNamespaceURI ().equals (aBusinessMessage.getNamespaceURI ()) &&
+           aQName.getLocalPart ().equals (aBusinessMessage.getLocalName ());
   }
 
   /**
@@ -830,32 +838,40 @@ public class PeppolSBDHDataReader
       if (!isValidBusinessMessage (aBusinessMessage))
         aErrorList.add (_toError (null, EPeppolSBDHDataError.INVALID_BUSINESS_MESSAGE));
 
-      // This field is mandatory in XML
       final DocumentIdentification aDI = aSBDH.getDocumentIdentification ();
-      if (aDocTypeID != null)
+
+      final boolean bIsNonXMLPayload = _hasQName (ObjectFactory._BinaryContent_QNAME, aBusinessMessage) ||
+                                       _hasQName (ObjectFactory._TextContent_QNAME, aBusinessMessage);
+
+      // Check the following rules only for XML payload
+      if (!bIsNonXMLPayload)
       {
-        final String sNamespaceURI = aDI.getStandard ();
-        if (!isValidStandard (sNamespaceURI, aBusinessMessage, aDocTypeID.getValue ()))
-          aErrorList.add (_toError ("SBDH/DocumentIdentification/Standard",
-                                    EPeppolSBDHDataError.INVALID_STANDARD,
-                                    sNamespaceURI,
-                                    aBusinessMessage.getNamespaceURI (),
-                                    aDocTypeID.getValue ()));
+        // This field is mandatory in XML
+        if (aDocTypeID != null)
+        {
+          final String sNamespaceURI = aDI.getStandard ();
+          if (!isValidStandard (sNamespaceURI, aBusinessMessage, aDocTypeID.getValue ()))
+            aErrorList.add (_toError ("SBDH/DocumentIdentification/Standard",
+                                      EPeppolSBDHDataError.INVALID_STANDARD,
+                                      sNamespaceURI,
+                                      aBusinessMessage.getNamespaceURI (),
+                                      aDocTypeID.getValue ()));
 
-        final String sTypeVersion = aDI.getTypeVersion ();
-        if (!isValidTypeVersion (sTypeVersion, aBusinessMessage, aDocTypeID.getValue ()))
-          aErrorList.add (_toError ("SBDH/DocumentIdentification/TypeVersion",
-                                    EPeppolSBDHDataError.INVALID_TYPE_VERSION,
-                                    sTypeVersion,
-                                    aDocTypeID.getValue ()));
+          final String sTypeVersion = aDI.getTypeVersion ();
+          if (!isValidTypeVersion (sTypeVersion, aBusinessMessage, aDocTypeID.getValue ()))
+            aErrorList.add (_toError ("SBDH/DocumentIdentification/TypeVersion",
+                                      EPeppolSBDHDataError.INVALID_TYPE_VERSION,
+                                      sTypeVersion,
+                                      aDocTypeID.getValue ()));
+        }
+
+        final String sLocalName = aDI.getType ();
+        if (!isValidType (sLocalName, aBusinessMessage))
+          aErrorList.add (_toError ("SBDH/DocumentIdentification/Type",
+                                    EPeppolSBDHDataError.INVALID_TYPE,
+                                    sLocalName,
+                                    aBusinessMessage.getLocalName ()));
       }
-
-      final String sLocalName = aDI.getType ();
-      if (!isValidType (sLocalName, aBusinessMessage))
-        aErrorList.add (_toError ("SBDH/DocumentIdentification/Type",
-                                  EPeppolSBDHDataError.INVALID_TYPE,
-                                  sLocalName,
-                                  aBusinessMessage.getLocalName ()));
 
       // The unique message ID
       final String sSBDHID = aDI.getInstanceIdentifier ();
@@ -899,6 +915,8 @@ public class PeppolSBDHDataReader
       // Validate data
       final ErrorList aErrorList = new ErrorList ();
       validateData (aSBDH, aBusinessMessage, aErrorList);
+
+      // Evaluate validation results
       final int nErrors = aErrorList.getErrorCount ();
       if (nErrors > 0)
       {

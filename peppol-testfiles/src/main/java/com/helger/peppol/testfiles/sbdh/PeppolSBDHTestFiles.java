@@ -52,6 +52,7 @@ public final class PeppolSBDHTestFiles
                                                   "good-bis3-with-mls-to.xml",
                                                   "good-bis3-with-mls-type.xml",
                                                   "good-gxs1.xml",
+                                                  "good-hybrid-invoice.xml",
                                                   "good-order-with-qty-ph.xml",
                                                   "good-to-9915-test.xml",
                                                   "good-type-version-20.xml",

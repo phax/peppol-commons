@@ -334,6 +334,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.4.1 - 2025-05-11
+    * Disabled certain SBDH validations if they payload is non-XML
 * v10.4.0 - 2025-05-09
     * All created NAPTR URLs are now created in lowercase only
     * Improved the `PeppolMLSBuilder` so that it can also be filled from existing `ApplicationResponse` objects
