@@ -36,6 +36,7 @@ import javax.xml.crypto.dsig.XMLSignatureException;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTWebDateHelper;
 import com.helger.commons.state.ETriState;
@@ -44,6 +45,7 @@ import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppolid.CIdentifier;
+import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
@@ -622,6 +624,25 @@ public final class SMPClientReadOnlyTest
     final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
                                                                                        PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
                                                                                                                                                       "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@my-1::2.1"));
+    assertNotNull (aSM);
+  }
+
+  @Test
+  public void testSmpIssue337 () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0192:914730422");
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.DIGIT_PRODUCTION);
+
+    final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aPI);
+    assertNotNull (aSG);
+
+    final ICommonsList <IDocumentTypeIdentifier> aAllDocTyoes = SMPClientReadOnly.getAllDocumentTypes (aSG);
+    assertNotNull (aAllDocTyoes);
+
+    final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
+                                                                                       EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30.getAsDocumentTypeIdentifier ());
     assertNotNull (aSM);
   }
 }
