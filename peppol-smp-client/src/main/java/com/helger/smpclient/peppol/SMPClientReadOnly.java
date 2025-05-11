@@ -832,6 +832,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
   }
 
+  @SuppressWarnings ("removal")
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final ServiceGroupType aServiceGroup,
@@ -874,6 +875,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     return getServiceMetadataOrNull (aServiceGroupID, aSelectedDocTypeID);
   }
 
+  @SuppressWarnings ("removal")
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
   public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,

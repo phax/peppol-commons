@@ -111,6 +111,7 @@ public class PeppolWildcardSelector
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolWildcardSelector.class);
 
+  @SuppressWarnings ("removal")
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
   private final EMode m_eMode;
@@ -121,6 +122,7 @@ public class PeppolWildcardSelector
    * @param eMode
    *        The selection mode to use. May not be <code>null</code>.
    */
+  @SuppressWarnings ("removal")
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
   public PeppolWildcardSelector (@Nonnull final EMode eMode)
@@ -132,6 +134,7 @@ public class PeppolWildcardSelector
   /**
    * @return The selection mode as provided in the constructor.
    */
+  @SuppressWarnings ("removal")
   @Nonnull
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
@@ -154,6 +157,7 @@ public class PeppolWildcardSelector
    * @param aMatchingDocTypeConsumer
    *        The consumer to be invoked for each match. May not be <code>null</code>.
    */
+  @SuppressWarnings ("removal")
   @Pfuoi420
   @Deprecated (since = "10.3.0", forRemoval = true)
   public void forEachMatchingDocumentType (@Nonnull final ICommonsList <? extends IDocumentTypeIdentifier> aBaseDocTypes,

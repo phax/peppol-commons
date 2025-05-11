@@ -41,6 +41,7 @@ public final class PeppolIdentifierHelper
   /**
    * The identifier prefix for DNS name creation. This was used only for CNAME DNS host names.
    */
+  @SuppressWarnings ("removal")
   @Pfuoi420
   @Deprecated (forRemoval = true, since = "10.3.3")
   public static final String DNS_HASHED_IDENTIFIER_PREFIX = "B-";
