@@ -334,6 +334,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.4.2 - 2025-05-13
+    * Deprecated the eB2B specific trust stores
 * v10.4.1 - 2025-05-11
     * Disabled certain SBDH validations if they payload is non-XML
     * Added a predefined method in `PeppolSBDHData` to determine if a payload is XML or not.

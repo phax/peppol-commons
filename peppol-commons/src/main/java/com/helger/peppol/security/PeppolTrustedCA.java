@@ -45,7 +45,9 @@ public final class PeppolTrustedCA
   private static final TrustedCAChecker ALL_SMP = new TrustedCAChecker (PeppolTrustStores.Config2018.CERTIFICATE_PILOT_SMP,
                                                                         PeppolTrustStores.Config2018.CERTIFICATE_PRODUCTION_SMP);
 
+  @Deprecated (forRemoval = true, since = "10.4.2")
   private static final TrustedCAChecker TEST_EB2B_AP = new TrustedCAChecker (PeppolTrustStores.Config2018.CERTIFICATE_PILOT_EB2B_AP);
+  @Deprecated (forRemoval = true, since = "10.4.2")
   private static final TrustedCAChecker PROD_EB2B_AP = new TrustedCAChecker (PeppolTrustStores.Config2018.CERTIFICATE_PRODUCTION_EB2B_AP);
 
   private PeppolTrustedCA ()
@@ -109,6 +111,7 @@ public final class PeppolTrustedCA
    * @return The Peppol CA checker for Pilot eB2B AP certificates.
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "10.4.2")
   public static TrustedCAChecker peppolTestEb2bAP ()
   {
     return TEST_EB2B_AP;
@@ -118,6 +121,7 @@ public final class PeppolTrustedCA
    * @return The Peppol CA checker for production eB2B AP certificates.
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "10.4.2")
   public static TrustedCAChecker peppolProductionEb2bAP ()
   {
     return PROD_EB2B_AP;

@@ -144,8 +144,10 @@ public final class PeppolTrustStores
      *
      * @since 10.0.1
      */
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final String TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH = "truststore/2018/eb2b-ap-prod-truststore.jks";
 
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_EB2B_AP_PRODUCTION = TrustStoreDescriptor.builder ()
                                                                                                              .type (TRUSTSTORE_TYPE)
                                                                                                              .path (TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH)
@@ -155,6 +157,7 @@ public final class PeppolTrustStores
     /**
      * The full eB2B AP production truststore. Never modify.
      */
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final KeyStore TRUSTSTORE_EB2B_AP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_EB2B_AP_PRODUCTION.loadTrustStore ()
                                                                                                          .getKeyStore ();
 
@@ -190,9 +193,11 @@ public final class PeppolTrustStores
     /**
      * The truststore alias for the OpenPeppol production eB2B AP certificate
      */
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_EB2B_AP = "peppol eb2b access point ca - g2 (peppol root ca - g2)";
 
     /** The OpenPeppol production AP certificate */
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final X509Certificate CERTIFICATE_PRODUCTION_EB2B_AP = _resolveCert (TRUSTSTORE_EB2B_AP_PRODUCTION,
                                                                                        TRUSTSTORE_PRODUCTION_ALIAS_EB2B_AP);
 
@@ -255,8 +260,10 @@ public final class PeppolTrustStores
      *
      * @since 9.6.0
      */
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final String TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH = "truststore/2018/eb2b-ap-pilot-truststore.jks";
 
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_EB2B_AP_PILOT = TrustStoreDescriptor.builder ()
                                                                                                         .type (TRUSTSTORE_TYPE)
                                                                                                         .path (TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH)
@@ -266,6 +273,7 @@ public final class PeppolTrustStores
     /**
      * The full eB2B AP pilot truststore. Never modify.
      */
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final KeyStore TRUSTSTORE_EB2B_AP_PILOT = TRUSTSTORE_DESCRIPTOR_EB2B_AP_PILOT.loadTrustStore ()
                                                                                                .getKeyStore ();
 
@@ -299,9 +307,11 @@ public final class PeppolTrustStores
                                                                               TRUSTSTORE_PILOT_ALIAS_SMP);
 
     /** The truststore alias for the OpenPeppol pilot eB2B AP certificate */
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final String TRUSTSTORE_PILOT_ALIAS_EB2B_AP = "peppol eb2b access point test ca - g2 (peppol root test ca - g2)";
 
     /** The OpenPeppol pilot AP certificate */
+    @Deprecated (forRemoval = true, since = "10.4.2")
     public static final X509Certificate CERTIFICATE_PILOT_EB2B_AP = _resolveCert (TRUSTSTORE_EB2B_AP_PILOT,
                                                                                   TRUSTSTORE_PILOT_ALIAS_EB2B_AP);
   }

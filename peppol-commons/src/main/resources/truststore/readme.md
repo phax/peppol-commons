@@ -58,7 +58,7 @@
     * `isrg root x1`
     * `r3 (isrg root x1)`
 
-`2018/eb2b-ap-pilot-truststore.jks` (since 9.6.0)
+`2018/eb2b-ap-pilot-truststore.jks` (since 9.6.0) (deperecated since v10.4.2)
 * Is the global trust store for OpenPeppol pilot eB2B APs
 * It is valid from 2024-2028
 * The contained aliases are:
@@ -66,7 +66,7 @@
     * `peppol eb2b access point test ca - g2 (peppol root test ca - g2)`
     * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
 
-`2018/eb2b-ap-prod-truststore.jks` (since 10.0.1)
+`2018/eb2b-ap-prod-truststore.jks` (since 10.0.1) (deperecated since v10.4.2)
 * Is the global trust store for OpenPeppol production eB2B APs
 * It is valid from 2024-2028
 * The contained aliases are:
@@ -100,10 +100,6 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
 Peppol APs need the following trust stores:
 * Production: `truststore/2018/prod-truststore.jks`
 * Test: `truststore/2018/pilot-truststore.jks`
-
-Peppol eB2B APs need the following trust stores:
-* Production: `truststore/2018/eb2b-ap-prod-truststore.jks`
-* Test: `truststore/2018/eb2b-ap-pilot-truststore.jks`
 
 ## For SMPs
 

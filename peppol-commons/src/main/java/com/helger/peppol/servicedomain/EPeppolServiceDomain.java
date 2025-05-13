@@ -51,9 +51,14 @@ public enum EPeppolServiceDomain implements IHasID <String>
              PeppolTrustedCA.peppolTestSMP (),
              PeppolTrustedCA.peppolProductionSMP ()),
   /**
-   * Enhanced B2B for Peppol-GENA bridge
+   * Enhanced B2B for Peppol-GENA bridge. On May 13th, 2025 it was publicly announced, that eB2B
+   * will share the Post Award certificates.
    */
-  ENHANCED_B2B ("eb2b", PeppolTrustedCA.peppolTestEb2bAP (), null, PeppolTrustedCA.peppolTestSMP (), null);
+  ENHANCED_B2B ("eb2b",
+                PeppolTrustedCA.peppolTestAP (),
+                PeppolTrustedCA.peppolProductionAP (),
+                PeppolTrustedCA.peppolTestSMP (),
+                PeppolTrustedCA.peppolProductionSMP ());
 
   private final String m_sID;
   private final TrustedCAChecker m_aTestAPChecker;
