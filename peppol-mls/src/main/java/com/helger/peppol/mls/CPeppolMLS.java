@@ -29,6 +29,8 @@ public final class CPeppolMLS
   public static final String MLS_CUSTOMIZATION_ID = "urn:peppol:edec:mls:1.0";
   public static final String MLS_PROFILE_ID = "urn:peppol:edec:mls";
 
+  public static final String LINE_ID_NOT_AVAILABLE = "NA";
+
   private CPeppolMLS ()
   {}
 }
