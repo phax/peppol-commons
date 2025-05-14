@@ -334,6 +334,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.4.3 - 2025-05-14
+    * Introduced new interface `ISMPFollowRedirectCallback`
+    * The `ISMPServiceMetadataProvider.getServiceMetadata(OrNull)` methods received an overload with an optional `ISMPFollowRedirectCallback`
 * v10.4.2 - 2025-05-13
     * Deprecated the eB2B specific trust stores
 * v10.4.1 - 2025-05-11

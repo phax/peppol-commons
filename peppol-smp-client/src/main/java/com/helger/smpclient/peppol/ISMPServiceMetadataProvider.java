@@ -33,44 +33,89 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 public interface ISMPServiceMetadataProvider
 {
   /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type.<br>
+   * Gets a signed service metadata object given by its service group id and its document type.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
+   *        The document type of the service metadata to get. May not be <code>null</code>.
+   * @return A signed service metadata object. Never <code>null</code>.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
+   * @since 9.5.1 in this interface
+   */
+  @Nonnull
+  default SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    return getServiceMetadata (aServiceGroupID, aDocumentTypeID, null);
+  }
+
+  /**
+   * Gets a signed service metadata object given by its service group id and its document type.<br>
+   * This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May be
    *        <code>null</code>.
    * @return A signed service metadata object. Never <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
-   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier)
-   * @since 9.5.1 in this interface
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier,
+   *      ISMPFollowRedirectCallback)
+   * @since 10.4.3
    */
   @Nonnull
-  SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
+  SignedServiceMetadataType getServiceMetadata (@Nonnull IParticipantIdentifier aServiceGroupID,
+                                                @Nonnull IDocumentTypeIdentifier aDocumentTypeID,
+                                                @Nullable ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException;
 
   /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type.<br>
+   * Gets a signed service metadata object given by its service group id and its document type.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The ID of the service group to query. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to retrieve. May not be
-   *        <code>null</code>.
-   * @return A service metadata object or <code>null</code> if no such
-   *         registration is present.
+   *        The document type of the service metadata to retrieve. May not be <code>null</code>.
+   * @return A service metadata object or <code>null</code> if no such registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
    * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
    */
   @Nullable
+  default SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                              @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID, null);
+  }
+
+  /**
+   * Gets a signed service metadata object given by its service group id and its document type.<br>
+   * This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The ID of the service group to query. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to retrieve. May not be <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May be
+   *        <code>null</code>.
+   * @return A service metadata object or <code>null</code> if no such registration is present.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier,
+   *      ISMPFollowRedirectCallback)
+   * @since 10.4.3
+   */
+  @Nullable
   SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull IParticipantIdentifier aServiceGroupID,
-                                                      @Nonnull IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
+                                                      @Nonnull IDocumentTypeIdentifier aDocumentTypeID,
+                                                      @Nullable ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException;
 }

@@ -284,6 +284,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The service group id of the service metadata to get. May not be <code>null</code>.
    * @param aDocumentTypeID
    *        The document type of the service metadata to get. May not be <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May be
+   *        <code>null</code>.
    * @return A signed service metadata object. Never <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
@@ -300,7 +303,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    */
   @Nonnull
   public SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                       @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -348,12 +352,17 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     // Is a Redirect present?
     if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
     {
-      // Is it allowed to follow redirects
-      if (isFollowSMPRedirects ())
-      {
-        // If the Redirect element is present, then follow 1 redirect.
-        final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
+      // If the Redirect element is present, then follow 1 redirect.
+      final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
+      final boolean bWillFollow = isFollowSMPRedirects ();
 
+      // Call callback (if provided)
+      if (aFollowRedirectCallback != null)
+        aFollowRedirectCallback.onFollowSMPRedirect (bWillFollow, aRedirect.getHref ());
+
+      // Is it allowed to follow redirects
+      if (bWillFollow)
+      {
         // Follow the redirect
         LOGGER.info ("Following an SMP Redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         final HttpGet aRequest = new HttpGet (aRedirect.getHref ());
@@ -409,6 +418,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The service group id of the service metadata to get. May not be <code>null</code>.
    * @param aDocumentTypeID
    *        The document type of the service metadata to get. May not be <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May be
+   *        <code>null</code>.
    * @return A signed service metadata object or <code>null</code> if no such registration is
    *         present.
    * @throws SMPClientException
@@ -422,11 +434,12 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    */
   @Nullable
   public SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                             @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+                                                             @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                             @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
   {
     try
     {
-      return getServiceMetadata (aServiceGroupID, aDocumentTypeID);
+      return getServiceMetadata (aServiceGroupID, aDocumentTypeID, aFollowRedirectCallback);
     }
     catch (final SMPClientNotFoundException | SMPClientParticipantNotFoundException ex)
     {
