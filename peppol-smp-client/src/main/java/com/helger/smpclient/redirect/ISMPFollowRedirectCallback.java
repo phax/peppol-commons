@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.peppol;
+package com.helger.smpclient.redirect;
 
 import javax.annotation.Nonnull;
 

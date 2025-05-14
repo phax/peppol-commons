@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
 /**

@@ -31,6 +31,7 @@ import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
+import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
 import com.helger.xsds.bdxr.smp2.ac.EndpointType;
 
@@ -43,44 +44,60 @@ import com.helger.xsds.bdxr.smp2.ac.EndpointType;
 public interface IBDXR2ServiceMetadataProvider
 {
   /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type.<br>
+   * Gets a signed service metadata object given by its service group id and its document type.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
    *        The ID of the service group to query. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to retrieve. May not be
-   *        <code>null</code>.
-   * @return A service metadata object or <code>null</code> if no such
-   *         registration is present.
+   *        The document type of the service metadata to retrieve. May not be <code>null</code>.
+   * @return A service metadata object or <code>null</code> if no such registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
    */
   @Nullable
-  ServiceMetadataType getServiceMetadataOrNull (@Nonnull IParticipantIdentifier aServiceGroupID,
-                                                @Nonnull IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
+  default ServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID, null);
+  }
 
   /**
-   * Retrieve the service metadata from the provided service group ID and
-   * document type ID. Than find the matching endpoint from the process ID and
-   * transport profile.<br>
+   * Gets a signed service metadata object given by its service group id and its document type.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The ID of the service group to query. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
+   *        The document type of the service metadata to retrieve. May not be <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May be
    *        <code>null</code>.
+   * @return A service metadata object or <code>null</code> if no such registration is present.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @since 10.5.0
+   */
+  @Nullable
+  ServiceMetadataType getServiceMetadataOrNull (@Nonnull IParticipantIdentifier aServiceGroupID,
+                                                @Nonnull IDocumentTypeIdentifier aDocumentTypeID,
+                                                @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException;
+
+  /**
+   * Retrieve the service metadata from the provided service group ID and document type ID. Than
+   * find the matching endpoint from the process ID and transport profile.<br>
+   * This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be <code>null</code>.
    * @param aProcessID
-   *        The process ID of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The process ID of the service metadata to get. May not be <code>null</code>.
    * @param aTransportProfile
-   *        The transport profile of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @return The endpoint from the signed service metadata object or
-   *         <code>null</code> if no such registration is present.
+   *        The transport profile of the service metadata to get. May not be <code>null</code>.
+   * @return The endpoint from the signed service metadata object or <code>null</code> if no such
+   *         registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -102,7 +119,9 @@ public interface IBDXR2ServiceMetadataProvider
 
     // Get meta data for participant/documentType
     final ServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null : BDXR2ClientReadOnly.getEndpoint (aSignedServiceMetadata, aProcessID, aTransportProfile);
+    return aSignedServiceMetadata == null ? null : BDXR2ClientReadOnly.getEndpoint (aSignedServiceMetadata,
+                                                                                    aProcessID,
+                                                                                    aTransportProfile);
   }
 
   /**
@@ -117,8 +136,8 @@ public interface IBDXR2ServiceMetadataProvider
    *        Process ID. May not be <code>null</code>.
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no endpoint address URI
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no endpoint
+   *         address URI
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -147,8 +166,7 @@ public interface IBDXR2ServiceMetadataProvider
    *        Process ID. May not be <code>null</code>.
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -177,8 +195,7 @@ public interface IBDXR2ServiceMetadataProvider
    *        Process ID. May not be <code>null</code>.
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -195,7 +212,10 @@ public interface IBDXR2ServiceMetadataProvider
                                                   @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                          CertificateException
   {
-    final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
+    final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID,
+                                                            aDocumentTypeID,
+                                                            aProcessID,
+                                                            aTransportProfile);
     return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
   }
 }

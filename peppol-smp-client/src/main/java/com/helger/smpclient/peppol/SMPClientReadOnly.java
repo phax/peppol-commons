@@ -65,6 +65,7 @@ import com.helger.smpclient.httpclient.SMPHttpResponseHandlerUnsigned;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceGroupType;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerSignedServiceMetadataType;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
+import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.peppol.id1.ProcessIdentifierType;
@@ -299,7 +300,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
-   * @since v8.0.0
+   * @since v10.4.3
    */
   @Nonnull
   public SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
@@ -430,7 +431,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
-   * @since v8.0.0
+   * @since v10.4.3
    */
   @Nullable
   public SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,

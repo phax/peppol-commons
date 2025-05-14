@@ -53,6 +53,7 @@ import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.httpclient.AbstractGenericSMPClient;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerUnsigned;
+import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.smpclient.url.ISMPURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.bdxr.smp1.EndpointType;
@@ -68,12 +69,11 @@ import com.helger.xsds.xmldsig.X509DataType;
 import jakarta.xml.bind.JAXBElement;
 
 /**
- * This class is used for calling the OASIS BDXR SMP v1 REST interface. This
- * class only contains the read-only methods defined in the SMP specification
- * and nothing else.
+ * This class is used for calling the OASIS BDXR SMP v1 REST interface. This class only contains the
+ * read-only methods defined in the SMP specification and nothing else.
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger
@@ -92,14 +92,12 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
-   *        The participant identifier to be used. Required to build the SMP
-   *        access URI.
+   *        The participant identifier to be used. Required to build the SMP access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
    * @throws SMPDNSResolutionException
    *         If DNS resolution failed
-   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
-   *      ISMLInfo)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    */
   public BDXRClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
                              @Nonnull final IParticipantIdentifier aParticipantIdentifier,
@@ -114,13 +112,11 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
-   *        The participant identifier to be used. Required to build the SMP
-   *        access URI.
+   *        The participant identifier to be used. Required to build the SMP access URI.
    * @param sSMLZoneName
-   *        The SML DNS zone name to be used. Required to build the SMP access
-   *        URI. Must end with a trailing dot (".") and may neither be
-   *        <code>null</code> nor empty to build a correct URL. May not start
-   *        with "http://". Example: <code>sml.peppolcentral.org.</code>
+   *        The SML DNS zone name to be used. Required to build the SMP access URI. Must end with a
+   *        trailing dot (".") and may neither be <code>null</code> nor empty to build a correct
+   *        URL. May not start with "http://". Example: <code>sml.peppolcentral.org.</code>
    * @throws SMPDNSResolutionException
    *         if DNS resolution failed
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
@@ -137,8 +133,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * Remember: must be HTTP and using port 80 only!
    *
    * @param aSMPHost
-   *        The address of the SMP service. Must be port 80 and basic http only
-   *        (no https!). Example: http://smpcompany.company.org
+   *        The address of the SMP service. Must be port 80 and basic http only (no https!).
+   *        Example: http://smpcompany.company.org
    */
   public BDXRClientReadOnly (@Nonnull final URI aSMPHost)
   {
@@ -146,12 +142,11 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
+   * Returns a service group. A service group references to the service metadata. This is a
+   * specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id corresponding to the service group which one
-   *        wants to get.
+   *        The service group id corresponding to the service group which one wants to get.
    * @return The service group. Never <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
@@ -209,8 +204,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @param aIdentifierFactory
    *        The identifier factory to be used. May not be <code>null</code>.
    * @param aUnhandledHrefHandler
-   *        An optional consumer for Hrefs that could not be parsed into a
-   *        document type identifier. May be <code>null</code>.
+   *        An optional consumer for Hrefs that could not be parsed into a document type identifier.
+   *        May be <code>null</code>.
    * @return Never <code>null</code> but a maybe empty list.
    * @since 8.0.4
    */
@@ -266,14 +261,42 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type. This is a specification compliant method.
+   * Gets a signed service metadata object given by its service group id and its document type. This
+   * is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
+   *        The document type of the service metadata to get. May not be <code>null</code>.
+   * @return A signed service metadata object. Never <code>null</code>.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @throws SMPClientUnauthorizedException
+   *         A HTTP Forbidden was received, should not happen.
+   * @throws SMPClientNotFoundException
+   *         The service group id or document type did not exist.
+   * @throws SMPClientBadRequestException
+   *         The request was not well formed.
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
+   * @since v8.0.0
+   */
+  @Nonnull
+  public SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
+                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    return getServiceMetadata (aServiceGroupID, aDocumentTypeID, null);
+  }
+
+  /**
+   * Gets a signed service metadata object given by its service group id and its document type. This
+   * is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May be
    *        <code>null</code>.
    * @return A signed service metadata object. Never <code>null</code>.
    * @throws SMPClientException
@@ -284,13 +307,13 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         The service group id or document type did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier)
-   * @since v8.0.0
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
+   * @since v10.5.0
    */
   @Nonnull
   public SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                       @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -334,12 +357,18 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
     }
 
     // If the Redirect element is present, then follow 1 redirect.
-    if (isFollowSMPRedirects ())
+    if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
     {
-      if (aMetadata.getServiceMetadata () != null && aMetadata.getServiceMetadata ().getRedirect () != null)
-      {
-        final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
+      final RedirectType aRedirect = aMetadata.getServiceMetadata ().getRedirect ();
+      final boolean bWillFollow = isFollowSMPRedirects ();
 
+      // Call callback (if provided)
+      if (aFollowRedirectCallback != null)
+        aFollowRedirectCallback.onFollowSMPRedirect (bWillFollow, aRedirect.getHref ());
+
+      // Is it allowed to follow redirects
+      if (bWillFollow)
+      {
         // Follow the redirect
         LOGGER.info ("Following a redirect from '" + sURI + "' to '" + aRedirect.getHref () + "'");
         final HttpGet aRequest = new HttpGet (aRedirect.getHref ());
@@ -378,44 +407,47 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         if (!bCertificateSubjectFound)
           throw new SMPClientException ("The X509 certificate did not contain a certificate subject.");
       }
-    }
-    else
-    {
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Following SMP redirects is disabled");
+      else
+      {
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Following SMP redirects is disabled");
+      }
     }
 
     return aMetadata;
   }
 
   /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type. This is a specification compliant method.
+   * Gets a signed service metadata object given by its service group id and its document type. This
+   * is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
+   *        The document type of the service metadata to get. May not be <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May be
    *        <code>null</code>.
-   * @return A signed service metadata object or <code>null</code> if no such
-   *         registration is present.
+   * @return A signed service metadata object or <code>null</code> if no such registration is
+   *         present.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
    *         A HTTP Forbidden was received, should not happen.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
-   * @since v8.0.0
+   * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier,
+   *      ISMPFollowRedirectCallback)
+   * @since v10.5.0
    */
   @Nullable
   public SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                             @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+                                                             @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                             @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
   {
     try
     {
-      return getServiceMetadata (aServiceGroupID, aDocumentTypeID);
+      return getServiceMetadata (aServiceGroupID, aDocumentTypeID, aFollowRedirectCallback);
     }
     catch (final SMPClientNotFoundException ex)
     {
@@ -426,19 +458,17 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
-   * Extract the Endpoint from the signedServiceMetadata that matches the passed
-   * process ID and the optional required transport profile.
+   * Extract the Endpoint from the signedServiceMetadata that matches the passed process ID and the
+   * optional required transport profile.
    *
    * @param aSignedServiceMetadata
    *        The signed service meta data object (e.g. from a call to
-   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
-   *        . May not be <code>null</code>.
+   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)} . May
+   *        not be <code>null</code>.
    * @param aProcessID
-   *        The process identifier to be looked up. May not be <code>null</code>
-   *        .
+   *        The process identifier to be looked up. May not be <code>null</code> .
    * @param aTransportProfile
-   *        The required transport profile to be used. May not be
-   *        <code>null</code>.
+   *        The required transport profile to be used. May not be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
    */
   @Nullable
@@ -451,17 +481,15 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
-   * Extract the Endpoint from the ServiceMetadata that matches the passed
-   * process ID and the optional required transport profile.
+   * Extract the Endpoint from the ServiceMetadata that matches the passed process ID and the
+   * optional required transport profile.
    *
    * @param aServiceMetadata
    *        The unsigned service meta data object. May not be <code>null</code>.
    * @param aProcessID
-   *        The process identifier to be looked up. May not be <code>null</code>
-   *        .
+   *        The process identifier to be looked up. May not be <code>null</code> .
    * @param aTransportProfile
-   *        The required transport profile to be used. May not be
-   *        <code>null</code>.
+   *        The required transport profile to be used. May not be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
    * @since 8.2.6
    */
@@ -501,10 +529,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
                        aProcessID +
                        " and transport profile " +
                        aTransportProfile.getID () +
-                       (aRelevantEndpoints.isEmpty () ? ""
-                                                      : ": " +
-                                                        aRelevantEndpoints.toString () +
-                                                        " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
+                                                             aRelevantEndpoints.toString () +
+                                                             " - using the first one"));
         }
 
         // Use the first endpoint or null
@@ -527,8 +554,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *
    * @param aEndpoint
    *        The endpoint to be used. May be <code>null</code>.
-   * @return <code>null</code> if the endpoint is <code>null</code> if the
-   *         endpoint has no address URI.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the endpoint has no address
+   *         URI.
    */
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
@@ -541,8 +568,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *
    * @param aEndpoint
    *        The endpoint to be used. May be <code>null</code>.
-   * @return <code>null</code> if the endpoint is <code>null</code> if the
-   *         endpoint has no certificate.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the endpoint has no
+   *         certificate.
    * @since 7.0.6
    */
   @Nullable
@@ -556,8 +583,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *
    * @param aEndpoint
    *        The endpoint to be used. May be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws CertificateException
    *         In case the conversion from byte to X509 certificate failed
    */
@@ -573,8 +599,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *
    * @param aEndpoint
    *        The endpoint to be used. May be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate or if the certificate is invalid.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate or
+   *         if the certificate is invalid.
    * @since 8.1.2
    */
   @Nullable
@@ -591,16 +617,14 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
-   * Returns a service group. A service group references to the service
-   * metadata.
+   * Returns a service group. A service group references to the service metadata.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aSMLInfo
    *        The SML object to be used
    * @param aServiceGroupID
-   *        The service group id corresponding to the service group which one
-   *        wants to get.
+   *        The service group id corresponding to the service group which one wants to get.
    * @return The service group
    * @throws SMPClientException
    *         in case something goes wrong
@@ -623,8 +647,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   /**
-   * Gets a signed service metadata object given by its service group id and its
-   * document type.
+   * Gets a signed service metadata object given by its service group id and its document type.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.

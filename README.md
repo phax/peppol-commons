@@ -334,6 +334,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.5.0 - 2025-04-15
+    * Moved the interface `ISMPFollowRedirectCallback` to its own package
+    * Extended BDXR1 and BDXR2 clients to also support the `ISMPFollowRedirectCallback`
 * v10.4.3 - 2025-05-14
     * Introduced new interface `ISMPFollowRedirectCallback`
     * The `ISMPServiceMetadataProvider.getServiceMetadata(OrNull)` methods received an overload with an optional `ISMPFollowRedirectCallback`
