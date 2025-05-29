@@ -17,8 +17,10 @@
 package com.helger.peppol.mls;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.ZoneOffset;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -51,7 +53,8 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Descrip
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.EndpointIDType;
 
 /**
- * Builder for a Peppol MLS. Fill all the fields and call {@link #build()} at the end.
+ * Builder for a Peppol MLS. Fill all the fields and call {@link #build()} at
+ * the end.
  *
  * @author Philip Helger
  */
@@ -63,7 +66,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   private final EPeppolMLSResponseCode m_eResponseCode;
   private String m_sID;
   private LocalDate m_aIssueDate;
-  private LocalTime m_aIssueTime;
+  private XMLOffsetTime m_aIssueTime;
   private IParticipantIdentifier m_aSenderPID;
   private IParticipantIdentifier m_aReceiverPID;
   private String m_sReferenceID;
@@ -124,27 +127,33 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   @Nonnull
   public PeppolMLSBuilder issueTimeNow ()
   {
-    return issueTime (PDTFactory.getCurrentLocalTimeMillisOnly ());
+    return issueTime (PDTFactory.getCurrentOffsetTimeMillisOnly ());
   }
 
   @Nonnull
   public PeppolMLSBuilder issueTime (@Nullable final XMLOffsetTime a)
-  {
-    return issueTime (a == null ? null : a.toLocalTime ());
-  }
-
-  @Nonnull
-  public PeppolMLSBuilder issueTime (@Nullable final LocalTime a)
   {
     m_aIssueTime = a;
     return this;
   }
 
   @Nonnull
+  public PeppolMLSBuilder issueTime (@Nullable final OffsetTime a)
+  {
+    return issueTime (a == null ? null : XMLOffsetTime.of (a));
+  }
+
+  @Nonnull
+  public PeppolMLSBuilder issueTime (@Nullable final LocalTime a, @Nonnull final ZoneOffset aZoneOffset)
+  {
+    return issueTime (a == null ? null : XMLOffsetTime.of (a, aZoneOffset));
+  }
+
+  @Nonnull
   public PeppolMLSBuilder issueDateTimeNow ()
   {
-    final LocalDateTime aLDT = PDTFactory.getCurrentLocalDateTimeMillisOnly ();
-    return issueDate (aLDT.toLocalDate ()).issueTime (aLDT.toLocalTime ());
+    final OffsetDateTime aLDT = PDTFactory.getCurrentOffsetDateTimeMillisOnly ();
+    return issueDate (aLDT.toLocalDate ()).issueTime (aLDT.toOffsetTime ());
   }
 
   @Nonnull
@@ -174,8 +183,8 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
-   * Set the ID of the message we're referencing. This MUST be the Instance Identifier of the SBDH
-   * of the source message.
+   * Set the ID of the message we're referencing. This MUST be the Instance
+   * Identifier of the SBDH of the source message.
    *
    * @param s
    *        Instance Identifier of the source message SBDH
@@ -192,7 +201,8 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    * Set the type code of the message we're referencing. This is optional.
    *
    * @param s
-   *        Type code of the source message (like <code>380</code> for an invoice)
+   *        Type code of the source message (like <code>380</code> for an
+   *        invoice)
    * @return this for chaining
    */
   @Nonnull
@@ -203,8 +213,8 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
-   * Set the response text returned to the sender. This is e.g. the reason for rejection. This must
-   * be human readable text. The text may be multiline.
+   * Set the response text returned to the sender. This is e.g. the reason for
+   * rejection. This must be human readable text. The text may be multiline.
    *
    * @param s
    *        Response text.
@@ -254,11 +264,27 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
       return false;
     }
 
-    // Date is mandatory, time is optional
+    // Date is mandatory
     if (m_aIssueDate == null)
     {
       if (bLogDetails)
         LOGGER.warn ("The MLS Issue Date is missing");
+      return false;
+    }
+
+    // Time is mandatory
+    if (m_aIssueTime == null)
+    {
+      if (bLogDetails)
+        LOGGER.warn ("The MLS Issue Time is missing");
+      return false;
+    }
+
+    // Time zone of Time is mandatory
+    if (m_aIssueTime.getOffset () == null)
+    {
+      if (bLogDetails)
+        LOGGER.warn ("The MLS Issue Time is missing the mandatory Zone Offset");
       return false;
     }
 
@@ -392,12 +418,14 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
-   * Create a predefined Peppol MLS builder based on the validation result list. If the list
-   * contains no error, {@link #acceptance()} is returned else {@link #rejection()} with the
-   * pre-filled lines is returned. Sender, Receiver and Reference ID need to be set manually anyway.
+   * Create a predefined Peppol MLS builder based on the validation result list.
+   * If the list contains no error, {@link #acceptance()} is returned else
+   * {@link #rejection()} with the pre-filled lines is returned. Sender,
+   * Receiver and Reference ID need to be set manually anyway.
    *
    * @param aVRL
-   *        The Validation result list to evaluate. May not be <code>null</code>.
+   *        The Validation result list to evaluate. May not be
+   *        <code>null</code>.
    * @return A new {@link PeppolMLSBuilder} and never <code>null</code>.
    */
   @Nonnull
@@ -451,7 +479,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
       throw new IllegalArgumentException ("The given application response is not a valid MLS - wrong customization ID");
     if (!CPeppolMLS.MLS_PROFILE_ID.equals (aAR.getProfileIDValue ()))
       throw new IllegalArgumentException ("The given application response is not a valid MLS - wrong profile ID");
-    if (aAR.getDocumentResponse ().size () != 1)
+    if (aAR.getDocumentResponse ().size () <= 0)
       throw new IllegalArgumentException ("The given application response is not a valid MLS - exepcted exactly one document responses");
 
     final PartyType aSenderParty = aAR.getSenderParty ();

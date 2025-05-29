@@ -56,7 +56,7 @@ public final class PeppolMLSBuilderTest
     final String sMLS2 = new PeppolMLSMarshaller ().getAsString (aMLS2);
     assertEquals (sMLS1, sMLS2);
 
-    if (false)
+    if (true)
       LOGGER.info (new PeppolMLSMarshaller ().setFormattedOutput (true).getAsString (aMLS));
     if (false)
       new PeppolMLSMarshaller ().setFormattedOutput (true).write (aMLS, new File ("generated/mls1.xml"));
