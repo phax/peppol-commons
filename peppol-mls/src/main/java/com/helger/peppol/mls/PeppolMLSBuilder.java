@@ -34,6 +34,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.builder.IBuilder;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.XMLOffsetDate;
 import com.helger.commons.datetime.XMLOffsetTime;
@@ -112,6 +113,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   }
 
   @Nonnull
+  public PeppolMLSBuilder issueDate (@Nullable final OffsetDate a)
+  {
+    return issueDate (a == null ? null : a.toLocalDate ());
+  }
+
+  @Nonnull
   public PeppolMLSBuilder issueDate (@Nullable final XMLOffsetDate a)
   {
     return issueDate (a == null ? null : a.toLocalDate ());
@@ -127,14 +134,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   @Nonnull
   public PeppolMLSBuilder issueTimeNow ()
   {
-    return issueTime (PDTFactory.getCurrentOffsetTimeMillisOnly ());
-  }
-
-  @Nonnull
-  public PeppolMLSBuilder issueTime (@Nullable final XMLOffsetTime a)
-  {
-    m_aIssueTime = a;
-    return this;
+    return issueTime (PDTFactory.getCurrentXMLOffsetTimeMillisOnly ());
   }
 
   @Nonnull
@@ -147,6 +147,13 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   public PeppolMLSBuilder issueTime (@Nullable final LocalTime a, @Nonnull final ZoneOffset aZoneOffset)
   {
     return issueTime (a == null ? null : XMLOffsetTime.of (a, aZoneOffset));
+  }
+
+  @Nonnull
+  public PeppolMLSBuilder issueTime (@Nullable final XMLOffsetTime a)
+  {
+    m_aIssueTime = a;
+    return this;
   }
 
   @Nonnull
@@ -322,8 +329,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     ret.setProfileID (CPeppolMLS.MLS_PROFILE_ID);
     ret.setID (m_sID);
     ret.setIssueDate (m_aIssueDate);
-    if (m_aIssueTime != null)
-      ret.setIssueTime (m_aIssueTime);
+    ret.setIssueTime (m_aIssueTime);
 
     {
       final String sValue = m_aSenderPID.getValue ();
