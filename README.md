@@ -124,7 +124,7 @@ See https://github.com/phax/peppol-commons/blob/master/peppol-mlr/src/test/java/
 
 This was introduced in v10.0.3
 
-This project holds utility classes to read and write a Peppol Message Level Status (MLs) as defined in the member review of the MLS specification.
+This project holds utility classes to read and write a [Peppol Message Level Status](https://docs.peppol.eu/edelivery/specs/mls/v1.0.0/) (MLS) as defined in the member review of the MLS specification.
 This is not necessarily the final version of the Peppol MLS and subject to change when the final version is released.
 
 * Class `PeppolMLSBuilder` can be used to build a Peppol MLS document - with or without line details. For each `LineResponse` the specialized builder class `PeppolMLSLineResponseBuilder` is available.
@@ -334,6 +334,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v10.5.1 - 2025-05-29
+    * The `PeppolMLSBuilder` now correctly requires the issue time with a mandatory time zone
 * v10.5.0 - 2025-04-15
     * Moved the interface `ISMPFollowRedirectCallback` to its own package
     * Extended BDXR1 and BDXR2 clients to also support the `ISMPFollowRedirectCallback`
