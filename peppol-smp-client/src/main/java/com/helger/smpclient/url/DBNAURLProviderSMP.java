@@ -16,7 +16,11 @@
  */
 package com.helger.smpclient.url;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.ICloneable;
 
 /**
  * An implementation of {@link IBDXLURLProvider} suitable for the DBNA network
@@ -26,7 +30,9 @@ import javax.annotation.concurrent.ThreadSafe;
  * @since 9.3.4
  */
 @ThreadSafe
-public class DBNAURLProviderSMP extends AbstractBDXLURLProvider implements IBDXLURLProvider
+public class DBNAURLProviderSMP extends AbstractBDXLURLProvider implements
+                                IBDXLURLProvider,
+                                ICloneable <DBNAURLProviderSMP>
 {
   /**
    * The U-NAPTR record service name. Based on DBNA SML Profile 1.0 chapter 4.3.
@@ -47,5 +53,23 @@ public class DBNAURLProviderSMP extends AbstractBDXLURLProvider implements IBDXL
     setAddIdentifierSchemeToZone (false);
     setNAPTRServiceName (NAPTR_SERVICE_NAME);
     setUseDNSCache (false);
+  }
+
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        the object to copy from. May not be <code>null</code>.
+   */
+  protected DBNAURLProviderSMP (@Nonnull final DBNAURLProviderSMP rhs)
+  {
+    super (rhs);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public DBNAURLProviderSMP getClone ()
+  {
+    return new DBNAURLProviderSMP (this);
   }
 }

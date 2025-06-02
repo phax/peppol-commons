@@ -52,7 +52,8 @@ import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
- * An abstract implementation of {@link IBDXLURLProvider} that support U-NAPTR record resolution.
+ * An abstract implementation of {@link IBDXLURLProvider} that support U-NAPTR
+ * record resolution.
  *
  * @author Philip Helger
  * @since 8.1.7
@@ -86,6 +87,23 @@ public abstract class AbstractBDXLURLProvider
    */
   public AbstractBDXLURLProvider ()
   {}
+
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        The UBL provider to copy from. May not be <code>null</code>.
+   */
+  protected AbstractBDXLURLProvider (@Nonnull final AbstractBDXLURLProvider rhs)
+  {
+    m_bLowercaseValueBeforeHashing = rhs.m_bLowercaseValueBeforeHashing;
+    m_bAddIdentifierSchemeToZone = rhs.m_bAddIdentifierSchemeToZone;
+    m_sNAPTRServiceName = rhs.m_sNAPTRServiceName;
+    m_bUseDNSCache = rhs.m_bUseDNSCache;
+    m_aDNSCache.putAll (rhs.m_aDNSCache);
+    m_aCustomDNSServers.addAll (rhs.m_aCustomDNSServers);
+    m_bUseNaptrDebug = rhs.m_bUseNaptrDebug;
+  }
 
   public final boolean isLowercaseValueBeforeHashing ()
   {
@@ -129,7 +147,8 @@ public abstract class AbstractBDXLURLProvider
    * Enable or disable internal DNS caching. By default it is enabled.
    *
    * @param bUseDNSCache
-   *        <code>true</code> to enable caching, <code>false</code> to disable it.
+   *        <code>true</code> to enable caching, <code>false</code> to disable
+   *        it.
    */
   public final void setUseDNSCache (final boolean bUseDNSCache)
   {
@@ -158,8 +177,8 @@ public abstract class AbstractBDXLURLProvider
   }
 
   /**
-   * Add entries to the cache. This might be helpful when there is a persistent cache (outside this
-   * class) and the old cache entries should be re-added.
+   * Add entries to the cache. This might be helpful when there is a persistent
+   * cache (outside this class) and the old cache entries should be re-added.
    *
    * @param aEntries
    *        The entries to be added. May be <code>null</code>.
@@ -178,8 +197,8 @@ public abstract class AbstractBDXLURLProvider
   }
 
   /**
-   * @return A mutable list of custom DNS servers to be used for resolving DNS entries. Never
-   *         <code>null</code> but maybe empty.
+   * @return A mutable list of custom DNS servers to be used for resolving DNS
+   *         entries. Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableObject
@@ -199,8 +218,9 @@ public abstract class AbstractBDXLURLProvider
   }
 
   /**
-   * Get the Base32 encoded (without padding), SHA-256 hash-string-representation of the passed
-   * value using the {@link #URL_CHARSET} encoding.
+   * Get the Base32 encoded (without padding), SHA-256
+   * hash-string-representation of the passed value using the
+   * {@link #URL_CHARSET} encoding.
    *
    * @param sValueToHash
    *        The value to be hashed. May not be <code>null</code>.
@@ -210,8 +230,10 @@ public abstract class AbstractBDXLURLProvider
   public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
   {
     final byte [] aMessageDigest = MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET),
-                                                              EMessageDigestAlgorithm.SHA_256).bytes ();
-    // Lowercase manually, because URLs are case-sensitive but usually presented lowercase
+                                                              EMessageDigestAlgorithm.SHA_256)
+                                                     .bytes ();
+    // Lowercase manually, because URLs are case-sensitive but usually presented
+    // lowercase
     return new Base32Codec ().setAddPaddding (false)
                              .getEncodedAsString (aMessageDigest, StandardCharsets.ISO_8859_1)
                              .toLowerCase (Locale.US);
@@ -234,8 +256,8 @@ public abstract class AbstractBDXLURLProvider
 
     // Append the hashed identifier part
     {
-      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue () : aParticipantIdentifier
-                                                                                                                        .getURIEncoded ();
+      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue ()
+                                                           : aParticipantIdentifier.getURIEncoded ();
       if (bLowercaseValueBeforeHashing)
         sIdentifierValue = sIdentifierValue.toLowerCase (URL_LOCALE);
       ret.append (getHashValueStringRepresentation (sIdentifierValue)).append ('.');

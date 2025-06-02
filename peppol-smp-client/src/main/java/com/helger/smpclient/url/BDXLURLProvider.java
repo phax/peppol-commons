@@ -16,7 +16,11 @@
  */
 package com.helger.smpclient.url;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.ICloneable;
 
 /**
  * The default implementation of {@link IBDXLURLProvider} suitable for the
@@ -28,7 +32,7 @@ import javax.annotation.concurrent.ThreadSafe;
  * @author Philip Helger
  */
 @ThreadSafe
-public class BDXLURLProvider extends AbstractBDXLURLProvider implements IBDXLURLProvider
+public class BDXLURLProvider extends AbstractBDXLURLProvider implements IBDXLURLProvider, ICloneable <BDXLURLProvider>
 {
   /** U NAPTR service name for e-SENS/PEPPOL */
   public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
@@ -47,5 +51,23 @@ public class BDXLURLProvider extends AbstractBDXLURLProvider implements IBDXLURL
     setAddIdentifierSchemeToZone (true);
     setNAPTRServiceName (DNS_UNAPTR_SERVICE_NAME_META_SMP);
     setUseDNSCache (false);
+  }
+
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        the object to copy from. May not be <code>null</code>.
+   */
+  protected BDXLURLProvider (@Nonnull final BDXLURLProvider rhs)
+  {
+    super (rhs);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public BDXLURLProvider getClone ()
+  {
+    return new BDXLURLProvider (this);
   }
 }

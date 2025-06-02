@@ -16,13 +16,17 @@
  */
 package com.helger.smpclient.url;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.ICloneable;
 import com.helger.peppolid.peppol.Pfuoi440;
 
 /**
- * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve NAPTR
- * records as defined in the Peppol Policy for use of Identifiers.<br>
+ * The implementation of {@link IPeppolURLProvider} suitable for the Peppol
+ * Network to resolve NAPTR records as defined in the Peppol Policy for use of
+ * Identifiers.<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
@@ -31,7 +35,9 @@ import com.helger.peppolid.peppol.Pfuoi440;
  */
 @ThreadSafe
 @Pfuoi440
-public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements IPeppolURLProvider
+public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements
+                                    IPeppolURLProvider,
+                                    ICloneable <PeppolNaptrURLProvider>
 {
   /** U NAPTR service name for e-SENS/PEPPOL */
   public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
@@ -50,5 +56,23 @@ public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements I
     setAddIdentifierSchemeToZone (true);
     setNAPTRServiceName (DNS_UNAPTR_SERVICE_NAME_META_SMP);
     setUseDNSCache (false);
+  }
+
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        the object to copy from. May not be <code>null</code>.
+   */
+  protected PeppolNaptrURLProvider (@Nonnull final PeppolNaptrURLProvider rhs)
+  {
+    super (rhs);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public PeppolNaptrURLProvider getClone ()
+  {
+    return new PeppolNaptrURLProvider (this);
   }
 }
