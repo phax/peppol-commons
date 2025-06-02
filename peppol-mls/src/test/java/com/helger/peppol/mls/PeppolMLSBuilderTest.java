@@ -70,10 +70,9 @@ public final class PeppolMLSBuilderTest
                                                          .referenceId ("SBDH-12345")
                                                          .senderParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mls-sender"))
                                                          .receiverParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mls-receiver"))
-                                                         .addLineResponse (PeppolMLSLineResponseBuilder.rejection ()
-                                                                                                       .errorField ("Invoice/ID")
-                                                                                                       .statusReasonCodeBusinessRuleViolationFatal ()
-                                                                                                       .description ("The ID seems to be missing"))
+                                                         .addLineResponse (new PeppolMLSLineResponseBuilder ().errorField ("Invoice/ID")
+                                                                                                              .statusReasonCodeBusinessRuleViolationFatal ()
+                                                                                                              .description ("The ID seems to be missing"))
                                                          .build ();
     assertNotNull (aMLS);
 

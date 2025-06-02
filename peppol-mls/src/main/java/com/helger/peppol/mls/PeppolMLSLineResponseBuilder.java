@@ -33,8 +33,8 @@ import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.Sta
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.DescriptionType;
 
 /**
- * Builder for a single Line Response within a Peppol MLS. Fill all the mandatory fields and call
- * {@link #build()} at the end.
+ * Builder for a single Line Response within a Peppol MLS. Fill all the
+ * mandatory fields and call {@link #build()} at the end.
  *
  * @author Philip Helger
  */
@@ -42,20 +42,16 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSLineResponseBuilder.class);
 
-  private final EPeppolMLSResponseCode m_eResponseCode;
   private String m_sErrorField;
   private String m_sDescription;
   private EPeppolMLSStatusReasonCode m_eStatusReasonCode;
 
-  public PeppolMLSLineResponseBuilder (@Nonnull final EPeppolMLSResponseCode eResponseCode)
-  {
-    ValueEnforcer.notNull (eResponseCode, "ResponseCode");
-    m_eResponseCode = eResponseCode;
-  }
+  public PeppolMLSLineResponseBuilder ()
+  {}
 
   /**
-   * Set the name of the field that is under error. In case of a Schematron failure this should be
-   * the "test" of the failed Schematron assertion.
+   * Set the name of the field that is under error. In case of a Schematron
+   * failure this should be the "test" of the failed Schematron assertion.
    *
    * @param s
    *        Reference to the field under error
@@ -69,9 +65,9 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
   }
 
   /**
-   * Set the response text for this particular line. This should be a human readable text line the
-   * error message referring to a specific field. In case of a Schematron failure, it might be the
-   * text of the failed assertion.
+   * Set the response text for this particular line. This should be a human
+   * readable text line the error message referring to a specific field. In case
+   * of a Schematron failure, it might be the text of the failed assertion.
    *
    * @param s
    *        Response text.
@@ -159,7 +155,6 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
 
     {
       final ResponseType aResponse = new ResponseType ();
-      aResponse.setResponseCode (m_eResponseCode.getID ());
       aResponse.addDescription (new DescriptionType (m_sDescription));
       final StatusType aStatus = new StatusType ();
       aStatus.setStatusReasonCode (m_eStatusReasonCode.getID ());
@@ -168,24 +163,6 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     }
 
     return ret;
-  }
-
-  @Nonnull
-  public static PeppolMLSLineResponseBuilder acceptance ()
-  {
-    return new PeppolMLSLineResponseBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
-  }
-
-  @Nonnull
-  public static PeppolMLSLineResponseBuilder acknowledging ()
-  {
-    return new PeppolMLSLineResponseBuilder (EPeppolMLSResponseCode.ACKNOWLEDGING);
-  }
-
-  @Nonnull
-  public static PeppolMLSLineResponseBuilder rejection ()
-  {
-    return new PeppolMLSLineResponseBuilder (EPeppolMLSResponseCode.REJECTION);
   }
 
   @Nonnull
@@ -201,15 +178,11 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     if (aResponse.hasNoDescriptionEntries ())
       throw new IllegalArgumentException ("Line status has no description entries");
 
-    final EPeppolMLSResponseCode eMLSResponseCode = EPeppolMLSResponseCode.getFromIDOrThrow (aResponse.getResponseCodeValue ());
-
     final StatusType aStatus = aResponse.getStatusAtIndex (0);
     final EPeppolMLSStatusReasonCode eStatusReasonCode = EPeppolMLSStatusReasonCode.getFromIDOrThrow (aStatus.getStatusReasonCodeValue ());
 
-    return new PeppolMLSLineResponseBuilder (eMLSResponseCode).description (aResponse.getDescriptionAtIndex (0)
-                                                                                     .getValue ())
-                                                              .errorField (aLineResponse.getLineReference ()
-                                                                                        .getLineIDValue ())
-                                                              .statusReasonCode (eStatusReasonCode);
+    return new PeppolMLSLineResponseBuilder ().errorField (aLineResponse.getLineReference ().getLineIDValue ())
+                                              .description (aResponse.getDescriptionAtIndex (0).getValue ())
+                                              .statusReasonCode (eStatusReasonCode);
   }
 }

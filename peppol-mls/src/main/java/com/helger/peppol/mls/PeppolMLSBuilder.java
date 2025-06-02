@@ -446,14 +446,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     final Locale aDisplayLocale = Locale.US;
     aVRL.forEachFlattened (aError -> {
       // Single error or warning?
-      final PeppolMLSLineResponseBuilder aLineBuilder = aError.isError () ? PeppolMLSLineResponseBuilder.rejection ()
-                                                                                                        .statusReasonCodeBusinessRuleViolationFatal ()
-                                                                          : PeppolMLSLineResponseBuilder.acknowledging ()
-                                                                                                        .statusReasonCodeBusinessRuleViolationWarning ();
-      aMLSBuilder.addLineResponse (aLineBuilder.errorField (aError.getErrorFieldName ())
-                                               .description (StringHelper.getConcatenatedOnDemand (aError.getErrorID (),
-                                                                                                   " - ",
-                                                                                                   aError.getErrorText (aDisplayLocale))));
+      aMLSBuilder.addLineResponse (new PeppolMLSLineResponseBuilder ().statusReasonCode (aError.isError () ? EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL
+                                                                                                           : EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING)
+                                                                      .errorField (aError.getErrorFieldName ())
+                                                                      .description (StringHelper.getConcatenatedOnDemand (aError.getErrorID (),
+                                                                                                                          " - ",
+                                                                                                                          aError.getErrorText (aDisplayLocale))));
     });
     return aMLSBuilder;
   }
