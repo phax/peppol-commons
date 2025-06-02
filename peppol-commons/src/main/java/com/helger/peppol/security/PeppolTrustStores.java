@@ -42,8 +42,8 @@ import com.helger.security.keystore.TrustStoreDescriptor;
 public final class PeppolTrustStores
 {
   /**
-   * The classpath entry referencing the complete truststore with all OpenPeppol production AND
-   * pilot entries
+   * The classpath entry referencing the complete truststore with all OpenPeppol
+   * production AND pilot entries
    */
   public static final String TRUSTSTORE_COMPLETE_CLASSPATH = "truststore/complete-truststore.jks";
 
@@ -87,8 +87,8 @@ public final class PeppolTrustStores
     // AP Production
 
     /**
-     * The classpath entry referencing the global truststore with all OpenPeppol production entries.
-     * It works for Access Points.
+     * The classpath entry referencing the global truststore with all OpenPeppol
+     * production entries. It works for Access Points.
      */
     public static final String TRUSTSTORE_AP_PRODUCTION_CLASSPATH = "truststore/2018/prod-truststore.jks";
 
@@ -113,8 +113,8 @@ public final class PeppolTrustStores
     // SMP Production
 
     /**
-     * The classpath entry referencing the global truststore with all OpenPeppol production entries.
-     * It works for Access Points.
+     * The classpath entry referencing the global truststore with all OpenPeppol
+     * production entries. It works for Access Points.
      */
     public static final String TRUSTSTORE_SMP_PRODUCTION_CLASSPATH = "truststore/2018/smp-prod-truststore.jks";
 
@@ -134,37 +134,6 @@ public final class PeppolTrustStores
     {
       if (TRUSTSTORE_SMP_PRODUCTION == null)
         throw new IllegalStateException ("Failed to load pre-configured SMP production trust store");
-    }
-
-    // AP eB2B Production
-
-    /**
-     * The classpath entry referencing the global truststore with all OpenPeppol production entries
-     * for an eB2B AP.
-     *
-     * @since 10.0.1
-     */
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final String TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH = "truststore/2018/eb2b-ap-prod-truststore.jks";
-
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_EB2B_AP_PRODUCTION = TrustStoreDescriptor.builder ()
-                                                                                                             .type (TRUSTSTORE_TYPE)
-                                                                                                             .path (TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH)
-                                                                                                             .password (TRUSTSTORE_PASSWORD)
-                                                                                                             .build ();
-
-    /**
-     * The full eB2B AP production truststore. Never modify.
-     */
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final KeyStore TRUSTSTORE_EB2B_AP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_EB2B_AP_PRODUCTION.loadTrustStore ()
-                                                                                                         .getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_EB2B_AP_PRODUCTION == null)
-        throw new IllegalStateException ("Failed to load pre-configured production eB2B AP trust store");
     }
 
     // Production CA certificates
@@ -190,22 +159,11 @@ public final class PeppolTrustStores
     public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
                                                                                    TRUSTSTORE_PRODUCTION_ALIAS_SMP);
 
-    /**
-     * The truststore alias for the OpenPeppol production eB2B AP certificate
-     */
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final String TRUSTSTORE_PRODUCTION_ALIAS_EB2B_AP = "peppol eb2b access point ca - g2 (peppol root ca - g2)";
-
-    /** The OpenPeppol production AP certificate */
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final X509Certificate CERTIFICATE_PRODUCTION_EB2B_AP = _resolveCert (TRUSTSTORE_EB2B_AP_PRODUCTION,
-                                                                                       TRUSTSTORE_PRODUCTION_ALIAS_EB2B_AP);
-
     // AP Test
 
     /**
-     * The classpath entry referencing the global truststore with all OpenPeppol pilot entries for
-     * an AP.
+     * The classpath entry referencing the global truststore with all OpenPeppol
+     * pilot entries for an AP.
      */
     public static final String TRUSTSTORE_AP_PILOT_CLASSPATH = "truststore/2018/pilot-truststore.jks";
 
@@ -229,8 +187,8 @@ public final class PeppolTrustStores
     // SMP Test
 
     /**
-     * The classpath entry referencing the global truststore with all OpenPeppol pilot entries for
-     * SMPs.
+     * The classpath entry referencing the global truststore with all OpenPeppol
+     * pilot entries for SMPs.
      */
     public static final String TRUSTSTORE_SMP_PILOT_CLASSPATH = "truststore/2018/smp-pilot-truststore.jks";
 
@@ -250,37 +208,6 @@ public final class PeppolTrustStores
     {
       if (TRUSTSTORE_SMP_PILOT == null)
         throw new IllegalStateException ("Failed to load pre-configured SMP pilot trust store");
-    }
-
-    // AP eB2B Test
-
-    /**
-     * The classpath entry referencing the global truststore with all OpenPeppol pilot entries for
-     * an eB2B AP.
-     *
-     * @since 9.6.0
-     */
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final String TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH = "truststore/2018/eb2b-ap-pilot-truststore.jks";
-
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_EB2B_AP_PILOT = TrustStoreDescriptor.builder ()
-                                                                                                        .type (TRUSTSTORE_TYPE)
-                                                                                                        .path (TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH)
-                                                                                                        .password (TRUSTSTORE_PASSWORD)
-                                                                                                        .build ();
-
-    /**
-     * The full eB2B AP pilot truststore. Never modify.
-     */
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final KeyStore TRUSTSTORE_EB2B_AP_PILOT = TRUSTSTORE_DESCRIPTOR_EB2B_AP_PILOT.loadTrustStore ()
-                                                                                               .getKeyStore ();
-
-    static
-    {
-      if (TRUSTSTORE_EB2B_AP_PILOT == null)
-        throw new IllegalStateException ("Failed to load pre-configured pilot eB2B AP trust store");
     }
 
     // Test CA certificates
@@ -305,15 +232,6 @@ public final class PeppolTrustStores
     /** The OpenPeppol pilot SMP certificate */
     public static final X509Certificate CERTIFICATE_PILOT_SMP = _resolveCert (TRUSTSTORE_AP_PILOT,
                                                                               TRUSTSTORE_PILOT_ALIAS_SMP);
-
-    /** The truststore alias for the OpenPeppol pilot eB2B AP certificate */
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final String TRUSTSTORE_PILOT_ALIAS_EB2B_AP = "peppol eb2b access point test ca - g2 (peppol root test ca - g2)";
-
-    /** The OpenPeppol pilot AP certificate */
-    @Deprecated (forRemoval = true, since = "10.4.2")
-    public static final X509Certificate CERTIFICATE_PILOT_EB2B_AP = _resolveCert (TRUSTSTORE_EB2B_AP_PILOT,
-                                                                                  TRUSTSTORE_PILOT_ALIAS_EB2B_AP);
   }
 
   @PresentForCodeCoverage

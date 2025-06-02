@@ -33,7 +33,8 @@ import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
- * Utility class to create hash codes of the global trust store to verify if it is valid or not.
+ * Utility class to create hash codes of the global trust store to verify if it
+ * is valid or not.
  *
  * @author Philip Helger
  */
@@ -60,7 +61,6 @@ public final class MainCreateTrustStoreHashFiles
     LOGGER.info ("Done creating hash values for " + sTruststorePath);
   }
 
-  @SuppressWarnings ("removal")
   public static void main (final String [] args) throws IOException
   {
     _create (PeppolTrustStores.TRUSTSTORE_COMPLETE_CLASSPATH);
@@ -72,7 +72,5 @@ public final class MainCreateTrustStoreHashFiles
     _create (PeppolTrustStores.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH);
     _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PRODUCTION_CLASSPATH);
     _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PILOT_CLASSPATH);
-    _create (PeppolTrustStores.Config2018.TRUSTSTORE_EB2B_AP_PRODUCTION_CLASSPATH);
-    _create (PeppolTrustStores.Config2018.TRUSTSTORE_EB2B_AP_PILOT_CLASSPATH);
   }
 }
