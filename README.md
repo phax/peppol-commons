@@ -334,10 +334,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v11.0.0 - work in progress
+* v11.0.0 - 2025-06-02
     * Updated to Peppol eDEC Code Lists v9.2
+    * Removed `Pfuoi420` annotation and all methods that were marked with it. This means, this version only supports Peppol Policy for use of Identifiers v4.3.0 or later.
     * Added a `getClone` method to the the NAPTR based URL providers
-    * Removed `Pfuoi420` annotation and all methods that were marked with it
     * Removed all deprecated methods and classes, that were marked for removal in the previous releases
     * Removed the MLS builder "Response Code" per Line Response
     * The `PeppolMLSLineResponseBuilder` can now deal with multiple responses per "Line Response"
