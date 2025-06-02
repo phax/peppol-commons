@@ -315,6 +315,18 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
         LOGGER.warn ("The MLS Reference ID is missing");
       return false;
     }
+
+    if (m_eResponseCode.isFailure ())
+    {
+      // In case of rejection, at least one line response must be present
+      if (m_aLineResponses.isEmpty ())
+      {
+        if (bLogDetails)
+          LOGGER.warn ("The MLS contains a failure response code but no line responses are present");
+        return false;
+      }
+    }
+
     return true;
   }
 
