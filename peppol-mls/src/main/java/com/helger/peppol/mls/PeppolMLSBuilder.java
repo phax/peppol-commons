@@ -26,6 +26,7 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.builder.IBuilder;
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.datetime.OffsetDate;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.XMLOffsetDate;
@@ -59,6 +62,7 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Endpoin
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSBuilder.class);
@@ -456,14 +460,19 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
 
     // Add each warning/error
     final Locale aDisplayLocale = Locale.US;
+    final ICommonsMap <String, PeppolMLSLineResponseBuilder> aBuilderMap = new CommonsHashMap <> ();
     aVRL.forEachFlattened (aError -> {
       // Single error or warning?
-      aMLSBuilder.addLineResponse (new PeppolMLSLineResponseBuilder ().statusReasonCode (aError.isError () ? EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL
-                                                                                                           : EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING)
-                                                                      .errorField (aError.getErrorFieldName ())
-                                                                      .description (StringHelper.getConcatenatedOnDemand (aError.getErrorID (),
-                                                                                                                          " - ",
-                                                                                                                          aError.getErrorText (aDisplayLocale))));
+      aBuilderMap.computeIfAbsent (aError.getErrorFieldName (), k -> {
+        final PeppolMLSLineResponseBuilder ret = new PeppolMLSLineResponseBuilder ().errorField (k);
+        aMLSBuilder.addLineResponse (ret);
+        return ret;
+      })
+                 .addResponse (new PeppolMLSLineResponseResponseBuilder ().statusReasonCode (aError.isError () ? EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL
+                                                                                                               : EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING)
+                                                                          .description (StringHelper.getConcatenatedOnDemand (aError.getErrorID (),
+                                                                                                                              " - ",
+                                                                                                                              aError.getErrorText (aDisplayLocale))));
     });
     return aMLSBuilder;
   }

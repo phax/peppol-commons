@@ -18,19 +18,21 @@ package com.helger.peppol.mls;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.builder.IBuilder;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.StringHelper;
 
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineReferenceType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
-import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.StatusType;
-import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.DescriptionType;
 
 /**
  * Builder for a single Line Response within a Peppol MLS. Fill all the
@@ -38,13 +40,13 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Descrip
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSLineResponseBuilder.class);
 
   private String m_sErrorField;
-  private String m_sDescription;
-  private EPeppolMLSStatusReasonCode m_eStatusReasonCode;
+  private final ICommonsList <ResponseType> m_aResponses = new CommonsArrayList <> ();
 
   public PeppolMLSLineResponseBuilder ()
   {}
@@ -65,49 +67,62 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
   }
 
   /**
-   * Set the response text for this particular line. This should be a human
-   * readable text line the error message referring to a specific field. In case
-   * of a Schematron failure, it might be the text of the failed assertion.
+   * Add a single response object.
    *
-   * @param s
-   *        Response text.
+   * @param eStatusReasonCode
+   *        Status reason code. May be <code>null</code>.
+   * @param sDescription
+   *        The description reason for this response. May neither be
+   *        <code>null</code> nor empty.
    * @return this for chaining
    */
   @Nonnull
-  public PeppolMLSLineResponseBuilder description (@Nullable final String s)
+  public PeppolMLSLineResponseBuilder addResponse (@Nonnull final EPeppolMLSStatusReasonCode eStatusReasonCode,
+                                                   @Nonnull @Nonempty final String sDescription)
   {
-    m_sDescription = s;
+    return addResponse (new PeppolMLSLineResponseResponseBuilder ().statusReasonCode (eStatusReasonCode)
+                                                                   .description (sDescription));
+  }
+
+  /**
+   * Add a single response object.
+   *
+   * @param a
+   *        Response object. May be <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  public PeppolMLSLineResponseBuilder addResponse (@Nullable final PeppolMLSLineResponseResponseBuilder a)
+  {
+    return addResponse (a == null ? null : a.build ());
+  }
+
+  /**
+   * Add a single response object.
+   *
+   * @param a
+   *        Response object. May be <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  public PeppolMLSLineResponseBuilder addResponse (@Nullable final ResponseType a)
+  {
+    if (a != null)
+      m_aResponses.add (a);
     return this;
   }
 
   @Nonnull
-  public PeppolMLSLineResponseBuilder statusReasonCodeBusinessRuleViolationFatal ()
+  public PeppolMLSLineResponseBuilder responses (@Nullable final ResponseType... a)
   {
-    return statusReasonCode (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL);
+    m_aResponses.setAll (a);
+    return this;
   }
 
   @Nonnull
-  public PeppolMLSLineResponseBuilder statusReasonCodeBusinessRuleViolationWarning ()
+  public PeppolMLSLineResponseBuilder responses (@Nullable final Iterable <? extends ResponseType> a)
   {
-    return statusReasonCode (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING);
-  }
-
-  @Nonnull
-  public PeppolMLSLineResponseBuilder statusReasonCodeFailureOfDelivery ()
-  {
-    return statusReasonCode (EPeppolMLSStatusReasonCode.FAILURE_OF_DELIVERY);
-  }
-
-  @Nonnull
-  public PeppolMLSLineResponseBuilder statusReasonCodeSyntaxViolation ()
-  {
-    return statusReasonCode (EPeppolMLSStatusReasonCode.SYNTAX_VIOLATION);
-  }
-
-  @Nonnull
-  public PeppolMLSLineResponseBuilder statusReasonCode (@Nullable final EPeppolMLSStatusReasonCode e)
-  {
-    m_eStatusReasonCode = e;
+    m_aResponses.setAll (a);
     return this;
   }
 
@@ -122,20 +137,13 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     }
 
     // Enforced by Schematron
-    if (StringHelper.hasNoText (m_sDescription))
+    if (m_aResponses.isEmpty ())
     {
       if (bLogDetails)
-        LOGGER.warn ("The LineResponse Description is missing");
+        LOGGER.warn ("The LineResponse is missing at least one Response");
       return false;
     }
 
-    // Enforced by Schematron
-    if (m_eStatusReasonCode == null)
-    {
-      if (bLogDetails)
-        LOGGER.warn ("The LineResponse Status Reason Code is missing");
-      return false;
-    }
     return true;
   }
 
@@ -153,14 +161,8 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
       ret.setLineReference (aLineRef);
     }
 
-    {
-      final ResponseType aResponse = new ResponseType ();
-      aResponse.addDescription (new DescriptionType (m_sDescription));
-      final StatusType aStatus = new StatusType ();
-      aStatus.setStatusReasonCode (m_eStatusReasonCode.getID ());
-      aResponse.addStatus (aStatus);
+    for (final var aResponse : m_aResponses)
       ret.addResponse (aResponse);
-    }
 
     return ret;
   }
@@ -172,17 +174,11 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
 
     if (aLineResponse.hasNoResponseEntries ())
       throw new IllegalArgumentException ("No response present in the line response");
-    final ResponseType aResponse = aLineResponse.getResponseAtIndex (0);
-    if (aResponse.hasNoStatusEntries ())
-      throw new IllegalArgumentException ("Line response response has no status present");
-    if (aResponse.hasNoDescriptionEntries ())
-      throw new IllegalArgumentException ("Line status has no description entries");
 
-    final StatusType aStatus = aResponse.getStatusAtIndex (0);
-    final EPeppolMLSStatusReasonCode eStatusReasonCode = EPeppolMLSStatusReasonCode.getFromIDOrThrow (aStatus.getStatusReasonCodeValue ());
-
-    return new PeppolMLSLineResponseBuilder ().errorField (aLineResponse.getLineReference ().getLineIDValue ())
-                                              .description (aResponse.getDescriptionAtIndex (0).getValue ())
-                                              .statusReasonCode (eStatusReasonCode);
+    final PeppolMLSLineResponseBuilder ret = new PeppolMLSLineResponseBuilder ().errorField (aLineResponse.getLineReference ()
+                                                                                                          .getLineIDValue ());
+    for (final var aResponse : aLineResponse.getResponse ())
+      ret.addResponse (aResponse);
+    return ret;
   }
 }
