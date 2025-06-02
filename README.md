@@ -340,6 +340,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
     * Removed `Pfuoi420` annotation and all methods that were marked with it
     * Removed all deprecated methods and classes, that were marked for removal in the previous releases
     * Removed the MLS builder "Response Code" per Line Response
+    * The `PeppolMLSLineResponseBuilder` can now deal with multiple responses per "Line Response"
 * v10.5.1 - 2025-05-29
     * The `PeppolMLSBuilder` now correctly requires the issue time with a mandatory time zone
 * v10.5.0 - 2025-04-15
