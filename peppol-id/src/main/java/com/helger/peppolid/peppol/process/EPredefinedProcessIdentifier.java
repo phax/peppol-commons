@@ -620,9 +620,19 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:peppol:eb2b:oneway</code><br>
      */
-    urn_peppol_eb2b_oneway("cenbii-procid-ubl", "urn:peppol:eb2b:oneway", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "9.1";
-    public static final int CODE_LIST_ENTRY_COUNT = 104;
+    urn_peppol_eb2b_oneway("cenbii-procid-ubl", "urn:peppol:eb2b:oneway", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:edec:mls</code><br>
+     */
+    urn_peppol_edec_mls("cenbii-procid-ubl", "urn:peppol:edec:mls", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:imda.gov.sg:bis:order_balance:1</code><br>
+     */
+    urn_fdc_imda_gov_sg_bis_order_balance_1("cenbii-procid-ubl", "urn:fdc:imda.gov.sg:bis:order_balance:1", EPeppolCodeListItemState.ACTIVE);
+    public static final String CODE_LIST_VERSION = "9.2";
+    public static final int CODE_LIST_ENTRY_COUNT = 106;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

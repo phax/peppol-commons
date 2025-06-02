@@ -628,7 +628,7 @@ public enum EPredefinedParticipantIdentifierScheme
     /**
      * Prefix <code>0240</code>, scheme ID <code>LU:MAT</code><br>
      * Structure of the code: - 11 characters in total (Arabic numerals only)
-     * - 4 first digits = year
+     * - 4 first digits = year (may be 0000)
      * - Digits 5-6 = legal form of the legal person
      * Checksum: digit 11<br>
      * Display requirements: None<br>
@@ -1111,7 +1111,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "9.1";
+    public static final String CODE_LIST_VERSION = "9.2";
     public static final int CODE_LIST_ENTRY_COUNT = 99;
     private final String m_sSchemeID;
     private final String m_sISO6523;

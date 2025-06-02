@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2020-2025 OpenPeppol AISBL (www.peppol.org)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
 <!--This is an OpenPeppol eDEC Code List.
 Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="9.1" entry-count="302">
+<document-types version="9.2" entry-count="304">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" initial-release="1.0.0" state="deprecated" deprecation-release="2" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC" category="Pre-Award">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -266,22 +283,26 @@ TICC-245</comment>
     <comment>TICC-78</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:www.efaktura.gov.pl:ver1.0:receipt_advice:ver1.0" />
   </document-type>
-  <document-type name="AU-NZ Peppol BIS Billing 3.0 Invoice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1" initial-release="6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
-    <comment>TICC-102</comment>
-    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
-  </document-type>
-  <document-type name="AU-NZ Peppol BIS Billing 3.0 Credit Note" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1" initial-release="6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
-    <comment>TICC-102</comment>
-    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
-  </document-type>
-  <document-type name="AU-NZ Self-Billing 3.0 Invoice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" initial-release="6" state="active" abstract="false" issued-by-openpeppol="false" domain-community="POAC" category="Invoice">
+  <document-type name="AU-NZ Peppol BIS Billing 3.0 Invoice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1" initial-release="6" state="deprecated" deprecation-release="9.2" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
     <comment>TICC-102
-TICC-173</comment>
+TICC-390</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type name="AU-NZ Peppol BIS Billing 3.0 Credit Note" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:billing:international:aunz:3.0::2.1" initial-release="6" state="deprecated" deprecation-release="9.2" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
+    <comment>TICC-102
+TICC-390</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
+  </document-type>
+  <document-type name="AU-NZ Self-Billing 3.0 Invoice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" initial-release="6" state="deprecated" deprecation-release="9.2" abstract="false" issued-by-openpeppol="false" domain-community="POAC" category="Invoice">
+    <comment>TICC-102
+TICC-173
+TICC-390</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" />
   </document-type>
-  <document-type name="AU-NZ Self-Billing 3.0 Credit Note" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" initial-release="6" state="active" abstract="false" issued-by-openpeppol="false" domain-community="POAC" category="Credit Note">
+  <document-type name="AU-NZ Self-Billing 3.0 Credit Note" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#conformant#urn:fdc:peppol.eu:2017:poacc:selfbilling:international:aunz:3.0::2.1" initial-release="6" state="deprecated" deprecation-release="9.2" abstract="false" issued-by-openpeppol="false" domain-community="POAC" category="Credit Note">
     <comment>TICC-102
-TICC-173</comment>
+TICC-173
+TICC-390</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:selfbilling:01:1.0" />
   </document-type>
   <document-type name="SI-UBL 1.2 Invoice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biitrns010:ver2.0:extended:urn:www.peppol.eu:bis:peppol4a:ver2.0:extended:urn:www.simplerinvoicing.org:si:si-ubl:ver1.2::2.1" initial-release="6" state="removed" deprecation-release="8.7" removal-date="2024-01-01" abstract="false" issued-by-openpeppol="false" domain-community="POAC" category="Invoice">
@@ -1046,24 +1067,28 @@ TICC-377</comment>
     <comment>TICC-312</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </document-type>
-  <document-type name="MY PINT Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@my-1::2.1" initial-release="8.8" state="deprecation-scheduled" deprecation-release="2025-05-15" removal-date="2025-06-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
+  <document-type name="MY PINT Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@my-1::2.1" initial-release="8.8" state="deprecated" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
     <comment>TICC-328
-TICC-374</comment>
+TICC-374
+TICC-386</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </document-type>
-  <document-type name="MY PINT Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@my-1::2.1" initial-release="8.8" state="deprecation-scheduled" deprecation-release="2025-05-15" removal-date="2025-06-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
+  <document-type name="MY PINT Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@my-1::2.1" initial-release="8.8" state="deprecated" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
     <comment>TICC-328
-TICC-374</comment>
+TICC-374
+TICC-386</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </document-type>
-  <document-type name="MY PINT Self-Billing Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@my-1::2.1" initial-release="8.8" state="deprecation-scheduled" deprecation-release="2025-05-15" removal-date="2025-06-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
+  <document-type name="MY PINT Self-Billing Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@my-1::2.1" initial-release="8.8" state="deprecated" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
     <comment>TICC-328
-TICC-374</comment>
+TICC-374
+TICC-386</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </document-type>
-  <document-type name="MY PINT Self-Billing Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@my-1::2.1" initial-release="8.8" state="deprecation-scheduled" deprecation-release="2025-05-15" removal-date="2025-06-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
+  <document-type name="MY PINT Self-Billing Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@my-1::2.1" initial-release="8.8" state="deprecated" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
     <comment>TICC-328
-TICC-374</comment>
+TICC-374
+TICC-386</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </document-type>
   <document-type name="SETU HR-XML StaffingOrder v1.4" scheme="busdox-docid-qns" value="http://ns.hr-xml.org/2007-04-15::StaffingOrder##hr-xml@nl-1.4::2.5" initial-release="8.9" state="active" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="HR-XML">
@@ -1308,5 +1333,13 @@ TICC-365</comment>
   <document-type name="DICO Maintenance Status" scheme="busdox-docid-qns" value="http://www.ketenstandaard.nl/onderhoudsstatus/SALES/005::MaintenanceStatus##dico:maintenancestatus@nl-1.0::1.0" initial-release="9.1" state="active" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="DICO">
     <comment>TICC-360</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:dico:2018:maintenance:1.0" />
+  </document-type>
+  <document-type name="Peppol Message Level Status v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:peppol:edec:mls:1.0::2.1" initial-release="9.2" state="active" abstract="false" issued-by-openpeppol="true" domain-community="OO" category="Message Level Status">
+    <comment>TICC-389</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:edec:mls" />
+  </document-type>
+  <document-type name="SG BIS Order Balance v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:imda.gov.sg:trns:order_balance:1::2.1" initial-release="9.2" state="active" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="Order Balance">
+    <comment>TICC-383</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:imda.gov.sg:bis:order_balance:1" />
   </document-type>
 </document-types>

@@ -100,7 +100,7 @@ import com.helger.xsds.peppol.id1.CPeppolID;
 public final class MainCreatePredefinedEnumsFromXML_v9x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v9x.class);
-  private static final Version CODELIST_VERSION = new Version (9, 1);
+  private static final Version CODELIST_VERSION = new Version (9, 2);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";

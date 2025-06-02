@@ -235,6 +235,9 @@ final class CodeGenerationHelper
         return "UBL_BE_CREDIT_NOTE_UBL_V11";
     }
 
+    if ("urn:peppol:edec:mls:1.0".equals (sCustomizationID))
+      return "PEPPOL_MLS_1_0";
+
     String sExt = sCustomizationID;
     sExt = StringHelper.replaceAll (sExt, "urn:", "");
     sExt = StringHelper.replaceAll (sExt, '.', '_');
