@@ -56,7 +56,7 @@ public final class PeppolMLSBuilderTest
     final String sMLS2 = new PeppolMLSMarshaller ().getAsString (aMLS2);
     assertEquals (sMLS1, sMLS2);
 
-    if (true)
+    if (false)
       LOGGER.info (new PeppolMLSMarshaller ().setFormattedOutput (true).getAsString (aMLS));
     if (false)
       new PeppolMLSMarshaller ().setFormattedOutput (true).write (aMLS, new File ("generated/mls1.xml"));
@@ -88,5 +88,35 @@ public final class PeppolMLSBuilderTest
       LOGGER.info (new PeppolMLSMarshaller ().setFormattedOutput (true).getAsString (aMLS));
     if (false)
       new PeppolMLSMarshaller ().setFormattedOutput (true).write (aMLS, new File ("generated/mls2.xml"));
+  }
+
+  @Test
+  public void testMinimalWithOneLineButMultipleResponses ()
+  {
+    final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
+    final ApplicationResponseType aMLS = PeppolMLSBuilder.rejection ()
+                                                         .referenceId ("SBDH-12345")
+                                                         .senderParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mls-sender"))
+                                                         .receiverParticipantID (aIF.createParticipantIdentifierWithDefaultScheme ("9915:mls-receiver"))
+                                                         .addLineResponse (new PeppolMLSLineResponseBuilder ().errorField ("Invoice/ID")
+                                                                                                              .addResponse (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL,
+                                                                                                                            "The ID is too short")
+                                                                                                              .addResponse (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL,
+                                                                                                                            "The ID does not fulfill the regular expression"))
+                                                         .build ();
+    assertNotNull (aMLS);
+
+    final String sMLS1 = new PeppolMLSMarshaller ().getAsString (aMLS);
+    assertNotNull (sMLS1);
+
+    // Check with reverse Builder
+    final ApplicationResponseType aMLS2 = PeppolMLSBuilder.createForApplicationResponse (aMLS).build ();
+    final String sMLS2 = new PeppolMLSMarshaller ().getAsString (aMLS2);
+    assertEquals (sMLS1, sMLS2);
+
+    if (false)
+      LOGGER.info (new PeppolMLSMarshaller ().setFormattedOutput (true).getAsString (aMLS));
+    if (false)
+      new PeppolMLSMarshaller ().setFormattedOutput (true).write (aMLS, new File ("generated/mls3.xml"));
   }
 }
