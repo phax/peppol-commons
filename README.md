@@ -334,9 +334,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v10.6.0 - work in progress
+* v11.0.0 - work in progress
     * Added a `getClone` method to the the NAPTR based URL providers
     * Removed `Pfuoi420` annotation and all methods that were marked with it
+    * Removed all deprecated methods and classes, that were marked for removal in the previous releases
 * v10.5.1 - 2025-05-29
     * The `PeppolMLSBuilder` now correctly requires the issue time with a mandatory time zone
 * v10.5.0 - 2025-04-15
