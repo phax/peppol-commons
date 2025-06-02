@@ -39,7 +39,6 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.wrapper.Wrapper;
 import com.helger.peppol.sml.ISMLInfo;
@@ -51,7 +50,6 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.Pfuoi420;
 import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
@@ -82,8 +80,9 @@ import com.helger.xsds.xmldsig.X509DataType;
 import jakarta.xml.bind.JAXBElement;
 
 /**
- * This class is used for calling the Peppol SMP REST interface. This particular class only contains
- * the read-only methods including the ones defined in the Peppol SMP specification!
+ * This class is used for calling the Peppol SMP REST interface. This particular
+ * class only contains the read-only methods including the ones defined in the
+ * Peppol SMP specification!
  *
  * @author Philip Helger
  */
@@ -103,12 +102,14 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
-   *        The participant identifier to be used. Required to build the SMP access URI.
+   *        The participant identifier to be used. Required to build the SMP
+   *        access URI.
    * @param aSMLInfo
    *        The SML to be used. Required to build the SMP access URI.
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
-   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
+   *      ISMLInfo)
    */
   public SMPClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
@@ -123,11 +124,13 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aParticipantIdentifier
-   *        The participant identifier to be used. Required to build the SMP access URI.
+   *        The participant identifier to be used. Required to build the SMP
+   *        access URI.
    * @param sSMLZoneName
-   *        The SML DNS zone name to be used. Required to build the SMP access URI. Must end with a
-   *        trailing dot (".") and may neither be <code>null</code> nor empty to build a correct
-   *        URL. May not start with "http://". Example: <code>sml.peppolcentral.org.</code>
+   *        The SML DNS zone name to be used. Required to build the SMP access
+   *        URI. Must end with a trailing dot (".") and may neither be
+   *        <code>null</code> nor empty to build a correct URL. May not start
+   *        with "http://". Example: <code>sml.peppolcentral.org.</code>
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
@@ -144,8 +147,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * Remember: must be HTTP and using port 80 only!
    *
    * @param aSMPHost
-   *        The address of the SMP service. Must be port 80 and basic http only (no https!).
-   *        Example: http://smpcompany.company.org
+   *        The address of the SMP service. Must be port 80 and basic http only
+   *        (no https!). Example: http://smpcompany.company.org
    */
   public SMPClientReadOnly (@Nonnull final URI aSMPHost)
   {
@@ -193,8 +196,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Extract all parsable document types from the passed Service group. This method always uses
-   * {@link PeppolIdentifierFactory} to parse the document type identifiers.
+   * Extract all parsable document types from the passed Service group. This
+   * method always uses {@link PeppolIdentifierFactory} to parse the document
+   * type identifiers.
    *
    * @param aSG
    *        The service group to parse. May be <code>null</code>.
@@ -209,16 +213,17 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Extract all parsable document types from the passed Service group. This method uses the
-   * provided {@link IIdentifierFactory} to parse the document type identifiers.
+   * Extract all parsable document types from the passed Service group. This
+   * method uses the provided {@link IIdentifierFactory} to parse the document
+   * type identifiers.
    *
    * @param aSG
    *        The service group to parse. May be <code>null</code>.
    * @param aIdentifierFactory
    *        The identifier factory to be used. May not be <code>null</code>.
    * @param aUnhandledHrefHandler
-   *        An optional consumer for Hrefs that could not be parsed into a document type identifier.
-   *        May be <code>null</code>.
+   *        An optional consumer for Hrefs that could not be parsed into a
+   *        document type identifier. May be <code>null</code>.
    * @return Never <code>null</code> but a maybe empty list.
    * @since 8.0.4
    */
@@ -276,18 +281,20 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Gets a signed service metadata object given by its service group id and its document type. This
-   * method does not do anything specific with wildcards or so. It simply queries the SMP with the
-   * provided data.<br>
+   * Gets a signed service metadata object given by its service group id and its
+   * document type. This method does not do anything specific with wildcards or
+   * so. It simply queries the SMP with the provided data.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be <code>null</code>.
-   * @param aFollowRedirectCallback
-   *        The optional callback to be invoked in case of an SMP redirect. May be
+   *        The service group id of the service metadata to get. May not be
    *        <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May
+   *        be <code>null</code>.
    * @return A signed service metadata object. Never <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
@@ -299,7 +306,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         The service group id or document types did not exist.
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
-   * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
+   *      IDocumentTypeIdentifier)
    * @since v10.4.3
    */
   @Nonnull
@@ -412,18 +420,21 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Gets a signed service metadata object given by its service group id and its document type.<br>
+   * Gets a signed service metadata object given by its service group id and its
+   * document type.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be <code>null</code>.
-   * @param aFollowRedirectCallback
-   *        The optional callback to be invoked in case of an SMP redirect. May be
+   *        The service group id of the service metadata to get. May not be
    *        <code>null</code>.
-   * @return A signed service metadata object or <code>null</code> if no such registration is
-   *         present.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be
+   *        <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May
+   *        be <code>null</code>.
+   * @return A signed service metadata object or <code>null</code> if no such
+   *         registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -458,24 +469,27 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Extract the Endpoint from the signedServiceMetadata that matches the passed process ID and the
-   * optional required transport profile. This method checks the validity of the endpoint at the
-   * current point in time.
+   * Extract the Endpoint from the signedServiceMetadata that matches the passed
+   * process ID and the optional required transport profile. This method checks
+   * the validity of the endpoint at the current point in time.
    *
    * @param aSignedServiceMetadata
    *        The signed service meta data object (e.g. from a call to
-   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)} . May
-   *        not be <code>null</code>.
+   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
+   *        . May not be <code>null</code>.
    * @param aProcessID
-   *        The process identifier to be looked up. May not be <code>null</code> .
+   *        The process identifier to be looked up. May not be <code>null</code>
+   *        .
    * @param aTransportProfile
-   *        The required transport profile to be used. May not be <code>null</code>.
+   *        The required transport profile to be used. May not be
+   *        <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
-   * @see #getEndpoint(ServiceMetadataType, IProcessIdentifier, ISMPTransportProfile)
-   * @see #getEndpointAt(SignedServiceMetadataType, IProcessIdentifier, ISMPTransportProfile,
-   *      LocalDateTime)
-   * @see #getEndpointAt(ServiceMetadataType, IProcessIdentifier, ISMPTransportProfile,
-   *      LocalDateTime)
+   * @see #getEndpoint(ServiceMetadataType, IProcessIdentifier,
+   *      ISMPTransportProfile)
+   * @see #getEndpointAt(SignedServiceMetadataType, IProcessIdentifier,
+   *      ISMPTransportProfile, LocalDateTime)
+   * @see #getEndpointAt(ServiceMetadataType, IProcessIdentifier,
+   *      ISMPTransportProfile, LocalDateTime)
    */
   @Nullable
   public static EndpointType getEndpoint (@Nonnull final SignedServiceMetadataType aSignedServiceMetadata,
@@ -487,20 +501,23 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Extract the Endpoint from the signedServiceMetadata that matches the passed process ID and the
-   * optional required transport profile.
+   * Extract the Endpoint from the signedServiceMetadata that matches the passed
+   * process ID and the optional required transport profile.
    *
    * @param aSignedServiceMetadata
    *        The signed service meta data object (e.g. from a call to
-   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)} . May
-   *        not be <code>null</code>.
+   *        {@link #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)}
+   *        . May not be <code>null</code>.
    * @param aProcessID
-   *        The process identifier to be looked up. May not be <code>null</code> .
+   *        The process identifier to be looked up. May not be <code>null</code>
+   *        .
    * @param aTransportProfile
-   *        The required transport profile to be used. May not be <code>null</code>.
+   *        The required transport profile to be used. May not be
+   *        <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the end point contains a
-   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   *        The date and time for when the endpoint is meant to be valid if the
+   *        end point contains a ServiceActivationDate and/or a
+   *        ServiceExpirationDate. May not be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
    * @since 8.7.3
    */
@@ -515,16 +532,18 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Extract the Endpoint from the ServiceMetadata that matches the passed process ID and the
-   * optional required transport profile. This method checks the validity of the endpoint at the
-   * current point in time.
+   * Extract the Endpoint from the ServiceMetadata that matches the passed
+   * process ID and the optional required transport profile. This method checks
+   * the validity of the endpoint at the current point in time.
    *
    * @param aServiceMetadata
    *        The unsigned service meta data object. May not be <code>null</code>.
    * @param aProcessID
-   *        The process identifier to be looked up. May not be <code>null</code> .
+   *        The process identifier to be looked up. May not be <code>null</code>
+   *        .
    * @param aTransportProfile
-   *        The required transport profile to be used. May not be <code>null</code>.
+   *        The required transport profile to be used. May not be
+   *        <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
    * @since 8.2.6
    */
@@ -537,15 +556,18 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Check if the provided SMP endpoint is valid at the provided date and time. This is to ensure
-   * the ServiceActionDate and ServiceExpirationDate values are honoured according to the changes in
-   * the Peppol SMP 1.2.0 specification.
+   * Check if the provided SMP endpoint is valid at the provided date and time.
+   * This is to ensure the ServiceActionDate and ServiceExpirationDate values
+   * are honoured according to the changes in the Peppol SMP 1.2.0
+   * specification.
    *
    * @param aEndpoint
    *        The SMP endpoint to check. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time at which the check is performed. May not be <code>null</code>.
-   * @return <code>true</code> if the endpoint is valid, <code>false</code> if not.
+   *        The date and time at which the check is performed. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if the endpoint is valid, <code>false</code> if
+   *         not.
    * @since 8.7.3
    */
   public static boolean isEndpointValidAt (@Nonnull final EndpointType aEndpoint, @Nonnull final LocalDateTime aCheckDT)
@@ -581,18 +603,21 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Extract the Endpoint from the ServiceMetadata that matches the passed process ID and the
-   * optional required transport profile.
+   * Extract the Endpoint from the ServiceMetadata that matches the passed
+   * process ID and the optional required transport profile.
    *
    * @param aServiceMetadata
    *        The unsigned service meta data object. May not be <code>null</code>.
    * @param aProcessID
-   *        The process identifier to be looked up. May not be <code>null</code> .
+   *        The process identifier to be looked up. May not be <code>null</code>
+   *        .
    * @param aTransportProfile
-   *        The required transport profile to be used. May not be <code>null</code>.
+   *        The required transport profile to be used. May not be
+   *        <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the end point contains a
-   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   *        The date and time for when the endpoint is meant to be valid if the
+   *        end point contains a ServiceActivationDate and/or a
+   *        ServiceExpirationDate. May not be <code>null</code>.
    * @return <code>null</code> if no matching endpoint was found
    * @since 8.7.3
    */
@@ -642,7 +667,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
             aRelevantEndpoints.add (aEndpoint);
         }
 
-        if (aRelevantEndpoints.size () != 1)
+        if (aRelevantEndpoints.size () <= 0)
         {
           LOGGER.warn ("Found " +
                        aRelevantEndpoints.size () +
@@ -652,9 +677,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
                        aTransportProfile.getID () +
                        "' valid at " +
                        aCheckDT +
-                       (aRelevantEndpoints.isEmpty () ? "" : ": " +
-                                                             aRelevantEndpoints.toString () +
-                                                             " - using the first one"));
+                       (aRelevantEndpoints.isEmpty () ? ""
+                                                      : ": " +
+                                                        aRelevantEndpoints.toString () +
+                                                        " - using the first one"));
         }
 
         // Use the first endpoint
@@ -676,14 +702,15 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *
    * @param aEndpoint
    *        The endpoint to be used. May be <code>null</code>.
-   * @return <code>null</code> if the endpoint is <code>null</code> if the endpoint has no address
-   *         URI.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the
+   *         endpoint has no address URI.
    */
   @Nullable
   public static String getEndpointAddress (@Nullable final EndpointType aEndpoint)
   {
-    return aEndpoint == null || aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper
-                                                                                                             .getAddress (aEndpoint.getEndpointReference ());
+    return aEndpoint == null ||
+           aEndpoint.getEndpointReference () == null ? null
+                                                     : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
   }
 
   /**
@@ -691,8 +718,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *
    * @param aEndpoint
    *        The endpoint to be used. May be <code>null</code>.
-   * @return <code>null</code> if the endpoint is <code>null</code> if the endpoint has no
-   *         certificate.
+   * @return <code>null</code> if the endpoint is <code>null</code> if the
+   *         endpoint has no certificate.
    */
   @Nullable
   public static String getEndpointCertificateString (@Nullable final EndpointType aEndpoint)
@@ -705,7 +732,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *
    * @param aEndpoint
    *        The endpoint to be used. May be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint
+   *         has no certificate
    * @throws CertificateException
    *         In case the conversion from byte to X509 certificate failed
    */
@@ -758,7 +786,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         final Wrapper <IDocumentTypeIdentifier> aMatchingDocType = new Wrapper <> ();
         if (PeppolWildcardSelector.findPeppolDoctypeWildcardMatch (aSupportedDocTypes,
                                                                    aDocumentTypeID,
-                                                                   aMatchingDocType::set).isSuccess ())
+                                                                   aMatchingDocType::set)
+                                  .isSuccess ())
         {
           LOGGER.info ("Found matching document type ID '" +
                        aMatchingDocType.get ().getURIEncoded () +
@@ -823,7 +852,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         final Wrapper <IDocumentTypeIdentifier> aMatchingDocType = new Wrapper <> ();
         if (PeppolWildcardSelector.findPeppolDoctypeWildcardMatch (aSupportedDocTypes,
                                                                    aDocumentTypeID,
-                                                                   aMatchingDocType::set).isSuccess ())
+                                                                   aMatchingDocType::set)
+                                  .isSuccess ())
         {
           LOGGER.info ("Found matching document type ID '" +
                        aMatchingDocType.get ().getURIEncoded () +
@@ -846,86 +876,17 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
   }
 
-  @SuppressWarnings ("removal")
-  @Pfuoi420
-  @Deprecated (since = "10.3.0", forRemoval = true)
-  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final ServiceGroupType aServiceGroup,
-                                                                     @Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                                     @Nonnull final PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException
-  {
-    ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
-    ValueEnforcer.notNull (aServiceGroupID, "ReceiverID");
-    ValueEnforcer.notNull (aDocumentTypeID, "DocTypeID");
-    ValueEnforcer.notNull (eSelectionMode, "SelectionMode");
-
-    // Extract all document types from SMP result
-    final ICommonsList <IDocumentTypeIdentifier> aSupportedDocTypes = getAllDocumentTypes (aServiceGroup);
-
-    LOGGER.info ("Found " +
-                 aSupportedDocTypes.size () +
-                 " supported document types for '" +
-                 aServiceGroupID.getURIEncoded () +
-                 "'");
-
-    // Main matching
-    final Wrapper <IDocumentTypeIdentifier> aMatchingDocType = new Wrapper <> ();
-    new PeppolWildcardSelector (eSelectionMode).forEachMatchingDocumentType (aSupportedDocTypes,
-                                                                             aDocumentTypeID.getValue (),
-                                                                             dt -> {
-                                                                               aMatchingDocType.set (dt);
-                                                                               return EContinue.BREAK;
-                                                                             });
-
-    final IDocumentTypeIdentifier aSelectedDocTypeID = aMatchingDocType.get ();
-    if (aSelectedDocTypeID == null)
-    {
-      LOGGER.info ("Found no matching document type ID to be queried via Wildcard");
-      return null;
-    }
-
-    LOGGER.info ("Using '" + aSelectedDocTypeID.getURIEncoded () + "' for defacto querying the SMP");
-    // Do the main SMP lookup on the metadata
-    return getServiceMetadataOrNull (aServiceGroupID, aSelectedDocTypeID);
-  }
-
-  @SuppressWarnings ("removal")
-  @Pfuoi420
-  @Deprecated (since = "10.3.0", forRemoval = true)
-  public SignedServiceMetadataType getWildcardServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                                     @Nonnull final PeppolWildcardSelector.EMode eSelectionMode) throws SMPClientException
-  {
-    ValueEnforcer.notNull (aServiceGroupID, "ReceiverID");
-    ValueEnforcer.notNull (aDocumentTypeID, "DocTypeID");
-    ValueEnforcer.notNull (eSelectionMode, "SelectionMode");
-
-    // Wildcard specific lookup
-    LOGGER.info ("Using SMP wildcard lookup for '" +
-                 aServiceGroupID.getURIEncoded () +
-                 "' on '" +
-                 aDocumentTypeID.getURIEncoded () +
-                 "' with selection mode " +
-                 eSelectionMode);
-
-    // 1. query all document types from SMP
-    final ServiceGroupType aSG = getServiceGroupOrNull (aServiceGroupID);
-    if (aSG == null)
-      return null;
-
-    // Select and query service metadata
-    return getWildcardServiceMetadataOrNull (aSG, aServiceGroupID, aDocumentTypeID, eSelectionMode);
-  }
-
   /**
-   * Returns a service group. A service group references to the service metadata.
+   * Returns a service group. A service group references to the service
+   * metadata.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
    * @param aSMLInfo
    *        The SML object to be used
    * @param aServiceGroupID
-   *        The service group id corresponding to the service group which one wants to get.
+   *        The service group id corresponding to the service group which one
+   *        wants to get.
    * @return The service group
    * @throws SMPClientException
    *         in case something goes wrong
@@ -950,7 +911,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   /**
-   * Gets a signed service metadata object given by its service group id and its document type.
+   * Gets a signed service metadata object given by its service group id and its
+   * document type.
    *
    * @param aURLProvider
    *        The URL provider to be used. May not be <code>null</code>.
