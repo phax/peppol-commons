@@ -90,7 +90,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-12-31
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     FI_OVT("FI:OVT", "0037", "FI", "LY-tunnus", "National Board of Taxes, (Verohallitus)", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(12), 31)),
 
     /**
@@ -500,7 +500,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 7.5
      * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-12-31
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     FI_ORG("FI:ORG", "0212", "FI", "Finnish Organization Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.REMOVED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(12), 31)),
 
     /**
@@ -512,7 +512,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 7.5
      * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-12-31
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     FI_VAT("FI:VAT", "0213", "FI", "Finnish Organization Value Add Tax Identifier", "State Treasury of Finland / Valtiokonttori", Version.parse("7.5"), EPeppolCodeListItemState.REMOVED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(12), 31)),
 
     /**
@@ -531,7 +531,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.1
      * @deprecated since v8.9 - this item should not be used to issue new identifiers!<br>Removed per 2024-12-31
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     FI_NSI("FI:NSI", "0215", "FI", "Net service ID", "Tieto Finland Oy", Version.parse("8.1"), EPeppolCodeListItemState.REMOVED, Version.parse("8.9"), PDTFactory.createLocalDate(2024, Month.of(12), 31)),
 
     /**
@@ -646,7 +646,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v8.6 - this item should not be used to issue new identifiers!<br>Removed per 2023-11-30
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     DK_CPR("DK:CPR", "9901", "DK", "Danish Ministry of the Interior and Health", "Danish Ministry of the Interior and Health", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.6"), PDTFactory.createLocalDate(2023, Month.of(11), 30)),
 
     /**
@@ -656,7 +656,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v8.6 - this item should not be used to issue new identifiers!<br>Removed per 2023-11-30
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     DK_CVR("DK:CVR", "9902", "DK", "The Danish Commerce and Companies Agency", "The Danish Commerce and Companies Agency", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.6"), PDTFactory.createLocalDate(2023, Month.of(11), 30)),
 
     /**
@@ -666,7 +666,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v8.6 - this item should not be used to issue new identifiers!<br>Removed per 2023-11-30
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     DK_SE("DK:SE", "9904", "DK", "Danish Ministry of Taxation, Central Customs and Tax Administration", "Danish Ministry of Taxation, Central Customs and Tax Administration", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.6"), PDTFactory.createLocalDate(2023, Month.of(11), 30)),
 
     /**
@@ -677,7 +677,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v8.6 - this item should not be used to issue new identifiers!<br>Removed per 2023-11-30
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     DK_VANS("DK:VANS", "9905", "DK", "Danish VANS providers", "Danish VANS providers", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.6"), PDTFactory.createLocalDate(2023, Month.of(11), 30)),
 
     /**
@@ -691,7 +691,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v8.1 - this item should not be used to issue new identifiers!<br>Removed per 2023-05-24
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     IT_VAT("IT:VAT", "9906", "IT", "Ufficio responsabile gestione partite IVA", null, Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.1"), PDTFactory.createLocalDate(2023, Month.of(5), 24)),
 
     /**
@@ -703,7 +703,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v8.1 - this item should not be used to issue new identifiers!<br>Removed per 2023-05-24
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     IT_CF("IT:CF", "9907", "IT", "TAX Authority", "TAX Authority", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.1"), PDTFactory.createLocalDate(2023, Month.of(5), 24)),
 
     /**
@@ -715,7 +715,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v8.3 - this item should not be used to issue new identifiers!<br>Removed per 2023-05-24
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     NO_ORGNR("NO:ORGNR", "9908", "NO", "Enhetsregisteret ved Bronnoysundregisterne", "The Br\u00f8nn\u00f8ysund Register Centre", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.3"), PDTFactory.createLocalDate(2023, Month.of(5), 24)),
 
     /**
@@ -726,7 +726,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v1.1.0 - this item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     NO_VAT("NO:VAT", "9909", "NO", "Norwegian VAT number", "Enhetsregisteret ved Bronnoysundregisterne", Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("1.1.0"), null),
 
     /**
@@ -745,7 +745,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v1.1.0 - this item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     EU_VAT("EU:VAT", "9912", "international", "National ministries of Economy", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("1.1.0"), null),
 
     /**
@@ -779,7 +779,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v1.0.2 - this item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     AT_CID("AT:CID", "9916", "AT", "Firmenidentifikationsnummer der Statistik Austria", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("1.0.2"), null),
 
     /**
@@ -795,7 +795,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.0.0
      * @deprecated since v4 - this item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     IS_KT("IS:KT", "9917", "IS", "Icelandic National Registry", null, Version.parse("1.0.0"), EPeppolCodeListItemState.DEPRECATED, Version.parse("4"), null),
 
     /**
@@ -831,7 +831,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.1.0
      * @deprecated since v6 - this item should not be used to issue new identifiers!<br>Removed per 2023-11-30
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     IT_IPA("IT:IPA", "9921", "IT", "Indice delle Pubbliche Amministrazioni", "Indice delle Pubbliche Amministrazioni", Version.parse("1.1.0"), EPeppolCodeListItemState.REMOVED, Version.parse("6"), PDTFactory.createLocalDate(2023, Month.of(11), 30)),
 
     /**
@@ -1065,7 +1065,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.1.3
      * @deprecated since v2 - this item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     NL_OIN("NL:OIN", "9954", "NL", "Dutch Originator's Identification Number", null, Version.parse("1.1.3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("2"), null),
 
     /**
@@ -1074,7 +1074,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.2.0
      * @deprecated since v8.4 - this item should not be used to issue new identifiers!<br>Removed per 2023-07-31
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     SE_VAT("SE:VAT", "9955", "SE", "Swedish VAT number", null, Version.parse("1.2.0"), EPeppolCodeListItemState.REMOVED, Version.parse("8.4"), PDTFactory.createLocalDate(2023, Month.of(7), 31)),
 
     /**
@@ -1085,7 +1085,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 1.2.1
      * @deprecated since v7.4 - this item should not be used to issue new identifiers!<br>Removed per 2023-12-31
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     BE_CBE("BE:CBE", "9956", "BE", "Belgian Crossroad Bank of Enterprise number", "Belgian Crossroad Bank of Enterprises", Version.parse("1.2.1"), EPeppolCodeListItemState.REMOVED, Version.parse("7.4"), PDTFactory.createLocalDate(2023, Month.of(12), 31)),
 
     /**
@@ -1102,7 +1102,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 3
      * @deprecated since v6 - this item should not be used to issue new identifiers!<br>Removed per 2023-07-31
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     DE_LID("DE:LID", "9958", "DE", "Peppol-Leitweg-ID", null, Version.parse("3"), EPeppolCodeListItemState.REMOVED, Version.parse("6"), PDTFactory.createLocalDate(2023, Month.of(7), 31)),
 
     /**

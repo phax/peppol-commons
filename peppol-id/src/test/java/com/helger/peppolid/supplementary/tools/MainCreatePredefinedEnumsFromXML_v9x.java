@@ -90,9 +90,10 @@ import com.helger.xsds.peppol.codelists25.PCLTransportProfilesType;
 import com.helger.xsds.peppol.id1.CPeppolID;
 
 /**
- * Utility class to create the Genericode files from the Excel code list. Also creates Java source
- * files with the predefined identifiers.<br>
- * Requires the code list XMLs in folder <code>src/main/resources/codelists</code>
+ * Utility class to create the Genericode files from the Excel code list. Also
+ * creates Java source files with the predefined identifiers.<br>
+ * Requires the code list XMLs in folder
+ * <code>src/main/resources/codelists</code>
  *
  * @author Philip Helger
  */
@@ -123,13 +124,12 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   @Nonnull
   private static IJExpression _asExpr (@Nullable final LocalDate aLocalDate)
   {
-    return aLocalDate == null ? JExpr._null () : CM.ref (PDTFactory.class)
-                                                   .staticInvoke ("createLocalDate")
-                                                   .arg (aLocalDate.getYear ())
-                                                   .arg (CM.ref (Month.class)
-                                                           .staticInvoke ("of")
-                                                           .arg (aLocalDate.getMonthValue ()))
-                                                   .arg (aLocalDate.getDayOfMonth ());
+    return aLocalDate == null ? JExpr._null ()
+                              : CM.ref (PDTFactory.class)
+                                  .staticInvoke ("createLocalDate")
+                                  .arg (aLocalDate.getYear ())
+                                  .arg (CM.ref (Month.class).staticInvoke ("of").arg (aLocalDate.getMonthValue ()))
+                                  .arg (aLocalDate.getDayOfMonth ());
   }
 
   private static void _handleDocumentTypes (final Document aDocumentSheet)
@@ -194,7 +194,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
         if (bDeprecated)
         {
-          jEnumConst.annotate (Deprecated.class);
+          jEnumConst.annotate (Deprecated.class).param ("forRemoval", JExpr.FALSE);
           final JCommentPart aDepCP = jEnumConst.javadoc ().addDeprecated ();
           aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
           if (aRemovalDate != null)
@@ -224,8 +224,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (JExpr.lit (sProfileCode));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
-                                                                                                                     ._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
+                                    : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
         jEnumConst.arg (JExpr.lit (aRow.isAbstract ()));
         jEnumConst.arg (JExpr.lit (aRow.isIssuedByOpenpeppol ()));
@@ -260,7 +260,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
           aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
           if (bDeprecated)
           {
-            aShortcut.annotate (Deprecated.class);
+            aShortcut.annotate (Deprecated.class).param ("forRemoval", JExpr.FALSE);
             final JCommentPart aDepCP = aShortcut.javadoc ().addDeprecated ();
             aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
             if (aRemovalDate != null)
@@ -530,8 +530,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (sIssuingAgency == null ? JExpr._null () : JExpr.lit (sIssuingAgency));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
-                                                                                                                     ._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
+                                    : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
 
         jEnumConst.javadoc ()
@@ -547,7 +547,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sInitialRelease);
         if (bDeprecated)
         {
-          jEnumConst.annotate (Deprecated.class);
+          jEnumConst.annotate (Deprecated.class).param ("forRemoval", JExpr.FALSE);
           final JCommentPart aDepCP = jEnumConst.javadoc ().addDeprecated ();
           aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
           if (aRemovalDate != null)
@@ -705,7 +705,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.javadoc ().add ("ID: <code>" + sScheme + "::" + sValue + "</code><br>");
         if (bDeprecated)
         {
-          jEnumConst.annotate (Deprecated.class);
+          jEnumConst.annotate (Deprecated.class).param ("forRemoval", JExpr.FALSE);
           final JCommentPart aDepCP = jEnumConst.javadoc ().addDeprecated ();
           aDepCP.add ("This item should not be used to issue new identifiers!");
         }
@@ -730,7 +730,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
           aShortcut.javadoc ().add ("Same as {@link #" + sEnumConstName + "}");
           if (bDeprecated)
           {
-            aShortcut.annotate (Deprecated.class);
+            aShortcut.annotate (Deprecated.class).param ("forRemoval", JExpr.FALSE);
             aShortcut.javadoc ().addDeprecated ().add ("This item should not be used to issue new identifiers!");
           }
           jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
@@ -743,7 +743,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
                                                  jEnum,
                                                  "BIS5A_V3",
                                                  jEnum.fields ().get ("BIS3_BILLING"));
-        aShortcut.annotate (Deprecated.class);
+        aShortcut.annotate (Deprecated.class).param ("forRemoval", JExpr.FALSE);
         final JCommentPart aDepCP = aShortcut.javadoc ().addDeprecated ();
         aDepCP.add ("Use BIS3_BILLING instead!");
       }
@@ -864,15 +864,15 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (JExpr.lit (sProfileID));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
-                                                                                                                     ._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
+                                    : JExpr._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
 
         jEnumConst.javadoc ().add ("ID: <code>" + sProfileID + "</code><br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sInitialRelease);
         if (bDeprecated)
         {
-          jEnumConst.annotate (Deprecated.class);
+          jEnumConst.annotate (Deprecated.class).param ("forRemoval", JExpr.FALSE);
           final JCommentPart aDepCP = jEnumConst.javadoc ().addDeprecated ();
           aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
           if (aRemovalDate != null)
@@ -898,7 +898,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
           jEnumConst.javadoc ().add ("\nSame as {@link #" + sRealShortcutName + "}");
           if (bDeprecated)
           {
-            aShortcut.annotate (Deprecated.class);
+            aShortcut.annotate (Deprecated.class).param ("forRemoval", JExpr.FALSE);
             final JCommentPart aDepCP = aShortcut.javadoc ().addDeprecated ();
             aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
             if (aRemovalDate != null)

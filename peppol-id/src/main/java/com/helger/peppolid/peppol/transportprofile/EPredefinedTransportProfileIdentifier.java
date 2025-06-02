@@ -43,7 +43,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @since code list 1.0.0
      * @deprecated since v1.0.0 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     busdox_transport_start("START", "1.0.1", "busdox-transport-start", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("1.0.0"), PDTFactory.createLocalDate(2023, Month.of(9), 6)),
 
     /**
@@ -53,7 +53,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @since code list 1.0.0
      * @deprecated since v7 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     busdox_transport_as2_ver1p0("AS2", "1.0", "busdox-transport-as2-ver1p0", Version.parse("1.0.0"), EPeppolCodeListItemState.REMOVED, Version.parse("7"), PDTFactory.createLocalDate(2023, Month.of(9), 6)),
 
     /**
@@ -63,7 +63,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @since code list 2
      * @deprecated since v3 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     peppol_transport_as4_v1_0("AS4", "1.0", "peppol-transport-as4-v1_0", Version.parse("2"), EPeppolCodeListItemState.REMOVED, Version.parse("3"), PDTFactory.createLocalDate(2023, Month.of(9), 6)),
 
     /**
@@ -81,7 +81,7 @@ public enum EPredefinedTransportProfileIdentifier
      * @since code list 5
      * @deprecated since v8.4 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     busdox_transport_as2_ver2p0("AS2", "2.0", "busdox-transport-as2-ver2p0", Version.parse("5"), EPeppolCodeListItemState.REMOVED, Version.parse("8.4"), PDTFactory.createLocalDate(2023, Month.of(9), 6));
     public static final String CODE_LIST_VERSION = "9.1";
     public static final int CODE_LIST_ENTRY_COUNT = 5;
@@ -90,21 +90,21 @@ public enum EPredefinedTransportProfileIdentifier
      * 
      * @deprecated since v1.0.0 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedTransportProfileIdentifier START_1_0_1 = EPredefinedTransportProfileIdentifier.busdox_transport_start;
     /**
      * Same as {@link #busdox_transport_as2_ver1p0}
      * 
      * @deprecated since v7 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedTransportProfileIdentifier AS2_1_0 = EPredefinedTransportProfileIdentifier.busdox_transport_as2_ver1p0;
     /**
      * Same as {@link #peppol_transport_as4_v1_0}
      * 
      * @deprecated since v3 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedTransportProfileIdentifier AS4_1_0 = EPredefinedTransportProfileIdentifier.peppol_transport_as4_v1_0;
     /**
      * Same as {@link #peppol_transport_as4_v2_0}
@@ -115,7 +115,7 @@ public enum EPredefinedTransportProfileIdentifier
      * 
      * @deprecated since v8.4 - this item should not be used to issue new identifiers!<br>Removed per 2023-09-06
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedTransportProfileIdentifier AS2_2_0 = EPredefinedTransportProfileIdentifier.busdox_transport_as2_ver2p0;
     private final String m_sProtocol;
     private final String m_sProfileVersion;

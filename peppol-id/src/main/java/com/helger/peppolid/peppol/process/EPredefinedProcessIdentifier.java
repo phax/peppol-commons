@@ -39,7 +39,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     none("cenbii-procid-ubl", "none", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -48,7 +48,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_www_cenbii_eu_profile_bii01_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii01:ver1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -63,7 +63,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_www_cenbii_eu_profile_bii03_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii03:ver1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -72,7 +72,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_www_cenbii_eu_profile_bii03_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii03:ver2.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -81,7 +81,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_www_cenbii_eu_profile_bii04_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii04:ver1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -90,7 +90,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_www_cenbii_eu_profile_bii04_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii04:ver2.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -99,7 +99,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_www_cenbii_eu_profile_bii05_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii05:ver1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -114,7 +114,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_www_cenbii_eu_profile_bii06_ver1_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii06:ver1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -135,7 +135,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_www_cenbii_eu_profile_bii36_ver2_0("cenbii-procid-ubl", "urn:www.cenbii.eu:profile:bii36:ver2.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -159,7 +159,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_fdc_peppol_eu_2017_pracc_p001_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p001:01:1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -167,7 +167,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_fdc_peppol_eu_2017_pracc_p002_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p002:01:1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -175,7 +175,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_fdc_peppol_eu_2017_pracc_p003_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:pracc:p003:01:1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -193,7 +193,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_www_peppol_eu_profile_bis63a_ver1_0("cenbii-procid-ubl", "urn:www.peppol.eu:profile:bis63a:ver1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
@@ -291,7 +291,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_kosit_profile_reporting_1_0("cenbii-procid-ubl", "urn:kosit:profile:reporting:1.0", EPeppolCodeListItemState.REMOVED),
 
     /**
@@ -444,7 +444,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     urn_fdc_peppol_eu_oo_bis_reporting_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:oo:bis:reporting:1", EPeppolCodeListItemState.REMOVED),
 
     /**
@@ -628,7 +628,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedProcessIdentifier BIS1A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii01_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver2_0}
@@ -639,35 +639,35 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedProcessIdentifier BIS3A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii03_ver2_0}
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedProcessIdentifier BIS3A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii03_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver1_0}
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedProcessIdentifier BIS4A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii04_ver2_0}
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedProcessIdentifier BIS4A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii04_ver2_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver1_0}
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedProcessIdentifier BIS5A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii05_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii05_ver2_0}
@@ -678,7 +678,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedProcessIdentifier BIS6A_V1 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii06_ver1_0;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii28_ver2_0}
@@ -693,7 +693,7 @@ public enum EPredefinedProcessIdentifier
      * 
      * @deprecated This item should not be used to issue new identifiers!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedProcessIdentifier BIS36A_V2 = EPredefinedProcessIdentifier.urn_www_cenbii_eu_profile_bii36_ver2_0;
     /**
      * Same as {@link #urn_fdc_peppol_eu_2017_poacc_billing_01_1_0}
@@ -742,7 +742,7 @@ public enum EPredefinedProcessIdentifier
     /**
      * @deprecated Use BIS3_BILLING instead!
      */
-    @Deprecated
+    @Deprecated(forRemoval = false)
     public static final EPredefinedProcessIdentifier BIS5A_V3 = BIS3_BILLING;
     private final String m_sScheme;
     private final String m_sValue;
