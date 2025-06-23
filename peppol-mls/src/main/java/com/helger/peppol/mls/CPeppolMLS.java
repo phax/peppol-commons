@@ -31,6 +31,11 @@ public final class CPeppolMLS
 
   public static final String LINE_ID_NOT_AVAILABLE = "NA";
 
+  /** The official Participant Identifier Scheme for SPIS */
+  public static final String SPIS_PARTICIPANT_ID_SCHEME = "0242";
+  /** The temporary Participant Identifier Scheme for SPIS needed before 0242 was public */
+  public static final String SPIS_PARTICIPANT_ID_SCHEME_UAE = "9960";
+
   private CPeppolMLS ()
   {}
 }
