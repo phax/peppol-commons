@@ -41,9 +41,9 @@ import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierPa
 import com.helger.peppolid.peppol.doctype.PeppolGenericDocumentTypeIdentifierParts;
 
 /**
- * Helper class to support the different ways of dealing with
- * peppol-doctype-wildcard scheme in combination with the busdox-docid-qns
- * scheme.
+ * Helper class to support the different ways of dealing with peppol-doctype-wildcard scheme in
+ * combination with the busdox-docid-qns scheme according to Peppol Policy for use Identifiers
+ * 4.3.0.
  *
  * @author Philip Helger
  * @since 9.2.0
@@ -57,19 +57,18 @@ public class PeppolWildcardSelector
   {}
 
   /**
-   * Helper method to find the best match wildcard document type identifier for
-   * PFUOI 4.3.0. This method only work for peppol-doctype-wildcard scheme.
+   * Helper method to find the best match wildcard document type identifier for PFUOI 4.3.0. This
+   * method only work for peppol-doctype-wildcard scheme.
    *
    * @param aBaseDocTypes
-   *        The list of document types to filter. Usually this list was obtained
-   *        from an SMP query "get all receiving capabilities of participant".
-   *        May not be <code>null</code>, but maybe empty.
+   *        The list of document types to filter. Usually this list was obtained from an SMP query
+   *        "get all receiving capabilities of participant". May not be <code>null</code>, but maybe
+   *        empty.
    * @param aSearchDocTypeValue
-   *        The document type identifier to search. It may or may not contain
-   *        the Wildcard indicator.
+   *        The document type identifier to search. It may or may not contain the Wildcard
+   *        indicator.
    * @param aMatchingDocTypeConsumer
-   *        The consumer to be invoked for the first match only. May not be
-   *        <code>null</code>.
+   *        The consumer to be invoked for the first match only. May not be <code>null</code>.
    * @return Non-<code>null</code>.
    */
   @Nonnull
