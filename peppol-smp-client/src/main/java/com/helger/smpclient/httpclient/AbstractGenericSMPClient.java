@@ -22,10 +22,15 @@ import java.net.URI;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.naming.InvalidNameException;
+import javax.naming.ldap.LdapName;
+import javax.naming.ldap.Rdn;
 
 import org.apache.hc.client5.http.ClientProtocolException;
 import org.apache.hc.client5.http.HttpResponseException;
@@ -40,6 +45,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.string.StringHelper;
@@ -47,6 +54,7 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
@@ -61,8 +69,8 @@ import jakarta.xml.bind.JAXBElement;
 /**
  * Abstract base class for SMP clients - wraps all the HTTP stuff
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger
@@ -102,8 +110,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * The string representation of the SMP host URL, always ending with a
-   * trailing slash!
+   * The string representation of the SMP host URL, always ending with a trailing slash!
    */
   private final String m_sSMPHost;
   private boolean m_bVerifySignature = SMPHttpResponseHandlerSigned.DEFAULT_VERIFY_SIGNATURE;
@@ -119,11 +126,11 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * Remember: must be HTTP and using port 80 only!
    *
    * @param aSMPHost
-   *        The address of the SMP service. Must be port 80 and basic http only
-   *        (no https!). Example: http://smpcompany.company.org
+   *        The address of the SMP service. Must be port 80 and basic http only (no https!).
+   *        Example: http://smpcompany.company.org
    * @param bPeppolLimitationsActive
-   *        <code>true</code> if the Peppol limitations (Port 80, http only, in
-   *        root context) should be complained about or not.
+   *        <code>true</code> if the Peppol limitations (Port 80, http only, in root context) should
+   *        be complained about or not.
    */
   protected AbstractGenericSMPClient (@Nonnull final URI aSMPHost, final boolean bPeppolLimitationsActive)
   {
@@ -145,8 +152,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * @return The SMP host URI string we're operating on. Never <code>null</code>
-   *         . Always has a trailing "/".
+   * @return The SMP host URI string we're operating on. Never <code>null</code> . Always has a
+   *         trailing "/".
    */
   @Nonnull
   public final String getSMPHostURI ()
@@ -182,9 +189,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see
+   * @return <code>true</code> if SMP client response certificate checking is enabled,
+   *         <code>false</code> if it is disabled. By default this check is enabled (see
    *         {@link SMPHttpResponseHandlerSigned#DEFAULT_VERIFY_SIGNATURE}).
    * @since 8.0.3
    */
@@ -194,13 +200,13 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Check the certificate retrieved from a signed SMP response? This may be
-   * helpful for debugging and testing of SMP client connections!<br>
+   * Check the certificate retrieved from a signed SMP response? This may be helpful for debugging
+   * and testing of SMP client connections!<br>
    * Uses the trust store configured in the SMP client configuration.
    *
    * @param bVerifySignature
-   *        <code>true</code> to enable SMP response checking (on by default) or
-   *        <code>false</code> to disable it.
+   *        <code>true</code> to enable SMP response checking (on by default) or <code>false</code>
+   *        to disable it.
    * @return this for chaining
    * @since 8.0.3
    */
@@ -212,9 +218,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * @return <code>true</code> if SMP client response certificate checking
-   *         should use secure validation, <code>false</code> if validation also
-   *         allows deprecated algorithms. By default this check is enabled (see
+   * @return <code>true</code> if SMP client response certificate checking should use secure
+   *         validation, <code>false</code> if validation also allows deprecated algorithms. By
+   *         default this check is enabled (see
    *         {@link SMPHttpResponseHandlerSigned#DEFAULT_SECURE_VALIDATION}).
    * @since 9.0.5
    */
@@ -224,15 +230,14 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Enable or disable the usage of secure XMLDsig validation. By default secure
-   * validation is enabled. Java 17 disables the usage of SHA-1 in XMLDsig by
-   * default, as documented in https://bugs.openjdk.org/browse/JDK-8261246.
-   * Currently the Peppol SMP still uses SHA-1 so you might want to disable this
-   * for the sake of sanity.
+   * Enable or disable the usage of secure XMLDsig validation. By default secure validation is
+   * enabled. Java 17 disables the usage of SHA-1 in XMLDsig by default, as documented in
+   * https://bugs.openjdk.org/browse/JDK-8261246. Currently the Peppol SMP still uses SHA-1 so you
+   * might want to disable this for the sake of sanity.
    *
    * @param bSecureValidation
-   *        <code>true</code> to enable SMP secure certificate validation
-   *        (enabled by default) or <code>false</code> to disable it.
+   *        <code>true</code> to enable SMP secure certificate validation (enabled by default) or
+   *        <code>false</code> to disable it.
    * @return this for chaining
    * @since 9.0.5
    */
@@ -244,8 +249,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * @return The trust store to be used for verifying the signature. May be
-   *         <code>null</code> if an invalid trust store is configured.
+   * @return The trust store to be used for verifying the signature. May be <code>null</code> if an
+   *         invalid trust store is configured.
    * @since 8.1.1
    */
   @Nullable
@@ -255,8 +260,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Set the trust store to be used. The trust store must be used, if signature
-   * verification is enabled.
+   * Set the trust store to be used. The trust store must be used, if signature verification is
+   * enabled.
    *
    * @param aTrustStore
    *        The trust store to be used. May be <code>null</code>.
@@ -271,9 +276,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * @return <code>true</code> if SMP redirects should be followed,
-   *         <code>false</code> if not. By default this check is enabled (see
-   *         {@link #DEFAULT_FOLLOW_REDIRECTS}).
+   * @return <code>true</code> if SMP redirects should be followed, <code>false</code> if not. By
+   *         default this check is enabled (see {@link #DEFAULT_FOLLOW_REDIRECTS}).
    * @since 7.0.6
    */
   public final boolean isFollowSMPRedirects ()
@@ -282,12 +286,12 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Should the SMP client follow the SMP redirects that can be found in service
-   * registrations. Enabled by default.
+   * Should the SMP client follow the SMP redirects that can be found in service registrations.
+   * Enabled by default.
    *
    * @param bFollowSMPRedirects
-   *        <code>true</code> to follow SMP redirects (on by default) or
-   *        <code>false</code> to disable it.
+   *        <code>true</code> to follow SMP redirects (on by default) or <code>false</code> to
+   *        disable it.
    * @return this for chaining
    * @since 7.0.6
    */
@@ -299,9 +303,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * @return <code>true</code> if responses should be checked against the XML
-   *         Schemas, <code>false</code> if not. By default this check is
-   *         enabled (see {@link #DEFAULT_XML_SCHEMA_VALIDATION}).
+   * @return <code>true</code> if responses should be checked against the XML Schemas,
+   *         <code>false</code> if not. By default this check is enabled (see
+   *         {@link #DEFAULT_XML_SCHEMA_VALIDATION}).
    * @since 8.0.5
    */
   public final boolean isXMLSchemaValidation ()
@@ -310,12 +314,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Should the SMP client perform XML Schema validation or not. Enabled by
-   * default.
+   * Should the SMP client perform XML Schema validation or not. Enabled by default.
    *
    * @param bXMLSchemaValidation
-   *        <code>true</code> to perform XML Schema validation,
-   *        <code>false</code> to disable it.
+   *        <code>true</code> to perform XML Schema validation, <code>false</code> to disable it.
    * @return this for chaining
    * @since 8.0.5
    */
@@ -334,15 +336,14 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Execute a generic request on the SMP. This is e.g. helpful for accessing
-   * the PEPPOL Directory BusinessCard API. Compared to
-   * {@link #executeGenericRequest(HttpUriRequestBase, HttpClientResponseHandler)}
-   * this method does NOT convert the {@link IOException} from HTTP
-   * communication problems to {@link IOException}.
+   * Execute a generic request on the SMP. This is e.g. helpful for accessing the PEPPOL Directory
+   * BusinessCard API. Compared to
+   * {@link #executeGenericRequest(HttpUriRequestBase, HttpClientResponseHandler)} this method does
+   * NOT convert the {@link IOException} from HTTP communication problems to {@link IOException}.
    *
    * @param aRequest
-   *        The request to be executed. The proxy + connection and request
-   *        timeout are set in this method.
+   *        The request to be executed. The proxy + connection and request timeout are set in this
+   *        method.
    * @param aResponseHandler
    *        The response handler to be used. May not be <code>null</code>.
    * @return The return value of the response handler.
@@ -374,15 +375,14 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
-   * Execute a generic request on the SMP. This is e.g. helpful for accessing
-   * the PEPPOL Directory BusinessCard API. This is equivalent to
-   * {@link #executeRequest(HttpUriRequestBase, HttpClientResponseHandler)} but
-   * includes the conversion of Exceptions to {@link SMPClientException}
-   * objects.
+   * Execute a generic request on the SMP. This is e.g. helpful for accessing the PEPPOL Directory
+   * BusinessCard API. This is equivalent to
+   * {@link #executeRequest(HttpUriRequestBase, HttpClientResponseHandler)} but includes the
+   * conversion of Exceptions to {@link SMPClientException} objects.
    *
    * @param aRequest
-   *        The request to be executed. The proxy + connection and request
-   *        timeout are set in this method.
+   *        The request to be executed. The proxy + connection and request timeout are set in this
+   *        method.
    * @param aResponseHandler
    *        The response handler to be used. May not be <code>null</code>.
    * @return The return value of the response handler.
@@ -414,8 +414,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *
    * @param ex
    *        The generic exception. May not be <code>null</code>.
-   * @return A new SMP specific exception, using the passed exception as the
-   *         cause.
+   * @return A new SMP specific exception, using the passed exception as the cause.
    */
   @Nonnull
   public static SMPClientException getConvertedException (@Nonnull final Exception ex)
@@ -510,27 +509,80 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
                                        .getToString ();
   }
 
+  /**
+   * Compare X509 principal names using the LDAP name syntax with arbitrary order
+   *
+   * @param s1
+   *        Principal 1
+   * @param s2
+   *        Principal 2
+   * @return <code>true</code> if they are equal, <code>false</code> if not.
+   */
+  private static boolean _isEqualRdn (final String s1, final String s2)
+  {
+    try
+    {
+      // The LdapName contains an list with arbitrary order - the HashSet removes the need for order
+      final ICommonsSet <Rdn> aSet1 = new CommonsHashSet <> (new LdapName (s1).getRdns ());
+      final ICommonsSet <Rdn> aSet2 = new CommonsHashSet <> (new LdapName (s2).getRdns ());
+      return aSet1.equals (aSet2);
+    }
+    catch (final InvalidNameException ex)
+    {
+      // Wrong content
+      return false;
+    }
+  }
+
   public static boolean containsRedirectSubject (@Nonnull final X509DataType aX509Data,
                                                  @Nonnull final String sRedirectCertificateUID) throws SMPClientException
   {
     for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
       if (aX509Obj instanceof JAXBElement <?>)
       {
-        final JAXBElement <?> aX509element = (JAXBElement <?>) aX509Obj;
+        final JAXBElement <?> aX509Element = (JAXBElement <?>) aX509Obj;
+
         // Find the first subject (of type string) (element name
-        // X509SubjectName)
-        if (aX509element.getValue () instanceof String)
+        // X509SubjectName) (optional according to the spec)
+        if ("X509SubjectName".equals (aX509Element.getName ().getLocalPart ()))
         {
-          final String sSubject = (String) aX509element.getValue ();
-          if (!sRedirectCertificateUID.equals (sSubject))
+          final String sSubject = (String) aX509Element.getValue ();
+          if (!_isEqualRdn (sRedirectCertificateUID, sSubject))
           {
-            throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject. Subject is '" +
+            throw new SMPClientException ("The certificate UID of the redirect did not match the certificate subject which is '" +
                                           sSubject +
                                           "'. Required certificate UID is '" +
                                           sRedirectCertificateUID +
                                           "'");
           }
           return true;
+        }
+
+        if ("X509Certificate".equals (aX509Element.getName ().getLocalPart ()))
+        {
+          final byte [] aCertBytes = (byte []) aX509Element.getValue ();
+          try
+          {
+            final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
+            if (aCert != null)
+            {
+              final String sSubjectCN = aCert.getSubjectX500Principal ().getName ();
+              if (!_isEqualRdn (sRedirectCertificateUID, sSubjectCN))
+              {
+                throw new SMPClientException ("The certificate UID of the redirect did not match the certificate/subject which '" +
+                                              sSubjectCN +
+                                              "'. Required certificate UID is '" +
+                                              sRedirectCertificateUID +
+                                              "'");
+              }
+              return true;
+            }
+          }
+          catch (final CertificateException ex)
+          {
+            // Ignore
+          }
+          return false;
         }
       }
     return false;

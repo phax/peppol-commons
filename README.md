@@ -334,6 +334,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v11.0.1 - 2025-06-25
+    * Fixed the determination of the Peppol Certificate subject for a Redrect, if no `X509SubjectName` element is present.
 * v11.0.0 - 2025-06-02
     * Updated to Peppol eDEC Code Lists v9.2
     * Removed `Pfuoi420` annotation and all methods that were marked with it. This means, this version only supports Peppol Policy for use of Identifiers v4.3.0 or later.

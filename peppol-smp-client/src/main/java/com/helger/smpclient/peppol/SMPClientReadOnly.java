@@ -398,6 +398,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
             final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
             if (aInfoValue instanceof X509DataType)
             {
+              // X509Data element
               final X509DataType aX509Data = (X509DataType) aInfoValue;
               if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))
               {
