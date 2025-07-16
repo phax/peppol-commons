@@ -1,5 +1,7 @@
 # Content of this directory
 
+## External components
+
 `sml-truststore.jks` (since v6.0.4)
 * It contains the SSL certificates to access the central Peppol SML
 * Updated 2019-12-03 for the new SMK certificate chain
@@ -15,6 +17,34 @@
 * The contained aliases are:
     * `isrg root x1`
     * `r3 (isrg root x1)`
+    
+## Peppol G3 (2025)
+
+The password to access all trust stores is (case-sensitive): `peppol`
+
+The official source of the certificates is TODO
+
+`2025/ap-test-truststore.p12`
+* Is the global trust store for OpenPeppol pilot APs
+* It is valid from 2025-2035
+* The contained aliases are:
+    * `peppol root test ca - g3`
+    * `peppol access point test ca - g3 (peppol root test ca - g3)`
+    * `peppol service metadata publisher test ca - g3 (peppol root test ca - g3)`
+
+`2025/ap-prod-truststore.p12`
+* Is the global trust store for OpenPeppol production APs
+* It is valid from 2025-2035
+* The contained aliases are:
+    * `peppol root ca - g3`
+    * `peppol access point ca - g3 (peppol root ca - g3)`
+    * `peppol service metadata publisher ca - g3 (peppol root ca - g3)`
+    
+## Peppol G2 (2018)
+
+The password to access all trust stores is (case-sensitive): `peppol`
+
+The official source of the certificates is https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/193069072/Introduction+to+the+revised+PKI+Certificate+infrastructure+and+issuing+process
 
 `2018/pilot-truststore.jks`
 * Is the global trust store for OpenPeppol pilot APs
@@ -74,7 +104,7 @@
     * `peppol eb2b access point ca - g2 (peppol root ca - g2)`
     * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
 
-`complete-truststore.jks`
+`complete-truststore.jks` (deprecated)
 * This is the combination of all available truststores with the same aliases!
 * Updated in v9.6.0 to include eB2B AP Test CA
 * Updated in v8.4.1 (add new) and v8.5.2 (remove old) to reflect the new Let's Encrypt issuing certificate
@@ -90,10 +120,6 @@
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
     * `isrg root x1`
     * `r3 (isrg root x1)`
-
-The password to access all trust stores is (case-sensitive): `peppol`
-
-The official source of the certificates is https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/193069072/Introduction+to+the+revised+PKI+Certificate+infrastructure+and+issuing+process
 
 ## For Access Points
 
