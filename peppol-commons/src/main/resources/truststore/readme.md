@@ -24,7 +24,7 @@ The password to access all trust stores is (case-sensitive): `peppol`
 
 The official source of the certificates is TODO
 
-`2025/ap-test-truststore.p12`
+`2025/ap-test-truststore.p12` (since 11.0.2)
 * Is the global trust store for OpenPeppol pilot APs
 * It is valid from 2025-2035
 * The contained aliases are:
@@ -32,13 +32,49 @@ The official source of the certificates is TODO
     * `peppol access point test ca - g3 (peppol root test ca - g3)`
     * `peppol service metadata publisher test ca - g3 (peppol root test ca - g3)`
 
-`2025/ap-prod-truststore.p12`
+`2025/ap-prod-truststore.p12` (since 11.0.2)
 * Is the global trust store for OpenPeppol production APs
 * It is valid from 2025-2035
 * The contained aliases are:
     * `peppol root ca - g3`
     * `peppol access point ca - g3 (peppol root ca - g3)`
     * `peppol service metadata publisher ca - g3 (peppol root ca - g3)`
+
+`2025/smp-test-truststore.p12` (since 11.0.2)
+* Is the global trust store for OpenPeppol pilot SMPs
+* It is valid from 2025-2035
+* The contained aliases are:
+    * `peppol root test ca - g3`
+    * `peppol access point test ca - g3 (peppol root test ca - g3)`
+    * `peppol service metadata publisher test ca - g3 (peppol root test ca - g3)`
+    * `globalsign`
+    * `globalsign rsa ov ssl ca 2018 (globalsign)`
+    * `isrg root x1`
+    * `r3 (isrg root x1)`
+
+`2025/smp-prod-truststore.p12` (since 11.0.2)
+* Is the global trust store for OpenPeppol production SMPs
+* It is valid from 2025-2035
+* The contained aliases are:
+    * `peppol root ca - g3`
+    * `peppol access point ca - g3 (peppol root ca - g3)`
+    * `peppol service metadata publisher ca - g3 (peppol root ca - g3)`
+    * `globalsign`
+    * `globalsign rsa ov ssl ca 2018 (globalsign)`
+    * `isrg root x1`
+    * `r3 (isrg root x1)`
+
+### For Access Points
+
+Peppol APs need the following trust stores:
+* Production: `truststore/2025/ap-prod-truststore.p12`
+* Test: `truststore/2025/ap-test-truststore.p12`
+
+### For SMPs
+
+Peppol SMPs need the following trust stores:
+* Production: `truststore/2025/smp-prod-truststore.p12`
+* Test: `truststore/2025/smp-test-truststore.p12`
     
 ## Peppol G2 (2018)
 
@@ -121,13 +157,13 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
     * `isrg root x1`
     * `r3 (isrg root x1)`
 
-## For Access Points
+### For Access Points
 
 Peppol APs need the following trust stores:
 * Production: `truststore/2018/prod-truststore.jks`
 * Test: `truststore/2018/pilot-truststore.jks`
 
-## For SMPs
+### For SMPs
 
 Peppol SMPs need the following trust stores:
 * Production: `truststore/2018/smp-prod-truststore.jks`

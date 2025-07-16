@@ -204,7 +204,12 @@ public final class SMPClientConfiguration
                                                      "truststore.path",
                                                      "truststore.location");
     if (StringHelper.hasNoText (ret))
+    {
       ret = PeppolTrustStores.TRUSTSTORE_COMPLETE_CLASSPATH;
+      LOGGER.error ("No SMP client truststore path is configured. Currently an automatic fallback to '" +
+                    ret +
+                    "' is implemented but that will be removed, as soon as the Peppol PKI G3 comes into effect.");
+    }
     return ret;
   }
 

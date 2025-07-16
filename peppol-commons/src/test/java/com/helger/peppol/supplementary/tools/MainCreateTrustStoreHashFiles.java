@@ -33,8 +33,7 @@ import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
 /**
- * Utility class to create hash codes of the global trust store to verify if it
- * is valid or not.
+ * Utility class to create hash codes of the global trust store to verify if it is valid or not.
  *
  * @author Philip Helger
  */
@@ -61,6 +60,7 @@ public final class MainCreateTrustStoreHashFiles
     LOGGER.info ("Done creating hash values for " + sTruststorePath);
   }
 
+  @SuppressWarnings ("removal")
   public static void main (final String [] args) throws IOException
   {
     _create (PeppolTrustStores.TRUSTSTORE_COMPLETE_CLASSPATH);
@@ -68,9 +68,15 @@ public final class MainCreateTrustStoreHashFiles
     _create ("truststore/directory-truststore.jks");
     _create ("truststore/2010/prod-truststore.jks");
     _create ("truststore/2010/pilot-truststore.jks");
+
     _create (PeppolTrustStores.Config2018.TRUSTSTORE_AP_PRODUCTION_CLASSPATH);
     _create (PeppolTrustStores.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH);
     _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PRODUCTION_CLASSPATH);
     _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PILOT_CLASSPATH);
+
+    _create (PeppolTrustStores.Config2025.TRUSTSTORE_AP_PRODUCTION_CLASSPATH);
+    _create (PeppolTrustStores.Config2025.TRUSTSTORE_AP_TEST_CLASSPATH);
+    _create (PeppolTrustStores.Config2025.TRUSTSTORE_SMP_PRODUCTION_CLASSPATH);
+    _create (PeppolTrustStores.Config2025.TRUSTSTORE_SMP_TEST_CLASSPATH);
   }
 }

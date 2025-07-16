@@ -25,6 +25,7 @@ import java.security.cert.X509Certificate;
 import org.junit.Test;
 
 import com.helger.peppol.security.PeppolTrustStores.Config2018;
+import com.helger.peppol.security.PeppolTrustStores.Config2025;
 
 /**
  * Test class for class {@link PeppolTrustStores}.
@@ -34,7 +35,7 @@ import com.helger.peppol.security.PeppolTrustStores.Config2018;
 public final class PeppolTrustStoresTest
 {
   @Test
-  public void testConstants ()
+  public void testConstants2018 ()
   {
     assertNotNull (Config2018.CERTIFICATE_PRODUCTION_ROOT);
     assertNotNull (Config2018.CERTIFICATE_PRODUCTION_AP);
@@ -164,6 +165,140 @@ public final class PeppolTrustStoresTest
       assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA - G2,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
                     sSubjectName);
       aCertSMP.verify (Config2018.CERTIFICATE_PILOT_ROOT.getPublicKey ());
+    }
+  }
+
+  @Test
+  public void testConstants2025 ()
+  {
+    assertNotNull (Config2025.CERTIFICATE_PRODUCTION_ROOT);
+    assertNotNull (Config2025.CERTIFICATE_PRODUCTION_AP);
+    assertNotNull (Config2025.CERTIFICATE_PRODUCTION_SMP);
+
+    assertNotNull (Config2025.CERTIFICATE_TEST_ROOT);
+    assertNotNull (Config2025.CERTIFICATE_TEST_AP);
+    assertNotNull (Config2025.CERTIFICATE_TEST_SMP);
+  }
+
+  @Test
+  public void testLoadTrustStore2025ProductionAP () throws Exception
+  {
+    // Load trust store
+    final KeyStore aTrustStore = Config2025.TRUSTSTORE_AP_PRODUCTION;
+    assertNotNull (aTrustStore);
+
+    // Ensure all name entries are contained
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_PRODUCTION_ALIAS_ROOT));
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_PRODUCTION_ALIAS_AP));
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_PRODUCTION_ALIAS_SMP));
+
+    {
+      final X509Certificate aCertAP = Config2025.CERTIFICATE_PRODUCTION_AP;
+      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root CA - G3,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL ACCESS POINT CA - G3,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertAP.verify (Config2025.CERTIFICATE_PRODUCTION_ROOT.getPublicKey ());
+    }
+    {
+      final X509Certificate aCertSMP = Config2025.CERTIFICATE_PRODUCTION_SMP;
+      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root CA - G3,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER CA - G3,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertSMP.verify (Config2025.CERTIFICATE_PRODUCTION_ROOT.getPublicKey ());
+    }
+  }
+
+  @Test
+  public void testLoadTrustStore2025ProductionSMP () throws Exception
+  {
+    // Load trust store
+    final KeyStore aTrustStore = Config2025.TRUSTSTORE_SMP_PRODUCTION;
+    assertNotNull (aTrustStore);
+
+    // Ensure all name entries are contained
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_PRODUCTION_ALIAS_ROOT));
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_PRODUCTION_ALIAS_AP));
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_PRODUCTION_ALIAS_SMP));
+
+    {
+      final X509Certificate aCertAP = Config2025.CERTIFICATE_PRODUCTION_AP;
+      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root CA - G3,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL ACCESS POINT CA - G3,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertAP.verify (Config2025.CERTIFICATE_PRODUCTION_ROOT.getPublicKey ());
+    }
+    {
+      final X509Certificate aCertSMP = Config2025.CERTIFICATE_PRODUCTION_SMP;
+      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root CA - G3,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER CA - G3,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertSMP.verify (Config2025.CERTIFICATE_PRODUCTION_ROOT.getPublicKey ());
+    }
+  }
+
+  @Test
+  public void testLoadTrustStore2025PilotAP () throws Exception
+  {
+    // Load trust store
+    final KeyStore aTrustStore = Config2025.TRUSTSTORE_AP_TEST;
+    assertNotNull (aTrustStore);
+
+    // Ensure all name entries are contained
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_TEST_ALIAS_ROOT));
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_TEST_ALIAS_AP));
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_TEST_ALIAS_SMP));
+
+    {
+      final X509Certificate aCertAP = Config2025.CERTIFICATE_TEST_AP;
+      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root TEST CA - G3,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL ACCESS POINT TEST CA - G3,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertAP.verify (Config2025.CERTIFICATE_TEST_ROOT.getPublicKey ());
+    }
+    {
+      final X509Certificate aCertSMP = Config2025.CERTIFICATE_TEST_SMP;
+      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root TEST CA - G3,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA - G3,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
+                    sSubjectName);
+      aCertSMP.verify (Config2025.CERTIFICATE_TEST_ROOT.getPublicKey ());
+    }
+  }
+
+  @Test
+  public void testLoadTrustStore2025PilotSMP () throws Exception
+  {
+    // Load trust store
+    final KeyStore aTrustStore = Config2025.TRUSTSTORE_SMP_TEST;
+    assertNotNull (aTrustStore);
+
+    // Ensure all name entries are contained
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_TEST_ALIAS_ROOT));
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_TEST_ALIAS_AP));
+    assertNotNull (aTrustStore.getCertificate (Config2025.TRUSTSTORE_TEST_ALIAS_SMP));
+
+    {
+      final X509Certificate aCertAP = Config2025.CERTIFICATE_TEST_AP;
+      final String sIssuerName = aCertAP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root TEST CA - G3,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertAP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL ACCESS POINT TEST CA - G3,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sSubjectName);
+      aCertAP.verify (Config2025.CERTIFICATE_TEST_ROOT.getPublicKey ());
+    }
+    {
+      final X509Certificate aCertSMP = Config2025.CERTIFICATE_TEST_SMP;
+      final String sIssuerName = aCertSMP.getIssuerX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL Root TEST CA - G3,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE", sIssuerName);
+      final String sSubjectName = aCertSMP.getSubjectX500Principal ().getName ();
+      assertEquals ("CN=PEPPOL SERVICE METADATA PUBLISHER TEST CA - G3,OU=FOR TEST ONLY,O=OpenPEPPOL AISBL,C=BE",
+                    sSubjectName);
+      aCertSMP.verify (Config2025.CERTIFICATE_TEST_ROOT.getPublicKey ());
     }
   }
 }
