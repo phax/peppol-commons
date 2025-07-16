@@ -163,10 +163,12 @@ The SMP client (both Peppol and OASIS BDXR) uses the file `smp-client.properties
 
 It supports the following properties:
 * **`smpclient.truststore.type`**: the type of key store to be used. Possible values are `JKS`, `PKCS12` and `BCFKS`. Defaults to `JKS`.
+    * Must be set to `PKCS12` for Peppol G3 CA
 * **`smpclient.truststore.path`**: the location of the Peppol trust store (of the specified type) to be used. If this property is not defined, the value defaults to `truststore/complete-truststore.jks`. By default the SMP client supports the following built-in trust stores (in library [peppol-commons](https://github.com/phax/peppol-commons)):
-    * `truststore/complete-truststore.jks` - contains the trust certificates for Peppol production and pilot (root, AP, SMP, Directory, SML)
-    * `truststore/2018/smp-prod-truststore.jks` - contains the trust certificates for Peppol production only (root, SMP, Directory, SML)
-    * `truststore/2018/smp-pilot-truststore.jks` - contains the trust certificates for Peppol pilot only (root, SMP, Directory, SML)
+    * `truststore/2025/smp-prod-truststore.p12` - contains the trust certificates for Peppol G3 production only (root, SMP, Directory, SML)
+    * `truststore/2025/smp-test-truststore.p12` - contains the trust certificates for Peppol G3 test only (root, SMP, Directory, SML)
+    * `truststore/2018/smp-prod-truststore.jks` - contains the trust certificates for Peppol G2 production only (root, SMP, Directory, SML)
+    * `truststore/2018/smp-pilot-truststore.jks` - contains the trust certificates for Peppol G2 pilot only (root, SMP, Directory, SML)
 * **`smpclient.truststore.password`**: the password to access the trust store. By default the password `peppol` is used. This password is valid for all built-in trust stores mentioned above.
 
 * **`http.proxy.host`** (before v8.7.2: **`http.proxyHost`**): the host name or IP address to be used as a HTTP proxy for **all** hosts. If you need proxy exemptions use the `http.proxy.nonProxyHosts` configuration.
@@ -334,6 +336,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+* v11.0.2 - 2025-07-16
+    * Added support for the new Peppol G3 PKI and preconfifured trust stores (using PKCS12 format)
+    * Deprecated the `complete-truststore.jks` constant - it will not be taken over for the Peppol G3 PKI!
 * v11.0.1 - 2025-06-25
     * Fixed the determination of the Peppol Certificate subject for a Redrect, if no `X509SubjectName` element is present.
 * v11.0.0 - 2025-06-02
