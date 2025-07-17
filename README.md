@@ -336,7 +336,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v11.0.3 - work in progress
+* v11.0.3 - 2025-07-17
     * Updated to Peppol eDEC Code Lists v9.3
 * v11.0.2 - 2025-07-16
     * Added support for the new Peppol G3 PKI and preconfifured trust stores (using PKCS12 format)
