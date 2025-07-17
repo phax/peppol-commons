@@ -1,27 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2020-2025 OpenPeppol AISBL (www.peppol.org)
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-            http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
 <!--This is an OpenPeppol eDEC Code List.
 Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="9.2" entry-count="304">
+<document-types version="9.3" entry-count="306">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" initial-release="1.0.0" state="deprecated" deprecation-release="2" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC" category="Pre-Award">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -182,11 +165,11 @@ TICC-245</comment>
 TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="OIOUBL UtilityStatement V2.02" scheme="busdox-docid-qns" value="urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2::UtilityStatement##OIOUBL-2.02::2.0" initial-release="3" state="active" abstract="false" issued-by-openpeppol="false" domain-community="POAC" category="Utility Statement">
+  <document-type name="OIOUBL UtilityStatement V2.02" scheme="busdox-docid-qns" value="urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2::UtilityStatement##OIOUBL-2.02::2.0" initial-release="3" state="active" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="Utility Statement">
     <comment>TICC-37</comment>
     <process-id scheme="oioubl-procid-ubl" value="Reference-Utility-1.0" />
   </document-type>
-  <document-type name="OIOUBL Reminder V2.02" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Reminder-2::Reminder##OIOUBL-2.02::2.0" initial-release="3" state="active" abstract="false" issued-by-openpeppol="false" domain-community="POAC" category="Reminder">
+  <document-type name="OIOUBL Reminder V2.02" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Reminder-2::Reminder##OIOUBL-2.02::2.0" initial-release="3" state="active" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="Reminder">
     <comment>TICC-37</comment>
     <process-id scheme="oioubl-procid-ubl" value="Procurement-ReminderOnly-1.0" />
   </document-type>
@@ -1341,5 +1324,13 @@ TICC-365</comment>
   <document-type name="SG BIS Order Balance v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:fdc:imda.gov.sg:trns:order_balance:1::2.1" initial-release="9.2" state="active" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="Order Balance">
     <comment>TICC-383</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:imda.gov.sg:bis:order_balance:1" />
+  </document-type>
+  <document-type name="EU PINT Invoice v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@eu-1::2.1" initial-release="9.3" state="active" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
+    <comment>TICC-393</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="EU PINT Credit Note v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@eu-1::2.1" initial-release="9.3" state="active" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
+    <comment>TICC-393</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </document-type>
 </document-types>

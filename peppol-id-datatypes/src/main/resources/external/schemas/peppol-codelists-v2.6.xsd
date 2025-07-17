@@ -25,8 +25,9 @@
       OpenPeppol Code list schemas.
       All information elements outside the Peppol identifier scheme and value are non-normative.
       
-      Schema version: 2.5
-        Suitable with code list version 9.1 onwards
+      Schema version: 2.6
+        Suitable with code list version 9.3 onwards
+        Compared to v2.5: added the "spis-use-case" root element
         Compared to v2.4: added enumeration value "deprecation-scheduled" to "StateType" type
                           added new type "VersionOrDateType" and using it for "deprecation-release" elements
         Compared to v2.3: added the "category" element to the "document-type" element
@@ -454,6 +455,70 @@
   <xs:element name="transport-profiles" type="TransportProfilesType">
     <xs:annotation>
       <xs:documentation>The root element of the "transport profiles" code list</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  
+  <!-- SPIS Use Cases -->
+
+  <xs:complexType name="SpisUseCaseType">
+    <xs:attribute name="use-case-id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          The unique transport profile identifier value. 
+          This is the primary key column of this code list.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="initial-release" type="VersionType" use="required">
+      <xs:annotation>
+        <xs:documentation>The code list version when this item was officially introduced.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="state" type="StateType" use="required">
+      <xs:annotation>
+        <xs:documentation>The state of this code list entry.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="deprecation-release" type="VersionOrDateType" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          This attribute is only present, if the code list entry is deprecated.
+          It contains the code list version in which the entry was initially deprecated.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="removal-date" type="xs:date" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          This attribute is only present, if the code list entry is scheduled for removal.
+          It contains the date, when the entry is/was marked as removed.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="comment" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>Contains an optional comment to this code list entry. For human understanding only.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="SpisUseCaseListType">
+    <xs:annotation>
+      <xs:documentation>The type of the root element of the "SPIS Use Case identifier" code list</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="item" type="SpisUseCaseType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The code list entries</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attributeGroup ref="CodeListAttrGroup" />
+  </xs:complexType>
+
+  <xs:element name="spis-use-case" type="SpisUseCaseListType">
+    <xs:annotation>
+      <xs:documentation>The root element of the "SPIS Use Case identifier" code list</xs:documentation>
     </xs:annotation>
   </xs:element>
 </xs:schema>

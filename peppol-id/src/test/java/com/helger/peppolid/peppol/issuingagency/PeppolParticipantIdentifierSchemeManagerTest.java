@@ -38,7 +38,7 @@ public final class PeppolParticipantIdentifierSchemeManagerTest
   public void testAll ()
   {
     assertNotNull (PeppolParticipantIdentifierSchemeManager.getAllSchemes ());
-    assertEquals (99, PeppolParticipantIdentifierSchemeManager.getAllSchemes ().size ());
+    assertEquals (100, PeppolParticipantIdentifierSchemeManager.getAllSchemes ().size ());
 
     // test valid
     assertNotNull (PeppolParticipantIdentifierSchemeManager.getSchemeOfISO6523Code ("0088"));

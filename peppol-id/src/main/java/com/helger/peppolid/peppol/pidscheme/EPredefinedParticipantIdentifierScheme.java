@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2015-2025 Philip Helger
- * philip[at]helger[dot]com
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *         http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.helger.peppolid.peppol.pidscheme;
 
 import java.time.LocalDate;
@@ -638,6 +622,24 @@ public enum EPredefinedParticipantIdentifierScheme
     LU_MAT("LU:MAT", "0240", "LU", "Register of legal persons", "Centre des technologies de l'information de l'Etat (CTIE)", Version.parse("9.1"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
+     * Prefix <code>0242</code>, scheme ID <code>SPIS</code><br>
+     * Structure of the code: The identifier must follow the following regular expression in a
+     * case-insensitive way:
+     * [0-9]{6}(-[0-9A-Z_]{3,12}(\.[0-9A-Z\-\._~]{3,24})?)?
+     * The identifier consists of one to three parts: number of characters
+     * and their significance, if any
+     * - The mandatory Main ID - 6 characters
+     * - The optional Peppol Use Case ID - 3 to 12 characters
+     * - The optional Service Provider Suffix - 3 to 24 characters<br>
+     * Display requirements: Must follow the structure of the identifier<br>
+     * Usage information: The identifier will have several applications within the Peppol
+     * Network.<br>
+     * 
+     * @since code list 9.3
+     */
+    SPIS("SPIS", "0242", "international", "OpenPeppol Service Provider Identification Scheme", "OpenPeppol AISBL", Version.parse("9.3"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
      * Structure of the code: 1) First field: ICD: 4 digits, Second field: sequence of digits<br>
      * Display requirements: None<br>
@@ -1111,8 +1113,8 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "9.2";
-    public static final int CODE_LIST_ENTRY_COUNT = 99;
+    public static final String CODE_LIST_VERSION = "9.3";
+    public static final int CODE_LIST_ENTRY_COUNT = 100;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;

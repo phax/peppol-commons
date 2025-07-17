@@ -33,9 +33,9 @@
       <package name="com.helger.xsds.peppol.id1" />
     </schemaBindings>
   </bindings>
-  <bindings schemaLocation="../resources/external/schemas/peppol-codelists-v2.5.xsd">
+  <bindings schemaLocation="../resources/external/schemas/peppol-codelists-v2.6.xsd">
     <schemaBindings>
-      <package name="com.helger.xsds.peppol.codelists25" />
+      <package name="com.helger.xsds.peppol.codelists26" />
       <nameXmlTransform>
         <typeName prefix="PCL"/>
       </nameXmlTransform>

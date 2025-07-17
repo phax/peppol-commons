@@ -74,33 +74,35 @@ import com.helger.peppolid.peppol.doctype.PeppolGenericDocumentTypeIdentifierPar
 import com.helger.peppolid.peppol.pidscheme.IPeppolParticipantIdentifierScheme;
 import com.helger.peppolid.peppol.process.IPeppolPredefinedProcessIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
+import com.helger.peppolid.peppol.spisusecase.IPredefinedSPISUseCaseIdentifier;
 import com.helger.peppolid.peppol.transportprofile.IPredefinedTransportProfileIdentifier;
 import com.helger.xml.serialize.read.DOMReader;
-import com.helger.xsds.peppol.codelists25.ObjectFactory;
-import com.helger.xsds.peppol.codelists25.PCLDocumentTypeType;
-import com.helger.xsds.peppol.codelists25.PCLDocumentTypesType;
-import com.helger.xsds.peppol.codelists25.PCLParticipantIdentifierSchemeType;
-import com.helger.xsds.peppol.codelists25.PCLParticipantIdentifierSchemesType;
-import com.helger.xsds.peppol.codelists25.PCLProcessIDType;
-import com.helger.xsds.peppol.codelists25.PCLProcessType;
-import com.helger.xsds.peppol.codelists25.PCLProcessesType;
-import com.helger.xsds.peppol.codelists25.PCLStateType;
-import com.helger.xsds.peppol.codelists25.PCLTransportProfileType;
-import com.helger.xsds.peppol.codelists25.PCLTransportProfilesType;
+import com.helger.xsds.peppol.codelists26.ObjectFactory;
+import com.helger.xsds.peppol.codelists26.PCLDocumentTypeType;
+import com.helger.xsds.peppol.codelists26.PCLDocumentTypesType;
+import com.helger.xsds.peppol.codelists26.PCLParticipantIdentifierSchemeType;
+import com.helger.xsds.peppol.codelists26.PCLParticipantIdentifierSchemesType;
+import com.helger.xsds.peppol.codelists26.PCLProcessIDType;
+import com.helger.xsds.peppol.codelists26.PCLProcessType;
+import com.helger.xsds.peppol.codelists26.PCLProcessesType;
+import com.helger.xsds.peppol.codelists26.PCLSpisUseCaseListType;
+import com.helger.xsds.peppol.codelists26.PCLSpisUseCaseType;
+import com.helger.xsds.peppol.codelists26.PCLStateType;
+import com.helger.xsds.peppol.codelists26.PCLTransportProfileType;
+import com.helger.xsds.peppol.codelists26.PCLTransportProfilesType;
 import com.helger.xsds.peppol.id1.CPeppolID;
 
 /**
- * Utility class to create the Genericode files from the Excel code list. Also
- * creates Java source files with the predefined identifiers.<br>
- * Requires the code list XMLs in folder
- * <code>src/main/resources/codelists</code>
+ * Utility class to create the Genericode files from the Excel code list. Also creates Java source
+ * files with the predefined identifiers.<br>
+ * Requires the code list XMLs in folder <code>src/main/resources/codelists</code>
  *
  * @author Philip Helger
  */
 public final class MainCreatePredefinedEnumsFromXML_v9x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v9x.class);
-  private static final Version CODELIST_VERSION = new Version (9, 2);
+  private static final Version CODELIST_VERSION = new Version (9, 3);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
@@ -124,12 +126,13 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   @Nonnull
   private static IJExpression _asExpr (@Nullable final LocalDate aLocalDate)
   {
-    return aLocalDate == null ? JExpr._null ()
-                              : CM.ref (PDTFactory.class)
-                                  .staticInvoke ("createLocalDate")
-                                  .arg (aLocalDate.getYear ())
-                                  .arg (CM.ref (Month.class).staticInvoke ("of").arg (aLocalDate.getMonthValue ()))
-                                  .arg (aLocalDate.getDayOfMonth ());
+    return aLocalDate == null ? JExpr._null () : CM.ref (PDTFactory.class)
+                                                   .staticInvoke ("createLocalDate")
+                                                   .arg (aLocalDate.getYear ())
+                                                   .arg (CM.ref (Month.class)
+                                                           .staticInvoke ("of")
+                                                           .arg (aLocalDate.getMonthValue ()))
+                                                   .arg (aLocalDate.getDayOfMonth ());
   }
 
   private static void _handleDocumentTypes (final Document aDocumentSheet)
@@ -224,8 +227,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (JExpr.lit (sProfileCode));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
-                                    : JExpr._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
+                                                                                                                     ._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
         jEnumConst.arg (JExpr.lit (aRow.isAbstract ()));
         jEnumConst.arg (JExpr.lit (aRow.isIssuedByOpenpeppol ()));
@@ -530,8 +533,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (sIssuingAgency == null ? JExpr._null () : JExpr.lit (sIssuingAgency));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
-                                    : JExpr._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
+                                                                                                                     ._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
 
         jEnumConst.javadoc ()
@@ -864,8 +867,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
         jEnumConst.arg (JExpr.lit (sProfileID));
         jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
         jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
-        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease)
-                                    : JExpr._null ());
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
+                                                                                                                     ._null ());
         jEnumConst.arg (_asExpr (aRemovalDate));
 
         jEnumConst.javadoc ().add ("ID: <code>" + sProfileID + "</code><br>");
@@ -990,6 +993,129 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
     }
   }
 
+  private static void _handleSpisUseCase (final Document aTPSheet)
+  {
+    final PCLSpisUseCaseListType aList = new GenericJAXBMarshaller <> (PCLSpisUseCaseListType.class,
+                                                                       new CommonsArrayList <> (CPeppolID.getXSDPeppolCodeLists ()),
+                                                                       new ObjectFactory ()::createSpisUseCase).read (aTPSheet);
+    if (aList == null)
+      throw new IllegalStateException ();
+
+    // Avoid creating empty enum (as in 9.3)
+    if (aList.hasNoItemEntries ())
+      return;
+
+    // Create Java source
+    try
+    {
+      final JDefinedClass jEnum = CM._package (RESULT_PACKAGE_PREFIX + "spisusecase")
+                                    ._enum ("EPredefinedSPISUseCaseIdentifier");
+      jEnum._implements (CM.ref (IPredefinedSPISUseCaseIdentifier.class));
+      jEnum.annotate (CodingStyleguideUnaware.class);
+      jEnum.javadoc ().add (DO_NOT_EDIT);
+
+      // Add metadata
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL,
+                   CM.ref (String.class),
+                   "CODE_LIST_VERSION",
+                   JExpr.lit (aList.getVersion ()));
+      jEnum.field (JMod.PUBLIC_STATIC_FINAL,
+                   CM.INT,
+                   "CODE_LIST_ENTRY_COUNT",
+                   JExpr.lit (aList.getEntryCount ().intValue ()));
+
+      // enum constants
+      for (final PCLSpisUseCaseType aRow : aList.getItem ())
+      {
+        final String sUseCaseID = aRow.getUseCaseId ();
+        final String sInitialRelease = aRow.getInitialRelease ();
+        final EPeppolCodeListItemState eState = _getState (aRow.getState ());
+        final boolean bDeprecated = !eState.isActive ();
+        final String sDeprecationRelease = aRow.getDeprecationRelease ();
+        final LocalDate aRemovalDate = aRow.getRemovalDateLocal ();
+
+        final String sEnumConstName = RegExHelper.getAsIdentifier (sUseCaseID);
+        final JEnumConstant jEnumConst = jEnum.enumConstant (sEnumConstName);
+        jEnumConst.arg (JExpr.lit (sUseCaseID));
+        jEnumConst.arg (CM.ref (Version.class).staticInvoke ("parse").arg (sInitialRelease));
+        jEnumConst.arg (CM.ref (EPeppolCodeListItemState.class).enumConstantRef (eState));
+        jEnumConst.arg (bDeprecated ? CM.ref (Version.class).staticInvoke ("parse").arg (sDeprecationRelease) : JExpr
+                                                                                                                     ._null ());
+        jEnumConst.arg (_asExpr (aRemovalDate));
+
+        jEnumConst.javadoc ().add ("ID: <code>" + sUseCaseID + "</code><br>");
+        jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sInitialRelease);
+        if (bDeprecated)
+        {
+          jEnumConst.annotate (Deprecated.class).param ("forRemoval", JExpr.FALSE);
+          final JCommentPart aDepCP = jEnumConst.javadoc ().addDeprecated ();
+          aDepCP.add ("since v" + sDeprecationRelease + " - this item should not be used to issue new identifiers!");
+          if (aRemovalDate != null)
+            aDepCP.add ("<br>Removed per " + aRemovalDate);
+        }
+      }
+
+      // fields
+      final JFieldVar fUseCaseID = jEnum.field (JMod.PRIVATE | JMod.FINAL, String.class, "m_sUseCaseID");
+      final JFieldVar fInitialRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL, Version.class, "m_aInitialRelease");
+      final JFieldVar fState = jEnum.field (JMod.PRIVATE | JMod.FINAL, EPeppolCodeListItemState.class, "m_eState");
+      final JFieldVar fDeprecationRelease = jEnum.field (JMod.PRIVATE | JMod.FINAL,
+                                                         Version.class,
+                                                         "m_aDeprecationRelease");
+      final JFieldVar fRemovalDate = jEnum.field (JMod.PRIVATE | JMod.FINAL, LocalDate.class, "m_aRemovalDate");
+
+      // Constructor
+      final JMethod jCtor = jEnum.constructor (0);
+      final JVar jUseCaseID = jCtor.param (JMod.FINAL, String.class, "sProfileID");
+      jUseCaseID.annotate (Nonnull.class);
+      jUseCaseID.annotate (Nonempty.class);
+      final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
+      jInitialRelease.annotate (Nonnull.class);
+      final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
+      jState.annotate (Nonnull.class);
+      final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
+      jDeprecationRelease.annotate (Nullable.class);
+      final JVar jRemovalDate = jCtor.param (JMod.FINAL, LocalDate.class, "aRemovalDate");
+      jRemovalDate.annotate (Nullable.class);
+      jCtor.body ()
+           .assign (fUseCaseID, jUseCaseID)
+           .assign (fInitialRelease, jInitialRelease)
+           .assign (fState, jState)
+           .assign (fDeprecationRelease, jDeprecationRelease)
+           .assign (fRemovalDate, jRemovalDate);
+
+      // public String getUseCaseID ()
+      JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getUseCaseID");
+      m.annotate (Nonnull.class);
+      m.annotate (Nonempty.class);
+      m.body ()._return (fUseCaseID);
+
+      // public Version getInitialRelease ()
+      m = jEnum.method (JMod.PUBLIC, Version.class, "getInitialRelease");
+      m.annotate (Nonnull.class);
+      m.body ()._return (fInitialRelease);
+
+      // public EPeppolCodeListItemState getState ()
+      m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
+      m.annotate (Nonnull.class);
+      m.body ()._return (fState);
+
+      // public Version getDeprecationRelease ()
+      m = jEnum.method (JMod.PUBLIC, Version.class, "getDeprecationRelease");
+      m.annotate (Nullable.class);
+      m.body ()._return (fDeprecationRelease);
+
+      // public LocalDate getRemovalDate ()
+      m = jEnum.method (JMod.PUBLIC, LocalDate.class, "getRemovalDate");
+      m.annotate (Nullable.class);
+      m.body ()._return (fRemovalDate);
+    }
+    catch (final JCodeModelException ex)
+    {
+      LOGGER.warn ("Failed to create source", ex);
+    }
+  }
+
   private static final class CodeListFile
   {
     private final File m_aFile;
@@ -1018,7 +1144,9 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
                                                          new CodeListFile ("Processes",
                                                                            MainCreatePredefinedEnumsFromXML_v9x::_handleProcessIdentifiers),
                                                          new CodeListFile ("Transport profiles",
-                                                                           MainCreatePredefinedEnumsFromXML_v9x::_handleTransportProfileIdentifiers) })
+                                                                           MainCreatePredefinedEnumsFromXML_v9x::_handleTransportProfileIdentifiers),
+                                                         new CodeListFile ("SPIS Use Case",
+                                                                           MainCreatePredefinedEnumsFromXML_v9x::_handleSpisUseCase) })
     {
       final Document aDoc = DOMReader.readXMLDOM (aCLF.m_aFile);
       if (aDoc == null)
