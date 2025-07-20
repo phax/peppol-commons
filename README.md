@@ -434,128 +434,160 @@ v10.0.0 - 2025-02-03
 * Removed interface `IParticipantIdentifierScheme`
 * Renamed class `ParticipantIdentifierSchemeManager` to `PeppolParticipantIdentifierSchemeManager`
 
-* v9.7.2 - 2025-01-08
-    * Updated to OpenPeppol eDEC Code Lists v9.0
-* v9.7.1 - 2024-12-20
-    * Re-release of 9.7.0
-* v9.7.0 - 2024-12-20
-    * Reworked the Peppol Document Type Identifier data model to handle non-XML syntax specific IDs as well
-    * Introduced new classes `(I)PeppolGenericDocumentTypeIdentifierParts` to handle the generic identifier parts
-    * Deprecated classes `(I)BusdoxDocumentTypeIdentifierParts` for removal
-* v9.6.1 - 2024-12-16
-    * Added new class `PeppolNaptrURLProvider`
-    * Fixed the Peppol Directory URL of `EPeppolNetwork.PRODUCTION`    
-    * Added new method `PeppolSBDHData.areAllFieldsSet (Consumer<String>)`
-* v9.6.0 - 2024-11-10 (supports Peppol Policy for use of Identifiers up to 4.3.0)
-    * Requiring ph-commons 11.1.10
-    * Deprecated methods `SMPClientReadOnly.getCompleteServiceGroup(OrNull)` and `getServiceGroupReferenceList(OrNull)` because the underlying APIs are non-standard
-    * Extracted methods from `ISMPServiceMetadataProvider` into `ISMPExtendedServiceMetadataProvider`
-    * Updated the DBNAlliance Pilot domain name
-    * Moved method `PeppolCertificateHelper.getAllTrustedCertificates` to class `PeppolKeyStoreHelper`
-    * Added new methods to support Peppol Policy for use of Identifiers 4.3.0
-    * Added new annotations `@Pfuoi420` and `@Pfuoi430` to hint methods that are specification specific
-    * Added support for eB2B AP Pilot Trust Store as a predefined truststore
-    * Renamed class `CertificateRevocationChecker` to `CertificateRevocationCheckerDefaults`
-    * Made class `RevocationCheckBuilder` a top-level class
-    * Totally reworked class `PeppolCertificateChecker` to add flexibility and support multiple Peppol CAs
-    * Added new class `PeppolCAChecker` to support in the verification of Peppol certificates based on CAs
-    * Renamed class `PeppolRevocationCache` to `RevocationCheckResultCache`
-    * Added new enum `EPeppolServiceDomain` to be able to provide specific settings for specific service domains
-    * Added new enum `EPeppolNetwork` to be able to easily differentiate the Peppol Network stages
-* v9.5.1 - 2024-08-11
-    * Make sure that wildcard lookups including a `*` in the Customization ID will always fail
-    * Added additional `SMPClientReadOnly.getWildcardServiceMetadataOrNull` overload
-    * Extended `ISMPServiceMetadataProvider` and `ISMPServiceGroupProvider` interfaces
-* v9.5.0 - 2024-07-29
-    * Updated to dnsjava 3.6 fixing CVE-2024-25638
-    * Added new submodule `dbnalliance-xhe`. See [#53](https://github.com/phax/peppol-commons/pull/53) - thx @robinsongarciax
-    * Marked certain `ESMPTransportProfile` entries as "deleted"
-    * Added new SMP client exception `SMPClientParticipantNotFoundException` to indicate non-existing Service Groups. This was previously covered in `SMPClientNotFoundException`.
-    * Updated to OpenPeppol eDEC Code Lists v8.9
-* v9.4.0 - 2024-05-24
-    * Renamed `IParticipantIdentifierScheme` to `IPeppolParticipantIdentifierScheme`
-    * Tried to make the usage of `IIdentifierFactory` more customizable
-    * Made `AbstractRevocationCheckBuilder` and `PeppolRevocationCache` top-level classes
-    * Extracted class `TrustedCACertificates` to hold a list of certificates
-    * Deprecated a lot of methods in `PeppolCertificateChecker` in favour of new APIs. Main idea is to simplify multi-certificate handling.
-* v9.3.6 - 2024-04-24
-    * Added new class `PeppolLaxIdentifierFactory`
-    * Added new enum entry `ESMPIdentifierType.PEPPOL_LAX` for SMP handling. See [smp#275](https://github.com/phax/phoss-smp/issues/275).
-* v9.3.5 - 2024-04-23
-    * Updated to OpenPeppol eDEC Code Lists v8.8
-* v9.3.4 - 2024-04-04
-    * Added new classes to support the DBNA network as well (`DBNAURLProviderSMP`, `EDBNASML`)
-    * Allowing empty identifier schemes as being present (for DBNA). See `IIdentifier.hasScheme ()`
-* v9.3.3 - 2024-03-29
-    * Ensured Java 21 compatibility
-* v9.3.2 - 2024-03-29
-    * Added the DBNA AS4 v1 profile to `ESMPTransportProfile`. See [#52](https://github.com/phax/peppol-commons/issues/52)
-* v9.3.1 - 2024-03-04
-    * Updated to ph-ubl 9.0.0 (affects only `peppol-mlr`)
-    * Changed the default checking mode in `CertificateRevocationChecker` from `CRL_BEFORE_OCSP` to `CRL` to avoid any fallback to OCSP
-    * Improved logging of certificate revocation checks
-* v9.3.0 - 2024-01-22
-    * `PredefinedProcessIdentifierManager` now internally works with the full URI encoded process ID and not just the value
-    * Improved the CRL caching API and unified it with the Peppol certificate revocation checker cache
-    * Via `CRLCache` constructor a custom `CRLDownloader` can be configured. The default solution uses the Java runtime `HttpURLConnection`.
-* v9.2.3 - 2024-01-10
-    * Changed the default checking mode in `CertificateRevocationChecker` from `OCSP` to `CRL_BEFORE_OCSP` due to https://github.com/phax/phase4/issues/124#issuecomment-1884398195
-* v9.2.2 - 2024-01-08
-    * Extended `PeppolSBDHDocumentReader` API to allow to disable check for mandatory C1 Country Code via `.setCheckForCountryC1(boolean)`
-* v9.2.1 - 2024-01-07
-    * Updated to ph-web 10.1.7
-    * Added interface method `ISMPServiceMetadataProvider.getWildcardServiceMetadataOrNull`
-* v9.2.0 - 2024-01-02
-    * Made `COUNTRY_C1` in SBDH mandatory
-    * Updated the Peppol default trust stores to remove the old, soon expiring GlobalSign certificates. It was for a previous SML/SMK setup only.
-    * Moved the logic of `PeppolSBDHDocument` to `PeppolSBDHData`. The old class became deprecated.
-    * Extracted the Peppol SBDH validation into a separate method `PeppolSBDHDocumentReader.validateData`
-    * Extracted class `PeppolWildcardSelector` in preparation to support wildcard matching with different algorithms
-* v9.1.3 - 2023-12-10
-    * Fixed the "state" in `ESMPTransportProfile` predefined values
-* v9.1.2 - 2023-12-06
-    * Added new submodule `peppol-mlr`. It contains data structures to read and write Peppol Message Level Response messages.
-* v9.1.1 - 2023-11-22
-    * Added the "peppol-directory-businesscard" to the known submodules in the BOM part of pom.xml
-    * Updated to OpenPeppol eDEC Code Lists v8.7
-    * Improved the Peppol Document Type Identifier value syntax checks - for `busdox-docid-qns` and for `peppol-doctype-wildcard`
-    * Improved the Peppol Process Identifier value syntax checks
-    * Identifier value checks can now be different per identifier scheme
-* v9.1.0 - 2023-11-09
-    * Added new submodule `peppol-directory-businesscard`. It is meant to replace the `phoss-directory-businesscard` one.
-* v9.0.8 - 2023-08-22
-    * Updated to OpenPeppol eDEC Code Lists v8.6
-    * Added `CRLHelper.setCRLOfURL` to manually add an externally downloaded CRL
-    * Added `CRLHelper.getCRLFromURL` now considers a maximum caching duration (defaults to 1 day)
-    * Methods `PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID` and `PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID` now require the full identifier, incl. the scheme, to work around potentially new ambiguities
-    * Extended `CertificateRevocationChecker` builder with `crlCachingDuration(Duration)`
-    * Added new enum `EPeppolCertificateCheckResult.NOT_CHECKED` for [phase4/#159](https://github.com/phax/phase4/issues/159)
-* v9.0.7 - 2023-08-01
-    * Updated to ph-commons 11.1
-* v9.0.6 - 2023-05-25
-    * Improved support for the SBDH field `COUNTRY_C1`
-* v9.0.5 - 2023-05-17
-    * Added possibility to customize secure validation in `SMPHttpResponseHandlerSigned` (for the Java 17 SHA-1 issue)
-    * Added possibility to customize SMP Client to enabled or disable the secure validation via `setSecureValidation` (for the Java 17 SHA-1 issue)
-    * Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
-    * Fixed the splitting of Peppol Document Type Identifier values, so that `::` can occur in Customization IDs 
-* v9.0.4 - 2023-04-30
-    * Deprecated classes `PeppolSBDHPayload(Reader|Writer|Validator)` and `EPeppolSBDHPayloadType`
-    * Added new classes `PeppolSBDHPayloadBinaryMarshaller` and `PeppolSBDHPayloadTextMarshaller` instead
-    * Extended the API of class `PeppolCertificateChecker` to be able to register custom trusted Peppol certificates, e.g. for the French PoC
-* v9.0.3 - 2023-04-07
-    * Updated to OpenPeppol eDEC Code Lists v8.5.1
-* v9.0.2 - 2023-04-05
-    * Updated to OpenPeppol eDEC Code Lists v8.5
-    * Moved internal resources to different folders for overall unifications
-* v9.0.1 - 2023-03-27
-    * Updated to OpenPeppol eDEC Code Lists v8.4 with XSD 2.1
-* v9.0.0 - 2023-02-19
-    * Using Java 11 as the baseline
-    * Updated to ph-commons 11
-    * Updated to JAXB 4.0 and JAX-WS 4.0
-    * Removed deprecated classes and methods
-* v8.8.6 - 2023-05-25 [backport]
+v9.7.2 - 2025-01-08
+* Updated to OpenPeppol eDEC Code Lists v9.0
+
+v9.7.1 - 2024-12-20
+* Re-release of 9.7.0
+
+v9.7.0 - 2024-12-20
+* Reworked the Peppol Document Type Identifier data model to handle non-XML syntax specific IDs as well
+* Introduced new classes `(I)PeppolGenericDocumentTypeIdentifierParts` to handle the generic identifier parts
+* Deprecated classes `(I)BusdoxDocumentTypeIdentifierParts` for removal
+
+v9.6.1 - 2024-12-16
+* Added new class `PeppolNaptrURLProvider`
+* Fixed the Peppol Directory URL of `EPeppolNetwork.PRODUCTION`    
+* Added new method `PeppolSBDHData.areAllFieldsSet (Consumer<String>)`
+
+v9.6.0 - 2024-11-10 (supports Peppol Policy for use of Identifiers up to 4.3.0)
+* Requiring ph-commons 11.1.10
+* Deprecated methods `SMPClientReadOnly.getCompleteServiceGroup(OrNull)` and `getServiceGroupReferenceList(OrNull)` because the underlying APIs are non-standard
+* Extracted methods from `ISMPServiceMetadataProvider` into `ISMPExtendedServiceMetadataProvider`
+* Updated the DBNAlliance Pilot domain name
+* Moved method `PeppolCertificateHelper.getAllTrustedCertificates` to class `PeppolKeyStoreHelper`
+* Added new methods to support Peppol Policy for use of Identifiers 4.3.0
+* Added new annotations `@Pfuoi420` and `@Pfuoi430` to hint methods that are specification specific
+* Added support for eB2B AP Pilot Trust Store as a predefined truststore
+* Renamed class `CertificateRevocationChecker` to `CertificateRevocationCheckerDefaults`
+* Made class `RevocationCheckBuilder` a top-level class
+* Totally reworked class `PeppolCertificateChecker` to add flexibility and support multiple Peppol CAs
+* Added new class `PeppolCAChecker` to support in the verification of Peppol certificates based on CAs
+* Renamed class `PeppolRevocationCache` to `RevocationCheckResultCache`
+* Added new enum `EPeppolServiceDomain` to be able to provide specific settings for specific service domains
+* Added new enum `EPeppolNetwork` to be able to easily differentiate the Peppol Network stages
+
+v9.5.1 - 2024-08-11
+* Make sure that wildcard lookups including a `*` in the Customization ID will always fail
+* Added additional `SMPClientReadOnly.getWildcardServiceMetadataOrNull` overload
+* Extended `ISMPServiceMetadataProvider` and `ISMPServiceGroupProvider` interfaces
+
+v9.5.0 - 2024-07-29
+* Updated to dnsjava 3.6 fixing CVE-2024-25638
+* Added new submodule `dbnalliance-xhe`. See [#53](https://github.com/phax/peppol-commons/pull/53) - thx @robinsongarciax
+* Marked certain `ESMPTransportProfile` entries as "deleted"
+* Added new SMP client exception `SMPClientParticipantNotFoundException` to indicate non-existing Service Groups. This was previously covered in `SMPClientNotFoundException`.
+* Updated to OpenPeppol eDEC Code Lists v8.9
+
+v9.4.0 - 2024-05-24
+* Renamed `IParticipantIdentifierScheme` to `IPeppolParticipantIdentifierScheme`
+* Tried to make the usage of `IIdentifierFactory` more customizable
+* Made `AbstractRevocationCheckBuilder` and `PeppolRevocationCache` top-level classes
+* Extracted class `TrustedCACertificates` to hold a list of certificates
+* Deprecated a lot of methods in `PeppolCertificateChecker` in favour of new APIs. Main idea is to simplify multi-certificate handling.
+
+v9.3.6 - 2024-04-24
+* Added new class `PeppolLaxIdentifierFactory`
+* Added new enum entry `ESMPIdentifierType.PEPPOL_LAX` for SMP handling. See [smp#275](https://github.com/phax/phoss-smp/issues/275).
+
+v9.3.5 - 2024-04-23
+* Updated to OpenPeppol eDEC Code Lists v8.8
+
+v9.3.4 - 2024-04-04
+* Added new classes to support the DBNA network as well (`DBNAURLProviderSMP`, `EDBNASML`)
+* Allowing empty identifier schemes as being present (for DBNA). See `IIdentifier.hasScheme ()`
+
+v9.3.3 - 2024-03-29
+* Ensured Java 21 compatibility
+
+v9.3.2 - 2024-03-29
+* Added the DBNA AS4 v1 profile to `ESMPTransportProfile`. See [#52](https://github.com/phax/peppol-commons/issues/52)
+
+v9.3.1 - 2024-03-04
+* Updated to ph-ubl 9.0.0 (affects only `peppol-mlr`)
+* Changed the default checking mode in `CertificateRevocationChecker` from `CRL_BEFORE_OCSP` to `CRL` to avoid any fallback to OCSP
+* Improved logging of certificate revocation checks
+
+v9.3.0 - 2024-01-22
+* `PredefinedProcessIdentifierManager` now internally works with the full URI encoded process ID and not just the value
+* Improved the CRL caching API and unified it with the Peppol certificate revocation checker cache
+* Via `CRLCache` constructor a custom `CRLDownloader` can be configured. The default solution uses the Java runtime `HttpURLConnection`.
+
+v9.2.3 - 2024-01-10
+* Changed the default checking mode in `CertificateRevocationChecker` from `OCSP` to `CRL_BEFORE_OCSP` due to https://github.com/phax/phase4/issues/124#issuecomment-1884398195
+
+v9.2.2 - 2024-01-08
+* Extended `PeppolSBDHDocumentReader` API to allow to disable check for mandatory C1 Country Code via `.setCheckForCountryC1(boolean)`
+
+v9.2.1 - 2024-01-07
+* Updated to ph-web 10.1.7
+* Added interface method `ISMPServiceMetadataProvider.getWildcardServiceMetadataOrNull`
+
+v9.2.0 - 2024-01-02
+* Made `COUNTRY_C1` in SBDH mandatory
+* Updated the Peppol default trust stores to remove the old, soon expiring GlobalSign certificates. It was for a previous SML/SMK setup only.
+* Moved the logic of `PeppolSBDHDocument` to `PeppolSBDHData`. The old class became deprecated.
+* Extracted the Peppol SBDH validation into a separate method `PeppolSBDHDocumentReader.validateData`
+* Extracted class `PeppolWildcardSelector` in preparation to support wildcard matching with different algorithms
+
+v9.1.3 - 2023-12-10
+* Fixed the "state" in `ESMPTransportProfile` predefined values
+
+v9.1.2 - 2023-12-06
+* Added new submodule `peppol-mlr`. It contains data structures to read and write Peppol Message Level Response messages.
+
+v9.1.1 - 2023-11-22
+* Added the "peppol-directory-businesscard" to the known submodules in the BOM part of pom.xml
+* Updated to OpenPeppol eDEC Code Lists v8.7
+* Improved the Peppol Document Type Identifier value syntax checks - for `busdox-docid-qns` and for `peppol-doctype-wildcard`
+* Improved the Peppol Process Identifier value syntax checks
+* Identifier value checks can now be different per identifier scheme
+
+v9.1.0 - 2023-11-09
+* Added new submodule `peppol-directory-businesscard`. It is meant to replace the `phoss-directory-businesscard` one.
+
+v9.0.8 - 2023-08-22
+* Updated to OpenPeppol eDEC Code Lists v8.6
+* Added `CRLHelper.setCRLOfURL` to manually add an externally downloaded CRL
+* Added `CRLHelper.getCRLFromURL` now considers a maximum caching duration (defaults to 1 day)
+* Methods `PredefinedDocumentTypeIdentifierManager.getDocumentTypeIdentifierOfID` and `PredefinedDocumentTypeIdentifierManager.containsDocumentTypeIdentifierWithID` now require the full identifier, incl. the scheme, to work around potentially new ambiguities
+* Extended `CertificateRevocationChecker` builder with `crlCachingDuration(Duration)`
+* Added new enum `EPeppolCertificateCheckResult.NOT_CHECKED` for [phase4/#159](https://github.com/phax/phase4/issues/159)
+
+v9.0.7 - 2023-08-01
+* Updated to ph-commons 11.1
+
+v9.0.6 - 2023-05-25
+* Improved support for the SBDH field `COUNTRY_C1`
+
+v9.0.5 - 2023-05-17
+* Added possibility to customize secure validation in `SMPHttpResponseHandlerSigned` (for the Java 17 SHA-1 issue)
+* Added possibility to customize SMP Client to enabled or disable the secure validation via `setSecureValidation` (for the Java 17 SHA-1 issue)
+* Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
+* Fixed the splitting of Peppol Document Type Identifier values, so that `::` can occur in Customization IDs 
+
+v9.0.4 - 2023-04-30
+* Deprecated classes `PeppolSBDHPayload(Reader|Writer|Validator)` and `EPeppolSBDHPayloadType`
+* Added new classes `PeppolSBDHPayloadBinaryMarshaller` and `PeppolSBDHPayloadTextMarshaller` instead
+* Extended the API of class `PeppolCertificateChecker` to be able to register custom trusted Peppol certificates, e.g. for the French PoC
+
+v9.0.3 - 2023-04-07
+* Updated to OpenPeppol eDEC Code Lists v8.5.1
+
+v9.0.2 - 2023-04-05
+* Updated to OpenPeppol eDEC Code Lists v8.5
+* Moved internal resources to different folders for overall unifications
+
+v9.0.1 - 2023-03-27
+* Updated to OpenPeppol eDEC Code Lists v8.4 with XSD 2.1
+
+v9.0.0 - 2023-02-19
+* Using Java 11 as the baseline
+* Updated to ph-commons 11
+* Updated to JAXB 4.0 and JAX-WS 4.0
+* Removed deprecated classes and methods
+
+v8.8.6 - 2023-05-25 [backport]
     * Improved support for the SBDH field `COUNTRY_C1`
 * v8.8.5 - 2023-05-16 [backport]
     * Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
