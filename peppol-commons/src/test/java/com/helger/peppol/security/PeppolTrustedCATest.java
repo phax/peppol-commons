@@ -36,6 +36,7 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ETriState;
 import com.helger.peppol.security.PeppolTrustStores.Config2018;
+import com.helger.peppol.security.PeppolTrustStores.Config2025;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.keystore.EKeyStoreType;
@@ -52,7 +53,7 @@ public class PeppolTrustedCATest
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolTrustedCATest.class);
 
   @Test
-  public void testBasic ()
+  public void testBasic2018 ()
   {
     ECertificateCheckResult e = PeppolTrustedCA.peppolTestAP ().checkCertificate (null);
     assertEquals (ECertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);
@@ -73,11 +74,32 @@ public class PeppolTrustedCATest
   }
 
   @Test
-  public void testRealAPCert () throws Exception
+  public void testBasic2025 ()
+  {
+    ECertificateCheckResult e = PeppolTrustedCA.peppolTestAP ().checkCertificate (null);
+    assertEquals (ECertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);
+
+    e = PeppolTrustedCA.peppolTestAP ()
+                       .checkCertificate (Config2025.CERTIFICATE_TEST_AP,
+                                          PDTFactory.createOffsetDateTime (2000, Month.JANUARY, 1));
+    assertEquals (ECertificateCheckResult.NOT_YET_VALID, e);
+
+    e = PeppolTrustedCA.peppolTestAP ()
+                       .checkCertificate (Config2025.CERTIFICATE_TEST_AP,
+                                          PDTFactory.createOffsetDateTime (2099, Month.JANUARY, 1));
+    assertEquals (ECertificateCheckResult.EXPIRED, e);
+
+    // It's the same certificate, but we need one issued by the pilot AP
+    e = PeppolTrustedCA.peppolTestAP ().checkCertificate (Config2025.CERTIFICATE_TEST_AP);
+    assertEquals (ECertificateCheckResult.UNSUPPORTED_ISSUER, e);
+  }
+
+  @Test
+  public void testRealAPCertG2 () throws Exception
   {
     // As keystores are usually not in the repository, this test is no-op if the
     // file is not present
-    final File fAP = new File ("src/test/resources/test-ap-2023.p12");
+    final File fAP = new File ("src/test/resources/test-ap-2025.p12");
     if (fAP.exists ())
     {
       LOGGER.info ("Checking the local AP test certificate");
@@ -124,11 +146,11 @@ public class PeppolTrustedCATest
   }
 
   @Test
-  public void testRealSMPCert () throws Exception
+  public void testRealSMPCertG2 () throws Exception
   {
     // As keystores are usually not in the repository, this test is no-op if the
     // file is not present
-    final File fSMP = new File ("src/test/resources/test-smp-2023.p12");
+    final File fSMP = new File ("src/test/resources/test-smp-2025.p12");
     if (fSMP.exists ())
     {
       LOGGER.info ("Checking the local SMP test certificate");

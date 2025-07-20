@@ -336,82 +336,104 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-* v11.0.3 - 2025-07-17
-    * Updated to Peppol eDEC Code Lists v9.3
-* v11.0.2 - 2025-07-16
-    * Added support for the new Peppol G3 PKI and preconfifured trust stores (using PKCS12 format)
-    * Deprecated the `complete-truststore.jks` constant - it will not be taken over for the Peppol G3 PKI!
-* v11.0.1 - 2025-06-25
-    * Fixed the determination of the Peppol Certificate subject for a Redrect, if no `X509SubjectName` element is present.
-* v11.0.0 - 2025-06-02
-    * Updated to Peppol eDEC Code Lists v9.2
-    * Removed `Pfuoi420` annotation and all methods that were marked with it. This means, this version only supports Peppol Policy for use of Identifiers v4.3.0 or later.
-    * Added a `getClone` method to the the NAPTR based URL providers
-    * Removed all deprecated methods and classes, that were marked for removal in the previous releases
-    * Removed the MLS builder "Response Code" per Line Response
-    * The `PeppolMLSLineResponseBuilder` can now deal with multiple responses per "Line Response"
-* v10.5.1 - 2025-05-29
-    * The `PeppolMLSBuilder` now correctly requires the issue time with a mandatory time zone
-* v10.5.0 - 2025-04-15
-    * Moved the interface `ISMPFollowRedirectCallback` to its own package
-    * Extended BDXR1 and BDXR2 clients to also support the `ISMPFollowRedirectCallback`
-* v10.4.3 - 2025-05-14
-    * Introduced new interface `ISMPFollowRedirectCallback`
-    * The `ISMPServiceMetadataProvider.getServiceMetadata(OrNull)` methods received an overload with an optional `ISMPFollowRedirectCallback`
-* v10.4.2 - 2025-05-13
-    * Deprecated the eB2B specific trust stores
-* v10.4.1 - 2025-05-11
-    * Disabled certain SBDH validations if they payload is non-XML
-    * Added a predefined method in `PeppolSBDHData` to determine if a payload is XML or not.
-* v10.4.0 - 2025-05-09
-    * All created NAPTR URLs are now created in lowercase only
-    * Improved the `PeppolMLSBuilder` so that it can also be filled from existing `ApplicationResponse` objects
-    * Made Peppol Participant Identifier Value checks more strict, so that they must start with 4 digits and a colon (as in `0000:id`)
-    * Added support for `MLS_TO` and `MLS_TYPE` SBDH entries
-* v10.3.2 - 2025-04-29
-    * Added new class `PeppolConfigurableURLProvider` that allows to switch between CNAME and NAPTR based lookups
-* v10.3.1 - 2025-04-29
-    * Deprecated class `PeppolURLProvider`
-    * Using class `PeppolNaptrURLProvider` instead of class `PeppolURLProvider` to comply to the Peppol Policy for use of Identifiers 4.4.0
-* v10.3.0 - 2025-04-28 (supports Peppol Policy for use of Identifiers up to 4.4.0)
-    * Extended Peppol participant identifier value length to 135 for Peppol Policy for use of Identifiers 4.4.0
-    * Moved annotations`@Pfuoi420`, `@Pfuoi430` and `@Pfuoi440` to the submodule `peppol-id` into package `com.helger.peppolid.peppol`
-    * This release deprecates all Policy for use of Identifiers 4.2.0 related classes and methods as they become obsolete on May 15th, 2025
-* v10.2.1 - 2025-04-14
-    * Renamed all classes `DBNAllianceXHEDocument*` to `DBNAllianceXHEData*`
-    * Fixed type case error in regards to XHE `PayloadContent`
-* v10.2.0 - 2025-04-11
-    * Requires at least ph-commons 11.2.1
-    * Added new submodule `dbnalliance-commons` containing shared DBNAlliance stuff
-    * Removed enum `EPeppolCertificateCheckResult` in favour of `ECertificateCheckResult` from ph-security
-    * Deprecated class `PeppolCAChecker` in favour of `TrustedCAChecker` from ph-security
-    * Deprecated remaining methods in `PeppolCertificateHelper` in favour of new class `PeppolTrustedCA`
-    * Deprecated class `PeppolKeyStoreHelper` in favoid of new class `PeppolTrustStores`
-* v10.1.0 - 2025-03-16
-    * Added new submodule `peppol-mls` to support the member review version of Peppol MLS
-    * Removed submodule `peppol-ap-helper` as it is not a top-level project at https://github.com/phax/peppol-ap-support
-* v10.0.2 - 2025-03-04
-    * Updated to Peppol eDEC Code Lists v9.1
-    * Updated to Peppol eDEC Code Lists XSD v2.5
-* v10.0.1 - 2025-02-26
-    * Fixed a stupid copy paste in class `DBNAlliancePayload`. See [#59](https://github.com/phax/peppol-commons/issues/59) - thx @taalexlistex
-    * Fixed predefined Customization ID for DBNAlliance. See [#60](https://github.com/phax/peppol-commons/issues/60) - thx @taalexlistex
-    * Added support for eB2B AP Production Trust Store as a predefined truststore
-* v10.0.0 - 2025-02-03
-    * Updated to ph-commons 11.2.0
-    * Added new submodule `peppol-ap-helper`
-    * Removed all deprecated classes, methods and fields
-    * Moved the following class and methods into ph-commons and removed the local classes and methods
-        * Moved `IURLDownloader` to ph-commons
-        * Moved `ExpiringObject` to ph-datetime
-        * Moved `TrustedCACertificates`, `CRLCache`, `CRLDownloader`, `CRLHelper`, `AbstractRevocationCheckBuilder`, `CertificateRevocationCheckerDefaults`, `ERevocationCheckMode`, `ERevoked`, `IRevokedIndicator` and `RevocationCheckResultCache` to ph-security
-        * Moved method `PeppolKeyStoreHelper.getAllTrustedCertificates` to `KeyStoreHelper`
-    * Renamed `EPeppolSBDHDocumentReadError` to `EPeppolSBDHDataError` and moved to `com.helger.peppol.sbdh`
-    * Renamed `PeppolSBDHDocumentReader` to `PeppolSBDHDataReader` and moved to `com.helger.peppol.sbdh`
-    * Renamed `PeppolSBDHDocumentReadException` to `PeppolSBDHDataReadException` and moved to `com.helger.peppol.sbdh`
-    * Renamed `PeppolSBDHDocumentWriter` to `PeppolSBDHDataWriter` and moved to `com.helger.peppol.sbdh`
-    * Removed interface `IParticipantIdentifierScheme`
-    * Renamed class `ParticipantIdentifierSchemeManager` to `PeppolParticipantIdentifierSchemeManager`
+v11.0.4 - 2025-07-20
+* Added Peppol PKI G3 certificates into `PeppolTrustedCA`
+
+v11.0.3 - 2025-07-17
+* Updated to Peppol eDEC Code Lists v9.3
+
+v11.0.2 - 2025-07-16
+* Added support for the new Peppol G3 PKI and preconfifured trust stores (using PKCS12 format)
+* Deprecated the `complete-truststore.jks` constant - it will not be taken over for the Peppol G3 PKI!
+
+v11.0.1 - 2025-06-25
+* Fixed the determination of the Peppol Certificate subject for a Redrect, if no `X509SubjectName` element is present.
+
+v11.0.0 - 2025-06-02
+* Updated to Peppol eDEC Code Lists v9.2
+* Removed `Pfuoi420` annotation and all methods that were marked with it. This means, this version only supports Peppol Policy for use of Identifiers v4.3.0 or later.
+* Added a `getClone` method to the the NAPTR based URL providers
+* Removed all deprecated methods and classes, that were marked for removal in the previous releases
+* Removed the MLS builder "Response Code" per Line Response
+* The `PeppolMLSLineResponseBuilder` can now deal with multiple responses per "Line Response"
+
+v10.5.1 - 2025-05-29
+* The `PeppolMLSBuilder` now correctly requires the issue time with a mandatory time zone
+
+v10.5.0 - 2025-04-15
+* Moved the interface `ISMPFollowRedirectCallback` to its own package
+* Extended BDXR1 and BDXR2 clients to also support the `ISMPFollowRedirectCallback`
+
+v10.4.3 - 2025-05-14
+* Introduced new interface `ISMPFollowRedirectCallback`
+* The `ISMPServiceMetadataProvider.getServiceMetadata(OrNull)` methods received an overload with an optional `ISMPFollowRedirectCallback`
+
+v10.4.2 - 2025-05-13
+* Deprecated the eB2B specific trust stores
+
+v10.4.1 - 2025-05-11
+* Disabled certain SBDH validations if they payload is non-XML
+* Added a predefined method in `PeppolSBDHData` to determine if a payload is XML or not.
+
+v10.4.0 - 2025-05-09
+* All created NAPTR URLs are now created in lowercase only
+* Improved the `PeppolMLSBuilder` so that it can also be filled from existing `ApplicationResponse` objects
+* Made Peppol Participant Identifier Value checks more strict, so that they must start with 4 digits and a colon (as in `0000:id`)
+* Added support for `MLS_TO` and `MLS_TYPE` SBDH entries
+
+v10.3.2 - 2025-04-29
+* Added new class `PeppolConfigurableURLProvider` that allows to switch between CNAME and NAPTR based lookups
+
+v10.3.1 - 2025-04-29
+* Deprecated class `PeppolURLProvider`
+* Using class `PeppolNaptrURLProvider` instead of class `PeppolURLProvider` to comply to the Peppol Policy for use of Identifiers 4.4.0
+
+v10.3.0 - 2025-04-28 (supports Peppol Policy for use of Identifiers up to 4.4.0)
+* Extended Peppol participant identifier value length to 135 for Peppol Policy for use of Identifiers 4.4.0
+* Moved annotations`@Pfuoi420`, `@Pfuoi430` and `@Pfuoi440` to the submodule `peppol-id` into package `com.helger.peppolid.peppol`
+* This release deprecates all Policy for use of Identifiers 4.2.0 related classes and methods as they become obsolete on May 15th, 2025
+
+v10.2.1 - 2025-04-14
+* Renamed all classes `DBNAllianceXHEDocument*` to `DBNAllianceXHEData*`
+* Fixed type case error in regards to XHE `PayloadContent`
+
+v10.2.0 - 2025-04-11
+* Requires at least ph-commons 11.2.1
+* Added new submodule `dbnalliance-commons` containing shared DBNAlliance stuff
+* Removed enum `EPeppolCertificateCheckResult` in favour of `ECertificateCheckResult` from ph-security
+* Deprecated class `PeppolCAChecker` in favour of `TrustedCAChecker` from ph-security
+* Deprecated remaining methods in `PeppolCertificateHelper` in favour of new class `PeppolTrustedCA`
+* Deprecated class `PeppolKeyStoreHelper` in favoid of new class `PeppolTrustStores`
+
+v10.1.0 - 2025-03-16
+* Added new submodule `peppol-mls` to support the member review version of Peppol MLS
+* Removed submodule `peppol-ap-helper` as it is not a top-level project at https://github.com/phax/peppol-ap-support
+
+v10.0.2 - 2025-03-04
+* Updated to Peppol eDEC Code Lists v9.1
+* Updated to Peppol eDEC Code Lists XSD v2.5
+
+v10.0.1 - 2025-02-26
+* Fixed a stupid copy paste in class `DBNAlliancePayload`. See [#59](https://github.com/phax/peppol-commons/issues/59) - thx @taalexlistex
+* Fixed predefined Customization ID for DBNAlliance. See [#60](https://github.com/phax/peppol-commons/issues/60) - thx @taalexlistex
+* Added support for eB2B AP Production Trust Store as a predefined truststore
+
+v10.0.0 - 2025-02-03
+* Updated to ph-commons 11.2.0
+* Added new submodule `peppol-ap-helper`
+* Removed all deprecated classes, methods and fields
+* Moved the following class and methods into ph-commons and removed the local classes and methods
+    * Moved `IURLDownloader` to ph-commons
+    * Moved `ExpiringObject` to ph-datetime
+    * Moved `TrustedCACertificates`, `CRLCache`, `CRLDownloader`, `CRLHelper`, `AbstractRevocationCheckBuilder`, `CertificateRevocationCheckerDefaults`, `ERevocationCheckMode`, `ERevoked`, `IRevokedIndicator` and `RevocationCheckResultCache` to ph-security
+    * Moved method `PeppolKeyStoreHelper.getAllTrustedCertificates` to `KeyStoreHelper`
+* Renamed `EPeppolSBDHDocumentReadError` to `EPeppolSBDHDataError` and moved to `com.helger.peppol.sbdh`
+* Renamed `PeppolSBDHDocumentReader` to `PeppolSBDHDataReader` and moved to `com.helger.peppol.sbdh`
+* Renamed `PeppolSBDHDocumentReadException` to `PeppolSBDHDataReadException` and moved to `com.helger.peppol.sbdh`
+* Renamed `PeppolSBDHDocumentWriter` to `PeppolSBDHDataWriter` and moved to `com.helger.peppol.sbdh`
+* Removed interface `IParticipantIdentifierScheme`
+* Renamed class `ParticipantIdentifierSchemeManager` to `PeppolParticipantIdentifierSchemeManager`
+
 * v9.7.2 - 2025-01-08
     * Updated to OpenPeppol eDEC Code Lists v9.0
 * v9.7.1 - 2024-12-20
