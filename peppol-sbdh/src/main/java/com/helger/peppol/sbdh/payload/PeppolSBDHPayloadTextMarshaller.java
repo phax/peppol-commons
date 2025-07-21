@@ -29,6 +29,9 @@ import com.helger.peppol.sbdh.spec12.TextContentType;
  */
 public class PeppolSBDHPayloadTextMarshaller extends GenericJAXBMarshaller <TextContentType>
 {
+  public static final String NAMESPACE_URI = ObjectFactory._TextContent_QNAME.getNamespaceURI ();
+  public static final String ROOT_ELEMENT = ObjectFactory._TextContent_QNAME.getLocalPart ();
+
   public PeppolSBDHPayloadTextMarshaller ()
   {
     super (TextContentType.class, CPeppolSBDH.PEPPOL_SPECIAL_PAYLOADS_XSDS, new ObjectFactory ()::createTextContent);

@@ -29,6 +29,9 @@ import com.helger.peppol.sbdh.spec12.ObjectFactory;
  */
 public class PeppolSBDHPayloadBinaryMarshaller extends GenericJAXBMarshaller <BinaryContentType>
 {
+  public static final String NAMESPACE_URI = ObjectFactory._BinaryContent_QNAME.getNamespaceURI ();
+  public static final String ROOT_ELEMENT = ObjectFactory._BinaryContent_QNAME.getLocalPart ();
+
   public PeppolSBDHPayloadBinaryMarshaller ()
   {
     super (BinaryContentType.class,
