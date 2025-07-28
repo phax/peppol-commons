@@ -141,9 +141,8 @@ public final class SMPClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
-                                                                aPI,
-                                                                ESML.DIGIT_TEST).setSecureValidation (false);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST)
+                                                                                                                      .setSecureValidation (false);
     // Set old trust store
     {
       final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
@@ -574,7 +573,25 @@ public final class SMPClientReadOnlyTest
     assertNotNull (aAllDocTyoes);
 
     final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
-                                                                                       EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30.getAsDocumentTypeIdentifier ());
+                                                                                       EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
+    assertNotNull (aSM);
+  }
+
+  @Test
+  @Ignore ("Has some weird internal inconsistency in the base path :-)")
+  public void testFujitsuSignature () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0204:FujitsuwMPOC");
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+
+    final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aPI);
+    assertNotNull (aSG);
+
+    final ICommonsList <IDocumentTypeIdentifier> aAllDocTyoes = SMPClientReadOnly.getAllDocumentTypes (aSG);
+    assertNotNull (aAllDocTyoes);
+
+    final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
+                                                                                       EPredefinedDocumentTypeIdentifier.TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_TRANSACTION_STATISTICS_REPORTING_1_0);
     assertNotNull (aSM);
   }
 }
