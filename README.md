@@ -336,6 +336,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v11.0.5 - 2025-08-12
+* Updated to ph-web 10.5.0
+* The `SMPHttpClientSettings` now disables the HTTP protocol upgrade by default, which was introduced by Apache HttpClient 5.4
+
 v11.0.4 - 2025-07-20
 * Added Peppol PKI G3 certificates into `PeppolTrustedCA`
 
