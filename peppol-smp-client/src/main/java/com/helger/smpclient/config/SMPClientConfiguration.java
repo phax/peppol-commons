@@ -197,6 +197,7 @@ public final class SMPClientConfiguration
    *         evaluated.
    * @since 6.0.0 - was getTruststoreLocation before
    */
+  @SuppressWarnings ("removal")
   @Nonnull
   public static String getTrustStorePath ()
   {
