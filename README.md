@@ -336,7 +336,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v11.0.6 - work in progress
+v11.0.6 - 2025-08-12
 * Replaced the Let's Encrypt R3 CA with the E5 CA in the predefined trust stores
 
 v11.0.5 - 2025-08-12
