@@ -20,8 +20,8 @@ import com.helger.httpclient.HttpClientSettings;
 import com.helger.smpclient.config.SMPClientConfiguration;
 
 /**
- * Special SMP client {@link HttpClientSettings} that are fed from the
- * configuration file (see {@link SMPClientConfiguration}).
+ * Special SMP client {@link HttpClientSettings} that are fed from the configuration file (see
+ * {@link SMPClientConfiguration}).
  *
  * @author Philip Helger
  * @since 8.0.1
@@ -29,13 +29,15 @@ import com.helger.smpclient.config.SMPClientConfiguration;
 public class SMPHttpClientSettings extends HttpClientSettings
 {
   /**
-   * Constructor. Initializes all settings from configuration file. Any changes
-   * made afterwards
+   * Constructor. Initializes all settings from configuration file. Any changes made afterwards
    *
    * @see #resetToConfiguration()
    */
   public SMPHttpClientSettings ()
   {
+    // Currently the Peppol SMP requires to use "http" only - so no upgrade should be performed
+    setProtocolUpgradeEnabled (false);
+
     resetToConfiguration ();
   }
 
@@ -44,10 +46,9 @@ public class SMPHttpClientSettings extends HttpClientSettings
    */
   public final void resetToConfiguration ()
   {
-    setProxyHost (SMPClientConfiguration.getHttpProxy ());
-    setProxyCredentials (SMPClientConfiguration.getHttpProxyCredentials ());
-    nonProxyHosts ().clear ();
-    addNonProxyHostsFromPipeString (SMPClientConfiguration.getNonProxyHosts ());
+    getGeneralProxy ().setProxyHost (SMPClientConfiguration.getHttpProxy ());
+    getGeneralProxy ().setProxyCredentials (SMPClientConfiguration.getHttpProxyCredentials ());
+    getGeneralProxy ().setNonProxyHostsFromPipeString (SMPClientConfiguration.getNonProxyHosts ());
     setUseDNSClientCache (SMPClientConfiguration.isUseDNSClientCache ());
     setConnectTimeout (SMPClientConfiguration.getConnectTimeout ());
     setResponseTimeout (SMPClientConfiguration.getResponseTimeout ());
