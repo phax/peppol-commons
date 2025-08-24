@@ -19,12 +19,12 @@ package com.helger.peppolid.peppol.pidscheme;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.version.Version;
+import com.helger.annotation.Nonempty;
+import com.helger.base.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The Peppol specific version of a participant identifier scheme

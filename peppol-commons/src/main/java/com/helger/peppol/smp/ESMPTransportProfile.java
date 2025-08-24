@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.smp;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.type.ObjectType;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.type.ObjectType;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains predefined transport profiles for service registrations. A generic

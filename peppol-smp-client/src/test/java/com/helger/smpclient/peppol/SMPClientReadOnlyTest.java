@@ -36,10 +36,10 @@ import javax.xml.crypto.dsig.XMLSignatureException;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.PDTWebDateHelper;
-import com.helger.commons.state.ETriState;
+import com.helger.base.state.ETriState;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.web.PDTWebDateHelper;
 import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.peppol.sml.ESML;

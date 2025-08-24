@@ -16,15 +16,15 @@
  */
 package com.helger.peppol.config;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.peppol.sml.SMLInfo;
 import com.helger.peppol.sml.SMLInfoMicroTypeConverter;
 import com.helger.peppol.smp.SMPTransportProfile;
 import com.helger.peppol.smp.SMPTransportProfileMicroTypeConverter;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special micro type converter for this project.

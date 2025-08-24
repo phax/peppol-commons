@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.smlclient.support;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasName;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasName;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Enumeration with all object types relevant to the SML.

@@ -29,12 +29,12 @@ import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.w3c.dom.Document;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.serialize.read.DOMReader;
 
 /**
@@ -102,7 +102,7 @@ public final class PeppolSBDHDataWriterTest
     assertEquals ("root", aDataRead.getBusinessMessage ().getLocalName ());
     assertEquals (0, aDataRead.additionalAttributes ().size ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData, aDataRead);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aData, aDataRead);
   }
 
   @Test
@@ -169,11 +169,11 @@ public final class PeppolSBDHDataWriterTest
     assertNull (aDataRead.additionalAttributes ().get ("Attr3"));
 
     // Additional attribute Attr3 is different
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aData, aDataRead);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aData, aDataRead);
 
     // Now they should be equal
     aDataRead.additionalAttributes ().put ("Attr3", "");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData, aDataRead);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aData, aDataRead);
   }
 
   @Test

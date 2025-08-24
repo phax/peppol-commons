@@ -18,11 +18,11 @@ package com.helger.smpclient.httpclient;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is the Apache HTTP client response handler for messages which don't

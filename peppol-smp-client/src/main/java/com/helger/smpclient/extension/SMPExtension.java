@@ -16,19 +16,16 @@
  */
 package com.helger.smpclient.extension;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 import com.helger.xml.serialize.read.DOMReader;
@@ -36,6 +33,9 @@ import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains a generic extension that works for Peppol SMP, OASIS BDXR
@@ -470,7 +470,7 @@ public class SMPExtension
     aExt.setExtensionReasonCode (aObject.getAsString (JSON_REASON_CODE));
     aExt.setExtensionReason (aObject.getAsString (JSON_REASON));
     final String sAny = aObject.getAsString (JSON_ANY);
-    if (StringHelper.hasText (sAny))
+    if (StringHelper.isNotEmpty (sAny))
     {
       final Document aDoc = DOMReader.readXMLDOM (sAny);
       if (aDoc != null)
@@ -482,7 +482,7 @@ public class SMPExtension
   @Nullable
   public static SMPExtension ofXML (@Nullable final String sXML)
   {
-    if (StringHelper.hasText (sXML))
+    if (StringHelper.isNotEmpty (sXML))
     {
       final Document aDoc = DOMReader.readXMLDOM (sXML);
       if (aDoc != null)

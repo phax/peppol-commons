@@ -18,15 +18,15 @@ package com.helger.smpclient.httpclient;
 
 import java.io.IOException;
 
-import javax.annotation.Nonnull;
-
 import org.apache.hc.core5.http.HttpEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This is the Apache HTTP client response handler to verify unsigned HTTP

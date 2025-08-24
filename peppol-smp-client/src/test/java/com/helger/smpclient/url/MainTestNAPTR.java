@@ -16,15 +16,15 @@
  */
 package com.helger.smpclient.url;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.timing.StopWatch;
-import com.helger.commons.url.URLHelper;
+import com.helger.base.timing.StopWatch;
+import com.helger.base.url.URLHelper;
 import com.helger.dns.naptr.NaptrResolver;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public class MainTestNAPTR
 {

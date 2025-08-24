@@ -19,13 +19,13 @@ package com.helger.peppol.testfiles.official;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.xml.serialize.read.DOMReader;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link OfficialTestFiles}

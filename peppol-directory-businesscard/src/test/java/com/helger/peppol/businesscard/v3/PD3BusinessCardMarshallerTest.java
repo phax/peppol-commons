@@ -21,12 +21,12 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.nio.charset.Charset;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 
-import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.io.file.SimpleFileIO;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PD3BusinessCardMarshaller}.

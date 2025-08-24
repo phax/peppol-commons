@@ -16,12 +16,12 @@
  */
 package com.helger.smpclient.url;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.lang.ICloneable;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
 import com.helger.peppolid.peppol.Pfuoi440;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The implementation of {@link IPeppolURLProvider} suitable for the Peppol

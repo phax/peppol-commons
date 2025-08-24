@@ -16,18 +16,18 @@
  */
 package com.helger.peppolid.simple.participant;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.hashcode.IHashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a sanity class around the {@link ParticipantIdentifierType} class

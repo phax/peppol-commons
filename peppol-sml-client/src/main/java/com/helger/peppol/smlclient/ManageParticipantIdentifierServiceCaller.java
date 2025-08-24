@@ -17,19 +17,18 @@
 package com.helger.peppol.smlclient;
 
 import java.net.URL;
+import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
-
-import javax.annotation.Nonnull;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringImplode;
 import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.participant.BadRequestFault;
@@ -48,11 +47,11 @@ import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.BindingProvider;
 
 /**
- * This class is used for calling the Manage Participant Identifier interface on
- * the SML.
+ * This class is used for calling the Manage Participant Identifier interface on the SML.
  *
  * @author Ravnholt
  * @author Philip Helger
@@ -62,8 +61,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   private static final Logger LOGGER = LoggerFactory.getLogger (ManageParticipantIdentifierServiceCaller.class);
 
   /**
-   * Constructs a service caller for the manage business identifier interface.
-   * <br>
+   * Constructs a service caller for the manage business identifier interface. <br>
    * Example of a host:<br>
    * https://sml.peppolcentral.org/managebusinessidentifier
    *
@@ -76,14 +74,12 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Constructs a service caller for the manage business identifier interface.
-   * <br>
+   * Constructs a service caller for the manage business identifier interface. <br>
    * Example of a host:<br>
    * https://sml.peppolcentral.org/managebusinessidentifier
    *
    * @param aEndpointAddress
-   *        The URL of the manage participant identifier interface. May not be
-   *        <code>null</code>.
+   *        The URL of the manage participant identifier interface. May not be <code>null</code>.
    */
   public ManageParticipantIdentifierServiceCaller (@Nonnull final URL aEndpointAddress)
   {
@@ -123,11 +119,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws NotFoundFault
    *         Is thrown if the service meta data publisher was not found.
    */
-  public void create (@Nonnull @Nonempty final String sSMPID,
-                      @Nonnull final IParticipantIdentifier aIdentifier) throws BadRequestFault,
-                                                                         InternalErrorFault,
-                                                                         UnauthorizedFault,
-                                                                         NotFoundFault
+  public void create (@Nonnull @Nonempty final String sSMPID, @Nonnull final IParticipantIdentifier aIdentifier)
+                                                                                                                 throws BadRequestFault,
+                                                                                                                 InternalErrorFault,
+                                                                                                                 UnauthorizedFault,
+                                                                                                                 NotFoundFault
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notNull (aIdentifier, "Identifier");
@@ -174,27 +170,31 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   @Nonnull
-  private static String _toString (@Nonnull final Iterable <? extends IParticipantIdentifier> aParticipantIdentifiers)
+  private static String _toString (@Nonnull final Collection <? extends IParticipantIdentifier> aParticipantIdentifiers)
   {
-    return StringHelper.getImplodedMapped (", ", aParticipantIdentifiers, IParticipantIdentifier::getURIEncoded);
+    return StringImplode.imploder ()
+                        .separator (", ")
+                        .source (aParticipantIdentifiers, IParticipantIdentifier::getURIEncoded)
+                        .build ();
   }
 
   @Nonnull
-  private static String _toString2 (@Nonnull final Iterable <? extends ParticipantIdentifierType> aParticipantIdentifiers)
+  private static String _toString2 (@Nonnull final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers)
   {
-    return StringHelper.getImplodedMapped (", ", aParticipantIdentifiers, CIdentifier::getURIEncoded);
+    return StringImplode.imploder ()
+                        .separator (", ")
+                        .source (aParticipantIdentifiers, CIdentifier::getURIEncoded)
+                        .build ();
   }
 
   /**
    * Creates a list of participant identifiers.
    *
    * @param aParticipantIdentifiers
-   *        The collection of identifiers to create. May neither be
-   *        <code>null</code> nor empty nor may it contain <code>null</code>
-   *        values.
+   *        The collection of identifiers to create. May neither be <code>null</code> nor empty nor
+   *        may it contain <code>null</code> values.
    * @param sSMPID
-   *        The id of the service meta data. May neither be <code>null</code>
-   *        nor empty.
+   *        The id of the service meta data. May neither be <code>null</code> nor empty.
    * @throws BadRequestFault
    *         Is thrown if the request sent to the service was not well-formed.
    * @throws InternalErrorFault
@@ -204,7 +204,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void createList (@Nonnull @Nonempty final Iterable <? extends IParticipantIdentifier> aParticipantIdentifiers,
+  public void createList (@Nonnull @Nonempty final Collection <? extends IParticipantIdentifier> aParticipantIdentifiers,
                           @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
                                                                   InternalErrorFault,
                                                                   NotFoundFault,
@@ -230,12 +230,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
 
   /**
    * Deletes a given participant identifier. <br>
-   * This is a workaround for a bug in CIPA SMK 3.0 which requires the SMP ID.
-   * Previously it was never needed!
+   * This is a workaround for a bug in CIPA SMK 3.0 which requires the SMP ID. Previously it was
+   * never needed!
    *
    * @param sSMPID
-   *        The id of the service meta data. May neither be <code>null</code>
-   *        nor empty.
+   *        The id of the service meta data. May neither be <code>null</code> nor empty.
    * @param aIdentifier
    *        The business identifier to delete. May not be <code>null</code>.
    * @throws BadRequestFault
@@ -243,16 +242,15 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws InternalErrorFault
    *         Is thrown if an internal error happened on the service.
    * @throws NotFoundFault
-   *         Is thrown if the business identifier could not be found and
-   *         therefore deleted.
+   *         Is thrown if the business identifier could not be found and therefore deleted.
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void delete (@Nonnull @Nonempty final String sSMPID,
-                      @Nonnull final IParticipantIdentifier aIdentifier) throws BadRequestFault,
-                                                                         InternalErrorFault,
-                                                                         NotFoundFault,
-                                                                         UnauthorizedFault
+  public void delete (@Nonnull @Nonempty final String sSMPID, @Nonnull final IParticipantIdentifier aIdentifier)
+                                                                                                                 throws BadRequestFault,
+                                                                                                                 InternalErrorFault,
+                                                                                                                 NotFoundFault,
+                                                                                                                 UnauthorizedFault
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 
@@ -274,8 +272,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws InternalErrorFault
    *         Is thrown if an internal error happened on the service.
    * @throws NotFoundFault
-   *         Is thrown if the business identifier could not be found and
-   *         therefore deleted.
+   *         Is thrown if the business identifier could not be found and therefore deleted.
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
@@ -298,23 +295,21 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * Deletes a list of participant identifiers
    *
    * @param aParticipantIdentifiers
-   *        The list of participant identifiers. May neither be
-   *        <code>null</code> nor empty nor may it contain <code>null</code>
-   *        values.
+   *        The list of participant identifiers. May neither be <code>null</code> nor empty nor may
+   *        it contain <code>null</code> values.
    * @throws BadRequestFault
    *         Is thrown if the request sent to the service was not well-formed.
    * @throws InternalErrorFault
    *         Is thrown if an internal error happened on the service.
    * @throws NotFoundFault
-   *         Is thrown if a business identifier could not be found and therefore
-   *         deleted.
+   *         Is thrown if a business identifier could not be found and therefore deleted.
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void deleteList (@Nonnull @Nonempty final Iterable <? extends ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault,
-                                                                                                                           InternalErrorFault,
-                                                                                                                           NotFoundFault,
-                                                                                                                           UnauthorizedFault
+  public void deleteList (@Nonnull @Nonempty final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault,
+                                                                                                                             InternalErrorFault,
+                                                                                                                             NotFoundFault,
+                                                                                                                             UnauthorizedFault
   {
     ValueEnforcer.notEmptyNoNullValue (aParticipantIdentifiers, "ParticipantIdentifiers");
 
@@ -330,16 +325,14 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Lists the participant identifiers registered for the SMP associated with
-   * the publisher id. The method is paged, so the page id can be used to get
-   * the next page.
+   * Lists the participant identifiers registered for the SMP associated with the publisher id. The
+   * method is paged, so the page id can be used to get the next page.
    *
    * @param sPageId
-   *        The id of the next page. May not be <code>null</code> but maybe
-   *        empty if it is the first page.
+   *        The id of the next page. May not be <code>null</code> but maybe empty if it is the first
+   *        page.
    * @param sSMPID
-   *        The publisher id corresponding to the SMP. May neither be
-   *        <code>null</code> nor empty.
+   *        The publisher id corresponding to the SMP. May neither be <code>null</code> nor empty.
    * @return A page of participant identifiers.
    * @throws BadRequestFault
    *         Is thrown if the request sent to the service was not well-formed.
@@ -350,11 +343,11 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public ParticipantIdentifierPageType list (@Nonnull final String sPageId,
-                                             @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
-                                                                                     InternalErrorFault,
-                                                                                     NotFoundFault,
-                                                                                     UnauthorizedFault
+  public ParticipantIdentifierPageType list (@Nonnull final String sPageId, @Nonnull @Nonempty final String sSMPID)
+                                                                                                                    throws BadRequestFault,
+                                                                                                                    InternalErrorFault,
+                                                                                                                    NotFoundFault,
+                                                                                                                    UnauthorizedFault
   {
     ValueEnforcer.notNull (sPageId, "PageId");
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
@@ -366,9 +359,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Lists the participant identifiers registered for the SMP associated with
-   * the publisher id. The method is paged, so the page id can be used to get
-   * the next page.
+   * Lists the participant identifiers registered for the SMP associated with the publisher id. The
+   * method is paged, so the page id can be used to get the next page.
    *
    * @param aPageRequest
    *        The page request
@@ -411,9 +403,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Create a random migration key. Prior to version 8.1.2 this was a random
-   * UUID. In 8.1.2 the formula was changed to follow the rules of the BDMSL
-   * implementation.
+   * Create a random migration key. Prior to version 8.1.2 this was a random UUID. In 8.1.2 the
+   * formula was changed to follow the rules of the BDMSL implementation.
    *
    * @return A new random migration key that matches the regex pattern of
    *         {@link CSMLDefault#MIGRATION_CODE_PATTERN}.
@@ -439,10 +430,9 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Prepares a migrate of the given participant identifier from one SMP to
-   * another. This method must be called from the source SMP. This method
-   * creates a new random migration key via {@link #createRandomMigrationKey()}
-   * and than calls
+   * Prepares a migrate of the given participant identifier from one SMP to another. This method
+   * must be called from the source SMP. This method creates a new random migration key via
+   * {@link #createRandomMigrationKey()} and than calls
    * {@link #prepareToMigrate(IParticipantIdentifier, String, String)}
    *
    * @param aIdentifier
@@ -475,15 +465,14 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Prepares a migrate of the given participant identifier from one SMP to
-   * another. This method must be called from the source SMP. This overload
-   * takes a migration key that was created outside.
+   * Prepares a migrate of the given participant identifier from one SMP to another. This method
+   * must be called from the source SMP. This overload takes a migration key that was created
+   * outside.
    *
    * @param aIdentifier
    *        The participant identifier.
    * @param sMigrationKey
-   *        The migration key to be used. May neither be <code>null</code> nor
-   *        empty.
+   *        The migration key to be used. May neither be <code>null</code> nor empty.
    * @param sSMPID
    *        SMP ID
    * @return The migration key to transfer out-of-band to the other SMP.
@@ -530,21 +519,19 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
   }
 
   /**
-   * Migrates an existing Service Group from another SMP to this SMP. The source
-   * SMP must have called the
-   * {@link #prepareToMigrate(IParticipantIdentifier, String, String)} method
-   * and pass the migration key to the receiving SMP. The receiving SMP must use
-   * this method to indicate to the SMK/SML that the new participant is now
-   * usable by the new SMP.
+   * Migrates an existing Service Group from another SMP to this SMP. The source SMP must have
+   * called the {@link #prepareToMigrate(IParticipantIdentifier, String, String)} method and pass
+   * the migration key to the receiving SMP. The receiving SMP must use this method to indicate to
+   * the SMK/SML that the new participant is now usable by the new SMP.
    *
    * @param aIdentifier
    *        The participant identifier to migrate. May not be <code>null</code>.
    * @param sMigrationKey
-   *        The migration key received by the previous owner. May not be
-   *        <code>null</code>. Must have at last 24 characters.
+   *        The migration key received by the previous owner. May not be <code>null</code>. Must
+   *        have at last 24 characters.
    * @param sSMPID
-   *        The publisher id corresponding to the new owner SMP. May neither be
-   *        <code>null</code> nor empty.
+   *        The publisher id corresponding to the new owner SMP. May neither be <code>null</code>
+   *        nor empty.
    * @throws BadRequestFault
    *         Is thrown if the request sent to the service was not well-formed.
    * @throws InternalErrorFault

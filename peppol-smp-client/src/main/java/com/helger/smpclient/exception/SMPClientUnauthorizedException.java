@@ -16,9 +16,9 @@
  */
 package com.helger.smpclient.exception;
 
-import javax.annotation.Nonnull;
-
 import org.apache.hc.client5.http.HttpResponseException;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This exception is thrown, if the HTTP response was 403.

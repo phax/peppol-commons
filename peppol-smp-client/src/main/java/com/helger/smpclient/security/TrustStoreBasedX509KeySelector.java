@@ -26,8 +26,6 @@ import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.crypto.AlgorithmMethod;
 import javax.xml.crypto.KeySelector;
 import javax.xml.crypto.KeySelectorException;
@@ -41,15 +39,18 @@ import javax.xml.crypto.dsig.keyinfo.X509Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.keystore.ConstantKeySelectorResult;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.security.revocation.RevocationCheckBuilder;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Finds and returns a key using the data contained in a {@link KeyInfo} object

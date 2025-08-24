@@ -18,7 +18,7 @@ package com.helger.peppol.mlr;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.SPITestHelper;
+import com.helger.unittestext.SPITestHelper;
 
 /**
  * Test SPI configuration consistency.

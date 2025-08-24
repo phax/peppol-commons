@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.mock.XMLTestHelper;
 
 /**
@@ -52,8 +52,8 @@ public final class SimpleDocumentTypeIdentifierTest
     final SimpleDocumentTypeIdentifier aID1 = new SimpleDocumentTypeIdentifier ("scheme", "value");
     final SimpleDocumentTypeIdentifier aID2 = new SimpleDocumentTypeIdentifier ("scheme", "value");
     final SimpleDocumentTypeIdentifier aID3 = new SimpleDocumentTypeIdentifier ("scheme2", "value");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
   }
 }

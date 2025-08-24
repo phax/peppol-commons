@@ -16,10 +16,10 @@
  */
 package com.helger.peppolid.peppol.process;
 
-import javax.annotation.Nonnull;
-
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+
+import jakarta.annotation.Nonnull;
 
 public final class PeppolProcessIdentifierMicroTypeConverter extends
                                                              AbstractIdentifierMicroTypeConverter <PeppolProcessIdentifier>

@@ -25,8 +25,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.json.IJsonObject;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link PDName}.
@@ -44,11 +44,11 @@ public final class PDNameTest
     assertEquals ("en", aName.getLanguageCode ());
     assertFalse (aName.hasNoLanguageCode ());
 
-    CommonsTestHelper.testDefaultSerialization (aName);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aName, new PDName ("ACME", "en"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME2", "en"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME", "de"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME"));
+    TestHelper.testDefaultSerialization (aName);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aName, new PDName ("ACME", "en"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME2", "en"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME", "de"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME"));
     assertNotNull (aName.getAsMicroXML (null, "a"));
     assertNotNull (aName.getAsMicroXML ("urn:example.org", "a"));
 
@@ -68,9 +68,9 @@ public final class PDNameTest
     assertNotNull (aName.getAsMicroXML (null, "a"));
     assertNotNull (aName.getAsMicroXML ("urn:example.org", "a"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aName, new PDName ("ACME"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME", "en"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aName, new PDName ("ACME"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME2"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME", "en"));
   }
 
   @SuppressWarnings ("unused")
@@ -119,7 +119,7 @@ public final class PDNameTest
     assertNotNull (aJson);
     PDName aName2 = PDName.of (aJson);
     assertNotNull (aName2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aName2, aName);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aName2, aName);
 
     // No language
     aName = new PDName ("ACME");
@@ -127,6 +127,6 @@ public final class PDNameTest
     assertNotNull (aJson);
     aName2 = PDName.of (aJson);
     assertNotNull (aName2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aName2, aName);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aName2, aName);
   }
 }

@@ -22,9 +22,6 @@ import java.security.KeyStore;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
 import javax.xml.crypto.KeySelector;
 import javax.xml.crypto.MarshalException;
 import javax.xml.crypto.dsig.Reference;
@@ -39,15 +36,19 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
+import com.helger.annotation.WillNotClose;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
 import com.helger.xml.serialize.read.DOMReader;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is the Apache HTTP client response handler to verify signed HTTP

@@ -19,25 +19,22 @@ package com.helger.peppol.xhe.read;
 import java.io.InputStream;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.datetime.XMLOffsetDateTime;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.SingleError;
-import com.helger.commons.error.level.IHasErrorLevel;
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.datetime.xml.XMLOffsetDateTime;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.SingleError;
+import com.helger.diagnostics.error.level.IHasErrorLevel;
+import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.io.resource.IReadableResource;
 import com.helger.peppol.xhe.CDBNAllianceXHE;
 import com.helger.peppol.xhe.DBNAlliancePayload;
 import com.helger.peppol.xhe.DBNAllianceXHEData;
@@ -57,6 +54,9 @@ import com.helger.xhe.v10.cbc.XHE10IDType;
 import com.helger.xhe.v10.cbc.XHE10InstanceEncryptionIndicatorType;
 import com.helger.xhe.v10.cbc.XHE10InstanceEncryptionMethodType;
 import com.helger.xhe.v10.cbc.XHE10ProfileIDType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Main class to read exchange header envelope and extract the DBNAlliance required data out of it.
@@ -187,7 +187,7 @@ public class DBNAllianceXHEDataReader
   @OverrideOnDemand
   protected boolean isValidHeaderID (@Nullable final String sHeaderID)
   {
-    return StringHelper.hasText (sHeaderID);
+    return StringHelper.isNotEmpty (sHeaderID);
   }
 
   /**
@@ -218,7 +218,7 @@ public class DBNAllianceXHEDataReader
   @OverrideOnDemand
   protected boolean isValidFromPartySchemaID (@Nullable final String sFromPartySchemaID)
   {
-    return StringHelper.hasText (sFromPartySchemaID);
+    return StringHelper.isNotEmpty (sFromPartySchemaID);
   }
 
   /**
@@ -238,7 +238,7 @@ public class DBNAllianceXHEDataReader
   protected boolean isValidFromPartyValue (@Nullable final String sFromPartySchemaID,
                                            @Nullable final String sFromPartyValue)
   {
-    return StringHelper.hasText (sFromPartyValue);
+    return StringHelper.isNotEmpty (sFromPartyValue);
   }
 
   /**
@@ -253,7 +253,7 @@ public class DBNAllianceXHEDataReader
   @OverrideOnDemand
   protected boolean isValidToPartySchemaID (@Nullable final String sToPartySchemaID)
   {
-    return StringHelper.hasText (sToPartySchemaID);
+    return StringHelper.isNotEmpty (sToPartySchemaID);
   }
 
   /**
@@ -272,7 +272,7 @@ public class DBNAllianceXHEDataReader
   @OverrideOnDemand
   protected boolean isValidToPartyValue (@Nullable final String sToPartySchemaID, @Nullable final String sToPartyValue)
   {
-    return StringHelper.hasText (sToPartyValue);
+    return StringHelper.isNotEmpty (sToPartyValue);
   }
 
   // Payloads validations
@@ -288,7 +288,7 @@ public class DBNAllianceXHEDataReader
   @OverrideOnDemand
   protected boolean isValidPayloadIDValue (@Nullable final String sPayloadID)
   {
-    return StringHelper.hasText (sPayloadID);
+    return StringHelper.isNotEmpty (sPayloadID);
   }
 
   /**

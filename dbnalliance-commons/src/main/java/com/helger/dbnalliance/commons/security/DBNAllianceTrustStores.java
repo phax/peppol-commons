@@ -20,19 +20,19 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.cert.X509Certificate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.security.certificate.TrustedCAChecker;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.ITrustStoreDescriptor;
 import com.helger.security.keystore.TrustStoreDescriptor;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Helper methods to access DBNAlliance Trust Stores.

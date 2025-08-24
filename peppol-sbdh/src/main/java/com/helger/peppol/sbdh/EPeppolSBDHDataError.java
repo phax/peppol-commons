@@ -16,13 +16,13 @@
  */
 package com.helger.peppol.sbdh;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.text.TextFormatter;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.text.util.TextHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This enum contains all the errors that can occur during SBD reading
@@ -170,7 +170,7 @@ public enum EPeppolSBDHDataError implements IHasID <String>
   @Nonempty
   public String getErrorMessage (@Nonnull @Nonempty final Object... aArgs)
   {
-    return TextHelper.getFormattedText (m_sErrorMsg, aArgs);
+    return TextFormatter.getFormattedText (m_sErrorMsg, aArgs);
   }
 
   @Nullable

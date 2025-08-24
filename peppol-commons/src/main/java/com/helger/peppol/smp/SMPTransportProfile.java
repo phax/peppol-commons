@@ -16,20 +16,20 @@
  */
 package com.helger.peppol.smp;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.type.ObjectType;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.type.ObjectType;
+import jakarta.annotation.Nonnull;
 
 /**
- * A stand-alone implementation of the {@link ISMPTransportProfile}. For a set
- * of predefined transport profiles have a look at {@link ESMPTransportProfile}.
+ * A stand-alone implementation of the {@link ISMPTransportProfile}. For a set of predefined
+ * transport profiles have a look at {@link ESMPTransportProfile}.
  */
 @NotThreadSafe
 public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SMPTransportProfile>

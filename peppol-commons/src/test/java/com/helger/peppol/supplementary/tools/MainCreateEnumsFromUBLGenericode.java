@@ -20,29 +20,25 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.io.file.FileSystemRecursiveIterator;
-import com.helger.commons.io.file.IFileFilter;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.name.IHasDisplayName;
-import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.name.IHasDisplayName;
+import com.helger.base.string.StringReplace;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.genericode.Genericode10CodeListMarshaller;
 import com.helger.genericode.Genericode10Helper;
 import com.helger.genericode.v10.CodeListDocument;
 import com.helger.genericode.v10.Column;
 import com.helger.genericode.v10.Row;
 import com.helger.genericode.v10.SimpleCodeList;
+import com.helger.io.file.FileSystemRecursiveIterator;
+import com.helger.io.file.IFileFilter;
+import com.helger.io.resource.FileSystemResource;
 import com.helger.jcodemodel.JCodeModel;
-import com.helger.jcodemodel.JCodeModelException;
 import com.helger.jcodemodel.JDefinedClass;
 import com.helger.jcodemodel.JEnumConstant;
 import com.helger.jcodemodel.JExpr;
@@ -51,7 +47,11 @@ import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JOp;
 import com.helger.jcodemodel.JVar;
+import com.helger.jcodemodel.exceptions.JCodeModelException;
 import com.helger.jcodemodel.writer.JCMWriter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Convert <code>src/main/resources/codelists/ubl</code> files to Java enums.
@@ -65,7 +65,8 @@ public class MainCreateEnumsFromUBLGenericode
   private static final String COLID_CODE = "code";
   private static final JCodeModel CM = new JCodeModel ();
 
-  private static void _createGenericode10 (final File aFile, final CodeListDocument aCodeList10) throws JCodeModelException
+  private static void _createGenericode10 (final File aFile, final CodeListDocument aCodeList10)
+                                                                                                 throws JCodeModelException
   {
     final SimpleCodeList aSimpleCodeList = aCodeList10.getSimpleCodeList ();
     if (aSimpleCodeList == null)
@@ -92,7 +93,10 @@ public class MainCreateEnumsFromUBLGenericode
     }
 
     final JDefinedClass jEnum = CM._package ("com.helger.peppol.codelist")
-                                  ._enum ("E" + RegExHelper.getAsIdentifier (aCodeList10.getIdentification ().getShortName ().getValue ()))
+                                  ._enum ("E" +
+                                          RegExHelper.getAsIdentifier (aCodeList10.getIdentification ()
+                                                                                  .getShortName ()
+                                                                                  .getValue ()))
                                   ._implements (CM.ref (IHasID.class).narrow (String.class))
                                   ._implements (IHasDisplayName.class);
     jEnum.javadoc ().add ("This file is generated from Genericode file " + aFile.getName () + ". Do NOT edit!");
@@ -103,7 +107,7 @@ public class MainCreateEnumsFromUBLGenericode
       final String sName = Genericode10Helper.getRowValue (aRow, COLID_NAME);
 
       String sIdentifier = RegExHelper.getAsIdentifier (sName.toUpperCase (Locale.US));
-      sIdentifier = StringHelper.replaceAllRepeatedly (sIdentifier, "__", "_");
+      sIdentifier = StringReplace.replaceAllRepeatedly (sIdentifier, "__", "_");
       final JEnumConstant jEnumConst = jEnum.enumConstant (sIdentifier);
       jEnumConst.arg (JExpr.lit (sCode));
       jEnumConst.arg (JExpr.lit (sName));
@@ -138,7 +142,8 @@ public class MainCreateEnumsFromUBLGenericode
     m.annotate (Nullable.class);
     jID = m.param (JMod.FINAL, String.class, "sID");
     jID.annotate (Nullable.class);
-    m.body ()._return (CM.ref (EnumHelper.class).staticInvoke ("getFromIDOrNull").arg (JExpr.dotClass (jEnum)).arg (jID));
+    m.body ()
+     ._return (CM.ref (EnumHelper.class).staticInvoke ("getFromIDOrNull").arg (JExpr.dotClass (jEnum)).arg (jID));
 
     // public static String getDisplayNameFromIDOrNull (@Nullable String sID)
     m = jEnum.method (JMod.PUBLIC | JMod.STATIC, String.class, "getDisplayNameFromIDOrNull");

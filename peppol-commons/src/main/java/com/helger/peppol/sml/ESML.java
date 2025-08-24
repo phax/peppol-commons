@@ -19,20 +19,20 @@ package com.helger.peppol.sml;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.type.ObjectType;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.type.ObjectType;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Simple enumeration for differentiating the different available SMLs.
  * <ul>
  * <li>DIGIT_PRODUCTION - DIGIT production URL - valid from June 9th, 2015
  * <li>DIGIT_TEST - DIGIT test URL - valid from June 9th, 2015
- * <li>DEVELOPMENT_LOCAL - used for development environment assuming the
- * management application is running on localhost in the ROOT context!</li>
+ * <li>DEVELOPMENT_LOCAL - used for development environment assuming the management application is
+ * running on localhost in the ROOT context!</li>
  * </ul>
  *
  * @author Philip Helger
@@ -40,9 +40,17 @@ import com.helger.commons.type.ObjectType;
 public enum ESML implements ISMLInfo
 {
   /** DIGIT production URL - valid from June 9th, 2015 */
-  DIGIT_PRODUCTION ("digitprod", "SML", "edelivery.tech.ec.europa.eu.", "https://edelivery.tech.ec.europa.eu/edelivery-sml", true),
+  DIGIT_PRODUCTION ("digitprod",
+                    "SML",
+                    "edelivery.tech.ec.europa.eu.",
+                    "https://edelivery.tech.ec.europa.eu/edelivery-sml",
+                    true),
   /** DIGIT test URL - valid from June 9th, 2015 */
-  DIGIT_TEST ("digittest", "SMK", "acc.edelivery.tech.ec.europa.eu.", "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", true),
+  DIGIT_TEST ("digittest",
+              "SMK",
+              "acc.edelivery.tech.ec.europa.eu.",
+              "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
+              true),
   /** http://localhost:8080 */
   DEVELOPMENT_LOCAL ("local", "Development", "smj.peppolcentral.org.", "http://localhost:8080", false);
 
@@ -56,11 +64,10 @@ public enum ESML implements ISMLInfo
    * @param sDNSZone
    *        DNS zone name. Must not start with a "." but must end with a "."
    * @param sManagementServiceURL
-   *        The base service URL uses as the basis for participant and metadata
-   *        management.
+   *        The base service URL uses as the basis for participant and metadata management.
    * @param bRequiresClientCertificate
-   *        <code>true</code> if this server requires a client certificate,
-   *        <code>false</code> if not.
+   *        <code>true</code> if this server requires a client certificate, <code>false</code> if
+   *        not.
    * @throws MalformedURLException
    */
   ESML (@Nonnull @Nonempty final String sID,

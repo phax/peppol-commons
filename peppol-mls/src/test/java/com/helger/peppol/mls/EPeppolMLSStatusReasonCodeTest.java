@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link EPeppolMLSStatusReasonCode}.
@@ -35,7 +35,7 @@ public final class EPeppolMLSStatusReasonCodeTest
   {
     for (final EPeppolMLSStatusReasonCode e : EPeppolMLSStatusReasonCode.values ())
     {
-      assertTrue (StringHelper.hasText (e.getID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getID ()));
       assertSame (e, EPeppolMLSStatusReasonCode.getFromIDOrNull (e.getID ()));
     }
   }

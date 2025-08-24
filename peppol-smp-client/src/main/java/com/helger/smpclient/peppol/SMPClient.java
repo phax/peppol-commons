@@ -18,17 +18,15 @@ package com.helger.smpclient.peppol;
 
 import java.net.URI;
 
-import javax.annotation.Nonnull;
-
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.http.CHttpHeader;
+import com.helger.annotation.Nonempty;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.http.CHttpHeader;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.CIdentifier;
@@ -51,6 +49,8 @@ import com.helger.xsds.peppol.smp1.ServiceGroupType;
 import com.helger.xsds.peppol.smp1.ServiceInformationType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceCollectionType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataType;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class is used for calling the Peppol SMP REST interface. This particular

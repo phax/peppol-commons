@@ -25,15 +25,13 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.mock.XMLTestHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link PeppolDocumentTypeIdentifier}.
@@ -83,9 +81,9 @@ public final class PeppolDocumentTypeIdentifierTest
     final PeppolDocumentTypeIdentifier aID3 = new PeppolDocumentTypeIdentifier (IF,
                                                                                 "scheme2",
                                                                                 "urn:rootnamespace::localelement##customizationid::version");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
   }
 
   @Test
@@ -117,7 +115,6 @@ public final class PeppolDocumentTypeIdentifierTest
   }
 
   @Test
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testConstraints ()
   {
     try
@@ -228,10 +225,10 @@ public final class PeppolDocumentTypeIdentifierTest
 
     final IDocumentTypeIdentifier d1 = IF.createDocumentTypeIdentifierWithDefaultScheme (s);
     final IDocumentTypeIdentifier d2 = IF.createDocumentTypeIdentifierWithDefaultScheme (s);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (d1, d2);
+    TestHelper.testDefaultImplementationWithEqualContentObject (d1, d2);
 
     final IDocumentTypeIdentifier d3 = IF.createDocumentTypeIdentifierWithDefaultScheme (s2);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (d1, d3);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (d1, d3);
   }
 
   @Test

@@ -19,22 +19,22 @@ package com.helger.peppol.sml;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.id.factory.GlobalIDFactory;
+import com.helger.base.state.EChange;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.type.ObjectType;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.id.factory.GlobalIDFactory;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.type.ObjectType;
+import jakarta.annotation.Nonnull;
 
 /**
- * Use instances of this class if you're not happy with the {@link ESML}
- * enumeration value but need an instance of {@link ISMLInfo}.
+ * Use instances of this class if you're not happy with the {@link ESML} enumeration value but need
+ * an instance of {@link ISMLInfo}.
  *
  * @author Philip Helger
  */
@@ -72,26 +72,28 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
    * @param sDisplayName
    *        The "shorthand" display name like "SML" or "SMK".
    * @param sDNSZone
-   *        The DNS zone on which this SML is operating. May not be
-   *        <code>null</code>. It must be ensured that the value consists only
-   *        of lower case characters for comparability! Example:
-   *        <code>sml.peppolcentral.org</code>
+   *        The DNS zone on which this SML is operating. May not be <code>null</code>. It must be
+   *        ensured that the value consists only of lower case characters for comparability!
+   *        Example: <code>sml.peppolcentral.org</code>
    * @param sManagementServiceURL
-   *        The service URL where the management application is running on incl.
-   *        the host name. May not be <code>null</code>. The difference to the
-   *        host name is the eventually present context path.
+   *        The service URL where the management application is running on incl. the host name. May
+   *        not be <code>null</code>. The difference to the host name is the eventually present
+   *        context path.
    * @param bClientCertificateRequired
-   *        <code>true</code> if this SML requires a client certificate for
-   *        access, <code>false</code> otherwise. Both production SML and SMK
-   *        require a client certificate. Only a locally running SML software
-   *        may not require a client certificate.
+   *        <code>true</code> if this SML requires a client certificate for access,
+   *        <code>false</code> otherwise. Both production SML and SMK require a client certificate.
+   *        Only a locally running SML software may not require a client certificate.
    */
   public SMLInfo (@Nonnull @Nonempty final String sDisplayName,
                   @Nonnull @Nonempty final String sDNSZone,
                   @Nonnull @Nonempty final String sManagementServiceURL,
                   final boolean bClientCertificateRequired)
   {
-    this (GlobalIDFactory.getNewPersistentStringID (), sDisplayName, sDNSZone, sManagementServiceURL, bClientCertificateRequired);
+    this (GlobalIDFactory.getNewPersistentStringID (),
+          sDisplayName,
+          sDNSZone,
+          sManagementServiceURL,
+          bClientCertificateRequired);
   }
 
   public SMLInfo (@Nonnull @Nonempty final String sID,
@@ -182,12 +184,15 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
 
     // Management service without the trailing slash
     m_sManagementServiceURL = sManagementServiceURL.endsWith ("/") ? sManagementServiceURL.substring (0,
-                                                                                                      sManagementServiceURL.length () - 1)
+                                                                                                      sManagementServiceURL.length () -
+                                                                                                         1)
                                                                    : sManagementServiceURL;
     try
     {
       // Create once
-      m_aManageServiceMetaDataEndpointAddress = new URL (m_sManagementServiceURL + '/' + CSMLDefault.MANAGEMENT_SERVICE_METADATA);
+      m_aManageServiceMetaDataEndpointAddress = new URL (m_sManagementServiceURL +
+                                                         '/' +
+                                                         CSMLDefault.MANAGEMENT_SERVICE_METADATA);
       m_aManageParticipantIdentifierEndpointAddress = new URL (m_sManagementServiceURL +
                                                                '/' +
                                                                CSMLDefault.MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER);
@@ -248,8 +253,10 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     return new ToStringGenerator (this).append ("DisplayName", m_sDisplayName)
                                        .append ("DNSZone", m_sDNSZone)
                                        .append ("ManagementServiceURL", m_sManagementServiceURL)
-                                       .append ("ManageServiceMetaDataEndpointAddress", m_aManageServiceMetaDataEndpointAddress)
-                                       .append ("ManageParticipantIdentifierEndpointAddress", m_aManageParticipantIdentifierEndpointAddress)
+                                       .append ("ManageServiceMetaDataEndpointAddress",
+                                                m_aManageServiceMetaDataEndpointAddress)
+                                       .append ("ManageParticipantIdentifierEndpointAddress",
+                                                m_aManageParticipantIdentifierEndpointAddress)
                                        .append ("ClientCertificateRequired", m_bClientCertificateRequired)
                                        .getToString ();
   }

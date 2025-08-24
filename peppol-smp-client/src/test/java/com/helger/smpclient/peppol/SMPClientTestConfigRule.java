@@ -18,12 +18,12 @@ package com.helger.smpclient.peppol;
 
 import org.junit.rules.ExternalResource;
 
-import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.config.ConfigFactory;
 import com.helger.config.fallback.ConfigWithFallback;
 import com.helger.config.fallback.IConfigWithFallback;
 import com.helger.config.source.MultiConfigurationValueProvider;
-import com.helger.config.source.res.ConfigurationSourceProperties;
+import com.helger.config.source.resource.properties.ConfigurationSourceProperties;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.smpclient.config.SMPClientConfiguration;
 
 public final class SMPClientTestConfigRule extends ExternalResource

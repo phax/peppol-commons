@@ -22,8 +22,8 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.json.IJsonObject;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link PDIdentifier}.
@@ -40,13 +40,13 @@ public final class PDIdentifierTest
     assertEquals ("s", aID.getScheme ());
     assertEquals ("v", aID.getValue ());
 
-    CommonsTestHelper.testDefaultSerialization (aID);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID, new PDIdentifier ("s", "v"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier ("s2", "v"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier ("s", "v2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier (null, "v"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier ("s", null));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier (null, null));
+    TestHelper.testDefaultSerialization (aID);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aID, new PDIdentifier ("s", "v"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier ("s2", "v"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier ("s", "v2"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier (null, "v"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier ("s", null));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID, new PDIdentifier (null, null));
     assertNotNull (aID.getAsMicroXML (null, "a"));
     assertNotNull (aID.getAsMicroXML ("urn:example.org", "a"));
 
@@ -61,7 +61,6 @@ public final class PDIdentifierTest
     aID = new PDIdentifier (null, null);
     assertNull (aID.getScheme ());
     assertNull (aID.getValue ());
-
   }
 
   @Test
@@ -72,7 +71,7 @@ public final class PDIdentifierTest
     assertNotNull (aJson);
     PDIdentifier aID2 = PDIdentifier.of (aJson);
     assertNotNull (aID2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID2, aID);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aID2, aID);
 
     // No scheme
     aID = new PDIdentifier (null, "v");
@@ -80,7 +79,7 @@ public final class PDIdentifierTest
     assertNotNull (aJson);
     aID2 = PDIdentifier.of (aJson);
     assertNotNull (aID2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID2, aID);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aID2, aID);
 
     // No value
     aID = new PDIdentifier ("v", null);
@@ -88,7 +87,7 @@ public final class PDIdentifierTest
     assertNotNull (aJson);
     aID2 = PDIdentifier.of (aJson);
     assertNotNull (aID2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID2, aID);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aID2, aID);
 
     // Neither nor
     aID = new PDIdentifier (null, null);
@@ -96,6 +95,6 @@ public final class PDIdentifierTest
     assertNotNull (aJson);
     aID2 = PDIdentifier.of (aJson);
     assertNotNull (aID2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID2, aID);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aID2, aID);
   }
 }

@@ -16,12 +16,12 @@
  */
 package com.helger.peppolid.factory;
 
-import javax.annotation.Nullable;
-
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IIdentifierFactory} for default (simple)

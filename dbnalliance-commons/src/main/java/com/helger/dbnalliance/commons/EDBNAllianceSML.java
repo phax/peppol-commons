@@ -16,9 +16,9 @@
  */
 package com.helger.dbnalliance.commons;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
-import com.helger.commons.annotation.Nonempty;
+import jakarta.annotation.Nonnull;
 
 /**
  * The list of supported DBNAlliance SML zones

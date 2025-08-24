@@ -19,7 +19,7 @@ package com.helger.smpclient.exception;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * This exception is thrown if a participant was not found on the network

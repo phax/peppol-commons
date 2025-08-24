@@ -19,18 +19,18 @@ package com.helger.peppolid.factory;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.doctype.PeppolGenericDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IIdentifierFactory} for Peppol identifiers.
@@ -79,7 +79,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   @Nullable
   public String getDefaultDocumentTypeIdentifierScheme (@Nullable final String sValue)
   {
-    if (StringHelper.hasNoText (sValue))
+    if (StringHelper.isEmpty (sValue))
       return null;
 
     // Current PINT determination - the best we have
@@ -105,7 +105,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
   public static boolean isValidCustomizationIDBusdoxDocidQns (@Nullable final String s)
   {
-    if (StringHelper.hasNoText (s))
+    if (StringHelper.isEmpty (s))
       return false;
 
     // POLICY 17 (applies identical only to busdox-docid-qns)
@@ -124,7 +124,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
   public static boolean isValidCustomizationIDPeppolDoctypeWildcard (@Nullable final String s)
   {
-    if (StringHelper.hasNoText (s))
+    if (StringHelper.isEmpty (s))
       return false;
 
     // chapter 5.1.2

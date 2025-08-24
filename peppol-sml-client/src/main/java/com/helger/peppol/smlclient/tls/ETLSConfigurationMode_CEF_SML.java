@@ -16,17 +16,17 @@
  */
 package com.helger.peppol.smlclient.tls;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.http.tls.ETLSVersion;
 import com.helger.http.tls.ITLSConfigurationMode;
 import com.helger.http.tls.TLSConfigurationMode;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * TLS cipher suite configuration modes for CEF SML starting in 2020.

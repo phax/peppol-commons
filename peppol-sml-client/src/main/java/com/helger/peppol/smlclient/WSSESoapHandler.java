@@ -20,8 +20,8 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.collection.commons.CommonsHashSet;
 
 import jakarta.xml.ws.handler.MessageContext;
 import jakarta.xml.ws.handler.soap.SOAPHandler;

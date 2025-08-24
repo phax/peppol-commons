@@ -22,9 +22,6 @@ import static org.junit.Assert.assertNull;
 import java.net.InetAddress;
 import java.util.Arrays;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -38,9 +35,9 @@ import org.xbill.DNS.Record;
 import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.Type;
 
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.concurrent.ThreadHelper;
-import com.helger.commons.lang.ClassHelper;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.concurrent.ThreadHelper;
+import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
@@ -49,6 +46,9 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.smpclient.url.PeppolConfigurableURLProvider;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class is for BRZ internal use only!

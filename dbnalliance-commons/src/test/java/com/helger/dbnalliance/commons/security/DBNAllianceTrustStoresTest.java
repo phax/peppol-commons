@@ -23,7 +23,7 @@ import java.time.Month;
 
 import org.junit.Test;
 
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.certificate.TrustedCAChecker;
 

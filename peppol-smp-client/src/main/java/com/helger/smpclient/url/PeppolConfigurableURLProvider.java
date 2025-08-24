@@ -19,11 +19,11 @@ package com.helger.smpclient.url;
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A configurable URL provider for Peppol that allows switching between the old CNAME and the new

@@ -16,7 +16,7 @@
  */
 package com.helger.peppol.xhe.read;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Exception that can occur during the reading of XHE documents.

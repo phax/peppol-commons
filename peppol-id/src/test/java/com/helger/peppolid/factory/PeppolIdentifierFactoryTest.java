@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 
 /**

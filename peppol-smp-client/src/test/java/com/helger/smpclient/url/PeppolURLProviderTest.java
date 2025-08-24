@@ -39,8 +39,6 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.Pfuoi440;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link PeppolURLProvider}.
  *
@@ -55,7 +53,6 @@ public final class PeppolURLProviderTest
   private static final IIdentifierFactory IF = PeppolIdentifierFactory.INSTANCE;
 
   @Test
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testGetDNSNameOfParticipant () throws SMPDNSResolutionException
   {
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",

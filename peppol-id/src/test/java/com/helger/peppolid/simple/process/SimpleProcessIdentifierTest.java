@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.mock.XMLTestHelper;
 
 /**
@@ -53,8 +53,8 @@ public final class SimpleProcessIdentifierTest
     final SimpleProcessIdentifier aID1 = new SimpleProcessIdentifier ("scheme", "value");
     final SimpleProcessIdentifier aID2 = new SimpleProcessIdentifier ("scheme", "value");
     final SimpleProcessIdentifier aID3 = new SimpleProcessIdentifier ("scheme2", "value");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
   }
 }

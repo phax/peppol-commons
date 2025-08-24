@@ -18,23 +18,20 @@ package com.helger.smpclient.extension;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
@@ -43,6 +40,9 @@ import com.helger.json.serialize.JsonReader;
 import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xsds.bdxr.smp2.ec.SMPExtensionType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A list of generic {@link SMPExtension} objects.
@@ -101,7 +101,7 @@ public class SMPExtensionList
   public final EChange setExtensionAsString (@Nullable final String sExtension)
   {
     ICommonsList <SMPExtension> aNewExt = null;
-    if (StringHelper.hasText (sExtension))
+    if (StringHelper.isNotEmpty (sExtension))
     {
       // Soft migration :)
       if (sExtension.trim ().charAt (0) == '<')

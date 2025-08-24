@@ -33,9 +33,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.ws.HostnameVerifierVerifyAll;
-import com.helger.commons.ws.TrustManagerTrustAll;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.http.security.HostnameVerifierVerifyAll;
+import com.helger.http.security.TrustManagerTrustAll;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.security.keystore.KeyStoreHelper;
 

@@ -28,8 +28,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.mime.CMimeType;
 import com.helger.peppol.sbdh.spec12.BinaryContentType;
 import com.helger.peppol.sbdh.spec12.TextContentType;
 import com.helger.peppolid.factory.IIdentifierFactory;
@@ -37,6 +36,7 @@ import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.write.XMLWriter;
 
@@ -69,7 +69,7 @@ public final class PeppolSBDHDataTest
     assertFalse (aData.hasBusinessMessage ());
     assertNull (aData.getBusinessMessage ());
     assertEquals (0, aData.additionalAttributes ().size ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData, new PeppolSBDHData (aIF));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aData, new PeppolSBDHData (aIF));
 
     assertNotNull (aData.getSenderAsIdentifier ());
     assertNotNull (aData.getReceiverAsIdentifier ());
@@ -82,67 +82,67 @@ public final class PeppolSBDHDataTest
     aData.setSenderWithDefaultScheme ("abc");
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aData.getSenderScheme ());
     assertEquals ("abc", aData.getSenderValue ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aData,
-                                                                           new PeppolSBDHData (aIF).setSender ("scheme",
-                                                                                                               "abc"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aData, new PeppolSBDHData (aIF));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData,
-                                                                       new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aData,
+                                                                    new PeppolSBDHData (aIF).setSender ("scheme",
+                                                                                                        "abc"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aData, new PeppolSBDHData (aIF));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aData,
+                                                                new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc"));
 
     // Receiver
     aData.setReceiverWithDefaultScheme ("def");
     assertEquals (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, aData.getReceiverScheme ());
     assertEquals ("def", aData.getReceiverValue ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aData,
-                                                                           new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aData,
-                                                                           new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
-                                                                                                   .setReceiver ("scheme",
-                                                                                                                 "def"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData,
-                                                                       new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
-                                                                                               .setReceiverWithDefaultScheme ("def"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aData,
+                                                                    new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aData,
+                                                                    new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
+                                                                                            .setReceiver ("scheme",
+                                                                                                          "def"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aData,
+                                                                new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
+                                                                                        .setReceiverWithDefaultScheme ("def"));
 
     // Document type 1
     aData.setDocumentTypeWithBusdoxDocidQns ("doctype");
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, aData.getDocumentTypeScheme ());
     assertEquals ("doctype", aData.getDocumentTypeValue ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aData,
-                                                                           new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
-                                                                                                   .setReceiverWithDefaultScheme ("def")
-                                                                                                   .setDocumentTypeWithBusdoxDocidQns ("other"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData,
-                                                                       new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
-                                                                                               .setReceiverWithDefaultScheme ("def")
-                                                                                               .setDocumentTypeWithBusdoxDocidQns ("doctype"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aData,
+                                                                    new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
+                                                                                            .setReceiverWithDefaultScheme ("def")
+                                                                                            .setDocumentTypeWithBusdoxDocidQns ("other"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aData,
+                                                                new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
+                                                                                        .setReceiverWithDefaultScheme ("def")
+                                                                                        .setDocumentTypeWithBusdoxDocidQns ("doctype"));
 
     // Document type 2
     aData.setDocumentTypeWithPeppolDoctypeWildcard ("doctype");
     assertEquals (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, aData.getDocumentTypeScheme ());
     assertEquals ("doctype", aData.getDocumentTypeValue ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aData,
-                                                                           new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
-                                                                                                   .setReceiverWithDefaultScheme ("def")
-                                                                                                   .setDocumentTypeWithPeppolDoctypeWildcard ("other"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData,
-                                                                       new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
-                                                                                               .setReceiverWithDefaultScheme ("def")
-                                                                                               .setDocumentTypeWithPeppolDoctypeWildcard ("doctype"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aData,
+                                                                    new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
+                                                                                            .setReceiverWithDefaultScheme ("def")
+                                                                                            .setDocumentTypeWithPeppolDoctypeWildcard ("other"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aData,
+                                                                new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
+                                                                                        .setReceiverWithDefaultScheme ("def")
+                                                                                        .setDocumentTypeWithPeppolDoctypeWildcard ("doctype"));
 
     // Process type
     aData.setProcessWithDefaultScheme ("proctype");
     assertEquals (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, aData.getProcessScheme ());
     assertEquals ("proctype", aData.getProcessValue ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aData,
-                                                                           new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
-                                                                                                   .setReceiverWithDefaultScheme ("def")
-                                                                                                   .setDocumentTypeWithPeppolDoctypeWildcard ("doctype")
-                                                                                                   .setProcessWithDefaultScheme ("other"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aData,
-                                                                       new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
-                                                                                               .setReceiverWithDefaultScheme ("def")
-                                                                                               .setDocumentTypeWithPeppolDoctypeWildcard ("doctype")
-                                                                                               .setProcessWithDefaultScheme ("proctype"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aData,
+                                                                    new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
+                                                                                            .setReceiverWithDefaultScheme ("def")
+                                                                                            .setDocumentTypeWithPeppolDoctypeWildcard ("doctype")
+                                                                                            .setProcessWithDefaultScheme ("other"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aData,
+                                                                new PeppolSBDHData (aIF).setSenderWithDefaultScheme ("abc")
+                                                                                        .setReceiverWithDefaultScheme ("def")
+                                                                                        .setDocumentTypeWithPeppolDoctypeWildcard ("doctype")
+                                                                                        .setProcessWithDefaultScheme ("proctype"));
   }
 
   @Test

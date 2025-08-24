@@ -16,7 +16,7 @@
  */
 package com.helger.peppol.mls;
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Constants for Peppol MLS (Message Level Status)

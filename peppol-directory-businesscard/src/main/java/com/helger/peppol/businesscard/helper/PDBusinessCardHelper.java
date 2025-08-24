@@ -19,18 +19,15 @@ package com.helger.peppol.businesscard.helper;
 import java.nio.charset.Charset;
 import java.util.function.BiConsumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jaxb.validation.DoNothingValidationEventHandler;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
@@ -43,6 +40,9 @@ import com.helger.peppol.businesscard.v2.PD2BusinessCardType;
 import com.helger.peppol.businesscard.v3.PD3APIHelper;
 import com.helger.peppol.businesscard.v3.PD3BusinessCardMarshaller;
 import com.helger.peppol.businesscard.v3.PD3BusinessCardType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Helper class for business cards.

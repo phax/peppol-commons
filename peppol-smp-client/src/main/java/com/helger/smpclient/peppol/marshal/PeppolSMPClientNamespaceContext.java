@@ -16,14 +16,14 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Singleton;
+import com.helger.annotation.misc.Singleton;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xsds.peppol.id1.CPeppolID;
 import com.helger.xsds.peppol.smp1.ObjectFactory;
 import com.helger.xsds.wsaddr.CWSAddr;
 import com.helger.xsds.xmldsig.CXMLDSig;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * The default namespace context for Peppol SMP v1.0.

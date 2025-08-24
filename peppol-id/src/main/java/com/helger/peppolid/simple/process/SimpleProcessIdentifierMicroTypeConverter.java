@@ -16,9 +16,9 @@
  */
 package com.helger.peppolid.simple.process;
 
-import javax.annotation.Nonnull;
-
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
 
 public final class SimpleProcessIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <SimpleProcessIdentifier>
 {

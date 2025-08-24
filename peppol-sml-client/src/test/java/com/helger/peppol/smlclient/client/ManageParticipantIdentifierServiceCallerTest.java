@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.regex.RegExHelper;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.peppol.sml.CSMLDefault;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 

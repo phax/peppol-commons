@@ -16,23 +16,23 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
+import java.util.List;
 import java.util.function.BiConsumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.wrapper.Wrapper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.wrapper.Wrapper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * The implementation of {@link IPeppolDocumentTypeIdentifierParts} for Peppol
- * Document Type Identifiers that are XML based.
+ * The implementation of {@link IPeppolDocumentTypeIdentifierParts} for Peppol Document Type
+ * Identifiers that are XML based.
  *
  * @author Philip Helger
  */
@@ -44,15 +44,12 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
   private final String m_sLocalName;
 
   /**
-   * Convert the XML specific syntax elements back to a single syntax specific
-   * ID
+   * Convert the XML specific syntax elements back to a single syntax specific ID
    *
    * @param sRootNS
-   *        The XML root element namespace URI. May neither be <code>null</code>
-   *        nor empty.
+   *        The XML root element namespace URI. May neither be <code>null</code> nor empty.
    * @param sLocalName
-   *        The XML root element local name. May neither be <code>null</code>
-   *        nor empty.
+   *        The XML root element local name. May neither be <code>null</code> nor empty.
    * @return The combination of <code>rootNS + :: + localName</code>
    */
   @Nonnull
@@ -115,7 +112,7 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
 
   public static boolean isSyntaxSpecificIDLookingLikeXML (@Nullable final String sSyntaxSpecificID)
   {
-    if (StringHelper.hasText (sSyntaxSpecificID))
+    if (StringHelper.isNotEmpty (sSyntaxSpecificID))
     {
       final int nIndex = sSyntaxSpecificID.indexOf (NAMESPACE_SEPARATOR);
       if (nIndex >= 0)
@@ -128,15 +125,13 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
   }
 
   /**
-   * Split the provided syntax specific ID into the XML root element namespace
-   * URI and the XML root element local name.
+   * Split the provided syntax specific ID into the XML root element namespace URI and the XML root
+   * element local name.
    *
    * @param sSyntaxSpecificID
-   *        The syntax specific ID to parse. May neither be <code>null</code>
-   *        nor empty.
+   *        The syntax specific ID to parse. May neither be <code>null</code> nor empty.
    * @param aResultConsumer
-   *        The consumer that takes root namespace URI and local name as a
-   *        callback.
+   *        The consumer that takes root namespace URI and local name as a callback.
    * @since 9.6.2
    */
   public static void extractXMLSyntaxSpecificID (@Nonnull @Nonempty final String sSyntaxSpecificID,
@@ -145,19 +140,19 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
     ValueEnforcer.notEmpty (sSyntaxSpecificID, "SyntaxSpecificID");
     ValueEnforcer.notNull (aResultConsumer, "ResultConsumer");
 
-    final ICommonsList <String> aFirst = StringHelper.getExploded (NAMESPACE_SEPARATOR, sSyntaxSpecificID, 2);
+    final List <String> aFirst = StringHelper.getExploded (NAMESPACE_SEPARATOR, sSyntaxSpecificID, 2);
     if (aFirst.size () < 2)
       throw new IllegalArgumentException ("The Syntax Specific ID '" +
                                           sSyntaxSpecificID +
                                           "' is missing the separation between the root namespace URI and the local name!");
 
     final String sRootNS = aFirst.get (0);
-    if (StringHelper.hasNoText (sRootNS))
+    if (StringHelper.isEmpty (sRootNS))
       throw new IllegalArgumentException ("The Syntax Specific ID '" +
                                           sSyntaxSpecificID +
                                           "' contains an empty root namespace URI!");
     final String sLocalName = aFirst.get (1);
-    if (StringHelper.hasNoText (sRootNS))
+    if (StringHelper.isEmpty (sRootNS))
       throw new IllegalArgumentException ("The Syntax Specific ID '" +
                                           sSyntaxSpecificID +
                                           "' contains an empty local name!");
@@ -169,12 +164,11 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
    * Parse an OpenPeppol Document Type Identifier using the XML syntax.
    *
    * @param sDocTypeIDValue
-   *        The document identifier value (without the scheme) to be split. May
-   *        neither be <code>null</code> nor empty.
+   *        The document identifier value (without the scheme) to be split. May neither be
+   *        <code>null</code> nor empty.
    * @return The non-<code>null</code> Peppol identifier parts
    * @throws IllegalArgumentException
-   *         if the passed document identifier value does not match the
-   *         specifications
+   *         if the passed document identifier value does not match the specifications
    */
   @Nonnull
   public static PeppolDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeIDValue)
@@ -195,17 +189,15 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
   }
 
   /**
-   * Convert the passed document type identifier into its parts. First the old
-   * Peppol scheme for identifiers is tried, and afterwards the OpenPEPPOL
-   * scheme for document type identifiers is used.
+   * Convert the passed document type identifier into its parts. First the old Peppol scheme for
+   * identifiers is tried, and afterwards the OpenPEPPOL scheme for document type identifiers is
+   * used.
    *
    * @param aIdentifier
-   *        The document type identifier to be split. May not be
-   *        <code>null</code>.
+   *        The document type identifier to be split. May not be <code>null</code>.
    * @return Never <code>null</code>.
    * @throws IllegalArgumentException
-   *         If the passed document type identifier is not a Peppol document
-   *         type identifier.
+   *         If the passed document type identifier is not a Peppol document type identifier.
    */
   @Nonnull
   public static PeppolDocumentTypeIdentifierParts extractFromIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)

@@ -16,8 +16,8 @@
  */
 package com.helger.smpclient.bdxr2.marshal;
 
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.xsds.bdxr.smp2.CBDXRSMP2;
 import com.helger.xsds.bdxr.smp2.ObjectFactory;
 import com.helger.xsds.bdxr.smp2.ServiceGroupType;

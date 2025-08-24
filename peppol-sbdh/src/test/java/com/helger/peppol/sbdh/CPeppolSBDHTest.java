@@ -20,8 +20,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link CPeppolSBDH}.
  *
@@ -30,7 +28,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class CPeppolSBDHTest
 {
   @Test
-  @SuppressFBWarnings ("DMI_DOH")
   public void testLoading ()
   {
     assertNotNull (CPeppolSBDH.class);

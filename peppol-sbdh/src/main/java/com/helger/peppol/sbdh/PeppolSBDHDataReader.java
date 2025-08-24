@@ -18,11 +18,6 @@ package com.helger.peppol.sbdh;
 
 import java.io.InputStream;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.WillClose;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.BusinessScope;
@@ -34,18 +29,20 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.datetime.XMLOffsetDateTime;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.error.IError;
-import com.helger.commons.error.SingleError;
-import com.helger.commons.error.level.IHasErrorLevel;
-import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.WillClose;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.cache.regex.RegExHelper;
+import com.helger.datetime.xml.XMLOffsetDateTime;
+import com.helger.diagnostics.error.IError;
+import com.helger.diagnostics.error.SingleError;
+import com.helger.diagnostics.error.level.IHasErrorLevel;
+import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.io.resource.IReadableResource;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -53,6 +50,9 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Main class to read standard business documents and extract the Peppol required data out of it.
@@ -193,7 +193,7 @@ public class PeppolSBDHDataReader
   protected boolean isValidSenderIdentifier (@Nullable final String sSenderAuthority,
                                              @Nullable final String sSenderIdentifier)
   {
-    return StringHelper.hasText (sSenderIdentifier);
+    return StringHelper.isNotEmpty (sSenderIdentifier);
   }
 
   /**
@@ -230,7 +230,7 @@ public class PeppolSBDHDataReader
   protected boolean isValidReceiverIdentifier (@Nullable final String sReceiverAuthority,
                                                @Nullable final String sReceiverIdentifier)
   {
-    return StringHelper.hasText (sReceiverIdentifier);
+    return StringHelper.isNotEmpty (sReceiverIdentifier);
   }
 
   /**
@@ -247,7 +247,7 @@ public class PeppolSBDHDataReader
   @OverrideOnDemand
   protected boolean isValidDocumentTypeIdentifier (@Nullable final String sDocumentTypeIdentifier)
   {
-    return StringHelper.hasText (sDocumentTypeIdentifier);
+    return StringHelper.isNotEmpty (sDocumentTypeIdentifier);
   }
 
   /**
@@ -264,7 +264,7 @@ public class PeppolSBDHDataReader
   @OverrideOnDemand
   protected boolean isValidProcessIdentifier (@Nullable final String sProcessIdentifier)
   {
-    return StringHelper.hasText (sProcessIdentifier);
+    return StringHelper.isNotEmpty (sProcessIdentifier);
   }
 
   /**
@@ -282,7 +282,7 @@ public class PeppolSBDHDataReader
   @OverrideOnDemand
   protected boolean isValidCountryC1 (@Nullable final String sCountryC1)
   {
-    if (StringHelper.hasNoText (sCountryC1))
+    if (StringHelper.isEmpty (sCountryC1))
       return false;
     if (!RegExHelper.stringMatchesPattern (DEFAULT_COUNTRY_CODE_REGEX, sCountryC1))
       return false;
@@ -305,9 +305,9 @@ public class PeppolSBDHDataReader
   @OverrideOnDemand
   protected boolean isValidMLSTo (@Nullable final String sScheme, @Nullable final String sValue)
   {
-    if (StringHelper.hasNoText (sScheme))
+    if (StringHelper.isEmpty (sScheme))
       return false;
-    if (StringHelper.hasNoText (sValue))
+    if (StringHelper.isEmpty (sValue))
       return false;
 
     final IParticipantIdentifier aPI = m_aIdentifierFactory.createParticipantIdentifier (sScheme, sValue);
@@ -330,7 +330,7 @@ public class PeppolSBDHDataReader
   @OverrideOnDemand
   protected boolean isValidMLSType (@Nullable final String sType)
   {
-    if (StringHelper.hasNoText (sType))
+    if (StringHelper.isEmpty (sType))
       return false;
     if (EPeppolMLSType.getFromIDOrNull (sType) == null)
       return false;
@@ -372,7 +372,7 @@ public class PeppolSBDHDataReader
                                      @Nonnull final Element aBusinessMessage,
                                      @Nonnull final String sDocumentTypeIdentifierValue)
   {
-    if (StringHelper.hasNoText (sStandard))
+    if (StringHelper.isEmpty (sStandard))
       return false;
     return sStandard.equals (aBusinessMessage.getNamespaceURI ()) &&
            sDocumentTypeIdentifierValue.startsWith (sStandard);
@@ -397,7 +397,7 @@ public class PeppolSBDHDataReader
                                         @Nonnull final Element aBusinessMessage,
                                         @Nonnull final String sDocumentTypeIdentifierValue)
   {
-    if (StringHelper.hasNoText (sTypeVersion))
+    if (StringHelper.isEmpty (sTypeVersion))
       return false;
 
     if (sTypeVersion.indexOf (':') >= 0)
@@ -437,7 +437,7 @@ public class PeppolSBDHDataReader
   @OverrideOnDemand
   protected boolean isValidInstanceIdentifier (@Nullable final String sInstanceIdentifier)
   {
-    return StringHelper.hasText (sInstanceIdentifier);
+    return StringHelper.isNotEmpty (sInstanceIdentifier);
   }
 
   /**
@@ -1022,7 +1022,7 @@ public class PeppolSBDHDataReader
                   // read as additional attributes
                   if (!PeppolSBDHAdditionalAttributes.isReservedAttributeName (sType))
                   {
-                    if (StringHelper.hasText (sInstanceIdentifier))
+                    if (StringHelper.isNotEmpty (sInstanceIdentifier))
                     {
                       // Name and value
                       ret.additionalAttributes ().add (sType, sInstanceIdentifier);

@@ -19,19 +19,16 @@ package com.helger.peppol.businesscard.generic;
 import java.io.Serializable;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.json.IHasJson;
 import com.helger.json.IJson;
 import com.helger.json.IJsonObject;
@@ -39,6 +36,9 @@ import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Generic business card.
@@ -54,7 +54,8 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
   public PDBusinessCard ()
   {}
 
-  public PDBusinessCard (@Nullable final PDIdentifier aParticipantIdentifier, @Nullable final ICommonsList <PDBusinessEntity> aEntities)
+  public PDBusinessCard (@Nullable final PDIdentifier aParticipantIdentifier,
+                         @Nullable final ICommonsList <PDBusinessEntity> aEntities)
   {
     setParticipantIdentifier (aParticipantIdentifier);
     businessEntities ().setAll (aEntities);
@@ -96,8 +97,8 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
   }
 
   /**
-   * This method clones all values from <code>this</code> to the passed object.
-   * All data in the parameter object is overwritten!
+   * This method clones all values from <code>this</code> to the passed object. All data in the
+   * parameter object is overwritten!
    *
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
@@ -119,12 +120,13 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
   }
 
   @Nonnull
-  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sElementName)
+  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI,
+                                      @Nonnull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
-    ret.appendChild (m_aParticipantIdentifier.getAsMicroXML (sNamespaceURI, "participant"));
+    ret.addChild (m_aParticipantIdentifier.getAsMicroXML (sNamespaceURI, "participant"));
     for (final PDBusinessEntity aEntity : m_aBusinessEntities)
-      ret.appendChild (aEntity.getAsMicroXML (sNamespaceURI, "entity"));
+      ret.addChild (aEntity.getAsMicroXML (sNamespaceURI, "entity"));
     return ret;
   }
 
@@ -132,8 +134,8 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
   public IJsonObject getAsJson ()
   {
     final IJsonObject ret = new JsonObject ();
-    ret.addJson ("participant", m_aParticipantIdentifier.getAsJson ());
-    ret.addJson ("entity", new JsonArray ().addAllMapped (m_aBusinessEntities, PDBusinessEntity::getAsJson));
+    ret.add ("participant", m_aParticipantIdentifier.getAsJson ());
+    ret.add ("entity", new JsonArray ().addAllMapped (m_aBusinessEntities, PDBusinessEntity::getAsJson));
     return ret;
   }
 

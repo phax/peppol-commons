@@ -16,10 +16,8 @@
  */
 package com.helger.peppol.xhe.write;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.ValueEnforcer;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.xhe.CDBNAllianceXHE;
 import com.helger.peppol.xhe.DBNAlliancePayload;
 import com.helger.peppol.xhe.DBNAllianceXHEData;
@@ -35,6 +33,8 @@ import com.helger.xhe.v10.cbc.XHE10CustomizationIDType;
 import com.helger.xhe.v10.cbc.XHE10DescriptionType;
 import com.helger.xhe.v10.cbc.XHE10IDType;
 import com.helger.xhe.v10.cbc.XHE10ProfileIDType;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Convert DBNAlliance XHE data to a regular XHE document

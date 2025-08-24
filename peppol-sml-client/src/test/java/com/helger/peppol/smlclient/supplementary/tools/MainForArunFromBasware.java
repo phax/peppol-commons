@@ -25,9 +25,9 @@ import javax.net.ssl.TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.SystemProperties;
-import com.helger.commons.ws.TrustManagerTrustAll;
+import com.helger.base.string.StringHelper;
+import com.helger.base.system.SystemProperties;
+import com.helger.http.security.TrustManagerTrustAll;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
@@ -71,7 +71,7 @@ public final class MainForArunFromBasware
     // Don't change anything below this line
 
     // Set proxy as system properties
-    if (nProxyPort > 0 && StringHelper.hasText (sProxyHostname))
+    if (nProxyPort > 0 && StringHelper.isNotEmpty (sProxyHostname))
     {
       SystemProperties.setPropertyValue ("http.proxyHost", sProxyHostname);
       SystemProperties.setPropertyValue ("http.proxyPort", nProxyPort);

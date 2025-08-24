@@ -18,20 +18,20 @@ package com.helger.peppolid.peppol.process;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsCollection;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsCollection;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class manages the predefined Peppol process identifiers the
@@ -94,7 +94,7 @@ public final class PredefinedProcessIdentifierManager
   @Nullable
   public static IPeppolPredefinedProcessIdentifier getProcessIdentifierOfID (@Nullable final String sProcID)
   {
-    if (StringHelper.hasText (sProcID))
+    if (StringHelper.isNotEmpty (sProcID))
     {
       // make sure a scheme is present
       final String sRealProcID = sProcID.contains ("::") ? sProcID

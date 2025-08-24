@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
@@ -38,12 +38,12 @@ public final class EPredefinedParticipantIdentifierSchemeTest
   {
     for (final EPredefinedParticipantIdentifierScheme e : EPredefinedParticipantIdentifierScheme.values ())
     {
-      assertTrue (StringHelper.hasText (e.getSchemeID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getSchemeID ()));
       // May be null but not empty
       final String sAgency = e.getSchemeAgency ();
       if (sAgency != null)
-        assertTrue (StringHelper.hasText (sAgency));
-      assertTrue (StringHelper.hasText (e.getISO6523Code ()));
+        assertTrue (StringHelper.isNotEmpty (sAgency));
+      assertTrue (StringHelper.isNotEmpty (e.getISO6523Code ()));
       assertSame (e, EPredefinedParticipantIdentifierScheme.valueOf (e.name ()));
       assertTrue (e.createIdentifierValue ("abc").endsWith (":abc"));
       assertTrue (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (e.createIdentifierValue ("def"))

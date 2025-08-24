@@ -18,9 +18,6 @@ package com.helger.peppol.sbdh;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.unece.cefact.namespaces.sbdh.BusinessScope;
 import org.unece.cefact.namespaces.sbdh.DocumentIdentification;
 import org.unece.cefact.namespaces.sbdh.Partner;
@@ -29,8 +26,11 @@ import org.unece.cefact.namespaces.sbdh.Scope;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Convert a Peppol SBDH document to a regular SBDH document

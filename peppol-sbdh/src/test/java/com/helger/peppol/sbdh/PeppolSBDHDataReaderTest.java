@@ -24,8 +24,6 @@ import static org.junit.Assert.fail;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -33,19 +31,21 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.PDTWebDateHelper;
-import com.helger.commons.datetime.XMLOffsetDateTime;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsMap;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.web.PDTWebDateHelper;
+import com.helger.datetime.xml.XMLOffsetDateTime;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.peppol.testfiles.sbdh.PeppolSBDHTestFiles;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.DOMReaderSettings;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PeppolSBDHDataReader}.
@@ -125,7 +125,7 @@ public final class PeppolSBDHDataReaderTest
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());
 
-    CommonsTestHelper.testToStringImplementation (aData);
+    TestHelper.testToStringImplementation (aData);
   }
 
   @Test
@@ -166,7 +166,7 @@ public final class PeppolSBDHDataReaderTest
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());
 
-    CommonsTestHelper.testToStringImplementation (aData);
+    TestHelper.testToStringImplementation (aData);
   }
 
   @Test
@@ -201,7 +201,7 @@ public final class PeppolSBDHDataReaderTest
     assertTrue (aData.hasBusinessMessage ());
     assertEquals ("Invoice", aData.getBusinessMessage ().getLocalName ());
 
-    CommonsTestHelper.testToStringImplementation (aData);
+    TestHelper.testToStringImplementation (aData);
   }
 
   @Test

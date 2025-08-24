@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
 
@@ -42,17 +42,17 @@ public final class EPredefinedDocumentTypeIdentifierTest
     {
       assertTrue (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS.equals (e.getScheme ()) ||
                   PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD.equals (e.getScheme ()));
-      assertTrue (StringHelper.hasText (e.getValue ()));
-      assertTrue (StringHelper.hasText (e.getSyntaxSpecificID ()));
-      assertTrue (StringHelper.hasText (e.getCommonName ()));
+      assertTrue (StringHelper.isNotEmpty (e.getValue ()));
+      assertTrue (StringHelper.isNotEmpty (e.getSyntaxSpecificID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getCommonName ()));
       assertEquals (e.getAsDocumentTypeIdentifierValue (), e.getValue ());
       assertSame (e, EPredefinedDocumentTypeIdentifier.valueOf (e.name ()));
       assertSame (e, EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (e));
 
       final IPeppolGenericDocumentTypeIdentifierParts p = e.getParts ();
       assertNotNull (p);
-      assertTrue (StringHelper.hasText (p.getCustomizationID ()));
-      assertTrue (StringHelper.hasText (p.getVersion ()));
+      assertTrue (StringHelper.isNotEmpty (p.getCustomizationID ()));
+      assertTrue (StringHelper.isNotEmpty (p.getVersion ()));
     }
     assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (null));
     assertNull (EPredefinedDocumentTypeIdentifier.getFromDocumentTypeIdentifierOrNull (new SimpleDocumentTypeIdentifier ("bla",

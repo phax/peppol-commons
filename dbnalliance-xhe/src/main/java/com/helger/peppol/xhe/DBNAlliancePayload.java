@@ -16,23 +16,23 @@
  */
 package com.helger.peppol.xhe;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.w3c.dom.Element;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.mime.IMimeType;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.mime.CMimeType;
+import com.helger.mime.IMimeType;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the DBNAlliance data per Payload instance, such as a
@@ -90,7 +90,7 @@ public class DBNAlliancePayload
    */
   public boolean hasDescription ()
   {
-    return StringHelper.hasText (m_sDescription);
+    return StringHelper.isNotEmpty (m_sDescription);
   }
 
   /**
@@ -127,7 +127,7 @@ public class DBNAlliancePayload
    */
   public boolean hasContentTypeCodeListID ()
   {
-    return StringHelper.hasText (m_sContentTypeCodeListID);
+    return StringHelper.isNotEmpty (m_sContentTypeCodeListID);
   }
 
   /**
@@ -163,7 +163,7 @@ public class DBNAlliancePayload
    */
   public boolean hasContentTypeCode ()
   {
-    return StringHelper.hasText (m_sContentTypeCode);
+    return StringHelper.isNotEmpty (m_sContentTypeCode);
   }
 
   /**
@@ -235,7 +235,7 @@ public class DBNAlliancePayload
 
   public boolean hasCustomizationIDSchemeID ()
   {
-    return StringHelper.hasText (m_sCustomizationIDSchemeID);
+    return StringHelper.isNotEmpty (m_sCustomizationIDSchemeID);
   }
 
   /**
@@ -269,7 +269,7 @@ public class DBNAlliancePayload
 
   public boolean hasCustomizationID ()
   {
-    return StringHelper.hasText (m_sCustomizationID);
+    return StringHelper.isNotEmpty (m_sCustomizationID);
   }
 
   /**
@@ -337,7 +337,7 @@ public class DBNAlliancePayload
 
   public boolean hasProfileIDSchemeID ()
   {
-    return StringHelper.hasText (m_sProfileIDSchemeID);
+    return StringHelper.isNotEmpty (m_sProfileIDSchemeID);
   }
 
   /**
@@ -371,7 +371,7 @@ public class DBNAlliancePayload
 
   public boolean hasProfileID ()
   {
-    return StringHelper.hasText (m_sProfileID);
+    return StringHelper.isNotEmpty (m_sProfileID);
   }
 
   /**
@@ -476,7 +476,7 @@ public class DBNAlliancePayload
    */
   public boolean hasInstanceEncryptionMethod ()
   {
-    return StringHelper.hasText (m_sInstanceEncryptionMethod);
+    return StringHelper.isNotEmpty (m_sInstanceEncryptionMethod);
   }
 
   /**

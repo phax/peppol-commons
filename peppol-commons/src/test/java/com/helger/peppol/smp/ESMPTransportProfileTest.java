@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link ESMPTransportProfile}.
@@ -37,7 +37,7 @@ public final class ESMPTransportProfileTest
   {
     for (final ESMPTransportProfile e : ESMPTransportProfile.values ())
     {
-      assertTrue (StringHelper.hasText (e.getID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getID ()));
       assertSame (e, ESMPTransportProfile.getFromIDOrNull (e.getID ()));
     }
     assertSame (ESMPTransportProfileState.ACTIVE, ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2.getState ());

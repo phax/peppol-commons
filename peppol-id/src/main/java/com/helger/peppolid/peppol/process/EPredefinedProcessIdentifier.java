@@ -1,12 +1,12 @@
 package com.helger.peppolid.peppol.process;
 
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 
 /**

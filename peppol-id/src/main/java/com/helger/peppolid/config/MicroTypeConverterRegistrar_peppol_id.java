@@ -16,9 +16,7 @@
  */
 package com.helger.peppolid.config;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.peppolid.bdxr.smp1.doctype.BDXR1DocumentTypeIdentifier;
 import com.helger.peppolid.bdxr.smp1.doctype.BDXR1DocumentTypeIdentifierMicroTypeConverter;
 import com.helger.peppolid.bdxr.smp1.participant.BDXR1ParticipantIdentifier;
@@ -45,6 +43,8 @@ import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifierMicroTypeConverter;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Special micro type converter for this project.

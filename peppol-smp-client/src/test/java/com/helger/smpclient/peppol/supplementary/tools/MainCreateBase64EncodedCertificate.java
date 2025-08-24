@@ -21,8 +21,8 @@ import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.base64.Base64;
-import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.base.codec.base64.Base64;
+import com.helger.io.file.SimpleFileIO;
 
 public class MainCreateBase64EncodedCertificate
 {

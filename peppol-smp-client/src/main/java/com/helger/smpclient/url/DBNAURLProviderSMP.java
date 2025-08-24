@@ -16,11 +16,11 @@
  */
 package com.helger.smpclient.url;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.lang.ICloneable;
+import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of {@link IBDXLURLProvider} suitable for the DBNA network

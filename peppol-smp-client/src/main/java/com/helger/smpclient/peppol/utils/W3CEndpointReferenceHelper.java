@@ -16,23 +16,23 @@
  */
 package com.helger.smpclient.peppol.utils;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
 import javax.xml.transform.dom.DOMResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.xml.ChildElementIterator;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.XMLHelper;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 import jakarta.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 

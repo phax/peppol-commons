@@ -16,24 +16,23 @@
  */
 package com.helger.peppol.mls;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.StatusType;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.DescriptionType;
 
 /**
- * Builder for a single Line Response/Response within a Peppol MLS. Fill all the
- * mandatory fields and call {@link #build()} at the end.
+ * Builder for a single Line Response/Response within a Peppol MLS. Fill all the mandatory fields
+ * and call {@link #build()} at the end.
  *
  * @author Philip Helger
  * @since 11.0.0
@@ -50,9 +49,9 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
   {}
 
   /**
-   * Set the response text for this particular line. This should be a human
-   * readable text line the error message referring to a specific field. In case
-   * of a Schematron failure, it might be the text of the failed assertion.
+   * Set the response text for this particular line. This should be a human readable text line the
+   * error message referring to a specific field. In case of a Schematron failure, it might be the
+   * text of the failed assertion.
    *
    * @param s
    *        Response text.
@@ -99,7 +98,7 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
     // Enforced by Schematron
-    if (StringHelper.hasNoText (m_sDescription))
+    if (StringHelper.isEmpty (m_sDescription))
     {
       if (bLogDetails)
         LOGGER.warn ("The LineResponse Description is missing");

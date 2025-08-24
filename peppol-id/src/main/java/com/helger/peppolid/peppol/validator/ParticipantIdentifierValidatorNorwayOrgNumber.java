@@ -16,13 +16,13 @@
  */
 package com.helger.peppolid.peppol.validator;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.string.StringHelper;
 import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link IParticipantIdentifierValidatorSPI} for the

@@ -21,18 +21,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.cert.CertificateException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.base64.Base64;
-import com.helger.commons.exception.InitializationException;
-import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.codec.base64.Base64;
+import com.helger.base.exception.InitializationException;
 import com.helger.config.IConfig;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
+import com.helger.io.file.SimpleFileIO;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
@@ -41,12 +38,13 @@ import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 /**
- * This class manages the special test configuration file for this project. The
- * configuration file is located in
- * <code>src/test/resources/smp-client-test.properties</code>
+ * This class manages the special test configuration file for this project. The configuration file
+ * is located in <code>src/test/resources/smp-client-test.properties</code>
  *
  * @author Philip Helger
  */

@@ -24,19 +24,17 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.annotation.Nonempty;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
 import com.helger.peppol.smlclient.ManageServiceMetadataServiceCaller;
@@ -51,6 +49,8 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Ravnholt<br>

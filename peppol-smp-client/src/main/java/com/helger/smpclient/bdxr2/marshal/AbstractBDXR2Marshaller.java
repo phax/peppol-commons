@@ -18,12 +18,11 @@ package com.helger.smpclient.bdxr2.marshal;
 
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBElement;
 
 /**

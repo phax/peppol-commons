@@ -16,13 +16,13 @@
  */
 package com.helger.peppol.xhe.read;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
+import com.helger.base.text.TextFormatter;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.lang.EnumHelper;
-import com.helger.commons.text.util.TextHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This enum contains all the errors that can occur during XHE reading
@@ -75,8 +75,7 @@ public enum EDBNAllianceXHEDataReadError implements IHasID <String>
   INVALID_FROM_PARTY_COUNT ("invalid-from-party-count", "Not exactly one ''FromParty'' element is present but {0}."),
 
   /**
-   * The "XHE/Header/FromParty/PartyIdentification/ID/schemaID" attribute has an
-   * invalid value
+   * The "XHE/Header/FromParty/PartyIdentification/ID/schemaID" attribute has an invalid value
    */
   INVALID_FROM_PARTY_SCHEMA_ID ("invalid-from-party-schema-id",
                                 "The ''XHE/Header/FromParty/PartyIdentification/ID/schemaID'' attribute has the invalid value ''{0}''."),
@@ -93,8 +92,7 @@ public enum EDBNAllianceXHEDataReadError implements IHasID <String>
                                          "Not exactly one ''ToParty/PartyIdentification'' element is present but {0}."),
 
   /**
-   * The "XHE/Header/ToParty/PartyIdentification/ID/schemaID" attribute has an
-   * invalid value
+   * The "XHE/Header/ToParty/PartyIdentification/ID/schemaID" attribute has an invalid value
    */
   INVALID_TO_PARTY_SCHEMA_ID ("invalid-to-party-schema-id",
                               "The ''XHE/Header/ToParty/PartyIdentification/ID/schemaID'' attribute has the invalid value ''{0}''."),
@@ -132,8 +130,7 @@ public enum EDBNAllianceXHEDataReadError implements IHasID <String>
                             "The main business message is invalid according to the defined rules."),
 
   /**
-   * This is a fallback error code, in case the ID cannot be resolved to a
-   * proper other error code.
+   * This is a fallback error code, in case the ID cannot be resolved to a proper other error code.
    */
   GENERIC_XHE_ERROR ("generic-xhe-error", "A generic error occurred.");
 
@@ -165,15 +162,14 @@ public enum EDBNAllianceXHEDataReadError implements IHasID <String>
 
   /**
    * @param aArgs
-   *        The arguments to format with. May neither be <code>null</code> nor
-   *        empty.
+   *        The arguments to format with. May neither be <code>null</code> nor empty.
    * @return The English error message, formatted with parameters.
    */
   @Nonnull
   @Nonempty
   public String getErrorMessage (@Nonnull @Nonempty final Object... aArgs)
   {
-    return TextHelper.getFormattedText (m_sErrorMsg, aArgs);
+    return TextFormatter.getFormattedText (m_sErrorMsg, aArgs);
   }
 
   @Nullable
@@ -184,7 +180,7 @@ public enum EDBNAllianceXHEDataReadError implements IHasID <String>
 
   @Nullable
   public static EDBNAllianceXHEDataReadError getFromIDOrDefault (@Nullable final String sID,
-                                                                     @Nullable final EDBNAllianceXHEDataReadError eDefault)
+                                                                 @Nullable final EDBNAllianceXHEDataReadError eDefault)
   {
     return EnumHelper.getFromIDOrDefault (EDBNAllianceXHEDataReadError.class, sID, eDefault);
   }

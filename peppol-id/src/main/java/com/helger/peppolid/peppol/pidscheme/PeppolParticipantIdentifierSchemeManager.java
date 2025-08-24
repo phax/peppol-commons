@@ -16,18 +16,18 @@
  */
 package com.helger.peppolid.peppol.pidscheme;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.state.ETriState;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.state.ETriState;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class manages the Peppol Participant identifier schemes using the
@@ -73,7 +73,7 @@ public final class PeppolParticipantIdentifierSchemeManager
   @Nullable
   public static IPeppolParticipantIdentifierScheme getSchemeOfISO6523Code (@Nullable final String sISO6523Code)
   {
-    if (StringHelper.hasText (sISO6523Code))
+    if (StringHelper.isNotEmpty (sISO6523Code))
       for (final IPeppolParticipantIdentifierScheme aScheme : PI_SCHEMES)
         if (aScheme.getISO6523Code ().equalsIgnoreCase (sISO6523Code))
           return aScheme;
@@ -119,7 +119,7 @@ public final class PeppolParticipantIdentifierSchemeManager
   @Nullable
   public static IPeppolParticipantIdentifierScheme getSchemeOfSchemeID (@Nullable final String sSchemeID)
   {
-    if (StringHelper.hasText (sSchemeID))
+    if (StringHelper.isNotEmpty (sSchemeID))
       for (final IPeppolParticipantIdentifierScheme aScheme : PI_SCHEMES)
         if (aScheme.getSchemeID ().equalsIgnoreCase (sSchemeID))
           return aScheme;

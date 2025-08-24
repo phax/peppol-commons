@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link EPeppolMLRResponseCode}.
@@ -36,7 +36,7 @@ public final class EPeppolMLRResponseCodeTest
   {
     for (final EPeppolMLRResponseCode e : EPeppolMLRResponseCode.values ())
     {
-      assertTrue (StringHelper.hasText (e.getID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getID ()));
       assertTrue (e.isSuccess () || e.isFailure ());
       assertFalse (e.isSuccess () && e.isFailure ());
       assertSame (e, EPeppolMLRResponseCode.getFromIDOrNull (e.getID ()));

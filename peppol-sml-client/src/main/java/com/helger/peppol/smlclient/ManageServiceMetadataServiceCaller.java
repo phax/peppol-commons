@@ -18,15 +18,13 @@ package com.helger.peppol.smlclient;
 
 import java.net.URL;
 
-import javax.annotation.Nonnull;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.smp.BadRequestFault;
 import com.helger.peppol.smlclient.smp.InternalErrorFault;
@@ -38,6 +36,7 @@ import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 import com.helger.peppol.smlclient.smp.UnauthorizedFault;
 import com.helger.wsclient.WSClientConfig;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.BindingProvider;
 
 /**

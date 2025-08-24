@@ -20,21 +20,18 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.datetime.PDTWebDateHelper;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.datetime.web.PDTWebDateHelper;
 import com.helger.json.IHasJson;
 import com.helger.json.IJson;
 import com.helger.json.IJsonObject;
@@ -42,6 +39,9 @@ import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Generic business entity.
@@ -103,7 +103,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
 
   public final boolean hasCountryCode ()
   {
-    return StringHelper.hasText (m_sCountryCode);
+    return StringHelper.isNotEmpty (m_sCountryCode);
   }
 
   /**
@@ -131,7 +131,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
 
   public final boolean hasGeoInfo ()
   {
-    return StringHelper.hasText (m_sGeoInfo);
+    return StringHelper.isNotEmpty (m_sGeoInfo);
   }
 
   /**
@@ -187,15 +187,14 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
 
   public final boolean hasAdditionalInfo ()
   {
-    return StringHelper.hasText (m_sAdditionalInfo);
+    return StringHelper.isNotEmpty (m_sAdditionalInfo);
   }
 
   /**
    * Set the additional information / free text.
    *
    * @param sAdditionalInfo
-   *        Additional information to be used (free text). May be
-   *        <code>null</code>.
+   *        Additional information to be used (free text). May be <code>null</code>.
    * @return this for chaining
    */
   @Nonnull
@@ -234,8 +233,8 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
   }
 
   /**
-   * This method clones all values from <code>this</code> to the passed object.
-   * All data in the parameter object is overwritten!
+   * This method clones all values from <code>this</code> to the passed object. All data in the
+   * parameter object is overwritten!
    *
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
@@ -262,24 +261,25 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
   }
 
   @Nonnull
-  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sElementName)
+  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI,
+                                      @Nonnull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
     for (final PDName aName : m_aNames)
-      ret.appendChild (aName.getAsMicroXML (sNamespaceURI, "name"));
+      ret.addChild (aName.getAsMicroXML (sNamespaceURI, "name"));
     ret.setAttribute ("countrycode", m_sCountryCode);
     if (hasGeoInfo ())
-      ret.appendElement (sNamespaceURI, "geoinfo").appendText (m_sGeoInfo);
+      ret.addElementNS (sNamespaceURI, "geoinfo").addText (m_sGeoInfo);
     for (final PDIdentifier aID : m_aIDs)
-      ret.appendChild (aID.getAsMicroXML (sNamespaceURI, "id"));
+      ret.addChild (aID.getAsMicroXML (sNamespaceURI, "id"));
     for (final String sWebsiteURI : m_aWebsiteURIs)
-      ret.appendElement (sNamespaceURI, "website").appendText (sWebsiteURI);
+      ret.addElementNS (sNamespaceURI, "website").addText (sWebsiteURI);
     for (final PDContact aContact : m_aContacts)
-      ret.appendChild (aContact.getAsMicroXML (sNamespaceURI, "contact"));
+      ret.addChild (aContact.getAsMicroXML (sNamespaceURI, "contact"));
     if (hasAdditionalInfo ())
-      ret.appendElement (sNamespaceURI, "additionalinfo").appendText (m_sAdditionalInfo);
+      ret.addElementNS (sNamespaceURI, "additionalinfo").addText (m_sAdditionalInfo);
     if (hasRegistrationDate ())
-      ret.appendElement (sNamespaceURI, "regdate").appendText (PDTWebDateHelper.getAsStringXSD (m_aRegistrationDate));
+      ret.addElementNS (sNamespaceURI, "regdate").addText (PDTWebDateHelper.getAsStringXSD (m_aRegistrationDate));
     return ret;
   }
 
@@ -287,16 +287,16 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
   public IJsonObject getAsJson ()
   {
     final IJsonObject ret = new JsonObject ();
-    ret.addJson ("name", new JsonArray ().addAllMapped (m_aNames, PDName::getAsJson));
+    ret.add ("name", new JsonArray ().addAllMapped (m_aNames, PDName::getAsJson));
     ret.add ("countrycode", m_sCountryCode);
     if (hasGeoInfo ())
       ret.add ("geoinfo", m_sGeoInfo);
     if (m_aIDs.isNotEmpty ())
-      ret.addJson ("id", new JsonArray ().addAllMapped (m_aIDs, PDIdentifier::getAsJson));
+      ret.add ("id", new JsonArray ().addAllMapped (m_aIDs, PDIdentifier::getAsJson));
     if (m_aWebsiteURIs.isNotEmpty ())
-      ret.addJson ("website", new JsonArray ().addAll (m_aWebsiteURIs));
+      ret.add ("website", new JsonArray ().addAll (m_aWebsiteURIs));
     if (m_aContacts.isNotEmpty ())
-      ret.addJson ("contact", new JsonArray ().addAllMapped (m_aContacts, PDContact::getAsJson));
+      ret.add ("contact", new JsonArray ().addAllMapped (m_aContacts, PDContact::getAsJson));
     if (hasAdditionalInfo ())
       ret.add ("additionalinfo", m_sAdditionalInfo);
     if (hasRegistrationDate ())

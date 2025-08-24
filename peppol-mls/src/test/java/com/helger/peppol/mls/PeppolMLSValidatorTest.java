@@ -22,20 +22,18 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.impl.CommonsTreeSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.io.file.FileSystemRecursiveIterator;
-import com.helger.commons.io.file.IFileFilter;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsTreeSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.io.file.FileSystemRecursiveIterator;
+import com.helger.io.file.IFileFilter;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.FileSystemResource;
 import com.helger.schematron.svrl.AbstractSVRLMessage;
 import com.helger.schematron.svrl.SVRLHelper;
 import com.helger.schematron.svrl.SVRLMarshaller;
@@ -48,6 +46,8 @@ import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.serialize.write.XMLWriterSettings;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PeppolMLSValidator}.
@@ -104,11 +104,11 @@ public final class PeppolMLSValidatorTest
     final String sFullErrorCode = "SCH-MLS-" + sErrorCode;
 
     final IMicroDocument aTestsDoc = new MicroDocument ();
-    final IMicroElement eTestsRoot = aTestsDoc.appendElement (PDK_NS, "Tests");
-    eTestsRoot.appendComment (" This file is generated - do not edit. ");
-    eTestsRoot.appendText ("\n  ");
-    eTestsRoot.appendElement (PDK_NS, "Description").appendText ("Negative MLS tests");
-    eTestsRoot.appendElement (PDK_NS, "Scope").appendText (sFullErrorCode);
+    final IMicroElement eTestsRoot = aTestsDoc.addElementNS (PDK_NS, "Tests");
+    eTestsRoot.addComment (" This file is generated - do not edit. ");
+    eTestsRoot.addText ("\n  ");
+    eTestsRoot.addElementNS (PDK_NS, "Description").addText ("Negative MLS tests");
+    eTestsRoot.addElementNS (PDK_NS, "Scope").addText (sFullErrorCode);
 
     for (int i = 0; i < nCount; ++i)
     {
@@ -121,9 +121,9 @@ public final class PeppolMLSValidatorTest
       {
         final IMicroDocument aDoc = MicroReader.readMicroXML (new ClassPathResource (sFilename,
                                                                                      PeppolMLSValidator.class.getClassLoader ()));
-        final IMicroElement eTest = eTestsRoot.appendElement (PDK_NS, "Test");
-        eTest.appendElement (PDK_NS, "Trigger").appendText (sFullErrorCode);
-        eTest.appendChild (aDoc.getDocumentElement ().detachFromParent ());
+        final IMicroElement eTest = eTestsRoot.addElementNS (PDK_NS, "Test");
+        eTest.addElementNS (PDK_NS, "Trigger").addText (sFullErrorCode);
+        eTest.addChild (aDoc.getDocumentElement ().detachFromParent ());
       }
     }
 

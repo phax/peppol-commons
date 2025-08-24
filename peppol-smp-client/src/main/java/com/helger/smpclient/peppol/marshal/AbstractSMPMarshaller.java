@@ -18,11 +18,10 @@ package com.helger.smpclient.peppol.marshal;
 
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xsds.peppol.smp1.CSMPDataTypes;
 
+import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBElement;
 
 /**

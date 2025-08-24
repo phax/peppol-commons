@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link EPeppolSBDHDataError}.
@@ -35,8 +35,8 @@ public final class EPeppolSBDHDataErrorTest
   {
     for (final EPeppolSBDHDataError e : EPeppolSBDHDataError.values ())
     {
-      assertTrue (StringHelper.hasText (e.getID ()));
-      assertTrue (StringHelper.hasText (e.getErrorMessage ()));
+      assertTrue (StringHelper.isNotEmpty (e.getID ()));
+      assertTrue (StringHelper.isNotEmpty (e.getErrorMessage ()));
       assertSame (e, EPeppolSBDHDataError.getFromIDOrNull (e.getID ()));
       assertSame (e, EPeppolSBDHDataError.valueOf (e.name ()));
     }

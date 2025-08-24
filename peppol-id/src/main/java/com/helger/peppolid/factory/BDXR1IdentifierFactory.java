@@ -16,16 +16,16 @@
  */
 package com.helger.peppolid.factory;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.peppolid.bdxr.smp1.BDXR1IdentifierHelper;
 import com.helger.peppolid.bdxr.smp1.CBDXR1Identifier;
 import com.helger.peppolid.bdxr.smp1.doctype.BDXR1DocumentTypeIdentifier;
 import com.helger.peppolid.bdxr.smp1.participant.BDXR1ParticipantIdentifier;
 import com.helger.peppolid.bdxr.smp1.process.BDXR1ProcessIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IIdentifierFactory} for BDXR SMP v1

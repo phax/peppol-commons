@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import com.helger.commons.regex.RegExHelper;
+import com.helger.cache.regex.RegExHelper;
 
 public class RegExFuncTest
 {

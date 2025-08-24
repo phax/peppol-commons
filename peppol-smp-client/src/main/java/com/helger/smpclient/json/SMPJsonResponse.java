@@ -22,20 +22,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.base64.Base64;
-import com.helger.commons.datetime.OffsetDate;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.XMLOffsetDate;
-import com.helger.commons.datetime.XMLOffsetDateTime;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.codec.base64.Base64;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.rt.OffsetDate;
+import com.helger.datetime.xml.XMLOffsetDate;
+import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
@@ -54,6 +52,9 @@ import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.xsds.bdxr.smp2.ac.CertificateType;
 import com.helger.xsds.bdxr.smp2.ac.ProcessMetadataType;
 import com.helger.xsds.bdxr.smp2.ac.ProcessType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Utility class to convert SMP data structures to JSON
@@ -134,7 +135,7 @@ public final class SMPJsonResponse
       }
       aURLsArray.add (aUrlEntry);
     }
-    aJson.addJson (JSON_URLS, aURLsArray);
+    aJson.add (JSON_URLS, aURLsArray);
     return aJson;
   }
 
@@ -193,8 +194,8 @@ public final class SMPJsonResponse
     aDetails.add ("parsable", aCert != null);
     if (aCert != null)
     {
-      aDetails.addJson ("subject", getJsonPrincipal (aCert.getSubjectX500Principal ()));
-      aDetails.addJson ("issuer", getJsonPrincipal (aCert.getIssuerX500Principal ()));
+      aDetails.add ("subject", getJsonPrincipal (aCert.getSubjectX500Principal ()));
+      aDetails.add ("issuer", getJsonPrincipal (aCert.getIssuerX500Principal ()));
       aDetails.add ("serial10", aCert.getSerialNumber ());
       aDetails.add ("serial16", aCert.getSerialNumber ().toString (16));
       aDetails.addIfNotNull ("notBefore", getLDT (PDTFactory.createOffsetDateTime (aCert.getNotBefore ())));
@@ -202,14 +203,14 @@ public final class SMPJsonResponse
       aDetails.add ("validByDate", CertificateHelper.isCertificateValidPerNow (aCert));
       aDetails.add ("sigAlgName", aCert.getSigAlgName ());
     }
-    aTarget.addJson (JSON_CERTIFICATE_DETAILS, aDetails);
+    aTarget.add (JSON_CERTIFICATE_DETAILS, aDetails);
   }
 
   @Nonnull
   public static IJsonObject convertEndpoint (@Nonnull final com.helger.xsds.peppol.smp1.EndpointType aEndpoint)
   {
-    final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null
-                                                                          : W3CEndpointReferenceHelper.getAddress (aEndpoint.getEndpointReference ());
+    final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper
+                                                                                                             .getAddress (aEndpoint.getEndpointReference ());
     final IJsonObject aJsonEP = new JsonObject ().add (JSON_TRANSPORT_PROFILE, aEndpoint.getTransportProfile ())
                                                  .add (JSON_ENDPOINT_REFERENCE, sEndpointRef)
                                                  .add (JSON_REQUIRE_BUSINESS_LEVEL_SIGNATURE,
@@ -248,7 +249,7 @@ public final class SMPJsonResponse
                                                          .add (JSON_CERTIFICATE_UID, aRedirect.getCertificateUID ())
                                                          .add (JSON_EXTENSION,
                                                                SMPExtensionConverter.convertToString (aRedirect.getExtension ()));
-      ret.addJson (JSON_REDIRECT, aJsonRedirect);
+      ret.add (JSON_REDIRECT, aJsonRedirect);
     }
     else
     {
@@ -271,14 +272,14 @@ public final class SMPJsonResponse
                 {
                   aJsonEPs.add (convertEndpoint (aEndpoint));
                 }
-              aJsonProc.addJson (JSON_ENDPOINTS, aJsonEPs)
+              aJsonProc.add (JSON_ENDPOINTS, aJsonEPs)
                        .add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aProcess.getExtension ()));
               aJsonProcs.add (aJsonProc);
             }
-        aJsonSI.addJson (JSON_PROCESSES, aJsonProcs)
+        aJsonSI.add (JSON_PROCESSES, aJsonProcs)
                .add (JSON_EXTENSION, SMPExtensionConverter.convertToString (aSI.getExtension ()));
       }
-      ret.addJson (JSON_SERVICEINFO, aJsonSI);
+      ret.add (JSON_SERVICEINFO, aJsonSI);
     }
     return ret;
   }
@@ -329,7 +330,7 @@ public final class SMPJsonResponse
       final SMPExtensionList aExts = SMPExtensionList.ofBDXR1 (aRedirect.getExtension ());
       if (aExts != null)
         aJsonRedirect.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
-      ret.addJson (JSON_REDIRECT, aJsonRedirect);
+      ret.add (JSON_REDIRECT, aJsonRedirect);
     }
     else
     {
@@ -352,18 +353,18 @@ public final class SMPJsonResponse
                 {
                   aJsonEPs.add (convertEndpoint (aEndpoint));
                 }
-              aJsonProc.addJson (JSON_ENDPOINTS, aJsonEPs);
+              aJsonProc.add (JSON_ENDPOINTS, aJsonEPs);
               final SMPExtensionList aExts = SMPExtensionList.ofBDXR1 (aProcess.getExtension ());
               if (aExts != null)
                 aJsonProc.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
               aJsonProcs.add (aJsonProc);
             }
-        aJsonSI.addJson (JSON_PROCESSES, aJsonProcs);
+        aJsonSI.add (JSON_PROCESSES, aJsonProcs);
         final SMPExtensionList aExts = SMPExtensionList.ofBDXR1 (aSI.getExtension ());
         if (aExts != null)
           aJsonSI.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
       }
-      ret.addJson (JSON_SERVICEINFO, aJsonSI);
+      ret.add (JSON_SERVICEINFO, aJsonSI);
     }
     return ret;
   }
@@ -389,7 +390,7 @@ public final class SMPJsonResponse
       convertCertificate (aJsonCert, Base64.encodeBytes (aCert.getContentBinaryObjectValue ()));
       aJsonCerts.add (aJsonCert);
     }
-    ret.addJson ("certificates", aJsonCerts);
+    ret.add ("certificates", aJsonCerts);
 
     final SMPExtensionList aExts = SMPExtensionList.ofBDXR2 (aEndpoint.getSMPExtensions ());
     if (aExts != null)
@@ -464,7 +465,7 @@ public final class SMPJsonResponse
           convertCertificate (aJsonCert, Base64.encodeBytes (aCert.getContentBinaryObjectValue ()));
           aJsonCerts.add (aJsonCert);
         }
-        aJsonRedirect.addJson ("certificates", aJsonCerts);
+        aJsonRedirect.add ("certificates", aJsonCerts);
 
         final SMPExtensionList aExts = SMPExtensionList.ofBDXR2 (aRedirect.getSMPExtensions ());
         if (aExts != null)
@@ -472,7 +473,7 @@ public final class SMPJsonResponse
           // It's okay to add as string
           aJsonRedirect.addIfNotNull (JSON_EXTENSION, aExts.getExtensionsAsJsonString ());
         }
-        aJsonProcessMetadata.addJson (JSON_REDIRECT, aJsonRedirect);
+        aJsonProcessMetadata.add (JSON_REDIRECT, aJsonRedirect);
       }
       else
       {
@@ -482,7 +483,7 @@ public final class SMPJsonResponse
         {
           aJsonEPs.add (convertEndpoint (aEndpoint));
         }
-        aJsonProcessMetadata.addJson (JSON_ENDPOINTS, aJsonEPs);
+        aJsonProcessMetadata.add (JSON_ENDPOINTS, aJsonEPs);
       }
     }
 

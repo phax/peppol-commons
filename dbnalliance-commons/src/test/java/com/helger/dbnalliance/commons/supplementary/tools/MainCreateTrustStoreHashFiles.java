@@ -20,17 +20,17 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.dbnalliance.commons.security.DBNAllianceTrustStores;
+import com.helger.io.file.SimpleFileIO;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Utility class to create hash codes of the global trust store to verify if it is valid or not.

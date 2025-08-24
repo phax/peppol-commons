@@ -2,13 +2,13 @@ package com.helger.peppolid.peppol.pidscheme;
 
 import java.time.LocalDate;
 import java.time.Month;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.version.Version;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.base.version.Version;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 
 /**

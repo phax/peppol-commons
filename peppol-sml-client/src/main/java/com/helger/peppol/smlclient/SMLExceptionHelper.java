@@ -16,8 +16,9 @@
  */
 package com.helger.peppol.smlclient;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
+
+import jakarta.annotation.Nullable;
 
 /**
  * Utility class to help dealing with SML exception.

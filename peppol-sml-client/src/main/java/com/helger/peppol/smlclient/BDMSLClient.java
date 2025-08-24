@@ -19,17 +19,14 @@ package com.helger.peppol.smlclient;
 import java.net.URL;
 import java.time.LocalDate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.OverridingMethodsMustInvokeSuper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.url.URLHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.OverridingMethodsMustInvokeSuper;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.url.URLHelper;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smlclient.bdmsl.BDMSLService;
 import com.helger.peppol.smlclient.bdmsl.BDMSLServiceSoap;
@@ -45,6 +42,8 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.WebServiceException;
 

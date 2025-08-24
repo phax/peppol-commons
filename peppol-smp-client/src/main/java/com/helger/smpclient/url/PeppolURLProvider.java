@@ -20,21 +20,21 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.Pfuoi440;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * The implementation of {@link IPeppolURLProvider} suitable for the Peppol
@@ -93,7 +93,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
     // Ensure the DNS zone name ends with a dot!
-    if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
+    if (StringHelper.isNotEmpty (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
       throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
                                            sSMLZoneName);
 
@@ -127,7 +127,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
       ret.append (sIdentifierScheme).append ('.');
 
     // append the SML DNS zone name (if available)
-    if (StringHelper.hasText (sSMLZoneName))
+    if (StringHelper.isNotEmpty (sSMLZoneName))
     {
       // If it is present, it always ends with a dot
       ret.append (sSMLZoneName);

@@ -16,11 +16,11 @@
  */
 package com.helger.peppol.testfiles.ubl;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.io.resource.ClassPathResource;
+import com.helger.io.resource.IReadableResource;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
+import jakarta.annotation.Nonnull;
 
 /**
  * UBL test file type.

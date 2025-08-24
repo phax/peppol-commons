@@ -16,17 +16,18 @@
  */
 package com.helger.peppolid.peppol.validator;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.lang.ServiceLoaderHelper;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
+
+import jakarta.annotation.Nullable;
 
 /**
  * A wrapper around the custom identifier validator implementations.
@@ -37,12 +38,12 @@ import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 public final class IdentifierValidator
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (IdentifierValidator.class);
-  private static final ICommonsList <IParticipantIdentifierValidatorSPI> PID_VALIDATOR;
+  private static final List <IParticipantIdentifierValidatorSPI> PID_VALIDATOR;
 
   static
   {
     PID_VALIDATOR = ServiceLoaderHelper.getAllSPIImplementations (IParticipantIdentifierValidatorSPI.class);
-    if (PID_VALIDATOR.isNotEmpty ())
+    if (!PID_VALIDATOR.isEmpty ())
       LOGGER.info ("Loaded " + PID_VALIDATOR.size () + " SPI implementations of IParticipantIdentifierValidatorSPI");
   }
 

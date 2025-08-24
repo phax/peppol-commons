@@ -16,9 +16,9 @@
  */
 package com.helger.smpclient.redirect;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
-import com.helger.commons.annotation.Nonempty;
+import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface to be invoked if an SMP client follows a redirect

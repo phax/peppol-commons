@@ -16,19 +16,20 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
+import java.util.List;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 
+import jakarta.annotation.Nonnull;
+
 /**
- * A generic implementation of {@link IPeppolGenericDocumentTypeIdentifierParts}
- * for Peppol Document Type Identifiers.
+ * A generic implementation of {@link IPeppolGenericDocumentTypeIdentifierParts} for Peppol Document
+ * Type Identifiers.
  *
  * @author Philip Helger
  * @since 9.6.2
@@ -102,17 +103,16 @@ public class PeppolGenericDocumentTypeIdentifierParts implements IPeppolGenericD
   }
 
   /**
-   * Extract the Peppol document identifier type elements from the passed
-   * document identifier value. The expected format is
+   * Extract the Peppol document identifier type elements from the passed document identifier value.
+   * The expected format is
    * <code>&lt;syntax specific id&gt;##&lt;customization id&gt;::&lt;version&gt;</code>
    *
    * @param sDocTypeIDValue
-   *        The document identifier value (without the scheme) to be split. May
-   *        neither be <code>null</code> nor empty.
+   *        The document identifier value (without the scheme) to be split. May neither be
+   *        <code>null</code> nor empty.
    * @return The non-<code>null</code> Peppol identifier parts
    * @throws IllegalArgumentException
-   *         if the passed document identifier value does not match the
-   *         specifications
+   *         if the passed document identifier value does not match the specifications
    */
   @Nonnull
   public static PeppolGenericDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeIDValue)
@@ -120,16 +120,16 @@ public class PeppolGenericDocumentTypeIdentifierParts implements IPeppolGenericD
     ValueEnforcer.notEmpty (sDocTypeIDValue, "DocumentTypeIdentifier");
 
     // <syntax specific id>##<customization id>::<version>
-    final ICommonsList <String> aMain = StringHelper.getExploded (SYNTAX_SPECIFIC_ID_SEPARATOR, sDocTypeIDValue, 2);
+    final List <String> aMain = StringHelper.getExploded (SYNTAX_SPECIFIC_ID_SEPARATOR, sDocTypeIDValue, 2);
     if (aMain.size () != 2)
       throw new IllegalArgumentException ("The passed document type identifier is missing the separator between the Syntax specific ID and the Customization ID!");
 
     final String sSyntaxSpecificID = aMain.get (0);
-    if (StringHelper.hasNoText (sSyntaxSpecificID))
+    if (StringHelper.isEmpty (sSyntaxSpecificID))
       throw new IllegalArgumentException ("The passed document type identifier has an empty Syntax specific ID!");
 
     final String sRest = aMain.get (1);
-    if (StringHelper.hasNoText (sRest))
+    if (StringHelper.isEmpty (sRest))
       throw new IllegalArgumentException ("The passed document type identifier has an nothing after the Syntax specific ID!");
 
     // Rest: <customization id>::<version>
@@ -142,14 +142,14 @@ public class PeppolGenericDocumentTypeIdentifierParts implements IPeppolGenericD
 
     // Before last "::"
     final String sCustomizationID = sRest.substring (0, nLastIndex);
-    if (StringHelper.hasNoText (sCustomizationID))
+    if (StringHelper.isEmpty (sCustomizationID))
       throw new IllegalArgumentException ("The passed document type identifier remainder '" +
                                           sRest +
                                           "' contains an empty Customization ID!");
 
     // After last "::"
     final String sVersion = sRest.substring (nLastIndex + VERSION_SEPARATOR.length ());
-    if (StringHelper.hasNoText (sVersion))
+    if (StringHelper.isEmpty (sVersion))
       throw new IllegalArgumentException ("The passed document type identifier remainder '" +
                                           sRest +
                                           "' contains an empty Version!");
@@ -161,12 +161,10 @@ public class PeppolGenericDocumentTypeIdentifierParts implements IPeppolGenericD
    * Convert the passed document type identifier value into its parts.
    *
    * @param aIdentifier
-   *        The document type identifier to be split. May not be
-   *        <code>null</code>.
+   *        The document type identifier to be split. May not be <code>null</code>.
    * @return Never <code>null</code>.
    * @throws IllegalArgumentException
-   *         If the passed document type identifier is not a Peppol document
-   *         type identifier.
+   *         If the passed document type identifier is not a Peppol document type identifier.
    */
   @Nonnull
   public static PeppolGenericDocumentTypeIdentifierParts extractFromIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)

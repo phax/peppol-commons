@@ -16,16 +16,16 @@
  */
 package com.helger.peppol.businesscard.v3;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.ValueEnforcer;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.generic.PDBusinessEntity;
 import com.helger.peppol.businesscard.generic.PDContact;
 import com.helger.peppol.businesscard.generic.PDIdentifier;
 import com.helger.peppol.businesscard.generic.PDName;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Helper class for easier BC V3 creation.

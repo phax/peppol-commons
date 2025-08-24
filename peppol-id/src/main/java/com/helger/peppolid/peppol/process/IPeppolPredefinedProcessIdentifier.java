@@ -16,11 +16,11 @@
  */
 package com.helger.peppolid.peppol.process;
 
-import javax.annotation.Nonnull;
-
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for predefined process identifiers.

@@ -28,11 +28,11 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.commons.csv.CSVWriter;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.io.file.FileHelper;
+import com.helger.io.file.SimpleFileIO;
 
 /**
  * Test class for class {@link PeppolDocumentTypeIdentifierParts}.

@@ -20,18 +20,16 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.state.ESuccess;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.state.ESuccess;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
@@ -39,6 +37,8 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.PeppolGenericDocumentTypeIdentifierParts;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to support the different ways of dealing with peppol-doctype-wildcard scheme in

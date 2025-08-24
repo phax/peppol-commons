@@ -26,8 +26,8 @@ import java.security.UnrecoverableEntryException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;

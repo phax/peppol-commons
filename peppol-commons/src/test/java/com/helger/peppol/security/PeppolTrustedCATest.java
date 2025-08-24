@@ -31,10 +31,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ETriState;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ETriState;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.peppol.security.PeppolTrustStores.Config2018;
 import com.helger.peppol.security.PeppolTrustStores.Config2025;
 import com.helger.security.certificate.CertificateHelper;

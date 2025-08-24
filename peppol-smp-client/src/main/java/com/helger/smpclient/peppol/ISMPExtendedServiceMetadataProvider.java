@@ -20,11 +20,8 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -36,6 +33,9 @@ import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.xsds.peppol.smp1.EndpointType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract interface to retrieve extended Peppol Service Metadata instance.

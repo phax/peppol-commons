@@ -19,11 +19,11 @@ package com.helger.peppol.sml;
 import java.io.Serializable;
 import java.net.URL;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.base.name.IHasDisplayName;
+import com.helger.base.type.ITypedObject;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.name.IHasDisplayName;
-import com.helger.commons.type.ITypedObject;
+import jakarta.annotation.Nonnull;
 
 /**
  * Specifies the different properties an SML implementation uses. A set of

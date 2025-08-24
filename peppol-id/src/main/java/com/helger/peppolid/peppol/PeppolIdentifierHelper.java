@@ -18,11 +18,11 @@ package com.helger.peppolid.peppol;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.ThreadSafe;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.peppolid.CIdentifier;
+
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains several identifier related utility methods.

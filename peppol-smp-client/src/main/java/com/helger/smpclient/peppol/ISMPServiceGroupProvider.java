@@ -16,12 +16,12 @@
  */
 package com.helger.smpclient.peppol;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract interface to retrieve a Peppol Service Group instance.

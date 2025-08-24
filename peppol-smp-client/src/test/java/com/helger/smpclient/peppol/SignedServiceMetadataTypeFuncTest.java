@@ -24,10 +24,10 @@ import java.time.Month;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.state.ESuccess;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.state.ESuccess;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;

@@ -23,10 +23,10 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.json.IJsonObject;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link PDBusinessEntity}.
@@ -44,7 +44,8 @@ public final class PDBusinessCardTest
                                  "geo",
                                  new CommonsArrayList <> (new PDIdentifier ("s1", "v1"), new PDIdentifier ("s2", "v2")),
                                  new CommonsArrayList <> ("uri1", "uri2", "uri3"),
-                                 new CommonsArrayList <> (new PDContact ("t", "n", "p", "e"), new PDContact ("t2", "n2", "p2", "e2")),
+                                 new CommonsArrayList <> (new PDContact ("t", "n", "p", "e"),
+                                                          new PDContact ("t2", "n2", "p2", "e2")),
                                  "additional info",
                                  TODAY);
   }
@@ -58,20 +59,20 @@ public final class PDBusinessCardTest
     assertEquals (1, aBC.businessEntities ().size ());
     assertEquals (_createBE (), aBC.businessEntities ().get (0));
 
-    CommonsTestHelper.testDefaultSerialization (aBC);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aBC,
-                                                                       new PDBusinessCard (new PDIdentifier ("a", "b"),
-                                                                                           new CommonsArrayList <> (_createBE ())));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aBC,
-                                                                           new PDBusinessCard (new PDIdentifier ("a", "c"),
-                                                                                               new CommonsArrayList <> (_createBE ())));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aBC,
-                                                                           new PDBusinessCard (new PDIdentifier ("a", "b"),
-                                                                                               new CommonsArrayList <> (_createBE (),
-                                                                                                                        _createBE ())));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aBC,
-                                                                           new PDBusinessCard (new PDIdentifier ("a", "b"),
-                                                                                               new CommonsArrayList <> (_createBE ().setGeoInfo ("something else"))));
+    TestHelper.testDefaultSerialization (aBC);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aBC,
+                                                                new PDBusinessCard (new PDIdentifier ("a", "b"),
+                                                                                    new CommonsArrayList <> (_createBE ())));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aBC,
+                                                                    new PDBusinessCard (new PDIdentifier ("a", "c"),
+                                                                                        new CommonsArrayList <> (_createBE ())));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aBC,
+                                                                    new PDBusinessCard (new PDIdentifier ("a", "b"),
+                                                                                        new CommonsArrayList <> (_createBE (),
+                                                                                                                 _createBE ())));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aBC,
+                                                                    new PDBusinessCard (new PDIdentifier ("a", "b"),
+                                                                                        new CommonsArrayList <> (_createBE ().setGeoInfo ("something else"))));
 
     assertNotNull (aBC.getAsMicroXML (null, "a"));
     assertNotNull (aBC.getAsMicroXML ("urn:example.org", "a"));
@@ -86,12 +87,13 @@ public final class PDBusinessCardTest
   public void testJson ()
   {
     PDBusinessCard aBC = new PDBusinessCard (new PDIdentifier ("a", "b"),
-                                             new CommonsArrayList <> (_createBE (), _createBE ().setAdditionalInfo ("Gni gna gnu")));
+                                             new CommonsArrayList <> (_createBE (),
+                                                                      _createBE ().setAdditionalInfo ("Gni gna gnu")));
     IJsonObject aJson = aBC.getAsJson ();
     assertNotNull (aJson);
     PDBusinessCard aBC2 = PDBusinessCard.of (aJson);
     assertNotNull (aBC2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aBC2, aBC);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aBC2, aBC);
 
     // None set
     aBC = new PDBusinessCard (new PDIdentifier ("a", "b"), null);
@@ -99,6 +101,6 @@ public final class PDBusinessCardTest
     assertNotNull (aJson);
     aBC2 = PDBusinessCard.of (aJson);
     assertNotNull (aBC2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aBC2, aBC);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aBC2, aBC);
   }
 }

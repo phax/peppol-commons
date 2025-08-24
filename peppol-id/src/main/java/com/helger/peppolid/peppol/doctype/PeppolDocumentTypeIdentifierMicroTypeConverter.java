@@ -16,11 +16,11 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class PeppolDocumentTypeIdentifierMicroTypeConverter extends
                                                                   AbstractIdentifierMicroTypeConverter <PeppolDocumentTypeIdentifier>

@@ -16,13 +16,13 @@
  */
 package com.helger.peppol.security;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.security.certificate.TrustedCAChecker;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class contains all the trusted CAs in Peppol.

@@ -18,18 +18,19 @@ package com.helger.peppol.smlclient;
 
 import java.security.KeyStore;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
-import com.helger.commons.ws.TrustManagerTrustAll;
+import com.helger.http.security.TrustManagerTrustAll;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base class for SML client tests, with some utility content.

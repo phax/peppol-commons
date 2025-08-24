@@ -26,8 +26,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
@@ -42,18 +40,18 @@ import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.traits.IGenericImplTrait;
+import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.debug.GlobalDebug;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.base.trait.IGenericImplTrait;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.mime.CMimeType;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.smpclient.config.SMPClientConfiguration;
@@ -64,6 +62,8 @@ import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.xsds.xmldsig.X509DataType;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBElement;
 
 /**
@@ -102,7 +102,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     }
     else
     {
-      if (StringHelper.hasNoText (sPath))
+      if (StringHelper.isEmpty (sPath))
         LOGGER.warn ("No SMP client trust store is configured");
       else
         LOGGER.warn ("Failed to load the configured SMP client trust store '" + sPath + "' of type " + eType);

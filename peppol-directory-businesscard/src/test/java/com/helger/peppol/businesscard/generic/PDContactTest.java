@@ -22,8 +22,8 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.json.IJsonObject;
+import com.helger.unittest.support.TestHelper;
 
 /**
  * Test class for class {@link PDContact}.
@@ -42,17 +42,17 @@ public final class PDContactTest
     assertEquals ("p", aContact.getPhoneNumber ());
     assertEquals ("e", aContact.getEmail ());
 
-    CommonsTestHelper.testDefaultSerialization (aContact);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aContact, new PDContact ("t", "n", "p", "e"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t2", "n", "p", "e"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n2", "p", "e"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n", "p2", "e"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n", "p", "e2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact (null, "n", "p", "e"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", null, "p", "e"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n", null, "e"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n", "p", null));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact (null, null, null, null));
+    TestHelper.testDefaultSerialization (aContact);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aContact, new PDContact ("t", "n", "p", "e"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t2", "n", "p", "e"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n2", "p", "e"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n", "p2", "e"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n", "p", "e2"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact (null, "n", "p", "e"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", null, "p", "e"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n", null, "e"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact ("t", "n", "p", null));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aContact, new PDContact (null, null, null, null));
     assertNotNull (aContact.getAsMicroXML (null, "a"));
     assertNotNull (aContact.getAsMicroXML ("urn:example.org", "a"));
 
@@ -61,7 +61,6 @@ public final class PDContactTest
     assertNull (aContact.getName ());
     assertNull (aContact.getPhoneNumber ());
     assertNull (aContact.getEmail ());
-
   }
 
   @Test
@@ -72,7 +71,7 @@ public final class PDContactTest
     assertNotNull (aJson);
     PDContact aContact2 = PDContact.of (aJson);
     assertNotNull (aContact2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
 
     // No type
     aContact = new PDContact (null, "n", "p", "e");
@@ -80,7 +79,7 @@ public final class PDContactTest
     assertNotNull (aJson);
     aContact2 = PDContact.of (aJson);
     assertNotNull (aContact2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
 
     // No name
     aContact = new PDContact ("t", null, "p", "e");
@@ -88,7 +87,7 @@ public final class PDContactTest
     assertNotNull (aJson);
     aContact2 = PDContact.of (aJson);
     assertNotNull (aContact2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
 
     // No phone number
     aContact = new PDContact ("t", "n", null, "e");
@@ -96,7 +95,7 @@ public final class PDContactTest
     assertNotNull (aJson);
     aContact2 = PDContact.of (aJson);
     assertNotNull (aContact2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
 
     // No email
     aContact = new PDContact ("t", "n", "p", null);
@@ -104,7 +103,7 @@ public final class PDContactTest
     assertNotNull (aJson);
     aContact2 = PDContact.of (aJson);
     assertNotNull (aContact2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
 
     // None set
     aContact = new PDContact (null, null, null, null);
@@ -112,6 +111,6 @@ public final class PDContactTest
     assertNotNull (aJson);
     aContact2 = PDContact.of (aJson);
     assertNotNull (aContact2);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aContact2, aContact);
   }
 }

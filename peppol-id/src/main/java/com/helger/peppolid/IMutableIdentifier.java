@@ -16,7 +16,7 @@
  */
 package com.helger.peppolid;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * The writable version of an identifier interface.

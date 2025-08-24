@@ -16,15 +16,15 @@
  */
 package com.helger.peppol.smp;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.ContainsSoftMigration;
+import com.helger.annotation.misc.ContainsSoftMigration;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Micro type converter for {@link ISMPTransportProfile} objects

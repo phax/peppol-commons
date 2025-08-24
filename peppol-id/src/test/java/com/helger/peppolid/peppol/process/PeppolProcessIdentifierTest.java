@@ -25,15 +25,13 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.mock.XMLTestHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Test class for class {@link PeppolProcessIdentifier}.
@@ -66,9 +64,9 @@ public final class PeppolProcessIdentifierTest
     final PeppolProcessIdentifier aID1 = new PeppolProcessIdentifier (aIF, "scheme", "value");
     final PeppolProcessIdentifier aID2 = new PeppolProcessIdentifier (aIF, "scheme", "value");
     final PeppolProcessIdentifier aID3 = new PeppolProcessIdentifier (aIF, "scheme2", "value");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
+    TestHelper.testDefaultImplementationWithEqualContentObject (aID1, aID2);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID1, aID3);
+    TestHelper.testDefaultImplementationWithDifferentContentObject (aID2, aID3);
   }
 
   @Test
@@ -98,7 +96,6 @@ public final class PeppolProcessIdentifierTest
   }
 
   @Test
-  @SuppressFBWarnings ("NP_NONNULL_PARAM_VIOLATION")
   public void testConstraints ()
   {
     try

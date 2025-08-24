@@ -20,12 +20,12 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a customizable SMP URL provider.

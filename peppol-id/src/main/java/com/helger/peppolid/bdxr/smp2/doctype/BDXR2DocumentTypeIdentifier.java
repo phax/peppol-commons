@@ -16,18 +16,18 @@
  */
 package com.helger.peppolid.bdxr.smp2.doctype;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.xsds.bdxr.smp2.bc.IDType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a sanity class around the {@link IDType} class with easier
@@ -53,7 +53,7 @@ public class BDXR2DocumentTypeIdentifier extends IDType implements
   public BDXR2DocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
   {
     // Change "" to null
-    setSchemeID (StringHelper.hasNoText (sScheme) ? null : sScheme);
+    setSchemeID (StringHelper.isEmpty (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 

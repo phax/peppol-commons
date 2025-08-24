@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.security.cert.X509Certificate;
 
-import javax.annotation.Nonnull;
-
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -36,6 +34,8 @@ import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.smpclient.url.IPeppolURLProvider;
 import com.helger.smpclient.url.PeppolConfigurableURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link SMPClient}.

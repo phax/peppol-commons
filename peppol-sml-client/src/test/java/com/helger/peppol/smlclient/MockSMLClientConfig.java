@@ -16,20 +16,19 @@
  */
 package com.helger.peppol.smlclient;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.config.Config;
 import com.helger.config.ConfigFactory;
 import com.helger.config.IConfig;
 import com.helger.config.source.MultiConfigurationValueProvider;
-import com.helger.config.source.res.ConfigurationSourceProperties;
+import com.helger.config.source.resource.properties.ConfigurationSourceProperties;
+import com.helger.io.resource.ClassPathResource;
+
+import jakarta.annotation.Nullable;
 
 /**
- * This class manages the special test configuration file for this project. The
- * configuration file is located in
- * <code>src/test/resources/sml-client-test.properties</code>
+ * This class manages the special test configuration file for this project. The configuration file
+ * is located in <code>src/test/resources/sml-client-test.properties</code>
  *
  * @author Philip Helger
  */

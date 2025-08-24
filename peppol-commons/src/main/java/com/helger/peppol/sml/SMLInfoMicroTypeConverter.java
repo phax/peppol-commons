@@ -16,14 +16,14 @@
  */
 package com.helger.peppol.sml;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.string.StringParser;
+import com.helger.base.string.StringParser;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.util.MicroHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Micro type converter for {@link ISMLInfo} objects
@@ -46,8 +46,8 @@ public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter <SML
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_ID, aValue.getID ());
     aElement.setAttribute (ATTR_DISPLAY_NAME, aValue.getDisplayName ());
-    aElement.appendElement (sNamespaceURI, ELEMENT_DNS_ZONE).appendText (aValue.getDNSZone ());
-    aElement.appendElement (sNamespaceURI, ELEMENT_MANAGEMENT_SERVICE).appendText (aValue.getManagementServiceURL ());
+    aElement.addElementNS (sNamespaceURI, ELEMENT_DNS_ZONE).addText (aValue.getDNSZone ());
+    aElement.addElementNS (sNamespaceURI, ELEMENT_MANAGEMENT_SERVICE).addText (aValue.getManagementServiceURL ());
     aElement.setAttribute (ATTR_REQUIRES_CLIENT_CERT, aValue.isClientCertificateRequired ());
     return aElement;
   }

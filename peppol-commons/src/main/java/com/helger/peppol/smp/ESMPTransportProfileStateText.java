@@ -18,13 +18,13 @@ package com.helger.peppol.smp;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.text.AbstractReadOnlyMapBasedMultilingualText;
+import com.helger.text.display.IHasDisplayText;
+import com.helger.text.resolve.DefaultTextResolver;
+import com.helger.text.util.TextHelper;
 
-import com.helger.commons.text.AbstractReadOnlyMapBasedMultilingualText;
-import com.helger.commons.text.display.IHasDisplayText;
-import com.helger.commons.text.resolve.DefaultTextResolver;
-import com.helger.commons.text.util.TextHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This enum defines the texts for {@link ESMPTransportProfileState}

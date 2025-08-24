@@ -16,10 +16,10 @@
  */
 package com.helger.peppolid.factory;
 
-import javax.annotation.Nullable;
-
 import com.helger.peppolid.IIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
+
+import jakarta.annotation.Nullable;
 
 /**
  * A generic factory interface for process identifiers.

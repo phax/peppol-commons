@@ -18,13 +18,13 @@ package com.helger.peppolid;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.string.StringHelper;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.string.StringHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single read-only identifier independent of its usage
@@ -78,7 +78,7 @@ public interface IIdentifier extends Serializable
    */
   default boolean hasValue ()
   {
-    return StringHelper.hasText (getValue ());
+    return StringHelper.isNotEmpty (getValue ());
   }
 
   /**

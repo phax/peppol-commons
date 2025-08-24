@@ -24,32 +24,32 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.ThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xbill.DNS.TextParseException;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.codec.Base32Codec;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.codec.impl.Base32Codec;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.dns.naptr.NaptrLookup;
 import com.helger.dns.naptr.NaptrResolver;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * An abstract implementation of {@link IBDXLURLProvider} that support U-NAPTR
@@ -166,7 +166,7 @@ public abstract class AbstractBDXLURLProvider
   @Nullable
   public final String getDNSCacheEntry (@Nullable final String sName)
   {
-    return StringHelper.hasText (sName) ? m_aRWLock.readLockedGet ( () -> m_aDNSCache.get (sName)) : null;
+    return StringHelper.isNotEmpty (sName) ? m_aRWLock.readLockedGet ( () -> m_aDNSCache.get (sName)) : null;
   }
 
   @Nonnull
@@ -247,7 +247,7 @@ public abstract class AbstractBDXLURLProvider
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     // Ensure the DNS zone name ends with a dot!
-    if (StringHelper.hasText (sSMLZoneName))
+    if (StringHelper.isNotEmpty (sSMLZoneName))
       ValueEnforcer.isTrue (StringHelper.endsWith (sSMLZoneName, '.'),
                             () -> "if an SML zone name is specified, it must end with a dot (.). Value is: " +
                                   sSMLZoneName);
@@ -274,7 +274,7 @@ public abstract class AbstractBDXLURLProvider
     }
 
     // append the SML DNS zone name (if available)
-    if (StringHelper.hasText (sSMLZoneName))
+    if (StringHelper.isNotEmpty (sSMLZoneName))
     {
       // If it is present, it always ends with a dot
       ret.append (sSMLZoneName);
@@ -305,7 +305,7 @@ public abstract class AbstractBDXLURLProvider
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
     // Ensure the DNS zone name ends with a dot!
-    if (StringHelper.hasText (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
+    if (StringHelper.isNotEmpty (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
       throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
                                            sSMLZoneName);
 

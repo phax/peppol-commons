@@ -19,18 +19,18 @@ package com.helger.smpclient.httpclient;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.apache.hc.client5.http.ClientProtocolException;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 
-import com.helger.commons.debug.GlobalDebug;
+import com.helger.base.debug.GlobalDebug;
 import com.helger.httpclient.HttpClientHelper;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract {@link HttpClientResponseHandler} implementation that ensures a leak

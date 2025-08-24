@@ -16,18 +16,18 @@
  */
 package com.helger.peppolid.simple.process;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.hashcode.IHashCodeGenerator;
-import com.helger.commons.lang.ICloneable;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.xsds.peppol.id1.ProcessIdentifierType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with

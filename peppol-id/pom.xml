@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.peppol</groupId>
     <artifactId>peppol-commons-parent-pom</artifactId>
-    <version>11.0.7-SNAPSHOT</version>
+    <version>12.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-id</artifactId>
   <packaging>bundle</packaging>
@@ -55,11 +55,11 @@
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-commons</artifactId>
+      <artifactId>ph-xml</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.commons</groupId>
-      <artifactId>ph-xml</artifactId>
+      <artifactId>ph-url</artifactId>
     </dependency>
     <dependency>
       <groupId>com.helger.xsd</groupId>
@@ -79,13 +79,6 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.spotbugs</groupId>
-      <artifactId>spotbugs-annotations</artifactId>
-      <scope>compile</scope>
-      <optional>true</optional>
-    </dependency>
-
-    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <scope>test</scope>
@@ -98,6 +91,11 @@
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-jaxb</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-commons</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

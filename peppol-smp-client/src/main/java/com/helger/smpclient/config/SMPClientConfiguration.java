@@ -19,35 +19,35 @@ package com.helger.smpclient.config;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.GuardedBy;
-import javax.annotation.concurrent.Immutable;
-
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.exception.InitializationException;
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.resourceprovider.ReadableResourceProviderChain;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.SystemProperties;
+import com.helger.annotation.concurrent.GuardedBy;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.exception.InitializationException;
+import com.helger.base.string.StringHelper;
+import com.helger.base.system.SystemProperties;
 import com.helger.config.ConfigFactory;
 import com.helger.config.IConfig;
 import com.helger.config.fallback.ConfigWithFallback;
 import com.helger.config.fallback.IConfigWithFallback;
 import com.helger.config.source.MultiConfigurationValueProvider;
-import com.helger.config.source.res.ConfigurationSourceProperties;
+import com.helger.config.source.resource.properties.ConfigurationSourceProperties;
 import com.helger.httpclient.HttpClientSettings;
+import com.helger.io.resource.IReadableResource;
+import com.helger.io.resourceprovider.ReadableResourceProviderChain;
 import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class manages the configuration properties of the SMP client. The order of the properties
@@ -74,15 +74,15 @@ public final class SMPClientConfiguration
   static
   {
     // Since 8.2.0
-    if (StringHelper.hasText (SystemProperties.getPropertyValueOrNull ("peppol.smp.client.properties.path")))
+    if (StringHelper.isNotEmpty (SystemProperties.getPropertyValueOrNull ("peppol.smp.client.properties.path")))
       throw new InitializationException ("The system property 'peppol.smp.client.properties.path' is no longer supported." +
                                          " See https://github.com/phax/ph-commons#ph-config for alternatives." +
                                          " Consider using the system property 'config.file' instead.");
-    if (StringHelper.hasText (SystemProperties.getPropertyValueOrNull ("smp.client.properties.path")))
+    if (StringHelper.isNotEmpty (SystemProperties.getPropertyValueOrNull ("smp.client.properties.path")))
       throw new InitializationException ("The system property 'smp.client.properties.path' is no longer supported." +
                                          " See https://github.com/phax/ph-commons#ph-config for alternatives." +
                                          " Consider using the system property 'config.file' instead.");
-    if (StringHelper.hasText (System.getenv ().get ("SMP_CLIENT_CONFIG")))
+    if (StringHelper.isNotEmpty (System.getenv ().get ("SMP_CLIENT_CONFIG")))
       throw new InitializationException ("The environment variable 'SMP_CLIENT_CONFIG' is no longer supported." +
                                          " See https://github.com/phax/ph-commons#ph-config for alternatives." +
                                          " Consider using the environment variable 'CONFIG_FILE' instead.");
@@ -204,7 +204,7 @@ public final class SMPClientConfiguration
     String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.path",
                                                      "truststore.path",
                                                      "truststore.location");
-    if (StringHelper.hasNoText (ret))
+    if (StringHelper.isEmpty (ret))
     {
       ret = PeppolTrustStores.TRUSTSTORE_COMPLETE_CLASSPATH;
       LOGGER.error ("No SMP client truststore path is configured. Currently an automatic fallback to '" +

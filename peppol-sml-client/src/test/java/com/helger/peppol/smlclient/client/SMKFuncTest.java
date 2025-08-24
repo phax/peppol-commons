@@ -18,14 +18,12 @@ package com.helger.peppol.smlclient.client;
 
 import static org.junit.Assert.assertSame;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.Nonempty;
+import com.helger.annotation.Nonempty;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smlclient.AbstractSMLClientTestCase;
 import com.helger.peppol.smlclient.ManageParticipantIdentifierServiceCaller;
@@ -35,6 +33,8 @@ import com.helger.peppol.smlclient.smp.PublisherEndpointType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.wsclient.WSHelper;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * @author Philip Helger

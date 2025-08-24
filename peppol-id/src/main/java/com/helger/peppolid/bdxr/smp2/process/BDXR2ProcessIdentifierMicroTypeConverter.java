@@ -16,10 +16,10 @@
  */
 package com.helger.peppolid.bdxr.smp2.process;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 public final class BDXR2ProcessIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <BDXR2ProcessIdentifier>
 {

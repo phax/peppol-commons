@@ -16,19 +16,19 @@
  */
 package com.helger.smpclient.peppol.utils;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
 import org.w3c.dom.Document;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.string.StringHelper;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.write.EXMLSerializeDocType;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 import com.helger.xsds.peppol.smp1.ExtensionType;
+
+import jakarta.annotation.Nullable;
 
 /**
  * This class is used for converting between a String representation of the
@@ -82,7 +82,7 @@ public final class SMPExtensionConverter
   @Nullable
   public static ExtensionType convert (@Nullable final String sXML)
   {
-    if (StringHelper.hasText (sXML))
+    if (StringHelper.isNotEmpty (sXML))
     {
       // Try to interpret as XML
       final Document aDoc = DOMReader.readXMLDOM (sXML);

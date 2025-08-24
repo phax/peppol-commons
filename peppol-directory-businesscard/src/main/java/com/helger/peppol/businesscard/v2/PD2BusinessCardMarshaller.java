@@ -18,12 +18,12 @@ package com.helger.peppol.businesscard.v2;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This is the reader and writer for {@link PD2BusinessCardType} documents. This

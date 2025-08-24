@@ -18,12 +18,12 @@ package com.helger.peppol.smp;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import com.helger.base.name.IHasName;
+import com.helger.base.type.ITypedObject;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.name.IHasName;
-import com.helger.commons.type.ITypedObject;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for SMP transport profiles. Two transport profiles are

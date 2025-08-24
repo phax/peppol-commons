@@ -18,17 +18,18 @@ package com.helger.peppolid.supplementary.tools;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.string.StringRemove;
+import com.helger.base.string.StringReplace;
+import com.helger.cache.regex.RegExHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 @Immutable
 final class CodeGenerationHelper
@@ -42,10 +43,10 @@ final class CodeGenerationHelper
     if (s == null)
       return null;
     String ret = s;
-    ret = StringHelper.replaceAll (ret, "&", "&amp;");
-    ret = StringHelper.replaceAll (ret, "<", "&lt;");
-    ret = StringHelper.replaceAll (ret, ">", "&gt;");
-    ret = StringHelper.replaceAll (ret, "\"", "&quot;");
+    ret = StringReplace.replaceAll (ret, "&", "&amp;");
+    ret = StringReplace.replaceAll (ret, "<", "&lt;");
+    ret = StringReplace.replaceAll (ret, ">", "&gt;");
+    ret = StringReplace.replaceAll (ret, "\"", "&quot;");
     return ret;
   }
 
@@ -239,12 +240,12 @@ final class CodeGenerationHelper
       return "PEPPOL_MLS_1_0";
 
     String sExt = sCustomizationID;
-    sExt = StringHelper.replaceAll (sExt, "urn:", "");
-    sExt = StringHelper.replaceAll (sExt, '.', '_');
-    sExt = StringHelper.replaceAll (sExt, ':', '_');
-    sExt = StringHelper.replaceAll (sExt, '#', '_');
-    sExt = StringHelper.replaceAll (sExt, '-', '_');
-    sExt = StringHelper.replaceAll (sExt, '@', '_');
+    sExt = StringReplace.replaceAll (sExt, "urn:", "");
+    sExt = StringReplace.replaceAll (sExt, '.', '_');
+    sExt = StringReplace.replaceAll (sExt, ':', '_');
+    sExt = StringReplace.replaceAll (sExt, '#', '_');
+    sExt = StringReplace.replaceAll (sExt, '-', '_');
+    sExt = StringReplace.replaceAll (sExt, '@', '_');
 
     return (sLocalName + "_" + sExt).toUpperCase (Locale.US);
   }
@@ -283,8 +284,8 @@ final class CodeGenerationHelper
   public static String createShortcutTransportProtocolName (@Nonnull final String sBISID)
   {
     String ret = sBISID;
-    ret = StringHelper.removeAll (ret, ' ');
-    ret = StringHelper.replaceAll (ret, '.', '_');
+    ret = StringRemove.removeAll (ret, ' ');
+    ret = StringReplace.replaceAll (ret, '.', '_');
     return ret.toUpperCase (Locale.US);
   }
 }

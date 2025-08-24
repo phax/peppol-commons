@@ -16,7 +16,7 @@
  */
 package com.helger.peppol.xhe;
 
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Constants for the usage of XHE in DBNAlliance.

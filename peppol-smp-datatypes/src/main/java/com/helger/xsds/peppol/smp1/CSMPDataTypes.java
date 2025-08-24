@@ -16,15 +16,15 @@
  */
 package com.helger.xsds.peppol.smp1;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.xsds.peppol.id1.CPeppolID;
 import com.helger.xsds.wsaddr.CWSAddr;
 import com.helger.xsds.xmldsig.CXMLDSig;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Constants for the Peppol SMP data types

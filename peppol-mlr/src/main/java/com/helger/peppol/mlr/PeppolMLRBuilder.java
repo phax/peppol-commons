@@ -22,21 +22,20 @@ import java.time.LocalTime;
 import java.util.Locale;
 import java.util.UUID;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.string.StringHelper;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.phive.api.result.ValidationResultList;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.ApplicationResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.DocumentReferenceType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.DocumentResponseType;
@@ -47,8 +46,7 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Descrip
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.EndpointIDType;
 
 /**
- * Builder for a Peppol MLR. Fill all the fields and call {@link #build()} at
- * the end.
+ * Builder for a Peppol MLR. Fill all the fields and call {@link #build()} at the end.
  *
  * @author Philip Helger
  */
@@ -146,8 +144,8 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
-   * Set the ID of the message we're referencing. This MUST be the Instance
-   * Identifier of the SBDH of the source message.
+   * Set the ID of the message we're referencing. This MUST be the Instance Identifier of the SBDH
+   * of the source message.
    *
    * @param s
    *        Instance Identifier of the source message SBDH
@@ -164,8 +162,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    * Set the type code of the message we're referencing. This is optional.
    *
    * @param s
-   *        Type code of the source message (like <code>380</code> for an
-   *        invoice)
+   *        Type code of the source message (like <code>380</code> for an invoice)
    * @return this for chaining
    */
   @Nonnull
@@ -176,8 +173,8 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
-   * Set the response text returned to the sender. This is e.g. the reason for
-   * rejection. This must be human readable text. The text may be multiline.
+   * Set the response text returned to the sender. This is e.g. the reason for rejection. This must
+   * be human readable text. The text may be multiline.
    *
    * @param s
    *        Response text.
@@ -220,7 +217,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
 
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
-    if (StringHelper.hasNoText (m_sID))
+    if (StringHelper.isEmpty (m_sID))
     {
       if (bLogDetails)
         LOGGER.warn ("The MLR ID is missing");
@@ -249,7 +246,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
       return false;
     }
 
-    if (StringHelper.hasNoText (m_sReferenceID))
+    if (StringHelper.isEmpty (m_sReferenceID))
     {
       if (bLogDetails)
         LOGGER.warn ("The MLR Reference ID is missing");
@@ -313,7 +310,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
       {
         final ResponseType aResponse = new ResponseType ();
         aResponse.setResponseCode (m_eResponseCode.getID ());
-        if (StringHelper.hasText (m_sResponseText))
+        if (StringHelper.isNotEmpty (m_sResponseText))
           aResponse.addDescription (new DescriptionType (m_sResponseText));
         aDocResponse.setResponse (aResponse);
       }
@@ -321,7 +318,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
       {
         final DocumentReferenceType aDocRef = new DocumentReferenceType ();
         aDocRef.setID (m_sReferenceID);
-        if (StringHelper.hasText (m_sReferenceTypeCode))
+        if (StringHelper.isNotEmpty (m_sReferenceTypeCode))
           aDocRef.setDocumentTypeCode (m_sReferenceTypeCode);
         aDocResponse.addDocumentReference (aDocRef);
       }
@@ -365,14 +362,12 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
   }
 
   /**
-   * Create a predefined Peppol MLR builder based on the validation result list.
-   * If the list contains no error, {@link #acceptance()} is returned else
-   * {@link #rejection()} with the pre-filled lines is returned. Sender,
-   * Receiver and Reference ID need to be set manually anyway.
+   * Create a predefined Peppol MLR builder based on the validation result list. If the list
+   * contains no error, {@link #acceptance()} is returned else {@link #rejection()} with the
+   * pre-filled lines is returned. Sender, Receiver and Reference ID need to be set manually anyway.
    *
    * @param aVRL
-   *        The Validation result list to evaluate. May not be
-   *        <code>null</code>.
+   *        The Validation result list to evaluate. May not be <code>null</code>.
    * @return A new {@link PeppolMLRBuilder} and never <code>null</code>.
    */
   @Nonnull

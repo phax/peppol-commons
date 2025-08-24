@@ -18,25 +18,25 @@ package com.helger.peppol.xhe;
 
 import java.util.List;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.XMLOffsetDateTime;
-import com.helger.commons.log.ConditionalLogger;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.log.ConditionalLogger;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.peppol.xhe.write.DBNAllianceXHEDataWriter;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.xhe.v10.XHE10XHEType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the DBNAlliance data per XHE document in a syntax neutral way. This class
@@ -94,7 +94,7 @@ public class DBNAllianceXHEData
    */
   public boolean hasID ()
   {
-    return StringHelper.hasText (m_sID);
+    return StringHelper.isNotEmpty (m_sID);
   }
 
   /**
@@ -366,7 +366,7 @@ public class DBNAllianceXHEData
   public boolean areAllFieldsSet (final boolean bLogMissing)
   {
     final ConditionalLogger aCondLog = new ConditionalLogger (LOGGER, bLogMissing);
-    if (StringHelper.hasNoText (m_sID))
+    if (StringHelper.isEmpty (m_sID))
     {
       aCondLog.info ("DBNAlliance XHE data - ID Value is missing");
       return false;
@@ -378,23 +378,23 @@ public class DBNAllianceXHEData
       return false;
     }
 
-    if (StringHelper.hasNoText (m_sFromPartyScheme))
+    if (StringHelper.isEmpty (m_sFromPartyScheme))
     {
       aCondLog.info ("DBNAlliance XHE data - From Party Scheme is missing");
       return false;
     }
-    if (StringHelper.hasNoText (m_sFromPartyValue))
+    if (StringHelper.isEmpty (m_sFromPartyValue))
     {
       aCondLog.info ("DBNAlliance XHE data - From Party Value is missing");
       return false;
     }
 
-    if (StringHelper.hasNoText (m_sToPartyScheme))
+    if (StringHelper.isEmpty (m_sToPartyScheme))
     {
       aCondLog.info ("DBNAlliance XHE data - To Party Scheme is missing");
       return false;
     }
-    if (StringHelper.hasNoText (m_sToPartyValue))
+    if (StringHelper.isEmpty (m_sToPartyValue))
     {
       aCondLog.info ("DBNAlliance XHE data - To Party Value is missing");
       return false;

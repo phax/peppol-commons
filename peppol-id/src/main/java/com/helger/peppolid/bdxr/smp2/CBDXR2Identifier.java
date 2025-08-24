@@ -16,9 +16,8 @@
  */
 package com.helger.peppolid.bdxr.smp2;
 
-import javax.annotation.concurrent.Immutable;
-
-import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Constants of OASIS BDXR SMP v2 specification.

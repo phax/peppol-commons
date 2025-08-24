@@ -22,9 +22,9 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.id.factory.GlobalIDFactory;
-import com.helger.commons.id.factory.MemoryIntIDFactory;
-import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.base.id.factory.GlobalIDFactory;
+import com.helger.base.id.factory.MemoryIntIDFactory;
+import com.helger.unittest.support.TestHelper;
 import com.helger.xml.mock.XMLTestHelper;
 
 /**
@@ -72,27 +72,28 @@ public final class SMLInfoTest
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.isClientCertificateRequired ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (si,
-                                                                       new SMLInfo ("SML",
-                                                                                    ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                                    ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                                    ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
-                                                                           new SMLInfo ("SML",
-                                                                                        ESML.DIGIT_PRODUCTION.getDNSZone () + ".x",
-                                                                                        ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                                        ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
-                                                                           new SMLInfo ("SML",
-                                                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                                        ESML.DIGIT_PRODUCTION.getManagementServiceURL () +
-                                                                                                                             ".x",
-                                                                                        ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (si,
-                                                                           new SMLInfo ("SML",
-                                                                                        ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                                        ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                                        !ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
+    TestHelper.testDefaultImplementationWithEqualContentObject (si,
+                                                                new SMLInfo ("SML",
+                                                                             ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                             ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                             ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (si,
+                                                                    new SMLInfo ("SML",
+                                                                                 ESML.DIGIT_PRODUCTION.getDNSZone () +
+                                                                                        ".x",
+                                                                                 ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                                 ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (si,
+                                                                    new SMLInfo ("SML",
+                                                                                 ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                                 ESML.DIGIT_PRODUCTION.getManagementServiceURL () +
+                                                                                                                      ".x",
+                                                                                 ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (si,
+                                                                    new SMLInfo ("SML",
+                                                                                 ESML.DIGIT_PRODUCTION.getDNSZone (),
+                                                                                 ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
+                                                                                 !ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
 
     XMLTestHelper.testMicroTypeConversion (si);
   }

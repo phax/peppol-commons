@@ -20,9 +20,6 @@ import java.nio.charset.Charset;
 import java.util.UUID;
 import java.util.function.Consumer;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
@@ -30,18 +27,19 @@ import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
 import org.w3c.dom.Element;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.attr.StringMap;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.XMLOffsetDateTime;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.mime.IMimeType;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
+import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.datetime.xml.XMLOffsetDateTime;
+import com.helger.jaxb.adapter.JAXBHelper;
+import com.helger.mime.IMimeType;
 import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadBinaryMarshaller;
 import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadTextMarshaller;
 import com.helger.peppol.sbdh.spec12.BinaryContentType;
@@ -52,7 +50,11 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.typeconvert.collection.StringMap;
 import com.helger.xml.XMLHelper;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the Peppol data per SBDH document in a syntax neutral way. This class
@@ -498,7 +500,7 @@ public class PeppolSBDHData
    */
   public boolean hasCountryC1 ()
   {
-    return StringHelper.hasText (m_sCountryC1);
+    return StringHelper.isNotEmpty (m_sCountryC1);
   }
 
   /**
@@ -546,7 +548,7 @@ public class PeppolSBDHData
    */
   public boolean hasMLSToScheme ()
   {
-    return StringHelper.hasText (m_sMLSToScheme);
+    return StringHelper.isNotEmpty (m_sMLSToScheme);
   }
 
   /**
@@ -592,7 +594,7 @@ public class PeppolSBDHData
    */
   public boolean hasMLSToValue ()
   {
-    return StringHelper.hasText (m_sMLSToValue);
+    return StringHelper.isNotEmpty (m_sMLSToValue);
   }
 
   /**
@@ -746,7 +748,7 @@ public class PeppolSBDHData
    */
   public boolean hasStandard ()
   {
-    return StringHelper.hasText (m_sStandard);
+    return StringHelper.isNotEmpty (m_sStandard);
   }
 
   /**
@@ -790,7 +792,7 @@ public class PeppolSBDHData
    */
   public boolean hasTypeVersion ()
   {
-    return StringHelper.hasText (m_sTypeVersion);
+    return StringHelper.isNotEmpty (m_sTypeVersion);
   }
 
   /**
@@ -833,7 +835,7 @@ public class PeppolSBDHData
    */
   public boolean hasType ()
   {
-    return StringHelper.hasText (m_sType);
+    return StringHelper.isNotEmpty (m_sType);
   }
 
   /**
@@ -880,7 +882,7 @@ public class PeppolSBDHData
    */
   public boolean hasInstanceIdentifier ()
   {
-    return StringHelper.hasText (m_sInstanceIdentifier);
+    return StringHelper.isNotEmpty (m_sInstanceIdentifier);
   }
 
   /**
@@ -1186,71 +1188,71 @@ public class PeppolSBDHData
     ValueEnforcer.notNull (aMissingFieldConsumer, "MissingFieldConsumer");
 
     int nMissing = 0;
-    if (StringHelper.hasNoText (m_sSenderScheme))
+    if (StringHelper.isEmpty (m_sSenderScheme))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Sender Scheme is missing");
       nMissing++;
     }
-    if (StringHelper.hasNoText (m_sSenderValue))
+    if (StringHelper.isEmpty (m_sSenderValue))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Sender Value is missing");
       nMissing++;
     }
 
-    if (StringHelper.hasNoText (m_sReceiverScheme))
+    if (StringHelper.isEmpty (m_sReceiverScheme))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Receiver Scheme is missing");
       nMissing++;
     }
-    if (StringHelper.hasNoText (m_sReceiverValue))
+    if (StringHelper.isEmpty (m_sReceiverValue))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Reeiver Value is missing");
       nMissing++;
     }
 
-    if (StringHelper.hasNoText (m_sDocumentTypeScheme))
+    if (StringHelper.isEmpty (m_sDocumentTypeScheme))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Document Type ID Scheme is missing");
       nMissing++;
     }
-    if (StringHelper.hasNoText (m_sDocumentTypeValue))
+    if (StringHelper.isEmpty (m_sDocumentTypeValue))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Document Type ID Value is missing");
       nMissing++;
     }
 
-    if (StringHelper.hasNoText (m_sProcessScheme))
+    if (StringHelper.isEmpty (m_sProcessScheme))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Process ID Scheme is missing");
       nMissing++;
     }
-    if (StringHelper.hasNoText (m_sProcessValue))
+    if (StringHelper.isEmpty (m_sProcessValue))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Process ID Value is missing");
       nMissing++;
     }
 
-    if (StringHelper.hasNoText (m_sCountryC1))
+    if (StringHelper.isEmpty (m_sCountryC1))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Country C1 is missing");
       nMissing++;
     }
-    if (StringHelper.hasNoText (m_sStandard))
+    if (StringHelper.isEmpty (m_sStandard))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Standard is missing");
       nMissing++;
     }
-    if (StringHelper.hasNoText (m_sTypeVersion))
+    if (StringHelper.isEmpty (m_sTypeVersion))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Type Version is missing");
       nMissing++;
     }
-    if (StringHelper.hasNoText (m_sType))
+    if (StringHelper.isEmpty (m_sType))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Type is missing");
       nMissing++;
     }
-    if (StringHelper.hasNoText (m_sInstanceIdentifier))
+    if (StringHelper.isEmpty (m_sInstanceIdentifier))
     {
       aMissingFieldConsumer.accept ("Peppol SBDH data - Instance Identifier is missing");
       nMissing++;
@@ -1331,7 +1333,7 @@ public class PeppolSBDHData
            EqualsHelper.equals (m_sType, rhs.m_sType) &&
            EqualsHelper.equals (m_sInstanceIdentifier, rhs.m_sInstanceIdentifier) &&
            EqualsHelper.equals (m_aCreationDateAndTime, rhs.m_aCreationDateAndTime) &&
-           EqualsHelper.equals (m_aBusinessMessage, rhs.m_aBusinessMessage) &&
+           JAXBHelper.equalDOMNodes (m_aBusinessMessage, rhs.m_aBusinessMessage) &&
            m_aAdditionalAttrs.equals (rhs.m_aAdditionalAttrs);
   }
 
@@ -1355,7 +1357,7 @@ public class PeppolSBDHData
                                        .append (m_sType)
                                        .append (m_sInstanceIdentifier)
                                        .append (m_aCreationDateAndTime)
-                                       .append (m_aBusinessMessage)
+                                       .append (JAXBHelper.getHashCode (m_aBusinessMessage))
                                        .append (m_aAdditionalAttrs)
                                        .getHashCode ();
   }

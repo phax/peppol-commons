@@ -20,32 +20,28 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.Month;
 
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.functional.IThrowingConsumer;
-import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.StringParser;
-import com.helger.commons.version.Version;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.functional.IThrowingConsumer;
+import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringParser;
+import com.helger.base.version.Version;
+import com.helger.cache.regex.RegExHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsSet;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jcodemodel.IJExpression;
 import com.helger.jcodemodel.JBlock;
 import com.helger.jcodemodel.JCodeModel;
-import com.helger.jcodemodel.JCodeModelException;
 import com.helger.jcodemodel.JCommentPart;
 import com.helger.jcodemodel.JDefinedClass;
 import com.helger.jcodemodel.JDocComment;
@@ -58,6 +54,7 @@ import com.helger.jcodemodel.JLambdaMethodRef;
 import com.helger.jcodemodel.JMethod;
 import com.helger.jcodemodel.JMod;
 import com.helger.jcodemodel.JVar;
+import com.helger.jcodemodel.exceptions.JCodeModelException;
 import com.helger.jcodemodel.writer.JCMWriter;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -91,6 +88,9 @@ import com.helger.xsds.peppol.codelists26.PCLStateType;
 import com.helger.xsds.peppol.codelists26.PCLTransportProfileType;
 import com.helger.xsds.peppol.codelists26.PCLTransportProfilesType;
 import com.helger.xsds.peppol.id1.CPeppolID;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Utility class to create the Genericode files from the Excel code list. Also creates Java source
@@ -188,7 +188,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
                                                                                                                         : "";
         final String sEnumConstName = sEnumPrefix + RegExHelper.getAsIdentifier (sValue);
 
-        if (jEnum.getEnumConstantOfName (sEnumConstName) != null)
+        if (jEnum.containsEnumConstant (sEnumConstName))
         {
           // Avoid weird side effects
           throw new IllegalStateException ("The enum constant '" + sEnumConstName + "' is already in use");
@@ -539,13 +539,13 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
         jEnumConst.javadoc ()
                   .add ("Prefix <code>" + sISO6523 + "</code>, scheme ID <code>" + sSchemeID + "</code><br>");
-        if (StringHelper.hasText (sStructure))
+        if (StringHelper.isNotEmpty (sStructure))
           jEnumConst.javadoc ().add ("\nStructure of the code: " + CodeGenerationHelper.maskHtml (sStructure) + "<br>");
-        if (StringHelper.hasText (sDisplay))
+        if (StringHelper.isNotEmpty (sDisplay))
           jEnumConst.javadoc ().add ("\nDisplay requirements: " + CodeGenerationHelper.maskHtml (sDisplay) + "<br>");
-        if (StringHelper.hasText (sExamples))
+        if (StringHelper.isNotEmpty (sExamples))
           jEnumConst.javadoc ().add ("\nExample value: " + CodeGenerationHelper.maskHtml (sExamples) + "<br>");
-        if (StringHelper.hasText (sUsage))
+        if (StringHelper.isNotEmpty (sUsage))
           jEnumConst.javadoc ().add ("\nUsage information: " + CodeGenerationHelper.maskHtml (sUsage) + "<br>");
         jEnumConst.javadoc ().addTag (JDocComment.TAG_SINCE).add ("code list " + sInitialRelease);
         if (bDeprecated)

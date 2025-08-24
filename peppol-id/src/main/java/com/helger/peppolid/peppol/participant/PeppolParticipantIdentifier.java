@@ -16,17 +16,15 @@
  */
 package com.helger.peppolid.peppol.participant;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
+import java.util.List;
 
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.StringParser;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringParser;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
@@ -35,9 +33,11 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.validator.IdentifierValidator;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
 /**
- * A special Peppol participant identifier handling all the special constraints
- * of Peppol.
+ * A special Peppol participant identifier handling all the special constraints of Peppol.
  *
  * @author Philip Helger
  */
@@ -99,8 +99,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Private constructor that passed the pre-checked values directly to the
-   * super class. Has a dummy parameter for a unique signature.
+   * Private constructor that passed the pre-checked values directly to the super class. Has a dummy
+   * parameter for a unique signature.
    *
    * @param bVerified
    *        dummy
@@ -123,8 +123,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * @return <code>true</code> if the identifier is valid according to the
-   *         internal and external validation rules as defined by
+   * @return <code>true</code> if the identifier is valid according to the internal and external
+   *         validation rules as defined by
    *         {@link com.helger.peppolid.peppol.validator.IParticipantIdentifierValidatorSPI}
    *         implementations.
    */
@@ -134,42 +134,41 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Extract the issuing agency ID from the passed participant identifier value.
-   * <br>
+   * Extract the issuing agency ID from the passed participant identifier value. <br>
    * Example: extract the <code>0088</code> from the participant identifier
    * <code>iso6523-actorid-upis::0088:123456</code><br>
-   * Note: this only works for participant identifiers that are using the
-   * default scheme (iso6523-actorid-upis) because for the other schemes, I just
-   * can't tell!
+   * Note: this only works for participant identifiers that are using the default scheme
+   * (iso6523-actorid-upis) because for the other schemes, I just can't tell!
    *
-   * @return <code>null</code> if the identifier is not of default scheme or if
-   *         the identifier is malformed.
+   * @return <code>null</code> if the identifier is not of default scheme or if the identifier is
+   *         malformed.
    */
   @Nullable
   public String getIssuingAgencyID ()
   {
     if (hasDefaultScheme ())
-      return StringHelper.getExploded (':', getValue (), 2).getAtIndex (0);
+      return StringHelper.getExploded (':', getValue (), 2).get (0);
     return null;
   }
 
   /**
-   * Extract the local participant ID from the passed participant identifier
-   * value.<br>
+   * Extract the local participant ID from the passed participant identifier value.<br>
    * Example: extract the <code>123456</code> from the participant identifier
    * <code>iso6523-actorid-upis::0088:123456</code><br>
-   * Note: this only works for participant identifiers that are using the
-   * default scheme (iso6523-actorid-upis) because for the other schemes, I just
-   * can't tell!
+   * Note: this only works for participant identifiers that are using the default scheme
+   * (iso6523-actorid-upis) because for the other schemes, I just can't tell!
    *
-   * @return <code>null</code> if the identifier is not of default scheme or if
-   *         the identifier is malformed.
+   * @return <code>null</code> if the identifier is not of default scheme or if the identifier is
+   *         malformed.
    */
   @Nullable
   public String getLocalParticipantID ()
   {
     if (hasDefaultScheme ())
-      return StringHelper.getExploded (':', getValue (), 2).getAtIndex (1);
+    {
+      final List <String> aParts = StringHelper.getExploded (':', getValue (), 2);
+      return aParts.size () >= 2 ? aParts.get (1) : null;
+    }
     return null;
   }
 
@@ -204,17 +203,16 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Take the passed identifier scheme and value create a new
-   * {@link PeppolParticipantIdentifier}. This is for internal usage only.
+   * Take the passed identifier scheme and value create a new {@link PeppolParticipantIdentifier}.
+   * This is for internal usage only.
    *
    * @param sScheme
-   *        The identifier scheme. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
+   *        The identifier scheme. May be <code>null</code> in which case <code>null</code> is
+   *        returned.
    * @param sValue
-   *        The identifier value. May be <code>null</code> in which case
-   *        <code>null</code> is returned.
-   * @return The participant identifier or <code>null</code> if any of the parts
-   *         is invalid.
+   *        The identifier value. May be <code>null</code> in which case <code>null</code> is
+   *        returned.
+   * @return The participant identifier or <code>null</code> if any of the parts is invalid.
    */
   @Nonnull
   public static PeppolParticipantIdentifier internalCreatePreVerified (@Nullable final String sScheme,
@@ -224,19 +222,18 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   /**
-   * Check if the passed identifier value is valid in the PEPPOL default
-   * participant identifier scheme (iso6523-actorid-upis).
+   * Check if the passed identifier value is valid in the PEPPOL default participant identifier
+   * scheme (iso6523-actorid-upis).
    *
    * @param sValue
    *        The value to be validated. Must not be <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   public static boolean isValidValueWithDefaultScheme (@Nonnull final String sValue)
   {
     // Check if the separator between identifier issuing agency and value is
     // present - can only be done if the default scheme is present
-    final ICommonsList <String> aParts = StringHelper.getExploded (':', sValue, 2);
+    final List <String> aParts = StringHelper.getExploded (':', sValue, 2);
     if (aParts.size () != 2)
       return false;
 

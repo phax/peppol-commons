@@ -16,7 +16,7 @@
  */
 package com.helger.smpclient.exception;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * This exception is thrown if the evaluation of the SMP response failed

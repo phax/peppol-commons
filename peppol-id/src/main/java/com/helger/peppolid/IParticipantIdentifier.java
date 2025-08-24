@@ -16,11 +16,11 @@
  */
 package com.helger.peppolid;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import com.helger.base.compare.CompareHelper;
+import com.helger.base.compare.IComparator;
 
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.compare.IComparator;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Marker-interface that is specific for participant identifiers.<br>

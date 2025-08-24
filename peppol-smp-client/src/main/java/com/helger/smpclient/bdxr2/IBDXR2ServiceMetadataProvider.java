@@ -19,10 +19,7 @@ package com.helger.smpclient.bdxr2;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -34,6 +31,9 @@ import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
 import com.helger.xsds.bdxr.smp2.ac.EndpointType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Abstract interface to retrieve a service metadata instance.

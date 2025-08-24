@@ -2,20 +2,20 @@ package com.helger.peppolid.peppol.doctype;
 
 import java.time.LocalDate;
 import java.time.Month;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.version.Version;
+import com.helger.annotation.CheckForSigned;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.version.Version;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
+import com.helger.datetime.helper.PDTFactory;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-import javax.annotation.CheckForSigned;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 
 /**

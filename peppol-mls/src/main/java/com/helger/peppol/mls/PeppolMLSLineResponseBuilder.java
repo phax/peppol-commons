@@ -16,20 +16,19 @@
  */
 package com.helger.peppol.mls;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.builder.IBuilder;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.string.StringHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.builder.IBuilder;
+import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineReferenceType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
@@ -129,7 +128,7 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
     // Enforced by XSD
-    if (StringHelper.hasNoText (m_sErrorField))
+    if (StringHelper.isEmpty (m_sErrorField))
     {
       if (bLogDetails)
         LOGGER.warn ("The LineResponse Error Field is missing");

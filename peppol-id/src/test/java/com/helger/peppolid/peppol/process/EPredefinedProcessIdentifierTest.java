@@ -22,7 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.string.StringHelper;
+import com.helger.base.string.StringHelper;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 
 /**
@@ -37,8 +37,8 @@ public final class EPredefinedProcessIdentifierTest
   {
     for (final EPredefinedProcessIdentifier e : EPredefinedProcessIdentifier.values ())
     {
-      assertTrue (StringHelper.hasText (e.getScheme ()));
-      assertTrue (StringHelper.hasText (e.getValue ()));
+      assertTrue (StringHelper.isNotEmpty (e.getScheme ()));
+      assertTrue (StringHelper.isNotEmpty (e.getValue ()));
       assertSame (e, EPredefinedProcessIdentifier.valueOf (e.name ()));
       assertSame (e, EPredefinedProcessIdentifier.getFromProcessIdentifierOrNull (e));
     }

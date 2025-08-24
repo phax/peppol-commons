@@ -16,10 +16,10 @@
  */
 package com.helger.peppolid.peppol.validator;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.IsSPIInterface;
 
-import com.helger.commons.annotation.IsSPIInterface;
-import com.helger.commons.annotation.Nonempty;
+import jakarta.annotation.Nonnull;
 
 /**
  * An SPI interface to validate arbitrary identifier values (independent of the

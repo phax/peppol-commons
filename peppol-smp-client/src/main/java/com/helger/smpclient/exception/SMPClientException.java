@@ -16,7 +16,7 @@
  */
 package com.helger.smpclient.exception;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Base class for all SMP client exceptions. It can also be used as a generic

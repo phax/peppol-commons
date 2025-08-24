@@ -25,8 +25,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.base64.Base64;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.base.CGlobal;
+import com.helger.base.codec.base64.Base64;
 import com.helger.peppol.sbdh.spec12.BinaryContentType;
 
 /**
@@ -65,14 +65,14 @@ public final class PeppolSBDHPayloadTextMarshallerTest
     aCT = m.read ("<BinaryContent xmlns='http://peppol.eu/xsd/ticc/envelope/1.0' mimeType='bla/foo' />");
     assertNotNull (aCT);
     assertEquals ("bla/foo", aCT.getMimeType ());
-    assertArrayEquals (ArrayHelper.EMPTY_BYTE_ARRAY, aCT.getValue ());
+    assertArrayEquals (CGlobal.EMPTY_BYTE_ARRAY, aCT.getValue ());
     assertNull (aCT.getEncoding ());
 
     // Empty value again
     aCT = m.read ("<BinaryContent xmlns='http://peppol.eu/xsd/ticc/envelope/1.0' mimeType='bla/foo'></BinaryContent>");
     assertNotNull (aCT);
     assertEquals ("bla/foo", aCT.getMimeType ());
-    assertArrayEquals (ArrayHelper.EMPTY_BYTE_ARRAY, aCT.getValue ());
+    assertArrayEquals (CGlobal.EMPTY_BYTE_ARRAY, aCT.getValue ());
     assertNull (aCT.getEncoding ());
 
     // Wrong NS

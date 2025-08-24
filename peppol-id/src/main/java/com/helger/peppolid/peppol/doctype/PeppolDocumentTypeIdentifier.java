@@ -16,20 +16,20 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.annotation.DevelopersNote;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.lang.ICloneable;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
+import com.helger.base.compare.CompareHelper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.xsds.peppol.id1.DocumentIdentifierType;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * A special document type identifier that handles the specialties of PEPPOL

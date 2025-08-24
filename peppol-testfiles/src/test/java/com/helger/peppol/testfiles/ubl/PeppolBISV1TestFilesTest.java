@@ -21,15 +21,15 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
-import javax.annotation.Nonnull;
-
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.locale.LocaleCache;
+import com.helger.io.resource.IReadableResource;
 import com.helger.peppol.testfiles.TestResource;
+import com.helger.text.locale.LocaleCache;
 import com.helger.xml.serialize.read.DOMReader;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PeppolBISV1TestFiles}

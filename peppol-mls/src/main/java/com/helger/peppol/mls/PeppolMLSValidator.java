@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.mls;
 
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
-
-import com.helger.commons.exception.InitializationException;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.exception.InitializationException;
 import com.helger.schematron.ISchematronResource;
 import com.helger.schematron.sch.SchematronResourceSCH;
+
+import jakarta.annotation.Nonnull;
 
 /**
  * This class can be used to trigger Schematron validation of Peppol MLS documents.

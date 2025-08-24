@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 import java.time.LocalDate;
 import java.time.Month;
 
-import com.helger.commons.datetime.PDTFactory;
+import com.helger.datetime.helper.PDTFactory;
 
 /**
  * This element is specific to the Peppol Policy for use of Identifiers 4.4.0.

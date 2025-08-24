@@ -25,7 +25,7 @@ import org.junit.ClassRule;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.url.URLHelper;
+import com.helger.base.url.URLHelper;
 import com.helger.http.basicauth.BasicAuthClientCredentials;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;

@@ -16,14 +16,14 @@
  */
 package com.helger.peppolid;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.Nonempty;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.string.StringHelper;
+import com.helger.url.codec.URLCoder;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.URLHelper;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Constants on BUSDOX identifiers that are not PEPPOL specific.
@@ -34,8 +34,7 @@ import com.helger.commons.url.URLHelper;
 public final class CIdentifier
 {
   /**
-   * The default process identifier to indicate that no default process belongs
-   * to it.<br>
+   * The default process identifier to indicate that no default process belongs to it.<br>
    * See PEPPOL Common definitions chapter 3.6
    */
   public static final String DEFAULT_PROCESS_IDENTIFIER_NOPROCESS = "busdox:noprocess";
@@ -52,13 +51,11 @@ public final class CIdentifier
   {}
 
   /**
-   * Get the identifier URI encoded (without percent encoding) as in
-   * <code>scheme::value</code>.
+   * Get the identifier URI encoded (without percent encoding) as in <code>scheme::value</code>.
    *
    * @param aID
    *        The ID to be encoded. May not be <code>null</code>.
-   * @return The URI encoded identifier value. (E.g.
-   *         <code>iso6523-actorid-upis::0088:123456</code>)
+   * @return The URI encoded identifier value. (E.g. <code>iso6523-actorid-upis::0088:123456</code>)
    */
   @Nonnull
   @Nonempty
@@ -118,17 +115,15 @@ public final class CIdentifier
   }
 
   /**
-   * Get the identifier URI encoded (without percent encoding) as in
-   * <code>scheme::value</code>. If no scheme is present, the result is
-   * <code>::value</code>.
+   * Get the identifier URI encoded (without percent encoding) as in <code>scheme::value</code>. If
+   * no scheme is present, the result is <code>::value</code>.
    *
    * @param sScheme
    *        The scheme part to be encoded. May be <code>null</code>.
    * @param sValue
    *        The value part to be encoded. May be <code>null</code>.
-   * @return The URI encoded identifier value in the form
-   *         <code><i>scheme</i>::<i>value</i></code> or
-   *         <code>::<i>value</i></code>
+   * @return The URI encoded identifier value in the form <code><i>scheme</i>::<i>value</i></code>
+   *         or <code>::<i>value</i></code>
    */
   @Nonnull
   @Nonempty
@@ -145,18 +140,16 @@ public final class CIdentifier
   }
 
   /**
-   * Get the identifier URI encoded (without percent encoding) as in
-   * <code>scheme::value</code>. If no scheme is present, the result is
-   * <code>value</code> which is the difference compared to the default
-   * {@link #getURIEncoded(String, String)}.
+   * Get the identifier URI encoded (without percent encoding) as in <code>scheme::value</code>. If
+   * no scheme is present, the result is <code>value</code> which is the difference compared to the
+   * default {@link #getURIEncoded(String, String)}.
    *
    * @param sScheme
    *        The scheme part to be encoded. May be <code>null</code>.
    * @param sValue
    *        The value part to be encoded. May be <code>null</code>.
-   * @return The URI encoded identifier value in the form
-   *         <code><i>scheme</i>::<i>value</i></code> or
-   *         <code><i>value</i></code>
+   * @return The URI encoded identifier value in the form <code><i>scheme</i>::<i>value</i></code>
+   *         or <code><i>value</i></code>
    */
   @Nonnull
   @Nonempty
@@ -169,7 +162,7 @@ public final class CIdentifier
     final String sRealValue = StringHelper.getNotNull (sValue);
 
     // Combine scheme and value
-    if (StringHelper.hasText (sRealScheme))
+    if (StringHelper.isNotEmpty (sRealScheme))
       return sRealScheme + CIdentifier.URL_SCHEME_VALUE_SEPARATOR + sRealValue;
 
     // No double colon
@@ -186,7 +179,7 @@ public final class CIdentifier
   @Nullable
   public static String createPercentEncoded (@Nullable final String sURL)
   {
-    return sURL == null ? null : URLHelper.urlEncode (sURL);
+    return sURL == null ? null : URLCoder.urlEncode (sURL);
   }
 
   /**
@@ -199,7 +192,7 @@ public final class CIdentifier
   @Nullable
   public static String createPercentDecoded (@Nullable final String sURL)
   {
-    return URLHelper.urlDecodeOrNull (sURL);
+    return URLCoder.urlDecodeOrNull (sURL);
   }
 
   /**

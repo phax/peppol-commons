@@ -16,12 +16,12 @@
  */
 package com.helger.peppolid.bdxr.smp2;
 
-import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.string.StringHelper;
+import com.helger.base.url.URLHelper;
 
-import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.url.URLHelper;
+import jakarta.annotation.Nullable;
 
 /**
  * Helper methods for OASIS BDXR SMP v2 identifiers.
@@ -50,7 +50,7 @@ public final class BDXR2IdentifierHelper
    */
   public static boolean isValidIdentifierScheme (@Nullable final String sScheme)
   {
-    if (StringHelper.hasNoText (sScheme))
+    if (StringHelper.isEmpty (sScheme))
       return true;
     return URLHelper.getAsURI (sScheme) != null;
   }

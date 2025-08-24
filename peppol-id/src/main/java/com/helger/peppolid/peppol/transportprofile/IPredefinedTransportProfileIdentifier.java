@@ -19,12 +19,12 @@ package com.helger.peppolid.peppol.transportprofile;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.version.Version;
+import com.helger.annotation.Nonempty;
+import com.helger.base.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * Base interface for predefined transport profile identifiers.
@@ -35,8 +35,8 @@ import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 public interface IPredefinedTransportProfileIdentifier extends Serializable
 {
   /**
-   * @return The underlying protocol of the transport profile. May neither be
-   *         <code>null</code> nor empty.
+   * @return The underlying protocol of the transport profile. May neither be <code>null</code> nor
+   *         empty.
    */
   @Nonnull
   @Nonempty
@@ -50,24 +50,24 @@ public interface IPredefinedTransportProfileIdentifier extends Serializable
   String getProfileVersion ();
 
   /**
-   * @return The unique ID of this transport profile. This identifier is the one
-   *         used in SMP endpoints.
+   * @return The unique ID of this transport profile. This identifier is the one used in SMP
+   *         endpoints.
    */
   @Nonnull
   @Nonempty
   String getProfileID ();
 
   /**
-   * @return The internal code list version in which the identifier was added.
-   *         Never <code>null</code>.
+   * @return The internal code list version in which the identifier was added. Never
+   *         <code>null</code>.
    * @since 8.7.1
    */
   @Nonnull
   Version getInitialRelease ();
 
   /**
-   * @return <code>true</code> if this transport profile is deprecated and
-   *         should no longer be used, <code>false</code> if not.
+   * @return <code>true</code> if this transport profile is deprecated and should no longer be used,
+   *         <code>false</code> if not.
    */
   default boolean isDeprecated ()
   {
@@ -93,8 +93,7 @@ public interface IPredefinedTransportProfileIdentifier extends Serializable
   Version getDeprecationRelease ();
 
   /**
-   * @return <code>true</code> if this item has a removal date,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if this item has a removal date, <code>false</code> if not.
    * @since 8.7.1
    */
   default boolean hasRemovalDate ()
@@ -103,8 +102,8 @@ public interface IPredefinedTransportProfileIdentifier extends Serializable
   }
 
   /**
-   * Get the date, when this particular entry will be removed. This may be set,
-   * even if the state is not "removed". This date may be in the future.
+   * Get the date, when this particular entry will be removed. This may be set, even if the state is
+   * not "removed". This date may be in the future.
    *
    * @return <code>null</code> if no removal date is scheduled yet.
    * @since 8.7.1

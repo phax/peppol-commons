@@ -16,9 +16,9 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
-import javax.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
-import com.helger.commons.annotation.Nonempty;
+import jakarta.annotation.Nonnull;
 
 /**
  * Contains the Peppol generic document type identifier parts. See

@@ -16,14 +16,14 @@
  */
 package com.helger.peppol.servicedomain;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.id.IHasID;
-import com.helger.commons.lang.EnumHelper;
+import com.helger.annotation.Nonempty;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
 import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.security.certificate.TrustedCAChecker;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * This enum lists all the Peppol Service Domains. The additional information are primarily around

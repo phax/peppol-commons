@@ -19,7 +19,7 @@ package com.helger.smpclient.peppol.supplementary.example;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.url.URLHelper;
+import com.helger.base.url.URLHelper;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;

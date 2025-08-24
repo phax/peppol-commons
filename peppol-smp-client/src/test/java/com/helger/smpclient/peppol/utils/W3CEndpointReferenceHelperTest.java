@@ -23,8 +23,8 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.xml.XMLFactory;
 
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;

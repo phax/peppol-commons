@@ -24,7 +24,7 @@ import org.xbill.DNS.SimpleResolver;
 import org.xbill.DNS.Type;
 import org.xbill.DNS.dnssec.ValidatingResolver;
 
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 
 public class MainDNSSecValidationTest
 {

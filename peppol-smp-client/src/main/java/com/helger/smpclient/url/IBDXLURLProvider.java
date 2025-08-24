@@ -16,12 +16,12 @@
  */
 package com.helger.smpclient.url;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.ValueEnforcer;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
+
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 /**
  * BDXP URL provider. Layout:
