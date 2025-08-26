@@ -41,14 +41,6 @@ import jakarta.annotation.Nullable;
 @Immutable
 public final class PeppolTrustStores
 {
-  /**
-   * The classpath entry referencing the complete truststore with all OpenPeppol production AND
-   * pilot entries. This is deprecated, because it is insecure to mix test and production in one
-   * truststore)
-   */
-  @Deprecated (forRemoval = true, since = "11.0.2")
-  public static final String TRUSTSTORE_COMPLETE_CLASSPATH = "truststore/complete-truststore.jks";
-
   /** The password used to access the trust stores */
   public static final String TRUSTSTORE_PASSWORD = "peppol";
 

@@ -60,10 +60,8 @@ public final class MainCreateTrustStoreHashFiles
     LOGGER.info ("Done creating hash values for " + sTruststorePath);
   }
 
-  @SuppressWarnings ("removal")
   public static void main (final String [] args) throws IOException
   {
-    _create (PeppolTrustStores.TRUSTSTORE_COMPLETE_CLASSPATH);
     _create ("truststore/sml-truststore.jks");
     _create ("truststore/directory-truststore.jks");
     _create ("truststore/2010/prod-truststore.jks");

@@ -177,7 +177,7 @@ public final class SMPClientConfiguration
 
   /**
    * @return The truststore type as specified in the configuration file by the key
-   *         <code>truststore.type</code>. If none is present
+   *         <code>smpclient.truststore.type</code>. If none is present
    *         {@link com.helger.peppol.security.PeppolTrustStores.Config2018#TRUSTSTORE_TYPE} is
    *         returned as a default.
    * @since 6.0.0
@@ -191,41 +191,24 @@ public final class SMPClientConfiguration
 
   /**
    * @return The truststore location as specified in the configuration file by the key
-   *         <code>truststore.path</code>. If none is present
-   *         {@link PeppolTrustStores#TRUSTSTORE_COMPLETE_CLASSPATH} is returned as a default. Note:
-   *         for backwards compatibility, also the key <code>truststore.location</code> is
-   *         evaluated.
+   *         <code>tsmpclient.truststore.path</code>.
    * @since 6.0.0 - was getTruststoreLocation before
    */
-  @SuppressWarnings ("removal")
   @Nonnull
   public static String getTrustStorePath ()
   {
-    String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.path",
-                                                     "truststore.path",
-                                                     "truststore.location");
-    if (StringHelper.isEmpty (ret))
-    {
-      ret = PeppolTrustStores.TRUSTSTORE_COMPLETE_CLASSPATH;
-      LOGGER.error ("No SMP client truststore path is configured. Currently an automatic fallback to '" +
-                    ret +
-                    "' is implemented but that will be removed, as soon as the Peppol PKI G3 comes into effect.");
-    }
-    return ret;
+    return getConfig ().getAsStringOrFallback ("smpclient.truststore.path", "truststore.path", "truststore.location");
   }
 
   /**
    * @return The truststore password as specified in the configuration file by the key
-   *         <code>truststore.password</code>. If none is present
+   *         <code>smpclient.truststore.password</code>. If none is present
    *         {@link PeppolTrustStores#TRUSTSTORE_PASSWORD} is returned as a default.
    */
   @Nonnull
   public static char [] getTrustStorePasswordCharArray ()
   {
-    char [] ret = getConfig ().getAsCharArrayOrFallback ("smpclient.truststore.password", "truststore.password");
-    if (ret == null)
-      ret = PeppolTrustStores.TRUSTSTORE_PASSWORD.toCharArray ();
-    return ret;
+    return getConfig ().getAsCharArrayOrFallback ("smpclient.truststore.password", "truststore.password");
   }
 
   /**
