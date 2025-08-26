@@ -336,10 +336,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.0.0 - work in progress
+v12.0.0 - 2025-08-26
 * Requires Java 17 as the minimum version
 * Updated to ph-commons 12.0.0
 * Removed all code marked as deprecated for removal
+* Removed the truststore fallback for the SMP Client configuration
 
 v11.0.6 - 2025-08-12
 * Replaced the Let's Encrypt R3 CA with the E5 CA in the predefined trust stores
