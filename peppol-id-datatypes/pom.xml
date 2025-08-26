@@ -86,7 +86,7 @@
               com.helger.xsds.peppol.codelists21,
               com.helger.xsds.peppol.id1
             </Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

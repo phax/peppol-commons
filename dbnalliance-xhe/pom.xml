@@ -111,7 +111,7 @@
               com.helger.peppol.xhe.read,
               com.helger.peppol.xhe.write
             </Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

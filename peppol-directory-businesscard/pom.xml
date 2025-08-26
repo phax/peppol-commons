@@ -108,7 +108,7 @@
               com.helger.peppol.businesscard.v2,
               com.helger.peppol.businesscard.v3
             </Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

@@ -137,7 +137,7 @@
               com.helger.peppolid.simple.participant,
               com.helger.peppolid.simple.process
             </Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.peppolid.peppol.validator.IParticipantIdentifierValidatorSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>

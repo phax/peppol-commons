@@ -131,7 +131,7 @@
               com.helger.peppol.smlclient.support,
               com.helger.peppol.smlclient.tls
             </Export-Package>
-            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Import-Package>!jakarta.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
