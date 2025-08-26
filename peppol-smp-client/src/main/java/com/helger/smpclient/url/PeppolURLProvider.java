@@ -114,7 +114,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
     {
       // Important: create hash from lowercase string!
       // Here the "B-0011223344..." string is assembled!
-      ret.append ("b-").append (getHashValueStringRepresentation (sValue.toLowerCase (URL_LOCALE))).append ('.');
+      ret.append ("B-").append (getHashValueStringRepresentation (sValue.toLowerCase (URL_LOCALE))).append ('.');
     }
 
     // append the identifier scheme (if present)

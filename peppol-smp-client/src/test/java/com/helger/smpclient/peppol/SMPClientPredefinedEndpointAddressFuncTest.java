@@ -24,6 +24,7 @@ import java.security.cert.X509Certificate;
 import org.junit.ClassRule;
 import org.junit.Test;
 
+import com.helger.peppol.security.PeppolTrustStores.Config2025;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -56,7 +57,8 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                              @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     final SMPClient ret = new SMPClient (URL_PROVIDER, aParticipantIdentifier, aSMLInfo);
-    ret.setSecureValidation (false);
+    if (aSMLInfo == ESML.DIGIT_PRODUCTION)
+      ret.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
     return ret;
   }
 

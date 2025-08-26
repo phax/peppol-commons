@@ -41,6 +41,7 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.web.PDTWebDateHelper;
 import com.helger.peppol.security.PeppolTrustStores;
+import com.helger.peppol.security.PeppolTrustStores.Config2025;
 import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -432,6 +433,9 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
                                                                 ESML.DIGIT_PRODUCTION).setSecureValidation (false);
+    // Explicitly needs the production truststore
+    aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
+
     assertEquals ("http://smp.peppol.at/", aSMPClient.getSMPHostURI ());
 
     aSMPClient.setXMLSchemaValidation (true);
@@ -479,7 +483,8 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aReceiverID,
                                                                 ESML.DIGIT_PRODUCTION);
-    aSMPClient.setSecureValidation (false);
+    // Explicitly needs the production truststore
+    aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
     // EUSR
     SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aReceiverID,
@@ -501,7 +506,8 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
                                                                 ESML.DIGIT_PRODUCTION);
-    aSMPClient.setSecureValidation (false);
+    // Explicitly needs the production truststore
+    aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
     assertEquals ("http://smp.unimaze.com/", aSMPClient.getSMPHostURI ());
 
@@ -525,6 +531,9 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
                                                                 ESML.DIGIT_PRODUCTION);
+    // Explicitly needs the production truststore
+    aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
+
     assertEquals ("http://fe-smp.babelway.net/", aSMPClient.getSMPHostURI ());
 
     aSMPClient.setXMLSchemaValidation (true);
@@ -540,6 +549,8 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
                                                                 ESML.DIGIT_PRODUCTION);
+    // Explicitly needs the production truststore
+    aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
                                                                                EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
@@ -565,6 +576,8 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
                                                                 ESML.DIGIT_PRODUCTION);
+    // Explicitly needs the production truststore
+    aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
     final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aPI);
     assertNotNull (aSG);
