@@ -26,6 +26,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.jaxb.adapter.JAXBHelper;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 import com.helger.xml.serialize.read.DOMReader;
@@ -38,8 +39,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * This class contains a generic extension that works for Peppol SMP, OASIS BDXR
- * SMP v1 and OASIS BDXR SMP v2.
+ * This class contains a generic extension that works for Peppol SMP, OASIS BDXR SMP v1 and OASIS
+ * BDXR SMP v2.
  *
  * @author Philip Helger
  * @since 8.7.3
@@ -305,8 +306,8 @@ public class SMPExtension
   }
 
   /**
-   * @return A JSON representation of the extension object or <code>null</code>
-   *         if no property is set.
+   * @return A JSON representation of the extension object or <code>null</code> if no property is
+   *         set.
    */
   @Nullable
   public IJsonObject getAsJsonObject ()
@@ -418,7 +419,7 @@ public class SMPExtension
            EqualsHelper.equals (m_sExtensionURI, rhs.m_sExtensionURI) &&
            EqualsHelper.equals (m_sExtensionReasonCode, rhs.m_sExtensionReasonCode) &&
            EqualsHelper.equals (m_sExtensionReason, rhs.m_sExtensionReason) &&
-           EqualsHelper.equals (m_aAny, rhs.m_aAny);
+           JAXBHelper.equalDOMNodes (m_aAny, rhs.m_aAny);
   }
 
   @Override
@@ -433,7 +434,7 @@ public class SMPExtension
                                        .append (m_sExtensionURI)
                                        .append (m_sExtensionReasonCode)
                                        .append (m_sExtensionReason)
-                                       .append (m_aAny)
+                                       .append (JAXBHelper.getHashCode (m_aAny))
                                        .getHashCode ();
   }
 
@@ -517,8 +518,8 @@ public class SMPExtension
     ret.setExtensionURI (aExt.getExtensionURI ());
     ret.setExtensionReasonCode (aExt.getExtensionReasonCode ());
     ret.setExtensionReason (aExt.getExtensionReason ());
-    if (aExt.getAny () instanceof Element)
-      ret.setAny ((Element) aExt.getAny ());
+    if (aExt.getAny () instanceof Element aElement)
+      ret.setAny (aElement);
     return ret;
   }
 
@@ -539,8 +540,8 @@ public class SMPExtension
     ret.setExtensionReasonCode (aExt.getExtensionReasonCodeValue ());
     ret.setExtensionReason (aExt.getExtensionReasonValue ());
     final com.helger.xsds.bdxr.smp2.ec.ExtensionContentType aEC = aExt.getExtensionContent ();
-    if (aEC != null && aEC.getAny () instanceof Element)
-      ret.setAny ((Element) aEC.getAny ());
+    if (aEC != null && aEC.getAny () instanceof Element aElement)
+      ret.setAny (aElement);
     return ret;
   }
 }
