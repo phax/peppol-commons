@@ -73,7 +73,6 @@ public final class PDNameTest
     TestHelper.testDefaultImplementationWithDifferentContentObject (aName, new PDName ("ACME", "en"));
   }
 
-  @SuppressWarnings ("unused")
   @Test
   public void testInvalid ()
   {
