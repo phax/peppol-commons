@@ -24,6 +24,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.json.IHasJson;
 import com.helger.json.IJsonObject;
@@ -73,6 +74,15 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   }
 
   /**
+   * @return <code>true</code> if a type property is present, <code>false</code> if not
+   * @since 12.0.2
+   */
+  public final boolean hasType ()
+  {
+    return StringHelper.isNotEmpty (m_sType);
+  }
+
+  /**
    * Sets the value of the type property.
    *
    * @param sType
@@ -95,6 +105,15 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   public final String getName ()
   {
     return m_sName;
+  }
+
+  /**
+   * @return <code>true</code> if a name property is present, <code>false</code> if not
+   * @since 12.0.2
+   */
+  public final boolean hasName ()
+  {
+    return StringHelper.isNotEmpty (m_sName);
   }
 
   /**
@@ -123,6 +142,15 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   }
 
   /**
+   * @return <code>true</code> if a phone number property is present, <code>false</code> if not
+   * @since 12.0.2
+   */
+  public final boolean hasPhoneNumber ()
+  {
+    return StringHelper.isNotEmpty (m_sPhoneNumber);
+  }
+
+  /**
    * Sets the value of the phoneNumber property.
    *
    * @param sPhoneNumber
@@ -148,6 +176,15 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   }
 
   /**
+   * @return <code>true</code> if a email property is present, <code>false</code> if not
+   * @since 12.0.2
+   */
+  public final boolean hasEmail ()
+  {
+    return StringHelper.isNotEmpty (m_sEmail);
+  }
+
+  /**
    * Sets the value of the email property.
    *
    * @param sEmail
@@ -162,8 +199,21 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   }
 
   /**
-   * This method clones all values from <code>this</code> to the passed object.
-   * All data in the parameter object is overwritten!
+   * @return <code>true</code> if any property is present, <code>false</code> if not
+   * @since 12.0.2
+   * @see #hasType()
+   * @see #hasName()
+   * @see #hasPhoneNumber()
+   * @see #hasEmail()
+   */
+  public boolean hasAnyElementSet ()
+  {
+    return hasType () || hasName () || hasPhoneNumber () || hasEmail ();
+  }
+
+  /**
+   * This method clones all values from <code>this</code> to the passed object. All data in the
+   * parameter object is overwritten!
    *
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
@@ -186,13 +236,18 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   }
 
   @Nonnull
-  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sElementName)
+  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI,
+                                      @Nonnull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
-    ret.setAttribute ("type", m_sType);
-    ret.setAttribute ("name", m_sName);
-    ret.setAttribute ("phonenumber", m_sPhoneNumber);
-    ret.setAttribute ("email", m_sEmail);
+    if (hasType ())
+      ret.setAttribute ("type", m_sType);
+    if (hasName ())
+      ret.setAttribute ("name", m_sName);
+    if (hasPhoneNumber ())
+      ret.setAttribute ("phonenumber", m_sPhoneNumber);
+    if (hasEmail ())
+      ret.setAttribute ("email", m_sEmail);
     return ret;
   }
 
@@ -200,10 +255,14 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   public IJsonObject getAsJson ()
   {
     final IJsonObject ret = new JsonObject ();
-    ret.add ("type", m_sType);
-    ret.add ("name", m_sName);
-    ret.add ("phonenumber", m_sPhoneNumber);
-    ret.add ("email", m_sEmail);
+    if (hasType ())
+      ret.add ("type", m_sType);
+    if (hasName ())
+      ret.add ("name", m_sName);
+    if (hasPhoneNumber ())
+      ret.add ("phonenumber", m_sPhoneNumber);
+    if (hasEmail ())
+      ret.add ("email", m_sEmail);
     return ret;
   }
 
@@ -225,7 +284,11 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sType).append (m_sName).append (m_sPhoneNumber).append (m_sEmail).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sType)
+                                       .append (m_sName)
+                                       .append (m_sPhoneNumber)
+                                       .append (m_sEmail)
+                                       .getHashCode ();
   }
 
   @Override
@@ -241,10 +304,9 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
   @Nullable
   public static PDContact of (@Nullable final IJsonObject aJson)
   {
-    return aJson == null ? null
-                         : new PDContact (aJson.getAsString ("type"),
-                                          aJson.getAsString ("name"),
-                                          aJson.getAsString ("phonenumber"),
-                                          aJson.getAsString ("email"));
+    return aJson == null ? null : new PDContact (aJson.getAsString ("type"),
+                                                 aJson.getAsString ("name"),
+                                                 aJson.getAsString ("phonenumber"),
+                                                 aJson.getAsString ("email"));
   }
 }

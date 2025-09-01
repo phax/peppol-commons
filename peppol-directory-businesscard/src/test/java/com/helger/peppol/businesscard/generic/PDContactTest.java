@@ -17,8 +17,10 @@
 package com.helger.peppol.businesscard.generic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -41,6 +43,10 @@ public final class PDContactTest
     assertEquals ("n", aContact.getName ());
     assertEquals ("p", aContact.getPhoneNumber ());
     assertEquals ("e", aContact.getEmail ());
+    assertTrue (aContact.hasType ());
+    assertTrue (aContact.hasName ());
+    assertTrue (aContact.hasPhoneNumber ());
+    assertTrue (aContact.hasEmail ());
 
     TestHelper.testDefaultSerialization (aContact);
     TestHelper.testDefaultImplementationWithEqualContentObject (aContact, new PDContact ("t", "n", "p", "e"));
@@ -61,6 +67,10 @@ public final class PDContactTest
     assertNull (aContact.getName ());
     assertNull (aContact.getPhoneNumber ());
     assertNull (aContact.getEmail ());
+    assertFalse (aContact.hasType ());
+    assertFalse (aContact.hasName ());
+    assertFalse (aContact.hasPhoneNumber ());
+    assertFalse (aContact.hasEmail ());
   }
 
   @Test

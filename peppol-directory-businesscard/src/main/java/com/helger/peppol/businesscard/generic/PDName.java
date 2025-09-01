@@ -65,7 +65,8 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
   public PDName (@Nonnull @Nonempty final String sName, @Nullable final String sLanguageCode)
   {
     setName (sName);
-    ValueEnforcer.isTrue (isValidLanguageCode (sLanguageCode), () -> "'" + sLanguageCode + "' is invalid language code");
+    ValueEnforcer.isTrue (isValidLanguageCode (sLanguageCode),
+                          () -> "'" + sLanguageCode + "' is invalid language code");
     m_sLanguageCode = LocaleHelper.getValidLanguageCode (sLanguageCode);
   }
 
@@ -103,6 +104,11 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
     return m_sLanguageCode;
   }
 
+  public final boolean hasLanguageCode ()
+  {
+    return StringHelper.isNotEmpty (m_sLanguageCode);
+  }
+
   public final boolean hasNoLanguageCode ()
   {
     return StringHelper.isEmpty (m_sLanguageCode);
@@ -112,23 +118,23 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
    * Set the language code to use.
    *
    * @param sLanguageCode
-   *        The language code to use. May be <code>null</code>. If
-   *        non-<code>null</code> it must be syntactically a valid lanaguage
-   *        code.
+   *        The language code to use. May be <code>null</code>. If non-<code>null</code> it must be
+   *        syntactically a valid lanaguage code.
    * @return this for chaining
    * @see #isValidLanguageCode(String)
    */
   @Nonnull
   public final PDName setLanguageCode (@Nullable final String sLanguageCode)
   {
-    ValueEnforcer.isTrue (isValidLanguageCode (sLanguageCode), () -> "'" + sLanguageCode + "' is invalid language code");
+    ValueEnforcer.isTrue (isValidLanguageCode (sLanguageCode),
+                          () -> "'" + sLanguageCode + "' is invalid language code");
     m_sLanguageCode = LocaleHelper.getValidLanguageCode (sLanguageCode);
     return this;
   }
 
   /**
-   * This method clones all values from <code>this</code> to the passed object.
-   * All data in the parameter object is overwritten!
+   * This method clones all values from <code>this</code> to the passed object. All data in the
+   * parameter object is overwritten!
    *
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
@@ -149,7 +155,8 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
   }
 
   @Nonnull
-  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sElementName)
+  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI,
+                                      @Nonnull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
     ret.setAttribute ("name", m_sName);
@@ -188,7 +195,9 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Name", m_sName).appendIfNotNull ("LanguageCode", m_sLanguageCode).getToString ();
+    return new ToStringGenerator (null).append ("Name", m_sName)
+                                       .appendIfNotNull ("LanguageCode", m_sLanguageCode)
+                                       .getToString ();
   }
 
   @Nullable
