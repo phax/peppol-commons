@@ -17,6 +17,7 @@ This project contains different libraries that are commonly used in the Peppol/e
 * [`peppol-mls`](#peppol-mls) - specific support for the Peppol Message Level Status (MLS) (since v10.1.0)
 * [`dbnalliance-commons`](#dbnalliance-commons) - contains commons stuff for DBNAlliance support (since v10.2.0)
 * [`dbnalliance-xhe`](#dbnalliance-xhe) - specific support for DBNAlliance XHE header (since v9.5.0)
+* [`hredelivery-commons`](#hredelivery-commons) - contains commons stuff for HR eDelivery support (since v12.0.2)
   
 This project is part of my Peppol solution stack. See https://github.com/phax/peppol for other components and libraries in that area.
 
@@ -146,6 +147,12 @@ This was introduced in v9.5.0
 This project holds support for reading and writing DBNAlliance XHE header.
 This is the DBNAlliance version of `peppol-sbdh` based on the [ph-xhe](https://github.com/phax/ph-xhe) library.
 
+## hredelivery-commons
+
+This was introduced in v12.0.2
+
+This project contains shared components for Croatian (HR) eDelivery usage in the area as eRacun.
+
 ### Configuration
 
 **Configuration resolution (since v8.2.0)**
@@ -198,7 +205,7 @@ Get the endpoint URL for a participant using a special document type and process
 
 ```java
     // The Peppol participant identifier
-    final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
+    final IParticipantIdentifier aPI_AT_Test = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
     // Create the main SMP client using the production SML
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolURLProvider.INSTANCE,
@@ -217,7 +224,7 @@ If you don't need the DNS lookup you can use the URL of the SMP directly (equiva
 
 ```java
     // The Peppol participant identifier
-    final PeppolParticipantIdentifier aPI_AT_Test = PeppolParticipantIdentifier.createWithDefaultScheme ("9915:test");
+    final IParticipantIdentifier aPI_AT_Test = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
     // Create the main SMP client using the production SML
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (URLHelper.getAsURI ("http://B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu"));
@@ -234,7 +241,7 @@ If you don't need the DNS lookup you can use the URL of the SMP directly (equiva
 # Building from source
 
 This project is meant to be build by Maven 3.x.
-It requires at least Java 1.8 to be build.
+It requires at least Java 17 to be build.
 To build simply call `mvn clean install` in the root folder.
 
 When integrating this in your IDE, ensure to run `mvn process-sources` first, so that the automatically generated files are present.
@@ -308,6 +315,12 @@ Add the following to your pom.xml to use this artifact, replacing `x.y.z` with t
 <dependency>
   <groupId>com.helger.peppol</groupId>
   <artifactId>dbnalliance-xhe</artifactId>
+  <version>x.y.z</version>
+</dependency>
+
+<dependency>
+  <groupId>com.helger.peppol</groupId>
+  <artifactId>hredelivery-commons</artifactId>
   <version>x.y.z</version>
 </dependency>
 ```
