@@ -44,6 +44,7 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.dns.naptr.NaptrLookup;
 import com.helger.dns.naptr.NaptrResolver;
+import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
@@ -52,14 +53,13 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * An abstract implementation of {@link IBDXLURLProvider} that support U-NAPTR
- * record resolution.
+ * An abstract implementation of {@link IBDXLURLProvider} that support U-NAPTR record resolution.
  *
  * @author Philip Helger
  * @since 8.1.7
  */
 @ThreadSafe
-public abstract class AbstractBDXLURLProvider
+public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
 {
   public static final boolean DEFAULT_USE_DNS_CACHE = false;
   public static final boolean DEFAULT_NAPTR_DEBUG = false;
@@ -147,8 +147,7 @@ public abstract class AbstractBDXLURLProvider
    * Enable or disable internal DNS caching. By default it is enabled.
    *
    * @param bUseDNSCache
-   *        <code>true</code> to enable caching, <code>false</code> to disable
-   *        it.
+   *        <code>true</code> to enable caching, <code>false</code> to disable it.
    */
   public final void setUseDNSCache (final boolean bUseDNSCache)
   {
@@ -177,8 +176,8 @@ public abstract class AbstractBDXLURLProvider
   }
 
   /**
-   * Add entries to the cache. This might be helpful when there is a persistent
-   * cache (outside this class) and the old cache entries should be re-added.
+   * Add entries to the cache. This might be helpful when there is a persistent cache (outside this
+   * class) and the old cache entries should be re-added.
    *
    * @param aEntries
    *        The entries to be added. May be <code>null</code>.
@@ -197,8 +196,8 @@ public abstract class AbstractBDXLURLProvider
   }
 
   /**
-   * @return A mutable list of custom DNS servers to be used for resolving DNS
-   *         entries. Never <code>null</code> but maybe empty.
+   * @return A mutable list of custom DNS servers to be used for resolving DNS entries. Never
+   *         <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableObject
@@ -218,9 +217,8 @@ public abstract class AbstractBDXLURLProvider
   }
 
   /**
-   * Get the Base32 encoded (without padding), SHA-256
-   * hash-string-representation of the passed value using the
-   * {@link #URL_CHARSET} encoding.
+   * Get the Base32 encoded (without padding), SHA-256 hash-string-representation of the passed
+   * value using the {@link #URL_CHARSET} encoding.
    *
    * @param sValueToHash
    *        The value to be hashed. May not be <code>null</code>.
@@ -230,8 +228,7 @@ public abstract class AbstractBDXLURLProvider
   public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
   {
     final byte [] aMessageDigest = MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET),
-                                                              EMessageDigestAlgorithm.SHA_256)
-                                                     .bytes ();
+                                                              EMessageDigestAlgorithm.SHA_256).bytes ();
     // Lowercase manually, because URLs are case-sensitive but usually presented
     // lowercase
     return new Base32Codec ().setAddPaddding (false)
@@ -256,8 +253,8 @@ public abstract class AbstractBDXLURLProvider
 
     // Append the hashed identifier part
     {
-      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue ()
-                                                           : aParticipantIdentifier.getURIEncoded ();
+      String sIdentifierValue = bAddIdentifierSchemeToZone ? aParticipantIdentifier.getValue () : aParticipantIdentifier
+                                                                                                                        .getURIEncoded ();
       if (bLowercaseValueBeforeHashing)
         sIdentifierValue = sIdentifierValue.toLowerCase (URL_LOCALE);
       ret.append (getHashValueStringRepresentation (sIdentifierValue)).append ('.');
@@ -287,7 +284,6 @@ public abstract class AbstractBDXLURLProvider
     return ret.toString ();
   }
 
-  @SuppressWarnings ("unused")
   @Nonnull
   public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
@@ -296,6 +292,17 @@ public abstract class AbstractBDXLURLProvider
                                isLowercaseValueBeforeHashing (),
                                isAddIdentifierSchemeToZone (),
                                sSMLZoneName);
+  }
+
+  @Nonnull
+  public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                         @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  {
+    ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
+    return internalGetDNSName (aParticipantIdentifier,
+                               isLowercaseValueBeforeHashing (),
+                               isAddIdentifierSchemeToZone (),
+                               aSMLInfo.getDNSZone ());
   }
 
   @Nonnull

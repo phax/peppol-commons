@@ -23,8 +23,7 @@ import com.helger.base.clone.ICloneable;
 import jakarta.annotation.Nonnull;
 
 /**
- * The default implementation of {@link IBDXLURLProvider} suitable for the
- * E-SENS network. See e.g.
+ * The default implementation of {@link IBDXLURLProvider} suitable for the E-SENS network. See e.g.
  * http://wiki.ds.unipi.gr/display/ESENS/PR+-+BDXL+1.4.0<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
@@ -32,7 +31,7 @@ import jakarta.annotation.Nonnull;
  * @author Philip Helger
  */
 @ThreadSafe
-public class BDXLURLProvider extends AbstractBDXLURLProvider implements IBDXLURLProvider, ICloneable <BDXLURLProvider>
+public class BDXLURLProvider extends AbstractBDXLURLProvider implements ICloneable <BDXLURLProvider>
 {
   /** U NAPTR service name for e-SENS/PEPPOL */
   public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";

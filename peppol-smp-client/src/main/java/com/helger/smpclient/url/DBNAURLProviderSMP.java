@@ -23,16 +23,13 @@ import com.helger.base.clone.ICloneable;
 import jakarta.annotation.Nonnull;
 
 /**
- * An implementation of {@link IBDXLURLProvider} suitable for the DBNA network
- * in the Market pilot.
+ * An implementation of {@link IBDXLURLProvider} suitable for the DBNA network in the Market pilot.
  *
  * @author Philip Helger
  * @since 9.3.4
  */
 @ThreadSafe
-public class DBNAURLProviderSMP extends AbstractBDXLURLProvider implements
-                                IBDXLURLProvider,
-                                ICloneable <DBNAURLProviderSMP>
+public class DBNAURLProviderSMP extends AbstractBDXLURLProvider implements ICloneable <DBNAURLProviderSMP>
 {
   /**
    * The U-NAPTR record service name. Based on DBNA SML Profile 1.0 chapter 4.3.
