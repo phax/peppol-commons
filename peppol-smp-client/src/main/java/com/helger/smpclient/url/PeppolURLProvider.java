@@ -16,6 +16,8 @@
  */
 package com.helger.smpclient.url;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
@@ -136,5 +138,24 @@ public class PeppolURLProvider implements IPeppolURLProvider
 
     // We're fine and done
     return ret.toString ();
+  }
+
+  @Nonnull
+  public URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+                                     @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
+  {
+    ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
+
+    // MUST always be http, port 80 and the root path
+    final String sURIString = "http://" + getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
+
+    try
+    {
+      return new URI (sURIString);
+    }
+    catch (final URISyntaxException ex)
+    {
+      throw new SMPDNSResolutionException ("Error building SMP URI from string '" + sURIString + "'", ex);
+    }
   }
 }
