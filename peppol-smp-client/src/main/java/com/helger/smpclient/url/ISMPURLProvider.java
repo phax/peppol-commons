@@ -36,8 +36,7 @@ import jakarta.annotation.Nullable;
 public interface ISMPURLProvider
 {
   /**
-   * Get the SMP URI of the passed participant ID in the provided SML DNS zone
-   * name.
+   * Get the SMP URI of the passed participant ID in the provided SML DNS zone name.
    *
    * @param aParticipantIdentifier
    *        The participant ID. May not be <code>null</code>.
@@ -51,12 +50,11 @@ public interface ISMPURLProvider
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
   @Nonnull
-  URI getSMPURIOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier,
-                              @Nullable String sSMLZoneName) throws SMPDNSResolutionException;
+  URI getSMPURIOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier, @Nullable String sSMLZoneName)
+                                                                                                                     throws SMPDNSResolutionException;
 
   /**
-   * Get the SMP URI of the passed participant ID in the provided SML DNS zone
-   * name.
+   * Get the SMP URI of the passed participant ID in the provided SML DNS zone name.
    *
    * @param aParticipantIdentifier
    *        The participant ID. May not be <code>null</code>.
@@ -79,8 +77,7 @@ public interface ISMPURLProvider
   }
 
   /**
-   * Get the SMP URL of the passed participant ID in the provided SML DNS zone
-   * name.
+   * Get the SMP URL of the passed participant ID in the provided SML DNS zone name.
    *
    * @param aParticipantIdentifier
    *        The participant ID. May not be <code>null</code>.
@@ -92,8 +89,10 @@ public interface ISMPURLProvider
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
+   * @deprecated Use {@link #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)} instead
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "12.0.2")
   default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                       @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
@@ -104,8 +103,7 @@ public interface ISMPURLProvider
   }
 
   /**
-   * Get the SMP URL of the passed participant ID in the provided SML DNS zone
-   * name.
+   * Get the SMP URL of the passed participant ID in the provided SML DNS zone name.
    *
    * @param aParticipantIdentifier
    *        The participant ID. May not be <code>null</code>.
@@ -117,8 +115,10 @@ public interface ISMPURLProvider
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
+   * @deprecated Use {@link #getSMPURIOfParticipant(IParticipantIdentifier, String)} instead
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "12.0.2")
   default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
                                       @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
