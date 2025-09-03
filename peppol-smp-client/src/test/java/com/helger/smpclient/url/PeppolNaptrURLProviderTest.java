@@ -19,7 +19,7 @@ package com.helger.smpclient.url;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.net.URL;
+import java.net.URI;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ public final class PeppolNaptrURLProviderTest
       assertEquals ("eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                     sDomain);
 
-      final URL x = aURLProvider.getSMPURLOfParticipant (aPI, ESML.DIGIT_TEST);
+      final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.DIGIT_TEST);
       assertNotNull (x);
       assertEquals ("http://test-infra.peppol.at", x.toString ());
     }
@@ -92,7 +92,7 @@ public final class PeppolNaptrURLProviderTest
       final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
       final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0007:123456");
 
-      final URL x = aURLProvider.getSMPURLOfParticipant (aPI, ESML.DIGIT_TEST);
+      final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.DIGIT_TEST);
       assertNotNull (x);
       LOGGER.info ("PID " + aPI.getValue () + " is registered at '" + x.toString () + "'");
     }
