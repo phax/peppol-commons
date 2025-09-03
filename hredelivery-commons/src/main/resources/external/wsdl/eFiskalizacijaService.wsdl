@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="eFiskalizacijaService"
+                  targetNamespace="http://www.porezna-uprava.gov.hr/fin/2024/services/eFiskalizacijaService"
+                  xmlns:fis="http://www.porezna-uprava.gov.hr/fin/2024/types/eFiskalizacija"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://www.porezna-uprava.gov.hr/fin/2024/services/eFiskalizacijaService">
+
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.porezna-uprava.gov.hr/fin/2024/types/eFiskalizacija" schemaLocation="../schema/eFiskalizacijaSchema.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="EvidentirajERacunZahtjev">
+        <wsdl:documentation>Zahtjev za evidentiranje eRačuna</wsdl:documentation>
+        <wsdl:part element="fis:EvidentirajERacunZahtjev" name="EvidentirajERacunZahtjev"/>
+    </wsdl:message>
+    <wsdl:message name="EvidentirajERacunOdgovor">
+        <wsdl:documentation>Odgovor na zahtjev za evidentiranje eRačuna</wsdl:documentation>
+        <wsdl:part element="fis:EvidentirajERacunOdgovor" name="EvidentirajERacunOdgovor"/>
+    </wsdl:message>
+
+    <wsdl:portType name="EFiskalizacijaServicePortTip">
+        <wsdl:operation name="EvidentirajERacun">
+            <wsdl:input message="tns:EvidentirajERacunZahtjev" name="EvidentirajERacunZahtjev"/>
+            <wsdl:output message="tns:EvidentirajERacunOdgovor" name="EvidentirajERacunOdgovor"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="EFiskalizacijaServiceSoap" type="tns:EFiskalizacijaServicePortTip">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="EvidentirajERacun">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="EvidentirajERacunZahtjev">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="EvidentirajERacunOdgovor">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="EFiskalizacijaService">
+        <wsdl:port binding="tns:EFiskalizacijaServiceSoap" name="EFiskalizacijaService">
+            <soap:address location=""/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

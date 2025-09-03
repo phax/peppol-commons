@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="eIzvjestavanjeService"
+                  targetNamespace="http://www.porezna-uprava.gov.hr/fin/2024/services/eIzvjestavanjeService"
+                  xmlns:izv="http://www.porezna-uprava.gov.hr/fin/2024/types/eIzvjestavanje"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://www.porezna-uprava.gov.hr/fin/2024/services/eIzvjestavanjeService">
+
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.porezna-uprava.gov.hr/fin/2024/types/eIzvjestavanje" schemaLocation="../schema/eIzvjestavanjeSchema.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="EvidentirajOdbijanjeZahtjev">
+        <wsdl:documentation>Zahtjev za evidentiranje odbijanja eRačuna</wsdl:documentation>
+        <wsdl:part element="izv:EvidentirajOdbijanjeZahtjev" name="EvidentirajOdbijanjeZahtjev"/>
+    </wsdl:message>
+    <wsdl:message name="EvidentirajOdbijanjeOdgovor">
+        <wsdl:documentation>Odgovor na zahtjev za evidentiranje odbijanja eRačuna</wsdl:documentation>
+        <wsdl:part element="izv:EvidentirajOdbijanjeOdgovor" name="EvidentirajOdbijanjeOdgovor"/>
+    </wsdl:message>
+    <wsdl:message name="EvidentirajNaplatuZahtjev">
+        <wsdl:documentation>Zahtjev za evidentiranje naplate eRačuna</wsdl:documentation>
+        <wsdl:part element="izv:EvidentirajNaplatuZahtjev" name="EvidentirajNaplatuZahtjev"/>
+    </wsdl:message>
+    <wsdl:message name="EvidentirajNaplatuOdgovor">
+        <wsdl:documentation>Odgovor na zahtjev za evidentiranje naplate eRačuna</wsdl:documentation>
+        <wsdl:part element="izv:EvidentirajNaplatuOdgovor" name="EvidentirajNaplatuOdgovor"/>
+    </wsdl:message>
+    <wsdl:message name="EvidentirajIsporukuZaKojuNijeIzdanERacunZahtjev">
+        <wsdl:documentation>Zahtjev za evidentiranje isporuke za koju nije izdan eRačun</wsdl:documentation>
+        <wsdl:part element="izv:EvidentirajIsporukuZaKojuNijeIzdanERacunZahtjev" name="EvidentirajIsporukuZaKojuNijeIzdanERacunZahtjev"/>
+    </wsdl:message>
+    <wsdl:message name="EvidentirajIsporukuZaKojuNijeIzdanERacunOdgovor">
+        <wsdl:documentation>Odgovor na zahtjev za evidentiranje isporuke za koju nije izdan eRačun</wsdl:documentation>
+        <wsdl:part element="izv:EvidentirajIsporukuZaKojuNijeIzdanERacunOdgovor" name="EvidentirajIsporukuZaKojuNijeIzdanERacunOdgovor"/>
+    </wsdl:message>
+
+    <wsdl:portType name="EIzvjestavanjeServicePortTip">
+        <wsdl:operation name="EvidentirajOdbijanje">
+            <wsdl:input message="tns:EvidentirajOdbijanjeZahtjev" name="EvidentirajOdbijanjeZahtjev"/>
+            <wsdl:output message="tns:EvidentirajOdbijanjeOdgovor" name="EvidentirajOdbijanjeOdgovor"/>
+        </wsdl:operation>
+        <wsdl:operation name="EvidentirajNaplatu">
+            <wsdl:input message="tns:EvidentirajNaplatuZahtjev" name="EvidentirajNaplatuZahtjev"/>
+            <wsdl:output message="tns:EvidentirajNaplatuOdgovor" name="EvidentirajNaplatuOdgovor"/>
+        </wsdl:operation>
+        <wsdl:operation name="EvidentirajIsporukuZaKojuNijeIzdanERacun">
+            <wsdl:input message="tns:EvidentirajIsporukuZaKojuNijeIzdanERacunZahtjev" name="EvidentirajIsporukuZaKojuNijeIzdanERacunZahtjev"/>
+            <wsdl:output message="tns:EvidentirajIsporukuZaKojuNijeIzdanERacunOdgovor" name="EvidentirajIsporukuZaKojuNijeIzdanERacunOdgovor"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="EIzvjestavanjeServiceSoap" type="tns:EIzvjestavanjeServicePortTip">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="EvidentirajOdbijanje">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="EvidentirajOdbijanjeZahtjev">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="EvidentirajOdbijanjeOdgovor">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="EvidentirajNaplatu">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="EvidentirajNaplatuZahtjev">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="EvidentirajNaplatuOdgovor">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="EvidentirajIsporukuZaKojuNijeIzdanERacun">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="EvidentirajIsporukuZaKojuNijeIzdanERacunZahtjev">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="EvidentirajIsporukuZaKojuNijeIzdanERacunOdgovor">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="EIzvjestavanjeService">
+        <wsdl:port binding="tns:EIzvjestavanjeServiceSoap" name="EIzvjestavanjeService">
+            <soap:address location=""/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
