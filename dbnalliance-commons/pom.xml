@@ -29,7 +29,6 @@
   <name>dbnalliance-commons</name>
   <url>https://github.com/phax/peppol-commons/dbnalliance-commons</url>
   <inceptionYear>2025</inceptionYear>
-  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,12 +36,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-  
   <developers>
     <developer>
       <id>philip</id>
@@ -51,7 +48,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -61,7 +57,6 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-bc</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -73,7 +68,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
   <build>
     <plugins>
       <plugin>
@@ -83,13 +77,9 @@
         <configuration>
           <instructions>
             <Automatic-Module-Name>com.helger.dbnalliance.commons</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.dbnalliance.commons,
-              com.helger.dbnalliance.commons.security
-            </Export-Package>
+            <Export-Package>com.helger.dbnalliance.commons,
+              com.helger.dbnalliance.commons.security</Export-Package>
             <Import-Package>!jakarta.annotation.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
