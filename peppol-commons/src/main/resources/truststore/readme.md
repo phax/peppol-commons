@@ -23,7 +23,7 @@
 
 The password to access all trust stores is (case-sensitive): `peppol`
 
-The official source of the certificates is TODO
+The official source of the certificates is https://openpeppol.atlassian.net/wiki/spaces/OPMA/pages/4344053761/Peppol+PKI+2025+-+Certificate+Authorities
 
 `2025/ap-test-truststore.p12` (since 11.0.2)
 * Is the global trust store for OpenPeppol pilot APs
