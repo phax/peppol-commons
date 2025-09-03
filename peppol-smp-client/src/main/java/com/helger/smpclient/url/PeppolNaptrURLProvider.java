@@ -24,9 +24,8 @@ import com.helger.peppolid.peppol.Pfuoi440;
 import jakarta.annotation.Nonnull;
 
 /**
- * The implementation of {@link IPeppolURLProvider} suitable for the Peppol
- * Network to resolve NAPTR records as defined in the Peppol Policy for use of
- * Identifiers.<br>
+ * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve NAPTR
+ * records as defined in the Peppol Policy for use of Identifiers.<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
@@ -39,7 +38,7 @@ public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements
                                     IPeppolURLProvider,
                                     ICloneable <PeppolNaptrURLProvider>
 {
-  /** U NAPTR service name for e-SENS/PEPPOL */
+  /** U NAPTR service name for Peppol */
   public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
 
   /** The writable API of the default instance */
