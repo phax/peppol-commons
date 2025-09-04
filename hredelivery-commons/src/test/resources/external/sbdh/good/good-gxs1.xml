@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2015-2023 Philip Helger
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<StandardBusinessDocument xmlns="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader">
+    <StandardBusinessDocumentHeader>
+        <HeaderVersion>1.0</HeaderVersion>
+        <Sender>
+            <Identifier Authority="iso6523-actorid-upis">9958:99000000-peppol10-99</Identifier>
+        </Sender>
+        <Receiver>
+            <Identifier Authority="iso6523-actorid-upis">0204:991-33333TEST-33</Identifier>
+        </Receiver>
+        <DocumentIdentification>
+            <Standard>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2</Standard>
+            <TypeVersion>2.1</TypeVersion>
+            <InstanceIdentifier>8c5d5491-a1fd-4281-9e60-d1f4dfad8b68</InstanceIdentifier>
+            <Type>Invoice</Type>
+            <MultipleType>false</MultipleType>
+            <CreationDateAndTime>2019-10-18T01:53:29.385+02:00</CreationDateAndTime>
+        </DocumentIdentification>
+        <Manifest>
+            <NumberOfItems>1</NumberOfItems>
+            <ManifestItem>
+                <MimeTypeQualifierCode>application/xml</MimeTypeQualifierCode>
+                <UniformResourceIdentifier>cid:ubl.xml</UniformResourceIdentifier>
+                <Description>ubl businessdocument</Description>
+            </ManifestItem>
+        </Manifest>
+        <BusinessScope>
+            <Scope>
+                <Type>PROCESSID</Type>
+                <InstanceIdentifier>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</InstanceIdentifier>
+            </Scope>
+            <Scope>
+                <Type>DOCUMENTID</Type>
+                <InstanceIdentifier>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2::2.1</InstanceIdentifier>
+                <BusinessService>
+                    <ServiceTransaction IsNonRepudiationRequired="false" IsAuthenticationRequired="false" IsNonRepudiationOfReceiptRequired="false" IsIntelligibleCheckRequired="false" IsApplicationErrorResponseRequested="false"/>
+                </BusinessService>
+            </Scope>
+            <Scope>
+              <Type>COUNTRY_C1</Type>
+              <InstanceIdentifier>AT</InstanceIdentifier>
+            </Scope>
+        </BusinessScope>
+    </StandardBusinessDocumentHeader>
+<ubl:Invoice xmlns:ubl="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+             xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+             xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+             xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDataTypes-2"
+             xmlns:udt="urn:oasis:names:specification:ubl:schema:xsd:UnqualifiedDataTypes-2"
+             xmlns:ccts="urn:un:unece:uncefact:documentation:2"
+             xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+   <cbc:CustomizationID>urn:cen.eu:en16931:2017#compliant#urn:xoev-de:kosit:standard:xrechnung_1.2</cbc:CustomizationID>
+</ubl:Invoice>
+
+</StandardBusinessDocument>
