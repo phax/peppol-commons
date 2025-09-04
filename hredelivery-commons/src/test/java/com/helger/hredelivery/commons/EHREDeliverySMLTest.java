@@ -16,11 +16,11 @@
  */
 package com.helger.hredelivery.commons;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
-import com.helger.base.string.StringHelper;
 
 /**
  * Test class for class {@link EHREDeliverySML}.
@@ -32,9 +32,15 @@ public final class EHREDeliverySMLTest
   @Test
   public void testBasic ()
   {
-    for (final EHREDeliverySML e : EHREDeliverySML.values ())
+    for (final EHREDeliverySML eSML : EHREDeliverySML.values ())
     {
-      assertTrue (StringHelper.isNotEmpty (e.getZoneName ()));
+      assertNotNull (eSML.getDNSZone ());
+      assertNotNull (eSML.getPublisherDNSZone ());
+      assertNotNull (eSML.getManagementServiceURL ());
+      assertNotNull (eSML.getManageServiceMetaDataEndpointAddress ());
+      assertNotNull (eSML.getManageParticipantIdentifierEndpointAddress ());
+      assertTrue (eSML.isClientCertificateRequired ());
+      assertSame (eSML, EHREDeliverySML.valueOf (eSML.name ()));
     }
   }
 }
