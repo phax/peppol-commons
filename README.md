@@ -149,7 +149,7 @@ This is the DBNAlliance version of `peppol-sbdh` based on the [ph-xhe](https://g
 
 ## hredelivery-commons
 
-This was introduced in v12.0.2
+This was introduced in v12.0.3
 
 This project contains shared components for Croatian (HR) eDelivery usage in the area as eRacun.
 
@@ -348,6 +348,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 * [Peppol Business Message Envelope (SBDH) v2.x](https://docs.peppol.eu/edelivery/)
 
 # News and noteworthy
+
+v12.0.3 - 2025-09-18
+* Added new CA `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` to all SML related trust stores
+* Included preliminary version for HR eDelivery
 
 v12.0.2 - 2025-09-18
 * Class `AbstractBDXLURLProvider` now implements `IBDXLURLProvider` directly

@@ -6,9 +6,11 @@
 * It contains the SSL certificates to access the central Peppol SML
 * Updated 2019-12-03 for the new SMK certificate chain
 * Updated 2024-01-02 removed the old GlobalSign certificates
+* Updated in v12.0.3: added `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` 
 * The contained aliases are:
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
+    * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
 
 `directory-truststore.jks` (since v6.2.1)
 * It contains the SSL certificates to access the central Peppol Directory
@@ -53,12 +55,14 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
 * Is the global trust store for OpenPeppol pilot SMPs
 * It is valid from 2025-2035
 * Updated in v11.0.6: replaced `r3 (isrg root x1)` with `e5 (isrg root x1)`
+* Updated in v12.0.3: added `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` 
 * The contained aliases are:
     * `peppol root test ca - g3`
     * `peppol access point test ca - g3 (peppol root test ca - g3)`
     * `peppol service metadata publisher test ca - g3 (peppol root test ca - g3)`
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
+    * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
     * `isrg root x1`
     * `e5 (isrg root x1)`
 * Contains temporarily, during the migration from G2 to G3 only:    
@@ -70,12 +74,14 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
 * Is the global trust store for OpenPeppol production SMPs
 * It is valid from 2025-2035
 * Updated in v11.0.6: replaced `r3 (isrg root x1)` with `e5 (isrg root x1)`
+* Updated in v12.0.3: added `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` 
 * The contained aliases are:
     * `peppol root ca - g3`
     * `peppol access point ca - g3 (peppol root ca - g3)`
     * `peppol service metadata publisher ca - g3 (peppol root ca - g3)`
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
+    * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
     * `isrg root x1`
     * `e5 (isrg root x1)`
 * Contains temporarily, during the migration from G2 to G3 only:    
@@ -122,12 +128,14 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
 * It is valid from 2018-2028
 * Updated 2024-01-02 removed the old GlobalSign certificates
 * Updated in v11.0.6: replaced `r3 (isrg root x1)` with `e5 (isrg root x1)`
+* Updated in v12.0.3: added `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` 
 * The contained aliases are:
     * `peppol root test ca - g2`
     * `peppol access point test ca - g2 (peppol root test ca - g2)`
     * `peppol service metadata publisher test ca - g2 (peppol root test ca - g2)`
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
+    * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
     * `isrg root x1`
     * `e5 (isrg root x1)`
 
@@ -136,12 +144,14 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
 * It is valid from 2018-2028
 * Updated 2024-01-02 removed the old GlobalSign certificates
 * Updated in v11.0.6: replaced `r3 (isrg root x1)` with `e5 (isrg root x1)`
+* Updated in v12.0.3: added `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` 
 * The contained aliases are:
     * `peppol root ca - g2`
     * `peppol access point ca - g2 (peppol root ca - g2)`
     * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
+    * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
     * `isrg root x1`
     * `e5 (isrg root x1)`
 
@@ -167,7 +177,8 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
 * Updated in v8.4.1 (add new) and v8.5.2 (remove old) to reflect the new Let's Encrypt issuing certificate
 * Updated 2024-01-02 removed the old GlobalSign certificates
 * Updated in v11.0.6: replaced `r3 (isrg root x1)` with `e5 (isrg root x1)`
-    * `peppol root ca - g2`
+    * Updated in v12.0.3: added `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` 
+* `peppol root ca - g2`
     * `peppol access point ca - g2 (peppol root ca - g2)`
     * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
     * `peppol root test ca - g2`
@@ -176,6 +187,7 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
     * `peppol service metadata publisher test ca - g2 (peppol root test ca - g2)`
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
+    * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
     * `isrg root x1`
     * `e5 (isrg root x1)`
 
