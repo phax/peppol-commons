@@ -349,7 +349,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.0.2 - work in progress
+v12.0.2 - 2025-09-18
 * Class `AbstractBDXLURLProvider` now implements `IBDXLURLProvider` directly
 * Deprecated methods `ISMPURLProvider.getSMPURLOfParticipant`
 * Removed the default method of `IPeppolURLProvider.getSMPURIOfParticipant`
