@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Copyright (C) 2015-2023 Philip Helger
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<sbdh:StandardBusinessDocument xmlns="urn:com:tickstar:peppol:ws:envelope" xmlns:sbdh="http://www.unece.org/cefact/namespaces/StandardBusinessDocumentHeader">
+    <sbdh:StandardBusinessDocumentHeader>
+        <sbdh:HeaderVersion>1.0</sbdh:HeaderVersion>
+        <sbdh:Sender>
+            <sbdh:Identifier Authority="iso6523-actorid-upis">0088:test</sbdh:Identifier>
+        </sbdh:Sender>
+        <sbdh:Receiver>
+            <sbdh:Identifier Authority="iso6523-actorid-upis">0088:5033466000005</sbdh:Identifier>
+        </sbdh:Receiver>
+        <sbdh:DocumentIdentification>
+            <sbdh:Standard>urn:oasis:names:specification:ubl:schema:xsd:Order-2</sbdh:Standard>
+            <sbdh:TypeVersion>2.1</sbdh:TypeVersion>
+            <sbdh:InstanceIdentifier>62ad8932-be14-42a1-9528-f867cb335f55</sbdh:InstanceIdentifier>
+            <sbdh:Type>Order</sbdh:Type>
+            <sbdh:CreationDateAndTime>2013-02-19T05:10:10Z</sbdh:CreationDateAndTime>
+        </sbdh:DocumentIdentification>
+        <sbdh:BusinessScope>
+            <sbdh:Scope>
+                <sbdh:Type>DOCUMENTID</sbdh:Type>
+                <sbdh:InstanceIdentifier>urn:oasis:names:specification:ubl:schema:xsd:Order-2::Order##urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0::2.1</sbdh:InstanceIdentifier>
+            </sbdh:Scope>
+            <sbdh:Scope>
+                <sbdh:Type>PROCESSID</sbdh:Type>
+                <sbdh:InstanceIdentifier>urn:www.cenbii.eu:profile:bii03:ver2.0</sbdh:InstanceIdentifier>
+            </sbdh:Scope>
+            <sbdh:Scope>
+              <sbdh:Type>COUNTRY_C1</sbdh:Type>
+              <sbdh:InstanceIdentifier>AT</sbdh:InstanceIdentifier>
+            </sbdh:Scope>
+        </sbdh:BusinessScope>
+    </sbdh:StandardBusinessDocumentHeader>
+    <Order:Order xmlns:Order="urn:oasis:names:specification:ubl:schema:xsd:Order-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:Order-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+        <cbc:CustomizationID>urn:www.cenbii.eu:transaction:biitrns001:ver2.0:extended:urn:www.peppol.eu:bis:peppol3a:ver2.0
+	</cbc:CustomizationID>
+        <cbc:ProfileID>urn:www.cenbii.eu:profile:bii03:ver2.0</cbc:ProfileID>
+        <cbc:ID>5</cbc:ID>
+        <cbc:IssueDate>2013-07-01</cbc:IssueDate>
+        <cbc:IssueTime>05:10:10</cbc:IssueTime>
+        <cbc:DocumentCurrencyCode  listID="ISO4217">EUR</cbc:DocumentCurrencyCode>
+        <cbc:AccountingCost>MAFO</cbc:AccountingCost>
+        <cac:ValidityPeriod>
+            <cbc:EndDate>2013-07-30</cbc:EndDate>
+	</cac:ValidityPeriod>
+        <cac:Contract>
+            <cbc:ID>C1</cbc:ID>
+            <cbc:ContractType>Framework agreement</cbc:ContractType>
+	</cac:Contract>
+        <cac:BuyerCustomerParty>
+            <cac:Party>
+                <cbc:EndpointID  schemeID="DK:VANS">0088:test</cbc:EndpointID>
+                <cac:PartyIdentification>
+                    <cbc:ID  schemeID="DK:VANS"></cbc:ID>
+			</cac:PartyIdentification>
+                <cac:PartyName>
+                    <cbc:Name>City Hospital</cbc:Name>
+			</cac:PartyName>
+                <cac:PostalAddress>
+                    <cbc:StreetName>Some Street 1</cbc:StreetName>
+                    <cbc:CityName>Some City</cbc:CityName>
+                    <cbc:PostalZone>9000</cbc:PostalZone>
+                    <cac:Country>
+                        <cbc:IdentificationCode  listID="ISO3166-1:Alpha2">DK</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+                <cac:PartyLegalEntity>
+                    <cbc:RegistrationName>City Hospital 345433</cbc:RegistrationName>
+                    <cbc:CompanyID  schemeID="SE:ORGNR">5541277711</cbc:CompanyID>
+                    <cac:RegistrationAddress>
+                        <cbc:CityName>Eurocity</cbc:CityName>
+                        <cac:Country>
+                            <cbc:IdentificationCode  listID="ISO3166-1:Alpha2">SE</cbc:IdentificationCode>
+					</cac:Country>
+				</cac:RegistrationAddress>
+			</cac:PartyLegalEntity>
+                <cac:Contact>
+                    <cbc:ID>MAFO</cbc:ID>
+                    <cbc:Name>Martin Foggerty</cbc:Name>
+                    <cbc:Telephone>+46555785488</cbc:Telephone>
+                    <cbc:Telefax>+46555785477</cbc:Telefax>
+                    <cbc:ElectronicMail>martin.foggerty@cityhospital.se
+				</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:Party>
+	</cac:BuyerCustomerParty>
+        <cac:SellerSupplierParty>
+            <cac:Party>
+                <cbc:EndpointID  schemeAgencyID="9" schemeID="GLN">0088:5033466000005</cbc:EndpointID>
+                <cac:PartyIdentification>
+                    <cbc:ID  schemeAgencyID="9" schemeID="GLN">0088:5033466000005</cbc:ID>
+			</cac:PartyIdentification>
+                <cac:PartyName>
+                    <cbc:Name>Translation Services AS</cbc:Name>
+			</cac:PartyName>
+                <cac:PostalAddress>
+                    <cbc:StreetName>Seller Street 1</cbc:StreetName>
+                    <cbc:CityName>Seller City</cbc:CityName>
+                    <cbc:PostalZone>9000</cbc:PostalZone>
+                    <cac:Country>
+                        <cbc:IdentificationCode  listID="ISO3166-1:Alpha2">DK</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+		</cac:Party>
+	</cac:SellerSupplierParty>
+        <cac:Delivery>
+            <cac:DeliveryLocation>
+                <cac:Address>
+                    <cbc:StreetName>Lower street 5</cbc:StreetName>
+                    <cbc:AdditionalStreetName>Reception</cbc:AdditionalStreetName>
+                    <cbc:CityName>Oslo</cbc:CityName>
+                    <cbc:PostalZone>11120</cbc:PostalZone>
+                    <cac:Country>
+                        <cbc:IdentificationCode  listID="ISO3166-1:Alpha2">NO</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:Address>
+		</cac:DeliveryLocation>
+            <cac:RequestedDeliveryPeriod>
+                <cbc:StartDate>2013-07-15</cbc:StartDate>
+                <cbc:EndDate>2013-07-16</cbc:EndDate>
+		</cac:RequestedDeliveryPeriod>
+            <cac:DeliveryParty>
+                <cac:PartyName>
+                    <cbc:Name>Hospital Tourist Department</cbc:Name>
+			</cac:PartyName>
+                <cac:Contact>
+                    <cbc:Name>John</cbc:Name>
+                    <cbc:Telephone>+465558877523</cbc:Telephone>
+                    <cbc:Telefax>+465558877524</cbc:Telefax>
+                    <cbc:ElectronicMail>john@cityhospital.se</cbc:ElectronicMail>
+			</cac:Contact>
+		</cac:DeliveryParty>
+	</cac:Delivery>
+        <cac:TaxTotal>
+            <cbc:TaxAmount  currencyID="EUR">0</cbc:TaxAmount>
+	</cac:TaxTotal>
+        <cac:AnticipatedMonetaryTotal>
+            <cbc:LineExtensionAmount  currencyID="EUR">400</cbc:LineExtensionAmount>
+            <cbc:PayableAmount  currencyID="EUR">400</cbc:PayableAmount>
+	</cac:AnticipatedMonetaryTotal>
+        <cac:OrderLine>
+            <cac:LineItem>
+                <cbc:ID>1</cbc:ID>
+                <cbc:Quantity  unitCode="DAY" unitCodeListID="UNECERec20">1</cbc:Quantity>
+                <cbc:LineExtensionAmount  currencyID="EUR">400</cbc:LineExtensionAmount>
+                <cbc:AccountingCost>MAFO-1</cbc:AccountingCost>
+                <cac:Price>
+                    <cbc:PriceAmount  currencyID="EUR">400</cbc:PriceAmount>
+			</cac:Price>
+                <cac:Item>
+                    <cbc:Description>Translation service Swedish - Spanish
+				</cbc:Description>
+                    <cbc:Name>Translation</cbc:Name>
+                    <cac:CommodityClassification>
+                        <cbc:ItemClassificationCode  listID="UNSPSC">1234</cbc:ItemClassificationCode>
+				</cac:CommodityClassification>
+			</cac:Item>
+		</cac:LineItem>
+	</cac:OrderLine>
+</Order:Order>
+</sbdh:StandardBusinessDocument>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2025 Philip Helger
+ * Copyright (C) 2025 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.testfiles.sbdh;
+package com.helger.hredelivery.commons.sbdh;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.CommonsArrayList;
@@ -28,7 +28,7 @@ import jakarta.annotation.Nonnull;
  *
  * @author Philip Helger
  */
-public final class PeppolSBDHTestFiles
+public final class HREDeliverySBDHTestFiles
 {
   private static final ICommonsList <ClassPathResource> GOOD_CASES = new CommonsArrayList <> ();
   private static final ICommonsList <ClassPathResource> BAD_CASES = new CommonsArrayList <> ();
@@ -36,7 +36,7 @@ public final class PeppolSBDHTestFiles
   @Nonnull
   private static ClassLoader _getCL ()
   {
-    return PeppolSBDHTestFiles.class.getClassLoader ();
+    return HREDeliverySBDHTestFiles.class.getClassLoader ();
   }
 
   static
@@ -45,18 +45,9 @@ public final class PeppolSBDHTestFiles
 
     // good.xml must be the first file!
     for (final String sFilename : new String [] { "good.xml",
-                                                  "good-additional-scopes.xml",
                                                   "good-bis3.xml",
-                                                  "good-bis3-full.xml",
-                                                  "good-bis3-with-country_c1.xml",
-                                                  "good-bis3-with-mls-to.xml",
-                                                  "good-bis3-with-mls-type.xml",
                                                   "good-gxs1.xml",
-                                                  "good-hybrid-invoice.xml",
                                                   "good-order-with-qty-ph.xml",
-                                                  "good-to-9915-test.xml",
-                                                  "good-type-version-20.xml",
-                                                  "good-v11.xml",
                                                   "good-with-timezone.xml" })
     {
       GOOD_CASES.add (new ClassPathResource (sPrefix + "/good/" + sFilename, _getCL ()));
@@ -64,28 +55,13 @@ public final class PeppolSBDHTestFiles
 
     for (final String sFilename : new String [] { "bad-invalid-business-message.xml",
                                                   "bad-invalid-creation-date-and-time.xml",
-                                                  "bad-invalid-document-type-identifier.xml",
                                                   "bad-invalid-header-version.xml",
                                                   "bad-invalid-instance-identifier.xml",
-                                                  "bad-invalid-process-identifier.xml",
                                                   "bad-invalid-receiver-authority.xml",
                                                   "bad-invalid-receiver-value.xml",
                                                   "bad-invalid-sender-authority.xml",
                                                   "bad-invalid-sender-value.xml",
-                                                  "bad-invalid-standard.xml",
-                                                  "bad-invalid-type.xml",
-                                                  "bad-invalid-type-version.xml",
-                                                  "bad-mls-to-empty.xml",
-                                                  "bad-mls-to-invalid-value.xml",
-                                                  "bad-mls-to-no-scheme.xml",
-                                                  "bad-mls-to-no-value.xml",
-                                                  "bad-mls-type-empty.xml",
-                                                  "bad-mls-type-invalid-value.xml",
                                                   "bad-no-business-message.xml",
-                                                  "bad-no-business-scope.xml",
-                                                  "bad-no-country-c1.xml",
-                                                  "bad-no-document-type-identifier.xml",
-                                                  "bad-no-process-identifier.xml",
                                                   "bad-no-sbdh.xml",
                                                   "bad-no-xml.txt",
                                                   "bad-too-few-receivers.xml",
@@ -98,7 +74,7 @@ public final class PeppolSBDHTestFiles
     }
   }
 
-  private PeppolSBDHTestFiles ()
+  private HREDeliverySBDHTestFiles ()
   {}
 
   @Nonnull
@@ -112,18 +88,6 @@ public final class PeppolSBDHTestFiles
   public static ClassPathResource getFirstGoodCase ()
   {
     return GOOD_CASES.getFirstOrNull ();
-  }
-
-  @Nonnull
-  public static ClassPathResource getFirstGoodCaseV11 ()
-  {
-    return GOOD_CASES.findFirst (x -> x.getPath ().endsWith ("good-v11.xml"));
-  }
-
-  @Nonnull
-  public static ClassPathResource getFirstGoodCaseV20 ()
-  {
-    return GOOD_CASES.findFirst (x -> x.getPath ().endsWith ("good-bis3-with-country_c1.xml"));
   }
 
   @Nonnull

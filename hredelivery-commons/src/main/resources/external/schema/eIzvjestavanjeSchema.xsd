@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.porezna-uprava.gov.hr/fin/2024/types/eIzvjestavanje"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+            xmlns:tns="http://www.porezna-uprava.gov.hr/fin/2024/types/eIzvjestavanje"
+            attributeFormDefault="qualified"
+            elementFormDefault="qualified"
+            version="1.0">
+
+    <xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+
+    <!--
+        Evidentiranje naplate
+    -->
+
+    <xsd:element name="EvidentirajNaplatuZahtjev">
+        <xsd:annotation>
+            <xsd:documentation>Zahtjev za evidenciju naplate eRačuna.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Zaglavlje" type="tns:Zaglavlje">
+                    <xsd:annotation>
+                        <xsd:documentation>Zaglavlje zahtjeva.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Naplata" type="tns:Naplata" maxOccurs="100">
+                    <xsd:annotation>
+                        <xsd:documentation>Podaci o jednoj ili više naplata.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element ref="ds:Signature">
+                    <xsd:annotation>
+                        <xsd:documentation>Potpis zahtjeva, obavezan prilikom zaprimanja.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation>Atribut korišten prilikom kreiranja i provjere digitalnog potpisa.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="EvidentirajNaplatuOdgovor">
+        <xsd:annotation>
+            <xsd:documentation>Odgovor na zahtjev.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="datumVrijemeSlanja" type="tns:datumVrijemeDeci">
+                    <xsd:annotation>
+                        <xsd:documentation>Datum i vrijeme slanja zahtjeva</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Odgovor" type="tns:Odgovor">
+                    <xsd:annotation>
+                        <xsd:documentation>Odgovor na zahtjev.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element ref="ds:Signature">
+                    <xsd:annotation>
+                        <xsd:documentation>Potpis odgovora.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation>Atribut korišten prilikom kreiranja i provjere digitalnog potpisa.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!--
+        Evidentiranje odbijanja
+    -->
+
+    <xsd:element name="EvidentirajOdbijanjeZahtjev">
+        <xsd:annotation>
+            <xsd:documentation>Zahtjev za evidenciju odbijanja eRačuna.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Zaglavlje" type="tns:Zaglavlje">
+                    <xsd:annotation>
+                        <xsd:documentation>Zaglavlje zahtjeva.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Odbijanje" type="tns:Odbijanje" maxOccurs="100">
+                    <xsd:annotation>
+                        <xsd:documentation>Podaci o jednom ili više odbijanja.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element ref="ds:Signature">
+                    <xsd:annotation>
+                        <xsd:documentation>Potpis zahtjeva, obavezan prilikom zaprimanja.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation>Atribut korišten prilikom kreiranja i provjere digitalnog potpisa.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="EvidentirajOdbijanjeOdgovor">
+        <xsd:annotation>
+            <xsd:documentation>Odgovor na zahtjev.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="datumVrijemeSlanja" type="tns:datumVrijemeDeci">
+                    <xsd:annotation>
+                        <xsd:documentation>Datum i vrijeme slanja zahtjeva</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Odgovor" type="tns:Odgovor">
+                    <xsd:annotation>
+                        <xsd:documentation>Odgovor na zahtjev.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element ref="ds:Signature">
+                    <xsd:annotation>
+                        <xsd:documentation>Potpis odgovora.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation>Atribut korišten prilikom kreiranja i provjere digitalnog potpisa.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!--
+        Naplata kompleksni tipovi podataka
+    -->
+
+    <xsd:complexType name="Naplata">
+        <xsd:annotation>
+            <xsd:documentation>Podaci o naplati eRačuna</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="brojDokumenta" type="tns:tekst100">
+                <xsd:annotation>
+                    <xsd:documentation>Broj dokumenta eRačuna, dio identifikatora eRačuna (BT-1 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="datumIzdavanja" type="tns:datum">
+                <xsd:annotation>
+                    <xsd:documentation>Datum izdavanja eRačuna, dio identifikatora eRačuna (BT-2 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="oibPorezniBrojIzdavatelja" type="tns:tekst20">
+                <xsd:annotation>
+                    <xsd:documentation>OIB ili porezni broj izdavatelja, dio identifikatora eRačuna (BT-31 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="oibPorezniBrojPrimatelja" type="tns:tekst20">
+                <xsd:annotation>
+                    <xsd:documentation>OIB ili porezni broj primatelja.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="datumNaplate" type="tns:datum">
+                <xsd:annotation>
+                    <xsd:documentation>Datum naplate eRačuna.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="naplaceniIznos" type="tns:decimal2">
+                <xsd:annotation>
+                    <xsd:documentation>Iznos koji je naplaćen</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="nacinPlacanja" type="tns:nacinPlacanja">
+                <xsd:annotation>
+                    <xsd:documentation>Šifra načina plaćanja po UNCL4461.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!--
+        Odbijanje kompleksni tipovi podataka
+    -->
+    
+    <xsd:complexType name="Odbijanje">
+        <xsd:annotation>
+            <xsd:documentation>Element predstavlja podatke za odbijanja eRačuna.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="brojDokumenta" type="tns:tekst100">
+                <xsd:annotation>
+                    <xsd:documentation>Broj dokumenta eRačuna, dio identifikatora eRačuna (BT-1 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="datumIzdavanja" type="tns:datum">
+                <xsd:annotation>
+                    <xsd:documentation>Datum izdavanja eRačuna, dio identifikatora eRačuna (BT-2 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="oibPorezniBrojIzdavatelja" type="tns:tekst20">
+                <xsd:annotation>
+                    <xsd:documentation>OIB ili porezni broj izdavatelja, dio identifikatora eRačuna (BT-31 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="oibPorezniBrojPrimatelja" type="tns:tekst20">
+                <xsd:annotation>
+                    <xsd:documentation>OIB ili porezni broj primatelja.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="datumOdbijanja" type="tns:datum">
+                <xsd:annotation>
+                    <xsd:documentation>Datum odbijanja eRačuna.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="vrstaRazlogaOdbijanja" type="tns:razlogOdbijanja">
+                <xsd:annotation>
+                    <xsd:documentation>Šifra vrste razloga odbijanja eRačuna.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="razlogOdbijanja" type="tns:tekst1024">
+                <xsd:annotation>
+                    <xsd:documentation>Razlog odbijanja eRačuna.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <!--
+        Evidentiranje isporuke za koju nije izdan eRačun
+    -->
+    <xsd:element name="EvidentirajIsporukuZaKojuNijeIzdanERacunZahtjev">
+        <xsd:annotation>
+            <xsd:documentation>Zahtjev za evidenciju računa za koji nije izdan eRačun.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Zaglavlje" type="tns:ZaglavljeIsporuka">
+                    <xsd:annotation>
+                        <xsd:documentation>Zaglavlje zahtjeva.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Racun" type="tns:Racun" maxOccurs="100">
+                    <xsd:annotation>
+                        <xsd:documentation>Podaci o jednom ili više računa.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element ref="ds:Signature">
+                    <xsd:annotation>
+                        <xsd:documentation>Potpis zahtjeva, obavezan prilikom zaprimanja.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation>Atribut korišten prilikom kreiranja i provjere digitalnog potpisa.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="EvidentirajIsporukuZaKojuNijeIzdanERacunOdgovor">
+        <xsd:annotation>
+            <xsd:documentation>Odgovor na zahtjev za evidenciju eRačuna.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="datumVrijemeSlanja" type="tns:datumVrijemeDeci">
+                    <xsd:annotation>
+                        <xsd:documentation>Datum i vrijeme slanja odgovora</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Odgovor" type="tns:Odgovor">
+                    <xsd:annotation>
+                        <xsd:documentation>Odgovor na zahtjev.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element ref="ds:Signature">
+                    <xsd:annotation>
+                        <xsd:documentation>Potpis odgovora.</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="id" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation>Atribut korišten prilikom kreiranja i provjere digitalnog potpisa.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+
+    <!--
+        Račun kompleksni tipovi podataka
+    -->
+
+    <xsd:complexType name="ZaglavljeIsporuka">
+        <xsd:annotation>
+            <xsd:documentation>Zaglavlje zahtjeva</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="datumVrijemeSlanja" type="tns:datumVrijemeDeci">
+                <xsd:annotation>
+                    <xsd:documentation>Datum i vrijeme slanja zahtjeva</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="vrstaRacuna" type="tns:vrstaERacuna">
+                <xsd:annotation>
+                    <xsd:documentation>Vrsta računa, IR.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Racun">
+        <xsd:annotation>
+            <xsd:documentation>Podaci o računu.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="brojDokumenta" type="tns:tekst100">
+                <xsd:annotation>
+                    <xsd:documentation>Broj dokumenta računa, dio identifikatora eRačuna (BT-1 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="datumIzdavanja" type="tns:datum">
+                <xsd:annotation>
+                    <xsd:documentation>Datum izdavanja računa, dio identifikatora eRačuna (BT-2 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="vrstaDokumenta" type="tns:vrstaDokumenta">
+                <xsd:annotation>
+                    <xsd:documentation>Šifra vrste dokumenta računa, dio identifikatora eRačuna (BT-3 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="valutaRacuna" type="tns:valuta">
+                <xsd:annotation>
+                    <xsd:documentation>Šifra valute po ISO4217 u kojoj se iskazuju svi iznosi na računu, osim za ukupni iznos PDV-a u računovodstvenoj valuti (BT-5 iz UBL 2.1)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="datumDospijecaPlacanja" type="tns:datum" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Datum kada plaćanje dospijeva na naplatu (BT-9 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="vrstaPoslovnogProcesa" type="tns:tekst100">
+                <xsd:annotation>
+                    <xsd:documentation>Identifikator poslovnog procesa u kojem se obavlja transakcija, kako bi se kupcu omogućila obrada na odgovarajući način (BT-23 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="referencaNaUgovor" type="tns:tekst100" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Identifikacija ugovora koja mora biti jedinstvena u kontekstu specifičnog trgovinskog odnosa i za određeno razdoblje (BT-12 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="datumIsporuke" type="tns:datum" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Datum na koji se obavlja ili dovršava isporuke robe ili usluga (BT-72 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="PrethodniRacun" type="tns:PrethodniRacun" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Informacije o jednom ili više prethodnih računa (BG-3 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Izdavatelj" type="tns:Izdavatelj">
+                <xsd:annotation>
+                    <xsd:documentation>Informacije o izdavatelju (BG-4 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Primatelj" type="tns:Primatelj">
+                <xsd:annotation>
+                    <xsd:documentation>Informacije o primatelju (BG-7 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="PrijenosSredstava" type="tns:PrijenosSredstava" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Informacije o virmanskim plaćanjima.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="DokumentUkupanIznos" type="tns:DokumentUkupanIznos">
+                <xsd:annotation>
+                    <xsd:documentation>Informacije o ukupnim novčanim iznosima za račun.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="RaspodjelaPdv" type="tns:RaspodjelaPdv" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Informacije o rekapitulaciji PDV-a po različitim kategorijama, stopama i razlozima izuzeća.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="StavkaRacuna" type="tns:StavkaRacuna" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Informacije o pojedinačnim stavkama računa.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="indikatorKopije" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:documentation>Indikator kopije računa koji pokazuje radi li se o kopiji računa (true) ili ne (false) .</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Izdavatelj">
+        <xsd:sequence>
+            <xsd:element name="ime" type="tns:tekst500">
+                <xsd:annotation>
+                    <xsd:documentation>Puno ime pod kojim je Izdavatelj registriran u nacionalnom registru pravnih osoba ili kao porezni obveznik ili na neki drugi način trguje kao osoba ili osobe (BT-27 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="oibPorezniBroj" type="tns:tekst20">
+                <xsd:annotation>
+                    <xsd:documentation>OIB ili porezni broj izdavatelja, dio identifikatora eRačuna (BT-31 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="oibOperatera" type="tns:tekst20">
+                <xsd:annotation>
+                    <xsd:documentation>OIB operatera sukladno Zakonu o fiskalizaciji (HR-BT-5 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Primatelj">
+        <xsd:sequence>
+            <xsd:element name="ime" type="tns:tekst500">
+                <xsd:annotation>
+                    <xsd:documentation>Puno ime primatelja (BT-44 iz UBL2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="oibPorezniBroj" type="tns:tekst20">
+                <xsd:annotation>
+                    <xsd:documentation>Za porezne obveznike u RH je polje obavezno i izričito OIB (BT-48 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="PrethodniRacun">
+        <xsd:sequence>
+            <xsd:element name="brojDokumenta" type="tns:tekst100">
+                <xsd:annotation>
+                    <xsd:documentation>Broj dokumenta istog izdavatelja na koji se račun referencira (BT-25 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="datumIzdavanja" type="tns:datum">
+                <xsd:annotation>
+                    <xsd:documentation>Datum izdavanja prethodnog računa na koji se novi dokument referencira (BT-26 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="PrijenosSredstava">
+        <xsd:sequence>
+            <xsd:element name="identifikatorRacunaZaPlacanje" type="tns:tekst34">
+                <xsd:annotation>
+                    <xsd:documentation>Jedinstveni identifikator financijskog platnog računa, kod pružatelja platnih usluga, na koji se plaćanje treba izvršiti, IBAN obavezno ako je kod tipa nacinPlacanja jednak 30 ili 58, (BT-84 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="nazivRacunaZaPlacanje" type="tns:tekst35" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Naziv računa za plaćanje, kod pružatelja platnih usluga, na koji se plaćanje treba izvršiti (BT-85 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="identifikatorPruzateljaPlatnihUsluga" type="tns:tekst25" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Identifikator pružatelja platnih usluga, kod kojega se nalazi račun za plaćanje (BT-86 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="DokumentUkupanIznos">
+        <xsd:sequence>
+            <xsd:element name="neto" type="tns:decimal2">
+                <xsd:annotation>
+                    <xsd:documentation>Zbroj svih neto iznosa stavki računa koji su navedene na računu (BT-106 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="popust" type="tns:decimal2" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Zbroj svih popusta na razini dokumenta na računu (BT-107 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="iznosBezPdv" type="tns:decimal2">
+                <xsd:annotation>
+                    <xsd:documentation>Ukupan iznos na računu bez PDV-a (BT-109 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="pdv" type="tns:decimal2">
+                <xsd:annotation>
+                    <xsd:documentation>Ukupni iznos PDVa za račun (BT-110 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="iznosSPdv" type="tns:decimal2">
+                <xsd:annotation>
+                    <xsd:documentation>Ukupni iznos računa s uključenim PDV-om (BT-112 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="placeniIznos" type="tns:decimal2" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Zbroj iznosa koji su plaćeni unaprijed (BT-113 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="iznosKojiDospijevaZaPlacanje" type="tns:decimal2">
+                <xsd:annotation>
+                    <xsd:documentation>Nepodmireni iznos za koji se zahtijeva plaćanje (BT-115 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="RaspodjelaPdv">
+        <xsd:sequence>
+            <xsd:element name="kategorijaPdv" type="tns:kategorijaPdv">
+                <xsd:annotation>
+                    <xsd:documentation>Šifra kategorije PDV-a po UNCL5305 (BT-118 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="oporeziviIznos" type="tns:decimal2">
+                <xsd:annotation>
+                    <xsd:documentation>Zbroj svih oporezivih iznosa koji podliježu određenom kodu kategorije PDV-a i stopi kategorije PDV-a, ako je primjenjiva stopa kategorije PDV-a (BT-116 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="iznosPoreza" type="tns:decimal2">
+                <xsd:annotation>
+                    <xsd:documentation>Ukupni iznos PDV-a za pojedinu kategoriju PDV-a (BT-117 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="stopa" type="xsd:decimal" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Stopa PDV-a prikazana kao postotak koji se primjenjuje na relevantnu kategoriju PDV-a. Može biti bilo kakav broj, postotak (BT-119 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="razlogOslobodenja" type="tns:izuzecePdv" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Šifra razloga za izuzeće iznosa od PDV-a po VATEX, obavezno ako je kategorijaPdv jednaka AE ili tekstRazlogaOslobodenja postoji (BT-121 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="tekstRazlogaOslobodenja" type="tns:tekst1024" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Tekst razloga za izuzeće od PDV-a, članak 226, stavke 11 do 15 Direktive 2006/112/EZ, obavezno ako je kategorijaPdv jednaka AE ili razlogOslobodenja postoji (BT-120 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="StavkaRacuna">
+        <xsd:sequence>
+            <xsd:element name="kolicina" type="xsd:decimal">
+                <xsd:annotation>
+                    <xsd:documentation>Količina artikala (robe ili usluga) koje se obračunavaju na stavki računa (BT-129 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="jedinicaMjere" type="tns:jedinicaMjere">
+                <xsd:annotation>
+                    <xsd:documentation>Jedinica mjere koja se primjenjuje na količinu fakturiranu na računu (BT-130 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="artiklNetoCijena" type="xsd:decimal">
+                <xsd:annotation>
+                    <xsd:documentation>Cijena artikla bez PDV-a, nakon oduzimanja popusta na cijenu artikla (BT-146 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="artiklOsnovnaKolicina" type="xsd:decimal" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Broj jedinica artikla na koji se primjenjuje cijena (BT-149 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="artiklJedinicaMjereZaOsnovnuKolicinu" type="tns:jedinicaMjere" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Šifra jedinica mjere koja se primjenjuje na osnovnu količinu za cijenu artikla. Iste vrijednosti kao i kod Jedinica mjere (BT-150 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="artiklKategorijaPdv" type="tns:kategorijaPdv">
+                <xsd:annotation>
+                    <xsd:documentation>Šifra kategorije PDV-a za fakturirani artikl po UNCL5305 (BT-151 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="artiklStopaPdv" type="xsd:decimal">
+                <xsd:annotation>
+                    <xsd:documentation>Stopa PDV-a prikazana u obliku postotka koji vrijedi za fakturirani artikl (BT-152 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="artiklNaziv" type="tns:tekst100">
+                <xsd:annotation>
+                    <xsd:documentation>Naziv artikla (BT-153 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ArtiklIdentifikatorKlasifikacija" type="tns:ArtiklIdentifikatorKlasifikacija" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>CPA nomenklatura označava se oznakom 'CG'.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ArtiklIdentifikatorKlasifikacija">
+        <xsd:sequence>
+            <xsd:element name="identifikatorKlasifikacije" type="tns:tekst10">
+                <xsd:annotation>
+                    <xsd:documentation>Vrijednost iz klasifikacije artikla po njegovom tipu ili prirodi (BT-158 iz UBL 2.1).</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="identifikatorSheme" type="tns:klasifikacijaArtikla">
+                <xsd:annotation>
+                    <xsd:documentation>Kod za klasifikaciju artikla po njegovom tipu ili prirodi po UNTDID 7143.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="verzijaSheme" type="tns:tekst10" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>Verzija sheme.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+<!--
+    Zajednički kompleksni tipovi podataka
+-->
+
+    <xsd:complexType name="Zaglavlje">
+        <xsd:annotation>
+            <xsd:documentation>Zaglavlje zahtjeva</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="datumVrijemeSlanja" type="tns:datumVrijemeDeci">
+                <xsd:annotation>
+                    <xsd:documentation>Datum i vrijeme slanja zahtjeva</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Odgovor">
+        <xsd:annotation>
+            <xsd:documentation>Odgovor na zahtjev</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="idZahtjeva" type="tns:uuid">
+                <xsd:annotation>
+                    <xsd:documentation>Jedinstveni identifikator primljenog zahtjeva</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="prihvacenZahtjev" type="xsd:boolean">
+                <xsd:annotation>
+                    <xsd:documentation>Status prihvaćanja zahtjeva</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="greska" minOccurs="0">
+                <xsd:complexType>
+                    <xsd:annotation>
+                        <xsd:documentation>Greška prilikom obrade zahtjeva</xsd:documentation>
+                    </xsd:annotation>
+                    <xsd:sequence>
+                        <xsd:element name="sifra" type="tns:greska">
+                            <xsd:annotation>
+                                <xsd:documentation>Šifra greške</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="redniBrojZapisa" type="xsd:integer">
+                            <xsd:annotation>
+                                <xsd:documentation>Redni broj zapisa na koji se odnosi greška.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="opis" type="tns:tekst1024">
+                            <xsd:annotation>
+                                <xsd:documentation>Opis greške</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>    
+
+<!--
+    Jednostavni tipovi podataka
+-->
+
+    <xsd:simpleType name="datumVrijemeDeci">
+        <xsd:annotation>
+            <xsd:documentation>Datum i vrijeme s decimalama zapisano u formatu YYYY-MM-DDTHH:MM:SS.SSSS npr. 2024-04-01T08:04:02.1234</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:dateTime">
+            <xsd:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{4}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="datumVrijeme">
+        <xsd:annotation>
+            <xsd:documentation>Datum i vrijeme zapisano u formatu YYYY-MM-DDTHH:MM:SS npr. 2024-04-01T08:04:02</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:dateTime">
+            <xsd:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="datum">
+        <xsd:annotation>
+            <xsd:documentation>Datum zapisan u formatu YYYY-MM-DD</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:date">
+            <xsd:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="vrstaERacuna">
+        <xsd:annotation>
+            <xsd:documentation>Šifrarnik vrste eRačuna.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="I"><xsd:annotation><xsd:documentation>Izlazni eRačun.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="U"><xsd:annotation><xsd:documentation>Ulazni eRačun.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="IR"><xsd:annotation><xsd:documentation>Izlazni račun za koji nije izdan eRačun.</xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="razlogOdbijanja">
+        <xsd:annotation>
+            <xsd:documentation>Šifrarnik razloga odbijanja.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="N"><xsd:annotation><xsd:documentation>Neusklađenost podataka koji ne utječu na obračun poreza.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="U"><xsd:annotation><xsd:documentation>Neusklađenost podataka koji utječu na obračun poreza.</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="O"><xsd:annotation><xsd:documentation>Ostalo.</xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="uuid">
+        <xsd:annotation>
+            <xsd:documentation>UUID kreiran po RFC4122 (https://tools.ietf.org/html/rfc4122).</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="valuta">
+        <xsd:annotation>
+            <xsd:documentation>Oznaka valute po ISO 4217.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z]{3}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="jedinicaMjere">
+        <xsd:annotation>
+            <xsd:documentation>Oznaka jedinica mjere iz EN16931 v13.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z0-9]{2,3}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="izuzecePdv">
+        <xsd:annotation>
+            <xsd:documentation>Razlog za izuzeće iznosa od PDV-a po VATEX.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z0-9-]{1,20}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="vrstaDokumenta">
+        <xsd:annotation>
+            <xsd:documentation>Vrsta dokumenata po UNTDID 1001.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[0-9]{2,3}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="nacinPlacanja">
+        <xsd:annotation>
+            <xsd:documentation>Oznaka načina plaćanja po UNTID 4461.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z0-9]{1,3}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="kategorijaPdv">
+        <xsd:annotation>
+            <xsd:documentation>Oznaka kategorije PDV-a po UNTIDID5305.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z]{1,2}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="klasifikacijaArtikla">
+        <xsd:annotation>
+            <xsd:documentation>Šifrarnik klasifikacije artikla po njegovom tipu ili prirodi po UNTDID7143.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="[A-Za-z]{2,3}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst3">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 3 znaka.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="3"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst10">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 10 znaka.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="10"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst20">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 20 znakova.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="20"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst25">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 25 znaka.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="25"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst34">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 34 znaka.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="34"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst35">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 35 znaka.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="35"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst50">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 50 znakova.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="50"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst100">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 100 znakova.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="100"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst120">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 100 znakova.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="120"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst300">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 300 znakova.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="300"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst500">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 500 znakova.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="500"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="tekst1024">
+        <xsd:annotation>
+            <xsd:documentation>Tekst od 1 do 1000 znakova.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+            <xsd:maxLength value="1024"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="decimal2">
+        <xsd:annotation>
+            <xsd:documentation>Decimalni broj s dvije decimale.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="decimalPositive2">
+        <xsd:annotation>
+            <xsd:documentation>Pozitivni decimalni broj s dvije decimale.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:decimal">
+            <xsd:minExclusive value="0"/>
+            <xsd:fractionDigits value="2"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="greska">
+        <xsd:annotation>
+            <xsd:documentation>Sifrarnik gresaka odgovora.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="S001"><xsd:annotation><xsd:documentation>Sistemska greška prilikom obrade zahtjeva</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S002"><xsd:annotation><xsd:documentation>Lokacija potpisa nije ispravna</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S003"><xsd:annotation><xsd:documentation>Certifikat nije izdan od davatelja usluga s Pouzdanog potpisa, ili je istekao ili je ukinut</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S004"><xsd:annotation><xsd:documentation>Neispravan potpis zahtjeva</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S005"><xsd:annotation><xsd:documentation>Poruka nije u skladu s XML shemom : #element ili lista elemenata koji nisu ispravni po shemi</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S006"><xsd:annotation><xsd:documentation>Pristupna tocka nije ovlaštena za dostavu podataka</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S007"><xsd:annotation><xsd:documentation>OIB iz zahtjeva nije formalno ispravan: #vrijednost OIB-a iz upita</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S008"><xsd:annotation><xsd:documentation>Već postoji zabilježen eRačun s istim identifikatorom</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S009"><xsd:annotation><xsd:documentation>Ne postoji zabilježen eRačun</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S010"><xsd:annotation><xsd:documentation>Već postoji zabilježen status odbijanja eRačuna s istim identifikatorom</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S011"><xsd:annotation><xsd:documentation>OIB iz zahtjeva nije jedinstven u listi</xsd:documentation></xsd:annotation></xsd:enumeration>
+            <xsd:enumeration value="S012"><xsd:annotation><xsd:documentation>Ne postoji evidentiran originalni eRačun za koji je dostavljen ispravljeni eRačun</xsd:documentation></xsd:annotation></xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

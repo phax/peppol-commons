@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015-2025 Philip Helger
+ * Copyright (C) 2025 Philip Helger
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,46 +14,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.smpclient.url;
+package com.helger.hredelivery.commons.url;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
-import com.helger.peppolid.peppol.Pfuoi440;
+import com.helger.smpclient.url.AbstractBDXLURLProvider;
+import com.helger.smpclient.url.IBDXLURLProvider;
 
 import jakarta.annotation.Nonnull;
 
 /**
- * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve NAPTR
- * records as defined in the Peppol Policy for use of Identifiers.<br>
+ * The implementation of {@link IBDXLURLProvider} suitable for the HR eDelivery Network to resolve
+ * NAPTR records as defined in the AMS specification.<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
  * @author Philip Helger
- * @since 9.6.1
+ * @since 12.0.2
  */
 @ThreadSafe
-@Pfuoi440
-public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements
-                                    IPeppolURLProvider,
-                                    ICloneable <PeppolNaptrURLProvider>
+public class HREDeliveryNaptrURLProvider extends AbstractBDXLURLProvider implements
+                                         ICloneable <HREDeliveryNaptrURLProvider>
 {
-  /** U NAPTR service name for Peppol */
-  public static final String DNS_UNAPTR_SERVICE_NAME_META_SMP = "Meta:SMP";
+  /** U NAPTR service name for HR eDelivery */
+  public static final String DNS_UNAPTR_SERVICE_NAME_ERACUN_META = "ERACUN:meta";
 
   /** The writable API of the default instance */
-  public static final PeppolNaptrURLProvider MUTABLE_INSTANCE = new PeppolNaptrURLProvider ();
+  public static final HREDeliveryNaptrURLProvider MUTABLE_INSTANCE = new HREDeliveryNaptrURLProvider ();
   /** The default instance that should be used */
-  public static final IPeppolURLProvider INSTANCE = MUTABLE_INSTANCE;
+  public static final IBDXLURLProvider INSTANCE = MUTABLE_INSTANCE;
 
   /**
    * Default constructor.
    */
-  public PeppolNaptrURLProvider ()
+  public HREDeliveryNaptrURLProvider ()
   {
-    setLowercaseValueBeforeHashing (true);
+    // No lowercasing specified in the spec
+    setLowercaseValueBeforeHashing (false);
     setAddIdentifierSchemeToZone (true);
-    setNAPTRServiceName (DNS_UNAPTR_SERVICE_NAME_META_SMP);
+    setNAPTRServiceName (DNS_UNAPTR_SERVICE_NAME_ERACUN_META);
     setUseDNSCache (false);
   }
 
@@ -63,15 +63,15 @@ public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements
    * @param rhs
    *        the object to copy from. May not be <code>null</code>.
    */
-  protected PeppolNaptrURLProvider (@Nonnull final PeppolNaptrURLProvider rhs)
+  protected HREDeliveryNaptrURLProvider (@Nonnull final HREDeliveryNaptrURLProvider rhs)
   {
     super (rhs);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public PeppolNaptrURLProvider getClone ()
+  public HREDeliveryNaptrURLProvider getClone ()
   {
-    return new PeppolNaptrURLProvider (this);
+    return new HREDeliveryNaptrURLProvider (this);
   }
 }
