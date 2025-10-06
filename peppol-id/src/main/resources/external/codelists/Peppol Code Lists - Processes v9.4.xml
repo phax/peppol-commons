@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<processes version="9.3" entry-count="106">
+<processes version="9.4" entry-count="107">
   <process scheme="cenbii-procid-ubl" value="none" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver2.0" state="active" />
@@ -24,8 +24,8 @@ Do NOT edit!-->
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:pracc:p001:01:1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:pracc:p002:01:1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:pracc:p003:01:1.0" state="deprecated" />
-  <process scheme="oioubl-procid-ubl" value="Reference-Utility-1.0" state="active" />
-  <process scheme="oioubl-procid-ubl" value="Procurement-ReminderOnly-1.0" state="active" />
+  <process scheme="oioubl-procid-ubl" value="Reference-Utility-1.0" state="deprecated" />
+  <process scheme="oioubl-procid-ubl" value="Procurement-ReminderOnly-1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.peppol.eu:profile:bis63a:ver1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:catalogue_only:3" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:poacc:bis:catalogue_wo_response:3" state="active" />
@@ -111,4 +111,5 @@ Do NOT edit!-->
   <process scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:oneway" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:peppol:edec:mls" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:imda.gov.sg:bis:order_balance:1" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1" state="active" />
 </processes>

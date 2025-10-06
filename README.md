@@ -349,6 +349,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.0.4 - 2025-10-06
+* Updated to eDEC Code Lists v9.4
+
 v12.0.3 - 2025-09-18
 * Added new CA `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` to all SML related trust stores
 * Included preliminary version for HR eDelivery

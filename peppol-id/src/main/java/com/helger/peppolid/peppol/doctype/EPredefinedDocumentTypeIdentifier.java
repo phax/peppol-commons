@@ -485,17 +485,21 @@ public enum EPredefinedDocumentTypeIdentifier
      * <code>urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2::UtilityStatement##OIOUBL-2.02::2.0</code><br>
      * Same as {@link #OIOUBL_UTILITY_STATEMENT_202}
      * 
+     * @deprecated since v9.4 - this item should not be used to issue new identifiers!<br>Removed per 2026-01-03
      * @since code list 3
      */
-    urn_oioubl_names_specification_oioubl_schema_xsd_UtilityStatement_2__UtilityStatement__OIOUBL_2_02__2_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2", "UtilityStatement", "OIOUBL-2.02", "2.0"), "OIOUBL UtilityStatement V2.02", Version.parse("3"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("oioubl-procid-ubl::Reference-Utility-1.0")),
+    @Deprecated(forRemoval = false)
+    urn_oioubl_names_specification_oioubl_schema_xsd_UtilityStatement_2__UtilityStatement__OIOUBL_2_02__2_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2", "UtilityStatement", "OIOUBL-2.02", "2.0"), "OIOUBL UtilityStatement V2.02", Version.parse("3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("9.4"), PDTFactory.createLocalDate(2026, Month.of(1), 3), false, false, -1, "Extended use", new CommonsArrayList<>("oioubl-procid-ubl::Reference-Utility-1.0")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Reminder-2::Reminder##OIOUBL-2.02::2.0</code><br>
      * Same as {@link #OIOUBL_REMINDER_202}
      * 
+     * @deprecated since v9.4 - this item should not be used to issue new identifiers!<br>Removed per 2026-01-03
      * @since code list 3
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Reminder_2__Reminder__OIOUBL_2_02__2_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Reminder-2", "Reminder", "OIOUBL-2.02", "2.0"), "OIOUBL Reminder V2.02", Version.parse("3"), EPeppolCodeListItemState.ACTIVE, null, null, false, false, -1, "Extended use", new CommonsArrayList<>("oioubl-procid-ubl::Procurement-ReminderOnly-1.0")),
+    @Deprecated(forRemoval = false)
+    urn_oasis_names_specification_ubl_schema_xsd_Reminder_2__Reminder__OIOUBL_2_02__2_0("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Reminder-2", "Reminder", "OIOUBL-2.02", "2.0"), "OIOUBL Reminder V2.02", Version.parse("3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("9.4"), PDTFactory.createLocalDate(2026, Month.of(1), 3), false, false, -1, "Extended use", new CommonsArrayList<>("oioubl-procid-ubl::Procurement-ReminderOnly-1.0")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:UBL.BE:1.0.0.20180214::2.1</code><br>
@@ -1629,7 +1633,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.1
      */
-    urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_logistics_trns_advanced_despatch_advice_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2", "DespatchAdvice", "urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1", "2.1"), "Advanced Despatch Advice", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1", "cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1", "cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1")),
+    urn_oasis_names_specification_ubl_schema_xsd_DespatchAdvice_2__DespatchAdvice__urn_fdc_peppol_eu_logistics_trns_advanced_despatch_advice_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2", "DespatchAdvice", "urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1", "2.1"), "Peppol Advanced Despatch Advice V1", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_only:1", "cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1", "cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1::2.1</code><br>
@@ -1637,7 +1641,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.1
      */
-    urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_logistics_trns_despatch_advice_response_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2", "ApplicationResponse", "urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1", "2.1"), "Despatch Advice Response", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1")),
+    urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_logistics_trns_despatch_advice_response_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2", "ApplicationResponse", "urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1", "2.1"), "Peppol Despatch Advice Response V1", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2::WeightStatement##urn:fdc:peppol.eu:logistics:trns:weight_statement:1::2.3</code><br>
@@ -1645,7 +1649,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.1
      */
-    urn_oasis_names_specification_ubl_schema_xsd_WeightStatement_2__WeightStatement__urn_fdc_peppol_eu_logistics_trns_weight_statement_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2", "WeightStatement", "urn:fdc:peppol.eu:logistics:trns:weight_statement:1", "2.3"), "Weight Statement", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:weight_statement:1")),
+    urn_oasis_names_specification_ubl_schema_xsd_WeightStatement_2__WeightStatement__urn_fdc_peppol_eu_logistics_trns_weight_statement_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2", "WeightStatement", "urn:fdc:peppol.eu:logistics:trns:weight_statement:1", "2.3"), "Peppol Weight Statement V1", Version.parse("8.1"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:weight_statement:1")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:UtilityStatement-2::UtilityStatement##urn:fdc:www.efaktura.gov.pl:ver2.0:trns:us:ver1.0::2.1</code><br>
@@ -1879,17 +1883,21 @@ public enum EPredefinedDocumentTypeIdentifier
      * <code>urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2::TransportExecutionPlanRequest##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan_request:1::2.3</code><br>
      * Same as {@link #TRANSPORTEXECUTIONPLANREQUEST_FDC_PEPPOL_EU_LOGISTICS_TRNS_TRANSPORT_EXECUTION_PLAN_REQUEST_1}
      * 
+     * @deprecated since v9.4 - this item should not be used to issue new identifiers!<br>Removed per 2026-01-03
      * @since code list 8.6
      */
-    urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlanRequest_2__TransportExecutionPlanRequest__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_request_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2", "TransportExecutionPlanRequest", "urn:fdc:peppol.eu:logistics:trns:transport_execution_plan_request:1", "2.3"), "Peppol Transport Execution Plan Request", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_w_request:1")),
+    @Deprecated(forRemoval = false)
+    urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlanRequest_2__TransportExecutionPlanRequest__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_request_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2", "TransportExecutionPlanRequest", "urn:fdc:peppol.eu:logistics:trns:transport_execution_plan_request:1", "2.3"), "Peppol Transport Execution Plan Request V1", Version.parse("8.6"), EPeppolCodeListItemState.DEPRECATED, Version.parse("9.4"), PDTFactory.createLocalDate(2026, Month.of(1), 3), false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_w_request:1")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2::TransportExecutionPlan##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan:1::2.3</code><br>
      * Same as {@link #TRANSPORTEXECUTIONPLAN_FDC_PEPPOL_EU_LOGISTICS_TRNS_TRANSPORT_EXECUTION_PLAN_1}
      * 
+     * @deprecated since v9.4 - this item should not be used to issue new identifiers!<br>Removed per 2026-01-03
      * @since code list 8.6
      */
-    urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlan_2__TransportExecutionPlan__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2", "TransportExecutionPlan", "urn:fdc:peppol.eu:logistics:trns:transport_execution_plan:1", "2.3"), "Peppol Transport Execution Plan", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_only:1")),
+    @Deprecated(forRemoval = false)
+    urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlan_2__TransportExecutionPlan__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2", "TransportExecutionPlan", "urn:fdc:peppol.eu:logistics:trns:transport_execution_plan:1", "2.3"), "Peppol Transport Execution Plan V1", Version.parse("8.6"), EPeppolCodeListItemState.DEPRECATED, Version.parse("9.4"), PDTFactory.createLocalDate(2026, Month.of(1), 3), false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_only:1")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Waybill-2::Waybill##urn:fdc:peppol.eu:logistics:trns:waybill:1::2.3</code><br>
@@ -1897,7 +1905,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.6
      */
-    urn_oasis_names_specification_ubl_schema_xsd_Waybill_2__Waybill__urn_fdc_peppol_eu_logistics_trns_waybill_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Waybill-2", "Waybill", "urn:fdc:peppol.eu:logistics:trns:waybill:1", "2.3"), "Peppol Waybill", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:waybill:1")),
+    urn_oasis_names_specification_ubl_schema_xsd_Waybill_2__Waybill__urn_fdc_peppol_eu_logistics_trns_waybill_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Waybill-2", "Waybill", "urn:fdc:peppol.eu:logistics:trns:waybill:1", "2.3"), "Peppol Waybill V1", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:waybill:1")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:TransportationStatusRequest-2::TransportationStatusRequest##urn:fdc:peppol.eu:logistics:trns:transportation_status_request:1::2.3</code><br>
@@ -1905,7 +1913,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.6
      */
-    urn_oasis_names_specification_ubl_schema_xsd_TransportationStatusRequest_2__TransportationStatusRequest__urn_fdc_peppol_eu_logistics_trns_transportation_status_request_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportationStatusRequest-2", "TransportationStatusRequest", "urn:fdc:peppol.eu:logistics:trns:transportation_status_request:1", "2.3"), "Peppol Transportation Status Request", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transportation_status_w_request:1")),
+    urn_oasis_names_specification_ubl_schema_xsd_TransportationStatusRequest_2__TransportationStatusRequest__urn_fdc_peppol_eu_logistics_trns_transportation_status_request_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportationStatusRequest-2", "TransportationStatusRequest", "urn:fdc:peppol.eu:logistics:trns:transportation_status_request:1", "2.3"), "Peppol Transportation Status Request V1", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transportation_status_w_request:1")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:TransportationStatus-2::TransportationStatus##urn:fdc:peppol.eu:logistics:trns:transportation_status:1::2.3</code><br>
@@ -1913,7 +1921,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.6
      */
-    urn_oasis_names_specification_ubl_schema_xsd_TransportationStatus_2__TransportationStatus__urn_fdc_peppol_eu_logistics_trns_transportation_status_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportationStatus-2", "TransportationStatus", "urn:fdc:peppol.eu:logistics:trns:transportation_status:1", "2.3"), "Peppol Transportation Status", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1")),
+    urn_oasis_names_specification_ubl_schema_xsd_TransportationStatus_2__TransportationStatus__urn_fdc_peppol_eu_logistics_trns_transportation_status_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportationStatus-2", "TransportationStatus", "urn:fdc:peppol.eu:logistics:trns:transportation_status:1", "2.3"), "Peppol Transportation Status V1", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2::ReceiptAdvice##urn:fdc:peppol.eu:logistics:trns:receipt_advice:1::2.3</code><br>
@@ -1921,7 +1929,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 8.6
      */
-    urn_oasis_names_specification_ubl_schema_xsd_ReceiptAdvice_2__ReceiptAdvice__urn_fdc_peppol_eu_logistics_trns_receipt_advice_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2", "ReceiptAdvice", "urn:fdc:peppol.eu:logistics:trns:receipt_advice:1", "2.3"), "Peppol Receipt Advice", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics Incubator", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1")),
+    urn_oasis_names_specification_ubl_schema_xsd_ReceiptAdvice_2__ReceiptAdvice__urn_fdc_peppol_eu_logistics_trns_receipt_advice_1__2_3("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2", "ReceiptAdvice", "urn:fdc:peppol.eu:logistics:trns:receipt_advice:1", "2.3"), "Peppol Receipt Advice V1", Version.parse("8.6"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1")),
 
     /**
      * <code>http://ns.hr-xml.org/2007-04-15::TimeCard##hr-xml@nl-1.4::2.5</code><br>
@@ -2183,7 +2191,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * @since code list 8.8
      */
     @Deprecated(forRemoval = false)
-    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_billing_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:billing-1@my-1", "2.1"), "MY PINT Invoice v1.0", Version.parse("8.8"), EPeppolCodeListItemState.DEPRECATED, Version.parse("2025-05-15"), PDTFactory.createLocalDate(2025, Month.of(9), 9), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing")),
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_billing_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:billing-1@my-1", "2.1"), "MY PINT Invoice v1.0", Version.parse("8.8"), EPeppolCodeListItemState.REMOVED, Version.parse("2025-05-15"), PDTFactory.createLocalDate(2025, Month.of(9), 9), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@my-1::2.1</code><br>
@@ -2193,7 +2201,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * @since code list 8.8
      */
     @Deprecated(forRemoval = false)
-    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_billing_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:peppol:pint:billing-1@my-1", "2.1"), "MY PINT Credit Note v1.0", Version.parse("8.8"), EPeppolCodeListItemState.DEPRECATED, Version.parse("2025-05-15"), PDTFactory.createLocalDate(2025, Month.of(9), 9), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing")),
+    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_billing_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:peppol:pint:billing-1@my-1", "2.1"), "MY PINT Credit Note v1.0", Version.parse("8.8"), EPeppolCodeListItemState.REMOVED, Version.parse("2025-05-15"), PDTFactory.createLocalDate(2025, Month.of(9), 9), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@my-1::2.1</code><br>
@@ -2203,7 +2211,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * @since code list 8.8
      */
     @Deprecated(forRemoval = false)
-    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:selfbilling-1@my-1", "2.1"), "MY PINT Self-Billing Invoice v1.0", Version.parse("8.8"), EPeppolCodeListItemState.DEPRECATED, Version.parse("2025-05-15"), PDTFactory.createLocalDate(2025, Month.of(9), 9), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling")),
+    urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_peppol_pint_selfbilling_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:Invoice-2", "Invoice", "urn:peppol:pint:selfbilling-1@my-1", "2.1"), "MY PINT Self-Billing Invoice v1.0", Version.parse("8.8"), EPeppolCodeListItemState.REMOVED, Version.parse("2025-05-15"), PDTFactory.createLocalDate(2025, Month.of(9), 9), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling")),
 
     /**
      * <code>urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@my-1::2.1</code><br>
@@ -2213,7 +2221,7 @@ public enum EPredefinedDocumentTypeIdentifier
      * @since code list 8.8
      */
     @Deprecated(forRemoval = false)
-    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_selfbilling_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:peppol:pint:selfbilling-1@my-1", "2.1"), "MY PINT Self-Billing Credit Note v1.0", Version.parse("8.8"), EPeppolCodeListItemState.DEPRECATED, Version.parse("2025-05-15"), PDTFactory.createLocalDate(2025, Month.of(9), 9), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling")),
+    urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_selfbilling_1_my_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:peppol:pint:selfbilling-1@my-1", "2.1"), "MY PINT Self-Billing Credit Note v1.0", Version.parse("8.8"), EPeppolCodeListItemState.REMOVED, Version.parse("2025-05-15"), PDTFactory.createLocalDate(2025, Month.of(9), 9), false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:selfbilling")),
 
     /**
      * <code>http://ns.hr-xml.org/2007-04-15::StaffingOrder##hr-xml@nl-1.4::2.5</code><br>
@@ -2645,9 +2653,33 @@ public enum EPredefinedDocumentTypeIdentifier
      * 
      * @since code list 9.3
      */
-    WILDCARD_urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_billing_1_eu_1__2_1("peppol-doctype-wildcard", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:peppol:pint:billing-1@eu-1", "2.1"), "EU PINT Credit Note v1.0", Version.parse("9.3"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing"));
-    public static final String CODE_LIST_VERSION = "9.3";
-    public static final int CODE_LIST_ENTRY_COUNT = 306;
+    WILDCARD_urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_billing_1_eu_1__2_1("peppol-doctype-wildcard", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2", "CreditNote", "urn:peppol:pint:billing-1@eu-1", "2.1"), "EU PINT Credit Note v1.0", Version.parse("9.3"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 3, "POAC", new CommonsArrayList<>("cenbii-procid-ubl::urn:peppol:bis:billing")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:logistics:trns:application_response:1::2.1</code><br>
+     * Same as {@link #APPLICATIONRESPONSE_FDC_PEPPOL_EU_LOGISTICS_TRNS_APPLICATION_RESPONSE_1}
+     * 
+     * @since code list 9.4
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_logistics_trns_application_response_1__2_1("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2", "ApplicationResponse", "urn:fdc:peppol.eu:logistics:trns:application_response:1", "2.1"), "Peppol Logistics Application Response V1", Version.parse("9.4"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2::TransportExecutionPlanRequest##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan_request:1::2.4</code><br>
+     * Same as {@link #TRANSPORTEXECUTIONPLANREQUEST_FDC_PEPPOL_EU_LOGISTICS_TRNS_TRANSPORT_EXECUTION_PLAN_REQUEST_12}
+     * 
+     * @since code list 9.4
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlanRequest_2__TransportExecutionPlanRequest__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_request_1__2_4("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2", "TransportExecutionPlanRequest", "urn:fdc:peppol.eu:logistics:trns:transport_execution_plan_request:1", "2.4"), "Peppol Transport Execution Plan Request V1.2", Version.parse("9.4"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_w_request:1")),
+
+    /**
+     * <code>urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2::TransportExecutionPlan##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan:1::2.4</code><br>
+     * Same as {@link #TRANSPORTEXECUTIONPLAN_FDC_PEPPOL_EU_LOGISTICS_TRNS_TRANSPORT_EXECUTION_PLAN_12}
+     * 
+     * @since code list 9.4
+     */
+    urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlan_2__TransportExecutionPlan__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_1__2_4("busdox-docid-qns", new PeppolDocumentTypeIdentifierParts("urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2", "TransportExecutionPlan", "urn:fdc:peppol.eu:logistics:trns:transport_execution_plan:1", "2.4"), "Peppol Transport Execution Plan V1.2", Version.parse("9.4"), EPeppolCodeListItemState.ACTIVE, null, null, false, true, 1, "Logistics", new CommonsArrayList<>("cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_only:1"));
+    public static final String CODE_LIST_VERSION = "9.4";
+    public static final int CODE_LIST_ENTRY_COUNT = 309;
     /**
      * Same as {@link #urn_www_peppol_eu_schema_xsd_VirtualCompanyDossier_1__VirtualCompanyDossier__urn_www_cenbii_eu_transaction_biicoretrdm991_ver0_1__urn_www_peppol_eu_bis_peppol991a_ver1_0__0_1}
      * 
@@ -2947,11 +2979,17 @@ public enum EPredefinedDocumentTypeIdentifier
     public static final EPredefinedDocumentTypeIdentifier XRECHNUNG_INVOICE_CII_V11 = EPredefinedDocumentTypeIdentifier.urn_un_unece_uncefact_data_standard_CrossIndustryInvoice_100__CrossIndustryInvoice__urn_cen_eu_en16931_2017_compliant_urn_xoev_de_kosit_standard_xrechnung_1_1__D16B;
     /**
      * Same as {@link #urn_oioubl_names_specification_oioubl_schema_xsd_UtilityStatement_2__UtilityStatement__OIOUBL_2_02__2_0}
+     * 
+     * @deprecated since v9.4 - this item should not be used to issue new identifiers!<br>Removed per 2026-01-03
      */
+    @Deprecated(forRemoval = false)
     public static final EPredefinedDocumentTypeIdentifier OIOUBL_UTILITY_STATEMENT_202 = EPredefinedDocumentTypeIdentifier.urn_oioubl_names_specification_oioubl_schema_xsd_UtilityStatement_2__UtilityStatement__OIOUBL_2_02__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Reminder_2__Reminder__OIOUBL_2_02__2_0}
+     * 
+     * @deprecated since v9.4 - this item should not be used to issue new identifiers!<br>Removed per 2026-01-03
      */
+    @Deprecated(forRemoval = false)
     public static final EPredefinedDocumentTypeIdentifier OIOUBL_REMINDER_202 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_Reminder_2__Reminder__OIOUBL_2_02__2_0;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Invoice_2__Invoice__urn_cen_eu_en16931_2017_conformant_urn_UBL_BE_1_0_0_20180214__2_1}
@@ -3702,11 +3740,17 @@ public enum EPredefinedDocumentTypeIdentifier
     public static final EPredefinedDocumentTypeIdentifier TENDERRECEIPT_FDC_PEPPOL_EU_PRAC_TRNS_T020_1_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_TenderReceipt_2__TenderReceipt__urn_fdc_peppol_eu_prac_trns_t020_1_1__2_2;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlanRequest_2__TransportExecutionPlanRequest__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_request_1__2_3}
+     * 
+     * @deprecated since v9.4 - this item should not be used to issue new identifiers!<br>Removed per 2026-01-03
      */
+    @Deprecated(forRemoval = false)
     public static final EPredefinedDocumentTypeIdentifier TRANSPORTEXECUTIONPLANREQUEST_FDC_PEPPOL_EU_LOGISTICS_TRNS_TRANSPORT_EXECUTION_PLAN_REQUEST_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlanRequest_2__TransportExecutionPlanRequest__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_request_1__2_3;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlan_2__TransportExecutionPlan__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_1__2_3}
+     * 
+     * @deprecated since v9.4 - this item should not be used to issue new identifiers!<br>Removed per 2026-01-03
      */
+    @Deprecated(forRemoval = false)
     public static final EPredefinedDocumentTypeIdentifier TRANSPORTEXECUTIONPLAN_FDC_PEPPOL_EU_LOGISTICS_TRNS_TRANSPORT_EXECUTION_PLAN_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlan_2__TransportExecutionPlan__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_1__2_3;
     /**
      * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_Waybill_2__Waybill__urn_fdc_peppol_eu_logistics_trns_waybill_1__2_3}
@@ -4106,6 +4150,18 @@ public enum EPredefinedDocumentTypeIdentifier
      * Same as {@link #WILDCARD_urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_billing_1_eu_1__2_1}
      */
     public static final EPredefinedDocumentTypeIdentifier CREDITNOTE_PEPPOL_PINT_BILLING_1_EU_1 = EPredefinedDocumentTypeIdentifier.WILDCARD_urn_oasis_names_specification_ubl_schema_xsd_CreditNote_2__CreditNote__urn_peppol_pint_billing_1_eu_1__2_1;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_logistics_trns_application_response_1__2_1}
+     */
+    public static final EPredefinedDocumentTypeIdentifier APPLICATIONRESPONSE_FDC_PEPPOL_EU_LOGISTICS_TRNS_APPLICATION_RESPONSE_1 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_ApplicationResponse_2__ApplicationResponse__urn_fdc_peppol_eu_logistics_trns_application_response_1__2_1;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlanRequest_2__TransportExecutionPlanRequest__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_request_1__2_4}
+     */
+    public static final EPredefinedDocumentTypeIdentifier TRANSPORTEXECUTIONPLANREQUEST_FDC_PEPPOL_EU_LOGISTICS_TRNS_TRANSPORT_EXECUTION_PLAN_REQUEST_12 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlanRequest_2__TransportExecutionPlanRequest__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_request_1__2_4;
+    /**
+     * Same as {@link #urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlan_2__TransportExecutionPlan__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_1__2_4}
+     */
+    public static final EPredefinedDocumentTypeIdentifier TRANSPORTEXECUTIONPLAN_FDC_PEPPOL_EU_LOGISTICS_TRNS_TRANSPORT_EXECUTION_PLAN_12 = EPredefinedDocumentTypeIdentifier.urn_oasis_names_specification_ubl_schema_xsd_TransportExecutionPlan_2__TransportExecutionPlan__urn_fdc_peppol_eu_logistics_trns_transport_execution_plan_1__2_4;
     private final String m_sScheme;
     private final IPeppolGenericDocumentTypeIdentifierParts m_aParts;
     private final String m_sCommonName;

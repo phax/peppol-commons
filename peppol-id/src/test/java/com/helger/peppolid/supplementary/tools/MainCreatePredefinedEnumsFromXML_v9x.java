@@ -102,7 +102,7 @@ import jakarta.annotation.Nullable;
 public final class MainCreatePredefinedEnumsFromXML_v9x
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePredefinedEnumsFromXML_v9x.class);
-  private static final Version CODELIST_VERSION = new Version (9, 3);
+  private static final Version CODELIST_VERSION = new Version (9, 4);
   private static final String RESULT_PACKAGE_PREFIX = "com.helger.peppolid.peppol.";
   private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
@@ -110,17 +110,13 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   @Nonnull
   private static EPeppolCodeListItemState _getState (@Nonnull final PCLStateType eState)
   {
-    switch (eState)
+    return switch (eState)
     {
-      case ACTIVE:
-        return EPeppolCodeListItemState.ACTIVE;
-      case DEPRECATION_SCHEDULED:
-      case DEPRECATED:
-        return EPeppolCodeListItemState.DEPRECATED;
-      case REMOVED:
-        return EPeppolCodeListItemState.REMOVED;
-    }
-    throw new IllegalStateException ("Unsupported state " + eState);
+      case ACTIVE -> EPeppolCodeListItemState.ACTIVE;
+      case DEPRECATION_SCHEDULED, DEPRECATED -> EPeppolCodeListItemState.DEPRECATED;
+      case REMOVED -> EPeppolCodeListItemState.REMOVED;
+      default -> throw new IllegalStateException ("Unsupported state " + eState);
+    };
   }
 
   @Nonnull

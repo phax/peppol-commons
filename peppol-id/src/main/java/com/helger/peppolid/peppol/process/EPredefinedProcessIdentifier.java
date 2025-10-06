@@ -180,13 +180,19 @@ public enum EPredefinedProcessIdentifier
 
     /**
      * ID: <code>oioubl-procid-ubl::Reference-Utility-1.0</code><br>
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    oioubl_procid_ubl_Reference_Utility_1_0("oioubl-procid-ubl", "Reference-Utility-1.0", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated(forRemoval = false)
+    oioubl_procid_ubl_Reference_Utility_1_0("oioubl-procid-ubl", "Reference-Utility-1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
      * ID: <code>oioubl-procid-ubl::Procurement-ReminderOnly-1.0</code><br>
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    oioubl_procid_ubl_Procurement_ReminderOnly_1_0("oioubl-procid-ubl", "Procurement-ReminderOnly-1.0", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated(forRemoval = false)
+    oioubl_procid_ubl_Procurement_ReminderOnly_1_0("oioubl-procid-ubl", "Procurement-ReminderOnly-1.0", EPeppolCodeListItemState.DEPRECATED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:www.peppol.eu:profile:bis63a:ver1.0</code><br>
@@ -630,9 +636,14 @@ public enum EPredefinedProcessIdentifier
     /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:imda.gov.sg:bis:order_balance:1</code><br>
      */
-    urn_fdc_imda_gov_sg_bis_order_balance_1("cenbii-procid-ubl", "urn:fdc:imda.gov.sg:bis:order_balance:1", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "9.3";
-    public static final int CODE_LIST_ENTRY_COUNT = 106;
+    urn_fdc_imda_gov_sg_bis_order_balance_1("cenbii-procid-ubl", "urn:fdc:imda.gov.sg:bis:order_balance:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_advanced_transport_execution_plan_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1", EPeppolCodeListItemState.ACTIVE);
+    public static final String CODE_LIST_VERSION = "9.4";
+    public static final int CODE_LIST_ENTRY_COUNT = 107;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

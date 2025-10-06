@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<document-types version="9.3" entry-count="306">
+<document-types version="9.4" entry-count="309">
   <document-type name="Virtual Company Dossier" scheme="busdox-docid-qns" value="urn:www.peppol.eu:schema:xsd:VirtualCompanyDossier-1::VirtualCompanyDossier##urn:www.cenbii.eu:transaction:biicoretrdm991:ver0.1:#urn:www.peppol.eu:bis:peppol991a:ver1.0::0.1" initial-release="1.0.0" state="deprecated" deprecation-release="2" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="PRAC" category="Pre-Award">
     <process-id scheme="cenbii-procid-ubl" value="none" />
   </document-type>
@@ -165,12 +165,16 @@ TICC-245</comment>
 TICC-245</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:2017:poacc:billing:01:1.0" />
   </document-type>
-  <document-type name="OIOUBL UtilityStatement V2.02" scheme="busdox-docid-qns" value="urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2::UtilityStatement##OIOUBL-2.02::2.0" initial-release="3" state="active" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="Utility Statement">
-    <comment>TICC-37</comment>
+  <document-type name="OIOUBL UtilityStatement V2.02" scheme="busdox-docid-qns" value="urn:oioubl:names:specification:oioubl:schema:xsd:UtilityStatement-2::UtilityStatement##OIOUBL-2.02::2.0" initial-release="3" state="deprecated" deprecation-release="9.4" removal-date="2026-01-03" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="Utility Statement">
+    <comment>TICC-37
+TICC-402
+TICC-413</comment>
     <process-id scheme="oioubl-procid-ubl" value="Reference-Utility-1.0" />
   </document-type>
-  <document-type name="OIOUBL Reminder V2.02" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Reminder-2::Reminder##OIOUBL-2.02::2.0" initial-release="3" state="active" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="Reminder">
-    <comment>TICC-37</comment>
+  <document-type name="OIOUBL Reminder V2.02" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Reminder-2::Reminder##OIOUBL-2.02::2.0" initial-release="3" state="deprecated" deprecation-release="9.4" removal-date="2026-01-03" abstract="false" issued-by-openpeppol="false" domain-community="Extended use" category="Reminder">
+    <comment>TICC-37
+TICC-402
+TICC-413</comment>
     <process-id scheme="oioubl-procid-ubl" value="Procurement-ReminderOnly-1.0" />
   </document-type>
   <document-type name="UBL.BE Invoice 3.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#conformant#urn:UBL.BE:1.0.0.20180214::2.1" initial-release="3" state="active" abstract="false" issued-by-openpeppol="false" domain-community="POAC" category="Invoice">
@@ -764,7 +768,7 @@ TICC-261</comment>
 TICC-261</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:oo:bis:reporting:1" />
   </document-type>
-  <document-type name="Advanced Despatch Advice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1::2.1" initial-release="8.1" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator" category="Logistics Incubator">
+  <document-type name="Peppol Advanced Despatch Advice V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2::DespatchAdvice##urn:fdc:peppol.eu:logistics:trns:advanced_despatch_advice:1::2.1" initial-release="8.1" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
     <comment>TICC-215
 TICC-255
 TICC-342</comment>
@@ -772,12 +776,12 @@ TICC-342</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1" />
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1" />
   </document-type>
-  <document-type name="Despatch Advice Response" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1::2.1" initial-release="8.1" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator" category="Logistics Incubator">
+  <document-type name="Peppol Despatch Advice Response V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:logistics:trns:despatch_advice_response:1::2.1" initial-release="8.1" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
     <comment>TICC-215
 TICC-255</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_response:1" />
   </document-type>
-  <document-type name="Weight Statement" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2::WeightStatement##urn:fdc:peppol.eu:logistics:trns:weight_statement:1::2.3" initial-release="8.1" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator" category="Logistics Incubator">
+  <document-type name="Peppol Weight Statement V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:WeightStatement-2::WeightStatement##urn:fdc:peppol.eu:logistics:trns:weight_statement:1::2.3" initial-release="8.1" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
     <comment>TICC-215
 TICC-255</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:weight_statement:1" />
@@ -896,27 +900,29 @@ TICC-343</comment>
     <comment>TICC-252</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:prac:bis:p011:1.1" />
   </document-type>
-  <document-type name="Peppol Transport Execution Plan Request" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2::TransportExecutionPlanRequest##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan_request:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator" category="Logistics Incubator">
-    <comment>TICC-267</comment>
+  <document-type name="Peppol Transport Execution Plan Request V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2::TransportExecutionPlanRequest##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan_request:1::2.3" initial-release="8.6" state="deprecated" deprecation-release="9.4" removal-date="2026-01-03" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
+    <comment>TICC-267
+TICC-411</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_w_request:1" />
   </document-type>
-  <document-type name="Peppol Transport Execution Plan" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2::TransportExecutionPlan##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator" category="Logistics Incubator">
-    <comment>TICC-267</comment>
+  <document-type name="Peppol Transport Execution Plan V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2::TransportExecutionPlan##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan:1::2.3" initial-release="8.6" state="deprecated" deprecation-release="9.4" removal-date="2026-01-03" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
+    <comment>TICC-267
+TICC-411</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_only:1" />
   </document-type>
-  <document-type name="Peppol Waybill" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Waybill-2::Waybill##urn:fdc:peppol.eu:logistics:trns:waybill:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator" category="Logistics Incubator">
+  <document-type name="Peppol Waybill V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Waybill-2::Waybill##urn:fdc:peppol.eu:logistics:trns:waybill:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
     <comment>TICC-267</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:waybill:1" />
   </document-type>
-  <document-type name="Peppol Transportation Status Request" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportationStatusRequest-2::TransportationStatusRequest##urn:fdc:peppol.eu:logistics:trns:transportation_status_request:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator" category="Logistics Incubator">
+  <document-type name="Peppol Transportation Status Request V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportationStatusRequest-2::TransportationStatusRequest##urn:fdc:peppol.eu:logistics:trns:transportation_status_request:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
     <comment>TICC-267</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transportation_status_w_request:1" />
   </document-type>
-  <document-type name="Peppol Transportation Status" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportationStatus-2::TransportationStatus##urn:fdc:peppol.eu:logistics:trns:transportation_status:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator" category="Logistics Incubator">
+  <document-type name="Peppol Transportation Status V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportationStatus-2::TransportationStatus##urn:fdc:peppol.eu:logistics:trns:transportation_status:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
     <comment>TICC-267</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1" />
   </document-type>
-  <document-type name="Peppol Receipt Advice" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2::ReceiptAdvice##urn:fdc:peppol.eu:logistics:trns:receipt_advice:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics Incubator" category="Logistics Incubator">
+  <document-type name="Peppol Receipt Advice V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ReceiptAdvice-2::ReceiptAdvice##urn:fdc:peppol.eu:logistics:trns:receipt_advice:1::2.3" initial-release="8.6" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
     <comment>TICC-267</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:despatch_advice_w_receipt_advice:1" />
   </document-type>
@@ -1050,25 +1056,25 @@ TICC-377</comment>
     <comment>TICC-312</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </document-type>
-  <document-type name="MY PINT Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@my-1::2.1" initial-release="8.8" state="deprecated" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
+  <document-type name="MY PINT Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:billing-1@my-1::2.1" initial-release="8.8" state="removed" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
     <comment>TICC-328
 TICC-374
 TICC-386</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </document-type>
-  <document-type name="MY PINT Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@my-1::2.1" initial-release="8.8" state="deprecated" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
+  <document-type name="MY PINT Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@my-1::2.1" initial-release="8.8" state="removed" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
     <comment>TICC-328
 TICC-374
 TICC-386</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
   </document-type>
-  <document-type name="MY PINT Self-Billing Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@my-1::2.1" initial-release="8.8" state="deprecated" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
+  <document-type name="MY PINT Self-Billing Invoice v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:peppol:pint:selfbilling-1@my-1::2.1" initial-release="8.8" state="removed" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Invoice">
     <comment>TICC-328
 TICC-374
 TICC-386</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:selfbilling" />
   </document-type>
-  <document-type name="MY PINT Self-Billing Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@my-1::2.1" initial-release="8.8" state="deprecated" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
+  <document-type name="MY PINT Self-Billing Credit Note v1.0" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:selfbilling-1@my-1::2.1" initial-release="8.8" state="removed" deprecation-release="2025-05-15" removal-date="2025-09-09" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
     <comment>TICC-328
 TICC-374
 TICC-386</comment>
@@ -1332,5 +1338,17 @@ TICC-365</comment>
   <document-type name="EU PINT Credit Note v1.0" scheme="peppol-doctype-wildcard" value="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:peppol:pint:billing-1@eu-1::2.1" initial-release="9.3" state="active" abstract="false" issued-by-openpeppol="true" bis-version="3" domain-community="POAC" category="Credit Note">
     <comment>TICC-393</comment>
     <process-id scheme="cenbii-procid-ubl" value="urn:peppol:bis:billing" />
+  </document-type>
+  <document-type name="Peppol Logistics Application Response V1" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2::ApplicationResponse##urn:fdc:peppol.eu:logistics:trns:application_response:1::2.1" initial-release="9.4" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
+    <comment>TICC-411</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1" />
+  </document-type>
+  <document-type name="Peppol Transport Execution Plan Request V1.2" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlanRequest-2::TransportExecutionPlanRequest##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan_request:1::2.4" initial-release="9.4" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
+    <comment>TICC-411</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_w_request:1" />
+  </document-type>
+  <document-type name="Peppol Transport Execution Plan V1.2" scheme="busdox-docid-qns" value="urn:oasis:names:specification:ubl:schema:xsd:TransportExecutionPlan-2::TransportExecutionPlan##urn:fdc:peppol.eu:logistics:trns:transport_execution_plan:1::2.4" initial-release="9.4" state="active" abstract="false" issued-by-openpeppol="true" bis-version="1" domain-community="Logistics" category="Logistics">
+    <comment>TICC-411</comment>
+    <process-id scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_only:1" />
   </document-type>
 </document-types>

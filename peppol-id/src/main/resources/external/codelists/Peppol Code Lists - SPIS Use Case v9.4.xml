@@ -4,4 +4,6 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<spis-use-case version="9.3" entry-count="0" />
+<spis-use-case version="9.4" entry-count="1">
+  <item use-case-id="MLS" initial-release="9.4" state="active" comment="TICC-410" />
+</spis-use-case>
