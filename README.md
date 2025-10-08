@@ -349,6 +349,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.0.5 - work in progress
+* SMP client does not emit any warnings on https usage if the date is &ge; 2025-11-01
+
 v12.0.4 - 2025-10-06
 * Updated to eDEC Code Lists v9.4
 

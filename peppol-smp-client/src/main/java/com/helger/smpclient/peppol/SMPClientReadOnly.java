@@ -20,7 +20,9 @@ import java.net.URI;
 import java.security.KeyStore;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Locale;
 import java.util.function.Consumer;
 
@@ -92,6 +94,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   public static final String URL_PART_LIST = "list";
   public static final String URL_PART_SERVICES = "services";
 
+  private static final LocalDate HTTPS_ALLOWED_DATE = PDTFactory.createLocalDate (2025, Month.NOVEMBER, 1);
+
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPClientReadOnly.class);
 
   /**
@@ -146,8 +150,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    */
   public SMPClientReadOnly (@Nonnull final URI aSMPHost)
   {
-    // Peppol limitations should be checked
-    super (aSMPHost, true);
+    // Peppol limitations are only before 1.11.2025
+    super (aSMPHost, PDTFactory.getCurrentLocalDate ().isBefore (HTTPS_ALLOWED_DATE));
   }
 
   @Nonnull
@@ -385,10 +389,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
           if (aObj instanceof JAXBElement <?>)
           {
             final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
-            if (aInfoValue instanceof X509DataType)
+            if (aInfoValue instanceof final X509DataType aX509Data)
             {
               // X509Data element
-              final X509DataType aX509Data = (X509DataType) aInfoValue;
               if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))
               {
                 bCertificateSubjectFound = true;
