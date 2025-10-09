@@ -591,6 +591,23 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  public void testSmpIssueEcsdaCert () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0235:accqrate");
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+
+    final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aPI);
+    assertNotNull (aSG);
+
+    final ICommonsList <IDocumentTypeIdentifier> aAllDocTyoes = SMPClientReadOnly.getAllDocumentTypes (aSG);
+    assertNotNull (aAllDocTyoes);
+
+    final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
+                                                                                       EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
+    assertNotNull (aSM);
+  }
+
+  @Test
   @Ignore ("Has some weird internal inconsistency in the base path :-)")
   public void testFujitsuSignature () throws Exception
   {
