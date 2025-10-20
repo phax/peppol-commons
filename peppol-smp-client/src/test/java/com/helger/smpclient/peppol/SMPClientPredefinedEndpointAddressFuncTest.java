@@ -33,7 +33,7 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.smpclient.url.IPeppolURLProvider;
-import com.helger.smpclient.url.PeppolConfigurableURLProvider;
+import com.helger.smpclient.url.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 
 import jakarta.annotation.Nonnull;
@@ -50,7 +50,7 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
 
   private static final IParticipantIdentifier PI_AT_TEST = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
   private static final IParticipantIdentifier PI_AT_PROD = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");
-  private static final IPeppolURLProvider URL_PROVIDER = PeppolConfigurableURLProvider.INSTANCE;
+  private static final IPeppolURLProvider URL_PROVIDER = PeppolNaptrURLProvider.INSTANCE;
 
   @Nonnull
   private static SMPClient _createSMPClient (@Nonnull final IParticipantIdentifier aParticipantIdentifier,

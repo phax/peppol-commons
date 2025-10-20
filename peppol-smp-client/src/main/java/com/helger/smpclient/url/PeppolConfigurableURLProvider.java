@@ -31,7 +31,10 @@ import jakarta.annotation.Nullable;
  *
  * @author Philip Helger
  * @since 10.3.2
+ * @deprecated Since 12.0.5 - use <code>PeppolNaptrURLProvider</code> only. CNAME lookup will be
+ *             abandoned soon.
  */
+@Deprecated (forRemoval = true, since = "12.0.5")
 public class PeppolConfigurableURLProvider implements IPeppolURLProvider
 {
   /** The default instance that should be used */
@@ -43,7 +46,6 @@ public class PeppolConfigurableURLProvider implements IPeppolURLProvider
   public static final AtomicBoolean USE_NATPR = new AtomicBoolean (DEFAULT_USE_NATPR);
 
   @Nonnull
-  @SuppressWarnings ("removal")
   private static IPeppolURLProvider _getRealProvider ()
   {
     return USE_NATPR.get () ? PeppolNaptrURLProvider.INSTANCE : PeppolURLProvider.INSTANCE;

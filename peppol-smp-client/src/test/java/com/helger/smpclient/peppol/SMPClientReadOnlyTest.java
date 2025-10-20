@@ -62,7 +62,6 @@ import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
 import com.helger.smpclient.url.BDXLURLProvider;
-import com.helger.smpclient.url.PeppolConfigurableURLProvider;
 import com.helger.smpclient.url.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.peppol.smp1.EndpointType;
@@ -280,7 +279,7 @@ public final class SMPClientReadOnlyTest
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;
     final IParticipantIdentifier aReceiverID = aIF.createParticipantIdentifierWithDefaultScheme ("9915:helger");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolConfigurableURLProvider.INSTANCE,
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aReceiverID,
                                                                 ESML.DIGIT_TEST).setSecureValidation (false);
 

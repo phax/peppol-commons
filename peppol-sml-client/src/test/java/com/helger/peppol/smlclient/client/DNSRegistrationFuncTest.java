@@ -45,7 +45,7 @@ import com.helger.peppol.smlclient.smp.NotFoundFault;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
-import com.helger.smpclient.url.PeppolConfigurableURLProvider;
+import com.helger.smpclient.url.PeppolNaptrURLProvider;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -113,7 +113,7 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   @Nullable
   private static String _dnsLookupPI (@Nonnull final IParticipantIdentifier aPI) throws Exception
   {
-    final String sHost = PeppolConfigurableURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, SML_INFO);
+    final String sHost = PeppolNaptrURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, SML_INFO);
     return _dnsLookup (sHost);
   }
 
