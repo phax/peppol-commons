@@ -1,7 +1,9 @@
 # Content of this directory
 
-`2025/demo-truststore.p12`
-* Is the demo trust store for HR eDelivery Demo stage
-* It is valid from 20XX-20XX TODO
+Each truststore uses the password `hredelivery` (case sensitive).
+
+`2025/truststore.p12`
+* Is the trust store for HR eDelivery stage
 * The contained aliases are:
-    * `...`
+    * `fina root ca` - Fina Root CA
+    * `fina rdc 2020 (fina root ca)` - Fina RDC 2020
