@@ -26,6 +26,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.security.keystore.EKeyStoreType;
+import com.helger.security.keystore.ITrustStoreDescriptor;
+import com.helger.security.keystore.TrustStoreDescriptor;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -39,6 +42,9 @@ import jakarta.annotation.Nullable;
 @Immutable
 public final class HREDeliveryTrustStores
 {
+  /** Truststore key store type - always PKCS12 */
+  public static final EKeyStoreType TRUSTSTORE_TYPE = EKeyStoreType.PKCS12;
+
   /** The password used to access the trust stores */
   public static final String TRUSTSTORE_PASSWORD = "hredelivery";
 
@@ -60,6 +66,96 @@ public final class HREDeliveryTrustStores
       LOGGER.warn ("Failed to resolve alias '" + sAlias + "' in trust store.", ex);
       return null;
     }
+  }
+
+  /**
+   * The truststore configuration for FINA root CA valid from 2015 to 2035.
+   *
+   * @author Philip Helger
+   */
+  @Immutable
+  public static class Fina2015
+  {
+    // Production
+
+    /**
+     * The classpath entry referencing the global truststore with all Fina production entries.
+     */
+    public static final String TRUSTSTORE_PRODUCTION_CLASSPATH = "truststore-hredelivery/truststore-fina-prod.p12";
+
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_PRODUCTION = TrustStoreDescriptor.builder ()
+                                                                                                     .type (TRUSTSTORE_TYPE)
+                                                                                                     .path (TRUSTSTORE_PRODUCTION_CLASSPATH)
+                                                                                                     .password (TRUSTSTORE_PASSWORD)
+                                                                                                     .build ();
+
+    /**
+     * The full Fina production truststore. Never modify.
+     */
+    public static final KeyStore TRUSTSTORE_PRODUCTION = TRUSTSTORE_DESCRIPTOR_PRODUCTION.loadTrustStore ()
+                                                                                         .getKeyStore ();
+
+    static
+    {
+      if (TRUSTSTORE_PRODUCTION == null)
+        throw new IllegalStateException ("Failed to load pre-configured production trust store");
+    }
+
+    // Production CA certificates
+
+    /** The truststore alias for the Fina production root certificate */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "fina root ca";
+
+    /** The Fina production root certificate */
+    public static final X509Certificate CERTIFICATE_PRODUCTION_ROOT = _resolveCert (TRUSTSTORE_PRODUCTION,
+                                                                                    TRUSTSTORE_PRODUCTION_ALIAS_ROOT);
+
+    /** The truststore alias for the Fina production RDC 2020 CA certificate */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_RDC_2020 = "fina rdc 2020 (fina root ca)";
+
+    /** The Fina RDC 2020 CA certificate */
+    public static final X509Certificate CERTIFICATE_PRODUCTION_RDC_2020 = _resolveCert (TRUSTSTORE_PRODUCTION,
+                                                                                        TRUSTSTORE_PRODUCTION_ALIAS_RDC_2020);
+
+    // Test
+
+    /**
+     * The classpath entry referencing the global truststore with all Fina demo entries.
+     */
+    public static final String TRUSTSTORE_DEMO_CLASSPATH = "truststore-hredelivery/truststore-fina-demo.p12";
+
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_DEMO = TrustStoreDescriptor.builder ()
+                                                                                               .type (TRUSTSTORE_TYPE)
+                                                                                               .path (TRUSTSTORE_DEMO_CLASSPATH)
+                                                                                               .password (TRUSTSTORE_PASSWORD)
+                                                                                               .build ();
+
+    /**
+     * The full Fina demo truststore. Never modify.
+     */
+    public static final KeyStore TRUSTSTORE_DEMO = TRUSTSTORE_DESCRIPTOR_DEMO.loadTrustStore ().getKeyStore ();
+
+    static
+    {
+      if (TRUSTSTORE_DEMO == null)
+        throw new IllegalStateException ("Failed to load pre-configured demo trust store");
+    }
+
+    // Demo CA certificates
+
+    /** The truststore alias for the Fina demo root certificate */
+    public static final String TRUSTSTORE_DEMO_ALIAS_ROOT = "fina demo root ca";
+
+    /** The Fina demo root certificate */
+    public static final X509Certificate CERTIFICATE_DEMO_ROOT = _resolveCert (TRUSTSTORE_DEMO,
+                                                                              TRUSTSTORE_DEMO_ALIAS_ROOT);
+
+    /** The truststore alias for the Fina Demo CA 2020 certificate */
+    public static final String TRUSTSTORE_DEMO_ALIAS_DEMO_CA_2020 = "fina demo ca 2020 (fina demo root ca)";
+
+    /** The Fina Demo CA 2020 certificate */
+    public static final X509Certificate CERTIFICATE_DEMO_CA_2020 = _resolveCert (TRUSTSTORE_DEMO,
+                                                                                 TRUSTSTORE_DEMO_ALIAS_DEMO_CA_2020);
   }
 
   @PresentForCodeCoverage

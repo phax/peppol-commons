@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.hredelivery.commons.security.HREDeliveryTrustStores;
 import com.helger.io.file.SimpleFileIO;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
@@ -61,6 +62,7 @@ public final class MainCreateTrustStoreHashFiles
 
   public static void main (final String [] args) throws IOException
   {
-    // _create (HREDeliveryTrustStores.Config2023.TRUSTSTORE_PILOT_CLASSPATH);
+    _create (HREDeliveryTrustStores.Fina2015.TRUSTSTORE_DEMO_CLASSPATH);
+    _create (HREDeliveryTrustStores.Fina2015.TRUSTSTORE_PRODUCTION_CLASSPATH);
   }
 }

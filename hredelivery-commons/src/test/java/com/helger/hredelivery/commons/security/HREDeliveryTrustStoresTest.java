@@ -16,7 +16,17 @@
  */
 package com.helger.hredelivery.commons.security;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.time.Month;
+
 import org.junit.Test;
+
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.hredelivery.commons.security.HREDeliveryTrustStores.Fina2015;
+import com.helger.security.certificate.ECertificateCheckResult;
+import com.helger.security.certificate.TrustedCAChecker;
 
 /**
  * Test class for class {@link HREDeliveryTrustStores}.
@@ -28,27 +38,29 @@ public final class HREDeliveryTrustStoresTest
   @Test
   public void testConstants ()
   {
-    // assertNotNull (HREDeliveryTrustStores.Config2023.CERTIFICATE_PILOT_ROOT);
-    // assertNotNull (HREDeliveryTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE);
+    assertNotNull (Fina2015.TRUSTSTORE_PRODUCTION);
+    assertNotNull (Fina2015.CERTIFICATE_PRODUCTION_ROOT);
+    assertNotNull (Fina2015.CERTIFICATE_PRODUCTION_RDC_2020);
+
+    assertNotNull (Fina2015.TRUSTSTORE_DEMO);
+    assertNotNull (Fina2015.CERTIFICATE_DEMO_ROOT);
+    assertNotNull (Fina2015.CERTIFICATE_DEMO_CA_2020);
   }
 
   @Test
   public void testBasic ()
   {
-    // final TrustedCAChecker aDemoCA = new TrustedCAChecker
-    // (HREDeliveryTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE);
-    //
-    // ECertificateCheckResult e = aDemoCA.checkCertificate (null);
-    // assertEquals (ECertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);
-    //
-    // e = aDemoCA.checkCertificate
-    // (HREDeliveryTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE,
-    // PDTFactory.createOffsetDateTime (2000, Month.JANUARY, 1));
-    // assertEquals (ECertificateCheckResult.NOT_YET_VALID, e);
-    //
-    // e = aDemoCA.checkCertificate
-    // (HREDeliveryTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE,
-    // PDTFactory.createOffsetDateTime (2099, Month.JANUARY, 1));
-    // assertEquals (ECertificateCheckResult.EXPIRED, e);
+    final TrustedCAChecker aDemoCA = new TrustedCAChecker (Fina2015.CERTIFICATE_DEMO_ROOT);
+
+    ECertificateCheckResult e = aDemoCA.checkCertificate (null);
+    assertEquals (ECertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);
+
+    e = aDemoCA.checkCertificate (Fina2015.CERTIFICATE_DEMO_CA_2020,
+                                  PDTFactory.createOffsetDateTime (2000, Month.JANUARY, 1));
+    assertEquals (ECertificateCheckResult.NOT_YET_VALID, e);
+
+    e = aDemoCA.checkCertificate (Fina2015.CERTIFICATE_DEMO_CA_2020,
+                                  PDTFactory.createOffsetDateTime (2099, Month.JANUARY, 1));
+    assertEquals (ECertificateCheckResult.EXPIRED, e);
   }
 }
