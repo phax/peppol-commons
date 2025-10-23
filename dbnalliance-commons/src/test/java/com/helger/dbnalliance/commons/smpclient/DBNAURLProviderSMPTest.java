@@ -65,7 +65,7 @@ public final class DBNAURLProviderSMPTest
   {
     final SimpleParticipantIdentifier aPI = new SimpleParticipantIdentifier ("DUNS", "079961550");
     final URI x = DBNAURLProviderSMP.INSTANCE.getSMPURIOfParticipant (aPI, EDBNAllianceSML.TEST.getZoneName ());
-    assertEquals ("https://einvoicing.qa.avalara.io/", x.toString ());
+    assertEquals ("https://einvoicing.elr.sbx.avalara.com", x.toString ());
   }
 
   @Test
