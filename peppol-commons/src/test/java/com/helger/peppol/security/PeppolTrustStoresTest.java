@@ -37,6 +37,12 @@ public final class PeppolTrustStoresTest
   @Test
   public void testConstants2018 ()
   {
+    assertNotNull (Config2018.TRUSTSTORE_AP_PRODUCTION);
+    assertNotNull (Config2018.TRUSTSTORE_SMP_PRODUCTION);
+
+    assertNotNull (Config2018.TRUSTSTORE_AP_PILOT);
+    assertNotNull (Config2018.TRUSTSTORE_SMP_PILOT);
+
     assertNotNull (Config2018.CERTIFICATE_PRODUCTION_ROOT);
     assertNotNull (Config2018.CERTIFICATE_PRODUCTION_AP);
     assertNotNull (Config2018.CERTIFICATE_PRODUCTION_SMP);
@@ -171,6 +177,12 @@ public final class PeppolTrustStoresTest
   @Test
   public void testConstants2025 ()
   {
+    assertNotNull (Config2025.TRUSTSTORE_AP_PRODUCTION);
+    assertNotNull (Config2025.TRUSTSTORE_SMP_PRODUCTION);
+
+    assertNotNull (Config2025.TRUSTSTORE_AP_TEST);
+    assertNotNull (Config2025.TRUSTSTORE_SMP_TEST);
+
     assertNotNull (Config2025.CERTIFICATE_PRODUCTION_ROOT);
     assertNotNull (Config2025.CERTIFICATE_PRODUCTION_AP);
     assertNotNull (Config2025.CERTIFICATE_PRODUCTION_SMP);
