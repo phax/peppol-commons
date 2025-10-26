@@ -31,6 +31,7 @@ import jakarta.annotation.Nonnull;
  * Helper class to create value HR eDelivery MPS/SMP clients.
  *
  * @author Philip Helger
+ * @since 12.0.5
  */
 @Immutable
 public final class HREDeliveryMPSClientHelper

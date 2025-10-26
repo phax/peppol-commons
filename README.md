@@ -349,10 +349,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.0.5 - work in progress
+v12.0.5 - 2025-10-26
 * SMP client does not emit any warnings on https usage if the date is &ge; 2025-11-01
 * Deprecated class `PeppolConfigurableURLProvider` in favour of `PeppolNaptrURLProvider` which works fine
 * Added initial predefined truststores for HR eDelivery
+* Added new class `HREDeliveryMPSClientHelper`
 
 v12.0.4 - 2025-10-06
 * Updated to eDEC Code Lists v9.4

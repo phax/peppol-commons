@@ -17,5 +17,5 @@ Each truststore uses the password `hredelivery` (case sensitive).
 # Sources
 
 FINA: 
-* Prod: https://www.fina.hr/eng/finadigicert/ca-certificates
 * Test: https://www.fina.hr/finadigicert/certifikati-za-testiranje-i-demonstraciju/fina-demo-ca-certifikati
+* Prod: https://www.fina.hr/eng/finadigicert/ca-certificates
