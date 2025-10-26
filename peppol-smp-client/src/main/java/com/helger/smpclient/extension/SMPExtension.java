@@ -441,16 +441,16 @@ public class SMPExtension
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ExtensionID", m_sExtensionID)
-                                       .append ("ExtensionName", m_sExtensionName)
-                                       .append ("ExtensionAgencyID", m_sExtensionAgencyID)
-                                       .append ("ExtensionAgencyName", m_sExtensionAgencyName)
-                                       .append ("ExtensionAgencyURI", m_sExtensionAgencyURI)
-                                       .append ("ExtensionVersionID", m_sExtensionVersionID)
-                                       .append ("ExtensionURI", m_sExtensionURI)
-                                       .append ("ExtensionReasonCode", m_sExtensionReasonCode)
-                                       .append ("ExtensionReason", m_sExtensionReason)
-                                       .append ("Any", m_aAny)
+    return new ToStringGenerator (this).appendIfNotNull ("ExtensionID", m_sExtensionID)
+                                       .appendIfNotNull ("ExtensionName", m_sExtensionName)
+                                       .appendIfNotNull ("ExtensionAgencyID", m_sExtensionAgencyID)
+                                       .appendIfNotNull ("ExtensionAgencyName", m_sExtensionAgencyName)
+                                       .appendIfNotNull ("ExtensionAgencyURI", m_sExtensionAgencyURI)
+                                       .appendIfNotNull ("ExtensionVersionID", m_sExtensionVersionID)
+                                       .appendIfNotNull ("ExtensionURI", m_sExtensionURI)
+                                       .appendIfNotNull ("ExtensionReasonCode", m_sExtensionReasonCode)
+                                       .appendIfNotNull ("ExtensionReason", m_sExtensionReason)
+                                       .appendIfNotNull ("Any", m_aAny)
                                        .getToString ();
   }
 
