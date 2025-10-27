@@ -36,15 +36,11 @@ import jakarta.annotation.Nullable;
  */
 public enum EHREDeliverySML implements ISMLInfo
 {
-  DEMO ("hr-demo",
-        "HR Demo SML",
-        "demo.ams.porezna-uprava.hr.",
-        "https://demo.ams.porezna-uprava.hr/edelivery-sml",
-        true),
+  DEMO ("hr-demo", "HR Demo SML", "demo.ams.porezna-uprava.hr.", "https://cis.porezna-uprava.hr:8515/proxy", true),
   PRODUCTION ("hr-prod",
               "HR Production SML",
               "prod.ams.porezna-uprava.hr.",
-              "https://prod.ams.porezna-uprava.hr/edelivery-sml",
+              "https://cis.porezna-uprava.hr:8513/proxy",
               true);
 
   private final SMLInfo m_aProxy;
