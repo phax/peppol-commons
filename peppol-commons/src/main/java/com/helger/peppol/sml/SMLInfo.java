@@ -284,6 +284,11 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     return new SMLInfoBuilder (aInfo);
   }
 
+  public static boolean isValidURLSuffix (@Nonnull final String s)
+  {
+    return s.length () == 0 || (s.length () > 1 && s.startsWith ("/"));
+  }
+
   public static final class SMLInfoBuilder implements IBuilder <SMLInfo>
   {
     private String m_sID;
@@ -361,7 +366,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     public SMLInfoBuilder urlSuffixManageSMP (@Nonnull final String s)
     {
       ValueEnforcer.notNull (s, "URLSuffixManageSMP");
-      ValueEnforcer.isTrue ( () -> s.length () == 0 || (s.length () > 1 && s.startsWith ("/")), "URLSuffixManageSMP");
+      ValueEnforcer.isTrue ( () -> isValidURLSuffix (s), "URLSuffixManageSMP");
 
       m_sURLSuffixManageSMP = s;
       return this;
@@ -371,8 +376,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     public SMLInfoBuilder urlSuffixManageParticipant (@Nonnull final String s)
     {
       ValueEnforcer.notNull (s, "URLSuffixManageParticipant");
-      ValueEnforcer.isTrue ( () -> s.length () == 0 || (s.length () > 1 && s.startsWith ("/")),
-                             "URLSuffixManageParticipant");
+      ValueEnforcer.isTrue ( () -> isValidURLSuffix (s), "URLSuffixManageParticipant");
 
       m_sURLSuffixManageParticipant = s;
       return this;
