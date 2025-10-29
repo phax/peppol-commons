@@ -320,12 +320,23 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
                                        .getToString ();
   }
 
+  /**
+   * @return A new empty builder. Never <code>null</code>.
+   * @since 12.1.0
+   */
   @Nonnull
   public static SMLInfoBuilder builder ()
   {
     return new SMLInfoBuilder ();
   }
 
+  /**
+   * @param aInfo
+   *        The object to use as the basis for the builder. May not be <code>null</code>.
+   * @return A new builder that is prefilled with the data of the parameter object. Never
+   *         <code>null</code>.
+   * @since 12.1.0
+   */
   @Nonnull
   public static SMLInfoBuilder builder (@Nonnull final ISMLInfo aInfo)
   {

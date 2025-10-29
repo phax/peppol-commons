@@ -48,15 +48,16 @@ public final class SMLInfoTest
                         .displayName ("Test 1")
                         .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
                         .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
+                        .urlSuffixManageSMP ("/smp")
+                        .urlSuffixManageParticipant ("")
                         .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
                         .build ();
-
     assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
     assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSZone ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", si.getManagementServiceURL ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/smp",
                   si.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml",
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.isClientCertificateRequired ());
     XMLTestHelper.testMicroTypeConversion (si);
