@@ -289,7 +289,13 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     return s.length () == 0 || (s.length () > 1 && s.startsWith ("/"));
   }
 
-  public static final class SMLInfoBuilder implements IBuilder <SMLInfo>
+  /**
+   * Builder class for {@link SMLInfo} objects.
+   *
+   * @author Philip Helger
+   * @since 12.1.0
+   */
+  public static class SMLInfoBuilder implements IBuilder <SMLInfo>
   {
     private String m_sID;
     private String m_sDisplayName;
