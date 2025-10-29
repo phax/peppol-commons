@@ -27,7 +27,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * Micro type converter for {@link ISMLInfo} objects
+ * Micro type converter for {@link SMLInfo} objects
  *
  * @author Philip Helger
  */
