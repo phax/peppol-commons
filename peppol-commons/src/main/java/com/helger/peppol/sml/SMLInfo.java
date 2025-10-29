@@ -20,7 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.helger.annotation.Nonempty;
-import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.clone.ICloneable;
@@ -39,7 +39,7 @@ import jakarta.annotation.Nonnull;
  *
  * @author Philip Helger
  */
-@NotThreadSafe
+@Immutable
 public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
 {
   public static final String DEFAULT_SUFFIX_MANAGE_SMP = '/' + CSMLDefault.MANAGEMENT_SERVICE_METADATA;
@@ -79,7 +79,8 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
 
   /**
    * @param sDisplayName
-   *        The "shorthand" display name like "SML" or "SMK".
+   *        The "shorthand" display name like "SML" or "SMK". May neither be <code>null</code> nor
+   *        empty.
    * @param sDNSZone
    *        The DNS zone on which this SML is operating. May not be <code>null</code>. It must be
    *        ensured that the value consists only of lower case characters for comparability!
@@ -92,7 +93,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
    *        <code>true</code> if this SML requires a client certificate for access,
    *        <code>false</code> otherwise. Both production SML and SMK require a client certificate.
    *        Only a locally running SML software may not require a client certificate.
-   * @deprecated Use the build instead
+   * @deprecated Use the builder instead
    */
   @Deprecated (forRemoval = true, since = "12.1.0")
   public SMLInfo (@Nonnull @Nonempty final String sDisplayName,
@@ -107,6 +108,26 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
           bClientCertificateRequired);
   }
 
+  /**
+   * @param sID
+   *        Object ID. May neither be <code>null</code> nor empty.
+   * @param sDisplayName
+   *        The "shorthand" display name like "SML" or "SMK". May neither be <code>null</code> nor
+   *        empty.
+   * @param sDNSZone
+   *        The DNS zone on which this SML is operating. May not be <code>null</code>. It must be
+   *        ensured that the value consists only of lower case characters for comparability!
+   *        Example: <code>sml.peppolcentral.org</code>
+   * @param sManagementServiceURL
+   *        The service URL where the management application is running on incl. the host name. May
+   *        not be <code>null</code>. The difference to the host name is the eventually present
+   *        context path.
+   * @param bClientCertificateRequired
+   *        <code>true</code> if this SML requires a client certificate for access,
+   *        <code>false</code> otherwise. Both production SML and SMK require a client certificate.
+   *        Only a locally running SML software may not require a client certificate.
+   * @deprecated Use the builder instead
+   */
   @Deprecated (forRemoval = true, since = "12.1.0")
   public SMLInfo (@Nonnull @Nonempty final String sID,
                   @Nonnull @Nonempty final String sDisplayName,
@@ -123,6 +144,33 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
           bClientCertificateRequired);
   }
 
+  /**
+   * @param sID
+   *        Object ID. May neither be <code>null</code> nor empty.
+   * @param sDisplayName
+   *        The "shorthand" display name like "SML" or "SMK". May neither be <code>null</code> nor
+   *        empty.
+   * @param sDNSZone
+   *        The DNS zone on which this SML is operating. May not be <code>null</code>. It must be
+   *        ensured that the value consists only of lower case characters for comparability!
+   *        Example: <code>sml.peppolcentral.org</code>
+   * @param sManagementServiceURL
+   *        The service URL where the management application is running on incl. the host name. May
+   *        not be <code>null</code>. The difference to the host name is the eventually present
+   *        context path.
+   * @param sURLSuffixManageSMP
+   *        The sub-path to be used for managing SMP data in the SML. May not be <code>null</code>,
+   *        may be empty. If not empty it must start with a slash ("/").
+   * @param sURLSuffixManageParticipant
+   *        The sub-path to be used for managing participant data in the SML. May not be
+   *        <code>null</code>, may be empty. If not empty it must start with a slash ("/").
+   * @param bClientCertificateRequired
+   *        <code>true</code> if this SML requires a client certificate for access,
+   *        <code>false</code> otherwise. Both production SML and SMK require a client certificate.
+   *        Only a locally running SML software may not require a client certificate.
+   * @throws IllegalArgumentException
+   *         If the manage service URLs cannot be created
+   */
   protected SMLInfo (@Nonnull @Nonempty final String sID,
                      @Nonnull @Nonempty final String sDisplayName,
                      @Nonnull @Nonempty final String sDNSZone,

@@ -349,9 +349,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.1.0 - work in progress
+v12.1.0 - 2025-10-29
 * Class `SMLInfo` was modified to be an immutable class and to use a builder instead
-* Class `SMLInfo` was modified to make the URL suffixes for managing SMPs and participants customizable 
+* Class `SMLInfo` was modified to make the URL suffixes for managing SMPs and participants customizable (required for HR)
 
 v12.0.5 - 2025-10-26
 * SMP client does not emit any warnings on https usage if the date is &ge; 2025-11-01
