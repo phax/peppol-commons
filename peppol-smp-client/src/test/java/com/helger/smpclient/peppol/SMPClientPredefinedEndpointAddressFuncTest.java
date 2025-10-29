@@ -95,8 +95,9 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                                                                                                   EPredefinedProcessIdentifier.BIS3_BILLING,
                                                                                                                   ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     assertNotNull (aEndpointCertificate);
-    // Updated December 2024
-    assertEquals ("38982941322949190188120289136764319632", aEndpointCertificate.getSerialNumber ().toString ());
+    // Updated October 2025
+    assertEquals ("589920227477881554027439551025085743124925703107",
+                  aEndpointCertificate.getSerialNumber ().toString ());
 
     aEndpointCertificate = _createSMPClient (PI_AT_PROD, ESML.DIGIT_PRODUCTION).getEndpointCertificate (PI_AT_PROD,
                                                                                                         EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
