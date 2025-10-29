@@ -20,10 +20,9 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
- * This file contains default constants for the usage of the SML. It is strongly
- * recommended that the real values are out-sourced into a configuration file.
- * You can of course use the values in this file as the default values in case
- * no configuration item is specified.
+ * This file contains default constants for the usage of the SML. It is strongly recommended that
+ * the real values are out-sourced into a configuration file. You can of course use the values in
+ * this file as the default values in case no configuration item is specified.
  *
  * @author Philip Helger
  */
@@ -31,20 +30,19 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 public final class CSMLDefault
 {
   /**
-   * The DNS zone name part used for SMP information in the SML. This is only
-   * needed for Peppol based registration.
+   * The DNS zone name part used for SMP information in the SML. This is only needed for Peppol
+   * based registration.
    */
+  @Deprecated
   public static final String DNS_PUBLISHER_SUBZONE = "publisher.";
 
   /**
-   * The name of the service to manage SMP meta data. Valid for all SML
-   * instances.
+   * The name of the service to manage SMP meta data. Valid for all SML instances.
    */
   public static final String MANAGEMENT_SERVICE_METADATA = "manageservicemetadata";
 
   /**
-   * The name of the service to manage participant identifiers. Valid for all
-   * SML instances.
+   * The name of the service to manage participant identifiers. Valid for all SML instances.
    */
   public static final String MANAGEMENT_SERVICE_PARTICIPANTIDENTIFIER = "manageparticipantidentifier";
 

@@ -28,6 +28,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("deprecation")
 public final class ESMLTest
 {
   @Test
@@ -51,7 +52,8 @@ public final class ESMLTest
   {
     assertEquals ("edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getDNSZone ());
     assertEquals ("publisher.edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getPublisherDNSZone ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", ESML.DIGIT_PRODUCTION.getManagementServiceURL ());
+    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml",
+                  ESML.DIGIT_PRODUCTION.getManagementServiceURL ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
                   ESML.DIGIT_PRODUCTION.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",

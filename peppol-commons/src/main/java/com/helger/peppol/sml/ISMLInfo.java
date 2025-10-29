@@ -59,6 +59,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    */
   @Nonnull
   @Nonempty
+  @Deprecated
   default String getPublisherDNSZone ()
   {
     return CSMLDefault.DNS_PUBLISHER_SUBZONE + getDNSZone ();

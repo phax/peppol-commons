@@ -32,6 +32,7 @@ import com.helger.xml.mock.XMLTestHelper;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("deprecation")
 public final class SMLInfoTest
 {
   static

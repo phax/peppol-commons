@@ -56,6 +56,7 @@ import jakarta.annotation.Nullable;
  * @author Philip Helger
  */
 @Ignore ("Requires an SML with active DNS connection to be available")
+@SuppressWarnings ("deprecation")
 public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (DNSRegistrationFuncTest.class);

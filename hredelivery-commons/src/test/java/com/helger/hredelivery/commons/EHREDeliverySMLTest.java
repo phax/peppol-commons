@@ -27,6 +27,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("deprecation")
 public final class EHREDeliverySMLTest
 {
   @Test
