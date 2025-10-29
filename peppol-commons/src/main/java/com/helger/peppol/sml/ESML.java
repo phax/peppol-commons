@@ -76,7 +76,13 @@ public enum ESML implements ISMLInfo
         @Nonnull @Nonempty final String sManagementServiceURL,
         final boolean bRequiresClientCertificate)
   {
-    m_aProxy = new SMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCertificate);
+    m_aProxy = SMLInfo.builder ()
+                      .id (sID)
+                      .displayName (sDisplayName)
+                      .dnsZone (sDNSZone)
+                      .managementServiceURL (sManagementServiceURL)
+                      .clientCertificateRequired (bRequiresClientCertificate)
+                      .build ();
   }
 
   @Nonnull
@@ -107,10 +113,22 @@ public enum ESML implements ISMLInfo
   }
 
   @Nonnull
+  public String getURLSuffixManageSMP ()
+  {
+    return m_aProxy.getURLSuffixManageSMP ();
+  }
+
+  @Nonnull
   @Nonempty
   public String getManagementServiceURL ()
   {
     return m_aProxy.getManagementServiceURL ();
+  }
+
+  @Nonnull
+  public String getURLSuffixManageParticipant ()
+  {
+    return m_aProxy.getURLSuffixManageParticipant ();
   }
 
   @Nonnull

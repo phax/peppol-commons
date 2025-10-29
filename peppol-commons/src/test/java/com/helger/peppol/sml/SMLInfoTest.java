@@ -43,10 +43,13 @@ public final class SMLInfoTest
   @Test
   public void testAll ()
   {
-    SMLInfo si = new SMLInfo ("Test 1",
-                              ESML.DIGIT_PRODUCTION.getDNSZone (),
-                              ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                              ESML.DIGIT_PRODUCTION.isClientCertificateRequired ());
+    SMLInfo si = SMLInfo.builder ()
+                        .idNew ()
+                        .displayName ("Test 1")
+                        .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
+                        .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
+                        .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                        .build ();
 
     assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
     assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSZone ());
@@ -59,10 +62,13 @@ public final class SMLInfoTest
     XMLTestHelper.testMicroTypeConversion (si);
 
     // With a trailing slash
-    si = new SMLInfo ("Test 2",
-                      ESML.DIGIT_PRODUCTION.getDNSZone (),
-                      ESML.DIGIT_PRODUCTION.getManagementServiceURL () + '/',
-                      ESML.DIGIT_PRODUCTION.isClientCertificateRequired ());
+    si = SMLInfo.builder ()
+                .id ("dummy")
+                .displayName ("Test 2")
+                .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
+                .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL () + '/')
+                .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                .build ();
     assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
     assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSZone ());
     assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", si.getManagementServiceURL ());
@@ -73,27 +79,55 @@ public final class SMLInfoTest
     assertTrue (si.isClientCertificateRequired ());
 
     TestHelper.testDefaultImplementationWithEqualContentObject (si,
-                                                                new SMLInfo ("SML",
-                                                                             ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                             ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                             ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
+                                                                SMLInfo.builder ()
+                                                                       .id ("dummy")
+                                                                       .displayName ("Test 2")
+                                                                       .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
+                                                                       .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
+                                                                       .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                       .build ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (si,
-                                                                    new SMLInfo ("SML",
-                                                                                 ESML.DIGIT_PRODUCTION.getDNSZone () +
-                                                                                        ".x",
-                                                                                 ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                                 ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
+                                                                    SMLInfo.builder ()
+                                                                           .id ("dummy2")
+                                                                           .displayName ("Test 2")
+                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
+                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
+                                                                           .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .build ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (si,
-                                                                    new SMLInfo ("SML",
-                                                                                 ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                                 ESML.DIGIT_PRODUCTION.getManagementServiceURL () +
-                                                                                                                      ".x",
-                                                                                 ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
+                                                                    SMLInfo.builder ()
+                                                                           .id ("dummy")
+                                                                           .displayName ("Test 3")
+                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
+                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
+                                                                           .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .build ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (si,
-                                                                    new SMLInfo ("SML",
-                                                                                 ESML.DIGIT_PRODUCTION.getDNSZone (),
-                                                                                 ESML.DIGIT_PRODUCTION.getManagementServiceURL (),
-                                                                                 !ESML.DIGIT_PRODUCTION.isClientCertificateRequired ()));
+                                                                    SMLInfo.builder ()
+                                                                           .id ("dummy")
+                                                                           .displayName ("Test 2")
+                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone () +
+                                                                                     "x")
+                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
+                                                                           .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .build ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (si,
+                                                                    SMLInfo.builder ()
+                                                                           .id ("dummy")
+                                                                           .displayName ("Test 2")
+                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
+                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL () +
+                                                                                                  "x")
+                                                                           .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .build ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (si,
+                                                                    SMLInfo.builder ()
+                                                                           .id ("dummy")
+                                                                           .displayName ("Test 2")
+                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
+                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
+                                                                           .clientCertificateRequired (!ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .build ());
 
     XMLTestHelper.testMicroTypeConversion (si);
   }
@@ -103,16 +137,26 @@ public final class SMLInfoTest
   {
     try
     {
-      // Display name may not be empty
-      new SMLInfo ("", ESML.DIGIT_PRODUCTION.getDNSZone (), ESML.DIGIT_PRODUCTION.getManagementServiceURL (), true);
+      // ID may not be empty
+      SMLInfo.builder ().id ("");
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
+
+    try
+    {
+      // Display name may not be empty
+      SMLInfo.builder ().displayName ("");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
     try
     {
       // DNS name may not be empty
-      new SMLInfo ("Test Name", "", ESML.DIGIT_PRODUCTION.getManagementServiceURL (), true);
+      SMLInfo.builder ().dnsZone ("");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -121,7 +165,7 @@ public final class SMLInfoTest
     try
     {
       // Service URL may not be empty
-      new SMLInfo ("Test Name", ESML.DIGIT_PRODUCTION.getDNSZone (), "", true);
+      SMLInfo.builder ().managementServiceURL ("");
       fail ();
     }
     catch (final IllegalArgumentException ex)

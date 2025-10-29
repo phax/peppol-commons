@@ -106,11 +106,13 @@ public final class BDXRClientReadOnlyTest
                                                                                                               "urn:eu:toop:ns:dataexchange-1p40::Response##urn:eu.toop.response.registeredorganization::1.40");
 
     // TOOP SML
-    final ISMLInfo aSMLInfo = new SMLInfo ("toop",
-                                           "SMK",
-                                           "toop.acc.edelivery.tech.ec.europa.eu.",
-                                           "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
-                                           true);
+    final ISMLInfo aSMLInfo = SMLInfo.builder ()
+                                     .id ("toop")
+                                     .displayName ("SMK")
+                                     .dnsZone ("toop.acc.edelivery.tech.ec.europa.eu.")
+                                     .managementServiceURL ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml")
+                                     .clientCertificateRequired (true)
+                                     .build ();
 
     // PEPPOL URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, aSMLInfo);
@@ -134,11 +136,13 @@ public final class BDXRClientReadOnlyTest
                                                                                                               "doc_id1");
 
     // TOOP SML
-    final ISMLInfo aSMLInfo = new SMLInfo ("cef-connectivity",
-                                           "CEF ConnectivityTest",
-                                           "connectivitytest.acc.edelivery.tech.ec.europa.eu.",
-                                           "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
-                                           true);
+    final ISMLInfo aSMLInfo = SMLInfo.builder ()
+                                     .id ("cef-connectivity")
+                                     .displayName ("CEF ConnectivityTest")
+                                     .dnsZone ("connectivitytest.acc.edelivery.tech.ec.europa.eu.")
+                                     .managementServiceURL ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml")
+                                     .clientCertificateRequired (true)
+                                     .build ();
 
     // PEPPOL URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, aSMLInfo);
@@ -165,11 +169,13 @@ public final class BDXRClientReadOnlyTest
     assertNotNull (aTS);
 
     // TOOP SML
-    final ISMLInfo aSMLInfo = new SMLInfo ("dea4",
-                                           "SMK",
-                                           "de4a.acc.edelivery.tech.ec.europa.eu.",
-                                           "https://acc.edelivery.tech.ec.europa.eu/edelivery-sml",
-                                           true);
+    final ISMLInfo aSMLInfo = SMLInfo.builder ()
+                                     .id ("dea4")
+                                     .displayName ("SMK")
+                                     .dnsZone ("de4a.acc.edelivery.tech.ec.europa.eu.")
+                                     .managementServiceURL ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml")
+                                     .clientCertificateRequired (true)
+                                     .build ();
 
     // BDXL URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, aSMLInfo);

@@ -65,7 +65,16 @@ public enum EHREDeliverySML implements ISMLInfo
                    @Nonnull @Nonempty final String sManagementServiceURL,
                    final boolean bRequiresClientCertificate)
   {
-    m_aProxy = new SMLInfo (sID, sDisplayName, sDNSZone, sManagementServiceURL, bRequiresClientCertificate);
+    // HR uses special URL suffixes
+    m_aProxy = SMLInfo.builder ()
+                      .id (sID)
+                      .displayName (sDisplayName)
+                      .dnsZone (sDNSZone)
+                      .managementServiceURL (sManagementServiceURL)
+                      .urlSuffixManageSMP ("")
+                      .urlSuffixManageParticipant ("")
+                      .clientCertificateRequired (bRequiresClientCertificate)
+                      .build ();
   }
 
   @Nonnull
@@ -103,9 +112,21 @@ public enum EHREDeliverySML implements ISMLInfo
   }
 
   @Nonnull
+  public String getURLSuffixManageSMP ()
+  {
+    return m_aProxy.getURLSuffixManageSMP ();
+  }
+
+  @Nonnull
   public URL getManageServiceMetaDataEndpointAddress ()
   {
     return m_aProxy.getManageServiceMetaDataEndpointAddress ();
+  }
+
+  @Nonnull
+  public String getURLSuffixManageParticipant ()
+  {
+    return m_aProxy.getURLSuffixManageParticipant ();
   }
 
   @Nonnull
