@@ -37,8 +37,11 @@ import jakarta.annotation.Nonnull;
 public class HREDeliveryNaptrURLProvider extends AbstractBDXLURLProvider implements
                                          ICloneable <HREDeliveryNaptrURLProvider>
 {
-  /** U NAPTR service name for HR eDelivery */
-  public static final String DNS_UNAPTR_SERVICE_NAME_ERACUN_META = "ERACUN:meta";
+  /**
+   * U NAPTR service name for HR eDelivery. AMS Spec v1.4, chapter 5.4 suggests to use "ERACUN:meta"
+   * but in practice they are using "Meta:SMP".
+   */
+  public static final String DNS_UNAPTR_SERVICE_NAME_ERACUN_META = true ? "Meta:SMP" : "ERACUN:meta";
 
   /** The writable API of the default instance */
   public static final HREDeliveryNaptrURLProvider MUTABLE_INSTANCE = new HREDeliveryNaptrURLProvider ();
