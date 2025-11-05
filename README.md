@@ -349,6 +349,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.1.1 - work in progress
+* Class `HREDeliveryNaptrURLProvider` now uses `Meta:SMP` as the NAPTR service to reflect reality
+
 v12.1.0 - 2025-10-29
 * Class `SMLInfo` was modified to be an immutable class and to use a builder instead
 * Class `SMLInfo` was modified to make the URL suffixes for managing SMPs and participants customizable (required for HR)
