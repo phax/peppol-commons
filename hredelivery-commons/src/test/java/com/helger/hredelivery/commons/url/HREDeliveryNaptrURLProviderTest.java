@@ -52,4 +52,14 @@ public final class HREDeliveryNaptrURLProviderTest
     assertEquals ("fltznzcpekj5jacdbfpz4ld52nl6p37p4hm5x36shdbyvehtvr7a.iso6523-actorid-upis.demo.ams.porezna-uprava.hr",
                   sDomain);
   }
+
+  @Test
+  public void testResolveName3 () throws SMPDNSResolutionException
+  {
+    final IBDXLURLProvider aURLProvider = HREDeliveryNaptrURLProvider.INSTANCE;
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:00042644647");
+    final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, EHREDeliverySML.DEMO);
+    assertEquals ("647nqonsxbkn3gwsahjvc3kzwdksoj4kv7pqwf3kwwaln2udwo4q.iso6523-actorid-upis.demo.ams.porezna-uprava.hr",
+                  sDomain);
+  }
 }
