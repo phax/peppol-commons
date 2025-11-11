@@ -12,7 +12,9 @@
       Philip Helger
 
     History
-      v1.0.0 RC1
+      v1.0.1
+        2025-11-11, Philip Helger - made sure, the SPIS regex is applied case-insensitive 
+      v1.0.0
         2025-03-12, Philip Helger - initial version
   </p>
 
@@ -50,7 +52,7 @@
       >[SCH-MLS-07] The Sender Party Endpoint ID MUST be present</assert>
       <assert id="SCH-MLS-08" flag="fatal" test="normalize-space(cac:SenderParty/cbc:EndpointID) != ''"
       >[SCH-MLS-08] The Sender Party Endpoint ID MUST NOT be empty</assert>
-      <assert id="SCH-MLS-09" flag="fatal" test="matches(normalize-space(cac:SenderParty/cbc:EndpointID), $regex_spis)"
+      <assert id="SCH-MLS-09" flag="fatal" test="matches(normalize-space(cac:SenderParty/cbc:EndpointID), $regex_spis, 'i')"
       >[SCH-MLS-09] The Sender Party Endpoint ID (<value-of select="normalize-space(cac:SenderParty/cbc:EndpointID)" />) MUST be a valid Peppol Service Provider ID</assert>
       <assert id="SCH-MLS-10" flag="fatal" test="exists(cac:SenderParty/cbc:EndpointID/@schemeID)"
       >[SCH-MLS-10] The Sender Party Endpoint ID scheme ID MUST be present</assert>
@@ -62,7 +64,7 @@
       >[SCH-MLS-12] The Receiver Party Endpoint ID MUST be present</assert>
       <assert id="SCH-MLS-13" flag="fatal" test="normalize-space(cac:ReceiverParty/cbc:EndpointID) != ''"
       >[SCH-MLS-13] The Receiver Party Endpoint ID MUST NOT be empty</assert>
-      <assert id="SCH-MLS-14" flag="fatal" test="matches(normalize-space(cac:ReceiverParty/cbc:EndpointID), $regex_spis)"
+      <assert id="SCH-MLS-14" flag="fatal" test="matches(normalize-space(cac:ReceiverParty/cbc:EndpointID), $regex_spis, 'i')"
       >[SCH-MLS-14] The Receiver Party Endpoint ID (<value-of select="normalize-space(cac:ReceiverParty/cbc:EndpointID)" />) MUST be a valid Peppol Service Provider ID</assert>
       <assert id="SCH-MLS-15" flag="fatal" test="exists(cac:ReceiverParty/cbc:EndpointID/@schemeID)"
       >[SCH-MLS-15] The Receiver Party Endpoint ID scheme ID MUST be present</assert>

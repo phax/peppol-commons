@@ -65,7 +65,7 @@ public final class PeppolMLSValidatorTest
     {
       LOGGER.info ("Reading '" + f.getName () + "'");
 
-      final SchematronOutputType aSVRL = PeppolMLSValidator.getSchematronMLS_100 ()
+      final SchematronOutputType aSVRL = PeppolMLSValidator.getSchematronMLS_101 ()
                                                            .applySchematronValidationToSVRL (new FileSystemResource (f));
       assertNotNull (aSVRL);
       final ICommonsList <AbstractSVRLMessage> aAllFailed = SVRLHelper.getAllFailedAssertionsAndSuccessfulReports (aSVRL);
@@ -79,7 +79,7 @@ public final class PeppolMLSValidatorTest
     final ClassPathResource f = new ClassPathResource (sFilename, PeppolMLSValidatorTest.class.getClassLoader ());
     assertNotNull ("The file '" + f.getPath () + "' is not XSD compliant", new PeppolMLSMarshaller ().read (f));
 
-    final SchematronOutputType aSVRL = PeppolMLSValidator.getSchematronMLS_100 ().applySchematronValidationToSVRL (f);
+    final SchematronOutputType aSVRL = PeppolMLSValidator.getSchematronMLS_101 ().applySchematronValidationToSVRL (f);
     assertNotNull (aSVRL);
 
     if (false)

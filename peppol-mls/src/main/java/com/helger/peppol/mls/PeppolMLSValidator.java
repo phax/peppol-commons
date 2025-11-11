@@ -31,13 +31,15 @@ import jakarta.annotation.Nonnull;
 @NotThreadSafe
 public final class PeppolMLSValidator
 {
-  public static final String SCH_MLS_100_PATH = "external/schematron/peppol-mls-1.0.0-rc1.sch";
+  public static final String SCH_MLS_100_PATH = "external/schematron/old/peppol-mls-1.0.0.sch";
+  public static final String SCH_MLS_101_PATH = "external/schematron/peppol-mls-1.0.1.sch";
 
   private static final ISchematronResource SCH_MLS_100 = SchematronResourceSCH.fromClassPath (SCH_MLS_100_PATH);
+  private static final ISchematronResource SCH_MLS_101 = SchematronResourceSCH.fromClassPath (SCH_MLS_101_PATH);
 
   static
   {
-    for (final ISchematronResource aSch : new ISchematronResource [] { SCH_MLS_100 })
+    for (final ISchematronResource aSch : new ISchematronResource [] { SCH_MLS_101 })
       if (!aSch.isValidSchematron ())
         throw new InitializationException ("Schematron in " + aSch.getResource ().getPath () + " is invalid");
   }
@@ -49,8 +51,18 @@ public final class PeppolMLSValidator
    * @return Schematron MLS v1.0.0
    */
   @Nonnull
+  @Deprecated (forRemoval = true, since = "12.1.1")
   public static ISchematronResource getSchematronMLS_100 ()
   {
     return SCH_MLS_100;
+  }
+
+  /**
+   * @return Schematron MLS v1.0.1
+   */
+  @Nonnull
+  public static ISchematronResource getSchematronMLS_101 ()
+  {
+    return SCH_MLS_101;
   }
 }
