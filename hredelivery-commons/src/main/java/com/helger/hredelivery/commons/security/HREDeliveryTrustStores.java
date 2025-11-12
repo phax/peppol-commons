@@ -76,6 +76,46 @@ public final class HREDeliveryTrustStores
   @Immutable
   public static class Fina2015
   {
+    // Test
+
+    /**
+     * The classpath entry referencing the global truststore with all Fina demo entries.
+     */
+    public static final String TRUSTSTORE_DEMO_CLASSPATH = "truststore-hredelivery/truststore-fina-demo.p12";
+
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_DEMO = TrustStoreDescriptor.builder ()
+                                                                                               .type (TRUSTSTORE_TYPE)
+                                                                                               .path (TRUSTSTORE_DEMO_CLASSPATH)
+                                                                                               .password (TRUSTSTORE_PASSWORD)
+                                                                                               .build ();
+
+    /**
+     * The full Fina demo truststore. Never modify.
+     */
+    public static final KeyStore TRUSTSTORE_DEMO = TRUSTSTORE_DESCRIPTOR_DEMO.loadTrustStore ().getKeyStore ();
+
+    static
+    {
+      if (TRUSTSTORE_DEMO == null)
+        throw new IllegalStateException ("Failed to load pre-configured demo trust store");
+    }
+
+    // Demo CA certificates
+
+    /** The truststore alias for the Fina demo root certificate */
+    public static final String TRUSTSTORE_DEMO_ALIAS_ROOT = "fina demo root ca";
+
+    /** The Fina demo root certificate */
+    public static final X509Certificate CERTIFICATE_DEMO_ROOT = _resolveCert (TRUSTSTORE_DEMO,
+                                                                              TRUSTSTORE_DEMO_ALIAS_ROOT);
+
+    /** The truststore alias for the Fina Demo CA 2020 certificate */
+    public static final String TRUSTSTORE_DEMO_ALIAS_DEMO_CA_2020 = "fina demo ca 2020 (fina demo root ca)";
+
+    /** The Fina Demo CA 2020 certificate */
+    public static final X509Certificate CERTIFICATE_DEMO_CA_2020 = _resolveCert (TRUSTSTORE_DEMO,
+                                                                                 TRUSTSTORE_DEMO_ALIAS_DEMO_CA_2020);
+
     // Production
 
     /**
@@ -117,45 +157,30 @@ public final class HREDeliveryTrustStores
     public static final X509Certificate CERTIFICATE_PRODUCTION_RDC_2020 = _resolveCert (TRUSTSTORE_PRODUCTION,
                                                                                         TRUSTSTORE_PRODUCTION_ALIAS_RDC_2020);
 
-    // Test
+    // Complete
+    // Production
 
     /**
-     * The classpath entry referencing the global truststore with all Fina demo entries.
+     * The classpath entry referencing the global truststore with all Fina entries.
      */
-    public static final String TRUSTSTORE_DEMO_CLASSPATH = "truststore-hredelivery/truststore-fina-demo.p12";
+    public static final String TRUSTSTORE_COMPLETE_CLASSPATH = "truststore-hredelivery/truststore-fina-complete.p12";
 
-    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_DEMO = TrustStoreDescriptor.builder ()
-                                                                                               .type (TRUSTSTORE_TYPE)
-                                                                                               .path (TRUSTSTORE_DEMO_CLASSPATH)
-                                                                                               .password (TRUSTSTORE_PASSWORD)
-                                                                                               .build ();
+    public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_COMPLETE = TrustStoreDescriptor.builder ()
+                                                                                                   .type (TRUSTSTORE_TYPE)
+                                                                                                   .path (TRUSTSTORE_COMPLETE_CLASSPATH)
+                                                                                                   .password (TRUSTSTORE_PASSWORD)
+                                                                                                   .build ();
 
     /**
-     * The full Fina demo truststore. Never modify.
+     * The full Fina complete truststore. Never modify.
      */
-    public static final KeyStore TRUSTSTORE_DEMO = TRUSTSTORE_DESCRIPTOR_DEMO.loadTrustStore ().getKeyStore ();
+    public static final KeyStore TRUSTSTORE_COMPLETE = TRUSTSTORE_DESCRIPTOR_COMPLETE.loadTrustStore ().getKeyStore ();
 
     static
     {
-      if (TRUSTSTORE_DEMO == null)
-        throw new IllegalStateException ("Failed to load pre-configured demo trust store");
+      if (TRUSTSTORE_COMPLETE == null)
+        throw new IllegalStateException ("Failed to load pre-configured complete trust store");
     }
-
-    // Demo CA certificates
-
-    /** The truststore alias for the Fina demo root certificate */
-    public static final String TRUSTSTORE_DEMO_ALIAS_ROOT = "fina demo root ca";
-
-    /** The Fina demo root certificate */
-    public static final X509Certificate CERTIFICATE_DEMO_ROOT = _resolveCert (TRUSTSTORE_DEMO,
-                                                                              TRUSTSTORE_DEMO_ALIAS_ROOT);
-
-    /** The truststore alias for the Fina Demo CA 2020 certificate */
-    public static final String TRUSTSTORE_DEMO_ALIAS_DEMO_CA_2020 = "fina demo ca 2020 (fina demo root ca)";
-
-    /** The Fina Demo CA 2020 certificate */
-    public static final X509Certificate CERTIFICATE_DEMO_CA_2020 = _resolveCert (TRUSTSTORE_DEMO,
-                                                                                 TRUSTSTORE_DEMO_ALIAS_DEMO_CA_2020);
   }
 
   @PresentForCodeCoverage

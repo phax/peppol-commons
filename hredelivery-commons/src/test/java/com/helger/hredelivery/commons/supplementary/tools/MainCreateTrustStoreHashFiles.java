@@ -64,5 +64,6 @@ public final class MainCreateTrustStoreHashFiles
   {
     _create (HREDeliveryTrustStores.Fina2015.TRUSTSTORE_DEMO_CLASSPATH);
     _create (HREDeliveryTrustStores.Fina2015.TRUSTSTORE_PRODUCTION_CLASSPATH);
+    _create (HREDeliveryTrustStores.Fina2015.TRUSTSTORE_COMPLETE_CLASSPATH);
   }
 }
