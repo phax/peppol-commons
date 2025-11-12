@@ -75,16 +75,7 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
    * DBNAlliance AS4 profile v1
    *
    * @since 9.3.2
-   * @deprecated Use TRANSPORT_PROFILE_DBNA_AS4_V1 (uppercase 'v') instead
-   */
-  @Deprecated (forRemoval = true, since = "12.1.1")
-  TRANSPORT_PROFILE_DBNA_AS4_v1("bdxr-as4-1.0#dbnalliance-1.0",
-                                "DBNAlliance AS4 1.0",
-                                ESMPTransportProfileState.ACTIVE),
-  /**
-   * DBNAlliance AS4 profile v1
-   *
-   * @since 12.1.1
+   * @since 12.1.1 the "v1" was changed to "V1"
    */
   TRANSPORT_PROFILE_DBNA_AS4_V1 ("bdxr-as4-1.0#dbnalliance-1.0",
                                  "DBNAlliance AS4 1.0",
