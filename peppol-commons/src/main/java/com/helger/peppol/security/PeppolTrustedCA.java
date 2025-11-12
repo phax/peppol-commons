@@ -123,6 +123,6 @@ public final class PeppolTrustedCA
     PROD_SMP.getRevocationCache ().clearCache ();
     ALL_SMP.getRevocationCache ().clearCache ();
 
-    LOGGER.info ("The PeppolCertificateChecker revocation cache was cleared");
+    LOGGER.info ("The PeppolTrustedCA revocation cache was cleared");
   }
 }
