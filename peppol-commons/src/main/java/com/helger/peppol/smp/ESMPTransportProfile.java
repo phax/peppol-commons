@@ -75,10 +75,29 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
    * DBNAlliance AS4 profile v1
    *
    * @since 9.3.2
+   * @deprecated Use TRANSPORT_PROFILE_DBNA_AS4_V1 (uppercase 'v') instead
    */
-  TRANSPORT_PROFILE_DBNA_AS4_v1 ("bdxr-as4-1.0#dbnalliance-1.0",
+  @Deprecated (forRemoval = true, since = "12.1.1")
+  TRANSPORT_PROFILE_DBNA_AS4_v1("bdxr-as4-1.0#dbnalliance-1.0",
+                                "DBNAlliance AS4 1.0",
+                                ESMPTransportProfileState.ACTIVE),
+  /**
+   * DBNAlliance AS4 profile v1
+   *
+   * @since 12.1.1
+   */
+  TRANSPORT_PROFILE_DBNA_AS4_V1 ("bdxr-as4-1.0#dbnalliance-1.0",
                                  "DBNAlliance AS4 1.0",
-                                 ESMPTransportProfileState.ACTIVE);
+                                 ESMPTransportProfileState.ACTIVE),
+
+  /**
+   * HR eDelivery AS4 profile v1
+   *
+   * @since 12.1.1
+   */
+  TRANSPORT_PROFILE_ERACUN_AS4_V1 ("eracun-transport-as4-v1_0",
+                                   "HR eDelivery AS4 1.0",
+                                   ESMPTransportProfileState.ACTIVE);
 
   private final String m_sID;
   private final String m_sName;
