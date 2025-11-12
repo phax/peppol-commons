@@ -111,7 +111,7 @@ public final class PeppolTrustedCA
   }
 
   /**
-   * Remove all entries from the OSCP cache.
+   * Remove all entries from the revocation cache.
    */
   public static void clearRevocationCheckCache ()
   {
