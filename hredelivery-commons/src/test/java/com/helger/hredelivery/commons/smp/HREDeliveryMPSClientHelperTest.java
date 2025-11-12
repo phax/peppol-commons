@@ -39,6 +39,6 @@ public final class HREDeliveryMPSClientHelperTest
 
     final BDXRClientReadOnly aMPSCLient = HREDeliveryMPSClientHelper.createForDemo (aPI);
     final String sSMPHost = aMPSCLient.getSMPHostURI ();
-    assertEquals ("https://cis.porezna-uprava.hr:8411/EracunMPSCT/", sSMPHost);
+    assertEquals ("https://mpsdemo.moj-eracun.hr/", sSMPHost);
   }
 }
