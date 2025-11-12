@@ -352,6 +352,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 v12.1.1 - work in progress
 * Class `HREDeliveryNaptrURLProvider` now uses `Meta:SMP` as the NAPTR service to reflect reality
 * Peppol MLS Schematron was updated, to fix an issue with lowercase SPIS values
+* Added new class `HREDeliveryTrustedCA`
 
 v12.1.0 - 2025-10-29
 * Class `SMLInfo` was modified to be an immutable class and to use a builder instead
