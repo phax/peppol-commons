@@ -211,7 +211,8 @@ public class HREDeliverySBDHData
    * @return this
    */
   @Nonnull
-  public HREDeliverySBDHData setReceiver (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  public HREDeliverySBDHData setReceiver (@Nonnull @Nonempty final String sScheme,
+                                          @Nonnull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -294,10 +295,10 @@ public class HREDeliverySBDHData
    */
   @Nonnull
   public HREDeliverySBDHData setDocumentIdentification (@Nonnull @Nonempty final String sStandard,
-                                                   @Nonnull @Nonempty final String sTypeVersion,
-                                                   @Nonnull @Nonempty final String sType,
-                                                   @Nonnull @Nonempty final String sInstanceIdentifier,
-                                                   @Nonnull final XMLOffsetDateTime aCreationDateAndTime)
+                                                        @Nonnull @Nonempty final String sTypeVersion,
+                                                        @Nonnull @Nonempty final String sType,
+                                                        @Nonnull @Nonempty final String sInstanceIdentifier,
+                                                        @Nonnull final XMLOffsetDateTime aCreationDateAndTime)
   {
     setStandard (sStandard);
     setTypeVersion (sTypeVersion);
@@ -638,54 +639,54 @@ public class HREDeliverySBDHData
     int nMissing = 0;
     if (StringHelper.isEmpty (m_sSenderScheme))
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Sender Scheme is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Sender Scheme is missing");
       nMissing++;
     }
     if (StringHelper.isEmpty (m_sSenderValue))
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Sender Value is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Sender Value is missing");
       nMissing++;
     }
 
     if (StringHelper.isEmpty (m_sReceiverScheme))
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Receiver Scheme is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Receiver Scheme is missing");
       nMissing++;
     }
     if (StringHelper.isEmpty (m_sReceiverValue))
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Reeiver Value is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Reeiver Value is missing");
       nMissing++;
     }
 
     if (StringHelper.isEmpty (m_sStandard))
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Standard is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Standard is missing");
       nMissing++;
     }
     if (StringHelper.isEmpty (m_sTypeVersion))
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Type Version is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Type Version is missing");
       nMissing++;
     }
     if (StringHelper.isEmpty (m_sType))
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Type is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Type is missing");
       nMissing++;
     }
     if (StringHelper.isEmpty (m_sInstanceIdentifier))
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Instance Identifier is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Instance Identifier is missing");
       nMissing++;
     }
     if (m_aCreationDateAndTime == null)
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Creation Date and Time is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Creation Date and Time is missing");
       nMissing++;
     }
     if (m_aBusinessMessage == null)
     {
-      aMissingFieldConsumer.accept ("Peppol SBDH data - Business Message is missing");
+      aMissingFieldConsumer.accept ("HR eDelivery SBDH data - Business Message is missing");
       nMissing++;
     }
 
@@ -765,8 +766,8 @@ public class HREDeliverySBDHData
   }
 
   /**
-   * Create a new {@link HREDeliverySBDHData} object for a business message assuming it is UBL 2.1. The
-   * resulting object has all required fields set, except for:
+   * Create a new {@link HREDeliverySBDHData} object for a business message assuming it is UBL 2.1.
+   * The resulting object has all required fields set, except for:
    * <ul>
    * <li>sender ID</li>
    * <li>receiver ID</li>
@@ -784,7 +785,7 @@ public class HREDeliverySBDHData
    */
   @Nonnull
   public static HREDeliverySBDHData createUBL21 (@Nonnull final Element aBusinessMessage,
-                                            @Nonnull final IIdentifierFactory aIdentifierFactory)
+                                                 @Nonnull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 

@@ -25,7 +25,7 @@ import com.helger.security.certificate.TrustedCAChecker;
 import jakarta.annotation.Nonnull;
 
 /**
- * This class contains all the trusted CAs in Peppol.
+ * This class contains all the trusted CAs in HR eDelivery.
  *
  * @author Philip Helger
  * @since 12.1.1

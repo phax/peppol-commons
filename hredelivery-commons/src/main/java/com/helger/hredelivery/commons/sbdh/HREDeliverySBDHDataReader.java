@@ -106,7 +106,8 @@ public class HREDeliverySBDHDataReader
 
   /**
    * Check if the passed header version is valid or not. By default is must match
-   * {@link CHREDeliverySBDH#HEADER_VERSION}. Override this method to allow for other schemes as well.
+   * {@link CHREDeliverySBDH#HEADER_VERSION}. Override this method to allow for other schemes as
+   * well.
    *
    * @param sHeaderVersion
    *        The value to be checked. This is the content of the XML element
@@ -336,7 +337,8 @@ public class HREDeliverySBDHDataReader
    *        <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws HREDeliverySBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the HR eDelivery
+   *         rules.
    */
   @Nonnull
   public HREDeliverySBDHData extractData (@Nonnull @WillClose final InputStream aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
@@ -366,7 +368,8 @@ public class HREDeliverySBDHDataReader
    *        The resource to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws HREDeliverySBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the HR eDelivery
+   *         rules.
    */
   @Nonnull
   public HREDeliverySBDHData extractData (@Nonnull final IReadableResource aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
@@ -389,7 +392,8 @@ public class HREDeliverySBDHDataReader
    *        The DOM node to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws HREDeliverySBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the HR eDelivery
+   *         rules.
    */
   @Nonnull
   public HREDeliverySBDHData extractData (@Nonnull final Node aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
@@ -412,7 +416,8 @@ public class HREDeliverySBDHDataReader
    *        The domain object to read from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws HREDeliverySBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the HR eDelivery
+   *         rules.
    */
   @Nonnull
   public HREDeliverySBDHData extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
@@ -441,8 +446,8 @@ public class HREDeliverySBDHDataReader
   }
 
   /**
-   * Validate the provided SBDH and the Business Message according to the Peppol rules and store the
-   * results in an Error List.
+   * Validate the provided SBDH and the Business Message according to the HR eDelivery rules and
+   * store the results in an Error List.
    *
    * @param aSBDH
    *        The SBDH to be validated. Must not be <code>null</code>.
@@ -470,7 +475,9 @@ public class HREDeliverySBDHDataReader
     {
       final int nSenderCount = aSBDH.getSenderCount ();
       if (nSenderCount != 1)
-        aErrorList.add (_toError ("SBDH", EHREDeliverySBDHDataError.INVALID_SENDER_COUNT, Integer.toString (nSenderCount)));
+        aErrorList.add (_toError ("SBDH",
+                                  EHREDeliverySBDHDataError.INVALID_SENDER_COUNT,
+                                  Integer.toString (nSenderCount)));
 
       if (nSenderCount > 0)
       {
@@ -585,11 +592,12 @@ public class HREDeliverySBDHDataReader
    *        <code>null</code>.
    * @return The document data and never <code>null</code>.
    * @throws HREDeliverySBDHDataReadException
-   *         In case the passed Standard Business Document does not conform to the Peppol rules.
+   *         In case the passed Standard Business Document does not conform to the HR eDelivery
+   *         rules.
    */
   @Nonnull
   public HREDeliverySBDHData extractData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
-                                     @Nonnull final Element aBusinessMessage) throws HREDeliverySBDHDataReadException
+                                          @Nonnull final Element aBusinessMessage) throws HREDeliverySBDHDataReadException
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
@@ -611,7 +619,7 @@ public class HREDeliverySBDHDataReader
           if (x.isError ())
           {
             final String sMsg = x.getAsStringLocaleIndepdent ();
-            LOGGER.error ("Peppol SBDH validation " + sMsg);
+            LOGGER.error ("HR eDelivery SBDH validation " + sMsg);
             if (aErrorMsgSB.length () > 0)
               aErrorMsgSB.append ('\n');
             aErrorMsgSB.append (sMsg);
@@ -621,7 +629,7 @@ public class HREDeliverySBDHDataReader
         // Find an error code
         final IError aFirst = aErrorList.findFirst (IHasErrorLevel::isError);
         final EHREDeliverySBDHDataError eError = EHREDeliverySBDHDataError.getFromIDOrDefault (aFirst.getErrorID (),
-                                                                                     EHREDeliverySBDHDataError.GENERIC_SBDH_ERROR);
+                                                                                               EHREDeliverySBDHDataError.GENERIC_SBDH_ERROR);
         throw new HREDeliverySBDHDataReadException (aErrorMsgSB.toString (), eError);
       }
     }
@@ -643,7 +651,7 @@ public class HREDeliverySBDHDataReader
    */
   @Nonnull
   public HREDeliverySBDHData extractDataUnchecked (@Nonnull final StandardBusinessDocumentHeader aSBDH,
-                                              @Nonnull final Element aBusinessMessage)
+                                                   @Nonnull final Element aBusinessMessage)
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
