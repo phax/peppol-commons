@@ -20,24 +20,24 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.helger.hredelivery.commons.EHREDeliverySML;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 
 /**
- * Test class {@link HREDeliveryMPSClientHelper}.
+ * Test class {@link HRMPSClientReadOnly}.
  *
  * @author Philip Helger
  */
-public final class HREDeliveryMPSClientHelperTest
+public final class HRMPSClientReadOnlyTest
 {
   @Test
   public void testResolveSMPDemo () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:18683136487");
 
-    final BDXRClientReadOnly aMPSCLient = HREDeliveryMPSClientHelper.createForDemo (aPI);
+    final HRMPSClientReadOnly aMPSCLient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
     final String sSMPHost = aMPSCLient.getSMPHostURI ();
     assertEquals ("https://mpsdemo.moj-eracun.hr/", sSMPHost);
   }
