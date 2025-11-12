@@ -37,6 +37,8 @@ public final class HREDeliveryTrustedCA
 
   private static final TrustedCAChecker FINA_DEMO = new TrustedCAChecker (HREDeliveryTrustStores.Fina2015.CERTIFICATE_DEMO_CA_2020);
   private static final TrustedCAChecker FINA_PROD = new TrustedCAChecker (HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2020);
+  private static final TrustedCAChecker FINA_ALL = new TrustedCAChecker (HREDeliveryTrustStores.Fina2015.CERTIFICATE_DEMO_CA_2020,
+                                                                         HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2020);
 
   private HREDeliveryTrustedCA ()
   {}
@@ -60,12 +62,22 @@ public final class HREDeliveryTrustedCA
   }
 
   /**
+   * @return The CA checker for HR eDelivery Fina Demo+Production.
+   */
+  @Nonnull
+  public static TrustedCAChecker hrEdeliveryFinaAll ()
+  {
+    return FINA_ALL;
+  }
+
+  /**
    * Remove all entries from the revocation cache.
    */
   public static void clearRevocationCheckCache ()
   {
     FINA_DEMO.getRevocationCache ().clearCache ();
     FINA_PROD.getRevocationCache ().clearCache ();
+    FINA_ALL.getRevocationCache ().clearCache ();
 
     LOGGER.info ("The HREDeliveryTrustedCA revocation cache was cleared");
   }
