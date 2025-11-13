@@ -349,6 +349,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.1.2 - work in progress
+* Method `SMPClientReadOnly.getAllDocumentTypes` is now capable of handling percent encoded participant IDs in URLs
+* Method `BDXRClientReadOnly.getAllDocumentTypes` is now capable of handling percent encoded participant IDs in URLs
+
 v12.1.1 - 2025-11-12
 * Class `HREDeliveryNaptrURLProvider` now uses `Meta:SMP` as the NAPTR service to reflect reality
 * Peppol MLS Schematron was updated, to fix an issue with lowercase SPIS values

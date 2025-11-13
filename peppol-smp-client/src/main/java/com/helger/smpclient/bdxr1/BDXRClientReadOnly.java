@@ -219,11 +219,16 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     if (aSG != null && aSG.getParticipantIdentifier () != null && aSG.getServiceMetadataReferenceCollection () != null)
     {
-      final String sPathStart = "/" +
-                                CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) +
-                                '/' +
-                                URL_PART_SERVICES +
-                                '/';
+      final String sPathStart1 = "/" +
+                                 CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) +
+                                 '/' +
+                                 URL_PART_SERVICES +
+                                 '/';
+      final String sPathStart2 = "/" +
+                                 CIdentifier.getURIPercentEncoded (aSG.getParticipantIdentifier ()) +
+                                 '/' +
+                                 URL_PART_SERVICES +
+                                 '/';
       for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                         .getServiceMetadataReference ())
       {
@@ -234,10 +239,17 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         boolean bSuccess = false;
 
         // Case insensitive "indexOf" here
-        final int nPathStart = StringHelper.getIndexOfIgnoreCase (sHref, sPathStart, Locale.US);
+        String sSearch = sPathStart1;
+        int nPathStart = StringHelper.getIndexOfIgnoreCase (sHref, sSearch, Locale.US);
+        if (nPathStart < 0)
+        {
+          sSearch = sPathStart2;
+          nPathStart = StringHelper.getIndexOfIgnoreCase (sHref, sSearch, Locale.US);
+        }
+
         if (nPathStart >= 0)
         {
-          final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
+          final String sDocType = sHref.substring (nPathStart + sSearch.length ());
           final IDocumentTypeIdentifier aDocType = aIdentifierFactory.parseDocumentTypeIdentifier (sDocType);
           if (aDocType != null)
           {
@@ -392,9 +404,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
           if (aObj instanceof JAXBElement <?>)
           {
             final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
-            if (aInfoValue instanceof X509DataType)
+            if (aInfoValue instanceof final X509DataType aX509Data)
             {
-              final X509DataType aX509Data = (X509DataType) aInfoValue;
               if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))
               {
                 bCertificateSubjectFound = true;
