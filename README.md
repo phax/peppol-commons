@@ -349,7 +349,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.1.2 - work in progress
+v12.1.2 - 2025-11-13
 * Method `SMPClientReadOnly.getAllDocumentTypes` is now capable of handling percent encoded participant IDs in URLs
 * Method `BDXRClientReadOnly.getAllDocumentTypes` is now capable of handling percent encoded participant IDs in URLs
 
