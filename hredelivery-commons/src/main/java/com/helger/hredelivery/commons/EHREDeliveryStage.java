@@ -59,6 +59,9 @@ public enum EHREDeliveryStage implements IHasID <String>
   @Nullable
   public static EHREDeliveryStage getFromIDOrNull (@Nullable final String sID)
   {
+    // Special handling for Peppol compatibility
+    if ("test".equals (sID))
+      return DEMO;
     return EnumHelper.getFromIDOrNull (EHREDeliveryStage.class, sID);
   }
 }
