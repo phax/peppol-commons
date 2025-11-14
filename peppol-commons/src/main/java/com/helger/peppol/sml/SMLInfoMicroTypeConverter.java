@@ -17,6 +17,7 @@
 package com.helger.peppol.sml;
 
 import com.helger.annotation.misc.ContainsSoftMigration;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
@@ -58,6 +59,14 @@ public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter <SML
     return aElement;
   }
 
+  @Nullable
+  private static String _getChildTextContentOrEmpty (@Nonnull final IMicroElement eParentElement,
+                                                     @Nonnull final String sChildElementName)
+  {
+    final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
+    return eChildElement != null ? StringHelper.getNotNull (eChildElement.getTextContent (), "") : null;
+  }
+
   @Nonnull
   @ContainsSoftMigration
   public SMLInfo convertToNative (@Nonnull final IMicroElement aElement)
@@ -66,10 +75,12 @@ public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter <SML
     final String sDisplayName = aElement.getAttributeValue (ATTR_DISPLAY_NAME);
     final String sDNSZone = MicroHelper.getChildTextContent (aElement, ELEMENT_DNS_ZONE);
     final String sManagementServiceURL = MicroHelper.getChildTextContent (aElement, ELEMENT_MANAGEMENT_SERVICE);
-    String sURLSuffixSMP = MicroHelper.getChildTextContent (aElement, ELEMENT_URL_SUFFIX_MANAGE_SMP);
+
+    // Make sure the empty string is handled properly
+    String sURLSuffixSMP = _getChildTextContentOrEmpty (aElement, ELEMENT_URL_SUFFIX_MANAGE_SMP);
     if (sURLSuffixSMP == null)
       sURLSuffixSMP = SMLInfo.DEFAULT_SUFFIX_MANAGE_SMP;
-    String sURLSuffixParticipant = MicroHelper.getChildTextContent (aElement, ELEMENT_URL_SUFFIX_MANAGE_PARTICIPANT);
+    String sURLSuffixParticipant = _getChildTextContentOrEmpty (aElement, ELEMENT_URL_SUFFIX_MANAGE_PARTICIPANT);
     if (sURLSuffixParticipant == null)
       sURLSuffixParticipant = SMLInfo.DEFAULT_SUFFIX_MANAGE_PARTICIPANT;
     final boolean bRequiresClientCert = StringParser.parseBool (aElement.getAttributeValue (ATTR_REQUIRES_CLIENT_CERT),
