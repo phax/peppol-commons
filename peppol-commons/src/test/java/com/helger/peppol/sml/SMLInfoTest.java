@@ -130,7 +130,20 @@ public final class SMLInfoTest
                                                                            .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
                                                                            .clientCertificateRequired (!ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
                                                                            .build ());
+    XMLTestHelper.testMicroTypeConversion (si);
 
+    // With empty URL suffixes
+    si = SMLInfo.builder ()
+                .id ("dummy")
+                .displayName ("Test 2")
+                .dnsZone ("a.b.c.d")
+                .managementServiceURL ("https://demo.xyz.test/")
+                .urlSuffixManageParticipant ("")
+                .urlSuffixManageSMP ("")
+                .clientCertificateRequired (false)
+                .build ();
+    // System.out.println (MicroWriter.getNodeAsString (MicroTypeConverter.convertToMicroElement
+    // (si, "Test")));
     XMLTestHelper.testMicroTypeConversion (si);
   }
 
