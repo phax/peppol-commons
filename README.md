@@ -349,6 +349,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.1.3 - 2025-11-14
+* Fixed loading of `SMLInfo` objects from XML, so that empty URL suffixes are properly maintained
+
 v12.1.2 - 2025-11-13
 * Method `SMPClientReadOnly.getAllDocumentTypes` is now capable of handling percent encoded participant IDs in URLs
 * Method `BDXRClientReadOnly.getAllDocumentTypes` is now capable of handling percent encoded participant IDs in URLs
