@@ -56,6 +56,16 @@ public enum EHREDeliveryStage implements IHasID <String>
     return m_eSML;
   }
 
+  public boolean isProduction ()
+  {
+    return this == PRODUCTION;
+  }
+
+  public boolean isDemo ()
+  {
+    return this == DEMO;
+  }
+
   @Nullable
   public static EHREDeliveryStage getFromIDOrNull (@Nullable final String sID)
   {

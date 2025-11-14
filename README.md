@@ -351,6 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 v12.1.3 - 2025-11-14
 * Fixed loading of `SMLInfo` objects from XML, so that empty URL suffixes are properly maintained
+* Extended `EHREDeliveryStage` API
 
 v12.1.2 - 2025-11-13
 * Method `SMPClientReadOnly.getAllDocumentTypes` is now capable of handling percent encoded participant IDs in URLs
