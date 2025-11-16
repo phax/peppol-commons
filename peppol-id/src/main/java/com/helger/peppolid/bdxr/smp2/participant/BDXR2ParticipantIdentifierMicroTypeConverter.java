@@ -16,16 +16,16 @@
  */
 package com.helger.peppolid.bdxr.smp2.participant;
 
-import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
 public final class BDXR2ParticipantIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <BDXR2ParticipantIdentifier>
 {
   @Override
-  @Nonnull
-  protected BDXR2ParticipantIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
+  @NonNull
+  protected BDXR2ParticipantIdentifier getAsNative (@Nullable final String sScheme, @NonNull final String sValue)
   {
     return new BDXR2ParticipantIdentifier (sScheme, sValue);
   }

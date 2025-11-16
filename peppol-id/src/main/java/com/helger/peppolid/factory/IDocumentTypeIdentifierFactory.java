@@ -16,10 +16,10 @@
  */
 package com.helger.peppolid.factory;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IIdentifier;
-
-import jakarta.annotation.Nullable;
 
 /**
  * A generic factory interface for document type identifiers.

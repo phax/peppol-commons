@@ -16,15 +16,15 @@
  */
 package com.helger.peppol.servicedomain;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasDisplayName;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This enum lists all the Peppol Network stages
@@ -48,10 +48,10 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   private final String m_sDirectoryURL;
   private final ISMLInfo m_aSMLInfo;
 
-  EPeppolNetwork (@Nonnull @Nonempty final String sID,
-                  @Nonnull @Nonempty final String sDisplayName,
-                  @Nonnull @Nonempty final String sDirectoryURL,
-                  @Nonnull final ISMLInfo aSMLInfo)
+  EPeppolNetwork (@NonNull @Nonempty final String sID,
+                  @NonNull @Nonempty final String sDisplayName,
+                  @NonNull @Nonempty final String sDirectoryURL,
+                  @NonNull final ISMLInfo aSMLInfo)
   {
     m_sID = sID;
     m_sDisplayName = sDisplayName;
@@ -59,14 +59,14 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
     m_aSMLInfo = aSMLInfo;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {
@@ -78,7 +78,7 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
    *         the domain name and without a trailing slash. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDirectoryURL ()
   {
@@ -89,7 +89,7 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
    * @return The SML object to be used for this network stage. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ISMLInfo getSMLInfo ()
   {
     return m_aSMLInfo;

@@ -18,6 +18,9 @@ package com.helger.peppolid.peppol.participant;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -33,9 +36,6 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.validator.IdentifierValidator;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * A special Peppol participant identifier handling all the special constraints of Peppol.
  *
@@ -49,18 +49,18 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
                                          Comparable <PeppolParticipantIdentifier>,
                                          ICloneable <PeppolParticipantIdentifier>
 {
-  @Nonnull
-  private static String _verifyScheme (@Nonnull final IIdentifierFactory aIF, @Nullable final String sScheme)
+  @NonNull
+  private static String _verifyScheme (@NonNull final IIdentifierFactory aIF, @Nullable final String sScheme)
   {
     if (!aIF.isParticipantIdentifierSchemeValid (sScheme))
       throw new IllegalArgumentException ("Peppol Participant identifier scheme '" + sScheme + "' is invalid!");
     return sScheme;
   }
 
-  @Nonnull
-  private static String _verifyValue (@Nonnull final IIdentifierFactory aIF,
+  @NonNull
+  private static String _verifyValue (@NonNull final IIdentifierFactory aIF,
                                       @Nullable final String sScheme,
-                                      @Nonnull final String sValue)
+                                      @NonNull final String sValue)
   {
     if (!aIF.isParticipantIdentifierValueValid (sScheme, sValue))
       throw new IllegalArgumentException ("Peppol Participant identifier value '" +
@@ -72,8 +72,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public PeppolParticipantIdentifier (@Nonnull final IIdentifierFactory aIF,
-                                      @Nonnull final IParticipantIdentifier aIdentifier)
+  public PeppolParticipantIdentifier (@NonNull final IIdentifierFactory aIF,
+                                      @NonNull final IParticipantIdentifier aIdentifier)
   {
     this (aIF, aIdentifier.getScheme (), aIdentifier.getValue ());
   }
@@ -91,9 +91,9 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    *         If either scheme or value are invalid
    */
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public PeppolParticipantIdentifier (@Nonnull final IIdentifierFactory aIF,
+  public PeppolParticipantIdentifier (@NonNull final IIdentifierFactory aIF,
                                       @Nullable final String sScheme,
-                                      @Nonnull final String sValue)
+                                      @NonNull final String sValue)
   {
     this (true, _verifyScheme (aIF, sScheme), _verifyValue (aIF, sScheme, sValue));
   }
@@ -110,8 +110,8 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    *        Identifier value. May not be <code>null</code>.
    */
   protected PeppolParticipantIdentifier (final boolean bVerified,
-                                         @Nonnull final String sScheme,
-                                         @Nonnull final String sValue)
+                                         @NonNull final String sScheme,
+                                         @NonNull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
@@ -172,7 +172,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
     return null;
   }
 
-  public int compareTo (@Nonnull final PeppolParticipantIdentifier aOther)
+  public int compareTo (@NonNull final PeppolParticipantIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -181,7 +181,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public PeppolParticipantIdentifier getClone ()
   {
@@ -214,7 +214,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    *        returned.
    * @return The participant identifier or <code>null</code> if any of the parts is invalid.
    */
-  @Nonnull
+  @NonNull
   public static PeppolParticipantIdentifier internalCreatePreVerified (@Nullable final String sScheme,
                                                                        @Nullable final String sValue)
   {
@@ -229,7 +229,7 @@ public class PeppolParticipantIdentifier extends ParticipantIdentifierType imple
    *        The value to be validated. Must not be <code>null</code>.
    * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
-  public static boolean isValidValueWithDefaultScheme (@Nonnull final String sValue)
+  public static boolean isValidValueWithDefaultScheme (@NonNull final String sValue)
   {
     // Check if the separator between identifier issuing agency and value is
     // present - can only be done if the default scheme is present

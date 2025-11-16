@@ -20,6 +20,8 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.Month;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -89,9 +91,6 @@ import com.helger.xsds.peppol.codelists26.PCLTransportProfileType;
 import com.helger.xsds.peppol.codelists26.PCLTransportProfilesType;
 import com.helger.xsds.peppol.id1.CPeppolID;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Utility class to create the Genericode files from the Excel code list. Also creates Java source
  * files with the predefined identifiers.<br>
@@ -107,8 +106,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
   private static final JCodeModel CM = new JCodeModel ();
   private static final String DO_NOT_EDIT = "This file was automatically generated.\nDo NOT edit!";
 
-  @Nonnull
-  private static EPeppolCodeListItemState _getState (@Nonnull final PCLStateType eState)
+  @NonNull
+  private static EPeppolCodeListItemState _getState (@NonNull final PCLStateType eState)
   {
     return switch (eState)
     {
@@ -119,7 +118,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
     };
   }
 
-  @Nonnull
+  @NonNull
   private static IJExpression _asExpr (@Nullable final LocalDate aLocalDate)
   {
     return aLocalDate == null ? JExpr._null () : CM.ref (PDTFactory.class)
@@ -295,17 +294,17 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       // Constructor
       final JMethod jCtor = jEnum.constructor (0);
       final JVar jScheme = jCtor.param (JMod.FINAL, String.class, "sScheme");
-      jScheme.annotate (Nonnull.class);
+      jScheme.annotate (NonNull.class);
       jScheme.annotate (Nonempty.class);
       final JVar jParts = jCtor.param (JMod.FINAL, IPeppolGenericDocumentTypeIdentifierParts.class, "aParts");
-      jParts.annotate (Nonnull.class);
+      jParts.annotate (NonNull.class);
       final JVar jCommonName = jCtor.param (JMod.FINAL, String.class, "sCommonName");
-      jCommonName.annotate (Nonnull.class);
+      jCommonName.annotate (NonNull.class);
       jCommonName.annotate (Nonempty.class);
       final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
-      jInitialRelease.annotate (Nonnull.class);
+      jInitialRelease.annotate (NonNull.class);
       final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
-      jState.annotate (Nonnull.class);
+      jState.annotate (NonNull.class);
       final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
       jDeprecationRelease.annotate (Nullable.class);
       final JVar jRemovalDate = jCtor.param (JMod.FINAL, LocalDate.class, "aRemovalDate");
@@ -341,13 +340,13 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fScheme);
 
       // public IPeppolGenericDocumentTypeIdentifierParts getParts
       m = jEnum.method (JMod.PUBLIC, IPeppolGenericDocumentTypeIdentifierParts.class, "getParts");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fParts);
 
       // public IPeppolDocumentTypeIdentifierParts getXMLParts
@@ -360,43 +359,43 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
       // public String getSyntaxSpecificID ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getSyntaxSpecificID");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fParts.invoke (m.name ()));
 
       // public String getCustomizationID ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getCustomizationID");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fParts.invoke (m.name ()));
 
       // public String getVersion ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getVersion");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fParts.invoke (m.name ()));
 
       // public String getCommonName ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getCommonName");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fCommonName);
 
       // public String getValue ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getValue");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fID);
 
       // public String getAsDocumentTypeIdentifierValue ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getAsDocumentTypeIdentifierValue");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fID);
 
       // public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolDocumentTypeIdentifier.class, "getAsDocumentTypeIdentifier");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()
        ._return (JExpr._new (CM.ref (PeppolDocumentTypeIdentifier.class))
                       .arg (CM.ref (PeppolIdentifierFactory.class).staticRef ("INSTANCE"))
@@ -404,12 +403,12 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
       // public Version getInitialRelease ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getInitialRelease");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fInitialRelease);
 
       // public EPeppolCodeListItemState getState ()
       m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fState);
 
       // public Version getDeprecationRelease ()
@@ -443,7 +442,7 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
       // public ICommonsList<IProcessIdentifier> getAllProcessIDs()
       m = jEnum.method (JMod.PUBLIC, CM.ref (ICommonsList.class).narrow (IProcessIdentifier.class), "getAllProcessIDs");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.annotate (ReturnsMutableCopy.class);
       m.body ()._return (fProcessIDs.invoke ("getClone"));
@@ -570,23 +569,23 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       // Constructor
       final JMethod jCtor = jEnum.constructor (0);
       final JVar jSchemeID = jCtor.param (JMod.FINAL, String.class, "sSchemeID");
-      jSchemeID.annotate (Nonnull.class);
+      jSchemeID.annotate (NonNull.class);
       jSchemeID.annotate (Nonempty.class);
       final JVar jISO6523 = jCtor.param (JMod.FINAL, String.class, "sISO6523");
-      jISO6523.annotate (Nonnull.class);
+      jISO6523.annotate (NonNull.class);
       jISO6523.annotate (Nonempty.class);
       final JVar jCountryCode = jCtor.param (JMod.FINAL, String.class, "sCountryCode");
-      jCountryCode.annotate (Nonnull.class);
+      jCountryCode.annotate (NonNull.class);
       jCountryCode.annotate (Nonempty.class);
       final JVar jSchemeName = jCtor.param (JMod.FINAL, String.class, "sSchemeName");
-      jSchemeName.annotate (Nonnull.class);
+      jSchemeName.annotate (NonNull.class);
       jSchemeName.annotate (Nonempty.class);
       final JVar jIssuingAgency = jCtor.param (JMod.FINAL, String.class, "sIssuingAgency");
       jIssuingAgency.annotate (Nullable.class);
       final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
-      jInitialRelease.annotate (Nonnull.class);
+      jInitialRelease.annotate (NonNull.class);
       final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
-      jState.annotate (Nonnull.class);
+      jState.annotate (NonNull.class);
       final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
       jDeprecationRelease.annotate (Nullable.class);
       final JVar jRemovalDate = jCtor.param (JMod.FINAL, LocalDate.class, "aRemovalDate");
@@ -604,25 +603,25 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
       // public String getSchemeID ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getSchemeID");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fSchemeID);
 
       // public String getISO6523Code ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getISO6523Code");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fISO6523);
 
       // public String getCountryCode ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getCountryCode");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fCountryCode);
 
       // public String getSchemeName ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getSchemeName");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fSchemeName);
 
@@ -633,12 +632,12 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
       // public Version getInitialRelease ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getInitialRelease");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fInitialRelease);
 
       // public EPeppolCodeListItemState getState ()
       m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fState);
 
       // public Version getDeprecationRelease ()
@@ -755,35 +754,35 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       // Constructor
       final JMethod jCtor = jEnum.constructor (0);
       final JVar jScheme = jCtor.param (JMod.FINAL, String.class, "sScheme");
-      jScheme.annotate (Nonnull.class);
+      jScheme.annotate (NonNull.class);
       jScheme.annotate (Nonempty.class);
       final JVar jValue = jCtor.param (JMod.FINAL, String.class, "sValue");
-      jValue.annotate (Nonnull.class);
+      jValue.annotate (NonNull.class);
       jValue.annotate (Nonempty.class);
       final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
-      jState.annotate (Nonnull.class);
+      jState.annotate (NonNull.class);
       jCtor.body ().assign (fScheme, jScheme).assign (fValue, jValue).assign (fState, jState);
 
       // public String getScheme ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getScheme");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fScheme);
 
       // public String getValue ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getValue");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fValue);
 
       // public EPeppolCodeListItemState getState ()
       m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fState);
 
       // public PeppolProcessIdentifier getAsProcessIdentifier ()
       m = jEnum.method (JMod.PUBLIC, PeppolProcessIdentifier.class, "getAsProcessIdentifier");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()
        ._return (JExpr._new (CM.ref (PeppolProcessIdentifier.class))
                       .arg (CM.ref (PeppolIdentifierFactory.class).staticRef ("INSTANCE"))
@@ -920,18 +919,18 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       // Constructor
       final JMethod jCtor = jEnum.constructor (0);
       final JVar jProtocol = jCtor.param (JMod.FINAL, String.class, "sProtocol");
-      jProtocol.annotate (Nonnull.class);
+      jProtocol.annotate (NonNull.class);
       jProtocol.annotate (Nonempty.class);
       final JVar jProfileVersion = jCtor.param (JMod.FINAL, String.class, "sProfileVersion");
-      jProfileVersion.annotate (Nonnull.class);
+      jProfileVersion.annotate (NonNull.class);
       jProfileVersion.annotate (Nonempty.class);
       final JVar jProfileID = jCtor.param (JMod.FINAL, String.class, "sProfileID");
-      jProfileID.annotate (Nonnull.class);
+      jProfileID.annotate (NonNull.class);
       jProfileID.annotate (Nonempty.class);
       final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
-      jInitialRelease.annotate (Nonnull.class);
+      jInitialRelease.annotate (NonNull.class);
       final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
-      jState.annotate (Nonnull.class);
+      jState.annotate (NonNull.class);
       final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
       jDeprecationRelease.annotate (Nullable.class);
       final JVar jRemovalDate = jCtor.param (JMod.FINAL, LocalDate.class, "aRemovalDate");
@@ -947,30 +946,30 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
       // public String getProtocol()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getProtocol");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fProtocol);
 
       // public String getProfileVersion ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getProfileVersion");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fProfileVersion);
 
       // public String getProfileID ()
       m = jEnum.method (JMod.PUBLIC, String.class, "getProfileID");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fProfileID);
 
       // public Version getInitialRelease ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getInitialRelease");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fInitialRelease);
 
       // public EPeppolCodeListItemState getState ()
       m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fState);
 
       // public Version getDeprecationRelease ()
@@ -1063,12 +1062,12 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
       // Constructor
       final JMethod jCtor = jEnum.constructor (0);
       final JVar jUseCaseID = jCtor.param (JMod.FINAL, String.class, "sProfileID");
-      jUseCaseID.annotate (Nonnull.class);
+      jUseCaseID.annotate (NonNull.class);
       jUseCaseID.annotate (Nonempty.class);
       final JVar jInitialRelease = jCtor.param (JMod.FINAL, Version.class, "aInitialRelease");
-      jInitialRelease.annotate (Nonnull.class);
+      jInitialRelease.annotate (NonNull.class);
       final JVar jState = jCtor.param (JMod.FINAL, EPeppolCodeListItemState.class, "eState");
-      jState.annotate (Nonnull.class);
+      jState.annotate (NonNull.class);
       final JVar jDeprecationRelease = jCtor.param (JMod.FINAL, Version.class, "aDeprecationRelease");
       jDeprecationRelease.annotate (Nullable.class);
       final JVar jRemovalDate = jCtor.param (JMod.FINAL, LocalDate.class, "aRemovalDate");
@@ -1082,18 +1081,18 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
 
       // public String getUseCaseID ()
       JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getUseCaseID");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.annotate (Nonempty.class);
       m.body ()._return (fUseCaseID);
 
       // public Version getInitialRelease ()
       m = jEnum.method (JMod.PUBLIC, Version.class, "getInitialRelease");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fInitialRelease);
 
       // public EPeppolCodeListItemState getState ()
       m = jEnum.method (JMod.PUBLIC, EPeppolCodeListItemState.class, "getState");
-      m.annotate (Nonnull.class);
+      m.annotate (NonNull.class);
       m.body ()._return (fState);
 
       // public Version getDeprecationRelease ()
@@ -1117,8 +1116,8 @@ public final class MainCreatePredefinedEnumsFromXML_v9x
     private final File m_aFile;
     private final IThrowingConsumer <? super Document, Exception> m_aHandler;
 
-    public CodeListFile (@Nonnull final String sFilenamePart,
-                         @Nonnull final IThrowingConsumer <? super Document, Exception> aHandler)
+    public CodeListFile (@NonNull final String sFilenamePart,
+                         @NonNull final IThrowingConsumer <? super Document, Exception> aHandler)
     {
       m_aFile = new File ("src/main/resources/external/codelists/Peppol Code Lists - " +
                           sFilenamePart +

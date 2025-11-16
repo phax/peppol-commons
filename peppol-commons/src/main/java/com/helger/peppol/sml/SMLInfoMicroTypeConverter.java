@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.sml;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.misc.ContainsSoftMigration;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
@@ -23,9 +26,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.util.MicroHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Micro type converter for {@link SMLInfo} objects
@@ -42,10 +42,10 @@ public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter <SML
   private static final String ELEMENT_URL_SUFFIX_MANAGE_PARTICIPANT = "suffix-manage-participant";
   private static final String ATTR_REQUIRES_CLIENT_CERT = "clientcert";
 
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final SMLInfo aValue,
+  @NonNull
+  public IMicroElement convertToMicroElement (@NonNull final SMLInfo aValue,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_ID, aValue.getID ());
@@ -60,16 +60,16 @@ public final class SMLInfoMicroTypeConverter implements IMicroTypeConverter <SML
   }
 
   @Nullable
-  private static String _getChildTextContentOrEmpty (@Nonnull final IMicroElement eParentElement,
-                                                     @Nonnull final String sChildElementName)
+  private static String _getChildTextContentOrEmpty (@NonNull final IMicroElement eParentElement,
+                                                     @NonNull final String sChildElementName)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? StringHelper.getNotNull (eChildElement.getTextContent (), "") : null;
   }
 
-  @Nonnull
+  @NonNull
   @ContainsSoftMigration
-  public SMLInfo convertToNative (@Nonnull final IMicroElement aElement)
+  public SMLInfo convertToNative (@NonNull final IMicroElement aElement)
   {
     final String sID = aElement.getAttributeValue (ATTR_ID);
     final String sDisplayName = aElement.getAttributeValue (ATTR_DISPLAY_NAME);

@@ -18,6 +18,7 @@ package com.helger.peppol.sbdh;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.unece.cefact.namespaces.sbdh.BusinessScope;
 import org.unece.cefact.namespaces.sbdh.DocumentIdentification;
 import org.unece.cefact.namespaces.sbdh.Partner;
@@ -29,8 +30,6 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Convert a Peppol SBDH document to a regular SBDH document
@@ -51,7 +50,7 @@ public class PeppolSBDHDataWriter
   /**
    * @return The SBDH header version to be used. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final String getHeaderVersion ()
   {
     return m_sHeaderVersion;
@@ -64,8 +63,8 @@ public class PeppolSBDHDataWriter
    *        The head version. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final PeppolSBDHDataWriter setHeaderVersion (@Nonnull final String sHeaderVersion)
+  @NonNull
+  public final PeppolSBDHDataWriter setHeaderVersion (@NonNull final String sHeaderVersion)
   {
     ValueEnforcer.notNull (sHeaderVersion, "HeaderVersion");
     m_sHeaderVersion = sHeaderVersion;
@@ -90,7 +89,7 @@ public class PeppolSBDHDataWriter
    * @return this for chaining
    * @since 8.8.1
    */
-  @Nonnull
+  @NonNull
   public final PeppolSBDHDataWriter setFavourSpeed (final boolean bFavourSpeed)
   {
     m_bFavourSpeed = bFavourSpeed;
@@ -107,8 +106,8 @@ public class PeppolSBDHDataWriter
    * @throws IllegalArgumentException
    *         if not all document data fields are set!
    */
-  @Nonnull
-  public StandardBusinessDocument createStandardBusinessDocument (@Nonnull final PeppolSBDHData aData)
+  @NonNull
+  public StandardBusinessDocument createStandardBusinessDocument (@NonNull final PeppolSBDHData aData)
   {
     ValueEnforcer.notNull (aData, "Data");
     if (!aData.areAllFieldsSet ())

@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,8 +48,6 @@ import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link PeppolMLSValidator}.
  *
@@ -73,8 +72,8 @@ public final class PeppolMLSValidatorTest
     }
   }
 
-  @Nonnull
-  private static ICommonsSet <String> _getAllFailedIDs (@Nonnull final String sFilename) throws Exception
+  @NonNull
+  private static ICommonsSet <String> _getAllFailedIDs (@NonNull final String sFilename) throws Exception
   {
     final ClassPathResource f = new ClassPathResource (sFilename, PeppolMLSValidatorTest.class.getClassLoader ());
     assertNotNull ("The file '" + f.getPath () + "' is not XSD compliant", new PeppolMLSMarshaller ().read (f));

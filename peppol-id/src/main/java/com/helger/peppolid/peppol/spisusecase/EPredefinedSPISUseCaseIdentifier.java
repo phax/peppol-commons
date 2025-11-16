@@ -17,12 +17,14 @@
 package com.helger.peppolid.peppol.spisusecase;
 
 import java.time.LocalDate;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 
 /**
@@ -48,9 +50,9 @@ public enum EPredefinedSPISUseCaseIdentifier
     private final Version m_aDeprecationRelease;
     private final LocalDate m_aRemovalDate;
 
-    EPredefinedSPISUseCaseIdentifier(@Nonnull @Nonempty final String sProfileID,
-        @Nonnull final Version aInitialRelease,
-        @Nonnull final EPeppolCodeListItemState eState,
+    EPredefinedSPISUseCaseIdentifier(@NonNull @Nonempty final String sProfileID,
+        @NonNull final Version aInitialRelease,
+        @NonNull final EPeppolCodeListItemState eState,
         @Nullable final Version aDeprecationRelease,
         @Nullable final LocalDate aRemovalDate) {
         m_sUseCaseID = sProfileID;
@@ -60,18 +62,18 @@ public enum EPredefinedSPISUseCaseIdentifier
         m_aRemovalDate = aRemovalDate;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getUseCaseID() {
         return m_sUseCaseID;
     }
 
-    @Nonnull
+    @NonNull
     public Version getInitialRelease() {
         return m_aInitialRelease;
     }
 
-    @Nonnull
+    @NonNull
     public EPeppolCodeListItemState getState() {
         return m_eState;
     }

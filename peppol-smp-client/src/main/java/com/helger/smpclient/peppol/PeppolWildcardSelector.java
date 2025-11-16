@@ -20,6 +20,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +38,6 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.PeppolGenericDocumentTypeIdentifierParts;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to support the different ways of dealing with peppol-doctype-wildcard scheme in
@@ -71,11 +70,11 @@ public class PeppolWildcardSelector
    *        The consumer to be invoked for the first match only. May not be <code>null</code>.
    * @return Non-<code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Pfuoi430
-  public static ESuccess findPeppolDoctypeWildcardMatch (@Nonnull final ICommonsList <? extends IDocumentTypeIdentifier> aBaseDocTypes,
-                                                         @Nonnull @Nonempty final IDocumentTypeIdentifier aSearchDocTypeValue,
-                                                         @Nonnull final Consumer <? super IDocumentTypeIdentifier> aMatchingDocTypeConsumer)
+  public static ESuccess findPeppolDoctypeWildcardMatch (@NonNull final ICommonsList <? extends IDocumentTypeIdentifier> aBaseDocTypes,
+                                                         @NonNull @Nonempty final IDocumentTypeIdentifier aSearchDocTypeValue,
+                                                         @NonNull final Consumer <? super IDocumentTypeIdentifier> aMatchingDocTypeConsumer)
   {
     ValueEnforcer.notNull (aBaseDocTypes, "BaseDocTypes");
     ValueEnforcer.notNull (aSearchDocTypeValue, "SearchDocTypeValue");

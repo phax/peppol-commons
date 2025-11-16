@@ -18,6 +18,8 @@ package com.helger.hredelivery.commons.sbdh;
 
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.DocumentIdentification;
@@ -46,9 +48,6 @@ import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Main class to read standard business documents and extract the HR eDelivery required data out of
  * it.
@@ -65,7 +64,7 @@ public class HREDeliverySBDHDataReader
   private final IIdentifierFactory m_aIdentifierFactory;
   private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
 
-  public HREDeliverySBDHDataReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  public HREDeliverySBDHDataReader (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
 
@@ -75,7 +74,7 @@ public class HREDeliverySBDHDataReader
   /**
    * @return The identifier provided in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final IIdentifierFactory getIdentifierFactory ()
   {
     return m_aIdentifierFactory;
@@ -97,7 +96,7 @@ public class HREDeliverySBDHDataReader
    *        <code>true</code> to enable checks, <code>false</code> to disable them.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final HREDeliverySBDHDataReader setPerformValueChecks (final boolean b)
   {
     m_bPerformValueChecks = b;
@@ -204,7 +203,7 @@ public class HREDeliverySBDHDataReader
    * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidBusinessMessage (@Nonnull final Element aBusinessMessage)
+  protected boolean isValidBusinessMessage (@NonNull final Element aBusinessMessage)
   {
     return aBusinessMessage != null;
   }
@@ -225,8 +224,8 @@ public class HREDeliverySBDHDataReader
    */
   @OverrideOnDemand
   protected boolean isValidStandard (@Nullable final String sStandard,
-                                     @Nonnull final Element aBusinessMessage,
-                                     @Nonnull final String sDocumentTypeIdentifierValue)
+                                     @NonNull final Element aBusinessMessage,
+                                     @NonNull final String sDocumentTypeIdentifierValue)
   {
     if (StringHelper.isEmpty (sStandard))
       return false;
@@ -250,8 +249,8 @@ public class HREDeliverySBDHDataReader
    */
   @OverrideOnDemand
   protected boolean isValidTypeVersion (@Nullable final String sTypeVersion,
-                                        @Nonnull final Element aBusinessMessage,
-                                        @Nonnull final String sDocumentTypeIdentifierValue)
+                                        @NonNull final Element aBusinessMessage,
+                                        @NonNull final String sDocumentTypeIdentifierValue)
   {
     if (StringHelper.isEmpty (sTypeVersion))
       return false;
@@ -276,7 +275,7 @@ public class HREDeliverySBDHDataReader
    * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidType (@Nullable final String sType, @Nonnull final Element aBusinessMessage)
+  protected boolean isValidType (@Nullable final String sType, @NonNull final Element aBusinessMessage)
   {
     return EqualsHelper.equals (sType, aBusinessMessage.getLocalName ());
   }
@@ -307,7 +306,7 @@ public class HREDeliverySBDHDataReader
    * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidCreationDateTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
+  protected boolean isValidCreationDateTime (@NonNull final XMLOffsetDateTime aCreationDateTime)
   {
     return true;
   }
@@ -318,7 +317,7 @@ public class HREDeliverySBDHDataReader
    *
    * @return An instance of the {@link SBDMarshaller} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected SBDMarshaller createSBDMarshaller ()
   {
@@ -340,8 +339,8 @@ public class HREDeliverySBDHDataReader
    *         In case the passed Standard Business Document does not conform to the HR eDelivery
    *         rules.
    */
-  @Nonnull
-  public HREDeliverySBDHData extractData (@Nonnull @WillClose final InputStream aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
+  @NonNull
+  public HREDeliverySBDHData extractData (@NonNull @WillClose final InputStream aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -371,8 +370,8 @@ public class HREDeliverySBDHDataReader
    *         In case the passed Standard Business Document does not conform to the HR eDelivery
    *         rules.
    */
-  @Nonnull
-  public HREDeliverySBDHData extractData (@Nonnull final IReadableResource aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
+  @NonNull
+  public HREDeliverySBDHData extractData (@NonNull final IReadableResource aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -395,8 +394,8 @@ public class HREDeliverySBDHDataReader
    *         In case the passed Standard Business Document does not conform to the HR eDelivery
    *         rules.
    */
-  @Nonnull
-  public HREDeliverySBDHData extractData (@Nonnull final Node aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
+  @NonNull
+  public HREDeliverySBDHData extractData (@NonNull final Node aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -419,8 +418,8 @@ public class HREDeliverySBDHDataReader
    *         In case the passed Standard Business Document does not conform to the HR eDelivery
    *         rules.
    */
-  @Nonnull
-  public HREDeliverySBDHData extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
+  @NonNull
+  public HREDeliverySBDHData extractData (@NonNull final StandardBusinessDocument aStandardBusinessDocument) throws HREDeliverySBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -433,9 +432,9 @@ public class HREDeliverySBDHDataReader
     return extractData (aSBDH, aBusinessMessage);
   }
 
-  @Nonnull
+  @NonNull
   private static IError _toError (@Nullable final String sErrorField,
-                                  @Nonnull final EHREDeliverySBDHDataError e,
+                                  @NonNull final EHREDeliverySBDHDataError e,
                                   @Nullable final Object... aArgs)
   {
     return SingleError.builderError ()
@@ -457,9 +456,9 @@ public class HREDeliverySBDHDataReader
    * @param aErrorList
    *        The error list to be filled. Must not be <code>null</code>.
    */
-  public void validateData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
-                            @Nonnull final Element aBusinessMessage,
-                            @Nonnull final ErrorList aErrorList)
+  public void validateData (@NonNull final StandardBusinessDocumentHeader aSBDH,
+                            @NonNull final Element aBusinessMessage,
+                            @NonNull final ErrorList aErrorList)
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
@@ -595,9 +594,9 @@ public class HREDeliverySBDHDataReader
    *         In case the passed Standard Business Document does not conform to the HR eDelivery
    *         rules.
    */
-  @Nonnull
-  public HREDeliverySBDHData extractData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
-                                          @Nonnull final Element aBusinessMessage) throws HREDeliverySBDHDataReadException
+  @NonNull
+  public HREDeliverySBDHData extractData (@NonNull final StandardBusinessDocumentHeader aSBDH,
+                                          @NonNull final Element aBusinessMessage) throws HREDeliverySBDHDataReadException
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
@@ -649,9 +648,9 @@ public class HREDeliverySBDHDataReader
    *        <code>null</code>.
    * @return The document data and never <code>null</code>.
    */
-  @Nonnull
-  public HREDeliverySBDHData extractDataUnchecked (@Nonnull final StandardBusinessDocumentHeader aSBDH,
-                                                   @Nonnull final Element aBusinessMessage)
+  @NonNull
+  public HREDeliverySBDHData extractDataUnchecked (@NonNull final StandardBusinessDocumentHeader aSBDH,
+                                                   @NonNull final Element aBusinessMessage)
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");

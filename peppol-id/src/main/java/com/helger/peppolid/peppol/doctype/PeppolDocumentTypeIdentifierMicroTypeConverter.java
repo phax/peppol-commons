@@ -16,18 +16,18 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class PeppolDocumentTypeIdentifierMicroTypeConverter extends
                                                                   AbstractIdentifierMicroTypeConverter <PeppolDocumentTypeIdentifier>
 {
   @Override
-  @Nonnull
-  protected PeppolDocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
+  @NonNull
+  protected PeppolDocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @NonNull final String sValue)
   {
     return new PeppolDocumentTypeIdentifier (PeppolIdentifierFactory.INSTANCE, sScheme, sValue);
   }

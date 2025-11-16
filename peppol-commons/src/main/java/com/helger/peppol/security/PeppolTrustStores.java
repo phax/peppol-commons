@@ -20,6 +20,8 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.cert.X509Certificate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +31,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.ITrustStoreDescriptor;
 import com.helger.security.keystore.TrustStoreDescriptor;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains the predefined Peppol trust store handling.
@@ -47,8 +46,8 @@ public final class PeppolTrustStores
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolTrustStores.class);
 
   @Nullable
-  private static X509Certificate _resolveCert (@Nonnull final KeyStore aKeyStore,
-                                               @Nonnull @Nonempty final String sAlias)
+  private static X509Certificate _resolveCert (@NonNull final KeyStore aKeyStore,
+                                               @NonNull @Nonempty final String sAlias)
   {
     try
     {

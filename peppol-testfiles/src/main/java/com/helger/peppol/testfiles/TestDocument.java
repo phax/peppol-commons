@@ -16,15 +16,15 @@
  */
 package com.helger.peppol.testfiles;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single test document
@@ -36,7 +36,7 @@ public final class TestDocument
   private final String m_sFilename;
   private final ICommonsSet <ErrorDefinition> m_aExpectedErrors = new CommonsHashSet <> ();
 
-  public TestDocument (@Nonnull @Nonempty final String sFilename, @Nullable final ErrorDefinition... aExpectedErrors)
+  public TestDocument (@NonNull @Nonempty final String sFilename, @Nullable final ErrorDefinition... aExpectedErrors)
   {
     ValueEnforcer.notEmpty (sFilename, "Filename");
 
@@ -51,7 +51,7 @@ public final class TestDocument
    * @return The filename of the underlying resources. Neither <code>null</code>
    *         nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getFilename ()
   {
@@ -62,7 +62,7 @@ public final class TestDocument
    * @return The expected validation errors. Never <code>null</code> but maybe
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <ErrorDefinition> getAllExpectedErrors ()
   {

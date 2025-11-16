@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.mls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +26,6 @@ import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.StatusType;
 import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.DescriptionType;
@@ -57,38 +57,38 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
    *        Response text.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseResponseBuilder description (@Nullable final String s)
   {
     m_sDescription = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCodeBusinessRuleViolationFatal ()
   {
     return statusReasonCode (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL);
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCodeBusinessRuleViolationWarning ()
   {
     return statusReasonCode (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING);
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCodeFailureOfDelivery ()
   {
     return statusReasonCode (EPeppolMLSStatusReasonCode.FAILURE_OF_DELIVERY);
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCodeSyntaxViolation ()
   {
     return statusReasonCode (EPeppolMLSStatusReasonCode.SYNTAX_VIOLATION);
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCode (@Nullable final EPeppolMLSStatusReasonCode e)
   {
     m_eStatusReasonCode = e;
@@ -115,7 +115,7 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
     return true;
   }
 
-  @Nonnull
+  @NonNull
   public ResponseType build ()
   {
     if (!areAllFieldsSet (true))
@@ -131,8 +131,8 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
     return ret;
   }
 
-  @Nonnull
-  public static PeppolMLSLineResponseResponseBuilder createForLineResponseResponse (@Nonnull final ResponseType aResponse)
+  @NonNull
+  public static PeppolMLSLineResponseResponseBuilder createForLineResponseResponse (@NonNull final ResponseType aResponse)
   {
     ValueEnforcer.notNull (aResponse, "Response");
 

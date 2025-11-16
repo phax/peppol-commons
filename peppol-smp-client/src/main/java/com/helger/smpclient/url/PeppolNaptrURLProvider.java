@@ -16,12 +16,12 @@
  */
 package com.helger.smpclient.url;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 import com.helger.peppolid.peppol.Pfuoi440;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve NAPTR
@@ -63,12 +63,12 @@ public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements
    * @param rhs
    *        the object to copy from. May not be <code>null</code>.
    */
-  protected PeppolNaptrURLProvider (@Nonnull final PeppolNaptrURLProvider rhs)
+  protected PeppolNaptrURLProvider (@NonNull final PeppolNaptrURLProvider rhs)
   {
     super (rhs);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public PeppolNaptrURLProvider getClone ()
   {

@@ -18,6 +18,7 @@ package com.helger.peppol.smlclient.client;
 
 import static org.junit.Assert.assertSame;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -33,8 +34,6 @@ import com.helger.peppol.smlclient.smp.PublisherEndpointType;
 import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.wsclient.WSHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * @author Philip Helger
@@ -55,9 +54,9 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
     MockSMLClientConfig.getKeyStorePath ();
   }
 
-  @Nonnull
-  private static ServiceMetadataPublisherServiceType _createSMPData (@Nonnull final ManageServiceMetadataServiceCaller aSMPClient,
-                                                                     @Nonnull @Nonempty final String sSMPID) throws Exception
+  @NonNull
+  private static ServiceMetadataPublisherServiceType _createSMPData (@NonNull final ManageServiceMetadataServiceCaller aSMPClient,
+                                                                     @NonNull @Nonempty final String sSMPID) throws Exception
   {
     final ServiceMetadataPublisherServiceType aServiceMetadataCreate = new ServiceMetadataPublisherServiceType ();
     aServiceMetadataCreate.setServiceMetadataPublisherID (sSMPID);

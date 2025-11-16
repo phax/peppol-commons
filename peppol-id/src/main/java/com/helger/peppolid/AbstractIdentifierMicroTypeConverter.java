@@ -16,23 +16,23 @@
  */
 package com.helger.peppolid;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public abstract class AbstractIdentifierMicroTypeConverter <T extends IIdentifier> implements IMicroTypeConverter <T>
 {
   private static final String ATTR_SCHEME = "scheme";
   private static final String ATTR_VALUE = "value";
 
-  @Nonnull
-  public final IMicroElement convertToMicroElement (@Nonnull final T aValue,
+  @NonNull
+  public final IMicroElement convertToMicroElement (@NonNull final T aValue,
                                                     @Nullable final String sNamespaceURI,
-                                                    @Nonnull @Nonempty final String sTagName)
+                                                    @NonNull @Nonempty final String sTagName)
   {
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     if (aValue.hasScheme ())
@@ -41,11 +41,11 @@ public abstract class AbstractIdentifierMicroTypeConverter <T extends IIdentifie
     return aElement;
   }
 
-  @Nonnull
-  protected abstract T getAsNative (@Nonnull String sScheme, @Nonnull String sValue);
+  @NonNull
+  protected abstract T getAsNative (@NonNull String sScheme, @NonNull String sValue);
 
-  @Nonnull
-  public final T convertToNative (@Nonnull final IMicroElement aElement)
+  @NonNull
+  public final T convertToNative (@NonNull final IMicroElement aElement)
   {
     final String sScheme = aElement.getAttributeValue (ATTR_SCHEME);
     final String sValue = aElement.getAttributeValue (ATTR_VALUE);

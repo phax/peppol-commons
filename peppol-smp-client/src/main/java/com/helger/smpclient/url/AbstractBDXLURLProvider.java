@@ -24,6 +24,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xbill.DNS.TextParseException;
@@ -48,9 +50,6 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An abstract implementation of {@link IBDXLURLProvider} that support U-NAPTR record resolution.
@@ -94,7 +93,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
    * @param rhs
    *        The UBL provider to copy from. May not be <code>null</code>.
    */
-  protected AbstractBDXLURLProvider (@Nonnull final AbstractBDXLURLProvider rhs)
+  protected AbstractBDXLURLProvider (@NonNull final AbstractBDXLURLProvider rhs)
   {
     m_bLowercaseValueBeforeHashing = rhs.m_bLowercaseValueBeforeHashing;
     m_bAddIdentifierSchemeToZone = rhs.m_bAddIdentifierSchemeToZone;
@@ -125,14 +124,14 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     m_aRWLock.writeLocked ( () -> m_bAddIdentifierSchemeToZone = bAddIdentifierSchemeToZone);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getNAPTRServiceName ()
   {
     return m_aRWLock.readLockedGet ( () -> m_sNAPTRServiceName);
   }
 
-  public final void setNAPTRServiceName (@Nonnull @Nonempty final String sNAPTRServiceName)
+  public final void setNAPTRServiceName (@NonNull @Nonempty final String sNAPTRServiceName)
   {
     ValueEnforcer.notEmpty (sNAPTRServiceName, "NAPTRServiceName");
     m_aRWLock.writeLocked ( () -> m_sNAPTRServiceName = sNAPTRServiceName);
@@ -168,7 +167,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     return StringHelper.isNotEmpty (sName) ? m_aRWLock.readLockedGet ( () -> m_aDNSCache.get (sName)) : null;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsMap <String, String> getAllDNSCacheEntries ()
   {
@@ -188,7 +187,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
       m_aRWLock.writeLocked ( () -> m_aDNSCache.putAll (aEntries));
   }
 
-  public final void addDNSCacheEntry (@Nonnull @Nonempty final String sName, @Nonnull final String sNaptrValue)
+  public final void addDNSCacheEntry (@NonNull @Nonempty final String sName, @NonNull final String sNaptrValue)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sNaptrValue, "Value");
@@ -199,7 +198,7 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
    * @return A mutable list of custom DNS servers to be used for resolving DNS entries. Never
    *         <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsList <InetAddress> customDNSServers ()
   {
@@ -224,8 +223,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
    *        The value to be hashed. May not be <code>null</code>.
    * @return The non-<code>null</code> String containing the hash value.
    */
-  @Nonnull
-  public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
+  @NonNull
+  public static String getHashValueStringRepresentation (@NonNull final String sValueToHash)
   {
     final byte [] aMessageDigest = MessageDigestValue.create (sValueToHash.getBytes (URL_CHARSET),
                                                               EMessageDigestAlgorithm.SHA_256).bytes ();
@@ -236,8 +235,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                              .toLowerCase (Locale.US);
   }
 
-  @Nonnull
-  protected static String internalGetDNSName (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  @NonNull
+  protected static String internalGetDNSName (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                               final boolean bLowercaseValueBeforeHashing,
                                               final boolean bAddIdentifierSchemeToZone,
                                               @Nullable final String sSMLZoneName)
@@ -284,8 +283,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     return ret.toString ();
   }
 
-  @Nonnull
-  public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  @NonNull
+  public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     return internalGetDNSName (aParticipantIdentifier,
@@ -294,9 +293,9 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                sSMLZoneName);
   }
 
-  @Nonnull
-  public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                         @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  @NonNull
+  public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
+                                         @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
     return internalGetDNSName (aParticipantIdentifier,
@@ -305,8 +304,8 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                aSMLInfo.getDNSZone ());
   }
 
-  @Nonnull
-  public URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  @NonNull
+  public URI getSMPURIOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                      @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");

@@ -18,6 +18,8 @@ package com.helger.peppol.testfiles.ubl;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +33,6 @@ import com.helger.io.resource.IReadableResource;
 import com.helger.peppol.testfiles.ErrorDefinition;
 import com.helger.peppol.testfiles.TestDocument;
 import com.helger.peppol.testfiles.TestResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Contains the utility methods to retrieve the test files for a certain document type.
@@ -529,16 +528,16 @@ public final class PeppolBISV1TestFiles
   private PeppolBISV1TestFiles ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <IReadableResource> getSuccessFiles (@Nonnull final EPeppolUBLTestFileType eFileType)
+  public static ICommonsList <IReadableResource> getSuccessFiles (@NonNull final EPeppolUBLTestFileType eFileType)
   {
     return getSuccessFiles (eFileType, null);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <IReadableResource> getSuccessFiles (@Nonnull final EPeppolUBLTestFileType eFileType,
+  public static ICommonsList <IReadableResource> getSuccessFiles (@NonNull final EPeppolUBLTestFileType eFileType,
                                                                   @Nullable final Locale aCountry)
   {
     ValueEnforcer.notNull (eFileType, "FileType");
@@ -590,16 +589,16 @@ public final class PeppolBISV1TestFiles
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType)
+  public static ICommonsList <TestResource> getErrorFiles (@NonNull final EPeppolUBLTestFileType eFileType)
   {
     return getErrorFiles (eFileType, null);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <TestResource> getErrorFiles (@Nonnull final EPeppolUBLTestFileType eFileType,
+  public static ICommonsList <TestResource> getErrorFiles (@NonNull final EPeppolUBLTestFileType eFileType,
                                                            @Nullable final Locale aCountry)
   {
     ValueEnforcer.notNull (eFileType, "FileType");

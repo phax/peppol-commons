@@ -19,6 +19,8 @@ package com.helger.peppol.xhe.read;
 import java.io.InputStream;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -55,9 +57,6 @@ import com.helger.xhe.v10.cbc.XHE10InstanceEncryptionIndicatorType;
 import com.helger.xhe.v10.cbc.XHE10InstanceEncryptionMethodType;
 import com.helger.xhe.v10.cbc.XHE10ProfileIDType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Main class to read exchange header envelope and extract the DBNAlliance required data out of it.
  *
@@ -73,7 +72,7 @@ public class DBNAllianceXHEDataReader
   private final IIdentifierFactory m_aIdentifierFactory;
   private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
 
-  public DBNAllianceXHEDataReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  public DBNAllianceXHEDataReader (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
 
@@ -83,7 +82,7 @@ public class DBNAllianceXHEDataReader
   /**
    * @return The identifier provided in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final IIdentifierFactory getIdentifierFactory ()
   {
     return m_aIdentifierFactory;
@@ -105,7 +104,7 @@ public class DBNAllianceXHEDataReader
    *        <code>true</code> to enable checks, <code>false</code> to disable them.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final DBNAllianceXHEDataReader setPerformValueChecks (final boolean b)
   {
     m_bPerformValueChecks = b;
@@ -201,7 +200,7 @@ public class DBNAllianceXHEDataReader
    * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidCreationDateTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
+  protected boolean isValidCreationDateTime (@NonNull final XMLOffsetDateTime aCreationDateTime)
   {
     return true;
   }
@@ -363,7 +362,7 @@ public class DBNAllianceXHEDataReader
    * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidBusinessMessage (@Nonnull final Element aBusinessMessage)
+  protected boolean isValidBusinessMessage (@NonNull final Element aBusinessMessage)
   {
     return true;
   }
@@ -374,7 +373,7 @@ public class DBNAllianceXHEDataReader
    *
    * @return An instance of the {@link XHE10Marshaller} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected XHE10Marshaller createXHEMarshaller ()
   {
@@ -394,8 +393,8 @@ public class DBNAllianceXHEDataReader
    * @throws DBNAllianceXHEDataReadException
    *         In case the passed Exchange Header Envelope does not conform to the DBNAlliance rules.
    */
-  @Nonnull
-  public DBNAllianceXHEData extractData (@Nonnull @WillClose final InputStream aExchangeHeaderEnvelope) throws DBNAllianceXHEDataReadException
+  @NonNull
+  public DBNAllianceXHEData extractData (@NonNull @WillClose final InputStream aExchangeHeaderEnvelope) throws DBNAllianceXHEDataReadException
   {
     ValueEnforcer.notNull (aExchangeHeaderEnvelope, "ExchangeHeaderEnvelope");
 
@@ -423,8 +422,8 @@ public class DBNAllianceXHEDataReader
    * @throws DBNAllianceXHEDataReadException
    *         In case the passed Exchange Header Envelope does not conform to the DBNAlliance rules.
    */
-  @Nonnull
-  public DBNAllianceXHEData extractData (@Nonnull final IReadableResource aExchangeHeaderEnvelope) throws DBNAllianceXHEDataReadException
+  @NonNull
+  public DBNAllianceXHEData extractData (@NonNull final IReadableResource aExchangeHeaderEnvelope) throws DBNAllianceXHEDataReadException
   {
     ValueEnforcer.notNull (aExchangeHeaderEnvelope, "StandardBusinessDocument");
 
@@ -445,8 +444,8 @@ public class DBNAllianceXHEDataReader
    * @throws DBNAllianceXHEDataReadException
    *         In case the passed Exchange Header Envelope does not conform to the DBNAlliance rules.
    */
-  @Nonnull
-  public DBNAllianceXHEData extractData (@Nonnull final Node aExchangeHeaderEnvelope) throws DBNAllianceXHEDataReadException
+  @NonNull
+  public DBNAllianceXHEData extractData (@NonNull final Node aExchangeHeaderEnvelope) throws DBNAllianceXHEDataReadException
   {
     ValueEnforcer.notNull (aExchangeHeaderEnvelope, "ExchangeHeaderEnvelope");
 
@@ -467,8 +466,8 @@ public class DBNAllianceXHEDataReader
    * @throws DBNAllianceXHEDataReadException
    *         In case the passed Exchange Header Envelope does not conform to the DBNAlliance rules.
    */
-  @Nonnull
-  public DBNAllianceXHEData extractData (@Nonnull final XHE10XHEType aExchangeHeaderEnvelope) throws DBNAllianceXHEDataReadException
+  @NonNull
+  public DBNAllianceXHEData extractData (@NonNull final XHE10XHEType aExchangeHeaderEnvelope) throws DBNAllianceXHEDataReadException
   {
     ValueEnforcer.notNull (aExchangeHeaderEnvelope, "ExchangeHeaderEnvelope");
 
@@ -480,9 +479,9 @@ public class DBNAllianceXHEDataReader
     return extractData (aExchangeHeaderEnvelope, aPayloads);
   }
 
-  @Nonnull
+  @NonNull
   private static IError _toError (@Nullable final String sErrorField,
-                                  @Nonnull final EDBNAllianceXHEDataReadError e,
+                                  @NonNull final EDBNAllianceXHEDataReadError e,
                                   @Nullable final Object... aArgs)
   {
     return SingleError.builderError ()
@@ -504,9 +503,9 @@ public class DBNAllianceXHEDataReader
    * @param aErrorList
    *        The error list to be filled. Must not be <code>null</code>.
    */
-  public void validateData (@Nonnull final XHE10XHEType aXHE,
-                            @Nonnull final XHE10PayloadsType aPayloads,
-                            @Nonnull final ErrorList aErrorList)
+  public void validateData (@NonNull final XHE10XHEType aXHE,
+                            @NonNull final XHE10PayloadsType aPayloads,
+                            @NonNull final ErrorList aErrorList)
   {
     ValueEnforcer.notNull (aXHE, "ExchangeHeaderEnvelope");
     ValueEnforcer.notNull (aPayloads, "Payloads");
@@ -735,8 +734,8 @@ public class DBNAllianceXHEDataReader
    * @throws DBNAllianceXHEDataReadException
    *         In case the passed Exchange Header Envelope does not conform to the DBNAlliance rules.
    */
-  @Nonnull
-  public DBNAllianceXHEData extractData (@Nonnull final XHE10XHEType aXHE, @Nonnull final XHE10PayloadsType aPayloads)
+  @NonNull
+  public DBNAllianceXHEData extractData (@NonNull final XHE10XHEType aXHE, @NonNull final XHE10PayloadsType aPayloads)
                                                                                                                        throws DBNAllianceXHEDataReadException
   {
     ValueEnforcer.notNull (aXHE, "ExchangeHeaderEnvelope");
@@ -786,9 +785,9 @@ public class DBNAllianceXHEDataReader
    *        The list of DBNAlliance payload to extract data from. May not be <code>null</code>.
    * @return The document data and never <code>null</code>.
    */
-  @Nonnull
-  public DBNAllianceXHEData extractDataUnchecked (@Nonnull final XHE10XHEType aXHE,
-                                                  @Nonnull final XHE10PayloadsType aPayloads)
+  @NonNull
+  public DBNAllianceXHEData extractDataUnchecked (@NonNull final XHE10XHEType aXHE,
+                                                  @NonNull final XHE10PayloadsType aPayloads)
   {
     ValueEnforcer.notNull (aXHE, "ExchangeHeaderEnvelope");
     ValueEnforcer.notNull (aPayloads, "Payloads");

@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.smlclient.tls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.id.IHasID;
@@ -24,9 +27,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.http.tls.ETLSVersion;
 import com.helger.http.tls.ITLSConfigurationMode;
 import com.helger.http.tls.TLSConfigurationMode;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * TLS cipher suite configuration modes for CEF SML starting in 2020.
@@ -52,29 +52,29 @@ public enum ETLSConfigurationMode_CEF_SML implements IHasID <String>, ITLSConfig
   private final String m_sID;
   private final TLSConfigurationMode m_aMode;
 
-  ETLSConfigurationMode_CEF_SML (@Nonnull @Nonempty final String sID,
-                                 @Nonnull @Nonempty final ETLSVersion [] aTLSVersions,
-                                 @Nonnull @Nonempty final String [] aCipherSuites)
+  ETLSConfigurationMode_CEF_SML (@NonNull @Nonempty final String sID,
+                                 @NonNull @Nonempty final ETLSVersion [] aTLSVersions,
+                                 @NonNull @Nonempty final String [] aCipherSuites)
   {
     m_sID = sID;
     m_aMode = new TLSConfigurationMode (aTLSVersions, aCipherSuites);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllCipherSuites ()
   {
     return m_aMode.getAllCipherSuites ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @Override
   public String [] getAllCipherSuitesAsArray ()
@@ -82,14 +82,14 @@ public enum ETLSConfigurationMode_CEF_SML implements IHasID <String>, ITLSConfig
     return m_aMode.getAllCipherSuitesAsArray ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ETLSVersion> getAllTLSVersions ()
   {
     return m_aMode.getAllTLSVersions ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @Override
   public ICommonsList <String> getAllTLSVersionIDs ()
@@ -97,7 +97,7 @@ public enum ETLSConfigurationMode_CEF_SML implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersionIDs ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @Override
   public String [] getAllTLSVersionIDsAsArray ()

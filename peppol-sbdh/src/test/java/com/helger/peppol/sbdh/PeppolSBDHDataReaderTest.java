@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -44,8 +45,6 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.unittest.support.TestHelper;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.DOMReaderSettings;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PeppolSBDHDataReader}.
@@ -332,7 +331,7 @@ public final class PeppolSBDHDataReaderTest
     final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE)
     {
       @Override
-      protected boolean isValidBusinessMessage (@Nonnull final Element aBusinessMessage)
+      protected boolean isValidBusinessMessage (@NonNull final Element aBusinessMessage)
       {
         return "OrderXYZ".equals (aBusinessMessage.getLocalName ());
       }
@@ -360,7 +359,7 @@ public final class PeppolSBDHDataReaderTest
     final PeppolSBDHDataReader aReader = new PeppolSBDHDataReader (PeppolIdentifierFactory.INSTANCE)
     {
       @Override
-      protected boolean isValidCreationDateTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
+      protected boolean isValidCreationDateTime (@NonNull final XMLOffsetDateTime aCreationDateTime)
       {
         // Should fail
         return aCreationDateTime.isAfter (PDTFactory.getCurrentXMLOffsetDateTime ());

@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -27,9 +30,6 @@ import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.xsds.peppol.id1.DocumentIdentifierType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special document type identifier that handles the specialties of PEPPOL
@@ -45,18 +45,18 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
                                           Comparable <PeppolDocumentTypeIdentifier>,
                                           ICloneable <PeppolDocumentTypeIdentifier>
 {
-  @Nonnull
-  private static String _verifyScheme (@Nonnull final IIdentifierFactory aIF, @Nullable final String sScheme)
+  @NonNull
+  private static String _verifyScheme (@NonNull final IIdentifierFactory aIF, @Nullable final String sScheme)
   {
     if (!aIF.isDocumentTypeIdentifierSchemeValid (sScheme))
       throw new IllegalArgumentException ("Peppol Document Type identifier scheme '" + sScheme + "' is invalid!");
     return sScheme;
   }
 
-  @Nonnull
-  private static String _verifyValue (@Nonnull final IIdentifierFactory aIF,
+  @NonNull
+  private static String _verifyValue (@NonNull final IIdentifierFactory aIF,
                                       @Nullable final String sScheme,
-                                      @Nonnull final String sValue)
+                                      @NonNull final String sValue)
   {
     if (!aIF.isDocumentTypeIdentifierValueValid (sScheme, sValue))
       throw new IllegalArgumentException ("Peppol Document Type identifier value '" +
@@ -68,16 +68,16 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public PeppolDocumentTypeIdentifier (@Nonnull final IIdentifierFactory aIF,
-                                       @Nonnull final IDocumentTypeIdentifier aIdentifier)
+  public PeppolDocumentTypeIdentifier (@NonNull final IIdentifierFactory aIF,
+                                       @NonNull final IDocumentTypeIdentifier aIdentifier)
   {
     this (aIF, aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public PeppolDocumentTypeIdentifier (@Nonnull final IIdentifierFactory aIF,
+  public PeppolDocumentTypeIdentifier (@NonNull final IIdentifierFactory aIF,
                                        @Nullable final String sScheme,
-                                       @Nonnull final String sValue)
+                                       @NonNull final String sValue)
   {
     this (true, _verifyScheme (aIF, sScheme), _verifyValue (aIF, sScheme, sValue));
   }
@@ -94,8 +94,8 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    *        Identifier value. May not be <code>null</code>.
    */
   protected PeppolDocumentTypeIdentifier (final boolean bVerified,
-                                          @Nonnull final String sScheme,
-                                          @Nonnull final String sValue)
+                                          @NonNull final String sScheme,
+                                          @NonNull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
@@ -107,7 +107,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
     return hasScheme (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS);
   }
 
-  public int compareTo (@Nonnull final PeppolDocumentTypeIdentifier aOther)
+  public int compareTo (@NonNull final PeppolDocumentTypeIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -122,14 +122,14 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @return A new object encapsulating the different document type identifier
    *         parts.
    */
-  @Nonnull
+  @NonNull
   public IPeppolGenericDocumentTypeIdentifierParts getParts ()
   {
     return PeppolGenericDocumentTypeIdentifierParts.extractFromIdentifier (this);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public PeppolDocumentTypeIdentifier getClone ()
   {
@@ -163,7 +163,7 @@ public class PeppolDocumentTypeIdentifier extends DocumentIdentifierType impleme
    * @return The document type identifier or <code>null</code> if any of the
    *         parts is invalid.
    */
-  @Nonnull
+  @NonNull
   public static PeppolDocumentTypeIdentifier internalCreatePreVerified (@Nullable final String sScheme,
                                                                         @Nullable final String sValue)
   {

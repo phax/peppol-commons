@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.bdxr.smp1.doctype;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.xsds.bdxr.smp1.DocumentIdentifierType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a sanity class around the {@link DocumentIdentifierType} class with
@@ -44,20 +44,20 @@ public class BDXR1DocumentTypeIdentifier extends DocumentIdentifierType implemen
                                          ICloneable <BDXR1DocumentTypeIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXR1DocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  public BDXR1DocumentTypeIdentifier (@NonNull final IDocumentTypeIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXR1DocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public BDXR1DocumentTypeIdentifier (@Nullable final String sScheme, @NonNull final String sValue)
   {
     // Change "" to null
     setScheme (StringHelper.isEmpty (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 
-  public int compareTo (@Nonnull final BDXR1DocumentTypeIdentifier aOther)
+  public int compareTo (@NonNull final BDXR1DocumentTypeIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -65,7 +65,7 @@ public class BDXR1DocumentTypeIdentifier extends DocumentIdentifierType implemen
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public BDXR1DocumentTypeIdentifier getClone ()
   {

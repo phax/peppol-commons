@@ -16,6 +16,8 @@
  */
 package com.helger.smpclient.peppol.utils;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.peppolid.CIdentifier;
 import com.helger.xsds.peppol.smp1.EndpointType;
@@ -27,8 +29,6 @@ import com.helger.xsds.peppol.smp1.ServiceInformationType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceCollectionType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataType;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * SMP utilities for debugging purposes. It converts the complex types to
@@ -42,8 +42,8 @@ public final class SMPDebugHelper
   private SMPDebugHelper ()
   {}
 
-  @Nonnull
-  public static String getAsString (@Nonnull final ServiceGroupType aServiceGroup)
+  @NonNull
+  public static String getAsString (@NonNull final ServiceGroupType aServiceGroup)
   {
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ("ServiceGroup information:\n");
@@ -69,8 +69,8 @@ public final class SMPDebugHelper
     return aSB.toString ();
   }
 
-  @Nonnull
-  public static String getAsString (@Nonnull final ServiceMetadataType aServiceMetadata)
+  @NonNull
+  public static String getAsString (@NonNull final ServiceMetadataType aServiceMetadata)
   {
     final StringBuilder aSB = new StringBuilder ();
     aSB.append ("Service meta data:\n");

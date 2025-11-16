@@ -16,13 +16,13 @@
  */
 package com.helger.peppol.testfiles.official;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.io.resource.ClassPathResource;
-
-import jakarta.annotation.Nonnull;
 
 @Immutable
 public final class OfficialTestFiles
@@ -36,7 +36,7 @@ public final class OfficialTestFiles
   private static final ICommonsList <ClassPathResource> ORDERING_28_T76 = new CommonsArrayList <> ();
   private static final ICommonsList <ClassPathResource> DESPATCH_ADVICE_30_T16 = new CommonsArrayList <> ();
 
-  @Nonnull
+  @NonNull
   private static ClassLoader _getCL ()
   {
     return OfficialTestFiles.class.getClassLoader ();
@@ -101,56 +101,56 @@ public final class OfficialTestFiles
   private OfficialTestFiles ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllTestFilesCatalogue_01_T19 ()
   {
     return CATALOGUE_01_T19.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllTestFilesCatalogue_01_T58 ()
   {
     return CATALOGUE_01_T58.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllTestFilesOrder_03_T01 ()
   {
     return ORDER_03_T01.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllTestFilesInvoice_04_T10 ()
   {
     return INVOICE_04_T10.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllTestFilesBilling_05_T14 ()
   {
     return BILLING_05_T14.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllTestFilesOrdering_28_T01 ()
   {
     return ORDERING_28_T01.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllTestFilesOrdering_28_T76 ()
   {
     return ORDERING_28_T76.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllTestFilesDespatchAdvice_30_T16 ()
   {

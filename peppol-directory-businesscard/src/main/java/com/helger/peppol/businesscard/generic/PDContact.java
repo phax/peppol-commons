@@ -18,6 +18,9 @@ package com.helger.peppol.businesscard.generic;
 
 import java.io.Serializable;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -31,9 +34,6 @@ import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Generic contact.
@@ -89,7 +89,7 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
    *        The contact type. Maybe <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDContact setType (@Nullable final String sType)
   {
     m_sType = sType;
@@ -123,7 +123,7 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
    *        The contact name. Maybe <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDContact setName (@Nullable final String sName)
   {
     m_sName = sName;
@@ -157,7 +157,7 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
    *        The contact phone number. Maybe <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDContact setPhoneNumber (@Nullable final String sPhoneNumber)
   {
     m_sPhoneNumber = sPhoneNumber;
@@ -191,7 +191,7 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
    *        The contact email address to use. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDContact setEmail (@Nullable final String sEmail)
   {
     m_sEmail = sEmail;
@@ -218,7 +218,7 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
    */
-  public void cloneTo (@Nonnull final PDContact ret)
+  public void cloneTo (@NonNull final PDContact ret)
   {
     ret.m_sType = m_sType;
     ret.m_sName = m_sName;
@@ -226,7 +226,7 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
     ret.m_sEmail = m_sEmail;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public PDContact getClone ()
   {
@@ -235,9 +235,9 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI,
-                                      @Nonnull @Nonempty final String sElementName)
+                                      @NonNull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
     if (hasType ())
@@ -251,7 +251,7 @@ public class PDContact implements IHasJson, Serializable, ICloneable <PDContact>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IJsonObject getAsJson ()
   {
     final IJsonObject ret = new JsonObject ();

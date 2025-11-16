@@ -79,7 +79,7 @@
             <Automatic-Module-Name>com.helger.dbnalliance.commons</Automatic-Module-Name>
             <Export-Package>com.helger.dbnalliance.commons,
               com.helger.dbnalliance.commons.security</Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

@@ -18,6 +18,8 @@ package com.helger.smpclient.extension;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
@@ -41,9 +43,6 @@ import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xsds.bdxr.smp2.ec.SMPExtensionType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * A list of generic {@link SMPExtension} objects.
  *
@@ -61,7 +60,7 @@ public class SMPExtensionList
   public SMPExtensionList ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsList <SMPExtension> extensions ()
   {
@@ -97,7 +96,7 @@ public class SMPExtensionList
     return XMLWriter.getNodeAsString (aFirst, SMPExtension.XWS);
   }
 
-  @Nonnull
+  @NonNull
   public final EChange setExtensionAsString (@Nullable final String sExtension)
   {
     ICommonsList <SMPExtension> aNewExt = null;
@@ -139,9 +138,8 @@ public class SMPExtensionList
     return EChange.CHANGED;
   }
 
-  @Nullable
   @ReturnsMutableCopy
-  public com.helger.xsds.peppol.smp1.ExtensionType getAsPeppolExtension ()
+  public com.helger.xsds.peppol.smp1.@Nullable ExtensionType getAsPeppolExtension ()
   {
     if (m_aExtensions.isEmpty ())
       return null;
@@ -153,7 +151,7 @@ public class SMPExtensionList
 
   @Nullable
   @ReturnsMutableCopy
-  public ICommonsList <com.helger.xsds.bdxr.smp1.ExtensionType> getAsBDXRExtensions ()
+  public ICommonsList <com.helger.xsds.bdxr.smp1.@NonNull ExtensionType> getAsBDXRExtensions ()
   {
     if (m_aExtensions.isEmpty ())
       return null;
@@ -164,9 +162,8 @@ public class SMPExtensionList
     return ret;
   }
 
-  @Nullable
   @ReturnsMutableCopy
-  public com.helger.xsds.bdxr.smp2.ec.SMPExtensionsType getAsBDXR2Extensions ()
+  public com.helger.xsds.bdxr.smp2.ec.@Nullable SMPExtensionsType getAsBDXR2Extensions ()
   {
     if (m_aExtensions.isEmpty ())
       return null;
@@ -221,7 +218,7 @@ public class SMPExtensionList
   }
 
   @Nullable
-  public static SMPExtensionList ofBDXR1 (@Nullable final List <com.helger.xsds.bdxr.smp1.ExtensionType> aExtensions)
+  public static SMPExtensionList ofBDXR1 (@Nullable final List <com.helger.xsds.bdxr.smp1.@Nullable ExtensionType> aExtensions)
   {
     if (aExtensions == null)
       return null;
@@ -237,7 +234,7 @@ public class SMPExtensionList
   }
 
   @Nullable
-  public static SMPExtensionList ofBDXR2 (@Nullable final com.helger.xsds.bdxr.smp2.ec.SMPExtensionsType aExtensions)
+  public static SMPExtensionList ofBDXR2 (final com.helger.xsds.bdxr.smp2.ec.@Nullable SMPExtensionsType aExtensions)
   {
     if (aExtensions == null)
       return null;

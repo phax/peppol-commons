@@ -18,6 +18,7 @@ package com.helger.peppolid.peppol.validator;
 
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +27,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
-
-import jakarta.annotation.Nullable;
 
 /**
  * A wrapper around the custom identifier validator implementations.

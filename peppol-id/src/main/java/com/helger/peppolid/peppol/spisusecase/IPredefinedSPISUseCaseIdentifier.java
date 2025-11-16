@@ -18,12 +18,12 @@ package com.helger.peppolid.peppol.spisusecase;
 
 import java.time.LocalDate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for predefined SPIS Use Case identifiers.
@@ -37,7 +37,7 @@ public interface IPredefinedSPISUseCaseIdentifier
    * @return The unique ID of this SPIS Use case profile. This identifier is the one used in SMP
    *         endpoints.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getUseCaseID ();
 
@@ -45,7 +45,7 @@ public interface IPredefinedSPISUseCaseIdentifier
    * @return The internal code list version in which the identifier was added. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   Version getInitialRelease ();
 
   /**
@@ -60,7 +60,7 @@ public interface IPredefinedSPISUseCaseIdentifier
   /**
    * @return The state of the item. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EPeppolCodeListItemState getState ();
 
   /**

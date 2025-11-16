@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.testfiles;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -24,9 +27,6 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single test resource
@@ -38,7 +38,7 @@ public final class TestResource
   private final IReadableResource m_aRes;
   private final ICommonsSet <ErrorDefinition> m_aExpectedErrors = new CommonsHashSet <> ();
 
-  public TestResource (@Nonnull final IReadableResource aRes, @Nullable final ICommonsSet <ErrorDefinition> aExpectedErrors)
+  public TestResource (@NonNull final IReadableResource aRes, @Nullable final ICommonsSet <ErrorDefinition> aExpectedErrors)
   {
     ValueEnforcer.notNull (aRes, "Resource");
 
@@ -52,7 +52,7 @@ public final class TestResource
   /**
    * @return The resource of the document. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public IReadableResource getResource ()
   {
     return m_aRes;
@@ -62,7 +62,7 @@ public final class TestResource
    * @return The path of the underlying resources. Neither <code>null</code> nor
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getPath ()
   {
@@ -73,7 +73,7 @@ public final class TestResource
    * @return The expected validation errors. Never <code>null</code> but maybe
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <ErrorDefinition> getAllExpectedErrors ()
   {
@@ -94,8 +94,8 @@ public final class TestResource
     return new ToStringGenerator (null).append ("resource", m_aRes).append ("expectedErrors", m_aExpectedErrors).getToString ();
   }
 
-  @Nonnull
-  public static TestResource createGoodCase (@Nonnull final String sClassPathResource)
+  @NonNull
+  public static TestResource createGoodCase (@NonNull final String sClassPathResource)
   {
     return new TestResource (new ClassPathResource (sClassPathResource), null);
   }

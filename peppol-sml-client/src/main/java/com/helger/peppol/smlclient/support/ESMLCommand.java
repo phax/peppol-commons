@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.smlclient.support;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Enum with all SML client commands.
@@ -40,12 +40,12 @@ public enum ESMLCommand implements IHasName
 
   private final String m_sName;
 
-  ESMLCommand (@Nonnull @Nonempty final String sName)
+  ESMLCommand (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {

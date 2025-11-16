@@ -18,6 +18,8 @@ package com.helger.peppol.xhe;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +36,6 @@ import com.helger.peppol.xhe.write.DBNAllianceXHEDataWriter;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.xhe.v10.XHE10XHEType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the DBNAlliance data per XHE document in a syntax neutral way. This class
@@ -68,7 +67,7 @@ public class DBNAllianceXHEData
    * @param aIdentifierFactory
    *        Identifier factory to be used. May not be <code>null</code>.
    */
-  public DBNAllianceXHEData (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  public DBNAllianceXHEData (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
     m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
   }
@@ -110,8 +109,8 @@ public class DBNAllianceXHEData
    *        mapped to <code>XHE/Header/ID</code> .
    * @return this
    */
-  @Nonnull
-  public DBNAllianceXHEData setID (@Nonnull @Nonempty final String sID)
+  @NonNull
+  public DBNAllianceXHEData setID (@NonNull @Nonempty final String sID)
   {
     ValueEnforcer.notEmpty (sID, "ID");
     m_sID = sID;
@@ -153,8 +152,8 @@ public class DBNAllianceXHEData
    *        <code>null</code>. This field is mapped to <code>XHE/Header/CreationDateTime</code> .
    * @return this
    */
-  @Nonnull
-  public DBNAllianceXHEData setCreationDateAndTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
+  @NonNull
+  public DBNAllianceXHEData setCreationDateAndTime (@NonNull final XMLOffsetDateTime aCreationDateTime)
   {
     ValueEnforcer.notNull (aCreationDateTime, "CreationDateTime");
 
@@ -169,7 +168,7 @@ public class DBNAllianceXHEData
    *
    * @return this
    */
-  @Nonnull
+  @NonNull
   public DBNAllianceXHEData setCreationDateAndTimeNow ()
   {
     return setCreationDateAndTime (PDTFactory.getCurrentXMLOffsetDateTime ());
@@ -218,9 +217,9 @@ public class DBNAllianceXHEData
    *        is mapped to <code>XHE/Header/FromParty/PartyIdentification/ID/</code>.
    * @return this
    */
-  @Nonnull
-  public DBNAllianceXHEData setFromParty (@Nonnull @Nonempty final String sScheme,
-                                          @Nonnull @Nonempty final String sValue)
+  @NonNull
+  public DBNAllianceXHEData setFromParty (@NonNull @Nonempty final String sScheme,
+                                          @NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -237,8 +236,8 @@ public class DBNAllianceXHEData
    *        The participant identifier to use. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public DBNAllianceXHEData setFromParty (@Nonnull final IParticipantIdentifier aFromPartyID)
+  @NonNull
+  public DBNAllianceXHEData setFromParty (@NonNull final IParticipantIdentifier aFromPartyID)
   {
     ValueEnforcer.notNull (aFromPartyID, "FromPartyID");
 
@@ -287,8 +286,8 @@ public class DBNAllianceXHEData
    *        mapped to <code>XHE/Header/ToParty/PartyIdentification/ID/</code>.
    * @return this
    */
-  @Nonnull
-  public DBNAllianceXHEData setToParty (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  @NonNull
+  public DBNAllianceXHEData setToParty (@NonNull @Nonempty final String sScheme, @NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -305,8 +304,8 @@ public class DBNAllianceXHEData
    *        The participant identifier to use. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public DBNAllianceXHEData setToParty (@Nonnull final IParticipantIdentifier aToPartyID)
+  @NonNull
+  public DBNAllianceXHEData setToParty (@NonNull final IParticipantIdentifier aToPartyID)
   {
     ValueEnforcer.notNull (aToPartyID, "ToPartyID");
 
@@ -332,8 +331,8 @@ public class DBNAllianceXHEData
    *        The list of payloads to be set. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public DBNAllianceXHEData setPayloads (@Nonnull final ICommonsList <DBNAlliancePayload> aPayloads)
+  @NonNull
+  public DBNAllianceXHEData setPayloads (@NonNull final ICommonsList <DBNAlliancePayload> aPayloads)
   {
     ValueEnforcer.notNull (aPayloads, "Payloads");
 
@@ -348,8 +347,8 @@ public class DBNAllianceXHEData
    *        An individual payload to be added to the list of payloads. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public DBNAllianceXHEData addPayload (@Nonnull final DBNAlliancePayload aPayload)
+  @NonNull
+  public DBNAllianceXHEData addPayload (@NonNull final DBNAlliancePayload aPayload)
   {
     ValueEnforcer.notNull (aPayload, "Payload");
 
@@ -422,7 +421,7 @@ public class DBNAllianceXHEData
    * @return A generic JAXB XHE document of this data. Never <code>null</code>.
    * @see DBNAllianceXHEDataWriter for the main logic
    */
-  @Nonnull
+  @NonNull
   public XHE10XHEType getAsXHEDocument ()
   {
     return DBNAllianceXHEDataWriter.createExchangeHeaderEnvelope (this);

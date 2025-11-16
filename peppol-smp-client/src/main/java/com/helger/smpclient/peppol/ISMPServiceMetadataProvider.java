@@ -16,14 +16,14 @@
  */
 package com.helger.smpclient.peppol;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract interface to retrieve a Peppol Service Metadata instance.
@@ -47,9 +47,9 @@ public interface ISMPServiceMetadataProvider
    * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
    * @since 9.5.1 in this interface
    */
-  @Nonnull
-  default SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  @NonNull
+  default SignedServiceMetadataType getServiceMetadata (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                        @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     return getServiceMetadata (aServiceGroupID, aDocumentTypeID, null);
   }
@@ -72,9 +72,9 @@ public interface ISMPServiceMetadataProvider
    *      ISMPFollowRedirectCallback)
    * @since 10.4.3
    */
-  @Nonnull
-  SignedServiceMetadataType getServiceMetadata (@Nonnull IParticipantIdentifier aServiceGroupID,
-                                                @Nonnull IDocumentTypeIdentifier aDocumentTypeID,
+  @NonNull
+  SignedServiceMetadataType getServiceMetadata (@NonNull IParticipantIdentifier aServiceGroupID,
+                                                @NonNull IDocumentTypeIdentifier aDocumentTypeID,
                                                 @Nullable ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException;
 
   /**
@@ -91,8 +91,8 @@ public interface ISMPServiceMetadataProvider
    * @see #getServiceMetadata(IParticipantIdentifier, IDocumentTypeIdentifier)
    */
   @Nullable
-  default SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                              @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  default SignedServiceMetadataType getServiceMetadataOrNull (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                              @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID, null);
   }
@@ -116,7 +116,7 @@ public interface ISMPServiceMetadataProvider
    * @since 10.4.3
    */
   @Nullable
-  SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull IParticipantIdentifier aServiceGroupID,
-                                                      @Nonnull IDocumentTypeIdentifier aDocumentTypeID,
+  SignedServiceMetadataType getServiceMetadataOrNull (@NonNull IParticipantIdentifier aServiceGroupID,
+                                                      @NonNull IDocumentTypeIdentifier aDocumentTypeID,
                                                       @Nullable ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException;
 }

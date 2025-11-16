@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.smp;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.clone.ICloneable;
@@ -24,8 +26,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.type.ObjectType;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A stand-alone implementation of the {@link ISMPTransportProfile}. For a set of predefined
@@ -41,53 +41,53 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
   private String m_sName;
   private ESMPTransportProfileState m_eState;
 
-  @Nonnull
+  @NonNull
   static ESMPTransportProfileState internalGetDeprecatedState (final boolean bIsDeprecated)
   {
     return bIsDeprecated ? ESMPTransportProfileState.DEPRECATED : ESMPTransportProfileState.ACTIVE;
   }
 
-  public SMPTransportProfile (@Nonnull final ISMPTransportProfile aOther)
+  public SMPTransportProfile (@NonNull final ISMPTransportProfile aOther)
   {
     this (aOther.getID (), aOther.getName (), aOther.getState ());
   }
 
-  public SMPTransportProfile (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sName)
+  public SMPTransportProfile (@NonNull @Nonempty final String sID, @NonNull @Nonempty final String sName)
   {
     this (sID, sName, DEFAULT_STATE);
   }
 
-  public SMPTransportProfile (@Nonnull @Nonempty final String sID,
-                              @Nonnull @Nonempty final String sName,
-                              @Nonnull final ESMPTransportProfileState eState)
+  public SMPTransportProfile (@NonNull @Nonempty final String sID,
+                              @NonNull @Nonempty final String sName,
+                              @NonNull final ESMPTransportProfileState eState)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     setName (sName);
     setState (eState);
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return OT;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  @Nonnull
-  public final EChange setName (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public final EChange setName (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     if (sName.equals (m_sName))
@@ -96,14 +96,14 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public ESMPTransportProfileState getState ()
   {
     return m_eState;
   }
 
-  @Nonnull
-  public final EChange setState (@Nonnull final ESMPTransportProfileState eState)
+  @NonNull
+  public final EChange setState (@NonNull final ESMPTransportProfileState eState)
   {
     ValueEnforcer.notNull (eState, "State");
     if (eState.equals (m_eState))
@@ -112,7 +112,7 @@ public class SMPTransportProfile implements ISMPTransportProfile, ICloneable <SM
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public SMPTransportProfile getClone ()
   {
     return new SMPTransportProfile (this);

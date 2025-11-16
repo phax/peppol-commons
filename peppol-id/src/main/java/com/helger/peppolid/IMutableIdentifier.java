@@ -16,7 +16,7 @@
  */
 package com.helger.peppolid;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The writable version of an identifier interface.
@@ -31,7 +31,7 @@ public interface IMutableIdentifier extends IIdentifier
    * @param sScheme
    *        The scheme to be set. May not be <code>null</code>.
    */
-  void setScheme (@Nonnull String sScheme);
+  void setScheme (@NonNull String sScheme);
 
   /**
    * Set the identifier value.
@@ -39,5 +39,5 @@ public interface IMutableIdentifier extends IIdentifier
    * @param sValue
    *        The value to be set. May not be <code>null</code>.
    */
-  void setValue (@Nonnull String sValue);
+  void setValue (@NonNull String sValue);
 }

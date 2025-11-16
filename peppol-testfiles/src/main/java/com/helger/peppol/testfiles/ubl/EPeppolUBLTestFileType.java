@@ -16,11 +16,11 @@
  */
 package com.helger.peppol.testfiles.ubl;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * UBL test file type.
@@ -40,25 +40,25 @@ public enum EPeppolUBLTestFileType
 
   private final String m_sDirName;
 
-  EPeppolUBLTestFileType (@Nonnull @Nonempty final String sDirName)
+  EPeppolUBLTestFileType (@NonNull @Nonempty final String sDirName)
   {
     m_sDirName = sDirName;
   }
 
-  @Nonnull
+  @NonNull
   private static ClassLoader _getCL ()
   {
     return EPeppolUBLTestFileType.class.getClassLoader ();
   }
 
-  @Nonnull
-  public IReadableResource getSuccessResource (@Nonnull @Nonempty final String sFilename)
+  @NonNull
+  public IReadableResource getSuccessResource (@NonNull @Nonempty final String sFilename)
   {
     return new ClassPathResource ("/external/peppol-ubl/" + m_sDirName + "/success/" + sFilename, _getCL ());
   }
 
-  @Nonnull
-  public IReadableResource getErrorResource (@Nonnull @Nonempty final String sFilename)
+  @NonNull
+  public IReadableResource getErrorResource (@NonNull @Nonempty final String sFilename)
   {
     return new ClassPathResource ("/external/peppol-ubl/" + m_sDirName + "/error/" + sFilename, _getCL ());
   }

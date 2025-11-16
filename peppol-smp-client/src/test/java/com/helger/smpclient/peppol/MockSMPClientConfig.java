@@ -21,6 +21,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.cert.CertificateException;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +39,6 @@ import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
@@ -75,7 +75,7 @@ public final class MockSMPClientConfig
   private MockSMPClientConfig ()
   {}
 
-  @Nonnull
+  @NonNull
   private static IConfig _getConfig ()
   {
     return SMPClientConfiguration.getConfig ();
@@ -93,13 +93,13 @@ public final class MockSMPClientConfig
     return _getConfig ().getAsString ("smp.password");
   }
 
-  @Nonnull
+  @NonNull
   public static BasicAuthClientCredentials getSMPCredentials ()
   {
     return new BasicAuthClientCredentials (getSMPUserName (), getSMPPassword ());
   }
 
-  @Nonnull
+  @NonNull
   public static URI getSMPURI ()
   {
     try
@@ -112,25 +112,25 @@ public final class MockSMPClientConfig
     }
   }
 
-  @Nonnull
+  @NonNull
   public static IParticipantIdentifier getParticipantID ()
   {
     return PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme (_getConfig ().getAsString ("participantid"));
   }
 
-  @Nonnull
+  @NonNull
   public static IDocumentTypeIdentifier getDocumentTypeID ()
   {
     return PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifierWithDefaultScheme (_getConfig ().getAsString ("documenttypeid"));
   }
 
-  @Nonnull
+  @NonNull
   public static IProcessIdentifier getProcessTypeID ()
   {
     return PeppolIdentifierFactory.INSTANCE.createProcessIdentifierWithDefaultScheme (_getConfig ().getAsString ("processtypeid"));
   }
 
-  @Nonnull
+  @NonNull
   public static W3CEndpointReference getAPEndpointRef ()
   {
     return W3CEndpointReferenceHelper.createEndpointReference (_getConfig ().getAsString ("ap.uri"));

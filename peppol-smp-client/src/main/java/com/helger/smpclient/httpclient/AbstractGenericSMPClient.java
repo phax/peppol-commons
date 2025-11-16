@@ -37,6 +37,8 @@ import org.apache.hc.client5.http.protocol.HttpClientContext;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpStatus;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,8 +64,6 @@ import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.xsds.xmldsig.X509DataType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBElement;
 
 /**
@@ -132,7 +132,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        <code>true</code> if the Peppol limitations (Port 80, http only, in root context) should
    *        be complained about or not.
    */
-  protected AbstractGenericSMPClient (@Nonnull final URI aSMPHost, final boolean bPeppolLimitationsActive)
+  protected AbstractGenericSMPClient (@NonNull final URI aSMPHost, final boolean bPeppolLimitationsActive)
   {
     ValueEnforcer.notNull (aSMPHost, "SMPHost");
 
@@ -155,7 +155,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The SMP host URI string we're operating on. Never <code>null</code> . Always has a
    *         trailing "/".
    */
-  @Nonnull
+  @NonNull
   public final String getSMPHostURI ()
   {
     return m_sSMPHost;
@@ -165,7 +165,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return The HTTP client settings to be configured. Never <code>null</code>.
    * @since 8.0.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final SMPHttpClientSettings httpClientSettings ()
   {
@@ -180,8 +180,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    * @since 9.0.9
    */
-  @Nonnull
-  public final IMPLTYPE withHttpClientSettings (@Nonnull final Consumer <? super SMPHttpClientSettings> aConsumer)
+  @NonNull
+  public final IMPLTYPE withHttpClientSettings (@NonNull final Consumer <? super SMPHttpClientSettings> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     aConsumer.accept (m_aHttpClientSettings);
@@ -210,7 +210,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    * @since 8.0.3
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE setVerifySignature (final boolean bVerifySignature)
   {
     m_bVerifySignature = bVerifySignature;
@@ -241,7 +241,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    * @since 9.0.5
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE setSecureValidation (final boolean bSecureValidation)
   {
     m_bSecureValidation = bSecureValidation;
@@ -268,7 +268,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    * @since 8.1.1
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE setTrustStore (@Nullable final KeyStore aTrustStore)
   {
     m_aTrustStore = aTrustStore;
@@ -295,7 +295,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    * @since 7.0.6
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE setFollowSMPRedirects (final boolean bFollowSMPRedirects)
   {
     m_bFollowSMPRedirects = bFollowSMPRedirects;
@@ -321,14 +321,14 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    * @since 8.0.5
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE setXMLSchemaValidation (final boolean bXMLSchemaValidation)
   {
     m_bXMLSchemaValidation = bXMLSchemaValidation;
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected HttpClientContext createHttpContext ()
   {
@@ -353,9 +353,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @param <T>
    *        Expected response type
    */
-  @Nonnull
-  public <T> T executeRequest (@Nonnull final HttpUriRequestBase aRequest,
-                               @Nonnull final HttpClientResponseHandler <T> aResponseHandler) throws IOException
+  @NonNull
+  public <T> T executeRequest (@NonNull final HttpUriRequestBase aRequest,
+                               @NonNull final HttpClientResponseHandler <T> aResponseHandler) throws IOException
   {
     final HttpClientContext aHttpContext = createHttpContext ();
     try (final HttpClientManager aHttpClientMgr = HttpClientManager.create (m_aHttpClientSettings))
@@ -393,9 +393,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @see #executeRequest(HttpUriRequestBase, HttpClientResponseHandler)
    * @see #getConvertedException(Exception)
    */
-  @Nonnull
-  public <T> T executeGenericRequest (@Nonnull final HttpUriRequestBase aRequest,
-                                      @Nonnull final HttpClientResponseHandler <T> aResponseHandler) throws SMPClientException
+  @NonNull
+  public <T> T executeGenericRequest (@NonNull final HttpUriRequestBase aRequest,
+                                      @NonNull final HttpClientResponseHandler <T> aResponseHandler) throws SMPClientException
   {
     try
     {
@@ -416,8 +416,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    *        The generic exception. May not be <code>null</code>.
    * @return A new SMP specific exception, using the passed exception as the cause.
    */
-  @Nonnull
-  public static SMPClientException getConvertedException (@Nonnull final Exception ex)
+  @NonNull
+  public static SMPClientException getConvertedException (@NonNull final Exception ex)
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Converting exception of class '" + ex.getClass ().getName () + "' to an SMP expception");
@@ -425,21 +425,16 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     if (ex instanceof SMPClientException)
       return (SMPClientException) ex;
 
-    if (ex instanceof HttpResponseException)
+    if (ex instanceof final HttpResponseException hex)
     {
-      final HttpResponseException hex = (HttpResponseException) ex;
       final int nHttpStatus = hex.getStatusCode ();
-      switch (nHttpStatus)
+      return switch (nHttpStatus)
       {
-        case HttpStatus.SC_BAD_REQUEST:
-          return new SMPClientBadRequestException (hex);
-        case HttpStatus.SC_FORBIDDEN:
-          return new SMPClientUnauthorizedException (hex);
-        case HttpStatus.SC_NOT_FOUND:
-          return new SMPClientNotFoundException (hex);
-        default:
-          return new SMPClientException ("Error thrown with HTTP status code " + nHttpStatus, hex);
-      }
+        case HttpStatus.SC_BAD_REQUEST -> new SMPClientBadRequestException (hex);
+        case HttpStatus.SC_FORBIDDEN -> new SMPClientUnauthorizedException (hex);
+        case HttpStatus.SC_NOT_FOUND -> new SMPClientNotFoundException (hex);
+        default -> new SMPClientException ("Error thrown with HTTP status code " + nHttpStatus, hex);
+      };
     }
 
     // Special case: participant does not exist
@@ -465,7 +460,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @see #getMarshallerCustomizer()
    * @see #setMarshallerCustomizer(Consumer)
    */
-  protected final void customizeMarshaller (@Nonnull final GenericJAXBMarshaller <?> aMarshaller)
+  protected final void customizeMarshaller (@NonNull final GenericJAXBMarshaller <?> aMarshaller)
   {
     if (m_aMarshallerConsumer != null)
       m_aMarshallerConsumer.accept (aMarshaller);
@@ -489,7 +484,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
    * @return this for chaining
    * @since 8.6.3
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE setMarshallerCustomizer (@Nullable final Consumer <? super GenericJAXBMarshaller <?>> a)
   {
     m_aMarshallerConsumer = a;
@@ -534,14 +529,12 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     }
   }
 
-  public static boolean containsRedirectSubject (@Nonnull final X509DataType aX509Data,
-                                                 @Nonnull final String sRedirectCertificateUID) throws SMPClientException
+  public static boolean containsRedirectSubject (@NonNull final X509DataType aX509Data,
+                                                 @NonNull final String sRedirectCertificateUID) throws SMPClientException
   {
     for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
-      if (aX509Obj instanceof JAXBElement <?>)
+      if (aX509Obj instanceof final JAXBElement <?> aX509Element)
       {
-        final JAXBElement <?> aX509Element = (JAXBElement <?>) aX509Obj;
-
         // Find the first subject (of type string) (element name
         // X509SubjectName) (optional according to the spec)
         if ("X509SubjectName".equals (aX509Element.getName ().getLocalPart ()))

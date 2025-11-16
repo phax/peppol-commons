@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.mls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +29,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineReferenceType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
@@ -58,7 +58,7 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
    *        Reference to the field under error
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseBuilder errorField (@Nullable final String s)
   {
     m_sErrorField = s;
@@ -75,9 +75,9 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
    *        <code>null</code> nor empty.
    * @return this for chaining
    */
-  @Nonnull
-  public PeppolMLSLineResponseBuilder addResponse (@Nonnull final EPeppolMLSStatusReasonCode eStatusReasonCode,
-                                                   @Nonnull @Nonempty final String sDescription)
+  @NonNull
+  public PeppolMLSLineResponseBuilder addResponse (@NonNull final EPeppolMLSStatusReasonCode eStatusReasonCode,
+                                                   @NonNull @Nonempty final String sDescription)
   {
     return addResponse (new PeppolMLSLineResponseResponseBuilder ().statusReasonCode (eStatusReasonCode)
                                                                    .description (sDescription));
@@ -90,7 +90,7 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
    *        Response object. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseBuilder addResponse (@Nullable final PeppolMLSLineResponseResponseBuilder a)
   {
     return addResponse (a == null ? null : a.build ());
@@ -103,7 +103,7 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
    *        Response object. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseBuilder addResponse (@Nullable final ResponseType a)
   {
     if (a != null)
@@ -111,14 +111,14 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseBuilder responses (@Nullable final ResponseType... a)
   {
     m_aResponses.setAll (a);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSLineResponseBuilder responses (@Nullable final Iterable <? extends ResponseType> a)
   {
     m_aResponses.setAll (a);
@@ -146,7 +146,7 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     return true;
   }
 
-  @Nonnull
+  @NonNull
   public LineResponseType build ()
   {
     if (!areAllFieldsSet (true))
@@ -166,8 +166,8 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     return ret;
   }
 
-  @Nonnull
-  public static PeppolMLSLineResponseBuilder createForLineResponse (@Nonnull final LineResponseType aLineResponse)
+  @NonNull
+  public static PeppolMLSLineResponseBuilder createForLineResponse (@NonNull final LineResponseType aLineResponse)
   {
     ValueEnforcer.notNull (aLineResponse, "LineResponse");
 

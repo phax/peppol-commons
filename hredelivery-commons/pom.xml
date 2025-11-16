@@ -88,7 +88,7 @@
             <Export-Package>com.helger.hredelivery.commons,
               com.helger.hredelivery.commons.security,
               com.helger.hredelivery.commons.url</Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

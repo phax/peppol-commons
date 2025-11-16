@@ -18,14 +18,14 @@ package com.helger.peppolid.peppol.doctype;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.peppolid.IDocumentTypeIdentifier;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A generic implementation of {@link IPeppolGenericDocumentTypeIdentifierParts} for Peppol Document
@@ -41,9 +41,9 @@ public class PeppolGenericDocumentTypeIdentifierParts implements IPeppolGenericD
   private final String m_sCustomizationID;
   private final String m_sVersion;
 
-  public PeppolGenericDocumentTypeIdentifierParts (@Nonnull @Nonempty final String sSyntaxSpecificID,
-                                                   @Nonnull @Nonempty final String sCustomizationID,
-                                                   @Nonnull @Nonempty final String sVersion)
+  public PeppolGenericDocumentTypeIdentifierParts (@NonNull @Nonempty final String sSyntaxSpecificID,
+                                                   @NonNull @Nonempty final String sCustomizationID,
+                                                   @NonNull @Nonempty final String sVersion)
   {
     ValueEnforcer.notEmpty (sSyntaxSpecificID, "SyntaxSpecificID");
     ValueEnforcer.notEmpty (sCustomizationID, "CustomizationID");
@@ -54,39 +54,39 @@ public class PeppolGenericDocumentTypeIdentifierParts implements IPeppolGenericD
     m_sVersion = sVersion;
   }
 
-  @Nonnull
+  @NonNull
   public final String getSyntaxSpecificID ()
   {
     return m_sSyntaxSpecificID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getCustomizationID ()
   {
     return m_sCustomizationID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getVersion ()
   {
     return m_sVersion;
   }
 
-  @Nonnull
-  public PeppolGenericDocumentTypeIdentifierParts withCustomizationID (@Nonnull @Nonempty final String sCustomizationID)
+  @NonNull
+  public PeppolGenericDocumentTypeIdentifierParts withCustomizationID (@NonNull @Nonempty final String sCustomizationID)
   {
     return new PeppolGenericDocumentTypeIdentifierParts (m_sSyntaxSpecificID, sCustomizationID, m_sVersion);
   }
 
-  @Nonnull
-  public PeppolGenericDocumentTypeIdentifierParts withVersion (@Nonnull @Nonempty final String sVersion)
+  @NonNull
+  public PeppolGenericDocumentTypeIdentifierParts withVersion (@NonNull @Nonempty final String sVersion)
   {
     return new PeppolGenericDocumentTypeIdentifierParts (m_sSyntaxSpecificID, m_sCustomizationID, sVersion);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getAsDocumentTypeIdentifierValue ()
   {
@@ -114,8 +114,8 @@ public class PeppolGenericDocumentTypeIdentifierParts implements IPeppolGenericD
    * @throws IllegalArgumentException
    *         if the passed document identifier value does not match the specifications
    */
-  @Nonnull
-  public static PeppolGenericDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeIDValue)
+  @NonNull
+  public static PeppolGenericDocumentTypeIdentifierParts extractFromString (@NonNull @Nonempty final String sDocTypeIDValue)
   {
     ValueEnforcer.notEmpty (sDocTypeIDValue, "DocumentTypeIdentifier");
 
@@ -166,8 +166,8 @@ public class PeppolGenericDocumentTypeIdentifierParts implements IPeppolGenericD
    * @throws IllegalArgumentException
    *         If the passed document type identifier is not a Peppol document type identifier.
    */
-  @Nonnull
-  public static PeppolGenericDocumentTypeIdentifierParts extractFromIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  @NonNull
+  public static PeppolGenericDocumentTypeIdentifierParts extractFromIdentifier (@NonNull final IDocumentTypeIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 

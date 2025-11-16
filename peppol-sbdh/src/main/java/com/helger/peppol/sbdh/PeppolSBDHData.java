@@ -22,6 +22,8 @@ import java.util.function.Consumer;
 
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
@@ -52,9 +54,6 @@ import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.typeconvert.collection.StringMap;
 import com.helger.xml.XMLHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the Peppol data per SBDH document in a syntax neutral way. This class
@@ -101,7 +100,7 @@ public class PeppolSBDHData
    * @param aIdentifierFactory
    *        Identifier factory to be used. May not be <code>null</code>.
    */
-  public PeppolSBDHData (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  public PeppolSBDHData (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
     m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
   }
@@ -150,8 +149,8 @@ public class PeppolSBDHData
    *        mapped to <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
    * @return this
    */
-  @Nonnull
-  public PeppolSBDHData setSender (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  @NonNull
+  public PeppolSBDHData setSender (@NonNull @Nonempty final String sScheme, @NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -169,8 +168,8 @@ public class PeppolSBDHData
    * @return this
    * @since 8.6.1
    */
-  @Nonnull
-  public PeppolSBDHData setSender (@Nonnull final IParticipantIdentifier aSenderID)
+  @NonNull
+  public PeppolSBDHData setSender (@NonNull final IParticipantIdentifier aSenderID)
   {
     ValueEnforcer.notNull (aSenderID, "SenderID");
 
@@ -186,8 +185,8 @@ public class PeppolSBDHData
    *        mapped to <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
    * @return this
    */
-  @Nonnull
-  public PeppolSBDHData setSenderWithDefaultScheme (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public PeppolSBDHData setSenderWithDefaultScheme (@NonNull @Nonempty final String sValue)
   {
     return setSender (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, sValue);
   }
@@ -237,8 +236,8 @@ public class PeppolSBDHData
    *        mapped to <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
    * @return this
    */
-  @Nonnull
-  public PeppolSBDHData setReceiver (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  @NonNull
+  public PeppolSBDHData setReceiver (@NonNull @Nonempty final String sScheme, @NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -256,8 +255,8 @@ public class PeppolSBDHData
    * @return this
    * @since 8.6.1
    */
-  @Nonnull
-  public PeppolSBDHData setReceiver (@Nonnull final IParticipantIdentifier aReceiverID)
+  @NonNull
+  public PeppolSBDHData setReceiver (@NonNull final IParticipantIdentifier aReceiverID)
   {
     ValueEnforcer.notNull (aReceiverID, "ReceiverID");
 
@@ -273,8 +272,8 @@ public class PeppolSBDHData
    *        mapped to <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
    * @return this
    */
-  @Nonnull
-  public PeppolSBDHData setReceiverWithDefaultScheme (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public PeppolSBDHData setReceiverWithDefaultScheme (@NonNull @Nonempty final String sValue)
   {
     return setReceiver (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, sValue);
   }
@@ -323,9 +322,9 @@ public class PeppolSBDHData
    *        .
    * @return this
    */
-  @Nonnull
-  public PeppolSBDHData setDocumentType (@Nonnull @Nonempty final String sScheme,
-                                         @Nonnull @Nonempty final String sValue)
+  @NonNull
+  public PeppolSBDHData setDocumentType (@NonNull @Nonempty final String sScheme,
+                                         @NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -343,8 +342,8 @@ public class PeppolSBDHData
    * @return this
    * @since 8.6.1
    */
-  @Nonnull
-  public PeppolSBDHData setDocumentType (@Nonnull final IDocumentTypeIdentifier aDocTypeID)
+  @NonNull
+  public PeppolSBDHData setDocumentType (@NonNull final IDocumentTypeIdentifier aDocTypeID)
   {
     ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
 
@@ -363,8 +362,8 @@ public class PeppolSBDHData
    * @return this
    * @since 8.3.1
    */
-  @Nonnull
-  public PeppolSBDHData setDocumentTypeWithBusdoxDocidQns (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public PeppolSBDHData setDocumentTypeWithBusdoxDocidQns (@NonNull @Nonempty final String sValue)
   {
     return setDocumentType (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS, sValue);
   }
@@ -381,8 +380,8 @@ public class PeppolSBDHData
    * @return this
    * @since 8.3.1
    */
-  @Nonnull
-  public PeppolSBDHData setDocumentTypeWithPeppolDoctypeWildcard (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public PeppolSBDHData setDocumentTypeWithPeppolDoctypeWildcard (@NonNull @Nonempty final String sValue)
   {
     return setDocumentType (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD, sValue);
   }
@@ -431,8 +430,8 @@ public class PeppolSBDHData
    *        .
    * @return this
    */
-  @Nonnull
-  public PeppolSBDHData setProcess (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  @NonNull
+  public PeppolSBDHData setProcess (@NonNull @Nonempty final String sScheme, @NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -450,8 +449,8 @@ public class PeppolSBDHData
    * @return this
    * @since 8.6.1
    */
-  @Nonnull
-  public PeppolSBDHData setProcess (@Nonnull final IProcessIdentifier aProcessID)
+  @NonNull
+  public PeppolSBDHData setProcess (@NonNull final IProcessIdentifier aProcessID)
   {
     ValueEnforcer.notNull (aProcessID, "ProcessID");
 
@@ -469,8 +468,8 @@ public class PeppolSBDHData
    *        .
    * @return this
    */
-  @Nonnull
-  public PeppolSBDHData setProcessWithDefaultScheme (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public PeppolSBDHData setProcessWithDefaultScheme (@NonNull @Nonempty final String sValue)
   {
     return setProcess (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME, sValue);
   }
@@ -513,8 +512,8 @@ public class PeppolSBDHData
    * @see #hasCountryC1()
    * @since 9.0.5
    */
-  @Nonnull
-  public PeppolSBDHData setCountryC1 (@Nonnull @Nonempty final String sCountryC1)
+  @NonNull
+  public PeppolSBDHData setCountryC1 (@NonNull @Nonempty final String sCountryC1)
   {
     ValueEnforcer.notEmpty (sCountryC1, "CountryC1");
 
@@ -561,7 +560,7 @@ public class PeppolSBDHData
    * @see #hasMLSToScheme()
    * @since 10.3.3
    */
-  @Nonnull
+  @NonNull
   public PeppolSBDHData setMLSToScheme (@Nullable final String sMLSToScheme)
   {
     m_sMLSToScheme = sMLSToScheme;
@@ -607,7 +606,7 @@ public class PeppolSBDHData
    * @see #hasMLSToValue()
    * @since 10.3.3
    */
-  @Nonnull
+  @NonNull
   public PeppolSBDHData setMLSToValue (@Nullable final String sMLSToValue)
   {
     m_sMLSToValue = sMLSToValue;
@@ -653,7 +652,7 @@ public class PeppolSBDHData
    * @see #hasMLSType()
    * @since 10.3.3
    */
-  @Nonnull
+  @NonNull
   public PeppolSBDHData setMLSType (@Nullable final EPeppolMLSType eMLSType)
   {
     m_eMLSType = eMLSType;
@@ -665,7 +664,7 @@ public class PeppolSBDHData
    *         chapter 1.6.1 were added.
    * @since 6.1.4
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public StringMap additionalAttributes ()
   {
@@ -713,12 +712,12 @@ public class PeppolSBDHData
    * @see #setInstanceIdentifier(String)
    * @see #setCreationDateAndTime(XMLOffsetDateTime)
    */
-  @Nonnull
-  public PeppolSBDHData setDocumentIdentification (@Nonnull @Nonempty final String sStandard,
-                                                   @Nonnull @Nonempty final String sTypeVersion,
-                                                   @Nonnull @Nonempty final String sType,
-                                                   @Nonnull @Nonempty final String sInstanceIdentifier,
-                                                   @Nonnull final XMLOffsetDateTime aCreationDateAndTime)
+  @NonNull
+  public PeppolSBDHData setDocumentIdentification (@NonNull @Nonempty final String sStandard,
+                                                   @NonNull @Nonempty final String sTypeVersion,
+                                                   @NonNull @Nonempty final String sType,
+                                                   @NonNull @Nonempty final String sInstanceIdentifier,
+                                                   @NonNull final XMLOffsetDateTime aCreationDateAndTime)
   {
     setStandard (sStandard);
     setTypeVersion (sTypeVersion);
@@ -764,8 +763,8 @@ public class PeppolSBDHData
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
-  @Nonnull
-  public PeppolSBDHData setStandard (@Nonnull @Nonempty final String sStandard)
+  @NonNull
+  public PeppolSBDHData setStandard (@NonNull @Nonempty final String sStandard)
   {
     ValueEnforcer.notEmpty (sStandard, "Standard");
 
@@ -807,8 +806,8 @@ public class PeppolSBDHData
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
-  @Nonnull
-  public PeppolSBDHData setTypeVersion (@Nonnull @Nonempty final String sTypeVersion)
+  @NonNull
+  public PeppolSBDHData setTypeVersion (@NonNull @Nonempty final String sTypeVersion)
   {
     ValueEnforcer.notEmpty (sTypeVersion, "TypeVersion");
 
@@ -850,8 +849,8 @@ public class PeppolSBDHData
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
-  @Nonnull
-  public PeppolSBDHData setType (@Nonnull @Nonempty final String sType)
+  @NonNull
+  public PeppolSBDHData setType (@NonNull @Nonempty final String sType)
   {
     ValueEnforcer.notEmpty (sType, "Type");
 
@@ -903,8 +902,8 @@ public class PeppolSBDHData
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
-  @Nonnull
-  public PeppolSBDHData setInstanceIdentifier (@Nonnull @Nonempty final String sInstanceIdentifier)
+  @NonNull
+  public PeppolSBDHData setInstanceIdentifier (@NonNull @Nonempty final String sInstanceIdentifier)
   {
     ValueEnforcer.notEmpty (sInstanceIdentifier, "InstanceIdentifier");
 
@@ -951,8 +950,8 @@ public class PeppolSBDHData
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    * @since 8.3.1
    */
-  @Nonnull
-  public PeppolSBDHData setCreationDateAndTime (@Nonnull final XMLOffsetDateTime aCreationDateAndTime)
+  @NonNull
+  public PeppolSBDHData setCreationDateAndTime (@NonNull final XMLOffsetDateTime aCreationDateAndTime)
   {
     ValueEnforcer.notNull (aCreationDateAndTime, "CreationDateAndTime");
 
@@ -1063,8 +1062,8 @@ public class PeppolSBDHData
    * @return this
    * @see #setBusinessMessageNoClone(Element)
    */
-  @Nonnull
-  public PeppolSBDHData setBusinessMessage (@Nonnull final Element aBusinessMessage)
+  @NonNull
+  public PeppolSBDHData setBusinessMessage (@NonNull final Element aBusinessMessage)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
@@ -1085,8 +1084,8 @@ public class PeppolSBDHData
    * @see #setBusinessMessage(Element)
    * @since 8.8.1
    */
-  @Nonnull
-  public PeppolSBDHData setBusinessMessageNoClone (@Nonnull final Element aBusinessMessage)
+  @NonNull
+  public PeppolSBDHData setBusinessMessageNoClone (@NonNull final Element aBusinessMessage)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
@@ -1110,9 +1109,9 @@ public class PeppolSBDHData
    * @see #getBusinessMessageAsBinaryContent()
    * @since 6.2.4
    */
-  @Nonnull
-  public PeppolSBDHData setBusinessMessageBinaryOnly (@Nonnull final byte [] aBinaryPayload,
-                                                      @Nonnull final IMimeType aMimeType,
+  @NonNull
+  public PeppolSBDHData setBusinessMessageBinaryOnly (@NonNull final byte [] aBinaryPayload,
+                                                      @NonNull final IMimeType aMimeType,
                                                       @Nullable final Charset aCharset)
   {
     ValueEnforcer.notNull (aBinaryPayload, "BinaryPayload");
@@ -1145,9 +1144,9 @@ public class PeppolSBDHData
    * @see #getBusinessMessageAsTextContent()
    * @since 6.2.4
    */
-  @Nonnull
-  public PeppolSBDHData setBusinessMessageTextOnly (@Nonnull final String sTextPayload,
-                                                    @Nonnull final IMimeType aMimeType)
+  @NonNull
+  public PeppolSBDHData setBusinessMessageTextOnly (@NonNull final String sTextPayload,
+                                                    @NonNull final IMimeType aMimeType)
   {
     ValueEnforcer.notNull (sTextPayload, "TextPayload");
     ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -1183,7 +1182,7 @@ public class PeppolSBDHData
    *         <code>false</code> if at least one field is not set.
    * @since 9.6.1
    */
-  public boolean areAllFieldsSet (@Nonnull final Consumer <String> aMissingFieldConsumer)
+  public boolean areAllFieldsSet (@NonNull final Consumer <String> aMissingFieldConsumer)
   {
     ValueEnforcer.notNull (aMissingFieldConsumer, "MissingFieldConsumer");
 
@@ -1301,7 +1300,7 @@ public class PeppolSBDHData
    * @since 9.2.0
    * @see PeppolSBDHDataWriter for the main logic
    */
-  @Nonnull
+  @NonNull
   public StandardBusinessDocument getAsStandardBusinessDocument ()
   {
     return new PeppolSBDHDataWriter ().createStandardBusinessDocument (this);
@@ -1387,7 +1386,7 @@ public class PeppolSBDHData
                                        .getToString ();
   }
 
-  private static boolean _hasQName (@Nonnull final QName aQName, @Nonnull final Element aBusinessMessage)
+  private static boolean _hasQName (@NonNull final QName aQName, @NonNull final Element aBusinessMessage)
   {
     return aQName.getNamespaceURI ().equals (aBusinessMessage.getNamespaceURI ()) &&
            aQName.getLocalPart ().equals (aBusinessMessage.getLocalName ());
@@ -1431,9 +1430,9 @@ public class PeppolSBDHData
    * @see #setProcess(String, String)
    * @since 8.3.1
    */
-  @Nonnull
-  public static PeppolSBDHData createUBL21 (@Nonnull final Element aBusinessMessage,
-                                            @Nonnull final IIdentifierFactory aIdentifierFactory)
+  @NonNull
+  public static PeppolSBDHData createUBL21 (@NonNull final Element aBusinessMessage,
+                                            @NonNull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 

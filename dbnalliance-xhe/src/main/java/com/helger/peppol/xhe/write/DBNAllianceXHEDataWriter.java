@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.xhe.write;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.xhe.CDBNAllianceXHE;
@@ -33,8 +35,6 @@ import com.helger.xhe.v10.cbc.XHE10CustomizationIDType;
 import com.helger.xhe.v10.cbc.XHE10DescriptionType;
 import com.helger.xhe.v10.cbc.XHE10IDType;
 import com.helger.xhe.v10.cbc.XHE10ProfileIDType;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Convert DBNAlliance XHE data to a regular XHE document
@@ -58,8 +58,8 @@ public class DBNAllianceXHEDataWriter
    * @throws IllegalArgumentException
    *         if not all document data fields are set!
    */
-  @Nonnull
-  public static XHE10XHEType createExchangeHeaderEnvelope (@Nonnull final DBNAllianceXHEData aData)
+  @NonNull
+  public static XHE10XHEType createExchangeHeaderEnvelope (@NonNull final DBNAllianceXHEData aData)
   {
     ValueEnforcer.notNull (aData, "Data");
     if (!aData.areAllFieldsSet ())

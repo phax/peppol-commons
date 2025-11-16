@@ -36,6 +36,8 @@ import javax.xml.crypto.dsig.SignatureMethod;
 import javax.xml.crypto.dsig.keyinfo.KeyInfo;
 import javax.xml.crypto.dsig.keyinfo.X509Data;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,9 +50,6 @@ import com.helger.security.keystore.ConstantKeySelectorResult;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.security.revocation.RevocationCheckBuilder;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Finds and returns a key using the data contained in a {@link KeyInfo} object
@@ -73,7 +72,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
    *        The trust store to use. May not be <code>null</code>.
    * @since 8.1.1
    */
-  public TrustStoreBasedX509KeySelector (@Nonnull final KeyStore aTrustStore)
+  public TrustStoreBasedX509KeySelector (@NonNull final KeyStore aTrustStore)
   {
     ValueEnforcer.notNull (aTrustStore, "TrustStore");
     m_aTrustStore = aTrustStore;
@@ -98,14 +97,14 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
    * @return this for chaining
    * @since 8.6.2
    */
-  @Nonnull
+  @NonNull
   public TrustStoreBasedX509KeySelector setValidationDateTime (@Nullable final LocalDateTime aValidationDateTime)
   {
     m_aValidationDateTime = aValidationDateTime;
     return this;
   }
 
-  public static boolean algorithmEquals (@Nonnull final String sAlgURI, @Nonnull final String sAlgName)
+  public static boolean algorithmEquals (@NonNull final String sAlgURI, @NonNull final String sAlgName)
   {
     if (sAlgName.equalsIgnoreCase ("DSA"))
     {
@@ -154,26 +153,23 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   }
 
   @Override
-  public KeySelectorResult select (@Nonnull final KeyInfo aKeyInfo,
+  public KeySelectorResult select (@NonNull final KeyInfo aKeyInfo,
                                    final KeySelector.Purpose aPurpose,
-                                   @Nonnull final AlgorithmMethod aMethod,
+                                   @NonNull final AlgorithmMethod aMethod,
                                    final XMLCryptoContext aCryptoContext) throws KeySelectorException
   {
     // For all XMLStructure
     for (final XMLStructure aStructure : aKeyInfo.getContent ())
     {
-      if (aStructure instanceof X509Data)
+      if (aStructure instanceof final X509Data aX509Data)
       {
-        final X509Data aX509Data = (X509Data) aStructure;
         // For all content - can be many different types
         for (final Object aElement : aX509Data.getContent ())
         {
-          if (aElement instanceof X509Certificate)
+          if (aElement instanceof final X509Certificate aCertificate)
           {
             // We found a certificate
             // Now at Signature/KeyInfo/X509Data/X509Certificate
-            final X509Certificate aCertificate = (X509Certificate) aElement;
-
             // Old version
             try
             {

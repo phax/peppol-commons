@@ -16,6 +16,7 @@
  */
 package com.helger.hredelivery.commons.sbdh;
 
+import org.jspecify.annotations.NonNull;
 import org.unece.cefact.namespaces.sbdh.DocumentIdentification;
 import org.unece.cefact.namespaces.sbdh.Partner;
 import org.unece.cefact.namespaces.sbdh.PartnerIdentification;
@@ -24,8 +25,6 @@ import org.unece.cefact.namespaces.sbdh.StandardBusinessDocumentHeader;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Convert a HR eDelivery SBDH document to a regular SBDH document
@@ -46,7 +45,7 @@ public class HREDeliverySBDHDataWriter
   /**
    * @return The SBDH header version to be used. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final String getHeaderVersion ()
   {
     return m_sHeaderVersion;
@@ -59,8 +58,8 @@ public class HREDeliverySBDHDataWriter
    *        The head version. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final HREDeliverySBDHDataWriter setHeaderVersion (@Nonnull final String sHeaderVersion)
+  @NonNull
+  public final HREDeliverySBDHDataWriter setHeaderVersion (@NonNull final String sHeaderVersion)
   {
     ValueEnforcer.notNull (sHeaderVersion, "HeaderVersion");
     m_sHeaderVersion = sHeaderVersion;
@@ -83,7 +82,7 @@ public class HREDeliverySBDHDataWriter
    *        <code>true</code> to favour speed, <code>false</code> to not favour speed.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final HREDeliverySBDHDataWriter setFavourSpeed (final boolean bFavourSpeed)
   {
     m_bFavourSpeed = bFavourSpeed;
@@ -100,8 +99,8 @@ public class HREDeliverySBDHDataWriter
    * @throws IllegalArgumentException
    *         if not all document data fields are set!
    */
-  @Nonnull
-  public StandardBusinessDocument createStandardBusinessDocument (@Nonnull final HREDeliverySBDHData aData)
+  @NonNull
+  public StandardBusinessDocument createStandardBusinessDocument (@NonNull final HREDeliverySBDHData aData)
   {
     ValueEnforcer.notNull (aData, "Data");
     if (!aData.areAllFieldsSet ())

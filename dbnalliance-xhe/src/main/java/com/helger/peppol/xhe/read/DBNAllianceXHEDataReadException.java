@@ -16,7 +16,7 @@
  */
 package com.helger.peppol.xhe.read;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Exception that can occur during the reading of XHE documents.
@@ -28,19 +28,19 @@ public class DBNAllianceXHEDataReadException extends Exception
 {
   private final EDBNAllianceXHEDataReadError m_eErrorCode;
 
-  public DBNAllianceXHEDataReadException (@Nonnull final EDBNAllianceXHEDataReadError eErrorCode)
+  public DBNAllianceXHEDataReadException (@NonNull final EDBNAllianceXHEDataReadError eErrorCode)
   {
     this (eErrorCode.getErrorMessage (), eErrorCode);
   }
 
-  DBNAllianceXHEDataReadException (@Nonnull final String sErrorMsg,
-                                   @Nonnull final EDBNAllianceXHEDataReadError eErrorCode)
+  DBNAllianceXHEDataReadException (@NonNull final String sErrorMsg,
+                                   @NonNull final EDBNAllianceXHEDataReadError eErrorCode)
   {
     super (sErrorMsg);
     m_eErrorCode = eErrorCode;
   }
 
-  @Nonnull
+  @NonNull
   public final EDBNAllianceXHEDataReadError getErrorCode ()
   {
     return m_eErrorCode;

@@ -19,6 +19,8 @@ package com.helger.hredelivery.commons.sbdh;
 import java.util.UUID;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.StandardBusinessDocument;
@@ -39,9 +41,6 @@ import com.helger.jaxb.adapter.JAXBHelper;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the HR eDelivery data per SBDH document in a syntax neutral way.
@@ -75,7 +74,7 @@ public class HREDeliverySBDHData
    * @param aIdentifierFactory
    *        Identifier factory to be used. May not be <code>null</code>.
    */
-  public HREDeliverySBDHData (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  public HREDeliverySBDHData (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
     m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
   }
@@ -124,8 +123,8 @@ public class HREDeliverySBDHData
    *        mapped to <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
    * @return this
    */
-  @Nonnull
-  public HREDeliverySBDHData setSender (@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue)
+  @NonNull
+  public HREDeliverySBDHData setSender (@NonNull @Nonempty final String sScheme, @NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -142,8 +141,8 @@ public class HREDeliverySBDHData
    *        The participant identifier to use. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public HREDeliverySBDHData setSender (@Nonnull final IParticipantIdentifier aSenderID)
+  @NonNull
+  public HREDeliverySBDHData setSender (@NonNull final IParticipantIdentifier aSenderID)
   {
     ValueEnforcer.notNull (aSenderID, "SenderID");
 
@@ -159,8 +158,8 @@ public class HREDeliverySBDHData
    *        mapped to <code>StandardBusinessDocumentHeader/Sender/Identifier/</code>.
    * @return this
    */
-  @Nonnull
-  public HREDeliverySBDHData setSenderWithDefaultScheme (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public HREDeliverySBDHData setSenderWithDefaultScheme (@NonNull @Nonempty final String sValue)
   {
     return setSender (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, sValue);
   }
@@ -210,9 +209,9 @@ public class HREDeliverySBDHData
    *        mapped to <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
    * @return this
    */
-  @Nonnull
-  public HREDeliverySBDHData setReceiver (@Nonnull @Nonempty final String sScheme,
-                                          @Nonnull @Nonempty final String sValue)
+  @NonNull
+  public HREDeliverySBDHData setReceiver (@NonNull @Nonempty final String sScheme,
+                                          @NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.notEmpty (sValue, "Value");
@@ -229,8 +228,8 @@ public class HREDeliverySBDHData
    *        The participant identifier to use. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public HREDeliverySBDHData setReceiver (@Nonnull final IParticipantIdentifier aReceiverID)
+  @NonNull
+  public HREDeliverySBDHData setReceiver (@NonNull final IParticipantIdentifier aReceiverID)
   {
     ValueEnforcer.notNull (aReceiverID, "ReceiverID");
 
@@ -246,8 +245,8 @@ public class HREDeliverySBDHData
    *        mapped to <code>StandardBusinessDocumentHeader/Receiver/Identifier/</code>.
    * @return this
    */
-  @Nonnull
-  public HREDeliverySBDHData setReceiverWithDefaultScheme (@Nonnull @Nonempty final String sValue)
+  @NonNull
+  public HREDeliverySBDHData setReceiverWithDefaultScheme (@NonNull @Nonempty final String sValue)
   {
     return setReceiver (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME, sValue);
   }
@@ -293,12 +292,12 @@ public class HREDeliverySBDHData
    * @see #setInstanceIdentifier(String)
    * @see #setCreationDateAndTime(XMLOffsetDateTime)
    */
-  @Nonnull
-  public HREDeliverySBDHData setDocumentIdentification (@Nonnull @Nonempty final String sStandard,
-                                                        @Nonnull @Nonempty final String sTypeVersion,
-                                                        @Nonnull @Nonempty final String sType,
-                                                        @Nonnull @Nonempty final String sInstanceIdentifier,
-                                                        @Nonnull final XMLOffsetDateTime aCreationDateAndTime)
+  @NonNull
+  public HREDeliverySBDHData setDocumentIdentification (@NonNull @Nonempty final String sStandard,
+                                                        @NonNull @Nonempty final String sTypeVersion,
+                                                        @NonNull @Nonempty final String sType,
+                                                        @NonNull @Nonempty final String sInstanceIdentifier,
+                                                        @NonNull final XMLOffsetDateTime aCreationDateAndTime)
   {
     setStandard (sStandard);
     setTypeVersion (sTypeVersion);
@@ -342,8 +341,8 @@ public class HREDeliverySBDHData
    * @return this
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    */
-  @Nonnull
-  public HREDeliverySBDHData setStandard (@Nonnull @Nonempty final String sStandard)
+  @NonNull
+  public HREDeliverySBDHData setStandard (@NonNull @Nonempty final String sStandard)
   {
     ValueEnforcer.notEmpty (sStandard, "Standard");
 
@@ -383,8 +382,8 @@ public class HREDeliverySBDHData
    * @return this
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    */
-  @Nonnull
-  public HREDeliverySBDHData setTypeVersion (@Nonnull @Nonempty final String sTypeVersion)
+  @NonNull
+  public HREDeliverySBDHData setTypeVersion (@NonNull @Nonempty final String sTypeVersion)
   {
     ValueEnforcer.notEmpty (sTypeVersion, "TypeVersion");
 
@@ -424,8 +423,8 @@ public class HREDeliverySBDHData
    * @return this
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    */
-  @Nonnull
-  public HREDeliverySBDHData setType (@Nonnull @Nonempty final String sType)
+  @NonNull
+  public HREDeliverySBDHData setType (@NonNull @Nonempty final String sType)
   {
     ValueEnforcer.notEmpty (sType, "Type");
 
@@ -475,8 +474,8 @@ public class HREDeliverySBDHData
    * @return this
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    */
-  @Nonnull
-  public HREDeliverySBDHData setInstanceIdentifier (@Nonnull @Nonempty final String sInstanceIdentifier)
+  @NonNull
+  public HREDeliverySBDHData setInstanceIdentifier (@NonNull @Nonempty final String sInstanceIdentifier)
   {
     ValueEnforcer.notEmpty (sInstanceIdentifier, "InstanceIdentifier");
 
@@ -521,8 +520,8 @@ public class HREDeliverySBDHData
    * @return this
    * @see #setDocumentIdentification(String, String, String, String, XMLOffsetDateTime)
    */
-  @Nonnull
-  public HREDeliverySBDHData setCreationDateAndTime (@Nonnull final XMLOffsetDateTime aCreationDateAndTime)
+  @NonNull
+  public HREDeliverySBDHData setCreationDateAndTime (@NonNull final XMLOffsetDateTime aCreationDateAndTime)
   {
     ValueEnforcer.notNull (aCreationDateAndTime, "CreationDateAndTime");
 
@@ -581,8 +580,8 @@ public class HREDeliverySBDHData
    * @return this
    * @see #setBusinessMessageNoClone(Element)
    */
-  @Nonnull
-  public HREDeliverySBDHData setBusinessMessage (@Nonnull final Element aBusinessMessage)
+  @NonNull
+  public HREDeliverySBDHData setBusinessMessage (@NonNull final Element aBusinessMessage)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
@@ -602,8 +601,8 @@ public class HREDeliverySBDHData
    * @return this
    * @see #setBusinessMessage(Element)
    */
-  @Nonnull
-  public HREDeliverySBDHData setBusinessMessageNoClone (@Nonnull final Element aBusinessMessage)
+  @NonNull
+  public HREDeliverySBDHData setBusinessMessageNoClone (@NonNull final Element aBusinessMessage)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 
@@ -632,7 +631,7 @@ public class HREDeliverySBDHData
    * @return <code>true</code> if all mandatory fields required for creating an SBDH are present,
    *         <code>false</code> if at least one field is not set.
    */
-  public boolean areAllFieldsSet (@Nonnull final Consumer <String> aMissingFieldConsumer)
+  public boolean areAllFieldsSet (@NonNull final Consumer <String> aMissingFieldConsumer)
   {
     ValueEnforcer.notNull (aMissingFieldConsumer, "MissingFieldConsumer");
 
@@ -706,7 +705,7 @@ public class HREDeliverySBDHData
    * @return A generic JAXB SBD document of this data. Never <code>null</code>.
    * @see HREDeliverySBDHDataWriter for the main logic
    */
-  @Nonnull
+  @NonNull
   public StandardBusinessDocument getAsStandardBusinessDocument ()
   {
     return new HREDeliverySBDHDataWriter ().createStandardBusinessDocument (this);
@@ -783,9 +782,9 @@ public class HREDeliverySBDHData
    * @see #setSender(String, String)
    * @see #setReceiver(String, String)
    */
-  @Nonnull
-  public static HREDeliverySBDHData createUBL21 (@Nonnull final Element aBusinessMessage,
-                                                 @Nonnull final IIdentifierFactory aIdentifierFactory)
+  @NonNull
+  public static HREDeliverySBDHData createUBL21 (@NonNull final Element aBusinessMessage,
+                                                 @NonNull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
 

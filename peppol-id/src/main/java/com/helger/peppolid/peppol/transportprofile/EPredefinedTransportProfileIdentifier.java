@@ -18,13 +18,15 @@ package com.helger.peppolid.peppol.transportprofile;
 
 import java.time.LocalDate;
 import java.time.Month;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.version.Version;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 
 /**
@@ -125,11 +127,11 @@ public enum EPredefinedTransportProfileIdentifier
     private final Version m_aDeprecationRelease;
     private final LocalDate m_aRemovalDate;
 
-    EPredefinedTransportProfileIdentifier(@Nonnull @Nonempty final String sProtocol,
-        @Nonnull @Nonempty final String sProfileVersion,
-        @Nonnull @Nonempty final String sProfileID,
-        @Nonnull final Version aInitialRelease,
-        @Nonnull final EPeppolCodeListItemState eState,
+    EPredefinedTransportProfileIdentifier(@NonNull @Nonempty final String sProtocol,
+        @NonNull @Nonempty final String sProfileVersion,
+        @NonNull @Nonempty final String sProfileID,
+        @NonNull final Version aInitialRelease,
+        @NonNull final EPeppolCodeListItemState eState,
         @Nullable final Version aDeprecationRelease,
         @Nullable final LocalDate aRemovalDate) {
         m_sProtocol = sProtocol;
@@ -141,30 +143,30 @@ public enum EPredefinedTransportProfileIdentifier
         m_aRemovalDate = aRemovalDate;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getProtocol() {
         return m_sProtocol;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getProfileVersion() {
         return m_sProfileVersion;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getProfileID() {
         return m_sProfileID;
     }
 
-    @Nonnull
+    @NonNull
     public Version getInitialRelease() {
         return m_aInitialRelease;
     }
 
-    @Nonnull
+    @NonNull
     public EPeppolCodeListItemState getState() {
         return m_eState;
     }

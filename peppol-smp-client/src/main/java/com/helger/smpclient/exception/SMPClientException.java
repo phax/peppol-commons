@@ -16,7 +16,7 @@
  */
 package com.helger.smpclient.exception;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base class for all SMP client exceptions. It can also be used as a generic
@@ -26,17 +26,17 @@ import jakarta.annotation.Nonnull;
  */
 public class SMPClientException extends Exception
 {
-  public SMPClientException (@Nonnull final String sMsg)
+  public SMPClientException (@NonNull final String sMsg)
   {
     super (sMsg);
   }
 
-  public SMPClientException (@Nonnull final Throwable aCause)
+  public SMPClientException (@NonNull final Throwable aCause)
   {
     super (aCause);
   }
 
-  public SMPClientException (@Nonnull final String sMsg, @Nonnull final Throwable aCause)
+  public SMPClientException (@NonNull final String sMsg, @NonNull final Throwable aCause)
   {
     super (sMsg, aCause);
   }

@@ -18,14 +18,14 @@ package com.helger.peppol.smlclient.bdmsl;
 
 import java.io.Serializable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.peppolid.IParticipantIdentifier;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A single item of the participant list.
@@ -51,7 +51,7 @@ public class ParticipantListItem implements Serializable
    * @param aParticipantID
    *        The participant identifier. May not be <code>null</code>.
    */
-  public ParticipantListItem (@Nonnull @Nonempty final String sSMPID, @Nonnull final IParticipantIdentifier aParticipantID)
+  public ParticipantListItem (@NonNull @Nonempty final String sSMPID, @NonNull final IParticipantIdentifier aParticipantID)
   {
     ValueEnforcer.notEmpty (sSMPID, "SMPID");
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
@@ -64,7 +64,7 @@ public class ParticipantListItem implements Serializable
    * @return The SMP-ID to which this participant identifier belongs. Neither
    *         <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getSMPID ()
   {
@@ -75,7 +75,7 @@ public class ParticipantListItem implements Serializable
    * @return The participant identifier as passed in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public IParticipantIdentifier getParticipantID ()
   {
     return m_aParticipantID;

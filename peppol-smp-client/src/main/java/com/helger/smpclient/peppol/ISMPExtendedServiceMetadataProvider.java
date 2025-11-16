@@ -20,6 +20,9 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.peppol.smp.ISMPTransportProfile;
@@ -34,9 +37,6 @@ import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.xsds.peppol.smp1.EndpointType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Abstract interface to retrieve extended Peppol Service Metadata instance.
  *
@@ -46,26 +46,21 @@ import jakarta.annotation.Nullable;
 public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadataProvider
 {
   /**
-   * Retrieve the service metadata from the provided service group ID and
-   * document type ID. Than find the matching endpoint from the process ID and
-   * transport profile. This method checks the validity of the endpoint at the
-   * current point in time.<br>
+   * Retrieve the service metadata from the provided service group ID and document type ID. Than
+   * find the matching endpoint from the process ID and transport profile. This method checks the
+   * validity of the endpoint at the current point in time.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The document type of the service metadata to get. May not be <code>null</code>.
    * @param aProcessID
-   *        The process ID of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The process ID of the service metadata to get. May not be <code>null</code>.
    * @param aTransportProfile
-   *        The transport profile of the service metadata to get. May not be
-   *        <code>null</code>.
-   * @return The endpoint from the signed service metadata object or
-   *         <code>null</code> if no such registration is present.
+   *        The transport profile of the service metadata to get. May not be <code>null</code>.
+   * @return The endpoint from the signed service metadata object or <code>null</code> if no such
+   *         registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -73,14 +68,14 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
-   * @see #getEndpointAt(IParticipantIdentifier, IDocumentTypeIdentifier,
-   *      IProcessIdentifier, ISMPTransportProfile, LocalDateTime)
+   * @see #getEndpointAt(IParticipantIdentifier, IDocumentTypeIdentifier, IProcessIdentifier,
+   *      ISMPTransportProfile, LocalDateTime)
    */
   @Nullable
-  default EndpointType getEndpoint (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                    @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                    @Nonnull final IProcessIdentifier aProcessID,
-                                    @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
+  default EndpointType getEndpoint (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                    @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                    @NonNull final IProcessIdentifier aProcessID,
+                                    @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
     return getEndpointAt (aServiceGroupID,
                           aDocumentTypeID,
@@ -90,29 +85,23 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
   }
 
   /**
-   * Retrieve the service metadata from the provided service group ID and
-   * document type ID. Than find the matching endpoint from the process ID and
-   * transport profile.<br>
+   * Retrieve the service metadata from the provided service group ID and document type ID. Than
+   * find the matching endpoint from the process ID and transport profile.<br>
    * This is a specification compliant method.
    *
    * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
    * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The document type of the service metadata to get. May not be <code>null</code>.
    * @param aProcessID
-   *        The process ID of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The process ID of the service metadata to get. May not be <code>null</code>.
    * @param aTransportProfile
-   *        The transport profile of the service metadata to get. May not be
-   *        <code>null</code>.
+   *        The transport profile of the service metadata to get. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the
-   *        end point contains a ServiceActivationDate and/or a
-   *        ServiceExpirationDate. May not be <code>null</code>.
-   * @return The endpoint from the signed service metadata object or
-   *         <code>null</code> if no such registration is present.
+   *        The date and time for when the endpoint is meant to be valid if the end point contains a
+   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   * @return The endpoint from the signed service metadata object or <code>null</code> if no such
+   *         registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -123,11 +112,11 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @since 8.7.3
    */
   @Nullable
-  default EndpointType getEndpointAt (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                      @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                      @Nonnull final IProcessIdentifier aProcessID,
-                                      @Nonnull final ISMPTransportProfile aTransportProfile,
-                                      @Nonnull final LocalDateTime aCheckDT) throws SMPClientException
+  default EndpointType getEndpointAt (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                      @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                      @NonNull final IProcessIdentifier aProcessID,
+                                      @NonNull final ISMPTransportProfile aTransportProfile,
+                                      @NonNull final LocalDateTime aCheckDT) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -138,16 +127,15 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
     // Get meta data for participant/documentType
     final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
                                                                                        aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null
-                                          : SMPClientReadOnly.getEndpointAt (aSignedServiceMetadata,
-                                                                             aProcessID,
-                                                                             aTransportProfile,
-                                                                             aCheckDT);
+    return aSignedServiceMetadata == null ? null : SMPClientReadOnly.getEndpointAt (aSignedServiceMetadata,
+                                                                                    aProcessID,
+                                                                                    aTransportProfile,
+                                                                                    aCheckDT);
   }
 
   /**
-   * Get the endpoint address URI from the specified endpoint. This method
-   * checks the validity of the endpoint at the current point in time.
+   * Get the endpoint address URI from the specified endpoint. This method checks the validity of
+   * the endpoint at the current point in time.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -157,8 +145,8 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *        Process ID. May not be <code>null</code>.
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no endpoint address URI
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no endpoint
+   *         address URI
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -167,10 +155,10 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *         The request was not well formed.
    */
   @Nullable
-  default String getEndpointAddress (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                     @Nonnull final IProcessIdentifier aProcessID,
-                                     @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
+  default String getEndpointAddress (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                     @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                     @NonNull final IProcessIdentifier aProcessID,
+                                     @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
     final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
     return SMPClientReadOnly.getEndpointAddress (aEndpoint);
@@ -188,11 +176,10 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the
-   *        end point contains a ServiceActivationDate and/or a
-   *        ServiceExpirationDate. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no endpoint address URI
+   *        The date and time for when the endpoint is meant to be valid if the end point contains a
+   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no endpoint
+   *         address URI
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -202,11 +189,11 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @since 8.7.3
    */
   @Nullable
-  default String getEndpointAddressAt (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                       @Nonnull final IProcessIdentifier aProcessID,
-                                       @Nonnull final ISMPTransportProfile aTransportProfile,
-                                       @Nonnull final LocalDateTime aCheckDT) throws SMPClientException
+  default String getEndpointAddressAt (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                       @NonNull final IProcessIdentifier aProcessID,
+                                       @NonNull final ISMPTransportProfile aTransportProfile,
+                                       @NonNull final LocalDateTime aCheckDT) throws SMPClientException
   {
     final EndpointType aEndpoint = getEndpointAt (aServiceGroupID,
                                                   aDocumentTypeID,
@@ -217,8 +204,8 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
   }
 
   /**
-   * Get the certificate string from the specified endpoint. This method checks
-   * the validity of the endpoint at the current point in time.
+   * Get the certificate string from the specified endpoint. This method checks the validity of the
+   * endpoint at the current point in time.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -228,8 +215,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *        Process ID. May not be <code>null</code>.
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -238,10 +224,10 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *         The request was not well formed.
    */
   @Nullable
-  default String getEndpointCertificateString (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                               @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                               @Nonnull final IProcessIdentifier aProcessID,
-                                               @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
+  default String getEndpointCertificateString (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                               @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                               @NonNull final IProcessIdentifier aProcessID,
+                                               @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
     final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
     return SMPClientReadOnly.getEndpointCertificateString (aEndpoint);
@@ -259,11 +245,9 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the
-   *        end point contains a ServiceActivationDate and/or a
-   *        ServiceExpirationDate. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   *        The date and time for when the endpoint is meant to be valid if the end point contains a
+   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -273,11 +257,11 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @since 8.7.3
    */
   @Nullable
-  default String getEndpointCertificateStringAt (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                 @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                 @Nonnull final IProcessIdentifier aProcessID,
-                                                 @Nonnull final ISMPTransportProfile aTransportProfile,
-                                                 @Nonnull final LocalDateTime aCheckDT) throws SMPClientException
+  default String getEndpointCertificateStringAt (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                 @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                 @NonNull final IProcessIdentifier aProcessID,
+                                                 @NonNull final ISMPTransportProfile aTransportProfile,
+                                                 @NonNull final LocalDateTime aCheckDT) throws SMPClientException
   {
     final EndpointType aEndpoint = getEndpointAt (aServiceGroupID,
                                                   aDocumentTypeID,
@@ -288,8 +272,8 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
   }
 
   /**
-   * Get the certificate from the specified endpoint. This method checks the
-   * validity of the endpoint at the current point in time.
+   * Get the certificate from the specified endpoint. This method checks the validity of the
+   * endpoint at the current point in time.
    *
    * @param aServiceGroupID
    *        Service group ID. May not be <code>null</code>.
@@ -299,8 +283,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *        Process ID. May not be <code>null</code>.
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -311,10 +294,10 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *         In case the conversion from byte to X509 certificate failed
    */
   @Nullable
-  default X509Certificate getEndpointCertificate (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                  @Nonnull final IProcessIdentifier aProcessID,
-                                                  @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
+  default X509Certificate getEndpointCertificate (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                  @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                  @NonNull final IProcessIdentifier aProcessID,
+                                                  @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                          CertificateException
   {
     final String sCertString = getEndpointCertificateString (aServiceGroupID,
@@ -336,11 +319,9 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @param aTransportProfile
    *        Transport profile. May not be <code>null</code>.
    * @param aCheckDT
-   *        The date and time for when the endpoint is meant to be valid if the
-   *        end point contains a ServiceActivationDate and/or a
-   *        ServiceExpirationDate. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint
-   *         has no certificate
+   *        The date and time for when the endpoint is meant to be valid if the end point contains a
+   *        ServiceActivationDate and/or a ServiceExpirationDate. May not be <code>null</code>.
+   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
    * @throws SMPClientException
    *         in case something goes wrong
    * @throws SMPClientUnauthorizedException
@@ -351,11 +332,11 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    *         In case the conversion from byte to X509 certificate failed
    */
   @Nullable
-  default X509Certificate getEndpointCertificateAt (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                    @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                    @Nonnull final IProcessIdentifier aProcessID,
-                                                    @Nonnull final ISMPTransportProfile aTransportProfile,
-                                                    @Nonnull final LocalDateTime aCheckDT) throws SMPClientException,
+  default X509Certificate getEndpointCertificateAt (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                    @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                    @NonNull final IProcessIdentifier aProcessID,
+                                                    @NonNull final ISMPTransportProfile aTransportProfile,
+                                                    @NonNull final LocalDateTime aCheckDT) throws SMPClientException,
                                                                                            CertificateException
   {
     final String sCertString = getEndpointCertificateStringAt (aServiceGroupID,
@@ -367,16 +348,15 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
   }
 
   /**
-   * This API is to resolve the Service Metadata based on the provided Document
-   * Type ID following the Peppol Policy for use of Identifiers 4.3.0.<br>
+   * This API is to resolve the Service Metadata based on the provided Document Type ID following
+   * the Peppol Policy for use of Identifiers 4.3.0.<br>
    * <ul>
-   * <li>For <code>busdox-docid-qns</code> only exact match is supported. Here
-   * it will directly query the Service Metadata. (1 SMP query in total)</li>
-   * <li>For <code>peppol-doctype</code> both exact match and best match are
-   * supported. The wildcard indicator may or may not be present. Here it will
-   * first query the SMP for list of all document types, find the best match
-   * document type and finally do the SMP query Service Metadata. (2 SMP queries
-   * in total)</li>
+   * <li>For <code>busdox-docid-qns</code> only exact match is supported. Here it will directly
+   * query the Service Metadata. (1 SMP query in total)</li>
+   * <li>For <code>peppol-doctype</code> both exact match and best match are supported. The wildcard
+   * indicator may or may not be present. Here it will first query the SMP for list of all document
+   * types, find the best match document type and finally do the SMP query Service Metadata. (2 SMP
+   * queries in total)</li>
    * </ul>
    *
    * @param aServiceGroupID
@@ -387,12 +367,11 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @throws SMPClientException
    *         In case of error
    * @since 9.6.0
-   * @see #getServiceMetadataOrNull(IParticipantIdentifier,
-   *      IDocumentTypeIdentifier)
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
    * @see ISMPServiceGroupProvider#getServiceGroupOrNull(IParticipantIdentifier)
    */
   @Nullable
   @Pfuoi430
-  SignedServiceMetadataType getSchemeSpecificServiceMetadataOrNull (@Nonnull IParticipantIdentifier aServiceGroupID,
-                                                                    @Nonnull IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
+  SignedServiceMetadataType getSchemeSpecificServiceMetadataOrNull (@NonNull IParticipantIdentifier aServiceGroupID,
+                                                                    @NonNull IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
 }

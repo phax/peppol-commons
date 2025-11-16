@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.businesscard.v1;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
@@ -23,9 +26,6 @@ import com.helger.peppol.businesscard.generic.PDBusinessEntity;
 import com.helger.peppol.businesscard.generic.PDContact;
 import com.helger.peppol.businesscard.generic.PDIdentifier;
 import com.helger.peppol.businesscard.generic.PDName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class for easier BC V1 creation.
@@ -38,7 +38,7 @@ public final class PD1APIHelper
   private PD1APIHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   public static PD1IdentifierType createIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final PD1IdentifierType ret = new PD1IdentifierType ();
@@ -48,13 +48,13 @@ public final class PD1APIHelper
   }
 
   @Nullable
-  public static PDIdentifier createIdentifier (@Nonnull final PD1IdentifierType aID)
+  public static PDIdentifier createIdentifier (@NonNull final PD1IdentifierType aID)
   {
     ValueEnforcer.notNull (aID, "ID");
     return new PDIdentifier (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
+  @NonNull
   public static PD1ContactType createContact (@Nullable final String sType,
                                               @Nullable final String sName,
                                               @Nullable final String sPhoneNumber,
@@ -68,15 +68,15 @@ public final class PD1APIHelper
     return ret;
   }
 
-  @Nonnull
-  public static PDContact createContact (@Nonnull final PD1ContactType aContact)
+  @NonNull
+  public static PDContact createContact (@NonNull final PD1ContactType aContact)
   {
     ValueEnforcer.notNull (aContact, "Contact");
     return new PDContact (aContact.getType (), aContact.getName (), aContact.getPhoneNumber (), aContact.getEmail ());
   }
 
-  @Nonnull
-  public static PDBusinessEntity createBusinessEntity (@Nonnull final PD1BusinessEntityType aBE)
+  @NonNull
+  public static PDBusinessEntity createBusinessEntity (@NonNull final PD1BusinessEntityType aBE)
   {
     ValueEnforcer.notNull (aBE, "BusinessEntity");
     final PDBusinessEntity ret = new PDBusinessEntity ();
@@ -92,8 +92,8 @@ public final class PD1APIHelper
     return ret;
   }
 
-  @Nonnull
-  public static PDBusinessCard createBusinessCard (@Nonnull final PD1BusinessCardType aBC)
+  @NonNull
+  public static PDBusinessCard createBusinessCard (@NonNull final PD1BusinessCardType aBC)
   {
     ValueEnforcer.notNull (aBC, "BusinessCard");
     final PDBusinessCard ret = new PDBusinessCard ();

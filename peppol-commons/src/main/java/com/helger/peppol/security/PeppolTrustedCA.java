@@ -16,13 +16,12 @@
  */
 package com.helger.peppol.security;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.security.certificate.TrustedCAChecker;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class contains all the trusted CAs in Peppol.
@@ -59,7 +58,7 @@ public final class PeppolTrustedCA
   /**
    * @return The Peppol CA checker for Pilot AP certificates.
    */
-  @Nonnull
+  @NonNull
   public static TrustedCAChecker peppolTestAP ()
   {
     return TEST_AP;
@@ -68,7 +67,7 @@ public final class PeppolTrustedCA
   /**
    * @return The Peppol CA checker for Production AP certificates.
    */
-  @Nonnull
+  @NonNull
   public static TrustedCAChecker peppolProductionAP ()
   {
     return PROD_AP;
@@ -77,7 +76,7 @@ public final class PeppolTrustedCA
   /**
    * @return The Peppol CA checker for Pilot and Production AP certificates.
    */
-  @Nonnull
+  @NonNull
   public static TrustedCAChecker peppolAllAP ()
   {
     return ALL_AP;
@@ -86,7 +85,7 @@ public final class PeppolTrustedCA
   /**
    * @return The Peppol CA checker for Pilot SMP certificates.
    */
-  @Nonnull
+  @NonNull
   public static TrustedCAChecker peppolTestSMP ()
   {
     return TEST_SMP;
@@ -95,7 +94,7 @@ public final class PeppolTrustedCA
   /**
    * @return The Peppol CA checker for Production SMP certificates.
    */
-  @Nonnull
+  @NonNull
   public static TrustedCAChecker peppolProductionSMP ()
   {
     return PROD_SMP;
@@ -104,7 +103,7 @@ public final class PeppolTrustedCA
   /**
    * @return The Peppol CA checker for Pilot and Production SMP certificates.
    */
-  @Nonnull
+  @NonNull
   public static TrustedCAChecker peppolAllSMP ()
   {
     return ALL_SMP;

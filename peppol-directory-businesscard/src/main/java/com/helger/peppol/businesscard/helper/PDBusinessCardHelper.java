@@ -19,6 +19,8 @@ package com.helger.peppol.businesscard.helper;
 import java.nio.charset.Charset;
 import java.util.function.BiConsumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
@@ -41,9 +43,6 @@ import com.helger.peppol.businesscard.v3.PD3APIHelper;
 import com.helger.peppol.businesscard.v3.PD3BusinessCardMarshaller;
 import com.helger.peppol.businesscard.v3.PD3BusinessCardType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Helper class for business cards.
  *
@@ -62,12 +61,12 @@ public final class PDBusinessCardHelper
 
     private final String m_sID;
 
-    EBusinessCardVersion (@Nonnull @Nonempty final String sID)
+    EBusinessCardVersion (@NonNull @Nonempty final String sID)
     {
       m_sID = sID;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getID ()
     {
@@ -98,7 +97,7 @@ public final class PDBusinessCardHelper
    * @return <code>null</code> if parsing fails.
    */
   @Nullable
-  public static PDBusinessCard parseBusinessCard (@Nonnull final byte [] aData, @Nullable final Charset aCharset)
+  public static PDBusinessCard parseBusinessCard (@NonNull final byte [] aData, @Nullable final Charset aCharset)
   {
     ValueEnforcer.notNull (aData, "Data");
 
@@ -127,7 +126,7 @@ public final class PDBusinessCardHelper
    * @since 0.9.6
    */
   @Nullable
-  public static PDBusinessCard parseBusinessCard (@Nonnull final byte [] aData,
+  public static PDBusinessCard parseBusinessCard (@NonNull final byte [] aData,
                                                   @Nullable final BiConsumer <? super GenericJAXBMarshaller <?>, EBusinessCardVersion> aMarshallerCustomizer)
   {
     ValueEnforcer.notNull (aData, "Data");
@@ -208,7 +207,7 @@ public final class PDBusinessCardHelper
    * @since 0.7.2
    */
   @Nullable
-  public static PDBusinessCard parseBusinessCard (@Nonnull final Node aNode)
+  public static PDBusinessCard parseBusinessCard (@NonNull final Node aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
@@ -235,7 +234,7 @@ public final class PDBusinessCardHelper
    * @since 0.9.6
    */
   @Nullable
-  public static PDBusinessCard parseBusinessCard (@Nonnull final Node aNode,
+  public static PDBusinessCard parseBusinessCard (@NonNull final Node aNode,
                                                   @Nullable final BiConsumer <? super GenericJAXBMarshaller <?>, EBusinessCardVersion> aMarshallerCustomizer)
   {
     ValueEnforcer.notNull (aNode, "Node");

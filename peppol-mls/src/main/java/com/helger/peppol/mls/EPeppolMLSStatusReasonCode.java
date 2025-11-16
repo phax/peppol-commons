@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.mls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * MLS Line Response Status Reason Code.
@@ -49,12 +49,12 @@ public enum EPeppolMLSStatusReasonCode implements IHasID <String>
 
   private final String m_sID;
 
-  EPeppolMLSStatusReasonCode (@Nonnull @Nonempty final String sID)
+  EPeppolMLSStatusReasonCode (@NonNull @Nonempty final String sID)
   {
     m_sID = sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -72,7 +72,7 @@ public enum EPeppolMLSStatusReasonCode implements IHasID <String>
     return EnumHelper.getFromIDOrNull (EPeppolMLSStatusReasonCode.class, sID);
   }
 
-  @Nonnull
+  @NonNull
   public static EPeppolMLSStatusReasonCode getFromIDOrThrow (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrThrow (EPeppolMLSStatusReasonCode.class, sID);

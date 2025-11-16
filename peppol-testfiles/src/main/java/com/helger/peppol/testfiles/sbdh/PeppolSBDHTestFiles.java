@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.testfiles.sbdh;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.io.resource.ClassPathResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class contains all the test resources for SBDH
@@ -33,7 +33,7 @@ public final class PeppolSBDHTestFiles
   private static final ICommonsList <ClassPathResource> GOOD_CASES = new CommonsArrayList <> ();
   private static final ICommonsList <ClassPathResource> BAD_CASES = new CommonsArrayList <> ();
 
-  @Nonnull
+  @NonNull
   private static ClassLoader _getCL ()
   {
     return PeppolSBDHTestFiles.class.getClassLoader ();
@@ -101,39 +101,39 @@ public final class PeppolSBDHTestFiles
   private PeppolSBDHTestFiles ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllGoodCases ()
   {
     return GOOD_CASES.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public static ClassPathResource getFirstGoodCase ()
   {
     return GOOD_CASES.getFirstOrNull ();
   }
 
-  @Nonnull
+  @NonNull
   public static ClassPathResource getFirstGoodCaseV11 ()
   {
     return GOOD_CASES.findFirst (x -> x.getPath ().endsWith ("good-v11.xml"));
   }
 
-  @Nonnull
+  @NonNull
   public static ClassPathResource getFirstGoodCaseV20 ()
   {
     return GOOD_CASES.findFirst (x -> x.getPath ().endsWith ("good-bis3-with-country_c1.xml"));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <ClassPathResource> getAllBadCases ()
   {
     return BAD_CASES.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public static ClassPathResource getFirstBadCase ()
   {
     return BAD_CASES.getFirstOrNull ();

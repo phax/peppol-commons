@@ -16,18 +16,18 @@
  */
 package com.helger.peppolid.peppol.participant;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class PeppolParticipantIdentifierMicroTypeConverter extends
                                                                  AbstractIdentifierMicroTypeConverter <PeppolParticipantIdentifier>
 {
   @Override
-  @Nonnull
-  protected PeppolParticipantIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
+  @NonNull
+  protected PeppolParticipantIdentifier getAsNative (@Nullable final String sScheme, @NonNull final String sValue)
   {
     return new PeppolParticipantIdentifier (PeppolIdentifierFactory.INSTANCE, sScheme, sValue);
   }

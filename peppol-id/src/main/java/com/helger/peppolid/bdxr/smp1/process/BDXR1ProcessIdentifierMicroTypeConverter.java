@@ -16,16 +16,16 @@
  */
 package com.helger.peppolid.bdxr.smp1.process;
 
-import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
 public final class BDXR1ProcessIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <BDXR1ProcessIdentifier>
 {
   @Override
-  @Nonnull
-  protected BDXR1ProcessIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
+  @NonNull
+  protected BDXR1ProcessIdentifier getAsNative (@Nullable final String sScheme, @NonNull final String sValue)
   {
     return new BDXR1ProcessIdentifier (sScheme, sValue);
   }

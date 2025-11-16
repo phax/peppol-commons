@@ -19,13 +19,12 @@ package com.helger.peppol.testfiles.official;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.helger.io.resource.ClassPathResource;
 import com.helger.xml.serialize.read.DOMReader;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link OfficialTestFiles}
@@ -34,7 +33,7 @@ import jakarta.annotation.Nonnull;
  */
 public final class OfficialTestFilesTest
 {
-  private static void _testGoodXML (@Nonnull final ClassPathResource aRes)
+  private static void _testGoodXML (@NonNull final ClassPathResource aRes)
   {
     assertTrue (aRes.getPath (), aRes.exists ());
 

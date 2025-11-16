@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.bdxr.smp1.process;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.xsds.bdxr.smp1.ProcessIdentifierType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a sanity class around the {@link ProcessIdentifierType} class with
@@ -44,20 +44,20 @@ public class BDXR1ProcessIdentifier extends ProcessIdentifierType implements
                                     ICloneable <BDXR1ProcessIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXR1ProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
+  public BDXR1ProcessIdentifier (@NonNull final IProcessIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXR1ProcessIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public BDXR1ProcessIdentifier (@Nullable final String sScheme, @NonNull final String sValue)
   {
     // Change "" to null
     setScheme (StringHelper.isEmpty (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 
-  public int compareTo (@Nonnull final BDXR1ProcessIdentifier aOther)
+  public int compareTo (@NonNull final BDXR1ProcessIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -65,7 +65,7 @@ public class BDXR1ProcessIdentifier extends ProcessIdentifierType implements
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public BDXR1ProcessIdentifier getClone ()
   {

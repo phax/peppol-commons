@@ -18,6 +18,7 @@ package com.helger.peppol.smlclient;
 
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,6 @@ import com.helger.peppol.smlclient.smp.ServiceMetadataPublisherServiceType;
 import com.helger.peppol.smlclient.smp.UnauthorizedFault;
 import com.helger.wsclient.WSClientConfig;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.BindingProvider;
 
 /**
@@ -56,7 +56,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @param aSMLInfo
    *        The SML info object. May not be <code>null</code>.
    */
-  public ManageServiceMetadataServiceCaller (@Nonnull final ISMLInfo aSMLInfo)
+  public ManageServiceMetadataServiceCaller (@NonNull final ISMLInfo aSMLInfo)
   {
     this (aSMLInfo.getManageServiceMetaDataEndpointAddress ());
   }
@@ -68,7 +68,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    *        The address of the SML management interface. May not be
    *        <code>null</code>.
    */
-  public ManageServiceMetadataServiceCaller (@Nonnull final URL aEndpointAddress)
+  public ManageServiceMetadataServiceCaller (@NonNull final URL aEndpointAddress)
   {
     super (aEndpointAddress);
   }
@@ -78,7 +78,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    *
    * @return The WebService port to be used. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
   protected ManageServiceMetadataServiceSoap createWSPort ()
@@ -99,7 +99,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    *        empty.
    */
   @OverrideOnDemand
-  protected void validatePhysicalAddress (@Nonnull @Nonempty final String sPhysicalAddress)
+  protected void validatePhysicalAddress (@NonNull @Nonempty final String sPhysicalAddress)
   {}
 
   /**
@@ -111,7 +111,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    *        empty.
    */
   @OverrideOnDemand
-  protected void validateLogicalAddress (@Nonnull @Nonempty final String sLogicalAddress)
+  protected void validateLogicalAddress (@NonNull @Nonempty final String sLogicalAddress)
   {}
 
   /**
@@ -133,9 +133,9 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         The user name or password was not correct.
    */
-  public void create (@Nonnull @Nonempty final String sSMPID,
-                      @Nonnull @Nonempty final String sSMPAddressPhysical,
-                      @Nonnull @Nonempty final String sSMPAddressLogical) throws BadRequestFault,
+  public void create (@NonNull @Nonempty final String sSMPID,
+                      @NonNull @Nonempty final String sSMPAddressPhysical,
+                      @NonNull @Nonempty final String sSMPAddressLogical) throws BadRequestFault,
                                                                           InternalErrorFault,
                                                                           UnauthorizedFault
   {
@@ -168,7 +168,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         The user name or password was not correct.
    */
-  public void create (@Nonnull final ServiceMetadataPublisherServiceType aServiceMetadata) throws BadRequestFault,
+  public void create (@NonNull final ServiceMetadataPublisherServiceType aServiceMetadata) throws BadRequestFault,
                                                                                            InternalErrorFault,
                                                                                            UnauthorizedFault
   {
@@ -212,9 +212,9 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws BadRequestFault
    *         The request was not well formed.
    */
-  public void update (@Nonnull @Nonempty final String sSMPID,
-                      @Nonnull @Nonempty final String sSMPAddressPhysical,
-                      @Nonnull @Nonempty final String sSMPAddressLogical) throws InternalErrorFault,
+  public void update (@NonNull @Nonempty final String sSMPID,
+                      @NonNull @Nonempty final String sSMPAddressPhysical,
+                      @NonNull @Nonempty final String sSMPAddressLogical) throws InternalErrorFault,
                                                                           NotFoundFault,
                                                                           UnauthorizedFault,
                                                                           BadRequestFault
@@ -251,7 +251,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws BadRequestFault
    *         The request was not well formed.
    */
-  public void update (@Nonnull final ServiceMetadataPublisherServiceType aServiceMetadata) throws InternalErrorFault,
+  public void update (@NonNull final ServiceMetadataPublisherServiceType aServiceMetadata) throws InternalErrorFault,
                                                                                            NotFoundFault,
                                                                                            UnauthorizedFault,
                                                                                            BadRequestFault
@@ -291,7 +291,7 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws BadRequestFault
    *         The request was not well formed.
    */
-  public void delete (@Nonnull @Nonempty final String sSMPID) throws InternalErrorFault,
+  public void delete (@NonNull @Nonempty final String sSMPID) throws InternalErrorFault,
                                                               NotFoundFault,
                                                               UnauthorizedFault,
                                                               BadRequestFault
@@ -318,8 +318,8 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws BadRequestFault
    *         The request was not well formed.
    */
-  @Nonnull
-  public ServiceMetadataPublisherServiceType read (@Nonnull @Nonempty final String sSMPID) throws InternalErrorFault,
+  @NonNull
+  public ServiceMetadataPublisherServiceType read (@NonNull @Nonempty final String sSMPID) throws InternalErrorFault,
                                                                                            NotFoundFault,
                                                                                            UnauthorizedFault,
                                                                                            BadRequestFault
@@ -347,8 +347,8 @@ public class ManageServiceMetadataServiceCaller extends WSClientConfig
    * @throws BadRequestFault
    *         The request was not well formed.
    */
-  @Nonnull
-  public ServiceMetadataPublisherServiceType read (@Nonnull final ServiceMetadataPublisherServiceType aSMPService) throws InternalErrorFault,
+  @NonNull
+  public ServiceMetadataPublisherServiceType read (@NonNull final ServiceMetadataPublisherServiceType aSMPService) throws InternalErrorFault,
                                                                                                                    NotFoundFault,
                                                                                                                    UnauthorizedFault,
                                                                                                                    BadRequestFault

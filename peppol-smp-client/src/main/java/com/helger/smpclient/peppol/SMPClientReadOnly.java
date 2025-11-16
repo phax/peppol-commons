@@ -27,6 +27,8 @@ import java.util.Locale;
 import java.util.function.Consumer;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,8 +78,6 @@ import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 import com.helger.xsds.xmldsig.X509DataType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBElement;
 
 /**
@@ -111,9 +111,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    */
-  public SMPClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
-                            @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                            @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  public SMPClientReadOnly (@NonNull final ISMPURLProvider aURLProvider,
+                            @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                            @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo));
   }
@@ -133,9 +133,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
-  public SMPClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
-                            @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                            @Nonnull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
+  public SMPClientReadOnly (@NonNull final ISMPURLProvider aURLProvider,
+                            @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                            @NonNull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName));
   }
@@ -148,14 +148,14 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *        The address of the SMP service. Must be port 80 and basic http only (no https!).
    *        Example: http://smpcompany.company.org
    */
-  public SMPClientReadOnly (@Nonnull final URI aSMPHost)
+  public SMPClientReadOnly (@NonNull final URI aSMPHost)
   {
     // Peppol limitations are only before 1.11.2025
     super (aSMPHost, PDTFactory.getCurrentLocalDate ().isBefore (HTTPS_ALLOWED_DATE));
   }
 
-  @Nonnull
-  public ServiceGroupType getServiceGroup (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
+  @NonNull
+  public ServiceGroupType getServiceGroup (@NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
@@ -179,7 +179,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   @Nullable
-  public ServiceGroupType getServiceGroupOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
+  public ServiceGroupType getServiceGroupOrNull (@NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
     try
     {
@@ -203,7 +203,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @see #getAllDocumentTypes(ServiceGroupType, IIdentifierFactory, Consumer)
    * @since 8.0.4
    */
-  @Nonnull
+  @NonNull
   public static ICommonsList <IDocumentTypeIdentifier> getAllDocumentTypes (@Nullable final ServiceGroupType aSG)
   {
     return getAllDocumentTypes (aSG, PeppolIdentifierFactory.INSTANCE, null);
@@ -223,9 +223,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @return Never <code>null</code> but a maybe empty list.
    * @since 8.0.4
    */
-  @Nonnull
+  @NonNull
   public static ICommonsList <IDocumentTypeIdentifier> getAllDocumentTypes (@Nullable final ServiceGroupType aSG,
-                                                                            @Nonnull final IIdentifierFactory aIdentifierFactory,
+                                                                            @NonNull final IIdentifierFactory aIdentifierFactory,
                                                                             @Nullable final Consumer <String> aUnhandledHrefHandler)
   {
     ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
@@ -315,9 +315,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
    * @since v10.4.3
    */
-  @Nonnull
-  public SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+  @NonNull
+  public SignedServiceMetadataType getServiceMetadata (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
                                                        @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
@@ -447,8 +447,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @since v10.4.3
    */
   @Nullable
-  public SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                             @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+  public SignedServiceMetadataType getServiceMetadataOrNull (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                             @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
                                                              @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
   {
     try
@@ -463,8 +463,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
     }
   }
 
-  private static boolean _hasSameContent (@Nonnull final ProcessIdentifierType aPI1,
-                                          @Nonnull final IProcessIdentifier aPI2)
+  private static boolean _hasSameContent (@NonNull final ProcessIdentifierType aPI1,
+                                          @NonNull final IProcessIdentifier aPI2)
   {
     return EqualsHelper.equals (aPI1.getScheme (), aPI2.getScheme ()) &&
            EqualsHelper.equals (aPI1.getValue (), aPI2.getValue ());
@@ -491,9 +491,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    *      LocalDateTime)
    */
   @Nullable
-  public static EndpointType getEndpoint (@Nonnull final SignedServiceMetadataType aSignedServiceMetadata,
-                                          @Nonnull final IProcessIdentifier aProcessID,
-                                          @Nonnull final ISMPTransportProfile aTransportProfile)
+  public static EndpointType getEndpoint (@NonNull final SignedServiceMetadataType aSignedServiceMetadata,
+                                          @NonNull final IProcessIdentifier aProcessID,
+                                          @NonNull final ISMPTransportProfile aTransportProfile)
   {
     ValueEnforcer.notNull (aSignedServiceMetadata, "SignedServiceMetadata");
     return getEndpoint (aSignedServiceMetadata.getServiceMetadata (), aProcessID, aTransportProfile);
@@ -518,10 +518,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @since 8.7.3
    */
   @Nullable
-  public static EndpointType getEndpointAt (@Nonnull final SignedServiceMetadataType aSignedServiceMetadata,
-                                            @Nonnull final IProcessIdentifier aProcessID,
-                                            @Nonnull final ISMPTransportProfile aTransportProfile,
-                                            @Nonnull final LocalDateTime aCheckDT)
+  public static EndpointType getEndpointAt (@NonNull final SignedServiceMetadataType aSignedServiceMetadata,
+                                            @NonNull final IProcessIdentifier aProcessID,
+                                            @NonNull final ISMPTransportProfile aTransportProfile,
+                                            @NonNull final LocalDateTime aCheckDT)
   {
     ValueEnforcer.notNull (aSignedServiceMetadata, "SignedServiceMetadata");
     return getEndpointAt (aSignedServiceMetadata.getServiceMetadata (), aProcessID, aTransportProfile, aCheckDT);
@@ -542,9 +542,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @since 8.2.6
    */
   @Nullable
-  public static EndpointType getEndpoint (@Nonnull final ServiceMetadataType aServiceMetadata,
-                                          @Nonnull final IProcessIdentifier aProcessID,
-                                          @Nonnull final ISMPTransportProfile aTransportProfile)
+  public static EndpointType getEndpoint (@NonNull final ServiceMetadataType aServiceMetadata,
+                                          @NonNull final IProcessIdentifier aProcessID,
+                                          @NonNull final ISMPTransportProfile aTransportProfile)
   {
     return getEndpointAt (aServiceMetadata, aProcessID, aTransportProfile, PDTFactory.getCurrentLocalDateTime ());
   }
@@ -561,7 +561,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @return <code>true</code> if the endpoint is valid, <code>false</code> if not.
    * @since 8.7.3
    */
-  public static boolean isEndpointValidAt (@Nonnull final EndpointType aEndpoint, @Nonnull final LocalDateTime aCheckDT)
+  public static boolean isEndpointValidAt (@NonNull final EndpointType aEndpoint, @NonNull final LocalDateTime aCheckDT)
   {
     ValueEnforcer.notNull (aEndpoint, "Endpoint");
     ValueEnforcer.notNull (aCheckDT, "CheckDT");
@@ -610,10 +610,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @since 8.7.3
    */
   @Nullable
-  public static EndpointType getEndpointAt (@Nonnull final ServiceMetadataType aServiceMetadata,
-                                            @Nonnull final IProcessIdentifier aProcessID,
-                                            @Nonnull final ISMPTransportProfile aTransportProfile,
-                                            @Nonnull final LocalDateTime aCheckDT)
+  public static EndpointType getEndpointAt (@NonNull final ServiceMetadataType aServiceMetadata,
+                                            @NonNull final IProcessIdentifier aProcessID,
+                                            @NonNull final ISMPTransportProfile aTransportProfile,
+                                            @NonNull final LocalDateTime aCheckDT)
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
     final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
@@ -731,8 +731,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
   @Nullable
   @Pfuoi430
-  public SignedServiceMetadataType getSchemeSpecificServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  public SignedServiceMetadataType getSchemeSpecificServiceMetadata (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                                     @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -796,8 +796,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
   @Nullable
   @Pfuoi430
-  public SignedServiceMetadataType getSchemeSpecificServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                           @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  public SignedServiceMetadataType getSchemeSpecificServiceMetadataOrNull (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                                           @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -882,10 +882,10 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  @Nonnull
-  public static ServiceGroupType getServiceGroupByDNS (@Nonnull final ISMPURLProvider aURLProvider,
-                                                       @Nonnull final ISMLInfo aSMLInfo,
-                                                       @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
+  @NonNull
+  public static ServiceGroupType getServiceGroupByDNS (@NonNull final ISMPURLProvider aURLProvider,
+                                                       @NonNull final ISMLInfo aSMLInfo,
+                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
                                                                                                               SMPDNSResolutionException
   {
     return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
@@ -916,11 +916,11 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  @Nonnull
-  public static SignedServiceMetadataType getServiceRegistrationByDNS (@Nonnull final ISMPURLProvider aURLProvider,
-                                                                       @Nonnull final ISMLInfo aSMLInfo,
-                                                                       @Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
+  @NonNull
+  public static SignedServiceMetadataType getServiceRegistrationByDNS (@NonNull final ISMPURLProvider aURLProvider,
+                                                                       @NonNull final ISMLInfo aSMLInfo,
+                                                                       @NonNull final IParticipantIdentifier aServiceGroupID,
+                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
                                                                                                                                SMPDNSResolutionException
   {
     return new SMPClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,

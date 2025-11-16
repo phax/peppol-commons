@@ -17,8 +17,7 @@
 package com.helger.smpclient.exception;
 
 import org.apache.hc.client5.http.HttpResponseException;
-
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This exception is thrown, if the HTTP response was 400.
@@ -27,7 +26,7 @@ import jakarta.annotation.Nonnull;
  */
 public class SMPClientBadRequestException extends SMPClientException
 {
-  public SMPClientBadRequestException (@Nonnull final HttpResponseException ex)
+  public SMPClientBadRequestException (@NonNull final HttpResponseException ex)
   {
     super (ex);
   }

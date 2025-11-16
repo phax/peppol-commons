@@ -16,6 +16,7 @@
  */
 package com.helger.smpclient.peppol.utils;
 
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Document;
 
 import com.helger.annotation.concurrent.Immutable;
@@ -28,12 +29,9 @@ import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 import com.helger.xsds.peppol.smp1.ExtensionType;
 
-import jakarta.annotation.Nullable;
-
 /**
- * This class is used for converting between a String representation of the
- * extension element and the "ExtensionType" complex type used in the PEPPOL
- * SMP.
+ * This class is used for converting between a String representation of the extension element and
+ * the "ExtensionType" complex type used in the PEPPOL SMP.
  *
  * @author Philip Helger
  */
@@ -54,8 +52,8 @@ public final class SMPExtensionConverter
    *
    * @param aExtension
    *        The extension to be converted. May be <code>null</code>.
-   * @return <code>null</code> if no extension was passed - the XML
-   *         representation of the extension otherwise.
+   * @return <code>null</code> if no extension was passed - the XML representation of the extension
+   *         otherwise.
    * @throws IllegalArgumentException
    *         If the Extension cannot be converted to a String
    */
@@ -76,8 +74,7 @@ public final class SMPExtensionConverter
    *
    * @param sXML
    *        the XML representation to be converted.
-   * @return <code>null</code> if the passed string is empty or does not
-   *         represent valid XML.
+   * @return <code>null</code> if the passed string is empty or does not represent valid XML.
    */
   @Nullable
   public static ExtensionType convert (@Nullable final String sXML)

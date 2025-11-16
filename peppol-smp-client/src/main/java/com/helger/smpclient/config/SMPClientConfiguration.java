@@ -22,6 +22,8 @@ import java.security.KeyStore;
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
 import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.util.Timeout;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,9 +47,6 @@ import com.helger.io.resourceprovider.ReadableResourceProviderChain;
 import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class manages the configuration properties of the SMP client. The order of the properties
@@ -92,7 +91,7 @@ public final class SMPClientConfiguration
    * @return The configuration value provider for SMP client that contains backward compatibility
    *         support.
    */
-  @Nonnull
+  @NonNull
   public static MultiConfigurationValueProvider createSMPClientValueProvider ()
   {
     // Start with default setup
@@ -132,7 +131,7 @@ public final class SMPClientConfiguration
   /**
    * @return The current global configuration. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static IConfigWithFallback getConfig ()
   {
     // Inline for performance
@@ -154,8 +153,8 @@ public final class SMPClientConfiguration
    *        The configuration to use globally. May not be <code>null</code>.
    * @return The old value of {@link IConfig}. Never <code>null</code>.
    */
-  @Nonnull
-  public static IConfigWithFallback setConfig (@Nonnull final IConfigWithFallback aNewConfig)
+  @NonNull
+  public static IConfigWithFallback setConfig (@NonNull final IConfigWithFallback aNewConfig)
   {
     ValueEnforcer.notNull (aNewConfig, "NewConfig");
     final IConfigWithFallback ret;
@@ -182,7 +181,7 @@ public final class SMPClientConfiguration
    *         returned as a default.
    * @since 6.0.0
    */
-  @Nonnull
+  @NonNull
   public static EKeyStoreType getTrustStoreType ()
   {
     final String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");
@@ -194,7 +193,7 @@ public final class SMPClientConfiguration
    *         <code>tsmpclient.truststore.path</code>.
    * @since 6.0.0 - was getTruststoreLocation before
    */
-  @Nonnull
+  @NonNull
   public static String getTrustStorePath ()
   {
     return getConfig ().getAsStringOrFallback ("smpclient.truststore.path", "truststore.path", "truststore.location");
@@ -205,7 +204,7 @@ public final class SMPClientConfiguration
    *         <code>smpclient.truststore.password</code>. If none is present
    *         {@link PeppolTrustStores#TRUSTSTORE_PASSWORD} is returned as a default.
    */
-  @Nonnull
+  @NonNull
   public static char [] getTrustStorePasswordCharArray ()
   {
     return getConfig ().getAsCharArrayOrFallback ("smpclient.truststore.password", "truststore.password");
@@ -296,7 +295,7 @@ public final class SMPClientConfiguration
    * @return The connection timeout of the SMP client. Defaults to 5 seconds.
    * @since 8.8.0
    */
-  @Nonnull
+  @NonNull
   public static Timeout getConnectTimeout ()
   {
     final long nMS = getConfig ().getAsLong ("http.connect.timeout.ms", -1);
@@ -312,7 +311,7 @@ public final class SMPClientConfiguration
    * @return The response timeout of the SMP client. Defaults to 10 seconds.
    * @since 8.8.0
    */
-  @Nonnull
+  @NonNull
   public static Timeout getResponseTimeout ()
   {
     final long nMS = getConfig ().getAsLongOrFallback ("http.response.timeout.ms", -1, -1, "http.request.timeout.ms");

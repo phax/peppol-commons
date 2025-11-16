@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.bdxr.smp1.participant;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.xsds.bdxr.smp1.ParticipantIdentifierType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a sanity class around the {@link ParticipantIdentifierType} class
@@ -44,20 +44,20 @@ public class BDXR1ParticipantIdentifier extends ParticipantIdentifierType implem
                                         ICloneable <BDXR1ParticipantIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXR1ParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
+  public BDXR1ParticipantIdentifier (@NonNull final IParticipantIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXR1ParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public BDXR1ParticipantIdentifier (@Nullable final String sScheme, @NonNull final String sValue)
   {
     // Change "" to null
     setScheme (StringHelper.isEmpty (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 
-  public int compareTo (@Nonnull final BDXR1ParticipantIdentifier aOther)
+  public int compareTo (@NonNull final BDXR1ParticipantIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -65,7 +65,7 @@ public class BDXR1ParticipantIdentifier extends ParticipantIdentifierType implem
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public BDXR1ParticipantIdentifier getClone ()
   {

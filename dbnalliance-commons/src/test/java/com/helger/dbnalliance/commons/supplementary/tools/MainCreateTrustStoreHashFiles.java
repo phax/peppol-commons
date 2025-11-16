@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +31,6 @@ import com.helger.io.resource.IReadableResource;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Utility class to create hash codes of the global trust store to verify if it is valid or not.
  *
@@ -41,7 +40,7 @@ public final class MainCreateTrustStoreHashFiles
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateTrustStoreHashFiles.class);
 
-  private static void _create (@Nonnull final String sTruststorePath) throws IOException
+  private static void _create (@NonNull final String sTruststorePath) throws IOException
   {
     final IReadableResource aTrustStore = new ClassPathResource (sTruststorePath);
 

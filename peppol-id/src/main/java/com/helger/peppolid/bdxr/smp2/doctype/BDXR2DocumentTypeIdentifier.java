@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.bdxr.smp2.doctype;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IMutableIdentifier;
 import com.helger.xsds.bdxr.smp2.bc.IDType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a sanity class around the {@link IDType} class with easier
@@ -44,20 +44,20 @@ public class BDXR2DocumentTypeIdentifier extends IDType implements
                                          ICloneable <BDXR2DocumentTypeIdentifier>
 {
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXR2DocumentTypeIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  public BDXR2DocumentTypeIdentifier (@NonNull final IDocumentTypeIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public BDXR2DocumentTypeIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public BDXR2DocumentTypeIdentifier (@Nullable final String sScheme, @NonNull final String sValue)
   {
     // Change "" to null
     setSchemeID (StringHelper.isEmpty (sScheme) ? null : sScheme);
     setValue (sValue);
   }
 
-  @Nonnull
+  @NonNull
   public final String getScheme ()
   {
     return getSchemeID ();
@@ -68,7 +68,7 @@ public class BDXR2DocumentTypeIdentifier extends IDType implements
     setSchemeID (sScheme);
   }
 
-  public int compareTo (@Nonnull final BDXR2DocumentTypeIdentifier aOther)
+  public int compareTo (@NonNull final BDXR2DocumentTypeIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -76,7 +76,7 @@ public class BDXR2DocumentTypeIdentifier extends IDType implements
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public BDXR2DocumentTypeIdentifier getClone ()
   {

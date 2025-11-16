@@ -20,12 +20,12 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a customizable SMP URL provider.
@@ -49,8 +49,8 @@ public interface ISMPURLProvider
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
-  @Nonnull
-  URI getSMPURIOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier, @Nullable String sSMLZoneName)
+  @NonNull
+  URI getSMPURIOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier, @Nullable String sSMLZoneName)
                                                                                                                      throws SMPDNSResolutionException;
 
   /**
@@ -67,9 +67,9 @@ public interface ISMPURLProvider
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    */
-  @Nonnull
-  default URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  @NonNull
+  default URI getSMPURIOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
+                                      @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -91,10 +91,10 @@ public interface ISMPURLProvider
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, String)
    * @deprecated Use {@link #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)} instead
    */
-  @Nonnull
+  @NonNull
   @Deprecated (forRemoval = true, since = "12.0.2")
-  default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                      @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  default URL getSMPURLOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
+                                      @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");
@@ -117,9 +117,9 @@ public interface ISMPURLProvider
    * @see #getSMPURLOfParticipant(IParticipantIdentifier, ISMLInfo)
    * @deprecated Use {@link #getSMPURIOfParticipant(IParticipantIdentifier, String)} instead
    */
-  @Nonnull
+  @NonNull
   @Deprecated (forRemoval = true, since = "12.0.2")
-  default URL getSMPURLOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  default URL getSMPURLOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                       @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");

@@ -31,6 +31,8 @@ import javax.xml.crypto.dsig.XMLSignatureFactory;
 import javax.xml.crypto.dsig.dom.DOMValidateContext;
 
 import org.apache.hc.core5.http.HttpEntity;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -47,15 +49,11 @@ import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
 import com.helger.xml.serialize.read.DOMReader;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
- * This is the Apache HTTP client response handler to verify signed HTTP
- * response messages.
+ * This is the Apache HTTP client response handler to verify signed HTTP response messages.
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger
@@ -82,7 +80,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
    *        The trust store to be used. May be <code>null</code>.
    * @since 8.1.1
    */
-  public SMPHttpResponseHandlerSigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller,
+  public SMPHttpResponseHandlerSigned (@NonNull final GenericJAXBMarshaller <T> aMarshaller,
                                        @Nullable final KeyStore aTrustStore)
   {
     m_aMarshaller = ValueEnforcer.notNull (aMarshaller, "Marshaller");
@@ -90,9 +88,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
-   * @return <code>true</code> if SMP client response certificate checking is
-   *         enabled, <code>false</code> if it is disabled. By default this
-   *         check is enabled (see {@link #DEFAULT_VERIFY_SIGNATURE}).
+   * @return <code>true</code> if SMP client response certificate checking is enabled,
+   *         <code>false</code> if it is disabled. By default this check is enabled (see
+   *         {@link #DEFAULT_VERIFY_SIGNATURE}).
    * @since 8.0.3
    */
   public final boolean isVerifySignature ()
@@ -101,17 +99,17 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
-   * Check the certificate retrieved from a signed SMP response? This may be
-   * helpful for debugging and testing of SMP client connections!<br>
+   * Check the certificate retrieved from a signed SMP response? This may be helpful for debugging
+   * and testing of SMP client connections!<br>
    * Uses the trust store configured in the SMP client configuration.
    *
    * @param bVerifySignature
-   *        <code>true</code> to enable SMP response checking (on by default) or
-   *        <code>false</code> to disable it.
+   *        <code>true</code> to enable SMP response checking (on by default) or <code>false</code>
+   *        to disable it.
    * @return this for chaining
    * @since 8.0.3
    */
-  @Nonnull
+  @NonNull
   public final SMPHttpResponseHandlerSigned <T> setVerifySignature (final boolean bVerifySignature)
   {
     m_bVerifySignature = bVerifySignature;
@@ -119,10 +117,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
-   * @return <code>true</code> if SMP client response certificate checking
-   *         should use secure validation, <code>false</code> if validation also
-   *         allows deprecated algorithms. By default this check is enabled (see
-   *         {@link #DEFAULT_SECURE_VALIDATION}).
+   * @return <code>true</code> if SMP client response certificate checking should use secure
+   *         validation, <code>false</code> if validation also allows deprecated algorithms. By
+   *         default this check is enabled (see {@link #DEFAULT_SECURE_VALIDATION}).
    * @since 9.0.5
    */
   public final boolean isSecureValidation ()
@@ -131,19 +128,18 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
-   * Enable or disable the usage of secure XMLDsig validation. By default secure
-   * validation is enabled. Java 17 disables the usage of SHA-1 in XMLDsig by
-   * default, as documented in https://bugs.openjdk.org/browse/JDK-8261246.
-   * Currently the Peppol SMP still uses SHA-1 so you might want to disable this
-   * for the sake of sanity.
+   * Enable or disable the usage of secure XMLDsig validation. By default secure validation is
+   * enabled. Java 17 disables the usage of SHA-1 in XMLDsig by default, as documented in
+   * https://bugs.openjdk.org/browse/JDK-8261246. Currently the Peppol SMP still uses SHA-1 so you
+   * might want to disable this for the sake of sanity.
    *
    * @param bSecureValidation
-   *        <code>true</code> to enable SMP secure certificate validation
-   *        (enabled by default) or <code>false</code> to disable it.
+   *        <code>true</code> to enable SMP secure certificate validation (enabled by default) or
+   *        <code>false</code> to disable it.
    * @return this for chaining
    * @since 9.0.5
    */
-  @Nonnull
+  @NonNull
   public final SMPHttpResponseHandlerSigned <T> setSecureValidation (final boolean bSecureValidation)
   {
     m_bSecureValidation = bSecureValidation;
@@ -151,8 +147,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
-   * @return The trust store to be used for verifying the signature. May be
-   *         <code>null</code> if an invalid trust store is configured.
+   * @return The trust store to be used for verifying the signature. May be <code>null</code> if an
+   *         invalid trust store is configured.
    * @since 8.1.1
    */
   @Nullable
@@ -162,24 +158,24 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
-   * Set the trust store to be used. If signature verification is enabled, a
-   * trust store MUST be preset.
+   * Set the trust store to be used. If signature verification is enabled, a trust store MUST be
+   * preset.
    *
    * @param aTrustStore
    *        The trust store to be used. May be <code>null</code>.
    * @return this for chaining
    * @since 8.1.1
    */
-  @Nonnull
+  @NonNull
   public final SMPHttpResponseHandlerSigned <T> setTrustStore (@Nullable final KeyStore aTrustStore)
   {
     m_aTrustStore = aTrustStore;
     return this;
   }
 
-  @Nonnull
-  public static ESuccess checkSignature (@Nonnull final Document aDocument,
-                                         @Nonnull final KeySelector aKeySelector,
+  @NonNull
+  public static ESuccess checkSignature (@NonNull final Document aDocument,
+                                         @NonNull final KeySelector aKeySelector,
                                          final boolean bSecureValidation) throws MarshalException, XMLSignatureException
   {
     // We make sure that the XML is a Signed. If not, we don't have to check
@@ -281,9 +277,9 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     return eSuccess;
   }
 
-  @Nonnull
-  private static ESuccess _checkSignature (@Nonnull @WillNotClose final InputStream aEntityInputStream,
-                                           @Nonnull final KeyStore aTrustStore,
+  @NonNull
+  private static ESuccess _checkSignature (@NonNull @WillNotClose final InputStream aEntityInputStream,
+                                           @NonNull final KeyStore aTrustStore,
                                            final boolean bSecureValidation) throws MarshalException,
                                                                             XMLSignatureException
   {
@@ -298,8 +294,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   @Override
-  @Nonnull
-  public T handleEntity (@Nonnull final HttpEntity aEntity) throws SMPClientBadResponseException, IOException
+  @NonNull
+  public T handleEntity (@NonNull final HttpEntity aEntity) throws SMPClientBadResponseException, IOException
   {
     // Get complete response as one big byte buffer
     final byte [] aResponseBytes = StreamHelper.getAllBytes (aEntity.getContent ());

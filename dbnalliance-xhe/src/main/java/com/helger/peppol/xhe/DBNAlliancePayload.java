@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.xhe;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Element;
 
 import com.helger.annotation.Nonempty;
@@ -30,9 +32,6 @@ import com.helger.mime.IMimeType;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the DBNAlliance data per Payload instance, such as a
@@ -67,7 +66,7 @@ public class DBNAlliancePayload
    * @param aIdentifierFactory
    *        Identifier factory to be used. May not be <code>null</code>.
    */
-  public DBNAlliancePayload (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  public DBNAlliancePayload (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
     m_aIdentifierFactory = ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
   }
@@ -103,7 +102,7 @@ public class DBNAlliancePayload
    *        <code>XHE/Payloads/Payload/Description</code> .
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setDescription (@Nullable final String s)
   {
     m_sDescription = s;
@@ -139,7 +138,7 @@ public class DBNAlliancePayload
    *        <code>MIME</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setContentTypeCodeListID (@Nullable final String s)
   {
     m_sContentTypeCodeListID = s;
@@ -176,8 +175,8 @@ public class DBNAlliancePayload
    *        <code>XHE/Payloads/Payload/ContentTypeCode/</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public DBNAlliancePayload setContentTypeCode (@Nonnull @Nonempty final String s)
+  @NonNull
+  public DBNAlliancePayload setContentTypeCode (@NonNull @Nonempty final String s)
   {
     ValueEnforcer.notEmpty (s, "Value");
 
@@ -185,9 +184,9 @@ public class DBNAlliancePayload
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setContentTypeCode (@Nullable final String sCodeListID,
-                                                @Nonnull @Nonempty final String sValue)
+                                                @NonNull @Nonempty final String sValue)
   {
     return setContentTypeCodeListID (sCodeListID).setContentTypeCode (sValue);
   }
@@ -203,8 +202,8 @@ public class DBNAlliancePayload
    *        <code>XHE/Payloads/Payload/ContentTypeCode/</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public DBNAlliancePayload setContentTypeCode (@Nonnull final IMimeType a)
+  @NonNull
+  public DBNAlliancePayload setContentTypeCode (@NonNull final IMimeType a)
   {
     ValueEnforcer.notNull (a, "Value");
     return setContentTypeCode (a.getAsString ());
@@ -215,7 +214,7 @@ public class DBNAlliancePayload
    *
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setContentTypeCodeXML ()
   {
     return setContentTypeCode (CMimeType.APPLICATION_XML);
@@ -248,7 +247,7 @@ public class DBNAlliancePayload
    *        <code>XHE/Payloads/Payload/CustomizationID/@schemeID</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setCustomizationIDSchemeID (@Nullable final String s)
   {
     m_sCustomizationIDSchemeID = s;
@@ -283,7 +282,7 @@ public class DBNAlliancePayload
    *        <code>XHE/Payloads/Payload/CustomizationID/</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setCustomizationID (@Nullable final String s)
   {
     m_sCustomizationID = s;
@@ -310,7 +309,7 @@ public class DBNAlliancePayload
    * @see #setCustomizationIDSchemeID(String)
    * @see #setCustomizationID(String)
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setCustomizationID (@Nullable final IDocumentTypeIdentifier a)
   {
     if (a != null)
@@ -318,7 +317,7 @@ public class DBNAlliancePayload
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setCustomizationID (@Nullable final String sSchemeID, @Nullable final String sValue)
   {
     return setCustomizationIDSchemeID (sSchemeID).setCustomizationID (sValue);
@@ -349,7 +348,7 @@ public class DBNAlliancePayload
    *        mapped to <code>XHE/Payloads/Payload/ProfileID/@schemeID</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setProfileIDSchemeID (@Nullable final String s)
   {
     m_sProfileIDSchemeID = s;
@@ -385,7 +384,7 @@ public class DBNAlliancePayload
    *        <code>XHE/Payloads/Payload/ProfileID/</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setProfileID (@Nullable final String s)
   {
     m_sProfileID = s;
@@ -411,7 +410,7 @@ public class DBNAlliancePayload
    * @see #setProfileID(String)
    * @see #setProfileIDSchemeID(String)
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setProfileID (@Nullable final IProcessIdentifier aProfileID)
   {
     if (aProfileID != null)
@@ -419,7 +418,7 @@ public class DBNAlliancePayload
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setProfileID (@Nullable final String sSchemeID, @Nullable final String sValue)
   {
     return setProfileIDSchemeID (sSchemeID).setProfileID (sValue);
@@ -447,7 +446,7 @@ public class DBNAlliancePayload
    *        <code>XHE/Payloads/Payload/InstanceEncryptionIndicator</code> .
    * @return this
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setInstanceEncryptionIndicator (final boolean b)
   {
     m_bInstanceEncryptionIndicator = b;
@@ -492,7 +491,7 @@ public class DBNAlliancePayload
    *        <code>XHE/Payloads/Payload/InstanceEncryptionMethod</code> .
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public DBNAlliancePayload setInstanceEncryptionMethod (@Nullable final String s)
   {
     m_sInstanceEncryptionMethod = s;
@@ -551,8 +550,8 @@ public class DBNAlliancePayload
    * @return this
    * @see #setPayloadContentNoClone(Element)
    */
-  @Nonnull
-  public DBNAlliancePayload setPayloadContent (@Nonnull final Element aPayloadContent)
+  @NonNull
+  public DBNAlliancePayload setPayloadContent (@NonNull final Element aPayloadContent)
   {
     ValueEnforcer.notNull (aPayloadContent, "PayloadContent");
 
@@ -573,8 +572,8 @@ public class DBNAlliancePayload
    * @return this
    * @see #setPayloadContent(Element)
    */
-  @Nonnull
-  public DBNAlliancePayload setPayloadContentNoClone (@Nonnull final Element aPayloadContent)
+  @NonNull
+  public DBNAlliancePayload setPayloadContentNoClone (@NonNull final Element aPayloadContent)
   {
     ValueEnforcer.notNull (aPayloadContent, "PayloadContent");
 

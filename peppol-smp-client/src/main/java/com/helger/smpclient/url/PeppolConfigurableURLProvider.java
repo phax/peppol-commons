@@ -19,11 +19,11 @@ package com.helger.smpclient.url;
 import java.net.URI;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A configurable URL provider for Peppol that allows switching between the old CNAME and the new
@@ -45,28 +45,28 @@ public class PeppolConfigurableURLProvider implements IPeppolURLProvider
   // Change this to false to use the old CNAME based lookup
   public static final AtomicBoolean USE_NATPR = new AtomicBoolean (DEFAULT_USE_NATPR);
 
-  @Nonnull
+  @NonNull
   private static IPeppolURLProvider _getRealProvider ()
   {
     return USE_NATPR.get () ? PeppolNaptrURLProvider.INSTANCE : PeppolURLProvider.INSTANCE;
   }
 
-  @Nonnull
-  public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  @NonNull
+  public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     return _getRealProvider ().getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
   }
 
-  @Nonnull
-  public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                         @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  @NonNull
+  public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
+                                         @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     return _getRealProvider ().getDNSNameOfParticipant (aParticipantIdentifier, aSMLInfo);
   }
 
-  @Nonnull
-  public URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  @NonNull
+  public URI getSMPURIOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                      @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     return _getRealProvider ().getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName);

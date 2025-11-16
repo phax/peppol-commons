@@ -16,14 +16,14 @@
  */
 package com.helger.smpclient.peppol.marshal;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.misc.Singleton;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xsds.peppol.id1.CPeppolID;
 import com.helger.xsds.peppol.smp1.ObjectFactory;
 import com.helger.xsds.wsaddr.CWSAddr;
 import com.helger.xsds.xmldsig.CXMLDSig;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The default namespace context for Peppol SMP v1.0.
@@ -54,7 +54,7 @@ public class PeppolSMPClientNamespaceContext extends MapBasedNamespaceContext
     addMapping (CWSAddr.DEFAULT_PREFIX, CWSAddr.NAMESPACE_URI);
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolSMPClientNamespaceContext getInstance ()
   {
     return SingletonHolder.INSTANCE;

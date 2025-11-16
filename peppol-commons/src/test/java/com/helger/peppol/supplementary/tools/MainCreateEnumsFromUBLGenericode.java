@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,9 +51,6 @@ import com.helger.jcodemodel.JOp;
 import com.helger.jcodemodel.JVar;
 import com.helger.jcodemodel.exceptions.JCodeModelException;
 import com.helger.jcodemodel.writer.JCMWriter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Convert <code>src/main/resources/codelists/ubl</code> files to Java enums.
@@ -120,21 +119,21 @@ public class MainCreateEnumsFromUBLGenericode
     // Constructor
     final JMethod jCtor = jEnum.constructor (JMod.PRIVATE);
     JVar jID = jCtor.param (JMod.FINAL, String.class, "sID");
-    jID.annotate (Nonnull.class);
+    jID.annotate (NonNull.class);
     jID.annotate (Nonempty.class);
     final JVar jDisplayName = jCtor.param (JMod.FINAL, String.class, "sDisplayName");
-    jDisplayName.annotate (Nonnull.class);
+    jDisplayName.annotate (NonNull.class);
     jCtor.body ().assign (fID, jID).assign (fDisplayName, jDisplayName);
 
     // public String getID ()
     JMethod m = jEnum.method (JMod.PUBLIC, String.class, "getID");
-    m.annotate (Nonnull.class);
+    m.annotate (NonNull.class);
     m.annotate (Nonempty.class);
     m.body ()._return (fID);
 
     // public String getDisplayName ()
     m = jEnum.method (JMod.PUBLIC, String.class, "getDisplayName");
-    m.annotate (Nonnull.class);
+    m.annotate (NonNull.class);
     m.body ()._return (fDisplayName);
 
     // public static E... getFromIDOrNull (@Nullable String sID)

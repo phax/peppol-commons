@@ -16,9 +16,9 @@
  */
 package com.helger.smpclient.redirect;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
 /**
  * Callback interface to be invoked if an SMP client follows a redirect
@@ -37,5 +37,5 @@ public interface ISMPFollowRedirectCallback
    * @param sTargetHref
    *        The target URL to follow. May neither be <code>null</code> nor empty.
    */
-  void onFollowSMPRedirect (boolean bFollowing, @Nonnull @Nonempty String sTargetHref);
+  void onFollowSMPRedirect (boolean bFollowing, @NonNull @Nonempty String sTargetHref);
 }

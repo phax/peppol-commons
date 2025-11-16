@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNull;
 import java.net.InetAddress;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -47,7 +48,6 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.smpclient.url.PeppolNaptrURLProvider;
 
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
@@ -112,14 +112,14 @@ public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
   }
 
   @Nullable
-  private static String _dnsLookupPI (@Nonnull final IParticipantIdentifier aPI) throws Exception
+  private static String _dnsLookupPI (@NonNull final IParticipantIdentifier aPI) throws Exception
   {
     final String sHost = PeppolNaptrURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, SML_INFO);
     return _dnsLookup (sHost);
   }
 
   @Nullable
-  private static String _dnsLookupPublisher (@Nonnull final String sSMPID) throws Exception
+  private static String _dnsLookupPublisher (@NonNull final String sSMPID) throws Exception
   {
     return _dnsLookup (sSMPID + "." + SML_INFO.getPublisherDNSZone ());
   }

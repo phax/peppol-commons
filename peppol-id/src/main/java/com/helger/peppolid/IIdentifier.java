@@ -18,13 +18,13 @@ package com.helger.peppolid;
 
 import java.io.Serializable;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single read-only identifier independent of its usage
@@ -38,7 +38,7 @@ public interface IIdentifier extends Serializable
   /**
    * @return The scheme used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getScheme ();
 
   /**
@@ -69,7 +69,7 @@ public interface IIdentifier extends Serializable
    * @return The identifier value, dependent on the scheme. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getValue ();
 
   /**
@@ -101,7 +101,7 @@ public interface IIdentifier extends Serializable
    * @return The URI encoded identifier value. (E.g.
    *         <code>iso6523-actorid-upis::0088:123456</code>)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   default String getURIEncoded ()
   {
@@ -115,7 +115,7 @@ public interface IIdentifier extends Serializable
    * @return The URI encoded identifier value. (E.g.
    *         <code>iso6523-actorid-upis%3A%3A0088%3A123456</code>)
    */
-  @Nonnull
+  @NonNull
   default String getURIPercentEncoded ()
   {
     return CIdentifier.getURIPercentEncoded (this);

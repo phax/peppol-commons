@@ -16,9 +16,9 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
 /**
  * Contains the Peppol document type identifier parts for XML based document
@@ -37,7 +37,7 @@ public interface IPeppolDocumentTypeIdentifierParts extends IPeppolGenericDocume
    * @return The XML namespace URI of the root element. Never <code>null</code>
    *         nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getRootNS ();
 
@@ -45,7 +45,7 @@ public interface IPeppolDocumentTypeIdentifierParts extends IPeppolGenericDocume
    * @return The XML element local name of the root element. Never
    *         <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getLocalName ();
 }

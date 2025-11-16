@@ -16,7 +16,7 @@
  */
 package com.helger.smpclient.exception;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This exception is thrown if the evaluation of the SMP response failed
@@ -26,12 +26,12 @@ import jakarta.annotation.Nonnull;
  */
 public class SMPClientBadResponseException extends SMPClientException
 {
-  public SMPClientBadResponseException (@Nonnull final String sMessage)
+  public SMPClientBadResponseException (@NonNull final String sMessage)
   {
     super (sMessage);
   }
 
-  public SMPClientBadResponseException (@Nonnull final String sMessage, @Nonnull final Throwable aCause)
+  public SMPClientBadResponseException (@NonNull final String sMessage, @NonNull final Throwable aCause)
   {
     super (sMessage, aCause);
   }

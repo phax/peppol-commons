@@ -18,6 +18,9 @@ package com.helger.peppolid.peppol.process;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -29,9 +32,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class manages the predefined Peppol process identifiers the
@@ -62,7 +62,7 @@ public final class PredefinedProcessIdentifierManager
   /**
    * @return A non-<code>null</code> list of all Peppol process identifiers.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public static ICommonsCollection <IPeppolPredefinedProcessIdentifier> getAllProcessIdentifiers ()
@@ -74,7 +74,7 @@ public final class PredefinedProcessIdentifierManager
    * @return A non-<code>null</code> list of all Peppol process identifier IDs.
    *         Since v9.2.4 this include the identifier scheme.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllProcessIdentifierIDs ()

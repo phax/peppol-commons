@@ -16,8 +16,8 @@
  */
 package com.helger.smpclient.url;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Checked exception to be thrown if DNS resolution fails.
@@ -27,12 +27,12 @@ import jakarta.annotation.Nullable;
  */
 public class SMPDNSResolutionException extends Exception
 {
-  public SMPDNSResolutionException (@Nonnull final String sMessage)
+  public SMPDNSResolutionException (@NonNull final String sMessage)
   {
     super (sMessage);
   }
 
-  public SMPDNSResolutionException (@Nonnull final String sMessage, @Nullable final Throwable aCause)
+  public SMPDNSResolutionException (@NonNull final String sMessage, @Nullable final Throwable aCause)
   {
     super (sMessage, aCause);
   }

@@ -16,9 +16,9 @@
  */
 package com.helger.peppol.sbdh;
 
-import com.helger.annotation.concurrent.Immutable;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Contains an ordered set of custom variables to be provided in PEPPOL SBDH 1.1 documents.

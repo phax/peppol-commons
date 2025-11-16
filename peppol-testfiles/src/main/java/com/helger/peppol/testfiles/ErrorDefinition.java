@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.testfiles;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
@@ -23,14 +25,12 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 
-import jakarta.annotation.Nonnull;
-
 public final class ErrorDefinition implements Comparable <ErrorDefinition>
 {
   private final IErrorLevel m_aLevel;
   private final String m_sErrorCode;
 
-  private ErrorDefinition (@Nonnull final IErrorLevel aLevel, @Nonnull @Nonempty final String sErrorCode)
+  private ErrorDefinition (@NonNull final IErrorLevel aLevel, @NonNull @Nonempty final String sErrorCode)
   {
     ValueEnforcer.notNull (aLevel, "Level");
     ValueEnforcer.notEmpty (sErrorCode, "ErrorCode");
@@ -38,20 +38,20 @@ public final class ErrorDefinition implements Comparable <ErrorDefinition>
     m_sErrorCode = sErrorCode;
   }
 
-  @Nonnull
+  @NonNull
   public IErrorLevel getLevel ()
   {
     return m_aLevel;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getErrorCode ()
   {
     return m_sErrorCode;
   }
 
-  public int compareTo (@Nonnull final ErrorDefinition rhs)
+  public int compareTo (@NonNull final ErrorDefinition rhs)
   {
     int i = m_aLevel.getNumericLevel () - rhs.m_aLevel.getNumericLevel ();
     if (i == 0)
@@ -82,14 +82,14 @@ public final class ErrorDefinition implements Comparable <ErrorDefinition>
     return new ToStringGenerator (null).append ("level", m_aLevel).append ("errorCode", m_sErrorCode).getToString ();
   }
 
-  @Nonnull
-  public static ErrorDefinition createWarning (@Nonnull @Nonempty final String sErrorCode)
+  @NonNull
+  public static ErrorDefinition createWarning (@NonNull @Nonempty final String sErrorCode)
   {
     return new ErrorDefinition (EErrorLevel.WARN, sErrorCode);
   }
 
-  @Nonnull
-  public static ErrorDefinition createError (@Nonnull @Nonempty final String sErrorCode)
+  @NonNull
+  public static ErrorDefinition createError (@NonNull @Nonempty final String sErrorCode)
   {
     return new ErrorDefinition (EErrorLevel.FATAL_ERROR, sErrorCode);
   }

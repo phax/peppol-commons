@@ -16,14 +16,14 @@
  */
 package com.helger.peppol.servicedomain;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.security.certificate.TrustedCAChecker;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This enum lists all the Peppol Service Domains. The additional information are primarily around
@@ -66,7 +66,7 @@ public enum EPeppolServiceDomain implements IHasID <String>
   private final TrustedCAChecker m_aTestSMPChecker;
   private final TrustedCAChecker m_aProdSMPChecker;
 
-  EPeppolServiceDomain (@Nonnull @Nonempty final String sID,
+  EPeppolServiceDomain (@NonNull @Nonempty final String sID,
                         @Nullable final TrustedCAChecker aTestAPChecker,
                         @Nullable final TrustedCAChecker aProdAPChecker,
                         @Nullable final TrustedCAChecker aTestSMPChecker,
@@ -79,7 +79,7 @@ public enum EPeppolServiceDomain implements IHasID <String>
     m_aProdSMPChecker = aProdSMPChecker;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -99,7 +99,7 @@ public enum EPeppolServiceDomain implements IHasID <String>
   }
 
   @Nullable
-  public TrustedCAChecker getAPChecker (@Nonnull final EPeppolNetwork eNetwork)
+  public TrustedCAChecker getAPChecker (@NonNull final EPeppolNetwork eNetwork)
   {
     return eNetwork.isTest () ? m_aTestAPChecker : m_aProdAPChecker;
   }
@@ -117,7 +117,7 @@ public enum EPeppolServiceDomain implements IHasID <String>
   }
 
   @Nullable
-  public TrustedCAChecker getSMPChecker (@Nonnull final EPeppolNetwork eNetwork)
+  public TrustedCAChecker getSMPChecker (@NonNull final EPeppolNetwork eNetwork)
   {
     return eNetwork.isTest () ? m_aTestSMPChecker : m_aProdSMPChecker;
   }

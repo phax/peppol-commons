@@ -27,6 +27,9 @@ import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.codec.base64.Base64;
 import com.helger.base.enforce.ValueEnforcer;
@@ -52,9 +55,6 @@ import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 import com.helger.xsds.bdxr.smp2.ac.CertificateType;
 import com.helger.xsds.bdxr.smp2.ac.ProcessMetadataType;
 import com.helger.xsds.bdxr.smp2.ac.ProcessType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Utility class to convert SMP data structures to JSON
@@ -93,11 +93,11 @@ public final class SMPJsonResponse
   private SMPJsonResponse ()
   {}
 
-  @Nonnull
-  public static IJsonObject convert (@Nonnull final ESMPAPIType eSMPAPIType,
-                                     @Nonnull final IParticipantIdentifier aParticipantID,
-                                     @Nonnull final Map <String, String> aSGHrefs,
-                                     @Nonnull final IIdentifierFactory aIF)
+  @NonNull
+  public static IJsonObject convert (@NonNull final ESMPAPIType eSMPAPIType,
+                                     @NonNull final IParticipantIdentifier aParticipantID,
+                                     @NonNull final Map <String, String> aSGHrefs,
+                                     @NonNull final IIdentifierFactory aIF)
   {
     ValueEnforcer.notNull (eSMPAPIType, "SMPAPIType");
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
@@ -139,8 +139,8 @@ public final class SMPJsonResponse
     return aJson;
   }
 
-  @Nonnull
-  public static IJsonObject getJsonPrincipal (@Nonnull final X500Principal aPrincipal)
+  @NonNull
+  public static IJsonObject getJsonPrincipal (@NonNull final X500Principal aPrincipal)
   {
     ValueEnforcer.notNull (aPrincipal, "Principal");
 
@@ -182,7 +182,7 @@ public final class SMPJsonResponse
     return aLDT == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format (aLDT);
   }
 
-  public static void convertCertificate (@Nonnull final IJsonObject aTarget, @Nonnull final String sCert)
+  public static void convertCertificate (@NonNull final IJsonObject aTarget, @NonNull final String sCert)
   {
     ValueEnforcer.notNull (aTarget, "Target");
     ValueEnforcer.notNull (sCert, "Cert");
@@ -206,8 +206,8 @@ public final class SMPJsonResponse
     aTarget.add (JSON_CERTIFICATE_DETAILS, aDetails);
   }
 
-  @Nonnull
-  public static IJsonObject convertEndpoint (@Nonnull final com.helger.xsds.peppol.smp1.EndpointType aEndpoint)
+  @NonNull
+  public static IJsonObject convertEndpoint (final com.helger.xsds.peppol.smp1.@NonNull EndpointType aEndpoint)
   {
     final String sEndpointRef = aEndpoint.getEndpointReference () == null ? null : W3CEndpointReferenceHelper
                                                                                                              .getAddress (aEndpoint.getEndpointReference ());
@@ -228,10 +228,10 @@ public final class SMPJsonResponse
     return aJsonEP;
   }
 
-  @Nonnull
-  public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,
-                                     @Nonnull final IDocumentTypeIdentifier aDocTypeID,
-                                     @Nonnull final com.helger.xsds.peppol.smp1.ServiceMetadataType aSM)
+  @NonNull
+  public static IJsonObject convert (@NonNull final IParticipantIdentifier aParticipantID,
+                                     @NonNull final IDocumentTypeIdentifier aDocTypeID,
+                                     final com.helger.xsds.peppol.smp1.@NonNull ServiceMetadataType aSM)
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
@@ -286,8 +286,8 @@ public final class SMPJsonResponse
 
   // BDXR1 stuff
 
-  @Nonnull
-  public static IJsonObject convertEndpoint (@Nonnull final com.helger.xsds.bdxr.smp1.EndpointType aEndpoint)
+  @NonNull
+  public static IJsonObject convertEndpoint (final com.helger.xsds.bdxr.smp1.@NonNull EndpointType aEndpoint)
   {
     final IJsonObject aJsonEP = new JsonObject ().add (JSON_TRANSPORT_PROFILE, aEndpoint.getTransportProfile ())
                                                  .add (JSON_ENDPOINT_REFERENCE, aEndpoint.getEndpointURI ())
@@ -308,10 +308,10 @@ public final class SMPJsonResponse
     return aJsonEP;
   }
 
-  @Nonnull
-  public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,
-                                     @Nonnull final IDocumentTypeIdentifier aDocTypeID,
-                                     @Nonnull final com.helger.xsds.bdxr.smp1.ServiceMetadataType aSM)
+  @NonNull
+  public static IJsonObject convert (@NonNull final IParticipantIdentifier aParticipantID,
+                                     @NonNull final IDocumentTypeIdentifier aDocTypeID,
+                                     final com.helger.xsds.bdxr.smp1.@NonNull ServiceMetadataType aSM)
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aDocTypeID, "DocTypeID");
@@ -371,8 +371,8 @@ public final class SMPJsonResponse
 
   // BDXR2 stuff
 
-  @Nonnull
-  public static IJsonObject convertEndpoint (@Nonnull final com.helger.xsds.bdxr.smp2.ac.EndpointType aEndpoint)
+  @NonNull
+  public static IJsonObject convertEndpoint (final com.helger.xsds.bdxr.smp2.ac.@NonNull EndpointType aEndpoint)
   {
     final IJsonObject ret = new JsonObject ();
 
@@ -401,10 +401,10 @@ public final class SMPJsonResponse
     return ret;
   }
 
-  @Nonnull
-  public static IJsonObject convert (@Nonnull final IParticipantIdentifier aParticipantID,
-                                     @Nonnull final IDocumentTypeIdentifier aDocTypeID,
-                                     @Nonnull final com.helger.xsds.bdxr.smp2.ServiceMetadataType aSM)
+  @NonNull
+  public static IJsonObject convert (@NonNull final IParticipantIdentifier aParticipantID,
+                                     @NonNull final IDocumentTypeIdentifier aDocTypeID,
+                                     final com.helger.xsds.bdxr.smp2.@NonNull ServiceMetadataType aSM)
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aDocTypeID, "DocTypeID");

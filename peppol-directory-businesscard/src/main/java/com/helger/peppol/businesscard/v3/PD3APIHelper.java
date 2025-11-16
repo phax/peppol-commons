@@ -16,6 +16,9 @@
  */
 package com.helger.peppol.businesscard.v3;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
@@ -23,9 +26,6 @@ import com.helger.peppol.businesscard.generic.PDBusinessEntity;
 import com.helger.peppol.businesscard.generic.PDContact;
 import com.helger.peppol.businesscard.generic.PDIdentifier;
 import com.helger.peppol.businesscard.generic.PDName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class for easier BC V3 creation.
@@ -38,7 +38,7 @@ public final class PD3APIHelper
   private PD3APIHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   public static PD3IdentifierType createIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final PD3IdentifierType ret = new PD3IdentifierType ();
@@ -48,13 +48,13 @@ public final class PD3APIHelper
   }
 
   @Nullable
-  public static PDIdentifier createIdentifier (@Nonnull final PD3IdentifierType aID)
+  public static PDIdentifier createIdentifier (@NonNull final PD3IdentifierType aID)
   {
     ValueEnforcer.notNull (aID, "ID");
     return new PDIdentifier (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
+  @NonNull
   public static PD3ContactType createContact (@Nullable final String sType,
                                               @Nullable final String sName,
                                               @Nullable final String sPhoneNumber,
@@ -68,14 +68,14 @@ public final class PD3APIHelper
     return ret;
   }
 
-  @Nonnull
-  public static PDContact createContact (@Nonnull final PD3ContactType aContact)
+  @NonNull
+  public static PDContact createContact (@NonNull final PD3ContactType aContact)
   {
     ValueEnforcer.notNull (aContact, "Contact");
     return new PDContact (aContact.getType (), aContact.getName (), aContact.getPhoneNumber (), aContact.getEmail ());
   }
 
-  @Nonnull
+  @NonNull
   public static PD3MultilingualNameType createName (@Nullable final String sName, @Nullable final String sLanguage)
   {
     final PD3MultilingualNameType ret = new PD3MultilingualNameType ();
@@ -84,15 +84,15 @@ public final class PD3APIHelper
     return ret;
   }
 
-  @Nonnull
-  public static PDName createName (@Nonnull final PD3MultilingualNameType aName)
+  @NonNull
+  public static PDName createName (@NonNull final PD3MultilingualNameType aName)
   {
     ValueEnforcer.notNull (aName, "Name");
     return new PDName (aName.getValue (), aName.getLanguage ());
   }
 
-  @Nonnull
-  public static PDBusinessEntity createBusinessEntity (@Nonnull final PD3BusinessEntityType aBE)
+  @NonNull
+  public static PDBusinessEntity createBusinessEntity (@NonNull final PD3BusinessEntityType aBE)
   {
     ValueEnforcer.notNull (aBE, "BusinessEntity");
     final PDBusinessEntity ret = new PDBusinessEntity ();
@@ -107,8 +107,8 @@ public final class PD3APIHelper
     return ret;
   }
 
-  @Nonnull
-  public static PDBusinessCard createBusinessCard (@Nonnull final PD3BusinessCardType aBC)
+  @NonNull
+  public static PDBusinessCard createBusinessCard (@NonNull final PD3BusinessCardType aBC)
   {
     ValueEnforcer.notNull (aBC, "BusinessCard");
     final PDBusinessCard ret = new PDBusinessCard ();

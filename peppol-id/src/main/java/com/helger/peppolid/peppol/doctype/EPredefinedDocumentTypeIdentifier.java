@@ -18,6 +18,10 @@ package com.helger.peppolid.peppol.doctype;
 
 import java.time.LocalDate;
 import java.time.Month;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
@@ -30,8 +34,6 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 
 /**
@@ -4176,11 +4178,11 @@ public enum EPredefinedDocumentTypeIdentifier
     private final String m_sDomainCommunity;
     private final ICommonsList<IProcessIdentifier> m_aProcessIDs;
 
-    EPredefinedDocumentTypeIdentifier(@Nonnull @Nonempty final String sScheme,
-        @Nonnull final IPeppolGenericDocumentTypeIdentifierParts aParts,
-        @Nonnull @Nonempty final String sCommonName,
-        @Nonnull final Version aInitialRelease,
-        @Nonnull final EPeppolCodeListItemState eState,
+    EPredefinedDocumentTypeIdentifier(@NonNull @Nonempty final String sScheme,
+        @NonNull final IPeppolGenericDocumentTypeIdentifierParts aParts,
+        @NonNull @Nonempty final String sCommonName,
+        @NonNull final Version aInitialRelease,
+        @NonNull final EPeppolCodeListItemState eState,
         @Nullable final Version aDeprecationRelease,
         @Nullable final LocalDate aRemovalDate,
         final boolean bAbstract,
@@ -4203,13 +4205,13 @@ public enum EPredefinedDocumentTypeIdentifier
         m_aProcessIDs = new CommonsArrayList<>(aProcessIDs, PeppolIdentifierFactory.INSTANCE::parseProcessIdentifier);
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getScheme() {
         return m_sScheme;
     }
 
-    @Nonnull
+    @NonNull
     public IPeppolGenericDocumentTypeIdentifierParts getParts() {
         return m_aParts;
     }
@@ -4219,53 +4221,53 @@ public enum EPredefinedDocumentTypeIdentifier
         return ((m_aParts instanceof IPeppolDocumentTypeIdentifierParts)?((IPeppolDocumentTypeIdentifierParts) m_aParts):null);
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getSyntaxSpecificID() {
         return m_aParts.getSyntaxSpecificID();
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getCustomizationID() {
         return m_aParts.getCustomizationID();
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getVersion() {
         return m_aParts.getVersion();
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getCommonName() {
         return m_sCommonName;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getValue() {
         return m_sID;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getAsDocumentTypeIdentifierValue() {
         return m_sID;
     }
 
-    @Nonnull
+    @NonNull
     public PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier() {
         return new PeppolDocumentTypeIdentifier(PeppolIdentifierFactory.INSTANCE, this);
     }
 
-    @Nonnull
+    @NonNull
     public Version getInitialRelease() {
         return m_aInitialRelease;
     }
 
-    @Nonnull
+    @NonNull
     public EPeppolCodeListItemState getState() {
         return m_eState;
     }
@@ -4298,7 +4300,7 @@ public enum EPredefinedDocumentTypeIdentifier
         return m_sDomainCommunity;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     @ReturnsMutableCopy
     public ICommonsList<IProcessIdentifier> getAllProcessIDs() {

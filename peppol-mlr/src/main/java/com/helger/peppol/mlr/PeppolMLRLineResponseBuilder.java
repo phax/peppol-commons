@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.mlr;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,8 +25,6 @@ import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineReferenceType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
@@ -46,7 +46,7 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
   private String m_sDescription;
   private EPeppolMLRStatusReasonCode m_eStatusReasonCode;
 
-  public PeppolMLRLineResponseBuilder (@Nonnull final EPeppolMLRResponseCode eResponseCode)
+  public PeppolMLRLineResponseBuilder (@NonNull final EPeppolMLRResponseCode eResponseCode)
   {
     ValueEnforcer.notNull (eResponseCode, "ResponseCode");
     m_eResponseCode = eResponseCode;
@@ -60,7 +60,7 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
    *        Reference to the field under error
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLRLineResponseBuilder errorField (@Nullable final String s)
   {
     m_sErrorField = s;
@@ -76,32 +76,32 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
    *        Response text.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLRLineResponseBuilder description (@Nullable final String s)
   {
     m_sDescription = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRLineResponseBuilder statusReasonCodeBusinessRuleViolationFatal ()
   {
     return statusReasonCode (EPeppolMLRStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL);
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRLineResponseBuilder statusReasonCodeBusinessRuleViolationWarning ()
   {
     return statusReasonCode (EPeppolMLRStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING);
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRLineResponseBuilder statusReasonCodeSyntaxViolation ()
   {
     return statusReasonCode (EPeppolMLRStatusReasonCode.SYNTAX_VIOLATION);
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRLineResponseBuilder statusReasonCode (@Nullable final EPeppolMLRStatusReasonCode e)
   {
     m_eStatusReasonCode = e;
@@ -136,7 +136,7 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
     return true;
   }
 
-  @Nonnull
+  @NonNull
   public LineResponseType build ()
   {
     if (!areAllFieldsSet (true))
@@ -163,19 +163,19 @@ public class PeppolMLRLineResponseBuilder implements IBuilder <LineResponseType>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolMLRLineResponseBuilder acceptance ()
   {
     return new PeppolMLRLineResponseBuilder (EPeppolMLRResponseCode.ACCEPTANCE);
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolMLRLineResponseBuilder acknowledging ()
   {
     return new PeppolMLRLineResponseBuilder (EPeppolMLRResponseCode.ACKNOWLEDGING);
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolMLRLineResponseBuilder rejection ()
   {
     return new PeppolMLRLineResponseBuilder (EPeppolMLRResponseCode.REJECTION);

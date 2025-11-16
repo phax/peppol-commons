@@ -18,6 +18,9 @@ package com.helger.peppolid.peppol.doctype;
 
 import java.time.LocalDate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -27,9 +30,6 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for predefined document identifiers.
@@ -56,7 +56,7 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    * @return The {@link PeppolDocumentTypeIdentifier} version of this predefined document type
    *         identifier.
    */
-  @Nonnull
+  @NonNull
   PeppolDocumentTypeIdentifier getAsDocumentTypeIdentifier ();
 
   /**
@@ -64,7 +64,7 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    *         <code>null</code>.
    * @since 8.7.1
    */
-  @Nonnull
+  @NonNull
   Version getInitialRelease ();
 
   /**
@@ -80,7 +80,7 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    * @return The state of the item. Never <code>null</code>.
    * @since 8.7.1
    */
-  @Nonnull
+  @NonNull
   EPeppolCodeListItemState getState ();
 
   /**
@@ -134,7 +134,7 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    *         <code>null</code> nor empty.
    * @since 8.0.7
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getDomainCommunity ();
 
@@ -143,7 +143,7 @@ public interface IPeppolPredefinedDocumentTypeIdentifier extends
    *         item.
    * @since 8.0.7
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   ICommonsList <IProcessIdentifier> getAllProcessIDs ();

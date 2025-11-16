@@ -16,12 +16,12 @@
  */
 package com.helger.smpclient.peppol;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.xsds.peppol.smp1.ServiceGroupType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract interface to retrieve a Peppol Service Group instance.
@@ -32,33 +32,31 @@ import jakarta.annotation.Nullable;
 public interface ISMPServiceGroupProvider
 {
   /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
+   * Returns a service group. A service group references to the service metadata. This is a
+   * specification compliant method.
    *
    * @param aServiceGroupID
-   *        The ID of the service group to retrieve. May not be
-   *        <code>null</code>.
+   *        The ID of the service group to retrieve. May not be <code>null</code>.
    * @return The service group. Maybe <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @see #getServiceGroupOrNull(IParticipantIdentifier)
    * @since 9.5.1 in this interface
    */
-  @Nonnull
-  ServiceGroupType getServiceGroup (@Nonnull IParticipantIdentifier aServiceGroupID) throws SMPClientException;
+  @NonNull
+  ServiceGroupType getServiceGroup (@NonNull IParticipantIdentifier aServiceGroupID) throws SMPClientException;
 
   /**
-   * Returns a service group. A service group references to the service
-   * metadata. This is a specification compliant method.
+   * Returns a service group. A service group references to the service metadata. This is a
+   * specification compliant method.
    *
    * @param aServiceGroupID
-   *        The ID of the service group to retrieve. May not be
-   *        <code>null</code>.
+   *        The ID of the service group to retrieve. May not be <code>null</code>.
    * @return The service group. Maybe <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
    * @see #getServiceGroup(IParticipantIdentifier)
    */
   @Nullable
-  ServiceGroupType getServiceGroupOrNull (@Nonnull IParticipantIdentifier aServiceGroupID) throws SMPClientException;
+  ServiceGroupType getServiceGroupOrNull (@NonNull IParticipantIdentifier aServiceGroupID) throws SMPClientException;
 }

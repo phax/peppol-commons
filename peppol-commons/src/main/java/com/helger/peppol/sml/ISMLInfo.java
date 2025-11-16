@@ -19,11 +19,11 @@ package com.helger.peppol.sml;
 import java.io.Serializable;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.name.IHasDisplayName;
 import com.helger.base.type.ITypedObject;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Specifies the different properties an SML implementation uses. A set of predefined SML
@@ -37,7 +37,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
   /**
    * @return The "shorthand" display name like "SML" or "SMK".
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getDisplayName ();
 
@@ -46,7 +46,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    *         ensured that the value consists only of lower case characters!<br>
    *         Example: <code>sml.peppolcentral.org</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getDNSZone ();
 
@@ -57,7 +57,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    *         registration is used.
    * @see #getDNSZone()
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @Deprecated
   default String getPublisherDNSZone ()
@@ -70,7 +70,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    *         Never <code>null</code>. The difference to the host name is the eventually present
    *         context path. This path may <b>never</b> end with a slash.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getManagementServiceURL ();
 
@@ -79,7 +79,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    *         empty, it must start with a slash ('/'). May not be <code>null</code> but maybe empty.
    * @since 12.1.0
    */
-  @Nonnull
+  @NonNull
   String getURLSuffixManageSMP ();
 
   /**
@@ -88,7 +88,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    *
   {@link #getManagementServiceURL()} + {@link #getURLSuffixManageSMP()}</code>
    */
-  @Nonnull
+  @NonNull
   URL getManageServiceMetaDataEndpointAddress ();
 
   /**
@@ -96,7 +96,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    *         must start with a slash ('/'). May not be <code>null</code> but maybe empty.
    * @since 12.1.0
    */
-  @Nonnull
+  @NonNull
   String getURLSuffixManageParticipant ();
 
   /**
@@ -105,7 +105,7 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    *
   {@link #getManagementServiceURL()} + {@link #getURLSuffixManageParticipant()}</code>
    */
-  @Nonnull
+  @NonNull
   URL getManageParticipantIdentifierEndpointAddress ();
 
   /**

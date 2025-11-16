@@ -16,9 +16,9 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
 /**
  * Contains the Peppol generic document type identifier parts. See
@@ -42,21 +42,21 @@ public interface IPeppolGenericDocumentTypeIdentifierParts
   /**
    * @return Syntax specific ID
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getSyntaxSpecificID ();
 
   /**
    * @return The Customization ID
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getCustomizationID ();
 
   /**
    * @return The syntax version number.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getVersion ();
 
@@ -66,7 +66,7 @@ public interface IPeppolGenericDocumentTypeIdentifierParts
    *         {@link #getCustomizationID()} + {@link #VERSION_SEPARATOR} +
    *         {@link #getVersion()}
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getAsDocumentTypeIdentifierValue ();
 }

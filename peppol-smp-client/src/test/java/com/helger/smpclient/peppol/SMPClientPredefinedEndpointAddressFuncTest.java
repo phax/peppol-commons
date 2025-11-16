@@ -21,6 +21,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.security.cert.X509Certificate;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -36,8 +37,6 @@ import com.helger.smpclient.url.IPeppolURLProvider;
 import com.helger.smpclient.url.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link SMPClient}.
  *
@@ -52,9 +51,9 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
   private static final IParticipantIdentifier PI_AT_PROD = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:b");
   private static final IPeppolURLProvider URL_PROVIDER = PeppolNaptrURLProvider.INSTANCE;
 
-  @Nonnull
-  private static SMPClient _createSMPClient (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                             @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  @NonNull
+  private static SMPClient _createSMPClient (@NonNull final IParticipantIdentifier aParticipantIdentifier,
+                                             @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     final SMPClient ret = new SMPClient (URL_PROVIDER, aParticipantIdentifier, aSMLInfo);
     if (aSMLInfo == ESML.DIGIT_PRODUCTION)

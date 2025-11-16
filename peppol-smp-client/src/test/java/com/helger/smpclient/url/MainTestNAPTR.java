@@ -16,6 +16,7 @@
  */
 package com.helger.smpclient.url;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,6 @@ import com.helger.base.timing.StopWatch;
 import com.helger.base.url.URLHelper;
 import com.helger.dns.naptr.NaptrResolver;
 
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 public class MainTestNAPTR
@@ -31,7 +31,7 @@ public class MainTestNAPTR
   private static final Logger LOGGER = LoggerFactory.getLogger (MainTestNAPTR.class);
 
   @Nullable
-  private static String _resolveFromNAPTR (@Nonnull final String sDNSName)
+  private static String _resolveFromNAPTR (@NonNull final String sDNSName)
   {
     return NaptrResolver.builder ()
                         .domainName (sDNSName)

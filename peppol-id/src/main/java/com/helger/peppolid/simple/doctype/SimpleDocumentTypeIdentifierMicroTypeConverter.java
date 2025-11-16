@@ -16,17 +16,17 @@
  */
 package com.helger.peppolid.simple.doctype;
 
-import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
 public final class SimpleDocumentTypeIdentifierMicroTypeConverter extends
                                                                   AbstractIdentifierMicroTypeConverter <SimpleDocumentTypeIdentifier>
 {
   @Override
-  @Nonnull
-  protected SimpleDocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
+  @NonNull
+  protected SimpleDocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @NonNull final String sValue)
   {
     return new SimpleDocumentTypeIdentifier (sScheme, sValue);
   }

@@ -16,6 +16,8 @@
  */
 package com.helger.smpclient.extension;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -34,9 +36,6 @@ import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains a generic extension that works for Peppol SMP, OASIS BDXR SMP v1 and OASIS
@@ -91,7 +90,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setExtensionID (@Nullable final String value)
   {
     m_sExtensionID = value;
@@ -114,7 +113,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setExtensionName (@Nullable final String value)
   {
     m_sExtensionName = value;
@@ -137,7 +136,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setExtensionAgencyID (@Nullable final String value)
   {
     m_sExtensionAgencyID = value;
@@ -160,7 +159,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setExtensionAgencyName (@Nullable final String value)
   {
     m_sExtensionAgencyName = value;
@@ -183,7 +182,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setExtensionAgencyURI (@Nullable final String value)
   {
     m_sExtensionAgencyURI = value;
@@ -206,7 +205,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setExtensionVersionID (@Nullable final String value)
   {
     m_sExtensionVersionID = value;
@@ -229,7 +228,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setExtensionURI (@Nullable final String value)
   {
     m_sExtensionURI = value;
@@ -252,7 +251,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setExtensionReasonCode (@Nullable final String value)
   {
     m_sExtensionReasonCode = value;
@@ -275,7 +274,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setExtensionReason (@Nullable final String value)
   {
     m_sExtensionReason = value;
@@ -298,7 +297,7 @@ public class SMPExtension
    *        May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public SMPExtension setAny (@Nullable final Element value)
   {
     m_aAny = value;
@@ -340,9 +339,8 @@ public class SMPExtension
     return ret.isEmpty () ? null : ret;
   }
 
-  @Nullable
   @ReturnsMutableCopy
-  public com.helger.xsds.peppol.smp1.ExtensionType getAsPeppolExtension ()
+  public com.helger.xsds.peppol.smp1.@Nullable ExtensionType getAsPeppolExtension ()
   {
     if (m_aAny == null)
       return null;
@@ -353,8 +351,7 @@ public class SMPExtension
     return ret;
   }
 
-  @Nonnull
-  public com.helger.xsds.bdxr.smp1.ExtensionType getAsBDXRExtension ()
+  public com.helger.xsds.bdxr.smp1.@NonNull ExtensionType getAsBDXRExtension ()
   {
     final com.helger.xsds.bdxr.smp1.ExtensionType ret = new com.helger.xsds.bdxr.smp1.ExtensionType ();
     ret.setExtensionID (m_sExtensionID);
@@ -370,8 +367,7 @@ public class SMPExtension
     return ret;
   }
 
-  @Nonnull
-  public com.helger.xsds.bdxr.smp2.ec.SMPExtensionType getAsBDXR2Extension ()
+  public com.helger.xsds.bdxr.smp2.ec.@NonNull SMPExtensionType getAsBDXR2Extension ()
   {
     final com.helger.xsds.bdxr.smp2.ec.SMPExtensionType ret = new com.helger.xsds.bdxr.smp2.ec.SMPExtensionType ();
     if (m_sExtensionID != null)
@@ -503,7 +499,7 @@ public class SMPExtension
   }
 
   @Nullable
-  public static SMPExtension ofBDXR1 (@Nullable final com.helger.xsds.bdxr.smp1.ExtensionType aExt)
+  public static SMPExtension ofBDXR1 (final com.helger.xsds.bdxr.smp1.@Nullable ExtensionType aExt)
   {
     if (aExt == null)
       return null;
@@ -524,7 +520,7 @@ public class SMPExtension
   }
 
   @Nullable
-  public static SMPExtension ofBDXR2 (@Nullable final com.helger.xsds.bdxr.smp2.ec.SMPExtensionType aExt)
+  public static SMPExtension ofBDXR2 (final com.helger.xsds.bdxr.smp2.ec.@Nullable SMPExtensionType aExt)
   {
     if (aExt == null)
       return null;

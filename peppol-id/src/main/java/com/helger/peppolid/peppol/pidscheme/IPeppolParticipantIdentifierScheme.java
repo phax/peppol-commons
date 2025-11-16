@@ -19,12 +19,12 @@ package com.helger.peppolid.peppol.pidscheme;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The Peppol specific version of a participant identifier scheme
@@ -43,7 +43,7 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
    * @return The scheme ID of this issuing agency. May neither be <code>null</code> nor empty.
    * @see #getISO6523Code()
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getSchemeID ();
 
@@ -63,7 +63,7 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
    * @return The ISO6523 based identifier of this agency. May neither be <code>null</code> nor
    *         empty. Is currently always numeric, but may contain characters in the future.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getISO6523Code ();
 
@@ -76,9 +76,9 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
    * @return The participant identifier value part. Never <code>null</code>.
    * @see #getISO6523Code()
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  default String createIdentifierValue (@Nonnull @Nonempty final String sIdentifier)
+  default String createIdentifierValue (@NonNull @Nonempty final String sIdentifier)
   {
     return getISO6523Code () + ':' + sIdentifier;
   }
@@ -88,7 +88,7 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
    *         <code>null</code>.
    * @since 8.7.1
    */
-  @Nonnull
+  @NonNull
   Version getInitialRelease ();
 
   /**
@@ -104,7 +104,7 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
    * @return The state of the item. Never <code>null</code>.
    * @since 8.7.1
    */
-  @Nonnull
+  @NonNull
   EPeppolCodeListItemState getState ();
 
   /**

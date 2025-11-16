@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,6 @@ import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.wsclient.WSClientConfig;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.BindingProvider;
 
 /**
@@ -68,7 +68,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @param aSMLInfo
    *        The SML info object. May not be <code>null</code>.
    */
-  public ManageParticipantIdentifierServiceCaller (@Nonnull final ISMLInfo aSMLInfo)
+  public ManageParticipantIdentifierServiceCaller (@NonNull final ISMLInfo aSMLInfo)
   {
     this (aSMLInfo.getManageParticipantIdentifierEndpointAddress ());
   }
@@ -81,7 +81,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @param aEndpointAddress
    *        The URL of the manage participant identifier interface. May not be <code>null</code>.
    */
-  public ManageParticipantIdentifierServiceCaller (@Nonnull final URL aEndpointAddress)
+  public ManageParticipantIdentifierServiceCaller (@NonNull final URL aEndpointAddress)
   {
     super (aEndpointAddress);
   }
@@ -91,7 +91,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *
    * @return The WebService port to be used. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
   protected ManageBusinessIdentifierServiceSoap createWSPort ()
@@ -119,7 +119,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws NotFoundFault
    *         Is thrown if the service meta data publisher was not found.
    */
-  public void create (@Nonnull @Nonempty final String sSMPID, @Nonnull final IParticipantIdentifier aIdentifier)
+  public void create (@NonNull @Nonempty final String sSMPID, @NonNull final IParticipantIdentifier aIdentifier)
                                                                                                                  throws BadRequestFault,
                                                                                                                  InternalErrorFault,
                                                                                                                  UnauthorizedFault,
@@ -150,7 +150,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws NotFoundFault
    *         Is thrown if the service meta data publisher was not found.
    */
-  public void create (@Nonnull final ServiceMetadataPublisherServiceForParticipantType aSMPParticpantService) throws BadRequestFault,
+  public void create (@NonNull final ServiceMetadataPublisherServiceForParticipantType aSMPParticpantService) throws BadRequestFault,
                                                                                                               InternalErrorFault,
                                                                                                               UnauthorizedFault,
                                                                                                               NotFoundFault
@@ -169,8 +169,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
     createWSPort ().create (aSMPParticpantService);
   }
 
-  @Nonnull
-  private static String _toString (@Nonnull final Collection <? extends IParticipantIdentifier> aParticipantIdentifiers)
+  @NonNull
+  private static String _toString (@NonNull final Collection <? extends IParticipantIdentifier> aParticipantIdentifiers)
   {
     return StringImplode.imploder ()
                         .separator (", ")
@@ -178,8 +178,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
                         .build ();
   }
 
-  @Nonnull
-  private static String _toString2 (@Nonnull final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers)
+  @NonNull
+  private static String _toString2 (@NonNull final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers)
   {
     return StringImplode.imploder ()
                         .separator (", ")
@@ -204,8 +204,8 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void createList (@Nonnull @Nonempty final Collection <? extends IParticipantIdentifier> aParticipantIdentifiers,
-                          @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
+  public void createList (@NonNull @Nonempty final Collection <? extends IParticipantIdentifier> aParticipantIdentifiers,
+                          @NonNull @Nonempty final String sSMPID) throws BadRequestFault,
                                                                   InternalErrorFault,
                                                                   NotFoundFault,
                                                                   UnauthorizedFault
@@ -246,7 +246,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void delete (@Nonnull @Nonempty final String sSMPID, @Nonnull final IParticipantIdentifier aIdentifier)
+  public void delete (@NonNull @Nonempty final String sSMPID, @NonNull final IParticipantIdentifier aIdentifier)
                                                                                                                  throws BadRequestFault,
                                                                                                                  InternalErrorFault,
                                                                                                                  NotFoundFault,
@@ -276,7 +276,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void delete (@Nonnull final ServiceMetadataPublisherServiceForParticipantType aSMPParticpantService) throws BadRequestFault,
+  public void delete (@NonNull final ServiceMetadataPublisherServiceForParticipantType aSMPParticpantService) throws BadRequestFault,
                                                                                                               InternalErrorFault,
                                                                                                               NotFoundFault,
                                                                                                               UnauthorizedFault
@@ -306,7 +306,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void deleteList (@Nonnull @Nonempty final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault,
+  public void deleteList (@NonNull @Nonempty final Collection <? extends ParticipantIdentifierType> aParticipantIdentifiers) throws BadRequestFault,
                                                                                                                              InternalErrorFault,
                                                                                                                              NotFoundFault,
                                                                                                                              UnauthorizedFault
@@ -343,7 +343,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public ParticipantIdentifierPageType list (@Nonnull final String sPageId, @Nonnull @Nonempty final String sSMPID)
+  public ParticipantIdentifierPageType list (@NonNull final String sPageId, @NonNull @Nonempty final String sSMPID)
                                                                                                                     throws BadRequestFault,
                                                                                                                     InternalErrorFault,
                                                                                                                     NotFoundFault,
@@ -374,7 +374,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public ParticipantIdentifierPageType list (@Nonnull final PageRequestType aPageRequest) throws BadRequestFault,
+  public ParticipantIdentifierPageType list (@NonNull final PageRequestType aPageRequest) throws BadRequestFault,
                                                                                           InternalErrorFault,
                                                                                           NotFoundFault,
                                                                                           UnauthorizedFault
@@ -396,7 +396,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
                                                                                                   ArrayHelper.getConcatenated (MK_DIGITS,
                                                                                                                                MK_SPECIAL)));
 
-  private static char _random (@Nonnull final char [] aRange)
+  private static char _random (@NonNull final char [] aRange)
   {
     final int nIndex = ThreadLocalRandom.current ().nextInt (aRange.length);
     return aRange[nIndex];
@@ -409,7 +409,7 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @return A new random migration key that matches the regex pattern of
    *         {@link CSMLDefault#MIGRATION_CODE_PATTERN}.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static final String createRandomMigrationKey ()
   {
@@ -450,9 +450,9 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *         Is thrown if the user was not authorized.
    * @see #prepareToMigrate(IParticipantIdentifier, String, String)
    */
-  @Nonnull
-  public String prepareToMigrate (@Nonnull final IParticipantIdentifier aIdentifier,
-                                  @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
+  @NonNull
+  public String prepareToMigrate (@NonNull final IParticipantIdentifier aIdentifier,
+                                  @NonNull @Nonempty final String sSMPID) throws BadRequestFault,
                                                                           InternalErrorFault,
                                                                           NotFoundFault,
                                                                           UnauthorizedFault
@@ -486,10 +486,10 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    *         Is thrown if the user was not authorized.
    * @since 8.1.2
    */
-  @Nonnull
-  public String prepareToMigrate (@Nonnull final IParticipantIdentifier aIdentifier,
-                                  @Nonnull @Nonempty final String sMigrationKey,
-                                  @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
+  @NonNull
+  public String prepareToMigrate (@NonNull final IParticipantIdentifier aIdentifier,
+                                  @NonNull @Nonempty final String sMigrationKey,
+                                  @NonNull @Nonempty final String sSMPID) throws BadRequestFault,
                                                                           InternalErrorFault,
                                                                           NotFoundFault,
                                                                           UnauthorizedFault
@@ -541,9 +541,9 @@ public class ManageParticipantIdentifierServiceCaller extends WSClientConfig
    * @throws UnauthorizedFault
    *         Is thrown if the user was not authorized.
    */
-  public void migrate (@Nonnull final IParticipantIdentifier aIdentifier,
-                       @Nonnull @Nonempty final String sMigrationKey,
-                       @Nonnull @Nonempty final String sSMPID) throws BadRequestFault,
+  public void migrate (@NonNull final IParticipantIdentifier aIdentifier,
+                       @NonNull @Nonempty final String sMigrationKey,
+                       @NonNull @Nonempty final String sSMPID) throws BadRequestFault,
                                                                InternalErrorFault,
                                                                NotFoundFault,
                                                                UnauthorizedFault

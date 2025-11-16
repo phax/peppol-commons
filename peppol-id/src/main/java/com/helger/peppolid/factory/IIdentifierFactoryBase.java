@@ -21,12 +21,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.BiFunction;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.string.StringHelper;
 import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IIdentifier;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Common functionality for all identifier factories.
@@ -53,7 +53,7 @@ public interface IIdentifierFactoryBase extends Serializable
    */
   @Nullable
   default <T extends IIdentifier> T parseURIPartOrNull (@Nullable final String sURIPart,
-                                                        @Nonnull final BiFunction <String, String, T> aConverter)
+                                                        @NonNull final BiFunction <String, String, T> aConverter)
   {
     if (sURIPart == null)
       return null;

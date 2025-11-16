@@ -19,12 +19,12 @@ package com.helger.peppolid.peppol.transportprofile;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for predefined transport profile identifiers.
@@ -38,14 +38,14 @@ public interface IPredefinedTransportProfileIdentifier extends Serializable
    * @return The underlying protocol of the transport profile. May neither be <code>null</code> nor
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getProtocol ();
 
   /**
    * @return The version string of the profile. Such as "1.0" or "2.0";
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getProfileVersion ();
 
@@ -53,7 +53,7 @@ public interface IPredefinedTransportProfileIdentifier extends Serializable
    * @return The unique ID of this transport profile. This identifier is the one used in SMP
    *         endpoints.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getProfileID ();
 
@@ -62,7 +62,7 @@ public interface IPredefinedTransportProfileIdentifier extends Serializable
    *         <code>null</code>.
    * @since 8.7.1
    */
-  @Nonnull
+  @NonNull
   Version getInitialRelease ();
 
   /**
@@ -78,7 +78,7 @@ public interface IPredefinedTransportProfileIdentifier extends Serializable
    * @return The state of the item. Never <code>null</code>.
    * @since 8.7.1
    */
-  @Nonnull
+  @NonNull
   EPeppolCodeListItemState getState ();
 
   /**

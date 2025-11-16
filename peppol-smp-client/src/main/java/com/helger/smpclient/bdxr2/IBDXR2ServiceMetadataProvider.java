@@ -19,6 +19,9 @@ package com.helger.smpclient.bdxr2;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
@@ -31,9 +34,6 @@ import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
 import com.helger.xsds.bdxr.smp2.ServiceMetadataType;
 import com.helger.xsds.bdxr.smp2.ac.EndpointType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract interface to retrieve a service metadata instance.
@@ -56,8 +56,8 @@ public interface IBDXR2ServiceMetadataProvider
    *         in case something goes wrong
    */
   @Nullable
-  default ServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  default ServiceMetadataType getServiceMetadataOrNull (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                        @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     return getServiceMetadataOrNull (aServiceGroupID, aDocumentTypeID, null);
   }
@@ -79,8 +79,8 @@ public interface IBDXR2ServiceMetadataProvider
    * @since 10.5.0
    */
   @Nullable
-  ServiceMetadataType getServiceMetadataOrNull (@Nonnull IParticipantIdentifier aServiceGroupID,
-                                                @Nonnull IDocumentTypeIdentifier aDocumentTypeID,
+  ServiceMetadataType getServiceMetadataOrNull (@NonNull IParticipantIdentifier aServiceGroupID,
+                                                @NonNull IDocumentTypeIdentifier aDocumentTypeID,
                                                 @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException;
 
   /**
@@ -107,10 +107,10 @@ public interface IBDXR2ServiceMetadataProvider
    * @see #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
    */
   @Nullable
-  default EndpointType getEndpoint (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                    @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                    @Nonnull final IProcessIdentifier aProcessID,
-                                    @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
+  default EndpointType getEndpoint (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                    @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                    @NonNull final IProcessIdentifier aProcessID,
+                                    @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -146,10 +146,10 @@ public interface IBDXR2ServiceMetadataProvider
    *         The request was not well formed.
    */
   @Nullable
-  default String getEndpointAddress (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                     @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                     @Nonnull final IProcessIdentifier aProcessID,
-                                     @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
+  default String getEndpointAddress (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                     @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                     @NonNull final IProcessIdentifier aProcessID,
+                                     @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
     final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
     return BDXR2ClientReadOnly.getEndpointAddress (aEndpoint);
@@ -175,10 +175,10 @@ public interface IBDXR2ServiceMetadataProvider
    *         The request was not well formed.
    */
   @Nullable
-  default byte [] getEndpointCertificateBytes (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                               @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                               @Nonnull final IProcessIdentifier aProcessID,
-                                               @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException
+  default byte [] getEndpointCertificateBytes (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                               @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                               @NonNull final IProcessIdentifier aProcessID,
+                                               @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException
   {
     final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
     return BDXR2ClientReadOnly.getEndpointCertificateBytes (aEndpoint);
@@ -206,10 +206,10 @@ public interface IBDXR2ServiceMetadataProvider
    *         In case the conversion from byte to X509 certificate failed
    */
   @Nullable
-  default X509Certificate getEndpointCertificate (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                  @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                  @Nonnull final IProcessIdentifier aProcessID,
-                                                  @Nonnull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
+  default X509Certificate getEndpointCertificate (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                  @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                                  @NonNull final IProcessIdentifier aProcessID,
+                                                  @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
                                                                                                          CertificateException
   {
     final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID,

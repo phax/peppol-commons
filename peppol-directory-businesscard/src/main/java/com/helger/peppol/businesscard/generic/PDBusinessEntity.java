@@ -20,6 +20,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -39,9 +42,6 @@ import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Generic business entity.
@@ -85,7 +85,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
   /**
    * @return All names of the entity. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsList <PDName> names ()
   {
@@ -113,7 +113,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
    *        The country code to use. Should not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDBusinessEntity setCountryCode (@Nullable final String sCountryCode)
   {
     m_sCountryCode = sCountryCode;
@@ -139,7 +139,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
    *        Geographical information. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDBusinessEntity setGeoInfo (@Nullable final String sGeoInfo)
   {
     m_sGeoInfo = sGeoInfo;
@@ -149,7 +149,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
   /**
    * @return Identifier lists. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsList <PDIdentifier> identifiers ()
   {
@@ -159,7 +159,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
   /**
    * @return All Website URIs of the entity. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsList <String> websiteURIs ()
   {
@@ -169,7 +169,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
   /**
    * @return Mutable list of all contacts. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsList <PDContact> contacts ()
   {
@@ -197,7 +197,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
    *        Additional information to be used (free text). May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDBusinessEntity setAdditionalInfo (@Nullable final String sAdditionalInfo)
   {
     m_sAdditionalInfo = sAdditionalInfo;
@@ -225,7 +225,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
    *        The registration date. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDBusinessEntity setRegistrationDate (@Nullable final LocalDate aRegDate)
   {
     m_aRegistrationDate = aRegDate;
@@ -239,7 +239,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
    */
-  public void cloneTo (@Nonnull final PDBusinessEntity ret)
+  public void cloneTo (@NonNull final PDBusinessEntity ret)
   {
     ret.m_aNames.setAllMapped (m_aNames, PDName::getClone);
     ret.m_sCountryCode = m_sCountryCode;
@@ -251,7 +251,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
     ret.m_aRegistrationDate = m_aRegistrationDate;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public PDBusinessEntity getClone ()
   {
@@ -260,9 +260,9 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI,
-                                      @Nonnull @Nonempty final String sElementName)
+                                      @NonNull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
     for (final PDName aName : m_aNames)
@@ -283,7 +283,7 @@ public class PDBusinessEntity implements IHasJson, Serializable, ICloneable <PDB
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IJsonObject getAsJson ()
   {
     final IJsonObject ret = new JsonObject ();

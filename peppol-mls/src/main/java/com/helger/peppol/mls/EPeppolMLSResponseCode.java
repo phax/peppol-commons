@@ -16,13 +16,13 @@
  */
 package com.helger.peppol.mls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.state.ISuccessIndicator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Code list for the top-level MLS response codes.
@@ -46,12 +46,12 @@ public enum EPeppolMLSResponseCode implements IHasID <String>, ISuccessIndicator
 
   private final String m_sID;
 
-  EPeppolMLSResponseCode (@Nonnull @Nonempty final String sID)
+  EPeppolMLSResponseCode (@NonNull @Nonempty final String sID)
   {
     m_sID = sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -74,7 +74,7 @@ public enum EPeppolMLSResponseCode implements IHasID <String>, ISuccessIndicator
     return EnumHelper.getFromIDOrNull (EPeppolMLSResponseCode.class, sID);
   }
 
-  @Nonnull
+  @NonNull
   public static EPeppolMLSResponseCode getFromIDOrThrow (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrThrow (EPeppolMLSResponseCode.class, sID);

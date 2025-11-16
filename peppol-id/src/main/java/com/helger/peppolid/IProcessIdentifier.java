@@ -16,11 +16,11 @@
  */
 package com.helger.peppolid;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.compare.IComparator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Marker-interface that is specific for process identifiers.<br>
@@ -49,7 +49,7 @@ public interface IProcessIdentifier extends IIdentifier
     return aOther != null && hasValue (aOther.getValue ()) && hasScheme (aOther.getScheme ());
   }
 
-  default int compareTo (@Nonnull final IProcessIdentifier aOther)
+  default int compareTo (@NonNull final IProcessIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -57,7 +57,7 @@ public interface IProcessIdentifier extends IIdentifier
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   static IComparator <IProcessIdentifier> comparator ()
   {
     return (a, b) -> a.compareTo (b);

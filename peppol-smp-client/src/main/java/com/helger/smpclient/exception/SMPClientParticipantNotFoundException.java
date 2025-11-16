@@ -19,7 +19,7 @@ package com.helger.smpclient.exception;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This exception is thrown if a participant was not found on the network
@@ -29,12 +29,12 @@ import jakarta.annotation.Nonnull;
  */
 public class SMPClientParticipantNotFoundException extends SMPClientException
 {
-  public SMPClientParticipantNotFoundException (@Nonnull final UnknownHostException ex)
+  public SMPClientParticipantNotFoundException (@NonNull final UnknownHostException ex)
   {
     super (ex);
   }
 
-  public SMPClientParticipantNotFoundException (@Nonnull final ConnectException ex)
+  public SMPClientParticipantNotFoundException (@NonNull final ConnectException ex)
   {
     super (ex);
   }

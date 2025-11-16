@@ -16,13 +16,13 @@
  */
 package com.helger.peppol.mlr;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.state.ISuccessIndicator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Code list for the top-level MLR response codes.
@@ -37,12 +37,12 @@ public enum EPeppolMLRResponseCode implements IHasID <String>, ISuccessIndicator
 
   private final String m_sID;
 
-  EPeppolMLRResponseCode (@Nonnull @Nonempty final String sID)
+  EPeppolMLRResponseCode (@NonNull @Nonempty final String sID)
   {
     m_sID = sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {

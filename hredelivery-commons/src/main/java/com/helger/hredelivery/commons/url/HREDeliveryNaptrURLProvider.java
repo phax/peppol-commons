@@ -16,13 +16,13 @@
  */
 package com.helger.hredelivery.commons.url;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 import com.helger.smpclient.url.AbstractBDXLURLProvider;
 import com.helger.smpclient.url.IBDXLURLProvider;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The implementation of {@link IBDXLURLProvider} suitable for the HR eDelivery Network to resolve
@@ -66,12 +66,12 @@ public class HREDeliveryNaptrURLProvider extends AbstractBDXLURLProvider impleme
    * @param rhs
    *        the object to copy from. May not be <code>null</code>.
    */
-  protected HREDeliveryNaptrURLProvider (@Nonnull final HREDeliveryNaptrURLProvider rhs)
+  protected HREDeliveryNaptrURLProvider (@NonNull final HREDeliveryNaptrURLProvider rhs)
   {
     super (rhs);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public HREDeliveryNaptrURLProvider getClone ()
   {

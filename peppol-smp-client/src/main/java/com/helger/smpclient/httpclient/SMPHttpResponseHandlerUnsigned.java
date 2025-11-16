@@ -19,14 +19,13 @@ package com.helger.smpclient.httpclient;
 import java.io.IOException;
 
 import org.apache.hc.core5.http.HttpEntity;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is the Apache HTTP client response handler to verify unsigned HTTP
@@ -46,14 +45,14 @@ public class SMPHttpResponseHandlerUnsigned <T> extends AbstractSMPResponseHandl
 
   private final GenericJAXBMarshaller <T> m_aMarshaller;
 
-  public SMPHttpResponseHandlerUnsigned (@Nonnull final GenericJAXBMarshaller <T> aMarshaller)
+  public SMPHttpResponseHandlerUnsigned (@NonNull final GenericJAXBMarshaller <T> aMarshaller)
   {
     m_aMarshaller = ValueEnforcer.notNull (aMarshaller, "Marshaller");
   }
 
   @Override
-  @Nonnull
-  public T handleEntity (@Nonnull final HttpEntity aEntity) throws SMPClientBadResponseException, IOException
+  @NonNull
+  public T handleEntity (@NonNull final HttpEntity aEntity) throws SMPClientBadResponseException, IOException
   {
     // Read without charset, because XML has self-determination
     // Additionally the BOM handling is enabled when using InputStream

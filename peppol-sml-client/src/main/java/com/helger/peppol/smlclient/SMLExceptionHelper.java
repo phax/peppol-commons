@@ -16,15 +16,15 @@
  */
 package com.helger.peppol.smlclient;
 
-import com.helger.annotation.concurrent.Immutable;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Utility class to help dealing with SML exception.
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger
@@ -40,8 +40,7 @@ public final class SMLExceptionHelper
    *
    * @param aCause
    *        Exception to be handled. May be <code>null</code>.
-   * @return <code>null</code> if a non-SML exception was thrown or no fault
-   *         message was contained
+   * @return <code>null</code> if a non-SML exception was thrown or no fault message was contained
    */
   @Nullable
   public static String getFaultMessage (@Nullable final Throwable aCause)

@@ -18,13 +18,15 @@ package com.helger.peppolid.peppol.pidscheme;
 
 import java.time.LocalDate;
 import java.time.Month;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.version.Version;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 
 /**
@@ -1141,13 +1143,13 @@ public enum EPredefinedParticipantIdentifierScheme
     private final Version m_aDeprecationRelease;
     private final LocalDate m_aRemovalDate;
 
-    EPredefinedParticipantIdentifierScheme(@Nonnull @Nonempty final String sSchemeID,
-        @Nonnull @Nonempty final String sISO6523,
-        @Nonnull @Nonempty final String sCountryCode,
-        @Nonnull @Nonempty final String sSchemeName,
+    EPredefinedParticipantIdentifierScheme(@NonNull @Nonempty final String sSchemeID,
+        @NonNull @Nonempty final String sISO6523,
+        @NonNull @Nonempty final String sCountryCode,
+        @NonNull @Nonempty final String sSchemeName,
         @Nullable final String sIssuingAgency,
-        @Nonnull final Version aInitialRelease,
-        @Nonnull final EPeppolCodeListItemState eState,
+        @NonNull final Version aInitialRelease,
+        @NonNull final EPeppolCodeListItemState eState,
         @Nullable final Version aDeprecationRelease,
         @Nullable final LocalDate aRemovalDate) {
         m_sSchemeID = sSchemeID;
@@ -1161,25 +1163,25 @@ public enum EPredefinedParticipantIdentifierScheme
         m_aRemovalDate = aRemovalDate;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getSchemeID() {
         return m_sSchemeID;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getISO6523Code() {
         return m_sISO6523;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getCountryCode() {
         return m_sCountryCode;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getSchemeName() {
         return m_sSchemeName;
@@ -1190,12 +1192,12 @@ public enum EPredefinedParticipantIdentifierScheme
         return m_sIssuingAgency;
     }
 
-    @Nonnull
+    @NonNull
     public Version getInitialRelease() {
         return m_aInitialRelease;
     }
 
-    @Nonnull
+    @NonNull
     public EPeppolCodeListItemState getState() {
         return m_eState;
     }

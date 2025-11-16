@@ -107,7 +107,7 @@
               com.helger.peppol.xhe.read,
               com.helger.peppol.xhe.write
             </Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

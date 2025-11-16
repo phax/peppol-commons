@@ -16,13 +16,13 @@
  */
 package com.helger.peppol.xhe.read;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.text.TextFormatter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This enum contains all the errors that can occur during XHE reading
@@ -137,13 +137,13 @@ public enum EDBNAllianceXHEDataReadError implements IHasID <String>
   private final String m_sID;
   private final String m_sErrorMsg;
 
-  EDBNAllianceXHEDataReadError (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sErrorMsg)
+  EDBNAllianceXHEDataReadError (@NonNull @Nonempty final String sID, @NonNull @Nonempty final String sErrorMsg)
   {
     m_sID = sID;
     m_sErrorMsg = sErrorMsg;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -153,7 +153,7 @@ public enum EDBNAllianceXHEDataReadError implements IHasID <String>
   /**
    * @return The English error message
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getErrorMessage ()
   {
@@ -165,9 +165,9 @@ public enum EDBNAllianceXHEDataReadError implements IHasID <String>
    *        The arguments to format with. May neither be <code>null</code> nor empty.
    * @return The English error message, formatted with parameters.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getErrorMessage (@Nonnull @Nonempty final Object... aArgs)
+  public String getErrorMessage (@NonNull @Nonempty final Object... aArgs)
   {
     return TextFormatter.getFormattedText (m_sErrorMsg, aArgs);
   }

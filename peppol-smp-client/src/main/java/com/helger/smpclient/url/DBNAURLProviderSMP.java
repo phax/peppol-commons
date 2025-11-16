@@ -16,11 +16,11 @@
  */
 package com.helger.smpclient.url;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of {@link IBDXLURLProvider} suitable for the DBNA network in the Market pilot.
@@ -58,12 +58,12 @@ public class DBNAURLProviderSMP extends AbstractBDXLURLProvider implements IClon
    * @param rhs
    *        the object to copy from. May not be <code>null</code>.
    */
-  protected DBNAURLProviderSMP (@Nonnull final DBNAURLProviderSMP rhs)
+  protected DBNAURLProviderSMP (@NonNull final DBNAURLProviderSMP rhs)
   {
     super (rhs);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public DBNAURLProviderSMP getClone ()
   {

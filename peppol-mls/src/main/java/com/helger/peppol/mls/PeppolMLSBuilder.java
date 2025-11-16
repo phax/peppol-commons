@@ -24,6 +24,8 @@ import java.time.ZoneOffset;
 import java.util.Locale;
 import java.util.UUID;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +46,6 @@ import com.helger.peppolid.factory.IParticipantIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.phive.api.result.ValidationResultList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.ApplicationResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.DocumentReferenceType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.DocumentResponseType;
@@ -77,7 +77,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   private String m_sResponseText;
   private final ICommonsList <LineResponseType> m_aLineResponses = new CommonsArrayList <> ();
 
-  public PeppolMLSBuilder (@Nonnull final EPeppolMLSResponseCode eResponseCode)
+  public PeppolMLSBuilder (@NonNull final EPeppolMLSResponseCode eResponseCode)
   {
     ValueEnforcer.notNull (eResponseCode, "ResponseCode");
     m_eResponseCode = eResponseCode;
@@ -88,7 +88,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    *
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder randomID ()
   {
     return id (UUID.randomUUID ().toString ());
@@ -101,90 +101,90 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    *        MLS ID
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder id (@Nullable final String s)
   {
     m_sID = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder issueDateNow ()
   {
     return issueDate (PDTFactory.getCurrentLocalDate ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder issueDate (@Nullable final OffsetDate a)
   {
     return issueDate (a == null ? null : a.toLocalDate ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder issueDate (@Nullable final XMLOffsetDate a)
   {
     return issueDate (a == null ? null : a.toLocalDate ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder issueDate (@Nullable final LocalDate a)
   {
     m_aIssueDate = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder issueTimeNow ()
   {
     return issueTime (PDTFactory.getCurrentXMLOffsetTimeMillisOnly ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder issueTime (@Nullable final OffsetTime a)
   {
     return issueTime (a == null ? null : XMLOffsetTime.of (a));
   }
 
-  @Nonnull
-  public PeppolMLSBuilder issueTime (@Nullable final LocalTime a, @Nonnull final ZoneOffset aZoneOffset)
+  @NonNull
+  public PeppolMLSBuilder issueTime (@Nullable final LocalTime a, @NonNull final ZoneOffset aZoneOffset)
   {
     return issueTime (a == null ? null : XMLOffsetTime.of (a, aZoneOffset));
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder issueTime (@Nullable final XMLOffsetTime a)
   {
     m_aIssueTime = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder issueDateTimeNow ()
   {
     final OffsetDateTime aLDT = PDTFactory.getCurrentOffsetDateTimeMillisOnly ();
     return issueDate (aLDT.toLocalDate ()).issueTime (aLDT.toOffsetTime ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder senderParticipantID (@Nullable final String sValue)
   {
     return senderParticipantID (IF.createParticipantIdentifierWithDefaultScheme (sValue));
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder senderParticipantID (@Nullable final IParticipantIdentifier a)
   {
     m_aSenderPID = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder receiverParticipantID (@Nullable final String sValue)
   {
     return receiverParticipantID (IF.createParticipantIdentifierWithDefaultScheme (sValue));
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder receiverParticipantID (@Nullable final IParticipantIdentifier a)
   {
     m_aReceiverPID = a;
@@ -199,7 +199,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    *        Instance Identifier of the source message SBDH
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder referenceId (@Nullable final String s)
   {
     m_sReferenceID = s;
@@ -213,7 +213,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    *        Type code of the source message (like <code>380</code> for an invoice)
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder referenceTypeCode (@Nullable final String s)
   {
     m_sReferenceTypeCode = s;
@@ -228,20 +228,20 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    *        Response text.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder responseText (@Nullable final String s)
   {
     m_sResponseText = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder addLineResponse (@Nullable final PeppolMLSLineResponseBuilder a)
   {
     return addLineResponse (a == null ? null : a.build ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder addLineResponse (@Nullable final LineResponseType a)
   {
     if (a != null)
@@ -249,14 +249,14 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder lineResponses (@Nullable final LineResponseType... a)
   {
     m_aLineResponses.setAll (a);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLSBuilder lineResponses (@Nullable final Iterable <? extends LineResponseType> a)
   {
     m_aLineResponses.setAll (a);
@@ -331,7 +331,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return true;
   }
 
-  @Nonnull
+  @NonNull
   public ApplicationResponseType build ()
   {
     if (!areAllFieldsSet (true))
@@ -407,12 +407,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
-  private static void _init (@Nonnull final PeppolMLSBuilder aBuilder)
+  private static void _init (@NonNull final PeppolMLSBuilder aBuilder)
   {
     aBuilder.randomID ().issueDateTimeNow ();
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolMLSBuilder acceptance ()
   {
     final PeppolMLSBuilder ret = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
@@ -420,7 +420,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolMLSBuilder acknowledging ()
   {
     final PeppolMLSBuilder ret = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACKNOWLEDGING);
@@ -428,7 +428,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolMLSBuilder rejection ()
   {
     final PeppolMLSBuilder ret = new PeppolMLSBuilder (EPeppolMLSResponseCode.REJECTION);
@@ -445,8 +445,8 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    *        The Validation result list to evaluate. May not be <code>null</code>.
    * @return A new {@link PeppolMLSBuilder} and never <code>null</code>.
    */
-  @Nonnull
-  public static PeppolMLSBuilder createForValidationResultList (@Nonnull final ValidationResultList aVRL)
+  @NonNull
+  public static PeppolMLSBuilder createForValidationResultList (@NonNull final ValidationResultList aVRL)
   {
     ValueEnforcer.notNull (aVRL, "ValidationResultList");
 
@@ -490,8 +490,8 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
    *         If the given application response is not a valid MLS.
    * @since 10.3.3
    */
-  @Nonnull
-  public static PeppolMLSBuilder createForApplicationResponse (@Nonnull final ApplicationResponseType aAR)
+  @NonNull
+  public static PeppolMLSBuilder createForApplicationResponse (@NonNull final ApplicationResponseType aAR)
   {
     ValueEnforcer.notNull (aAR, "ApplicationResponse");
 

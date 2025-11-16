@@ -16,15 +16,15 @@
  */
 package com.helger.peppol.smp;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.misc.ContainsSoftMigration;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Micro type converter for {@link ISMPTransportProfile} objects
@@ -39,10 +39,10 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
   private static final IMicroQName ATTR_DEPRECATED = new MicroQName ("deprecated");
   private static final IMicroQName ATTR_STATE = new MicroQName ("state");
 
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final SMPTransportProfile aValue,
+  @NonNull
+  public IMicroElement convertToMicroElement (@NonNull final SMPTransportProfile aValue,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
     aElement.setAttribute (ATTR_ID, aValue.getID ());
@@ -51,9 +51,9 @@ public class SMPTransportProfileMicroTypeConverter implements IMicroTypeConverte
     return aElement;
   }
 
-  @Nonnull
+  @NonNull
   @ContainsSoftMigration
-  public SMPTransportProfile convertToNative (@Nonnull final IMicroElement aElement)
+  public SMPTransportProfile convertToNative (@NonNull final IMicroElement aElement)
   {
     final String sID = aElement.getAttributeValue (ATTR_ID);
     final String sName = aElement.getAttributeValue (ATTR_NAME);

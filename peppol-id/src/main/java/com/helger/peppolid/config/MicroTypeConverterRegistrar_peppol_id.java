@@ -16,6 +16,8 @@
  */
 package com.helger.peppolid.config;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.peppolid.bdxr.smp1.doctype.BDXR1DocumentTypeIdentifier;
 import com.helger.peppolid.bdxr.smp1.doctype.BDXR1DocumentTypeIdentifierMicroTypeConverter;
@@ -44,8 +46,6 @@ import com.helger.peppolid.simple.process.SimpleProcessIdentifierMicroTypeConver
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Special micro type converter for this project.
  *
@@ -54,7 +54,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class MicroTypeConverterRegistrar_peppol_id implements IMicroTypeConverterRegistrarSPI
 {
-  public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
+  public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     aRegistry.registerMicroElementTypeConverter (SimpleDocumentTypeIdentifier.class, new SimpleDocumentTypeIdentifierMicroTypeConverter ());
     aRegistry.registerMicroElementTypeConverter (PeppolDocumentTypeIdentifier.class, new PeppolDocumentTypeIdentifierMicroTypeConverter ());

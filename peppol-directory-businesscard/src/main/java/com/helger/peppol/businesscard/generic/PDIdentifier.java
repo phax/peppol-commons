@@ -18,6 +18,9 @@ package com.helger.peppol.businesscard.generic;
 
 import java.io.Serializable;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -30,9 +33,6 @@ import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Generic identifier.
@@ -70,7 +70,7 @@ public class PDIdentifier implements IHasJson, Serializable, ICloneable <PDIdent
    *        The scheme. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDIdentifier setScheme (@Nullable final String sScheme)
   {
     m_sScheme = sScheme;
@@ -93,7 +93,7 @@ public class PDIdentifier implements IHasJson, Serializable, ICloneable <PDIdent
    *        The value. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDIdentifier setValue (@Nullable final String sValue)
   {
     m_sValue = sValue;
@@ -107,13 +107,13 @@ public class PDIdentifier implements IHasJson, Serializable, ICloneable <PDIdent
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
    */
-  public void cloneTo (@Nonnull final PDIdentifier ret)
+  public void cloneTo (@NonNull final PDIdentifier ret)
   {
     ret.m_sScheme = m_sScheme;
     ret.m_sValue = m_sValue;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public PDIdentifier getClone ()
   {
@@ -122,8 +122,8 @@ public class PDIdentifier implements IHasJson, Serializable, ICloneable <PDIdent
     return ret;
   }
 
-  @Nonnull
-  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sElementName)
+  @NonNull
+  public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
     ret.setAttribute ("scheme", m_sScheme);
@@ -131,7 +131,7 @@ public class PDIdentifier implements IHasJson, Serializable, ICloneable <PDIdent
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public static IJsonObject getAsJson (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final IJsonObject ret = new JsonObject ();
@@ -140,7 +140,7 @@ public class PDIdentifier implements IHasJson, Serializable, ICloneable <PDIdent
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IJsonObject getAsJson ()
   {
     return getAsJson (m_sScheme, m_sValue);

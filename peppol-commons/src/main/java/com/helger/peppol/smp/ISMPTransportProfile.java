@@ -18,12 +18,12 @@ package com.helger.peppol.smp;
 
 import java.io.Serializable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.name.IHasName;
 import com.helger.base.type.ITypedObject;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for SMP transport profiles. Two transport profiles are
@@ -39,7 +39,7 @@ public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, S
   /**
    * Get the ID to be stored in an SMP endpoint.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getID ();
 
@@ -47,7 +47,7 @@ public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, S
    * The display name of this transport profile has no semantics and is just for
    * informational purposes. May neither be <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getName ();
 
@@ -55,7 +55,7 @@ public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, S
    * @return The state of the transport profile. May not be <code>null</code>.
    * @since 8.8.3
    */
-  @Nonnull
+  @NonNull
   default ESMPTransportProfileState getState ()
   {
     return ESMPTransportProfileState.ACTIVE;
@@ -66,7 +66,7 @@ public interface ISMPTransportProfile extends ITypedObject <String>, IHasName, S
    *         <code>null</code> nor empty.
    * @since 9.0.1
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   default String getStateID ()
   {

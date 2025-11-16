@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.peppol.pidscheme;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class manages the Peppol Participant identifier schemes using the
@@ -55,7 +55,7 @@ public final class PeppolParticipantIdentifierSchemeManager
   /**
    * @return A non-modifiable list of all Peppol identifier issuing agencies.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public static ICommonsList <? extends IPeppolParticipantIdentifierScheme> getAllSchemes ()
@@ -166,7 +166,7 @@ public final class PeppolParticipantIdentifierSchemeManager
    *         agency was found and is not deprecated. {@link ETriState#UNDEFINED}
    *         if no such agency exists.
    */
-  @Nonnull
+  @NonNull
   public static ETriState isSchemeWithISO6523CodeDeprecated (@Nullable final String sISO6523Code)
   {
     final IPeppolParticipantIdentifierScheme aScheme = getSchemeOfISO6523Code (sISO6523Code);
@@ -183,7 +183,7 @@ public final class PeppolParticipantIdentifierSchemeManager
    *         agency was found and is not deprecated. {@link ETriState#UNDEFINED}
    *         if no such agency exists.
    */
-  @Nonnull
+  @NonNull
   public static ETriState isSchemeWithSchemeIDDeprecated (@Nullable final String sSchemeID)
   {
     final IPeppolParticipantIdentifierScheme aScheme = getSchemeOfSchemeID (sSchemeID);

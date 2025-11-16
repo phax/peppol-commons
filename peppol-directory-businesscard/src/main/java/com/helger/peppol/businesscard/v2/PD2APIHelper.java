@@ -16,15 +16,15 @@
  */
 package com.helger.peppol.businesscard.v2;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.generic.PDBusinessEntity;
 import com.helger.peppol.businesscard.generic.PDIdentifier;
 import com.helger.peppol.businesscard.generic.PDName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class for easier BC V2 creation.
@@ -37,7 +37,7 @@ public final class PD2APIHelper
   private PD2APIHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   public static PD2IdentifierType createIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final PD2IdentifierType ret = new PD2IdentifierType ();
@@ -47,14 +47,14 @@ public final class PD2APIHelper
   }
 
   @Nullable
-  public static PDIdentifier createIdentifier (@Nonnull final PD2IdentifierType aID)
+  public static PDIdentifier createIdentifier (@NonNull final PD2IdentifierType aID)
   {
     ValueEnforcer.notNull (aID, "ID");
     return new PDIdentifier (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static PDBusinessEntity createBusinessEntity (@Nonnull final PD2BusinessEntityType aBE)
+  @NonNull
+  public static PDBusinessEntity createBusinessEntity (@NonNull final PD2BusinessEntityType aBE)
   {
     ValueEnforcer.notNull (aBE, "BusinessEntity");
     final PDBusinessEntity ret = new PDBusinessEntity ();
@@ -67,8 +67,8 @@ public final class PD2APIHelper
     return ret;
   }
 
-  @Nonnull
-  public static PDBusinessCard createBusinessCard (@Nonnull final PD2BusinessCardType aBC)
+  @NonNull
+  public static PDBusinessCard createBusinessCard (@NonNull final PD2BusinessCardType aBC)
   {
     ValueEnforcer.notNull (aBC, "BusinessCard");
     final PDBusinessCard ret = new PDBusinessCard ();

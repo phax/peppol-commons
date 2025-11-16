@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.peppol.doctype;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -24,9 +27,6 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class manages the predefined Peppol document identifiers the
@@ -58,7 +58,7 @@ public final class PredefinedDocumentTypeIdentifierManager
   /**
    * @return A non-modifiable list of all Peppol document type identifiers.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public static ICommonsCollection <IPeppolPredefinedDocumentTypeIdentifier> getAllDocumentTypeIdentifiers ()
@@ -70,7 +70,7 @@ public final class PredefinedDocumentTypeIdentifierManager
    * @return A non-<code>null</code> list of all Peppol document type identifier
    *         IDs.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllDocumentTypeIdentifierIDs ()

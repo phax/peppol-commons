@@ -16,15 +16,15 @@
  */
 package com.helger.peppolid.simple.process;
 
-import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
 public final class SimpleProcessIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <SimpleProcessIdentifier>
 {
   @Override
-  @Nonnull
-  protected SimpleProcessIdentifier getAsNative (@Nonnull final String sScheme, @Nonnull final String sValue)
+  @NonNull
+  protected SimpleProcessIdentifier getAsNative (@NonNull final String sScheme, @NonNull final String sValue)
   {
     return new SimpleProcessIdentifier (sScheme, sValue);
   }

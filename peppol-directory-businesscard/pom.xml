@@ -104,7 +104,7 @@
               com.helger.peppol.businesscard.v2,
               com.helger.peppol.businesscard.v3
             </Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
@@ -127,6 +127,7 @@
             <arg>-no-header</arg>
             <arg>-Xph-default-locale</arg>
             <arg>en_US</arg>
+            <arg>-Xph-package-null-marked</arg>
             <arg>-Xph-annotate</arg>
             <arg>-Xph-fields-private</arg>
             <arg>-Xph-code-quality</arg>

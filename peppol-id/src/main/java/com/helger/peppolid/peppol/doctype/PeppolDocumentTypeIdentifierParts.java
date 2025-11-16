@@ -19,6 +19,9 @@ package com.helger.peppolid.peppol.doctype;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -26,9 +29,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.peppolid.IDocumentTypeIdentifier;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The implementation of {@link IPeppolDocumentTypeIdentifierParts} for Peppol Document Type
@@ -52,18 +52,18 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
    *        The XML root element local name. May neither be <code>null</code> nor empty.
    * @return The combination of <code>rootNS + :: + localName</code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createSyntaxSpecificID (@Nonnull @Nonempty final String sRootNS,
-                                               @Nonnull @Nonempty final String sLocalName)
+  public static String createSyntaxSpecificID (@NonNull @Nonempty final String sRootNS,
+                                               @NonNull @Nonempty final String sLocalName)
   {
     return sRootNS + NAMESPACE_SEPARATOR + sLocalName;
   }
 
-  public PeppolDocumentTypeIdentifierParts (@Nonnull @Nonempty final String sRootNS,
-                                            @Nonnull @Nonempty final String sLocalName,
-                                            @Nonnull @Nonempty final String sCustomizationID,
-                                            @Nonnull @Nonempty final String sVersion)
+  public PeppolDocumentTypeIdentifierParts (@NonNull @Nonempty final String sRootNS,
+                                            @NonNull @Nonempty final String sLocalName,
+                                            @NonNull @Nonempty final String sCustomizationID,
+                                            @NonNull @Nonempty final String sVersion)
   {
     super (createSyntaxSpecificID (sRootNS, sLocalName), sCustomizationID, sVersion);
     ValueEnforcer.notEmpty (sRootNS, "RootNS");
@@ -73,14 +73,14 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
     m_sLocalName = sLocalName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getRootNS ()
   {
     return m_sRootNS;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getLocalName ()
   {
@@ -88,15 +88,15 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
   }
 
   @Override
-  @Nonnull
-  public PeppolDocumentTypeIdentifierParts withCustomizationID (@Nonnull @Nonempty final String sCustomizationID)
+  @NonNull
+  public PeppolDocumentTypeIdentifierParts withCustomizationID (@NonNull @Nonempty final String sCustomizationID)
   {
     return new PeppolDocumentTypeIdentifierParts (m_sRootNS, m_sLocalName, sCustomizationID, getVersion ());
   }
 
   @Override
-  @Nonnull
-  public PeppolDocumentTypeIdentifierParts withVersion (@Nonnull @Nonempty final String sVersion)
+  @NonNull
+  public PeppolDocumentTypeIdentifierParts withVersion (@NonNull @Nonempty final String sVersion)
   {
     return new PeppolDocumentTypeIdentifierParts (m_sRootNS, m_sLocalName, getCustomizationID (), sVersion);
   }
@@ -134,8 +134,8 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
    *        The consumer that takes root namespace URI and local name as a callback.
    * @since 9.6.2
    */
-  public static void extractXMLSyntaxSpecificID (@Nonnull @Nonempty final String sSyntaxSpecificID,
-                                                 @Nonnull final BiConsumer <String, String> aResultConsumer)
+  public static void extractXMLSyntaxSpecificID (@NonNull @Nonempty final String sSyntaxSpecificID,
+                                                 @NonNull final BiConsumer <String, String> aResultConsumer)
   {
     ValueEnforcer.notEmpty (sSyntaxSpecificID, "SyntaxSpecificID");
     ValueEnforcer.notNull (aResultConsumer, "ResultConsumer");
@@ -170,8 +170,8 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
    * @throws IllegalArgumentException
    *         if the passed document identifier value does not match the specifications
    */
-  @Nonnull
-  public static PeppolDocumentTypeIdentifierParts extractFromString (@Nonnull @Nonempty final String sDocTypeIDValue)
+  @NonNull
+  public static PeppolDocumentTypeIdentifierParts extractFromString (@NonNull @Nonempty final String sDocTypeIDValue)
   {
     final PeppolGenericDocumentTypeIdentifierParts aGenericParts = PeppolGenericDocumentTypeIdentifierParts.extractFromString (sDocTypeIDValue);
 
@@ -199,16 +199,16 @@ public class PeppolDocumentTypeIdentifierParts extends PeppolGenericDocumentType
    * @throws IllegalArgumentException
    *         If the passed document type identifier is not a Peppol document type identifier.
    */
-  @Nonnull
-  public static PeppolDocumentTypeIdentifierParts extractFromIdentifier (@Nonnull final IDocumentTypeIdentifier aIdentifier)
+  @NonNull
+  public static PeppolDocumentTypeIdentifierParts extractFromIdentifier (@NonNull final IDocumentTypeIdentifier aIdentifier)
   {
     ValueEnforcer.notNull (aIdentifier, "Identifier");
 
     return extractFromString (aIdentifier.getValue ());
   }
 
-  @Nonnull
-  public static PeppolDocumentTypeIdentifierParts extract (@Nonnull final IPeppolGenericDocumentTypeIdentifierParts aDocIDParts)
+  @NonNull
+  public static PeppolDocumentTypeIdentifierParts extract (@NonNull final IPeppolGenericDocumentTypeIdentifierParts aDocIDParts)
   {
     ValueEnforcer.notNull (aDocIDParts, "DocIDParts");
 

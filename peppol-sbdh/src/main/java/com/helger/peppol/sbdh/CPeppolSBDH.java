@@ -18,13 +18,13 @@ package com.helger.peppol.sbdh;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.io.resource.ClassPathResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Constants for the usage of SBDH headers in Peppol.
@@ -73,7 +73,7 @@ public final class CPeppolSBDH
   /** CII D22B constant */
   public static final String TYPE_VERSION_CII_D22B = "D22B";
 
-  @Nonnull
+  @NonNull
   private static ClassLoader _getCL ()
   {
     return CPeppolSBDH.class.getClassLoader ();

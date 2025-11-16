@@ -21,6 +21,7 @@ import java.net.URI;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,8 +51,6 @@ import com.helger.xsds.peppol.smp1.ServiceInformationType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataReferenceCollectionType;
 import com.helger.xsds.peppol.smp1.ServiceMetadataType;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * This class is used for calling the Peppol SMP REST interface. This particular
  * class contains the writing methods. It inherits all reading methods from
@@ -78,9 +77,9 @@ public class SMPClient extends SMPClientReadOnly
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public SMPClient (@Nonnull final ISMPURLProvider aURLProvider,
-                    @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                    @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  public SMPClient (@NonNull final ISMPURLProvider aURLProvider,
+                    @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                    @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }
@@ -102,9 +101,9 @@ public class SMPClient extends SMPClientReadOnly
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
-  public SMPClient (@Nonnull final ISMPURLProvider aURLProvider,
-                    @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                    @Nonnull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
+  public SMPClient (@NonNull final ISMPURLProvider aURLProvider,
+                    @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                    @NonNull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, sSMLZoneName);
   }
@@ -117,7 +116,7 @@ public class SMPClient extends SMPClientReadOnly
    *        The address of the SMP service. Must be port 80 and basic http only
    *        (no https!). Example: http://smpcompany.company.org
    */
-  public SMPClient (@Nonnull final URI aSMPHost)
+  public SMPClient (@NonNull final URI aSMPHost)
   {
     super (aSMPHost);
   }
@@ -141,8 +140,8 @@ public class SMPClient extends SMPClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  public void saveServiceGroup (@Nonnull final ServiceGroupType aServiceGroup,
-                                @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void saveServiceGroup (@NonNull final ServiceGroupType aServiceGroup,
+                                @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -182,9 +181,9 @@ public class SMPClient extends SMPClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  @Nonnull
-  public ServiceGroupType saveServiceGroup (@Nonnull final IParticipantIdentifier aParticipantID,
-                                            @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  @NonNull
+  public ServiceGroupType saveServiceGroup (@NonNull final IParticipantIdentifier aParticipantID,
+                                            @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -218,8 +217,8 @@ public class SMPClient extends SMPClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  public void deleteServiceGroup (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                  @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void deleteServiceGroup (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                  @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
@@ -232,10 +231,10 @@ public class SMPClient extends SMPClientReadOnly
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
-  private void _saveServiceInformation (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                        @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                        @Nonnull final ServiceMetadataType aServiceMetadata,
-                                        @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  private void _saveServiceInformation (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                        @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                        @NonNull final ServiceMetadataType aServiceMetadata,
+                                        @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     final String sBody = new SMPMarshallerServiceMetadataType ().setUseSchema (isXMLSchemaValidation ())
                                                                 .getAsString (aServiceMetadata);
@@ -279,8 +278,8 @@ public class SMPClient extends SMPClientReadOnly
    * @see #saveServiceRedirect(IParticipantIdentifier, IDocumentTypeIdentifier,
    *      RedirectType, BasicAuthClientCredentials)
    */
-  public void saveServiceInformation (@Nonnull final ServiceInformationType aServiceInformation,
-                                      @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void saveServiceInformation (@NonNull final ServiceInformationType aServiceInformation,
+                                      @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
     ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
@@ -322,10 +321,10 @@ public class SMPClient extends SMPClientReadOnly
    * @see #saveServiceInformation(ServiceInformationType,
    *      BasicAuthClientCredentials)
    */
-  public void saveServiceRedirect (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                   @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                   @Nonnull final RedirectType aRedirect,
-                                   @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void saveServiceRedirect (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                   @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                   @NonNull final RedirectType aRedirect,
+                                   @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -361,9 +360,9 @@ public class SMPClient extends SMPClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  public void deleteServiceRegistration (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                         @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void deleteServiceRegistration (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                         @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                         @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");

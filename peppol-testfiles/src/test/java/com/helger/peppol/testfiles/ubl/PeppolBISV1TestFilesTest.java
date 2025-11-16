@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
@@ -29,8 +30,6 @@ import com.helger.peppol.testfiles.TestResource;
 import com.helger.text.locale.LocaleCache;
 import com.helger.xml.serialize.read.DOMReader;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link PeppolBISV1TestFiles}
  *
@@ -38,7 +37,7 @@ import jakarta.annotation.Nonnull;
  */
 public final class PeppolBISV1TestFilesTest
 {
-  private static void _testGoodXML (@Nonnull final IReadableResource aRes)
+  private static void _testGoodXML (@NonNull final IReadableResource aRes)
   {
     assertTrue (aRes.getPath (), aRes.exists ());
 

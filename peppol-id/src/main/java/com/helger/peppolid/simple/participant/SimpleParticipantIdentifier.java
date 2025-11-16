@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.simple.participant;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -26,13 +29,10 @@ import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
- * This is a sanity class around the {@link ParticipantIdentifierType} class
- * with easier construction and some sanity access methods. It may be used in
- * all places where {@link ParticipantIdentifierType} objects are required.
+ * This is a sanity class around the {@link ParticipantIdentifierType} class with easier
+ * construction and some sanity access methods. It may be used in all places where
+ * {@link ParticipantIdentifierType} objects are required.
  *
  * @author Philip Helger
  */
@@ -46,19 +46,19 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public SimpleParticipantIdentifier (@Nonnull final IParticipantIdentifier aIdentifier)
+  public SimpleParticipantIdentifier (@NonNull final IParticipantIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public SimpleParticipantIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public SimpleParticipantIdentifier (@Nullable final String sScheme, @NonNull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
   }
 
-  public int compareTo (@Nonnull final SimpleParticipantIdentifier aOther)
+  public int compareTo (@NonNull final SimpleParticipantIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -66,7 +66,7 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public SimpleParticipantIdentifier getClone ()
   {
@@ -89,20 +89,20 @@ public class SimpleParticipantIdentifier extends ParticipantIdentifierType imple
     return ret;
   }
 
-  @Nonnull
-  public static SimpleParticipantIdentifier wrap (@Nonnull final com.helger.xsds.peppol.id1.ParticipantIdentifierType aID)
+  @NonNull
+  public static SimpleParticipantIdentifier wrap (final com.helger.xsds.peppol.id1.@NonNull ParticipantIdentifierType aID)
   {
     return new SimpleParticipantIdentifier (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static SimpleParticipantIdentifier wrap (@Nonnull final com.helger.xsds.bdxr.smp1.ParticipantIdentifierType aID)
+  @NonNull
+  public static SimpleParticipantIdentifier wrap (final com.helger.xsds.bdxr.smp1.@NonNull ParticipantIdentifierType aID)
   {
     return new SimpleParticipantIdentifier (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static SimpleParticipantIdentifier wrap (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)
+  @NonNull
+  public static SimpleParticipantIdentifier wrap (final com.helger.xsds.ccts.cct.schemamodule.@NonNull IdentifierType aID)
   {
     return new SimpleParticipantIdentifier (aID.getSchemeID (), aID.getValue ());
   }

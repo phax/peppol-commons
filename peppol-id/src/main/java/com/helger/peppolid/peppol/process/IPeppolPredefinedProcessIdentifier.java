@@ -16,11 +16,11 @@
  */
 package com.helger.peppolid.peppol.process;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
 import com.helger.peppolid.peppol.IPeppolIdentifier;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for predefined process identifiers.
@@ -38,7 +38,7 @@ public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, 
    * @return The {@link PeppolProcessIdentifier} version of this predefined
    *         process identifier.
    */
-  @Nonnull
+  @NonNull
   PeppolProcessIdentifier getAsProcessIdentifier ();
 
   /**
@@ -55,6 +55,6 @@ public interface IPeppolPredefinedProcessIdentifier extends IProcessIdentifier, 
    * @return The state of the item. Never <code>null</code>.
    * @since 8.7.1
    */
-  @Nonnull
+  @NonNull
   EPeppolCodeListItemState getState ();
 }

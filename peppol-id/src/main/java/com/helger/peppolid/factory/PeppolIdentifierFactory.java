@@ -19,6 +19,9 @@ package com.helger.peppolid.factory;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.cache.regex.RegExHelper;
@@ -28,9 +31,6 @@ import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.doctype.PeppolGenericDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.peppolid.peppol.process.PeppolProcessIdentifier;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IIdentifierFactory} for Peppol identifiers.
@@ -67,7 +67,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
    * This method is deprecated for this class. Always use
    * {@link #getDefaultDocumentTypeIdentifierScheme(String)} instead.
    */
-  @Nonnull
+  @NonNull
   @Override
   @Deprecated (forRemoval = false)
   public String getDefaultDocumentTypeIdentifierScheme ()
@@ -215,7 +215,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     return true;
   }
 
-  @Nonnull
+  @NonNull
   @Override
   public String getDefaultParticipantIdentifierScheme ()
   {
@@ -319,7 +319,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     return null;
   }
 
-  @Nonnull
+  @NonNull
   @Override
   public String getDefaultProcessIdentifierScheme ()
   {

@@ -19,14 +19,14 @@ package com.helger.hredelivery.commons;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.type.ObjectType;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppol.sml.SMLInfo;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The list of supported HR eDelivery SML zones
@@ -59,10 +59,10 @@ public enum EHREDeliverySML implements ISMLInfo
    *        not.
    * @throws MalformedURLException
    */
-  EHREDeliverySML (@Nonnull @Nonempty final String sID,
-                   @Nonnull @Nonempty final String sDisplayName,
-                   @Nonnull @Nonempty final String sDNSZone,
-                   @Nonnull @Nonempty final String sManagementServiceURL,
+  EHREDeliverySML (@NonNull @Nonempty final String sID,
+                   @NonNull @Nonempty final String sDisplayName,
+                   @NonNull @Nonempty final String sDNSZone,
+                   @NonNull @Nonempty final String sManagementServiceURL,
                    final boolean bRequiresClientCertificate)
   {
     // HR uses special URL suffixes
@@ -77,59 +77,59 @@ public enum EHREDeliverySML implements ISMLInfo
                       .build ();
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return SMLInfo.OT;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_aProxy.getID ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {
     return m_aProxy.getDisplayName ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDNSZone ()
   {
     return m_aProxy.getDNSZone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getManagementServiceURL ()
   {
     return m_aProxy.getManagementServiceURL ();
   }
 
-  @Nonnull
+  @NonNull
   public String getURLSuffixManageSMP ()
   {
     return m_aProxy.getURLSuffixManageSMP ();
   }
 
-  @Nonnull
+  @NonNull
   public URL getManageServiceMetaDataEndpointAddress ()
   {
     return m_aProxy.getManageServiceMetaDataEndpointAddress ();
   }
 
-  @Nonnull
+  @NonNull
   public String getURLSuffixManageParticipant ()
   {
     return m_aProxy.getURLSuffixManageParticipant ();
   }
 
-  @Nonnull
+  @NonNull
   public URL getManageParticipantIdentifierEndpointAddress ()
   {
     return m_aProxy.getManageParticipantIdentifierEndpointAddress ();

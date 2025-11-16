@@ -21,12 +21,11 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.io.file.SimpleFileIO;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PD3BusinessCardMarshaller}.
@@ -35,7 +34,7 @@ import jakarta.annotation.Nonnull;
  */
 public final class PD3BusinessCardMarshallerTest
 {
-  private static void _testBC (@Nonnull final String sFilename)
+  private static void _testBC (@NonNull final String sFilename)
   {
     final byte [] aBytes = SimpleFileIO.getAllFileBytes (new File (sFilename));
     final PD3BusinessCardMarshaller aMarshaller = new PD3BusinessCardMarshaller ();

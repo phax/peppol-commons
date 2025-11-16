@@ -18,13 +18,13 @@ package com.helger.peppol.smp;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.text.display.IHasDisplayText;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This enum defines the potential states for SMP transport profiles.
@@ -53,13 +53,13 @@ public enum ESMPTransportProfileState implements IHasID <String>, IHasDisplayTex
   private final String m_sID;
   private final ESMPTransportProfileStateText m_eText;
 
-  ESMPTransportProfileState (@Nonnull @Nonempty final String sID, @Nonnull final ESMPTransportProfileStateText eText)
+  ESMPTransportProfileState (@NonNull @Nonempty final String sID, @NonNull final ESMPTransportProfileStateText eText)
   {
     m_sID = sID;
     m_eText = eText;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -67,7 +67,7 @@ public enum ESMPTransportProfileState implements IHasID <String>, IHasDisplayTex
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aContentLocale)
+  public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return m_eText.getDisplayText (aContentLocale);
   }

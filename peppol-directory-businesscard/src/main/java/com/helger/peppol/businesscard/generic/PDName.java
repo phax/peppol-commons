@@ -18,6 +18,9 @@ package com.helger.peppol.businesscard.generic;
 
 import java.io.Serializable;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -34,9 +37,6 @@ import com.helger.text.locale.LocaleHelper;
 import com.helger.text.locale.language.LanguageCache;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Generic name.
@@ -57,12 +57,12 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
   public PDName ()
   {}
 
-  public PDName (@Nonnull @Nonempty final String sName)
+  public PDName (@NonNull @Nonempty final String sName)
   {
     this (sName, (String) null);
   }
 
-  public PDName (@Nonnull @Nonempty final String sName, @Nullable final String sLanguageCode)
+  public PDName (@NonNull @Nonempty final String sName, @Nullable final String sLanguageCode)
   {
     setName (sName);
     ValueEnforcer.isTrue (isValidLanguageCode (sLanguageCode),
@@ -73,7 +73,7 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
   /**
    * @return The name. May neither be <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getName ()
   {
@@ -87,8 +87,8 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
    *        The name to use. May neither be <code>null</code> nor empty.
    * @return this for chaining
    */
-  @Nonnull
-  public final PDName setName (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public final PDName setName (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     m_sName = sName;
@@ -123,7 +123,7 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
    * @return this for chaining
    * @see #isValidLanguageCode(String)
    */
-  @Nonnull
+  @NonNull
   public final PDName setLanguageCode (@Nullable final String sLanguageCode)
   {
     ValueEnforcer.isTrue (isValidLanguageCode (sLanguageCode),
@@ -139,13 +139,13 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
    */
-  public void cloneTo (@Nonnull final PDName ret)
+  public void cloneTo (@NonNull final PDName ret)
   {
     ret.m_sName = m_sName;
     ret.m_sLanguageCode = m_sLanguageCode;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public PDName getClone ()
   {
@@ -154,9 +154,9 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI,
-                                      @Nonnull @Nonempty final String sElementName)
+                                      @NonNull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
     ret.setAttribute ("name", m_sName);
@@ -164,7 +164,7 @@ public class PDName implements IHasJson, Serializable, ICloneable <PDName>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IJsonObject getAsJson ()
   {
     final IJsonObject ret = new JsonObject ();

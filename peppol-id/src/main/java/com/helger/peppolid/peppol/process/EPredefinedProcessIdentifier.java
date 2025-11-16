@@ -16,13 +16,14 @@
  */
 package com.helger.peppolid.peppol.process;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 
 /**
@@ -769,30 +770,30 @@ public enum EPredefinedProcessIdentifier
     private final String m_sValue;
     private final EPeppolCodeListItemState m_eState;
 
-    EPredefinedProcessIdentifier(@Nonnull @Nonempty final String sScheme, @Nonnull @Nonempty final String sValue, @Nonnull final EPeppolCodeListItemState eState) {
+    EPredefinedProcessIdentifier(@NonNull @Nonempty final String sScheme, @NonNull @Nonempty final String sValue, @NonNull final EPeppolCodeListItemState eState) {
         m_sScheme = sScheme;
         m_sValue = sValue;
         m_eState = eState;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getScheme() {
         return m_sScheme;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getValue() {
         return m_sValue;
     }
 
-    @Nonnull
+    @NonNull
     public EPeppolCodeListItemState getState() {
         return m_eState;
     }
 
-    @Nonnull
+    @NonNull
     public PeppolProcessIdentifier getAsProcessIdentifier() {
         return new PeppolProcessIdentifier(PeppolIdentifierFactory.INSTANCE, this);
     }

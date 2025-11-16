@@ -18,12 +18,12 @@ package com.helger.peppol.businesscard.v3;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is the reader and writer for {@link PD3BusinessCardType} documents. This
@@ -34,7 +34,7 @@ import jakarta.annotation.Nonnull;
  */
 public class PD3BusinessCardMarshaller extends GenericJAXBMarshaller <PD3BusinessCardType>
 {
-  @Nonnull
+  @NonNull
   private static ClassLoader _getCL ()
   {
     return PD3BusinessCardMarshaller.class.getClassLoader ();

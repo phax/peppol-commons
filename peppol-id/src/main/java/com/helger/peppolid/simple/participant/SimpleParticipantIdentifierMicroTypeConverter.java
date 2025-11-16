@@ -16,16 +16,16 @@
  */
 package com.helger.peppolid.simple.participant;
 
-import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
 public final class SimpleParticipantIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <SimpleParticipantIdentifier>
 {
   @Override
-  @Nonnull
-  protected SimpleParticipantIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
+  @NonNull
+  protected SimpleParticipantIdentifier getAsNative (@Nullable final String sScheme, @NonNull final String sValue)
   {
     return new SimpleParticipantIdentifier (sScheme, sValue);
   }

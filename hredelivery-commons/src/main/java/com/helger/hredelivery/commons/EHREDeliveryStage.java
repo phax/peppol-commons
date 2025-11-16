@@ -16,12 +16,12 @@
  */
 package com.helger.hredelivery.commons;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The list of supported HR eDelivery stages
@@ -37,20 +37,20 @@ public enum EHREDeliveryStage implements IHasID <String>
   private final String m_sID;
   private final EHREDeliverySML m_eSML;
 
-  EHREDeliveryStage (@Nonnull @Nonempty final String sID, @Nonnull final EHREDeliverySML eSML)
+  EHREDeliveryStage (@NonNull @Nonempty final String sID, @NonNull final EHREDeliverySML eSML)
   {
     m_sID = sID;
     m_eSML = eSML;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   public EHREDeliverySML getSML ()
   {
     return m_eSML;

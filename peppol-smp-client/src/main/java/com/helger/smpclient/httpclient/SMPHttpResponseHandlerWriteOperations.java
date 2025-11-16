@@ -20,16 +20,15 @@ import java.io.IOException;
 
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
- * This is the Apache HTTP client response handler for messages which don't
- * deliver a response body (PUT or DELETE HTTP operations).
+ * This is the Apache HTTP client response handler for messages which don't deliver a response body
+ * (PUT or DELETE HTTP operations).
  * <p>
- * Note: this class is also licensed under Apache 2 license, as it was not part
- * of the original implementation
+ * Note: this class is also licensed under Apache 2 license, as it was not part of the original
+ * implementation
  * </p>
  *
  * @author Philip Helger
@@ -38,7 +37,7 @@ public class SMPHttpResponseHandlerWriteOperations extends AbstractSMPResponseHa
 {
   @Override
   @Nullable
-  public Object handleEntity (@Nonnull final HttpEntity aEntity) throws IOException
+  public Object handleEntity (@NonNull final HttpEntity aEntity) throws IOException
   {
     // Ignore body
     EntityUtils.consume (aEntity);

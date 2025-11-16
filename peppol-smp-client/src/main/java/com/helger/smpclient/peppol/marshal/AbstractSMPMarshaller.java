@@ -18,10 +18,11 @@ package com.helger.smpclient.peppol.marshal;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xsds.peppol.smp1.CSMPDataTypes;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBElement;
 
 /**
@@ -33,8 +34,8 @@ import jakarta.xml.bind.JAXBElement;
  */
 public abstract class AbstractSMPMarshaller <JAXBTYPE> extends GenericJAXBMarshaller <JAXBTYPE>
 {
-  protected AbstractSMPMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                   @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+  protected AbstractSMPMarshaller (@NonNull final Class <JAXBTYPE> aType,
+                                   @NonNull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     super (aType, CSMPDataTypes.getAllXSDResources (), aWrapper);
     setNamespaceContext (PeppolSMPClientNamespaceContext.getInstance ());

@@ -16,13 +16,13 @@
  */
 package com.helger.peppolid.factory;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasDisplayName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Defines the identifier types to be used - simple (allows all), Peppol
@@ -43,30 +43,30 @@ public enum ESMPIdentifierType implements IHasID <String>, IHasDisplayName
   private final String m_sDisplayName;
   private final IIdentifierFactory m_aIF;
 
-  ESMPIdentifierType (@Nonnull @Nonempty final String sID,
-                      @Nonnull @Nonempty final String sDisplayName,
-                      @Nonnull final IIdentifierFactory aIF)
+  ESMPIdentifierType (@NonNull @Nonempty final String sID,
+                      @NonNull @Nonempty final String sDisplayName,
+                      @NonNull final IIdentifierFactory aIF)
   {
     m_sID = sID;
     m_sDisplayName = sDisplayName;
     m_aIF = aIF;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {
     return m_sDisplayName;
   }
 
-  @Nonnull
+  @NonNull
   public IIdentifierFactory getIdentifierFactory ()
   {
     return m_aIF;

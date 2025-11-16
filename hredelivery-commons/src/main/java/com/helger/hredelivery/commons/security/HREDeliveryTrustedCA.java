@@ -16,13 +16,12 @@
  */
 package com.helger.hredelivery.commons.security;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.security.certificate.TrustedCAChecker;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class contains all the trusted CAs in HR eDelivery.
@@ -46,7 +45,7 @@ public final class HREDeliveryTrustedCA
   /**
    * @return The CA checker for HR eDelivery Fina Demo.
    */
-  @Nonnull
+  @NonNull
   public static TrustedCAChecker hrEdeliveryFinaDemo ()
   {
     return FINA_DEMO;
@@ -55,7 +54,7 @@ public final class HREDeliveryTrustedCA
   /**
    * @return The CA checker for HR eDelivery Fina Production.
    */
-  @Nonnull
+  @NonNull
   public static TrustedCAChecker hrEdeliveryFinaProduction ()
   {
     return FINA_PROD;
@@ -64,7 +63,7 @@ public final class HREDeliveryTrustedCA
   /**
    * @return The CA checker for HR eDelivery Fina Demo+Production.
    */
-  @Nonnull
+  @NonNull
   public static TrustedCAChecker hrEdeliveryFinaAll ()
   {
     return FINA_ALL;

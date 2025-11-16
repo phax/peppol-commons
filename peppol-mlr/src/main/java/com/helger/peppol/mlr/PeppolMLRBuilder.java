@@ -22,6 +22,8 @@ import java.time.LocalTime;
 import java.util.Locale;
 import java.util.UUID;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +36,6 @@ import com.helger.datetime.helper.PDTFactory;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.phive.api.result.ValidationResultList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.ApplicationResponseType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.DocumentReferenceType;
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.DocumentResponseType;
@@ -65,7 +65,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
   private String m_sResponseText;
   private final ICommonsList <LineResponseType> m_aLineResponses = new CommonsArrayList <> ();
 
-  public PeppolMLRBuilder (@Nonnull final EPeppolMLRResponseCode eResponseCode)
+  public PeppolMLRBuilder (@NonNull final EPeppolMLRResponseCode eResponseCode)
   {
     ValueEnforcer.notNull (eResponseCode, "ResponseCode");
     m_eResponseCode = eResponseCode;
@@ -76,7 +76,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder randomID ()
   {
     return id (UUID.randomUUID ().toString ());
@@ -89,54 +89,54 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        MLR ID
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder id (@Nullable final String s)
   {
     m_sID = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder issueDateNow ()
   {
     return issueDate (PDTFactory.getCurrentLocalDate ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder issueDate (@Nullable final LocalDate a)
   {
     m_aIssueDate = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder issueTimeNow ()
   {
     return issueTime (PDTFactory.getCurrentLocalTimeMillisOnly ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder issueTime (@Nullable final LocalTime a)
   {
     m_aIssueTime = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder issueDateTimeNow ()
   {
     final LocalDateTime aLDT = PDTFactory.getCurrentLocalDateTimeMillisOnly ();
     return issueDate (aLDT.toLocalDate ()).issueTime (aLDT.toLocalTime ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder senderParticipantID (@Nullable final IParticipantIdentifier a)
   {
     m_aSenderPID = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder receiverParticipantID (@Nullable final IParticipantIdentifier a)
   {
     m_aReceiverPID = a;
@@ -151,7 +151,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        Instance Identifier of the source message SBDH
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder referenceId (@Nullable final String s)
   {
     m_sReferenceID = s;
@@ -165,7 +165,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        Type code of the source message (like <code>380</code> for an invoice)
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder referenceTypeCode (@Nullable final String s)
   {
     m_sReferenceTypeCode = s;
@@ -180,20 +180,20 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        Response text.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder responseText (@Nullable final String s)
   {
     m_sResponseText = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder addLineResponse (@Nullable final PeppolMLRLineResponseBuilder a)
   {
     return addLineResponse (a == null ? null : a.build ());
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder addLineResponse (@Nullable final LineResponseType a)
   {
     if (a != null)
@@ -201,14 +201,14 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder lineResponses (@Nullable final LineResponseType... a)
   {
     m_aLineResponses.setAll (a);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public PeppolMLRBuilder lineResponses (@Nullable final Iterable <? extends LineResponseType> a)
   {
     m_aLineResponses.setAll (a);
@@ -255,7 +255,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return true;
   }
 
-  @Nonnull
+  @NonNull
   public ApplicationResponseType build ()
   {
     if (!areAllFieldsSet (true))
@@ -332,12 +332,12 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
-  private static void _init (@Nonnull final PeppolMLRBuilder aBuilder)
+  private static void _init (@NonNull final PeppolMLRBuilder aBuilder)
   {
     aBuilder.randomID ().issueDateTimeNow ();
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolMLRBuilder acceptance ()
   {
     final PeppolMLRBuilder ret = new PeppolMLRBuilder (EPeppolMLRResponseCode.ACCEPTANCE);
@@ -345,7 +345,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolMLRBuilder acknowledging ()
   {
     final PeppolMLRBuilder ret = new PeppolMLRBuilder (EPeppolMLRResponseCode.ACKNOWLEDGING);
@@ -353,7 +353,7 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public static PeppolMLRBuilder rejection ()
   {
     final PeppolMLRBuilder ret = new PeppolMLRBuilder (EPeppolMLRResponseCode.REJECTION);
@@ -370,8 +370,8 @@ public class PeppolMLRBuilder implements IBuilder <ApplicationResponseType>
    *        The Validation result list to evaluate. May not be <code>null</code>.
    * @return A new {@link PeppolMLRBuilder} and never <code>null</code>.
    */
-  @Nonnull
-  public static PeppolMLRBuilder createForValidationResultList (@Nonnull final ValidationResultList aVRL)
+  @NonNull
+  public static PeppolMLRBuilder createForValidationResultList (@NonNull final ValidationResultList aVRL)
   {
     ValueEnforcer.notNull (aVRL, "ValidationResultList");
 

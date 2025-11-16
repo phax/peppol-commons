@@ -22,6 +22,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +35,6 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.Pfuoi440;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve CNAME
@@ -76,8 +75,8 @@ public class PeppolURLProvider implements IPeppolURLProvider
    *        The value to be hashed. May not be <code>null</code>.
    * @return The non-<code>null</code> String containing the hash value.
    */
-  @Nonnull
-  public static String getHashValueStringRepresentation (@Nonnull final String sValueToHash)
+  @NonNull
+  public static String getHashValueStringRepresentation (@NonNull final String sValueToHash)
   {
     // Create the MD5 hash
     // Convert to hex-encoded string
@@ -85,8 +84,8 @@ public class PeppolURLProvider implements IPeppolURLProvider
                              .getHexEncodedDigestString ();
   }
 
-  @Nonnull
-  public String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  @NonNull
+  public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
@@ -140,8 +139,8 @@ public class PeppolURLProvider implements IPeppolURLProvider
     return ret.toString ();
   }
 
-  @Nonnull
-  public URI getSMPURIOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
+  @NonNull
+  public URI getSMPURIOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                      @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");

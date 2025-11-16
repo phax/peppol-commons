@@ -23,13 +23,14 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.http.security.TrustManagerTrustAll;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
@@ -45,7 +46,7 @@ public abstract class AbstractSMLClientTestCase
   protected static final char [] KEYSTORE_PASSWORD = MockSMLClientConfig.getKeyStorePassword ();
 
   @Nullable
-  public static final SSLSocketFactory createConfiguredSSLSocketFactory (@Nonnull final ISMLInfo aSMLInfo,
+  public static final SSLSocketFactory createConfiguredSSLSocketFactory (@NonNull final ISMLInfo aSMLInfo,
                                                                          final boolean bDebug) throws Exception
   {
     if (!aSMLInfo.isClientCertificateRequired ())

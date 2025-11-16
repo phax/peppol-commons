@@ -21,6 +21,7 @@ import java.net.URI;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.core5.http.io.entity.StringEntity;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,8 +51,6 @@ import com.helger.xsds.bdxr.smp1.ServiceGroupType;
 import com.helger.xsds.bdxr.smp1.ServiceInformationType;
 import com.helger.xsds.bdxr.smp1.ServiceMetadataReferenceCollectionType;
 import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class is used for calling the OASIS BDXR SMP v1 REST interface. This
@@ -83,9 +82,9 @@ public class BDXRClient extends BDXRClientReadOnly
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier,
    *      ISMLInfo)
    */
-  public BDXRClient (@Nonnull final ISMPURLProvider aURLProvider,
-                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                     @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  public BDXRClient (@NonNull final ISMPURLProvider aURLProvider,
+                     @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                     @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, aSMLInfo);
   }
@@ -107,9 +106,9 @@ public class BDXRClient extends BDXRClientReadOnly
    *         if DNS resolution fails
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
-  public BDXRClient (@Nonnull final ISMPURLProvider aURLProvider,
-                     @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                     @Nonnull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
+  public BDXRClient (@NonNull final ISMPURLProvider aURLProvider,
+                     @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                     @NonNull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
   {
     super (aURLProvider, aParticipantIdentifier, sSMLZoneName);
   }
@@ -122,7 +121,7 @@ public class BDXRClient extends BDXRClientReadOnly
    *        The address of the SMP service. Must be port 80 and basic http only
    *        (no https!). Example: http://smpcompany.company.org
    */
-  public BDXRClient (@Nonnull final URI aSMPHost)
+  public BDXRClient (@NonNull final URI aSMPHost)
   {
     super (aSMPHost);
   }
@@ -146,8 +145,8 @@ public class BDXRClient extends BDXRClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  public void saveServiceGroup (@Nonnull final ServiceGroupType aServiceGroup,
-                                @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void saveServiceGroup (@NonNull final ServiceGroupType aServiceGroup,
+                                @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroup, "ServiceGroup");
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -186,9 +185,9 @@ public class BDXRClient extends BDXRClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  @Nonnull
-  public ServiceGroupType saveServiceGroup (@Nonnull final IParticipantIdentifier aParticipantID,
-                                            @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  @NonNull
+  public ServiceGroupType saveServiceGroup (@NonNull final IParticipantIdentifier aParticipantID,
+                                            @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aParticipantID, "ParticipantID");
     ValueEnforcer.notNull (aCredentials, "Credentials");
@@ -222,8 +221,8 @@ public class BDXRClient extends BDXRClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  public void deleteServiceGroup (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                  @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void deleteServiceGroup (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                  @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 
@@ -236,10 +235,10 @@ public class BDXRClient extends BDXRClientReadOnly
     executeGenericRequest (aRequest, new SMPHttpResponseHandlerWriteOperations ());
   }
 
-  private void _saveServiceInformation (@Nonnull final ParticipantIdentifierType aServiceGroupID,
-                                        @Nonnull final DocumentIdentifierType aDocumentTypeID,
-                                        @Nonnull final ServiceMetadataType aServiceMetadata,
-                                        @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  private void _saveServiceInformation (@NonNull final ParticipantIdentifierType aServiceGroupID,
+                                        @NonNull final DocumentIdentifierType aDocumentTypeID,
+                                        @NonNull final ServiceMetadataType aServiceMetadata,
+                                        @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     final String sBody = new BDXR1MarshallerServiceMetadataType ().setUseSchema (isXMLSchemaValidation ())
                                                                   .getAsString (aServiceMetadata);
@@ -283,8 +282,8 @@ public class BDXRClient extends BDXRClientReadOnly
    * @see #saveServiceRedirect(ParticipantIdentifierType,
    *      DocumentIdentifierType, RedirectType, BasicAuthClientCredentials)
    */
-  public void saveServiceInformation (@Nonnull final ServiceInformationType aServiceInformation,
-                                      @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void saveServiceInformation (@NonNull final ServiceInformationType aServiceInformation,
+                                      @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceInformation, "ServiceMetadata.ServiceInformation");
     ValueEnforcer.notNull (aServiceInformation.getParticipantIdentifier (),
@@ -326,10 +325,10 @@ public class BDXRClient extends BDXRClientReadOnly
    * @see #saveServiceInformation(ServiceInformationType,
    *      BasicAuthClientCredentials)
    */
-  public void saveServiceRedirect (@Nonnull final ParticipantIdentifierType aServiceGroupID,
-                                   @Nonnull final DocumentIdentifierType aDocumentTypeID,
-                                   @Nonnull final RedirectType aRedirect,
-                                   @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void saveServiceRedirect (@NonNull final ParticipantIdentifierType aServiceGroupID,
+                                   @NonNull final DocumentIdentifierType aDocumentTypeID,
+                                   @NonNull final RedirectType aRedirect,
+                                   @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
@@ -365,9 +364,9 @@ public class BDXRClient extends BDXRClientReadOnly
    * @throws SMPClientBadRequestException
    *         The request was not well formed.
    */
-  public void deleteServiceRegistration (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                         @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
-                                         @Nonnull final BasicAuthClientCredentials aCredentials) throws SMPClientException
+  public void deleteServiceRegistration (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                         @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
+                                         @NonNull final BasicAuthClientCredentials aCredentials) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
     ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");

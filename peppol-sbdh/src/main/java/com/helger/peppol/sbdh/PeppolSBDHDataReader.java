@@ -18,6 +18,8 @@ package com.helger.peppol.sbdh;
 
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.unece.cefact.namespaces.sbdh.BusinessScope;
@@ -51,9 +53,6 @@ import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.sbdh.SBDMarshaller;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Main class to read standard business documents and extract the Peppol required data out of it.
  *
@@ -72,7 +71,7 @@ public class PeppolSBDHDataReader
   private boolean m_bPerformValueChecks = DEFAULT_PERFORM_VALUE_CHECKS;
   private boolean m_bCheckForCountryC1 = DEFAULT_CHECK_FOR_COUNTRY_C1;
 
-  public PeppolSBDHDataReader (@Nonnull final IIdentifierFactory aIdentifierFactory)
+  public PeppolSBDHDataReader (@NonNull final IIdentifierFactory aIdentifierFactory)
   {
     ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
 
@@ -83,7 +82,7 @@ public class PeppolSBDHDataReader
    * @return The identifier provided in the constructor. Never <code>null</code>.
    * @since 8.2.3
    */
-  @Nonnull
+  @NonNull
   public final IIdentifierFactory getIdentifierFactory ()
   {
     return m_aIdentifierFactory;
@@ -107,7 +106,7 @@ public class PeppolSBDHDataReader
    * @return this for chaining
    * @since 8.2.3
    */
-  @Nonnull
+  @NonNull
   public final PeppolSBDHDataReader setPerformValueChecks (final boolean b)
   {
     m_bPerformValueChecks = b;
@@ -134,7 +133,7 @@ public class PeppolSBDHDataReader
    * @return this for chaining
    * @since 9.2.2
    */
-  @Nonnull
+  @NonNull
   public final PeppolSBDHDataReader setCheckForCountryC1 (final boolean b)
   {
     final boolean bChanged = b != m_bCheckForCountryC1;
@@ -348,7 +347,7 @@ public class PeppolSBDHDataReader
    * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidBusinessMessage (@Nonnull final Element aBusinessMessage)
+  protected boolean isValidBusinessMessage (@NonNull final Element aBusinessMessage)
   {
     return aBusinessMessage != null;
   }
@@ -369,8 +368,8 @@ public class PeppolSBDHDataReader
    */
   @OverrideOnDemand
   protected boolean isValidStandard (@Nullable final String sStandard,
-                                     @Nonnull final Element aBusinessMessage,
-                                     @Nonnull final String sDocumentTypeIdentifierValue)
+                                     @NonNull final Element aBusinessMessage,
+                                     @NonNull final String sDocumentTypeIdentifierValue)
   {
     if (StringHelper.isEmpty (sStandard))
       return false;
@@ -394,8 +393,8 @@ public class PeppolSBDHDataReader
    */
   @OverrideOnDemand
   protected boolean isValidTypeVersion (@Nullable final String sTypeVersion,
-                                        @Nonnull final Element aBusinessMessage,
-                                        @Nonnull final String sDocumentTypeIdentifierValue)
+                                        @NonNull final Element aBusinessMessage,
+                                        @NonNull final String sDocumentTypeIdentifierValue)
   {
     if (StringHelper.isEmpty (sTypeVersion))
       return false;
@@ -420,7 +419,7 @@ public class PeppolSBDHDataReader
    * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidType (@Nullable final String sType, @Nonnull final Element aBusinessMessage)
+  protected boolean isValidType (@Nullable final String sType, @NonNull final Element aBusinessMessage)
   {
     return EqualsHelper.equals (sType, aBusinessMessage.getLocalName ());
   }
@@ -451,7 +450,7 @@ public class PeppolSBDHDataReader
    * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   @OverrideOnDemand
-  protected boolean isValidCreationDateTime (@Nonnull final XMLOffsetDateTime aCreationDateTime)
+  protected boolean isValidCreationDateTime (@NonNull final XMLOffsetDateTime aCreationDateTime)
   {
     return true;
   }
@@ -462,7 +461,7 @@ public class PeppolSBDHDataReader
    *
    * @return An instance of the {@link SBDMarshaller} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected SBDMarshaller createSBDMarshaller ()
   {
@@ -483,8 +482,8 @@ public class PeppolSBDHDataReader
    * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
-  @Nonnull
-  public PeppolSBDHData extractData (@Nonnull @WillClose final InputStream aStandardBusinessDocument) throws PeppolSBDHDataReadException
+  @NonNull
+  public PeppolSBDHData extractData (@NonNull @WillClose final InputStream aStandardBusinessDocument) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -513,8 +512,8 @@ public class PeppolSBDHDataReader
    * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
-  @Nonnull
-  public PeppolSBDHData extractData (@Nonnull final IReadableResource aStandardBusinessDocument) throws PeppolSBDHDataReadException
+  @NonNull
+  public PeppolSBDHData extractData (@NonNull final IReadableResource aStandardBusinessDocument) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -536,8 +535,8 @@ public class PeppolSBDHDataReader
    * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
-  @Nonnull
-  public PeppolSBDHData extractData (@Nonnull final Node aStandardBusinessDocument) throws PeppolSBDHDataReadException
+  @NonNull
+  public PeppolSBDHData extractData (@NonNull final Node aStandardBusinessDocument) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -559,8 +558,8 @@ public class PeppolSBDHDataReader
    * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
-  @Nonnull
-  public PeppolSBDHData extractData (@Nonnull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDataReadException
+  @NonNull
+  public PeppolSBDHData extractData (@NonNull final StandardBusinessDocument aStandardBusinessDocument) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aStandardBusinessDocument, "StandardBusinessDocument");
 
@@ -573,9 +572,9 @@ public class PeppolSBDHDataReader
     return extractData (aSBDH, aBusinessMessage);
   }
 
-  @Nonnull
+  @NonNull
   private static IError _toError (@Nullable final String sErrorField,
-                                  @Nonnull final EPeppolSBDHDataError e,
+                                  @NonNull final EPeppolSBDHDataError e,
                                   @Nullable final Object... aArgs)
   {
     return SingleError.builderError ()
@@ -597,9 +596,9 @@ public class PeppolSBDHDataReader
    * @param aErrorList
    *        The error list to be filled. Must not be <code>null</code>.
    */
-  public void validateData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
-                            @Nonnull final Element aBusinessMessage,
-                            @Nonnull final ErrorList aErrorList)
+  public void validateData (@NonNull final StandardBusinessDocumentHeader aSBDH,
+                            @NonNull final Element aBusinessMessage,
+                            @NonNull final ErrorList aErrorList)
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
@@ -894,9 +893,9 @@ public class PeppolSBDHDataReader
    * @throws PeppolSBDHDataReadException
    *         In case the passed Standard Business Document does not conform to the Peppol rules.
    */
-  @Nonnull
-  public PeppolSBDHData extractData (@Nonnull final StandardBusinessDocumentHeader aSBDH,
-                                     @Nonnull final Element aBusinessMessage) throws PeppolSBDHDataReadException
+  @NonNull
+  public PeppolSBDHData extractData (@NonNull final StandardBusinessDocumentHeader aSBDH,
+                                     @NonNull final Element aBusinessMessage) throws PeppolSBDHDataReadException
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");
@@ -949,9 +948,9 @@ public class PeppolSBDHDataReader
    * @return The document data and never <code>null</code>.
    * @since 9.2.2
    */
-  @Nonnull
-  public PeppolSBDHData extractDataUnchecked (@Nonnull final StandardBusinessDocumentHeader aSBDH,
-                                              @Nonnull final Element aBusinessMessage)
+  @NonNull
+  public PeppolSBDHData extractDataUnchecked (@NonNull final StandardBusinessDocumentHeader aSBDH,
+                                              @NonNull final Element aBusinessMessage)
   {
     ValueEnforcer.notNull (aSBDH, "StandardBusinessDocumentHeader");
     ValueEnforcer.notNull (aBusinessMessage, "BusinessMessage");

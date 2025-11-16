@@ -24,6 +24,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -50,8 +51,6 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.xsds.peppol.id1.ParticipantIdentifierType;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * @author Ravnholt<br>
  *         Philip Helger
@@ -72,9 +71,9 @@ public final class SMLFuncTest extends AbstractSMLClientTestCase
   private ManageServiceMetadataServiceCaller m_aSMClient;
   private ServiceMetadataPublisherServiceType m_aServiceMetadataPublisher;
 
-  @Nonnull
-  private static ServiceMetadataPublisherServiceType _createSMPData (@Nonnull final ManageServiceMetadataServiceCaller aSMLSMPClient,
-                                                                     @Nonnull @Nonempty final String sSMPID) throws Exception
+  @NonNull
+  private static ServiceMetadataPublisherServiceType _createSMPData (@NonNull final ManageServiceMetadataServiceCaller aSMLSMPClient,
+                                                                     @NonNull @Nonempty final String sSMPID) throws Exception
   {
     final ServiceMetadataPublisherServiceType aServiceMetadataCreate = new ServiceMetadataPublisherServiceType ();
     aServiceMetadataCreate.setServiceMetadataPublisherID (sSMPID);

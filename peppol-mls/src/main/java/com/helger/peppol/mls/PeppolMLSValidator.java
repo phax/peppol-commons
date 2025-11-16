@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.mls;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.exception.InitializationException;
 import com.helger.schematron.ISchematronResource;
 import com.helger.schematron.sch.SchematronResourceSCH;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class can be used to trigger Schematron validation of Peppol MLS documents.
@@ -50,7 +50,7 @@ public final class PeppolMLSValidator
   /**
    * @return Schematron MLS v1.0.0
    */
-  @Nonnull
+  @NonNull
   @Deprecated (forRemoval = true, since = "12.1.1")
   public static ISchematronResource getSchematronMLS_100 ()
   {
@@ -60,7 +60,7 @@ public final class PeppolMLSValidator
   /**
    * @return Schematron MLS v1.0.1
    */
-  @Nonnull
+  @NonNull
   public static ISchematronResource getSchematronMLS_101 ()
   {
     return SCH_MLS_101;

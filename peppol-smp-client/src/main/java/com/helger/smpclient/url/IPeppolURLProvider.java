@@ -16,12 +16,12 @@
  */
 package com.helger.smpclient.url;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a customizable URL provider so that different URL encoding schemes can be
@@ -51,8 +51,8 @@ public interface IPeppolURLProvider extends ISMPURLProvider
    * @throws IllegalArgumentException
    *         In case one argument is invalid
    */
-  @Nonnull
-  String getDNSNameOfParticipant (@Nonnull IParticipantIdentifier aParticipantIdentifier, @Nullable String sSMLZoneName)
+  @NonNull
+  String getDNSNameOfParticipant (@NonNull IParticipantIdentifier aParticipantIdentifier, @Nullable String sSMLZoneName)
                                                                                                                          throws SMPDNSResolutionException;
 
   /**
@@ -70,9 +70,9 @@ public interface IPeppolURLProvider extends ISMPURLProvider
    * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    */
-  @Nonnull
-  default String getDNSNameOfParticipant (@Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                                          @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  @NonNull
+  default String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
+                                          @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
     ValueEnforcer.notNull (aSMLInfo, "SMLInfo");

@@ -30,7 +30,7 @@ import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.commons.csv.CSVWriter;
+import com.helger.csv.CSVWriter;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.SimpleFileIO;
 

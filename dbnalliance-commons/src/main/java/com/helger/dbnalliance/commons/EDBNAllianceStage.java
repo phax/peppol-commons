@@ -16,12 +16,12 @@
  */
 package com.helger.dbnalliance.commons;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The list of supported DBNAlliance stages
@@ -37,20 +37,20 @@ public enum EDBNAllianceStage implements IHasID <String>
   private final String m_sID;
   private final EDBNAllianceSML m_eSML;
 
-  EDBNAllianceStage (@Nonnull @Nonempty final String sID, @Nonnull final EDBNAllianceSML eSML)
+  EDBNAllianceStage (@NonNull @Nonempty final String sID, @NonNull final EDBNAllianceSML eSML)
   {
     m_sID = sID;
     m_eSML = eSML;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   public EDBNAllianceSML getSML ()
   {
     return m_eSML;

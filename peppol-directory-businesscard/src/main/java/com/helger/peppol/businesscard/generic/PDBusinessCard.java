@@ -19,6 +19,9 @@ package com.helger.peppol.businesscard.generic;
 import java.io.Serializable;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -36,9 +39,6 @@ import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Generic business card.
@@ -79,7 +79,7 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
    *        allowed object is {@link PDIdentifier }
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final PDBusinessCard setParticipantIdentifier (@Nullable final PDIdentifier aParticipantIdentifier)
   {
     m_aParticipantIdentifier = aParticipantIdentifier;
@@ -89,7 +89,7 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
   /**
    * @return Mutable list of business entities.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsList <PDBusinessEntity> businessEntities ()
   {
@@ -103,14 +103,14 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
    * @param ret
    *        The target object to clone to. May not be <code>null</code>.
    */
-  public void cloneTo (@Nonnull final PDBusinessCard ret)
+  public void cloneTo (@NonNull final PDBusinessCard ret)
   {
     ret.m_aParticipantIdentifier = m_aParticipantIdentifier;
     ret.m_aBusinessEntities.setAllMapped (m_aBusinessEntities, PDBusinessEntity::getClone);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public PDBusinessCard getClone ()
   {
@@ -119,9 +119,9 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IMicroElement getAsMicroXML (@Nullable final String sNamespaceURI,
-                                      @Nonnull @Nonempty final String sElementName)
+                                      @NonNull @Nonempty final String sElementName)
   {
     final IMicroElement ret = new MicroElement (sNamespaceURI, sElementName);
     ret.addChild (m_aParticipantIdentifier.getAsMicroXML (sNamespaceURI, "participant"));
@@ -130,7 +130,7 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IJsonObject getAsJson ()
   {
     final IJsonObject ret = new JsonObject ();
@@ -166,8 +166,8 @@ public class PDBusinessCard implements IHasJson, Serializable, ICloneable <PDBus
                                        .getToString ();
   }
 
-  @Nonnull
-  public static PDBusinessCard of (@Nonnull final IJsonObject aJson)
+  @NonNull
+  public static PDBusinessCard of (@NonNull final IJsonObject aJson)
   {
     final PDIdentifier aParticipantID = PDIdentifier.of (aJson.getAsObject ("participant"));
     final ICommonsList <PDBusinessEntity> aBusinessEntities = CommonsArrayList.createFiltered (aJson.getAsArray ("entity"),

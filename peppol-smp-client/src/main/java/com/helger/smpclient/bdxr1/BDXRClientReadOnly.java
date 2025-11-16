@@ -24,6 +24,8 @@ import java.util.Locale;
 import java.util.function.Consumer;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,8 +65,6 @@ import com.helger.xsds.bdxr.smp1.ServiceMetadataType;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 import com.helger.xsds.xmldsig.X509DataType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBElement;
 
 /**
@@ -98,9 +98,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         If DNS resolution failed
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
    */
-  public BDXRClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
-                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                             @Nonnull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
+  public BDXRClientReadOnly (@NonNull final ISMPURLProvider aURLProvider,
+                             @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                             @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, aSMLInfo));
   }
@@ -120,9 +120,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         if DNS resolution failed
    * @see ISMPURLProvider#getSMPURIOfParticipant(IParticipantIdentifier, String)
    */
-  public BDXRClientReadOnly (@Nonnull final ISMPURLProvider aURLProvider,
-                             @Nonnull final IParticipantIdentifier aParticipantIdentifier,
-                             @Nonnull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
+  public BDXRClientReadOnly (@NonNull final ISMPURLProvider aURLProvider,
+                             @NonNull final IParticipantIdentifier aParticipantIdentifier,
+                             @NonNull @Nonempty final String sSMLZoneName) throws SMPDNSResolutionException
   {
     this (aURLProvider.getSMPURIOfParticipant (aParticipantIdentifier, sSMLZoneName));
   }
@@ -135,7 +135,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *        The address of the SMP service. Must be port 80 and basic http only (no https!).
    *        Example: http://smpcompany.company.org
    */
-  public BDXRClientReadOnly (@Nonnull final URI aSMPHost)
+  public BDXRClientReadOnly (@NonNull final URI aSMPHost)
   {
     super (aSMPHost, false);
   }
@@ -157,8 +157,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    *         The request was not well formed.
    * @see #getServiceGroupOrNull(IParticipantIdentifier)
    */
-  @Nonnull
-  public ServiceGroupType getServiceGroup (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
+  @NonNull
+  public ServiceGroupType getServiceGroup (@NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
 
@@ -181,7 +181,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   }
 
   @Nullable
-  public ServiceGroupType getServiceGroupOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
+  public ServiceGroupType getServiceGroupOrNull (@NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException
   {
     try
     {
@@ -208,9 +208,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @return Never <code>null</code> but a maybe empty list.
    * @since 8.0.4
    */
-  @Nonnull
+  @NonNull
   public static ICommonsList <IDocumentTypeIdentifier> getAllDocumentTypes (@Nullable final ServiceGroupType aSG,
-                                                                            @Nonnull final IIdentifierFactory aIdentifierFactory,
+                                                                            @NonNull final IIdentifierFactory aIdentifierFactory,
                                                                             @Nullable final Consumer <String> aUnhandledHrefHandler)
   {
     ValueEnforcer.notNull (aIdentifierFactory, "IdentifierFactory");
@@ -291,9 +291,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
    * @since v8.0.0
    */
-  @Nonnull
-  public SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  @NonNull
+  public SignedServiceMetadataType getServiceMetadata (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
     return getServiceMetadata (aServiceGroupID, aDocumentTypeID, null);
   }
@@ -321,9 +321,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
    * @since v10.5.0
    */
-  @Nonnull
-  public SignedServiceMetadataType getServiceMetadata (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+  @NonNull
+  public SignedServiceMetadataType getServiceMetadata (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
                                                        @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
   {
     ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
@@ -451,8 +451,8 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @since v10.5.0
    */
   @Nullable
-  public SignedServiceMetadataType getServiceMetadataOrNull (@Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                             @Nonnull final IDocumentTypeIdentifier aDocumentTypeID,
+  public SignedServiceMetadataType getServiceMetadataOrNull (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                             @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
                                                              @Nullable final ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException
   {
     try
@@ -482,9 +482,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @return <code>null</code> if no matching endpoint was found
    */
   @Nullable
-  public static EndpointType getEndpoint (@Nonnull final SignedServiceMetadataType aSignedServiceMetadata,
-                                          @Nonnull final IProcessIdentifier aProcessID,
-                                          @Nonnull final ISMPTransportProfile aTransportProfile)
+  public static EndpointType getEndpoint (@NonNull final SignedServiceMetadataType aSignedServiceMetadata,
+                                          @NonNull final IProcessIdentifier aProcessID,
+                                          @NonNull final ISMPTransportProfile aTransportProfile)
   {
     ValueEnforcer.notNull (aSignedServiceMetadata, "SignedServiceMetadata");
     return getEndpoint (aSignedServiceMetadata.getServiceMetadata (), aProcessID, aTransportProfile);
@@ -504,9 +504,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @since 8.2.6
    */
   @Nullable
-  public static EndpointType getEndpoint (@Nonnull final ServiceMetadataType aServiceMetadata,
-                                          @Nonnull final IProcessIdentifier aProcessID,
-                                          @Nonnull final ISMPTransportProfile aTransportProfile)
+  public static EndpointType getEndpoint (@NonNull final ServiceMetadataType aServiceMetadata,
+                                          @NonNull final IProcessIdentifier aProcessID,
+                                          @NonNull final ISMPTransportProfile aTransportProfile)
   {
     ValueEnforcer.notNull (aServiceMetadata, "ServiceMetadata");
     final ServiceInformationType aServiceInformation = aServiceMetadata.getServiceInformation ();
@@ -647,10 +647,10 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    */
-  @Nonnull
-  public static ServiceGroupType getServiceGroupByDNS (@Nonnull final ISMPURLProvider aURLProvider,
-                                                       @Nonnull final ISMLInfo aSMLInfo,
-                                                       @Nonnull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
+  @NonNull
+  public static ServiceGroupType getServiceGroupByDNS (@NonNull final ISMPURLProvider aURLProvider,
+                                                       @NonNull final ISMLInfo aSMLInfo,
+                                                       @NonNull final IParticipantIdentifier aServiceGroupID) throws SMPClientException,
                                                                                                               SMPDNSResolutionException
   {
     return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceGroup (aServiceGroupID);
@@ -679,11 +679,11 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
    * @throws SMPDNSResolutionException
    *         if DNS resolution fails
    */
-  @Nonnull
-  public static SignedServiceMetadataType getServiceRegistrationByDNS (@Nonnull final ISMPURLProvider aURLProvider,
-                                                                       @Nonnull final ISMLInfo aSMLInfo,
-                                                                       @Nonnull final IParticipantIdentifier aServiceGroupID,
-                                                                       @Nonnull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
+  @NonNull
+  public static SignedServiceMetadataType getServiceRegistrationByDNS (@NonNull final ISMPURLProvider aURLProvider,
+                                                                       @NonNull final ISMLInfo aSMLInfo,
+                                                                       @NonNull final IParticipantIdentifier aServiceGroupID,
+                                                                       @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException,
                                                                                                                                SMPDNSResolutionException
   {
     return new BDXRClientReadOnly (aURLProvider, aServiceGroupID, aSMLInfo).getServiceMetadata (aServiceGroupID,

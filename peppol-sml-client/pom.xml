@@ -126,7 +126,7 @@
               com.helger.peppol.smlclient.support,
               com.helger.peppol.smlclient.tls
             </Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>
@@ -214,6 +214,7 @@
             <xjcArg>-no-header</xjcArg>
             <xjcArg>-Xph-default-locale</xjcArg>
             <xjcArg>en_US</xjcArg>
+            <xjcArg>-Xph-package-null-marked</xjcArg>
             <xjcArg>-Xph-annotate</xjcArg>
             <xjcArg>-Xph-fields-private</xjcArg>
             <xjcArg>-Xph-code-quality</xjcArg>

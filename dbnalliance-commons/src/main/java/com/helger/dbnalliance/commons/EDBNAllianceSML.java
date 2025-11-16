@@ -16,9 +16,9 @@
  */
 package com.helger.dbnalliance.commons;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
 /**
  * The list of supported DBNAlliance SML zones
@@ -33,12 +33,12 @@ public enum EDBNAllianceSML
 
   private final String m_sZoneName;
 
-  EDBNAllianceSML (@Nonnull @Nonempty final String sZoneName)
+  EDBNAllianceSML (@NonNull @Nonempty final String sZoneName)
   {
     m_sZoneName = sZoneName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getZoneName ()
   {

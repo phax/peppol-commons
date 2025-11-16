@@ -16,16 +16,16 @@
  */
 package com.helger.peppolid.bdxr.smp1.doctype;
 
-import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.peppolid.AbstractIdentifierMicroTypeConverter;
 
 public final class BDXR1DocumentTypeIdentifierMicroTypeConverter extends AbstractIdentifierMicroTypeConverter <BDXR1DocumentTypeIdentifier>
 {
   @Override
-  @Nonnull
-  protected BDXR1DocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @Nonnull final String sValue)
+  @NonNull
+  protected BDXR1DocumentTypeIdentifier getAsNative (@Nullable final String sScheme, @NonNull final String sValue)
   {
     return new BDXR1DocumentTypeIdentifier (sScheme, sValue);
   }

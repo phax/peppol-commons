@@ -16,10 +16,10 @@
  */
 package com.helger.peppolid.peppol.validator;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.IsSPIInterface;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An SPI interface to validate arbitrary identifier values (independent of the
@@ -41,7 +41,7 @@ public interface IParticipantIdentifierValidatorSPI
    * @return <code>true</code> if this validator can validate values of the
    *         passed scheme, <code>false</code> otherwise.
    */
-  boolean isSupportedIssuingAgency (@Nonnull @Nonempty String sIssuingAgencyID);
+  boolean isSupportedIssuingAgency (@NonNull @Nonempty String sIssuingAgencyID);
 
   /**
    * Check if the identifier value is valid. This method is only called if the
@@ -53,5 +53,5 @@ public interface IParticipantIdentifierValidatorSPI
    * @return <code>true</code> if the identifier value is valid,
    *         <code>false</code> if not.
    */
-  boolean isValueValid (@Nonnull @Nonempty String sValue);
+  boolean isValueValid (@NonNull @Nonempty String sValue);
 }

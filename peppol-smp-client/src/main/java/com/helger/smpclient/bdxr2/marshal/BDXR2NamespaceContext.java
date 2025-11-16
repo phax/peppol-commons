@@ -16,14 +16,14 @@
  */
 package com.helger.smpclient.bdxr2.marshal;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xsds.bdxr.smp2.CBDXRSMP2;
 import com.helger.xsds.ccts.cct.schemamodule.CCCTS;
 import com.helger.xsds.xades132.CXAdES132;
 import com.helger.xsds.xades141.CXAdES141;
 import com.helger.xsds.xmldsig.CXMLDSig;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The default namespace context for OASIS BDXR SMP v2.0.
@@ -60,7 +60,7 @@ public class BDXR2NamespaceContext extends MapBasedNamespaceContext
     addMapping (CBDXRSMP2.DEFAULT_PREFIX_SERVICE_METADATA, CBDXRSMP2.NAMESPACE_URI_SERVICE_METADATA);
   }
 
-  @Nonnull
+  @NonNull
   public static BDXR2NamespaceContext getInstance ()
   {
     return SingletonHolder.INSTANCE;

@@ -18,6 +18,9 @@ package com.helger.peppolid.supplementary.tools;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.string.StringRemove;
@@ -27,9 +30,6 @@ import com.helger.peppolid.peppol.PeppolIdentifierHelper;
 import com.helger.peppolid.peppol.doctype.IPeppolDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.PeppolDocumentTypeIdentifierParts;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 final class CodeGenerationHelper
@@ -50,9 +50,9 @@ final class CodeGenerationHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createShortcutDocumentTypeIDName (@Nonnull final IPeppolGenericDocumentTypeIdentifierParts aDocIDParts)
+  public static String createShortcutDocumentTypeIDName (@NonNull final IPeppolGenericDocumentTypeIdentifierParts aDocIDParts)
   {
     // Create a shortcut constant with a more readable name!
     final String sLocalName;
@@ -252,7 +252,7 @@ final class CodeGenerationHelper
 
   @Nullable
   @Nonempty
-  public static String createShortcutProcess (@Nonnull final String sScheme, @Nonnull final String sValue)
+  public static String createShortcutProcess (@NonNull final String sScheme, @NonNull final String sValue)
   {
     if (PeppolIdentifierHelper.DEFAULT_PROCESS_SCHEME.equals (sScheme))
     {
@@ -281,7 +281,7 @@ final class CodeGenerationHelper
 
   @Nullable
   @Nonempty
-  public static String createShortcutTransportProtocolName (@Nonnull final String sBISID)
+  public static String createShortcutTransportProtocolName (@NonNull final String sBISID)
   {
     String ret = sBISID;
     ret = StringRemove.removeAll (ret, ' ');

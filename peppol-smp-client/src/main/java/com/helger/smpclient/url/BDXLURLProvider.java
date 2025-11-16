@@ -16,11 +16,11 @@
  */
 package com.helger.smpclient.url;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The default implementation of {@link IBDXLURLProvider} suitable for the E-SENS network. See e.g.
@@ -58,12 +58,12 @@ public class BDXLURLProvider extends AbstractBDXLURLProvider implements ICloneab
    * @param rhs
    *        the object to copy from. May not be <code>null</code>.
    */
-  protected BDXLURLProvider (@Nonnull final BDXLURLProvider rhs)
+  protected BDXLURLProvider (@NonNull final BDXLURLProvider rhs)
   {
     super (rhs);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public BDXLURLProvider getClone ()
   {

@@ -16,12 +16,12 @@
  */
 package com.helger.peppol.smp;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.type.ObjectType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains predefined transport profiles for service registrations. A generic
@@ -94,36 +94,36 @@ public enum ESMPTransportProfile implements ISMPTransportProfile
   private final String m_sName;
   private final ESMPTransportProfileState m_eState;
 
-  ESMPTransportProfile (@Nonnull @Nonempty final String sID,
-                        @Nonnull @Nonempty final String sName,
-                        @Nonnull final ESMPTransportProfileState eState)
+  ESMPTransportProfile (@NonNull @Nonempty final String sID,
+                        @NonNull @Nonempty final String sName,
+                        @NonNull final ESMPTransportProfileState eState)
   {
     m_sID = sID;
     m_sName = sName;
     m_eState = eState;
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return SMPTransportProfile.OT;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  @Nonnull
+  @NonNull
   public ESMPTransportProfileState getState ()
   {
     return m_eState;

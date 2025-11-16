@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.factory;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.peppolid.bdxr.smp1.BDXR1IdentifierHelper;
 import com.helger.peppolid.bdxr.smp1.CBDXR1Identifier;
@@ -23,9 +26,6 @@ import com.helger.peppolid.bdxr.smp1.doctype.BDXR1DocumentTypeIdentifier;
 import com.helger.peppolid.bdxr.smp1.participant.BDXR1ParticipantIdentifier;
 import com.helger.peppolid.bdxr.smp1.process.BDXR1ProcessIdentifier;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IIdentifierFactory} for BDXR SMP v1
@@ -41,7 +41,7 @@ public class BDXR1IdentifierFactory implements IIdentifierFactory
   public BDXR1IdentifierFactory ()
   {}
 
-  @Nonnull
+  @NonNull
   @Override
   public String getDefaultDocumentTypeIdentifierScheme ()
   {
@@ -111,7 +111,7 @@ public class BDXR1IdentifierFactory implements IIdentifierFactory
     return null;
   }
 
-  @Nonnull
+  @NonNull
   @Override
   public String getDefaultProcessIdentifierScheme ()
   {

@@ -16,12 +16,12 @@
  */
 package com.helger.peppolid.bdxr.smp2;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
 import com.helger.base.url.URLHelper;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Helper methods for OASIS BDXR SMP v2 identifiers.

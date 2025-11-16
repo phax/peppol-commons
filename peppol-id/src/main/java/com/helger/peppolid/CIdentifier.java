@@ -16,14 +16,14 @@
  */
 package com.helger.peppolid;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
 import com.helger.url.codec.URLCoder;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Constants on BUSDOX identifiers that are not PEPPOL specific.
@@ -57,59 +57,59 @@ public final class CIdentifier
    *        The ID to be encoded. May not be <code>null</code>.
    * @return The URI encoded identifier value. (E.g. <code>iso6523-actorid-upis::0088:123456</code>)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final IIdentifier aID)
+  public static String getURIEncoded (@NonNull final IIdentifier aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final com.helger.xsds.peppol.id1.ParticipantIdentifierType aID)
+  public static String getURIEncoded (final com.helger.xsds.peppol.id1.@NonNull ParticipantIdentifierType aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final com.helger.xsds.peppol.id1.DocumentIdentifierType aID)
+  public static String getURIEncoded (final com.helger.xsds.peppol.id1.@NonNull DocumentIdentifierType aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final com.helger.xsds.peppol.id1.ProcessIdentifierType aID)
+  public static String getURIEncoded (final com.helger.xsds.peppol.id1.@NonNull ProcessIdentifierType aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final com.helger.xsds.bdxr.smp1.ParticipantIdentifierType aID)
+  public static String getURIEncoded (final com.helger.xsds.bdxr.smp1.@NonNull ParticipantIdentifierType aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final com.helger.xsds.bdxr.smp1.DocumentIdentifierType aID)
+  public static String getURIEncoded (final com.helger.xsds.bdxr.smp1.@NonNull DocumentIdentifierType aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final com.helger.xsds.bdxr.smp1.ProcessIdentifierType aID)
+  public static String getURIEncoded (final com.helger.xsds.bdxr.smp1.@NonNull ProcessIdentifierType aID)
   {
     return getURIEncoded (aID.getScheme (), aID.getValue ());
   }
 
   // This one handles SMP v2 as well
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getURIEncoded (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)
+  public static String getURIEncoded (final com.helger.xsds.ccts.cct.schemamodule.@NonNull IdentifierType aID)
   {
     return getURIEncoded (aID.getSchemeID (), aID.getValue ());
   }
@@ -125,7 +125,7 @@ public final class CIdentifier
    * @return The URI encoded identifier value in the form <code><i>scheme</i>::<i>value</i></code>
    *         or <code>::<i>value</i></code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getURIEncoded (@Nullable final String sScheme, @Nullable final String sValue)
   {
@@ -151,7 +151,7 @@ public final class CIdentifier
    * @return The URI encoded identifier value in the form <code><i>scheme</i>::<i>value</i></code>
    *         or <code><i>value</i></code>
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getURIEncodedBDXR2 (@Nullable final String sScheme, @Nullable final String sValue)
   {
@@ -204,52 +204,52 @@ public final class CIdentifier
    * @return The URI encoded identifier value. (E.g.
    *         <code>iso6523-actorid-upis%3A%3A0088%3A123456</code>)
    */
-  @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final IIdentifier aID)
+  @NonNull
+  public static String getURIPercentEncoded (@NonNull final IIdentifier aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.peppol.id1.ParticipantIdentifierType aID)
+  @NonNull
+  public static String getURIPercentEncoded (final com.helger.xsds.peppol.id1.@NonNull ParticipantIdentifierType aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.peppol.id1.DocumentIdentifierType aID)
+  @NonNull
+  public static String getURIPercentEncoded (final com.helger.xsds.peppol.id1.@NonNull DocumentIdentifierType aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.peppol.id1.ProcessIdentifierType aID)
+  @NonNull
+  public static String getURIPercentEncoded (final com.helger.xsds.peppol.id1.@NonNull ProcessIdentifierType aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.bdxr.smp1.ParticipantIdentifierType aID)
+  @NonNull
+  public static String getURIPercentEncoded (final com.helger.xsds.bdxr.smp1.@NonNull ParticipantIdentifierType aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.bdxr.smp1.DocumentIdentifierType aID)
+  @NonNull
+  public static String getURIPercentEncoded (final com.helger.xsds.bdxr.smp1.@NonNull DocumentIdentifierType aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.bdxr.smp1.ProcessIdentifierType aID)
+  @NonNull
+  public static String getURIPercentEncoded (final com.helger.xsds.bdxr.smp1.@NonNull ProcessIdentifierType aID)
   {
     return getURIPercentEncoded (aID.getScheme (), aID.getValue ());
   }
 
   // This one handles SMP v2 as well
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getURIPercentEncoded (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)
+  public static String getURIPercentEncoded (final com.helger.xsds.ccts.cct.schemamodule.@NonNull IdentifierType aID)
   {
     return getURIPercentEncoded (aID.getSchemeID (), aID.getValue ());
   }
@@ -265,7 +265,7 @@ public final class CIdentifier
    * @return The URI encoded identifier value. (E.g.
    *         <code>iso6523-actorid-upis%3A%3A0088%3A123456</code>)
    */
-  @Nonnull
+  @NonNull
   public static String getURIPercentEncoded (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sURIEncoded = getURIEncoded (sScheme, sValue);

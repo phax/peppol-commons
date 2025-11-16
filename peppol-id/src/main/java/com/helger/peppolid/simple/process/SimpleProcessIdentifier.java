@@ -16,6 +16,9 @@
  */
 package com.helger.peppolid.simple.process;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -26,13 +29,10 @@ import com.helger.peppolid.IMutableIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.xsds.peppol.id1.ProcessIdentifierType;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
- * This is a sanity class around the {@link ProcessIdentifierType} class with
- * easier construction and some sanity access methods. It may be used in all
- * places where {@link ProcessIdentifierType} objects are required.<br>
+ * This is a sanity class around the {@link ProcessIdentifierType} class with easier construction
+ * and some sanity access methods. It may be used in all places where {@link ProcessIdentifierType}
+ * objects are required.<br>
  *
  * @author Philip Helger
  */
@@ -46,19 +46,19 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public SimpleProcessIdentifier (@Nonnull final IProcessIdentifier aIdentifier)
+  public SimpleProcessIdentifier (@NonNull final IProcessIdentifier aIdentifier)
   {
     this (aIdentifier.getScheme (), aIdentifier.getValue ());
   }
 
   @DevelopersNote ("Don't invoke manually. Always use the IdentifierFactory!")
-  public SimpleProcessIdentifier (@Nullable final String sScheme, @Nonnull final String sValue)
+  public SimpleProcessIdentifier (@Nullable final String sScheme, @NonNull final String sValue)
   {
     setScheme (sScheme);
     setValue (sValue);
   }
 
-  public int compareTo (@Nonnull final SimpleProcessIdentifier aOther)
+  public int compareTo (@NonNull final SimpleProcessIdentifier aOther)
   {
     int ret = CompareHelper.compare (getScheme (), aOther.getScheme ());
     if (ret == 0)
@@ -66,7 +66,7 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public SimpleProcessIdentifier getClone ()
   {
@@ -89,20 +89,20 @@ public class SimpleProcessIdentifier extends ProcessIdentifierType implements
     return ret;
   }
 
-  @Nonnull
-  public static SimpleProcessIdentifier wrap (@Nonnull final com.helger.xsds.peppol.id1.ProcessIdentifierType aID)
+  @NonNull
+  public static SimpleProcessIdentifier wrap (final com.helger.xsds.peppol.id1.@NonNull ProcessIdentifierType aID)
   {
     return new SimpleProcessIdentifier (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static SimpleProcessIdentifier wrap (@Nonnull final com.helger.xsds.bdxr.smp1.ProcessIdentifierType aID)
+  @NonNull
+  public static SimpleProcessIdentifier wrap (final com.helger.xsds.bdxr.smp1.@NonNull ProcessIdentifierType aID)
   {
     return new SimpleProcessIdentifier (aID.getScheme (), aID.getValue ());
   }
 
-  @Nonnull
-  public static SimpleProcessIdentifier wrap (@Nonnull final com.helger.xsds.ccts.cct.schemamodule.IdentifierType aID)
+  @NonNull
+  public static SimpleProcessIdentifier wrap (final com.helger.xsds.ccts.cct.schemamodule.@NonNull IdentifierType aID)
   {
     return new SimpleProcessIdentifier (aID.getSchemeID (), aID.getValue ());
   }

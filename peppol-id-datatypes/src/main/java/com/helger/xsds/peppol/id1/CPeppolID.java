@@ -16,11 +16,11 @@
  */
 package com.helger.xsds.peppol.id1;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.io.resource.ClassPathResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Constants on Peppol identifiers.
@@ -40,19 +40,19 @@ public final class CPeppolID
   private CPeppolID ()
   {}
 
-  @Nonnull
+  @NonNull
   private static ClassLoader _getCL ()
   {
     return CPeppolID.class.getClassLoader ();
   }
 
-  @Nonnull
+  @NonNull
   public static ClassPathResource getXSDResourcePeppolIdentifiers ()
   {
     return new ClassPathResource ("/external/schemas/peppol-identifiers-v1.xsd", _getCL ());
   }
 
-  @Nonnull
+  @NonNull
   public static ClassPathResource getXSDPeppolCodeLists ()
   {
     return new ClassPathResource ("/external/schemas/peppol-codelists-v2.6.xsd", _getCL ());

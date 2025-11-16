@@ -19,6 +19,8 @@ package com.helger.peppol.sml;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -30,8 +32,6 @@ import com.helger.base.id.factory.GlobalIDFactory;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.type.ObjectType;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Use instances of this class if you're not happy with the {@link ESML} enumeration value but need
@@ -68,7 +68,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
    * @deprecated Use the build instead
    */
   @Deprecated (forRemoval = true, since = "12.1.0")
-  public SMLInfo (@Nonnull final ISMLInfo aOther)
+  public SMLInfo (@NonNull final ISMLInfo aOther)
   {
     this (aOther.getID (),
           aOther.getDisplayName (),
@@ -96,9 +96,9 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
    * @deprecated Use the builder instead
    */
   @Deprecated (forRemoval = true, since = "12.1.0")
-  public SMLInfo (@Nonnull @Nonempty final String sDisplayName,
-                  @Nonnull @Nonempty final String sDNSZone,
-                  @Nonnull @Nonempty final String sManagementServiceURL,
+  public SMLInfo (@NonNull @Nonempty final String sDisplayName,
+                  @NonNull @Nonempty final String sDNSZone,
+                  @NonNull @Nonempty final String sManagementServiceURL,
                   final boolean bClientCertificateRequired)
   {
     this (GlobalIDFactory.getNewPersistentStringID (),
@@ -129,10 +129,10 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
    * @deprecated Use the builder instead
    */
   @Deprecated (forRemoval = true, since = "12.1.0")
-  public SMLInfo (@Nonnull @Nonempty final String sID,
-                  @Nonnull @Nonempty final String sDisplayName,
-                  @Nonnull @Nonempty final String sDNSZone,
-                  @Nonnull @Nonempty final String sManagementServiceURL,
+  public SMLInfo (@NonNull @Nonempty final String sID,
+                  @NonNull @Nonempty final String sDisplayName,
+                  @NonNull @Nonempty final String sDNSZone,
+                  @NonNull @Nonempty final String sManagementServiceURL,
                   final boolean bClientCertificateRequired)
   {
     this (sID,
@@ -171,12 +171,12 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
    * @throws IllegalArgumentException
    *         If the manage service URLs cannot be created
    */
-  protected SMLInfo (@Nonnull @Nonempty final String sID,
-                     @Nonnull @Nonempty final String sDisplayName,
-                     @Nonnull @Nonempty final String sDNSZone,
-                     @Nonnull @Nonempty final String sManagementServiceURL,
-                     @Nonnull final String sURLSuffixManageSMP,
-                     @Nonnull final String sURLSuffixManageParticipant,
+  protected SMLInfo (@NonNull @Nonempty final String sID,
+                     @NonNull @Nonempty final String sDisplayName,
+                     @NonNull @Nonempty final String sDNSZone,
+                     @NonNull @Nonempty final String sManagementServiceURL,
+                     @NonNull final String sURLSuffixManageSMP,
+                     @NonNull final String sURLSuffixManageParticipant,
                      final boolean bClientCertificateRequired)
   {
     ValueEnforcer.notEmpty (sID, "ID");
@@ -207,59 +207,59 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     }
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return OT;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {
     return m_sDisplayName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDNSZone ()
   {
     return m_sDNSZone;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getManagementServiceURL ()
   {
     return m_sManagementServiceURL;
   }
 
-  @Nonnull
+  @NonNull
   public String getURLSuffixManageSMP ()
   {
     return m_sURLSuffixManageSMP;
   }
 
-  @Nonnull
+  @NonNull
   public URL getManageServiceMetaDataEndpointAddress ()
   {
     return m_aManageServiceMetaDataEndpointAddress;
   }
 
-  @Nonnull
+  @NonNull
   public String getURLSuffixManageParticipant ()
   {
     return m_sURLSuffixManageParticipant;
   }
 
-  @Nonnull
+  @NonNull
   public URL getManageParticipantIdentifierEndpointAddress ()
   {
     return m_aManageParticipantIdentifierEndpointAddress;
@@ -270,7 +270,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
     return m_bClientCertificateRequired;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public SMLInfo getClone ()
   {
@@ -324,7 +324,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
    * @return A new empty builder. Never <code>null</code>.
    * @since 12.1.0
    */
-  @Nonnull
+  @NonNull
   public static SMLInfoBuilder builder ()
   {
     return new SMLInfoBuilder ();
@@ -337,13 +337,13 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
    *         <code>null</code>.
    * @since 12.1.0
    */
-  @Nonnull
-  public static SMLInfoBuilder builder (@Nonnull final ISMLInfo aInfo)
+  @NonNull
+  public static SMLInfoBuilder builder (@NonNull final ISMLInfo aInfo)
   {
     return new SMLInfoBuilder (aInfo);
   }
 
-  public static boolean isValidURLSuffix (@Nonnull final String s)
+  public static boolean isValidURLSuffix (@NonNull final String s)
   {
     return s.length () == 0 || (s.length () > 1 && s.startsWith ("/"));
   }
@@ -370,7 +370,7 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
       urlSuffixManageParticipant (DEFAULT_SUFFIX_MANAGE_PARTICIPANT);
     }
 
-    public SMLInfoBuilder (@Nonnull final ISMLInfo a)
+    public SMLInfoBuilder (@NonNull final ISMLInfo a)
     {
       ValueEnforcer.notNull (a, "SMLInfo");
       id (a.getID ()).displayName (a.getDisplayName ())
@@ -381,44 +381,44 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
                      .clientCertificateRequired (a.isClientCertificateRequired ());
     }
 
-    @Nonnull
+    @NonNull
     public SMLInfoBuilder idNew ()
     {
       return id (GlobalIDFactory.getNewStringID ());
     }
 
-    @Nonnull
+    @NonNull
     public SMLInfoBuilder idNewPersistent ()
     {
       return id (GlobalIDFactory.getNewPersistentStringID ());
     }
 
-    @Nonnull
-    public SMLInfoBuilder id (@Nonnull @Nonempty final String sID)
+    @NonNull
+    public SMLInfoBuilder id (@NonNull @Nonempty final String sID)
     {
       ValueEnforcer.notEmpty (sID, "ID");
       m_sID = sID;
       return this;
     }
 
-    @Nonnull
-    public SMLInfoBuilder displayName (@Nonnull @Nonempty final String sDisplayName)
+    @NonNull
+    public SMLInfoBuilder displayName (@NonNull @Nonempty final String sDisplayName)
     {
       ValueEnforcer.notEmpty (sDisplayName, "DisplayName");
       m_sDisplayName = sDisplayName;
       return this;
     }
 
-    @Nonnull
-    public SMLInfoBuilder dnsZone (@Nonnull @Nonempty final String sDNSZone)
+    @NonNull
+    public SMLInfoBuilder dnsZone (@NonNull @Nonempty final String sDNSZone)
     {
       ValueEnforcer.notEmpty (sDNSZone, "DNSZone");
       m_sDNSZone = sDNSZone;
       return this;
     }
 
-    @Nonnull
-    public SMLInfoBuilder managementServiceURL (@Nonnull @Nonempty final String sManagementServiceURL)
+    @NonNull
+    public SMLInfoBuilder managementServiceURL (@NonNull @Nonempty final String sManagementServiceURL)
     {
       ValueEnforcer.notEmpty (sManagementServiceURL, "ManagementServiceURL");
 
@@ -427,8 +427,8 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
       return this;
     }
 
-    @Nonnull
-    public SMLInfoBuilder urlSuffixManageSMP (@Nonnull final String s)
+    @NonNull
+    public SMLInfoBuilder urlSuffixManageSMP (@NonNull final String s)
     {
       ValueEnforcer.notNull (s, "URLSuffixManageSMP");
       ValueEnforcer.isTrue ( () -> isValidURLSuffix (s), "URLSuffixManageSMP");
@@ -437,8 +437,8 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
       return this;
     }
 
-    @Nonnull
-    public SMLInfoBuilder urlSuffixManageParticipant (@Nonnull final String s)
+    @NonNull
+    public SMLInfoBuilder urlSuffixManageParticipant (@NonNull final String s)
     {
       ValueEnforcer.notNull (s, "URLSuffixManageParticipant");
       ValueEnforcer.isTrue ( () -> isValidURLSuffix (s), "URLSuffixManageParticipant");
@@ -447,14 +447,14 @@ public class SMLInfo implements ISMLInfo, ICloneable <SMLInfo>
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public SMLInfoBuilder clientCertificateRequired (final boolean b)
     {
       m_bClientCertificateRequired = b;
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public SMLInfo build ()
     {
       if (StringHelper.isEmpty (m_sID))

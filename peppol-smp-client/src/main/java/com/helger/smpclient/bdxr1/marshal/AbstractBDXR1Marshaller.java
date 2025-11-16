@@ -18,12 +18,13 @@ package com.helger.smpclient.bdxr1.marshal;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.collection.commons.ICommonsList;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.xsds.bdxr.smp1.CBDXRSMP1;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBElement;
 
 /**
@@ -37,8 +38,8 @@ public abstract class AbstractBDXR1Marshaller <JAXBTYPE> extends GenericJAXBMars
 {
   private static final ICommonsList <ClassPathResource> XSDS = CBDXRSMP1.getAllXSDResources ();
 
-  protected AbstractBDXR1Marshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                     @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+  protected AbstractBDXR1Marshaller (@NonNull final Class <JAXBTYPE> aType,
+                                     @NonNull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     super (aType, XSDS, aWrapper);
     setNamespaceContext (BDXR1NamespaceContext.getInstance ());
