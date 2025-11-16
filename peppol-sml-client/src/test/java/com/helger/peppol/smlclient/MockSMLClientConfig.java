@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.smlclient;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.config.Config;
 import com.helger.config.ConfigFactory;
@@ -24,7 +26,7 @@ import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.resource.properties.ConfigurationSourceProperties;
 import com.helger.io.resource.ClassPathResource;
 
-import jakarta.annotation.Nullable;
+
 
 /**
  * This class manages the special test configuration file for this project. The configuration file

@@ -24,6 +24,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.http.security.TrustManagerTrustAll;
 import com.helger.peppol.sml.ESML;
@@ -31,7 +32,7 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 
-import jakarta.annotation.Nullable;
+
 
 /**
  * Base class for SML client tests, with some utility content.

@@ -22,6 +22,7 @@ import java.net.URISyntaxException;
 import java.security.cert.CertificateException;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,6 @@ import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 
-import jakarta.annotation.Nullable;
 import jakarta.xml.ws.wsaddressing.W3CEndpointReference;
 
 /**

@@ -17,6 +17,7 @@
 package com.helger.smpclient.url;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,7 @@ import com.helger.base.timing.StopWatch;
 import com.helger.base.url.URLHelper;
 import com.helger.dns.naptr.NaptrResolver;
 
-import jakarta.annotation.Nullable;
+
 
 public class MainTestNAPTR
 {

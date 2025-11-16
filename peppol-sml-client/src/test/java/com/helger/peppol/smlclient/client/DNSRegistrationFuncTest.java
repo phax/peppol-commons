@@ -23,6 +23,7 @@ import java.net.InetAddress;
 import java.util.Arrays;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -48,7 +49,7 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.smpclient.url.PeppolNaptrURLProvider;
 
-import jakarta.annotation.Nullable;
+
 
 /**
  * This class is for BRZ internal use only!
