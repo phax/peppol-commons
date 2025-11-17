@@ -36,7 +36,6 @@ import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.factory.SimpleIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.Pfuoi440;
 import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 
 /**
@@ -44,8 +43,7 @@ import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
  *
  * @author Philip Helger
  */
-@Pfuoi440
-@Deprecated (forRemoval = true)
+@Deprecated (forRemoval = true, since = "10.3.1")
 public final class PeppolURLProviderTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolURLProviderTest.class);

@@ -21,11 +21,10 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
-import com.helger.peppolid.peppol.Pfuoi440;
 
 /**
  * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve NAPTR
- * records as defined in the Peppol Policy for use of Identifiers.<br>
+ * records as defined in the Peppol Policy for use of Identifiers v4.4.0.<br>
  * Layout:
  * <code>strip-trailing(base32(sha256(lowercase(ID-VALUE))),"=")+"."+ID-SCHEME+"."+SML-ZONE-NAME</code>
  *
@@ -33,7 +32,6 @@ import com.helger.peppolid.peppol.Pfuoi440;
  * @since 9.6.1
  */
 @ThreadSafe
-@Pfuoi440
 public class PeppolNaptrURLProvider extends AbstractBDXLURLProvider implements
                                     IPeppolURLProvider,
                                     ICloneable <PeppolNaptrURLProvider>

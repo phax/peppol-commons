@@ -50,7 +50,6 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
 import com.helger.security.certificate.ECertificateCheckResult;
@@ -273,7 +272,6 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  @Pfuoi430
   public void testGetSchemeSpecificServiceMetadataOrNull_PFUOI430 () throws Exception
   {
     final PeppolIdentifierFactory aIF = PeppolIdentifierFactory.INSTANCE;

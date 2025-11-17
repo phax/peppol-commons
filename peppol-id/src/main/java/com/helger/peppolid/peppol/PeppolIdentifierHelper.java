@@ -87,7 +87,6 @@ public final class PeppolIdentifierHelper
    * PFUOI 4.3: 50 characters<br>
    * PFUOI 4.4: 4 + ":" + 130 characters
    */
-  @Pfuoi440
   public static final int MAX_PARTICIPANT_VALUE_LENGTH = 4 + 1 + 130;
 
   /**

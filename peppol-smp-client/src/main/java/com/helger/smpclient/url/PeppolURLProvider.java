@@ -32,7 +32,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import com.helger.peppolid.peppol.Pfuoi440;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 
@@ -40,11 +39,11 @@ import com.helger.security.messagedigest.MessageDigestValue;
  * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve CNAME
  * records.<br>
  * Layout: <code>"B-"+hexstring(md5(lowercase(ID-VALUE)))+"."+ID-SCHEME+"."+SML-ZONE-NAME</code><br>
- * This class was replaced by {@link PeppolNaptrURLProvider}.
+ * This class was replaced by {@link PeppolNaptrURLProvider} as per Policy for use of Identifiers
+ * v4.4.0.
  *
  * @author Philip Helger
  */
-@Pfuoi440
 @Immutable
 @Deprecated (since = "10.3.1", forRemoval = true)
 public class PeppolURLProvider implements IPeppolURLProvider

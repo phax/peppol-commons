@@ -51,7 +51,6 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -730,7 +729,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   @Nullable
-  @Pfuoi430
   public SignedServiceMetadataType getSchemeSpecificServiceMetadata (@NonNull final IParticipantIdentifier aServiceGroupID,
                                                                      @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {
@@ -795,7 +793,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   }
 
   @Nullable
-  @Pfuoi430
   public SignedServiceMetadataType getSchemeSpecificServiceMetadataOrNull (@NonNull final IParticipantIdentifier aServiceGroupID,
                                                                            @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
   {

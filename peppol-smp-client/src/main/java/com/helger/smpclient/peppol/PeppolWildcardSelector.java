@@ -35,7 +35,6 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.peppolid.peppol.doctype.IPeppolGenericDocumentTypeIdentifierParts;
 import com.helger.peppolid.peppol.doctype.PeppolGenericDocumentTypeIdentifierParts;
 
@@ -71,7 +70,6 @@ public class PeppolWildcardSelector
    * @return Non-<code>null</code>.
    */
   @NonNull
-  @Pfuoi430
   public static ESuccess findPeppolDoctypeWildcardMatch (@NonNull final ICommonsList <? extends IDocumentTypeIdentifier> aBaseDocTypes,
                                                          @NonNull @Nonempty final IDocumentTypeIdentifier aSearchDocTypeValue,
                                                          @NonNull final Consumer <? super IDocumentTypeIdentifier> aMatchingDocTypeConsumer)

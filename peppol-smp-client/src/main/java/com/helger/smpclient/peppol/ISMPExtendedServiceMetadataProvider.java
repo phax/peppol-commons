@@ -29,7 +29,6 @@ import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.peppolid.peppol.Pfuoi430;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -371,7 +370,6 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
    * @see ISMPServiceGroupProvider#getServiceGroupOrNull(IParticipantIdentifier)
    */
   @Nullable
-  @Pfuoi430
   SignedServiceMetadataType getSchemeSpecificServiceMetadataOrNull (@NonNull IParticipantIdentifier aServiceGroupID,
                                                                     @NonNull IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException;
 }
