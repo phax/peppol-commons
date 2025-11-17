@@ -438,10 +438,10 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     }
 
     // Special case: participant does not exist
-    if (ex instanceof UnknownHostException)
-      return new SMPClientParticipantNotFoundException ((UnknownHostException) ex);
-    if (ex instanceof ConnectException)
-      return new SMPClientParticipantNotFoundException ((ConnectException) ex);
+    if (ex instanceof final UnknownHostException uhex)
+      return new SMPClientParticipantNotFoundException (uhex);
+    if (ex instanceof final ConnectException cex)
+      return new SMPClientParticipantNotFoundException (cex);
 
     // For new SMPClientBadResponseException
     if (ex instanceof ClientProtocolException && ex.getCause () instanceof SMPClientException)
