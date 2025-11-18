@@ -52,7 +52,7 @@ public final class PDBusinessCardHelper
   {}
 
   @NonNull
-  public static IPDBusinessCardMarshallerCustomizer createDefaultMarshallerCallback (@Nullable final Charset aCharset)
+  public static IPDBusinessCardMarshallerCustomizer createDefaultMarshallerCustomizer (@Nullable final Charset aCharset)
   {
     return (m, ver) -> {
       if (ver != EBusinessCardVersion.LATEST)
@@ -67,9 +67,9 @@ public final class PDBusinessCardHelper
   }
 
   @NonNull
-  public static IPDBusinessCardMarshallerCustomizer createDefaultMarshallerCallback ()
+  public static IPDBusinessCardMarshallerCustomizer createDefaultMarshallerCustomizer ()
   {
-    return createDefaultMarshallerCallback (null);
+    return createDefaultMarshallerCustomizer (null);
   }
 
   /**
@@ -88,7 +88,7 @@ public final class PDBusinessCardHelper
   {
     ValueEnforcer.notNull (aData, "Data");
 
-    return parseBusinessCard (aData, createDefaultMarshallerCallback (aCharset));
+    return parseBusinessCard (aData, createDefaultMarshallerCustomizer (aCharset));
   }
 
   /**
@@ -187,7 +187,7 @@ public final class PDBusinessCardHelper
   {
     ValueEnforcer.notNull (aNode, "Node");
 
-    return parseBusinessCard (aNode, createDefaultMarshallerCallback ());
+    return parseBusinessCard (aNode, createDefaultMarshallerCustomizer ());
   }
 
   /**
