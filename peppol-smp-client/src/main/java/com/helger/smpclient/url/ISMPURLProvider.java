@@ -42,7 +42,7 @@ public interface ISMPURLProvider
    *        The participant ID. May not be <code>null</code>.
    * @param sSMLZoneName
    *        The SML zone to use. May be <code>null</code>.
-   * @return A new URI starting with "http://" and never ending with a slash.
+   * @return A new URI starting with "http://" or "https://" and never ending with a slash.
    * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, ISMLInfo)
@@ -60,7 +60,7 @@ public interface ISMPURLProvider
    *        The participant ID. May not be <code>null</code>.
    * @param aSMLInfo
    *        The SML zone to use. May not be <code>null</code>.
-   * @return A new URI starting with "http://" and never ending with a slash.
+   * @return A new URI starting with "http://" or "https://" and never ending with a slash.
    * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
@@ -83,7 +83,7 @@ public interface ISMPURLProvider
    *        The participant ID. May not be <code>null</code>.
    * @param aSMLInfo
    *        The SML zone to use. May not be <code>null</code>.
-   * @return A new URL with scheme "http:" and never ending with a slash.
+   * @return A new URL with scheme "http://" or "https://" and never ending with a slash.
    * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
@@ -109,7 +109,7 @@ public interface ISMPURLProvider
    *        The participant ID. May not be <code>null</code>.
    * @param sSMLZoneName
    *        The SML zone name to use. May be <code>null</code>.
-   * @return A new URL with scheme "http:" and never ending with a slash.
+   * @return A new URL with scheme "http://" or "https://" and never ending with a slash.
    * @throws SMPDNSResolutionException
    *         If the URL resolution failed.
    * @see #getSMPURIOfParticipant(IParticipantIdentifier, String)
