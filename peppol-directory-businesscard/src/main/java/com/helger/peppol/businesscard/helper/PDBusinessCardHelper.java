@@ -17,7 +17,6 @@
 package com.helger.peppol.businesscard.helper;
 
 import java.nio.charset.Charset;
-import java.util.function.BiConsumer;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -25,12 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
-import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.base.id.IHasID;
-import com.helger.base.lang.EnumHelper;
-import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jaxb.validation.DoNothingValidationEventHandler;
 import com.helger.peppol.businesscard.generic.PDBusinessCard;
 import com.helger.peppol.businesscard.v1.PD1APIHelper;
@@ -51,57 +46,15 @@ import com.helger.peppol.businesscard.v3.PD3BusinessCardType;
 @Immutable
 public final class PDBusinessCardHelper
 {
-  public enum EBusinessCardVersion implements IHasID <String>
-  {
-    V1 ("v1"),
-    V2 ("v2"),
-    V3 ("v3");
-
-    static final EBusinessCardVersion LATEST = V3;
-
-    private final String m_sID;
-
-    EBusinessCardVersion (@NonNull @Nonempty final String sID)
-    {
-      m_sID = sID;
-    }
-
-    @NonNull
-    @Nonempty
-    public String getID ()
-    {
-      return m_sID;
-    }
-
-    @Nullable
-    public static EBusinessCardVersion getFromIDOrNull (@Nullable final String sID)
-    {
-      return EnumHelper.getFromIDOrNull (EBusinessCardVersion.class, sID);
-    }
-  }
-
   private static final Logger LOGGER = LoggerFactory.getLogger (PDBusinessCardHelper.class);
 
   private PDBusinessCardHelper ()
   {}
 
-  /**
-   * A generic reading API to read all supported versions of the BusinessCard
-   * from a byte array and an optional character set.
-   *
-   * @param aData
-   *        Bytes to read. May not be <code>null</code>.
-   * @param aCharset
-   *        Character set to use. May be <code>null</code> in which case the XML
-   *        character set determination takes place.
-   * @return <code>null</code> if parsing fails.
-   */
-  @Nullable
-  public static PDBusinessCard parseBusinessCard (@NonNull final byte [] aData, @Nullable final Charset aCharset)
+  @NonNull
+  public static IPDBusinessCardMarshallerCustomizer createDefaultMarshallerCallback (@Nullable final Charset aCharset)
   {
-    ValueEnforcer.notNull (aData, "Data");
-
-    return parseBusinessCard (aData, (m, ver) -> {
+    return (m, ver) -> {
       if (ver != EBusinessCardVersion.LATEST)
       {
         // Silent mode for all versions but the latest
@@ -110,24 +63,48 @@ public final class PDBusinessCardHelper
       }
       if (aCharset != null)
         m.setCharset (aCharset);
-    });
+    };
+  }
+
+  @NonNull
+  public static IPDBusinessCardMarshallerCustomizer createDefaultMarshallerCallback ()
+  {
+    return createDefaultMarshallerCallback (null);
   }
 
   /**
-   * A generic reading API to read all supported versions of the BusinessCard
-   * from a byte array and an optional character set.
+   * A generic reading API to read all supported versions of the BusinessCard from a byte array and
+   * an optional character set.
+   *
+   * @param aData
+   *        Bytes to read. May not be <code>null</code>.
+   * @param aCharset
+   *        Character set to use. May be <code>null</code> in which case the XML character set
+   *        determination takes place.
+   * @return <code>null</code> if parsing fails.
+   */
+  @Nullable
+  public static PDBusinessCard parseBusinessCard (@NonNull final byte [] aData, @Nullable final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aData, "Data");
+
+    return parseBusinessCard (aData, createDefaultMarshallerCallback (aCharset));
+  }
+
+  /**
+   * A generic reading API to read all supported versions of the BusinessCard from a byte array and
+   * an optional character set.
    *
    * @param aData
    *        Bytes to read. May not be <code>null</code>.
    * @param aMarshallerCustomizer
-   *        The optional marshaller customizer to be used. May be
-   *        <code>null</code>.
+   *        The optional marshaller customizer to be used. May be <code>null</code>.
    * @return <code>null</code> if parsing fails.
    * @since 0.9.6
    */
   @Nullable
   public static PDBusinessCard parseBusinessCard (@NonNull final byte [] aData,
-                                                  @Nullable final BiConsumer <? super GenericJAXBMarshaller <?>, EBusinessCardVersion> aMarshallerCustomizer)
+                                                  @Nullable final IPDBusinessCardMarshallerCustomizer aMarshallerCustomizer)
   {
     ValueEnforcer.notNull (aData, "Data");
 
@@ -198,8 +175,7 @@ public final class PDBusinessCardHelper
   }
 
   /**
-   * A generic reading API to read all supported versions of the BusinessCard
-   * from a DOM node.
+   * A generic reading API to read all supported versions of the BusinessCard from a DOM node.
    *
    * @param aNode
    *        Pre-parsed XML node to read. May not be <code>null</code>.
@@ -211,31 +187,22 @@ public final class PDBusinessCardHelper
   {
     ValueEnforcer.notNull (aNode, "Node");
 
-    return parseBusinessCard (aNode, (m, ver) -> {
-      if (ver != EBusinessCardVersion.LATEST)
-      {
-        // Silent mode for all versions but the latest
-        m.readExceptionCallbacks ().removeAll ();
-        m.setValidationEventHandler (new DoNothingValidationEventHandler ());
-      }
-    });
+    return parseBusinessCard (aNode, createDefaultMarshallerCallback ());
   }
 
   /**
-   * A generic reading API to read all supported versions of the BusinessCard
-   * from a DOM node.
+   * A generic reading API to read all supported versions of the BusinessCard from a DOM node.
    *
    * @param aNode
    *        Pre-parsed XML node to read. May not be <code>null</code>.
    * @param aMarshallerCustomizer
-   *        The optional marshaller customizer to be used. May be
-   *        <code>null</code>.
+   *        The optional marshaller customizer to be used. May be <code>null</code>.
    * @return <code>null</code> if parsing fails.
    * @since 0.9.6
    */
   @Nullable
   public static PDBusinessCard parseBusinessCard (@NonNull final Node aNode,
-                                                  @Nullable final BiConsumer <? super GenericJAXBMarshaller <?>, EBusinessCardVersion> aMarshallerCustomizer)
+                                                  @Nullable final IPDBusinessCardMarshallerCustomizer aMarshallerCustomizer)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
