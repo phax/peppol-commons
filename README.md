@@ -349,6 +349,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.2.1 - work in progress
+* Added new methods to interface `IPeppolParticipantIdentifierScheme` that were already implemented in `EPredefinedParticipantIdentifierScheme`
+* Moved class `EBusinessCardVersion` to top-level
+* Extracted interface `IPDBusinessCardMarshallerCustomizer` instead of complex `BiConsumer`
+* Extracted methods `PDBusinessCardHelper.createDefaultMarshallerCustomizer`
+
 v12.2.0 - 2024-11-16
 * Updated to ph-commons 12.1.0
 * Using JSpecify annotations

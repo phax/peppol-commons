@@ -48,15 +48,6 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
   String getSchemeID ();
 
   /**
-   * Get the optional name of the agency. This is pure descriptive text without any predefined
-   * semantics.
-   *
-   * @return The optional name of this agency. May be <code>null</code>.
-   */
-  @Nullable
-  String getSchemeAgency ();
-
-  /**
    * Get the ISO-6523 based identifier value.<br>
    * Example: this method returns "0088" for GLN.
    *
@@ -66,6 +57,31 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
   @NonNull
   @Nonempty
   String getISO6523Code ();
+
+  /**
+   * @return The country code of the entry. "international" for international entries.
+   * @since 12.2.1 in this interface
+   */
+  @NonNull
+  @Nonempty
+  String getCountryCode ();
+
+  /**
+   * @return Human readable name of the scheme.
+   * @since 12.2.1 in this interface
+   */
+  @NonNull
+  @Nonempty
+  String getSchemeName ();
+
+  /**
+   * Get the optional name of the agency. This is pure descriptive text without any predefined
+   * semantics.
+   *
+   * @return The optional name of this agency. May be <code>null</code>.
+   */
+  @Nullable
+  String getSchemeAgency ();
 
   /**
    * Get the real participant identifier value for the given local identifier. <br>
