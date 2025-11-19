@@ -242,11 +242,14 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                               @Nullable final String sSMLZoneName)
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
-    // Ensure the DNS zone name ends with a dot!
-    if (StringHelper.isNotEmpty (sSMLZoneName))
-      ValueEnforcer.isTrue (StringHelper.endsWith (sSMLZoneName, '.'),
-                            () -> "if an SML zone name is specified, it must end with a dot (.). Value is: " +
-                                  sSMLZoneName);
+
+    // Old and legacy
+    if (false)
+      // Ensure the DNS zone name ends with a dot!
+      if (StringHelper.isNotEmpty (sSMLZoneName))
+        ValueEnforcer.isTrue (StringHelper.endsWith (sSMLZoneName, '.'),
+                              () -> "if an SML zone name is specified, it must end with a dot (.). Value is: " +
+                                    sSMLZoneName);
 
     final StringBuilder ret = new StringBuilder ();
 
@@ -310,10 +313,12 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
   {
     ValueEnforcer.notNull (aParticipantIdentifier, "ParticipantIdentifier");
 
-    // Ensure the DNS zone name ends with a dot!
-    if (StringHelper.isNotEmpty (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
-                                           sSMLZoneName);
+    // Old and legacy
+    if (false)
+      // Ensure the DNS zone name ends with a dot!
+      if (StringHelper.isNotEmpty (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
+        throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
+                                             sSMLZoneName);
 
     final String sBuildDomainName = getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
 
