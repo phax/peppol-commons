@@ -606,7 +606,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Has some weird internal inconsistency in the base path :-)")
+  // @Ignore ("Has some weird internal inconsistency in the base path :-)")
   public void testFujitsuSignature () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0204:FujitsuwMPOC");
