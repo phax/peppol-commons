@@ -60,7 +60,7 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
 
   /**
    * @return The country code of the entry. "international" for international entries.
-   * @since 12.2.1 in this interface
+   * @since 12.3.0 in this interface
    */
   @NonNull
   @Nonempty
@@ -68,7 +68,7 @@ public interface IPeppolParticipantIdentifierScheme extends Serializable
 
   /**
    * @return Human readable name of the scheme.
-   * @since 12.2.1 in this interface
+   * @since 12.3.0 in this interface
    */
   @NonNull
   @Nonempty

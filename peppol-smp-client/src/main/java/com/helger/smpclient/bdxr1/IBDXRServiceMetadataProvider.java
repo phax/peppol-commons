@@ -45,7 +45,7 @@ public interface IBDXRServiceMetadataProvider
    * @throws SMPClientException
    *         in case something goes wrong
    * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
-   * @since 12.2.1 in this interface
+   * @since 12.3.0 in this interface
    */
   @NonNull
   default SignedServiceMetadataType getServiceMetadata (@NonNull final IParticipantIdentifier aServiceGroupID,
@@ -70,7 +70,7 @@ public interface IBDXRServiceMetadataProvider
    *         in case something goes wrong
    * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier,
    *      ISMPFollowRedirectCallback)
-   * @since 12.2.1 in this interface
+   * @since 12.3.0 in this interface
    */
   @NonNull
   SignedServiceMetadataType getServiceMetadata (@NonNull IParticipantIdentifier aServiceGroupID,

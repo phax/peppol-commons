@@ -349,11 +349,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.2.1 - work in progress
+v12.3.0 - work in progress
 * Added new methods to interface `IPeppolParticipantIdentifierScheme` that were already implemented in `EPredefinedParticipantIdentifierScheme`
 * Moved class `EBusinessCardVersion` to top-level
 * Extracted interface `IPDBusinessCardMarshallerCustomizer` instead of complex `BiConsumer`
 * Extracted methods `PDBusinessCardHelper.createDefaultMarshallerCustomizer`
+* Extended interface `IPeppolParticipantIdentifierScheme` with methods `getCountryCode` and `getSchemeName`
 * Removed the requirement on all BDXL based lookups that the DNS zone must end with a dot. Works without it as well.
 * Added method `getServiceGroup` to interface `IBDXRServiceGroupProvider`
 * Moved methods from `IBDXRServiceMetadataProvider` to `IBDXRExtendedServiceMetadataProvider` - similar as for Peppol data

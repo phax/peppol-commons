@@ -40,7 +40,7 @@ public interface IBDXRServiceGroupProvider
    * @return The service group. Never <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong
-   * @since 12.2.1 in this interface
+   * @since 12.3.0 in this interface
    */
   @NonNull
   ServiceGroupType getServiceGroup (@NonNull IParticipantIdentifier aServiceGroupID) throws SMPClientException;

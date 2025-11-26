@@ -38,7 +38,7 @@ import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
  * Abstract interface to retrieve extended BDXR Service Metadata instance.
  *
  * @author Philip Helger
- * @since 12.2.1
+ * @since 12.3.0
  */
 public interface IBDXRExtendedServiceMetadataProvider extends IBDXRServiceMetadataProvider
 {

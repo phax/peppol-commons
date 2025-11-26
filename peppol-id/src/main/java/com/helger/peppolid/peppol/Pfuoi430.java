@@ -31,7 +31,7 @@ import com.helger.datetime.helper.PDTFactory;
  *
  * @author Philip Helger
  */
-@Deprecated (forRemoval = true, since = "12.2.1")
+@Deprecated (forRemoval = true, since = "12.3.0")
 @Retention (RetentionPolicy.SOURCE)
 @Target ({ ElementType.TYPE,
            ElementType.METHOD,
