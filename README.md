@@ -355,6 +355,8 @@ v12.2.1 - work in progress
 * Extracted interface `IPDBusinessCardMarshallerCustomizer` instead of complex `BiConsumer`
 * Extracted methods `PDBusinessCardHelper.createDefaultMarshallerCustomizer`
 * Removed the requirement on all BDXL based lookups that the DNS zone must end with a dot. Works without it as well.
+* Added method `getServiceGroup` to interface `IBDXRServiceGroupProvider`
+* Moved methods from `IBDXRServiceMetadataProvider` to `IBDXRExtendedServiceMetadataProvider` - similar as for Peppol data
 
 v12.2.0 - 2024-11-16
 * Updated to ph-commons 12.1.0

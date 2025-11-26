@@ -79,7 +79,7 @@ import jakarta.xml.bind.JAXBElement;
  */
 public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientReadOnly> implements
                                 IBDXRServiceGroupProvider,
-                                IBDXRServiceMetadataProvider
+                                IBDXRExtendedServiceMetadataProvider
 {
   public static final String URL_PART_SERVICES = "services";
 

@@ -37,6 +37,20 @@ public interface IBDXRServiceGroupProvider
    *
    * @param aServiceGroupID
    *        The ID of the service group to retrieve. May not be <code>null</code>.
+   * @return The service group. Never <code>null</code>.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @since 12.2.1 in this interface
+   */
+  @NonNull
+  ServiceGroupType getServiceGroup (@NonNull IParticipantIdentifier aServiceGroupID) throws SMPClientException;
+
+  /**
+   * Returns a service group. A service group references to the service metadata. This is a
+   * specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The ID of the service group to retrieve. May not be <code>null</code>.
    * @return The service group. Maybe <code>null</code>.
    * @throws SMPClientException
    *         in case something goes wrong

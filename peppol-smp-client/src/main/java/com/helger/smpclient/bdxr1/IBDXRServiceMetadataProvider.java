@@ -16,23 +16,13 @@
  */
 package com.helger.smpclient.bdxr1;
 
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-import com.helger.base.enforce.ValueEnforcer;
-import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
-import com.helger.peppolid.IProcessIdentifier;
-import com.helger.security.certificate.CertificateHelper;
-import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
-import com.helger.smpclient.exception.SMPClientUnauthorizedException;
 import com.helger.smpclient.redirect.ISMPFollowRedirectCallback;
-import com.helger.xsds.bdxr.smp1.EndpointType;
 import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
 
 /**
@@ -43,6 +33,50 @@ import com.helger.xsds.bdxr.smp1.SignedServiceMetadataType;
  */
 public interface IBDXRServiceMetadataProvider
 {
+  /**
+   * Gets a signed service metadata object given by its service group id and its document type.<br>
+   * This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be <code>null</code>.
+   * @return A signed service metadata object. Never <code>null</code>.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier)
+   * @since 12.2.1 in this interface
+   */
+  @NonNull
+  default SignedServiceMetadataType getServiceMetadata (@NonNull final IParticipantIdentifier aServiceGroupID,
+                                                        @NonNull final IDocumentTypeIdentifier aDocumentTypeID) throws SMPClientException
+  {
+    return getServiceMetadata (aServiceGroupID, aDocumentTypeID, null);
+  }
+
+  /**
+   * Gets a signed service metadata object given by its service group id and its document type.<br>
+   * This is a specification compliant method.
+   *
+   * @param aServiceGroupID
+   *        The service group id of the service metadata to get. May not be <code>null</code>.
+   * @param aDocumentTypeID
+   *        The document type of the service metadata to get. May not be <code>null</code>.
+   * @param aFollowRedirectCallback
+   *        The optional callback to be invoked in case of an SMP redirect. May be
+   *        <code>null</code>.
+   * @return A signed service metadata object. Never <code>null</code>.
+   * @throws SMPClientException
+   *         in case something goes wrong
+   * @see #getServiceMetadataOrNull(IParticipantIdentifier, IDocumentTypeIdentifier,
+   *      ISMPFollowRedirectCallback)
+   * @since 12.2.1 in this interface
+   */
+  @NonNull
+  SignedServiceMetadataType getServiceMetadata (@NonNull IParticipantIdentifier aServiceGroupID,
+                                                @NonNull IDocumentTypeIdentifier aDocumentTypeID,
+                                                @Nullable ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException;
+
   /**
    * Gets a signed service metadata object given by its service group id and its document type.<br>
    * This is a specification compliant method.
@@ -76,147 +110,10 @@ public interface IBDXRServiceMetadataProvider
    * @return A service metadata object or <code>null</code> if no such registration is present.
    * @throws SMPClientException
    *         in case something goes wrong
-   * @since 10.50
+   * @since 10.5.0
    */
   @Nullable
   SignedServiceMetadataType getServiceMetadataOrNull (@NonNull IParticipantIdentifier aServiceGroupID,
                                                       @NonNull IDocumentTypeIdentifier aDocumentTypeID,
                                                       @Nullable ISMPFollowRedirectCallback aFollowRedirectCallback) throws SMPClientException;
-
-  /**
-   * Retrieve the service metadata from the provided service group ID and document type ID. Than
-   * find the matching endpoint from the process ID and transport profile.<br>
-   * This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        The service group id of the service metadata to get. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        The document type of the service metadata to get. May not be <code>null</code>.
-   * @param aProcessID
-   *        The process ID of the service metadata to get. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        The transport profile of the service metadata to get. May not be <code>null</code>.
-   * @return The endpoint from the signed service metadata object or <code>null</code> if no such
-   *         registration is present.
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @see #getServiceMetadataOrNull(IParticipantIdentifier,IDocumentTypeIdentifier)
-   */
-  @Nullable
-  default EndpointType getEndpoint (@NonNull final IParticipantIdentifier aServiceGroupID,
-                                    @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
-                                    @NonNull final IProcessIdentifier aProcessID,
-                                    @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    ValueEnforcer.notNull (aServiceGroupID, "ServiceGroupID");
-    ValueEnforcer.notNull (aDocumentTypeID, "DocumentTypeID");
-    ValueEnforcer.notNull (aProcessID, "ProcessID");
-    ValueEnforcer.notNull (aTransportProfile, "TransportProfile");
-
-    // Get meta data for participant/documentType
-    final SignedServiceMetadataType aSignedServiceMetadata = getServiceMetadataOrNull (aServiceGroupID,
-                                                                                       aDocumentTypeID);
-    return aSignedServiceMetadata == null ? null : BDXRClientReadOnly.getEndpoint (aSignedServiceMetadata,
-                                                                                   aProcessID,
-                                                                                   aTransportProfile);
-  }
-
-  /**
-   * Get the endpoint address URI from the specified endpoint.<br>
-   * This is a specification compliant method.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no endpoint
-   *         address URI
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   */
-  @Nullable
-  default String getEndpointAddress (@NonNull final IParticipantIdentifier aServiceGroupID,
-                                     @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
-                                     @NonNull final IProcessIdentifier aProcessID,
-                                     @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return BDXRClientReadOnly.getEndpointAddress (aEndpoint);
-  }
-
-  /**
-   * Get the certificate bytes from the specified endpoint.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   */
-  @Nullable
-  default byte [] getEndpointCertificateBytes (@NonNull final IParticipantIdentifier aServiceGroupID,
-                                               @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
-                                               @NonNull final IProcessIdentifier aProcessID,
-                                               @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException
-  {
-    final EndpointType aEndpoint = getEndpoint (aServiceGroupID, aDocumentTypeID, aProcessID, aTransportProfile);
-    return BDXRClientReadOnly.getEndpointCertificateBytes (aEndpoint);
-  }
-
-  /**
-   * Get the certificate from the specified endpoint.
-   *
-   * @param aServiceGroupID
-   *        Service group ID. May not be <code>null</code>.
-   * @param aDocumentTypeID
-   *        Document type ID. May not be <code>null</code>.
-   * @param aProcessID
-   *        Process ID. May not be <code>null</code>.
-   * @param aTransportProfile
-   *        Transport profile. May not be <code>null</code>.
-   * @return <code>null</code> if no such endpoint exists, or if the endpoint has no certificate
-   * @throws SMPClientException
-   *         in case something goes wrong
-   * @throws SMPClientUnauthorizedException
-   *         A HTTP Forbidden was received, should not happen.
-   * @throws SMPClientBadRequestException
-   *         The request was not well formed.
-   * @throws CertificateException
-   *         In case the conversion from byte to X509 certificate failed
-   */
-  @Nullable
-  default X509Certificate getEndpointCertificate (@NonNull final IParticipantIdentifier aServiceGroupID,
-                                                  @NonNull final IDocumentTypeIdentifier aDocumentTypeID,
-                                                  @NonNull final IProcessIdentifier aProcessID,
-                                                  @NonNull final ISMPTransportProfile aTransportProfile) throws SMPClientException,
-                                                                                                         CertificateException
-  {
-    final byte [] aCertBytes = getEndpointCertificateBytes (aServiceGroupID,
-                                                            aDocumentTypeID,
-                                                            aProcessID,
-                                                            aTransportProfile);
-    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
-  }
 }
