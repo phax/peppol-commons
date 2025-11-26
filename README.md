@@ -349,7 +349,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.0 - work in progress
+v12.3.0 - 2025-11-26
 * Added new methods to interface `IPeppolParticipantIdentifierScheme` that were already implemented in `EPredefinedParticipantIdentifierScheme`
 * Moved class `EBusinessCardVersion` to top-level
 * Extracted interface `IPDBusinessCardMarshallerCustomizer` instead of complex `BiConsumer`
@@ -359,7 +359,7 @@ v12.3.0 - work in progress
 * Added method `getServiceGroup` to interface `IBDXRServiceGroupProvider`
 * Moved methods from `IBDXRServiceMetadataProvider` to `IBDXRExtendedServiceMetadataProvider` - similar as for Peppol data
 
-v12.2.0 - 2024-11-16
+v12.2.0 - 2025-11-16
 * Updated to ph-commons 12.1.0
 * Using JSpecify annotations
 
