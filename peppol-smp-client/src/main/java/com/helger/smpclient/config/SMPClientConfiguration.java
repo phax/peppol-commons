@@ -221,9 +221,12 @@ public final class SMPClientConfiguration
   {
     try
     {
-      return KeyStoreHelper.loadKeyStoreDirect (getTrustStoreType (),
-                                                getTrustStorePath (),
-                                                getTrustStorePasswordCharArray ());
+      final var eType = getTrustStoreType ();
+      final var sPath = getTrustStorePath ();
+      if (eType == null || sPath == null)
+        return null;
+
+      return KeyStoreHelper.loadKeyStoreDirect (eType, sPath, getTrustStorePasswordCharArray ());
     }
     catch (final Exception ex)
     {
