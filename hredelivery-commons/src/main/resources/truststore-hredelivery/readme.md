@@ -13,6 +13,7 @@ Each truststore uses the password `hredelivery` (case sensitive).
 * The contained aliases are:
     * `fina root ca` - Fina Root CA
     * `fina rdc 2020 (fina root ca)` - Fina RDC 2020
+    * `fina rdc 2025 (fina root ca)` - Fina RDC 2025 (since 12.3.1)
     
 # Sources
 
