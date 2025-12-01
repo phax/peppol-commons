@@ -9,7 +9,8 @@ target/
 *.p12
 private-*.properties
 
-.classpath  
+.classpath
+.DS_Store
 .pmd
 .project 
 zz
