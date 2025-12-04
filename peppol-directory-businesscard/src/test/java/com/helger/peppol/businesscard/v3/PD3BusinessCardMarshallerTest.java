@@ -23,6 +23,8 @@ import java.nio.charset.Charset;
 
 import org.jspecify.annotations.NonNull;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.io.file.SimpleFileIO;
 import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
@@ -34,6 +36,8 @@ import com.helger.peppol.businesscard.helper.PDBusinessCardHelper;
  */
 public final class PD3BusinessCardMarshallerTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (PD3BusinessCardMarshallerTest.class);
+
   private static void _testBC (@NonNull final String sFilename)
   {
     final byte [] aBytes = SimpleFileIO.getAllFileBytes (new File (sFilename));
@@ -57,5 +61,42 @@ public final class PD3BusinessCardMarshallerTest
     _testBC ("src/test/resources/example/v3/business-card-test1.xml");
     _testBC ("src/test/resources/example/v3/business-card-test2.xml");
     _testBC ("src/test/resources/example/v3/bc1.xml");
+  }
+
+  @Test
+  public void testBCFromScratch ()
+  {
+    final PD3BusinessCardType aBC = new PD3BusinessCardType ();
+    {
+      final PD3IdentifierType aParticipantIdentifier = new PD3IdentifierType ();
+      aParticipantIdentifier.setScheme ("iso6523-actorid-upis");
+      aParticipantIdentifier.setValue ("9915:helger");
+      aBC.setParticipantIdentifier (aParticipantIdentifier);
+    }
+
+    final PD3BusinessEntityType aBusinessEntity = new PD3BusinessEntityType ();
+
+    // Mandatory
+    final PD3MultilingualNameType aName = new PD3MultilingualNameType ();
+    aName.setLanguage ("en");
+    aName.setValue ("Acme Inc.");
+    aBusinessEntity.addName (aName);
+
+    // Mandatory
+    aBusinessEntity.setCountryCode ("AT");
+
+    // Optional
+    final PD3IdentifierType aAdditionalIdentifier = new PD3IdentifierType ();
+    aAdditionalIdentifier.setScheme ("VAT");
+    aAdditionalIdentifier.setValue ("ATU00000000");
+    aBusinessEntity.addIdentifier (aAdditionalIdentifier);
+
+    // Mandatory
+    aBC.addBusinessEntity (aBusinessEntity);
+
+    final String sBusinessCard = new PD3BusinessCardMarshaller ().setFormattedOutput (true).getAsString (aBC);
+    assertNotNull (sBusinessCard);
+
+    LOGGER.info (sBusinessCard);
   }
 }
