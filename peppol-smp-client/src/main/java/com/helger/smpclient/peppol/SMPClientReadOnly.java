@@ -324,9 +324,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final String sURI = getSMPHostURI () +
                         aServiceGroupID.getURIPercentEncoded () +
-                        "/" +
+                        '/' +
                         URL_PART_SERVICES +
-                        "/" +
+                        '/' +
                         aDocumentTypeID.getURIPercentEncoded ();
 
     if (LOGGER.isDebugEnabled ())
@@ -397,9 +397,9 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         // Check that the certificateUID is correct.
         boolean bCertificateSubjectFound = false;
         for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
-          if (aObj instanceof JAXBElement <?>)
+          if (aObj instanceof final JAXBElement <?> aContentElement)
           {
-            final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+            final Object aInfoValue = aContentElement.getValue ();
             if (aInfoValue instanceof final X509DataType aX509Data)
             {
               // X509Data element

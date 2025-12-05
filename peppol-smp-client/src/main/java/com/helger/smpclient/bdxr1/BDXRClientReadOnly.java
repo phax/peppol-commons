@@ -331,9 +331,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     final String sURI = getSMPHostURI () +
                         aServiceGroupID.getURIPercentEncoded () +
-                        "/" +
+                        '/' +
                         URL_PART_SERVICES +
-                        "/" +
+                        '/' +
                         aDocumentTypeID.getURIPercentEncoded ();
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("BDXRClient getServiceRegistration@" + sURI);
@@ -401,9 +401,9 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
         // Check that the certificateUID is correct
         boolean bCertificateSubjectFound = false;
         for (final Object aObj : aMetadata.getSignature ().getKeyInfo ().getContent ())
-          if (aObj instanceof JAXBElement <?>)
+          if (aObj instanceof final JAXBElement <?> aContentElement)
           {
-            final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+            final Object aInfoValue = aContentElement.getValue ();
             if (aInfoValue instanceof final X509DataType aX509Data)
             {
               if (containsRedirectSubject (aX509Data, aRedirect.getCertificateUID ()))

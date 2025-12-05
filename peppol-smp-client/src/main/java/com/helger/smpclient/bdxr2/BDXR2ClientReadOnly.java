@@ -379,9 +379,9 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
           boolean bCertificateSubjectFound = false;
           if (aMetadata.hasSignatureEntries ())
             outer: for (final Object aObj : aMetadata.getSignatureAtIndex (0).getKeyInfo ().getContent ())
-              if (aObj instanceof JAXBElement <?>)
+              if (aObj instanceof final JAXBElement <?> aContentElement)
               {
-                final Object aInfoValue = ((JAXBElement <?>) aObj).getValue ();
+                final Object aInfoValue = aContentElement.getValue ();
                 if (aInfoValue instanceof final X509DataType aX509Data)
                 {
                   for (final Object aX509Obj : aX509Data.getX509IssuerSerialOrX509SKIOrX509SubjectName ())
