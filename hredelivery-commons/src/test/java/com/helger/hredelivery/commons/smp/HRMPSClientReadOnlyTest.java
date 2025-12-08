@@ -18,6 +18,7 @@ package com.helger.hredelivery.commons.smp;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.hredelivery.commons.EHREDeliverySML;
@@ -33,6 +34,7 @@ import com.helger.smpclient.url.SMPDNSResolutionException;
 public final class HRMPSClientReadOnlyTest
 {
   @Test
+  @Ignore ("Currently host not found")
   public void testResolveSMPDemo () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:18683136487");
