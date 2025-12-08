@@ -351,6 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 v12.3.1 - work in progress
 * Added "Fina RDC 2025" CA to predefined HR production truststore
+* Disabled following of HTTP Redirects in Peppol SMP Client HTTP settings
 
 v12.3.0 - 2025-11-26
 * Added new methods to interface `IPeppolParticipantIdentifierScheme` that were already implemented in `EPredefinedParticipantIdentifierScheme`

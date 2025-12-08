@@ -38,6 +38,10 @@ public class SMPHttpClientSettings extends HttpClientSettings
     // Currently the Peppol SMP requires to use "http" only - so no upgrade should be performed
     setProtocolUpgradeEnabled (false);
 
+    // According to the Peppol SMP specification, a client should not follow HTTP 3xx redirects - so
+    // we don't (see chapter 5.1 of SMP spec 1.4.0)
+    setFollowRedirects (false);
+
     resetToConfiguration ();
   }
 
