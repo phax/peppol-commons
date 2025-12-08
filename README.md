@@ -349,7 +349,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.1 - work in progress
+v12.3.1 - 2025-12-08
 * Added "Fina RDC 2025" CA to predefined HR production truststore
 * Disabled following of HTTP Redirects in Peppol SMP Client HTTP settings
 
