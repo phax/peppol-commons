@@ -80,7 +80,7 @@
     <dnsjava.version>3.6.3</dnsjava.version>
     <expiringmap.version>0.5.11</expiringmap.version>
     <phive.version>11.1.1</phive.version>
-    <ph-schematron.version>9.1.0</ph-schematron.version>
+    <ph-schematron.version>9.1.1</ph-schematron.version>
     <ph-ubl.version>10.1.0</ph-ubl.version>
     <ph-xhe.version>5.1.0</ph-xhe.version>
   </properties>
