@@ -47,9 +47,11 @@ import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 public final class PeppolURLProviderTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolURLProviderTest.class);
+  @SuppressWarnings ("removal")
   private static final IPeppolURLProvider INSTANCE = PeppolURLProvider.INSTANCE;
   private static final IIdentifierFactory IF = PeppolIdentifierFactory.INSTANCE;
 
+  @Deprecated
   @Test
   public void testGetDNSNameOfParticipant () throws SMPDNSResolutionException
   {
@@ -129,6 +131,7 @@ public final class PeppolURLProviderTest
     }
   }
 
+  @Deprecated
   @Test
   public void testGetDNSNameOfParticipantWithDNSName () throws TextParseException
   {
@@ -142,6 +145,8 @@ public final class PeppolURLProviderTest
     assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.sml.peppolcentral.org.", aName.toString ());
   }
 
+  @Deprecated
+  @SuppressWarnings ("removal")
   @Test
   public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException, SMPDNSResolutionException
   {

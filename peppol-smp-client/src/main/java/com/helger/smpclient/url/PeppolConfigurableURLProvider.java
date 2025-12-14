@@ -38,19 +38,24 @@ import com.helger.peppolid.IParticipantIdentifier;
 public class PeppolConfigurableURLProvider implements IPeppolURLProvider
 {
   /** The default instance that should be used */
+  @Deprecated
   public static final IPeppolURLProvider INSTANCE = new PeppolConfigurableURLProvider ();
 
+  @Deprecated
   public static final boolean DEFAULT_USE_NATPR = true;
 
   // Change this to false to use the old CNAME based lookup
+  @Deprecated
   public static final AtomicBoolean USE_NATPR = new AtomicBoolean (DEFAULT_USE_NATPR);
 
+  @SuppressWarnings ("removal")
   @NonNull
   private static IPeppolURLProvider _getRealProvider ()
   {
     return USE_NATPR.get () ? PeppolNaptrURLProvider.INSTANCE : PeppolURLProvider.INSTANCE;
   }
 
+  @Deprecated
   @NonNull
   public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
@@ -58,6 +63,7 @@ public class PeppolConfigurableURLProvider implements IPeppolURLProvider
     return _getRealProvider ().getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
   }
 
+  @Deprecated
   @NonNull
   public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                          @NonNull final ISMLInfo aSMLInfo) throws SMPDNSResolutionException
@@ -65,6 +71,7 @@ public class PeppolConfigurableURLProvider implements IPeppolURLProvider
     return _getRealProvider ().getDNSNameOfParticipant (aParticipantIdentifier, aSMLInfo);
   }
 
+  @Deprecated
   @NonNull
   public URI getSMPURIOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                      @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
