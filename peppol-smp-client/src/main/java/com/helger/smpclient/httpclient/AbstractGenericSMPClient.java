@@ -59,6 +59,7 @@ import com.helger.security.keystore.EKeyStoreType;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
+import com.helger.smpclient.exception.SMPClientHttpException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
 import com.helger.smpclient.exception.SMPClientParticipantNotFoundException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
@@ -433,7 +434,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
         case HttpStatus.SC_BAD_REQUEST -> new SMPClientBadRequestException (hex);
         case HttpStatus.SC_FORBIDDEN -> new SMPClientUnauthorizedException (hex);
         case HttpStatus.SC_NOT_FOUND -> new SMPClientNotFoundException (hex);
-        default -> new SMPClientException ("Error thrown with HTTP status code " + nHttpStatus, hex);
+        default -> new SMPClientHttpException (nHttpStatus, "Error thrown with HTTP status code " + nHttpStatus, hex);
       };
     }
 

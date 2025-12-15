@@ -19,15 +19,17 @@ package com.helger.smpclient.exception;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.jspecify.annotations.NonNull;
 
+import com.helger.http.CHttp;
+
 /**
  * This exception is thrown, if the HTTP response was 403.
  *
  * @author Philip Helger
  */
-public class SMPClientUnauthorizedException extends SMPClientException
+public class SMPClientUnauthorizedException extends SMPClientHttpException
 {
   public SMPClientUnauthorizedException (@NonNull final HttpResponseException ex)
   {
-    super (ex);
+    super (CHttp.HTTP_FORBIDDEN, ex);
   }
 }

@@ -19,16 +19,18 @@ package com.helger.smpclient.exception;
 import org.apache.hc.client5.http.HttpResponseException;
 import org.jspecify.annotations.NonNull;
 
+import com.helger.http.CHttp;
+
 /**
  * This exception is thrown, if the HTTP response was 404. See also
  * {@link SMPClientParticipantNotFoundException}.
  *
  * @author Philip Helger
  */
-public class SMPClientNotFoundException extends SMPClientException
+public class SMPClientNotFoundException extends SMPClientHttpException
 {
   public SMPClientNotFoundException (@NonNull final HttpResponseException ex)
   {
-    super (ex);
+    super (CHttp.HTTP_NOT_FOUND, ex);
   }
 }
