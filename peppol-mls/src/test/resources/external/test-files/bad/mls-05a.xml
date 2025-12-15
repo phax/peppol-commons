@@ -7,10 +7,10 @@
   <cbc:ID>MLS-ID123</cbc:ID>
   <cbc:IssueDate>2025-03-11</cbc:IssueDate>
   <cac:SenderParty>
-    <cbc:EndpointID schemeID="0299">123456</cbc:EndpointID>
+    <cbc:EndpointID schemeID="0242">123456</cbc:EndpointID>
   </cac:SenderParty>
   <cac:ReceiverParty>
-    <cbc:EndpointID schemeID="0299">234567</cbc:EndpointID>
+    <cbc:EndpointID schemeID="0242">234567</cbc:EndpointID>
   </cac:ReceiverParty>
   <cac:DocumentResponse>
     <cac:Response>

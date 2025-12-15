@@ -12,10 +12,11 @@
       Philip Helger
 
     History
-      v1.0.1
-        2025-11-11, Philip Helger - made sure, the SPIS regex is applied case-insensitive 
-      v1.0.0
-        2025-03-12, Philip Helger - initial version
+      v1.0.1 - 2025-12-15, Philip Helger
+        - made sure the SPIS regex is applied case-insensitive
+        - made sure the party schemeID attributes are SPIS schemes
+      v1.0.0 - 2025-03-12, Philip Helger
+        - initial version
   </p>
 
   <ns prefix="cac" uri="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"/>
@@ -56,8 +57,7 @@
       >[SCH-MLS-09] The Sender Party Endpoint ID (<value-of select="normalize-space(cac:SenderParty/cbc:EndpointID)" />) MUST be a valid Peppol Service Provider ID</assert>
       <assert id="SCH-MLS-10" flag="fatal" test="exists(cac:SenderParty/cbc:EndpointID/@schemeID)"
       >[SCH-MLS-10] The Sender Party Endpoint ID scheme ID MUST be present</assert>
-      <!-- TODO change this to the real SPIS Scheme ID  when available -->
-      <assert id="SCH-MLS-11" flag="fatal" test="matches(normalize-space(cac:SenderParty/cbc:EndpointID/@schemeID), '^[0-9]{4}$')"
+      <assert id="SCH-MLS-11" flag="fatal" test="cac:SenderParty/cbc:EndpointID/@schemeID = '0242'"
       >[SCH-MLS-11] The Sender Party Endpoint ID scheme ID MUST be a valid Participant Identifier Scheme</assert>
 
       <assert id="SCH-MLS-12" flag="fatal" test="exists(cac:ReceiverParty/cbc:EndpointID)"
@@ -68,8 +68,7 @@
       >[SCH-MLS-14] The Receiver Party Endpoint ID (<value-of select="normalize-space(cac:ReceiverParty/cbc:EndpointID)" />) MUST be a valid Peppol Service Provider ID</assert>
       <assert id="SCH-MLS-15" flag="fatal" test="exists(cac:ReceiverParty/cbc:EndpointID/@schemeID)"
       >[SCH-MLS-15] The Receiver Party Endpoint ID scheme ID MUST be present</assert>
-      <!-- TODO change this to the real SPIS Scheme ID  when available -->
-      <assert id="SCH-MLS-16" flag="fatal" test="matches(normalize-space(cac:ReceiverParty/cbc:EndpointID/@schemeID), '^[0-9]{4}$')"
+      <assert id="SCH-MLS-16" flag="fatal" test="cac:ReceiverParty/cbc:EndpointID/@schemeID = '0242'"
       >[SCH-MLS-16] The Receiver Party Endpoint ID scheme ID MUST be a valid Participant Identifier Scheme</assert>
       
       <assert id="SCH-MLS-17" flag="fatal" test="count(cac:DocumentResponse) = 1"

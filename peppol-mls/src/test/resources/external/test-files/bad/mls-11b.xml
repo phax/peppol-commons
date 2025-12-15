@@ -11,7 +11,7 @@
     <cbc:EndpointID schemeID="9999a">123456</cbc:EndpointID>
   </cac:SenderParty>
   <cac:ReceiverParty>
-    <cbc:EndpointID schemeID="0299">234567</cbc:EndpointID>
+    <cbc:EndpointID schemeID="0242">234567</cbc:EndpointID>
   </cac:ReceiverParty>
   <cac:DocumentResponse>
     <cac:Response>

@@ -155,12 +155,12 @@ public final class PeppolMLSValidatorTest
     _checkFailedIDs (++nErrorCode, 3);
     _checkFailedIDs (++nErrorCode, 1);
     // 11
-    _checkFailedIDs (++nErrorCode, 3);
+    _checkFailedIDs (++nErrorCode, 4);
     _checkFailedIDs (++nErrorCode, 1);
     _checkFailedIDs (++nErrorCode, 2);
     _checkFailedIDs (++nErrorCode, 3);
     _checkFailedIDs (++nErrorCode, 1);
-    _checkFailedIDs (++nErrorCode, 3);
+    _checkFailedIDs (++nErrorCode, 4);
     _checkFailedIDs (++nErrorCode, 2);
     _checkFailedIDs (++nErrorCode, 1);
     _checkFailedIDs (++nErrorCode, 4);
