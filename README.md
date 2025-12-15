@@ -349,7 +349,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.2 - work in progress
+v12.3.2 - 2025-12-15
 * Added new in-between exception class `SMPClientHttpException` which gives access to the returned HTTP Status code
 
 v12.3.1 - 2025-12-08
