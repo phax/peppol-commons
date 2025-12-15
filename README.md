@@ -351,6 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 v12.3.2 - 2025-12-15
 * Added new in-between exception class `SMPClientHttpException` which gives access to the returned HTTP Status code
+* The class `SMPDNSResolutionException` received a separate "error code" field to make it better differentiatable. See [#67](https://github.com/phax/peppol-commons/issues/67) - thx @wildhai
 
 v12.3.1 - 2025-12-08
 * Added "Fina RDC 2025" CA to predefined HR production truststore
