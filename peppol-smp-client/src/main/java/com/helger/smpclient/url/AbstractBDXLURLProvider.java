@@ -50,6 +50,7 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
+import com.helger.smpclient.url.SMPDNSResolutionException.EErrorCode;
 
 /**
  * An abstract implementation of {@link IBDXLURLProvider} that support U-NAPTR record resolution.
@@ -317,8 +318,9 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     if (false)
       // Ensure the DNS zone name ends with a dot!
       if (StringHelper.isNotEmpty (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-        throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
-                                             sSMLZoneName);
+        throw new SMPDNSResolutionException (EErrorCode.DOMAIN_NAME_SYNTAX_ERROR,
+                                             "If an SML zone name is specified, it must end with a dot (.). Value is: " +
+                                                                                  sSMLZoneName);
 
     final String sBuildDomainName = getDNSNameOfParticipant (aParticipantIdentifier, sSMLZoneName);
 
@@ -344,17 +346,20 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
       }
       catch (final TextParseException ex)
       {
-        throw new SMPDNSResolutionException ("Failed to parse '" + sBuildDomainName + "'", ex);
+        throw new SMPDNSResolutionException (EErrorCode.DOMAIN_NAME_SYNTAX_ERROR,
+                                             "Failed to parse '" + sBuildDomainName + "'",
+                                             ex);
       }
 
       if (sResolvedNAPTR == null)
       {
         // Since 6.2.0 this a checked exception
-        throw new SMPDNSResolutionException ("Failed to resolve '" +
-                                             sBuildDomainName +
-                                             "' and service '" +
-                                             sServiceName +
-                                             "' to a DNS U-NAPTR");
+        throw new SMPDNSResolutionException (EErrorCode.DNS_RESOLVING_ERROR,
+                                             "Failed to resolve '" +
+                                                                         sBuildDomainName +
+                                                                         "' and service '" +
+                                                                         sServiceName +
+                                                                         "' to a DNS U-NAPTR");
       }
 
       LOGGER.info ("Resolved domain name '" +
@@ -378,7 +383,9 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     }
     catch (final URISyntaxException ex)
     {
-      throw new SMPDNSResolutionException ("Error building SMP URI from string '" + sResolvedNAPTR + "'", ex);
+      throw new SMPDNSResolutionException (EErrorCode.RESOLVED_URI_SYNTAX_ERROR,
+                                           "Error building SMP URI from string '" + sResolvedNAPTR + "'",
+                                           ex);
     }
   }
 

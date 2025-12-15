@@ -34,6 +34,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
+import com.helger.smpclient.url.SMPDNSResolutionException.EErrorCode;
 
 /**
  * The implementation of {@link IPeppolURLProvider} suitable for the Peppol Network to resolve CNAME
@@ -49,11 +50,15 @@ import com.helger.security.messagedigest.MessageDigestValue;
 public class PeppolURLProvider implements IPeppolURLProvider
 {
   /** The writable API of the default instance */
+  @Deprecated
   public static final PeppolURLProvider MUTABLE_INSTANCE = new PeppolURLProvider ();
   /** The default instance that should be used */
+  @Deprecated
   public static final IPeppolURLProvider INSTANCE = MUTABLE_INSTANCE;
 
+  @Deprecated
   public static final Charset URL_CHARSET = StandardCharsets.UTF_8;
+  @Deprecated
   public static final Locale URL_LOCALE = Locale.US;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolURLProvider.class);
@@ -61,6 +66,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
   /**
    * Default constructor.
    */
+  @Deprecated
   public PeppolURLProvider ()
   {}
 
@@ -74,6 +80,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
    *        The value to be hashed. May not be <code>null</code>.
    * @return The non-<code>null</code> String containing the hash value.
    */
+  @Deprecated
   @NonNull
   public static String getHashValueStringRepresentation (@NonNull final String sValueToHash)
   {
@@ -83,6 +90,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
                              .getHexEncodedDigestString ();
   }
 
+  @Deprecated
   @NonNull
   public String getDNSNameOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                          @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
@@ -91,8 +99,9 @@ public class PeppolURLProvider implements IPeppolURLProvider
 
     // Ensure the DNS zone name ends with a dot!
     if (StringHelper.isNotEmpty (sSMLZoneName) && !StringHelper.endsWith (sSMLZoneName, '.'))
-      throw new SMPDNSResolutionException ("if an SML zone name is specified, it must end with a dot (.). Value is: " +
-                                           sSMLZoneName);
+      throw new SMPDNSResolutionException (EErrorCode.DOMAIN_NAME_SYNTAX_ERROR,
+                                           "If an SML zone name is specified, it must end with a dot (.). Value is: " +
+                                                                                sSMLZoneName);
 
     // Check identifier scheme (must be lowercase for the URL later on!)
     final String sIdentifierScheme = StringHelper.getNotNull (aParticipantIdentifier.getScheme ())
@@ -138,6 +147,7 @@ public class PeppolURLProvider implements IPeppolURLProvider
     return ret.toString ();
   }
 
+  @Deprecated
   @NonNull
   public URI getSMPURIOfParticipant (@NonNull final IParticipantIdentifier aParticipantIdentifier,
                                      @Nullable final String sSMLZoneName) throws SMPDNSResolutionException
@@ -153,7 +163,9 @@ public class PeppolURLProvider implements IPeppolURLProvider
     }
     catch (final URISyntaxException ex)
     {
-      throw new SMPDNSResolutionException ("Error building SMP URI from string '" + sURIString + "'", ex);
+      throw new SMPDNSResolutionException (EErrorCode.RESOLVED_URI_SYNTAX_ERROR,
+                                           "Error building SMP URI from string '" + sURIString + "'",
+                                           ex);
     }
   }
 }
