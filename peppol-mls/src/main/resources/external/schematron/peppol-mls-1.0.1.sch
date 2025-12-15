@@ -58,7 +58,7 @@
       <assert id="SCH-MLS-10" flag="fatal" test="exists(cac:SenderParty/cbc:EndpointID/@schemeID)"
       >[SCH-MLS-10] The Sender Party Endpoint ID scheme ID MUST be present</assert>
       <assert id="SCH-MLS-11" flag="fatal" test="cac:SenderParty/cbc:EndpointID/@schemeID = '0242'"
-      >[SCH-MLS-11] The Sender Party Endpoint ID scheme ID MUST be a valid Participant Identifier Scheme</assert>
+      >[SCH-MLS-11] The Sender Party Endpoint ID scheme ID MUST be the SPIS Participant Identifier Scheme</assert>
 
       <assert id="SCH-MLS-12" flag="fatal" test="exists(cac:ReceiverParty/cbc:EndpointID)"
       >[SCH-MLS-12] The Receiver Party Endpoint ID MUST be present</assert>
@@ -69,7 +69,7 @@
       <assert id="SCH-MLS-15" flag="fatal" test="exists(cac:ReceiverParty/cbc:EndpointID/@schemeID)"
       >[SCH-MLS-15] The Receiver Party Endpoint ID scheme ID MUST be present</assert>
       <assert id="SCH-MLS-16" flag="fatal" test="cac:ReceiverParty/cbc:EndpointID/@schemeID = '0242'"
-      >[SCH-MLS-16] The Receiver Party Endpoint ID scheme ID MUST be a valid Participant Identifier Scheme</assert>
+      >[SCH-MLS-16] The Receiver Party Endpoint ID scheme ID MUST be the SPIS Participant Identifier Scheme</assert>
       
       <assert id="SCH-MLS-17" flag="fatal" test="count(cac:DocumentResponse) = 1"
       >[SCH-MLS-17] Exactly one Document Response MUST be present</assert>
