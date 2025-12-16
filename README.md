@@ -183,7 +183,7 @@ It supports the following properties:
 * **`http.proxy.username`** (before v8.7.2: **`http.proxyUsername`**): the username for the HTTP proxy. This property takes only effect if proxy host and proxy port are defined. 
 * **`http.proxy.password`** (before v8.7.2: **`http.proxyPassword`**): the password for the HTTP proxy. This property takes only effect if proxy host, proxy port and proxy username are defined.
 * **`http.proxy.nonProxyHosts`** (before v8.7.2: **`http.nonProxyHosts`**) (since v6.2.4): A pipe separated list of non-proxy hosts. E.g. `localhost|127.0.0.1`.
-* [deprecated since v8.7.2] **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`. Deprecated since v8.7.2
+* (deprecated since v8.7.2) **`http.useSystemProperties`** (since v5.2.4): if `true` the system properties (=JVM properties) for HTTP configuration are used for setting up the connection. This implies that the properties `http.proxyHost`, `http.proxyPort`, `http.proxyUsername` and `http.proxyPassword` are ineffective! The default value is `false`. Deprecated since v8.7.2
 * **`http.connect.timeout.ms`** (since v7.0.4): set the connect timeout in milliseconds. The default value is `5000` meaning 5 seconds.
 * **`http.response.timeout.ms`** (since v8.8.0; before **`http.request.timeout.ms`**): set the response timeout in milliseconds. The default value is `10000` meaning 10 seconds.
 
