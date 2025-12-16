@@ -27,7 +27,7 @@ import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
@@ -216,6 +216,6 @@ public interface IBDXR2ServiceMetadataProvider
                                                             aDocumentTypeID,
                                                             aProcessID,
                                                             aTransportProfile);
-    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
+    return new CertificateDecodeHelper ().source (aCertBytes).pemEncoded (false).getDecodedOrThrow ();
   }
 }

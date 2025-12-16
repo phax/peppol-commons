@@ -42,7 +42,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.bdxr1.marshal.BDXR1MarshallerServiceGroupType;
 import com.helger.smpclient.bdxr1.marshal.BDXR1MarshallerSignedServiceMetadataType;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
@@ -601,7 +601,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {
     final byte [] aCertBytes = getEndpointCertificateBytes (aEndpoint);
-    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
+    return new CertificateDecodeHelper ().source (aCertBytes).pemEncoded (false).getDecodedOrThrow ();
   }
 
   /**

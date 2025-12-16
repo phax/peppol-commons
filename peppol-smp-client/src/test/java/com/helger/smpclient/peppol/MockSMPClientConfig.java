@@ -19,7 +19,6 @@ package com.helger.smpclient.peppol;
 import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.cert.CertificateException;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -36,7 +35,7 @@ import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
 
@@ -61,15 +60,8 @@ public final class MockSMPClientConfig
       LOGGER.info (Base64.encodeBytes (SimpleFileIO.getAllFileBytes (new File ("src/test/resources/SMP_PEPPOL_SML_PEPPOL_SERVICE_METADATA_PUBLISHER_TEST_CA.cer"))));
 
     // Check if the certificate string is correct
-    try
-    {
-      if (CertificateHelper.convertStringToCertficate (getAPCert ()) == null)
-        throw new InitializationException ("Failed to convert certificate string from config file to a certificate!");
-    }
-    catch (final CertificateException ex)
-    {
-      throw new InitializationException ("Failed to convert certificate string from config file to a certificate!", ex);
-    }
+    if (new CertificateDecodeHelper ().source (getAPCert ()).pemEncoded (true).getDecodedOrNull () == null)
+      throw new InitializationException ("Failed to convert certificate string from config file to a certificate!");
   }
 
   private MockSMPClientConfig ()

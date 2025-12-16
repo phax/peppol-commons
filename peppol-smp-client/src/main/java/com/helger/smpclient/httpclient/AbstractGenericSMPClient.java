@@ -22,7 +22,6 @@ import java.net.URI;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.function.Consumer;
 
@@ -54,7 +53,7 @@ import com.helger.collection.commons.ICommonsSet;
 import com.helger.httpclient.HttpClientManager;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.mime.CMimeType;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
@@ -555,28 +554,22 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
         if ("X509Certificate".equals (aX509Element.getName ().getLocalPart ()))
         {
           final byte [] aCertBytes = (byte []) aX509Element.getValue ();
-          try
+          final X509Certificate aCert = new CertificateDecodeHelper ().source (aCertBytes)
+                                                                      .pemEncoded (false)
+                                                                      .getDecodedOrNull ();
+          if (aCert == null)
+            return false;
+
+          final String sSubjectCN = aCert.getSubjectX500Principal ().getName ();
+          if (!_isEqualRdn (sRedirectCertificateUID, sSubjectCN))
           {
-            final X509Certificate aCert = CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
-            if (aCert != null)
-            {
-              final String sSubjectCN = aCert.getSubjectX500Principal ().getName ();
-              if (!_isEqualRdn (sRedirectCertificateUID, sSubjectCN))
-              {
-                throw new SMPClientException ("The certificate UID of the redirect did not match the certificate/subject which '" +
-                                              sSubjectCN +
-                                              "'. Required certificate UID is '" +
-                                              sRedirectCertificateUID +
-                                              "'");
-              }
-              return true;
-            }
+            throw new SMPClientException ("The certificate UID of the redirect did not match the certificate/subject which '" +
+                                          sSubjectCN +
+                                          "'. Required certificate UID is '" +
+                                          sRedirectCertificateUID +
+                                          "'");
           }
-          catch (final CertificateException ex)
-          {
-            // Ignore
-          }
-          return false;
+          return true;
         }
       }
     return false;

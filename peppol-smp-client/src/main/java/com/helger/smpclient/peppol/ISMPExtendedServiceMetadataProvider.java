@@ -29,7 +29,7 @@ import com.helger.peppol.smp.ISMPTransportProfile;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientUnauthorizedException;
@@ -303,7 +303,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
                                                              aDocumentTypeID,
                                                              aProcessID,
                                                              aTransportProfile);
-    return CertificateHelper.convertStringToCertficate (sCertString);
+    return new CertificateDecodeHelper ().source (sCertString).pemEncoded (true).getDecodedOrThrow ();
   }
 
   /**
@@ -343,7 +343,7 @@ public interface ISMPExtendedServiceMetadataProvider extends ISMPServiceMetadata
                                                                aProcessID,
                                                                aTransportProfile,
                                                                aCheckDT);
-    return CertificateHelper.convertStringToCertficate (sCertString);
+    return new CertificateDecodeHelper ().source (sCertString).pemEncoded (true).getDecodedOrThrow ();
   }
 
   /**

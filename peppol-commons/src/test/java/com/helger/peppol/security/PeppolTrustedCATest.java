@@ -21,9 +21,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.Month;
 
@@ -37,7 +35,7 @@ import com.helger.datetime.helper.PDTFactory;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.peppol.security.PeppolTrustStores.Config2018;
 import com.helger.peppol.security.PeppolTrustStores.Config2025;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
@@ -197,10 +195,11 @@ public class PeppolTrustedCATest
   }
 
   @Test
-  public void testCheckRevoked () throws CertificateException
+  public void testCheckRevoked ()
   {
-    final X509Certificate aCert = CertificateHelper.convertStringToCertficate (StreamHelper.getAllBytesAsString (new ClassPathResource ("external/peppol-ap-cert-expired.pem"),
-                                                                                                                 StandardCharsets.UTF_8));
+    final X509Certificate aCert = new CertificateDecodeHelper ().source (StreamHelper.getAllBytes (new ClassPathResource ("external/peppol-ap-cert-expired.pem")))
+                                                                .pemEncoded (true)
+                                                                .getDecodedOrNull ();
     assertNotNull (aCert);
     // Check at a specific date, as the certificate
     final ECertificateCheckResult eCertCheckResult = PeppolTrustedCA.peppolTestAP ()

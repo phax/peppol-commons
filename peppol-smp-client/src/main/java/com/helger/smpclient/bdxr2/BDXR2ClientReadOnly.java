@@ -40,7 +40,7 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.simple.doctype.SimpleDocumentTypeIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceGroup;
 import com.helger.smpclient.bdxr2.marshal.BDXR2MarshallerServiceMetadata;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
@@ -399,7 +399,9 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                         {
                           try
                           {
-                            final X509Certificate aRedirectCert = CertificateHelper.convertByteArrayToCertficate (aCT.getContentBinaryObjectValue ());
+                            final X509Certificate aRedirectCert = new CertificateDecodeHelper ().source (aCT.getContentBinaryObjectValue ())
+                                                                                                .pemEncoded (false)
+                                                                                                .getDecodedOrThrow ();
                             if (aRedirectCert != null)
                             {
                               aAllRedirectCerts.add (aRedirectCert);
@@ -411,7 +413,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
                               }
                             }
                           }
-                          catch (final CertificateException ex)
+                          catch (final IllegalArgumentException | CertificateException ex)
                           {
                             // Error in certificate in SMP response
                             LOGGER.error ("SMP Redirect contains an invalid certificate", ex);
@@ -578,7 +580,7 @@ public class BDXR2ClientReadOnly extends AbstractGenericSMPClient <BDXR2ClientRe
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {
     final byte [] aCertBytes = getEndpointCertificateBytes (aEndpoint);
-    return CertificateHelper.convertByteArrayToCertficateDirect (aCertBytes);
+    return new CertificateDecodeHelper ().source (aCertBytes).pemEncoded (false).getDecodedOrThrow ();
   }
 
   /**

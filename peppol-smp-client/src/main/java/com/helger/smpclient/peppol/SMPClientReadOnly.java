@@ -51,7 +51,7 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
-import com.helger.security.certificate.CertificateHelper;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.exception.SMPClientNotFoundException;
@@ -725,7 +725,7 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
   public static X509Certificate getEndpointCertificate (@Nullable final EndpointType aEndpoint) throws CertificateException
   {
     final String sCertString = getEndpointCertificateString (aEndpoint);
-    return CertificateHelper.convertStringToCertficate (sCertString);
+    return new CertificateDecodeHelper ().source (sCertString).pemEncoded (true).getDecodedOrThrow ();
   }
 
   @Nullable

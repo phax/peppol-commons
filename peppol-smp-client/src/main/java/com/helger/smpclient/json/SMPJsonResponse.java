@@ -47,6 +47,7 @@ import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
+import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.security.certificate.CertificateHelper;
 import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
 import com.helger.smpclient.extension.SMPExtensionList;
@@ -189,7 +190,7 @@ public final class SMPJsonResponse
 
     aTarget.add (JSON_CERTIFICATE, sCert);
 
-    final X509Certificate aCert = CertificateHelper.convertStringToCertficateOrNull (sCert);
+    final X509Certificate aCert = new CertificateDecodeHelper ().source (sCert).pemEncoded (true).getDecodedOrNull ();
     final IJsonObject aDetails = new JsonObject ();
     aDetails.add ("parsable", aCert != null);
     if (aCert != null)
