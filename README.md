@@ -680,30 +680,37 @@ v9.0.0 - 2023-02-19
 * Updated to JAXB 4.0 and JAX-WS 4.0
 * Removed deprecated classes and methods
 
-v8.8.6 - 2023-05-25 [backport]
-    * Improved support for the SBDH field `COUNTRY_C1`
-* v8.8.5 - 2023-05-16 [backport]
-    * Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
-* v8.8.4 - 2023-01-23
-    * Updated to OpenPeppol eDEC Code Lists v8.3.1
-* v8.8.3 - 2023-01-20
-    * Added the new enum `ESMPTransportProfileState`
-    * Deprecated `ISMPTransportProfile.isDeprecated()` and added `ISMPTransportProfile.getState()` instead
-    * Updated to OpenPeppol eDEC Code Lists v8.3
-* v8.8.2 - 2022-11-24
-    * Improved error handling when loading an ill-configured SMP client truststore
-* v8.8.1 - 2022-11-01
-    * Updated to ph-web 9.7.1
-    * Extended `SMPJsonResponse` with the versions for BDXR2
-    * Deprecated SMP transport profiles `busdox-transport-as2-ver1p0` (Peppol AS2 v1) and `busdox-transport-as2-ver2p0` (Peppol AS2 v2)
-    * Extended `PeppolSBDHDocument` API
-    * Extended `PeppolSBDHDocumentWriter` API with a "favour speed" option
-    * Added support for wildcard querying (DDTS) in Peppol SMP client `SMPClientReadOnly.getWildcardServiceMetadataOrNull`
-* v8.8.0 - 2022-08-17
-    * Updated to ph-web 9.7.0
-    * Updated to Apache HttpClient 5.x
-    * The setters for the trust store in the SMP clients now accept `null`
-    * Renamed the SMP client configuration property from `http.request.timeout.ms` to `http.response.timeout.ms`
+v8.8.6 - 2023-05-25 (backport)
+* Improved support for the SBDH field `COUNTRY_C1`
+
+v8.8.5 - 2023-05-16 (backport)
+* Added support for the SBDH field `COUNTRY_C1` to fulfill the requirements of the Peppol Business Message Envelope 2.0 specification
+
+v8.8.4 - 2023-01-23
+* Updated to OpenPeppol eDEC Code Lists v8.3.1
+
+v8.8.3 - 2023-01-20
+* Added the new enum `ESMPTransportProfileState`
+* Deprecated `ISMPTransportProfile.isDeprecated()` and added `ISMPTransportProfile.getState()` instead
+* Updated to OpenPeppol eDEC Code Lists v8.3
+
+v8.8.2 - 2022-11-24
+* Improved error handling when loading an ill-configured SMP client truststore
+
+v8.8.1 - 2022-11-01
+* Updated to ph-web 9.7.1
+* Extended `SMPJsonResponse` with the versions for BDXR2
+* Deprecated SMP transport profiles `busdox-transport-as2-ver1p0` (Peppol AS2 v1) and `busdox-transport-as2-ver2p0` (Peppol AS2 v2)
+* Extended `PeppolSBDHDocument` API
+* Extended `PeppolSBDHDocumentWriter` API with a "favour speed" option
+* Added support for wildcard querying (DDTS) in Peppol SMP client `SMPClientReadOnly.getWildcardServiceMetadataOrNull`
+
+v8.8.0 - 2022-08-17
+* Updated to ph-web 9.7.0
+* Updated to Apache HttpClient 5.x
+* The setters for the trust store in the SMP clients now accept `null`
+* Renamed the SMP client configuration property from `http.request.timeout.ms` to `http.response.timeout.ms`
+
 * v8.7.6 - 2022-07-12
     * Updated to OpenPeppol eDEC Code Lists v8.2
 * v8.7.5 - 2022-05-25
