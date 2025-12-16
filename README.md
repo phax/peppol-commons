@@ -349,9 +349,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.3 - work in progress
+v12.3.3 - 2025-12-16
 * Updated to ph-commons 12.1.1
 * Updated the MLS Schematron rules 1.0.1 to match the MLS 1.1.0 Member Review version
+* Fixed an issue with certificate parsing on BDXR 2 redirect processing
 
 v12.3.2 - 2025-12-15
 * Added new in-between exception class `SMPClientHttpException` which gives access to the returned HTTP Status code
