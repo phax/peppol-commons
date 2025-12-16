@@ -18,7 +18,6 @@ package com.helger.hredelivery.commons.smp;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.hredelivery.commons.EHREDeliverySML;
@@ -34,13 +33,52 @@ import com.helger.smpclient.url.SMPDNSResolutionException;
 public final class HRMPSClientReadOnlyTest
 {
   @Test
-  @Ignore ("Currently host not found")
-  public void testResolveSMPDemo () throws SMPDNSResolutionException
+  public void testResolveDemoParticipant () throws SMPDNSResolutionException
   {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:18683136487");
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:99999999994");
 
     final HRMPSClientReadOnly aMPSCLient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
     final String sSMPHost = aMPSCLient.getSMPHostURI ();
-    assertEquals ("https://mpsdemo.moj-eracun.hr/", sSMPHost);
+    assertEquals ("https://cis.porezna-uprava.hr:8411/EracunMPSCT/", sSMPHost);
+  }
+
+  @Test
+  public void testResolveOpusCapita () throws SMPDNSResolutionException
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:52424909202");
+
+    final HRMPSClientReadOnly aMPSCLient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
+    final String sSMPHost = aMPSCLient.getSMPHostURI ();
+    assertEquals ("https://edelivery-croatia-smp.stage.messagesnetwork.com/", sSMPHost);
+  }
+
+  @Test
+  public void testResolveMarkant () throws SMPDNSResolutionException
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:29071087912");
+
+    final HRMPSClientReadOnly aMPSCLient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
+    final String sSMPHost = aMPSCLient.getSMPHostURI ();
+    assertEquals ("https://acc.mps.markant.services/", sSMPHost);
+  }
+
+  @Test
+  public void testResolveComarch () throws SMPDNSResolutionException
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:70583020747");
+
+    final HRMPSClientReadOnly aMPSCLient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
+    final String sSMPHost = aMPSCLient.getSMPHostURI ();
+    assertEquals ("https://edi-trn-hr.edoc-online.com/test/smp/", sSMPHost);
+  }
+
+  @Test
+  public void testResolveOmniSight () throws SMPDNSResolutionException
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:00419068787");
+
+    final HRMPSClientReadOnly aMPSCLient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
+    final String sSMPHost = aMPSCLient.getSMPHostURI ();
+    assertEquals ("http://mps.omnizon.net/", sSMPHost);
   }
 }
