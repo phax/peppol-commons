@@ -16,6 +16,7 @@
  */
 package com.helger.hredelivery.commons.smp;
 
+import java.net.URI;
 import java.security.GeneralSecurityException;
 
 import org.jspecify.annotations.NonNull;
@@ -38,12 +39,8 @@ public class HRMPSClientReadOnly extends BDXRClientReadOnly
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (HRMPSClientReadOnly.class);
 
-  public HRMPSClientReadOnly (@NonNull final IParticipantIdentifier aParticipantIdentifier,
-                              @NonNull final EHREDeliverySML aSMLInfo) throws SMPDNSResolutionException
+  private void _init ()
   {
-    // Constant URL provider
-    super (HREDeliveryNaptrURLProvider.INSTANCE, aParticipantIdentifier, aSMLInfo);
-
     // Make sure to disable SSL server certificate checking
     try
     {
@@ -53,5 +50,19 @@ public class HRMPSClientReadOnly extends BDXRClientReadOnly
     {
       LOGGER.error ("Error trusting all TLS server certificates", ex);
     }
+  }
+
+  public HRMPSClientReadOnly (@NonNull final IParticipantIdentifier aParticipantIdentifier,
+                              @NonNull final EHREDeliverySML aSMLInfo) throws SMPDNSResolutionException
+  {
+    // Constant URL provider
+    super (HREDeliveryNaptrURLProvider.INSTANCE, aParticipantIdentifier, aSMLInfo);
+    _init ();
+  }
+
+  public HRMPSClientReadOnly (@NonNull final URI aSMPHost)
+  {
+    super (aSMPHost);
+    _init ();
   }
 }
