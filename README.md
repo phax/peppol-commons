@@ -349,6 +349,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.3.4 - work in progress
+* Added constructor overload `HRMPSClientReadOnly(URI)`
+
 v12.3.3 - 2025-12-16
 * Updated to ph-commons 12.1.1
 * Updated the MLS Schematron rules 1.0.1 to match the MLS 1.1.0 Member Review version
