@@ -19,10 +19,10 @@ package com.helger.hredelivery.commons.smp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.hredelivery.commons.EHREDeliverySML;
+import com.helger.hredelivery.commons.security.HREDeliveryTrustStores;
 import com.helger.peppol.smp.ESMPTransportProfile;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
@@ -37,18 +37,20 @@ import com.helger.xsds.bdxr.smp1.EndpointType;
 public final class HRMPSClientReadOnlyTest
 {
   @Test
-  @Ignore ("The current SMP response is totally broken")
+  // @Ignore ("The current SMP response is totally broken")
   public void testResolveDemoParticipant () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:99999999994");
 
     final HRMPSClientReadOnly aMPSClient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
+    aMPSClient.setTrustStore (HREDeliveryTrustStores.Fina2015.TRUSTSTORE_DEMO);
+
     final String sSMPHost = aMPSClient.getSMPHostURI ();
-    assertEquals (true ? "https://mpsdemo.moj-eracun.hr/" : "https://cis.porezna-uprava.hr:8411/EracunMPSCT/",
+    assertEquals (false ? "https://mpsdemo.moj-eracun.hr/" : "https://cis.porezna-uprava.hr:8411/EracunMPSCT/",
                   sSMPHost);
 
-    aMPSClient.setVerifySignature (false);
-    aMPSClient.setXMLSchemaValidation (false);
+    // aMPSClient.setVerifySignature (false);
+    // aMPSClient.setXMLSchemaValidation (false);
     final EndpointType aEndpoint = aMPSClient.getEndpoint (aPI,
                                                            PeppolIdentifierFactory.INSTANCE.parseDocumentTypeIdentifier ("busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.hr:cius-2025:1.0#conformant#urn:mfin.gov.hr:ext-2025:1.0::2.1"),
                                                            PeppolIdentifierFactory.INSTANCE.parseProcessIdentifier ("cenbii-procid-ubl::urn:fdc:eracun.hr:poacc:en16931:any"),
@@ -105,13 +107,12 @@ public final class HRMPSClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Not yet in DNS")
   public void testResolvePWC () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:54648952583");
 
     final HRMPSClientReadOnly aMPSClient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
     final String sSMPHost = aMPSClient.getSMPHostURI ();
-    assertEquals ("http://mps.omnizon.net/", sSMPHost);
+    assertEquals ("https://hroir-dev.westeurope.cloudapp.azure.com/", sSMPHost);
   }
 }
