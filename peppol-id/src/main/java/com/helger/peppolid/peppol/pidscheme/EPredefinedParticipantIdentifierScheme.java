@@ -18,15 +18,13 @@ package com.helger.peppolid.peppol.pidscheme;
 
 import java.time.LocalDate;
 import java.time.Month;
-
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.version.Version;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 
 /**
@@ -267,7 +265,7 @@ public enum EPredefinedParticipantIdentifierScheme
      *  2) No check digit<br>
      * Display requirements: In one group of 20 digits<br>
      * Example value: 00000001820029336000<br>
-     * Usage information: Get all OINs from http://portaal.digikoppeling.nl/registers/<br>
+     * Usage information: Get all OIN’s from: https://oinregister.logius.nl/oin-register<br>
      * 
      * @since code list 2
      */
@@ -656,6 +654,56 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 9.3
      */
     SPIS("SPIS", "0242", "international", "OpenPeppol Service Provider Identification Scheme", "OpenPeppol AISBL", Version.parse("9.3"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
+     * Prefix <code>0244</code>, scheme ID <code>NG:TID</code><br>
+     * Structure of the code: 13 digits for Tax ID assigned to organizations
+     * - YY - Last two digits of issuance year (e.g., 25 for 2025).
+     * - SRC -Source of identity: 1 for individuals (NIN-based) 2 for corporate entities (CAC-based).
+     * - SC - Numeric state code based on national standard (e.g., 24 for Lagos).
+     * - HashFragment - 7-digit numeric fragment derived from the NIN or CAC Registration Number by extracting only numeric characters from a cryptographic hash (e.g., SHA-256).
+     * - CheckDigit - Single-digit checksum calculated using the Luhn (Modulus 10) algorithm applied to the preceding numeric portion of the Tax ID.
+     * Validation is done through internal database cross-checking and NIN/CAC registration linkages<br>
+     * Display requirements: Displayed as a 13-digit numeric string (e.g., 0000000000244) without separators.<br>
+     * Usage information: TINs are mandatory for all activities, tax filings, financial reporting, and government-related transactions in Nigeria<br>
+     * 
+     * @since code list 9.5
+     */
+    NG_TID("NG:TID", "0244", "NG", "Tax Identification (Tax ID)", "Federal Inland Revenue Service Revenue (FIRS)", Version.parse("9.5"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
+     * Prefix <code>0245</code>, scheme ID <code>SK:DIC</code><br>
+     * Structure of the code: 10 characters (fixed length), the first digit determines the type of person or status of the person:
+     *  1- natural person
+     *  2- legal entity
+     *  3- foreign natural person
+     *  4- foreign legal entity
+     *  5- registered organizational unit
+     *  6- tax representative for the import of goods
+     *  7- VAT group
+     * The DIČ number is divisible by 11.<br>
+     * Display requirements: The DIČ number is given as a single 10-digit number.<br>
+     * Usage information: The tax identification number (DIČ) is an identifier that taxpayers are required to provide when dealing with the tax administrator.<br>
+     * 
+     * @since code list 9.5
+     */
+    SK_DIC("SK:DIC", "0245", "SK", "Tax identification number (DI\u010c)", "The tax office according to the local jurisdiction of the taxpayer.\nHead office:\nFinancial Directorate of the Slovak Republic\nLazovn\u00e1 63 , Bansk\u00e1 Bystrica\n974 01 Bansk\u00e1 Bystrica\nSlovakia", Version.parse("9.5"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
+     * Prefix <code>0246</code>, scheme ID <code>DE:GEBA</code><br>
+     * Structure of the code: The identifier must follow the following regular expression in a case-insensitive way:
+     * DE[0-9]{9}(-[0-9]{5})?(\.[0-9A-Z]{1,8})?
+     * The identifier consists of one to three parts:
+     * • The mandatory business identification number (W-IdNr) – DE followed by 9 digits
+     * • The optional “distinctive feature (“Unterscheidungsmerkmal”) – separated by a hyphen and followed by 5 digits
+     * • The optional “sub-address” suffix – separated by a period (Full stop) followed by 1 to 8 characters
+     * The 9th digit of the business identification number (W-IdNr) is a check digit covering the preceding 8 digits.<br>
+     * Display requirements: A GEBA is displayed as an alpha-numerical string value of all parts and separators.<br>
+     * Usage information: Organizations may only use their assigned business identification number. Organizations publish their GEBA including potential sub-address suffixes themselves<br>
+     * 
+     * @since code list 9.5
+     */
+    DE_GEBA("DE:GEBA", "0246", "DE", "German Electronic Business Address", "Koordinierungsstelle fu\u0308r IT-Standards (KoSIT)", Version.parse("9.5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
@@ -1080,13 +1128,13 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>9954</code>, scheme ID <code>NL:OIN</code><br>
-     * Usage information: Deprecated by 0190<br>
+     * Usage information: Replaced by 0190<br>
      * 
      * @since code list 1.1.3
-     * @deprecated since v2 - this item should not be used to issue new identifiers!
+     * @deprecated since v2 - this item should not be used to issue new identifiers!<br>Removed per 2026-03-31
      */
     @Deprecated(forRemoval = false)
-    NL_OIN("NL:OIN", "9954", "NL", "Dutch Originator's Identification Number", null, Version.parse("1.1.3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("2"), null),
+    NL_OIN("NL:OIN", "9954", "NL", "Dutch Originator's Identification Number", null, Version.parse("1.1.3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("2"), PDTFactory.createLocalDate(2026, Month.of(3), 31)),
 
     /**
      * Prefix <code>9955</code>, scheme ID <code>SE:VAT</code><br>
@@ -1131,8 +1179,8 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "9.4";
-    public static final int CODE_LIST_ENTRY_COUNT = 100;
+    public static final String CODE_LIST_VERSION = "9.5";
+    public static final int CODE_LIST_ENTRY_COUNT = 103;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;

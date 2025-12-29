@@ -17,14 +17,12 @@
 package com.helger.peppolid.peppol.spisusecase;
 
 import java.time.LocalDate;
-
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.version.Version;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 
 /**
@@ -42,7 +40,7 @@ public enum EPredefinedSPISUseCaseIdentifier
      * @since code list 9.4
      */
     MLS("MLS", Version.parse("9.4"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "9.4";
+    public static final String CODE_LIST_VERSION = "9.5";
     public static final int CODE_LIST_ENTRY_COUNT = 1;
     private final String m_sUseCaseID;
     private final Version m_aInitialRelease;

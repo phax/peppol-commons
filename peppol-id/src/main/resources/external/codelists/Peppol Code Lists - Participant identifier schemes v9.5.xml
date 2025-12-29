@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<participant-identifier-schemes version="9.4" entry-count="100">
+<participant-identifier-schemes version="9.5" entry-count="103">
   <participant-identifier-scheme schemeid="FR:SIRENE" iso6523="0002" country="FR" scheme-name="System Information et Repertoire des Entreprise et des Etablissements: SIRENE" issuing-agency="Institut National de la Statistique et des Etudes Economiques, (I.N.S.E.E.)" initial-release="1.0.0" state="active">
     <structure>1) Number of characters: 9 characters ("SIREN") 14 " 9+5 ("SIRET"), The 9 character number designates an organization, The 14 character number designates a specific establishment of the organization designated by the first 9 characters.
 2) Check digits: 9th &amp; 14th character respectively</structure>
@@ -194,7 +194,7 @@ Qn : one when the "n" is an odd number, two when the "n" is an even one</structu
     <display>In one group of 20 digits</display>
     <examples>00000001820029336000</examples>
     <validation-rules>RegEx: [0-9]{20}</validation-rules>
-    <usage>Get all OINs from http://portaal.digikoppeling.nl/registers/</usage>
+    <usage>Get all OIN’s from: https://oinregister.logius.nl/oin-register</usage>
     <registrable>true</registrable>
   </participant-identifier-scheme>
   <participant-identifier-scheme schemeid="EE:CC" iso6523="0191" country="EE" scheme-name="Company code" issuing-agency="Centre of Registers and Information Systems of the Ministry of Justice" initial-release="2" state="active">
@@ -516,6 +516,47 @@ and their significance, if any
 Network.</usage>
     <registrable>true</registrable>
   </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="NG:TID" iso6523="0244" country="NG" scheme-name="Tax Identification (Tax ID)" issuing-agency="Federal Inland Revenue Service Revenue (FIRS)" initial-release="9.5" state="active">
+    <structure>13 digits for Tax ID assigned to organizations
+- YY - Last two digits of issuance year (e.g., 25 for 2025).
+- SRC -Source of identity: 1 for individuals (NIN-based) 2 for corporate entities (CAC-based).
+- SC - Numeric state code based on national standard (e.g., 24 for Lagos).
+- HashFragment - 7-digit numeric fragment derived from the NIN or CAC Registration Number by extracting only numeric characters from a cryptographic hash (e.g., SHA-256).
+- CheckDigit - Single-digit checksum calculated using the Luhn (Modulus 10) algorithm applied to the preceding numeric portion of the Tax ID.
+Validation is done through internal database cross-checking and NIN/CAC registration linkages</structure>
+    <display>Displayed as a 13-digit numeric string (e.g., 0000000000244) without separators.</display>
+    <validation-rules>RegEx: [0-9]{13}</validation-rules>
+    <usage>TINs are mandatory for all activities, tax filings, financial reporting, and government-related transactions in Nigeria</usage>
+    <registrable>true</registrable>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="SK:DIC" iso6523="0245" country="SK" scheme-name="Tax identification number (DIČ)" issuing-agency="The tax office according to the local jurisdiction of the taxpayer.&#xA;Head office:&#xA;Financial Directorate of the Slovak Republic&#xA;Lazovná 63 , Banská Bystrica&#xA;974 01 Banská Bystrica&#xA;Slovakia" initial-release="9.5" state="active">
+    <structure>10 characters (fixed length), the first digit determines the type of person or status of the person:
+1- natural person
+2- legal entity
+3- foreign natural person
+4- foreign legal entity
+5- registered organizational unit
+6- tax representative for the import of goods
+7- VAT group
+The DIČ number is divisible by 11.</structure>
+    <display>The DIČ number is given as a single 10-digit number.</display>
+    <validation-rules>RegEx: [0-9]{10}</validation-rules>
+    <usage>The tax identification number (DIČ) is an identifier that taxpayers are required to provide when dealing with the tax administrator.</usage>
+    <registrable>true</registrable>
+  </participant-identifier-scheme>
+  <participant-identifier-scheme schemeid="DE:GEBA" iso6523="0246" country="DE" scheme-name="German Electronic Business Address" issuing-agency="Koordinierungsstelle für IT-Standards (KoSIT)" initial-release="9.5" state="active">
+    <structure>The identifier must follow the following regular expression in a case-insensitive way:
+DE[0-9]{9}(-[0-9]{5})?(\.[0-9A-Z]{1,8})?
+The identifier consists of one to three parts:
+• The mandatory business identification number (W-IdNr) – DE followed by 9 digits
+• The optional “distinctive feature (“Unterscheidungsmerkmal”) – separated by a hyphen and followed by 5 digits
+• The optional “sub-address” suffix – separated by a period (Full stop) followed by 1 to 8 characters
+The 9th digit of the business identification number (W-IdNr) is a check digit covering the preceding 8 digits.</structure>
+    <display>A GEBA is displayed as an alpha-numerical string value of all parts and separators.</display>
+    <validation-rules>RegEx: DE[0-9]{9}(-[0-9]{5})?(\.[0-9A-Z]{1,8})?</validation-rules>
+    <usage>Organizations may only use their assigned business identification number. Organizations publish their GEBA including potential sub-address suffixes themselves</usage>
+    <registrable>true</registrable>
+  </participant-identifier-scheme>
   <participant-identifier-scheme schemeid="DK:CPR" iso6523="9901" country="DK" scheme-name="Danish Ministry of the Interior and Health" issuing-agency="Danish Ministry of the Interior and Health" initial-release="1.0.0" state="removed" deprecation-release="8.6" removal-date="2023-11-30">
     <structure>1) First field: ICD: 4 digits, Second field: sequence of digits</structure>
     <display>None</display>
@@ -736,9 +777,9 @@ https://github.com/arthurdejong/python-stdnum/blob/master/stdnum/iban.dat</struc
   <participant-identifier-scheme schemeid="VA:VAT" iso6523="9953" country="VA" scheme-name="Holy See (Vatican City State) VAT number" initial-release="1.1.0" state="active">
     <registrable>true</registrable>
   </participant-identifier-scheme>
-  <participant-identifier-scheme schemeid="NL:OIN" iso6523="9954" country="NL" scheme-name="Dutch Originator's Identification Number" initial-release="1.1.3" state="deprecated" deprecation-release="2">
-    <usage>Deprecated by 0190</usage>
-    <registrable>true</registrable>
+  <participant-identifier-scheme schemeid="NL:OIN" iso6523="9954" country="NL" scheme-name="Dutch Originator's Identification Number" initial-release="1.1.3" state="deprecated" deprecation-release="2" removal-date="2026-03-31">
+    <usage>Replaced by 0190</usage>
+    <registrable>false</registrable>
   </participant-identifier-scheme>
   <participant-identifier-scheme schemeid="SE:VAT" iso6523="9955" country="SE" scheme-name="Swedish VAT number" initial-release="1.2.0" state="removed" deprecation-release="8.4" removal-date="2023-07-31">
     <registrable>false</registrable>

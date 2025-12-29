@@ -351,6 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 v12.3.4 - work in progress
 * Added constructor overload `HRMPSClientReadOnly(URI)`
+* Updated to Peppol eDEC Code Lists v9.5
 
 v12.3.3 - 2025-12-16
 * Updated to ph-commons 12.1.1

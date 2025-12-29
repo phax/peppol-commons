@@ -4,7 +4,7 @@ Official source: https://docs.peppol.eu/edelivery/codelists/
 
 This file was automatically generated.
 Do NOT edit!-->
-<processes version="9.4" entry-count="107">
+<processes version="9.5" entry-count="108">
   <process scheme="cenbii-procid-ubl" value="none" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver1.0" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:www.cenbii.eu:profile:bii01:ver2.0" state="active" />
@@ -91,6 +91,7 @@ Do NOT edit!-->
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transport_execution_plan_only:1" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:waybill:1" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transportation_status_w_request:1" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:hr-xml:2007:timesheet:1.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:edec:bis:reporting:1.0" state="active" />
@@ -102,7 +103,7 @@ Do NOT edit!-->
   <process scheme="cenbii-procid-ubl" value="urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:utskrift:ver1.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:digdir.no:2020:profile:egovernment:innbyggerpost:flyttet:ver1.0" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:dico:2018:maintenance:1.0" state="active" />
-  <process scheme="cenbii-procid-ubl" value="urn:peppol:bis:taxreporting" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:peppol:bis:taxreporting" state="deprecated" />
   <process scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:billing" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:order_desadv_billing" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:ordering_desadv_billing" state="active" />
@@ -111,5 +112,5 @@ Do NOT edit!-->
   <process scheme="cenbii-procid-ubl" value="urn:peppol:eb2b:oneway" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:peppol:edec:mls" state="active" />
   <process scheme="cenbii-procid-ubl" value="urn:fdc:imda.gov.sg:bis:order_balance:1" state="active" />
-  <process scheme="cenbii-procid-ubl" value="urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1" state="active" />
+  <process scheme="cenbii-procid-ubl" value="urn:peppol:taxreporting" state="active" />
 </processes>

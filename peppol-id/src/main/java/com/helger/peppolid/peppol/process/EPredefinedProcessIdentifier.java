@@ -16,14 +16,13 @@
  */
 package com.helger.peppolid.peppol.process;
 
-import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
-
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.EPeppolCodeListItemState;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 
 /**
@@ -540,6 +539,11 @@ public enum EPredefinedProcessIdentifier
     urn_fdc_peppol_eu_logistics_bis_transportation_status_w_request_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:transportation_status_w_request:1", EPeppolCodeListItemState.ACTIVE),
 
     /**
+     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1</code><br>
+     */
+    urn_fdc_peppol_eu_logistics_bis_advanced_transport_execution_plan_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1", EPeppolCodeListItemState.ACTIVE),
+
+    /**
      * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1</code><br>
      */
     urn_fdc_peppol_eu_logistics_bis_transportation_status_only_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:transportation_status_only:1", EPeppolCodeListItemState.ACTIVE),
@@ -596,8 +600,11 @@ public enum EPredefinedProcessIdentifier
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:peppol:bis:taxreporting</code><br>
+     * 
+     * @deprecated This item should not be used to issue new identifiers!
      */
-    urn_peppol_bis_taxreporting("cenbii-procid-ubl", "urn:peppol:bis:taxreporting", EPeppolCodeListItemState.ACTIVE),
+    @Deprecated(forRemoval = false)
+    urn_peppol_bis_taxreporting("cenbii-procid-ubl", "urn:peppol:bis:taxreporting", EPeppolCodeListItemState.DEPRECATED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:peppol:eb2b:billing</code><br>
@@ -640,11 +647,11 @@ public enum EPredefinedProcessIdentifier
     urn_fdc_imda_gov_sg_bis_order_balance_1("cenbii-procid-ubl", "urn:fdc:imda.gov.sg:bis:order_balance:1", EPeppolCodeListItemState.ACTIVE),
 
     /**
-     * ID: <code>cenbii-procid-ubl::urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1</code><br>
+     * ID: <code>cenbii-procid-ubl::urn:peppol:taxreporting</code><br>
      */
-    urn_fdc_peppol_eu_logistics_bis_advanced_transport_execution_plan_1("cenbii-procid-ubl", "urn:fdc:peppol.eu:logistics:bis:advanced_transport_execution_plan:1", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "9.4";
-    public static final int CODE_LIST_ENTRY_COUNT = 107;
+    urn_peppol_taxreporting("cenbii-procid-ubl", "urn:peppol:taxreporting", EPeppolCodeListItemState.ACTIVE);
+    public static final String CODE_LIST_VERSION = "9.5";
+    public static final int CODE_LIST_ENTRY_COUNT = 108;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 
