@@ -19,6 +19,7 @@ package com.helger.hredelivery.commons.smp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.hredelivery.commons.EHREDeliverySML;
@@ -107,6 +108,7 @@ public final class HRMPSClientReadOnlyTest
   }
 
   @Test
+  @Ignore ("Back to test portal")
   public void testResolvePWC () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:54648952583");
