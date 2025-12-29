@@ -17,7 +17,7 @@
 package com.helger.hredelivery.commons;
 
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.peppolid.IParticipantIdentifier;
+import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
 
@@ -25,16 +25,17 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
  * Specific predefined IDs for HR eRacun stuff
  *
  * @author Philip Helger
+ * @since 12.3.4
  */
 @Immutable
 public final class CHREDeliveryID
 {
   /** HR eRacun Invoice Extension 2025 1.0 */
-  public static final IParticipantIdentifier DOC_TYPE_ID_HR_ERACUN_INVOICE_EXT_2025_1_0 = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifier ("busdox-docid-qns",
-                                                                                                                                                        "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.hr:cius-2025:1.0#conformant#urn:mfin.gov.hr:ext-2025:1.0::2.1");
+  public static final IDocumentTypeIdentifier DOC_TYPE_ID_HR_ERACUN_INVOICE_EXT_2025_1_0 = PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifier ("busdox-docid-qns",
+                                                                                                                                                          "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.hr:cius-2025:1.0#conformant#urn:mfin.gov.hr:ext-2025:1.0::2.1");
   /** HR eRacun CreditNote Extension 2025 1.0 */
-  public static final IParticipantIdentifier DOC_TYPE_ID_HR_ERACUN_CREDIT_NOTE_EXT_2025_1_0 = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifier ("busdox-docid-qns",
-                                                                                                                                                            "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.hr:cius-2025:1.0#conformant#urn:mfin.gov.hr:ext-2025:1.0::2.1");
+  public static final IDocumentTypeIdentifier DOC_TYPE_ID_HR_ERACUN_CREDIT_NOTE_EXT_2025_1_0 = PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifier ("busdox-docid-qns",
+                                                                                                                                                              "urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2::CreditNote##urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.hr:cius-2025:1.0#conformant#urn:mfin.gov.hr:ext-2025:1.0::2.1");
 
   public static final IProcessIdentifier PROCESS_ID_HR_ERACUN = PeppolIdentifierFactory.INSTANCE.createProcessIdentifierWithDefaultScheme ("urn:fdc:eracun.hr:poacc:en16931:any");
 
