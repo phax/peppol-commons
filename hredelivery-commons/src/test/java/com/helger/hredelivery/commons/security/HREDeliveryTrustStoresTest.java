@@ -41,6 +41,7 @@ public final class HREDeliveryTrustStoresTest
     assertNotNull (Fina2015.TRUSTSTORE_PRODUCTION);
     assertNotNull (Fina2015.CERTIFICATE_PRODUCTION_ROOT);
     assertNotNull (Fina2015.CERTIFICATE_PRODUCTION_RDC_2020);
+    assertNotNull (Fina2015.CERTIFICATE_PRODUCTION_RDC_2025);
 
     assertNotNull (Fina2015.TRUSTSTORE_DEMO);
     assertNotNull (Fina2015.CERTIFICATE_DEMO_ROOT);

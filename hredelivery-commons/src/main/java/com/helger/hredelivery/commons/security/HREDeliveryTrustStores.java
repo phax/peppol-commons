@@ -156,6 +156,13 @@ public final class HREDeliveryTrustStores
     public static final X509Certificate CERTIFICATE_PRODUCTION_RDC_2020 = _resolveCert (TRUSTSTORE_PRODUCTION,
                                                                                         TRUSTSTORE_PRODUCTION_ALIAS_RDC_2020);
 
+    /** The truststore alias for the Fina production RDC 2025 CA certificate */
+    public static final String TRUSTSTORE_PRODUCTION_ALIAS_RDC_2025 = "fina rdc 2025 (fina root ca)";
+
+    /** The Fina RDC 2025 CA certificate */
+    public static final X509Certificate CERTIFICATE_PRODUCTION_RDC_2025 = _resolveCert (TRUSTSTORE_PRODUCTION,
+                                                                                        TRUSTSTORE_PRODUCTION_ALIAS_RDC_2025);
+
     // Complete
     // Production
 
