@@ -1,7 +1,9 @@
 # Introduction
 
-[![javadoc](https://javadoc.io/badge2/com.helger.peppol/peppol-commons/javadoc.svg)](https://javadoc.io/doc/com.helger.peppol/peppol-commons)
+<!-- ph-badge-start -->
+[![Maven Central](https://img.shields.io/maven-central/v/com.helger.peppol/peppol-commons-parent-pom)](https://img.shields.io/maven-central/v/com.helger.peppol/peppol-commons-parent-pom)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.helger.peppol/peppol-commons-parent-pom) 
+<!-- ph-badge-end -->
 
 This project contains different libraries that are commonly used in the Peppol/eDelivery area:
 * [`peppol-id-datatypes`](#peppol-id-datatypes) - the generated JAXB classes for ID handling (since v8.4.0)
