@@ -62,6 +62,7 @@ import com.helger.sbdh.SBDMarshaller;
 public class PeppolSBDHDataReader
 {
   public static final boolean DEFAULT_PERFORM_VALUE_CHECKS = true;
+  @Deprecated (forRemoval = true, since = "12.3.6")
   public static final boolean DEFAULT_CHECK_FOR_COUNTRY_C1 = true;
   public static final String DEFAULT_COUNTRY_CODE_REGEX = "[A-Z0-9][A-Z0-9]";
 
@@ -118,7 +119,10 @@ public class PeppolSBDHDataReader
    *
    * @return <code>true</code> to check for mandatory country C1, <code>false</code> to not do it.
    * @since 9.2.2
+   * @deprecated The SBDH C1 country requirement is contained for long enough. No need anymore to
+   *             disable this check.
    */
+  @Deprecated (forRemoval = true, since = "12.3.6")
   public final boolean isCheckForCountryC1 ()
   {
     return m_bCheckForCountryC1;
@@ -132,8 +136,11 @@ public class PeppolSBDHDataReader
    *        <code>true</code> to enable the check, <code>false</code> to disable it.
    * @return this for chaining
    * @since 9.2.2
+   * @deprecated The SBDH C1 country requirement is contained for long enough. No need anymore to
+   *             disable this check.
    */
   @NonNull
+  @Deprecated (forRemoval = true, since = "12.3.6")
   public final PeppolSBDHDataReader setCheckForCountryC1 (final boolean b)
   {
     final boolean bChanged = b != m_bCheckForCountryC1;
@@ -314,6 +321,7 @@ public class PeppolSBDHDataReader
       return false;
 
     // TODO add PI scheme checks
+    // MLS must be sent to SPID only
 
     return true;
   }

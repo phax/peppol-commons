@@ -354,6 +354,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 v12.3.6 - work in progress
 * Added additional MLS constants in `CPeppolMLS`
 * Added new class `SPIDHelper` which adds some Peppol SPIS/SPID helper methods
+* Deprecated the possibility to disable the checking for SBDH Country C1 in `PeppolSBDHDataReader`
 
 v12.3.5 - 2026-02-02
 * Added the "Fina RDC 2025" certificate to the production trusted CAs in `HREDeliveryTrustedCA`
