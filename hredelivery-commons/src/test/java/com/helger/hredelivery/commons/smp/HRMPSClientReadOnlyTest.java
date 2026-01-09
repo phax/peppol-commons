@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.helger.hredelivery.commons.CHREDeliveryID;
 import com.helger.hredelivery.commons.EHREDeliverySML;
 import com.helger.hredelivery.commons.security.HREDeliveryTrustStores;
 import com.helger.peppol.smp.ESMPTransportProfile;
@@ -47,14 +48,33 @@ public final class HRMPSClientReadOnlyTest
     aMPSClient.setTrustStore (HREDeliveryTrustStores.Fina2015.TRUSTSTORE_DEMO);
 
     final String sSMPHost = aMPSClient.getSMPHostURI ();
-    assertEquals (false ? "https://mpsdemo.moj-eracun.hr/" : "https://cis.porezna-uprava.hr:8411/EracunMPSCT/",
-                  sSMPHost);
+    assertEquals (true ? "https://hr-smp-test.zzi.si/" : "https://cis.porezna-uprava.hr:8411/EracunMPSCT/", sSMPHost);
 
     // aMPSClient.setVerifySignature (false);
     // aMPSClient.setXMLSchemaValidation (false);
     final EndpointType aEndpoint = aMPSClient.getEndpoint (aPI,
-                                                           PeppolIdentifierFactory.INSTANCE.parseDocumentTypeIdentifier ("busdox-docid-qns::urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:cen.eu:en16931:2017#compliant#urn:mfin.gov.hr:cius-2025:1.0#conformant#urn:mfin.gov.hr:ext-2025:1.0::2.1"),
-                                                           PeppolIdentifierFactory.INSTANCE.parseProcessIdentifier ("cenbii-procid-ubl::urn:fdc:eracun.hr:poacc:en16931:any"),
+                                                           CHREDeliveryID.DOC_TYPE_ID_HR_ERACUN_INVOICE_EXT_2025_1_0,
+                                                           CHREDeliveryID.PROCESS_ID_HR_ERACUN,
+                                                           ESMPTransportProfile.TRANSPORT_PROFILE_ERACUN_AS4_V1);
+    assertNotNull (aEndpoint);
+  }
+
+  @Test
+  public void testResolveDemoParticipant2 () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:92265244213");
+
+    final HRMPSClientReadOnly aMPSClient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
+    aMPSClient.setTrustStore (HREDeliveryTrustStores.Fina2015.TRUSTSTORE_DEMO);
+
+    final String sSMPHost = aMPSClient.getSMPHostURI ();
+    assertEquals ("https://mpsdemo.moj-eracun.hr/", sSMPHost);
+
+    // aMPSClient.setVerifySignature (false);
+    aMPSClient.setXMLSchemaValidation (false);
+    final EndpointType aEndpoint = aMPSClient.getEndpoint (aPI,
+                                                           CHREDeliveryID.DOC_TYPE_ID_HR_ERACUN_INVOICE_EXT_2025_1_0,
+                                                           CHREDeliveryID.PROCESS_ID_HR_ERACUN,
                                                            ESMPTransportProfile.TRANSPORT_PROFILE_ERACUN_AS4_V1);
     assertNotNull (aEndpoint);
   }
