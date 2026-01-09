@@ -122,4 +122,14 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
       default -> null;
     };
   }
+
+  @Nullable
+  public static EPeppolNetwork getFromSMLInfoOrNull (@Nullable final ISMLInfo aSMLInfo)
+  {
+    if (aSMLInfo != null)
+      for (final var e : EPeppolNetwork.values ())
+        if (e.m_aSMLInfo.equals (aSMLInfo))
+          return e;
+    return null;
+  }
 }
