@@ -74,9 +74,8 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   }
 
   /**
-   * @return The URL of the Peppol Directory for this network stage. Ends with
-   *         the domain name and without a trailing slash. Never
-   *         <code>null</code>.
+   * @return The URL of the Peppol Directory for this network stage. Ends with the domain name and
+   *         without a trailing slash. Never <code>null</code>.
    */
   @NonNull
   @Nonempty
@@ -86,8 +85,7 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   }
 
   /**
-   * @return The SML object to be used for this network stage. Never
-   *         <code>null</code>.
+   * @return The SML object to be used for this network stage. Never <code>null</code>.
    */
   @NonNull
   public ISMLInfo getSMLInfo ()
@@ -109,5 +107,19 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   public static EPeppolNetwork getFromIDOrNull (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrNull (EPeppolNetwork.class, sID);
+  }
+
+  @Nullable
+  public static EPeppolNetwork getFromESMLOrNull (@Nullable final ESML eSML)
+  {
+    if (eSML == null)
+      return null;
+
+    return switch (eSML)
+    {
+      case DIGIT_PRODUCTION -> EPeppolNetwork.PRODUCTION;
+      case DIGIT_TEST -> EPeppolNetwork.TEST;
+      default -> null;
+    };
   }
 }
