@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.misc.ChangeNextMajorRelease;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
@@ -185,6 +186,7 @@ public final class SMPClientConfiguration
    * @since 6.0.0
    */
   @NonNull
+  @ChangeNextMajorRelease ("Change default to PKCS12")
   public static EKeyStoreType getTrustStoreType ()
   {
     final String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");
