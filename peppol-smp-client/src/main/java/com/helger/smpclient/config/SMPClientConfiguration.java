@@ -170,7 +170,10 @@ public final class SMPClientConfiguration
     }
 
     if (!EqualsHelper.identityEqual (ret, aNewConfig))
-      LOGGER.info ("The SMPClient configuration provider was changed to " + aNewConfig);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("The SMPClient configuration provider was changed to " + aNewConfig);
+      else
+        LOGGER.info ("The SMPClient configuration provider was changed");
     return ret;
   }
 
