@@ -357,7 +357,7 @@ v12.3.6 - work in progress
 * Deprecated the possibility to disable the checking for SBDH Country C1 in `PeppolSBDHDataReader`
 * Added new method `EPeppolNetwork.getFromESMLOrNull`
 
-v12.3.5 - 2026-02-02
+v12.3.5 - 2026-01-02
 * Added the "Fina RDC 2025" certificate to the production trusted CAs in `HREDeliveryTrustedCA`
 
 v12.3.4 - 2025-12-29
