@@ -1014,7 +1014,6 @@ v8.8.0 - 2022-08-17
 * v5.0.1 - 2016-07-26
 * v5.0.0 - 2016-07-12
     * JDK 8 is now required
-    * Please check the separate [Update to version 5](UpdateV5.md) page.
 * v4.3.5 - 2016-02-26
     * Made the SMP query API more flexible so that e.g. the Peppol Directory BusinessCards can easily be queried; made the SMP Client more configurable.
 * v4.3.4 - 2016-01-26
