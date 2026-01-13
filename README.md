@@ -351,7 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.6 - work in progress
+v12.3.6 - 2026-01-13
 * Added additional MLS constants in `CPeppolMLS`
 * Added new class `SPIDHelper` which adds some Peppol SPIS/SPID helper methods
 * Deprecated the possibility to disable the checking for SBDH Country C1 in `PeppolSBDHDataReader`
