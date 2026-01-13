@@ -30,8 +30,8 @@ import com.helger.peppolid.IIdentifier;
 public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
 {
   /**
-   * @return <code>true</code> if this identifier type requires a mandatory
-   *         document type identifier scheme, <code>false</code> if not.
+   * @return <code>true</code> if this identifier type requires a mandatory document type identifier
+   *         scheme, <code>false</code> if not.
    */
   default boolean isDocumentTypeIdentifierSchemeMandatory ()
   {
@@ -39,9 +39,8 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * @return The default document type identifier scheme to be used for this
-   *         identifier type, independent of the value. May be
-   *         <code>null</code>.
+   * @return The default document type identifier scheme to be used for this identifier type,
+   *         independent of the value. May be <code>null</code>.
    */
   @Nullable
   default String getDefaultDocumentTypeIdentifierScheme ()
@@ -51,11 +50,9 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
 
   /**
    * @param sValue
-   *        The Document type identifier value for which a scheme should be
-   *        deduced.
-   * @return The default document type identifier scheme to be used for this
-   *         identifier type, but specific to the provided value. May be
-   *         <code>null</code>.
+   *        The Document type identifier value for which a scheme should be deduced.
+   * @return The default document type identifier scheme to be used for this identifier type, but
+   *         specific to the provided value. May be <code>null</code>.
    * @since 9.6.0
    */
   @Nullable
@@ -67,11 +64,9 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   /**
    * @param sScheme
    *        The identifier scheme in use. May be <code>null</code> or empty if
-   *        {@link #isDocumentTypeIdentifierSchemeMandatory()} is
-   *        <code>false</code>.
-   * @return <code>true</code> if all document type identifiers need to be
-   *         handled case insensitive (so "abc" equals "ABC"),
-   *         <code>false</code> if not.
+   *        {@link #isDocumentTypeIdentifierSchemeMandatory()} is <code>false</code>.
+   * @return <code>true</code> if all document type identifiers need to be handled case insensitive
+   *         (so "abc" equals "ABC"), <code>false</code> if not.
    */
   default boolean isDocumentTypeIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
@@ -83,8 +78,8 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
    *
    * @param sScheme
    *        The scheme to check.
-   * @return <code>true</code> if the passed scheme is a valid identifier
-   *         scheme, <code>false</code> otherwise.
+   * @return <code>true</code> if the passed scheme is a valid identifier scheme, <code>false</code>
+   *         otherwise.
    */
   default boolean isDocumentTypeIdentifierSchemeValid (@Nullable final String sScheme)
   {
@@ -92,16 +87,15 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Check if the passed document type identifier value is valid for the
-   * provided scheme.
+   * Check if the passed document type identifier value is valid for the provided scheme.
    *
    * @param sScheme
    *        The document type identifier scheme of the value to be checked.
    * @param sValue
-   *        The document type identifier value to be checked (without the
-   *        scheme). May be <code>null</code>.
-   * @return <code>true</code> if the document type identifier value is valid
-   *         for the provided scheme, <code>false</code> otherwise
+   *        The document type identifier value to be checked (without the scheme). May be
+   *        <code>null</code>.
+   * @return <code>true</code> if the document type identifier value is valid for the provided
+   *         scheme, <code>false</code> otherwise
    * @since 9.1.1
    */
   default boolean isDocumentTypeIdentifierValueValid (@Nullable final String sScheme, @Nullable final String sValue)
@@ -110,17 +104,16 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Create a new document type identifier. This method returns a unified
-   * identifier value if
-   * {@link #isDocumentTypeIdentifierCaseInsensitive(String)} is
-   * <code>true</code> for the provided scheme.
+   * Create a new document type identifier. This method returns a unified identifier value if
+   * {@link #isDocumentTypeIdentifierCaseInsensitive(String)} is <code>true</code> for the provided
+   * scheme.
    *
    * @param sScheme
    *        The scheme to be used.
    * @param sValue
    *        The value to be used.
-   * @return <code>null</code> if the provided scheme and/or value are/is
-   *         invalid according to the rules of the implementation.
+   * @return <code>null</code> if the provided scheme and/or value are/is invalid according to the
+   *         rules of the implementation.
    * @see #createDocumentTypeIdentifierWithDefaultScheme(String)
    * @see #getUnifiedValue(String)
    * @see #isDocumentTypeIdentifierCaseInsensitive(String)
@@ -129,17 +122,33 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   IDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable String sScheme, @Nullable String sValue);
 
   /**
-   * Create a new document type identifier using the default identifier scheme.
-   * This may result in an <code>null</code> object if no default identifier
-   * scheme is present, but no scheme is forbidden! This method returns a
-   * unified identifier value if
-   * {@link #isDocumentTypeIdentifierCaseInsensitive(String)} is
-   * <code>true</code> for the default scheme.
+   * Create a new document type identifier. This method may be used to convert an identifier created
+   * from a different Identifier Factory.
+   *
+   * @param aSrc
+   *        The source identifier to be used. May be <code>null</code>.
+   * @return <code>null</code> if the provided scheme and/or value are/is invalid according to the
+   *         rules of the implementation.
+   * @see #createDocumentTypeIdentifier(String, String)
+   * @since 12.3.6
+   */
+  @Nullable
+  default IDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final IDocumentTypeIdentifier aSrc)
+  {
+    return aSrc == null ? null : createDocumentTypeIdentifier (aSrc.getScheme (), aSrc.getValue ());
+  }
+
+  /**
+   * Create a new document type identifier using the default identifier scheme. This may result in
+   * an <code>null</code> object if no default identifier scheme is present, but no scheme is
+   * forbidden! This method returns a unified identifier value if
+   * {@link #isDocumentTypeIdentifierCaseInsensitive(String)} is <code>true</code> for the default
+   * scheme.
    *
    * @param sValue
    *        The value to be used.
-   * @return <code>null</code> if the default scheme and/or the provided value
-   *         are/is invalid according to the rules of the implementation.
+   * @return <code>null</code> if the default scheme and/or the provided value are/is invalid
+   *         according to the rules of the implementation.
    * @see #createDocumentTypeIdentifier(String, String)
    * @see #getDefaultDocumentTypeIdentifierScheme()
    * @see #getUnifiedValue(String)
@@ -152,15 +161,14 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Parse the provided URI encoded identifier as a document type identifier.
-   * This is the reverse operation of {@link IIdentifier#getURIEncoded()}
+   * Parse the provided URI encoded identifier as a document type identifier. This is the reverse
+   * operation of {@link IIdentifier#getURIEncoded()}
    *
    * @param sURIEncodedIdentifier
-   *        The URI encoded identifier in the format <code>scheme::value</code>.
-   *        It must NOT be percent encoded!
-   * @return The created identifier or <code>null</code> if the passed
-   *         identifier is not a valid URI encoded identifier according to the
-   *         rules of the implementation.
+   *        The URI encoded identifier in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded!
+   * @return The created identifier or <code>null</code> if the passed identifier is not a valid URI
+   *         encoded identifier according to the rules of the implementation.
    */
   @Nullable
   default IDocumentTypeIdentifier parseDocumentTypeIdentifier (@Nullable final String sURIEncodedIdentifier)
@@ -169,8 +177,7 @@ public interface IDocumentTypeIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Create a clone of the passed document type identifier using the correct
-   * implementation type.
+   * Create a clone of the passed document type identifier using the correct implementation type.
    *
    * @param aDocTypeID
    *        Source identifier to clone. May be <code>null</code>.

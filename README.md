@@ -356,6 +356,7 @@ v12.3.6 - work in progress
 * Added new class `SPIDHelper` which adds some Peppol SPIS/SPID helper methods
 * Deprecated the possibility to disable the checking for SBDH Country C1 in `PeppolSBDHDataReader`
 * Added new method `EPeppolNetwork.getFromESMLOrNull`
+* Extended `I(Participant|DocumentType|Process)IdentifierFactory` with methods to create identifiers based on identifiers from other factories
 
 v12.3.5 - 2026-01-02
 * Added the "Fina RDC 2025" certificate to the production trusted CAs in `HREDeliveryTrustedCA`

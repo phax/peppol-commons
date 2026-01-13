@@ -30,8 +30,8 @@ import com.helger.peppolid.IProcessIdentifier;
 public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
 {
   /**
-   * @return <code>true</code> if this identifier type requires a mandatory
-   *         process identifier scheme, <code>false</code> if not.
+   * @return <code>true</code> if this identifier type requires a mandatory process identifier
+   *         scheme, <code>false</code> if not.
    */
   default boolean isProcessIdentifierSchemeMandatory ()
   {
@@ -39,8 +39,8 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * @return The default process identifier scheme to be used for this
-   *         identifier type. May be <code>null</code>.
+   * @return The default process identifier scheme to be used for this identifier type. May be
+   *         <code>null</code>.
    */
   @Nullable
   default String getDefaultProcessIdentifierScheme ()
@@ -52,9 +52,8 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
    * @param sScheme
    *        The identifier scheme in use. May be <code>null</code> or empty if
    *        {@link #isProcessIdentifierSchemeMandatory()} is <code>false</code>.
-   * @return <code>true</code> if all process identifiers need to be handled
-   *         case insensitive (so "abc" equals "ABC"), <code>false</code> if
-   *         not.
+   * @return <code>true</code> if all process identifiers need to be handled case insensitive (so
+   *         "abc" equals "ABC"), <code>false</code> if not.
    */
   default boolean isProcessIdentifierCaseInsensitive (@Nullable final String sScheme)
   {
@@ -66,8 +65,8 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
    *
    * @param sScheme
    *        The scheme to check.
-   * @return <code>true</code> if the passed scheme is a valid identifier
-   *         scheme, <code>false</code> otherwise.
+   * @return <code>true</code> if the passed scheme is a valid identifier scheme, <code>false</code>
+   *         otherwise.
    */
   default boolean isProcessIdentifierSchemeValid (@Nullable final String sScheme)
   {
@@ -78,13 +77,12 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
    * Check if the passed process identifier value is valid.
    *
    * @param sScheme
-   *        The process identifier scheme of the value to be checked. May be
-   *        <code>null</code>.
+   *        The process identifier scheme of the value to be checked. May be <code>null</code>.
    * @param sValue
-   *        The process identifier value to be checked (without the scheme). May
-   *        be <code>null</code>.
-   * @return <code>true</code> if the process identifier value is valid,
-   *         <code>false</code> otherwise
+   *        The process identifier value to be checked (without the scheme). May be
+   *        <code>null</code>.
+   * @return <code>true</code> if the process identifier value is valid, <code>false</code>
+   *         otherwise
    * @since 9.1.1
    */
   default boolean isProcessIdentifierValueValid (@Nullable final String sScheme, @Nullable final String sValue)
@@ -93,16 +91,16 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Create a new process identifier. This method returns a unified identifier
-   * value if {@link #isProcessIdentifierCaseInsensitive(String)} is
-   * <code>true</code> for the provided scheme.
+   * Create a new process identifier. This method returns a unified identifier value if
+   * {@link #isProcessIdentifierCaseInsensitive(String)} is <code>true</code> for the provided
+   * scheme.
    *
    * @param sScheme
    *        The scheme to be used.
    * @param sValue
    *        The value to be used.
-   * @return <code>null</code> if the provided scheme and/or value are/is
-   *         invalid according to the rules of the implementation.
+   * @return <code>null</code> if the provided scheme and/or value are/is invalid according to the
+   *         rules of the implementation.
    * @see #createProcessIdentifierWithDefaultScheme(String)
    * @see #getUnifiedValue(String)
    * @see #isProcessIdentifierCaseInsensitive(String)
@@ -111,16 +109,33 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
   IProcessIdentifier createProcessIdentifier (@Nullable String sScheme, @Nullable String sValue);
 
   /**
-   * Create a new process identifier using the default identifier scheme. This
-   * may result in an <code>null</code> object if no default identifier scheme
-   * is present, but no scheme is forbidden! This method returns a unified
-   * identifier value if {@link #isProcessIdentifierCaseInsensitive(String)} is
-   * <code>true</code> for the default scheme.
+   * Create a new process identifier. This method may be used to convert an identifier created from
+   * a different Identifier Factory.
+   *
+   * @param aSrc
+   *        The source identifier to be used. May be <code>null</code>.
+   * @return <code>null</code> if the provided scheme and/or value are/is invalid according to the
+   *         rules of the implementation.
+   * @see #createProcessIdentifier(String, String)
+   * @since 12.3.6
+   */
+  @Nullable
+  default IProcessIdentifier createProcessIdentifier (@Nullable final IProcessIdentifier aSrc)
+  {
+    return aSrc == null ? null : createProcessIdentifier (aSrc.getScheme (), aSrc.getValue ());
+  }
+
+  /**
+   * Create a new process identifier using the default identifier scheme. This may result in an
+   * <code>null</code> object if no default identifier scheme is present, but no scheme is
+   * forbidden! This method returns a unified identifier value if
+   * {@link #isProcessIdentifierCaseInsensitive(String)} is <code>true</code> for the default
+   * scheme.
    *
    * @param sValue
    *        The value to be used.
-   * @return <code>null</code> if the default scheme and/or the provided value
-   *         are/is invalid according to the rules of the implementation.
+   * @return <code>null</code> if the default scheme and/or the provided value are/is invalid
+   *         according to the rules of the implementation.
    * @see #createProcessIdentifier(String, String)
    * @see #getDefaultProcessIdentifierScheme()
    * @see #getUnifiedValue(String)
@@ -133,15 +148,14 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Parse the provided URI encoded identifier as a process identifier. This is
-   * the reverse operation of {@link IIdentifier#getURIEncoded()}
+   * Parse the provided URI encoded identifier as a process identifier. This is the reverse
+   * operation of {@link IIdentifier#getURIEncoded()}
    *
    * @param sURIEncodedIdentifier
-   *        The URI encoded identifier in the format <code>scheme::value</code>.
-   *        It must NOT be percent encoded!
-   * @return The created identifier or <code>null</code> if the passed
-   *         identifier is not a valid URI encoded identifier according to the
-   *         rules of the implementation.
+   *        The URI encoded identifier in the format <code>scheme::value</code>. It must NOT be
+   *        percent encoded!
+   * @return The created identifier or <code>null</code> if the passed identifier is not a valid URI
+   *         encoded identifier according to the rules of the implementation.
    */
   @Nullable
   default IProcessIdentifier parseProcessIdentifier (@Nullable final String sURIEncodedIdentifier)
@@ -150,8 +164,7 @@ public interface IProcessIdentifierFactory extends IIdentifierFactoryBase
   }
 
   /**
-   * Create a clone of the passed process identifier using the correct
-   * implementation type.
+   * Create a clone of the passed process identifier using the correct implementation type.
    *
    * @param aProcessID
    *        Source identifier to clone. May be <code>null</code>.
