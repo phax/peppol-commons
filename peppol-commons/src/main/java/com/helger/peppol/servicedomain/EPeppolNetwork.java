@@ -46,17 +46,17 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   private final String m_sID;
   private final String m_sDisplayName;
   private final String m_sDirectoryURL;
-  private final ISMLInfo m_aSMLInfo;
+  private final ESML m_eSML;
 
   EPeppolNetwork (@NonNull @Nonempty final String sID,
                   @NonNull @Nonempty final String sDisplayName,
                   @NonNull @Nonempty final String sDirectoryURL,
-                  @NonNull final ISMLInfo aSMLInfo)
+                  @NonNull final ESML eSML)
   {
     m_sID = sID;
     m_sDisplayName = sDisplayName;
     m_sDirectoryURL = sDirectoryURL;
-    m_aSMLInfo = aSMLInfo;
+    m_eSML = eSML;
   }
 
   @NonNull
@@ -90,7 +90,7 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   @NonNull
   public ISMLInfo getSMLInfo ()
   {
-    return m_aSMLInfo;
+    return m_eSML;
   }
 
   public boolean isProduction ()
@@ -128,8 +128,11 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   {
     if (aSMLInfo != null)
       for (final var e : EPeppolNetwork.values ())
-        if (e.m_aSMLInfo.equals (aSMLInfo))
+      {
+        // Compare by ID, so that ESML can be compared with SMLInfo
+        if (e.m_eSML.getID ().equals (aSMLInfo.getID ()))
           return e;
+      }
     return null;
   }
 }
