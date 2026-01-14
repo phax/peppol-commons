@@ -120,8 +120,8 @@ public enum EPeppolNetwork implements IPeppolNetwork
     if (aSMLInfo != null)
       for (final var e : EPeppolNetwork.values ())
       {
-        // Compare by ID, so that ESML can be compared with SMLInfo
-        if (e.m_eSML.getProxy ().equals (aSMLInfo))
+        // Compare by ID only, as e.g. displayname may vary
+        if (e.m_eSML.getID ().equals (aSMLInfo.getID ()))
           return e;
       }
     return null;
