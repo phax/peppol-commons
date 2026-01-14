@@ -351,6 +351,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.3.7 - work in progress
+* Fixed an error in `EPeppolNetwork.getFromSMLInfo` if an `ESML` was passed
+* Added new interface `IPeppolServiceDomain`
+* Added new interface `IPeppolNetwork`
+
 v12.3.6 - 2026-01-13
 * Added additional MLS constants in `CPeppolMLS`
 * Added new class `SPIDHelper` which adds some Peppol SPIS/SPID helper methods
