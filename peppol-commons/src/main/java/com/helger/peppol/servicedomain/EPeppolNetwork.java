@@ -112,25 +112,25 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
   @Nullable
   public static EPeppolNetwork getFromESMLOrNull (@Nullable final ESML eSML)
   {
-    if (eSML == null)
-      return null;
+    if (eSML != null)
+      for (final var e : EPeppolNetwork.values ())
+        if (e.m_eSML.equals (eSML))
+          return e;
 
-    return switch (eSML)
-    {
-      case DIGIT_PRODUCTION -> EPeppolNetwork.PRODUCTION;
-      case DIGIT_TEST -> EPeppolNetwork.TEST;
-      default -> null;
-    };
+    return null;
   }
 
   @Nullable
   public static EPeppolNetwork getFromSMLInfoOrNull (@Nullable final ISMLInfo aSMLInfo)
   {
+    if (aSMLInfo instanceof final ESML eSML)
+      return getFromESMLOrNull (eSML);
+
     if (aSMLInfo != null)
       for (final var e : EPeppolNetwork.values ())
       {
         // Compare by ID, so that ESML can be compared with SMLInfo
-        if (e.m_eSML.getID ().equals (aSMLInfo.getID ()))
+        if (e.m_eSML.getProxy ().equals (aSMLInfo))
           return e;
       }
     return null;

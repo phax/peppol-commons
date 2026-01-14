@@ -22,6 +22,7 @@ import java.net.URL;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.name.IHasDisplayName;
 import com.helger.base.type.ITypedObject;
 
@@ -32,6 +33,7 @@ import com.helger.base.type.ITypedObject;
  *
  * @author Philip Helger
  */
+@MustImplementEqualsAndHashcode
 public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serializable
 {
   /**

@@ -86,6 +86,12 @@ public enum ESML implements ISMLInfo
   }
 
   @NonNull
+  public ISMLInfo getProxy ()
+  {
+    return m_aProxy;
+  }
+
+  @NonNull
   public ObjectType getObjectType ()
   {
     return SMLInfo.OT;
