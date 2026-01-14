@@ -20,9 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-import com.helger.base.name.IHasDisplayName;
 import com.helger.peppol.sml.ESML;
 import com.helger.peppol.sml.ISMLInfo;
 
@@ -32,7 +30,7 @@ import com.helger.peppol.sml.ISMLInfo;
  * @author Philip Helger
  * @since 9.6.0
  */
-public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
+public enum EPeppolNetwork implements IPeppolNetwork
 {
   /**
    * Peppol Test Network
@@ -73,10 +71,6 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
     return m_sDisplayName;
   }
 
-  /**
-   * @return The URL of the Peppol Directory for this network stage. Ends with the domain name and
-   *         without a trailing slash. Never <code>null</code>.
-   */
   @NonNull
   @Nonempty
   public String getDirectoryURL ()
@@ -84,9 +78,6 @@ public enum EPeppolNetwork implements IHasID <String>, IHasDisplayName
     return m_sDirectoryURL;
   }
 
-  /**
-   * @return The SML object to be used for this network stage. Never <code>null</code>.
-   */
   @NonNull
   public ISMLInfo getSMLInfo ()
   {

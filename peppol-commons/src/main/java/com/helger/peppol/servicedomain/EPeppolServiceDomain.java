@@ -20,7 +20,6 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.security.certificate.TrustedCAChecker;
@@ -32,7 +31,7 @@ import com.helger.security.certificate.TrustedCAChecker;
  * @author Philip Helger
  * @since 9.6.0
  */
-public enum EPeppolServiceDomain implements IHasID <String>
+public enum EPeppolServiceDomain implements IPeppolServiceDomain
 {
   /**
    * Managed by PoAC
@@ -99,12 +98,6 @@ public enum EPeppolServiceDomain implements IHasID <String>
   }
 
   @Nullable
-  public TrustedCAChecker getAPChecker (@NonNull final EPeppolNetwork eNetwork)
-  {
-    return eNetwork.isTest () ? m_aTestAPChecker : m_aProdAPChecker;
-  }
-
-  @Nullable
   public TrustedCAChecker getTestSMPChecker ()
   {
     return m_aTestSMPChecker;
@@ -114,12 +107,6 @@ public enum EPeppolServiceDomain implements IHasID <String>
   public TrustedCAChecker getProdSMPChecker ()
   {
     return m_aProdSMPChecker;
-  }
-
-  @Nullable
-  public TrustedCAChecker getSMPChecker (@NonNull final EPeppolNetwork eNetwork)
-  {
-    return eNetwork.isTest () ? m_aTestSMPChecker : m_aProdSMPChecker;
   }
 
   @Nullable
