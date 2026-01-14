@@ -19,7 +19,6 @@ package com.helger.hredelivery.commons.smp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.hredelivery.commons.CHREDeliveryID;
@@ -128,13 +127,14 @@ public final class HRMPSClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Back to test portal")
+  // @Ignore ("Back to test portal")
   public void testResolvePWC () throws SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:54648952583");
 
     final HRMPSClientReadOnly aMPSClient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
     final String sSMPHost = aMPSClient.getSMPHostURI ();
-    assertEquals ("https://hroir-dev.westeurope.cloudapp.azure.com/", sSMPHost);
+    assertEquals (true ? "https://cis.porezna-uprava.hr:8411/EracunMPSCT/"
+                       : "https://hroir-dev.westeurope.cloudapp.azure.com/", sSMPHost);
   }
 }
