@@ -16,6 +16,7 @@
  */
 package com.helger.peppolid.factory;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.base.tostring.ToStringGenerator;
@@ -24,8 +25,7 @@ import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
 import com.helger.peppolid.simple.process.SimpleProcessIdentifier;
 
 /**
- * Default implementation of {@link IIdentifierFactory} for default (simple)
- * identifiers.
+ * Default implementation of {@link IIdentifierFactory} for default (simple) identifiers.
  *
  * @author Philip Helger
  */
@@ -43,21 +43,23 @@ public class SimpleIdentifierFactory implements IIdentifierFactory
     return false;
   }
 
-  @Nullable
-  public SimpleDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
+  @NonNull
+  public SimpleDocumentTypeIdentifier createDocumentTypeIdentifier (@Nullable final String sScheme,
+                                                                    @Nullable final String sValue)
   {
     final String sRealValue = isDocumentTypeIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return new SimpleDocumentTypeIdentifier (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 
-  @Nullable
-  public SimpleParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
+  @NonNull
+  public SimpleParticipantIdentifier createParticipantIdentifier (@Nullable final String sScheme,
+                                                                  @Nullable final String sValue)
   {
     final String sRealValue = isParticipantIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
     return new SimpleParticipantIdentifier (nullNotEmpty (sScheme), nullNotEmpty (sRealValue));
   }
 
-  @Nullable
+  @NonNull
   public SimpleProcessIdentifier createProcessIdentifier (@Nullable final String sScheme, @Nullable final String sValue)
   {
     final String sRealValue = isProcessIdentifierCaseInsensitive (sScheme) ? getUnifiedValue (sValue) : sValue;
