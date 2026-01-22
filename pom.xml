@@ -77,7 +77,7 @@
     <jaxws-plugin.version>4.0.3</jaxws-plugin.version>
     <ph-wsimport-plugin.version>5.0.0</ph-wsimport-plugin.version>
      
-    <dnsjava.version>3.6.3</dnsjava.version>
+    <dnsjava.version>3.6.4</dnsjava.version>
     <expiringmap.version>0.5.11</expiringmap.version>
     <phive.version>11.1.1</phive.version>
     <ph-schematron.version>9.1.1</ph-schematron.version>
