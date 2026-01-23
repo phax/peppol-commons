@@ -82,7 +82,7 @@ public final class SMPClientReadOnlyTest
 
     // Peppol URL provider
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
-    assertEquals ("http://test-infra.peppol.at/", aSMPClient.getSMPHostURI ());
+    assertEquals ("https://test.erechnung.gv.at/smp/", aSMPClient.getSMPHostURI ());
 
     final ServiceGroupType aServiceGroup = aSMPClient.getServiceGroupOrNull (aPI);
     assertNotNull (aServiceGroup);
@@ -99,7 +99,7 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
     assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
                   BDXLURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST));
-    assertEquals ("http://test-infra.peppol.at/", aSMPClient.getSMPHostURI ());
+    assertEquals ("https://test.erechnung.gv.at/smp/", aSMPClient.getSMPHostURI ());
     assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
   }
 

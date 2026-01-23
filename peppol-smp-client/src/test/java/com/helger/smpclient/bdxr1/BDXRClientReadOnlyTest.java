@@ -58,7 +58,7 @@ public final class BDXRClientReadOnlyTest
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                    aPI,
                                                                    ESML.DIGIT_TEST);
-    assertEquals ("http://test-infra.peppol.at/", aBDXRClient.getSMPHostURI ());
+    assertEquals ("https://test.erechnung.gv.at/smp/", aBDXRClient.getSMPHostURI ());
   }
 
   @Test
@@ -70,7 +70,7 @@ public final class BDXRClientReadOnlyTest
 
     // BDXR URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
-    assertEquals ("http://test-infra.peppol.at/", aBDXRClient.getSMPHostURI ());
+    assertEquals ("https://test.erechnung.gv.at/smp/", aBDXRClient.getSMPHostURI ());
   }
 
   @Test

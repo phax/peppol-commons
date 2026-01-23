@@ -47,7 +47,7 @@ public final class HRMPSClientReadOnlyTest
     aMPSClient.setTrustStore (HREDeliveryTrustStores.Fina2015.TRUSTSTORE_DEMO);
 
     final String sSMPHost = aMPSClient.getSMPHostURI ();
-    assertEquals (true ? "https://hr-smp-test.zzi.si/" : "https://cis.porezna-uprava.hr:8411/EracunMPSCT/", sSMPHost);
+    assertEquals (false ? "https://hr-smp-test.zzi.si/" : "https://cis.porezna-uprava.hr:8411/EracunMPSCT/", sSMPHost);
 
     // aMPSClient.setVerifySignature (false);
     // aMPSClient.setXMLSchemaValidation (false);

@@ -56,7 +56,7 @@ public final class PeppolNaptrURLProviderTest
 
       final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.DIGIT_TEST);
       assertNotNull (x);
-      assertEquals ("http://test-infra.peppol.at", x.toString ());
+      assertEquals ("https://test.erechnung.gv.at/smp", x.toString ());
     }
   }
 
