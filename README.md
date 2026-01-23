@@ -351,7 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.7 - work in progress
+v12.3.7 - 2026-01-23
 * Fixed an error in `EPeppolNetwork.getFromSMLInfo` if an `ESML` was passed
 * Added new interface `IPeppolServiceDomain`
 * Added new interface `IPeppolNetwork`
