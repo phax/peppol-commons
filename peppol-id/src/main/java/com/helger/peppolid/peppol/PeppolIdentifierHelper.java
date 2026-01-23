@@ -38,6 +38,7 @@ public final class PeppolIdentifierHelper
    */
   public static final int MAX_IDENTIFIER_SCHEME_LENGTH = 25;
 
+  @Deprecated (forRemoval = true, since = "12.3.7")
   public static final boolean DEFAULT_CHARSET_CHECKS_DISABLED = false;
 
   /**
@@ -46,6 +47,7 @@ public final class PeppolIdentifierHelper
    */
   public static final String PARTICIPANT_IDENTIFIER_SCHEME_REGEX = "[a-z0-9]+-[a-z0-9]+-[a-z0-9]+";
 
+  @Deprecated (forRemoval = true, since = "12.3.7")
   private static final AtomicBoolean CHARSET_CHECKS_DISABLED = new AtomicBoolean (DEFAULT_CHARSET_CHECKS_DISABLED);
 
   /**
@@ -131,6 +133,7 @@ public final class PeppolIdentifierHelper
    * @return <code>true</code> if the charset checks for identifier values are disabled,
    *         <code>false</code> if they are enabled
    */
+  @Deprecated (forRemoval = true, since = "12.3.7")
   public static boolean areCharsetChecksDisabled ()
   {
     return CHARSET_CHECKS_DISABLED.get ();
@@ -146,6 +149,7 @@ public final class PeppolIdentifierHelper
    *        if <code>true</code> all charset checks are disabled. If <code>false</code> charset
    *        checks are enabled
    */
+  @Deprecated (forRemoval = true, since = "12.3.7")
   public static void disableCharsetChecks (final boolean bDisable)
   {
     CHARSET_CHECKS_DISABLED.set (bDisable);

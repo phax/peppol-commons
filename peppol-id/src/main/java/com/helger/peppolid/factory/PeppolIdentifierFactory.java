@@ -44,7 +44,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
   public static final boolean DEFAULT_STRICT = true;
 
-  private final boolean m_bStrict;
+  private final boolean m_bStrictMode;
 
   public PeppolIdentifierFactory ()
   {
@@ -54,7 +54,15 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
   protected PeppolIdentifierFactory (final boolean bStrict)
   {
-    m_bStrict = bStrict;
+    m_bStrictMode = bStrict;
+  }
+
+  /**
+   * @return <code>true</code> if the identifier factory runs in strict mode (default) or not.
+   */
+  public final boolean isStrictMode ()
+  {
+    return m_bStrictMode;
   }
 
   @Override
@@ -143,21 +151,19 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
     final int nLength = sValue.length ();
 
-    // POLICY 1 - general rules
-    // at least 1 char
+    // POLICY 1 - MUST be at least 1 character long (excluding the identifier scheme)
     if (nLength == 0)
       return false;
 
-    // <= 500 chars
+    // POLICY 1 - MUST NOT be more than 500 characters long (excluding the identifier scheme)
     if (nLength > PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)
       return false;
 
-    // Check if the value is ISO-8859-1 encoded
-    if (!PeppolIdentifierHelper.areCharsetChecksDisabled ())
-      if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
-        return false;
+    // POLICY 1 - MUST only contain characters from the invariant character set of ISO-8859-1
+    if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
+      return false;
 
-    if (m_bStrict)
+    if (m_bStrictMode)
       try
       {
         final IPeppolGenericDocumentTypeIdentifierParts aParts = PeppolGenericDocumentTypeIdentifierParts.extractFromString (sValue);
@@ -178,7 +184,6 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
             default:
               // Ignore - no special Peppol rules
           }
-
       }
       catch (final IllegalArgumentException ex)
       {
@@ -248,6 +253,20 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
                                              sScheme.toLowerCase (Locale.US));
   }
 
+  private static boolean _isValidPIDValueChar (final char c)
+  {
+    // POLICY 1 - MUST only contain letters (a-z, A-Z), numeric digits (0-9), the minus sign (-),
+    // the period character (.), the underscore character (_) or the tilde character (~) from
+    // the invariant character set of ISO-8859-1
+    return (c >= 'a' && c <= 'z') ||
+           (c >= 'A' && c <= 'Z') ||
+           (c >= '0' && c <= '9') ||
+           c == '-' ||
+           c == '.' ||
+           c == '_' ||
+           c == '~';
+  }
+
   /**
    * Check if the passed participant identifier value is valid. A valid identifier must have at
    * least 1 character and at last {@link PeppolIdentifierHelper#MAX_PARTICIPANT_VALUE_LENGTH}
@@ -262,19 +281,16 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
     final int nValueLength = sValue.length ();
 
-    // POLICY 1
+    // POLICY 1 - MUST be at least 1 character long (excluding the numeric identifier scheme)
     // At least one characters
     if (nValueLength == 0)
       return false;
 
+    // POLICY 1 - MUST NOT be more than 130 characters long (excluding the numeric identifier
+    // scheme)
     // <= 135 characters
     if (nValueLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
       return false;
-
-    // Check if the value is ISO-8859-1 encoded
-    if (!PeppolIdentifierHelper.areCharsetChecksDisabled ())
-      if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
-        return false;
 
     // Check the iso6523-actorid-upis scheme layout
     if (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS.equals (sScheme))
@@ -283,18 +299,27 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
       if (nValueLength < 6)
         return false;
 
-      // Must be after the first 4 characters
-      if (sValue.indexOf (':') != 4)
+      final char [] aChars = sValue.toCharArray ();
+
+      if (!Character.isDigit (aChars[0]))
+        return false;
+      if (!Character.isDigit (aChars[1]))
+        return false;
+      if (!Character.isDigit (aChars[2]))
+        return false;
+      if (!Character.isDigit (aChars[3]))
         return false;
 
-      if (!Character.isDigit (sValue.charAt (0)))
+      // Must be after the first 4 characters
+      if (aChars[4] != ':')
         return false;
-      if (!Character.isDigit (sValue.charAt (1)))
-        return false;
-      if (!Character.isDigit (sValue.charAt (2)))
-        return false;
-      if (!Character.isDigit (sValue.charAt (3)))
-        return false;
+
+      // POLICY 1 - MUST only contain letters (a-z, A-Z), numeric digits (0-9), the minus sign (-),
+      // the period character (.), the underscore character (_) or the tilde character (~) from
+      // the invariant character set of ISO-8859-1
+      for (int nIdx = 5; nIdx < nValueLength; ++nIdx)
+        if (!_isValidPIDValueChar (aChars[nIdx]))
+          return false;
     }
 
     return true;
@@ -337,21 +362,19 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   {
     final int nLength = StringHelper.getLength (sValue);
 
-    // POLICY 1
-    // At least one char
+    // POLICY 1 - MUST be at least 1 character long (excluding the identifier scheme)
     if (nLength == 0)
       return false;
 
-    // <= 200 chars
+    // POLICY 1 - MUST NOT be more than 200 characters long (excluding the identifier scheme)
     if (nLength > PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH)
       return false;
 
-    // Check if the value is ISO-8859-1 encoded
-    if (!PeppolIdentifierHelper.areCharsetChecksDisabled ())
-      if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
-        return false;
+    // POLICY 1 - MUST only contain characters from the invariant character set of ISO-8859-1
+    if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
+      return false;
 
-    // POLICY 25
+    // POLICY 25 - no whitespace
     for (final char c : sValue.toCharArray ())
       if (Character.isWhitespace (c))
         return false;
@@ -380,6 +403,6 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Strict", m_bStrict).getToString ();
+    return new ToStringGenerator (this).append ("Strict", m_bStrictMode).getToString ();
   }
 }

@@ -355,6 +355,8 @@ v12.3.7 - work in progress
 * Fixed an error in `EPeppolNetwork.getFromSMLInfo` if an `ESML` was passed
 * Added new interface `IPeppolServiceDomain`
 * Added new interface `IPeppolNetwork`
+* Deprecated the possibility to disable charset checks in `PeppolIdentifierHelper`
+* The method `PeppolIdentifierFactory.isParticipantIdentifierValueValid` now correctly follows the Peppol Policy for use of Identifiers instead of all the ISO-8859-1 characters. This **may be a breaking change** if you have created something that is not following the rules.
 
 v12.3.6 - 2026-01-13
 * Added additional MLS constants in `CPeppolMLS`

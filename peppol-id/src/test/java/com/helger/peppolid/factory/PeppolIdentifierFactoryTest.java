@@ -72,8 +72,8 @@ public final class PeppolIdentifierFactoryTest
 
     assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
                                                                                     "9908:976098897"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                    "9908:976098897 "));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                     "9908:976098897 "));
     assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
                                                                                      "990:976098897"));
     assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
@@ -82,8 +82,8 @@ public final class PeppolIdentifierFactoryTest
                                                                                     "9909:976098896"));
     assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
                                                                                     "9908:976098896"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                    "9956:DE:EPROC:BMIEVG:BeschA"));
+    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                     "9956:DE:EPROC:BMIEVG:BeschA"));
     assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
                                                                                     "9906:02419170044_01"));
 
