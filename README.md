@@ -104,7 +104,7 @@ The Peppol SMP specification 1.3.0 to be used per 1.12.2023 does not require any
 
 I also provide an OSS [phoss SMP server](https://github.com/phax/phoss-smp) with a nice management GUI.
 
-If you are looking for a standalone query tool, https://github.com/phax/smp-query-webapp is what you may have a look at.
+If you are looking for a standalone query tool, https://github.com/Helger-IT/smp-query-webapp is what you may have a look at.
 
 ## peppol-directory-businesscard
 
