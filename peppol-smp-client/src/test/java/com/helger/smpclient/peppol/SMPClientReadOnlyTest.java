@@ -433,7 +433,7 @@ public final class SMPClientReadOnlyTest
     // Explicitly needs the production truststore
     aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
-    assertEquals ("http://smp.peppol.at/", aSMPClient.getSMPHostURI ());
+    assertEquals ("https://www.erechnung.gv.at/smp/", aSMPClient.getSMPHostURI ());
 
     aSMPClient.setXMLSchemaValidation (true);
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
