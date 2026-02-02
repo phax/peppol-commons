@@ -16,7 +16,15 @@
  */
 package com.helger.smpclient.httpclient;
 
+import java.security.GeneralSecurityException;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+
+import com.helger.http.security.TrustManagerTrustAll;
+import com.helger.http.tls.ETLSVersion;
 import com.helger.httpclient.HttpClientSettings;
+import com.helger.peppol.commons.CPeppolCommonsVersion;
 import com.helger.smpclient.config.SMPClientConfiguration;
 
 /**
@@ -41,6 +49,23 @@ public class SMPHttpClientSettings extends HttpClientSettings
     // According to the Peppol SMP specification, a client should not follow HTTP 3xx redirects - so
     // we don't (see chapter 5.1 of SMP spec 1.4.0)
     setFollowRedirects (false);
+
+    try
+    {
+      // Peppol requires TLS v1.2
+      final SSLContext aSSLContext = SSLContext.getInstance (ETLSVersion.TLS_12.getID ());
+      // But we're basically trusting all hosts - the exact list is hard to
+      // determine
+      aSSLContext.init (null, new TrustManager [] { new TrustManagerTrustAll (false) }, null);
+      setSSLContext (aSSLContext);
+    }
+    catch (final GeneralSecurityException ex)
+    {
+      throw new IllegalStateException ("Failed to initialize SSLContext for SMPHttpClientSettings", ex);
+    }
+
+    // Set an explicit user agent
+    setUserAgent ("phax/peppol-commons smp-client/" + CPeppolCommonsVersion.BUILD_VERSION);
 
     resetToConfiguration ();
   }
