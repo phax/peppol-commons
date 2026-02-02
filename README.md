@@ -351,8 +351,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.8 - work in progress
+v12.3.8 - 2026-02-02
 * Deprecated class `PeppolTrustStores.Config2018` in favour of the `PeppolTrustStores.Config2025`
+* Added new class `CPeppolCommonsVersion` to track the peppol-commons version used
+* Improved the default truststore configuration for SMP client to match the one for AS4
 
 v12.3.7 - 2026-01-23
 * Fixed an error in `EPeppolNetwork.getFromSMLInfo` if an `ESML` was passed

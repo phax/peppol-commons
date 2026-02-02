@@ -88,6 +88,24 @@
   </dependencies>
   
   <build>
+    <resources>
+      <!-- Don't specify the targetPath because this leads to a broken JAR file 
+        in combination with the bundle plugin (absolute file paths in ZIP file) -->
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>**/*.properties</exclude>
+        </excludes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.apache.felix</groupId>
@@ -105,6 +123,7 @@
             <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
             <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
+            <Include-Resource>{maven-resources},peppol-commons-version.properties=target/classes/peppol-commons-version.properties</Include-Resource>
           </instructions>
         </configuration>
       </plugin>
