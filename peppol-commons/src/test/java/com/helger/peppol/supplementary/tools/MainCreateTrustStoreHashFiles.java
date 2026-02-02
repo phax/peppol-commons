@@ -59,6 +59,7 @@ public final class MainCreateTrustStoreHashFiles
     LOGGER.info ("Done creating hash values for " + sTruststorePath);
   }
 
+  @SuppressWarnings ("deprecation")
   public static void main (final String [] args) throws IOException
   {
     _create ("truststore/sml-truststore.jks");

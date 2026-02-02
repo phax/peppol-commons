@@ -447,7 +447,7 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
 
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
-    aSMPClient.setTrustStore (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PILOT);
+    aSMPClient.setTrustStore (PeppolTrustStores.Config2025.TRUSTSTORE_SMP_TEST);
     aSMPClient.setSecureValidation (false);
 
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,

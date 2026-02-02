@@ -67,13 +67,18 @@ public final class PeppolTrustStores
    * The truststore configuration for Peppol PKI G2 valid from 2018 to 2028.
    *
    * @author Philip Helger
+   * @deprecated as it only contains the G2 PKI. Use {@link Config2025} instead which contains G2+G3
+   *             instead.
    */
   @Immutable
+  @Deprecated (forRemoval = false, since = "12.3.8")
   public static class Config2018
   {
     /** Truststore key store type - always JKS */
+    @Deprecated
     public static final EKeyStoreType TRUSTSTORE_TYPE = EKeyStoreType.JKS;
 
+    @Deprecated
     protected Config2018 ()
     {}
 
@@ -83,8 +88,10 @@ public final class PeppolTrustStores
      * The classpath entry referencing the global truststore with all OpenPeppol production entries.
      * It works for Access Points.
      */
+    @Deprecated
     public static final String TRUSTSTORE_AP_PRODUCTION_CLASSPATH = "truststore/2018/prod-truststore.jks";
 
+    @Deprecated
     public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_AP_PRODUCTION = TrustStoreDescriptor.builder ()
                                                                                                         .type (TRUSTSTORE_TYPE)
                                                                                                         .path (TRUSTSTORE_AP_PRODUCTION_CLASSPATH)
@@ -94,6 +101,7 @@ public final class PeppolTrustStores
     /**
      * The full AP production truststore. Never modify.
      */
+    @Deprecated
     public static final KeyStore TRUSTSTORE_AP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_AP_PRODUCTION.loadTrustStore ()
                                                                                                .getKeyStore ();
 
@@ -109,8 +117,10 @@ public final class PeppolTrustStores
      * The classpath entry referencing the global truststore with all OpenPeppol production entries.
      * It works for Access Points.
      */
+    @Deprecated
     public static final String TRUSTSTORE_SMP_PRODUCTION_CLASSPATH = "truststore/2018/smp-prod-truststore.jks";
 
+    @Deprecated
     public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_SMP_PRODUCTION = TrustStoreDescriptor.builder ()
                                                                                                          .type (TRUSTSTORE_TYPE)
                                                                                                          .path (TRUSTSTORE_SMP_PRODUCTION_CLASSPATH)
@@ -120,6 +130,7 @@ public final class PeppolTrustStores
     /**
      * The full SMP production truststore. Never modify.
      */
+    @Deprecated
     public static final KeyStore TRUSTSTORE_SMP_PRODUCTION = TRUSTSTORE_DESCRIPTOR_SMP_PRODUCTION.loadTrustStore ()
                                                                                                  .getKeyStore ();
 
@@ -132,23 +143,29 @@ public final class PeppolTrustStores
     // Production CA certificates
 
     /** The truststore alias for the OpenPeppol production root certificate */
+    @Deprecated
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "peppol root ca - g2";
 
     /** The OpenPeppol production root certificate */
+    @Deprecated
     public static final X509Certificate CERTIFICATE_PRODUCTION_ROOT = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
                                                                                     TRUSTSTORE_PRODUCTION_ALIAS_ROOT);
 
     /** The truststore alias for the OpenPeppol production AP certificate */
+    @Deprecated
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_AP = "peppol access point ca - g2 (peppol root ca - g2)";
 
     /** The OpenPeppol production AP certificate */
+    @Deprecated
     public static final X509Certificate CERTIFICATE_PRODUCTION_AP = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
                                                                                   TRUSTSTORE_PRODUCTION_ALIAS_AP);
 
     /** The truststore alias for the OpenPeppol production SMP certificate */
+    @Deprecated
     public static final String TRUSTSTORE_PRODUCTION_ALIAS_SMP = "peppol service metadata publisher ca - g2 (peppol root ca - g2)";
 
     /** The OpenPeppol production SMP certificate */
+    @Deprecated
     public static final X509Certificate CERTIFICATE_PRODUCTION_SMP = _resolveCert (TRUSTSTORE_AP_PRODUCTION,
                                                                                    TRUSTSTORE_PRODUCTION_ALIAS_SMP);
 
@@ -158,8 +175,10 @@ public final class PeppolTrustStores
      * The classpath entry referencing the global truststore with all OpenPeppol pilot entries for
      * an AP.
      */
+    @Deprecated
     public static final String TRUSTSTORE_AP_PILOT_CLASSPATH = "truststore/2018/pilot-truststore.jks";
 
+    @Deprecated
     public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_AP_PILOT = TrustStoreDescriptor.builder ()
                                                                                                    .type (TRUSTSTORE_TYPE)
                                                                                                    .path (TRUSTSTORE_AP_PILOT_CLASSPATH)
@@ -169,6 +188,7 @@ public final class PeppolTrustStores
     /**
      * The full AP pilot truststore. Never modify.
      */
+    @Deprecated
     public static final KeyStore TRUSTSTORE_AP_PILOT = TRUSTSTORE_DESCRIPTOR_AP_PILOT.loadTrustStore ().getKeyStore ();
 
     static
@@ -183,8 +203,10 @@ public final class PeppolTrustStores
      * The classpath entry referencing the global truststore with all OpenPeppol pilot entries for
      * SMPs.
      */
+    @Deprecated
     public static final String TRUSTSTORE_SMP_PILOT_CLASSPATH = "truststore/2018/smp-pilot-truststore.jks";
 
+    @Deprecated
     public static final ITrustStoreDescriptor TRUSTSTORE_DESCRIPTOR_SMP_PILOT = TrustStoreDescriptor.builder ()
                                                                                                     .type (TRUSTSTORE_TYPE)
                                                                                                     .path (TRUSTSTORE_SMP_PILOT_CLASSPATH)
@@ -194,6 +216,7 @@ public final class PeppolTrustStores
     /**
      * The full SMP pilot truststore. Never modify.
      */
+    @Deprecated
     public static final KeyStore TRUSTSTORE_SMP_PILOT = TRUSTSTORE_DESCRIPTOR_SMP_PILOT.loadTrustStore ()
                                                                                        .getKeyStore ();
 
@@ -206,23 +229,29 @@ public final class PeppolTrustStores
     // Test CA certificates
 
     /** The truststore alias for the OpenPeppol pilot root certificate */
+    @Deprecated
     public static final String TRUSTSTORE_PILOT_ALIAS_ROOT = "peppol root test ca - g2";
 
     /** The OpenPeppol pilot root certificate */
+    @Deprecated
     public static final X509Certificate CERTIFICATE_PILOT_ROOT = _resolveCert (TRUSTSTORE_AP_PILOT,
                                                                                TRUSTSTORE_PILOT_ALIAS_ROOT);
 
     /** The truststore alias for the OpenPeppol pilot AP certificate */
+    @Deprecated
     public static final String TRUSTSTORE_PILOT_ALIAS_AP = "peppol access point test ca - g2 (peppol root test ca - g2)";
 
     /** The OpenPeppol pilot AP certificate */
+    @Deprecated
     public static final X509Certificate CERTIFICATE_PILOT_AP = _resolveCert (TRUSTSTORE_AP_PILOT,
                                                                              TRUSTSTORE_PILOT_ALIAS_AP);
 
     /** The truststore alias for the OpenPeppol pilot SMP certificate */
+    @Deprecated
     public static final String TRUSTSTORE_PILOT_ALIAS_SMP = "peppol service metadata publisher test ca - g2 (peppol root test ca - g2)";
 
     /** The OpenPeppol pilot SMP certificate */
+    @Deprecated
     public static final X509Certificate CERTIFICATE_PILOT_SMP = _resolveCert (TRUSTSTORE_AP_PILOT,
                                                                               TRUSTSTORE_PILOT_ALIAS_SMP);
   }

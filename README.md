@@ -351,6 +351,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.3.8 - work in progress
+* Deprecated class `PeppolTrustStores.Config2018` in favour of the `PeppolTrustStores.Config2025`
+
 v12.3.7 - 2026-01-23
 * Fixed an error in `EPeppolNetwork.getFromSMLInfo` if an `ESML` was passed
 * Added new interface `IPeppolServiceDomain`

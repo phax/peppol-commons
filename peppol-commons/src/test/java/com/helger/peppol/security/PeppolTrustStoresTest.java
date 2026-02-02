@@ -32,6 +32,7 @@ import com.helger.peppol.security.PeppolTrustStores.Config2025;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("deprecation")
 public final class PeppolTrustStoresTest
 {
   @Test

@@ -46,6 +46,7 @@ import com.helger.security.revocation.ERevocationCheckMode;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("deprecation")
 public class PeppolTrustedCATest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolTrustedCATest.class);

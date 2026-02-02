@@ -187,6 +187,7 @@ public final class SMPClientConfiguration
    */
   @NonNull
   @ChangeNextMajorRelease ("Change default to PKCS12")
+  @SuppressWarnings ("deprecation")
   public static EKeyStoreType getTrustStoreType ()
   {
     final String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");

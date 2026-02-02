@@ -30,6 +30,7 @@ import com.helger.security.certificate.TrustedCAChecker;
  * @since 10.2.0
  */
 @ThreadSafe
+@SuppressWarnings ("deprecation")
 public final class PeppolTrustedCA
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolTrustedCA.class);
