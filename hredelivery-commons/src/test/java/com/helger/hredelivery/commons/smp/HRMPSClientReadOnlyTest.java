@@ -134,7 +134,7 @@ public final class HRMPSClientReadOnlyTest
 
     final HRMPSClientReadOnly aMPSClient = new HRMPSClientReadOnly (aPI, EHREDeliverySML.DEMO);
     final String sSMPHost = aMPSClient.getSMPHostURI ();
-    assertEquals (true ? "https://cis.porezna-uprava.hr:8411/EracunMPSCT/"
-                       : "https://hroir-dev.westeurope.cloudapp.azure.com/", sSMPHost);
+    assertEquals (false ? "https://cis.porezna-uprava.hr:8411/EracunMPSCT/"
+                        : "https://pwcsavjetovanje.einvoicingsmpstage.hr.pwc.com/", sSMPHost);
   }
 }
