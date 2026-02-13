@@ -219,16 +219,10 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
     if (aSG != null && aSG.getParticipantIdentifier () != null && aSG.getServiceMetadataReferenceCollection () != null)
     {
-      final String sPathStart1 = "/" +
-                                 CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) +
-                                 '/' +
-                                 URL_PART_SERVICES +
-                                 '/';
+      final String sPathStart1 = "/" + CIdentifier.getURIEncoded (aSG.getParticipantIdentifier ()) + "/services/";
       final String sPathStart2 = "/" +
                                  CIdentifier.getURIPercentEncoded (aSG.getParticipantIdentifier ()) +
-                                 '/' +
-                                 URL_PART_SERVICES +
-                                 '/';
+                                 "/services/";
       for (final ServiceMetadataReferenceType aSMR : aSG.getServiceMetadataReferenceCollection ()
                                                         .getServiceMetadataReference ())
       {
@@ -238,7 +232,7 @@ public class BDXRClientReadOnly extends AbstractGenericSMPClient <BDXRClientRead
 
         boolean bSuccess = false;
 
-        // Case insensitive "indexOf" here
+        // Find one or the other
         String sSearch = sPathStart1;
         int nPathStart = StringHelper.getIndexOfIgnoreCase (sHref, sSearch, Locale.US);
         if (nPathStart < 0)

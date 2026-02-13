@@ -33,6 +33,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.codec.base64.Base64;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringHelper;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.rt.OffsetDate;
 import com.helger.datetime.xml.XMLOffsetDate;
@@ -49,7 +50,6 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.security.certificate.CertificateHelper;
-import com.helger.smpclient.bdxr1.BDXRClientReadOnly;
 import com.helger.smpclient.extension.SMPExtensionList;
 import com.helger.smpclient.peppol.utils.SMPExtensionConverter;
 import com.helger.smpclient.peppol.utils.W3CEndpointReferenceHelper;
@@ -109,7 +109,9 @@ public final class SMPJsonResponse
     aJson.add (JSON_SMPTYPE, eSMPAPIType.getID ());
     aJson.add (JSON_PARTICIPANT_ID, aParticipantID.getURIEncoded ());
 
-    final String sPathStart = "/" + aParticipantID.getURIEncoded () + '/' + BDXRClientReadOnly.URL_PART_SERVICES + '/';
+    final String sPathStart1 = "/" + aParticipantID.getURIEncoded () + "/services/";
+    final String sPathStart2 = "/" + aParticipantID.getURIPercentEncoded () + "/services/";
+
     final IJsonArray aURLsArray = new JsonArray ();
     // Show all ServiceGroup hrefs
     for (final Map.Entry <String, String> aEntry : aSGHrefs.entrySet ())
@@ -118,11 +120,19 @@ public final class SMPJsonResponse
       final String sOriginalHref = aEntry.getValue ();
 
       final IJsonObject aUrlEntry = new JsonObject ().add (JSON_HREF, sOriginalHref);
-      // Should be case insensitive "indexOf" here
-      final int nPathStart = sHref.toLowerCase (Locale.US).indexOf (sPathStart.toLowerCase (Locale.US));
+
+      // Find one or the other
+      String sSearch = sPathStart1;
+      int nPathStart = StringHelper.getIndexOfIgnoreCase (sHref, sSearch, Locale.US);
+      if (nPathStart < 0)
+      {
+        sSearch = sPathStart2;
+        nPathStart = StringHelper.getIndexOfIgnoreCase (sHref, sSearch, Locale.US);
+      }
+
       if (nPathStart >= 0)
       {
-        final String sDocType = sHref.substring (nPathStart + sPathStart.length ());
+        final String sDocType = sHref.substring (nPathStart + sSearch.length ());
         aUrlEntry.add (JSON_DOCUMENT_TYPE_ID, sDocType);
         final IDocumentTypeIdentifier aDocType = aIF.parseDocumentTypeIdentifier (sDocType);
         if (aDocType == null)
@@ -132,7 +142,8 @@ public final class SMPJsonResponse
       }
       else
       {
-        aUrlEntry.add (JSON_ERROR, "Contained href does not match the rules. Expected path part: '" + sPathStart + "'");
+        aUrlEntry.add (JSON_ERROR,
+                       "Contained href does not match the rules. Expected path part: '" + sPathStart1 + "'");
       }
       aURLsArray.add (aUrlEntry);
     }
