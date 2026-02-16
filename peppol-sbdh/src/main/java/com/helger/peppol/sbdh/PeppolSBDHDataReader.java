@@ -789,8 +789,8 @@ public class PeppolSBDHDataReader
                 if (!isValidMLSTo (sIdentifier, sInstanceIdentifier))
                   aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
                                             EPeppolSBDHDataError.INVALID_MLS_TO,
-                                            sInstanceIdentifier,
-                                            sIdentifier));
+                                            sIdentifier,
+                                            sInstanceIdentifier));
               }
               else
                 if (CPeppolSBDH.SCOPE_MLS_TYPE.equals (sType))
