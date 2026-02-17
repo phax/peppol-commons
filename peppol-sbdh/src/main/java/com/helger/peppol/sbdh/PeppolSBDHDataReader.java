@@ -51,6 +51,7 @@ import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 import com.helger.peppolid.peppol.PeppolIdentifierHelper;
+import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.sbdh.SBDMarshaller;
 
 /**
@@ -320,8 +321,16 @@ public class PeppolSBDHDataReader
     if (aPI == null)
       return false;
 
-    // TODO add PI scheme checks
-    // MLS must be sent to SPID only
+    // Value must start with "0242:"
+    if (!sValue.startsWith (EPredefinedParticipantIdentifierScheme.SPIS.getISO6523Code () + ":"))
+      return false;
+
+    // Get everything after "0242:"
+    final String sMLS = sValue.substring (5);
+
+    // Check against the OpenPeppol SPIS, section 3.4
+    if (!RegExHelper.stringMatchesPattern ("[0-9]{6}(-[0-9A-Z_]{3,12}(\\.[0-9A-Z\\-\\._~]{3,24})?)?", sMLS))
+      return false;
 
     return true;
   }
@@ -581,6 +590,18 @@ public class PeppolSBDHDataReader
   }
 
   @NonNull
+  private static IError _toWarn (@Nullable final String sErrorField,
+                                 @NonNull final EPeppolSBDHDataError e,
+                                 @Nullable final Object... aArgs)
+  {
+    return SingleError.builderWarn ()
+                      .errorFieldName (sErrorField)
+                      .errorID (e.getID ())
+                      .errorText (aArgs == null ? e.getErrorMessage () : e.getErrorMessage (aArgs))
+                      .build ();
+  }
+
+  @NonNull
   private static IError _toError (@Nullable final String sErrorField,
                                   @NonNull final EPeppolSBDHDataError e,
                                   @Nullable final Object... aArgs)
@@ -787,10 +808,15 @@ public class PeppolSBDHDataReader
               if (CPeppolSBDH.SCOPE_MLS_TO.equals (sType))
               {
                 if (!isValidMLSTo (sIdentifier, sInstanceIdentifier))
-                  aErrorList.add (_toError ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
-                                            EPeppolSBDHDataError.INVALID_MLS_TO,
-                                            sIdentifier,
-                                            sInstanceIdentifier));
+                {
+                  // MLS spec:
+                  // "If this element is not present or invalid, MLS responses MUST be sent to the
+                  // general Peppol Service Provider ID (SPID) of C2."
+                  aErrorList.add (_toWarn ("SBDH/BusinessScope/Scope[" + nScopeIndex1Based + "]/InstanceIdentifier",
+                                           EPeppolSBDHDataError.INVALID_MLS_TO,
+                                           sIdentifier,
+                                           sInstanceIdentifier));
+                }
               }
               else
                 if (CPeppolSBDH.SCOPE_MLS_TYPE.equals (sType))
@@ -915,21 +941,20 @@ public class PeppolSBDHDataReader
       validateData (aSBDH, aBusinessMessage, aErrorList);
 
       // Evaluate validation results
-      final int nErrors = aErrorList.getErrorCount ();
-      if (nErrors > 0)
+      if (aErrorList.containsAtLeastOneError ())
       {
-        // Collect all errors
         final StringBuilder aErrorMsgSB = new StringBuilder ();
 
+        // Collect all errors (and warnings)
         aErrorList.forEach (x -> {
+          final String sMsg = x.getAsStringLocaleIndepdent ();
           if (x.isError ())
-          {
-            final String sMsg = x.getAsStringLocaleIndepdent ();
             LOGGER.error ("Peppol SBDH validation " + sMsg);
-            if (aErrorMsgSB.length () > 0)
-              aErrorMsgSB.append ('\n');
-            aErrorMsgSB.append (sMsg);
-          }
+          else
+            LOGGER.warn ("Peppol SBDH validation " + sMsg);
+          if (aErrorMsgSB.length () > 0)
+            aErrorMsgSB.append ('\n');
+          aErrorMsgSB.append (sMsg);
         });
 
         // Find an error code
@@ -937,6 +962,15 @@ public class PeppolSBDHDataReader
         final EPeppolSBDHDataError eError = EPeppolSBDHDataError.getFromIDOrDefault (aFirst.getErrorID (),
                                                                                      EPeppolSBDHDataError.GENERIC_SBDH_ERROR);
         throw new PeppolSBDHDataReadException (aErrorMsgSB.toString (), eError);
+      }
+
+      if (aErrorList.containsAtLeastOneWarningOrError ())
+      {
+        // At least one warning created - log at least
+        aErrorList.forEach (x -> {
+          final String sMsg = x.getAsStringLocaleIndepdent ();
+          LOGGER.warn ("Peppol SBDH validation " + sMsg);
+        });
       }
     }
 

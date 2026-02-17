@@ -69,8 +69,12 @@ public final class PeppolSBDHDataReaderTest
     BAD_CASES.put ("bad-invalid-receiver-authority.xml", EPeppolSBDHDataError.INVALID_RECEIVER_AUTHORITY);
     BAD_CASES.put ("bad-invalid-receiver-value.xml", EPeppolSBDHDataError.INVALID_RECEIVER_VALUE);
     BAD_CASES.put ("bad-mls-to-empty.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
-    BAD_CASES.put ("bad-mls-to-invalid-value.xml", EPeppolSBDHDataError.INVALID_MLS_TO);
-    BAD_CASES.put ("bad-mls-to-no-scheme.xml", EPeppolSBDHDataError.INVALID_MLS_TO);
+    if (false)
+    {
+      // Became a warning only, in 12.3.9
+      BAD_CASES.put ("bad-mls-to-invalid-value.xml", EPeppolSBDHDataError.INVALID_MLS_TO);
+      BAD_CASES.put ("bad-mls-to-no-scheme.xml", EPeppolSBDHDataError.INVALID_MLS_TO);
+    }
     BAD_CASES.put ("bad-mls-to-no-value.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
     BAD_CASES.put ("bad-mls-type-empty.xml", EPeppolSBDHDataError.INVALID_SBD_XML);
     BAD_CASES.put ("bad-mls-type-invalid-value.xml", EPeppolSBDHDataError.INVALID_MLS_TYPE);
