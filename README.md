@@ -351,11 +351,12 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.9 - work in progress
+v12.3.9 - 2026-02-17
 * If an inbound message contains an invalid `MLS_TO` value, it is no longer an error but only a warning
 * The verification of `MLS_TO` value was improved to include the full SPIS regular expression check
 * Added new regular expression constant `PeppolIdentifierHelper.REGEX_SEAT_ID`
 * Added new regular expression constant `CPeppolMLS.REGEX_SPID`
+* Extended `ESML` with the constants for the new insourced Peppol SMLs
 
 v12.3.8 - 2026-02-02
 * Deprecated class `PeppolTrustStores.Config2018` in favour of the `PeppolTrustStores.Config2025`
