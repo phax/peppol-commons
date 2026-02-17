@@ -40,6 +40,9 @@ public final class CPeppolMLS
   /** The official Participant Identifier Scheme for SPIS (0242) */
   public static final String SPIS_PARTICIPANT_ID_SCHEME = EPredefinedParticipantIdentifierScheme.SPIS.getISO6523Code ();
 
+  /** The official validation RegEx from the specification, section 3.4 */
+  public static final String REGEX_SPID = "[0-9]{6}(-[0-9A-Z_]{3,12}(\\.[0-9A-Z\\-\\._~]{3,24})?)?";
+
   private CPeppolMLS ()
   {}
 }
