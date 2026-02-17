@@ -81,7 +81,7 @@ public final class BDXRClientReadOnlyTest
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                    aPI,
                                                                    ESML.DIGIT_PRODUCTION);
-    assertEquals ("http://smp.unimaze.com/", aBDXRClient.getSMPHostURI ());
+    assertEquals ("https://smp.unimaze.com/", aBDXRClient.getSMPHostURI ());
 
     // This fails because the Peppol server is configured for PEPPOL layout and
     // not OASIS!

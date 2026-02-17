@@ -112,7 +112,7 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
                                                                 ESML.DIGIT_PRODUCTION);
-    assertEquals ("http://smp.unimaze.com/", aSMPClient.getSMPHostURI ());
+    assertEquals ("https://smp.unimaze.com/", aSMPClient.getSMPHostURI ());
     assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
   }
 
@@ -506,7 +506,7 @@ public final class SMPClientReadOnlyTest
     // Explicitly needs the production truststore
     aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
-    assertEquals ("http://smp.unimaze.com/", aSMPClient.getSMPHostURI ());
+    assertEquals ("https://smp.unimaze.com/", aSMPClient.getSMPHostURI ());
 
     aSMPClient.setXMLSchemaValidation (true);
     final SignedServiceMetadataType aSM = aSMPClient.getServiceMetadataOrNull (aPI,
