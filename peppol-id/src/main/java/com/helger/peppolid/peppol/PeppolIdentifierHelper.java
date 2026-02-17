@@ -123,6 +123,13 @@ public final class PeppolIdentifierHelper
    */
   public static final char DOCUMENT_TYPE_WILDCARD_INDICATOR = '*';
 
+  /**
+   * The regular expression to check a Peppol Seat ID.
+   *
+   * @since 12.3.9
+   */
+  public static final String REGEX_SEAT_ID = "P[A-Z]{2}[0-9]{6}";
+
   private PeppolIdentifierHelper ()
   {}
 
