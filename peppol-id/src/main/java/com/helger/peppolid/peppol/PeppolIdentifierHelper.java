@@ -20,6 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.peppolid.CIdentifier;
@@ -124,10 +125,11 @@ public final class PeppolIdentifierHelper
   public static final char DOCUMENT_TYPE_WILDCARD_INDICATOR = '*';
 
   /**
-   * The regular expression to check a Peppol Seat ID.
+   * The regular expression to check a Peppol Seat ID. This regular expression is case sensitive.
    *
    * @since 12.3.9
    */
+  @RegEx
   public static final String REGEX_SEAT_ID = "P[A-Z]{2}[0-9]{6}";
 
   private PeppolIdentifierHelper ()
