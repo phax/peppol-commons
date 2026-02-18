@@ -41,6 +41,9 @@ public enum EPeppolMLSType implements IHasID <String>
    */
   ALWAYS_SEND ("ALWAYS_SEND");
 
+  /** According to the Peppol Network Policy */
+  public static final EPeppolMLSType DEFAULT = ALWAYS_SEND;
+
   private final String m_sID;
 
   EPeppolMLSType (@NonNull @Nonempty final String sID)
