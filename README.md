@@ -351,6 +351,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.3.10 - work in progress
+* Added constant `EPeppolMLSType.DEFAULT` mapped to `ALWAYS_SEND`
+
 v12.3.9 - 2026-02-17
 * If an inbound message contains an invalid `MLS_TO` value, it is no longer an error but only a warning
 * The verification of `MLS_TO` value was improved to include the full SPIS regular expression check
