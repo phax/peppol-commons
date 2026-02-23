@@ -65,32 +65,26 @@ public final class PeppolIdentifierFactoryTest
   @Test
   public void testIsValidParticipantIdentifierValue ()
   {
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                     null));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                     ""));
+    for (final String sBad : new String [] { null,
+                                             "",
+                                             VALUE_MAX_LENGTH,
+                                             VALUE_MAX_LENGTH_PLUS_1,
+                                             "9908:976098897 ",
+                                             "990:976098897",
+                                             "990976098897",
+                                             "9956:DE:EPROC:BMIEVG:BeschA" })
+      assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                       sBad));
 
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                    "9908:976098897"));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                     "9908:976098897 "));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                     "990:976098897"));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                     "990976098897"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                    "9909:976098896"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                    "9908:976098896"));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                     "9956:DE:EPROC:BMIEVG:BeschA"));
-    assertTrue (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                    "9906:02419170044_01"));
-
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                     VALUE_MAX_LENGTH));
-    assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
-                                                                                     VALUE_MAX_LENGTH_PLUS_1));
+    for (final String sGood : new String [] { "9908:976098897",
+                                              "9909:976098896",
+                                              "9908:976098896",
+                                              "9906:02419170044_01",
+                                              "9930:DE211155632",
+                                              "0204:991-11384-46", })
+      assertTrue ("'" + sGood + "' should be good",
+                  PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
+                                                                                      sGood));
   }
 
   @Test
