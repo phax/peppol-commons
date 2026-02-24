@@ -283,7 +283,9 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     // in some cases it gives a problem later when trying to retrieve the
     // participant's metadata.
     // That's why we cut of the dot here
-    ret.deleteCharAt (ret.length () - 1);
+    if (StringHelper.endsWith (ret, '.'))
+      ret.deleteCharAt (ret.length () - 1);
+
     return ret.toString ();
   }
 
@@ -356,10 +358,10 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
         // Since 6.2.0 this a checked exception
         throw new SMPDNSResolutionException (EErrorCode.DNS_RESOLVING_ERROR,
                                              "Failed to resolve '" +
-                                                                         sBuildDomainName +
-                                                                         "' and service '" +
-                                                                         sServiceName +
-                                                                         "' to a DNS U-NAPTR");
+                                                                             sBuildDomainName +
+                                                                             "' and service '" +
+                                                                             sServiceName +
+                                                                             "' to a DNS U-NAPTR");
       }
 
       LOGGER.info ("Resolved domain name '" +
