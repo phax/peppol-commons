@@ -351,7 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.10 - work in progress
+v12.3.10 - 2026-02-26
 * Added constant `EPeppolMLSType.DEFAULT` mapped to `ALWAYS_SEND`
 * The internal NAPTR resolver only cuts a trailing dot from the DNS name and not any character
 * Added new class `CachingSMPClientReadOnly` to cache Peppol SMP responses (default: 15 minutes)
