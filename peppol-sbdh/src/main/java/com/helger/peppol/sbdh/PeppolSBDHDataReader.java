@@ -1003,7 +1003,8 @@ public class PeppolSBDHDataReader
     {
       // Identifier is mandatory
       final PartnerIdentification aSenderIdentification = aSBDH.getSenderAtIndex (0).getIdentifier ();
-      ret.setSender (aSenderIdentification.getAuthority (), aSenderIdentification.getValue ());
+      ret.setSender (StringHelper.trim (aSenderIdentification.getAuthority ()),
+                     StringHelper.trim (aSenderIdentification.getValue ()));
     }
 
     // Check receiver
@@ -1011,7 +1012,8 @@ public class PeppolSBDHDataReader
     {
       // Identifier is mandatory
       final PartnerIdentification aReceiverIdentification = aSBDH.getReceiverAtIndex (0).getIdentifier ();
-      ret.setReceiver (aReceiverIdentification.getAuthority (), aReceiverIdentification.getValue ());
+      ret.setReceiver (StringHelper.trim (aReceiverIdentification.getAuthority ()),
+                       StringHelper.trim (aReceiverIdentification.getValue ()));
     }
 
     // Document type identifier and process identifier
@@ -1020,9 +1022,9 @@ public class PeppolSBDHDataReader
     {
       for (final Scope aScope : aBusinessScope.getScope ())
       {
-        final String sType = aScope.getType ();
-        final String sInstanceIdentifier = aScope.getInstanceIdentifier ();
-        final String sIdentifier = aScope.getIdentifier ();
+        final String sType = StringHelper.trim (aScope.getType ());
+        final String sInstanceIdentifier = StringHelper.trim (aScope.getInstanceIdentifier ());
+        final String sIdentifier = StringHelper.trim (aScope.getIdentifier ());
 
         if (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID.equals (sType))
         {
@@ -1085,10 +1087,10 @@ public class PeppolSBDHDataReader
 
     // This field is mandatory in XML
     final DocumentIdentification aDI = aSBDH.getDocumentIdentification ();
-    ret.setDocumentIdentification (aDI.getStandard (),
-                                   aDI.getTypeVersion (),
-                                   aDI.getType (),
-                                   aDI.getInstanceIdentifier (),
+    ret.setDocumentIdentification (StringHelper.trim (aDI.getStandard ()),
+                                   StringHelper.trim (aDI.getTypeVersion ()),
+                                   StringHelper.trim (aDI.getType ()),
+                                   StringHelper.trim (aDI.getInstanceIdentifier ()),
                                    aDI.getCreationDateAndTime ());
     return ret;
   }

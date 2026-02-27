@@ -114,14 +114,14 @@ public class PeppolSBDHDataWriter
       throw new IllegalArgumentException ("Not all data fields are set!");
 
     final StandardBusinessDocumentHeader aSBDH = new StandardBusinessDocumentHeader ();
-    aSBDH.setHeaderVersion (m_sHeaderVersion);
+    aSBDH.setHeaderVersion (StringHelper.trim (m_sHeaderVersion));
 
     // Sender data
     {
       final Partner aSender = new Partner ();
       final PartnerIdentification aSenderID = new PartnerIdentification ();
-      aSenderID.setAuthority (aData.getSenderScheme ());
-      aSenderID.setValue (aData.getSenderValue ());
+      aSenderID.setAuthority (StringHelper.trim (aData.getSenderScheme ()));
+      aSenderID.setValue (StringHelper.trim (aData.getSenderValue ()));
       aSender.setIdentifier (aSenderID);
       aSBDH.addSender (aSender);
     }
@@ -130,8 +130,8 @@ public class PeppolSBDHDataWriter
     {
       final Partner aReceiver = new Partner ();
       final PartnerIdentification aReceiverID = new PartnerIdentification ();
-      aReceiverID.setAuthority (aData.getReceiverScheme ());
-      aReceiverID.setValue (aData.getReceiverValue ());
+      aReceiverID.setAuthority (StringHelper.trim (aData.getReceiverScheme ()));
+      aReceiverID.setValue (StringHelper.trim (aData.getReceiverValue ()));
       aReceiver.setIdentifier (aReceiverID);
       aSBDH.addReceiver (aReceiver);
     }
@@ -139,10 +139,10 @@ public class PeppolSBDHDataWriter
     // Document identification
     {
       final DocumentIdentification aDI = new DocumentIdentification ();
-      aDI.setStandard (aData.getStandard ());
-      aDI.setTypeVersion (aData.getTypeVersion ());
-      aDI.setType (aData.getType ());
-      aDI.setInstanceIdentifier (aData.getInstanceIdentifier ());
+      aDI.setStandard (StringHelper.trim (aData.getStandard ()));
+      aDI.setTypeVersion (StringHelper.trim (aData.getTypeVersion ()));
+      aDI.setType (StringHelper.trim (aData.getType ()));
+      aDI.setInstanceIdentifier (StringHelper.trim (aData.getInstanceIdentifier ()));
       aDI.setCreationDateAndTime (aData.getCreationDateAndTime ());
       aSBDH.setDocumentIdentification (aDI);
     }
@@ -153,18 +153,18 @@ public class PeppolSBDHDataWriter
       {
         final Scope aScope = new Scope ();
         aScope.setType (CPeppolSBDH.SCOPE_DOCUMENT_TYPE_ID);
-        aScope.setInstanceIdentifier (aData.getDocumentTypeValue ());
+        aScope.setInstanceIdentifier (StringHelper.trim (aData.getDocumentTypeValue ()));
         // The scheme was added in Spec v1.1
-        aScope.setIdentifier (aData.getDocumentTypeScheme ());
+        aScope.setIdentifier (StringHelper.trim (aData.getDocumentTypeScheme ()));
         aBusinessScope.addScope (aScope);
       }
 
       {
         final Scope aScope = new Scope ();
         aScope.setType (CPeppolSBDH.SCOPE_PROCESS_ID);
-        aScope.setInstanceIdentifier (aData.getProcessValue ());
+        aScope.setInstanceIdentifier (StringHelper.trim (aData.getProcessValue ()));
         // The scheme was added in Spec v1.1
-        aScope.setIdentifier (aData.getProcessScheme ());
+        aScope.setIdentifier (StringHelper.trim (aData.getProcessScheme ()));
         aBusinessScope.addScope (aScope);
       }
 
@@ -172,7 +172,7 @@ public class PeppolSBDHDataWriter
         // The Country C1 was added in Spec v2.0
         final Scope aScope = new Scope ();
         aScope.setType (CPeppolSBDH.SCOPE_COUNTRY_C1);
-        aScope.setInstanceIdentifier (aData.getCountryC1 ());
+        aScope.setInstanceIdentifier (StringHelper.trim (aData.getCountryC1 ()));
         aBusinessScope.addScope (aScope);
       }
 
@@ -181,8 +181,8 @@ public class PeppolSBDHDataWriter
         // The MLS_TO was added in Peppol MLS spec
         final Scope aScope = new Scope ();
         aScope.setType (CPeppolSBDH.SCOPE_MLS_TO);
-        aScope.setInstanceIdentifier (aData.getMLSToValue ());
-        aScope.setIdentifier (aData.getMLSToScheme ());
+        aScope.setInstanceIdentifier (StringHelper.trim (aData.getMLSToValue ()));
+        aScope.setIdentifier (StringHelper.trim (aData.getMLSToScheme ()));
         aBusinessScope.addScope (aScope);
       }
 
@@ -199,9 +199,9 @@ public class PeppolSBDHDataWriter
       for (final Map.Entry <String, String> aEntry : aData.additionalAttributes ().entrySet ())
       {
         final Scope aScope = new Scope ();
-        aScope.setType (aEntry.getKey ());
+        aScope.setType (StringHelper.trim (aEntry.getKey ()));
         // XSD requires InstanceIdentifier
-        aScope.setInstanceIdentifier (StringHelper.getNotNull (aEntry.getValue ()));
+        aScope.setInstanceIdentifier (StringHelper.getNotNull (aEntry.getValue ()).trim ());
         aBusinessScope.addScope (aScope);
       }
 
