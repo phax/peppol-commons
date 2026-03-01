@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
@@ -83,6 +84,18 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     m_eResponseCode = eResponseCode;
   }
 
+  @NonNull
+  public EPeppolMLSResponseCode responseCode ()
+  {
+    return m_eResponseCode;
+  }
+
+  @Nullable
+  public String id ()
+  {
+    return m_sID;
+  }
+
   /**
    * Set the ID of the MLS document to a random UUID.
    *
@@ -108,6 +121,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Nullable
+  public LocalDate issueDate ()
+  {
+    return m_aIssueDate;
+  }
+
   @NonNull
   public PeppolMLSBuilder issueDateNow ()
   {
@@ -131,6 +150,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   {
     m_aIssueDate = a;
     return this;
+  }
+
+  @Nullable
+  public XMLOffsetTime issueTime ()
+  {
+    return m_aIssueTime;
   }
 
   @NonNull
@@ -165,6 +190,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return issueDate (aLDT.toLocalDate ()).issueTime (aLDT.toOffsetTime ());
   }
 
+  @Nullable
+  public IParticipantIdentifier senderParticipantID ()
+  {
+    return m_aSenderPID;
+  }
+
   @NonNull
   public PeppolMLSBuilder senderParticipantID (@Nullable final String sValue)
   {
@@ -178,6 +209,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Nullable
+  public IParticipantIdentifier receiverParticipantID ()
+  {
+    return m_aReceiverPID;
+  }
+
   @NonNull
   public PeppolMLSBuilder receiverParticipantID (@Nullable final String sValue)
   {
@@ -189,6 +226,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   {
     m_aReceiverPID = a;
     return this;
+  }
+
+  @Nullable
+  public String referenceId ()
+  {
+    return m_sReferenceID;
   }
 
   /**
@@ -206,6 +249,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  @Nullable
+  public String referenceTypeCode ()
+  {
+    return m_sReferenceTypeCode;
+  }
+
   /**
    * Set the type code of the message we're referencing. This is optional.
    *
@@ -218,6 +267,12 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   {
     m_sReferenceTypeCode = s;
     return this;
+  }
+
+  @Nullable
+  public String responseText ()
+  {
+    return m_sResponseText;
   }
 
   /**
@@ -233,6 +288,13 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   {
     m_sResponseText = s;
     return this;
+  }
+
+  @NonNull
+  @ReturnsMutableObject
+  public ICommonsList <LineResponseType> lineResponses ()
+  {
+    return m_aLineResponses;
   }
 
   @NonNull
