@@ -353,6 +353,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 v12.3.11 - work in progress
 * `PeppolSBDHData(Reader|Writer)` now trims values from and to XML. See [#70](https://github.com/phax/peppol-commons/issues/70) - thx @wartab
+* Extracted method `PeppolSBDHData.createRandomSBDHInstanceIdentifier()`
 
 v12.3.10 - 2026-02-26
 * Added constant `EPeppolMLSType.DEFAULT` mapped to `ALWAYS_SEND`

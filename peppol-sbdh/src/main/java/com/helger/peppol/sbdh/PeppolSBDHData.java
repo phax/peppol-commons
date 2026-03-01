@@ -1410,6 +1410,17 @@ public class PeppolSBDHData
   }
 
   /**
+   * @return A new random instance identifier. Never <code>null</code> nor empty.
+   * @since 12.3.11
+   */
+  @NonNull
+  @Nonempty
+  public static String createRandomSBDHInstanceIdentifier ()
+  {
+    return UUID.randomUUID ().toString ();
+  }
+
+  /**
    * Create a new {@link PeppolSBDHData} object for a business message assuming it is UBL 2.1. The
    * resulting object has all required fields set, except for:
    * <ul>
@@ -1444,7 +1455,7 @@ public class PeppolSBDHData
     ret.setDocumentIdentification (aBusinessMessage.getNamespaceURI (),
                                    CPeppolSBDH.TYPE_VERSION_21,
                                    aBusinessMessage.getLocalName (),
-                                   UUID.randomUUID ().toString (),
+                                   createRandomSBDHInstanceIdentifier (),
                                    PDTFactory.getCurrentXMLOffsetDateTimeMillisOnly ());
     return ret;
   }
