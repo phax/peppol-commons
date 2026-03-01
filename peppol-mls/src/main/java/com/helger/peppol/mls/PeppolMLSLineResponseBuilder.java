@@ -23,6 +23,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
@@ -34,8 +36,8 @@ import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.Lin
 import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.ResponseType;
 
 /**
- * Builder for a single Line Response within a Peppol MLS. Fill all the
- * mandatory fields and call {@link #build()} at the end.
+ * Builder for a single Line Response within a Peppol MLS. Fill all the mandatory fields and call
+ * {@link #build()} at the end.
  *
  * @author Philip Helger
  */
@@ -47,15 +49,27 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
   private String m_sErrorField;
   private final ICommonsList <ResponseType> m_aResponses = new CommonsArrayList <> ();
 
+  /**
+   * Constructor.
+   */
   public PeppolMLSLineResponseBuilder ()
   {}
 
   /**
-   * Set the name of the field that is under error. In case of a Schematron
-   * failure this should be the "test" of the failed Schematron assertion.
+   * @return The error field reference. May be <code>null</code> if not yet set.
+   */
+  @Nullable
+  public String errorField ()
+  {
+    return m_sErrorField;
+  }
+
+  /**
+   * Set the name of the field that is under error. In case of a Schematron failure this should be
+   * the "test" of the failed Schematron assertion.
    *
    * @param s
-   *        Reference to the field under error
+   *        Reference to the field under error. May be <code>null</code>.
    * @return this for chaining
    */
   @NonNull
@@ -66,13 +80,33 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
   }
 
   /**
-   * Add a single response object.
+   * @return The mutable list of responses. Never <code>null</code>.
+   */
+  @NonNull
+  @ReturnsMutableObject
+  public ICommonsList <ResponseType> responses ()
+  {
+    return m_aResponses;
+  }
+
+  /**
+   * @return All contained responses as {@link PeppolMLSLineResponseResponseBuilder} objects. Never
+   *         <code>null</code>.
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <PeppolMLSLineResponseResponseBuilder> responsesAsBuilders ()
+  {
+    return m_aResponses.getAllMapped (PeppolMLSLineResponseResponseBuilder::createForLineResponseResponse);
+  }
+
+  /**
+   * Add a single response object using a status reason code and a description.
    *
    * @param eStatusReasonCode
-   *        Status reason code. May be <code>null</code>.
+   *        Status reason code. May not be <code>null</code>.
    * @param sDescription
-   *        The description reason for this response. May neither be
-   *        <code>null</code> nor empty.
+   *        The description reason for this response. May neither be <code>null</code> nor empty.
    * @return this for chaining
    */
   @NonNull
@@ -84,10 +118,11 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
   }
 
   /**
-   * Add a single response object.
+   * Add a single response object using a builder. If the builder is <code>null</code>, the call is
+   * ignored.
    *
    * @param a
-   *        Response object. May be <code>null</code>.
+   *        Response builder. May be <code>null</code>.
    * @return this for chaining
    */
   @NonNull
@@ -97,7 +132,7 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
   }
 
   /**
-   * Add a single response object.
+   * Add a single response object. If the value is <code>null</code>, the call is ignored.
    *
    * @param a
    *        Response object. May be <code>null</code>.
@@ -111,6 +146,13 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     return this;
   }
 
+  /**
+   * Set all responses at once, replacing any previously added ones.
+   *
+   * @param a
+   *        Responses. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSLineResponseBuilder responses (@Nullable final ResponseType... a)
   {
@@ -118,6 +160,13 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     return this;
   }
 
+  /**
+   * Set all responses at once, replacing any previously added ones.
+   *
+   * @param a
+   *        Responses. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSLineResponseBuilder responses (@Nullable final Iterable <? extends ResponseType> a)
   {
@@ -125,6 +174,14 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     return this;
   }
 
+  /**
+   * Check if all mandatory fields are set. The error field and at least one response are required.
+   *
+   * @param bLogDetails
+   *        <code>true</code> to log warnings for each missing field, <code>false</code> to silently
+   *        check.
+   * @return <code>true</code> if all mandatory fields are set, <code>false</code> otherwise.
+   */
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
     // Enforced by XSD
@@ -146,6 +203,14 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     return true;
   }
 
+  /**
+   * Build the {@link LineResponseType} from the current builder state. All mandatory fields must be
+   * set before calling this method.
+   *
+   * @return A new {@link LineResponseType} and never <code>null</code>.
+   * @throws IllegalStateException
+   *         If not all mandatory fields are set.
+   */
   @NonNull
   public LineResponseType build ()
   {
@@ -166,6 +231,15 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
     return ret;
   }
 
+  /**
+   * Create a builder from an existing {@link LineResponseType}, e.g. for round-tripping.
+   *
+   * @param aLineResponse
+   *        The line response to load. May not be <code>null</code>.
+   * @return A new {@link PeppolMLSLineResponseBuilder} and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the given line response contains no response entries.
+   */
   @NonNull
   public static PeppolMLSLineResponseBuilder createForLineResponse (@NonNull final LineResponseType aLineResponse)
   {

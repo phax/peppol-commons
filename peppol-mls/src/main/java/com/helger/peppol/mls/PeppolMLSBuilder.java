@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
@@ -78,18 +79,30 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   private String m_sResponseText;
   private final ICommonsList <LineResponseType> m_aLineResponses = new CommonsArrayList <> ();
 
+  /**
+   * Constructor.
+   *
+   * @param eResponseCode
+   *        The top-level response code. May not be <code>null</code>.
+   */
   public PeppolMLSBuilder (@NonNull final EPeppolMLSResponseCode eResponseCode)
   {
     ValueEnforcer.notNull (eResponseCode, "ResponseCode");
     m_eResponseCode = eResponseCode;
   }
 
+  /**
+   * @return The top-level response code as provided in the constructor. Never <code>null</code>.
+   */
   @NonNull
   public EPeppolMLSResponseCode responseCode ()
   {
     return m_eResponseCode;
   }
 
+  /**
+   * @return The MLS document ID. May be <code>null</code> if not yet set.
+   */
   @Nullable
   public String id ()
   {
@@ -121,30 +134,59 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * @return The issue date of the MLS document. May be <code>null</code> if not yet set.
+   */
   @Nullable
   public LocalDate issueDate ()
   {
     return m_aIssueDate;
   }
 
+  /**
+   * Set the issue date to the current date.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder issueDateNow ()
   {
     return issueDate (PDTFactory.getCurrentLocalDate ());
   }
 
+  /**
+   * Set the issue date from an {@link OffsetDate}. The local date part is extracted.
+   *
+   * @param a
+   *        Issue date. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder issueDate (@Nullable final OffsetDate a)
   {
     return issueDate (a == null ? null : a.toLocalDate ());
   }
 
+  /**
+   * Set the issue date from an {@link XMLOffsetDate}. The local date part is extracted.
+   *
+   * @param a
+   *        Issue date. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder issueDate (@Nullable final XMLOffsetDate a)
   {
     return issueDate (a == null ? null : a.toLocalDate ());
   }
 
+  /**
+   * Set the issue date of the MLS document. Mandatory element.
+   *
+   * @param a
+   *        Issue date. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder issueDate (@Nullable final LocalDate a)
   {
@@ -152,30 +194,61 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * @return The issue time of the MLS document. May be <code>null</code> if not yet set.
+   */
   @Nullable
   public XMLOffsetTime issueTime ()
   {
     return m_aIssueTime;
   }
 
+  /**
+   * Set the issue time to the current time (milliseconds only).
+   *
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder issueTimeNow ()
   {
     return issueTime (PDTFactory.getCurrentXMLOffsetTimeMillisOnly ());
   }
 
+  /**
+   * Set the issue time from an {@link OffsetTime}.
+   *
+   * @param a
+   *        Issue time. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder issueTime (@Nullable final OffsetTime a)
   {
     return issueTime (a == null ? null : XMLOffsetTime.of (a));
   }
 
+  /**
+   * Set the issue time from a {@link LocalTime} and a {@link ZoneOffset}.
+   *
+   * @param a
+   *        Issue time. May be <code>null</code>.
+   * @param aZoneOffset
+   *        The zone offset to use. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder issueTime (@Nullable final LocalTime a, @NonNull final ZoneOffset aZoneOffset)
   {
     return issueTime (a == null ? null : XMLOffsetTime.of (a, aZoneOffset));
   }
 
+  /**
+   * Set the issue time of the MLS document. Mandatory element. The time must contain a zone offset.
+   *
+   * @param a
+   *        Issue time. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder issueTime (@Nullable final XMLOffsetTime a)
   {
@@ -183,6 +256,11 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * Set both the issue date and the issue time to the current date and time.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder issueDateTimeNow ()
   {
@@ -190,18 +268,35 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return issueDate (aLDT.toLocalDate ()).issueTime (aLDT.toOffsetTime ());
   }
 
+  /**
+   * @return The sender participant ID. May be <code>null</code> if not yet set.
+   */
   @Nullable
   public IParticipantIdentifier senderParticipantID ()
   {
     return m_aSenderPID;
   }
 
+  /**
+   * Set the sender participant ID from a string value using the default Peppol identifier scheme.
+   *
+   * @param sValue
+   *        Participant identifier value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder senderParticipantID (@Nullable final String sValue)
   {
     return senderParticipantID (IF.createParticipantIdentifierWithDefaultScheme (sValue));
   }
 
+  /**
+   * Set the sender participant ID. Mandatory element.
+   *
+   * @param a
+   *        Sender participant ID. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder senderParticipantID (@Nullable final IParticipantIdentifier a)
   {
@@ -209,18 +304,35 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * @return The receiver participant ID. May be <code>null</code> if not yet set.
+   */
   @Nullable
   public IParticipantIdentifier receiverParticipantID ()
   {
     return m_aReceiverPID;
   }
 
+  /**
+   * Set the receiver participant ID from a string value using the default Peppol identifier scheme.
+   *
+   * @param sValue
+   *        Participant identifier value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder receiverParticipantID (@Nullable final String sValue)
   {
     return receiverParticipantID (IF.createParticipantIdentifierWithDefaultScheme (sValue));
   }
 
+  /**
+   * Set the receiver participant ID. Mandatory element.
+   *
+   * @param a
+   *        Receiver participant ID. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder receiverParticipantID (@Nullable final IParticipantIdentifier a)
   {
@@ -228,6 +340,10 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * @return The reference ID (Instance Identifier of the source SBDH). May be <code>null</code> if
+   *         not yet set.
+   */
   @Nullable
   public String referenceId ()
   {
@@ -249,6 +365,9 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * @return The reference type code. May be <code>null</code> if not set (optional element).
+   */
   @Nullable
   public String referenceTypeCode ()
   {
@@ -269,6 +388,9 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * @return The response text. May be <code>null</code> if not set (optional element).
+   */
   @Nullable
   public String responseText ()
   {
@@ -290,6 +412,9 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * @return The mutable list of line responses. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public ICommonsList <LineResponseType> lineResponses ()
@@ -297,12 +422,38 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return m_aLineResponses;
   }
 
+  /**
+   * @return All contained line responses as {@link PeppolMLSLineResponseBuilder} objects. Never
+   *         <code>null</code>.
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <PeppolMLSLineResponseBuilder> lineResponsesAsBuilders ()
+  {
+    return m_aLineResponses.getAllMapped (PeppolMLSLineResponseBuilder::createForLineResponse);
+  }
+
+  /**
+   * Add a single line response using the provided builder. If the builder is <code>null</code>, the
+   * call is ignored.
+   *
+   * @param a
+   *        Line response builder. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder addLineResponse (@Nullable final PeppolMLSLineResponseBuilder a)
   {
     return addLineResponse (a == null ? null : a.build ());
   }
 
+  /**
+   * Add a single line response. If the value is <code>null</code>, the call is ignored.
+   *
+   * @param a
+   *        Line response. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder addLineResponse (@Nullable final LineResponseType a)
   {
@@ -311,6 +462,13 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * Set all line responses at once, replacing any previously added ones.
+   *
+   * @param a
+   *        Line responses. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder lineResponses (@Nullable final LineResponseType... a)
   {
@@ -318,6 +476,13 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * Set all line responses at once, replacing any previously added ones.
+   *
+   * @param a
+   *        Line responses. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSBuilder lineResponses (@Nullable final Iterable <? extends LineResponseType> a)
   {
@@ -325,6 +490,15 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return this;
   }
 
+  /**
+   * Check if all mandatory fields are set and consistent. In case of a failure response code, at
+   * least one line response must be present.
+   *
+   * @param bLogDetails
+   *        <code>true</code> to log warnings for each missing field, <code>false</code> to silently
+   *        check.
+   * @return <code>true</code> if all mandatory fields are set, <code>false</code> otherwise.
+   */
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
     if (StringHelper.isEmpty (m_sID))
@@ -393,6 +567,14 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return true;
   }
 
+  /**
+   * Build the UBL {@link ApplicationResponseType} from the current builder state. All mandatory
+   * fields must be set before calling this method.
+   *
+   * @return A new {@link ApplicationResponseType} and never <code>null</code>.
+   * @throws IllegalStateException
+   *         If not all mandatory fields are set.
+   */
   @NonNull
   public ApplicationResponseType build ()
   {
@@ -474,6 +656,13 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     aBuilder.randomID ().issueDateTimeNow ();
   }
 
+  /**
+   * Create a new builder for an acceptance response. The ID is set to a random UUID and the issue
+   * date/time are set to now.
+   *
+   * @return A new {@link PeppolMLSBuilder} with response code
+   *         {@link EPeppolMLSResponseCode#ACCEPTANCE}.
+   */
   @NonNull
   public static PeppolMLSBuilder acceptance ()
   {
@@ -482,6 +671,13 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
+  /**
+   * Create a new builder for an acknowledging response. The ID is set to a random UUID and the
+   * issue date/time are set to now.
+   *
+   * @return A new {@link PeppolMLSBuilder} with response code
+   *         {@link EPeppolMLSResponseCode#ACKNOWLEDGING}.
+   */
   @NonNull
   public static PeppolMLSBuilder acknowledging ()
   {
@@ -490,6 +686,14 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     return ret;
   }
 
+  /**
+   * Create a new builder for a rejection response. The ID is set to a random UUID and the issue
+   * date/time are set to now. At least one line response must be added before calling
+   * {@link #build()}.
+   *
+   * @return A new {@link PeppolMLSBuilder} with response code
+   *         {@link EPeppolMLSResponseCode#REJECTION}.
+   */
   @NonNull
   public static PeppolMLSBuilder rejection ()
   {
@@ -562,11 +766,13 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     if (!CPeppolMLS.MLS_PROFILE_ID.equals (aAR.getProfileIDValue ()))
       throw new IllegalArgumentException ("The given application response is not a valid MLS - wrong profile ID");
     if (aAR.getDocumentResponse ().size () <= 0)
-      throw new IllegalArgumentException ("The given application response is not a valid MLS - exepcted exactly one document responses");
+      throw new IllegalArgumentException ("The given application response is not a valid MLS - expected at least one document response");
 
+    // SenderParty is mandatory per XSD
     final PartyType aSenderParty = aAR.getSenderParty ();
     final EndpointIDType aSenderEndpointID = aSenderParty.getEndpointID ();
 
+    // ReceiverParty is mandatory per XSD
     final PartyType aReceiverParty = aAR.getReceiverParty ();
     final EndpointIDType aReceiverEndpointID = aReceiverParty.getEndpointID ();
 

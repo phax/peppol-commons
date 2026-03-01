@@ -45,16 +45,28 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
   private String m_sDescription;
   private EPeppolMLSStatusReasonCode m_eStatusReasonCode;
 
+  /**
+   * Constructor.
+   */
   public PeppolMLSLineResponseResponseBuilder ()
   {}
 
   /**
-   * Set the response text for this particular line. This should be a human readable text line the
+   * @return The description text. May be <code>null</code> if not yet set.
+   */
+  @Nullable
+  public String description ()
+  {
+    return m_sDescription;
+  }
+
+  /**
+   * Set the response text for this particular line. This should be a human readable text like the
    * error message referring to a specific field. In case of a Schematron failure, it might be the
    * text of the failed assertion.
    *
    * @param s
-   *        Response text.
+   *        Response text. May be <code>null</code>.
    * @return this for chaining
    */
   @NonNull
@@ -64,30 +76,67 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
     return this;
   }
 
+  /**
+   * @return The status reason code. May be <code>null</code> if not yet set.
+   */
+  @Nullable
+  public EPeppolMLSStatusReasonCode statusReasonCode ()
+  {
+    return m_eStatusReasonCode;
+  }
+
+  /**
+   * Set the status reason code to {@link EPeppolMLSStatusReasonCode#BUSINESS_RULE_VIOLATION_FATAL}.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCodeBusinessRuleViolationFatal ()
   {
     return statusReasonCode (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL);
   }
 
+  /**
+   * Set the status reason code to
+   * {@link EPeppolMLSStatusReasonCode#BUSINESS_RULE_VIOLATION_WARNING}.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCodeBusinessRuleViolationWarning ()
   {
     return statusReasonCode (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING);
   }
 
+  /**
+   * Set the status reason code to {@link EPeppolMLSStatusReasonCode#FAILURE_OF_DELIVERY}.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCodeFailureOfDelivery ()
   {
     return statusReasonCode (EPeppolMLSStatusReasonCode.FAILURE_OF_DELIVERY);
   }
 
+  /**
+   * Set the status reason code to {@link EPeppolMLSStatusReasonCode#SYNTAX_VIOLATION}.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCodeSyntaxViolation ()
   {
     return statusReasonCode (EPeppolMLSStatusReasonCode.SYNTAX_VIOLATION);
   }
 
+  /**
+   * Set the status reason code. Mandatory element.
+   *
+   * @param e
+   *        Status reason code. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public PeppolMLSLineResponseResponseBuilder statusReasonCode (@Nullable final EPeppolMLSStatusReasonCode e)
   {
@@ -95,6 +144,14 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
     return this;
   }
 
+  /**
+   * Check if all mandatory fields are set. Both description and status reason code are required.
+   *
+   * @param bLogDetails
+   *        <code>true</code> to log warnings for each missing field, <code>false</code> to silently
+   *        check.
+   * @return <code>true</code> if all mandatory fields are set, <code>false</code> otherwise.
+   */
   public boolean areAllFieldsSet (final boolean bLogDetails)
   {
     // Enforced by Schematron
@@ -115,6 +172,14 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
     return true;
   }
 
+  /**
+   * Build the {@link ResponseType} from the current builder state. All mandatory fields must be set
+   * before calling this method.
+   *
+   * @return A new {@link ResponseType} and never <code>null</code>.
+   * @throws IllegalStateException
+   *         If not all mandatory fields are set.
+   */
   @NonNull
   public ResponseType build ()
   {
@@ -131,6 +196,15 @@ public class PeppolMLSLineResponseResponseBuilder implements IBuilder <ResponseT
     return ret;
   }
 
+  /**
+   * Create a builder from an existing {@link ResponseType}, e.g. for round-tripping.
+   *
+   * @param aResponse
+   *        The response to load. May not be <code>null</code>.
+   * @return A new {@link PeppolMLSLineResponseResponseBuilder} and never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the given response contains no status or no description entries.
+   */
   @NonNull
   public static PeppolMLSLineResponseResponseBuilder createForLineResponseResponse (@NonNull final ResponseType aResponse)
   {
