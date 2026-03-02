@@ -68,7 +68,7 @@ import com.helger.xsds.peppol.smp1.SignedServiceMetadataType;
 public class CachingSMPClientReadOnly extends SMPClientReadOnly
 {
   /** Default cache TTL: 15 minutes */
-  public static final Duration DEFAULT_CACHE_TTL = Duration.ofMillis (15);
+  public static final Duration DEFAULT_CACHE_TTL = Duration.ofMinutes (15);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CachingSMPClientReadOnly.class);
 
