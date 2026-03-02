@@ -338,6 +338,19 @@ public class PeppolSBDHData
   }
 
   /**
+   * @return The URI encoded document type ID or <code>null</code> if both scheme and value are
+   *         <code>null</code>.
+   * @since 12.3.11
+   */
+  @Nullable
+  public String getDocumentTypeURIEncoded ()
+  {
+    if (m_sDocumentTypeScheme == null && m_sDocumentTypeValue == null)
+      return null;
+    return CIdentifier.getURIEncoded (m_sDocumentTypeScheme, m_sDocumentTypeValue);
+  }
+
+  /**
    * Set the document type identifier.
    *
    * @param sScheme
@@ -443,6 +456,19 @@ public class PeppolSBDHData
   public IProcessIdentifier getProcessAsIdentifier ()
   {
     return m_aIdentifierFactory.createProcessIdentifier (m_sProcessScheme, m_sProcessValue);
+  }
+
+  /**
+   * @return The URI encoded process ID or <code>null</code> if both scheme and value are
+   *         <code>null</code>.
+   * @since 12.3.11
+   */
+  @Nullable
+  public String getProcessURIEncoded ()
+  {
+    if (m_sProcessScheme == null && m_sProcessValue == null)
+      return null;
+    return CIdentifier.getURIEncoded (m_sProcessScheme, m_sProcessValue);
   }
 
   /**
