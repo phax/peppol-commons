@@ -355,7 +355,7 @@ v12.3.11 - 2026-03-02
 * `PeppolSBDHData(Reader|Writer)` now trims values from and to XML. See [#70](https://github.com/phax/peppol-commons/issues/70) - thx @wartab
 * Extracted method `PeppolSBDHData.createRandomSBDHInstanceIdentifier()`
 * Extended `PeppolMLSBuilder`, `PeppolMLSLineResponseBuilder` and `PeppolMLSLineResponseResponseBuilder` with getters
-* Created new methods to retrieve URI encoded identifiers
+* Created new methods to retrieve URI encoded identifiers in `PeppolSBDHData`
 * Fixed default caching time in `CachingSMPClientReadOnly` from 15 millis to 15 minutes
 
 v12.3.10 - 2026-02-26
