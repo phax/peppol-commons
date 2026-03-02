@@ -47,6 +47,7 @@ import com.helger.peppol.sbdh.payload.PeppolSBDHPayloadTextMarshaller;
 import com.helger.peppol.sbdh.spec12.BinaryContentType;
 import com.helger.peppol.sbdh.spec12.ObjectFactory;
 import com.helger.peppol.sbdh.spec12.TextContentType;
+import com.helger.peppolid.CIdentifier;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
@@ -137,6 +138,19 @@ public class PeppolSBDHData
   }
 
   /**
+   * @return The URI encoded sender participant ID or <code>null</code> if both scheme and value are
+   *         <code>null</code>.
+   * @since 12.3.11
+   */
+  @Nullable
+  public String getSenderURIEncoded ()
+  {
+    if (m_sSenderScheme == null && m_sSenderValue == null)
+      return null;
+    return CIdentifier.getURIEncoded (m_sSenderScheme, m_sSenderValue);
+  }
+
+  /**
    * Set the sender participant identifier.
    *
    * @param sScheme
@@ -221,6 +235,19 @@ public class PeppolSBDHData
   public IParticipantIdentifier getReceiverAsIdentifier ()
   {
     return m_aIdentifierFactory.createParticipantIdentifier (m_sReceiverScheme, m_sReceiverValue);
+  }
+
+  /**
+   * @return The URI encoded receiver participant ID or <code>null</code> if both scheme and value
+   *         are <code>null</code>.
+   * @since 12.3.11
+   */
+  @Nullable
+  public String getReceiverURIEncoded ()
+  {
+    if (m_sReceiverScheme == null && m_sReceiverValue == null)
+      return null;
+    return CIdentifier.getURIEncoded (m_sReceiverScheme, m_sReceiverValue);
   }
 
   /**
