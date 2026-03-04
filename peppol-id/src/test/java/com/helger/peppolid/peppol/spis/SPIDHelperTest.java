@@ -16,6 +16,7 @@
  */
 package com.helger.peppolid.peppol.spis;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -30,6 +31,12 @@ import com.helger.peppolid.peppol.spisusecase.EPredefinedSPISUseCaseIdentifier;
  */
 public final class SPIDHelperTest
 {
+  @Test
+  public void testBasic ()
+  {
+    assertEquals ("0242", SPIDHelper.SPIS_PARTICIPANT_ID_SCHEME);
+  }
+
   @Test
   public void testIsValidMainID ()
   {
@@ -103,5 +110,25 @@ public final class SPIDHelperTest
 
     assertFalse (SPIDHelper.isValidSPID (""));
     assertFalse (SPIDHelper.isValidSPID (null));
+
+    assertTrue (SPIDHelper.isValidSPID ("000001"));
+    assertTrue (SPIDHelper.isValidSPID ("000270"));
+    assertTrue (SPIDHelper.isValidSPID ("010101"));
+    assertTrue (SPIDHelper.isValidSPID ("999999"));
+    assertFalse (SPIDHelper.isValidSPID ("99999"));
+    assertFalse (SPIDHelper.isValidSPID ("a99999"));
+    assertFalse (SPIDHelper.isValidSPID ("9999999"));
+
+    assertTrue (SPIDHelper.isValidSPID ("000001-AAA"));
+    assertTrue (SPIDHelper.isValidSPID ("000001-Rprtng_MLS"));
+    assertTrue (SPIDHelper.isValidSPID ("000270-1234567"));
+    assertFalse (SPIDHelper.isValidSPID ("000270.12"));
+    assertFalse (SPIDHelper.isValidSPID ("000270.1234567"));
+    assertFalse (SPIDHelper.isValidSPID ("0002701234567"));
+    assertFalse (SPIDHelper.isValidSPID ("000270--1234567"));
+
+    assertTrue (SPIDHelper.isValidSPID ("000001-MLS.001"));
+    assertTrue (SPIDHelper.isValidSPID ("000001-001.1234567"));
+    assertTrue (SPIDHelper.isValidSPID ("000270-Rprtng_MLS.Japan.123"));
   }
 }

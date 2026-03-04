@@ -19,8 +19,8 @@ package com.helger.peppol.mls;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.peppolid.peppol.doctype.EPredefinedDocumentTypeIdentifier;
-import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 import com.helger.peppolid.peppol.process.EPredefinedProcessIdentifier;
+import com.helger.peppolid.peppol.spis.SPIDHelper;
 
 /**
  * Constants for Peppol MLS (Message Level Status)
@@ -39,14 +39,16 @@ public final class CPeppolMLS
   public static final String LINE_ID_NOT_AVAILABLE = "NA";
 
   /** The official Participant Identifier Scheme for SPIS (0242) */
-  public static final String SPIS_PARTICIPANT_ID_SCHEME = EPredefinedParticipantIdentifierScheme.SPIS.getISO6523Code ();
+  @Deprecated (forRemoval = true, since = "12.3.12")
+  public static final String SPIS_PARTICIPANT_ID_SCHEME = SPIDHelper.SPIS_PARTICIPANT_ID_SCHEME;
 
   /**
    * The official validation RegEx from the specification, section 3.4. Don't forget to apply this
    * regular expression case-insensitive!
    */
   @RegEx
-  public static final String REGEX_SPID = "(?i)[0-9]{6}(-[0-9A-Z_]{3,12}(\\.[0-9A-Z\\-\\._~]{3,24})?)?";
+  @Deprecated (forRemoval = true, since = "12.3.12")
+  public static final String REGEX_SPID = SPIDHelper.REGEX_COMPLETE;
 
   private CPeppolMLS ()
   {}

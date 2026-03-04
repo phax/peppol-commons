@@ -20,6 +20,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.cache.regex.RegExHelper;
+import com.helger.peppolid.peppol.pidscheme.EPredefinedParticipantIdentifierScheme;
 
 /**
  * Helper class for dealing with Peppol Service Provider IDs.
@@ -30,6 +31,9 @@ import com.helger.cache.regex.RegExHelper;
 @Immutable
 public final class SPIDHelper
 {
+  /** The official Participant Identifier Scheme for SPIS (0242) */
+  public static final String SPIS_PARTICIPANT_ID_SCHEME = EPredefinedParticipantIdentifierScheme.SPIS.getISO6523Code ();
+
   private static final String _MAIN_ID = "[0-9]{6}";
   public static final String REGEX_MAIN_ID = "^" + _MAIN_ID + "$";
 

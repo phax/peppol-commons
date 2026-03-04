@@ -351,6 +351,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.3.12 - work in progress
+* Deprecated constants in `CPeppolMLS` in favour of the ones in `SPIDHelper`
+
 v12.3.11 - 2026-03-02
 * `PeppolSBDHData(Reader|Writer)` now trims values from and to XML. See [#70](https://github.com/phax/peppol-commons/issues/70) - thx @wartab
 * Extracted method `PeppolSBDHData.createRandomSBDHInstanceIdentifier()`
@@ -395,7 +398,7 @@ v12.3.5 - 2026-01-02
 v12.3.4 - 2025-12-29
 * Added constructor overload `HRMPSClientReadOnly(URI)`
 * Updated to Peppol eDEC Code Lists v9.5
-* Adcded new class `CHREDeliveryID`
+* Added new class `CHREDeliveryID`
 
 v12.3.3 - 2025-12-16
 * Updated to ph-commons 12.1.1
