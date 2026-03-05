@@ -17,18 +17,15 @@
 package com.helger.smpclient.httpclient;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 import org.apache.hc.client5.http.ClientProtocolException;
-import org.apache.hc.client5.http.HttpResponseException;
 import org.apache.hc.core5.http.ClassicHttpResponse;
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-import com.helger.base.debug.GlobalDebug;
-import com.helger.httpclient.HttpClientHelper;
+import com.helger.httpclient.response.ExtendedHttpResponseException;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 
 /**
@@ -62,22 +59,16 @@ public abstract class AbstractSMPResponseHandler <T> implements HttpClientRespon
   /**
    * Read the entity from the response body and pass it to the entity handler method if the response
    * was successful (a 2xx status code). If no response body exists, this returns null. If the
-   * response was unsuccessful (&gt;= 300 status code), throws an {@link HttpResponseException}.
+   * response was unsuccessful (&gt;= 300 status code), throws an
+   * {@link ExtendedHttpResponseException}.
    */
   @Nullable
   public T handleResponse (@NonNull final ClassicHttpResponse aResponse) throws IOException
   {
     final HttpEntity aEntity = aResponse.getEntity ();
     if (aResponse.getCode () >= 300)
-    {
-      if (GlobalDebug.isDebugMode ())
-      {
-        // Contain response details in exception
-        final String sEntity = HttpClientHelper.entityToString (aEntity, StandardCharsets.UTF_8);
-        throw new HttpResponseException (aResponse.getCode (), aResponse.getReasonPhrase () + "\n" + sEntity);
-      }
-      throw new HttpResponseException (aResponse.getCode (), aResponse.getReasonPhrase ());
-    }
+      throw ExtendedHttpResponseException.create (aResponse);
+
     try
     {
       return aEntity == null ? null : handleEntity (aEntity);
