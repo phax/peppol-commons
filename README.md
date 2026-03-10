@@ -351,7 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.3.12 - work in progress
+v12.3.12 - 2026-03-10
 * Deprecated constants in `CPeppolMLS` in favour of the ones in `SPIDHelper`
 * `AbstractSMPResponseHandler.handleResponse` now throws an `ExtendedHttpResponseException` instead of a `HttpResponseException`
 * Extended the API of the Peppol MLS nested builders
