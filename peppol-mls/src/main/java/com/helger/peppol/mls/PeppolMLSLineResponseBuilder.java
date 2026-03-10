@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.mls;
 
+import java.util.function.Consumer;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -115,6 +117,23 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
   {
     return addResponse (new PeppolMLSLineResponseResponseBuilder ().statusReasonCode (eStatusReasonCode)
                                                                    .description (sDescription));
+  }
+
+  /**
+   * Add a single response object using a builder. If the builder is <code>null</code>, the call is
+   * ignored.
+   *
+   * @param a
+   *        Response builder consumer. May not be <code>null</code>.
+   * @return this for chaining
+   * @since 12.3.12
+   */
+  @NonNull
+  public PeppolMLSLineResponseBuilder addResponse (@NonNull final Consumer <? super PeppolMLSLineResponseResponseBuilder> a)
+  {
+    final PeppolMLSLineResponseResponseBuilder aBuilder = new PeppolMLSLineResponseResponseBuilder ();
+    a.accept (aBuilder);
+    return addResponse (aBuilder.build ());
   }
 
   /**

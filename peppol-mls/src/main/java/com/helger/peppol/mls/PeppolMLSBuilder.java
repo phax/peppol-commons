@@ -23,6 +23,7 @@ import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -399,7 +400,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
 
   /**
    * Set the response text returned to the sender. This is e.g. the reason for rejection. This must
-   * be human readable text. The text may be multiline.
+   * be human readable text. The text may be multi-line.
    *
    * @param s
    *        Response text.
@@ -431,6 +432,23 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   public ICommonsList <PeppolMLSLineResponseBuilder> lineResponsesAsBuilders ()
   {
     return m_aLineResponses.getAllMapped (PeppolMLSLineResponseBuilder::createForLineResponse);
+  }
+
+  /**
+   * Add a single line response using the provided builder. If the builder is <code>null</code>, the
+   * call is ignored.
+   *
+   * @param a
+   *        Line response builder consumer. May not be be <code>null</code>.
+   * @return this for chaining
+   * @since 12.3.12
+   */
+  @NonNull
+  public PeppolMLSBuilder addLineResponse (@NonNull final Consumer <? super PeppolMLSLineResponseBuilder> a)
+  {
+    final PeppolMLSLineResponseBuilder aBuilder = new PeppolMLSLineResponseBuilder ();
+    a.accept (aBuilder);
+    return addLineResponse (aBuilder.build ());
   }
 
   /**
