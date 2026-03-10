@@ -115,8 +115,7 @@ public class PeppolMLSLineResponseBuilder implements IBuilder <LineResponseType>
   public PeppolMLSLineResponseBuilder addResponse (@NonNull final EPeppolMLSStatusReasonCode eStatusReasonCode,
                                                    @NonNull @Nonempty final String sDescription)
   {
-    return addResponse (new PeppolMLSLineResponseResponseBuilder ().statusReasonCode (eStatusReasonCode)
-                                                                   .description (sDescription));
+    return addResponse (b -> b.statusReasonCode (eStatusReasonCode).description (sDescription));
   }
 
   /**
