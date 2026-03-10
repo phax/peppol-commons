@@ -46,6 +46,9 @@ public final class PeppolIdentifierFactoryTest
                                                                  "busdox-actorid",
                                                                  "any-domain_actorid_any-type",
                                                                  "any-nonactoid-anybutmuchtoooooooooooooooooooooooolong" };
+  private static final String VALUE_MAX_LENGTH_NO_SCHEME = StringHelper.getRepeated ('a',
+                                                                                     PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH -
+                                                                                          5);
   private static final String VALUE_MAX_LENGTH = StringHelper.getRepeated ('a',
                                                                            PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH);
   private static final String VALUE_MAX_LENGTH_PLUS_1 = VALUE_MAX_LENGTH + 'a';
@@ -67,12 +70,16 @@ public final class PeppolIdentifierFactoryTest
   {
     for (final String sBad : new String [] { null,
                                              "",
+                                             VALUE_MAX_LENGTH_NO_SCHEME,
                                              VALUE_MAX_LENGTH,
                                              VALUE_MAX_LENGTH_PLUS_1,
+                                             "9:9",
+                                             "9901:",
                                              "9908:976098897 ",
                                              "990:976098897",
                                              "990976098897",
-                                             "9956:DE:EPROC:BMIEVG:BeschA" })
+                                             "9956:DE:EPROC:BMIEVG:BeschA",
+                                             "0123:" + VALUE_MAX_LENGTH })
       assertFalse (PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
                                                                                        sBad));
 
@@ -81,7 +88,8 @@ public final class PeppolIdentifierFactoryTest
                                               "9908:976098896",
                                               "9906:02419170044_01",
                                               "9930:DE211155632",
-                                              "0204:991-11384-46", })
+                                              "0204:991-11384-46",
+                                              "0123:" + VALUE_MAX_LENGTH_NO_SCHEME })
       assertTrue ("'" + sGood + "' should be good",
                   PeppolIdentifierFactory.INSTANCE.isParticipantIdentifierValueValid (PeppolIdentifierHelper.PARTICIPANT_SCHEME_ISO6523_ACTORID_UPIS,
                                                                                       sGood));
@@ -143,45 +151,5 @@ public final class PeppolIdentifierFactoryTest
                                                                                       "urn:rootnamespace::localelement##customizationid*::version"));
     assertTrue (PeppolIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
                                                                                      "urn:rootnamespace::localelement##customizationid*::version"));
-  }
-
-  @Test
-  public void testIsValidDocumentTypeIdentifierValueLax ()
-  {
-    assertFalse (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                                                                         null));
-    assertFalse (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                                                                         ""));
-
-    // Difference to the regular one
-    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                                                                        "invoice"));
-    // Difference to the regular one
-    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
-                                                                                        "invoice"));
-    // Difference to the regular one
-    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid ("bla", "invoice"));
-    // Difference to the regular one
-    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (null, "invoice"));
-    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                                                                        "order "));
-
-    // Difference to the regular one
-    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                                                                        StringHelper.getRepeated ('a',
-                                                                                                                  PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)));
-    assertFalse (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                                                                         StringHelper.getRepeated ('a',
-                                                                                                                   PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH +
-                                                                                                                        1)));
-    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                                                                        "urn:rootnamespace::localelement##customizationid::version"));
-
-    // * only valid for peppol-doctype-wildcard
-    // Difference to the regular one
-    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_BUSDOX_DOCID_QNS,
-                                                                                        "urn:rootnamespace::localelement##customizationid*::version"));
-    assertTrue (PeppolLaxIdentifierFactory.INSTANCE.isDocumentTypeIdentifierValueValid (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
-                                                                                        "urn:rootnamespace::localelement##customizationid*::version"));
   }
 }

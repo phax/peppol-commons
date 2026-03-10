@@ -301,25 +301,32 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
       final char [] aChars = sValue.toCharArray ();
 
-      if (!Character.isDigit (aChars[0]))
-        return false;
-      if (!Character.isDigit (aChars[1]))
-        return false;
-      if (!Character.isDigit (aChars[2]))
-        return false;
-      if (!Character.isDigit (aChars[3]))
-        return false;
+      if (m_bStrictMode)
+      {
+        if (!Character.isDigit (aChars[0]))
+          return false;
+        if (!Character.isDigit (aChars[1]))
+          return false;
+        if (!Character.isDigit (aChars[2]))
+          return false;
+        if (!Character.isDigit (aChars[3]))
+          return false;
+      }
 
       // Must be after the first 4 characters
       if (aChars[4] != ':')
         return false;
 
-      // POLICY 1 - MUST only contain letters (a-z, A-Z), numeric digits (0-9), the minus sign (-),
-      // the period character (.), the underscore character (_) or the tilde character (~) from
-      // the invariant character set of ISO-8859-1
-      for (int nIdx = 5; nIdx < nValueLength; ++nIdx)
-        if (!_isValidPIDValueChar (aChars[nIdx]))
-          return false;
+      if (m_bStrictMode)
+      {
+        // POLICY 1 - MUST only contain letters (a-z, A-Z), numeric digits (0-9), the minus sign
+        // (-),
+        // the period character (.), the underscore character (_) or the tilde character (~) from
+        // the invariant character set of ISO-8859-1
+        for (int nIdx = 5; nIdx < nValueLength; ++nIdx)
+          if (!_isValidPIDValueChar (aChars[nIdx]))
+            return false;
+      }
     }
 
     return true;

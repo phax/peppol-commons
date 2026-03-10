@@ -355,6 +355,7 @@ v12.3.12 - work in progress
 * Deprecated constants in `CPeppolMLS` in favour of the ones in `SPIDHelper`
 * `AbstractSMPResponseHandler.handleResponse` now throws an `ExtendedHttpResponseException` instead of a `HttpResponseException`
 * Extended the API of the Peppol MLS nested builders
+* The Peppol "lax" identifier factory now allows Italian NSO identifiers
 
 v12.3.11 - 2026-03-02
 * `PeppolSBDHData(Reader|Writer)` now trims values from and to XML. See [#70](https://github.com/phax/peppol-commons/issues/70) - thx @wartab
