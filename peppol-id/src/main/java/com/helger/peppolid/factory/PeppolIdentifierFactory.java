@@ -403,6 +403,6 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Strict", m_bStrictMode).getToString ();
+    return new ToStringGenerator (this).append ("StrictMode", m_bStrictMode).getToString ();
   }
 }
