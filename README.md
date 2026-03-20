@@ -351,8 +351,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.4.0 - work in progress
-* Changed the default Peppol SML coordinates to the new OpenPeppol SML using `participant.sml.[prod|test].tech.peppol.org`
+v12.4.0 - 2026-03-20
+* Changed the default Peppol SML coordinates to the new OpenPeppol SML using domain `participant.sml.[prod|test].tech.peppol.org`
+* Deprecated `ESML.DIGIT_PRODUCTION` and `ESML.DIGIT_TEST` in favour of `ESML.PEPPOL_PRODUCTION` and `ESML.PEPPOL_TEST`
+* Updated `EPeppolNetwork` to use the new OpenPeppol SML entries
+* Removed old backwards-compatibility checks in `SMPClientConfiguration` (legacy system property and config file fallbacks)
 
 v12.3.12 - 2026-03-10
 * Deprecated constants in `CPeppolMLS` in favour of the ones in `SPIDHelper`
