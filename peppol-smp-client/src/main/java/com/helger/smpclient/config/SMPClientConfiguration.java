@@ -16,7 +16,6 @@
  */
 package com.helger.smpclient.config;
 
-import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 
 import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
@@ -33,18 +32,12 @@ import com.helger.annotation.misc.ChangeNextMajorRelease;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-import com.helger.base.exception.InitializationException;
-import com.helger.base.string.StringHelper;
-import com.helger.base.system.SystemProperties;
 import com.helger.config.ConfigFactory;
 import com.helger.config.IConfig;
 import com.helger.config.fallback.ConfigWithFallback;
 import com.helger.config.fallback.IConfigWithFallback;
 import com.helger.config.source.MultiConfigurationValueProvider;
-import com.helger.config.source.resource.properties.ConfigurationSourceProperties;
 import com.helger.httpclient.HttpClientSettings;
-import com.helger.io.resource.IReadableResource;
-import com.helger.io.resourceprovider.ReadableResourceProviderChain;
 import com.helger.peppol.security.PeppolTrustStores;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
@@ -80,29 +73,7 @@ public final class SMPClientConfiguration
   public static MultiConfigurationValueProvider createSMPClientValueProvider ()
   {
     // Start with default setup
-    final MultiConfigurationValueProvider ret = ConfigFactory.createDefaultValueProvider ();
-
-    final ReadableResourceProviderChain aResourceProvider = ConfigFactory.createDefaultResourceProviderChain ();
-
-    IReadableResource aRes;
-    final int nBasePrio = ConfigFactory.APPLICATION_PROPERTIES_PRIORITY;
-
-    // Lower priority than the standard files
-    aRes = aResourceProvider.getReadableResourceIf ("private-smp-client.properties", IReadableResource::exists);
-    if (aRes != null)
-    {
-      LOGGER.warn ("The support for the properties file 'private-smp-client.properties' is deprecated. Place the properties in 'application.properties' instead.");
-      ret.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nBasePrio - 1);
-    }
-
-    aRes = aResourceProvider.getReadableResourceIf ("smp-client.properties", IReadableResource::exists);
-    if (aRes != null)
-    {
-      LOGGER.warn ("The support for the properties file 'smp-client.properties' is deprecated. Place the properties in 'application.properties' instead.");
-      ret.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nBasePrio - 2);
-    }
-
-    return ret;
+    return ConfigFactory.createDefaultValueProvider ();
   }
 
   private static final IConfigWithFallback DEFAULT_CONFIG = new ConfigWithFallback (createSMPClientValueProvider ());

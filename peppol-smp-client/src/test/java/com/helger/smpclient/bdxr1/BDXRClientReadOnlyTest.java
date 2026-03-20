@@ -57,7 +57,7 @@ public final class BDXRClientReadOnlyTest
     // Peppol URL provider
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                    aPI,
-                                                                   ESML.DIGIT_TEST);
+                                                                   ESML.PEPPOL_TEST);
     assertEquals ("https://test.erechnung.gv.at/smp/", aBDXRClient.getSMPHostURI ());
   }
 
@@ -69,7 +69,7 @@ public final class BDXRClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
     // BDXR URL provider
-    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
     assertEquals ("https://test.erechnung.gv.at/smp/", aBDXRClient.getSMPHostURI ());
   }
 
@@ -80,7 +80,7 @@ public final class BDXRClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9917:5504033150");
     final BDXRClientReadOnly aBDXRClient = new BDXRClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                    aPI,
-                                                                   ESML.DIGIT_PRODUCTION);
+                                                                   ESML.PEPPOL_PRODUCTION);
     assertEquals ("https://smp.unimaze.com/", aBDXRClient.getSMPHostURI ());
 
     // This fails because the Peppol server is configured for PEPPOL layout and

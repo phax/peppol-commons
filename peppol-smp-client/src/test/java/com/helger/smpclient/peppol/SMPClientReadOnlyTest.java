@@ -81,7 +81,7 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
     // Peppol URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
     assertEquals ("https://test.erechnung.gv.at/smp/", aSMPClient.getSMPHostURI ());
 
     final ServiceGroupType aServiceGroup = aSMPClient.getServiceGroupOrNull (aPI);
@@ -96,9 +96,9 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
     // CEF URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
     assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
-                  BDXLURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST));
+                  BDXLURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, ESML.PEPPOL_TEST));
     assertEquals ("https://test.erechnung.gv.at/smp/", aSMPClient.getSMPHostURI ());
     assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
   }
@@ -111,7 +111,7 @@ public final class SMPClientReadOnlyTest
     // This instance has a BOM inside
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
-                                                                ESML.DIGIT_PRODUCTION);
+                                                                ESML.PEPPOL_PRODUCTION);
     assertEquals ("https://smp.unimaze.com/", aSMPClient.getSMPHostURI ());
     assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
   }
@@ -123,7 +123,7 @@ public final class SMPClientReadOnlyTest
 
     try
     {
-      new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+      new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
       fail ();
     }
     catch (final SMPDNSResolutionException ex)
@@ -140,8 +140,8 @@ public final class SMPClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST)
-                                                                                                                      .setSecureValidation (false);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST)
+                                                                                                                       .setSecureValidation (false);
     // Set old trust store
     {
       final KeyStore aTS = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
@@ -279,7 +279,7 @@ public final class SMPClientReadOnlyTest
 
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aReceiverID,
-                                                                ESML.DIGIT_TEST).setSecureValidation (false);
+                                                                ESML.PEPPOL_TEST).setSecureValidation (false);
 
     SignedServiceMetadataType aSSM;
 
@@ -429,7 +429,7 @@ public final class SMPClientReadOnlyTest
     // Peppol URL provider
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
-                                                                ESML.DIGIT_PRODUCTION).setSecureValidation (false);
+                                                                ESML.PEPPOL_PRODUCTION).setSecureValidation (false);
     // Explicitly needs the production truststore
     aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
@@ -446,7 +446,7 @@ public final class SMPClientReadOnlyTest
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
 
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
     aSMPClient.setTrustStore (PeppolTrustStores.Config2025.TRUSTSTORE_SMP_TEST);
     aSMPClient.setSecureValidation (false);
 
@@ -479,7 +479,7 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aReceiverID = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0848934496");
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aReceiverID,
-                                                                ESML.DIGIT_PRODUCTION);
+                                                                ESML.PEPPOL_PRODUCTION);
     // Explicitly needs the production truststore
     aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
@@ -502,7 +502,7 @@ public final class SMPClientReadOnlyTest
     // PEPPOL URL provider
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
-                                                                ESML.DIGIT_PRODUCTION);
+                                                                ESML.PEPPOL_PRODUCTION);
     // Explicitly needs the production truststore
     aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
@@ -527,7 +527,7 @@ public final class SMPClientReadOnlyTest
     // PEPPOL URL provider
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
-                                                                ESML.DIGIT_PRODUCTION);
+                                                                ESML.PEPPOL_PRODUCTION);
     // Explicitly needs the production truststore
     aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
@@ -545,7 +545,7 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0192:994449486");
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
-                                                                ESML.DIGIT_PRODUCTION);
+                                                                ESML.PEPPOL_PRODUCTION);
     // Explicitly needs the production truststore
     aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
@@ -558,7 +558,7 @@ public final class SMPClientReadOnlyTest
   public void testPintMy () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0230:05202505072007");
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
 
     final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
                                                                                        PeppolIdentifierFactory.INSTANCE.createDocumentTypeIdentifier (PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD,
@@ -572,7 +572,7 @@ public final class SMPClientReadOnlyTest
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0192:914730422");
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
-                                                                ESML.DIGIT_PRODUCTION);
+                                                                ESML.PEPPOL_PRODUCTION);
     // Explicitly needs the production truststore
     aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
 
@@ -592,7 +592,7 @@ public final class SMPClientReadOnlyTest
   public void testSmpIssueEcsdaCert () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0235:accqrate");
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
 
     final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aPI);
     assertNotNull (aSG);
@@ -610,7 +610,7 @@ public final class SMPClientReadOnlyTest
   public void testFujitsuSignature () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0204:FujitsuwMPOC");
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.DIGIT_TEST);
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
 
     final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aPI);
     assertNotNull (aSG);

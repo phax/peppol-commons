@@ -41,7 +41,7 @@ public final class BDMSLClientTest extends AbstractSMLClientTestCase
 
   static
   {
-    assertSame (ESML.DIGIT_TEST, SML_INFO);
+    assertSame (ESML.PEPPOL_TEST, SML_INFO);
   }
 
   @Test

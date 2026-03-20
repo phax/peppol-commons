@@ -27,7 +27,6 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("deprecation")
 public final class EHREDeliverySMLTest
 {
   @Test
@@ -36,7 +35,6 @@ public final class EHREDeliverySMLTest
     for (final EHREDeliverySML eSML : EHREDeliverySML.values ())
     {
       assertNotNull (eSML.getDNSZone ());
-      assertNotNull (eSML.getPublisherDNSZone ());
       assertNotNull (eSML.getManagementServiceURL ());
       assertNotNull (eSML.getManageServiceMetaDataEndpointAddress ());
       assertNotNull (eSML.getManageParticipantIdentifierEndpointAddress ());

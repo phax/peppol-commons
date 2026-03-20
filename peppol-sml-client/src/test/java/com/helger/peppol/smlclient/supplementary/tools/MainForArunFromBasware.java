@@ -53,7 +53,7 @@ public final class MainForArunFromBasware
     // Your SMP ID
     final String SMP_ID = "TEST-SMP";
     // Use SMK or SML?
-    final ISMLInfo aSMLInfo = ESML.DIGIT_TEST;
+    final ISMLInfo aSMLInfo = ESML.PEPPOL_TEST;
     // Keystore path and password
     final EKeyStoreType eKeyStoreType = EKeyStoreType.JKS;
     final String sKeystorePath = "keystore/smp.pilot.jks";

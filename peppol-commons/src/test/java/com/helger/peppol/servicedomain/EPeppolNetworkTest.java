@@ -63,16 +63,20 @@ public final class EPeppolNetworkTest
   @Test
   public void testGetFromESMLOrNull ()
   {
-    assertSame (EPeppolNetwork.PRODUCTION, EPeppolNetwork.getFromESMLOrNull (ESML.DIGIT_PRODUCTION));
-    assertSame (EPeppolNetwork.TEST, EPeppolNetwork.getFromESMLOrNull (ESML.DIGIT_TEST));
+    assertSame (EPeppolNetwork.PRODUCTION, EPeppolNetwork.getFromESMLOrNull (ESML.PEPPOL_PRODUCTION));
+    assertSame (EPeppolNetwork.PRODUCTION, EPeppolNetwork.getFromESMLOrNull (ESML.PEPPOL_PRODUCTION));
+    assertSame (EPeppolNetwork.TEST, EPeppolNetwork.getFromESMLOrNull (ESML.PEPPOL_TEST));
+    assertSame (EPeppolNetwork.TEST, EPeppolNetwork.getFromESMLOrNull (ESML.PEPPOL_TEST));
     assertNull (EPeppolNetwork.getFromESMLOrNull (null));
   }
 
   @Test
   public void testGetFromSMLInfoOrNull ()
   {
-    assertSame (EPeppolNetwork.PRODUCTION, EPeppolNetwork.getFromSMLInfoOrNull (ESML.DIGIT_PRODUCTION));
-    assertSame (EPeppolNetwork.TEST, EPeppolNetwork.getFromSMLInfoOrNull (ESML.DIGIT_TEST));
+    assertSame (EPeppolNetwork.PRODUCTION, EPeppolNetwork.getFromSMLInfoOrNull (ESML.PEPPOL_PRODUCTION));
+    assertSame (EPeppolNetwork.PRODUCTION, EPeppolNetwork.getFromSMLInfoOrNull (ESML.PEPPOL_PRODUCTION));
+    assertSame (EPeppolNetwork.TEST, EPeppolNetwork.getFromSMLInfoOrNull (ESML.PEPPOL_TEST));
+    assertSame (EPeppolNetwork.TEST, EPeppolNetwork.getFromSMLInfoOrNull (ESML.PEPPOL_TEST));
     assertNull (EPeppolNetwork.getFromSMLInfoOrNull (null));
 
     assertNull (EPeppolNetwork.getFromSMLInfoOrNull (SMLInfo.builder ()

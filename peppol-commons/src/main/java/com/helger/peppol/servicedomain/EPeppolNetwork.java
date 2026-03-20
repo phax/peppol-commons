@@ -16,6 +16,8 @@
  */
 package com.helger.peppol.servicedomain;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -30,31 +32,42 @@ import com.helger.peppol.sml.ISMLInfo;
  * @author Philip Helger
  * @since 9.6.0
  */
+@SuppressWarnings ("removal")
 public enum EPeppolNetwork implements IPeppolNetwork
 {
   /**
    * Peppol Test Network
    */
-  TEST ("test", "Peppol Test Network", "https://test-directory.peppol.eu", ESML.DIGIT_TEST),
+  TEST ("test", "Peppol Test Network", "https://test-directory.peppol.eu", ESML.DIGIT_TEST, ESML.PEPPOL_TEST),
   /**
    * Peppol Production Network
    */
-  PRODUCTION ("prod", "Peppol Production Network", "https://directory.peppol.eu", ESML.DIGIT_PRODUCTION);
+  PRODUCTION ("prod",
+              "Peppol Production Network",
+              "https://directory.peppol.eu",
+              ESML.DIGIT_PRODUCTION,
+              ESML.PEPPOL_PRODUCTION);
+
+  // This is a temporary fallback that will be removed once the SML Insourcing is done
+  public static final AtomicBoolean PREFER_OPENPEPPOL_OVER_EC = new AtomicBoolean (true);
 
   private final String m_sID;
   private final String m_sDisplayName;
   private final String m_sDirectoryURL;
-  private final ESML m_eSML;
+  private final ESML m_eSmlEc;
+  private final ESML m_eSmlOp;
 
   EPeppolNetwork (@NonNull @Nonempty final String sID,
                   @NonNull @Nonempty final String sDisplayName,
                   @NonNull @Nonempty final String sDirectoryURL,
-                  @NonNull final ESML eSML)
+                  @NonNull final ESML eSmlEc,
+                  @NonNull final ESML eSmlOp)
   {
     m_sID = sID;
     m_sDisplayName = sDisplayName;
     m_sDirectoryURL = sDirectoryURL;
-    m_eSML = eSML;
+    m_eSmlEc = eSmlEc;
+    m_eSmlOp = eSmlOp;
   }
 
   @NonNull
@@ -81,7 +94,7 @@ public enum EPeppolNetwork implements IPeppolNetwork
   @NonNull
   public ISMLInfo getSMLInfo ()
   {
-    return m_eSML;
+    return PREFER_OPENPEPPOL_OVER_EC.get () ? m_eSmlOp : m_eSmlEc;
   }
 
   public boolean isProduction ()
@@ -105,7 +118,7 @@ public enum EPeppolNetwork implements IPeppolNetwork
   {
     if (eSML != null)
       for (final var e : EPeppolNetwork.values ())
-        if (e.m_eSML.equals (eSML))
+        if (e.m_eSmlEc.equals (eSML) || e.m_eSmlOp.equals (eSML))
           return e;
 
     return null;
@@ -121,7 +134,7 @@ public enum EPeppolNetwork implements IPeppolNetwork
       for (final var e : EPeppolNetwork.values ())
       {
         // Compare by ID only, as e.g. displayname may vary
-        if (e.m_eSML.getID ().equals (aSMLInfo.getID ()))
+        if (e.m_eSmlEc.getID ().equals (aSMLInfo.getID ()) || e.m_eSmlOp.getID ().equals (aSMLInfo.getID ()))
           return e;
       }
     return null;

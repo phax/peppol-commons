@@ -32,8 +32,6 @@ import com.helger.peppol.sml.ISMLInfo;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 
-
-
 /**
  * Base class for SML client tests, with some utility content.
  *
@@ -41,7 +39,7 @@ import com.helger.security.keystore.KeyStoreHelper;
  */
 public abstract class AbstractSMLClientTestCase
 {
-  public static final ISMLInfo SML_INFO = ESML.DIGIT_TEST;
+  public static final ISMLInfo SML_INFO = ESML.PEPPOL_TEST;
   protected static final EKeyStoreType KEYSTORE_TYPE = EKeyStoreType.JKS;
   protected static final String KEYSTORE_PATH = MockSMLClientConfig.getKeyStorePath ();
   protected static final char [] KEYSTORE_PASSWORD = MockSMLClientConfig.getKeyStorePassword ();

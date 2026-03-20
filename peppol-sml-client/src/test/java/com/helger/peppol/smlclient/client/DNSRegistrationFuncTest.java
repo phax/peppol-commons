@@ -49,15 +49,12 @@ import com.helger.peppolid.factory.PeppolIdentifierFactory;
 import com.helger.peppolid.peppol.participant.PeppolParticipantIdentifier;
 import com.helger.smpclient.url.PeppolNaptrURLProvider;
 
-
-
 /**
  * This class is for BRZ internal use only!
  *
  * @author Philip Helger
  */
 @Ignore ("Requires an SML with active DNS connection to be available")
-@SuppressWarnings ("deprecation")
 public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (DNSRegistrationFuncTest.class);

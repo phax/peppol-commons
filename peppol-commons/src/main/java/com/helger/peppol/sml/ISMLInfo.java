@@ -58,10 +58,11 @@ public interface ISMLInfo extends ITypedObject <String>, IHasDisplayName, Serial
    *         dot! May not be <code>null</code>. This is only needed when the Peppol way of
    *         registration is used.
    * @see #getDNSZone()
+   * @deprecated Since the DNS entries were removed
    */
   @NonNull
   @Nonempty
-  @Deprecated
+  @Deprecated (forRemoval = true, since = "12.1.1")
   default String getPublisherDNSZone ()
   {
     return CSMLDefault.DNS_PUBLISHER_SUBZONE + getDNSZone ();

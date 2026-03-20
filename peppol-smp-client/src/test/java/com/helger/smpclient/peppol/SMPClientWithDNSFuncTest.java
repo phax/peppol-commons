@@ -110,7 +110,7 @@ public final class SMPClientWithDNSFuncTest
     final IDocumentTypeIdentifier aDocumentTypeID = EPredefinedDocumentTypeIdentifier.INVOICE_T010_BIS4A_V20.getAsDocumentTypeIdentifier ();
     // Main call to the SMP client with the correct SML to use
     final SignedServiceMetadataType aMetadata = SMPClientReadOnly.getServiceRegistrationByDNS (URL_PROVIDER,
-                                                                                               ESML.DIGIT_TEST,
+                                                                                               ESML.PEPPOL_TEST,
                                                                                                aServiceGroupID,
                                                                                                aDocumentTypeID);
     assertNotNull (aMetadata);

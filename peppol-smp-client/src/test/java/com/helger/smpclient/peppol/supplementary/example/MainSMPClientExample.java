@@ -45,7 +45,7 @@ public final class MainSMPClientExample
     // Create the main SMP client using the production SML
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI_AT_Test,
-                                                                ESML.DIGIT_TEST);
+                                                                ESML.PEPPOL_TEST);
     final String sEndpointAddress = aSMPClient.getEndpointAddress (aPI_AT_Test,
                                                                    EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30,
                                                                    EPredefinedProcessIdentifier.BIS3_BILLING,

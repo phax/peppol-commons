@@ -28,7 +28,6 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("deprecation")
 public final class ESMLTest
 {
   @Test
@@ -37,7 +36,6 @@ public final class ESMLTest
     for (final ESML eSML : ESML.values ())
     {
       assertNotNull (eSML.getDNSZone ());
-      assertNotNull (eSML.getPublisherDNSZone ());
       assertNotNull (eSML.getManagementServiceURL ());
       assertNotNull (eSML.getManageServiceMetaDataEndpointAddress ());
       assertNotNull (eSML.getManageParticipantIdentifierEndpointAddress ());
@@ -50,21 +48,19 @@ public final class ESMLTest
   @Test
   public void testNewProductionValues ()
   {
-    assertEquals ("edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getDNSZone ());
-    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", ESML.DIGIT_PRODUCTION.getPublisherDNSZone ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml",
-                  ESML.DIGIT_PRODUCTION.getManagementServiceURL ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
-                  ESML.DIGIT_PRODUCTION.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
-                  ESML.DIGIT_PRODUCTION.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
+    assertEquals ("participant.sml.prod.tech.peppol.org.", ESML.PEPPOL_PRODUCTION.getDNSZone ());
+    assertEquals ("https://api.sml.prod.tech.peppol.org/edelivery-sml",
+                  ESML.PEPPOL_PRODUCTION.getManagementServiceURL ());
+    assertEquals ("https://api.sml.prod.tech.peppol.org/edelivery-sml/manageservicemetadata",
+                  ESML.PEPPOL_PRODUCTION.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
+    assertEquals ("https://api.sml.prod.tech.peppol.org/edelivery-sml/manageparticipantidentifier",
+                  ESML.PEPPOL_PRODUCTION.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
 
-    assertEquals ("acc.edelivery.tech.ec.europa.eu.", ESML.DIGIT_TEST.getDNSZone ());
-    assertEquals ("publisher.acc.edelivery.tech.ec.europa.eu.", ESML.DIGIT_TEST.getPublisherDNSZone ());
-    assertEquals ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml", ESML.DIGIT_TEST.getManagementServiceURL ());
-    assertEquals ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
-                  ESML.DIGIT_TEST.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
-    assertEquals ("https://acc.edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
-                  ESML.DIGIT_TEST.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
+    assertEquals ("participant.sml.test.tech.peppol.org.", ESML.PEPPOL_TEST.getDNSZone ());
+    assertEquals ("https://api.sml.test.tech.peppol.org/edelivery-sml", ESML.PEPPOL_TEST.getManagementServiceURL ());
+    assertEquals ("https://api.sml.test.tech.peppol.org/edelivery-sml/manageservicemetadata",
+                  ESML.PEPPOL_TEST.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
+    assertEquals ("https://api.sml.test.tech.peppol.org/edelivery-sml/manageparticipantidentifier",
+                  ESML.PEPPOL_TEST.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
   }
 }

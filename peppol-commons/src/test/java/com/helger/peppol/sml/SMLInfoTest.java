@@ -32,7 +32,6 @@ import com.helger.xml.mock.XMLTestHelper;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("deprecation")
 public final class SMLInfoTest
 {
   static
@@ -47,18 +46,17 @@ public final class SMLInfoTest
     SMLInfo si = SMLInfo.builder ()
                         .idNew ()
                         .displayName ("Test 1")
-                        .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
-                        .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
+                        .dnsZone (ESML.PEPPOL_PRODUCTION.getDNSZone ())
+                        .managementServiceURL (ESML.PEPPOL_PRODUCTION.getManagementServiceURL ())
                         .urlSuffixManageSMP ("/smp")
                         .urlSuffixManageParticipant ("")
-                        .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                        .clientCertificateRequired (ESML.PEPPOL_PRODUCTION.isClientCertificateRequired ())
                         .build ();
-    assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
-    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSZone ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", si.getManagementServiceURL ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/smp",
+    assertEquals ("participant.sml.prod.tech.peppol.org.", si.getDNSZone ());
+    assertEquals ("https://api.sml.prod.tech.peppol.org/edelivery-sml", si.getManagementServiceURL ());
+    assertEquals ("https://api.sml.prod.tech.peppol.org/edelivery-sml/smp",
                   si.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml",
+    assertEquals ("https://api.sml.prod.tech.peppol.org/edelivery-sml",
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.isClientCertificateRequired ());
     XMLTestHelper.testMicroTypeConversion (si);
@@ -67,16 +65,15 @@ public final class SMLInfoTest
     si = SMLInfo.builder ()
                 .id ("dummy")
                 .displayName ("Test 2")
-                .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
-                .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL () + '/')
-                .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                .dnsZone (ESML.PEPPOL_PRODUCTION.getDNSZone ())
+                .managementServiceURL (ESML.PEPPOL_PRODUCTION.getManagementServiceURL () + '/')
+                .clientCertificateRequired (ESML.PEPPOL_PRODUCTION.isClientCertificateRequired ())
                 .build ();
-    assertEquals ("edelivery.tech.ec.europa.eu.", si.getDNSZone ());
-    assertEquals ("publisher.edelivery.tech.ec.europa.eu.", si.getPublisherDNSZone ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml", si.getManagementServiceURL ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageservicemetadata",
+    assertEquals ("participant.sml.prod.tech.peppol.org.", si.getDNSZone ());
+    assertEquals ("https://api.sml.prod.tech.peppol.org/edelivery-sml", si.getManagementServiceURL ());
+    assertEquals ("https://api.sml.prod.tech.peppol.org/edelivery-sml/manageservicemetadata",
                   si.getManageServiceMetaDataEndpointAddress ().toExternalForm ());
-    assertEquals ("https://edelivery.tech.ec.europa.eu/edelivery-sml/manageparticipantidentifier",
+    assertEquals ("https://api.sml.prod.tech.peppol.org/edelivery-sml/manageparticipantidentifier",
                   si.getManageParticipantIdentifierEndpointAddress ().toExternalForm ());
     assertTrue (si.isClientCertificateRequired ());
 
@@ -84,51 +81,51 @@ public final class SMLInfoTest
                                                                 SMLInfo.builder ()
                                                                        .id ("dummy")
                                                                        .displayName ("Test 2")
-                                                                       .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
-                                                                       .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
-                                                                       .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                       .dnsZone (ESML.PEPPOL_PRODUCTION.getDNSZone ())
+                                                                       .managementServiceURL (ESML.PEPPOL_PRODUCTION.getManagementServiceURL ())
+                                                                       .clientCertificateRequired (ESML.PEPPOL_PRODUCTION.isClientCertificateRequired ())
                                                                        .build ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (si,
                                                                     SMLInfo.builder ()
                                                                            .id ("dummy2")
                                                                            .displayName ("Test 2")
-                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
-                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
-                                                                           .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .dnsZone (ESML.PEPPOL_PRODUCTION.getDNSZone ())
+                                                                           .managementServiceURL (ESML.PEPPOL_PRODUCTION.getManagementServiceURL ())
+                                                                           .clientCertificateRequired (ESML.PEPPOL_PRODUCTION.isClientCertificateRequired ())
                                                                            .build ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (si,
                                                                     SMLInfo.builder ()
                                                                            .id ("dummy")
                                                                            .displayName ("Test 3")
-                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
-                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
-                                                                           .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .dnsZone (ESML.PEPPOL_PRODUCTION.getDNSZone ())
+                                                                           .managementServiceURL (ESML.PEPPOL_PRODUCTION.getManagementServiceURL ())
+                                                                           .clientCertificateRequired (ESML.PEPPOL_PRODUCTION.isClientCertificateRequired ())
                                                                            .build ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (si,
                                                                     SMLInfo.builder ()
                                                                            .id ("dummy")
                                                                            .displayName ("Test 2")
-                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone () +
+                                                                           .dnsZone (ESML.PEPPOL_PRODUCTION.getDNSZone () +
                                                                                      "x")
-                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
-                                                                           .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .managementServiceURL (ESML.PEPPOL_PRODUCTION.getManagementServiceURL ())
+                                                                           .clientCertificateRequired (ESML.PEPPOL_PRODUCTION.isClientCertificateRequired ())
                                                                            .build ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (si,
                                                                     SMLInfo.builder ()
                                                                            .id ("dummy")
                                                                            .displayName ("Test 2")
-                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
-                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL () +
+                                                                           .dnsZone (ESML.PEPPOL_PRODUCTION.getDNSZone ())
+                                                                           .managementServiceURL (ESML.PEPPOL_PRODUCTION.getManagementServiceURL () +
                                                                                                   "x")
-                                                                           .clientCertificateRequired (ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .clientCertificateRequired (ESML.PEPPOL_PRODUCTION.isClientCertificateRequired ())
                                                                            .build ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (si,
                                                                     SMLInfo.builder ()
                                                                            .id ("dummy")
                                                                            .displayName ("Test 2")
-                                                                           .dnsZone (ESML.DIGIT_PRODUCTION.getDNSZone ())
-                                                                           .managementServiceURL (ESML.DIGIT_PRODUCTION.getManagementServiceURL ())
-                                                                           .clientCertificateRequired (!ESML.DIGIT_PRODUCTION.isClientCertificateRequired ())
+                                                                           .dnsZone (ESML.PEPPOL_PRODUCTION.getDNSZone ())
+                                                                           .managementServiceURL (ESML.PEPPOL_PRODUCTION.getManagementServiceURL ())
+                                                                           .clientCertificateRequired (!ESML.PEPPOL_PRODUCTION.isClientCertificateRequired ())
                                                                            .build ());
     XMLTestHelper.testMicroTypeConversion (si);
 

@@ -55,35 +55,35 @@ public final class PeppolURLProviderTest
   @Test
   public void testGetDNSNameOfParticipant () throws SMPDNSResolutionException
   {
-    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
+    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.participant.sml.prod.tech.peppol.org",
                   INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
-                                                    ESML.DIGIT_PRODUCTION));
+                                                    ESML.PEPPOL_PRODUCTION));
     // Same value but different casing
-    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
+    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.participant.sml.prod.tech.peppol.org",
                   INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
-                                                    ESML.DIGIT_PRODUCTION));
+                                                    ESML.PEPPOL_PRODUCTION));
 
-    assertEquals ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+    assertEquals ("B-85008b8279e07ab0392da75fa55856a2.iso6523-actorid-upis.participant.sml.test.tech.peppol.org",
                   INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("9915:test"),
-                                                    ESML.DIGIT_TEST));
+                                                    ESML.PEPPOL_TEST));
 
     // No identifier scheme
-    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.edelivery.tech.ec.europa.eu",
+    assertEquals ("B-f5e78500450d37de5aabe6648ac3bb70.participant.sml.prod.tech.peppol.org",
                   INSTANCE.getDNSNameOfParticipant (SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier (null,
                                                                                                                   "0088:123abc"),
-                                                    ESML.DIGIT_PRODUCTION));
+                                                    ESML.PEPPOL_PRODUCTION));
 
     // No identifier value
-    assertEquals ("B-d41d8cd98f00b204e9800998ecf8427e.iso6523-actorid-upis.edelivery.tech.ec.europa.eu",
+    assertEquals ("B-d41d8cd98f00b204e9800998ecf8427e.iso6523-actorid-upis.participant.sml.prod.tech.peppol.org",
                   INSTANCE.getDNSNameOfParticipant (SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier (PeppolIdentifierHelper.DEFAULT_PARTICIPANT_SCHEME,
                                                                                                                   null),
-                                                    ESML.DIGIT_PRODUCTION));
+                                                    ESML.PEPPOL_PRODUCTION));
 
     // No identifier scheme and value
-    assertEquals ("B-d41d8cd98f00b204e9800998ecf8427e.edelivery.tech.ec.europa.eu",
+    assertEquals ("B-d41d8cd98f00b204e9800998ecf8427e.participant.sml.prod.tech.peppol.org",
                   INSTANCE.getDNSNameOfParticipant (SimpleIdentifierFactory.INSTANCE.createParticipantIdentifier (null,
                                                                                                                   null),
-                                                    ESML.DIGIT_PRODUCTION));
+                                                    ESML.PEPPOL_PRODUCTION));
 
     // No identifier scheme and value and no SML zone
     assertEquals ("B-d41d8cd98f00b204e9800998ecf8427e",
@@ -106,7 +106,7 @@ public final class PeppolURLProviderTest
 
     if (false)
       LOGGER.info (INSTANCE.getDNSNameOfParticipant (IF.createParticipantIdentifierWithDefaultScheme ("9915:b"),
-                                                     ESML.DIGIT_PRODUCTION));
+                                                     ESML.PEPPOL_PRODUCTION));
 
     // Test invalid
     try
@@ -151,12 +151,12 @@ public final class PeppolURLProviderTest
   public void testGetSMPURIOfParticipant () throws URISyntaxException, MalformedURLException, SMPDNSResolutionException
   {
     final IParticipantIdentifier aPI = IF.createParticipantIdentifierWithDefaultScheme ("0088:123ABC");
-    final URI aURI = INSTANCE.getSMPURIOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
-    assertEquals (new URI ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"),
+    final URI aURI = INSTANCE.getSMPURIOfParticipant (aPI, ESML.PEPPOL_PRODUCTION);
+    assertEquals (new URI ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.participant.sml.prod.tech.peppol.org"),
                   aURI);
 
-    final URL aURL = INSTANCE.getSMPURLOfParticipant (aPI, ESML.DIGIT_PRODUCTION);
-    assertEquals (new URL ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.edelivery.tech.ec.europa.eu"),
+    final URL aURL = INSTANCE.getSMPURLOfParticipant (aPI, ESML.PEPPOL_PRODUCTION);
+    assertEquals (new URL ("http://B-f5e78500450d37de5aabe6648ac3bb70.iso6523-actorid-upis.participant.sml.prod.tech.peppol.org"),
                   aURL);
   }
 }

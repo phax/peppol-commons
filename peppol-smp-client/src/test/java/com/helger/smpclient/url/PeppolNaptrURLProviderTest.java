@@ -50,11 +50,11 @@ public final class PeppolNaptrURLProviderTest
     {
       final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
       final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
-      final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST);
-      assertEquals ("eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+      final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.PEPPOL_TEST);
+      assertEquals ("eh5boavaktmbgzyh2a63dz4qov33fvp5nsdvqklucfraayoodw6a.iso6523-actorid-upis.participant.sml.test.tech.peppol.org",
                     sDomain);
 
-      final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.DIGIT_TEST);
+      final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.PEPPOL_TEST);
       assertNotNull (x);
       assertEquals ("https://test.erechnung.gv.at/smp", x.toString ());
     }
@@ -65,22 +65,22 @@ public final class PeppolNaptrURLProviderTest
   {
     final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:1234567890123");
-    final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.DIGIT_TEST);
-    assertEquals ("sjsyvccmqyjxk3weuapffq4x3umcrf4qryherj4vovhmonh7gccq.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+    final String sDomain = aURLProvider.getDNSNameOfParticipant (aPI, ESML.PEPPOL_TEST);
+    assertEquals ("sjsyvccmqyjxk3weuapffq4x3umcrf4qryherj4vovhmonh7gccq.iso6523-actorid-upis.participant.sml.test.tech.peppol.org",
                   sDomain);
 
     // Policy for use of Identifiers POLICY 7 example
-    assertEquals ("y7dzfxaf3d4cjz4kcgrxtec6twvcga4ky7zwa5boif6mswd4tdrq.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+    assertEquals ("y7dzfxaf3d4cjz4kcgrxtec6twvcga4ky7zwa5boif6mswd4tdrq.iso6523-actorid-upis.participant.sml.test.tech.peppol.org",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123abc"),
-                                                        ESML.DIGIT_TEST));
-    assertEquals ("y7dzfxaf3d4cjz4kcgrxtec6twvcga4ky7zwa5boif6mswd4tdrq.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+                                                        ESML.PEPPOL_TEST));
+    assertEquals ("y7dzfxaf3d4cjz4kcgrxtec6twvcga4ky7zwa5boif6mswd4tdrq.iso6523-actorid-upis.participant.sml.test.tech.peppol.org",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0088:123ABC"),
-                                                        ESML.DIGIT_TEST));
+                                                        ESML.PEPPOL_TEST));
 
     // Peppol SML Spec example
-    assertEquals ("xukhfqabqziki3ykvr2fhr4snfa3pf5vpq6k4tonv3lmvsy5arvq.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
+    assertEquals ("xukhfqabqziki3ykvr2fhr4snfa3pf5vpq6k4tonv3lmvsy5arvq.iso6523-actorid-upis.participant.sml.test.tech.peppol.org",
                   aURLProvider.getDNSNameOfParticipant (PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0010:5798000000001"),
-                                                        ESML.DIGIT_TEST));
+                                                        ESML.PEPPOL_TEST));
   }
 
   @Test
@@ -92,7 +92,7 @@ public final class PeppolNaptrURLProviderTest
       final IPeppolURLProvider aURLProvider = PeppolNaptrURLProvider.INSTANCE;
       final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0007:123456");
 
-      final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.DIGIT_TEST);
+      final URI x = aURLProvider.getSMPURIOfParticipant (aPI, ESML.PEPPOL_TEST);
       assertNotNull (x);
       LOGGER.info ("PID " + aPI.getValue () + " is registered at '" + x.toString () + "'");
     }

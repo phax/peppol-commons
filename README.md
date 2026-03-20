@@ -351,6 +351,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.4.0 - work in progress
+* Changed the default Peppol SML coordinates to the new OpenPeppol SML using `participant.sml.[prod|test].tech.peppol.org`
+
 v12.3.12 - 2026-03-10
 * Deprecated constants in `CPeppolMLS` in favour of the ones in `SPIDHelper`
 * `AbstractSMPResponseHandler.handleResponse` now throws an `ExtendedHttpResponseException` instead of a `HttpResponseException`

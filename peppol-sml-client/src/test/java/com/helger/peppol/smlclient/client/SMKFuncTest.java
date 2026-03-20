@@ -48,7 +48,7 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
 
   static
   {
-    assertSame (ESML.DIGIT_TEST, SML_INFO);
+    assertSame (ESML.PEPPOL_TEST, SML_INFO);
 
     // To get an eventual proxy setting correct
     MockSMLClientConfig.getKeyStorePath ();
@@ -88,14 +88,16 @@ public final class SMKFuncTest extends AbstractSMLClientTestCase
       try
       {
         LOGGER.info ("CREATE PARTICIPANT");
-        aPIClient.create (SMP_ID, PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:philip"));
+        aPIClient.create (SMP_ID,
+                          PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:philip"));
         try
         {}
         finally
         {
           LOGGER.info ("DELETE PARTICIPANT");
           // The version with SMP_ID is required for SMK 3.0
-          aPIClient.delete (SMP_ID, PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:philip"));
+          aPIClient.delete (SMP_ID,
+                            PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:philip"));
         }
       }
       finally
