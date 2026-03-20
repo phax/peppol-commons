@@ -55,6 +55,7 @@ import com.helger.smpclient.url.PeppolNaptrURLProvider;
  * @author Philip Helger
  */
 @Ignore ("Requires an SML with active DNS connection to be available")
+@SuppressWarnings ("removal")
 public final class DNSRegistrationFuncTest extends AbstractSMLClientTestCase
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (DNSRegistrationFuncTest.class);
