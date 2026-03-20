@@ -67,26 +67,10 @@ import com.helger.security.keystore.KeyStoreHelper;
  * @author Philip Helger
  */
 @Immutable
+@SuppressWarnings ("deprecation")
 public final class SMPClientConfiguration
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPClientConfiguration.class);
-
-  static
-  {
-    // Since 8.2.0
-    if (StringHelper.isNotEmpty (SystemProperties.getPropertyValueOrNull ("peppol.smp.client.properties.path")))
-      throw new InitializationException ("The system property 'peppol.smp.client.properties.path' is no longer supported." +
-                                         " See https://github.com/phax/ph-commons#ph-config for alternatives." +
-                                         " Consider using the system property 'config.file' instead.");
-    if (StringHelper.isNotEmpty (SystemProperties.getPropertyValueOrNull ("smp.client.properties.path")))
-      throw new InitializationException ("The system property 'smp.client.properties.path' is no longer supported." +
-                                         " See https://github.com/phax/ph-commons#ph-config for alternatives." +
-                                         " Consider using the system property 'config.file' instead.");
-    if (StringHelper.isNotEmpty (System.getenv ().get ("SMP_CLIENT_CONFIG")))
-      throw new InitializationException ("The environment variable 'SMP_CLIENT_CONFIG' is no longer supported." +
-                                         " See https://github.com/phax/ph-commons#ph-config for alternatives." +
-                                         " Consider using the environment variable 'CONFIG_FILE' instead.");
-  }
 
   /**
    * @return The configuration value provider for SMP client that contains backward compatibility
@@ -187,7 +171,6 @@ public final class SMPClientConfiguration
    */
   @NonNull
   @ChangeNextMajorRelease ("Change default to PKCS12")
-  @SuppressWarnings ("deprecation")
   public static EKeyStoreType getTrustStoreType ()
   {
     final String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");
