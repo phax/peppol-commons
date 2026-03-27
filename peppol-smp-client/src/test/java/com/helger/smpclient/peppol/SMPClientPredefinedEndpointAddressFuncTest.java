@@ -103,7 +103,8 @@ public final class SMPClientPredefinedEndpointAddressFuncTest
                                                                                                          EPredefinedProcessIdentifier.BIS3_BILLING,
                                                                                                          ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
     assertNotNull (aEndpointCertificate);
-    // Updated December 2024
-    assertEquals ("17106555918040013827311785452115907772", aEndpointCertificate.getSerialNumber ().toString ());
+    // Updated March 2026
+    assertEquals ("495716801272917530755113612634384229278066967433",
+                  aEndpointCertificate.getSerialNumber ().toString ());
   }
 }

@@ -24,6 +24,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
@@ -33,7 +35,6 @@ import java.util.function.BiFunction;
 
 import javax.xml.crypto.dsig.XMLSignatureException;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.base.state.ETriState;
@@ -56,11 +57,9 @@ import com.helger.security.certificate.ECertificateCheckResult;
 import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.revocation.ERevocationCheckMode;
-import com.helger.smpclient.IgnoredNaptrTest;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.exception.SMPClientException;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerServiceMetadataType;
-import com.helger.smpclient.url.BDXLURLProvider;
 import com.helger.smpclient.url.PeppolNaptrURLProvider;
 import com.helger.smpclient.url.SMPDNSResolutionException;
 import com.helger.xsds.peppol.smp1.EndpointType;
@@ -89,18 +88,21 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Because it may take some time to resolve it")
-  @IgnoredNaptrTest
-  public void testGetSMPHostURI_BDXR () throws SMPClientException, SMPDNSResolutionException
+  public void testGetSMPHostURI_PeppolCustomDNS () throws SMPClientException,
+                                                   SMPDNSResolutionException,
+                                                   UnknownHostException
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
 
-    // CEF URL provider
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (BDXLURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
-    assertEquals ("EH5BOAVAKTMBGZYH2A63DZ4QOV33FVP5NSDVQKLUCFRAAYOODW6A.iso6523-actorid-upis.acc.edelivery.tech.ec.europa.eu",
-                  BDXLURLProvider.INSTANCE.getDNSNameOfParticipant (aPI, ESML.PEPPOL_TEST));
+    // Peppol URL provider
+    final var aURLProvider = new PeppolNaptrURLProvider ();
+    aURLProvider.customDNSServers ().addAll (InetAddress.getAllByName ("8.8.8.8"));
+
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aURLProvider, aPI, ESML.PEPPOL_TEST);
     assertEquals ("https://test.erechnung.gv.at/smp/", aSMPClient.getSMPHostURI ());
-    assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
+
+    final ServiceGroupType aServiceGroup = aSMPClient.getServiceGroupOrNull (aPI);
+    assertNotNull (aServiceGroup);
   }
 
   @Test
@@ -519,7 +521,6 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  // @Ignore ("Failed with timeout on 2021-05-02")
   public void testIssue2303 () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9925:be0887290276");
@@ -588,25 +589,6 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Fails because of: No subject alternative DNS name matching peppol-smp.accqrate-erp.com found.")
-  public void testSmpIssueEcsdaCert () throws Exception
-  {
-    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0235:accqrate");
-    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
-
-    final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aPI);
-    assertNotNull (aSG);
-
-    final ICommonsList <IDocumentTypeIdentifier> aAllDocTyoes = SMPClientReadOnly.getAllDocumentTypes (aSG);
-    assertNotNull (aAllDocTyoes);
-
-    final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
-                                                                                       EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
-    assertNotNull (aSM);
-  }
-
-  @Test
-  // @Ignore ("Has some weird internal inconsistency in the base path :-)")
   public void testFujitsuSignature () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0204:FujitsuwMPOC");
