@@ -74,7 +74,7 @@
     <ph-jaxb-plugin.version>5.1.1</ph-jaxb-plugin.version>
 
     <jaxws-plugin.group>com.sun.xml.ws</jaxws-plugin.group>
-    <jaxws-plugin.version>4.0.3</jaxws-plugin.version>
+    <jaxws-plugin.version>4.0.4</jaxws-plugin.version>
     <ph-wsimport-plugin.version>5.0.0</ph-wsimport-plugin.version>
      
     <dnsjava.version>3.6.4</dnsjava.version>
@@ -124,7 +124,7 @@
       <dependency>
         <groupId>com.helger.web</groupId>
         <artifactId>ph-web-parent-pom</artifactId>
-        <version>11.2.4</version>
+        <version>11.2.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
