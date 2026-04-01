@@ -67,8 +67,8 @@ import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_21.Endpoin
 public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolMLSBuilder.class);
-  private static final IParticipantIdentifierFactory IF = PeppolIdentifierFactory.INSTANCE;
 
+  private IParticipantIdentifierFactory m_aIF = PeppolIdentifierFactory.INSTANCE;
   private final EPeppolMLSResponseCode m_eResponseCode;
   private String m_sID;
   private LocalDate m_aIssueDate;
@@ -90,6 +90,24 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   {
     ValueEnforcer.notNull (eResponseCode, "ResponseCode");
     m_eResponseCode = eResponseCode;
+  }
+
+  /**
+   * @return The participant identifier factory to be used. Never <code>null</code>.
+   * @since 12.4.1
+   */
+  @NonNull
+  public IParticipantIdentifierFactory participantIdentifierFactory ()
+  {
+    return m_aIF;
+  }
+
+  @NonNull
+  public PeppolMLSBuilder participantIdentifierFactory (@NonNull final IParticipantIdentifierFactory aIF)
+  {
+    ValueEnforcer.notNull (aIF, "IdentifierFactory");
+    m_aIF = aIF;
+    return this;
   }
 
   /**
@@ -288,7 +306,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   @NonNull
   public PeppolMLSBuilder senderParticipantID (@Nullable final String sValue)
   {
-    return senderParticipantID (IF.createParticipantIdentifierWithDefaultScheme (sValue));
+    return senderParticipantID (m_aIF.createParticipantIdentifierWithDefaultScheme (sValue));
   }
 
   /**
@@ -324,7 +342,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
   @NonNull
   public PeppolMLSBuilder receiverParticipantID (@Nullable final String sValue)
   {
-    return receiverParticipantID (IF.createParticipantIdentifierWithDefaultScheme (sValue));
+    return receiverParticipantID (m_aIF.createParticipantIdentifierWithDefaultScheme (sValue));
   }
 
   /**

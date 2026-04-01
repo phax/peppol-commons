@@ -351,6 +351,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.4.1 - work in progress
+* Class `PeppolMLSBuilder` now has a customizable identifier factory
+
 v12.4.0 - 2026-03-20
 * Changed the default Peppol SML coordinates to the new OpenPeppol SML using domain `participant.sml.[prod|test].tech.peppol.org`
 * Deprecated `ESML.DIGIT_PRODUCTION` and `ESML.DIGIT_TEST` in favour of `ESML.PEPPOL_PRODUCTION` and `ESML.PEPPOL_TEST`
