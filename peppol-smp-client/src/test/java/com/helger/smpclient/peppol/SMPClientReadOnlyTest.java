@@ -114,6 +114,9 @@ public final class SMPClientReadOnlyTest
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
                                                                 aPI,
                                                                 ESML.PEPPOL_PRODUCTION);
+    // Explicitly needs the production truststore
+    aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
+
     assertEquals ("https://smp.unimaze.com/", aSMPClient.getSMPHostURI ());
     assertNotNull (aSMPClient.getServiceGroupOrNull (aPI));
   }
@@ -603,5 +606,28 @@ public final class SMPClientReadOnlyTest
     final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
                                                                                        EPredefinedDocumentTypeIdentifier.TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_TRANSACTION_STATISTICS_REPORTING_1_0);
     assertNotNull (aSM);
+  }
+
+  @Test
+  public void testElmaSpecific2026 () throws Exception
+  {
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0192:864964702");
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE,
+                                                                aPI,
+                                                                ESML.PEPPOL_PRODUCTION);
+    // Explicitly needs the production truststore
+    aSMPClient.setTrustStore (Config2025.TRUSTSTORE_SMP_PRODUCTION);
+
+    final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aPI);
+    assertNotNull (aSG);
+
+    final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
+                                                                                       EPredefinedDocumentTypeIdentifier.INVOICE_EN16931_PEPPOL_V30);
+    assertNotNull (aSM);
+
+    final EndpointType aEndpoint = SMPClientReadOnly.getEndpoint (aSM,
+                                                                  EPredefinedProcessIdentifier.BIS3_BILLING,
+                                                                  ESMPTransportProfile.TRANSPORT_PROFILE_PEPPOL_AS4_V2);
+    assertNotNull (aEndpoint);
   }
 }
