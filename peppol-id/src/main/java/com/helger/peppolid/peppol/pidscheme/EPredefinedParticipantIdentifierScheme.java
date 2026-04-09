@@ -305,10 +305,13 @@ public enum EPredefinedParticipantIdentifierScheme
      *  4 Characters fixed length identifying the type 
      * Maximum 46 characters for the identifier itself<br>
      * Display requirements: None<br>
+     * Usage information: Use 0208 instead<br>
      * 
      * @since code list 3
+     * @deprecated since v9.6 - this item should not be used to issue new identifiers!<br>Removed per 2026-07-07
      */
-    UBLBE("UBLBE", "0193", "BE", "UBL.BE Party Identifier", "UBL.BE", Version.parse("3"), EPeppolCodeListItemState.ACTIVE, null, null),
+    @Deprecated(forRemoval = false)
+    UBLBE("UBLBE", "0193", "BE", "UBL.BE Party Identifier", "UBL.BE", Version.parse("3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("9.6"), PDTFactory.createLocalDate(2026, Month.of(7), 7)),
 
     /**
      * Prefix <code>0195</code>, scheme ID <code>SG:UEN</code><br>
@@ -607,7 +610,9 @@ public enum EPredefinedParticipantIdentifierScheme
 
     /**
      * Prefix <code>0235</code>, scheme ID <code>AE:TIN</code><br>
-     * Structure of the code: A TIN comprises of 10 numerical digits:
+     * Structure of the code: The Tax Identification Number (TIN) is a unique number issued and managed solely by the UAE Federal Tax Authority (FTA) for each registered taxpayer. It is an official identifier that cannot be created or assigned by any other party.
+     * 
+     * A TIN comprises of 10 numerical digits:
      * - [1]: UAE country identifier in accordance with GCC agreement. This number must always be &quot;1&quot;
      * - [23456789]: business identifier, generated automatically by the FTA's core tax administration system at the time a person presents themselves for registration
      * - [X]: check digit (mathematically derived by adopting Luhn's
@@ -704,6 +709,20 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 9.5
      */
     DE_GEBA("DE:GEBA", "0246", "DE", "German Electronic Business Address", "Koordinierungsstelle fu\u0308r IT-Standards (KoSIT)", Version.parse("9.5"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
+     * Prefix <code>0248</code>, scheme ID <code>OM:VAT</code><br>
+     * Structure of the code: 12 characters including 2 letters and 10 digits numbers e.g., OM1100003554
+     * [1-2] positions contain country identifier (OM for Oman)
+     * [3-4] positions represent the location (residence/non-residence) and type of the organization (group/individual)
+     * [5-12] positions generated automatically by OTA'S Tax Management System (TMS) at the time of registration.<br>
+     * Display requirements: 12 characters including 2 letters and 10 digits numbers e.g., OM1100003554<br>
+     * Example value: OM1100003554<br>
+     * Usage information: All organizations that are registered for VAT in Oman are obligated to issue and/or receive invoice electronically in the Sultanate of Oman and shall use the VATIN allocated by the Oman Tax Authority to uniquely identify themselves.<br>
+     * 
+     * @since code list 9.6
+     */
+    OM_VAT("OM:VAT", "0248", "OM", "Oman Value Added Tax Identification Number (VATIN)", "Tax Authority, Oman", Version.parse("9.6"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
      * Prefix <code>9901</code>, scheme ID <code>DK:CPR</code><br>
@@ -1134,7 +1153,7 @@ public enum EPredefinedParticipantIdentifierScheme
      * @deprecated since v2 - this item should not be used to issue new identifiers!<br>Removed per 2026-03-31
      */
     @Deprecated(forRemoval = false)
-    NL_OIN("NL:OIN", "9954", "NL", "Dutch Originator's Identification Number", null, Version.parse("1.1.3"), EPeppolCodeListItemState.DEPRECATED, Version.parse("2"), PDTFactory.createLocalDate(2026, Month.of(3), 31)),
+    NL_OIN("NL:OIN", "9954", "NL", "Dutch Originator's Identification Number", null, Version.parse("1.1.3"), EPeppolCodeListItemState.REMOVED, Version.parse("2"), PDTFactory.createLocalDate(2026, Month.of(3), 31)),
 
     /**
      * Prefix <code>9955</code>, scheme ID <code>SE:VAT</code><br>
@@ -1179,8 +1198,8 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "9.5";
-    public static final int CODE_LIST_ENTRY_COUNT = 103;
+    public static final String CODE_LIST_VERSION = "9.6";
+    public static final int CODE_LIST_ENTRY_COUNT = 104;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;

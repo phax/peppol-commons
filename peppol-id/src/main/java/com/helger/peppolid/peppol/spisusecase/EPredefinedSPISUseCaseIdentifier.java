@@ -40,7 +40,7 @@ public enum EPredefinedSPISUseCaseIdentifier
      * @since code list 9.4
      */
     MLS("MLS", Version.parse("9.4"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "9.5";
+    public static final String CODE_LIST_VERSION = "9.6";
     public static final int CODE_LIST_ENTRY_COUNT = 1;
     private final String m_sUseCaseID;
     private final Version m_aInitialRelease;

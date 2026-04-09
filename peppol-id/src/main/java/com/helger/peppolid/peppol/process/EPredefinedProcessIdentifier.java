@@ -184,7 +184,7 @@ public enum EPredefinedProcessIdentifier
      * @deprecated This item should not be used to issue new identifiers!
      */
     @Deprecated(forRemoval = false)
-    oioubl_procid_ubl_Reference_Utility_1_0("oioubl-procid-ubl", "Reference-Utility-1.0", EPeppolCodeListItemState.DEPRECATED),
+    oioubl_procid_ubl_Reference_Utility_1_0("oioubl-procid-ubl", "Reference-Utility-1.0", EPeppolCodeListItemState.REMOVED),
 
     /**
      * ID: <code>oioubl-procid-ubl::Procurement-ReminderOnly-1.0</code><br>
@@ -192,7 +192,7 @@ public enum EPredefinedProcessIdentifier
      * @deprecated This item should not be used to issue new identifiers!
      */
     @Deprecated(forRemoval = false)
-    oioubl_procid_ubl_Procurement_ReminderOnly_1_0("oioubl-procid-ubl", "Procurement-ReminderOnly-1.0", EPeppolCodeListItemState.DEPRECATED),
+    oioubl_procid_ubl_Procurement_ReminderOnly_1_0("oioubl-procid-ubl", "Procurement-ReminderOnly-1.0", EPeppolCodeListItemState.REMOVED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:www.peppol.eu:profile:bis63a:ver1.0</code><br>
@@ -604,7 +604,7 @@ public enum EPredefinedProcessIdentifier
      * @deprecated This item should not be used to issue new identifiers!
      */
     @Deprecated(forRemoval = false)
-    urn_peppol_bis_taxreporting("cenbii-procid-ubl", "urn:peppol:bis:taxreporting", EPeppolCodeListItemState.DEPRECATED),
+    urn_peppol_bis_taxreporting("cenbii-procid-ubl", "urn:peppol:bis:taxreporting", EPeppolCodeListItemState.REMOVED),
 
     /**
      * ID: <code>cenbii-procid-ubl::urn:peppol:eb2b:billing</code><br>
@@ -650,7 +650,7 @@ public enum EPredefinedProcessIdentifier
      * ID: <code>cenbii-procid-ubl::urn:peppol:taxreporting</code><br>
      */
     urn_peppol_taxreporting("cenbii-procid-ubl", "urn:peppol:taxreporting", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "9.5";
+    public static final String CODE_LIST_VERSION = "9.6";
     public static final int CODE_LIST_ENTRY_COUNT = 108;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
