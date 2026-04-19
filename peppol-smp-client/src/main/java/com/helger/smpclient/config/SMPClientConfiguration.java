@@ -164,7 +164,7 @@ public final class SMPClientConfiguration
    *         <code>smpclient.truststore.password</code>. If none is present
    *         {@link PeppolTrustStores#TRUSTSTORE_PASSWORD} is returned as a default.
    */
-  @NonNull
+  @Nullable
   public static char [] getTrustStorePasswordCharArray ()
   {
     return getConfig ().getAsCharArrayOrFallback ("smpclient.truststore.password", "truststore.password");
