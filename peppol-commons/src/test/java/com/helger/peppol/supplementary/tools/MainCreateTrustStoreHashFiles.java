@@ -64,13 +64,19 @@ public final class MainCreateTrustStoreHashFiles
   {
     _create ("truststore/sml-truststore.jks");
     _create ("truststore/directory-truststore.jks");
-    _create ("truststore/2010/prod-truststore.jks");
-    _create ("truststore/2010/pilot-truststore.jks");
+    _create ("truststore/mozilla-nss-root-certs.p12");
 
-    _create (PeppolTrustStores.Config2018.TRUSTSTORE_AP_PRODUCTION_CLASSPATH);
-    _create (PeppolTrustStores.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH);
-    _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PRODUCTION_CLASSPATH);
-    _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PILOT_CLASSPATH);
+    if (false)
+    {
+      // Not updated anymore
+      _create ("truststore/2010/prod-truststore.jks");
+      _create ("truststore/2010/pilot-truststore.jks");
+
+      _create (PeppolTrustStores.Config2018.TRUSTSTORE_AP_PRODUCTION_CLASSPATH);
+      _create (PeppolTrustStores.Config2018.TRUSTSTORE_AP_PILOT_CLASSPATH);
+      _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PRODUCTION_CLASSPATH);
+      _create (PeppolTrustStores.Config2018.TRUSTSTORE_SMP_PILOT_CLASSPATH);
+    }
 
     _create (PeppolTrustStores.Config2025.TRUSTSTORE_AP_PRODUCTION_CLASSPATH);
     _create (PeppolTrustStores.Config2025.TRUSTSTORE_AP_TEST_CLASSPATH);

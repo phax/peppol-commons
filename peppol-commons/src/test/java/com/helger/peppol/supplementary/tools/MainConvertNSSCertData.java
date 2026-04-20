@@ -34,6 +34,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.Enumeration;
 import java.util.Locale;
 
@@ -49,6 +50,8 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.CommonsTreeMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSortedMap;
+import com.helger.datetime.helper.PDTFactory;
+import com.helger.io.file.SimpleFileIO;
 import com.helger.security.keystore.EKeyStoreType;
 
 /**
@@ -65,7 +68,7 @@ import com.helger.security.keystore.EKeyStoreType;
  * </p>
  * <p>
  * The certdata.txt file can be obtained from:<br>
- * <code>https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt</code>
+ * <code>https://hg-edge.mozilla.org/projects/nss/raw-file/tip/lib/ckfw/builtins/certdata.txt</code>
  * </p>
  * <p>
  * See <a href="https://github.com/phax/peppol-commons/issues/68">Issue #68</a>
@@ -76,7 +79,7 @@ import com.helger.security.keystore.EKeyStoreType;
 public final class MainConvertNSSCertData
 {
   /** The URL to download the latest NSS certdata.txt */
-  public static final String CERTDATA_URL = "https://hg.mozilla.org/mozilla-central/raw-file/tip/security/nss/lib/ckfw/builtins/certdata.txt";
+  public static final String CERTDATA_URL = "https://hg-edge.mozilla.org/projects/nss/raw-file/tip/lib/ckfw/builtins/certdata.txt";
 
   /** Trust value indicating a trusted delegator (CA) */
   public static final String TRUST_TRUSTED_DELEGATOR = "CKT_NSS_TRUSTED_DELEGATOR";
@@ -354,9 +357,9 @@ public final class MainConvertNSSCertData
    * @return the populated KeyStore, or <code>null</code> on error
    */
   @Nullable
-  private static KeyStore _readTrustStore (@NonNull final InputStream aISCertData,
-                                           @NonNull final EKeyStoreType eKeyStoreType,
-                                           @NonNull final String sPassword)
+  private static KeyStore _createTrustStore (@NonNull final InputStream aISCertData,
+                                             @NonNull final EKeyStoreType eKeyStoreType,
+                                             @NonNull final String sPassword)
   {
     try
     {
@@ -451,7 +454,7 @@ public final class MainConvertNSSCertData
   {
     try (final InputStream aISCertData = _getCachedCertData ())
     {
-      final KeyStore aKeyStore = _readTrustStore (aISCertData, eKeyStoreType, sPassword);
+      final KeyStore aKeyStore = _createTrustStore (aISCertData, eKeyStoreType, sPassword);
       if (aKeyStore == null)
         throw new IllegalStateException ("Failed to create trust store from NSS certdata.txt");
 
@@ -468,7 +471,8 @@ public final class MainConvertNSSCertData
     // Default: create a PKCS12 trust store with all Mozilla-trusted TLS root CAs
     final EKeyStoreType eType = EKeyStoreType.PKCS12;
     final String sPassword = "changeit";
-    final File aOutputFile = new File ("mozilla-root-certs.p12");
+    final File aTargetFolder = new File ("src/main/resources/truststore");
+    final File aOutputFile = new File (aTargetFolder, "mozilla-nss-root-certs.p12");
 
     _downloadAndConvert (aOutputFile, eType, sPassword);
 
@@ -479,19 +483,31 @@ public final class MainConvertNSSCertData
       aKS.load (aIS, sPassword.toCharArray ());
     }
 
-    LOGGER.info ("Trust store contains " + aKS.size () + " certificates:");
+    LOGGER.info ("Trust store contains " + aKS.size () + " certificates");
+    final StringBuilder aSB = new StringBuilder ();
+    aSB.append ("Content of the Mozilla NSS Root Certificate Truststore (last update: ")
+       .append (DateTimeFormatter.ISO_LOCAL_DATE.format (PDTFactory.getCurrentLocalDate ()))
+       .append (")\n")
+       .append ("Password: **")
+       .append (sPassword)
+       .append ("**\n\n");
     final Enumeration <String> aAliases = aKS.aliases ();
     while (aAliases.hasMoreElements ())
     {
       final String sAlias = aAliases.nextElement ();
       final X509Certificate aCert = (X509Certificate) aKS.getCertificate (sAlias);
-      LOGGER.info ("  " +
-                   sAlias +
-                   " - " +
-                   aCert.getSubjectX500Principal ().getName () +
-                   " (valid until " +
-                   aCert.getNotAfter () +
-                   ")");
+      aSB.append ("* Alias `" +
+                  sAlias +
+                  "` refering to " +
+                  aCert.getSubjectX500Principal ().getName () +
+                  " (valid from " +
+                  DateTimeFormatter.ISO_OFFSET_DATE_TIME.format (PDTFactory.createOffsetDateTime (aCert.getNotBefore ())) +
+                  " to " +
+                  DateTimeFormatter.ISO_OFFSET_DATE_TIME.format (PDTFactory.createOffsetDateTime (aCert.getNotAfter ())) +
+                  ")\n");
     }
+    SimpleFileIO.writeFile (new File (aTargetFolder, "mozilla-nss-root-certs.md"),
+                            aSB.toString (),
+                            StandardCharsets.UTF_8);
   }
 }
