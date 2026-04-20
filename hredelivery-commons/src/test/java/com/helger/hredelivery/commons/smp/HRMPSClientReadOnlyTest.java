@@ -19,6 +19,7 @@ package com.helger.hredelivery.commons.smp;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.hredelivery.commons.CHREDeliveryID;
@@ -89,6 +90,7 @@ public final class HRMPSClientReadOnlyTest
   }
 
   @Test
+  @Ignore ("Returns 503 on April 20th, 2026")
   public void testResolveMarkant () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:29071087912");
