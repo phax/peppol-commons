@@ -136,8 +136,10 @@ public final class SMPClientConfiguration
   /**
    * @return The truststore type as specified in the configuration file by the key
    *         <code>smpclient.truststore.type</code>. If none is present
-   *         {@link com.helger.peppol.security.PeppolTrustStores.Config2018#TRUSTSTORE_TYPE} is
-   *         returned as a default.
+   *         {@link com.helger.peppol.security.PeppolTrustStores.Config2018#TRUSTSTORE_TYPE} (JKS)
+   *         is returned as a default. Note: Config2018 and its G2 CAs are deprecated - prefer
+   *         using {@link com.helger.peppol.security.PeppolTrustStores.Config2025#TRUSTSTORE_TYPE}
+   *         (PKCS12) instead.
    * @since 6.0.0
    */
   @NonNull

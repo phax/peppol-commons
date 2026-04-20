@@ -24,7 +24,9 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.security.certificate.TrustedCAChecker;
 
 /**
- * This class contains all the trusted CAs in Peppol.
+ * This class contains all the trusted CAs in Peppol. Note: the G2 CAs (from
+ * {@link PeppolTrustStores.Config2018}) are deprecated. Since 12.4.2 the 2025 truststores no
+ * longer contain G2 CAs.
  *
  * @author Philip Helger
  * @since 10.2.0

@@ -64,11 +64,13 @@ public final class PeppolTrustStores
   }
 
   /**
-   * The truststore configuration for Peppol PKI G2 valid from 2018 to 2028.
+   * The truststore configuration for Peppol PKI G2 valid from 2018 to 2028. The G2 CAs are
+   * deprecated and should no longer be used. Use {@link Config2025} instead which contains only G3
+   * CAs (since 12.4.2). Note: the "2018" truststores are no longer relevant for production use.
    *
    * @author Philip Helger
-   * @deprecated as it only contains the G2 PKI. Use {@link Config2025} instead which contains G2+G3
-   *             instead.
+   * @deprecated The G2 PKI CAs are deprecated. Use {@link Config2025} instead which contains G3
+   *             only (since 12.4.2).
    */
   @Immutable
   @Deprecated (forRemoval = false, since = "12.3.8")
@@ -257,7 +259,8 @@ public final class PeppolTrustStores
   }
 
   /**
-   * The truststore configuration for Peppol PKI G3 valid from 2025 to 2035.
+   * The truststore configuration for Peppol PKI G3 valid from 2025 to 2035. Since 12.4.2 the 2025
+   * truststores no longer contain the deprecated G2 CAs - they contain G3 only.
    *
    * @author Philip Helger
    * @since 11.0.2
