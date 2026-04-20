@@ -33,10 +33,12 @@ import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.keystore.LoadedKeyStore;
 
+@Deprecated (forRemoval = false)
 public class MainCreateTrustStoreComplete
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateTrustStoreComplete.class);
 
+  @Deprecated (forRemoval = false)
   public static void main (final String [] args) throws Exception
   {
     final KeyStore aSMPTrustStore = EKeyStoreType.JKS.getKeyStore ();
@@ -72,7 +74,7 @@ public class MainCreateTrustStoreComplete
       });
     }
 
-    final File fDest = new File ("src/main/resources/truststore/complete-truststore.jks");
+    final File fDest = new File ("src/main/resources/truststore/2018/complete-truststore.jks");
     try (final OutputStream aFOS = new FileOutputStream (fDest))
     {
       aSMPTrustStore.store (aFOS, PeppolTrustStores.TRUSTSTORE_PASSWORD.toCharArray ());

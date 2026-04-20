@@ -30,10 +30,12 @@ import com.helger.security.keystore.EKeyStoreType;
 import com.helger.security.keystore.KeyStoreHelper;
 import com.helger.security.keystore.LoadedKeyStore;
 
+@Deprecated (forRemoval = false)
 public class MainCreateTrustStoresSMP
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateTrustStoresSMP.class);
 
+  @Deprecated (forRemoval = false)
   public static void main (final String [] args) throws Exception
   {
     for (final String sType : new String [] { "pilot", "prod" })
