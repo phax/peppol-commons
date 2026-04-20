@@ -34,10 +34,6 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
     * `peppol root test ca - g3`
     * `peppol access point test ca - g3 (peppol root test ca - g3)`
     * `peppol service metadata publisher test ca - g3 (peppol root test ca - g3)`
-* Contains temporarily, during the migration from G2 to G3 only:    
-    * `peppol root test ca - g2`
-    * `peppol access point test ca - g2 (peppol root test ca - g2)`
-    * `peppol service metadata publisher test ca - g2 (peppol root test ca - g2)`
 
 `truststore/2025/ap-prod-truststore.p12` (since 11.0.2)
 * Is the global trust store for OpenPeppol production APs
@@ -46,10 +42,6 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
     * `peppol root ca - g3`
     * `peppol access point ca - g3 (peppol root ca - g3)`
     * `peppol service metadata publisher ca - g3 (peppol root ca - g3)`
-* Contains temporarily, during the migration from G2 to G3 only:    
-    * `peppol root ca - g2`
-    * `peppol access point ca - g2 (peppol root ca - g2)`
-    * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
 
 `truststore/2025/smp-test-truststore.p12` (since 11.0.2)
 * Is the global trust store for OpenPeppol pilot SMPs
@@ -65,10 +57,6 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
     * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
     * `isrg root x1`
     * `e5 (isrg root x1)`
-* Contains temporarily, during the migration from G2 to G3 only:    
-    * `peppol root test ca - g2`
-    * `peppol access point test ca - g2 (peppol root test ca - g2)`
-    * `peppol service metadata publisher test ca - g2 (peppol root test ca - g2)`
 
 `truststore/2025/smp-prod-truststore.p12` (since 11.0.2)
 * Is the global trust store for OpenPeppol production SMPs
@@ -84,10 +72,6 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
     * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
     * `isrg root x1`
     * `e5 (isrg root x1)`
-* Contains temporarily, during the migration from G2 to G3 only:    
-    * `peppol root ca - g2`
-    * `peppol access point ca - g2 (peppol root ca - g2)`
-    * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
 
 ### For Access Points
 
