@@ -70,7 +70,7 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
     * `peppol eb2b access point ca - g2 (peppol root ca - g2)`
     * `peppol service metadata publisher ca - g2 (peppol root ca - g2)`
 
-`truststore/complete-truststore.jks` (deprecated)
+`truststore/2018/complete-truststore.jks` (deprecated)
 * This is the combination of all available truststores with the same aliases!
 * Updated in v9.6.0 to include eB2B AP Test CA
 * Updated in v8.4.1 (add new) and v8.5.2 (remove old) to reflect the new Let's Encrypt issuing certificate
