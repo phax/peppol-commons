@@ -42,6 +42,7 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.web.PDTWebDateHelper;
 import com.helger.peppol.security.PeppolTrustStores;
+import com.helger.peppol.security.PeppolTrustStores.Config2018;
 import com.helger.peppol.security.PeppolTrustStores.Config2025;
 import com.helger.peppol.security.PeppolTrustedCA;
 import com.helger.peppol.sml.ESML;
@@ -591,11 +592,14 @@ public final class SMPClientReadOnlyTest
     assertNotNull (aSM);
   }
 
+  @SuppressWarnings ("deprecation")
   @Test
   public void testFujitsuSignature () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("0204:FujitsuwMPOC");
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (PeppolNaptrURLProvider.INSTANCE, aPI, ESML.PEPPOL_TEST);
+    // Explicitly needs the G2 test truststore
+    aSMPClient.setTrustStore (Config2018.TRUSTSTORE_SMP_PILOT);
 
     final ServiceGroupType aSG = aSMPClient.getServiceGroupOrNull (aPI);
     assertNotNull (aSG);
