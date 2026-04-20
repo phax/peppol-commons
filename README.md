@@ -351,6 +351,10 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.4.2 - work in progress
+* Removed the Peppol G2 certificates from the default `truststore/2025/` folder truststores. Only G3 is remaining
+* Moved the file `complete-truststore.jks` into the `2018` subfolder as it is no longer relevant
+
 v12.4.1 - 2026-04-09
 * Class `PeppolMLSBuilder` now has a customizable identifier factory
 * Updated to Peppol eDEC Code Lists v9.6
