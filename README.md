@@ -355,6 +355,8 @@ v12.4.2 - work in progress
 * Requires ph-commons 12.2.0 or later
 * Removed the Peppol G2 certificates from the default `truststore/2025/` folder truststores. Only G3 is remaining
 * Moved the file `complete-truststore.jks` into the `2018` subfolder as it is no longer relevant
+* Marked all Peppol G2 CAs as deprecated - the "2018" truststores are no longer relevant for production use
+* Added new class `MozillaNSSTrustStore` for Mozilla NSS root certificate trust store, used for TLS connection validation (as opposed to Peppol-specific AS4 payload signing/encryption)
 
 v12.4.1 - 2026-04-09
 * Class `PeppolMLSBuilder` now has a customizable identifier factory
