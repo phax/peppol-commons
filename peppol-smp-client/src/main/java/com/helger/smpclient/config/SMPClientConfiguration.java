@@ -205,7 +205,7 @@ public final class SMPClientConfiguration
   public static HttpHost getHttpProxy ()
   {
     final String sProxyHost = getConfig ().getAsStringOrFallback ("http.proxy.host", "http.proxyHost");
-    final int nProxyPort = getConfig ().getAsIntOrFallback ("http.proxy.port", -1, 0, "http.proxyPort");
+    final int nProxyPort = getConfig ().getAsIntOrFallback ("http.proxy.port", -1, "http.proxyPort");
     if (sProxyHost != null && nProxyPort > 0)
       return new HttpHost (sProxyHost, nProxyPort);
 
@@ -277,7 +277,7 @@ public final class SMPClientConfiguration
   @NonNull
   public static Timeout getResponseTimeout ()
   {
-    final long nMS = getConfig ().getAsLongOrFallback ("http.response.timeout.ms", -1, -1, "http.request.timeout.ms");
+    final long nMS = getConfig ().getAsLongOrFallback ("http.response.timeout.ms", -1, "http.request.timeout.ms");
     if (nMS >= 0)
       return Timeout.ofMilliseconds (nMS);
     return HttpClientSettings.DEFAULT_RESPONSE_TIMEOUT;
