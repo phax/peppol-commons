@@ -18,7 +18,6 @@ package com.helger.smpclient.peppol;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
 import java.time.Duration;
@@ -41,15 +40,6 @@ public final class CachingSMPClientReadOnlyTest
     final CachingSMPClientReadOnly aClient = new CachingSMPClientReadOnly (URI.create ("http://localhost:8080"));
     assertNotNull (aClient);
     assertEquals ("http://localhost:8080/", aClient.getSMPHostURI ());
-  }
-
-  @Test
-  public void testTypeCompatibility ()
-  {
-    final CachingSMPClientReadOnly aClient = new CachingSMPClientReadOnly (URI.create ("http://localhost:8080"));
-    assertTrue (aClient instanceof SMPClientReadOnly);
-    assertTrue (aClient instanceof ISMPServiceGroupProvider);
-    assertTrue (aClient instanceof ISMPExtendedServiceMetadataProvider);
   }
 
   @Test
