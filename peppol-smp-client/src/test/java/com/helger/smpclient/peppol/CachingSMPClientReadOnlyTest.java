@@ -43,7 +43,6 @@ public final class CachingSMPClientReadOnlyTest
     assertEquals ("http://localhost:8080/", aClient.getSMPHostURI ());
   }
 
-  @SuppressWarnings ("cast")
   @Test
   public void testTypeCompatibility ()
   {
