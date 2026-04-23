@@ -25,11 +25,10 @@
     <version>12.4.2-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-commons</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>peppol-commons</name>
   <url>https://github.com/phax/peppol-commons/peppol-commons</url>
   <inceptionYear>2015</inceptionYear>
-  
   <licenses>
     <license>
       <name>MPL 2.0</name>
@@ -37,12 +36,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-  
   <developers>
     <developer>
       <id>philip</id>
@@ -51,7 +48,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -69,7 +65,6 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-datetime</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -86,7 +81,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
   <build>
     <resources>
       <!-- Don't specify the targetPath because this leads to a broken JAR file 
@@ -106,27 +100,5 @@
         </excludes>
       </resource>
     </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.peppol</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.peppol.config,
-              com.helger.peppol.sml,
-              com.helger.peppol.smp,
-              com.helger.peppol.utils
-            </Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
-            <Include-Resource>{maven-resources},peppol-commons-version.properties=target/classes/peppol-commons-version.properties</Include-Resource>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
   </build>
 </project>

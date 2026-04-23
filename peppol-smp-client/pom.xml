@@ -25,12 +25,11 @@
     <version>12.4.2-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-smp-client</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>peppol-smp-client</name>
   <description>Peppol and OASIS BDXR SMP client</description>
   <url>https://github.com/phax/peppol-commons/peppol-smp-client</url>
   <inceptionYear>2015</inceptionYear>
-
   <licenses>
     <license>
       <name>MPL 2.0</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-
   <developers>
     <developer>
       <id>philip</id>
@@ -52,7 +49,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -86,13 +82,11 @@
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-smp-datatypes</artifactId>
     </dependency>
-
     <dependency>
       <groupId>dnsjava</groupId>
       <artifactId>dnsjava</artifactId>
       <version>${dnsjava.version}</version>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -109,36 +103,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.smpclient</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.smpclient.bdxr1,
-              com.helger.smpclient.bdxr1.marshal,
-              com.helger.smpclient.bdxr2,
-              com.helger.smpclient.bdxr2.marshal,
-              com.helger.smpclient.config,
-              com.helger.smpclient.exception,
-              com.helger.smpclient.extension,
-              com.helger.smpclient.httpclient,
-              com.helger.smpclient.json,
-              com.helger.smpclient.peppol,
-              com.helger.smpclient.peppol.marshal,
-              com.helger.smpclient.peppol.utils,
-              com.helger.smpclient.security,
-              com.helger.smpclient.url
-            </Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

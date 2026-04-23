@@ -25,12 +25,11 @@
     <version>12.4.2-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-sml-client</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>peppol-sml-client</name>
   <description>PEPPOL SML client</description>
   <url>https://github.com/phax/peppol-commons/peppol-sml-client</url>
   <inceptionYear>2015</inceptionYear>
-  
   <licenses>
     <license>
       <name>MPL 2.0</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-
   <developers>
     <developer>
       <id>philip</id>
@@ -52,7 +49,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -74,13 +70,11 @@
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-id</artifactId>
     </dependency>
-    
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-http</artifactId>
       <optional>true</optional>
     </dependency>
-    
     <dependency>
       <groupId>com.helger.web</groupId>
       <artifactId>ph-web</artifactId>
@@ -108,28 +102,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.peppol.smlclient</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.peppol.smlclient,
-              com.helger.peppol.smlclient.bdmsl,
-              com.helger.peppol.smlclient.participant,
-              com.helger.peppol.smlclient.smp,
-              com.helger.peppol.smlclient.support,
-              com.helger.peppol.smlclient.tls
-            </Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
@@ -251,7 +225,7 @@
             ${project.build.sourceDirectory}:${project.build.directory}/generated-sources/xjc
           </sourcepath>
         </configuration>
-      </plugin> 
+      </plugin>
     </plugins>
   </build>
 </project>

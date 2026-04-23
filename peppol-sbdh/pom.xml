@@ -25,12 +25,11 @@
     <version>12.4.2-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-sbdh</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>peppol-sbdh</name>
   <description>Library for reading and writing OASIS Standard Business Document Header (SBDH) documents conforming to the PEPPOL specifications</description>
   <url>https://github.com/phax/peppol-commons/peppol-sbdh</url>
   <inceptionYear>2014</inceptionYear>
-
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-
   <developers>
     <developer>
       <id>philip</id>
@@ -52,7 +49,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -74,7 +70,6 @@
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-id</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-testfiles</artifactId>
@@ -91,27 +86,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.peppol.sbdh</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.peppol.sbdh,
-              com.helger.peppol.sbdh.payload,
-              com.helger.peppol.sbdh.read,
-              com.helger.peppol.sbdh.write,
-              com.helger.peppol.sbdh.spec12
-            </Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>${jaxb-plugin.group}</groupId>
         <artifactId>${jaxb-plugin.artifact}</artifactId>
@@ -162,7 +138,7 @@
             ${project.build.sourceDirectory}:${project.build.directory}/generated-sources/xjc
           </sourcepath>
         </configuration>
-      </plugin> 
+      </plugin>
     </plugins>
   </build>
 </project>

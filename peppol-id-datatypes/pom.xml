@@ -25,11 +25,10 @@
     <version>12.4.2-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-id-datatypes</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>peppol-id-datatypes</name>
   <url>https://github.com/phax/peppol-commons/peppol-id-datatypes</url>
   <inceptionYear>2015</inceptionYear>
-  
   <licenses>
     <license>
       <name>MPL 2.0</name>
@@ -37,12 +36,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-  
   <developers>
     <developer>
       <id>philip</id>
@@ -51,7 +48,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -65,31 +61,14 @@
       <groupId>com.helger.xsd</groupId>
       <artifactId>ph-xsds-xmldsig</artifactId>
     </dependency>
-
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.xsds.peppol.id1</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.xsds.peppol.codelists21,
-              com.helger.xsds.peppol.id1
-            </Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>${jaxb-plugin.group}</groupId>
         <artifactId>${jaxb-plugin.artifact}</artifactId>
@@ -149,7 +128,7 @@
             ${project.build.sourceDirectory}:${project.build.directory}/generated-sources/xjc
           </sourcepath>
         </configuration>
-      </plugin> 
+      </plugin>
     </plugins>
   </build>
 </project>

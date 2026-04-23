@@ -25,12 +25,11 @@
     <version>12.4.2-SNAPSHOT</version>
   </parent>
   <artifactId>peppol-directory-businesscard</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>peppol-directory-businesscard</name>
   <description>The Peppol Directory Business Card data model</description>
   <url>https://github.com/phax/peppol-commons/peppol-directory-businesscard</url>
   <inceptionYear>2015</inceptionYear>
-
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-
   <developers>
     <developer>
       <id>philip</id>
@@ -52,7 +49,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -70,13 +66,11 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-json</artifactId>
     </dependency>
-    
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
       <scope>provided</scope>
     </dependency>
-    
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -88,26 +82,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.peppol.businesscard</Automatic-Module-Name>
-            <Export-Package>
-              com.helger.peppol.businesscard.generic,
-              com.helger.peppol.businesscard.helper,
-              com.helger.peppol.businesscard.v1,
-              com.helger.peppol.businesscard.v2,
-              com.helger.peppol.businesscard.v3
-            </Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>${jaxb-plugin.group}</groupId>
         <artifactId>${jaxb-plugin.artifact}</artifactId>
@@ -157,7 +133,7 @@
             ${project.build.sourceDirectory}:${project.build.directory}/generated-sources/xjc
           </sourcepath>
         </configuration>
-      </plugin> 
+      </plugin>
     </plugins>
   </build>
 </project>
