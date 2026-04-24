@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.peppol.supplementary.tools;
+package com.helger.peppol.supplementary.tools.old;
 
 import java.io.File;
 import java.io.FileOutputStream;
