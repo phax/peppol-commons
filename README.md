@@ -358,6 +358,7 @@ v12.4.2 - work in progress
 * Marked all Peppol G2 CAs as deprecated - the "2018" truststores are no longer relevant for production use
 * Added new class `MozillaNSSTrustStore` for Mozilla NSS root certificate trust store, used for TLS connection validation (as opposed to Peppol-specific AS4 payload signing/encryption)
 * Removed OSGI bundling
+* Added new `globalsign gcc r3 dv tls ca 2020 (globalsign)` into all predefined Peppol SMP and SML truststores
 
 v12.4.1 - 2026-04-09
 * Class `PeppolMLSBuilder` now has a customizable identifier factory

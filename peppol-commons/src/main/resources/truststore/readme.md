@@ -7,10 +7,12 @@
 * Updated 2019-12-03 for the new SMK certificate chain
 * Updated 2024-01-02 removed the old GlobalSign certificates
 * Updated in v12.0.3: added `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` 
+* Updated in v12.4.2: added `globalsign gcc r3 dv tls ca 2020 (globalsign)` 
 * The contained aliases are:
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
     * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
+    * `globalsign gcc r3 dv tls ca 2020 (globalsign)`
 
 `truststore/directory-truststore.jks` (since v6.2.1)
 * It contains the SSL certificates to access the central Peppol Directory
@@ -48,6 +50,7 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
 * It is valid from 2025-2035
 * Updated in v11.0.6: replaced `r3 (isrg root x1)` with `e5 (isrg root x1)`
 * Updated in v12.0.3: added `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` 
+* Updated in v12.4.2: added `globalsign gcc r3 dv tls ca 2020 (globalsign)` 
 * The contained aliases are:
     * `peppol root test ca - g3`
     * `peppol access point test ca - g3 (peppol root test ca - g3)`
@@ -55,6 +58,7 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
     * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
+    * `globalsign gcc r3 dv tls ca 2020 (globalsign)`
     * `isrg root x1`
     * `e5 (isrg root x1)`
 
@@ -63,6 +67,7 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
 * It is valid from 2025-2035
 * Updated in v11.0.6: replaced `r3 (isrg root x1)` with `e5 (isrg root x1)`
 * Updated in v12.0.3: added `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)` 
+* Updated in v12.4.2: added `globalsign gcc r3 dv tls ca 2020 (globalsign)` 
 * The contained aliases are:
     * `peppol root ca - g3`
     * `peppol access point ca - g3 (peppol root ca - g3)`
@@ -70,6 +75,7 @@ The official source of the certificates is https://openpeppol.atlassian.net/wiki
     * `globalsign`
     * `globalsign rsa ov ssl ca 2018 (globalsign)`
     * `globalsign atlas r3 ov tls ca 2025 q3 (globalsign)`
+    * `globalsign gcc r3 dv tls ca 2020 (globalsign)`
     * `isrg root x1`
     * `e5 (isrg root x1)`
 
