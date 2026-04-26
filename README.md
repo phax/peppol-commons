@@ -351,7 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.4.2 - work in progress
+v12.4.2 - 2026-04-26
 * Requires ph-commons 12.2.0 or later
 * Removed the Peppol G2 certificates from the default `truststore/2025/` folder truststores. Only G3 is remaining
 * Moved the file `complete-truststore.jks` into the `2018` subfolder as it is no longer relevant
