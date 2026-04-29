@@ -39,7 +39,7 @@ import com.helger.xsds.bdxr.smp1.EndpointType;
 public final class HRMPSClientReadOnlyTest
 {
   @Test
-  // @Ignore ("The current SMP response is totally broken")
+  @Ignore ("The participant was removed from DNS; 2026-04-29")
   public void testResolveDemoParticipant () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9934:99999999994");
