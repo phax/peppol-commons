@@ -607,6 +607,21 @@ public final class SMPClientReadOnlyTest
     final ICommonsList <IDocumentTypeIdentifier> aAllDocTyoes = SMPClientReadOnly.getAllDocumentTypes (aSG);
     assertNotNull (aAllDocTyoes);
 
+    // Explicitly revoked in 2026-04
+    try
+    {
+      aSMPClient.getSchemeSpecificServiceMetadata (aPI,
+                                                   EPredefinedDocumentTypeIdentifier.TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_TRANSACTION_STATISTICS_REPORTING_1_0);
+      fail ();
+    }
+    catch (final SMPClientBadResponseException ex)
+    {
+      assertTrue (ex.getCause () instanceof XMLSignatureException);
+    }
+
+    // Disable revocation check and try again
+    aSMPClient.setRevocationCheckMode (ERevocationCheckMode.NONE);
+
     final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
                                                                                        EPredefinedDocumentTypeIdentifier.TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_TRANSACTION_STATISTICS_REPORTING_1_0);
     assertNotNull (aSM);

@@ -334,7 +334,6 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
 
     final boolean bXSDValidation = isXMLSchemaValidation ();
     final boolean bVerifySignature = isVerifySignature ();
-    final boolean bSecureValidation = isSecureValidation ();
     final KeyStore aTrustStore = getTrustStore ();
 
     if (bVerifySignature && aTrustStore == null)
@@ -350,10 +349,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
       customizeMarshaller (aMarshaller);
 
       // Deal with signed responses
-      final SMPHttpResponseHandlerSigned <SignedServiceMetadataType> aResponseHandler = new SMPHttpResponseHandlerSigned <> (aMarshaller,
-                                                                                                                             aTrustStore);
-      aResponseHandler.setVerifySignature (bVerifySignature);
-      aResponseHandler.setSecureValidation (bSecureValidation);
+      final SMPHttpResponseHandlerSigned <SignedServiceMetadataType> aResponseHandler = configureResponseHandler (new SMPHttpResponseHandlerSigned <> (aMarshaller,
+                                                                                                                                                       aTrustStore));
 
       // Main execution
       aMetadata = executeGenericRequest (aRequest, aResponseHandler);
@@ -386,10 +383,8 @@ public class SMPClientReadOnly extends AbstractGenericSMPClient <SMPClientReadOn
         customizeMarshaller (aMarshaller);
 
         // Deal with signed responses
-        final SMPHttpResponseHandlerSigned <SignedServiceMetadataType> aResponseHandler = new SMPHttpResponseHandlerSigned <> (aMarshaller,
-                                                                                                                               aTrustStore);
-        aResponseHandler.setVerifySignature (bVerifySignature);
-        aResponseHandler.setSecureValidation (bSecureValidation);
+        final SMPHttpResponseHandlerSigned <SignedServiceMetadataType> aResponseHandler = configureResponseHandler (new SMPHttpResponseHandlerSigned <> (aMarshaller,
+                                                                                                                                                         aTrustStore));
 
         // Main execution
         aMetadata = executeGenericRequest (aRequest, aResponseHandler);

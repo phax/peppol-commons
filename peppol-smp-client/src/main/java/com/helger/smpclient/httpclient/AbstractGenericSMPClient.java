@@ -55,6 +55,7 @@ import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.mime.CMimeType;
 import com.helger.security.certificate.CertificateDecodeHelper;
 import com.helger.security.keystore.EKeyStoreType;
+import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.smpclient.config.SMPClientConfiguration;
 import com.helger.smpclient.exception.SMPClientBadRequestException;
 import com.helger.smpclient.exception.SMPClientException;
@@ -115,6 +116,9 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private final String m_sSMPHost;
   private boolean m_bVerifySignature = SMPHttpResponseHandlerSigned.DEFAULT_VERIFY_SIGNATURE;
   private boolean m_bSecureValidation = SMPHttpResponseHandlerSigned.DEFAULT_SECURE_VALIDATION;
+  // null means "use default from CertificateRevocationCheckerDefaults"
+  private ERevocationCheckMode m_eRevocationCheckMode;
+  private boolean m_bUnknownRevocationStatusReject = SMPHttpResponseHandlerSigned.DEFAULT_UNKNOWN_REVOCATION_STATUS_REJECT;
   private KeyStore m_aTrustStore = DEFAULT_TRUST_STORE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private boolean m_bXMLSchemaValidation = DEFAULT_XML_SCHEMA_VALIDATION;
@@ -249,6 +253,61 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
+   * @return The revocation check mode to use when verifying SMP response certificates.
+   *         <code>null</code> means "use the JVM-wide default from
+   *         {@link com.helger.security.revocation.CertificateRevocationCheckerDefaults}".
+   * @since 12.4.3
+   */
+  @Nullable
+  public final ERevocationCheckMode getRevocationCheckMode ()
+  {
+    return m_eRevocationCheckMode;
+  }
+
+  /**
+   * Set the revocation check mode to use when verifying SMP response certificates.
+   *
+   * @param e
+   *        The mode to use. <code>null</code> means "use the JVM-wide default from
+   *        {@link com.helger.security.revocation.CertificateRevocationCheckerDefaults}".
+   * @return this for chaining
+   * @since 12.4.3
+   */
+  @NonNull
+  public final IMPLTYPE setRevocationCheckMode (@Nullable final ERevocationCheckMode e)
+  {
+    m_eRevocationCheckMode = e;
+    return thisAsT ();
+  }
+
+  /**
+   * @return <code>true</code> if an undeterminable revocation status (e.g. unreachable CRL/OCSP
+   *         responder) leads to a rejection of the certificate. By default this is enabled (see
+   *         {@link SMPHttpResponseHandlerSigned#DEFAULT_UNKNOWN_REVOCATION_STATUS_REJECT}) which
+   *         preserves the pre-ph-commons-12.2.4 behaviour of treating unknown as revoked.
+   * @since 12.4.3
+   */
+  public final boolean isUnknownRevocationStatusReject ()
+  {
+    return m_bUnknownRevocationStatusReject;
+  }
+
+  /**
+   * Modify how to handle "unknown revocation status".
+   *
+   * @param b
+   *        <code>true</code> to reject on unknown revocation status, <code>false</code> to accept.
+   * @return this for chaining
+   * @since 12.4.3
+   */
+  @NonNull
+  public final IMPLTYPE setUnknownRevocationStatusReject (final boolean b)
+  {
+    m_bUnknownRevocationStatusReject = b;
+    return thisAsT ();
+  }
+
+  /**
    * @return The trust store to be used for verifying the signature. May be <code>null</code> if an
    *         invalid trust store is configured.
    * @since 8.1.1
@@ -333,6 +392,32 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   protected HttpClientContext createHttpContext ()
   {
     return HttpClientContext.create ();
+  }
+
+  /**
+   * Configure the provided {@link SMPHttpResponseHandlerSigned} with all the signature-related
+   * settings of this SMP client (verify signature, secure validation, revocation check mode, reject
+   * unknown revocation status). Subclasses may override to add additional configuration but should
+   * call <code>super.configureResponseHandler(aHandler)</code> to keep the defaults applied.
+   *
+   * @param aHandler
+   *        The response handler to be configured. May not be <code>null</code>.
+   * @return The same response handler for chaining. Never <code>null</code>.
+   * @since 12.4.3
+   * @param <T>
+   *        Expected response type
+   */
+  @NonNull
+  @OverrideOnDemand
+  protected <T> SMPHttpResponseHandlerSigned <T> configureResponseHandler (@NonNull final SMPHttpResponseHandlerSigned <T> aHandler)
+  {
+    ValueEnforcer.notNull (aHandler, "Handler");
+
+    aHandler.setVerifySignature (m_bVerifySignature);
+    aHandler.setSecureValidation (m_bSecureValidation);
+    aHandler.setRevocationCheckMode (m_eRevocationCheckMode);
+    aHandler.setUnknownRevocationStatusReject (m_bUnknownRevocationStatusReject);
+    return aHandler;
   }
 
   /**

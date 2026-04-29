@@ -18,8 +18,12 @@ package com.helger.smpclient.peppol;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.time.Month;
+
+import javax.xml.crypto.KeySelectorException;
+import javax.xml.crypto.dsig.XMLSignatureException;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -30,6 +34,7 @@ import com.helger.datetime.helper.PDTFactory;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 import com.helger.peppol.security.PeppolTrustStores.Config2018;
+import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.smpclient.httpclient.SMPHttpResponseHandlerSigned;
 import com.helger.smpclient.peppol.marshal.SMPMarshallerSignedServiceMetadataType;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
@@ -65,6 +70,20 @@ public final class SignedServiceMetadataTypeFuncTest
     // Certificate expired 2021-03-01
     aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2021, Month.JANUARY, 1));
 
+    // Certificate was explicitly revoked in 2026-04
+    try
+    {
+      SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector, false);
+      fail ();
+    }
+    catch (final XMLSignatureException ex)
+    {
+      assertTrue (ex.getCause () instanceof KeySelectorException);
+    }
+
+    // For no revocation check
+    aKeySelector.setRevocationCheckMode (ERevocationCheckMode.NONE);
+
     final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector, false);
     assertTrue (eSuccess.isFailure ());
   }
@@ -90,6 +109,20 @@ public final class SignedServiceMetadataTypeFuncTest
     // Certificate expired 2021-03-01
     aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2021, Month.JANUARY, 1));
 
+    // Certificate was explicitly revoked in 2026-04
+    try
+    {
+      SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector, false);
+      fail ();
+    }
+    catch (final XMLSignatureException ex)
+    {
+      assertTrue (ex.getCause () instanceof KeySelectorException);
+    }
+
+    // For no revocation check
+    aKeySelector.setRevocationCheckMode (ERevocationCheckMode.NONE);
+
     final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector, false);
     assertTrue (eSuccess.isSuccess ());
   }
@@ -114,6 +147,20 @@ public final class SignedServiceMetadataTypeFuncTest
 
     // Certificate expired 2020-08-05
     aKeySelector.setValidationDateTime (PDTFactory.createLocalDateTime (2020, Month.AUGUST, 1));
+
+    // Certificate was explicitly revoked in 2026-04
+    try
+    {
+      SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector, false);
+      fail ();
+    }
+    catch (final XMLSignatureException ex)
+    {
+      assertTrue (ex.getCause () instanceof KeySelectorException);
+    }
+
+    // For no revocation check
+    aKeySelector.setRevocationCheckMode (ERevocationCheckMode.NONE);
 
     final ESuccess eSuccess = SMPHttpResponseHandlerSigned.checkSignature (aDocument, aKeySelector, false);
     assertTrue (eSuccess.isSuccess ());

@@ -45,6 +45,7 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
 import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
 import com.helger.xml.serialize.read.DOMReader;
@@ -64,12 +65,22 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 {
   public static final boolean DEFAULT_VERIFY_SIGNATURE = true;
   public static final boolean DEFAULT_SECURE_VALIDATION = true;
+  /**
+   * Default for {@link #isUnknownRevocationStatusReject()}, mirrored from
+   * {@link TrustStoreBasedX509KeySelector#DEFAULT_TREAT_UNKNOWN_REVOCATION_STATUS_AS_REJECTION}.
+   *
+   * @since 12.4.3
+   */
+  public static final boolean DEFAULT_UNKNOWN_REVOCATION_STATUS_REJECT = TrustStoreBasedX509KeySelector.DEFAULT_TREAT_UNKNOWN_REVOCATION_STATUS_AS_REJECTION;
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
 
   private final GenericJAXBMarshaller <T> m_aMarshaller;
   private boolean m_bVerifySignature = DEFAULT_VERIFY_SIGNATURE;
   private boolean m_bSecureValidation = DEFAULT_SECURE_VALIDATION;
   private KeyStore m_aTrustStore;
+  // null means "use default from CertificateRevocationCheckerDefaults"
+  private ERevocationCheckMode m_eRevocationCheckMode;
+  private boolean m_bUnknownRevocationStatusReject = DEFAULT_UNKNOWN_REVOCATION_STATUS_REJECT;
 
   /**
    * Constructor
@@ -170,6 +181,61 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   public final SMPHttpResponseHandlerSigned <T> setTrustStore (@Nullable final KeyStore aTrustStore)
   {
     m_aTrustStore = aTrustStore;
+    return this;
+  }
+
+  /**
+   * @return The revocation check mode to use when verifying the SMP response certificate.
+   *         <code>null</code> means "use the JVM-wide default from
+   *         {@link com.helger.security.revocation.CertificateRevocationCheckerDefaults}".
+   * @since 12.4.3
+   */
+  @Nullable
+  public final ERevocationCheckMode getRevocationCheckMode ()
+  {
+    return m_eRevocationCheckMode;
+  }
+
+  /**
+   * Set the revocation check mode to use when verifying the SMP response certificate.
+   *
+   * @param e
+   *        The mode to use. <code>null</code> means "use the JVM-wide default from
+   *        {@link com.helger.security.revocation.CertificateRevocationCheckerDefaults}".
+   * @return this for chaining
+   * @since 12.4.3
+   */
+  @NonNull
+  public final SMPHttpResponseHandlerSigned <T> setRevocationCheckMode (@Nullable final ERevocationCheckMode e)
+  {
+    m_eRevocationCheckMode = e;
+    return this;
+  }
+
+  /**
+   * @return <code>true</code> if an undeterminable revocation status (e.g. unreachable CRL/OCSP
+   *         responder) leads to a rejection of the certificate. By default this is enabled (see
+   *         {@link #DEFAULT_UNKNOWN_REVOCATION_STATUS_REJECT}) which preserves the
+   *         pre-ph-commons-12.2.4 behaviour of treating unknown as revoked.
+   * @since 12.4.3
+   */
+  public final boolean isUnknownRevocationStatusReject ()
+  {
+    return m_bUnknownRevocationStatusReject;
+  }
+
+  /**
+   * Modify how to handle "unknown revocation status".
+   *
+   * @param b
+   *        <code>true</code> to reject on unknown revocation status, <code>false</code> to accept.
+   * @return this for chaining
+   * @since 12.4.3
+   */
+  @NonNull
+  public final SMPHttpResponseHandlerSigned <T> setUnknownRevocationStatusReject (final boolean b)
+  {
+    m_bUnknownRevocationStatusReject = b;
     return this;
   }
 
@@ -278,19 +344,18 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   @NonNull
-  private static ESuccess _checkSignature (@NonNull @WillNotClose final InputStream aEntityInputStream,
-                                           @NonNull final KeyStore aTrustStore,
-                                           final boolean bSecureValidation) throws MarshalException,
-                                                                            XMLSignatureException
+  private ESuccess _checkSignature (@NonNull @WillNotClose final InputStream aEntityInputStream) throws MarshalException,
+                                                                                                 XMLSignatureException
   {
     // Get response from servlet
     final Document aDocument = DOMReader.readXMLDOM (aEntityInputStream);
     if (aDocument == null)
       throw new IllegalArgumentException ("The SMP response is not XML");
 
-    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (aTrustStore);
+    final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (m_aTrustStore).setRevocationCheckMode (m_eRevocationCheckMode)
+                                                                                                          .setUnknownRevocationStatusReject (m_bUnknownRevocationStatusReject);
 
-    return checkSignature (aDocument, aKeySelector, bSecureValidation);
+    return checkSignature (aDocument, aKeySelector, m_bSecureValidation);
   }
 
   @Override
@@ -313,7 +378,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       try (final InputStream aIS = new NonBlockingByteArrayInputStream (aResponseBytes))
       {
         // Check the signature
-        if (_checkSignature (aIS, m_aTrustStore, m_bSecureValidation).isFailure ())
+        if (_checkSignature (aIS).isFailure ())
           throw new SMPClientBadResponseException ("Signature returned from SMP server was not valid with " +
                                                    (m_bSecureValidation ? "secure" : "regular") +
                                                    " validation");
