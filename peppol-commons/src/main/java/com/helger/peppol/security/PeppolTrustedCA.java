@@ -24,35 +24,26 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.security.certificate.TrustedCAChecker;
 
 /**
- * This class contains all the trusted CAs in Peppol. Note: the G2 CAs (from
- * {@link PeppolTrustStores.Config2018}) are deprecated. Since 12.4.2 the 2025 truststores no
- * longer contain G2 CAs.
+ * This class contains all the trusted CAs in Peppol.<br>
+ * Note: the G2 CAs (from PeppolTrustStores.Config2018) are deprecated. Since 12.4.2 the 2025
+ * truststores no longer contain G2 CAs.
  *
  * @author Philip Helger
  * @since 10.2.0
  */
 @ThreadSafe
-@SuppressWarnings ("deprecation")
 public final class PeppolTrustedCA
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolTrustedCA.class);
 
-  private static final TrustedCAChecker TEST_AP = new TrustedCAChecker (PeppolTrustStores.Config2018.CERTIFICATE_PILOT_AP,
-                                                                        PeppolTrustStores.Config2025.CERTIFICATE_TEST_AP);
-  private static final TrustedCAChecker PROD_AP = new TrustedCAChecker (PeppolTrustStores.Config2018.CERTIFICATE_PRODUCTION_AP,
-                                                                        PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_AP);
-  private static final TrustedCAChecker ALL_AP = new TrustedCAChecker (PeppolTrustStores.Config2018.CERTIFICATE_PILOT_AP,
-                                                                       PeppolTrustStores.Config2025.CERTIFICATE_TEST_AP,
-                                                                       PeppolTrustStores.Config2018.CERTIFICATE_PRODUCTION_AP,
+  private static final TrustedCAChecker TEST_AP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_TEST_AP);
+  private static final TrustedCAChecker PROD_AP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_AP);
+  private static final TrustedCAChecker ALL_AP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_TEST_AP,
                                                                        PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_AP);
 
-  private static final TrustedCAChecker TEST_SMP = new TrustedCAChecker (PeppolTrustStores.Config2018.CERTIFICATE_PILOT_SMP,
-                                                                         PeppolTrustStores.Config2025.CERTIFICATE_TEST_SMP);
-  private static final TrustedCAChecker PROD_SMP = new TrustedCAChecker (PeppolTrustStores.Config2018.CERTIFICATE_PRODUCTION_SMP,
-                                                                         PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_SMP);
-  private static final TrustedCAChecker ALL_SMP = new TrustedCAChecker (PeppolTrustStores.Config2018.CERTIFICATE_PILOT_SMP,
-                                                                        PeppolTrustStores.Config2025.CERTIFICATE_TEST_SMP,
-                                                                        PeppolTrustStores.Config2018.CERTIFICATE_PRODUCTION_SMP,
+  private static final TrustedCAChecker TEST_SMP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_TEST_SMP);
+  private static final TrustedCAChecker PROD_SMP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_SMP);
+  private static final TrustedCAChecker ALL_SMP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_TEST_SMP,
                                                                         PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_SMP);
 
   private PeppolTrustedCA ()

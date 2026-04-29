@@ -25,6 +25,7 @@ import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 import java.time.Month;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,11 +95,11 @@ public class PeppolTrustedCATest
   }
 
   @Test
-  public void testRealAPCertG2 () throws Exception
+  public void testRealAPCertG3 () throws Exception
   {
     // As keystores are usually not in the repository, this test is no-op if the
     // file is not present
-    final File fAP = new File ("src/test/resources/keystores/test-ap-2025-g2.p12");
+    final File fAP = new File ("src/test/resources/keystores/test-ap-2025-g3.p12");
     if (fAP.exists ())
     {
       LOGGER.info ("Checking the local AP test certificate");
@@ -116,25 +117,25 @@ public class PeppolTrustedCATest
       LOGGER.info ("Checking with OCSP_BEFORE_CRL");
       e = PeppolTrustedCA.peppolTestAP ()
                          .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP_BEFORE_CRL);
-      assertEquals (ECertificateCheckResult.REVOKED, e);
+      assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with OCSP");
       e = PeppolTrustedCA.peppolTestAP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP);
-      assertEquals (ECertificateCheckResult.REVOKED, e);
+      assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL_BEFORE_OCSP");
       e = PeppolTrustedCA.peppolTestAP ()
                          .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL_BEFORE_OCSP);
-      assertEquals (ECertificateCheckResult.REVOKED, e);
+      assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL");
       e = PeppolTrustedCA.peppolTestAP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
-      assertEquals (ECertificateCheckResult.REVOKED, e);
+      assertEquals (ECertificateCheckResult.VALID, e);
 
       // Try again with CRL only to ensure it's not downloaded again
       LOGGER.info ("Checking with CRL");
       e = PeppolTrustedCA.peppolTestAP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
-      assertEquals (ECertificateCheckResult.REVOKED, e);
+      assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with NONE");
       e = PeppolTrustedCA.peppolTestAP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.NONE);
@@ -145,11 +146,11 @@ public class PeppolTrustedCATest
   }
 
   @Test
-  public void testRealSMPCertG2 () throws Exception
+  public void testRealSMPCertG3 () throws Exception
   {
     // As keystores are usually not in the repository, this test is no-op if the
     // file is not present
-    final File fSMP = new File ("src/test/resources/keystores/test-smp-2025-g2.p12");
+    final File fSMP = new File ("src/test/resources/keystores/test-smp-2025-g3.p12");
     if (fSMP.exists ())
     {
       LOGGER.info ("Checking the local SMP test certificate");
@@ -167,20 +168,20 @@ public class PeppolTrustedCATest
       LOGGER.info ("Checking with OCSP_BEFORE_CRL");
       e = PeppolTrustedCA.peppolTestSMP ()
                          .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP_BEFORE_CRL);
-      assertEquals (ECertificateCheckResult.REVOKED, e);
+      assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with OCSP");
       e = PeppolTrustedCA.peppolTestSMP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.OCSP);
-      assertEquals (ECertificateCheckResult.REVOKED, e);
+      assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL_BEFORE_OCSP");
       e = PeppolTrustedCA.peppolTestSMP ()
                          .checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL_BEFORE_OCSP);
-      assertEquals (ECertificateCheckResult.REVOKED, e);
+      assertEquals (ECertificateCheckResult.VALID, e);
 
       LOGGER.info ("Checking with CRL");
       e = PeppolTrustedCA.peppolTestSMP ().checkCertificate (aCert, null, ETriState.FALSE, ERevocationCheckMode.CRL);
-      assertEquals (ECertificateCheckResult.REVOKED, e);
+      assertEquals (ECertificateCheckResult.VALID, e);
 
       // Try again with CRL only to ensure it's not downloaded again
       LOGGER.info ("Checking with CRL");
@@ -196,6 +197,7 @@ public class PeppolTrustedCATest
   }
 
   @Test
+  @Ignore ("Ignored per 2026-04 as the example PEM is a G2 and therefore no longer trusted")
   public void testCheckRevoked ()
   {
     final X509Certificate aCert = new CertificateDecodeHelper ().source (StreamHelper.getAllBytes (new ClassPathResource ("external/peppol-ap-cert-expired.pem")))
