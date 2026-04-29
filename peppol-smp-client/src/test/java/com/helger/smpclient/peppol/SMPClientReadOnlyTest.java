@@ -35,6 +35,7 @@ import java.util.function.BiFunction;
 
 import javax.xml.crypto.dsig.XMLSignatureException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.base.state.ETriState;
@@ -448,6 +449,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  @Ignore ("Since 2026-04-29 until the Testbed EP gets an updated G3 revoked cert")
   public void testReceiverHasRevokedAPCert () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
