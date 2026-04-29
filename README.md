@@ -351,6 +351,13 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.4.4 - 2026-04-29
+* Renamed the certificate-check setting introduced in 12.4.3 to use standard PKI "revocation soft fail" terminology:
+  * `TrustStoreBasedX509KeySelector.DEFAULT_TREAT_UNKNOWN_REVOCATION_STATUS_AS_REJECTION` was removed
+  * `TrustStoreBasedX509KeySelector.isUnknownRevocationStatusReject()` / `setUnknownRevocationStatusReject(boolean)` were renamed to `isAllowRevocationSoftFail()` / `setAllowRevocationSoftFail(boolean)` with **inverted** boolean semantics
+  * Same rename applied on `SMPHttpResponseHandlerSigned` and `AbstractGenericSMPClient`
+* The default value for soft fail is now taken from `CertificateRevocationCheckerDefaults.isAllowSoftFail ()`
+
 v12.4.3 - 2026-04-29
 * Requires ph-commons 12.2.4 or later
 * `TrustStoreBasedX509KeySelector` got new settings `revocationCheckMode` and `unknownRevocationStatusReject` to control how the new ph-security 12.2.4 `ECertificateCheckResult.REVOCATION_STATUS_UNKNOWN` is handled. Default for `unknownRevocationStatusReject` is `true`, preserving the pre-12.2.4 behaviour of treating an undeterminable revocation status as "revoked"

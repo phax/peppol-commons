@@ -56,14 +56,13 @@ import com.helger.security.revocation.RevocationCheckBuilder;
  */
 public final class TrustStoreBasedX509KeySelector extends KeySelector
 {
-  public static final boolean DEFAULT_TREAT_UNKNOWN_REVOCATION_STATUS_AS_REJECTION = true;
   private static final Logger LOGGER = LoggerFactory.getLogger (TrustStoreBasedX509KeySelector.class);
 
   private final KeyStore m_aTrustStore;
   private LocalDateTime m_aValidationDateTime;
   // null means "use default"
   private ERevocationCheckMode m_eRevocationCheckMode;
-  private boolean m_bUnknownRevocationStatusReject = DEFAULT_TREAT_UNKNOWN_REVOCATION_STATUS_AS_REJECTION;
+  private boolean m_bAllowRevocationSoftFail = CertificateRevocationCheckerDefaults.isAllowSoftFail ();
 
   /**
    * Constructor
@@ -132,30 +131,31 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
   }
 
   /**
-   * @return <code>true</code> if an unknown revocation status should lead to a rejection,
-   *         <code>false</code> if it should be treated as acceptance. The default is
-   *         {@link #DEFAULT_TREAT_UNKNOWN_REVOCATION_STATUS_AS_REJECTION} which preserves the
-   *         pre-ph-commons-12.2.4 behaviour of treating an undeterminable revocation status as
-   *         "revoked".
-   * @since 12.4.3
+   * @return <code>true</code> if an undeterminable revocation status (e.g. an unreachable CRL
+   *         distribution point or OCSP responder) should be treated as "revocation soft fail" — the
+   *         certificate is accepted in favour of the doubt. <code>false</code> means "revocation
+   *         hard fail" — the certificate is rejected. The default is taken from
+   *         {@link CertificateRevocationCheckerDefaults#isAllowSoftFail()}.
+   * @since 12.4.4
    */
-  public boolean isUnknownRevocationStatusReject ()
+  public boolean isAllowRevocationSoftFail ()
   {
-    return m_bUnknownRevocationStatusReject;
+    return m_bAllowRevocationSoftFail;
   }
 
   /**
-   * Modify how to handle "unknown revocation status".
+   * Modify how an undeterminable revocation status is handled.
    *
    * @param b
-   *        <code>true</code> to reject on unknown revocation status, <code>false</code> to accept.
+   *        <code>true</code> to allow "revocation soft fail" (accept the certificate),
+   *        <code>false</code> for "revocation hard fail" (reject the certificate).
    * @return this for chaining
-   * @since 12.4.3
+   * @since 12.4.4
    */
   @NonNull
-  public TrustStoreBasedX509KeySelector setUnknownRevocationStatusReject (final boolean b)
+  public TrustStoreBasedX509KeySelector setAllowRevocationSoftFail (final boolean b)
   {
-    m_bUnknownRevocationStatusReject = b;
+    m_bAllowRevocationSoftFail = b;
     return this;
   }
 
@@ -250,8 +250,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
                            ")");
               if (eCheckResult.isInvalid ())
               {
-                if (eCheckResult != ECertificateCheckResult.REVOCATION_STATUS_UNKNOWN ||
-                    m_bUnknownRevocationStatusReject)
+                if (eCheckResult != ECertificateCheckResult.REVOCATION_STATUS_UNKNOWN || !m_bAllowRevocationSoftFail)
                   throw new KeySelectorException ("Failed to verify the contained SMP certificate (issuer '" +
                                                   aCertificate.getIssuerX500Principal ().getName () +
                                                   "'; subject '" +
@@ -259,7 +258,7 @@ public final class TrustStoreBasedX509KeySelector extends KeySelector
                                                   "') with result " +
                                                   eCheckResult);
 
-                LOGGER.warn ("Failed to verify the revocation status, so in favour of the doubt - accepting it");
+                LOGGER.warn ("Failed to verify the revocation status, but revocation soft fail is enabled - accepting the certificate");
               }
 
               final PublicKey aPublicKey = aCertificate.getPublicKey ();

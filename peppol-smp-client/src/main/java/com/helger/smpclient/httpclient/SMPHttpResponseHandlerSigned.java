@@ -45,6 +45,7 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.ESuccess;
 import com.helger.jaxb.GenericJAXBMarshaller;
+import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.smpclient.exception.SMPClientBadResponseException;
 import com.helger.smpclient.security.TrustStoreBasedX509KeySelector;
@@ -65,13 +66,6 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
 {
   public static final boolean DEFAULT_VERIFY_SIGNATURE = true;
   public static final boolean DEFAULT_SECURE_VALIDATION = true;
-  /**
-   * Default for {@link #isUnknownRevocationStatusReject()}, mirrored from
-   * {@link TrustStoreBasedX509KeySelector#DEFAULT_TREAT_UNKNOWN_REVOCATION_STATUS_AS_REJECTION}.
-   *
-   * @since 12.4.3
-   */
-  public static final boolean DEFAULT_UNKNOWN_REVOCATION_STATUS_REJECT = TrustStoreBasedX509KeySelector.DEFAULT_TREAT_UNKNOWN_REVOCATION_STATUS_AS_REJECTION;
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpResponseHandlerSigned.class);
 
   private final GenericJAXBMarshaller <T> m_aMarshaller;
@@ -80,7 +74,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   private KeyStore m_aTrustStore;
   // null means "use default from CertificateRevocationCheckerDefaults"
   private ERevocationCheckMode m_eRevocationCheckMode;
-  private boolean m_bUnknownRevocationStatusReject = DEFAULT_UNKNOWN_REVOCATION_STATUS_REJECT;
+  private boolean m_bAllowRevocationSoftFail = CertificateRevocationCheckerDefaults.isAllowSoftFail ();
 
   /**
    * Constructor
@@ -213,29 +207,31 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   }
 
   /**
-   * @return <code>true</code> if an undeterminable revocation status (e.g. unreachable CRL/OCSP
-   *         responder) leads to a rejection of the certificate. By default this is enabled (see
-   *         {@link #DEFAULT_UNKNOWN_REVOCATION_STATUS_REJECT}) which preserves the
-   *         pre-ph-commons-12.2.4 behaviour of treating unknown as revoked.
-   * @since 12.4.3
+   * @return <code>true</code> if an undeterminable revocation status (e.g. an unreachable CRL
+   *         distribution point or OCSP responder) is treated as "revocation soft fail" — the
+   *         certificate is accepted in favour of the doubt. <code>false</code> means "revocation
+   *         hard fail" — the certificate is rejected. The default is taken from.
+   *         {@link CertificateRevocationCheckerDefaults#isAllowSoftFail()}.
+   * @since 12.4.4
    */
-  public final boolean isUnknownRevocationStatusReject ()
+  public final boolean isAllowRevocationSoftFail ()
   {
-    return m_bUnknownRevocationStatusReject;
+    return m_bAllowRevocationSoftFail;
   }
 
   /**
-   * Modify how to handle "unknown revocation status".
+   * Modify how an undeterminable revocation status is handled.
    *
    * @param b
-   *        <code>true</code> to reject on unknown revocation status, <code>false</code> to accept.
+   *        <code>true</code> to allow "revocation soft fail" (accept the certificate),
+   *        <code>false</code> for "revocation hard fail" (reject the certificate).
    * @return this for chaining
-   * @since 12.4.3
+   * @since 12.4.4
    */
   @NonNull
-  public final SMPHttpResponseHandlerSigned <T> setUnknownRevocationStatusReject (final boolean b)
+  public final SMPHttpResponseHandlerSigned <T> setAllowRevocationSoftFail (final boolean b)
   {
-    m_bUnknownRevocationStatusReject = b;
+    m_bAllowRevocationSoftFail = b;
     return this;
   }
 
@@ -353,7 +349,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       throw new IllegalArgumentException ("The SMP response is not XML");
 
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (m_aTrustStore).setRevocationCheckMode (m_eRevocationCheckMode)
-                                                                                                          .setUnknownRevocationStatusReject (m_bUnknownRevocationStatusReject);
+                                                                                                          .setAllowRevocationSoftFail (m_bAllowRevocationSoftFail);
 
     return checkSignature (aDocument, aKeySelector, m_bSecureValidation);
   }
