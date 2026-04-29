@@ -351,7 +351,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.4.3 - work in progress
+v12.4.3 - 2026-04-29
 * Requires ph-commons 12.2.4 or later
 * `TrustStoreBasedX509KeySelector` got new settings `revocationCheckMode` and `unknownRevocationStatusReject` to control how the new ph-security 12.2.4 `ECertificateCheckResult.REVOCATION_STATUS_UNKNOWN` is handled. Default for `unknownRevocationStatusReject` is `true`, preserving the pre-12.2.4 behaviour of treating an undeterminable revocation status as "revoked"
 * Added the same two settings on `SMPHttpResponseHandlerSigned` and `AbstractGenericSMPClient` so they can be configured per SMP client and are forwarded into the response handler / key selector
