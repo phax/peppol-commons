@@ -45,6 +45,7 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.dns.naptr.NaptrLookup;
+import com.helger.dns.naptr.NaptrLookupResult;
 import com.helger.dns.naptr.NaptrResolver;
 import com.helger.peppol.sml.ISMLInfo;
 import com.helger.peppolid.IParticipantIdentifier;
@@ -333,18 +334,16 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
     {
       // Now do the NAPTR resolving
       final String sServiceName = getNAPTRServiceName ();
+      final NaptrLookupResult aLookupResult;
       try
       {
-        sResolvedNAPTR = NaptrResolver.builder ()
-                                      .domainName (sBuildDomainName)
-                                      .naptrRecords (NaptrLookup.builder ()
-                                                                .domainName (sBuildDomainName)
-                                                                .customDNSServers (customDNSServers ())
-                                                                .maxRetries (1)
-                                                                .debugMode (m_bUseNaptrDebug))
-                                      .serviceName (sServiceName)
-                                      .build ()
-                                      .resolveUNAPTR ();
+        aLookupResult = NaptrLookup.builder ()
+                                   .domainName (sBuildDomainName)
+                                   .customDNSServers (customDNSServers ())
+                                   .maxRetries (1)
+                                   .debugMode (m_bUseNaptrDebug)
+                                   .build ()
+                                   .lookupResult ();
       }
       catch (final TextParseException ex)
       {
@@ -353,15 +352,46 @@ public abstract class AbstractBDXLURLProvider implements IBDXLURLProvider
                                              ex);
       }
 
+      // Distinguish technical failures (retryable, infrastructure) from functional not-found
+      // (participant simply not registered) — see ENaptrLookupStatus
+      if (aLookupResult.isTechnicalFailure ())
+      {
+        throw new SMPDNSResolutionException (EErrorCode.DNS_TECHNICAL_FAILURE,
+                                             "Technical DNS failure resolving '" +
+                                                                               sBuildDomainName +
+                                                                               "' [" +
+                                                                               aLookupResult.getStatus () +
+                                                                               "]: " +
+                                                                               aLookupResult.getErrorMessage ());
+      }
+
+      if (!aLookupResult.isSuccess ())
+      {
+        // HOST_NOT_FOUND or TYPE_NOT_FOUND — addressee is not registered in the SML
+        throw new SMPDNSResolutionException (EErrorCode.PARTICIPANT_NOT_REGISTERED,
+                                             "Participant DNS name '" +
+                                                                                    sBuildDomainName +
+                                                                                    "' is not registered [" +
+                                                                                    aLookupResult.getStatus () +
+                                                                                    "]");
+      }
+
+      sResolvedNAPTR = NaptrResolver.builder ()
+                                    .domainName (sBuildDomainName)
+                                    .naptrRecords (aLookupResult.getRecords ())
+                                    .serviceName (sServiceName)
+                                    .build ()
+                                    .resolveUNAPTR ();
+
       if (sResolvedNAPTR == null)
       {
-        // Since 6.2.0 this a checked exception
-        throw new SMPDNSResolutionException (EErrorCode.DNS_RESOLVING_ERROR,
-                                             "Failed to resolve '" +
-                                                                             sBuildDomainName +
-                                                                             "' and service '" +
-                                                                             sServiceName +
-                                                                             "' to a DNS U-NAPTR");
+        // Records exist but none matched the requested U-NAPTR service name
+        throw new SMPDNSResolutionException (EErrorCode.NO_MATCHING_SMP_SERVICE,
+                                             "Domain '" +
+                                                                                 sBuildDomainName +
+                                                                                 "' has NAPTR records but none match service '" +
+                                                                                 sServiceName +
+                                                                                 "'");
       }
 
       LOGGER.info ("Resolved domain name '" +

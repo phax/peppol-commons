@@ -46,13 +46,40 @@ public class SMPDNSResolutionException extends Exception
      */
     DOMAIN_NAME_SYNTAX_ERROR ("dname-err"),
     /**
-     * Error resolving the necessary DNS record.
+     * Generic DNS resolution failure. Retained for backwards compatibility; new code should prefer
+     * one of the more specific codes {@link #DNS_TECHNICAL_FAILURE},
+     * {@link #PARTICIPANT_NOT_REGISTERED} or {@link #NO_MATCHING_SMP_SERVICE}.
      */
-    DNS_RESOLVING_ERROR ("dnsresolve-err"),
+    @Deprecated (forRemoval = true, since = "12.4.5")
+    DNS_RESOLVING_ERROR("dnsresolve-err"),
     /**
      * The resolved SMP URI is invalid.
      */
-    RESOLVED_URI_SYNTAX_ERROR ("resolveduri-err");
+    RESOLVED_URI_SYNTAX_ERROR ("resolveduri-err"),
+    /**
+     * The DNS lookup failed for technical reasons (DNS server unreachable, transient network error,
+     * server-side data error). The participant may or may not be registered — the lookup could not
+     * determine that. Retrying the lookup later may succeed.
+     *
+     * @since 12.4.5
+     */
+    DNS_TECHNICAL_FAILURE ("dns-tech-err"),
+    /**
+     * The participant's DNS name is not registered (NXDOMAIN) or has no NAPTR records (NODATA).
+     * This is a "functional not-found" — the participant is genuinely not registered in the SML.
+     * Retrying the lookup is unlikely to help.
+     *
+     * @since 12.4.5
+     */
+    PARTICIPANT_NOT_REGISTERED ("participant-not-found"),
+    /**
+     * The participant is registered (NAPTR records exist) but none of the records match the
+     * required U-NAPTR service name (e.g. <code>Meta:SMP</code>). The participant is not configured
+     * for this service profile.
+     *
+     * @since 12.4.5
+     */
+    NO_MATCHING_SMP_SERVICE ("no-smp-service");
 
     @NonNull
     private final String m_sID;
@@ -67,6 +94,28 @@ public class SMPDNSResolutionException extends Exception
     public String getID ()
     {
       return m_sID;
+    }
+
+    /**
+     * @return <code>true</code> if the underlying failure is potentially transient and the caller
+     *         could retry the lookup. Currently <code>true</code> only for
+     *         {@link #DNS_TECHNICAL_FAILURE}.
+     * @since 12.4.5
+     */
+    public boolean isRetryable ()
+    {
+      return this == DNS_TECHNICAL_FAILURE;
+    }
+
+    /**
+     * @return <code>true</code> if the failure indicates that the participant is genuinely not
+     *         registered in the SML. Currently <code>true</code> only for
+     *         {@link #PARTICIPANT_NOT_REGISTERED}.
+     * @since 12.4.5
+     */
+    public boolean isParticipantUnknown ()
+    {
+      return this == PARTICIPANT_NOT_REGISTERED;
     }
 
     @Nullable
