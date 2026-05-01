@@ -351,6 +351,14 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.5.0 - work in progress
+* Removed the default value of `SMPClientConfiguration.getTrustStoreType` - now it must be provided via `smpclient.truststore.type` configuration property.
+* Removed support for the following SMP client configuration properties:
+  * `truststore.type` - use `smpclient.truststore.type`
+  * `truststore.path` - use `smpclient.truststore.path`
+  * `truststore.location` - use `smpclient.truststore.path`
+  * `truststore.password` - use `smpclient.truststore.password`
+
 v12.4.4 - 2026-04-29
 * Renamed the certificate-check setting introduced in 12.4.3 to use standard PKI "revocation soft fail" terminology:
   * `TrustStoreBasedX509KeySelector.DEFAULT_TREAT_UNKNOWN_REVOCATION_STATUS_AS_REJECTION` was removed

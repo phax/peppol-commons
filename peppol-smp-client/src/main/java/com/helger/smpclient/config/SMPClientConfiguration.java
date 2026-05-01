@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.Immutable;
-import com.helger.annotation.misc.ChangeNextMajorRelease;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
@@ -60,7 +59,6 @@ import com.helger.security.keystore.KeyStoreHelper;
  * @author Philip Helger
  */
 @Immutable
-@SuppressWarnings ("deprecation")
 public final class SMPClientConfiguration
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (SMPClientConfiguration.class);
@@ -135,19 +133,14 @@ public final class SMPClientConfiguration
 
   /**
    * @return The truststore type as specified in the configuration file by the key
-   *         <code>smpclient.truststore.type</code>. If none is present
-   *         {@link com.helger.peppol.security.PeppolTrustStores.Config2018#TRUSTSTORE_TYPE} (JKS)
-   *         is returned as a default. Note: Config2018 and its G2 CAs are deprecated - prefer
-   *         using {@link com.helger.peppol.security.PeppolTrustStores.Config2025#TRUSTSTORE_TYPE}
-   *         (PKCS12) instead.
+   *         <code>smpclient.truststore.type</code> or <code>null</code>.
    * @since 6.0.0
    */
-  @NonNull
-  @ChangeNextMajorRelease ("Change default to PKCS12")
+  @Nullable
   public static EKeyStoreType getTrustStoreType ()
   {
-    final String ret = getConfig ().getAsStringOrFallback ("smpclient.truststore.type", "truststore.type");
-    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (ret, PeppolTrustStores.Config2018.TRUSTSTORE_TYPE);
+    final String ret = getConfig ().getAsString ("smpclient.truststore.type");
+    return EKeyStoreType.getFromIDCaseInsensitiveOrDefault (ret, null);
   }
 
   /**
@@ -158,7 +151,7 @@ public final class SMPClientConfiguration
   @NonNull
   public static String getTrustStorePath ()
   {
-    return getConfig ().getAsStringOrFallback ("smpclient.truststore.path", "truststore.path", "truststore.location");
+    return getConfig ().getAsString ("smpclient.truststore.path");
   }
 
   /**
@@ -169,7 +162,7 @@ public final class SMPClientConfiguration
   @Nullable
   public static char [] getTrustStorePasswordCharArray ()
   {
-    return getConfig ().getAsCharArrayOrFallback ("smpclient.truststore.password", "truststore.password");
+    return getConfig ().getAsCharArray ("smpclient.truststore.password");
   }
 
   /**
@@ -204,6 +197,7 @@ public final class SMPClientConfiguration
    *         on http only.
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "12.5.0")
   public static HttpHost getHttpProxy ()
   {
     final String sProxyHost = getConfig ().getAsStringOrFallback ("http.proxy.host", "http.proxyHost");
@@ -220,6 +214,7 @@ public final class SMPClientConfiguration
    * @since 5.2.5
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "12.5.0")
   public static UsernamePasswordCredentials getHttpProxyCredentials ()
   {
     final String sProxyUsername = getConfig ().getAsStringOrFallback ("http.proxy.username", "http.proxyUsername");
@@ -236,6 +231,7 @@ public final class SMPClientConfiguration
    * @since 6.2.4
    */
   @Nullable
+  @Deprecated (forRemoval = true, since = "12.5.0")
   public static String getNonProxyHosts ()
   {
     return getConfig ().getAsStringOrFallback ("http.proxy.nonProxyHosts", "http.nonProxyHosts");
@@ -249,6 +245,7 @@ public final class SMPClientConfiguration
    *         <code>true</code>.
    * @since 5.2.5
    */
+  @Deprecated (forRemoval = true, since = "12.5.0")
   public static boolean isUseDNSClientCache ()
   {
     return getConfig ().getAsBoolean ("http.useDNSClientCache", HttpClientSettings.DEFAULT_USE_DNS_CACHE);
@@ -261,6 +258,7 @@ public final class SMPClientConfiguration
    * @since 8.8.0
    */
   @NonNull
+  @Deprecated (forRemoval = true, since = "12.5.0")
   public static Timeout getConnectTimeout ()
   {
     final long nMS = getConfig ().getAsLong ("http.connect.timeout.ms", -1);
@@ -277,6 +275,7 @@ public final class SMPClientConfiguration
    * @since 8.8.0
    */
   @NonNull
+  @Deprecated (forRemoval = true, since = "12.5.0")
   public static Timeout getResponseTimeout ()
   {
     final long nMS = getConfig ().getAsLongOrFallback ("http.response.timeout.ms", -1, "http.request.timeout.ms");

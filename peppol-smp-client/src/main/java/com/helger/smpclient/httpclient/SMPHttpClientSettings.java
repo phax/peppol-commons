@@ -16,15 +16,17 @@
  */
 package com.helger.smpclient.httpclient;
 
-import java.security.GeneralSecurityException;
+import org.jspecify.annotations.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-
-import com.helger.http.security.TrustManagerTrustAll;
+import com.helger.base.CGlobal;
 import com.helger.http.tls.ETLSVersion;
+import com.helger.http.tls.TLSConfigurationMode;
 import com.helger.httpclient.HttpClientSettings;
+import com.helger.httpclient.HttpClientSettingsConfig;
 import com.helger.peppol.commons.CPeppolCommonsVersion;
+import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.smpclient.config.SMPClientConfiguration;
 
 /**
@@ -36,43 +38,34 @@ import com.helger.smpclient.config.SMPClientConfiguration;
  */
 public class SMPHttpClientSettings extends HttpClientSettings
 {
+  public static final String USER_AGENT = "phax/peppol-commons smp-client/" + CPeppolCommonsVersion.BUILD_VERSION;
+  private static final Logger LOGGER = LoggerFactory.getLogger (SMPHttpClientSettings.class);
+
   /**
    * Constructor. Initializes all settings from configuration file. Any changes made afterwards
-   *
-   * @see #resetToConfiguration()
    */
   public SMPHttpClientSettings ()
   {
-    // Currently the Peppol SMP requires to use "http" only - so no upgrade should be performed
-    setProtocolUpgradeEnabled (false);
-
     // According to the Peppol SMP specification, a client should not follow HTTP 3xx redirects - so
     // we don't (see chapter 5.1 of SMP spec 1.4.0)
     setFollowRedirects (false);
 
-    try
-    {
-      // Peppol requires TLS v1.2
-      final SSLContext aSSLContext = SSLContext.getInstance (ETLSVersion.TLS_12.getID ());
-      // But we're basically trusting all hosts - the exact list is hard to
-      // determine
-      aSSLContext.init (null, new TrustManager [] { new TrustManagerTrustAll (false) }, null);
-      setSSLContext (aSSLContext);
-    }
-    catch (final GeneralSecurityException ex)
-    {
-      throw new IllegalStateException ("Failed to initialize SSLContext for SMPHttpClientSettings", ex);
-    }
+    // TLS 1.3 is allowed in Peppol, TLS 1.2 is the minimum
+    setTLSConfigurationMode (new TLSConfigurationMode (new ETLSVersion [] { ETLSVersion.TLS_13, ETLSVersion.TLS_12 },
+                                                       CGlobal.EMPTY_STRING_ARRAY));
+
+    // Also do TLS certificate revocation check
+    setRevocationCheckMode (CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_MODE);
 
     // Set an explicit user agent
-    setUserAgent ("phax/peppol-commons smp-client/" + CPeppolCommonsVersion.BUILD_VERSION);
-
-    resetToConfiguration ();
+    setUserAgent (USER_AGENT);
   }
 
   /**
    * Overwrite all settings that can appear in the configuration file.
    */
+  @SuppressWarnings ("removal")
+  @Deprecated (forRemoval = true, since = "12.5.0")
   public final void resetToConfiguration ()
   {
     getGeneralProxy ().setProxyHost (SMPClientConfiguration.getHttpProxy ());
@@ -81,5 +74,30 @@ public class SMPHttpClientSettings extends HttpClientSettings
     setUseDNSClientCache (SMPClientConfiguration.isUseDNSClientCache ());
     setConnectTimeout (SMPClientConfiguration.getConnectTimeout ());
     setResponseTimeout (SMPClientConfiguration.getResponseTimeout ());
+  }
+
+  private void _verifySettings ()
+  {
+    if (isFollowRedirects ())
+      LOGGER.warn ("The SMP Client is configured to follow HTTP redirects - this is against the Peppol SMP specification");
+  }
+
+  @NonNull
+  @Deprecated (forRemoval = true, since = "12.5.0")
+  public static SMPHttpClientSettings fromLegacyConfiguration ()
+  {
+    final SMPHttpClientSettings ret = new SMPHttpClientSettings ();
+    ret.resetToConfiguration ();
+    ret._verifySettings ();
+    return ret;
+  }
+
+  @NonNull
+  public static SMPHttpClientSettings fromConfiguration ()
+  {
+    final SMPHttpClientSettings ret = new SMPHttpClientSettings ();
+    HttpClientSettingsConfig.assignConfigValues (ret, SMPClientConfiguration.getConfig (), "smpclient", "");
+    ret._verifySettings ();
+    return ret;
   }
 }

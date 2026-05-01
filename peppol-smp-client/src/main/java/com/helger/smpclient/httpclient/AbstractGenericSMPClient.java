@@ -123,7 +123,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   private KeyStore m_aTrustStore = DEFAULT_TRUST_STORE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private boolean m_bXMLSchemaValidation = DEFAULT_XML_SCHEMA_VALIDATION;
-  private final SMPHttpClientSettings m_aHttpClientSettings = new SMPHttpClientSettings ();
+  private final SMPHttpClientSettings m_aHttpClientSettings = SMPHttpClientSettings.fromConfiguration ();
   private Consumer <? super GenericJAXBMarshaller <?>> m_aMarshallerConsumer;
 
   /**
@@ -454,7 +454,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     }
     catch (final RuntimeException | IOException ex)
     {
-      if (GlobalDebug.isDebugMode ())
+      if (ex.getMessage () == null || GlobalDebug.isDebugMode ())
         LOGGER.error ("Error performing SMP query [debug full exception]", ex);
       else
         LOGGER.error ("Error performing SMP query: " + ex.getClass ().getName () + " - " + ex.getMessage ());
