@@ -50,7 +50,7 @@ public class SMPDNSResolutionException extends Exception
      * one of the more specific codes {@link #DNS_TECHNICAL_FAILURE},
      * {@link #PARTICIPANT_NOT_REGISTERED} or {@link #NO_MATCHING_SMP_SERVICE}.
      */
-    @Deprecated (forRemoval = true, since = "12.4.5")
+    @Deprecated (forRemoval = true, since = "12.5.0")
     DNS_RESOLVING_ERROR("dnsresolve-err"),
     /**
      * The resolved SMP URI is invalid.
@@ -61,7 +61,7 @@ public class SMPDNSResolutionException extends Exception
      * server-side data error). The participant may or may not be registered — the lookup could not
      * determine that. Retrying the lookup later may succeed.
      *
-     * @since 12.4.5
+     * @since 12.5.0
      */
     DNS_TECHNICAL_FAILURE ("dns-tech-err"),
     /**
@@ -69,7 +69,7 @@ public class SMPDNSResolutionException extends Exception
      * This is a "functional not-found" — the participant is genuinely not registered in the SML.
      * Retrying the lookup is unlikely to help.
      *
-     * @since 12.4.5
+     * @since 12.5.0
      */
     PARTICIPANT_NOT_REGISTERED ("participant-not-found"),
     /**
@@ -77,7 +77,7 @@ public class SMPDNSResolutionException extends Exception
      * required U-NAPTR service name (e.g. <code>Meta:SMP</code>). The participant is not configured
      * for this service profile.
      *
-     * @since 12.4.5
+     * @since 12.5.0
      */
     NO_MATCHING_SMP_SERVICE ("no-smp-service");
 
@@ -100,7 +100,7 @@ public class SMPDNSResolutionException extends Exception
      * @return <code>true</code> if the underlying failure is potentially transient and the caller
      *         could retry the lookup. Currently <code>true</code> only for
      *         {@link #DNS_TECHNICAL_FAILURE}.
-     * @since 12.4.5
+     * @since 12.5.0
      */
     public boolean isRetryable ()
     {
@@ -111,7 +111,7 @@ public class SMPDNSResolutionException extends Exception
      * @return <code>true</code> if the failure indicates that the participant is genuinely not
      *         registered in the SML. Currently <code>true</code> only for
      *         {@link #PARTICIPANT_NOT_REGISTERED}.
-     * @since 12.4.5
+     * @since 12.5.0
      */
     public boolean isParticipantUnknown ()
     {
