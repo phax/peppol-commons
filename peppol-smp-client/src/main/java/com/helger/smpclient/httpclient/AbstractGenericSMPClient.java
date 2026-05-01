@@ -42,6 +42,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforce.ValueEnforcer;
@@ -51,6 +52,7 @@ import com.helger.base.trait.IGenericImplTrait;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.httpclient.HttpClientManager;
+import com.helger.httpclient.IHttpClientSettings;
 import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.mime.CMimeType;
 import com.helger.security.certificate.CertificateDecodeHelper;
@@ -168,11 +170,24 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
 
   /**
    * @return The HTTP client settings to be configured. Never <code>null</code>.
+   * @see #getHttpClientSettings()
    * @since 8.0.1
    */
   @NonNull
   @ReturnsMutableObject
   public final SMPHttpClientSettings httpClientSettings ()
+  {
+    return m_aHttpClientSettings;
+  }
+
+  /**
+   * @return The read-only HTTP client settings to be configured. Never <code>null</code>.
+   * @see #httpClientSettings()
+   * @since 12.5.0
+   */
+  @NonNull
+  @ReturnsImmutableObject
+  public final IHttpClientSettings getHttpClientSettings ()
   {
     return m_aHttpClientSettings;
   }

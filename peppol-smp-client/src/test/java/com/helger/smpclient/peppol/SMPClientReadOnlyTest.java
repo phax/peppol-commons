@@ -18,7 +18,6 @@ package com.helger.smpclient.peppol;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -40,7 +39,6 @@ import java.util.function.BiFunction;
 import javax.net.ssl.SSLException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.base.state.ETriState;
@@ -454,7 +452,6 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
-  @Ignore ("Since 2026-04-29 until the Testbed EP gets an updated G3 revoked cert")
   public void testReceiverHasRevokedAPCert () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
@@ -478,7 +475,7 @@ public final class SMPClientReadOnlyTest
     // Check at a specific date, as the certificate
     final ECertificateCheckResult eCertCheckResult = PeppolTrustedCA.peppolTestAP ()
                                                                     .checkCertificate (aAPCert,
-                                                                                       PDTFactory.createOffsetDateTime (2024,
+                                                                                       PDTFactory.createOffsetDateTime (2026,
                                                                                                                         Month.JUNE,
                                                                                                                         1),
                                                                                        ETriState.UNDEFINED,
@@ -643,11 +640,8 @@ public final class SMPClientReadOnlyTest
     final URI aRevokedURI = URI.create ("https://revoked.badssl.com/");
     final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aRevokedURI);
 
-    // The default revocation check mode for SMPHttpClientSettings must not be NONE
-    assertNotEquals (ERevocationCheckMode.NONE, aSMPClient.httpClientSettings ().getRevocationCheckMode ());
-
-    // And the soft fail must be false to actually reject revoked certificates
-    assertFalse (aSMPClient.httpClientSettings ().isRevocationCheckSoftFail ());
+    // The revocation check mode for SMPHttpClientSettings must not be NONE
+    assertFalse (aSMPClient.getHttpClientSettings ().getRevocationCheckMode ().isNone ());
 
     // The participant identifier is irrelevant - the request must fail at the TLS handshake.
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");

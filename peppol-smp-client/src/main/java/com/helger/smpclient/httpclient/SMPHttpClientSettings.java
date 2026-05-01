@@ -55,7 +55,7 @@ public class SMPHttpClientSettings extends HttpClientSettings
                                                        CGlobal.EMPTY_STRING_ARRAY));
 
     // Also do TLS certificate revocation check
-    setRevocationCheckMode (CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_MODE);
+    setRevocationCheckMode (CertificateRevocationCheckerDefaults.getRevocationCheckMode ());
 
     // Set an explicit user agent
     setUserAgent (USER_AGENT);
