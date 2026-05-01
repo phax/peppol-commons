@@ -351,7 +351,8 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.5.0 - work in progress
+v12.5.0 - 2026-05-01
+* Requires ph-commons 12.2.5 or later
 * Requires ph-web 11.4.0 or later
 * Removed the default value of `SMPClientConfiguration.getTrustStoreType` - now it must be provided via `smpclient.truststore.type` configuration property.
 * Removed support for the following SMP client configuration properties:
