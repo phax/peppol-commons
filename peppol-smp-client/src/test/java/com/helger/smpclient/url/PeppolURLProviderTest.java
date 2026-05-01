@@ -43,6 +43,7 @@ import com.helger.peppolid.simple.participant.SimpleParticipantIdentifier;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("javadoc")
 @Deprecated (forRemoval = true, since = "10.3.1")
 public final class PeppolURLProviderTest
 {
