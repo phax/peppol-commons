@@ -352,12 +352,31 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 v12.5.0 - work in progress
+* Requires ph-web 11.4.0 or later
 * Removed the default value of `SMPClientConfiguration.getTrustStoreType` - now it must be provided via `smpclient.truststore.type` configuration property.
 * Removed support for the following SMP client configuration properties:
   * `truststore.type` - use `smpclient.truststore.type`
   * `truststore.path` - use `smpclient.truststore.path`
   * `truststore.location` - use `smpclient.truststore.path`
   * `truststore.password` - use `smpclient.truststore.password`
+* `SMPHttpClientSettings` was reworked to use the new ph-web `HttpClientSettingsConfig` machinery:
+  * Added new factory method `SMPHttpClientSettings.fromConfiguration ()`. `AbstractGenericSMPClient` uses this factory now.
+  * The previous behaviour is still available via `SMPHttpClientSettings.fromLegacyConfiguration ()`, but is deprecated for removal.
+  * The instance method `resetToConfiguration ()` was deprecated for removal accordingly.
+  * SMP-specific HTTP settings are now read from configuration keys with the prefix `smpclient.` (e.g. `smpclient.http.timeout.connect`, `smpclient.http.proxy.host`, `smpclient.http.tls.revocation.mode`). See the ph-web `HttpClientSettingsConfig` javadoc for the full list of supported local keys.
+  * The previously hardcoded "trust all" `TrustManager` was removed. Trust validation now uses the regular configured trust store.
+  * TLS 1.3 is now supported in addition to TLS 1.2 (TLS 1.2 remains the minimum required version).
+  * TLS certificate revocation checking is now enabled by default (using `CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_MODE`).
+  * `SMPHttpClientSettings.USER_AGENT` is now a public constant.
+* The following methods on `SMPClientConfiguration` were deprecated for removal in a future major release. They still work as before, but the corresponding values should be configured via the new `smpclient.http.*` keys instead:
+  * `getHttpProxy ()` (legacy keys: `http.proxy.host` / `http.proxyHost`, `http.proxy.port` / `http.proxyPort`)
+  * `getHttpProxyCredentials ()` (legacy keys: `http.proxy.username` / `http.proxyUsername`, `http.proxy.password` / `http.proxyPassword`)
+  * `getNonProxyHosts ()` (legacy keys: `http.proxy.nonProxyHosts` / `http.nonProxyHosts`)
+  * `isUseDNSClientCache ()` (legacy key: `http.useDNSClientCache`)
+  * `getConnectTimeout ()` (legacy key: `http.connect.timeout.ms`)
+  * `getResponseTimeout ()` (legacy keys: `http.response.timeout.ms`, `http.request.timeout.ms`)
+* `AbstractBDXLURLProvider` now uses the new `NaptrLookupResult`-based DNS resolution from ph-web 11.4.0 to distinguish between technical DNS failures, unregistered participants, and registered participants without a matching SMP service.
+* `SMPDNSResolutionException.EErrorCode` was extended with new codes `DNS_TECHNICAL_FAILURE`, `PARTICIPANT_NOT_REGISTERED` and `NO_MATCHING_SMP_SERVICE`. The pre-existing `DNS_RESOLVING_ERROR` is retained for backwards compatibility. New helpers `isRetryable ()` and `isParticipantUnknown ()` were added on `EErrorCode`.
 
 v12.4.4 - 2026-04-29
 * Renamed the certificate-check setting introduced in 12.4.3 to use standard PKI "revocation soft fail" terminology:
