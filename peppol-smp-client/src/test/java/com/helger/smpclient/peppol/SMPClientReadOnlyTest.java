@@ -17,6 +17,8 @@
 package com.helger.smpclient.peppol;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
@@ -25,14 +27,17 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.URI;
 import java.net.UnknownHostException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
+import java.security.cert.CertPathValidatorException;
 import java.security.cert.X509Certificate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.function.BiFunction;
 
+import javax.net.ssl.SSLException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 
 import org.junit.Ignore;
@@ -627,6 +632,46 @@ public final class SMPClientReadOnlyTest
     final SignedServiceMetadataType aSM = aSMPClient.getSchemeSpecificServiceMetadata (aPI,
                                                                                        EPredefinedDocumentTypeIdentifier.TRANSACTIONSTATISTICSREPORT_FDC_PEPPOL_EU_EDEC_TRNS_TRANSACTION_STATISTICS_REPORTING_1_0);
     assertNotNull (aSM);
+  }
+
+  @Test
+  public void testTLSRevocationCheckRevokedBadSSL ()
+  {
+    // Sanity check that the new default for SMPHttpClientSettings (since v12.5.0) actually
+    // performs TLS revocation checking. Target https://revoked.badssl.com/ presents a
+    // certificate that was deliberately revoked.
+    final URI aRevokedURI = URI.create ("https://revoked.badssl.com/");
+    final SMPClientReadOnly aSMPClient = new SMPClientReadOnly (aRevokedURI);
+
+    // The default revocation check mode for SMPHttpClientSettings must not be NONE
+    assertNotEquals (ERevocationCheckMode.NONE, aSMPClient.httpClientSettings ().getRevocationCheckMode ());
+
+    // And the soft fail must be false to actually reject revoked certificates
+    assertFalse (aSMPClient.httpClientSettings ().isRevocationCheckSoftFail ());
+
+    // The participant identifier is irrelevant - the request must fail at the TLS handshake.
+    final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9915:test");
+    try
+    {
+      aSMPClient.getServiceGroup (aPI);
+      fail ("Expected the TLS handshake to fail because of the revoked certificate");
+    }
+    catch (final SMPClientException ex)
+    {
+      // Walk the cause chain looking for an SSL/cert-path exception
+      Throwable t = ex;
+      boolean bIsTLSFailure = false;
+      while (t != null)
+      {
+        if (t instanceof SSLException || t instanceof CertPathValidatorException)
+        {
+          bIsTLSFailure = true;
+          break;
+        }
+        t = t.getCause ();
+      }
+      assertTrue ("Expected a TLS-related cause but got: " + ex, bIsTLSFailure);
+    }
   }
 
   @Test
