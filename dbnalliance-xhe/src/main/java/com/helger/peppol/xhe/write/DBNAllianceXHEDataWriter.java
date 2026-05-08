@@ -19,6 +19,7 @@ package com.helger.peppol.xhe.write;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.codec.base64.Base64;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.peppol.xhe.CDBNAllianceXHE;
 import com.helger.peppol.xhe.DBNAlliancePayload;
@@ -158,10 +159,26 @@ public class DBNAllianceXHEDataWriter
           aPayload.setProfileID (aProfile);
         }
 
-        // Payload content data
+        // Payload content data - one of XML / Text / Binary
         {
           final XHE10PayloadContentType aContent = new XHE10PayloadContentType ();
-          aContent.addContent (aDataPayload.getPayloadContent ());
+          if (aDataPayload.hasPayloadContentXML ())
+          {
+            // Apex XML element. Returns a clone, safe to use directly.
+            aContent.addContent (aDataPayload.getPayloadContent ());
+          }
+          else
+            if (aDataPayload.hasPayloadContentText ())
+            {
+              // XML serializer takes care of escaping any special markup characters
+              aContent.addContent (aDataPayload.getPayloadContentText ());
+            }
+            else
+              if (aDataPayload.hasPayloadContentBinary ())
+              {
+                // Per XHE Envelope Profile v1.0 section 6, binary payloads MUST be Base64 encoded
+                aContent.addContent (Base64.encodeBytes (aDataPayload.getPayloadContentBinaryNoClone ()));
+              }
           aPayload.setPayloadContent (aContent);
         }
 

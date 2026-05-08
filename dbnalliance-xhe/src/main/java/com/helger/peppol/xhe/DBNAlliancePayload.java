@@ -24,6 +24,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
@@ -34,9 +35,22 @@ import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.factory.IIdentifierFactory;
 
 /**
- * This class contains all the DBNAlliance data per Payload instance, such as a
- * single invoice in a syntax neutral way. This class maps to the requirements
- * of the Exchange Header Envelope (XHE) Version 1.0 specification.
+ * This class contains all the DBNAlliance data per Payload instance, such as a single invoice in a
+ * syntax neutral way. This class maps to the requirements of the Exchange Header Envelope (XHE)
+ * Version 1.0 specification.
+ * <p>
+ * Per the XHE Envelope Profile v1.0 (section 6 - Data Model), the
+ * <code>XHE/Payloads/Payload/PayloadContent</code> element may carry one of three different kinds
+ * of content:
+ * </p>
+ * <ul>
+ * <li>An XML payload - a single apex element. Content type code MUST be
+ * <code>application/xml</code>.</li>
+ * <li>A textual payload - encoded according to XML text encoding rules (special markup characters
+ * escaped). Content type code MUST be an IANA registered MIME type.</li>
+ * <li>A binary payload - the raw bytes are Base64 encoded. Content type code MUST be an IANA
+ * registered MIME type.</li>
+ * </ul>
  *
  * @author Robinson Garcia
  * @author Philip Helger
@@ -58,7 +72,10 @@ public class DBNAlliancePayload
   private String m_sProfileID;
   private boolean m_bInstanceEncryptionIndicator = DEFAULT_INSTANCE_ENCRYPTION_INDICATOR;
   private String m_sInstanceEncryptionMethod;
-  private Element m_aPayloadContent;
+  // Only one of these three is set at any point in time
+  private Element m_aPayloadContentElement;
+  private String m_sPayloadContentText;
+  private byte [] m_aPayloadContentBinary;
 
   /**
    * Constructor
@@ -72,8 +89,8 @@ public class DBNAlliancePayload
   }
 
   /**
-   * Description - An OPTIONAL human readable description of the payload. This
-   * field is mapped to <code>XHE/Payloads/Payload/Description</code>.
+   * Description - An OPTIONAL human readable description of the payload. This field is mapped to
+   * <code>XHE/Payloads/Payload/Description</code>.
    *
    * @return Description value. May be <code>null</code>.
    */
@@ -84,8 +101,7 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return <code>true</code> if a description is present, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if a description is present, <code>false</code> if not.
    */
   public boolean hasDescription ()
   {
@@ -93,13 +109,11 @@ public class DBNAlliancePayload
   }
 
   /**
-   * Set the content of the fields that are mapped to
-   * <code>XHE/Payloads/Payload/Description</code>.
+   * Set the content of the fields that are mapped to <code>XHE/Payloads/Payload/Description</code>.
    *
    * @param s
-   *        Description - An OPTIONAL human readable description of the payload.
-   *        This field is mapped to
-   *        <code>XHE/Payloads/Payload/Description</code> .
+   *        Description - An OPTIONAL human readable description of the payload. This field is
+   *        mapped to <code>XHE/Payloads/Payload/Description</code> .
    * @return this for chaining
    */
   @NonNull
@@ -110,9 +124,8 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return The content type code list id. May be <code>null</code> if not
-   *         initialized. This field is mapped to
-   *         <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code> .
+   * @return The content type code list id. May be <code>null</code> if not initialized. This field
+   *         is mapped to <code>XHE/Payloads/Payload/ContentTypeCode/@listID</code> .
    */
   @Nullable
   public String getContentTypeCodeListID ()
@@ -121,8 +134,7 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return <code>true</code> if a Content-Type Code list ID is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a Content-Type Code list ID is present, <code>false</code> if not.
    */
   public boolean hasContentTypeCodeListID ()
   {
@@ -133,9 +145,8 @@ public class DBNAlliancePayload
    * Set the content type code list ID.
    *
    * @param s
-   *        An OPTIONAL aIribute specifying that the ContentTypeCode value is a
-   *        MIME Type. When set, this aIribute MUST be set to:
-   *        <code>MIME</code>.
+   *        An OPTIONAL aIribute specifying that the ContentTypeCode value is a MIME Type. When set,
+   *        this aIribute MUST be set to: <code>MIME</code>.
    * @return this for chaining
    */
   @NonNull
@@ -146,9 +157,8 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return The content type code value. May be <code>null</code> if not
-   *         initialized. This field is mapped to
-   *         <code>XHE/Payloads/Payload/ContentTypeCode/</code>.
+   * @return The content type code value. May be <code>null</code> if not initialized. This field is
+   *         mapped to <code>XHE/Payloads/Payload/ContentTypeCode/</code>.
    */
   @Nullable
   public String getContentTypeCode ()
@@ -157,8 +167,7 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return <code>true</code> if a Content-Type Code value is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a Content-Type Code value is present, <code>false</code> if not.
    */
   public boolean hasContentTypeCode ()
   {
@@ -166,9 +175,9 @@ public class DBNAlliancePayload
   }
 
   /**
-   * Set the content type code. The MIME Type of the payload content. For XML
-   * payload content the ContentTypeCode MUST be set to:
-   * <code>application/xml</code>
+   * Set the content type code. The MIME Type of the payload content. For XML payload content the
+   * ContentTypeCode MUST be set to: <code>application/xml</code>. For all other payload content
+   * types the ContentTypeCode MUST be set to an IANA registered MIME Type.
    *
    * @param s
    *        The Content-Type code to use. This field is mapped to
@@ -192,14 +201,13 @@ public class DBNAlliancePayload
   }
 
   /**
-   * Set the content type code. The MIME Type of the payload content. For XML
-   * payload content the ContentTypeCode MUST be set to:
-   * <code>application/xml</code>
+   * Set the content type code. The MIME Type of the payload content. For XML payload content the
+   * ContentTypeCode MUST be set to: <code>application/xml</code>. For all other payload content
+   * types the ContentTypeCode MUST be set to an IANA registered MIME Type.
    *
    * @param a
-   *        The Content-Type code to use. May neither be <code>null</code> nor
-   *        empty. This field is mapped to
-   *        <code>XHE/Payloads/Payload/ContentTypeCode/</code>.
+   *        The Content-Type code to use. May neither be <code>null</code> nor empty. This field is
+   *        mapped to <code>XHE/Payloads/Payload/ContentTypeCode/</code>.
    * @return this for chaining
    */
   @NonNull
@@ -221,9 +229,8 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return The identifier of the scheme used for the CustomizationID if one is
-   *         defined. May be <code>null</code> if not initialized. This field is
-   *         mapped to
+   * @return The identifier of the scheme used for the CustomizationID if one is defined. May be
+   *         <code>null</code> if not initialized. This field is mapped to
    *         <code>XHE/Payloads/Payload/CustomizationID/@schemeID</code>.
    */
   @Nullable
@@ -241,9 +248,8 @@ public class DBNAlliancePayload
    * Set the customization identifier scheme ID.
    *
    * @param s
-   *        The identifier of the scheme used for the CustomizationID if one is
-   *        defined. May be <code>null</code> if not initialized. This field is
-   *        mapped to
+   *        The identifier of the scheme used for the CustomizationID if one is defined. May be
+   *        <code>null</code> if not initialized. This field is mapped to
    *        <code>XHE/Payloads/Payload/CustomizationID/@schemeID</code>.
    * @return this for chaining
    */
@@ -255,10 +261,10 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return If defined in the business document profile or specification of the
-   *         payload, this MUST be set to the Customization ID as specified
-   *         therein. May be <code>null</code> if not initialized. This field is
-   *         mapped to <code>XHE/Payloads/Payload/CustomizationID/</code>.
+   * @return If defined in the business document profile or specification of the payload, this MUST
+   *         be set to the Customization ID as specified therein. May be <code>null</code> if not
+   *         initialized. This field is mapped to
+   *         <code>XHE/Payloads/Payload/CustomizationID/</code>.
    */
   @Nullable
   public String getCustomizationID ()
@@ -275,10 +281,9 @@ public class DBNAlliancePayload
    * Set the customization identifier.
    *
    * @param s
-   *        If defined in the business document profile or specification of the
-   *        payload, this MUST be set to the Customization ID as specified
-   *        therein. Otherwise, MUST NOT be used. May be <code>null</code> if
-   *        not initialized. This field is mapped to
+   *        If defined in the business document profile or specification of the payload, this MUST
+   *        be set to the Customization ID as specified therein. Otherwise, MUST NOT be used. May be
+   *        <code>null</code> if not initialized. This field is mapped to
    *        <code>XHE/Payloads/Payload/CustomizationID/</code>.
    * @return this for chaining
    */
@@ -290,9 +295,8 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return The customization identifier as a document type identifier or
-   *         <code>null</code> if certain information are missing or are
-   *         invalid.
+   * @return The customization identifier as a document type identifier or <code>null</code> if
+   *         certain information are missing or are invalid.
    */
   @Nullable
   public IDocumentTypeIdentifier getCustomizationIDAsIdentifier ()
@@ -324,9 +328,9 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return The identifier of the scheme used for the ProfileID if one is
-   *         defined. May be <code>null</code> if not initialized. This field is
-   *         mapped to <code>XHE/Payloads/Payload/ProfileID/@schemeID</code>.
+   * @return The identifier of the scheme used for the ProfileID if one is defined. May be
+   *         <code>null</code> if not initialized. This field is mapped to
+   *         <code>XHE/Payloads/Payload/ProfileID/@schemeID</code>.
    */
   @Nullable
   public String getProfileIDSchemeID ()
@@ -343,9 +347,9 @@ public class DBNAlliancePayload
    * Set the profile identifier scheme ID.
    *
    * @param s
-   *        The identifier of the scheme used for the ProfileID if one is
-   *        defined. May be <code>null</code> if not initialized. This field is
-   *        mapped to <code>XHE/Payloads/Payload/ProfileID/@schemeID</code>.
+   *        The identifier of the scheme used for the ProfileID if one is defined. May be
+   *        <code>null</code> if not initialized. This field is mapped to
+   *        <code>XHE/Payloads/Payload/ProfileID/@schemeID</code>.
    * @return this for chaining
    */
   @NonNull
@@ -356,10 +360,9 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return If defined in the business document profile or specification of the
-   *         payload, this MUST be set to the Profile ID as specified therein.
-   *         Otherwise, MUST NOT be used. May be <code>null</code> if not
-   *         initialized. This field is mapped to
+   * @return If defined in the business document profile or specification of the payload, this MUST
+   *         be set to the Profile ID as specified therein. Otherwise, MUST NOT be used. May be
+   *         <code>null</code> if not initialized. This field is mapped to
    *         <code>XHE/Payloads/Payload/ProfileID/</code>.
    */
   @Nullable
@@ -377,10 +380,9 @@ public class DBNAlliancePayload
    * Set the profile identifier.
    *
    * @param s
-   *        If defined in the business document profile or specification of the
-   *        payload, this MUST be set to the Profile ID as specified therein.
-   *        Otherwise, MUST NOT be used. May be <code>null</code> if not
-   *        initialized. This field is mapped to
+   *        If defined in the business document profile or specification of the payload, this MUST
+   *        be set to the Profile ID as specified therein. Otherwise, MUST NOT be used. May be
+   *        <code>null</code> if not initialized. This field is mapped to
    *        <code>XHE/Payloads/Payload/ProfileID/</code>.
    * @return this
    */
@@ -392,8 +394,8 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return The profile identifier or <code>null</code> if certain information
-   *         are missing or are invalid.
+   * @return The profile identifier or <code>null</code> if certain information are missing or are
+   *         invalid.
    */
   @Nullable
   public IProcessIdentifier getProfileIDAsIdentifier ()
@@ -425,9 +427,8 @@ public class DBNAlliancePayload
   }
 
   /**
-   * InstanceEncryptionIndicator - Indicator to state whether the payload
-   * instance is encrypted or not. This field is mapped to
-   * <code>XHE/Payloads/Payload/InstanceEncryptionIndicator</code>.
+   * InstanceEncryptionIndicator - Indicator to state whether the payload instance is encrypted or
+   * not. This field is mapped to <code>XHE/Payloads/Payload/InstanceEncryptionIndicator</code>.
    *
    * @return InstanceEncryptionIndicator value. Default value is false.
    */
@@ -441,9 +442,8 @@ public class DBNAlliancePayload
    * <code>XHE/Payloads/Payload/InstanceEncryptionIndicator</code>.
    *
    * @param b
-   *        Indicator to state whether the payload instance is encrypted or not.
-   *        This field is mapped to
-   *        <code>XHE/Payloads/Payload/InstanceEncryptionIndicator</code> .
+   *        Indicator to state whether the payload instance is encrypted or not. This field is
+   *        mapped to <code>XHE/Payloads/Payload/InstanceEncryptionIndicator</code> .
    * @return this
    */
   @NonNull
@@ -454,14 +454,12 @@ public class DBNAlliancePayload
   }
 
   /**
-   * The method or algorithm used for encrypting payload content. When
-   * encryption is used, payloads MUST be encrypted using one of the supported
-   * encryption methods and algorithms as specified in section 7.3 and the value
-   * of this element MUST be set to the corresponding identifier. This field is
-   * mapped to <code>XHE/Payloads/Payload/InstanceEncryptionMethod</code>.
+   * The method or algorithm used for encrypting payload content. When encryption is used, payloads
+   * MUST be encrypted using one of the supported encryption methods and algorithms as specified in
+   * section 7.3 and the value of this element MUST be set to the corresponding identifier. This
+   * field is mapped to <code>XHE/Payloads/Payload/InstanceEncryptionMethod</code>.
    *
-   * @return InstanceEncryptionMethod value. Default value is
-   *         <code>false</code>.
+   * @return InstanceEncryptionMethod value. Default value is <code>false</code>.
    */
   @Nullable
   public String getInstanceEncryptionMethod ()
@@ -470,8 +468,7 @@ public class DBNAlliancePayload
   }
 
   /**
-   * @return <code>true</code> if a InstanceEncryptionMethod is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a InstanceEncryptionMethod is present, <code>false</code> if not.
    */
   public boolean hasInstanceEncryptionMethod ()
   {
@@ -479,11 +476,10 @@ public class DBNAlliancePayload
   }
 
   /**
-   * Set the method or algorithm used for encrypting payload content. When
-   * encryption is used, payloads MUST be encrypted using one of the supported
-   * encryption methods and algorithms as specified in section 7.3 and the value
-   * of this element MUST be set to the corresponding identifier. The content of
-   * the fields that are mapped to
+   * Set the method or algorithm used for encrypting payload content. When encryption is used,
+   * payloads MUST be encrypted using one of the supported encryption methods and algorithms as
+   * specified in section 7.3 and the value of this element MUST be set to the corresponding
+   * identifier. The content of the fields that are mapped to
    * <code>XHE/Payloads/Payload/InstanceEncryptionMethod</code>.
    *
    * @param s
@@ -499,54 +495,134 @@ public class DBNAlliancePayload
   }
 
   /**
-   * Get the contained payload content.
+   * Get the contained XML payload content.
    *
-   * @return <code>null</code> if no payload content is present. A clone (deep
-   *         copy) of the payload content otherwise.
+   * @return <code>null</code> if no XML payload content is present (i.e. either nothing is set, or
+   *         a textual or binary payload is set instead). A clone (deep copy) of the payload content
+   *         otherwise.
    * @see #getPayloadContentNoClone()
+   * @see #hasPayloadContentXML()
    */
   @Nullable
   @ReturnsMutableCopy
   public Element getPayloadContent ()
   {
-    return m_aPayloadContent == null ? null : (Element) m_aPayloadContent.cloneNode (true);
+    return m_aPayloadContentElement == null ? null : (Element) m_aPayloadContentElement.cloneNode (true);
   }
 
   /**
-   * Get the contained payload content without cloning it.
+   * Get the contained XML payload content without cloning it.
    *
-   * @return <code>null</code> if no payload content is present.
+   * @return <code>null</code> if no XML payload content is present.
    * @see #getPayloadContent()
    */
   @Nullable
   @ReturnsMutableObject
   public Element getPayloadContentNoClone ()
   {
-    return m_aPayloadContent;
+    return m_aPayloadContentElement;
   }
 
   /**
-   * Check if a payload content is present without having the need to explicitly
-   * call {@link #getPayloadContent()} which returns a cloned node and is
-   * therefore an expensive operation.
+   * @return The textual payload content (already in its final form, i.e. ready to be inserted as
+   *         element text content). May be <code>null</code> if no textual payload content is
+   *         present.
+   * @see #hasPayloadContentText()
+   * @since 12.5.1
+   */
+  @Nullable
+  public String getPayloadContentText ()
+  {
+    return m_sPayloadContentText;
+  }
+
+  /**
+   * Get the contained binary payload content. The bytes returned here are the raw, decoded bytes
+   * (i.e. before Base64 encoding for transport).
    *
-   * @return <code>true</code> if a payload content is present,
-   *         <code>false</code> otherwise.
+   * @return <code>null</code> if no binary payload content is present. A copy of the binary content
+   *         otherwise.
+   * @see #getPayloadContentBinaryNoClone()
+   * @see #hasPayloadContentBinary()
+   * @since 12.5.1
+   */
+  @Nullable
+  @ReturnsMutableCopy
+  public byte [] getPayloadContentBinary ()
+  {
+    return ArrayHelper.getCopy (m_aPayloadContentBinary);
+  }
+
+  /**
+   * Get the contained binary payload content without cloning the array. The bytes returned here are
+   * the raw, decoded bytes (i.e. before Base64 encoding for transport).
+   *
+   * @return <code>null</code> if no binary payload content is present.
+   * @see #getPayloadContentBinary()
+   * @since 12.5.1
+   */
+  @Nullable
+  @ReturnsMutableObject
+  public byte [] getPayloadContentBinaryNoClone ()
+  {
+    return m_aPayloadContentBinary;
+  }
+
+  /**
+   * Check if an XML payload content is present.
+   *
+   * @return <code>true</code> if an XML payload content is present, <code>false</code> otherwise.
+   * @since 12.5.1
+   */
+  public boolean hasPayloadContentXML ()
+  {
+    return m_aPayloadContentElement != null;
+  }
+
+  /**
+   * Check if a textual payload content is present.
+   *
+   * @return <code>true</code> if a textual payload content is present, <code>false</code>
+   *         otherwise.
+   * @since 12.5.1
+   */
+  public boolean hasPayloadContentText ()
+  {
+    return m_sPayloadContentText != null;
+  }
+
+  /**
+   * Check if a binary payload content is present.
+   *
+   * @return <code>true</code> if a binary payload content is present, <code>false</code> otherwise.
+   * @since 12.5.1
+   */
+  public boolean hasPayloadContentBinary ()
+  {
+    return m_aPayloadContentBinary != null;
+  }
+
+  /**
+   * Check if any payload content (XML, textual or binary) is present without having the need to
+   * explicitly call {@link #getPayloadContent()} which returns a cloned node and is therefore an
+   * expensive operation.
+   *
+   * @return <code>true</code> if any payload content is present, <code>false</code> otherwise.
    */
   public boolean hasPayloadContent ()
   {
-    return m_aPayloadContent != null;
+    return hasPayloadContentXML () || hasPayloadContentText () || hasPayloadContentBinary ();
   }
 
   /**
-   * Set the main payload content that should be transmitted together with the
-   * XHE. The DOM element is cloned internally to avoid outside modification
+   * Set the main XML payload content that should be transmitted together with the XHE. The DOM
+   * element is cloned internally to avoid outside modification. Any previously set textual or
+   * binary payload content is cleared.
    *
    * @param aPayloadContent
-   *        The payload content to be set. May not be <code>null</code>.
-   *        Internally the passed element is cloned, so that further
-   *        modifications outside of this method have no impact on the XHE
-   *        inside this object.
+   *        The payload content to be set. May not be <code>null</code>. Internally the passed
+   *        element is cloned, so that further modifications outside of this method have no impact
+   *        on the XHE inside this object.
    * @return this
    * @see #setPayloadContentNoClone(Element)
    */
@@ -556,19 +632,19 @@ public class DBNAlliancePayload
     ValueEnforcer.notNull (aPayloadContent, "PayloadContent");
 
     // Create a deep copy of the element to avoid outside modifications
-    m_aPayloadContent = (Element) aPayloadContent.cloneNode (true);
+    m_aPayloadContentElement = (Element) aPayloadContent.cloneNode (true);
+    m_sPayloadContentText = null;
+    m_aPayloadContentBinary = null;
     return this;
   }
 
   /**
-   * Set the main payload content that should be transmitted together with the
-   * XHE. The DOM element is not cloned / copied internally.
+   * Set the main XML payload content that should be transmitted together with the XHE. The DOM
+   * element is not cloned / copied internally. Any previously set textual or binary payload content
+   * is cleared.
    *
    * @param aPayloadContent
    *        The payload content to be set. May not be <code>null</code>.
-   *        Internally the passed element is cloned, so that further
-   *        modifications outside of this method have no impact on the XHE
-   *        inside this object.
    * @return this
    * @see #setPayloadContent(Element)
    */
@@ -577,7 +653,75 @@ public class DBNAlliancePayload
   {
     ValueEnforcer.notNull (aPayloadContent, "PayloadContent");
 
-    m_aPayloadContent = aPayloadContent;
+    m_aPayloadContentElement = aPayloadContent;
+    m_sPayloadContentText = null;
+    m_aPayloadContentBinary = null;
+    return this;
+  }
+
+  /**
+   * Set the textual payload content that should be transmitted together with the XHE. The string is
+   * inserted as XML text content; the XML serializer takes care of escaping any special markup
+   * characters (per XHE Envelope Profile v1.0 section 6). Any previously set XML or binary payload
+   * content is cleared.
+   *
+   * @param sPayloadContent
+   *        The textual payload content to be set. May not be <code>null</code>.
+   * @return this
+   * @since 12.5.1
+   */
+  @NonNull
+  public DBNAlliancePayload setPayloadContentText (@NonNull final String sPayloadContent)
+  {
+    ValueEnforcer.notNull (sPayloadContent, "PayloadContent");
+
+    m_aPayloadContentElement = null;
+    m_sPayloadContentText = sPayloadContent;
+    m_aPayloadContentBinary = null;
+    return this;
+  }
+
+  /**
+   * Set the binary payload content that should be transmitted together with the XHE. On
+   * serialization, the bytes will be Base64 encoded as required by the XHE Envelope Profile v1.0
+   * (section 6). The array is internally cloned to avoid outside modification. Any previously set
+   * XML or textual payload content is cleared.
+   *
+   * @param aPayloadContent
+   *        The binary payload content to be set. May not be <code>null</code>.
+   * @return this
+   * @see #setPayloadContentBinaryNoClone(byte[])
+   * @since 12.5.1
+   */
+  @NonNull
+  public DBNAlliancePayload setPayloadContentBinary (final byte @NonNull [] aPayloadContent)
+  {
+    ValueEnforcer.notNull (aPayloadContent, "PayloadContent");
+
+    m_aPayloadContentElement = null;
+    m_sPayloadContentText = null;
+    m_aPayloadContentBinary = ArrayHelper.getCopy (aPayloadContent);
+    return this;
+  }
+
+  /**
+   * Set the binary payload content that should be transmitted together with the XHE. The array is
+   * not cloned / copied internally. Any previously set XML or textual payload content is cleared.
+   *
+   * @param aPayloadContent
+   *        The binary payload content to be set. May not be <code>null</code>.
+   * @return this
+   * @see #setPayloadContentBinary(byte[])
+   * @since 12.5.1
+   */
+  @NonNull
+  public DBNAlliancePayload setPayloadContentBinaryNoClone (final byte @NonNull [] aPayloadContent)
+  {
+    ValueEnforcer.notNull (aPayloadContent, "PayloadContent");
+
+    m_aPayloadContentElement = null;
+    m_sPayloadContentText = null;
+    m_aPayloadContentBinary = aPayloadContent;
     return this;
   }
 
@@ -598,7 +742,9 @@ public class DBNAlliancePayload
                                        .append ("ProfileID", m_sProfileID)
                                        .append ("InstanceEncryptionIndicator", m_bInstanceEncryptionIndicator)
                                        .append ("InstanceEncryptionMethod", m_sInstanceEncryptionMethod)
-                                       .append ("PayloadContent", m_aPayloadContent)
+                                       .appendIfNotNull ("PayloadContentElement", m_aPayloadContentElement)
+                                       .appendIfNotNull ("PayloadContentText", m_sPayloadContentText)
+                                       .appendIfNotNull ("PayloadContentBinary", m_aPayloadContentBinary)
                                        .getToString ();
   }
 }

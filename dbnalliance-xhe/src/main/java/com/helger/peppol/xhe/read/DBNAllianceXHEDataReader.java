@@ -18,6 +18,7 @@ package com.helger.peppol.xhe.read;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Locale;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -28,6 +29,7 @@ import org.w3c.dom.Node;
 
 import com.helger.annotation.WillClose;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.base.codec.base64.Base64;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
@@ -305,7 +307,11 @@ public class DBNAllianceXHEDataReader
   }
 
   /**
-   * Check if the passed content type code value is valid or not. By default is must not be empty.
+   * Check if the passed content type code value is valid or not. Per XHE Envelope Profile v1.0
+   * (section 6) the ContentTypeCode MUST be set to <code>application/xml</code> for XML payload
+   * content, and to an IANA registered MIME Type for any other payload content. As we cannot verify
+   * IANA registration, the default check just requires a non-empty value. Override this method to
+   * perform stricter checks.
    *
    * @param sListID
    *        The value to be checked. This is the content of the XML attribute
@@ -318,7 +324,40 @@ public class DBNAllianceXHEDataReader
   @OverrideOnDemand
   protected boolean isValidContentTypeCodeValue (@Nullable final String sListID, @Nullable final String sValue)
   {
-    return "application/xml".equals (sValue);
+    return StringHelper.isNotEmpty (sValue);
+  }
+
+  /**
+   * Determine whether the payload content for the given MIME type should be treated as textual
+   * (i.e. the XHE element text content is the payload itself, after XML un-escaping) or as binary
+   * (i.e. the XHE element text content is the Base64 encoded payload). Only relevant when the
+   * payload content does not consist of an XML apex element.
+   *
+   * @param sMimeType
+   *        The MIME type value of the payload's <code>ContentTypeCode</code>. May be
+   *        <code>null</code> or empty.
+   * @return <code>true</code> if textual, <code>false</code> if it should be Base64 decoded as
+   *         binary content.
+   * @since 12.5.1
+   */
+  @OverrideOnDemand
+  protected boolean isTextualPayloadContent (@Nullable final String sMimeType)
+  {
+    if (StringHelper.isEmpty (sMimeType))
+      return false;
+
+    final String sLower = sMimeType.toLowerCase (Locale.ROOT);
+    if (sLower.startsWith ("text/"))
+      return true;
+
+    // Common structured-text application MIME types
+    if (sLower.equals ("application/xml") ||
+        sLower.equals ("application/json") ||
+        sLower.equals ("application/yaml") ||
+        sLower.endsWith ("+xml") ||
+        sLower.endsWith ("+json"))
+      return true;
+    return false;
   }
 
   /**
@@ -489,6 +528,41 @@ public class DBNAllianceXHEDataReader
                       .errorID (e.getID ())
                       .errorText (aArgs == null ? e.getErrorMessage () : e.getErrorMessage (aArgs))
                       .build ();
+  }
+
+  /**
+   * Find the first {@link Element} entry inside an XHE payload content list, skipping whitespace
+   * text nodes that may appear in the mixed content list.
+   *
+   * @param aPayloadContent
+   *        The XHE payload content. May not be <code>null</code>.
+   * @return The first Element, or <code>null</code> if no Element is present.
+   */
+  @Nullable
+  private static Element _findFirstElement (@NonNull final XHE10PayloadContentType aPayloadContent)
+  {
+    for (final Object aItem : aPayloadContent.getContent ())
+      if (aItem instanceof final Element aElement)
+        return aElement;
+    return null;
+  }
+
+  /**
+   * Concatenate all {@link String} entries inside an XHE payload content list. Non-String entries
+   * are skipped.
+   *
+   * @param aPayloadContent
+   *        The XHE payload content. May not be <code>null</code>.
+   * @return The concatenated string content. Never <code>null</code>; may be empty.
+   */
+  @NonNull
+  private static String _collectStringContent (@NonNull final XHE10PayloadContentType aPayloadContent)
+  {
+    final StringBuilder aSB = new StringBuilder ();
+    for (final Object aItem : aPayloadContent.getContent ())
+      if (aItem instanceof final String sText)
+        aSB.append (sText);
+    return aSB.toString ();
   }
 
   /**
@@ -707,15 +781,23 @@ public class DBNAllianceXHEDataReader
         aErrorList.add (_toError ("XHE/Payloads/Payload[" + nPayload + "]/InstanceEncryptionIndicator",
                                   EDBNAllianceXHEDataReadError.INSTANCE_ENCRYPTION_INDICATOR_MISSING));
 
-      // Extract the payload content (business message) - cannot be null and
-      // must be an
-      // Element!
+      // Extract the payload content (business message). It can be:
+      // - an apex Element for XML content
+      // - one or more Strings (textual content or Base64 encoded binary)
+      // The content list is mixed, so it may contain interleaved whitespace text
+      // nodes around the apex element.
       final XHE10PayloadContentType aPayloadContent = aPayload.getPayloadContent ();
       if (aPayloadContent != null && aPayloadContent.hasContentEntries ())
       {
-        final Element aPayloadElement = (Element) aPayloadContent.getContentAtIndex (0);
-        if (!isValidBusinessMessage (aPayloadElement))
-          aErrorList.add (_toError (null, EDBNAllianceXHEDataReadError.INVALID_BUSINESS_MESSAGE));
+        final Element aPayloadElement = _findFirstElement (aPayloadContent);
+        if (aPayloadElement != null)
+        {
+          if (!isValidBusinessMessage (aPayloadElement))
+            aErrorList.add (_toError (null, EDBNAllianceXHEDataReadError.INVALID_BUSINESS_MESSAGE));
+        }
+        // For non-XML content (textual or binary) no business-message validation
+        // is performed by default - subclasses can override extractDataUnchecked
+        // or validateData to add custom checks.
       }
       nPayload++;
     }
@@ -860,7 +942,33 @@ public class DBNAllianceXHEDataReader
 
         final XHE10PayloadContentType aPayloadContent = aXHEPayload.getPayloadContent ();
         if (aPayloadContent != null && aPayloadContent.hasContentEntries ())
-          aPayload.setPayloadContent ((Element) aPayloadContent.getContentAtIndex (0));
+        {
+          final Element aPayloadElement = _findFirstElement (aPayloadContent);
+          if (aPayloadElement != null)
+          {
+            // XML payload: apex element wins regardless of MIME type
+            aPayload.setPayloadContent (aPayloadElement);
+          }
+          else
+          {
+            // No apex element - the content is a String (textual or Base64 encoded binary)
+            final String sRawContent = _collectStringContent (aPayloadContent);
+            final String sMimeType = aContentTypeCode != null ? aContentTypeCode.getValue () : null;
+            if (isTextualPayloadContent (sMimeType))
+            {
+              aPayload.setPayloadContentText (sRawContent);
+            }
+            else
+            {
+              // Treat as Base64 encoded binary; fall back to text on decode failure
+              final byte [] aDecoded = Base64.safeDecode (sRawContent);
+              if (aDecoded != null)
+                aPayload.setPayloadContentBinary (aDecoded);
+              else
+                aPayload.setPayloadContentText (sRawContent);
+            }
+          }
+        }
 
         ret.addPayload (aPayload);
       }
