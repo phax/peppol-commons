@@ -355,6 +355,7 @@ v12.5.1 - work in progress
 * `DBNAlliancePayload` now supports textual (`String`) and binary (`byte[]`, Base64 encoded) payload content in addition to the existing XML `Element` payload content, as per XHE Envelope Profile v1.0 section 6. See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
 * `DBNAllianceXHEDataReader` no longer throws `ClassCastException` when an XHE payload's mixed content list contains leading/trailing whitespace text nodes around the apex XML element. The reader now scans the content list for the first `Element`. See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
 * `DBNAllianceXHEDataReader.isValidContentTypeCodeValue` was relaxed: per the XHE Envelope Profile v1.0, `application/xml` is required only for XML payloads; for other payload kinds any IANA registered MIME type is allowed. The default check now requires a non-empty value only.
+* Changed `EPeppolMLSType.DEFAULT` to `FAILURE_ONLY` as shown in the final PNP version.
 
 v12.5.0 - 2026-05-01
 * Requires ph-commons 12.2.5 or later
