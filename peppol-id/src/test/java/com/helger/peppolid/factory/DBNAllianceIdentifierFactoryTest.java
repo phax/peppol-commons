@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.dbnalliance.commons;
+package com.helger.peppolid.factory;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +24,6 @@ import org.junit.Test;
 import com.helger.peppolid.IDocumentTypeIdentifier;
 import com.helger.peppolid.IProcessIdentifier;
 import com.helger.peppolid.bdxr.smp2.CBDXR2Identifier;
-import com.helger.peppolid.factory.IIdentifierFactory;
 
 /**
  * Test class for class {@link DBNAllianceIdentifierFactory}.

@@ -353,6 +353,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.5.2 - 2026-06-12
+* Moved `DBNAllianceIdentifierFactory` to `peppol-id` submodule
+
 v12.5.1 - 2026-06-12
 * `DBNAlliancePayload` now supports textual (`String`) and binary (`byte[]`, Base64 encoded) payload content in addition to the existing XML `Element` payload content, as per XHE Envelope Profile v1.0 section 6. See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender
 * `DBNAllianceXHEDataReader` no longer throws `ClassCastException` when an XHE payload's mixed content list contains leading/trailing whitespace text nodes around the apex XML element. The reader now scans the content list for the first `Element`. See [issue #71](https://github.com/phax/peppol-commons/issues/71) - thx @jmailaender

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.dbnalliance.commons.DBNAllianceIdentifierFactory;
+import com.helger.peppolid.factory.DBNAllianceIdentifierFactory;
 import com.helger.xml.serialize.read.DOMReader;
 
 /**

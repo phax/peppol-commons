@@ -14,10 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.dbnalliance.commons;
+package com.helger.peppolid.factory;
 
-import com.helger.peppolid.factory.BDXR2IdentifierFactory;
-import com.helger.peppolid.factory.IIdentifierFactory;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Implementation of {@link IIdentifierFactory} for the DBNAlliance network.
@@ -29,12 +28,26 @@ import com.helger.peppolid.factory.IIdentifierFactory;
  * #71</a>).
  *
  * @author Philip Helger
- * @since 12.5.1
+ * @since 12.5.2
  */
-@Deprecated (forRemoval = true, since = "12.5.1")
-public class DBNAllianceIdentifierFactory extends com.helger.peppolid.factory.DBNAllianceIdentifierFactory
+public class DBNAllianceIdentifierFactory extends BDXR2IdentifierFactory
 {
-  @Deprecated (forRemoval = true, since = "12.5.1")
+  /** Global instance to be used. */
+  @SuppressWarnings ("hiding")
+  public static final DBNAllianceIdentifierFactory INSTANCE = new DBNAllianceIdentifierFactory ();
+
   public DBNAllianceIdentifierFactory ()
   {}
+
+  @Override
+  public boolean isDocumentTypeIdentifierCaseInsensitive (@Nullable final String sScheme)
+  {
+    return true;
+  }
+
+  @Override
+  public boolean isProcessIdentifierCaseInsensitive (@Nullable final String sScheme)
+  {
+    return true;
+  }
 }
