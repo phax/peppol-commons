@@ -39,6 +39,7 @@ import java.util.function.BiFunction;
 import javax.net.ssl.SSLException;
 import javax.xml.crypto.dsig.XMLSignatureException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.base.state.ETriState;
@@ -452,6 +453,7 @@ public final class SMPClientReadOnlyTest
   }
 
   @Test
+  @Ignore ("No longer exists 2026-06")
   public void testReceiverHasRevokedAPCert () throws Exception
   {
     final IParticipantIdentifier aPI = PeppolIdentifierFactory.INSTANCE.createParticipantIdentifierWithDefaultScheme ("9922:NGTBCNTRLP1003");
