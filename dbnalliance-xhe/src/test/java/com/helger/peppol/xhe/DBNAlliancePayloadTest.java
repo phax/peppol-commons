@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.peppolid.factory.SimpleIdentifierFactory;
+import com.helger.dbnalliance.commons.DBNAllianceIdentifierFactory;
 import com.helger.xml.serialize.read.DOMReader;
 
 /**
@@ -39,7 +39,7 @@ public final class DBNAlliancePayloadTest
   {
     final Document aDoc = DOMReader.readXMLDOM ("<root xmlns='anyurl' />");
 
-    final DBNAlliancePayload aPayload = new DBNAlliancePayload (SimpleIdentifierFactory.INSTANCE);
+    final DBNAlliancePayload aPayload = new DBNAlliancePayload (DBNAllianceIdentifierFactory.INSTANCE);
     assertFalse (aPayload.areAllMandatoryFieldsSet ());
 
     aPayload.setDescription ("desc")

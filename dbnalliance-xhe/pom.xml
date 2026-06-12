@@ -53,6 +53,7 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -71,6 +72,7 @@
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-id</artifactId>
     </dependency>
+    
     <dependency>
       <groupId>com.helger.peppol</groupId>
       <artifactId>peppol-testfiles</artifactId>
@@ -86,7 +88,13 @@
       <artifactId>jaxb-impl</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.helger.peppol</groupId>
+      <artifactId>dbnalliance-commons</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>

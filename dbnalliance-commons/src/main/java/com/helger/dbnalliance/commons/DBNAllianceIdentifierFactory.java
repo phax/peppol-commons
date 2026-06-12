@@ -36,7 +36,7 @@ import com.helger.peppolid.factory.IIdentifierFactory;
 public class DBNAllianceIdentifierFactory extends BDXR2IdentifierFactory
 {
   /** Global instance to be used. */
-  public static final IIdentifierFactory INSTANCE = new DBNAllianceIdentifierFactory ();
+  public static final DBNAllianceIdentifierFactory INSTANCE = new DBNAllianceIdentifierFactory ();
 
   public DBNAllianceIdentifierFactory ()
   {}
