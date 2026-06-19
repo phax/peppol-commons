@@ -760,7 +760,7 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     final ICommonsMap <String, PeppolMLSLineResponseBuilder> aBuilderMap = new CommonsHashMap <> ();
     aVRL.forEachFlattened (aError -> {
       // Single error or warning?
-      var ret = aBuilderMap.computeIfAbsent(aError.getErrorFieldName(), k -> new PeppolMLSLineResponseBuilder().errorField(k))
+      final PeppolMLSLineResponseBuilder ret = aBuilderMap.computeIfAbsent(aError.getErrorFieldName(), k -> new PeppolMLSLineResponseBuilder().errorField(k))
               .addResponse(new PeppolMLSLineResponseResponseBuilder().statusReasonCode(aError.isError() ?
                               EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL
                               : EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING)
