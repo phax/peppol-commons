@@ -529,8 +529,8 @@ public final class PeppolMLSBuilderTest
   public void testFactoryMethodsPreInitialize ()
   {
     // All factory methods should pre-set ID, date and time
-    for (final PeppolMLSBuilder aBuilder : new PeppolMLSBuilder [] { PeppolMLSBuilder.acceptance (),
-                                                                     PeppolMLSBuilder.acknowledging (),
+    for (final PeppolMLSBuilder aBuilder : new PeppolMLSBuilder [] { PeppolMLSBuilder.acceptance (), PeppolMLSBuilder
+                                                                                                                     .acknowledging (),
                                                                      PeppolMLSBuilder.rejection () })
     {
       assertNotNull (aBuilder.id ());
@@ -642,30 +642,18 @@ public final class PeppolMLSBuilderTest
     final PeppolMLSBuilder aBuilder = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
     aBuilder.issueDate ((LocalDate) null);
     assertNull (aBuilder.issueDate ());
-  }
-
-  @Test
-  public void testIssueTimeNull ()
-  {
-    final PeppolMLSBuilder aBuilder = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
     aBuilder.issueTime ((XMLOffsetTime) null);
     assertNull (aBuilder.issueTime ());
-  }
-
-  @Test
-  public void testSenderParticipantIDNull ()
-  {
-    final PeppolMLSBuilder aBuilder = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
     aBuilder.senderParticipantID ((IParticipantIdentifier) null);
     assertNull (aBuilder.senderParticipantID ());
-  }
-
-  @Test
-  public void testReceiverParticipantIDNull ()
-  {
-    final PeppolMLSBuilder aBuilder = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
     aBuilder.receiverParticipantID ((IParticipantIdentifier) null);
     assertNull (aBuilder.receiverParticipantID ());
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testCreateForValidationResultListNull ()
+  {
+    PeppolMLSBuilder.createForValidationResultList (null);
   }
 
   /**
@@ -678,7 +666,7 @@ public final class PeppolMLSBuilderTest
     final ErrorList aEL = new ErrorList ();
     for (final SingleError aError : aErrors)
       aEL.add (aError);
-    final ValidationArtefact aVA = new ValidationArtefact (EValidationType.SCHEMATRON_SCH,
+    final ValidationArtefact aVA = new ValidationArtefact (EValidationType.SCHEMATRON_SCH_ISO_XSLT2,
                                                            new ClassPathResource ("test.sch"));
     final ValidationResult aVR = new ValidationResult (aVA,
                                                        aEL,
@@ -688,12 +676,6 @@ public final class PeppolMLSBuilderTest
     final ValidationResultList ret = ValidationResultList.createNoSource ();
     ret.add (aVR);
     return ret;
-  }
-
-  @Test (expected = NullPointerException.class)
-  public void testCreateForValidationResultListNull ()
-  {
-    PeppolMLSBuilder.createForValidationResultList (null);
   }
 
   @Test
@@ -710,10 +692,10 @@ public final class PeppolMLSBuilderTest
   {
     // Only warnings -> still acceptance, but with a line response carrying the warning
     final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderWarn ()
-                                                                                                            .errorID ("BR-W-01")
-                                                                                                            .errorFieldName ("Invoice/Note")
-                                                                                                            .errorText ("Note is unusual")
-                                                                                                            .build ()));
+                                                                                                             .errorID ("BR-W-01")
+                                                                                                             .errorFieldName ("Invoice/Note")
+                                                                                                             .errorText ("Note is unusual")
+                                                                                                             .build ()));
     assertEquals (EPeppolMLSResponseCode.ACCEPTANCE, aBuilder.responseCode ());
     assertEquals (1, aBuilder.lineResponses ().size ());
 
@@ -729,10 +711,10 @@ public final class PeppolMLSBuilderTest
   public void testCreateForValidationResultListSingleError ()
   {
     final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderError ()
-                                                                                                            .errorID ("BR-01")
-                                                                                                            .errorFieldName ("Invoice/ID")
-                                                                                                            .errorText ("ID is missing")
-                                                                                                            .build ()));
+                                                                                                             .errorID ("BR-01")
+                                                                                                             .errorFieldName ("Invoice/ID")
+                                                                                                             .errorText ("ID is missing")
+                                                                                                             .build ()));
     // At least one error -> rejection
     assertEquals (EPeppolMLSResponseCode.REJECTION, aBuilder.responseCode ());
     assertEquals (1, aBuilder.lineResponses ().size ());
@@ -752,15 +734,15 @@ public final class PeppolMLSBuilderTest
   {
     // Two errors with different field names -> two separate line responses, in encounter order
     final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderError ()
-                                                                                                            .errorID ("BR-01")
-                                                                                                            .errorFieldName ("Invoice/ID")
-                                                                                                            .errorText ("ID is missing")
-                                                                                                            .build (),
-                                                                                                 SingleError.builderError ()
-                                                                                                            .errorID ("BR-02")
-                                                                                                            .errorFieldName ("Invoice/IssueDate")
-                                                                                                            .errorText ("Date invalid")
-                                                                                                            .build ()));
+                                                                                                             .errorID ("BR-01")
+                                                                                                             .errorFieldName ("Invoice/ID")
+                                                                                                             .errorText ("ID is missing")
+                                                                                                             .build (),
+                                                                                                  SingleError.builderError ()
+                                                                                                             .errorID ("BR-02")
+                                                                                                             .errorFieldName ("Invoice/IssueDate")
+                                                                                                             .errorText ("Date invalid")
+                                                                                                             .build ()));
     assertEquals (EPeppolMLSResponseCode.REJECTION, aBuilder.responseCode ());
     assertEquals (2, aBuilder.lineResponses ().size ());
     assertEquals ("Invoice/ID", aBuilder.lineResponsesAsBuilders ().get (0).errorField ());
@@ -773,15 +755,15 @@ public final class PeppolMLSBuilderTest
     // Two errors with the SAME field name must be grouped into a single line response with two
     // responses - this is the regression test for issue #72
     final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderError ()
-                                                                                                            .errorID ("BR-01")
-                                                                                                            .errorFieldName ("Invoice/ID")
-                                                                                                            .errorText ("ID is too short")
-                                                                                                            .build (),
-                                                                                                 SingleError.builderError ()
-                                                                                                            .errorID ("BR-02")
-                                                                                                            .errorFieldName ("Invoice/ID")
-                                                                                                            .errorText ("ID does not match the regex")
-                                                                                                            .build ()));
+                                                                                                             .errorID ("BR-01")
+                                                                                                             .errorFieldName ("Invoice/ID")
+                                                                                                             .errorText ("ID is too short")
+                                                                                                             .build (),
+                                                                                                  SingleError.builderError ()
+                                                                                                             .errorID ("BR-02")
+                                                                                                             .errorFieldName ("Invoice/ID")
+                                                                                                             .errorText ("ID does not match the regex")
+                                                                                                             .build ()));
     assertEquals (EPeppolMLSResponseCode.REJECTION, aBuilder.responseCode ());
     // Exactly ONE line response, not two
     assertEquals (1, aBuilder.lineResponses ().size ());
@@ -800,15 +782,15 @@ public final class PeppolMLSBuilderTest
   {
     // The resulting builder must produce a valid MLS once the mandatory fields are filled in
     final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderError ()
-                                                                                                            .errorID ("BR-01")
-                                                                                                            .errorFieldName ("Invoice/ID")
-                                                                                                            .errorText ("ID is missing")
-                                                                                                            .build (),
-                                                                                                 SingleError.builderError ()
-                                                                                                            .errorID ("BR-02")
-                                                                                                            .errorFieldName ("Invoice/ID")
-                                                                                                            .errorText ("ID does not match the regex")
-                                                                                                            .build ()));
+                                                                                                             .errorID ("BR-01")
+                                                                                                             .errorFieldName ("Invoice/ID")
+                                                                                                             .errorText ("ID is missing")
+                                                                                                             .build (),
+                                                                                                  SingleError.builderError ()
+                                                                                                             .errorID ("BR-02")
+                                                                                                             .errorFieldName ("Invoice/ID")
+                                                                                                             .errorText ("ID does not match the regex")
+                                                                                                             .build ()));
     aBuilder.referenceId ("SBDH-VRL-001")
             .senderParticipantID (IF.createParticipantIdentifierWithDefaultScheme ("9915:vrl-sender"))
             .receiverParticipantID (IF.createParticipantIdentifierWithDefaultScheme ("9915:vrl-receiver"));
