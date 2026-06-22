@@ -37,7 +37,7 @@ import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
-import com.helger.collection.commons.CommonsHashMap;
+import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.datetime.helper.PDTFactory;
@@ -757,18 +757,23 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
 
     // Add each warning/error
     final Locale aDisplayLocale = Locale.US;
-    final ICommonsMap <String, PeppolMLSLineResponseBuilder> aBuilderMap = new CommonsHashMap <> ();
+    // Group all responses sharing the same error field name into a single line response. Use a
+    // linked map to keep the deterministic order in which the fields were first encountered.
+    final ICommonsMap <String, PeppolMLSLineResponseBuilder> aBuilderMap = new CommonsLinkedHashMap <> ();
     aVRL.forEachFlattened (aError -> {
       // Single error or warning?
-      final PeppolMLSLineResponseBuilder ret = aBuilderMap.computeIfAbsent(aError.getErrorFieldName(), k -> new PeppolMLSLineResponseBuilder().errorField(k))
-              .addResponse(new PeppolMLSLineResponseResponseBuilder().statusReasonCode(aError.isError() ?
-                              EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL
-                              : EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING)
-                      .description(StringHelper.getConcatenatedOnDemand(aError.getErrorID(),
-                              " - ",
-                              aError.getErrorText(aDisplayLocale))));
-      aMLSBuilder.addLineResponse(ret);
+      aBuilderMap.computeIfAbsent (aError.getErrorFieldName (), k -> new PeppolMLSLineResponseBuilder ().errorField (k))
+                 .addResponse (b -> b.statusReasonCode (aError.isError () ? EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL
+                                                                          : EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING)
+                                     .description (StringHelper.getConcatenatedOnDemand (aError.getErrorID (),
+                                                                                         " - ",
+                                                                                         aError.getErrorText (aDisplayLocale))));
     });
+
+    // Add each grouped line response exactly once, after all responses have been collected (#72)
+    for (final PeppolMLSLineResponseBuilder aBuilder : aBuilderMap.values ())
+      aMLSBuilder.addLineResponse (aBuilder);
+
     return aMLSBuilder;
   }
 

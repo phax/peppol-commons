@@ -29,15 +29,25 @@ import java.time.Month;
 import java.time.OffsetTime;
 import java.time.ZoneOffset;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.datetime.xml.XMLOffsetTime;
+import com.helger.diagnostics.error.SingleError;
+import com.helger.diagnostics.error.list.ErrorList;
+import com.helger.io.resource.ClassPathResource;
 import com.helger.peppolid.IParticipantIdentifier;
 import com.helger.peppolid.factory.PeppolIdentifierFactory;
+import com.helger.phive.api.EValidationType;
+import com.helger.phive.api.artefact.ValidationArtefact;
+import com.helger.phive.api.result.ValidationResult;
+import com.helger.phive.api.result.ValidationResultList;
+import com.helger.phive.api.validity.EExtendedValidity;
 
 import oasis.names.specification.ubl.schema.xsd.applicationresponse_21.ApplicationResponseType;
+import oasis.names.specification.ubl.schema.xsd.commonaggregatecomponents_21.LineResponseType;
 
 /**
  * Test class for class {@link PeppolMLSBuilder}.
@@ -656,5 +666,163 @@ public final class PeppolMLSBuilderTest
     final PeppolMLSBuilder aBuilder = new PeppolMLSBuilder (EPeppolMLSResponseCode.ACCEPTANCE);
     aBuilder.receiverParticipantID ((IParticipantIdentifier) null);
     assertNull (aBuilder.receiverParticipantID ());
+  }
+
+  /**
+   * Create a {@link ValidationResultList} containing a single {@link ValidationResult} with the
+   * provided errors.
+   */
+  @NonNull
+  private static ValidationResultList _createVRL (@NonNull final SingleError... aErrors)
+  {
+    final ErrorList aEL = new ErrorList ();
+    for (final SingleError aError : aErrors)
+      aEL.add (aError);
+    final ValidationArtefact aVA = new ValidationArtefact (EValidationType.SCHEMATRON_SCH,
+                                                           new ClassPathResource ("test.sch"));
+    final ValidationResult aVR = new ValidationResult (aVA,
+                                                       aEL,
+                                                       aEL.containsAtLeastOneError () ? EExtendedValidity.INVALID
+                                                                                      : EExtendedValidity.VALID,
+                                                       0);
+    final ValidationResultList ret = ValidationResultList.createNoSource ();
+    ret.add (aVR);
+    return ret;
+  }
+
+  @Test (expected = NullPointerException.class)
+  public void testCreateForValidationResultListNull ()
+  {
+    PeppolMLSBuilder.createForValidationResultList (null);
+  }
+
+  @Test
+  public void testCreateForValidationResultListNoErrors ()
+  {
+    // No errors and no warnings -> acceptance, no line responses
+    final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL ());
+    assertEquals (EPeppolMLSResponseCode.ACCEPTANCE, aBuilder.responseCode ());
+    assertTrue (aBuilder.lineResponses ().isEmpty ());
+  }
+
+  @Test
+  public void testCreateForValidationResultListWarningsOnly ()
+  {
+    // Only warnings -> still acceptance, but with a line response carrying the warning
+    final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderWarn ()
+                                                                                                            .errorID ("BR-W-01")
+                                                                                                            .errorFieldName ("Invoice/Note")
+                                                                                                            .errorText ("Note is unusual")
+                                                                                                            .build ()));
+    assertEquals (EPeppolMLSResponseCode.ACCEPTANCE, aBuilder.responseCode ());
+    assertEquals (1, aBuilder.lineResponses ().size ());
+
+    final PeppolMLSLineResponseBuilder aLine = aBuilder.lineResponsesAsBuilders ().getFirstOrNull ();
+    assertNotNull (aLine);
+    assertEquals ("Invoice/Note", aLine.errorField ());
+    assertEquals (1, aLine.responses ().size ());
+    assertEquals (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING,
+                  aLine.responsesAsBuilders ().getFirstOrNull ().statusReasonCode ());
+  }
+
+  @Test
+  public void testCreateForValidationResultListSingleError ()
+  {
+    final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderError ()
+                                                                                                            .errorID ("BR-01")
+                                                                                                            .errorFieldName ("Invoice/ID")
+                                                                                                            .errorText ("ID is missing")
+                                                                                                            .build ()));
+    // At least one error -> rejection
+    assertEquals (EPeppolMLSResponseCode.REJECTION, aBuilder.responseCode ());
+    assertEquals (1, aBuilder.lineResponses ().size ());
+
+    final PeppolMLSLineResponseBuilder aLine = aBuilder.lineResponsesAsBuilders ().getFirstOrNull ();
+    assertNotNull (aLine);
+    assertEquals ("Invoice/ID", aLine.errorField ());
+    assertEquals (1, aLine.responses ().size ());
+    assertEquals (EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL,
+                  aLine.responsesAsBuilders ().getFirstOrNull ().statusReasonCode ());
+    // Description must combine error ID and error text
+    assertEquals ("BR-01 - ID is missing", aLine.responsesAsBuilders ().getFirstOrNull ().description ());
+  }
+
+  @Test
+  public void testCreateForValidationResultListDifferentFields ()
+  {
+    // Two errors with different field names -> two separate line responses, in encounter order
+    final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderError ()
+                                                                                                            .errorID ("BR-01")
+                                                                                                            .errorFieldName ("Invoice/ID")
+                                                                                                            .errorText ("ID is missing")
+                                                                                                            .build (),
+                                                                                                 SingleError.builderError ()
+                                                                                                            .errorID ("BR-02")
+                                                                                                            .errorFieldName ("Invoice/IssueDate")
+                                                                                                            .errorText ("Date invalid")
+                                                                                                            .build ()));
+    assertEquals (EPeppolMLSResponseCode.REJECTION, aBuilder.responseCode ());
+    assertEquals (2, aBuilder.lineResponses ().size ());
+    assertEquals ("Invoice/ID", aBuilder.lineResponsesAsBuilders ().get (0).errorField ());
+    assertEquals ("Invoice/IssueDate", aBuilder.lineResponsesAsBuilders ().get (1).errorField ());
+  }
+
+  @Test
+  public void testCreateForValidationResultListSameFieldGrouped ()
+  {
+    // Two errors with the SAME field name must be grouped into a single line response with two
+    // responses - this is the regression test for issue #72
+    final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderError ()
+                                                                                                            .errorID ("BR-01")
+                                                                                                            .errorFieldName ("Invoice/ID")
+                                                                                                            .errorText ("ID is too short")
+                                                                                                            .build (),
+                                                                                                 SingleError.builderError ()
+                                                                                                            .errorID ("BR-02")
+                                                                                                            .errorFieldName ("Invoice/ID")
+                                                                                                            .errorText ("ID does not match the regex")
+                                                                                                            .build ()));
+    assertEquals (EPeppolMLSResponseCode.REJECTION, aBuilder.responseCode ());
+    // Exactly ONE line response, not two
+    assertEquals (1, aBuilder.lineResponses ().size ());
+
+    final PeppolMLSLineResponseBuilder aLine = aBuilder.lineResponsesAsBuilders ().getFirstOrNull ();
+    assertNotNull (aLine);
+    assertEquals ("Invoice/ID", aLine.errorField ());
+    // ... carrying BOTH responses
+    assertEquals (2, aLine.responses ().size ());
+    assertEquals ("BR-01 - ID is too short", aLine.responsesAsBuilders ().get (0).description ());
+    assertEquals ("BR-02 - ID does not match the regex", aLine.responsesAsBuilders ().get (1).description ());
+  }
+
+  @Test
+  public void testCreateForValidationResultListBuildsValidMLS ()
+  {
+    // The resulting builder must produce a valid MLS once the mandatory fields are filled in
+    final PeppolMLSBuilder aBuilder = PeppolMLSBuilder.createForValidationResultList (_createVRL (SingleError.builderError ()
+                                                                                                            .errorID ("BR-01")
+                                                                                                            .errorFieldName ("Invoice/ID")
+                                                                                                            .errorText ("ID is missing")
+                                                                                                            .build (),
+                                                                                                 SingleError.builderError ()
+                                                                                                            .errorID ("BR-02")
+                                                                                                            .errorFieldName ("Invoice/ID")
+                                                                                                            .errorText ("ID does not match the regex")
+                                                                                                            .build ()));
+    aBuilder.referenceId ("SBDH-VRL-001")
+            .senderParticipantID (IF.createParticipantIdentifierWithDefaultScheme ("9915:vrl-sender"))
+            .receiverParticipantID (IF.createParticipantIdentifierWithDefaultScheme ("9915:vrl-receiver"));
+
+    final ApplicationResponseType aMLS = aBuilder.build ();
+    assertNotNull (aMLS);
+
+    // One document response with a single grouped line response that holds two responses
+    final LineResponseType aLineResponse = aMLS.getDocumentResponse ().get (0).getLineResponse ().get (0);
+    assertEquals (1, aMLS.getDocumentResponse ().get (0).getLineResponse ().size ());
+    assertEquals (2, aLineResponse.getResponse ().size ());
+
+    // Round-trip
+    final ApplicationResponseType aMLS2 = PeppolMLSBuilder.createForApplicationResponse (aMLS).build ();
+    assertEquals (new PeppolMLSMarshaller ().getAsString (aMLS), new PeppolMLSMarshaller ().getAsString (aMLS2));
   }
 }

@@ -353,6 +353,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.5.3 - 2026-06-22
+* `PeppolMLSBuilder.createForValidationResultList` no longer emits duplicate line responses when several validation errors share the same error field name.
+  All responses for the same field are now grouped into a single line response, in a deterministic order.
+  See [pull request #72](https://github.com/phax/peppol-commons/pull/72) - thx @tborlee
+
 v12.5.2 - 2026-06-12
 * Moved `DBNAllianceIdentifierFactory` to `peppol-id` submodule
 
