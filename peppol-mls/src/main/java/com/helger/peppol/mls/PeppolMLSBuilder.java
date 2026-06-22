@@ -760,16 +760,14 @@ public class PeppolMLSBuilder implements IBuilder <ApplicationResponseType>
     final ICommonsMap <String, PeppolMLSLineResponseBuilder> aBuilderMap = new CommonsHashMap <> ();
     aVRL.forEachFlattened (aError -> {
       // Single error or warning?
-      aBuilderMap.computeIfAbsent (aError.getErrorFieldName (), k -> {
-        final PeppolMLSLineResponseBuilder ret = new PeppolMLSLineResponseBuilder ().errorField (k);
-        aMLSBuilder.addLineResponse (ret);
-        return ret;
-      })
-                 .addResponse (new PeppolMLSLineResponseResponseBuilder ().statusReasonCode (aError.isError () ? EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL
-                                                                                                               : EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING)
-                                                                          .description (StringHelper.getConcatenatedOnDemand (aError.getErrorID (),
-                                                                                                                              " - ",
-                                                                                                                              aError.getErrorText (aDisplayLocale))));
+      final PeppolMLSLineResponseBuilder ret = aBuilderMap.computeIfAbsent(aError.getErrorFieldName(), k -> new PeppolMLSLineResponseBuilder().errorField(k))
+              .addResponse(new PeppolMLSLineResponseResponseBuilder().statusReasonCode(aError.isError() ?
+                              EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_FATAL
+                              : EPeppolMLSStatusReasonCode.BUSINESS_RULE_VIOLATION_WARNING)
+                      .description(StringHelper.getConcatenatedOnDemand(aError.getErrorID(),
+                              " - ",
+                              aError.getErrorText(aDisplayLocale))));
+      aMLSBuilder.addLineResponse(ret);
     });
     return aMLSBuilder;
   }
