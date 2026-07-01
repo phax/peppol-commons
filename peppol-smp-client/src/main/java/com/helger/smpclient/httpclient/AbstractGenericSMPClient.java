@@ -122,6 +122,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   // null means "use default from CertificateRevocationCheckerDefaults"
   private ERevocationCheckMode m_eRevocationCheckMode;
   private boolean m_bAllowRevocationSoftFail = CertificateRevocationCheckerDefaults.isAllowSoftFail ();
+  private boolean m_bSynchronizedRevocationCheck = CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock ();
   private KeyStore m_aTrustStore = DEFAULT_TRUST_STORE;
   private boolean m_bFollowSMPRedirects = DEFAULT_FOLLOW_REDIRECTS;
   private boolean m_bXMLSchemaValidation = DEFAULT_XML_SCHEMA_VALIDATION;
@@ -326,6 +327,33 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   }
 
   /**
+   * @return <code>true</code> if the revocation check should be executed in a synchronized block,
+   *         <code>false</code> if not. The default is taken from
+   *         {@link CertificateRevocationCheckerDefaults#isExecuteInSynchronizedBlock()}.
+   * @since 12.5.4
+   */
+  public final boolean isSynchronizedRevocationCheck ()
+  {
+    return m_bSynchronizedRevocationCheck;
+  }
+
+  /**
+   * Modify whether the revocation check should be executed in a synchronized block or not.
+   *
+   * @param b
+   *        <code>true</code> to execute the revocation check in a synchronized block,
+   *        <code>false</code> if not.
+   * @return this for chaining
+   * @since 12.5.4
+   */
+  @NonNull
+  public final IMPLTYPE setSynchronizedRevocationCheck (final boolean b)
+  {
+    m_bSynchronizedRevocationCheck = b;
+    return thisAsT ();
+  }
+
+  /**
    * @return The trust store to be used for verifying the signature. May be <code>null</code> if an
    *         invalid trust store is configured.
    * @since 8.1.1
@@ -415,7 +443,8 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
   /**
    * Configure the provided {@link SMPHttpResponseHandlerSigned} with all the signature-related
    * settings of this SMP client (verify signature, secure validation, revocation check mode, allow
-   * revocation soft fail). Subclasses may override to add additional configuration but should call
+   * revocation soft fail, synchronized revocation check). Subclasses may override to add additional
+   * configuration but should call
    * <code>super.configureResponseHandler(aHandler)</code> to keep the defaults applied.
    *
    * @param aHandler
@@ -435,6 +464,7 @@ public abstract class AbstractGenericSMPClient <IMPLTYPE extends AbstractGeneric
     aHandler.setSecureValidation (m_bSecureValidation);
     aHandler.setRevocationCheckMode (m_eRevocationCheckMode);
     aHandler.setAllowRevocationSoftFail (m_bAllowRevocationSoftFail);
+    aHandler.setSynchronizedRevocationCheck (m_bSynchronizedRevocationCheck);
     return aHandler;
   }
 

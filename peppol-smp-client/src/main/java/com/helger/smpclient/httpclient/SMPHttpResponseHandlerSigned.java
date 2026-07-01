@@ -75,6 +75,7 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
   // null means "use default from CertificateRevocationCheckerDefaults"
   private ERevocationCheckMode m_eRevocationCheckMode;
   private boolean m_bAllowRevocationSoftFail = CertificateRevocationCheckerDefaults.isAllowSoftFail ();
+  private boolean m_bSynchronizedRevocationCheck = CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock ();
 
   /**
    * Constructor
@@ -235,6 +236,33 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
     return this;
   }
 
+  /**
+   * @return <code>true</code> if the revocation check should be executed in a synchronized block,
+   *         <code>false</code> if not. The default is taken from
+   *         {@link CertificateRevocationCheckerDefaults#isExecuteInSynchronizedBlock()}.
+   * @since 12.5.4
+   */
+  public final boolean isSynchronizedRevocationCheck ()
+  {
+    return m_bSynchronizedRevocationCheck;
+  }
+
+  /**
+   * Modify whether the revocation check should be executed in a synchronized block or not.
+   *
+   * @param b
+   *        <code>true</code> to execute the revocation check in a synchronized block,
+   *        <code>false</code> if not.
+   * @return this for chaining
+   * @since 12.5.4
+   */
+  @NonNull
+  public final SMPHttpResponseHandlerSigned <T> setSynchronizedRevocationCheck (final boolean b)
+  {
+    m_bSynchronizedRevocationCheck = b;
+    return this;
+  }
+
   @NonNull
   public static ESuccess checkSignature (@NonNull final Document aDocument,
                                          @NonNull final KeySelector aKeySelector,
@@ -349,7 +377,8 @@ public class SMPHttpResponseHandlerSigned <T> extends AbstractSMPResponseHandler
       throw new IllegalArgumentException ("The SMP response is not XML");
 
     final TrustStoreBasedX509KeySelector aKeySelector = new TrustStoreBasedX509KeySelector (m_aTrustStore).setRevocationCheckMode (m_eRevocationCheckMode)
-                                                                                                          .setAllowRevocationSoftFail (m_bAllowRevocationSoftFail);
+                                                                                                          .setAllowRevocationSoftFail (m_bAllowRevocationSoftFail)
+                                                                                                          .setSynchronizedRevocationCheck (m_bSynchronizedRevocationCheck);
 
     return checkSignature (aDocument, aKeySelector, m_bSecureValidation);
   }
