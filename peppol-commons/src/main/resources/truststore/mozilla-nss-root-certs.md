@@ -1,4 +1,4 @@
-Content of the Mozilla NSS Root Certificate Truststore (last update: 2026-04-29)
+Content of the Mozilla NSS Root Certificate Truststore (last update: 2026-07-01)
 Password: **changeit**
 
 * Alias `ac_raiz_fnmt_rcm` refering to OU=AC RAIZ FNMT-RCM,O=FNMT-RCM,C=ES (valid from 2008-10-29T16:59:56+01:00 to 2030-01-01T01:00:00+01:00)
@@ -49,7 +49,6 @@ Password: **changeit**
 * Alias `emsign_ecc_root_ca___g3` refering to CN=emSign ECC Root CA - G3,O=eMudhra Technologies Limited,OU=emSign PKI,C=IN (valid from 2018-02-18T19:30:00+01:00 to 2043-02-18T19:30:00+01:00)
 * Alias `emsign_root_ca___c1` refering to CN=emSign Root CA - C1,O=eMudhra Inc,OU=emSign PKI,C=US (valid from 2018-02-18T19:30:00+01:00 to 2043-02-18T19:30:00+01:00)
 * Alias `emsign_root_ca___g1` refering to CN=emSign Root CA - G1,O=eMudhra Technologies Limited,OU=emSign PKI,C=IN (valid from 2018-02-18T19:30:00+01:00 to 2043-02-18T19:30:00+01:00)
-* Alias `entrust_root_certification_authority` refering to CN=Entrust Root Certification Authority,OU=(c) 2006 Entrust\, Inc.,OU=www.entrust.net/CPS is incorporated by reference,O=Entrust\, Inc.,C=US (valid from 2006-11-27T21:23:42+01:00 to 2026-11-27T21:53:42+01:00)
 * Alias `epki_root_certification_authority` refering to OU=ePKI Root Certification Authority,O=Chunghwa Telecom Co.\, Ltd.,C=TW (valid from 2004-12-20T03:31:27+01:00 to 2034-12-20T03:31:27+01:00)
 * Alias `gdca_trustauth_r5_root` refering to CN=GDCA TrustAUTH R5 ROOT,O=GUANG DONG CERTIFICATE AUTHORITY CO.\,LTD.,C=CN (valid from 2014-11-26T06:13:15+01:00 to 2040-12-31T16:59:59+01:00)
 * Alias `globalsign_ecc_root_ca___r4` refering to CN=GlobalSign,O=GlobalSign,OU=GlobalSign ECC Root CA - R4 (valid from 2012-11-13T01:00:00+01:00 to 2038-01-19T04:14:07+01:00)
@@ -87,7 +86,6 @@ Password: **changeit**
 * Alias `quovadis_root_ca_3_g3` refering to CN=QuoVadis Root CA 3 G3,O=QuoVadis Limited,C=BM (valid from 2012-01-12T21:26:32+01:00 to 2042-01-12T21:26:32+01:00)
 * Alias `sectigo_public_server_authentication_root_e46` refering to CN=Sectigo Public Server Authentication Root E46,O=Sectigo Limited,C=GB (valid from 2021-03-22T01:00:00+01:00 to 2046-03-22T00:59:59+01:00)
 * Alias `sectigo_public_server_authentication_root_r46` refering to CN=Sectigo Public Server Authentication Root R46,O=Sectigo Limited,C=GB (valid from 2021-03-22T01:00:00+01:00 to 2046-03-22T00:59:59+01:00)
-* Alias `securesign_root_ca12` refering to CN=SecureSign Root CA12,O=Cybertrust Japan Co.\, Ltd.,C=JP (valid from 2020-04-08T07:36:46+02:00 to 2040-04-08T07:36:46+02:00)
 * Alias `securesign_root_ca14` refering to CN=SecureSign Root CA14,O=Cybertrust Japan Co.\, Ltd.,C=JP (valid from 2020-04-08T09:06:19+02:00 to 2045-04-08T09:06:19+02:00)
 * Alias `securesign_root_ca15` refering to CN=SecureSign Root CA15,O=Cybertrust Japan Co.\, Ltd.,C=JP (valid from 2020-04-08T10:32:56+02:00 to 2045-04-08T10:32:56+02:00)
 * Alias `security_communication_ecc_rootca1` refering to CN=Security Communication ECC RootCA1,O=SECOM Trust Systems CO.\,LTD.,C=JP (valid from 2016-06-16T07:15:28+02:00 to 2038-01-18T06:15:28+01:00)
