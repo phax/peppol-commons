@@ -34,12 +34,18 @@ public final class HREDeliveryTrustedCA
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (HREDeliveryTrustedCA.class);
 
-  private static final TrustedCAChecker FINA_DEMO = new TrustedCAChecker (HREDeliveryTrustStores.Fina2015.CERTIFICATE_DEMO_CA_2020);
-  private static final TrustedCAChecker FINA_PROD = new TrustedCAChecker (HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2020,
-                                                                          HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2025);
-  private static final TrustedCAChecker FINA_ALL = new TrustedCAChecker (HREDeliveryTrustStores.Fina2015.CERTIFICATE_DEMO_CA_2020,
-                                                                         HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2020,
-                                                                         HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2025);
+  private static final TrustedCAChecker FINA_DEMO = TrustedCAChecker.builder ()
+                                                                    .trustedCACertificates (HREDeliveryTrustStores.Fina2015.CERTIFICATE_DEMO_CA_2020)
+                                                                    .build ();
+  private static final TrustedCAChecker FINA_PROD = TrustedCAChecker.builder ()
+                                                                    .trustedCACertificates (HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2020,
+                                                                                            HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2025)
+                                                                    .build ();
+  private static final TrustedCAChecker FINA_ALL = TrustedCAChecker.builder ()
+                                                                   .trustedCACertificates (HREDeliveryTrustStores.Fina2015.CERTIFICATE_DEMO_CA_2020,
+                                                                                           HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2020,
+                                                                                           HREDeliveryTrustStores.Fina2015.CERTIFICATE_PRODUCTION_RDC_2025)
+                                                                   .build ();
 
   private HREDeliveryTrustedCA ()
   {}

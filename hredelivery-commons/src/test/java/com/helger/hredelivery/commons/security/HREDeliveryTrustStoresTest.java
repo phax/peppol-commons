@@ -51,7 +51,9 @@ public final class HREDeliveryTrustStoresTest
   @Test
   public void testBasic ()
   {
-    final TrustedCAChecker aDemoCA = new TrustedCAChecker (Fina2015.CERTIFICATE_DEMO_ROOT);
+    final TrustedCAChecker aDemoCA = TrustedCAChecker.builder ()
+                                                     .trustedCACertificates (Fina2015.CERTIFICATE_DEMO_ROOT)
+                                                     .build ();
 
     ECertificateCheckResult e = aDemoCA.checkCertificate (null);
     assertEquals (ECertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);

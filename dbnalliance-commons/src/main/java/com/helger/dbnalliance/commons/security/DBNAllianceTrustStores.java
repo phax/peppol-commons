@@ -112,7 +112,9 @@ public final class DBNAllianceTrustStores
                                                                                        TRUSTSTORE_PILOT_ALIAS_INTERMEDIATE);
 
     /** The Pilot CA checker */
-    public static final TrustedCAChecker PILOT_CA = new TrustedCAChecker (CERTIFICATE_PILOT_INTERMEDIATE);
+    public static final TrustedCAChecker PILOT_CA = TrustedCAChecker.builder ()
+                                                                    .trustedCACertificates (CERTIFICATE_PILOT_INTERMEDIATE)
+                                                                    .build ();
 
     private Config2023 ()
     {}

@@ -44,7 +44,9 @@ public final class DBNAllianceTrustStoresTest
   @Test
   public void testBasic ()
   {
-    final TrustedCAChecker aDemoCA = new TrustedCAChecker (DBNAllianceTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE);
+    final TrustedCAChecker aDemoCA = TrustedCAChecker.builder ()
+                                                     .trustedCACertificates (DBNAllianceTrustStores.Config2023.CERTIFICATE_PILOT_INTERMEDIATE)
+                                                     .build ();
 
     ECertificateCheckResult e = aDemoCA.checkCertificate (null);
     assertEquals (ECertificateCheckResult.NO_CERTIFICATE_PROVIDED, e);

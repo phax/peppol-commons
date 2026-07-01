@@ -36,15 +36,27 @@ public final class PeppolTrustedCA
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PeppolTrustedCA.class);
 
-  private static final TrustedCAChecker TEST_AP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_TEST_AP);
-  private static final TrustedCAChecker PROD_AP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_AP);
-  private static final TrustedCAChecker ALL_AP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_TEST_AP,
-                                                                       PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_AP);
+  private static final TrustedCAChecker TEST_AP = TrustedCAChecker.builder ()
+                                                                  .trustedCACertificates (PeppolTrustStores.Config2025.CERTIFICATE_TEST_AP)
+                                                                  .build ();
+  private static final TrustedCAChecker PROD_AP = TrustedCAChecker.builder ()
+                                                                  .trustedCACertificates (PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_AP)
+                                                                  .build ();
+  private static final TrustedCAChecker ALL_AP = TrustedCAChecker.builder ()
+                                                                 .trustedCACertificates (PeppolTrustStores.Config2025.CERTIFICATE_TEST_AP,
+                                                                                         PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_AP)
+                                                                 .build ();
 
-  private static final TrustedCAChecker TEST_SMP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_TEST_SMP);
-  private static final TrustedCAChecker PROD_SMP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_SMP);
-  private static final TrustedCAChecker ALL_SMP = new TrustedCAChecker (PeppolTrustStores.Config2025.CERTIFICATE_TEST_SMP,
-                                                                        PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_SMP);
+  private static final TrustedCAChecker TEST_SMP = TrustedCAChecker.builder ()
+                                                                   .trustedCACertificates (PeppolTrustStores.Config2025.CERTIFICATE_TEST_SMP)
+                                                                   .build ();
+  private static final TrustedCAChecker PROD_SMP = TrustedCAChecker.builder ()
+                                                                   .trustedCACertificates (PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_SMP)
+                                                                   .build ();
+  private static final TrustedCAChecker ALL_SMP = TrustedCAChecker.builder ()
+                                                                  .trustedCACertificates (PeppolTrustStores.Config2025.CERTIFICATE_TEST_SMP,
+                                                                                          PeppolTrustStores.Config2025.CERTIFICATE_PRODUCTION_SMP)
+                                                                  .build ();
 
   private PeppolTrustedCA ()
   {}
