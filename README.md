@@ -353,6 +353,11 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.5.4 - work in progress
+* Requires at least ph-commons 12.3.1
+* Added the possibility to configure whether the SMP response certificate revocation check is executed in a synchronized block or not, via the new `setSynchronizedRevocationCheck` method in `AbstractGenericSMPClient`, `SMPHttpResponseHandlerSigned` and `TrustStoreBasedX509KeySelector`. The default value is taken from `CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock ()`.
+* Updated the Mozilla NSS trust store
+
 v12.5.3 - 2026-06-22
 * `PeppolMLSBuilder.createForValidationResultList` no longer emits duplicate line responses when several validation errors share the same error field name.
   All responses for the same field are now grouped into a single line response, in a deterministic order.
