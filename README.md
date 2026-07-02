@@ -353,7 +353,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
-v12.5.4 - 2026-07-01
+v12.5.4 - 2026-07-02
 * Requires at least ph-commons 12.3.1
 * Added the possibility to configure whether the SMP response certificate revocation check is executed in a synchronized block or not, via the new `setSynchronizedRevocationCheck` method in `AbstractGenericSMPClient`, `SMPHttpResponseHandlerSigned` and `TrustStoreBasedX509KeySelector`.
   The default value is taken from `CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock ()`.
