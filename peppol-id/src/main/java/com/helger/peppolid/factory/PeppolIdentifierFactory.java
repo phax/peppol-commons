@@ -91,7 +91,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
       return null;
 
     // Current PINT determination - the best we have
-    if (sValue.contains ("##urn:peppol:pint:"))
+    if (sValue.contains (PeppolIdentifierHelper.PEPPOL_PINT_INDICATOR))
     {
       // This scheme is only used for PINT atm
       return PeppolIdentifierHelper.DOCUMENT_TYPE_SCHEME_PEPPOL_DOCTYPE_WILDCARD;
@@ -152,15 +152,11 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     final int nLength = sValue.length ();
 
     // POLICY 1 - MUST be at least 1 character long (excluding the identifier scheme)
-    if (nLength == 0)
-      return false;
+    
 
     // POLICY 1 - MUST NOT be more than 500 characters long (excluding the identifier scheme)
-    if (nLength > PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH)
-      return false;
-
     // POLICY 1 - MUST only contain characters from the invariant character set of ISO-8859-1
-    if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
+    if ((nLength == 0) || (nLength > PeppolIdentifierHelper.MAX_DOCUMENT_TYPE_VALUE_LENGTH) || !StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
       return false;
 
     if (m_bStrictMode)
@@ -209,7 +205,7 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     final String sRealValue = nullNotEmpty (isDocumentTypeIdentifierCaseInsensitive (sRealScheme) ? getUnifiedValue (sValue)
                                                                                                   : sValue);
     if (isDocumentTypeIdentifierSchemeValid (sRealScheme) &&
-        isDocumentTypeIdentifierValueValid (sRealScheme, sRealValue))
+      isDocumentTypeIdentifierValueValid (sRealScheme, sRealValue))
       return PeppolDocumentTypeIdentifier.internalCreatePreVerified (sRealScheme, sRealValue);
     return null;
   }
@@ -259,12 +255,12 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     // the period character (.), the underscore character (_) or the tilde character (~) from
     // the invariant character set of ISO-8859-1
     return (c >= 'a' && c <= 'z') ||
-           (c >= 'A' && c <= 'Z') ||
-           (c >= '0' && c <= '9') ||
-           c == '-' ||
-           c == '.' ||
-           c == '_' ||
-           c == '~';
+      (c >= 'A' && c <= 'Z') ||
+      (c >= '0' && c <= '9') ||
+      c == '-' ||
+      c == '.' ||
+      c == '_' ||
+      c == '~';
   }
 
   /**
@@ -283,13 +279,10 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
 
     // POLICY 1 - MUST be at least 1 character long (excluding the numeric identifier scheme)
     // At least one characters
-    if (nValueLength == 0)
-      return false;
-
     // POLICY 1 - MUST NOT be more than 130 characters long (excluding the numeric identifier
     // scheme)
     // <= 135 characters
-    if (nValueLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH)
+    if ((nValueLength == 0) || (nValueLength > PeppolIdentifierHelper.MAX_PARTICIPANT_VALUE_LENGTH))
       return false;
 
     // Check the iso6523-actorid-upis scheme layout
@@ -370,15 +363,11 @@ public class PeppolIdentifierFactory implements IIdentifierFactory
     final int nLength = StringHelper.getLength (sValue);
 
     // POLICY 1 - MUST be at least 1 character long (excluding the identifier scheme)
-    if (nLength == 0)
-      return false;
+    
 
     // POLICY 1 - MUST NOT be more than 200 characters long (excluding the identifier scheme)
-    if (nLength > PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH)
-      return false;
-
     // POLICY 1 - MUST only contain characters from the invariant character set of ISO-8859-1
-    if (!StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
+    if ((nLength == 0) || (nLength > PeppolIdentifierHelper.MAX_PROCESS_VALUE_LENGTH) || !StandardCharsets.ISO_8859_1.newEncoder ().canEncode (sValue))
       return false;
 
     // POLICY 25 - no whitespace

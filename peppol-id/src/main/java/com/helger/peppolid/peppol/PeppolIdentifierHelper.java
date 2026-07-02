@@ -112,17 +112,26 @@ public final class PeppolIdentifierHelper
   public static final int MAX_PROCESS_VALUE_LENGTH = 200;
 
   /**
-   * The Wildcard (DDTS) Customization separator
+   * The Wildcard Customization separator
    *
    * @since 8.8.1
    */
   public static final char DOCUMENT_TYPE_WILDCARD_PART_SEPARATOR = '@';
+
   /**
-   * The Wildcard (DDTS) separator
+   * The Wildcard separator
    *
    * @since 8.8.1
    */
   public static final char DOCUMENT_TYPE_WILDCARD_INDICATOR = '*';
+
+  /**
+   * This is a heuristic indicator when a document is based on the Peppol PINT methodology. Works
+   * with Billing and Self-Billing.
+   *
+   * @since 12.5.4
+   */
+  public static final String PEPPOL_PINT_INDICATOR = "##urn:peppol:pint:";
 
   /**
    * The regular expression to check a Peppol Seat ID. This regular expression is case sensitive.
@@ -187,11 +196,8 @@ public final class PeppolIdentifierHelper
       return false;
 
     final int nLength = sScheme.length ();
-    if (nLength == 0)
-      return false;
-
     // The separator may not be used inside the scheme (#27)
-    if (sScheme.indexOf (CIdentifier.URL_SCHEME_VALUE_SEPARATOR) >= 0)
+    if ((nLength == 0) || (sScheme.indexOf (CIdentifier.URL_SCHEME_VALUE_SEPARATOR) >= 0))
       return false;
 
     for (final char c : sScheme.toCharArray ())
