@@ -213,6 +213,17 @@ public enum EPredefinedParticipantIdentifierScheme
     AU_ABN("AU:ABN", "0151", "AU", "Australian Business Number (ABN) Scheme", "Australian Taxation Office", Version.parse("5"), EPeppolCodeListItemState.ACTIVE, null, null),
 
     /**
+     * Prefix <code>0158</code>, scheme ID <code>SK:ICO</code><br>
+     * Structure of the code: 1) 8 characters (fixed length)
+     *  2) Check character: 8th digit<br>
+     * Display requirements: ICO is written as one 8-digits number<br>
+     * Usage information: The identification number ICO is used in Slovakia in almost all administrative acts (tax system, banking system, statistics, etc.)<br>
+     * 
+     * @since code list 9.7
+     */
+    SK_ICO("SK:ICO", "0158", "SK", "Identification number of economic subject (ICO)", "Slovak Statistical Office", Version.parse("9.7"), EPeppolCodeListItemState.ACTIVE, null, null),
+
+    /**
      * Prefix <code>0183</code>, scheme ID <code>CH:UIDB</code><br>
      * Structure of the code: CHEXXXXXXXXP
      * UID number, is composed by 9 digits and is random generated and has no internal means.
@@ -1198,8 +1209,8 @@ public enum EPredefinedParticipantIdentifierScheme
      * @since code list 8.3
      */
     US_EIN("US:EIN", "9959", "US", "US Employer ID Number", null, Version.parse("8.3"), EPeppolCodeListItemState.ACTIVE, null, null);
-    public static final String CODE_LIST_VERSION = "9.6";
-    public static final int CODE_LIST_ENTRY_COUNT = 104;
+    public static final String CODE_LIST_VERSION = "9.7";
+    public static final int CODE_LIST_ENTRY_COUNT = 105;
     private final String m_sSchemeID;
     private final String m_sISO6523;
     private final String m_sCountryCode;

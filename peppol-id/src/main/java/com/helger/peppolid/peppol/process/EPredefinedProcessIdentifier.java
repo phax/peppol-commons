@@ -145,6 +145,11 @@ public enum EPredefinedProcessIdentifier
     urn_fdc_peppol_eu_2017_poacc_billing_01_1_0("cenbii-procid-ubl", "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0", EPeppolCodeListItemState.ACTIVE),
 
     /**
+     * ID: <code>cenbii-procid-ubl::urn:peppol:bis:billing_with_response</code><br>
+     */
+    urn_peppol_bis_billing_with_response("cenbii-procid-ubl", "urn:peppol:bis:billing_with_response", EPeppolCodeListItemState.ACTIVE),
+
+    /**
      * ID: <code>cenbii-procid-ubl::urn:peppol:france:billing:regulated</code><br>
      */
     urn_peppol_france_billing_regulated("cenbii-procid-ubl", "urn:peppol:france:billing:regulated", EPeppolCodeListItemState.ACTIVE),
@@ -650,8 +655,8 @@ public enum EPredefinedProcessIdentifier
      * ID: <code>cenbii-procid-ubl::urn:peppol:taxreporting</code><br>
      */
     urn_peppol_taxreporting("cenbii-procid-ubl", "urn:peppol:taxreporting", EPeppolCodeListItemState.ACTIVE);
-    public static final String CODE_LIST_VERSION = "9.6";
-    public static final int CODE_LIST_ENTRY_COUNT = 108;
+    public static final String CODE_LIST_VERSION = "9.7";
+    public static final int CODE_LIST_ENTRY_COUNT = 109;
     /**
      * Same as {@link #urn_www_cenbii_eu_profile_bii01_ver1_0}
      * 

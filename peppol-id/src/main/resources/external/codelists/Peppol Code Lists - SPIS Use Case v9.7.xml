@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This is an OpenPeppol eDEC Code List.
+Official source: https://docs.peppol.eu/edelivery/codelists/
+
+This file was automatically generated.
+Do NOT edit!-->
+<spis-use-case version="9.7" entry-count="1">
+  <item use-case-id="MLS" initial-release="9.4" state="active" comment="TICC-410" />
+</spis-use-case>
