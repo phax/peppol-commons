@@ -79,8 +79,8 @@
      
     <dnsjava.version>3.6.5</dnsjava.version>
     <expiringmap.version>0.5.11</expiringmap.version>
-    <phive.version>12.0.3</phive.version>
-    <ph-schematron.version>9.2.0</ph-schematron.version>
+    <phive.version>12.1.0</phive.version>
+    <ph-schematron.version>10.0.0</ph-schematron.version>
     <ph-ubl.version>10.2.0</ph-ubl.version>
     <ph-xhe.version>5.1.0</ph-xhe.version>
   </properties>
@@ -124,7 +124,7 @@
       <dependency>
         <groupId>com.helger.web</groupId>
         <artifactId>ph-web-parent-pom</artifactId>
-        <version>11.4.1</version>
+        <version>11.4.2</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

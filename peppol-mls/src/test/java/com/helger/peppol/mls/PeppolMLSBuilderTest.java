@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
@@ -672,7 +673,7 @@ public final class PeppolMLSBuilderTest
                                                        aEL,
                                                        aEL.containsAtLeastOneError () ? EExtendedValidity.INVALID
                                                                                       : EExtendedValidity.VALID,
-                                                       0);
+                                                       Duration.ZERO);
     final ValidationResultList ret = ValidationResultList.createNoSource ();
     ret.add (aVR);
     return ret;

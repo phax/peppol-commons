@@ -30,6 +30,7 @@
   <description>Peppol Message Level Status (MLS) support</description>
   <url>https://github.com/phax/peppol-commons/peppol-mls</url>
   <inceptionYear>2025</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,10 +38,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -49,6 +52,7 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -65,7 +69,7 @@
     </dependency>
     <dependency>
       <groupId>com.helger.schematron</groupId>
-      <artifactId>ph-schematron-xslt</artifactId>
+      <artifactId>ph-schematron-isosch</artifactId>
       <version>${ph-schematron.version}</version>
     </dependency>
     <dependency>
@@ -73,6 +77,7 @@
       <artifactId>phive-api</artifactId>
       <version>${phive.version}</version>
     </dependency>
+    
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>

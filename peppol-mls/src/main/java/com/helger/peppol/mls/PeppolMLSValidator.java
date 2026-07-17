@@ -34,8 +34,10 @@ public final class PeppolMLSValidator
   public static final String SCH_MLS_100_PATH = "external/schematron/old/peppol-mls-1.0.0.sch";
   public static final String SCH_MLS_101_PATH = "external/schematron/peppol-mls-1.0.1.sch";
 
-  private static final ISchematronResource SCH_MLS_100 = SchematronResourceSCH.fromClassPath (SCH_MLS_100_PATH);
-  private static final ISchematronResource SCH_MLS_101 = SchematronResourceSCH.fromClassPath (SCH_MLS_101_PATH);
+  private static final ISchematronResource SCH_MLS_100 = SchematronResourceSCH.builderFromClassPath (SCH_MLS_100_PATH)
+                                                                              .build ();
+  private static final ISchematronResource SCH_MLS_101 = SchematronResourceSCH.builderFromClassPath (SCH_MLS_101_PATH)
+                                                                              .build ();
 
   static
   {
