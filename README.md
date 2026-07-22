@@ -353,6 +353,9 @@ They depend on several other libraries so I suggest you are going for the Maven 
 
 # News and noteworthy
 
+v12.6.1 - work in progress
+* Removed the EC SML fallback in EPeppolNetwork
+
 v12.6.0 - 2026-07-17
 * Updated to ph-schematron v10.x
 
