@@ -18,6 +18,7 @@ package com.helger.peppolid.peppol.spis;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -130,5 +131,82 @@ public final class SPIDHelperTest
     assertTrue (SPIDHelper.isValidSPID ("000001-MLS.001"));
     assertTrue (SPIDHelper.isValidSPID ("000001-001.1234567"));
     assertTrue (SPIDHelper.isValidSPID ("000270-Rprtng_MLS.Japan.123"));
+  }
+
+  @Test
+  public void testGetMainID ()
+  {
+    assertEquals ("000000", SPIDHelper.getMainID ("000000"));
+    assertEquals ("123456", SPIDHelper.getMainID ("123456"));
+    assertEquals ("999999", SPIDHelper.getMainID ("999999"));
+
+    // Main ID is extracted from a full SPID (Use Case ID and Service Provider suffix stripped)
+    assertEquals ("000000", SPIDHelper.getMainID ("000000-MLS"));
+    assertEquals ("000000", SPIDHelper.getMainID ("000000-mls"));
+    assertEquals ("000000", SPIDHelper.getMainID ("000000-mls.12345"));
+    assertEquals ("000270", SPIDHelper.getMainID ("000270-Rprtng_MLS.Japan.123"));
+
+    // Invalid SPIDs yield null
+    assertNull (SPIDHelper.getMainID ("00000"));
+    assertNull (SPIDHelper.getMainID ("0000000"));
+    assertNull (SPIDHelper.getMainID ("00000a"));
+    assertNull (SPIDHelper.getMainID ("000000-ml.12345"));
+    assertNull (SPIDHelper.getMainID (""));
+    assertNull (SPIDHelper.getMainID (null));
+  }
+
+  @Test
+  public void testGetUseCaseID ()
+  {
+    // Main ID only -> no Use Case ID
+    assertNull (SPIDHelper.getUseCaseID ("000000"));
+
+    assertEquals ("MLS", SPIDHelper.getUseCaseID ("000000-MLS"));
+    assertEquals ("mls", SPIDHelper.getUseCaseID ("000000-mls"));
+    assertEquals ("mls", SPIDHelper.getUseCaseID ("000000-mls.12345"));
+    assertEquals ("001", SPIDHelper.getUseCaseID ("000001-001.1234567"));
+    assertEquals ("Rprtng_MLS", SPIDHelper.getUseCaseID ("000270-Rprtng_MLS.Japan.123"));
+
+    // Invalid SPIDs yield null
+    assertNull (SPIDHelper.getUseCaseID ("000000-ml.12345"));
+    assertNull (SPIDHelper.getUseCaseID ("00000a"));
+    assertNull (SPIDHelper.getUseCaseID (""));
+    assertNull (SPIDHelper.getUseCaseID (null));
+  }
+
+  @Test
+  public void testGetServiceProviderSuffix ()
+  {
+    // No suffix
+    assertNull (SPIDHelper.getServiceProviderSuffix ("000000"));
+    assertNull (SPIDHelper.getServiceProviderSuffix ("000000-MLS"));
+
+    assertEquals ("12345", SPIDHelper.getServiceProviderSuffix ("000000-mls.12345"));
+    assertEquals ("1234567", SPIDHelper.getServiceProviderSuffix ("000001-001.1234567"));
+    // The suffix itself may contain '.' characters
+    assertEquals ("Japan.123", SPIDHelper.getServiceProviderSuffix ("000270-Rprtng_MLS.Japan.123"));
+
+    // Invalid SPIDs yield null
+    assertNull (SPIDHelper.getServiceProviderSuffix ("000000-mls.12"));
+    assertNull (SPIDHelper.getServiceProviderSuffix ("00000a"));
+    assertNull (SPIDHelper.getServiceProviderSuffix (""));
+    assertNull (SPIDHelper.getServiceProviderSuffix (null));
+  }
+
+  @Test
+  public void testGetMainIDFromSeatID ()
+  {
+    assertEquals ("000001", SPIDHelper.getMainIDFromSeatID ("POP000001"));
+    assertEquals ("123456", SPIDHelper.getMainIDFromSeatID ("PAP123456"));
+    assertEquals ("000270", SPIDHelper.getMainIDFromSeatID ("PDE000270"));
+
+    // Invalid Seat IDs yield null
+    assertNull (SPIDHelper.getMainIDFromSeatID ("short"));
+    assertNull (SPIDHelper.getMainIDFromSeatID ("TOOLONGID"));
+    assertNull (SPIDHelper.getMainIDFromSeatID ("POP00001"));
+    assertNull (SPIDHelper.getMainIDFromSeatID ("POP0000012"));
+    assertNull (SPIDHelper.getMainIDFromSeatID ("Pop000001"));
+    assertNull (SPIDHelper.getMainIDFromSeatID (""));
+    assertNull (SPIDHelper.getMainIDFromSeatID (null));
   }
 }

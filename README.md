@@ -354,6 +354,7 @@ They depend on several other libraries so I suggest you are going for the Maven 
 # News and noteworthy
 
 v12.6.1 - work in progress
+* Added SPID parsing helpers to `SPIDHelper`: `getMainID`, `getUseCaseID` and `getServiceProviderSuffix` to extract the respective parts from a valid SPID, plus `getMainIDFromSeatID` to extract the SPID Main ID from a Peppol Seat ID. All return `null` for invalid input.
 * Removed the EC SML fallback in EPeppolNetwork
 
 v12.6.0 - 2026-07-17
