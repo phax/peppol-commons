@@ -85,8 +85,8 @@ public final class EPeppolNetworkTest
                                                             .dnsZone ("text.example.org")
                                                             .managementServiceURL ("https://bla.foo.com/sthg")
                                                             .build ()));
-    assertSame (EPeppolNetwork.PRODUCTION,
-                EPeppolNetwork.getFromSMLInfoOrNull (SMLInfo.builder ()
+    // Legacy URL
+    assertNull (EPeppolNetwork.getFromSMLInfoOrNull (SMLInfo.builder ()
                                                             .id ("digitprod")
                                                             .displayName ("SML")
                                                             .dnsZone ("edelivery.tech.ec.europa.eu.")
